@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2206 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2206" ; dct:title "AWS renewal, upgrade and cancellation replay" ;
+ pro:requiredEvidence "renewal, quantity change, upgrade, expiration, and cancellation replay from provider events to exact local entitlement state" ;
+ pro:provider "AWS Marketplace" ; pro:replayRequired true ;
+ pro:refusalCode "REFUSED[AWS_LIFECYCLE_REPLAY_MISMATCH]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .
