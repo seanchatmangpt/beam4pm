@@ -2929,3 +2929,21 @@ b4pe:reseller_authorization_sku_f a bpm:Field ;
 
 b4pe:reseller_authorization_status_f a bpm:Field ;
     bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Authorization standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-024 -- Catalog SKU binding edition, billing model, and lifecycle.
+b4pe:sku_definition_rt a bpm:RecordType ;
+    bpm:recordName "sku_definition" ;
+    bpm:recordDoc "Catalog SKU binding edition, billing model, and lifecycle." ;
+    bpm:hasField b4pe:sku_definition_sku_f , b4pe:sku_definition_edition_id_f , b4pe:sku_definition_billing_model_f , b4pe:sku_definition_status_f .
+
+b4pe:sku_definition_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable sellable SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:sku_definition_edition_id_f a bpm:Field ;
+    bpm:fieldName "edition_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Product edition identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:sku_definition_billing_model_f a bpm:Field ;
+    bpm:fieldName "billing_model" ; bpm:fieldType "atom" ; bpm:fieldDoc "Commercial billing model." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:sku_definition_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "SKU lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
