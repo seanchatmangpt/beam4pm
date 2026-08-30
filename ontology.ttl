@@ -2551,3 +2551,21 @@ b4pe:commercial_quote_line_quantity_f a bpm:Field ;
 
 b4pe:commercial_quote_line_unit_price_f a bpm:Field ;
     bpm:fieldName "unit_price" ; bpm:fieldType "float" ; bpm:fieldDoc "Price per unit in quote currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-003 -- Commercial approval decision with exact subject and authority.
+b4pe:commercial_approval_rt a bpm:RecordType ;
+    bpm:recordName "commercial_approval" ;
+    bpm:recordDoc "Commercial approval decision with exact subject and authority." ;
+    bpm:hasField b4pe:commercial_approval_approval_id_f , b4pe:commercial_approval_quote_id_f , b4pe:commercial_approval_authority_f , b4pe:commercial_approval_status_f .
+
+b4pe:commercial_approval_approval_id_f a bpm:Field ;
+    bpm:fieldName "approval_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable approval identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:commercial_approval_quote_id_f a bpm:Field ;
+    bpm:fieldName "quote_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact quote under approval." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:commercial_approval_authority_f a bpm:Field ;
+    bpm:fieldName "authority" ; bpm:fieldType "string" ; bpm:fieldDoc "Principal granting commercial authority." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:commercial_approval_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Approval lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
