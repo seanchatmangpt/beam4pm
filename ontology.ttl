@@ -2695,3 +2695,21 @@ b4pe:committed_spend_currency_f a bpm:Field ;
 
 b4pe:committed_spend_expires_at_f a bpm:Field ;
     bpm:fieldName "expires_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Commitment expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-011 -- Shared enterprise consumption pool with unit and balance.
+b4pe:consumption_pool_rt a bpm:RecordType ;
+    bpm:recordName "consumption_pool" ;
+    bpm:recordDoc "Shared enterprise consumption pool with unit and balance." ;
+    bpm:hasField b4pe:consumption_pool_pool_id_f , b4pe:consumption_pool_account_id_f , b4pe:consumption_pool_unit_f , b4pe:consumption_pool_remaining_quantity_f .
+
+b4pe:consumption_pool_pool_id_f a bpm:Field ;
+    bpm:fieldName "pool_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable pool identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:consumption_pool_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Owning account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:consumption_pool_unit_f a bpm:Field ;
+    bpm:fieldName "unit" ; bpm:fieldType "string" ; bpm:fieldDoc "Metered consumption unit." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:consumption_pool_remaining_quantity_f a bpm:Field ;
+    bpm:fieldName "remaining_quantity" ; bpm:fieldType "float" ; bpm:fieldDoc "Remaining pooled quantity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
