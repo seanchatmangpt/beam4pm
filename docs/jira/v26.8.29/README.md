@@ -64,6 +64,9 @@ Applied to beam4pm, this means cloud marketplace publication is not the finish l
 - `09-jira-epics-stories-acceptance.md` — implementable epic/story backlog with Chicago acceptance.
 - `10-tai-quality-and-contract-operations.md` — mission assurance, lifecycle support, configuration management, support and contract discipline.
 - `11-release-gates-receipts.md` — standing vocabulary, crowns, falsifiers, release evidence and marketplace publication gates.
+- `12-vision-institutional-legibility.md` — the long-horizon civilizational/economic argument for why this mission matters, kept separate from operational claims.
+- `13-portfolio-monetization-strategy.md` — full comparison against the rest of the portfolio (ggen, ggen-marketplace, AutoFDE, GymAct, XaaS, CASTLE) and why beam4pm_pro is the commercial front door.
+- `14-rust4pm-reference-boundary.md` — the concrete concept-extraction worklist from Rust4PM's public type/API surface, and the hard line between "reference input" and "source to port."
 
 ## Marketplace source-of-truth notes captured 2026-08-29
 
