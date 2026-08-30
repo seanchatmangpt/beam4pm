@@ -3325,3 +3325,21 @@ b4pe:chargeback_rule_metric_name_f a bpm:Field ;
 
 b4pe:chargeback_rule_rate_f a bpm:Field ;
     bpm:fieldName "rate" ; bpm:fieldType "float" ; bpm:fieldDoc "Internal chargeback rate." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-046 -- Non-billing usage allocation for enterprise transparency.
+b4pe:showback_allocation_rt a bpm:RecordType ;
+    bpm:recordName "showback_allocation" ;
+    bpm:recordDoc "Non-billing usage allocation for enterprise transparency." ;
+    bpm:hasField b4pe:showback_allocation_allocation_id_f , b4pe:showback_allocation_project_id_f , b4pe:showback_allocation_metric_name_f , b4pe:showback_allocation_quantity_f .
+
+b4pe:showback_allocation_allocation_id_f a bpm:Field ;
+    bpm:fieldName "allocation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable showback allocation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:showback_allocation_project_id_f a bpm:Field ;
+    bpm:fieldName "project_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Attributed tenant project." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:showback_allocation_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Reported usage metric." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:showback_allocation_quantity_f a bpm:Field ;
+    bpm:fieldName "quantity" ; bpm:fieldType "float" ; bpm:fieldDoc "Attributed usage quantity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
