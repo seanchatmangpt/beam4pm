@@ -3289,3 +3289,21 @@ b4pe:configuration_export_configuration_hash_f a bpm:Field ;
 
 b4pe:configuration_export_exported_at_f a bpm:Field ;
     bpm:fieldName "exported_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Export completion instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-044 -- Validated configuration import bound to an exported digest.
+b4pe:configuration_import_rt a bpm:RecordType ;
+    bpm:recordName "configuration_import" ;
+    bpm:recordDoc "Validated configuration import bound to an exported digest." ;
+    bpm:hasField b4pe:configuration_import_import_id_f , b4pe:configuration_import_tenant_id_f , b4pe:configuration_import_configuration_hash_f , b4pe:configuration_import_status_f .
+
+b4pe:configuration_import_import_id_f a bpm:Field ;
+    bpm:fieldName "import_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable import identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:configuration_import_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Destination tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:configuration_import_configuration_hash_f a bpm:Field ;
+    bpm:fieldName "configuration_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Imported canonical digest." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:configuration_import_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Import validation standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
