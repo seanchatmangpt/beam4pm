@@ -33,9 +33,13 @@ ENV LANG=C.UTF-8
 # oxrocksdb-sys's build.rs runs bindgen against RocksDB's C API and bindgen
 # needs a real libclang shared library at build time -- the exact same
 # confirmed-the-hard-way requirement ggen-ecosystem's Dockerfile documents
-# for the same crate.
+# for the same crate. python3 is required at `mix test` time: the real
+# BeamPM.Actuation/BeamPM.ProcessGovernor Chicago test suites spawn the real
+# qualification/fixtures/toy_gym_bridge.py fixture as a subprocess (a real
+# collaborator, not a mock) -- confirmed the hard way by a real CI failure
+# ("fixture gym bridge not found") before this line was added.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates curl git build-essential clang libclang-dev llvm-dev \
+    && apt-get install -y --no-install-recommends ca-certificates curl git build-essential clang libclang-dev llvm-dev python3 \
     && rm -rf /var/lib/apt/lists/* \
     && curl -fsSL -o /usr/local/bin/rebar3 \
         https://github.com/erlang/rebar3/releases/download/3.24.0/rebar3 \
@@ -55,6 +59,7 @@ COPY rebar.config mix.exs mix.lock ./
 COPY src ./src
 COPY lib ./lib
 COPY test ./test
+COPY qualification ./qualification
 
 # Build gates: the real test suites, run against real collaborators (the
 # compiled projections themselves) -- a failing suite fails the image build.

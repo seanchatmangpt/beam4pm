@@ -39,12 +39,18 @@ echo "== pass 3: delete manufactured files, regenerate (both engines) =="
 for f in "${before_files[@]}"; do rm -f "$f"; done
 rm -f ggen.lock
 ggen sync run
-# lib/beam4pm_ash.ex, lib/beam4pm_actuation.ex, lib/beam4pm_process_governor.ex
-# and their tests are manufactured by the SECOND engine (ggen_igniter, mix
-# ggen_igniter.sync), not by the Rust ggen binary -- regenerate those too.
+# lib/beam4pm_ash.ex, lib/beam4pm_actuation.ex, lib/beam4pm_process_governor.ex,
+# lib/beam4pm_receipt_chain.ex, and their tests are manufactured by the
+# SECOND engine (ggen_igniter, mix ggen_igniter.sync), not by the Rust ggen
+# binary -- regenerate those too. receipt_chain_sync.sh renders
+# beam4pm_receipt_chain.ex FIRST (a real compile-time dependency of
+# beam4pm_actuation.ex and beam4pm_process_governor.ex), then internally
+# re-runs actuation_sync.sh + process_governor_sync.sh itself -- do not
+# also call those two directly here, or the second invocation's own
+# `mix compile --warnings-as-errors` would race a not-yet-regenerated
+# ReceiptChain (this exact ordering bug was caught for real by this gate).
 bash scripts/igniter_sync.sh
-bash scripts/actuation_sync.sh
-bash scripts/process_governor_sync.sh
+bash scripts/receipt_chain_sync.sh
 
 echo "== pass 4: sha256 after regeneration =="
 mapfile -t after_files < <(find_manufactured)

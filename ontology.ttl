@@ -1781,3 +1781,145 @@ bpmg:toy_counter_t2 a bpmg:ProcessTransition ;
     bpmg:fromState "incremented_once" ;
     bpmg:toState "observed" ;
     bpmg:actuationName "observe_counter" .
+
+# =============================================================================
+# EX3 -- ex4pm semantic-lineage alignment (deliberate, documentation-grade)
+# =============================================================================
+#
+# beam4pm is being reconstituted from ex4pm's real, currently-deployed-in-
+# production foundational calculus -- a live 2-replica Deployment on a real
+# local Kubernetes cluster (kind-ex4pm context, Postgres-backed, 11 real
+# rollout revisions, verified via real kubectl on 2026-08-29) -- rather than
+# standing as an independently-invented vocabulary. ex4pm's own README states
+# it is "derived from the semantic laws of wasm4pm rather than from its
+# directory structure"; this section applies the same discipline to beam4pm,
+# one level down the lineage.
+#
+# This is a beam4pm-side PROJECT INSTANCE/VOCABULARY-ALIGNMENT fragment, not a
+# ggen-marketplace pack change: it declares no new bpm:RecordType or bpm:Field
+# individuals and adds/queries no vocabulary the beam4pm-process-model-pack
+# gates (gates/010_required.rq, gates/020_field_type_enum.rq) inspect, so it
+# is inert with respect to gates M0/M1 standing -- confirmed by reading both
+# gate queries in full before writing this fragment (both scope strictly to
+# `?subject a bpm:RecordType` / `?subject a bpm:Field`).
+#
+# Sources read in full for this alignment (both are small; read completely,
+# not skimmed):
+#   - ~/ex4pm/apps/ex4pm_contracts/priv/ontology/ex4pm.ttl (37 lines: the
+#     PROV-aligned Observation/EventLog/Event/Object/ProcessModel/Engine/
+#     Capability/Intent/Authority/Actuation/Receipt/Refusal calculus, plus
+#     the UNKNOWN/PARTIAL_ALIVE/ALIVE/BLOCKED/BUILD_BROKEN/UNSUPPORTED
+#     standing vocabulary this whole ecosystem already uses)
+#   - ~/ex4pm/apps/ex4pm_contracts/priv/shacl/ex4pm-shapes.ttl (SHACL shapes
+#     for ex4pm:Event / ex4pm:ProcessModel / ex4pm:Receipt)
+#
+# The ex4pm: prefix below is genuinely new to this file -- grep confirmed zero
+# prior "ex4pm:" occurrences anywhere in beam4pm's own ontology.ttl before
+# this section was appended.
+@prefix ex4pm: <https://chatman.ai/ex4pm#> .
+@prefix b4a:   <https://ggen.dev/beam4pm/ex4pm-alignment#> .
+
+# -----------------------------------------------------------------------
+# 1. bpma:AdmittedActuation -- ex4pm:Authority, not Capability, not Actuation
+# -----------------------------------------------------------------------
+#
+# ex4pm.ttl offers three superficially plausible targets. All three real
+# class definitions were read before picking one; two are rejected below by
+# name so the choice is falsifiable, not just asserted.
+#
+#   ex4pm:Capability a rdfs:Class .                          (no subClassOf)
+#   -- REJECTED. Its only real instances declared in ex4pm.ttl (lines 32-37
+#   there) are the six standing values: ex4pm:UNKNOWN, ex4pm:PARTIAL_ALIVE,
+#   ex4pm:ALIVE, ex4pm:BLOCKED, ex4pm:BUILD_BROKEN, ex4pm:UNSUPPORTED. By the
+#   ontology's own evidence ex4pm:Capability is the class of STANDING STATES,
+#   not of admitted-action definitions. Aligning bpma:AdmittedActuation here
+#   would force-fit an action-admission record into an enum-of-statuses class
+#   it does not belong to.
+#
+#   ex4pm:Actuation a rdfs:Class ; rdfs:subClassOf prov:Activity .
+#   -- REJECTED. This is the EXECUTED activity (the real DO event) in ex4pm's
+#   PROV-aligned calculus. beam4pm's own comment at ontology.ttl:911 ("beam4pm
+#   BRCE actuation admission graph (SELECT layer, gate PI7/PI8)") is explicit
+#   that bpma:AdmittedActuation lives in the SELECT layer: a static,
+#   admission-time record (action_name, gym_op, required facts), never the
+#   executed occurrence. The thing beam4pm actually executes
+#   (BeamPM.Actuation.run/2, a real side-effecting call) is the true
+#   structural analogue of ex4pm:Actuation -- not this admission record.
+#
+#   ex4pm:Authority a rdfs:Class ; rdfs:subClassOf prov:Entity .
+#   -- ACCEPTED. ex4pm:requiresAuthority (rdfs:range ex4pm:Authority)
+#   expresses "this activity requires this entity's permission to proceed" --
+#   exactly the role bpma:AdmittedActuation plays for beam4pm: a pre-admitted
+#   entity recording that one specific named action IS authorized (with which
+#   gym_op, under which required facts) before BeamPM.Actuation.run/2 will
+#   ever execute it. An Authority (prov:Entity) that a real Actuation
+#   (prov:Activity) requires is structurally identical to an
+#   AdmittedActuation that a real actuation run consults before executing.
+# bpma:AdmittedActuation is used throughout this file only as an rdf:type
+# value (`bpma:increment_counter_aa a bpma:AdmittedActuation`, ontology.ttl
+# lines 915-922) and was never itself explicitly declared `a rdfs:Class`
+# elsewhere in this file. Declaring it here matches this file's own
+# convention for every other named class (bpm:RecordType, bpm:Field,
+# bpmg:ProcessContract, bpmg:ProcessTransition all carry an explicit
+# `a rdfs:Class`) and is required for the rdfs:subClassOf triple below to be
+# a class-to-class statement rather than leaving bpma:AdmittedActuation's
+# class-hood merely implicit.
+bpma:AdmittedActuation a rdfs:Class ;
+    rdfs:subClassOf ex4pm:Authority .
+
+# -----------------------------------------------------------------------
+# 2. ocel_event -- vocabulary-level rdfs:seeAlso, not a false subClassOf
+# -----------------------------------------------------------------------
+#
+# bpm:RecordType (beam4pm-process-model-pack/ontology.ttl:13-15) is a
+# META-CLASS describing record SHAPES ("One admitted BEAM record/struct type
+# projected into generated code"). Its instances (bpm:ocel_event_rt,
+# bpm:petri_place_rt, ... 31 total in beam4pm's ontology.ttl) are themselves
+# individuals, not classes: `bpm:ocel_event_rt a bpm:RecordType`, never
+# `bpm:ocel_event_rt a rdfs:Class`. Two candidate alignments were considered
+# and rejected before choosing the one below:
+#
+#   - `bpm:RecordType rdfs:subClassOf ex4pm:Event` -- WRONG. This would claim
+#     every one of the 31 admitted record shapes (petri_place, dfg_edge,
+#     alignment_move, k8s_object_ref, service_span, ...) is an ex4pm:Event,
+#     which is false for 30 of the 31.
+#   - `bpm:ocel_event_rt rdfs:subClassOf ex4pm:Event` -- WRONG. RDFS
+#     subClassOf relates two classes; bpm:ocel_event_rt is an individual (a
+#     record-shape descriptor), not a class. RDF does not mechanically forbid
+#     the triple, but it would be a category error identical in kind to
+#     saying an instance of Dog "is a subclass of" Animal instead of "is a"
+#     Animal.
+#
+# The genuine correspondence sits one level down: real runtime values SHAPED
+# like bpm:ocel_event_rt (an OCEL 2.0 event: event_id / event_type /
+# event_time / attributes) are semantically ex4pm:Event instances
+# (ex4pm:Event rdfs:subClassOf ex4pm:Observation in ex4pm.ttl). This is
+# reinforced field-by-field: bpm:ocel_event_event_type_f and
+# bpm:ocel_event_event_time_f (both domain bpm:ocel_event_rt's field set)
+# correspond to ex4pm:activity and ex4pm:timestamp (both rdfs:domain
+# ex4pm:Event in ex4pm.ttl) -- same two facts (an activity name, a time), same
+# governing class, different vocabularies. rdfs:seeAlso -- a real RDFS
+# property with no domain/range restriction, meant exactly for "more
+# information about this resource lives here" -- states that correspondence
+# honestly without asserting a false class hierarchy:
+bpm:ocel_event_rt rdfs:seeAlso ex4pm:Event, ex4pm:Observation .
+
+# -----------------------------------------------------------------------
+# 3. Standing vocabulary -- confirmed string-identical, cited not modeled
+# -----------------------------------------------------------------------
+#
+# beam4pm has no RDF-level standing individuals of its own anywhere in this
+# file or the vendored packs -- UNKNOWN / PARTIAL_ALIVE / ALIVE / BLOCKED /
+# BUILD_BROKEN / UNSUPPORTED appear only as plain JSON/Markdown string
+# literals (e.g. receipts/2026-08-29-gate-closure-m0-m6.json's
+# gate_evidence.*.standing fields; docs/jira/v26.8.29/16-gate-closure-m0-m6.md's
+# "GATE M0 ... ALIVE" headings). Verified 2026-08-29 by grepping every one of
+# the six exact double-quoted strings across beam4pm's own receipts/**,
+# docs/**, and lib/**: all six are present, and all six match ex4pm.ttl's six
+# ex4pm:Capability individuals (lines 32-37 there) character-for-character.
+# No discrepancy was found -- there is nothing to force-align, only shared
+# lineage to cite:
+b4a:standingVocabulary
+    rdfs:comment "beam4pm's own STANDING vocabulary -- UNKNOWN, PARTIAL_ALIVE, ALIVE, BLOCKED, BUILD_BROKEN, UNSUPPORTED -- used as plain string literals throughout receipts/*.json and docs/jira/**/*.md (e.g. receipts/2026-08-29-gate-closure-m0-m6.json, docs/jira/v26.8.29/16-gate-closure-m0-m6.md) is confirmed STRING-IDENTICAL, character-for-character, to ex4pm's six real ex4pm:Capability individuals (ex4pm.ttl lines 32-37). beam4pm never independently invented this vocabulary and defines no separate RDF-level standing class of its own; it deliberately reuses ex4pm's, cited here as the single shared source of truth for this enum rather than re-derived or restated elsewhere." ;
+    rdfs:seeAlso ex4pm:UNKNOWN, ex4pm:PARTIAL_ALIVE, ex4pm:ALIVE, ex4pm:BLOCKED, ex4pm:BUILD_BROKEN, ex4pm:UNSUPPORTED .
+
