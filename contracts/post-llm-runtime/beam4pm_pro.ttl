@@ -26,3 +26,4 @@ b4:pro_runtime rt:enablesCapability "pro_ha_failover_plan" .
 b4:pro_runtime rt:enablesCapability "pro_runtime_policy_admission" .
 b4:pro_runtime rt:enablesCapability "pro_receipt_chain_verification" .
 b4:pro_runtime rt:enablesCapability "pro_sla_slo_evidence" .
+b4:pro_runtime rt:enablesCapability "pro_cost_to_serve_observation" .
