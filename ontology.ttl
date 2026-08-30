@@ -900,9 +900,23 @@ b4pp:proVmImage
     b4pi:sourceImageFamily "debian-12" ;
     b4pi:sourceImageProject "debian-cloud" ;
     b4pi:sshUsername "packer" ;
-    b4pi:containerImage "ghcr.io/seanchatmangpt/beam4pm:latest" ;
+    b4pi:packerContainerImage "ghcr.io/seanchatmangpt/beam4pm:latest" ;
     b4pi:containerName "beam4pm" ;
     b4pi:servicePort 8080 ;
     b4pi:serviceDescription "beam4pm_pro BEAM process-mining service (containerized)" ;
     b4pi:networkTag "beam4pm-pro" ;
     b4pi:networkTag "packer-build" .
+
+# =============================================================================
+# beam4pm BRCE actuation admission graph (SELECT layer, gate PI7/PI8)
+# =============================================================================
+@prefix bpma: <https://ggen.dev/ontology/beam4pm-actuation#> .
+
+bpma:increment_counter_aa a bpma:AdmittedActuation ;
+    bpma:actionName "increment_counter" ;
+    bpma:gymOp "inc" ;
+    bpma:requiresFact "counter_ready" .
+
+bpma:observe_counter_aa a bpma:AdmittedActuation ;
+    bpma:actionName "observe_counter" ;
+    bpma:gymOp "noop" .

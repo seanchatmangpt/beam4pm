@@ -21,7 +21,9 @@ erl_crash.dump
 
 # ggen_igniter reconciliation manifest + probe output (manufacturing-time state)
 .ggen_igniter/
+.ggen_igniter_tmp/
 tmp_probe/
+tmp/
 
 # rust4pm-oracle (qualification/) Rust build artifacts -- Cargo.lock IS
 # committed (binary crate, reproducible builds); target/ is not.

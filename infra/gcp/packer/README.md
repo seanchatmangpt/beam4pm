@@ -37,7 +37,7 @@ packer build -var "project_id=YOUR_PROJECT" infra/gcp/packer
 | `image_family` | `beam4pm-pro` | `b4pi:imageFamily` |
 | `disk_size_gb` | `20` | `b4pi:buildDiskGb` |
 | `ssh_username` | `packer` | `b4pi:sshUsername` |
-| `container_image` | `ghcr.io/seanchatmangpt/beam4pm:latest` | `b4pi:containerImage` |
+| `container_image` | `ghcr.io/seanchatmangpt/beam4pm:latest` | `b4pi:packerContainerImage` |
 
 ## Standing
 
