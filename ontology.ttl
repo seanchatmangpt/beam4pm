@@ -2623,3 +2623,21 @@ b4pe:purchase_order_binding_purchase_order_number_f a bpm:Field ;
 
 b4pe:purchase_order_binding_status_f a bpm:Field ;
     bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Binding validation standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-007 -- Bill-to account with currency and invoice delivery profile.
+b4pe:billing_account_rt a bpm:RecordType ;
+    bpm:recordName "billing_account" ;
+    bpm:recordDoc "Bill-to account with currency and invoice delivery profile." ;
+    bpm:hasField b4pe:billing_account_billing_account_id_f , b4pe:billing_account_account_id_f , b4pe:billing_account_currency_f , b4pe:billing_account_invoice_profile_f .
+
+b4pe:billing_account_billing_account_id_f a bpm:Field ;
+    bpm:fieldName "billing_account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable bill-to account identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:billing_account_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Commercial account owner." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:billing_account_currency_f a bpm:Field ;
+    bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "ISO 4217 billing currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:billing_account_invoice_profile_f a bpm:Field ;
+    bpm:fieldName "invoice_profile" ; bpm:fieldType "string" ; bpm:fieldDoc "Invoice delivery profile identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
