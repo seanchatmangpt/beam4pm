@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2104 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2104" ; dct:title "Offline entitlement, grace and reconciliation" ;
+ pro:requiredEvidence "signed local entitlement remains verifiable offline, expires deterministically, and reconciles without double granting when connectivity returns" ;
+ pro:graceMustBeExplicit true ; pro:authorityCeiling "ENTITLE" ;
+ pro:refusalCode "REFUSED[UNBOUNDED_OFFLINE_GRACE]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/07-security-airgap-compliance.md> .
