@@ -20,14 +20,17 @@ There are exactly two legitimate ways to change generated code:
 1. **Edit `ontology.ttl`** to add or change an admitted `bpm:RecordType` — the normal
    path for adding a new process-mining record, adding/renaming/retyping a field, or
    changing a field's required-ness or doc string. This is a change to *this* repo.
-2. **Propose a change to the pack's templates** — `templates/beam4pm_types.erl.tmpl`,
-   `templates/beam4pm_types.ex.tmpl`, `templates/beam4pm_types_tests.erl.tmpl`,
-   `templates/beam4pm_types_test.exs.tmpl`, `templates/beam4pm_types_test_helper.exs.tmpl` —
-   the path for anything that isn't expressible as instance data under the existing
-   `bpm:` vocabulary: a new generated function shape, a different constructor error
-   format, additional test cases, a new target language. `vendor/ggen-marketplace` is a
-   separate repository (`seanchatmangpt/ggen-marketplace`) vendored as a git submodule,
-   so this kind of change is a PR against *that* repo, then a submodule bump
+2. **Propose a change to the pack's templates** — the 26 Tera templates under
+   `templates/` (types/tests/codec/discovery/roundtrip/manifest for Erlang and Elixir,
+   the five Gleam templates, JSON Schema, Markdown reference, test helper) or the
+   ggen_igniter EEx assets under `igniter/` (the Ash projection and its CRUD test
+   suite, rendered by `scripts/igniter_sync.sh` via `mix ggen_igniter.sync` instead of
+   the Rust ggen binary) — the path for anything that isn't expressible as instance
+   data under the existing `bpm:` vocabulary: a new generated function shape, a
+   different constructor error format, additional test cases, a new target language.
+   `vendor/ggen-marketplace` is a separate repository
+   (`seanchatmangpt/ggen-marketplace`) vendored as a git submodule, so this kind of
+   change is a PR against *that* repo, then a submodule bump
    (`git -C vendor/ggen-marketplace pull && git add vendor/ggen-marketplace`) here to
    pick it up.
 

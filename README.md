@@ -40,20 +40,33 @@ A first bounded slice, manufactured via the `beam4pm-process-model-pack`
   `policy_decision`) — see
   `generated/docs/beam4pm_types_reference.md` (itself ggen-generated) for the
   full, exact field-level reference.
-- Erlang and Elixir projections only — no Gleam, no Ash yet.
+- Four projections: Erlang, Elixir, Gleam (`generated/gleam/`, with two
+  disclosed type divergences noted in its generated comments), and Ash
+  (`generated/elixir/lib/beam4pm_ash.ex` — 31 `Ash.Resource` modules,
+  manufactured by a second, Elixir-native engine: the `ggen_igniter` hex
+  package via `scripts/igniter_sync.sh`; its manifest probe renders
+  byte-identical to the Rust ggen output).
 - Each type is a data structure plus a validating constructor
-  (`new_<type>/1` in Erlang, the equivalent in Elixir) that checks required
-  fields are present and returns `{ok, Record}` or `{error, {missing_field,
-  Field}}`. A reflection manifest (`beam4pm_types_manifest`/
+  (`new_<type>/1` in Erlang, the equivalent in Elixir/Gleam) that checks
+  required fields are present and returns `{ok, Record}` or `{error,
+  {missing_field, Field}}`. A reflection manifest (`beam4pm_types_manifest`/
   `BeamPM.Types.Manifest`) lists every admitted record and its field names. A
   generated JSON Schema (`generated/schema/beam4pm_types.schema.json`)
-  documents the wire shape of every type. No process-mining algorithms (no
-  DFG discovery, no conformance checking, no alignment search) exist yet —
-  this slice is data structures only.
-- Small, real demo scripts exist under `examples/erlang/` and
-  `examples/elixir/` exercising the generated constructors — these are demos,
-  not a playground; see `playground/README.md` for what a real playground
-  would still require. No cross-language roundtrip proof yet.
+  documents the wire shape of every type.
+- First real process-mining behavior: generated codecs
+  (`beam4pm_codec`/`BeamPM.Codec` — map/JSON in both directions) and
+  discovery/conformance (`beam4pm_discovery`/`BeamPM.Discovery` and the
+  Gleam `beam4pm/discovery` — `traces_from_events/2`, `dfg_from_traces/1`,
+  `conformance/2`). No alignment search, no Petri-net replay, and
+  `conformance_result.precision` is never computed — fitness only.
+- Cross-language identity is proven for Erlang↔Elixir:
+  `bash scripts/roundtrip_check.sh` round-trips all 31 records × full/minimal
+  variants over the JSON wire in both directions (Gleam has no codec leg yet).
+- `bash playground/playground.sh` runs the fresh-user workflow end to end
+  from a clean `git clone --recurse-submodules` — manufacture, all three test
+  suites, real discovery demos in Erlang/Elixir/Gleam, and the roundtrip
+  proof. Gate-by-gate standing:
+  [`docs/jira/v26.8.29/16-gate-closure-m0-m6.md`](docs/jira/v26.8.29/16-gate-closure-m0-m6.md).
 
 ## Build and test
 
