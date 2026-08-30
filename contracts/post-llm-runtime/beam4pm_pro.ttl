@@ -38,3 +38,5 @@ b4:pro_subject a rt:ExactSubject ;
   dct:source "main" .
 
 b4:pro_authority_policy odrl:permission [ odrl:action odrl:use ] .
+
+b4:pro_runtime rt:enablesCapability "pro_procurement_constraint_admission" .
