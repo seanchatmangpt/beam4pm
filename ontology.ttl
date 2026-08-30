@@ -3073,3 +3073,21 @@ b4pe:tenant_account_home_region_f a bpm:Field ;
 
 b4pe:tenant_account_edition_id_f a bpm:Field ;
     bpm:fieldName "edition_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Provisioned product edition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-032 -- Billable tenant project with cost-center attribution.
+b4pe:tenant_project_rt a bpm:RecordType ;
+    bpm:recordName "tenant_project" ;
+    bpm:recordDoc "Billable tenant project with cost-center attribution." ;
+    bpm:hasField b4pe:tenant_project_project_id_f , b4pe:tenant_project_tenant_id_f , b4pe:tenant_project_cost_center_f , b4pe:tenant_project_status_f .
+
+b4pe:tenant_project_project_id_f a bpm:Field ;
+    bpm:fieldName "project_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable tenant project." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:tenant_project_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Owning tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:tenant_project_cost_center_f a bpm:Field ;
+    bpm:fieldName "cost_center" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise cost-center code." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:tenant_project_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Project lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
