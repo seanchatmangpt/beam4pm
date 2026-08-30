@@ -1,0 +1,27 @@
+[package]
+name = "rf4-oc-discovery-oracle"
+version = "0.1.0"
+edition = "2021"
+description = "RF4 differential-testing oracle: beam4pm object-centric discovery (OCEL 2.0 JSON import -> SlimLinkedOCEL::from_ocel -> get_dfg_of_object_type / get_variants_of_object_type) verified against the canonical rust4pm (process_mining) implementation."
+license = "MIT"
+
+[[bin]]
+name = "rf4-oc-discovery-oracle"
+path = "src/main.rs"
+
+[dependencies]
+# rust4pm -- the canonical process-discovery implementation. Pinned exactly, mirroring
+# rf1-dfg-oracle/rf3-ocel-oracle's proven feature-flag recipe (default-features = false:
+# no polars/sqlite/duckdb/graphviz/token-replay needed here). Unlike rf3-ocel-oracle, the
+# "bindings" feature is NOT required: get_dfg_of_object_type and get_variants_of_object_type
+# live in process_mining::discovery::object_centric (discovery.rs:27 `pub mod discovery;`,
+# unconditional -- no #[cfg(feature = ...)] on that line or on discovery/object_centric/mod.rs),
+# a different module tree from the `#![cfg(feature = "bindings")]`-gated bindings module rf3
+# needs. Confirmed by reading the vendored source directly before writing this file.
+process_mining = { version = "=0.6.2", default-features = false }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = "s"
+lto = true
