@@ -3109,3 +3109,21 @@ b4pe:environment_profile_region_f a bpm:Field ;
 
 b4pe:environment_profile_configuration_hash_f a bpm:Field ;
     bpm:fieldName "configuration_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Canonical configuration digest." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-034 -- Paid right to deploy an edition into an environment.
+b4pe:deployment_entitlement_rt a bpm:RecordType ;
+    bpm:recordName "deployment_entitlement" ;
+    bpm:recordDoc "Paid right to deploy an edition into an environment." ;
+    bpm:hasField b4pe:deployment_entitlement_entitlement_id_f , b4pe:deployment_entitlement_tenant_id_f , b4pe:deployment_entitlement_profile_id_f , b4pe:deployment_entitlement_valid_until_f .
+
+b4pe:deployment_entitlement_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable deployment entitlement." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:deployment_entitlement_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Entitled tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:deployment_entitlement_profile_id_f a bpm:Field ;
+    bpm:fieldName "profile_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Allowed environment profile." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:deployment_entitlement_valid_until_f a bpm:Field ;
+    bpm:fieldName "valid_until" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Deployment right expiration." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
