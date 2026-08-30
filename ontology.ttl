@@ -3343,3 +3343,21 @@ b4pe:showback_allocation_metric_name_f a bpm:Field ;
 
 b4pe:showback_allocation_quantity_f a bpm:Field ;
     bpm:fieldName "quantity" ; bpm:fieldType "float" ; bpm:fieldDoc "Attributed usage quantity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-047 -- Measured pre-adoption business baseline for ROI comparison.
+b4pe:value_baseline_rt a bpm:RecordType ;
+    bpm:recordName "value_baseline" ;
+    bpm:recordDoc "Measured pre-adoption business baseline for ROI comparison." ;
+    bpm:hasField b4pe:value_baseline_baseline_id_f , b4pe:value_baseline_account_id_f , b4pe:value_baseline_metric_name_f , b4pe:value_baseline_baseline_value_f .
+
+b4pe:value_baseline_baseline_id_f a bpm:Field ;
+    bpm:fieldName "baseline_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable baseline identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:value_baseline_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Measured enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:value_baseline_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Business value metric." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:value_baseline_baseline_value_f a bpm:Field ;
+    bpm:fieldName "baseline_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Pre-adoption measured value." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
