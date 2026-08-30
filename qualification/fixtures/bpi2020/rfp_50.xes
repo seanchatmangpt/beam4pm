@@ -1,0 +1,2369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- This file has been generated with the OpenXES library. It conforms -->
+<!-- to the XML serialization of the XES standard for log storage and -->
+<!-- management. -->
+<!-- XES standard version: 1.0 -->
+<!-- OpenXES library version: 1.0RC7 -->
+<!-- OpenXES is available from http://www.openxes.org/ -->
+<log xes.version="1.0" xes.features="nested-attributes" openxes.version="1.0RC7">
+	<extension name="Organizational" prefix="org" uri="http://www.xes-standard.org/org.xesext"/>
+	<extension name="Time" prefix="time" uri="http://www.xes-standard.org/time.xesext"/>
+	<extension name="Concept" prefix="concept" uri="http://www.xes-standard.org/concept.xesext"/>
+	<string key="concept:name" value="RequestForPayment"/>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148214"/>
+		<string key="Project" value="project 148216"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148214"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="34.33634285099345"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 148215"/>
+		<event>
+			<string key="id" value="st_step 148220_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-09T09:17:18.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148221_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-09T09:18:00.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148222_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-01-10T12:42:32.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148219_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-03T09:51:13.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148218_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-03-03T09:51:42.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148217_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-03-06T08:55:50.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148214_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-03-08T11:22:42.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148214_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-03-16T17:31:12.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149290"/>
+		<string key="Project" value="project 147843"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149290"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="15.182427838036624"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 149291"/>
+		<event>
+			<string key="id" value="st_step 149293_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-09T10:30:48.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149292_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-09T10:31:42.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149290_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-10T10:52:03.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149290_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-12T17:31:32.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149216"/>
+		<string key="Project" value="project 147556"/>
+		<string key="Task" value="task 147557"/>
+		<string key="concept:name" value="request for payment 149216"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="34.25224607843211"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 149217"/>
+		<event>
+			<string key="id" value="st_step 149222_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-09T11:41:36.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149221_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-09T11:42:10.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149220_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-09T15:56:52.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149219_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-10T10:02:52.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149218_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-10T10:03:15.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149216_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-10T13:34:59.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149216_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-12T17:31:32.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 147886"/>
+		<string key="Project" value="project 147649"/>
+		<string key="Task" value="task 82614"/>
+		<string key="concept:name" value="request for payment 147886"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="437.6275839171305"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 147887"/>
+		<event>
+			<string key="id" value="st_step 147892_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-09T13:21:51.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147891_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-09T13:23:17.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147893_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-01-10T15:34:19.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147888_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-06-12T12:03:33.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147889_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-06-12T12:04:02.000+02:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147890_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-06-12T12:14:51.000+02:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147886_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-06-13T13:02:08.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147886_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-06-15T17:31:12.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149145"/>
+		<string key="Project" value="project 149147"/>
+		<string key="Task" value="task 82614"/>
+		<string key="concept:name" value="request for payment 149145"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="32.550812026894"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 149146"/>
+		<event>
+			<string key="id" value="st_step 149152_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-09T13:26:20.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149151_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-09T13:26:22.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149153_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-01-10T15:33:09.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149149_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-06-12T12:08:05.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149150_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-06-12T12:08:14.000+02:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149148_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-06-12T12:13:06.000+02:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149145_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-06-13T13:00:10.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149145_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-06-15T17:31:12.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 147597"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="task 147599"/>
+		<string key="concept:name" value="request for payment 147597"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="53.99955609576994"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 147598"/>
+		<event>
+			<string key="id" value="st_step 147600_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-10T14:56:59.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147601_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-10T14:57:53.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147597_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-25T11:35:31.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147597_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-30T17:31:40.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149369"/>
+		<string key="Project" value="project 147582"/>
+		<string key="Task" value="task 147599"/>
+		<string key="concept:name" value="request for payment 149369"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="430.91645764424413"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 149370"/>
+		<event>
+			<string key="id" value="st_step 149371_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-10T15:02:39.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149372_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-10T15:02:53.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149369_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-25T11:34:47.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149369_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-30T17:31:40.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148223"/>
+		<string key="Project" value="project 147582"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148223"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="31.715042665214916"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 148224"/>
+		<event>
+			<string key="id" value="st_step 148225_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-10T15:18:56.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148226_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-01-10T15:19:04.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148227_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-10T15:26:13.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148223_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-10T15:30:50.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148223_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-12T17:31:32.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149830"/>
+		<string key="Project" value="project 147546"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149830"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="246.8039601180534"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 149831"/>
+		<event>
+			<string key="id" value="st_step 149832_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-10T17:19:05.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149833_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-11T09:54:26.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149830_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-12T10:04:27.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149830_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-16T17:32:18.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148629"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148629"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="248.33579089019588"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 148630"/>
+		<event>
+			<string key="id" value="st_step 148632_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-11T11:48:40.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148631_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-11T11:48:51.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148629_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-25T11:33:08.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148629_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-30T17:31:40.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 147894"/>
+		<string key="Project" value="project 147546"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 147894"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="325.2739525493613"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 147895"/>
+		<event>
+			<string key="id" value="st_step 147897_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-12T09:07:24.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147896_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-12T09:08:56.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147894_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-13T14:13:51.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147894_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-16T17:32:18.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 147898"/>
+		<string key="Project" value="project 147546"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 147898"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="96.47232713406254"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 147899"/>
+		<event>
+			<string key="id" value="st_step 147900_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-12T11:12:33.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147901_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-12T11:12:51.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147898_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-13T14:12:38.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147898_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-16T17:32:18.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148633"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148633"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="460.89001284125504"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 148634"/>
+		<event>
+			<string key="id" value="st_step 148637_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-12T11:38:27.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148636_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-01-12T11:39:17.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148635_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-17T10:42:06.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148633_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-19T10:51:49.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148633_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-23T17:32:19.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149908"/>
+		<string key="Project" value="project 147620"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149908"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="4205.867568279362"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 149909"/>
+		<event>
+			<string key="id" value="st_step 149911_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-12T14:52:53.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149910_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-12T14:53:16.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149912_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by DIRECTOR"/>
+			<date key="time:timestamp" value="2017-01-17T10:47:38.000+01:00"/>
+			<string key="org:role" value="DIRECTOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149908_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-17T15:34:01.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149908_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-19T17:31:50.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149294"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149294"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="38.633033755886316"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 149295"/>
+		<event>
+			<string key="id" value="st_step 149296_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-12T16:48:17.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149297_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-12T16:48:22.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149294_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-13T14:11:33.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149294_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-16T17:32:18.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149913"/>
+		<string key="Project" value="project 147556"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149913"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="112.586736524557"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 149914"/>
+		<event>
+			<string key="id" value="st_step 149918_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-13T09:36:06.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149919_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-13T09:36:18.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149917_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-01-16T09:52:47.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149915_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-16T10:08:48.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149916_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-16T10:09:07.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149913_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-20T10:44:56.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149913_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-23T17:32:19.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149223"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149223"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="325.19910712796417"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 149224"/>
+		<event>
+			<string key="id" value="st_step 149225_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-13T18:30:34.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149226_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-13T18:30:54.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149223_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-16T15:08:50.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149223_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-19T17:31:50.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148883"/>
+		<string key="Project" value="project 147551"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148883"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="185.5206789946729"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 148884"/>
+		<event>
+			<string key="id" value="st_step 148885_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-14T12:04:31.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148886_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-14T12:06:14.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148883_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-25T11:27:59.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148883_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-30T17:31:40.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149158"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149158"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="41.02138175756728"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 149159"/>
+		<event>
+			<string key="id" value="st_step 149160_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-16T10:23:48.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149162_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-01-16T10:23:57.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149161_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-23T05:15:02.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149158_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-02-02T10:23:55.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149158_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-02-06T17:31:45.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148749"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="task 74419"/>
+		<string key="concept:name" value="request for payment 148749"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="3441.5162056141467"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 148755_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-16T12:10:30.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148756_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-06T15:56:17.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148754_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-06T16:09:19.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148752_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-06T16:38:33.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148753_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-06T16:38:37.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148751_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-02-06T17:06:26.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148750_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-02-08T15:36:48.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148504"/>
+		<string key="Project" value="project 147908"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148504"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="3.934400805535731"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 148505"/>
+		<event>
+			<string key="id" value="st_step 148507_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-16T13:09:44.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148508_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-01-16T13:09:50.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148506_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-23T05:15:02.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148504_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-25T11:02:46.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148504_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-30T17:31:40.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 147938"/>
+		<string key="Project" value="project 147546"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 147938"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="38.46467306686371"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 147939"/>
+		<event>
+			<string key="id" value="st_step 147940_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-16T13:53:32.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147941_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-16T13:56:33.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147938_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-16T15:08:13.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147938_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-19T17:31:50.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149660"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="task 147825"/>
+		<string key="concept:name" value="request for payment 149660"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="23.42869687069603"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 149661"/>
+		<event>
+			<string key="id" value="st_step 149662_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-16T16:18:33.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149663_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-01-16T16:19:49.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149664_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-17T11:23:58.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149660_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-18T15:38:44.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149660_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-23T17:32:19.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 147746"/>
+		<string key="Project" value="project 147556"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 147746"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="6.626098975813822"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 147747"/>
+		<event>
+			<string key="id" value="st_step 147748_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-17T10:35:54.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147749_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-17T10:40:02.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147746_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-24T09:59:44.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147746_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-26T17:30:47.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149154"/>
+		<string key="Project" value="project 147620"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149154"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="53.01544358794025"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 149155"/>
+		<event>
+			<string key="id" value="st_step 149156_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-17T12:03:11.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149157_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-17T12:03:30.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149154_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-19T15:53:59.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149154_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-23T17:32:19.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 147902"/>
+		<string key="Project" value="project 147843"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 147902"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="128.05998076667805"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 147903"/>
+		<event>
+			<string key="id" value="st_step 147904_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-17T13:20:46.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147905_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-17T13:34:53.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147902_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-01-24T11:29:18.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147902_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-01-26T17:30:47.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149163"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149163"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="31.614353447309778"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 149165_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-17T13:54:58.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149164_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-01-17T13:57:08.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149166_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-01-18T15:11:08.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148438"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148438"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="12.955840539247667"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 148443_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-26T11:54:32.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148444_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-01-26T11:54:39.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148445_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-01T10:51:50.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148441_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-01T12:54:23.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148442_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-01T12:54:48.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148439_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-02-01T15:51:13.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148440_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-02-08T15:41:32.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148757"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148757"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="28.070987835036615"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 148763_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-01-26T11:55:32.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148764_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-01-26T11:55:39.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148762_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-01T10:52:20.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148760_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-01T12:53:47.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148761_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-01T12:54:14.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148758_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-02-01T15:51:38.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148759_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-02-08T15:39:53.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148157"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="task 6280"/>
+		<string key="concept:name" value="request for payment 148157"/>
+		<string key="OrganizationalEntity" value="organizational unit 65457"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="234.9930091971253"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 148158"/>
+		<event>
+			<string key="id" value="st_step 148163_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-01T17:30:44.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148164_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-01T17:32:04.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148162_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-02T08:53:30.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148161_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-02T09:26:58.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148159_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-02T09:28:25.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148160_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-02-02T09:34:15.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148157_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-02-09T10:23:59.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148157_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-02-13T17:32:18.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149665"/>
+		<string key="Project" value="UNKNOWN"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149665"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="243.60724470419046"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 149666_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-02T17:54:36.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149668_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-02-02T17:54:43.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149667_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-06T13:44:07.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148236"/>
+		<string key="Project" value="UNKNOWN"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148236"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="124.53400623597396"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 148237_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-09T13:44:50.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148239_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-09T13:45:21.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148238_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-14T08:17:18.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148165"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148165"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="23.477722487109844"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 148168_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-09T14:00:10.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148167_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-09T14:00:15.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148166_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-02-14T08:22:14.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148169_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-02-21T13:29:00.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149231"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149231"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="124.53400623597396"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 149233_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-14T11:32:53.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149235_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-14T11:33:04.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149232_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-02-16T08:45:03.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149234_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-02-21T13:27:06.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148452"/>
+		<string key="Project" value="UNKNOWN"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148452"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="39.285017280845636"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 148454_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-14T16:37:55.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148453_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-02-14T17:03:16.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148455_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-15T10:13:21.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148406"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148406"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="460.89001284125504"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 148407"/>
+		<event>
+			<string key="id" value="st_step 148412_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-20T13:17:46.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148411_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-20T13:17:56.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148413_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-21T13:06:56.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148410_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-22T10:46:26.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148409_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-22T10:46:46.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148408_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-02-23T13:11:42.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148406_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-02-28T10:45:57.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148406_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-03-02T17:31:07.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148414"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="task 148415"/>
+		<string key="concept:name" value="request for payment 148414"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="367.67356074336254"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 148416_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-02-27T10:25:42.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148418_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-02-27T10:43:22.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148417_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-02-28T08:54:58.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148419_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-02-28T10:05:42.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148777"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="task 147866"/>
+		<string key="concept:name" value="request for payment 148777"/>
+		<string key="OrganizationalEntity" value="organizational unit 65457"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="256.1898391064396"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 148778"/>
+		<event>
+			<string key="id" value="st_step 148784_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-02T11:23:41.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148782_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-03-02T11:23:44.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148783_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-02T13:44:08.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148780_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-02T14:45:17.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148779_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-03-02T14:46:10.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148781_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-03-02T14:48:46.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148777_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-03-08T15:36:07.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148777_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-03-13T17:31:05.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148899"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="task 1403"/>
+		<string key="concept:name" value="request for payment 148899"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="458.59037945013574"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 148900"/>
+		<event>
+			<string key="id" value="st_step 148906_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-02T14:32:27.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148905_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-03-02T14:37:08.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148904_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-03-02T14:37:35.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148907_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-03-08T11:19:25.000+01:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148903_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-08T12:13:44.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148902_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-03-08T12:13:48.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148901_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-03-08T12:15:09.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148899_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-03-09T09:05:07.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148899_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-03-13T17:31:05.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148519"/>
+		<string key="Project" value="UNKNOWN"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148519"/>
+		<string key="OrganizationalEntity" value="organizational unit 65482"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="1068.3528962156136"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 148520"/>
+		<event>
+			<string key="id" value="st_step 148523_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-10T14:55:04.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148522_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-03-10T15:17:10.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148521_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by DIRECTOR"/>
+			<date key="time:timestamp" value="2017-03-13T09:15:06.000+01:00"/>
+			<string key="org:role" value="DIRECTOR"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 147966"/>
+		<string key="Project" value="project 503"/>
+		<string key="Task" value="task 1403"/>
+		<string key="concept:name" value="request for payment 147966"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="812.1889164244674"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 147967"/>
+		<event>
+			<string key="id" value="st_step 147972_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-10T18:42:17.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147971_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-03-10T18:42:31.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147973_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-13T11:45:14.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147968_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-13T22:16:03.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147970_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-03-13T22:16:24.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147969_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-03-14T11:22:54.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147966_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-03-14T16:15:20.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147966_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-03-20T17:30:50.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149073"/>
+		<string key="Project" value="project 147546"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149073"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="75.37943203478883"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 149074"/>
+		<event>
+			<string key="id" value="st_step 149081_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-16T08:47:49.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149080_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-03-16T08:51:55.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149082_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-16T09:00:28.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149078_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-16T09:04:42.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149077_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-03-16T09:04:44.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149079_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-17T13:50:13.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149075_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-18T11:25:28.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149076_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-03-18T11:25:44.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149073_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-03-21T14:58:19.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149073_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-03-23T17:30:45.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148524"/>
+		<string key="Project" value="project 147546"/>
+		<string key="Task" value="task 148154"/>
+		<string key="concept:name" value="request for payment 148524"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="89.898474212197"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 148525"/>
+		<event>
+			<string key="id" value="st_step 148529_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-21T08:42:36.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148530_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-03-21T08:42:45.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148531_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-21T14:29:24.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148527_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-21T16:23:59.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148528_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-03-21T16:24:02.000+01:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148526_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-03-21T17:01:14.000+01:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148524_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-03-24T08:25:05.000+01:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148524_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-03-27T17:31:03.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149260"/>
+		<string key="Project" value="UNKNOWN"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149260"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="11.748022245864354"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 149261_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SAVED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-21T11:07:41.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149088"/>
+		<string key="Project" value="UNKNOWN"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149088"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="33.77556395686002"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 149089_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SAVED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-21T11:26:03.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148113"/>
+		<string key="Project" value="UNKNOWN"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148113"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="1451.2524455459697"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="UNKNOWN"/>
+		<event>
+			<string key="id" value="st_step 148114_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SAVED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-03-24T07:47:58.000+01:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148356"/>
+		<string key="Project" value="UNKNOWN"/>
+		<string key="Task" value="task 148358"/>
+		<string key="concept:name" value="request for payment 148356"/>
+		<string key="OrganizationalEntity" value="organizational unit 65462"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="7.178273890464973"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 148357"/>
+		<event>
+			<string key="id" value="st_step 148360_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-04-11T09:58:51.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148359_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-04-11T09:58:55.000+02:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 149134"/>
+		<string key="Project" value="project 147546"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 149134"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="3.921091435108356"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 149135"/>
+		<event>
+			<string key="id" value="st_step 149140_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-04-20T11:13:43.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149138_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-04-20T11:17:34.000+02:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149139_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-04-21T11:25:52.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149137_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-04-25T14:45:41.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 149136_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-04-25T14:47:54.000+02:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149134_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-05-01T11:06:50.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 149134_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-05-04T17:31:07.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 148990"/>
+		<string key="Project" value="project 147546"/>
+		<string key="Task" value="UNKNOWN"/>
+		<string key="concept:name" value="request for payment 148990"/>
+		<string key="OrganizationalEntity" value="organizational unit 65458"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="286.0965073310033"/>
+		<string key="Activity" value="UNKNOWN"/>
+		<string key="RfpNumber" value="request for payment number 148991"/>
+		<event>
+			<string key="id" value="st_step 148996_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-04-21T14:00:54.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148994_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-04-22T14:38:00.000+02:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148995_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by MISSING"/>
+			<date key="time:timestamp" value="2017-04-25T13:24:24.000+02:00"/>
+			<string key="org:role" value="MISSING"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148993_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-04-25T14:07:32.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 148992_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-04-25T14:07:46.000+02:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148990_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-05-01T15:06:04.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 148990_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-05-04T17:31:07.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="Rfp_id" value="request for payment 147618"/>
+		<string key="Project" value="project 147620"/>
+		<string key="Task" value="task 15842"/>
+		<string key="concept:name" value="request for payment 147618"/>
+		<string key="OrganizationalEntity" value="organizational unit 65463"/>
+		<int key="Cost Type" value="0"/>
+		<float key="RequestedAmount" value="192.8743299338385"/>
+		<string key="Activity" value="activity 505"/>
+		<string key="RfpNumber" value="request for payment number 147619"/>
+		<event>
+			<string key="id" value="st_step 147624_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-04-26T10:48:04.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147625_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-04-26T10:49:41.000+02:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147626_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment REJECTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-05-01T09:42:11.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147622_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment SUBMITTED by EMPLOYEE"/>
+			<date key="time:timestamp" value="2017-05-02T15:04:04.000+02:00"/>
+			<string key="org:role" value="EMPLOYEE"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147621_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment APPROVED by PRE_APPROVER"/>
+			<date key="time:timestamp" value="2017-05-02T15:04:12.000+02:00"/>
+			<string key="org:role" value="PRE_APPROVER"/>
+		</event>
+		<event>
+			<string key="id" value="st_step 147623_0"/>
+			<string key="org:resource" value="STAFF MEMBER"/>
+			<string key="concept:name" value="Request For Payment FINAL_APPROVED by SUPERVISOR"/>
+			<date key="time:timestamp" value="2017-05-02T15:23:32.000+02:00"/>
+			<string key="org:role" value="SUPERVISOR"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147618_15"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Request Payment"/>
+			<date key="time:timestamp" value="2017-05-08T14:44:33.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+		<event>
+			<string key="id" value="rp_request for payment 147618_16"/>
+			<string key="org:resource" value="SYSTEM"/>
+			<string key="concept:name" value="Payment Handled"/>
+			<date key="time:timestamp" value="2017-05-11T17:31:23.000+02:00"/>
+			<string key="org:role" value="UNDEFINED"/>
+		</event>
+	</trace>
+</log>
