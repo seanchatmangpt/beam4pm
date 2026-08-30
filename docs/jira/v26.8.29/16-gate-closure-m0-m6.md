@@ -22,14 +22,14 @@ authored and Chicago-verified in an isolated scratch consumer before integration
    trace's directly-follows pairs present in the model; `precision` honestly left
    unset — not computed in this slice). All outputs constructed through the
    generated validating constructors.
-3. **Gleam projection** — `generated/gleam/`: `gleam.toml`, types (disclosed
+3. **Gleam projection** — `gleam/`: `gleam.toml`, types (disclosed
    divergences: `atom -> String`, `map -> Dict(String, String)`), the same
    discovery API, a `gleam run` demo, gleeunit tests.
 4. **Roundtrip fixtures** — `beam4pm_roundtrip.{erl,ex}`: deterministic
    full/minimal samples per record; write/verify over JSON wire files.
 5. **Ash projection via a second manufacturing engine** — `ggen_igniter` 26.8.30
    (hex.pm, Elixir-native ggen pipeline, oxigraph Rustler NIF engine) renders
-   `generated/elixir/lib/beam4pm_ash.ex` (31 `Ash.Resource` modules on the ETS
+   `lib/beam4pm_ash.ex` (31 `Ash.Resource` modules on the ETS
    data layer + `BeamPM.Ash.Domain`) and 31 real Ash `create!`/`read!` CRUD
    tests from the same `ontology.ttl` through `scripts/igniter_sync.sh`.
 
@@ -65,7 +65,7 @@ deliberately shuffle-fed seeded log, then conformance against the discovered
 model — with hard in-demo assertions (3 traces; deviant-trace fitness < 1.0):
 - `escript examples/erlang/dfg_discovery_demo.erl <ebin>` → PASS
 - `mix run examples/elixir/dfg_discovery_demo.exs` → PASS
-- `cd generated/gleam && gleam run` → same edges/fitness printed
+- `cd gleam && gleam run` → same edges/fitness printed
 
 ### GATE M5 — cross-language identity: `ALIVE`
 `bash scripts/roundtrip_check.sh`: 31 records × full/minimal variants over the

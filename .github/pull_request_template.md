@@ -7,13 +7,13 @@
 
 ## What this changes
 
-<!-- One or two sentences. If this regenerates anything under generated/, name the
+<!-- One or two sentences. If this regenerates any manufactured (GENERATED-marker) file, name the
 authoritative ontology.ttl change or beam4pm-process-model-pack template change that
 caused it. -->
 
 ## Generated output -- do not hand-edit
 
-- [ ] **I did NOT edit anything under `generated/` directly.** (Required: NO. If you
+- [ ] **I did NOT edit any file carrying the GENERATED marker directly.** (Required: NO. If you
       needed a change there, change `ontology.ttl` or a template in
       `vendor/ggen-marketplace/packs/beam4pm-process-model-pack/templates/` instead
       and regenerate.)
@@ -32,9 +32,7 @@ exit: <exit code>
 output: <bounded evidence -- files written/unchanged from the run>
 ```
 
-- [ ] I ran the determinism check: deleted `generated/erlang` and `generated/elixir`,
-      re-ran `ggen sync run`, and confirmed the regenerated files are byte-identical
-      to what was committed (`sha256sum` before/after)
+- [ ] I ran `bash scripts/gate_m2_check.sh` (GATE M2) and it printed PASS
 
 ```text
 generation 1 sha256 (committed): <digest>

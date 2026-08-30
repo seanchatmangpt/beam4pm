@@ -108,7 +108,9 @@ specification/         authoritative product/process requirements
 queries/               authoritative transformations
 packs/                 reusable ggen manufacturing capability
 ggen/                  project manufacturing config
-generated/             projection output; never hand edited
+(src/, lib/, test/,    projection output, signalled per-file by a GENERATED
+ gleam/, schema/,       marker -- never a segregated directory; never hand
+ docs/reference/)       edited
 examples/              generated executable specifications
 playground/            generated end-to-end customer proof
 tests/                 generated acceptance/property/conformance tests

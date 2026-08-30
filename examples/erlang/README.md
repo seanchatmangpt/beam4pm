@@ -14,7 +14,7 @@ error the moment any construction fails.
 The generated module lives at:
 
 ```
-/Users/sac/beam4pm/generated/erlang/src/beam4pm_types.erl
+/Users/sac/beam4pm/src/beam4pm_types.erl
 ```
 
 generated from the ggen template at:
@@ -47,7 +47,7 @@ never silently swallows a constructor error.
 `beam4pm_types.erl` defines `#ocel_event{}` internally and does **not**
 ship a `.hrl` header or export any field-accessor functions (confirmed by
 reading the generated source and its own EUnit test file,
-`generated/erlang/test/beam4pm_types_tests.erl`, which likewise only ever
+`test/beam4pm_types_tests.erl`, which likewise only ever
 asserts `{ok, _}` and never destructures the record). That means an
 external module genuinely has no supported way to read `event_id` /
 `event_type` back out of the returned `#ocel_event{}` without redeclaring
@@ -69,7 +69,7 @@ so `main/1` can add it to the code path with `code:add_patha/1`:
 
 ```sh
 mkdir -p /tmp/beam4pm_ebin
-erlc -o /tmp/beam4pm_ebin /Users/sac/beam4pm/generated/erlang/src/beam4pm_types.erl
+erlc -o /tmp/beam4pm_ebin /Users/sac/beam4pm/src/beam4pm_types.erl
 escript examples/erlang/ocel_log_demo.erl /tmp/beam4pm_ebin
 ```
 

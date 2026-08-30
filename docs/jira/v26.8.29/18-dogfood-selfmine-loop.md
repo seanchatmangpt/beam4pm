@@ -25,7 +25,7 @@ One BEAM, five stages, all real:
 2. Run the pack's real Ash recipe in-process via `Mix.Task.run/2`: `mix ggen_igniter.sync
    --ontology ontology.ttl --query records/fields --template
    vendor/ggen-marketplace/packs/beam4pm-process-model-pack/igniter/templates/beam4pm_ash.ex.eex
-   --out generated/elixir/lib/beam4pm_ash.ex` -- exactly `scripts/igniter_sync.sh` step 1.
+   --out lib/beam4pm_ash.ex` -- exactly `scripts/igniter_sync.sh` step 1.
    Since AR-9 (26.8.30) the sync ALWAYS attempts the Reactor pipeline
    (`GgenIgniter.Reactors.ReconcileReactor.run/1`) first; no `use_reactor` config is needed and
    the flag is no longer read by the sync task. The notice line confirms the route:
@@ -51,9 +51,9 @@ verbatim (only the scratch-consumer absolute path is long; nothing else truncate
 ```json
 {"activity": "RECONCILIATION_STARTED", "attributes": {"manifest_dir": "<consumer repo root>"},
  "id": "ev_98f28a06d69a5165", "objects": [], "time": "2026-08-30T05:02:37.378935Z"}
-{"activity": "FILES_CHANGED", "attributes": {"paths": ["generated/elixir/lib/beam4pm_ash.ex"]},
+{"activity": "FILES_CHANGED", "attributes": {"paths": ["lib/beam4pm_ash.ex"]},
  "id": "ev_6beb4adb19e597ca",
- "objects": [{"id": "generated/elixir/lib/beam4pm_ash.ex", "type": "file"}],
+ "objects": [{"id": "lib/beam4pm_ash.ex", "type": "file"}],
  "time": "2026-08-30T05:02:37.922059Z"}
 {"activity": "STANDING_SET", "attributes": {"manifest_promotion": ":promoted",
  "prune_outcome": ":not_applicable", "standing": "alive"},
@@ -121,7 +121,7 @@ ids, so the script refuses loudly instead of asserting on top of it.
 - `mix run scripts/dogfood_selfmine.exs` -> 10 events captured, DFG mined and printed,
   `== dogfood self-mine: ALIVE (all assertions passed) ==`, exit 0. Bonus grounding: the sync
   reported `unchanged (skipped, identical content)` -- the copied checked-in
-  `generated/elixir/lib/beam4pm_ash.ex` is byte-identical to what ontology.ttl + the pack
+  `lib/beam4pm_ash.ex` is byte-identical to what ontology.ttl + the pack
   template render, and `FILES_CHANGED` still fires on that skip path (real emitter behavior).
 - Falsifier 1: a copy with one expected activity corrupted
   (`VERIFICATION_SUCCEEDED` -> `VERIFICATION_EXPLODED`) fails assertions 2 and 3 and exits 1.
@@ -141,7 +141,7 @@ ids, so the script refuses loudly instead of asserting on top of it.
    with all frequencies 1. Frequencies > 1 need multiple captured runs (future work: loop N
    syncs under N distinct case ids in one session).
 5. **Running it in beam4pm's root is a real manufacturing step**: it (re)writes
-   `generated/elixir/lib/beam4pm_ash.ex` (a skip when the ontology is unchanged), updates
+   `lib/beam4pm_ash.ex` (a skip when the ontology is unchanged), updates
    `.ggen_igniter/manifest.json`, and appends one receipt line -- the normal, documented
    `ggen_igniter` side effects, not extra ones. This stream verified in a scratch mirror only;
    `mix run scripts/dogfood_selfmine.exs` in beam4pm itself is UNVERIFIED-here (the repo is
@@ -160,6 +160,6 @@ ids, so the script refuses loudly instead of asserting on top of it.
 
 - `scripts/dogfood_selfmine.exs` -- the loop itself (this doc's subject)
 - `scripts/igniter_sync.sh` -- the manufacturing recipe the loop dogfoods (step 1)
-- `generated/elixir/lib/beam4pm_discovery.ex` -- the real mining functions exercised
+- `lib/beam4pm_discovery.ex` -- the real mining functions exercised
 - ggen_igniter 26.8.30 `lib/ggen_igniter/telemetry/ocel_emitter.ex` and
   `lib/ggen_igniter/reactors/reconcile_reactor.ex` -- the emitter and every emit site

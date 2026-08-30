@@ -11,7 +11,7 @@
 #      [:ggen_igniter, :reconcile, :ocel]).
 #   2. Run ONE real `mix ggen_igniter.sync` of the beam4pm-process-model-pack's
 #      Ash recipe (ontology.ttl + igniter/queries/*.rq +
-#      igniter/templates/beam4pm_ash.ex.eex -> generated/elixir/lib/beam4pm_ash.ex)
+#      igniter/templates/beam4pm_ash.ex.eex -> lib/beam4pm_ash.ex)
 #      in-process via Mix.Task.run/2 -- the exact recipe scripts/igniter_sync.sh
 #      step 1 runs. ggen_igniter's Reactor pipeline (always attempted first
 #      since AR-9, ggen_igniter >= 26.8.30) emits one OCEL event per lifecycle
@@ -33,7 +33,7 @@
 #      the 10 events (STANDING_SET fires after the receipt snapshots the sink).
 #
 # Exits nonzero on any assertion failure. Side effects: the sync is beam4pm's
-# own real manufacturing step -- it (re)writes generated/elixir/lib/beam4pm_ash.ex
+# own real manufacturing step -- it (re)writes lib/beam4pm_ash.ex
 # (a no-op "unchanged (skipped, identical content)" when the ontology is
 # unchanged), updates .ggen_igniter/manifest.json, and appends one receipt
 # line under .ggen_igniter/receipts/.
@@ -56,8 +56,8 @@ defmodule Beam4PM.Dogfood.SelfMine do
 
   def main do
     for {mod, hint} <- [
-          {BeamPM.Discovery, "generated/elixir/lib must be on elixirc_paths"},
-          {BeamPM.Types.OcelEvent, "generated/elixir/lib must be on elixirc_paths"},
+          {BeamPM.Discovery, "lib must be on elixirc_paths"},
+          {BeamPM.Types.OcelEvent, "lib must be on elixirc_paths"},
           {GgenIgniter.Telemetry.OcelEmitter,
            "{:ggen_igniter, \"~> 26.8\"} must be a (dev) dependency"}
         ] do
@@ -94,7 +94,7 @@ defmodule Beam4PM.Dogfood.SelfMine do
       "--query", "records=#{ign}/queries/records.rq",
       "--query", "fields=#{ign}/queries/fields.rq",
       "--template", "#{ign}/templates/beam4pm_ash.ex.eex",
-      "--out", "generated/elixir/lib/beam4pm_ash.ex"
+      "--out", "lib/beam4pm_ash.ex"
     ]
 
     IO.puts("== dogfood self-mine: running real manufacturing step ==")

@@ -161,11 +161,11 @@ $ ggen sync run
 ...
 {
   "written": [
-    "generated/erlang/src/beam4pm_types.erl",
-    "generated/elixir/lib/beam4pm_types.ex",
-    "generated/elixir/test/beam4pm_types_test.exs",
-    "generated/elixir/test/test_helper.exs",
-    "generated/erlang/test/beam4pm_types_tests.erl"
+    "src/beam4pm_types.erl",
+    "lib/beam4pm_types.ex",
+    "test/beam4pm_types_test.exs",
+    "test/test_helper.exs",
+    "test/beam4pm_types_tests.erl"
   ],
   "skipped": [],
   "graph_hash_hex": "619b8ae725cae59cc6c6ebc521e7f2a8fafd70584164376d36718167a0bc3237",
@@ -191,11 +191,11 @@ Before/after hashes for all 5 files were byte-for-byte identical:
 
 | file | sha256 |
 | --- | --- |
-| `generated/elixir/lib/beam4pm_types.ex` | `91ae788ce47a7a39a6bd9bcba6a336c0e3f8c410ccb1ec641e80210bc231a81a` |
-| `generated/elixir/test/beam4pm_types_test.exs` | `44418625ea9eaceef5e3d0c39b696b8e56a37a0acbf59006f22f937be9acd27b` |
-| `generated/elixir/test/test_helper.exs` | `a94f8490c4a5702deb00eca2c4626776318d3b92a9077eca878542c712635ed7` |
-| `generated/erlang/src/beam4pm_types.erl` | `24616889fb061996839cda8a6da1a95c9fbb70744b32291f328118d8884b5f48` |
-| `generated/erlang/test/beam4pm_types_tests.erl` | `acc26b3239789c94531e1fa115a01495ab366f00a7777fde6d7a2fdffd6c52be` |
+| `lib/beam4pm_types.ex` | `91ae788ce47a7a39a6bd9bcba6a336c0e3f8c410ccb1ec641e80210bc231a81a` |
+| `test/beam4pm_types_test.exs` | `44418625ea9eaceef5e3d0c39b696b8e56a37a0acbf59006f22f937be9acd27b` |
+| `test/test_helper.exs` | `a94f8490c4a5702deb00eca2c4626776318d3b92a9077eca878542c712635ed7` |
+| `src/beam4pm_types.erl` | `24616889fb061996839cda8a6da1a95c9fbb70744b32291f328118d8884b5f48` |
+| `test/beam4pm_types_tests.erl` | `acc26b3239789c94531e1fa115a01495ab366f00a7777fde6d7a2fdffd6c52be` |
 
 This matches the committed receipt's `gate_m2_deterministic_reprojection`
 claim and closes it with a second, independent execution.

@@ -6,7 +6,7 @@
 # submodules -> manufacture (ggen sync run) -> both BEAM test suites ->
 # Gleam build/test/demo -> real process-mining demos in Erlang and Elixir ->
 # GATE M5 cross-language roundtrip. It is ops tooling only: every module it
-# executes is ggen-manufactured under generated/.
+# executes is ggen-manufactured (see the header comment in each file, not directory placement).
 #
 # Fail-closed discipline (same pattern as ggen-ecosystem's
 # tests/test_container_smoke.sh): a missing required tool exits 2 (BLOCKED)
@@ -44,12 +44,12 @@ step 6/9 "Elixir suite (mix test)"
 mix test
 
 step 7/9 "Gleam projection (build + test + demo)"
-(cd generated/gleam && gleam build && gleam test && gleam run)
+(cd gleam && gleam build && gleam test && gleam run)
 
 step 8/9 "process-mining demos (Erlang + Elixir)"
 DEMO_EBIN="$(mktemp -d)"
 trap 'rm -rf "$DEMO_EBIN"' EXIT
-erlc -o "$DEMO_EBIN" generated/erlang/src/*.erl
+erlc -o "$DEMO_EBIN" src/*.erl
 escript examples/erlang/dfg_discovery_demo.erl "$DEMO_EBIN"
 mix run examples/elixir/dfg_discovery_demo.exs
 

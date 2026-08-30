@@ -15,9 +15,9 @@
 #      (no randomness anywhere -- the "large" log uses a fixed-seed LCG);
 #   3. for each log computes DFG edges via:
 #        a. generated Erlang  (beam4pm_discovery, escript over erlc-compiled
-#           generated/erlang/src)
+#           src)
 #        b. generated Elixir  (BeamPM.Discovery, elixirc-compiled
-#           generated/elixir/lib -- compiled directly rather than via
+#           lib -- compiled directly rather than via
 #           `mix run -e` so the gate does not depend on hex/deps fetch for
 #           the unrelated Ash dependency of beam4pm_ash.ex)
 #        c. oracle NATIVE     (stdin/stdout wire contract)
@@ -50,8 +50,8 @@ ORACLE_DIR="${ORACLE_DIR:-$ROOT/qualification/rust4pm-oracle}"
 CASE_ATTR_KEY="${CASE_ATTR_KEY:-case_id}"
 WORKDIR="${ORACLE_CHECK_WORKDIR:-$(mktemp -d "${TMPDIR:-/tmp}/oracle_check.XXXXXX")}"
 
-ERL_SRC="$ROOT/generated/erlang/src"
-EX_SRC="$ROOT/generated/elixir/lib"
+ERL_SRC="$ROOT/src"
+EX_SRC="$ROOT/lib"
 
 blocked() { echo "BLOCKED: $*" >&2; exit 2; }
 fail_now() { echo "FAIL: $*" >&2; exit 1; }
@@ -218,12 +218,12 @@ PYGEN
 echo "== compiling generated Erlang (erlc) =="
 erlc -o "$WORKDIR/ebin" \
     "$ERL_SRC/beam4pm_types.erl" "$ERL_SRC/beam4pm_codec.erl" "$ERL_SRC/beam4pm_discovery.erl" \
-    || fail_now "erlc failed on generated/erlang/src"
+    || fail_now "erlc failed on src"
 
 echo "== compiling generated Elixir (elixirc) =="
 ( cd "$WORKDIR/exbin" && elixirc \
     "$EX_SRC/beam4pm_types.ex" "$EX_SRC/beam4pm_codec.ex" "$EX_SRC/beam4pm_discovery.ex" ) \
-    || fail_now "elixirc failed on generated/elixir/lib"
+    || fail_now "elixirc failed on lib"
 
 # --- 4. runners (real escript / real elixir; results written to files) -----
 cat > "$WORKDIR/erl_runner.escript" <<'ERLRUN'

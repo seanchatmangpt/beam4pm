@@ -13,7 +13,7 @@ crate at that same path, deliberately, so the harness plumbing is proven indepen
 ## What this gate is
 
 beam4pm has two ggen-manufactured discovery implementations of the same admitted semantics —
-`generated/erlang/src/beam4pm_discovery.erl` and `generated/elixir/lib/beam4pm_discovery.ex`
+`src/beam4pm_discovery.erl` and `lib/beam4pm_discovery.ex`
 (`BeamPM.Discovery`) — plus an external rust4pm oracle (native binary and wasm32-wasip1 module)
 speaking a fixed stdin/stdout wire contract. Duplicate implementations silently diverging is the
 standing risk this gate exists to catch: `scripts/oracle_check.sh` runs a seeded battery of
@@ -196,5 +196,5 @@ gate's own qualification receipt.
 - `14-rust4pm-reference-boundary.md` — why rust4pm is an external oracle, never a source to
   port
 - `16-gate-closure-m0-m6.md` — milestone gate closure this check feeds
-- `generated/erlang/src/beam4pm_discovery.erl`, `generated/elixir/lib/beam4pm_discovery.ex` —
+- `src/beam4pm_discovery.erl`, `lib/beam4pm_discovery.ex` —
   the implementations under differential test

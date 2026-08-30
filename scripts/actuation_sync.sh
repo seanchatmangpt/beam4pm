@@ -28,7 +28,7 @@ mix ggen_igniter.sync \
   --query admitted="$IGN/queries/admitted_actions.rq" \
   --query admitted_requires="$IGN/queries/admitted_requires.rq" \
   --template "$IGN/templates/beam4pm_actuation.ex.eex" \
-  --out generated/elixir/lib/beam4pm_actuation.ex
+  --out lib/beam4pm_actuation.ex
 
 # 2. Chicago ExUnit qualification suite: real Reactor runs against the real
 #    python3 fixture gym bridge (admitted / refused / missing-fact /
@@ -38,7 +38,7 @@ mix ggen_igniter.sync \
   --query admitted="$IGN/queries/admitted_actions.rq" \
   --query admitted_requires="$IGN/queries/admitted_requires.rq" \
   --template "$IGN/templates/beam4pm_actuation_test.exs.eex" \
-  --out generated/elixir/test/beam4pm_actuation_test.exs
+  --out test/beam4pm_actuation_test.exs
 
 # Verify.
 mix compile --warnings-as-errors

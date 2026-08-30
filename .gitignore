@@ -10,10 +10,10 @@ _build/
 deps/
 .elixir_ls/
 
-# Gleam build artifacts (generated/gleam/gleam.toml is ggen output and IS
+# Gleam build artifacts (gleam/gleam.toml is ggen output and IS
 # committed; the compiler's own outputs below it are not)
-generated/gleam/build/
-generated/gleam/manifest.toml
+gleam/build/
+gleam/manifest.toml
 erl_crash.dump
 
 .DS_Store

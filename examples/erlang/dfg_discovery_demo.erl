@@ -16,7 +16,7 @@
 %% produced beam4pm_types/discovery/codec .beam files):
 %%   escript examples/erlang/dfg_discovery_demo.erl _build/default/lib/beam4pm/ebin
 %% or compile ad hoc:
-%%   mkdir -p /tmp/b4pm_ebin && erlc -o /tmp/b4pm_ebin generated/erlang/src/*.erl
+%%   mkdir -p /tmp/b4pm_ebin && erlc -o /tmp/b4pm_ebin src/*.erl
 %%   escript examples/erlang/dfg_discovery_demo.erl /tmp/b4pm_ebin
 
 main([EbinDir | _]) ->

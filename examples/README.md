@@ -29,11 +29,11 @@ end to end. They are **not**:
 For exhaustive validation of every one of the 31 admitted record types (not
 just `ocel_event`), see the generated test suites instead:
 
-- `generated/erlang/test/beam4pm_types_tests.erl` — 62 of the 94 EUnit tests
+- `test/beam4pm_types_tests.erl` — 62 of the 94 EUnit tests
   (2 per record type: a valid-construction test and a missing-required-field
   test), the remaining 32 come from `beam4pm_types_manifest_tests.erl`
   (1 count test + 31 per-record field-list tests).
-- `generated/elixir/test/beam4pm_types_test.exs` and
+- `test/beam4pm_types_test.exs` and
   `beam4pm_types_manifest_test.exs` — the same split for the 95 ExUnit tests.
 
 Those are ggen-manufactured unit tests validating schema-level correctness
@@ -58,6 +58,6 @@ substitute for it.
 - `docs/jira/v26.8.29/03-architecture-and-ggen-manufacturing.md` — manufacturing
   acceptance crowns (`ERLANG_EXAMPLES_ALIVE`, `GLEAM_EXAMPLES_ALIVE`, etc.)
   and the generated-repository-surfaces layout.
-- `generated/README.md` — the source-authority doctrine for manufactured
-  output.
+- [`CONTRIBUTING.md`](../CONTRIBUTING.md) — the source-authority doctrine for
+  manufactured output.
 - `playground/README.md` — the sibling placeholder for the `playground/` gate.

@@ -2,7 +2,7 @@
 # (gates PI7/PI8, docs/jira/v26.8.29/11-release-gates-receipts.md).
 #
 # Run from the beam4pm repo root (after `bash scripts/actuation_sync.sh` has
-# manufactured generated/elixir/lib/beam4pm_actuation.ex):
+# manufactured lib/beam4pm_actuation.ex):
 #
 #     mix run scripts/actuation_selfmine.exs
 #
