@@ -1,0 +1,146 @@
+@prefix b4: <https://beam4pm.dev/runtime/> .
+@prefix rt: <https://ggen.dev/ontology/runtime-integration#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix ocel: <https://www.ocel-standard.org/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Canonical post-LLM runtime contract for beam4pm.
+# This graph has no ambient execution authority. It manufactures the runtime
+# seams that bind SELECT != CONSTRUCT != DO, exact subject identity, explicit
+# policy admission, receipts, replay, refusals, compensation and observability.
+
+b4:post_llm_runtime a rt:Integration, rt:RuntimeContract ;
+  rt:hasSubject b4:subject ;
+  rt:hasAuthorityPolicy b4:authority_policy ;
+  rt:hasReceipt b4:receipt ;
+  rt:replayActivity b4:replay ;
+  rt:hasReplayKey "beam4pm-c7d871a7-post-llm-runtime-v1" ;
+  rt:replayKey "beam4pm-c7d871a7-post-llm-runtime-v1" ;
+  rt:enablesCapability "classify_standing",
+    "compensate",
+    "emit_event_envelope",
+    "infer_hypothesis",
+    "manufacture_intent",
+    "observe_process_twin",
+    "plan_candidate",
+    "policy_evaluation",
+    "rank_reversible_options",
+    "receipt_replay",
+    "select_candidate",
+    "write_receipted_file" ;
+  rt:hasDependencyDigest "ggen-marketplace-598f4b45fe980183d0396fb564a61cd88dd9bcd3" ;
+  rt:hasConfigDigest "beam4pm-post-llm-runtime-v2" ;
+  rt:runtimeConfig b4:runtime_config ;
+  rt:resourceModule "BeamPM.Ash.Domain" ;
+  rt:domainModule "BeamPM.Ash.Domain" ;
+  rt:actionName "admit_and_execute" ;
+  rt:reactorModule "BeamPM.PostLLM.Reactor" ;
+  rt:hasStep b4:observe_step, b4:admit_step, b4:actuate_step, b4:receipt_step ;
+  rt:compensationAction "rollback_to_last_receipted_state" ;
+  rt:refusalCode "AUTHORITY_REFUSED" ;
+  rt:refusalReason "The candidate has no admitted capability for the requested DO boundary" ;
+  rt:sourcePath "contracts/post-llm-runtime/ontology.ttl" ;
+  rt:projectionPath "contracts/post-llm-runtime/generated" ;
+  rt:repositoryModule "BeamPM.PostLLM.Repository" ;
+  rt:dataLayer "ets" ;
+  rt:apiModule "BeamPM.PostLLM.API" ;
+  rt:route "/v1/post-llm/execute" ;
+  rt:httpMethod "POST" ;
+  rt:cliModule "BeamPM.PostLLM.CLI" ;
+  rt:command "beam4pm post-llm execute" ;
+  rt:emitsObjectType b4:process_twin ;
+  rt:emitsEventType b4:execution_event ;
+  rt:idempotencyKey "request.idempotency_key" ;
+  rt:telemetryEvent "beam4pm.post_llm.runtime" ;
+  rt:telemetryMetric "beam4pm.post_llm.duration_ms" ;
+  rt:transactionStrategy "saga" ;
+  rt:transactionBoundary "receipted_actuation" ;
+  rt:timeoutMs 30000 ;
+  rt:maxAttempts 3 ;
+  rt:inputSchema b4:input_schema ;
+  rt:outputSchema b4:output_schema ;
+  rt:errorModule "BeamPM.PostLLM.Error" ;
+  rt:errorCode "POST_LLM_RUNTIME_ERROR" ;
+  rt:positiveWitness b4:witness ;
+  rt:actorSource "context.actor" ;
+  rt:actorRequired true ;
+  rt:tenantSource "context.tenant" ;
+  rt:tenantRequired true ;
+  rt:correlationIdSource "context.correlation_id" ;
+  rt:correlationIdRequired true ;
+  rt:causationIdSource "context.causation_id" ;
+  rt:traceIdSource "context.trace_id" ;
+  rt:spanIdSource "context.span_id" ;
+  rt:versionSource "request.subject_version" ;
+  rt:versionRequired true ;
+  rt:optimisticLockField "subject_version" ;
+  rt:defaultLimit 100 ;
+  rt:maxLimit 1000 ;
+  rt:cursorField "receipt_id" ;
+  rt:cursorDirection "forward" ;
+  rt:maxBatchSize 100 ;
+  rt:streamChunkSize 50 ;
+  rt:backpressureMode "bounded" ;
+  rt:cancellationTokenSource "context.cancellation_token" ;
+  rt:deadlineSource "context.deadline" ;
+  rt:circuitFailureThreshold 5 ;
+  rt:circuitResetMs 30000 ;
+  rt:maxConcurrent 32 ;
+  rt:queueLimit 256 ;
+  rt:cacheTtlMs 5000 ;
+  rt:cacheScope "subject" ;
+  rt:readConsistency "strong" ;
+  rt:writeConsistency "receipted" ;
+  rt:isolationLevel "serializable" ;
+  rt:featureFlag "post_llm_runtime" ;
+  rt:featureDefault false ;
+  rt:rateLimitCapacity 60 ;
+  rt:rateLimitWindowMs 60000 ;
+  rt:rateLimitKeySource "context.actor" ;
+  rt:createdByField "created_by" ;
+  rt:updatedByField "updated_by" ;
+  rt:createdAtField "created_at" ;
+  rt:updatedAtField "updated_at" ;
+  rt:inputNormalizer "BeamPM.PostLLM.Normalize" ;
+  rt:normalizationMode "canonical" ;
+  rt:outputSanitizer "BeamPM.PostLLM.Sanitize" ;
+  rt:sanitizationMode "public_receipt" ;
+  rt:policyModule "BeamPM.PostLLM.Policy" ;
+  rt:policyContextSource "context" ;
+  rt:domainErrorCodeField "code" ;
+  rt:domainErrorMessageField "message" ;
+  rt:domainErrorDetailsField "details" ;
+  rt:eventTypeField "event_type" ;
+  rt:eventSubjectField "subject" ;
+  rt:eventTimeField "recorded_at" ;
+  rt:eventDataField "data" .
+
+b4:subject a rt:ExactSubject ;
+  dct:identifier "c7d871a7f86ebe7af51d9bf1f294bc755b30e0cf" ;
+  dct:isPartOf "seanchatmangpt/beam4pm" ;
+  dct:source "main" .
+
+b4:authority_policy odrl:permission [ odrl:action odrl:use ] .
+
+b4:runtime_config a rt:RuntimeConfig .
+b4:input_schema a prov:Entity .
+b4:output_schema a prov:Entity .
+b4:process_twin a ocel:ObjectType .
+b4:execution_event a ocel:EventType .
+
+b4:observe_step rt:stepModule "BeamPM.PostLLM.Observe" .
+b4:admit_step rt:stepModule "BeamPM.PostLLM.Admit" .
+b4:actuate_step rt:stepModule "BeamPM.PostLLM.Actuate" .
+b4:receipt_step rt:stepModule "BeamPM.PostLLM.Receipt" .
+
+b4:receipt a rt:Receipt ;
+  prov:wasGeneratedBy b4:actuation .
+
+b4:replay a rt:Replay .
+
+b4:witness a rt:PositiveWitness ;
+  prov:wasGeneratedBy b4:actuation .
+
+b4:actuation a prov:Activity .

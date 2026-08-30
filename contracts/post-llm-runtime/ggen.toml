@@ -1,0 +1,11 @@
+[project]
+name = "beam4pm-post-llm-runtime"
+
+[ontology]
+source = "ontology.ttl"
+
+[packs]
+runtime = { git = "https://github.com/seanchatmangpt/ggen-marketplace.git", version = "783b44d585ae123f4ed805add5aab0ea97f76f0a", subdir = "packs/beam4pm-post-llm-runtime-pack" }
+
+[templates]
+dir = "templates"

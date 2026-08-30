@@ -1,0 +1,128 @@
+name: Post-LLM Runtime Contract
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "contracts/post-llm-runtime/**"
+      - ".github/workflows/post-llm-runtime.yml"
+  push:
+    branches: [main]
+    paths:
+      - "contracts/post-llm-runtime/**"
+      - ".github/workflows/post-llm-runtime.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  manufacture:
+    name: GGen manufacture
+    uses: seanchatmangpt/ggen/.github/workflows/ggen-sync-run.yml@36caa86eba04de0eae1769e71142df86fd370854
+    with:
+      ggen_release: v26.8.27
+      ggen_asset_sha256: ab442ced90a9836fd4eb07a5d61eb58293843cd515d864699fc0d0453444a035
+      working_directory: contracts/post-llm-runtime
+      dry_run: false
+
+  chicago:
+    name: Governed post-LLM BRCE Chicago
+    needs: manufacture
+    if: needs.manufacture.outputs.sync_exit_code == '0'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout exact caller head
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+
+      - name: Recover manufactured projection from GGen receipt artifact
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: ggen-sync-*
+          merge-multiple: true
+          path: .ggen-evidence
+
+      - name: Materialize manufactured files
+        run: |
+          set -euo pipefail
+          test -s .ggen-evidence/github-sync-receipt.json
+          test -s .ggen-evidence/untracked-output.tar.gz
+          tar -xzf .ggen-evidence/untracked-output.tar.gz
+
+      - name: Set up BEAM
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
+        with:
+          otp-version: "27.2"
+          elixir-version: "1.17.3"
+
+      - name: Prove generated surfaces and hash exact projection
+        run: |
+          set -euo pipefail
+          root=contracts/post-llm-runtime/generated/post_llm
+          test -s "$root/runtime.ex"
+          test -s "$root/runtime_test.exs"
+          test -s "$root/README.md"
+          sha256sum "$root/runtime.ex" "$root/runtime_test.exs" "$root/README.md" | sort > .ggen-evidence/post-llm-generated.sha256
+
+      - name: Compile generated runtime with warnings as errors
+        run: |
+          set -euo pipefail
+          root=contracts/post-llm-runtime/generated/post_llm
+          mkdir -p /tmp/post-llm-ebin
+          elixirc --warnings-as-errors -o /tmp/post-llm-ebin "$root/runtime.ex"
+
+      - name: Execute generated Chicago witness
+        run: |
+          set -euo pipefail
+          root=contracts/post-llm-runtime/generated/post_llm
+          elixir "$root/runtime_test.exs" | tee .ggen-evidence/post-llm-chicago.log
+          grep -Eq '[0-9]+ tests, 0 failures' .ggen-evidence/post-llm-chicago.log
+
+      - name: Bind execution receipt
+        run: |
+          set -euo pipefail
+          jq -n \
+            --arg source_sha "$GITHUB_SHA" \
+            --arg ggen_receipt_sha256 "${{ needs.manufacture.outputs.receipt_sha256 }}" \
+            --arg ggen_binary_sha256 "${{ needs.manufacture.outputs.ggen_binary_sha256 }}" \
+            --arg pack_sha "783b44d585ae123f4ed805add5aab0ea97f76f0a" \
+            --arg exact_subject "c7d871a7f86ebe7af51d9bf1f294bc755b30e0cf" \
+            '{
+              standing: "ALIVE[POST_LLM_GOVERNED_RUNTIME]",
+              source_sha: $source_sha,
+              exact_subject: $exact_subject,
+              pack_sha: $pack_sha,
+              ggen_binary_sha256: $ggen_binary_sha256,
+              ggen_receipt_sha256: $ggen_receipt_sha256,
+              generated_sha256_ledger: "post-llm-generated.sha256",
+              executed: [
+                "exact_subject_positive_negative",
+                "knowledge_hook_no_do",
+                "capability_refusal_before_do",
+                "select_construct_do_separation",
+                "odrl_authority_admission",
+                "real_filesystem_actuation",
+                "deterministic_receipt_verification",
+                "replay_manufactures_non_authorized_intent",
+                "actuator_failure_receipted",
+                "dfcm_reversible_option_ranking",
+                "standing_evidence_dimensions",
+                "event_envelope",
+                "idempotency_key",
+                "compensation_intent"
+              ]
+            }' > .ggen-evidence/post-llm-chicago-receipt.json
+          sha256sum .ggen-evidence/post-llm-chicago-receipt.json
+
+      - name: Upload Chicago receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: post-llm-chicago-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            .ggen-evidence/post-llm-chicago-receipt.json
+            .ggen-evidence/post-llm-generated.sha256
+            .ggen-evidence/post-llm-chicago.log
+            .ggen-evidence/github-sync-receipt.json
+          if-no-files-found: error
