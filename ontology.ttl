@@ -1201,6 +1201,8 @@ bex:infraValidateWorkflow
     gha:fileName "beam4pm-infra-validate.yml" ;
     gha:purpose "beam4pm Infra Validate (Terraform + Packer, validate-only)" ;
     gha:permissionCeiling "contents: read" ;
+    gha:concurrencyPolicy """group: ${{ github.workflow }}-${{ github.ref }}
+cancel-in-progress: true""" ;
     gha:trigger gha:EventPush ;
     gha:trigger gha:EventPullRequest ;
     gha:trigger gha:EventWorkflowDispatch ;

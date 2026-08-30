@@ -1,0 +1,33 @@
+version: 2
+updates:
+  # Keep every pinned GitHub Actions commit SHA current. All workflows in
+  # this repo pin third-party actions to a full commit SHA (never a
+  # floating tag) per gh-terraform-pack/github-actions-pack's own security
+  # gate convention -- Dependabot is the mechanism that then keeps those
+  # pins from silently going stale.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Elixir/Hex dependencies (mix.exs / mix.lock).
+  - package-ecosystem: "mix"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Root Dockerfile base image and build-stage image tags.
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Terraform provider version constraints under infra/gcp/cloudrun.
+  - package-ecosystem: "terraform"
+    directory: "/infra/gcp/cloudrun"
+    schedule:
+      interval: "weekly"
