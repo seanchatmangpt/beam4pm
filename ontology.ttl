@@ -3217,3 +3217,21 @@ b4pe:renewal_option_term_months_f a bpm:Field ;
 
 b4pe:renewal_option_notice_by_f a bpm:Field ;
     bpm:fieldName "notice_by" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Renewal notice deadline." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-040 -- Pre-negotiated expansion right for a SKU and unit ceiling.
+b4pe:expansion_option_rt a bpm:RecordType ;
+    bpm:recordName "expansion_option" ;
+    bpm:recordDoc "Pre-negotiated expansion right for a SKU and unit ceiling." ;
+    bpm:hasField b4pe:expansion_option_option_id_f , b4pe:expansion_option_account_id_f , b4pe:expansion_option_sku_f , b4pe:expansion_option_max_quantity_f .
+
+b4pe:expansion_option_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable expansion option." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:expansion_option_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Eligible enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:expansion_option_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Expandable SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:expansion_option_max_quantity_f a bpm:Field ;
+    bpm:fieldName "max_quantity" ; bpm:fieldType "integer" ; bpm:fieldDoc "Maximum expansion quantity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
