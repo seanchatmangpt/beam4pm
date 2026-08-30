@@ -42,3 +42,4 @@ b4:pro_runtime rt:enablesCapability "pro_qualified_poc_bootstrap" .
 b4:pro_runtime rt:enablesCapability "pro_scenario_catalog_discovery" .
 b4:pro_runtime rt:enablesCapability "pro_fortune5_sample_workload" .
 b4:pro_runtime rt:enablesCapability "pro_solution_architect_doctor" .
+b4:pro_runtime rt:enablesCapability "pro_proof_of_value_scorecard" .
