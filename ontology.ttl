@@ -3001,3 +3001,21 @@ b4pe:add_on_bundle_capability_ids_f a bpm:Field ;
 
 b4pe:add_on_bundle_status_f a bpm:Field ;
     bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Add-on lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-028 -- Immutable commercial catalog release with effective time.
+b4pe:catalog_release_rt a bpm:RecordType ;
+    bpm:recordName "catalog_release" ;
+    bpm:recordDoc "Immutable commercial catalog release with effective time." ;
+    bpm:hasField b4pe:catalog_release_release_id_f , b4pe:catalog_release_version_f , b4pe:catalog_release_sku_ids_f , b4pe:catalog_release_effective_at_f .
+
+b4pe:catalog_release_release_id_f a bpm:Field ;
+    bpm:fieldName "release_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable catalog release." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:catalog_release_version_f a bpm:Field ;
+    bpm:fieldName "version" ; bpm:fieldType "string" ; bpm:fieldDoc "Catalog semantic version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:catalog_release_sku_ids_f a bpm:Field ;
+    bpm:fieldName "sku_ids" ; bpm:fieldType "list_string" ; bpm:fieldDoc "Published SKU identities." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:catalog_release_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Catalog activation instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
