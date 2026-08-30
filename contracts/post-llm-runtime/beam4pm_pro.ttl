@@ -45,3 +45,4 @@ b4:pro_runtime rt:enablesCapability "pro_solution_architect_doctor" .
 b4:pro_runtime rt:enablesCapability "pro_proof_of_value_scorecard" .
 b4:pro_runtime rt:enablesCapability "pro_stakeholder_value_summary" .
 b4:pro_runtime rt:enablesCapability "pro_migration_import_readiness" .
+b4:pro_runtime rt:enablesCapability "pro_renewal_expansion_evidence" .
