@@ -62,8 +62,13 @@ A first bounded slice, manufactured via the `beam4pm-process-model-pack`
   (`beam4pm_codec`/`BeamPM.Codec` — map/JSON in both directions) and
   discovery/conformance (`beam4pm_discovery`/`BeamPM.Discovery` and the
   Gleam `beam4pm/discovery` — `traces_from_events/2`, `dfg_from_traces/1`,
-  `conformance/2`). No alignment search, no Petri-net replay, and
-  `conformance_result.precision` is never computed — fitness only.
+  `conformance/2`). No alignment search, no Petri-net replay. For
+  Erlang/Elixir, `conformance_result.precision` IS computed — real ETC
+  (escaping-edges) precision via `beam4pm_precision:etc_precision/2,3`
+  (`src/beam4pm_precision.erl`, `lib/beam4pm_precision.ex`), called from
+  `src/beam4pm_discovery.erl:154`. Gleam's `beam4pm/discovery` still
+  hardcodes `precision: option.None` (`gleam/src/beam4pm/discovery.gleam:134`)
+  — no `beam4pm/precision.gleam` module exists yet.
 - Cross-language identity is proven for Erlang↔Elixir:
   `bash scripts/roundtrip_check.sh` round-trips all 31 records × full/minimal
   variants over the JSON wire in both directions (Gleam has no codec leg yet).
