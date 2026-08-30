@@ -1,0 +1,40 @@
+@prefix b4: <https://beam4pm.dev/runtime/> .
+@prefix rt: <https://ggen.dev/ontology/runtime-integration#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+
+# Dedicated canonical beam4pm_pro runtime graph. This is manufacturing input;
+# generated runtime projections remain ggen-owned.
+b4:pro_runtime a rt:Integration, rt:RuntimeContract ;
+  rt:hasSubject b4:pro_subject ;
+  rt:hasAuthorityPolicy b4:pro_authority_policy ;
+  rt:replayKey "beam4pm-pro-runtime-v1" ;
+  rt:refusalCode "AUTHORITY_REFUSED" ;
+  rt:refusalReason "beam4pm_pro DO requires an exact subject, admitted capability, policy context and explicit authority" ;
+  rt:enablesCapability
+    "classify_standing",
+    "compensate",
+    "emit_event_envelope",
+    "infer_hypothesis",
+    "manufacture_intent",
+    "observe_process_twin",
+    "plan_candidate",
+    "policy_evaluation",
+    "rank_reversible_options",
+    "receipt_replay",
+    "select_candidate",
+    "write_receipted_file",
+    "pro_exact_subject_rebinding",
+    "pro_enterprise_opportunity_admission",
+    "pro_icp_qualification",
+    "pro_business_outcome_hypothesis",
+    "pro_use_case_decomposition",
+    "pro_stakeholder_authority_map",
+    "pro_rfp_requirement_ingestion" .
+
+b4:pro_subject a rt:ExactSubject ;
+  dct:identifier "16d6d7a75d0e2283925e3bc8553c10f19bce72a0" ;
+  dct:isPartOf "seanchatmangpt/beam4pm" ;
+  dct:source "main" .
+
+b4:pro_authority_policy odrl:permission [ odrl:action odrl:use ] .
