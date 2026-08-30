@@ -149,3 +149,4 @@ b4:actuation a prov:Activity .
 b4:post_llm_runtime rt:enablesCapability "pro_exact_subject_rebinding" .
 b4:post_llm_runtime rt:enablesCapability "pro_enterprise_opportunity_admission" .
 b4:post_llm_runtime rt:enablesCapability "pro_icp_qualification" .
+b4:post_llm_runtime rt:enablesCapability "pro_business_outcome_hypothesis" .
