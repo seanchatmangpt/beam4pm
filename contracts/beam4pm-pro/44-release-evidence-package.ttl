@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2604 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2604" ; dct:title "Release evidence package" ;
+ pro:requiredEvidence "release package binds exact source, manufacturing inputs, toolchain, tests, SBOM, signatures, artifact digests, known limitations, approval and replay instructions" ;
+ pro:authorityCeiling "VERIFY" ; pro:refusalCode "REFUSED[RELEASE_EVIDENCE_INCOMPLETE]" ;
+ pro:exactArtifactRequired true ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/07-security-airgap-compliance.md> .
