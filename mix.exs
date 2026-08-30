@@ -27,11 +27,16 @@ defmodule Beam4pm.MixProject do
   # see scripts/igniter_sync.sh) -- never a runtime dependency of generated
   # code. Compiling it requires a working Rust/cargo toolchain (its default
   # oxigraph query engine is a Rustler NIF). :ash IS a real runtime
-  # dependency of the manufactured lib/beam4pm_ash.ex.
+  # dependency of the manufactured lib/beam4pm_ash.ex. :wasmex hosts the ONE
+  # process-mining engine (rust4pm compiled to wasm32-wasip1, see
+  # native/rust4pm-wasm/ and lib/beam4pm_rust4pm.ex); Elixir/Erlang/Gleam are
+  # facades over it, so it is a runtime dep like :ash, not a
+  # manufacturing-time dep like :ggen_igniter.
   defp deps do
     [
       {:ggen_igniter, "~> 26.8", only: [:dev, :test], runtime: false},
-      {:ash, "~> 3.0"}
+      {:ash, "~> 3.0"},
+      {:wasmex, "~> 0.15"}
     ]
   end
 end
