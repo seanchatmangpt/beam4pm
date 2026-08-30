@@ -1700,3 +1700,84 @@ bap:evidence_hit_rank_f a aic:Field ;
     aic:fieldDoc "Rank position of this hit within its query's result set." ;
     aic:fieldRequired "true" ;
     aic:fieldOrder 6 .
+
+# =============================================================================
+# BeamPM.ProcessGovernor instance data (multi-step process governance,
+# delegates entirely to the existing bpma:AdmittedActuation graph above)
+# =============================================================================
+# fragment never declares its own bpma:AdmittedActuation individuals.
+
+@prefix bpmg: <https://ggen.dev/ontology/beam4pm-process-governor#> .
+@prefix bpma: <https://ggen.dev/ontology/beam4pm-actuation#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# -- Vocabulary (two classes, five properties; no admission/execution/receipt
+#    concepts duplicated from bpma:/BeamPM.Actuation) -------------------------
+
+bpmg:ProcessContract a rdfs:Class ;
+    rdfs:comment "A named, ordered sequence of admitted actuations forming one governed multi-step process. Confers zero actuation authority of its own: every transition still passes through BeamPM.Actuation's real admit/execute/receipt boundary one layer down. Distinct from bpma:AdmittedActuation (a single admitted actuation) the way a plan is distinct from one of its steps." .
+
+bpmg:ProcessTransition a rdfs:Class ;
+    rdfs:comment "One step of a bpmg:ProcessContract: an exact from-state/to-state pair mapped to exactly one already-admitted bpma:AdmittedActuation by name (bpmg:actuationName). Carries no admission, execution, or receipt logic of its own -- BeamPM.ProcessGovernor.apply_transition/3 delegates the actual admit/execute/receipt work to BeamPM.Actuation.run/2 for the named actuation." .
+
+bpmg:processId a rdf:Property ;
+    rdfs:domain bpmg:ProcessContract ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Stable process identifier, unique across the merged graph." .
+
+bpmg:initialState a rdf:Property ;
+    rdfs:domain bpmg:ProcessContract ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The state a fresh BeamPM.ProcessGovernor.initial_snapshot/2 starts at." .
+
+bpmg:hasTransition a rdf:Property ;
+    rdfs:domain bpmg:ProcessContract ;
+    rdfs:range bpmg:ProcessTransition .
+
+bpmg:ordinal a rdf:Property ;
+    rdfs:domain bpmg:ProcessTransition ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "1-based position of this transition within its contract's sequence." .
+
+bpmg:fromState a rdf:Property ;
+    rdfs:domain bpmg:ProcessTransition ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Exact-state-hash precondition: apply_transition/3 refuses unless the snapshot presented was produced at exactly this state." .
+
+bpmg:toState a rdf:Property ;
+    rdfs:domain bpmg:ProcessTransition ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The state the snapshot advances to once the delegated BeamPM.Actuation.run/2 call succeeds." .
+
+bpmg:actuationName a rdf:Property ;
+    rdfs:domain bpmg:ProcessTransition ;
+    rdfs:range xsd:string ;
+    rdfs:comment "MUST equal a bpma:actionName of some bpma:AdmittedActuation individual already admitted in this graph. This vocabulary never defines its own admitted-action names or gym ops -- BeamPM.Actuation.admitted_actuations/0 is the single source of truth apply_transition/3 consults." .
+
+# -- Instance data (consumer-admitted) ---------------------------------------
+#
+# A 2-step governed process over the toy-counter gym, reusing the two
+# bpma:AdmittedActuation individuals beam4pm already admits at
+# ontology.ttl:915-922 (bpma:increment_counter_aa, action_name
+# "increment_counter", requires "counter_ready"; bpma:observe_counter_aa,
+# action_name "observe_counter", no required facts). No new bpma:
+# individuals are declared here.
+
+bpmg:toy_counter_governed a bpmg:ProcessContract ;
+    bpmg:processId "toy_counter_governed" ;
+    bpmg:initialState "reset" ;
+    bpmg:hasTransition bpmg:toy_counter_t1, bpmg:toy_counter_t2 .
+
+bpmg:toy_counter_t1 a bpmg:ProcessTransition ;
+    bpmg:ordinal 1 ;
+    bpmg:fromState "reset" ;
+    bpmg:toState "incremented_once" ;
+    bpmg:actuationName "increment_counter" .
+
+bpmg:toy_counter_t2 a bpmg:ProcessTransition ;
+    bpmg:ordinal 2 ;
+    bpmg:fromState "incremented_once" ;
+    bpmg:toState "observed" ;
+    bpmg:actuationName "observe_counter" .
