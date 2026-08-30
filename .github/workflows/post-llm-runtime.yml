@@ -64,11 +64,18 @@ jobs:
           test -s "$root/README.md"
           sha256sum "$root/runtime.ex" "$root/runtime_test.exs" "$root/README.md" | sort > .ggen-evidence/post-llm-generated.sha256
 
+      - name: Compile generated runtime with warnings as errors
+        run: |
+          set -euo pipefail
+          root=contracts/post-llm-runtime/generated/post_llm
+          mkdir -p /tmp/post-llm-ebin
+          elixirc --warnings-as-errors -o /tmp/post-llm-ebin "$root/runtime.ex"
+
       - name: Execute generated Chicago witness
         run: |
           set -euo pipefail
           root=contracts/post-llm-runtime/generated/post_llm
-          elixir --warnings-as-errors "$root/runtime_test.exs" | tee .ggen-evidence/post-llm-chicago.log
+          elixir "$root/runtime_test.exs" | tee .ggen-evidence/post-llm-chicago.log
           grep -Eq '[0-9]+ tests, 0 failures' .ggen-evidence/post-llm-chicago.log
 
       - name: Bind execution receipt
