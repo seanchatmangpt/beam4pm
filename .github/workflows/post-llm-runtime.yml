@@ -1,0 +1,160 @@
+name: Post-LLM Runtime Contract
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "contracts/post-llm-runtime/**"
+      - ".github/workflows/post-llm-runtime.yml"
+  push:
+    branches: [main]
+    paths:
+      - "contracts/post-llm-runtime/**"
+      - ".github/workflows/post-llm-runtime.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  manufacture:
+    name: GGen manufacture
+    uses: seanchatmangpt/ggen/.github/workflows/ggen-sync-run.yml@36caa86eba04de0eae1769e71142df86fd370854
+    with:
+      ggen_release: v26.8.27
+      ggen_asset_sha256: ab442ced90a9836fd4eb07a5d61eb58293843cd515d864699fc0d0453444a035
+      working_directory: contracts/post-llm-runtime
+      dry_run: false
+
+  chicago:
+    name: Exact-subject authority receipt replay Chicago
+    needs: manufacture
+    if: needs.manufacture.outputs.sync_exit_code == '0'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout exact caller head
+        uses: actions/checkout@v4
+
+      - name: Recover manufactured projection from GGen receipt artifact
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ggen-sync-*
+          merge-multiple: true
+          path: .ggen-evidence
+
+      - name: Materialize manufactured files
+        run: |
+          set -euo pipefail
+          test -s .ggen-evidence/github-sync-receipt.json
+          test -s .ggen-evidence/untracked-output.tar.gz
+          tar -xzf .ggen-evidence/untracked-output.tar.gz
+
+      - name: Set up BEAM
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: "27.2"
+          elixir-version: "1.17.3"
+
+      - name: Prove advanced generated surfaces exist
+        run: |
+          set -euo pipefail
+          root=contracts/post-llm-runtime/generated
+          for file in \
+            exact_subject.ex \
+            authority_gate.ex \
+            runtime_receipt.ex \
+            runtime_replay.ex \
+            runtime_refusal.ex \
+            idempotency.ex \
+            runtime_telemetry.ex \
+            runtime_transaction.ex \
+            runtime_compensation.ex \
+            runtime_retry.ex \
+            circuit_breaker.ex \
+            bulkhead.ex \
+            rate_limit.ex \
+            policy_context.ex \
+            event_envelope.ex
+          do
+            test -s "$root/$file" || { echo "missing generated capability: $file" >&2; exit 1; }
+          done
+          sha256sum "$root"/*.ex | sort > .ggen-evidence/post-llm-generated.sha256
+
+      - name: Execute exact subject, authority, receipt, replay and refusal
+        shell: bash
+        run: |
+          set -euo pipefail
+          elixir <<'ELIXIR'
+          root = "contracts/post-llm-runtime/generated"
+
+          Code.require_file(Path.join(root, "exact_subject.ex"))
+          Code.require_file(Path.join(root, "authority_gate.ex"))
+
+          identity = Ggen.RuntimeIntegration.ExactSubject.identity()
+          expected = %{
+            repo: "seanchatmangpt/beam4pm",
+            base: "main",
+            head: "c7d871a7f86ebe7af51d9bf1f294bc755b30e0cf"
+          }
+
+          unless identity == expected, do: raise("exact subject mismatch: #{inspect(identity)}")
+          unless Ggen.RuntimeIntegration.ExactSubject.exact?(expected), do: raise("exact subject refused expected identity")
+          if Ggen.RuntimeIntegration.ExactSubject.exact?(Map.put(expected, :head, "wrong")), do: raise("exact subject admitted wrong head")
+
+          authority_source = File.read!(Path.join(root, "authority_gate.ex"))
+          [_, action] = Regex.run(~r/@allowed_action\s+"([^"]+)"/, authority_source)
+          unless String.ends_with?(action, "use"), do: raise("unexpected ODRL action: #{action}")
+
+          :ok = Ggen.RuntimeIntegration.AuthorityGate.authorize(%{action: action, policy: :admitted})
+          {:error, {:refused, :authority, "forbidden"}} =
+            Ggen.RuntimeIntegration.AuthorityGate.authorize(%{action: "forbidden", policy: :admitted})
+          {:error, {:refused, :authority, :missing_action}} =
+            Ggen.RuntimeIntegration.AuthorityGate.authorize(%{})
+
+          [{receipt_mod, _} | _] = Code.require_file(Path.join(root, "runtime_receipt.ex"))
+          receipt = apply(receipt_mod, :new, [identity, action, :ok, "beam4pm-c7d871a7-post-llm-runtime-v1"])
+          unless Map.get(receipt, :subject) == identity, do: raise("receipt lost exact subject")
+          unless Map.get(receipt, :result) == :ok, do: raise("receipt lost consequence")
+
+          [{replay_mod, _} | _] = Code.require_file(Path.join(root, "runtime_replay.ex"))
+          replayed = apply(replay_mod, :replay, [Map.from_struct(receipt), fn key -> {:replayed, key} end])
+          {:replayed, "beam4pm-c7d871a7-post-llm-runtime-v1"} = replayed
+          {:error, {:refused, :missing_replay_key}} =
+            apply(replay_mod, :replay, [%{replay_key: nil}, fn key -> key end])
+
+          [{refusal_mod, _} | _] = Code.require_file(Path.join(root, "runtime_refusal.ex"))
+          refusal = apply(refusal_mod, :new, ["AUTHORITY_REFUSED", "no admitted capability", identity])
+          {:refused, "AUTHORITY_REFUSED", "no admitted capability"} = apply(refusal_mod, :tagged, [refusal])
+
+          IO.puts("POST_LLM_CHICAGO_ALIVE exact_subject authority receipt replay refusal")
+          ELIXIR
+
+      - name: Bind execution receipt
+        run: |
+          set -euo pipefail
+          jq -n \
+            --arg source_sha "$GITHUB_SHA" \
+            --arg ggen_receipt_sha256 "${{ needs.manufacture.outputs.receipt_sha256 }}" \
+            --arg ggen_binary_sha256 "${{ needs.manufacture.outputs.ggen_binary_sha256 }}" \
+            --arg pack_sha "f060a79416cf1c5e94b997ebe43cd70cf623a188" \
+            --arg exact_subject "c7d871a7f86ebe7af51d9bf1f294bc755b30e0cf" \
+            '{
+              standing: "ALIVE[POST_LLM_RUNTIME_CONTRACT]",
+              source_sha: $source_sha,
+              exact_subject: $exact_subject,
+              pack_sha: $pack_sha,
+              ggen_binary_sha256: $ggen_binary_sha256,
+              ggen_receipt_sha256: $ggen_receipt_sha256,
+              executed: ["exact_subject", "authority_positive", "authority_refusal", "receipt", "replay_positive", "replay_refusal", "typed_refusal"]
+            }' > .ggen-evidence/post-llm-chicago-receipt.json
+          sha256sum .ggen-evidence/post-llm-chicago-receipt.json
+
+      - name: Upload Chicago receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: post-llm-chicago-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            .ggen-evidence/post-llm-chicago-receipt.json
+            .ggen-evidence/post-llm-generated.sha256
+            .ggen-evidence/github-sync-receipt.json
+          if-no-files-found: error
