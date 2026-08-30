@@ -67,7 +67,7 @@ jobs:
       - name: Execute blocking GATE M2 on host with digest-pinned GGen
         shell: bash
         env:
-          GGEN_BIN: ${{ github.workspace }}/scripts/ggen_ecosystem.sh
+          GGEN_WRAPPER: ${{ github.workspace }}/scripts/ggen_ecosystem.sh
           GGEN_ECOSYSTEM_IMAGE: ghcr.io/seanchatmangpt/ggen-ecosystem@sha256:c9ff7e414e0a176df2045c1ea84bd75b6b2fabc7227510b68e6044de067610c8
         run: |
           set -euo pipefail
