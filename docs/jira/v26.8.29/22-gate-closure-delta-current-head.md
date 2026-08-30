@@ -85,9 +85,33 @@ independently confirmed green.
 - `docs/jira/v26.8.29/09-jira-epics-stories-acceptance.md` has not yet been
   re-walked story-by-story against this delta's capital — a real, smaller follow-up,
   not done in this pass.
-- `BeamPM.ProcessGovernor` is not yet wired to the k8s gym — the admitted
-  actuations proven here are single-step, not a continuous governed transition.
 - The k8s-wiring-specific container rebuild, deferred per above.
+
+## Closed since this document was drafted (2026-08-30, commit `7e97583`)
+
+The item above reading *"`BeamPM.ProcessGovernor` is not yet wired to the k8s gym —
+the admitted actuations proven here are single-step, not a continuous governed
+transition"* is now closed: `BeamPM.ProcessGovernor.run/2`'s `continuous: true` mode
+opens exactly one `BeamPM.Actuation.Session` (one bridge open + one `reset`) before
+the first transition, threads that same already-running session through every
+graph-declared transition's delegated `BeamPM.Actuation.run/2` call (each doing
+exactly one gym `step` against the SAME target, never a fresh reset), and closes the
+session exactly once after the last transition via `try/after` on every exit path.
+
+Real evidence, not inspection: `test/beam4pm_process_governor_k8s_test.exs`'s
+`"ProcessGovernor.run/2 continuous: true drives k8s_scaling_governed as one
+continuous 1->3->1 session, receipts prove uid continuity"` test drives the real
+`k8s_scaling_governed` contract (`reset` → `scaled_up` → `scaled_down`) against the
+real `kind-ex4pm` cluster through `qualification/k8s_gym_bridge.py`, and asserts on
+real resulting state: the same k8s Deployment UID persists across both transitions
+(proving one continuously-running target, not two independent resets), the
+`beam4pm-brce/v1` hash chain for the process's `chain_id` verifies end-to-end via
+`BeamPM.ReceiptChain.verify/2`, and the session's own close tears down the demo
+namespace. `mix test test/beam4pm_process_governor_k8s_test.exs
+test/beam4pm_process_governor_test.exs test/beam4pm_receipt_chain_test.exs`: 12/12,
+0 failures, re-confirmed at current head `16d6d7a`. `grep -rn
+"mox\|mock(\|meck\|monkeypatch\|Mox\."` across the touched lib/test files: zero
+hits — no test double anywhere in this path.
 
 ## Correction (2026-08-30, later same day)
 

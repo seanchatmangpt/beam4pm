@@ -6,6 +6,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -33,7 +36,19 @@ jobs:
           rebar3-version: '3.24.0'
           elixir-version: '1.18.5'
           otp-version: '27.2'
-        
+
+      - name: Cache rebar3 dependencies
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: |
+            _build
+            ~/.cache/rebar3
+          key: ${{ runner.os }}-rebar3-27.2-3.24.0-${{ hashFiles('rebar.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-rebar3-27.2-3.24.0-
+            ${{ runner.os }}-rebar3-27.2-
+            ${{ runner.os }}-rebar3-
+
       - name: rebar3 eunit
         shell: bash
         run: |
@@ -51,6 +66,19 @@ jobs:
           cd native/rf2-conformance-oracle && cargo build --release && cd -
           cd native/rf3-ocel-oracle && cargo build --release && cd -
 
+      - name: Cache mix dependencies
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: |
+            deps
+            ~/.hex
+            ~/.mix
+          key: ${{ runner.os }}-mix-27.2-1.18.5-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-27.2-1.18.5-
+            ${{ runner.os }}-mix-27.2-
+            ${{ runner.os }}-mix-
+
       - name: mix deps.get
         shell: bash
         run: |
@@ -67,6 +95,11 @@ jobs:
         run: |
           cd gleam
           gleam test
+
+      - name: Cross-language wire identity (Erlang<->Elixir roundtrip)
+        shell: bash
+        run: |
+          bash scripts/roundtrip_check.sh
 
       - name: Determinism check -- regenerate and diff against committed output
         continue-on-error: true

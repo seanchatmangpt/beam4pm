@@ -28,6 +28,7 @@ defmodule BeamPM.Discovery do
   alias BeamPM.Types.DfgEdge
   alias BeamPM.Types.LogTrace
   alias BeamPM.Types.OcelEvent
+  alias BeamPM.Types.ProcessVariant
 
   @doc """
   Groups OCEL events into case-centric traces.
@@ -81,6 +82,32 @@ defmodule BeamPM.Discovery do
         DfgEdge.new(%{source_activity: source, target_activity: target, frequency: count})
 
       edge
+    end)
+  end
+
+  @doc """
+  Groups `traces` by identical `activity_sequence`, emitting one
+  `ProcessVariant` per distinct sequence with `frequency` set to the count of
+  traces observed with exactly that sequence. Variants are sorted by
+  `activity_sequence`; `variant_id` is the 1-based rank in that sorted order,
+  stringified.
+  """
+  @spec variants_from_traces([LogTrace.t()]) :: [ProcessVariant.t()]
+  def variants_from_traces(traces) when is_list(traces) do
+    traces
+    |> Enum.map(fn %LogTrace{} = trace -> trace.activity_sequence end)
+    |> Enum.frequencies()
+    |> Enum.sort_by(fn {sequence, _count} -> sequence end)
+    |> Enum.with_index(1)
+    |> Enum.map(fn {{sequence, count}, rank} ->
+      {:ok, variant} =
+        ProcessVariant.new(%{
+          variant_id: Integer.to_string(rank),
+          activity_sequence: sequence,
+          frequency: count
+        })
+
+      variant
     end)
   end
 
