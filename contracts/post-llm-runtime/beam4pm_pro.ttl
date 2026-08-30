@@ -5,7 +5,7 @@
 
 # Canonical beam4pm_pro runtime graph; generated projections are ggen-owned.
 b4:pro_runtime a rt:Integration, rt:RuntimeContract ; rt:hasSubject b4:pro_subject ; rt:hasAuthorityPolicy b4:pro_authority_policy ; rt:replayKey "beam4pm-pro-runtime-v1" ; rt:refusalCode "AUTHORITY_REFUSED" ; rt:refusalReason "beam4pm_pro DO requires an exact subject, admitted capability, policy context and explicit authority" ; rt:enablesCapability "classify_standing", "compensate", "emit_event_envelope", "infer_hypothesis", "manufacture_intent", "observe_process_twin", "plan_candidate", "policy_evaluation", "rank_reversible_options", "receipt_replay", "select_candidate", "write_receipted_file", "pro_exact_subject_rebinding", "pro_enterprise_opportunity_admission", "pro_icp_qualification", "pro_business_outcome_hypothesis", "pro_use_case_decomposition", "pro_stakeholder_authority_map", "pro_rfp_requirement_ingestion", "pro_procurement_constraint_admission", "pro_security_requirement_admission", "pro_roi_payback_model", "pro_poc_success_criteria" .
-b4:pro_subject a rt:ExactSubject ; dct:identifier "16d6d7a75d0e2283925e3bc8553c10f19bce72a0" ; dct:isPartOf "seanchatmangpt/beam4pm" ; dct:source "main" .
+b4:pro_subject a rt:ExactSubject ; dct:identifier "7240ae3a71ffae7c26e916a2d097271da8bdc415" ; dct:isPartOf "seanchatmangpt/beam4pm" ; dct:source "main" .
 b4:pro_authority_policy odrl:permission [ odrl:action odrl:use ] .
 b4:pro_runtime rt:enablesCapability "pro_edition_bundle_selection" .
 b4:pro_runtime rt:enablesCapability "pro_tenant_account_projection" .
