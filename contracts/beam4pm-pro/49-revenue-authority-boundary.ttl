@@ -1,0 +1,13 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:RevenueAuthorityBoundary a pro:CommercialControl ;
+ dct:identifier "B4PMP-AUTH-001" ; dct:title "Revenue actuation authority boundary" ;
+ pro:requiredEvidence "pricing recommendations, expansion candidates, renewal packages and private-offer drafts remain CONSTRUCT until an admitted commercial authority explicitly authorizes binding price, terms, offer submission or billing consequence" ;
+ pro:plannerHasCommercialDoAuthority false ;
+ pro:llmHasCommercialDoAuthority false ;
+ pro:autoBindingOfferAllowed false ;
+ pro:authorityCeiling "BRCE:commercial-do" ;
+ pro:refusalCode "REFUSED[UNAUTHORIZED_REVENUE_ACTUATION]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .
