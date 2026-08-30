@@ -11,14 +11,27 @@
 # seams that bind SELECT != CONSTRUCT != DO, exact subject identity, explicit
 # policy admission, receipts, replay, refusals, compensation and observability.
 
-b4:post_llm_runtime a rt:Integration ;
+b4:post_llm_runtime a rt:Integration, rt:RuntimeContract ;
   rt:hasSubject b4:subject ;
   rt:hasAuthorityPolicy b4:authority_policy ;
   rt:hasReceipt b4:receipt ;
   rt:replayActivity b4:replay ;
   rt:hasReplayKey "beam4pm-c7d871a7-post-llm-runtime-v1" ;
-  rt:hasDependencyDigest "ggen-marketplace-fb672841d4a3ad49076e19d02fef541cc56b7b21" ;
-  rt:hasConfigDigest "beam4pm-post-llm-runtime-v1" ;
+  rt:replayKey "beam4pm-c7d871a7-post-llm-runtime-v1" ;
+  rt:enablesCapability "classify_standing",
+    "compensate",
+    "emit_event_envelope",
+    "infer_hypothesis",
+    "manufacture_intent",
+    "observe_process_twin",
+    "plan_candidate",
+    "policy_evaluation",
+    "rank_reversible_options",
+    "receipt_replay",
+    "select_candidate",
+    "write_receipted_file" ;
+  rt:hasDependencyDigest "ggen-marketplace-598f4b45fe980183d0396fb564a61cd88dd9bcd3" ;
+  rt:hasConfigDigest "beam4pm-post-llm-runtime-v2" ;
   rt:runtimeConfig b4:runtime_config ;
   rt:resourceModule "BeamPM.Ash.Domain" ;
   rt:domainModule "BeamPM.Ash.Domain" ;
