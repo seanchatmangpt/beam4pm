@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Erlang/Elixir tests + determinism check
+    runs-on: ubuntu-latest
+    steps:
+      # submodules: recursive is required -- vendor/ggen-marketplace is a
+      # real git submodule (see .gitmodules) that the ggen pack config
+      # (ggen.toml -> packs.beam4pm-process-model) depends on.
+      - name: Checkout (with vendor/ggen-marketplace submodule)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # erlef/setup-beam is the standard, well-known GitHub Action for
+      # installing Erlang/OTP + Elixir + rebar3 on GitHub-hosted runners.
+      #
+      # NOTE ON VERSION PINS: OTP 27.2 / Elixir 1.17.3 / rebar3 3.24.0 below
+      # are reasonable, real released versions as of this workflow's
+      # authoring, chosen to be mutually compatible (Elixir 1.17.x supports
+      # OTP 27). This was written without live access to verify exact
+      # current tags, checksums, or whether a newer patch release exists --
+      # verify these version strings (and, if this org's supply-chain policy
+      # requires pinning third-party `uses:` actions to a commit SHA rather
+      # than a floating major-version tag like `@v1`, pin both
+      # actions/checkout and erlef/setup-beam to verified SHAs) before
+      # merging this workflow.
+      - name: Set up Erlang/OTP + Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: "27.2"
+          elixir-version: "1.17.3"
+          rebar3-version: "3.24.0"
+
+      - name: rebar3 eunit
+        run: rebar3 eunit
+
+      # mix.exs currently declares zero deps (deps() returns []), so this is
+      # a harmless no-op today. Kept as a real step (not skipped) so it
+      # starts working correctly the moment a real dependency is added,
+      # rather than needing this workflow to be remembered and edited then.
+      - name: mix deps.get
+        run: mix deps.get
+
+      - name: mix test
+        run: mix test
+
+      # Determinism check: prove that re-running ggen against the checked-in
+      # ontology.ttl + pack templates reproduces the committed output under
+      # generated/ byte-for-byte. This guards against generated/erlang and
+      # generated/elixir drifting from their real source of truth (see
+      # generated/README.md: "Never hand-edit; edit ontology.ttl or the
+      # beam4pm-process-model-pack templates and re-run `ggen sync run`").
+      #
+      # KNOWN GAP -- stated honestly, not faked: this step needs a real
+      # `ggen` binary on the runner, and this workflow does NOT install one.
+      # No install method is wired in here yet -- there is no verified
+      # released-binary URL+checksum, package-registry entry, or
+      # cargo/crates.io source confirmed at authoring time, so adding one
+      # here would mean guessing at a download that might not exist or
+      # might not match a real ggen release. `ggen sync run` below is the
+      # actual command this repo's own generated/README.md documents; it is
+      # left in place deliberately so this step fails loudly and
+      # informatively ("ggen: command not found") instead of silently
+      # skipping the check or faking a pass with `true`/`echo`.
+      # `continue-on-error: true` is set only so this one tracked,
+      # documented gap doesn't turn every future push/PR on main red for a
+      # reason contributors can't fix from within their own PR -- remove
+      # continue-on-error once a real "install ggen" step is added
+      # immediately before this one (follow-up work, not done here).
+      - name: Determinism check -- regenerate and diff against committed output
+        continue-on-error: true
+        run: |
+          cp -r generated /tmp/before-regen
+          rm -rf generated/erlang generated/elixir
+          rm -f ggen.lock
+          # TODO(known gap): install a real ggen binary in a prior step
+          # before this line can succeed. See comment above.
+          ggen sync run
+          diff -r /tmp/before-regen generated

@@ -1,0 +1,66 @@
+{
+  "schema": "https://ggen.dev/receipts/beam4pm-manufacturing/v1",
+  "date": "2026-08-29",
+  "subject": "50-agent swarm expansion of beam4pm's ggen-manufactured slice, plus adversarial fixes",
+  "claim_ceiling": "39-agent content-generation phase (23 new bpm:RecordType instances, 12 doc/ops files, 4 new pack templates producing 6 additional generated artifacts) plus a 10-agent adversarial verification phase that found and led to 4 real template/ontology bug fixes and 5 documentation-accuracy corrections. This remains a bounded slice -- type/struct manufacturing only, no algorithms, no Gleam/Ash, no playground.",
+  "phase_1_content_generation": {
+    "agent_count": 39,
+    "record_types_added": 23,
+    "total_record_types_after": 31,
+    "docs_ops_files_added": 20,
+    "new_pack_templates_added": 4,
+    "real_issue_caught_before_integration": "one agent (template:json-schema) returned a narrative description of its work instead of the actual template file content, despite claiming in that narrative to have run real verification (ggen sync run, jsonschema validation) -- caught by inspecting the actual returned content before integrating, and the real template was authored directly instead of trusting the claim"
+  },
+  "phase_2_adversarial_verification": {
+    "agent_count": 10,
+    "real_bugs_found_and_fixed": [
+      "k8s_object_ref.namespace wrongly required (cluster-scoped Kubernetes kinds have no namespace) -- fixed to optional",
+      "beam4pm_types.erl.tmpl declared record types without -export_type, producing real dialyzer 'Unknown types' errors for external callers -- added -export_type",
+      "beam4pm_types.schema.json.tmpl emitted no 'GENERATED... Do not edit' marker unlike every other template -- added via draft-07 $comment",
+      "both EUnit test templates redundantly -export'd their own auto-exported _test/0 functions, a real warning that becomes a hard failure under warnings_as_errors -- removed the redundant -export blocks",
+      "the pack's own ontology.ttl declared bpm:fieldRequired's range as xsd:boolean while every template compares it as a plain string -- fixed the range to xsd:string"
+    ],
+    "documentation_corrections": [
+      ".github/pull_request_template.md was copy-pasted unmodified from ggen-ecosystem (wrong repo name, referenced nonexistent just doctor/certify-test/chicago targets and AGENTS.md) -- rewritten for beam4pm",
+      "examples/README.md falsely claimed examples/erlang and examples/elixir subdirectories did not exist -- rewritten to describe the real, verified-runnable demos",
+      "playground/README.md misattributed the current 31-record count to a receipt whose own claim_ceiling covers only 8 -- corrected with provenance",
+      "beam4pm-process-model-pack/README.md documented only 4 of 11 templates and incorrectly described to: paths as relative to the template's own location -- corrected to list all 11 and state the real project-root-relative resolution",
+      ".github/ISSUE_TEMPLATE/new-record-type.md's worked example used values (xsd:string, bpm:PascalCase names) that violate the pack's own closed field-type enum and naming convention -- rewritten to match the real, implemented convention"
+    ],
+    "semantic_doc_fixes_in_ontology_ttl": [
+      "ocel_object.attributes' doc no longer claims 'time-indexed' (a flat map cannot represent per-key history; that is what ocel_attribute/object_attribute_change exist for)",
+      "sojourn_time's doc no longer uses 'waiting' language that actually describes the separately-modeled sync_time concept",
+      "oc_declare_constraint's enum doc corrected non_co_occurrence -> non_coexistence (standard DECLARE constraint template naming)",
+      "event_type/object_type.attribute_names' doc gained the 'Optional' prefix used by every other optional field, plus a note that per-attribute value types are not yet modeled"
+    ],
+    "known_limitations_disclosed_not_fixed": [
+      "all 31 constructors silently accept and drop unknown/extra map keys",
+      "neither language's constructor performs runtime value-type checking (presence-only validation)",
+      "event_type and object_type (and, more narrowly, dfg_edge vs heuristic_arc) are structurally identical with no discriminant",
+      "alignment_move.move_type's 4-value enum conflates move category with transition visibility (silent is really a property of a model move, not a peer category)",
+      "ocel_attribute and object_attribute_change remain two overlapping, non-unified shapes for a similar concept",
+      "generated 'all fields present' tests assert only {:ok,_}/{ok,_}, never that individual field values were assigned correctly",
+      "beam4pm_types_manifest:fields/1's catch-all returns [] for both an unknown record name and a hypothetical zero-field record"
+    ]
+  },
+  "final_verification": {
+    "ggen_marketplace_commit": "91016e6d3110a88ffbfe7f18a6fccd6c936a7f00",
+    "erlang": { "command": "rebar3 eunit", "result": "94/94 tests passed", "warnings_as_errors_check": "erlc -Werror on all 4 erlang src/test files: exit 0, zero warnings" },
+    "elixir": { "command": "mix test", "result": "95/95 tests passed", "warnings_as_errors_check": "mix compile --warnings-as-errors --force: clean" },
+    "gate_m2_deterministic_reprojection": "full generated/{erlang,elixir,schema,docs} deletion + ggen sync run regeneration produced byte-identical output (sha256sum before/after), re-verified after all bug fixes",
+    "real_demo_scripts_executed": [
+      "examples/erlang/ocel_log_demo.erl via escript: exit 0, 3 events printed",
+      "examples/elixir/ocel_log_demo.exs via mix run: exit 0, 3 events printed"
+    ]
+  },
+  "standing": "PARTIAL_ALIVE[SWARM_EXPANDED_GGEN_ONLY_ERLANG_ELIXIR_ALIVE, GLEAM_UNSUPPORTED, PROCESS_INFERENCE_NOT_ATTEMPTED, MARKETPLACE_NOT_ATTEMPTED]",
+  "not_yet_attempted": [
+    "Gleam projection (toolchain unavailable locally)",
+    "Ash resource projection",
+    "any process-mining algorithm (discovery, conformance, alignment computation)",
+    "a real end-to-end playground (release gate PLAYGROUND_ALIVE)",
+    "cross-language identity/roundtrip proof (GATE M5)",
+    "the domain/schema redesigns named under known_limitations_disclosed_not_fixed above",
+    "beam4pm_pro (observability ingestion, marketplace listing, RevOps)"
+  ]
+}

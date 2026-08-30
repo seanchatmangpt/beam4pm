@@ -85,7 +85,7 @@ bpm:ocel_object_object_type_f a bpm:Field ;
 bpm:ocel_object_attributes_f a bpm:Field ;
     bpm:fieldName "attributes" ;
     bpm:fieldType "map" ;
-    bpm:fieldDoc "Arbitrary named, time-indexed object attributes." ;
+    bpm:fieldDoc "Arbitrary named current attribute values (a flat snapshot, not the time-indexed history -- see bpm:ocel_attribute and bpm:object_attribute_change for per-timestamp values)." ;
     bpm:fieldRequired "false" ;
     bpm:fieldOrder 3 .
 
@@ -248,3 +248,622 @@ bpm:alignment_move_cost_f a bpm:Field ;
     bpm:fieldDoc "Non-negative cost assigned to this move." ;
     bpm:fieldRequired "true" ;
     bpm:fieldOrder 2 .
+
+# ---------------------------------------------------------------------------
+# Swarm-manufactured extension (2026-08-29): 23 additional admitted record
+# types drawn from the process-mining concept worklist in
+# docs/jira/v26.8.29/14-rust4pm-reference-boundary.md, plus adjacent runtime/
+# planning/policy concepts named in the same doctrine package.
+# ---------------------------------------------------------------------------
+
+bpm:case_stats_rt a bpm:RecordType ;
+    bpm:recordName "case_stats" ;
+    bpm:recordDoc "Aggregate statistics computed for one process instance (case)." ;
+    bpm:hasField bpm:case_stats_case_id_f , bpm:case_stats_event_count_f , bpm:case_stats_duration_seconds_f .
+
+bpm:case_stats_case_id_f a bpm:Field ;
+    bpm:fieldName "case_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique case identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:case_stats_event_count_f a bpm:Field ;
+    bpm:fieldName "event_count" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Number of events observed for this case." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:case_stats_duration_seconds_f a bpm:Field ;
+    bpm:fieldName "duration_seconds" ;
+    bpm:fieldType "float" ;
+    bpm:fieldDoc "Optional case duration in seconds (end minus start)." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 3 .
+
+bpm:event_log_rt a bpm:RecordType ;
+    bpm:recordName "event_log" ;
+    bpm:recordDoc "A named collection of events forming one process-mining log." ;
+    bpm:hasField bpm:event_log_log_id_f , bpm:event_log_name_f , bpm:event_log_description_f .
+
+bpm:event_log_log_id_f a bpm:Field ;
+    bpm:fieldName "log_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique log identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:event_log_name_f a bpm:Field ;
+    bpm:fieldName "name" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Human-readable log name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:event_log_description_f a bpm:Field ;
+    bpm:fieldName "description" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Optional free-text description of this log." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 3 .
+
+bpm:ocel_attribute_rt a bpm:RecordType ;
+    bpm:recordName "ocel_attribute" ;
+    bpm:recordDoc "One named, timestamped attribute value on an OCEL event or object." ;
+    bpm:hasField bpm:ocel_attribute_attribute_name_f , bpm:ocel_attribute_attribute_value_f , bpm:ocel_attribute_recorded_at_f .
+
+bpm:ocel_attribute_attribute_name_f a bpm:Field ;
+    bpm:fieldName "attribute_name" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The attribute name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:ocel_attribute_attribute_value_f a bpm:Field ;
+    bpm:fieldName "attribute_value" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The attribute value, serialized as a string." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:ocel_attribute_recorded_at_f a bpm:Field ;
+    bpm:fieldName "recorded_at" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Optional ISO8601 timestamp this value was recorded/became effective." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 3 .
+
+bpm:type_edge_rt a bpm:RecordType ;
+    bpm:recordName "type_edge" ;
+    bpm:recordDoc "A directed, qualified edge in the OCEL type graph between two types." ;
+    bpm:hasField bpm:type_edge_source_type_f , bpm:type_edge_target_type_f , bpm:type_edge_qualifier_f , bpm:type_edge_direction_f .
+
+bpm:type_edge_source_type_f a bpm:Field ;
+    bpm:fieldName "source_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The edge source type name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:type_edge_target_type_f a bpm:Field ;
+    bpm:fieldName "target_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The edge target type name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:type_edge_qualifier_f a bpm:Field ;
+    bpm:fieldName "qualifier" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The relationship qualifier/role name for this edge." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:type_edge_direction_f a bpm:Field ;
+    bpm:fieldName "direction" ;
+    bpm:fieldType "atom" ;
+    bpm:fieldDoc "One of: e2o | o2o." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 4 .
+
+bpm:event_type_rt a bpm:RecordType ;
+    bpm:recordName "event_type" ;
+    bpm:recordDoc "A declared OCEL event type and its attribute schema." ;
+    bpm:hasField bpm:event_type_type_name_f , bpm:event_type_attribute_names_f .
+
+bpm:event_type_type_name_f a bpm:Field ;
+    bpm:fieldName "type_name" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The event type name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:event_type_attribute_names_f a bpm:Field ;
+    bpm:fieldName "attribute_names" ;
+    bpm:fieldType "list_string" ;
+    bpm:fieldDoc "Optional declared attribute names for events of this type (name-only; per-attribute value types are not yet modeled)." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 2 .
+
+bpm:object_attribute_change_rt a bpm:RecordType ;
+    bpm:recordName "object_attribute_change" ;
+    bpm:recordDoc "One recorded change to a time-indexed object attribute." ;
+    bpm:hasField bpm:object_attribute_change_object_id_f , bpm:object_attribute_change_attribute_name_f , bpm:object_attribute_change_old_value_f , bpm:object_attribute_change_new_value_f , bpm:object_attribute_change_changed_at_f .
+
+bpm:object_attribute_change_object_id_f a bpm:Field ;
+    bpm:fieldName "object_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the object whose attribute changed." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:object_attribute_change_attribute_name_f a bpm:Field ;
+    bpm:fieldName "attribute_name" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The changed attribute name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:object_attribute_change_old_value_f a bpm:Field ;
+    bpm:fieldName "old_value" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Optional previous value (absent if this is the first recorded value)." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 3 .
+
+bpm:object_attribute_change_new_value_f a bpm:Field ;
+    bpm:fieldName "new_value" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The new value after the change." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 4 .
+
+bpm:object_attribute_change_changed_at_f a bpm:Field ;
+    bpm:fieldName "changed_at" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the change took effect." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 5 .
+
+bpm:sojourn_time_rt a bpm:RecordType ;
+    bpm:recordName "sojourn_time" ;
+    bpm:recordDoc "The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric)." ;
+    bpm:hasField bpm:sojourn_time_object_id_f , bpm:sojourn_time_event_type_f , bpm:sojourn_time_seconds_f .
+
+bpm:sojourn_time_object_id_f a bpm:Field ;
+    bpm:fieldName "object_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the object this measurement is for." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:sojourn_time_event_type_f a bpm:Field ;
+    bpm:fieldName "event_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The event type/activity this sojourn measurement is at." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:sojourn_time_seconds_f a bpm:Field ;
+    bpm:fieldName "seconds" ;
+    bpm:fieldType "float" ;
+    bpm:fieldDoc "Sojourn duration in seconds." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:process_variant_rt a bpm:RecordType ;
+    bpm:recordName "process_variant" ;
+    bpm:recordDoc "One distinct activity-sequence variant observed in a log, with its frequency." ;
+    bpm:hasField bpm:process_variant_variant_id_f , bpm:process_variant_activity_sequence_f , bpm:process_variant_frequency_f .
+
+bpm:process_variant_variant_id_f a bpm:Field ;
+    bpm:fieldName "variant_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique variant identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:process_variant_activity_sequence_f a bpm:Field ;
+    bpm:fieldName "activity_sequence" ;
+    bpm:fieldType "list_string" ;
+    bpm:fieldDoc "Ordered list of activity names making up this variant." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:process_variant_frequency_f a bpm:Field ;
+    bpm:fieldName "frequency" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Number of traces observed with exactly this activity sequence." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:conformance_result_rt a bpm:RecordType ;
+    bpm:recordName "conformance_result" ;
+    bpm:recordDoc "Conformance-checking metrics computed for one trace against a model." ;
+    bpm:hasField bpm:conformance_result_trace_id_f , bpm:conformance_result_fitness_f , bpm:conformance_result_precision_f .
+
+bpm:conformance_result_trace_id_f a bpm:Field ;
+    bpm:fieldName "trace_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the trace this result was computed for." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:conformance_result_fitness_f a bpm:Field ;
+    bpm:fieldName "fitness" ;
+    bpm:fieldType "float" ;
+    bpm:fieldDoc "Fitness score in [0.0, 1.0]." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:conformance_result_precision_f a bpm:Field ;
+    bpm:fieldName "precision" ;
+    bpm:fieldType "float" ;
+    bpm:fieldDoc "Optional precision score in [0.0, 1.0]." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 3 .
+
+bpm:heuristic_arc_rt a bpm:RecordType ;
+    bpm:recordName "heuristic_arc" ;
+    bpm:recordDoc "One dependency-scored candidate arc considered during heuristic-net discovery." ;
+    bpm:hasField bpm:heuristic_arc_source_activity_f , bpm:heuristic_arc_target_activity_f , bpm:heuristic_arc_dependency_measure_f .
+
+bpm:heuristic_arc_source_activity_f a bpm:Field ;
+    bpm:fieldName "source_activity" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The candidate arc source activity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:heuristic_arc_target_activity_f a bpm:Field ;
+    bpm:fieldName "target_activity" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The candidate arc target activity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:heuristic_arc_dependency_measure_f a bpm:Field ;
+    bpm:fieldName "dependency_measure" ;
+    bpm:fieldType "float" ;
+    bpm:fieldDoc "The computed dependency/confidence score for this candidate arc." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:oc_declare_constraint_rt a bpm:RecordType ;
+    bpm:recordName "oc_declare_constraint" ;
+    bpm:recordDoc "One declarative object-centric behavioral constraint between two activities." ;
+    bpm:hasField bpm:oc_declare_constraint_constraint_id_f , bpm:oc_declare_constraint_source_activity_f , bpm:oc_declare_constraint_target_activity_f , bpm:oc_declare_constraint_constraint_type_f .
+
+bpm:oc_declare_constraint_constraint_id_f a bpm:Field ;
+    bpm:fieldName "constraint_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique constraint identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:oc_declare_constraint_source_activity_f a bpm:Field ;
+    bpm:fieldName "source_activity" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The constraint source activity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:oc_declare_constraint_target_activity_f a bpm:Field ;
+    bpm:fieldName "target_activity" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The constraint target activity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:oc_declare_constraint_constraint_type_f a bpm:Field ;
+    bpm:fieldName "constraint_type" ;
+    bpm:fieldType "atom" ;
+    bpm:fieldDoc "One of: response | precedence | succession | non_coexistence (standard DECLARE constraint template names)." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 4 .
+
+bpm:path_schema_rt a bpm:RecordType ;
+    bpm:recordName "path_schema" ;
+    bpm:recordDoc "One reusable, scored connection pattern between two OCEL types." ;
+    bpm:hasField bpm:path_schema_schema_id_f , bpm:path_schema_source_type_f , bpm:path_schema_target_type_f , bpm:path_schema_support_f .
+
+bpm:path_schema_schema_id_f a bpm:Field ;
+    bpm:fieldName "schema_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique path schema identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:path_schema_source_type_f a bpm:Field ;
+    bpm:fieldName "source_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The source event/object type name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:path_schema_target_type_f a bpm:Field ;
+    bpm:fieldName "target_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The target event/object type name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:path_schema_support_f a bpm:Field ;
+    bpm:fieldName "support" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Observed instance count supporting this schema." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 4 .
+
+bpm:resource_allocation_rt a bpm:RecordType ;
+    bpm:recordName "resource_allocation" ;
+    bpm:recordDoc "One recorded assignment of a resource to an activity occurrence." ;
+    bpm:hasField bpm:resource_allocation_resource_id_f , bpm:resource_allocation_activity_f , bpm:resource_allocation_event_id_f .
+
+bpm:resource_allocation_resource_id_f a bpm:Field ;
+    bpm:fieldName "resource_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the assigned resource." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:resource_allocation_activity_f a bpm:Field ;
+    bpm:fieldName "activity" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The activity the resource was assigned to." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:resource_allocation_event_id_f a bpm:Field ;
+    bpm:fieldName "event_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the specific event occurrence." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:log_trace_rt a bpm:RecordType ;
+    bpm:recordName "log_trace" ;
+    bpm:recordDoc "One case-centric trace: an ordered activity sequence for a single case." ;
+    bpm:hasField bpm:log_trace_case_id_f , bpm:log_trace_activity_sequence_f .
+
+bpm:log_trace_case_id_f a bpm:Field ;
+    bpm:fieldName "case_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the case this trace belongs to." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:log_trace_activity_sequence_f a bpm:Field ;
+    bpm:fieldName "activity_sequence" ;
+    bpm:fieldType "list_string" ;
+    bpm:fieldDoc "Ordered list of activity names observed for this case." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:queue_snapshot_rt a bpm:RecordType ;
+    bpm:recordName "queue_snapshot" ;
+    bpm:recordDoc "One point-in-time observation of a queue depth." ;
+    bpm:hasField bpm:queue_snapshot_queue_name_f , bpm:queue_snapshot_depth_f , bpm:queue_snapshot_observed_at_f .
+
+bpm:queue_snapshot_queue_name_f a bpm:Field ;
+    bpm:fieldName "queue_name" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Name of the observed queue." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:queue_snapshot_depth_f a bpm:Field ;
+    bpm:fieldName "depth" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Observed queue depth at this point in time." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:queue_snapshot_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp of this observation." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:sync_time_rt a bpm:RecordType ;
+    bpm:recordName "sync_time" ;
+    bpm:recordDoc "The time one object waited to synchronize with another object at a shared event." ;
+    bpm:hasField bpm:sync_time_object_id_f , bpm:sync_time_delaying_object_id_f , bpm:sync_time_seconds_f .
+
+bpm:sync_time_object_id_f a bpm:Field ;
+    bpm:fieldName "object_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the object this measurement is for." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:sync_time_delaying_object_id_f a bpm:Field ;
+    bpm:fieldName "delaying_object_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Optional identifier of the object that caused the delay." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 2 .
+
+bpm:sync_time_seconds_f a bpm:Field ;
+    bpm:fieldName "seconds" ;
+    bpm:fieldType "float" ;
+    bpm:fieldDoc "Synchronization wait duration in seconds." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:object_type_rt a bpm:RecordType ;
+    bpm:recordName "object_type" ;
+    bpm:recordDoc "A declared OCEL object type and its attribute schema." ;
+    bpm:hasField bpm:object_type_type_name_f , bpm:object_type_attribute_names_f .
+
+bpm:object_type_type_name_f a bpm:Field ;
+    bpm:fieldName "type_name" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The object type name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:object_type_attribute_names_f a bpm:Field ;
+    bpm:fieldName "attribute_names" ;
+    bpm:fieldType "list_string" ;
+    bpm:fieldDoc "Optional declared attribute names for objects of this type (name-only; per-attribute value types are not yet modeled)." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_action_rt a bpm:RecordType ;
+    bpm:recordName "planning_action" ;
+    bpm:recordDoc "One PDDL-style planning action with its preconditions and effects." ;
+    bpm:hasField bpm:planning_action_action_name_f , bpm:planning_action_preconditions_f , bpm:planning_action_effects_f .
+
+bpm:planning_action_action_name_f a bpm:Field ;
+    bpm:fieldName "action_name" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The action name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_action_preconditions_f a bpm:Field ;
+    bpm:fieldName "preconditions" ;
+    bpm:fieldType "list_string" ;
+    bpm:fieldDoc "Optional list of precondition fact names." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_action_effects_f a bpm:Field ;
+    bpm:fieldName "effects" ;
+    bpm:fieldType "list_string" ;
+    bpm:fieldDoc "Optional list of effect fact names this action produces." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 3 .
+
+bpm:path_schema_query_rt a bpm:RecordType ;
+    bpm:recordName "path_schema_query" ;
+    bpm:recordDoc "A discovery query bounding source/target types and maximum schema length." ;
+    bpm:hasField bpm:path_schema_query_source_type_f , bpm:path_schema_query_target_type_f , bpm:path_schema_query_max_length_f .
+
+bpm:path_schema_query_source_type_f a bpm:Field ;
+    bpm:fieldName "source_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The query source type name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:path_schema_query_target_type_f a bpm:Field ;
+    bpm:fieldName "target_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The query target type name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:path_schema_query_max_length_f a bpm:Field ;
+    bpm:fieldName "max_length" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Maximum number of hops to search." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:policy_decision_rt a bpm:RecordType ;
+    bpm:recordName "policy_decision" ;
+    bpm:recordDoc "One admission/authority policy decision recorded for an attempted action." ;
+    bpm:hasField bpm:policy_decision_decision_id_f , bpm:policy_decision_verdict_f , bpm:policy_decision_reason_f .
+
+bpm:policy_decision_decision_id_f a bpm:Field ;
+    bpm:fieldName "decision_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique decision identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:policy_decision_verdict_f a bpm:Field ;
+    bpm:fieldName "verdict" ;
+    bpm:fieldType "atom" ;
+    bpm:fieldDoc "One of: admitted | refused | blocked." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:policy_decision_reason_f a bpm:Field ;
+    bpm:fieldName "reason" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Optional human-readable reason for this verdict." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 3 .
+
+bpm:planning_state_rt a bpm:RecordType ;
+    bpm:recordName "planning_state" ;
+    bpm:recordDoc "One planning-search state as a bounded set of true facts." ;
+    bpm:hasField bpm:planning_state_state_id_f , bpm:planning_state_facts_f .
+
+bpm:planning_state_state_id_f a bpm:Field ;
+    bpm:fieldName "state_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique state identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_state_facts_f a bpm:Field ;
+    bpm:fieldName "facts" ;
+    bpm:fieldType "list_string" ;
+    bpm:fieldDoc "List of fact names true in this state." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:k8s_object_ref_rt a bpm:RecordType ;
+    bpm:recordName "k8s_object_ref" ;
+    bpm:recordDoc "A reference to one Kubernetes object observed in the runtime topology." ;
+    bpm:hasField bpm:k8s_object_ref_kind_f , bpm:k8s_object_ref_name_f , bpm:k8s_object_ref_namespace_f .
+
+bpm:k8s_object_ref_kind_f a bpm:Field ;
+    bpm:fieldName "kind" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The Kubernetes object kind (e.g. Pod, Deployment)." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:k8s_object_ref_name_f a bpm:Field ;
+    bpm:fieldName "name" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The object name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:k8s_object_ref_namespace_f a bpm:Field ;
+    bpm:fieldName "namespace" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Optional object namespace (absent for cluster-scoped kinds such as Node, PersistentVolume, ClusterRole, or Namespace itself)." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 3 .
+
+bpm:service_span_rt a bpm:RecordType ;
+    bpm:recordName "service_span" ;
+    bpm:recordDoc "One OpenTelemetry-style tracing span observed for a service call." ;
+    bpm:hasField bpm:service_span_span_id_f , bpm:service_span_service_name_f , bpm:service_span_duration_ms_f , bpm:service_span_parent_span_id_f .
+
+bpm:service_span_span_id_f a bpm:Field ;
+    bpm:fieldName "span_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique span identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:service_span_service_name_f a bpm:Field ;
+    bpm:fieldName "service_name" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Name of the service that produced this span." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:service_span_duration_ms_f a bpm:Field ;
+    bpm:fieldName "duration_ms" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Span duration in milliseconds." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:service_span_parent_span_id_f a bpm:Field ;
+    bpm:fieldName "parent_span_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Optional identifier of the parent span." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 4 .

@@ -24,6 +24,58 @@ defmodule BeamPM.Types.AlignmentMove do
   end
 end
 
+defmodule BeamPM.Types.CaseStats do
+  @moduledoc "Aggregate statistics computed for one process instance (case)."
+
+  defstruct [:case_id, :event_count, :duration_seconds]
+
+  @type t :: %__MODULE__{
+    case_id: String.t() | nil,
+    event_count: integer() | nil,
+    duration_seconds: float() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :case_id) -> {:error, {:missing_field, :case_id}}
+      not Map.has_key?(attrs, :event_count) -> {:error, {:missing_field, :event_count}}
+      true ->
+        {:ok, %__MODULE__{
+          case_id: Map.get(attrs, :case_id),
+          event_count: Map.get(attrs, :event_count),
+          duration_seconds: Map.get(attrs, :duration_seconds)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ConformanceResult do
+  @moduledoc "Conformance-checking metrics computed for one trace against a model."
+
+  defstruct [:trace_id, :fitness, :precision]
+
+  @type t :: %__MODULE__{
+    trace_id: String.t() | nil,
+    fitness: float() | nil,
+    precision: float() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :trace_id) -> {:error, {:missing_field, :trace_id}}
+      not Map.has_key?(attrs, :fitness) -> {:error, {:missing_field, :fitness}}
+      true ->
+        {:ok, %__MODULE__{
+          trace_id: Map.get(attrs, :trace_id),
+          fitness: Map.get(attrs, :fitness),
+          precision: Map.get(attrs, :precision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.DfgEdge do
   @moduledoc "One frequency-annotated directly-follows edge between two activities."
 
@@ -46,6 +98,243 @@ defmodule BeamPM.Types.DfgEdge do
           source_activity: Map.get(attrs, :source_activity),
           target_activity: Map.get(attrs, :target_activity),
           frequency: Map.get(attrs, :frequency)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.EventLog do
+  @moduledoc "A named collection of events forming one process-mining log."
+
+  defstruct [:log_id, :name, :description]
+
+  @type t :: %__MODULE__{
+    log_id: String.t() | nil,
+    name: String.t() | nil,
+    description: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :log_id) -> {:error, {:missing_field, :log_id}}
+      not Map.has_key?(attrs, :name) -> {:error, {:missing_field, :name}}
+      true ->
+        {:ok, %__MODULE__{
+          log_id: Map.get(attrs, :log_id),
+          name: Map.get(attrs, :name),
+          description: Map.get(attrs, :description)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.EventType do
+  @moduledoc "A declared OCEL event type and its attribute schema."
+
+  defstruct [:type_name, :attribute_names]
+
+  @type t :: %__MODULE__{
+    type_name: String.t() | nil,
+    attribute_names: [String.t()] | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :type_name) -> {:error, {:missing_field, :type_name}}
+      true ->
+        {:ok, %__MODULE__{
+          type_name: Map.get(attrs, :type_name),
+          attribute_names: Map.get(attrs, :attribute_names)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.HeuristicArc do
+  @moduledoc "One dependency-scored candidate arc considered during heuristic-net discovery."
+
+  defstruct [:source_activity, :target_activity, :dependency_measure]
+
+  @type t :: %__MODULE__{
+    source_activity: String.t() | nil,
+    target_activity: String.t() | nil,
+    dependency_measure: float() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :source_activity) -> {:error, {:missing_field, :source_activity}}
+      not Map.has_key?(attrs, :target_activity) -> {:error, {:missing_field, :target_activity}}
+      not Map.has_key?(attrs, :dependency_measure) -> {:error, {:missing_field, :dependency_measure}}
+      true ->
+        {:ok, %__MODULE__{
+          source_activity: Map.get(attrs, :source_activity),
+          target_activity: Map.get(attrs, :target_activity),
+          dependency_measure: Map.get(attrs, :dependency_measure)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.K8SObjectRef do
+  @moduledoc "A reference to one Kubernetes object observed in the runtime topology."
+
+  defstruct [:kind, :name, :namespace]
+
+  @type t :: %__MODULE__{
+    kind: String.t() | nil,
+    name: String.t() | nil,
+    namespace: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :kind) -> {:error, {:missing_field, :kind}}
+      not Map.has_key?(attrs, :name) -> {:error, {:missing_field, :name}}
+      true ->
+        {:ok, %__MODULE__{
+          kind: Map.get(attrs, :kind),
+          name: Map.get(attrs, :name),
+          namespace: Map.get(attrs, :namespace)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.LogTrace do
+  @moduledoc "One case-centric trace: an ordered activity sequence for a single case."
+
+  defstruct [:case_id, :activity_sequence]
+
+  @type t :: %__MODULE__{
+    case_id: String.t() | nil,
+    activity_sequence: [String.t()] | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :case_id) -> {:error, {:missing_field, :case_id}}
+      not Map.has_key?(attrs, :activity_sequence) -> {:error, {:missing_field, :activity_sequence}}
+      true ->
+        {:ok, %__MODULE__{
+          case_id: Map.get(attrs, :case_id),
+          activity_sequence: Map.get(attrs, :activity_sequence)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ObjectAttributeChange do
+  @moduledoc "One recorded change to a time-indexed object attribute."
+
+  defstruct [:object_id, :attribute_name, :old_value, :new_value, :changed_at]
+
+  @type t :: %__MODULE__{
+    object_id: String.t() | nil,
+    attribute_name: String.t() | nil,
+    old_value: String.t() | nil,
+    new_value: String.t() | nil,
+    changed_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :object_id) -> {:error, {:missing_field, :object_id}}
+      not Map.has_key?(attrs, :attribute_name) -> {:error, {:missing_field, :attribute_name}}
+      not Map.has_key?(attrs, :new_value) -> {:error, {:missing_field, :new_value}}
+      not Map.has_key?(attrs, :changed_at) -> {:error, {:missing_field, :changed_at}}
+      true ->
+        {:ok, %__MODULE__{
+          object_id: Map.get(attrs, :object_id),
+          attribute_name: Map.get(attrs, :attribute_name),
+          old_value: Map.get(attrs, :old_value),
+          new_value: Map.get(attrs, :new_value),
+          changed_at: Map.get(attrs, :changed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ObjectType do
+  @moduledoc "A declared OCEL object type and its attribute schema."
+
+  defstruct [:type_name, :attribute_names]
+
+  @type t :: %__MODULE__{
+    type_name: String.t() | nil,
+    attribute_names: [String.t()] | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :type_name) -> {:error, {:missing_field, :type_name}}
+      true ->
+        {:ok, %__MODULE__{
+          type_name: Map.get(attrs, :type_name),
+          attribute_names: Map.get(attrs, :attribute_names)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.OcDeclareConstraint do
+  @moduledoc "One declarative object-centric behavioral constraint between two activities."
+
+  defstruct [:constraint_id, :source_activity, :target_activity, :constraint_type]
+
+  @type t :: %__MODULE__{
+    constraint_id: String.t() | nil,
+    source_activity: String.t() | nil,
+    target_activity: String.t() | nil,
+    constraint_type: atom() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :constraint_id) -> {:error, {:missing_field, :constraint_id}}
+      not Map.has_key?(attrs, :source_activity) -> {:error, {:missing_field, :source_activity}}
+      not Map.has_key?(attrs, :target_activity) -> {:error, {:missing_field, :target_activity}}
+      not Map.has_key?(attrs, :constraint_type) -> {:error, {:missing_field, :constraint_type}}
+      true ->
+        {:ok, %__MODULE__{
+          constraint_id: Map.get(attrs, :constraint_id),
+          source_activity: Map.get(attrs, :source_activity),
+          target_activity: Map.get(attrs, :target_activity),
+          constraint_type: Map.get(attrs, :constraint_type)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.OcelAttribute do
+  @moduledoc "One named, timestamped attribute value on an OCEL event or object."
+
+  defstruct [:attribute_name, :attribute_value, :recorded_at]
+
+  @type t :: %__MODULE__{
+    attribute_name: String.t() | nil,
+    attribute_value: String.t() | nil,
+    recorded_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :attribute_name) -> {:error, {:missing_field, :attribute_name}}
+      not Map.has_key?(attrs, :attribute_value) -> {:error, {:missing_field, :attribute_value}}
+      true ->
+        {:ok, %__MODULE__{
+          attribute_name: Map.get(attrs, :attribute_name),
+          attribute_value: Map.get(attrs, :attribute_value),
+          recorded_at: Map.get(attrs, :recorded_at)
         }}
     end
   end
@@ -130,6 +419,63 @@ defmodule BeamPM.Types.OcelRelationship do
   end
 end
 
+defmodule BeamPM.Types.PathSchema do
+  @moduledoc "One reusable, scored connection pattern between two OCEL types."
+
+  defstruct [:schema_id, :source_type, :target_type, :support]
+
+  @type t :: %__MODULE__{
+    schema_id: String.t() | nil,
+    source_type: String.t() | nil,
+    target_type: String.t() | nil,
+    support: integer() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :schema_id) -> {:error, {:missing_field, :schema_id}}
+      not Map.has_key?(attrs, :source_type) -> {:error, {:missing_field, :source_type}}
+      not Map.has_key?(attrs, :target_type) -> {:error, {:missing_field, :target_type}}
+      not Map.has_key?(attrs, :support) -> {:error, {:missing_field, :support}}
+      true ->
+        {:ok, %__MODULE__{
+          schema_id: Map.get(attrs, :schema_id),
+          source_type: Map.get(attrs, :source_type),
+          target_type: Map.get(attrs, :target_type),
+          support: Map.get(attrs, :support)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PathSchemaQuery do
+  @moduledoc "A discovery query bounding source/target types and maximum schema length."
+
+  defstruct [:source_type, :target_type, :max_length]
+
+  @type t :: %__MODULE__{
+    source_type: String.t() | nil,
+    target_type: String.t() | nil,
+    max_length: integer() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :source_type) -> {:error, {:missing_field, :source_type}}
+      not Map.has_key?(attrs, :target_type) -> {:error, {:missing_field, :target_type}}
+      not Map.has_key?(attrs, :max_length) -> {:error, {:missing_field, :max_length}}
+      true ->
+        {:ok, %__MODULE__{
+          source_type: Map.get(attrs, :source_type),
+          target_type: Map.get(attrs, :target_type),
+          max_length: Map.get(attrs, :max_length)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PetriArc do
   @moduledoc "A weighted arc connecting a place and a transition (either direction)."
 
@@ -199,6 +545,274 @@ defmodule BeamPM.Types.PetriTransition do
         {:ok, %__MODULE__{
           transition_id: Map.get(attrs, :transition_id),
           label: Map.get(attrs, :label)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PlanningAction do
+  @moduledoc "One PDDL-style planning action with its preconditions and effects."
+
+  defstruct [:action_name, :preconditions, :effects]
+
+  @type t :: %__MODULE__{
+    action_name: String.t() | nil,
+    preconditions: [String.t()] | nil,
+    effects: [String.t()] | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :action_name) -> {:error, {:missing_field, :action_name}}
+      true ->
+        {:ok, %__MODULE__{
+          action_name: Map.get(attrs, :action_name),
+          preconditions: Map.get(attrs, :preconditions),
+          effects: Map.get(attrs, :effects)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PlanningState do
+  @moduledoc "One planning-search state as a bounded set of true facts."
+
+  defstruct [:state_id, :facts]
+
+  @type t :: %__MODULE__{
+    state_id: String.t() | nil,
+    facts: [String.t()] | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :state_id) -> {:error, {:missing_field, :state_id}}
+      not Map.has_key?(attrs, :facts) -> {:error, {:missing_field, :facts}}
+      true ->
+        {:ok, %__MODULE__{
+          state_id: Map.get(attrs, :state_id),
+          facts: Map.get(attrs, :facts)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PolicyDecision do
+  @moduledoc "One admission/authority policy decision recorded for an attempted action."
+
+  defstruct [:decision_id, :verdict, :reason]
+
+  @type t :: %__MODULE__{
+    decision_id: String.t() | nil,
+    verdict: atom() | nil,
+    reason: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :decision_id) -> {:error, {:missing_field, :decision_id}}
+      not Map.has_key?(attrs, :verdict) -> {:error, {:missing_field, :verdict}}
+      true ->
+        {:ok, %__MODULE__{
+          decision_id: Map.get(attrs, :decision_id),
+          verdict: Map.get(attrs, :verdict),
+          reason: Map.get(attrs, :reason)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ProcessVariant do
+  @moduledoc "One distinct activity-sequence variant observed in a log, with its frequency."
+
+  defstruct [:variant_id, :activity_sequence, :frequency]
+
+  @type t :: %__MODULE__{
+    variant_id: String.t() | nil,
+    activity_sequence: [String.t()] | nil,
+    frequency: integer() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :variant_id) -> {:error, {:missing_field, :variant_id}}
+      not Map.has_key?(attrs, :activity_sequence) -> {:error, {:missing_field, :activity_sequence}}
+      not Map.has_key?(attrs, :frequency) -> {:error, {:missing_field, :frequency}}
+      true ->
+        {:ok, %__MODULE__{
+          variant_id: Map.get(attrs, :variant_id),
+          activity_sequence: Map.get(attrs, :activity_sequence),
+          frequency: Map.get(attrs, :frequency)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.QueueSnapshot do
+  @moduledoc "One point-in-time observation of a queue depth."
+
+  defstruct [:queue_name, :depth, :observed_at]
+
+  @type t :: %__MODULE__{
+    queue_name: String.t() | nil,
+    depth: integer() | nil,
+    observed_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :queue_name) -> {:error, {:missing_field, :queue_name}}
+      not Map.has_key?(attrs, :depth) -> {:error, {:missing_field, :depth}}
+      not Map.has_key?(attrs, :observed_at) -> {:error, {:missing_field, :observed_at}}
+      true ->
+        {:ok, %__MODULE__{
+          queue_name: Map.get(attrs, :queue_name),
+          depth: Map.get(attrs, :depth),
+          observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ResourceAllocation do
+  @moduledoc "One recorded assignment of a resource to an activity occurrence."
+
+  defstruct [:resource_id, :activity, :event_id]
+
+  @type t :: %__MODULE__{
+    resource_id: String.t() | nil,
+    activity: String.t() | nil,
+    event_id: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :resource_id) -> {:error, {:missing_field, :resource_id}}
+      not Map.has_key?(attrs, :activity) -> {:error, {:missing_field, :activity}}
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      true ->
+        {:ok, %__MODULE__{
+          resource_id: Map.get(attrs, :resource_id),
+          activity: Map.get(attrs, :activity),
+          event_id: Map.get(attrs, :event_id)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ServiceSpan do
+  @moduledoc "One OpenTelemetry-style tracing span observed for a service call."
+
+  defstruct [:span_id, :service_name, :duration_ms, :parent_span_id]
+
+  @type t :: %__MODULE__{
+    span_id: String.t() | nil,
+    service_name: String.t() | nil,
+    duration_ms: integer() | nil,
+    parent_span_id: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :span_id) -> {:error, {:missing_field, :span_id}}
+      not Map.has_key?(attrs, :service_name) -> {:error, {:missing_field, :service_name}}
+      not Map.has_key?(attrs, :duration_ms) -> {:error, {:missing_field, :duration_ms}}
+      true ->
+        {:ok, %__MODULE__{
+          span_id: Map.get(attrs, :span_id),
+          service_name: Map.get(attrs, :service_name),
+          duration_ms: Map.get(attrs, :duration_ms),
+          parent_span_id: Map.get(attrs, :parent_span_id)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.SojournTime do
+  @moduledoc "The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric)."
+
+  defstruct [:object_id, :event_type, :seconds]
+
+  @type t :: %__MODULE__{
+    object_id: String.t() | nil,
+    event_type: String.t() | nil,
+    seconds: float() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :object_id) -> {:error, {:missing_field, :object_id}}
+      not Map.has_key?(attrs, :event_type) -> {:error, {:missing_field, :event_type}}
+      not Map.has_key?(attrs, :seconds) -> {:error, {:missing_field, :seconds}}
+      true ->
+        {:ok, %__MODULE__{
+          object_id: Map.get(attrs, :object_id),
+          event_type: Map.get(attrs, :event_type),
+          seconds: Map.get(attrs, :seconds)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.SyncTime do
+  @moduledoc "The time one object waited to synchronize with another object at a shared event."
+
+  defstruct [:object_id, :delaying_object_id, :seconds]
+
+  @type t :: %__MODULE__{
+    object_id: String.t() | nil,
+    delaying_object_id: String.t() | nil,
+    seconds: float() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :object_id) -> {:error, {:missing_field, :object_id}}
+      not Map.has_key?(attrs, :seconds) -> {:error, {:missing_field, :seconds}}
+      true ->
+        {:ok, %__MODULE__{
+          object_id: Map.get(attrs, :object_id),
+          delaying_object_id: Map.get(attrs, :delaying_object_id),
+          seconds: Map.get(attrs, :seconds)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.TypeEdge do
+  @moduledoc "A directed, qualified edge in the OCEL type graph between two types."
+
+  defstruct [:source_type, :target_type, :qualifier, :direction]
+
+  @type t :: %__MODULE__{
+    source_type: String.t() | nil,
+    target_type: String.t() | nil,
+    qualifier: String.t() | nil,
+    direction: atom() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :source_type) -> {:error, {:missing_field, :source_type}}
+      not Map.has_key?(attrs, :target_type) -> {:error, {:missing_field, :target_type}}
+      not Map.has_key?(attrs, :qualifier) -> {:error, {:missing_field, :qualifier}}
+      not Map.has_key?(attrs, :direction) -> {:error, {:missing_field, :direction}}
+      true ->
+        {:ok, %__MODULE__{
+          source_type: Map.get(attrs, :source_type),
+          target_type: Map.get(attrs, :target_type),
+          qualifier: Map.get(attrs, :qualifier),
+          direction: Map.get(attrs, :direction)
         }}
     end
   end

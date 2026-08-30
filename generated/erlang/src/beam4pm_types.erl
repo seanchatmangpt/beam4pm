@@ -4,13 +4,70 @@
 
 -export([
     new_alignment_move/1,
+    new_case_stats/1,
+    new_conformance_result/1,
     new_dfg_edge/1,
+    new_event_log/1,
+    new_event_type/1,
+    new_heuristic_arc/1,
+    new_k8s_object_ref/1,
+    new_log_trace/1,
+    new_object_attribute_change/1,
+    new_object_type/1,
+    new_oc_declare_constraint/1,
+    new_ocel_attribute/1,
     new_ocel_event/1,
     new_ocel_object/1,
     new_ocel_relationship/1,
+    new_path_schema/1,
+    new_path_schema_query/1,
     new_petri_arc/1,
     new_petri_place/1,
-    new_petri_transition/1
+    new_petri_transition/1,
+    new_planning_action/1,
+    new_planning_state/1,
+    new_policy_decision/1,
+    new_process_variant/1,
+    new_queue_snapshot/1,
+    new_resource_allocation/1,
+    new_service_span/1,
+    new_sojourn_time/1,
+    new_sync_time/1,
+    new_type_edge/1
+]).
+
+-export_type([
+    alignment_move/0,
+    case_stats/0,
+    conformance_result/0,
+    dfg_edge/0,
+    event_log/0,
+    event_type/0,
+    heuristic_arc/0,
+    k8s_object_ref/0,
+    log_trace/0,
+    object_attribute_change/0,
+    object_type/0,
+    oc_declare_constraint/0,
+    ocel_attribute/0,
+    ocel_event/0,
+    ocel_object/0,
+    ocel_relationship/0,
+    path_schema/0,
+    path_schema_query/0,
+    petri_arc/0,
+    petri_place/0,
+    petri_transition/0,
+    planning_action/0,
+    planning_state/0,
+    policy_decision/0,
+    process_variant/0,
+    queue_snapshot/0,
+    resource_allocation/0,
+    service_span/0,
+    sojourn_time/0,
+    sync_time/0,
+    type_edge/0
 ]).
 
 %% One step of a conformance-checking alignment between log and model.
@@ -32,6 +89,56 @@ new_alignment_move(Map) ->
     {ok, #alignment_move{
         move_type = maps:get(move_type, Map, undefined),
         cost = maps:get(cost, Map, undefined)
+    }}
+    end
+    end.
+
+%% Aggregate statistics computed for one process instance (case).
+-record(case_stats, {
+    case_id :: binary(), %% case_id: Unique case identifier.
+    event_count :: integer(), %% event_count: Number of events observed for this case.
+    duration_seconds :: float() | undefined %% duration_seconds: Optional case duration in seconds (end minus start).
+}).
+
+-type case_stats() :: #case_stats{}.
+
+-spec new_case_stats(map()) -> {ok, case_stats()} | {error, {missing_field, atom()}}.
+new_case_stats(Map) ->
+    case maps:is_key(case_id, Map) of
+        false -> {error, {missing_field, case_id}};
+        true ->
+    case maps:is_key(event_count, Map) of
+        false -> {error, {missing_field, event_count}};
+        true ->
+    {ok, #case_stats{
+        case_id = maps:get(case_id, Map, undefined),
+        event_count = maps:get(event_count, Map, undefined),
+        duration_seconds = maps:get(duration_seconds, Map, undefined)
+    }}
+    end
+    end.
+
+%% Conformance-checking metrics computed for one trace against a model.
+-record(conformance_result, {
+    trace_id :: binary(), %% trace_id: Identifier of the trace this result was computed for.
+    fitness :: float(), %% fitness: Fitness score in [0.0, 1.0].
+    precision :: float() | undefined %% precision: Optional precision score in [0.0, 1.0].
+}).
+
+-type conformance_result() :: #conformance_result{}.
+
+-spec new_conformance_result(map()) -> {ok, conformance_result()} | {error, {missing_field, atom()}}.
+new_conformance_result(Map) ->
+    case maps:is_key(trace_id, Map) of
+        false -> {error, {missing_field, trace_id}};
+        true ->
+    case maps:is_key(fitness, Map) of
+        false -> {error, {missing_field, fitness}};
+        true ->
+    {ok, #conformance_result{
+        trace_id = maps:get(trace_id, Map, undefined),
+        fitness = maps:get(fitness, Map, undefined),
+        precision = maps:get(precision, Map, undefined)
     }}
     end
     end.
@@ -62,6 +169,243 @@ new_dfg_edge(Map) ->
         frequency = maps:get(frequency, Map, undefined)
     }}
     end
+    end
+    end.
+
+%% A named collection of events forming one process-mining log.
+-record(event_log, {
+    log_id :: binary(), %% log_id: Unique log identifier.
+    name :: binary(), %% name: Human-readable log name.
+    description :: binary() | undefined %% description: Optional free-text description of this log.
+}).
+
+-type event_log() :: #event_log{}.
+
+-spec new_event_log(map()) -> {ok, event_log()} | {error, {missing_field, atom()}}.
+new_event_log(Map) ->
+    case maps:is_key(log_id, Map) of
+        false -> {error, {missing_field, log_id}};
+        true ->
+    case maps:is_key(name, Map) of
+        false -> {error, {missing_field, name}};
+        true ->
+    {ok, #event_log{
+        log_id = maps:get(log_id, Map, undefined),
+        name = maps:get(name, Map, undefined),
+        description = maps:get(description, Map, undefined)
+    }}
+    end
+    end.
+
+%% A declared OCEL event type and its attribute schema.
+-record(event_type, {
+    type_name :: binary(), %% type_name: The event type name.
+    attribute_names :: [binary()] | undefined %% attribute_names: Optional declared attribute names for events of this type (name-only; per-attribute value types are not yet modeled).
+}).
+
+-type event_type() :: #event_type{}.
+
+-spec new_event_type(map()) -> {ok, event_type()} | {error, {missing_field, atom()}}.
+new_event_type(Map) ->
+    case maps:is_key(type_name, Map) of
+        false -> {error, {missing_field, type_name}};
+        true ->
+    {ok, #event_type{
+        type_name = maps:get(type_name, Map, undefined),
+        attribute_names = maps:get(attribute_names, Map, undefined)
+    }}
+    end.
+
+%% One dependency-scored candidate arc considered during heuristic-net discovery.
+-record(heuristic_arc, {
+    source_activity :: binary(), %% source_activity: The candidate arc source activity.
+    target_activity :: binary(), %% target_activity: The candidate arc target activity.
+    dependency_measure :: float() %% dependency_measure: The computed dependency/confidence score for this candidate arc.
+}).
+
+-type heuristic_arc() :: #heuristic_arc{}.
+
+-spec new_heuristic_arc(map()) -> {ok, heuristic_arc()} | {error, {missing_field, atom()}}.
+new_heuristic_arc(Map) ->
+    case maps:is_key(source_activity, Map) of
+        false -> {error, {missing_field, source_activity}};
+        true ->
+    case maps:is_key(target_activity, Map) of
+        false -> {error, {missing_field, target_activity}};
+        true ->
+    case maps:is_key(dependency_measure, Map) of
+        false -> {error, {missing_field, dependency_measure}};
+        true ->
+    {ok, #heuristic_arc{
+        source_activity = maps:get(source_activity, Map, undefined),
+        target_activity = maps:get(target_activity, Map, undefined),
+        dependency_measure = maps:get(dependency_measure, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% A reference to one Kubernetes object observed in the runtime topology.
+-record(k8s_object_ref, {
+    kind :: binary(), %% kind: The Kubernetes object kind (e.g. Pod, Deployment).
+    name :: binary(), %% name: The object name.
+    namespace :: binary() | undefined %% namespace: Optional object namespace (absent for cluster-scoped kinds such as Node, PersistentVolume, ClusterRole, or Namespace itself).
+}).
+
+-type k8s_object_ref() :: #k8s_object_ref{}.
+
+-spec new_k8s_object_ref(map()) -> {ok, k8s_object_ref()} | {error, {missing_field, atom()}}.
+new_k8s_object_ref(Map) ->
+    case maps:is_key(kind, Map) of
+        false -> {error, {missing_field, kind}};
+        true ->
+    case maps:is_key(name, Map) of
+        false -> {error, {missing_field, name}};
+        true ->
+    {ok, #k8s_object_ref{
+        kind = maps:get(kind, Map, undefined),
+        name = maps:get(name, Map, undefined),
+        namespace = maps:get(namespace, Map, undefined)
+    }}
+    end
+    end.
+
+%% One case-centric trace: an ordered activity sequence for a single case.
+-record(log_trace, {
+    case_id :: binary(), %% case_id: Identifier of the case this trace belongs to.
+    activity_sequence :: [binary()] %% activity_sequence: Ordered list of activity names observed for this case.
+}).
+
+-type log_trace() :: #log_trace{}.
+
+-spec new_log_trace(map()) -> {ok, log_trace()} | {error, {missing_field, atom()}}.
+new_log_trace(Map) ->
+    case maps:is_key(case_id, Map) of
+        false -> {error, {missing_field, case_id}};
+        true ->
+    case maps:is_key(activity_sequence, Map) of
+        false -> {error, {missing_field, activity_sequence}};
+        true ->
+    {ok, #log_trace{
+        case_id = maps:get(case_id, Map, undefined),
+        activity_sequence = maps:get(activity_sequence, Map, undefined)
+    }}
+    end
+    end.
+
+%% One recorded change to a time-indexed object attribute.
+-record(object_attribute_change, {
+    object_id :: binary(), %% object_id: Identifier of the object whose attribute changed.
+    attribute_name :: binary(), %% attribute_name: The changed attribute name.
+    old_value :: binary() | undefined, %% old_value: Optional previous value (absent if this is the first recorded value).
+    new_value :: binary(), %% new_value: The new value after the change.
+    changed_at :: binary() %% changed_at: ISO8601 timestamp the change took effect.
+}).
+
+-type object_attribute_change() :: #object_attribute_change{}.
+
+-spec new_object_attribute_change(map()) -> {ok, object_attribute_change()} | {error, {missing_field, atom()}}.
+new_object_attribute_change(Map) ->
+    case maps:is_key(object_id, Map) of
+        false -> {error, {missing_field, object_id}};
+        true ->
+    case maps:is_key(attribute_name, Map) of
+        false -> {error, {missing_field, attribute_name}};
+        true ->
+    case maps:is_key(new_value, Map) of
+        false -> {error, {missing_field, new_value}};
+        true ->
+    case maps:is_key(changed_at, Map) of
+        false -> {error, {missing_field, changed_at}};
+        true ->
+    {ok, #object_attribute_change{
+        object_id = maps:get(object_id, Map, undefined),
+        attribute_name = maps:get(attribute_name, Map, undefined),
+        old_value = maps:get(old_value, Map, undefined),
+        new_value = maps:get(new_value, Map, undefined),
+        changed_at = maps:get(changed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% A declared OCEL object type and its attribute schema.
+-record(object_type, {
+    type_name :: binary(), %% type_name: The object type name.
+    attribute_names :: [binary()] | undefined %% attribute_names: Optional declared attribute names for objects of this type (name-only; per-attribute value types are not yet modeled).
+}).
+
+-type object_type() :: #object_type{}.
+
+-spec new_object_type(map()) -> {ok, object_type()} | {error, {missing_field, atom()}}.
+new_object_type(Map) ->
+    case maps:is_key(type_name, Map) of
+        false -> {error, {missing_field, type_name}};
+        true ->
+    {ok, #object_type{
+        type_name = maps:get(type_name, Map, undefined),
+        attribute_names = maps:get(attribute_names, Map, undefined)
+    }}
+    end.
+
+%% One declarative object-centric behavioral constraint between two activities.
+-record(oc_declare_constraint, {
+    constraint_id :: binary(), %% constraint_id: Unique constraint identifier.
+    source_activity :: binary(), %% source_activity: The constraint source activity.
+    target_activity :: binary(), %% target_activity: The constraint target activity.
+    constraint_type :: atom() %% constraint_type: One of: response | precedence | succession | non_coexistence (standard DECLARE constraint template names).
+}).
+
+-type oc_declare_constraint() :: #oc_declare_constraint{}.
+
+-spec new_oc_declare_constraint(map()) -> {ok, oc_declare_constraint()} | {error, {missing_field, atom()}}.
+new_oc_declare_constraint(Map) ->
+    case maps:is_key(constraint_id, Map) of
+        false -> {error, {missing_field, constraint_id}};
+        true ->
+    case maps:is_key(source_activity, Map) of
+        false -> {error, {missing_field, source_activity}};
+        true ->
+    case maps:is_key(target_activity, Map) of
+        false -> {error, {missing_field, target_activity}};
+        true ->
+    case maps:is_key(constraint_type, Map) of
+        false -> {error, {missing_field, constraint_type}};
+        true ->
+    {ok, #oc_declare_constraint{
+        constraint_id = maps:get(constraint_id, Map, undefined),
+        source_activity = maps:get(source_activity, Map, undefined),
+        target_activity = maps:get(target_activity, Map, undefined),
+        constraint_type = maps:get(constraint_type, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% One named, timestamped attribute value on an OCEL event or object.
+-record(ocel_attribute, {
+    attribute_name :: binary(), %% attribute_name: The attribute name.
+    attribute_value :: binary(), %% attribute_value: The attribute value, serialized as a string.
+    recorded_at :: binary() | undefined %% recorded_at: Optional ISO8601 timestamp this value was recorded/became effective.
+}).
+
+-type ocel_attribute() :: #ocel_attribute{}.
+
+-spec new_ocel_attribute(map()) -> {ok, ocel_attribute()} | {error, {missing_field, atom()}}.
+new_ocel_attribute(Map) ->
+    case maps:is_key(attribute_name, Map) of
+        false -> {error, {missing_field, attribute_name}};
+        true ->
+    case maps:is_key(attribute_value, Map) of
+        false -> {error, {missing_field, attribute_value}};
+        true ->
+    {ok, #ocel_attribute{
+        attribute_name = maps:get(attribute_name, Map, undefined),
+        attribute_value = maps:get(attribute_value, Map, undefined),
+        recorded_at = maps:get(recorded_at, Map, undefined)
+    }}
     end
     end.
 
@@ -100,7 +444,7 @@ new_ocel_event(Map) ->
 -record(ocel_object, {
     object_id :: binary(), %% object_id: Unique object identifier.
     object_type :: binary(), %% object_type: The object's type.
-    attributes :: map() | undefined %% attributes: Arbitrary named, time-indexed object attributes.
+    attributes :: map() | undefined %% attributes: Arbitrary named current attribute values (a flat snapshot, not the time-indexed history -- see bpm:ocel_attribute and bpm:object_attribute_change for per-timestamp values).
 }).
 
 -type ocel_object() :: #ocel_object{}.
@@ -141,6 +485,70 @@ new_ocel_relationship(Map) ->
         qualifier = maps:get(qualifier, Map, undefined),
         object_id = maps:get(object_id, Map, undefined)
     }}
+    end
+    end.
+
+%% One reusable, scored connection pattern between two OCEL types.
+-record(path_schema, {
+    schema_id :: binary(), %% schema_id: Unique path schema identifier.
+    source_type :: binary(), %% source_type: The source event/object type name.
+    target_type :: binary(), %% target_type: The target event/object type name.
+    support :: integer() %% support: Observed instance count supporting this schema.
+}).
+
+-type path_schema() :: #path_schema{}.
+
+-spec new_path_schema(map()) -> {ok, path_schema()} | {error, {missing_field, atom()}}.
+new_path_schema(Map) ->
+    case maps:is_key(schema_id, Map) of
+        false -> {error, {missing_field, schema_id}};
+        true ->
+    case maps:is_key(source_type, Map) of
+        false -> {error, {missing_field, source_type}};
+        true ->
+    case maps:is_key(target_type, Map) of
+        false -> {error, {missing_field, target_type}};
+        true ->
+    case maps:is_key(support, Map) of
+        false -> {error, {missing_field, support}};
+        true ->
+    {ok, #path_schema{
+        schema_id = maps:get(schema_id, Map, undefined),
+        source_type = maps:get(source_type, Map, undefined),
+        target_type = maps:get(target_type, Map, undefined),
+        support = maps:get(support, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% A discovery query bounding source/target types and maximum schema length.
+-record(path_schema_query, {
+    source_type :: binary(), %% source_type: The query source type name.
+    target_type :: binary(), %% target_type: The query target type name.
+    max_length :: integer() %% max_length: Maximum number of hops to search.
+}).
+
+-type path_schema_query() :: #path_schema_query{}.
+
+-spec new_path_schema_query(map()) -> {ok, path_schema_query()} | {error, {missing_field, atom()}}.
+new_path_schema_query(Map) ->
+    case maps:is_key(source_type, Map) of
+        false -> {error, {missing_field, source_type}};
+        true ->
+    case maps:is_key(target_type, Map) of
+        false -> {error, {missing_field, target_type}};
+        true ->
+    case maps:is_key(max_length, Map) of
+        false -> {error, {missing_field, max_length}};
+        true ->
+    {ok, #path_schema_query{
+        source_type = maps:get(source_type, Map, undefined),
+        target_type = maps:get(target_type, Map, undefined),
+        max_length = maps:get(max_length, Map, undefined)
+    }}
+    end
     end
     end.
 
@@ -213,5 +621,281 @@ new_petri_transition(Map) ->
         transition_id = maps:get(transition_id, Map, undefined),
         label = maps:get(label, Map, undefined)
     }}
+    end.
+
+%% One PDDL-style planning action with its preconditions and effects.
+-record(planning_action, {
+    action_name :: binary(), %% action_name: The action name.
+    preconditions :: [binary()] | undefined, %% preconditions: Optional list of precondition fact names.
+    effects :: [binary()] | undefined %% effects: Optional list of effect fact names this action produces.
+}).
+
+-type planning_action() :: #planning_action{}.
+
+-spec new_planning_action(map()) -> {ok, planning_action()} | {error, {missing_field, atom()}}.
+new_planning_action(Map) ->
+    case maps:is_key(action_name, Map) of
+        false -> {error, {missing_field, action_name}};
+        true ->
+    {ok, #planning_action{
+        action_name = maps:get(action_name, Map, undefined),
+        preconditions = maps:get(preconditions, Map, undefined),
+        effects = maps:get(effects, Map, undefined)
+    }}
+    end.
+
+%% One planning-search state as a bounded set of true facts.
+-record(planning_state, {
+    state_id :: binary(), %% state_id: Unique state identifier.
+    facts :: [binary()] %% facts: List of fact names true in this state.
+}).
+
+-type planning_state() :: #planning_state{}.
+
+-spec new_planning_state(map()) -> {ok, planning_state()} | {error, {missing_field, atom()}}.
+new_planning_state(Map) ->
+    case maps:is_key(state_id, Map) of
+        false -> {error, {missing_field, state_id}};
+        true ->
+    case maps:is_key(facts, Map) of
+        false -> {error, {missing_field, facts}};
+        true ->
+    {ok, #planning_state{
+        state_id = maps:get(state_id, Map, undefined),
+        facts = maps:get(facts, Map, undefined)
+    }}
+    end
+    end.
+
+%% One admission/authority policy decision recorded for an attempted action.
+-record(policy_decision, {
+    decision_id :: binary(), %% decision_id: Unique decision identifier.
+    verdict :: atom(), %% verdict: One of: admitted | refused | blocked.
+    reason :: binary() | undefined %% reason: Optional human-readable reason for this verdict.
+}).
+
+-type policy_decision() :: #policy_decision{}.
+
+-spec new_policy_decision(map()) -> {ok, policy_decision()} | {error, {missing_field, atom()}}.
+new_policy_decision(Map) ->
+    case maps:is_key(decision_id, Map) of
+        false -> {error, {missing_field, decision_id}};
+        true ->
+    case maps:is_key(verdict, Map) of
+        false -> {error, {missing_field, verdict}};
+        true ->
+    {ok, #policy_decision{
+        decision_id = maps:get(decision_id, Map, undefined),
+        verdict = maps:get(verdict, Map, undefined),
+        reason = maps:get(reason, Map, undefined)
+    }}
+    end
+    end.
+
+%% One distinct activity-sequence variant observed in a log, with its frequency.
+-record(process_variant, {
+    variant_id :: binary(), %% variant_id: Unique variant identifier.
+    activity_sequence :: [binary()], %% activity_sequence: Ordered list of activity names making up this variant.
+    frequency :: integer() %% frequency: Number of traces observed with exactly this activity sequence.
+}).
+
+-type process_variant() :: #process_variant{}.
+
+-spec new_process_variant(map()) -> {ok, process_variant()} | {error, {missing_field, atom()}}.
+new_process_variant(Map) ->
+    case maps:is_key(variant_id, Map) of
+        false -> {error, {missing_field, variant_id}};
+        true ->
+    case maps:is_key(activity_sequence, Map) of
+        false -> {error, {missing_field, activity_sequence}};
+        true ->
+    case maps:is_key(frequency, Map) of
+        false -> {error, {missing_field, frequency}};
+        true ->
+    {ok, #process_variant{
+        variant_id = maps:get(variant_id, Map, undefined),
+        activity_sequence = maps:get(activity_sequence, Map, undefined),
+        frequency = maps:get(frequency, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% One point-in-time observation of a queue depth.
+-record(queue_snapshot, {
+    queue_name :: binary(), %% queue_name: Name of the observed queue.
+    depth :: integer(), %% depth: Observed queue depth at this point in time.
+    observed_at :: binary() %% observed_at: ISO8601 timestamp of this observation.
+}).
+
+-type queue_snapshot() :: #queue_snapshot{}.
+
+-spec new_queue_snapshot(map()) -> {ok, queue_snapshot()} | {error, {missing_field, atom()}}.
+new_queue_snapshot(Map) ->
+    case maps:is_key(queue_name, Map) of
+        false -> {error, {missing_field, queue_name}};
+        true ->
+    case maps:is_key(depth, Map) of
+        false -> {error, {missing_field, depth}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #queue_snapshot{
+        queue_name = maps:get(queue_name, Map, undefined),
+        depth = maps:get(depth, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% One recorded assignment of a resource to an activity occurrence.
+-record(resource_allocation, {
+    resource_id :: binary(), %% resource_id: Identifier of the assigned resource.
+    activity :: binary(), %% activity: The activity the resource was assigned to.
+    event_id :: binary() %% event_id: Identifier of the specific event occurrence.
+}).
+
+-type resource_allocation() :: #resource_allocation{}.
+
+-spec new_resource_allocation(map()) -> {ok, resource_allocation()} | {error, {missing_field, atom()}}.
+new_resource_allocation(Map) ->
+    case maps:is_key(resource_id, Map) of
+        false -> {error, {missing_field, resource_id}};
+        true ->
+    case maps:is_key(activity, Map) of
+        false -> {error, {missing_field, activity}};
+        true ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    {ok, #resource_allocation{
+        resource_id = maps:get(resource_id, Map, undefined),
+        activity = maps:get(activity, Map, undefined),
+        event_id = maps:get(event_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% One OpenTelemetry-style tracing span observed for a service call.
+-record(service_span, {
+    span_id :: binary(), %% span_id: Unique span identifier.
+    service_name :: binary(), %% service_name: Name of the service that produced this span.
+    duration_ms :: integer(), %% duration_ms: Span duration in milliseconds.
+    parent_span_id :: binary() | undefined %% parent_span_id: Optional identifier of the parent span.
+}).
+
+-type service_span() :: #service_span{}.
+
+-spec new_service_span(map()) -> {ok, service_span()} | {error, {missing_field, atom()}}.
+new_service_span(Map) ->
+    case maps:is_key(span_id, Map) of
+        false -> {error, {missing_field, span_id}};
+        true ->
+    case maps:is_key(service_name, Map) of
+        false -> {error, {missing_field, service_name}};
+        true ->
+    case maps:is_key(duration_ms, Map) of
+        false -> {error, {missing_field, duration_ms}};
+        true ->
+    {ok, #service_span{
+        span_id = maps:get(span_id, Map, undefined),
+        service_name = maps:get(service_name, Map, undefined),
+        duration_ms = maps:get(duration_ms, Map, undefined),
+        parent_span_id = maps:get(parent_span_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric).
+-record(sojourn_time, {
+    object_id :: binary(), %% object_id: Identifier of the object this measurement is for.
+    event_type :: binary(), %% event_type: The event type/activity this sojourn measurement is at.
+    seconds :: float() %% seconds: Sojourn duration in seconds.
+}).
+
+-type sojourn_time() :: #sojourn_time{}.
+
+-spec new_sojourn_time(map()) -> {ok, sojourn_time()} | {error, {missing_field, atom()}}.
+new_sojourn_time(Map) ->
+    case maps:is_key(object_id, Map) of
+        false -> {error, {missing_field, object_id}};
+        true ->
+    case maps:is_key(event_type, Map) of
+        false -> {error, {missing_field, event_type}};
+        true ->
+    case maps:is_key(seconds, Map) of
+        false -> {error, {missing_field, seconds}};
+        true ->
+    {ok, #sojourn_time{
+        object_id = maps:get(object_id, Map, undefined),
+        event_type = maps:get(event_type, Map, undefined),
+        seconds = maps:get(seconds, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% The time one object waited to synchronize with another object at a shared event.
+-record(sync_time, {
+    object_id :: binary(), %% object_id: Identifier of the object this measurement is for.
+    delaying_object_id :: binary() | undefined, %% delaying_object_id: Optional identifier of the object that caused the delay.
+    seconds :: float() %% seconds: Synchronization wait duration in seconds.
+}).
+
+-type sync_time() :: #sync_time{}.
+
+-spec new_sync_time(map()) -> {ok, sync_time()} | {error, {missing_field, atom()}}.
+new_sync_time(Map) ->
+    case maps:is_key(object_id, Map) of
+        false -> {error, {missing_field, object_id}};
+        true ->
+    case maps:is_key(seconds, Map) of
+        false -> {error, {missing_field, seconds}};
+        true ->
+    {ok, #sync_time{
+        object_id = maps:get(object_id, Map, undefined),
+        delaying_object_id = maps:get(delaying_object_id, Map, undefined),
+        seconds = maps:get(seconds, Map, undefined)
+    }}
+    end
+    end.
+
+%% A directed, qualified edge in the OCEL type graph between two types.
+-record(type_edge, {
+    source_type :: binary(), %% source_type: The edge source type name.
+    target_type :: binary(), %% target_type: The edge target type name.
+    qualifier :: binary(), %% qualifier: The relationship qualifier/role name for this edge.
+    direction :: atom() %% direction: One of: e2o | o2o.
+}).
+
+-type type_edge() :: #type_edge{}.
+
+-spec new_type_edge(map()) -> {ok, type_edge()} | {error, {missing_field, atom()}}.
+new_type_edge(Map) ->
+    case maps:is_key(source_type, Map) of
+        false -> {error, {missing_field, source_type}};
+        true ->
+    case maps:is_key(target_type, Map) of
+        false -> {error, {missing_field, target_type}};
+        true ->
+    case maps:is_key(qualifier, Map) of
+        false -> {error, {missing_field, qualifier}};
+        true ->
+    case maps:is_key(direction, Map) of
+        false -> {error, {missing_field, direction}};
+        true ->
+    {ok, #type_edge{
+        source_type = maps:get(source_type, Map, undefined),
+        target_type = maps:get(target_type, Map, undefined),
+        qualifier = maps:get(qualifier, Map, undefined),
+        direction = maps:get(direction, Map, undefined)
+    }}
+    end
+    end
+    end
     end.
 
