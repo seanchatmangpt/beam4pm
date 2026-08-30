@@ -5,7 +5,7 @@ name = "beam4pm-post-llm-runtime"
 source = "ontology.ttl"
 
 [packs]
-runtime = { git = "https://github.com/seanchatmangpt/ggen-marketplace.git", version = "598f4b45fe980183d0396fb564a61cd88dd9bcd3", subdir = "packs/beam4pm-post-llm-runtime-pack" }
+runtime = { git = "https://github.com/seanchatmangpt/ggen-marketplace.git", version = "e120890b4b4e0ad463b0421669d4b67e4e3a2fe4", subdir = "packs/beam4pm-post-llm-runtime-pack" }
 
 [templates]
 dir = "templates"
