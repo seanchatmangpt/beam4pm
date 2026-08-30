@@ -3235,3 +3235,21 @@ b4pe:expansion_option_sku_f a bpm:Field ;
 
 b4pe:expansion_option_max_quantity_f a bpm:Field ;
     bpm:fieldName "max_quantity" ; bpm:fieldType "integer" ; bpm:fieldDoc "Maximum expansion quantity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-041 -- Versioned migration path with source, target, and rollback identity.
+b4pe:migration_contract_rt a bpm:RecordType ;
+    bpm:recordName "migration_contract" ;
+    bpm:recordDoc "Versioned migration path with source, target, and rollback identity." ;
+    bpm:hasField b4pe:migration_contract_migration_id_f , b4pe:migration_contract_from_version_f , b4pe:migration_contract_to_version_f , b4pe:migration_contract_rollback_plan_f .
+
+b4pe:migration_contract_migration_id_f a bpm:Field ;
+    bpm:fieldName "migration_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable migration identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:migration_contract_from_version_f a bpm:Field ;
+    bpm:fieldName "from_version" ; bpm:fieldType "string" ; bpm:fieldDoc "Source product version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:migration_contract_to_version_f a bpm:Field ;
+    bpm:fieldName "to_version" ; bpm:fieldType "string" ; bpm:fieldDoc "Target product version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:migration_contract_rollback_plan_f a bpm:Field ;
+    bpm:fieldName "rollback_plan" ; bpm:fieldType "string" ; bpm:fieldDoc "Rollback plan identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
