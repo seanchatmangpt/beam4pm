@@ -118,6 +118,15 @@ def observe(context):
         "replicas": spec_replicas,
         "ready_replicas": ready,
         "image": image,
+        # Added for BeamPM.ProcessGovernor continuous-session continuity
+        # proof: metadata.uid/creationTimestamp are assigned once, at
+        # Deployment CREATE time, and are unaffected by scale/rollout
+        # operations -- so identical uid/creation_timestamp across a
+        # governed run's before/after observations proves no
+        # delete+recreate happened between steps. No new kubectl call:
+        # both come off the `d` object already fetched above.
+        "uid": d["metadata"]["uid"],
+        "creation_timestamp": d["metadata"]["creationTimestamp"],
     }
 
 

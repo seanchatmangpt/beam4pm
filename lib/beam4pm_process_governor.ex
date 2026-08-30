@@ -78,7 +78,10 @@ defmodule BeamPM.ProcessGovernor do
 
   ## Graph-derived process contracts rendered into this build
 
-      * `toy_counter_governed` (initial state "reset"):
+      * `k8s_scaling_governed` (initial state "reset"):
+        1. "reset" -> "scaled_up" via admitted actuation "k8s_scale_up"
+        2. "scaled_up" -> "scaled_down" via admitted actuation "k8s_scale_down"
+    * `toy_counter_governed` (initial state "reset"):
         1. "reset" -> "incremented_once" via admitted actuation "increment_counter"
         2. "incremented_once" -> "observed" via admitted actuation "observe_counter"
 
@@ -114,6 +117,7 @@ defmodule BeamPM.ProcessGovernor do
   """
 
   alias BeamPM.Actuation
+  alias BeamPM.Actuation.Session
   alias BeamPM.Codec
   alias BeamPM.Discovery
   alias BeamPM.Types.DfgEdge
@@ -128,6 +132,13 @@ defmodule BeamPM.ProcessGovernor do
   # by ggen_igniter from the admitted graph, the same way
   # BeamPM.Actuation's own @admitted_actuations is.
   @contracts %{
+    "k8s_scaling_governed" => %{
+      initial_state: "reset",
+      transitions: [
+        %{ordinal: 1, from_state: "reset", to_state: "scaled_up", actuation_name: "k8s_scale_up"},
+        %{ordinal: 2, from_state: "scaled_up", to_state: "scaled_down", actuation_name: "k8s_scale_down"}
+      ]
+    },
     "toy_counter_governed" => %{
       initial_state: "reset",
       transitions: [
@@ -262,7 +273,15 @@ defmodule BeamPM.ProcessGovernor do
     next_state = candidate.to_state
 
     receipt =
-      build_and_write_receipt(candidate, run_id, run_opts, :applied, nil, actuation_out.receipt_path)
+      build_and_write_receipt(
+        candidate,
+        run_id,
+        run_opts,
+        :applied,
+        nil,
+        actuation_out.receipt_path,
+        actuation_out.observation_after
+      )
 
     new_snapshot = %{
       snapshot
@@ -316,12 +335,38 @@ defmodule BeamPM.ProcessGovernor do
   or `{:error, reason, partial_snapshot}` at the first non-applied
   transition - `partial_snapshot.receipts` holds every process receipt
   produced so far, including the one for the failed step.
+
+  ## Continuous-session mode (`continuous: true`, opt-in, additive)
+
+  Default `actuation_opts` (no `:continuous` key, or `continuous: false` -
+  every existing caller's actual behavior): each transition delegates to a
+  FRESH `BeamPM.Actuation.run/2` call, which opens its own bridge, resets
+  it, steps once, then closes it - N independent one-shot environment
+  resets for an N-transition process, never a continuous multi-step
+  transition on one running target.
+
+  `continuous: true`: opens exactly ONE `BeamPM.Actuation.Session` (one
+  bridge open + one reset) BEFORE the first transition, threads that same
+  session through every transition's delegated `Actuation.run/2` call (each
+  doing exactly one gym step against the SAME already-open bridge, via
+  `actuation_opts[:session]` - see `BeamPM.Actuation`'s `:execute` step),
+  and closes the session EXACTLY ONCE after the last transition - on every
+  exit path (success, refusal, or execution failure) via `try/after`, never
+  leaking the bridge subprocess. Requires the same `:gym`/`:bridge` keys as
+  the default mode; `apply_transition/3`, `apply_admitted_transition/4`,
+  `dispatch_actuation/5`, and `actuation_opts_for/3` are entirely unchanged
+  and unaware this mode exists - only which bridge lifecycle
+  `BeamPM.Actuation`'s `:execute` step reuses differs.
   """
   @spec run(String.t(), keyword()) :: {:ok, map()} | {:error, term(), map()}
   def run(process_id, actuation_opts) when is_binary(process_id) and is_list(actuation_opts) do
     case {initial_snapshot(process_id), Map.fetch(@contracts, process_id)} do
       {{:ok, snapshot}, {:ok, %{transitions: transitions}}} ->
-        run_transitions(transitions, snapshot, actuation_opts)
+        if Keyword.get(actuation_opts, :continuous, false) do
+          run_transitions_continuous(transitions, snapshot, actuation_opts)
+        else
+          run_transitions(transitions, snapshot, actuation_opts)
+        end
 
       {{:error, tagged}, _} ->
         {:error, tagged, %{receipts: []}}
@@ -338,6 +383,90 @@ defmodule BeamPM.ProcessGovernor do
         {:error, reason, receipt} -> {:halt, {:error, reason, %{snap | receipts: [receipt | snap.receipts]}}}
       end
     end)
+  end
+
+  # Continuous-session variant of run_transitions/3: opens exactly ONE
+  # BeamPM.Actuation.Session before the fold, threads it (read-only from
+  # apply_transition/3's perspective - it flows in via actuation_opts[:session]
+  # and is never mutated by the unmodified delegation chain below it) across
+  # every transition, updates its last_observation after each successfully
+  # applied transition (so the NEXT transition's receipt-level
+  # observation_before reflects the real post-step state, not the initial
+  # reset's state), and closes it exactly once via try/after regardless of
+  # how the fold ends.
+  defp run_transitions_continuous([], snapshot, _actuation_opts), do: {:ok, snapshot}
+
+  defp run_transitions_continuous([first | _] = transitions, snapshot, actuation_opts) do
+    gym = Keyword.fetch!(actuation_opts, :gym)
+    bridge = Keyword.fetch!(actuation_opts, :bridge)
+    bridge_timeout = Keyword.get(actuation_opts, :bridge_timeout, 10_000)
+
+    case Session.open(bridge, gym, bridge_timeout) do
+      {:error, reason} ->
+        session_open_failure(first, snapshot, actuation_opts, reason)
+
+      {:ok, session} ->
+        try do
+          {result, _final_session} =
+            Enum.reduce_while(transitions, {{:ok, snapshot}, session}, fn t, {{:ok, snap}, sess} ->
+              run_opts = Keyword.put(actuation_opts, :session, sess)
+
+              with {:ok, candidate} <- plan_transition(snap, t.ordinal),
+                   {:ok, new_snap, receipt} <- apply_transition(snap, candidate, run_opts) do
+                new_sess =
+                  case Map.get(receipt, :observation_after) do
+                    obs when is_map(obs) -> Session.update_observation(sess, obs)
+                    _ -> sess
+                  end
+
+                {:cont, {{:ok, new_snap}, new_sess}}
+              else
+                {:error, reason} ->
+                  {:halt, {{:error, reason, snap}, sess}}
+
+                {:error, reason, receipt} ->
+                  {:halt, {{:error, reason, %{snap | receipts: [receipt | snap.receipts]}}, sess}}
+              end
+            end)
+
+          result
+        after
+          _ = Session.close(session, bridge_timeout)
+        end
+    end
+  end
+
+  # A Session.open/3 failure happens before BeamPM.Actuation.run/2 is ever
+  # invoked for the first transition, so there is no actuation receipt to
+  # point at -- but this module's own run/2 postcondition ("partial_snapshot
+  # .receipts holds every process receipt produced so far, including the one
+  # for the failed step") must still hold, the same way every other failure
+  # path in this module writes a real receipt rather than returning a bare
+  # error. Plans the first transition (a pure, already-graph-resolved
+  # lookup -- run/2 already confirmed process_id exists in @contracts before
+  # ever reaching here) purely to get a valid candidate/run_id to receipt
+  # against.
+  defp session_open_failure(first_transition, snapshot, actuation_opts, reason) do
+    tagged = {:execution_failed, {:session_open, reason}}
+
+    case plan_transition(snapshot, first_transition.ordinal) do
+      {:ok, candidate} ->
+        run_opts = actuation_opts_for(snapshot.process_id, candidate, actuation_opts)
+        run_id = Keyword.fetch!(run_opts, :run_id)
+
+        receipt =
+          build_and_write_receipt(candidate, run_id, run_opts, :execution_failed, inspect(tagged), nil)
+
+        {:error, tagged, %{snapshot | receipts: [receipt]}}
+
+      {:error, _plan_reason} ->
+        # Defensive-only: plan_transition/2 cannot fail here in practice
+        # (run/2 already resolved this exact process_id/ordinal from
+        # @contracts moments earlier), but if it somehow did, there is no
+        # candidate to receipt against -- surface the real, original
+        # session_open failure rather than crash or fabricate one.
+        {:error, tagged, %{snapshot | receipts: []}}
+    end
   end
 
   @doc "The graph-derived process contracts rendered into this build."
@@ -454,7 +583,15 @@ defmodule BeamPM.ProcessGovernor do
     if File.exists?(path), do: path, else: nil
   end
 
-  defp build_and_write_receipt(candidate, run_id, run_opts, outcome, reason, actuation_receipt_path) do
+  defp build_and_write_receipt(
+         candidate,
+         run_id,
+         run_opts,
+         outcome,
+         reason,
+         actuation_receipt_path,
+         observation_after \\ nil
+       ) do
     receipt = %{
       receipt_schema: @process_receipt_schema,
       process_id: candidate.process_id,
@@ -472,7 +609,16 @@ defmodule BeamPM.ProcessGovernor do
         end
     }
 
-    write_process_receipt!(receipt, run_opts)
+    receipt = write_process_receipt!(receipt, run_opts)
+
+    # In-memory only -- write_process_receipt!/2's own `json_safe` allowlist
+    # above never includes this key, so it is never persisted to disk (same
+    # established convention as that function's own `:process_receipt_path`
+    # addition). Threads the actuation's real observation forward so
+    # continuous-session mode can update its Session's last_observation
+    # directly, without re-reading and re-parsing the actuation receipt file
+    # this same call just wrote.
+    Map.put(receipt, :observation_after, observation_after)
   end
 
   defp write_process_receipt!(receipt, run_opts) do

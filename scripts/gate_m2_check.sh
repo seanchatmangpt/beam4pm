@@ -65,8 +65,18 @@ before_sums="$(for f in "${before_files[@]}"; do shasum -a 256 "$f"; done | sort
 # undefined BeamPM.Actuation. Stash it out of test/ for the regeneration
 # window, restore it once every manufactured module it depends on is real
 # again, right before the final byte-identity check.
+#
+# test/beam4pm_process_governor_k8s_test.exs (added with the continuous-
+# session k8s feature) hits the identical real bug: it references
+# BeamPM.ProcessGovernor.run/2 and the new BeamPM.Actuation.Session module,
+# both regenerated only partway through receipt_chain_sync.sh's own
+# internal actuation_sync.sh -> process_governor_sync.sh sequence. Caught
+# for real the same way as the file above: left unstashed, GATE M2 reported
+# 2 UndefinedFunctionError failures ("module BeamPM.ProcessGovernor is not
+# available") from a `mix test` run inside that regeneration window, not a
+# real regression in either module.
 STASH_DIR="$(mktemp -d)"
-HAND_AUTHORED_DEPENDENT_TESTS=(test/beam4pm_actuation_k8s_test.exs)
+HAND_AUTHORED_DEPENDENT_TESTS=(test/beam4pm_actuation_k8s_test.exs test/beam4pm_process_governor_k8s_test.exs)
 restore_stash() {
   for f in "${HAND_AUTHORED_DEPENDENT_TESTS[@]}"; do
     stashed="$STASH_DIR/$(basename "$f")"
