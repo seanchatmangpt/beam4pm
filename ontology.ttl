@@ -2534,3 +2534,20 @@ b4pe:commercial_quote_currency_f a bpm:Field ;
     bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "ISO 4217 settlement currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 b4pe:commercial_quote_status_f a bpm:Field ;
     bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Quote lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+# WS2-REV-002 -- Enterprise quote line binding a sellable SKU, quantity, and unit price.
+b4pe:commercial_quote_line_rt a bpm:RecordType ;
+    bpm:recordName "commercial_quote_line" ;
+    bpm:recordDoc "Enterprise quote line binding a sellable SKU, quantity, and unit price." ;
+    bpm:hasField b4pe:commercial_quote_line_quote_id_f , b4pe:commercial_quote_line_sku_f , b4pe:commercial_quote_line_quantity_f , b4pe:commercial_quote_line_unit_price_f .
+
+b4pe:commercial_quote_line_quote_id_f a bpm:Field ;
+    bpm:fieldName "quote_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Parent quote identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:commercial_quote_line_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Sellable catalog SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:commercial_quote_line_quantity_f a bpm:Field ;
+    bpm:fieldName "quantity" ; bpm:fieldType "integer" ; bpm:fieldDoc "Quoted unit count." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:commercial_quote_line_unit_price_f a bpm:Field ;
+    bpm:fieldName "unit_price" ; bpm:fieldType "float" ; bpm:fieldDoc "Price per unit in quote currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
