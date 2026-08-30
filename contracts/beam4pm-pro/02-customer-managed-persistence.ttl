@@ -1,0 +1,11 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2002 a pro:CapabilityContract ;
+ dct:identifier "B4PMP-2002" ; dct:title "Customer-managed persistence" ;
+ pro:requiredEvidence "runtime stores process data in an admitted customer-controlled persistence target and survives restart without vendor storage" ;
+ pro:authorityCeiling "DO:customer-approved-storage" ;
+ pro:refusalCode "REFUSED[VENDOR_PERSISTENCE_REQUIRED]" ;
+ pro:dataBoundary "customer" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/07-security-airgap-compliance.md> .
