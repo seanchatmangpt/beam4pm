@@ -21,3 +21,4 @@ b4:pro_runtime rt:enablesCapability "pro_runtime_tenant_isolation" .
 b4:pro_runtime rt:enablesCapability "pro_supervision_recovery" .
 b4:pro_runtime rt:enablesCapability "pro_backpressure_policy" .
 b4:pro_runtime rt:enablesCapability "pro_idempotent_retry" .
+b4:pro_runtime rt:enablesCapability "pro_timeout_cancellation" .
