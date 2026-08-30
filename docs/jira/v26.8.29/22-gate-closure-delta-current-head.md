@@ -89,5 +89,33 @@ independently confirmed green.
   actuations proven here are single-step, not a continuous governed transition.
 - The k8s-wiring-specific container rebuild, deferred per above.
 
+## Correction (2026-08-30, later same day)
+
+The sentence above claiming *"the fail-closed `setup_all` design handled this
+correctly, reporting the 3 k8s tests as cleanly skipped rather than failed"* was
+**wrong**, discovered by the very container rebuild this document said was
+deferred: `{:skip, reason}` returned from `setup_all` is not a documented ExUnit
+return shape (only `:ok`, a keyword list, or a map are). It raised a real
+`RuntimeError`, which marked the 3 tests "invalid" (0 failures counted, so the
+summary line *looked* clean) while making the overall `mix test` process exit
+non-zero — silently failing the Docker build, the opposite of the graceful skip
+this was meant to provide. A second attempted fix (moving the check into `setup`,
+per-test) hit the identical error — `setup` does not accept that shape either in
+this ExUnit version (1.19.5).
+
+Fixed for real in `test/beam4pm_actuation_k8s_test.exs`: the reachability check
+now runs once at compile time into a module attribute, feeding
+`@moduletag skip: reason_or_false` — the actual documented mechanism. Verified
+both ways: cluster reachable, `mix test` on this file still reports `3 tests, 0
+failures` (exit 0); cluster deliberately made unreachable (`KUBECONFIG` pointed
+at a nonexistent path), it now reports `3 tests, 0 failures, 3 skipped` (exit
+0) — genuinely clean, confirmed by checking the real exit code directly, not
+assumed from the summary line alone (the exact thing that made the original bug
+invisible). This receipt's original JSON
+(`receipts/2026-08-30-gate-closure-delta.json`) is left as-committed per this
+repo's own doctrine that a dated receipt is admissible evidence for its own
+head only — this correction is the fix-forward record, not a rewrite of that
+history.
+
 See also: [`16-gate-closure-m0-m6.md`](16-gate-closure-m0-m6.md),
 `receipts/2026-08-30-gate-closure-delta.json`.

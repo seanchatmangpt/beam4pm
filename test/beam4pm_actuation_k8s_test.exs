@@ -7,14 +7,35 @@
 # qualification/k8s_gym_bridge.py works standalone (already qualified
 # directly, twice, against the real kind-ex4pm cluster).
 #
-# Gated fail-closed, not faked: `setup_all` shells out to a real
-# `kubectl --context kind-ex4pm cluster-info` and returns `{:skip, reason}`
-# for the whole module when the cluster is unreachable (CI/Docker have no
-# kind-ex4pm checkout at all) -- the same fail-closed-rather-than-fabricated
-# pattern tests/test_container_smoke.sh already uses in the ggen-ecosystem
-# repo for an unavailable Docker daemon. `mix test` alone runs this module
-# and skips it honestly; `mix test --include external_k8s` (with a real
-# cluster reachable) actually exercises it.
+# Gated fail-closed, not faked: a compile-time check shells out to a real
+# `kubectl --context kind-ex4pm cluster-info` and sets `@moduletag skip:
+# reason` when the cluster is unreachable (CI/Docker have no kind-ex4pm
+# checkout at all) -- the same fail-closed-rather-than-fabricated pattern
+# tests/test_container_smoke.sh already uses in the ggen-ecosystem repo
+# for an unavailable Docker daemon. A skipped-via-tag module reports
+# cleanly as "N tests, 0 failures, N skipped" with exit code 0 -- the
+# actual documented ExUnit mechanism for a runtime-conditional skip.
+#
+# REAL BUGS FOUND AND FIXED (2026-08-30, caught by two separate real
+# `docker build` runs, never assumed): TWO earlier versions of this file
+# got the ExUnit skip API wrong, both confirmed the hard way by re-running
+# the same real `docker build` that caught each one:
+#   1. `setup_all` returning `{:skip, reason}` -- ExUnit only allows
+#      `setup_all` to return `:ok`, a keyword list, or a map; this raised
+#      a real RuntimeError, marking tests "invalid" (0 failures counted,
+#      so the summary line looked clean) while making the OVERALL `mix
+#      test` process exit non-zero -- silently breaking the CI/Docker
+#      build for anyone without a reachable cluster.
+#   2. `setup` (per-test) returning `{:skip, reason}` -- same RuntimeError,
+#      same failure mode; neither `setup` nor `setup_all` accepts this
+#      shape in this ExUnit version (1.19.5).
+# `@moduletag skip: reason_or_false`, computed once at compile time via a
+# module attribute, is the actual correct, documented mechanism. Verified
+# for real both ways: with the cluster reachable, `mix test` on this file
+# still reports "3 tests, 0 failures" (exit 0); with a deliberately broken
+# KUBECONFIG, it reports "3 tests, 0 failures, 3 skipped" (exit 0) --
+# genuinely clean now, confirmed by checking $? directly, not assumed from
+# the summary line alone.
 defmodule BeamPM.ActuationK8sTest do
   @moduledoc """
   Chicago-style qualification of the k8s_scale_up/k8s_scale_down admitted
@@ -31,27 +52,29 @@ defmodule BeamPM.ActuationK8sTest do
 
   alias BeamPM.Actuation
 
-  @moduletag :tmp_dir
-  @moduletag :external_k8s
-
   @context "kind-ex4pm"
 
-  setup_all do
-    # System.cmd/3 RAISES ErlangError{original: :enoent} rather than
-    # returning a tuple when the executable itself doesn't exist on PATH
-    # (confirmed for real -- a genuinely likely case here: CI/Docker never
-    # install kubectl at all) -- caught explicitly so an environment with
-    # no kubectl binary skips exactly as cleanly as one with kubectl but no
-    # reachable cluster, never crashing the whole test run.
-    try do
-      case System.cmd("kubectl", ["--context", @context, "cluster-info"], stderr_to_stdout: true) do
-        {_out, 0} -> :ok
-        {out, _status} -> {:skip, "kind-ex4pm cluster unreachable: #{String.slice(out, 0, 200)}"}
-      end
-    rescue
-      e in ErlangError -> {:skip, "kubectl not available: #{inspect(e)}"}
-    end
-  end
+  # Compile-time reachability check -- runs once, when this test module is
+  # compiled, not once per test. System.cmd/3 RAISES
+  # ErlangError{original: :enoent} rather than returning a tuple when the
+  # executable itself doesn't exist on PATH (confirmed for real -- a
+  # genuinely likely case here: CI/Docker never install kubectl at all) --
+  # caught explicitly so an environment with no kubectl binary skips
+  # exactly as cleanly as one with kubectl but no reachable cluster.
+  @cluster_skip_reason (try do
+                          case System.cmd("kubectl", ["--context", @context, "cluster-info"],
+                                 stderr_to_stdout: true
+                               ) do
+                            {_out, 0} -> false
+                            {out, _status} -> "kind-ex4pm cluster unreachable: #{String.slice(out, 0, 200)}"
+                          end
+                        rescue
+                          e in ErlangError -> "kubectl not available: #{inspect(e)}"
+                        end)
+
+  @moduletag :tmp_dir
+  @moduletag :external_k8s
+  @moduletag skip: @cluster_skip_reason
 
   defp bridge_path do
     path = Path.expand("qualification/k8s_gym_bridge.py")
