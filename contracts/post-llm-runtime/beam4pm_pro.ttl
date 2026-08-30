@@ -11,3 +11,4 @@ b4:pro_runtime rt:enablesCapability "pro_edition_bundle_selection" .
 b4:pro_runtime rt:enablesCapability "pro_tenant_account_projection" .
 b4:pro_runtime rt:enablesCapability "pro_entitlement_policy_evaluation" .
 b4:pro_runtime rt:enablesCapability "pro_sku_capability_mapping" .
+b4:pro_runtime rt:enablesCapability "pro_usage_meter_dimension" .
