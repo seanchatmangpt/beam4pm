@@ -3055,3 +3055,21 @@ b4pe:entitlement_revocation_reason_f a bpm:Field ;
 
 b4pe:entitlement_revocation_revoked_at_f a bpm:Field ;
     bpm:fieldName "revoked_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Revocation effective instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-031 -- Commercial tenant bound to account, region, and edition.
+b4pe:tenant_account_rt a bpm:RecordType ;
+    bpm:recordName "tenant_account" ;
+    bpm:recordDoc "Commercial tenant bound to account, region, and edition." ;
+    bpm:hasField b4pe:tenant_account_tenant_id_f , b4pe:tenant_account_account_id_f , b4pe:tenant_account_home_region_f , b4pe:tenant_account_edition_id_f .
+
+b4pe:tenant_account_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable tenant identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:tenant_account_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Owning enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:tenant_account_home_region_f a bpm:Field ;
+    bpm:fieldName "home_region" ; bpm:fieldType "string" ; bpm:fieldDoc "Tenant home region." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:tenant_account_edition_id_f a bpm:Field ;
+    bpm:fieldName "edition_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Provisioned product edition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
