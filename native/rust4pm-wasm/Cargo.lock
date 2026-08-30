@@ -712,6 +712,7 @@ name = "rust4pm-wasm"
 version = "0.1.0"
 dependencies = [
  "base64",
+ "chrono",
  "process_mining",
  "serde",
  "serde_json",

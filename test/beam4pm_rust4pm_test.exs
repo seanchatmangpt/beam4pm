@@ -451,4 +451,79 @@ defmodule BeamPM.Rust4PMTest do
 
     assert {:ok, %{"freed" => true}} = Rust4PM.free_log(gz_h)
   end
+
+  describe "T9: OCEL construction (the rust4pm docs site's documented examples)" do
+    test "building a linked OCEL: types -> objects (O2O) -> events (E2O) -> stats -> OCEL 2.0 export" do
+      assert {:ok, %{"ocel_handle" => h}} = Rust4PM.ocel_new()
+
+      assert {:ok, _} = Rust4PM.ocel_add_event_type(h, "place order", [%{"name" => "channel", "type" => "string"}])
+      assert {:ok, _} = Rust4PM.ocel_add_event_type(h, "ship order")
+      assert {:ok, _} = Rust4PM.ocel_add_object_type(h, "order")
+      assert {:ok, _} = Rust4PM.ocel_add_object_type(h, "customer")
+      assert {:ok, _} = Rust4PM.ocel_add_object(h, "c1", "customer")
+      assert {:ok, _} = Rust4PM.ocel_add_object(h, "o1", "order", [["c1", "placed_by"]])
+
+      assert {:ok, _} =
+               Rust4PM.ocel_add_event(h, "e1", "place order", "2026-08-30T10:00:00+00:00", [
+                 ["o1", "order"],
+                 ["c1", "customer"]
+               ])
+
+      # Refusals are real, engine-side, and specific -- never silent:
+      assert {:error, {:engine, msg}} =
+               Rust4PM.ocel_add_event(h, "e2", "not a type", "2026-08-30T11:00:00+00:00", [])
+
+      assert msg =~ "undeclared event type"
+      assert {:error, {:engine, dup}} = Rust4PM.ocel_add_object(h, "o1", "order")
+      assert dup =~ "duplicate object id"
+      assert {:error, {:engine, unk}} =
+               Rust4PM.ocel_add_event(h, "e3", "ship order", "2026-08-30T11:00:00+00:00", [["ghost", "order"]])
+      assert unk =~ "unknown object"
+
+      assert {:ok, stats} = Rust4PM.ocel_stats(h)
+      assert stats["num_events"] == 1
+      assert stats["num_objects"] == 2
+      assert stats["events_per_type"] == %{"place order" => 1}
+      assert stats["objects_per_type"] == %{"customer" => 1, "order" => 1}
+
+      # The export is the crate's own OCEL 2.0 serde shape (camelCase keys,
+      # qualified relationships) -- checked structurally, not vibes.
+      assert {:ok, %{"ocel" => doc}} = Rust4PM.ocel_to_json(h)
+      assert [%{"id" => "e1", "type" => "place order", "relationships" => rels}] = doc["events"]
+      assert rels == [
+               %{"objectId" => "o1", "qualifier" => "order"},
+               %{"objectId" => "c1", "qualifier" => "customer"}
+             ]
+      assert %{"name" => "place order", "attributes" => [%{"name" => "channel", "type" => "string"}]} =
+               Enum.find(doc["eventTypes"], &(&1["name"] == "place order"))
+      assert [%{"id" => "c1"}, %{"id" => "o1", "relationships" => [%{"objectId" => "c1", "qualifier" => "placed_by"}]}] =
+               Enum.sort_by(doc["objects"], & &1["id"])
+
+      assert {:ok, %{"freed" => true}} = Rust4PM.free_ocel(h)
+      assert {:error, {:engine, gone}} = Rust4PM.ocel_stats(h)
+      assert gone =~ "unknown ocel handle"
+    end
+
+    test "xes_to_ocel: running-example.xes becomes an OCEL with one case object per trace", %{run: run_h} do
+      assert {:ok, %{"ocel_handle" => oh}} = Rust4PM.xes_to_ocel(run_h, "case", "belongs_to")
+      assert {:ok, stats} = Rust4PM.ocel_stats(oh)
+
+      # Real running-example numbers: 6 traces (-> 6 case objects), 8
+      # activities (-> 8 event types); every XES event carried over.
+      assert stats["num_objects"] == 6
+      assert stats["num_event_types"] == 8
+      assert stats["num_object_types"] == 1
+      assert stats["num_events"] > 0
+
+      # Cross-check the event total against the flat sum of the log's own
+      # variant lengths (6 variants x frequency 1 in this log).
+      assert {:ok, %{"variants" => variants}} = Rust4PM.top_n_variants(run_h, 100)
+      expected_events =
+        variants |> Enum.map(fn v -> length(v["activities"]) * v["count"] end) |> Enum.sum()
+
+      assert stats["num_events"] == expected_events
+
+      assert {:ok, %{"freed" => true}} = Rust4PM.free_ocel(oh)
+    end
+  end
 end

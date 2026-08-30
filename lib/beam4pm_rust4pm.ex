@@ -61,7 +61,11 @@ defmodule BeamPM.Rust4PM do
   `import_xes`, `import_xes_gz`, `log_stats`, `top_n_variants`,
   `discover_dfg`, `discover_alphappp`, `import_pnml`, `align_variants`,
   `align_trace`, `compute_fitness`, `activities_to_alphabet`,
-  `activity_position`, `free_log`, `free_net` (plus the `*_path` file
+  `activity_position`, `free_log`, `free_net`, and the OCEL-construction
+  set (`ocel_new`, `ocel_add_event_type`/`ocel_add_object_type`,
+  `ocel_add_object`/`ocel_add_event`, `ocel_stats`, `ocel_to_json`,
+  `xes_to_ocel`, `free_ocel` — the rust4pm docs site's documented
+  "Building a Linked OCEL" examples) (plus the `*_path` file
   conveniences, which `File.read!` host-side).
 
   Handles (`log` and `net`) are plain integers scoped to the engine
@@ -378,6 +382,95 @@ defmodule BeamPM.Rust4PM do
   @spec free_net(non_neg_integer(), keyword()) :: result()
   def free_net(handle, opts \\ []) when is_integer(handle) do
     call(%{"op" => "free_net", "handle" => handle}, timeout(opts, @cheap_timeout))
+  end
+
+  # ---------------------------------------------------------------------
+  # OCEL construction — the rust4pm docs site's own documented examples
+  # ("Building a Linked OCEL"): declare event/object types, add events and
+  # objects with E2O/O2O relations, inspect stats, export OCEL 2.0 JSON.
+  # `xes_to_ocel/3` is the canonical-dataset variant: one object per XES
+  # case, one OCEL event per XES event with an E2O to its case object.
+  # ---------------------------------------------------------------------
+
+  @doc "Create a new empty OCEL; returns `{:ok, %{\"ocel_handle\" => h}}`."
+  def ocel_new(opts \\ []) do
+    call(%{"op" => "ocel_new"}, timeout(opts, @cheap_timeout))
+  end
+
+  @doc "Declare an event type. `attributes`: list of %{\"name\" => _, \"type\" => _}."
+  def ocel_add_event_type(ocel, name, attributes \\ [], opts \\ [])
+      when is_integer(ocel) and is_binary(name) do
+    call(
+      %{"op" => "ocel_add_event_type", "ocel_handle" => ocel, "name" => name, "attributes" => attributes},
+      timeout(opts, @cheap_timeout)
+    )
+  end
+
+  @doc "Declare an object type. Same attribute shape as `ocel_add_event_type/4`."
+  def ocel_add_object_type(ocel, name, attributes \\ [], opts \\ [])
+      when is_integer(ocel) and is_binary(name) do
+    call(
+      %{"op" => "ocel_add_object_type", "ocel_handle" => ocel, "name" => name, "attributes" => attributes},
+      timeout(opts, @cheap_timeout)
+    )
+  end
+
+  @doc "Add an object. `o2o`: list of `[target_object_id, qualifier]` pairs."
+  def ocel_add_object(ocel, id, type, o2o \\ [], opts \\ [])
+      when is_integer(ocel) and is_binary(id) and is_binary(type) do
+    call(
+      %{"op" => "ocel_add_object", "ocel_handle" => ocel, "id" => id, "type" => type, "o2o" => o2o},
+      timeout(opts, @cheap_timeout)
+    )
+  end
+
+  @doc "Add an event (`time` RFC3339). `e2o`: `[object_id, qualifier]` pairs."
+  def ocel_add_event(ocel, id, type, time, e2o \\ [], opts \\ [])
+      when is_integer(ocel) and is_binary(id) and is_binary(type) and is_binary(time) do
+    call(
+      %{
+        "op" => "ocel_add_event",
+        "ocel_handle" => ocel,
+        "id" => id,
+        "type" => type,
+        "time" => time,
+        "e2o" => e2o
+      },
+      timeout(opts, @cheap_timeout)
+    )
+  end
+
+  @doc "Counts per event/object type plus totals."
+  def ocel_stats(ocel, opts \\ []) when is_integer(ocel) do
+    call(%{"op" => "ocel_stats", "ocel_handle" => ocel}, timeout(opts, @cheap_timeout))
+  end
+
+  @doc "Export the OCEL 2.0 JSON document (the crate's own serde shape)."
+  def ocel_to_json(ocel, opts \\ []) when is_integer(ocel) do
+    call(%{"op" => "ocel_to_json", "ocel_handle" => ocel}, timeout(opts, @cheap_timeout))
+  end
+
+  @doc """
+  Build an OCEL from an imported XES log handle: object type
+  `case_object_type` gets one object per case; every XES event becomes an
+  OCEL event with one E2O (qualifier `qualifier`) to its case object.
+  """
+  def xes_to_ocel(log_handle, case_object_type, qualifier, opts \\ [])
+      when is_integer(log_handle) and is_binary(case_object_type) and is_binary(qualifier) do
+    call(
+      %{
+        "op" => "xes_to_ocel",
+        "handle" => log_handle,
+        "case_object_type" => case_object_type,
+        "qualifier" => qualifier
+      },
+      timeout(opts, @heavy_timeout)
+    )
+  end
+
+  @doc "Free an OCEL handle."
+  def free_ocel(ocel, opts \\ []) when is_integer(ocel) do
+    call(%{"op" => "free_ocel", "ocel_handle" => ocel}, timeout(opts, @cheap_timeout))
   end
 
   # ---------------------------------------------------------------------

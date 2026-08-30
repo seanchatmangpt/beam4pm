@@ -137,6 +137,9 @@ use process_mining::core::event_data::case_centric::utils::activity_projection::
     log_to_activity_projection,
 };
 use process_mining::core::event_data::case_centric::xes::{import_xes_slice, XESImportOptions};
+use process_mining::core::event_data::object_centric::{
+    OCELEvent, OCELObject, OCELRelationship, OCELType, OCELTypeAttribute, OCEL,
+};
 use process_mining::core::event_data::case_centric::{AttributeValue, XESEditableAttribute};
 use process_mining::core::process_models::case_centric::petri_net::pnml::import_pnml_reader;
 use process_mining::discovery::case_centric::alphappp::full::{
@@ -152,6 +155,10 @@ static NETS: Mutex<Option<HashMap<u64, PetriNet>>> = Mutex::new(None);
 /// Shared handle counter across both registries (so handles never collide,
 /// and a stale log handle can never accidentally alias a net handle).
 static NEXT: Mutex<u64> = Mutex::new(1);
+
+/// OCEL registry -- same shared-counter, take/compute/re-insert discipline
+/// as LOGS/NETS (see the Q1-F1 note above).
+static OCELS: Mutex<Option<HashMap<u64, OCEL>>> = Mutex::new(None);
 
 const UNSUPPORTED_DISCOUNT_MSG: &str = "unsupported: discounted cost model (pm4py \
 VERSION_DISCOUNTED_A_STAR exponent) -- process_mining 0.6.2 has only the per-move-kind \
@@ -342,6 +349,44 @@ fn sorted_variants(
     all
 }
 
+fn insert_ocel(ocel: OCEL) -> Result<u64, String> {
+    let mut next = NEXT
+        .lock()
+        .map_err(|_| "internal: id counter lock poisoned".to_string())?;
+    let id = *next;
+    *next += 1;
+    drop(next);
+    OCELS
+        .lock()
+        .map_err(|_| "internal: ocel registry lock poisoned".to_string())?
+        .get_or_insert_with(HashMap::new)
+        .insert(id, ocel);
+    Ok(id)
+}
+
+fn take_ocel(id: u64) -> Result<OCEL, String> {
+    OCELS
+        .lock()
+        .map_err(|_| "internal: ocel registry lock poisoned".to_string())?
+        .as_mut()
+        .and_then(|m| m.remove(&id))
+        .ok_or_else(|| format!("unknown ocel handle {id}"))
+}
+
+fn put_ocel(id: u64, ocel: OCEL) {
+    if let Ok(mut guard) = OCELS.lock() {
+        guard.get_or_insert_with(HashMap::new).insert(id, ocel);
+    }
+}
+
+/// Mutating access (the OCEL-building ops): take, mutate, re-insert.
+fn with_ocel_mut<T>(id: u64, f: impl FnOnce(&mut OCEL) -> Result<T, String>) -> Result<T, String> {
+    let mut ocel = take_ocel(id)?;
+    let out = f(&mut ocel);
+    put_ocel(id, ocel);
+    out
+}
+
 fn remove_net(id: u64) -> Result<(), String> {
     NETS.lock()
         .map_err(|_| "internal: net registry lock poisoned".to_string())?
@@ -354,6 +399,59 @@ fn remove_net(id: u64) -> Result<(), String> {
 // ---------------------------------------------------------------------------
 // Shared rendering helpers
 // ---------------------------------------------------------------------------
+
+fn parse_type_attributes(v: &serde_json::Value) -> Result<Vec<OCELTypeAttribute>, String> {
+    match v.get("attributes") {
+        None | Some(serde_json::Value::Null) => Ok(Vec::new()),
+        Some(serde_json::Value::Array(items)) => items
+            .iter()
+            .map(|item| {
+                let name = item
+                    .get("name")
+                    .and_then(|x| x.as_str())
+                    .ok_or("type attribute missing string name")?;
+                let value_type = item
+                    .get("type")
+                    .and_then(|x| x.as_str())
+                    .ok_or("type attribute missing string type")?;
+                Ok(OCELTypeAttribute {
+                    name: name.to_string(),
+                    value_type: value_type.to_string(),
+                })
+            })
+            .collect(),
+        Some(_) => Err("attributes must be an array".to_string()),
+    }
+}
+
+fn parse_relationships(
+    v: &serde_json::Value,
+    key: &str,
+) -> Result<Vec<OCELRelationship>, String> {
+    match v.get(key) {
+        None | Some(serde_json::Value::Null) => Ok(Vec::new()),
+        Some(serde_json::Value::Array(items)) => items
+            .iter()
+            .map(|item| {
+                let pair = item
+                    .as_array()
+                    .filter(|a| a.len() == 2)
+                    .ok_or_else(|| format!("{key} entries must be [object_id, qualifier] pairs"))?;
+                let object_id = pair[0]
+                    .as_str()
+                    .ok_or_else(|| format!("{key} object_id must be a string"))?;
+                let qualifier = pair[1]
+                    .as_str()
+                    .ok_or_else(|| format!("{key} qualifier must be a string"))?;
+                Ok(OCELRelationship {
+                    object_id: object_id.to_string(),
+                    qualifier: qualifier.to_string(),
+                })
+            })
+            .collect(),
+        Some(_) => Err(format!("{key} must be an array")),
+    }
+}
 
 fn ok_json(value: &serde_json::Value) -> Result<Vec<u8>, String> {
     serde_json::to_vec(value).map_err(|e| format!("internal: response serialization failed: {e}"))
@@ -777,6 +875,214 @@ fn dispatch(input: &[u8]) -> Result<Vec<u8>, String> {
         "free_net" => {
             let id = req_u64(&v, "handle")?;
             remove_net(id)?;
+            ok_json(&serde_json::json!({ "freed": true }))
+        }
+        // ------------------------------------------------------------------
+        // OCEL construction ops -- the rust4pm docs site's own two documented
+        // examples ("Building a Linked OCEL": declare event/object types, add
+        // events/objects with E2O/O2O relations, export OCEL 2.0), expressed
+        // over the crate's real OCEL structs (OCELType/OCELEvent/OCELObject/
+        // OCELRelationship all crate types with derived serde; export is the
+        // crate's own OCEL 2.0 JSON shape via serde, byte-compatible with
+        // its importer).
+        // ------------------------------------------------------------------
+        "ocel_new" => {
+            let ocel = OCEL {
+                event_types: Vec::new(),
+                object_types: Vec::new(),
+                events: Vec::new(),
+                objects: Vec::new(),
+            };
+            let id = insert_ocel(ocel)?;
+            ok_json(&serde_json::json!({ "ocel_handle": id }))
+        }
+        "ocel_add_event_type" | "ocel_add_object_type" => {
+            let id = req_u64(&v, "ocel_handle")?;
+            let name = req_str(&v, "name")?.to_string();
+            let attributes = parse_type_attributes(&v)?;
+            let is_event = op == "ocel_add_event_type";
+            let value = with_ocel_mut(id, |ocel| {
+                let bucket = if is_event {
+                    &mut ocel.event_types
+                } else {
+                    &mut ocel.object_types
+                };
+                if bucket.iter().any(|ty| ty.name == name) {
+                    return Err(format!("duplicate type {name:?}"));
+                }
+                bucket.push(OCELType { name: name.clone(), attributes: attributes.clone() });
+                Ok(serde_json::json!({ "added": name }))
+            })?;
+            ok_json(&value)
+        }
+        "ocel_add_object" => {
+            let id = req_u64(&v, "ocel_handle")?;
+            let obj_id = req_str(&v, "id")?.to_string();
+            let obj_type = req_str(&v, "type")?.to_string();
+            let o2o = parse_relationships(&v, "o2o")?;
+            let value = with_ocel_mut(id, |ocel| {
+                if !ocel.object_types.iter().any(|ty| ty.name == obj_type) {
+                    return Err(format!("undeclared object type {obj_type:?}"));
+                }
+                if ocel.objects.iter().any(|o| o.id == obj_id) {
+                    return Err(format!("duplicate object id {obj_id:?}"));
+                }
+                ocel.objects.push(OCELObject {
+                    id: obj_id.clone(),
+                    object_type: obj_type,
+                    attributes: Vec::new(),
+                    relationships: o2o,
+                });
+                Ok(serde_json::json!({ "added": obj_id }))
+            })?;
+            ok_json(&value)
+        }
+        "ocel_add_event" => {
+            let id = req_u64(&v, "ocel_handle")?;
+            let ev_id = req_str(&v, "id")?.to_string();
+            let ev_type = req_str(&v, "type")?.to_string();
+            let time = req_str(&v, "time")?;
+            let time = chrono::DateTime::parse_from_rfc3339(time)
+                .map_err(|e| format!("bad event time {time:?}: {e}"))?;
+            let e2o = parse_relationships(&v, "e2o")?;
+            let value = with_ocel_mut(id, |ocel| {
+                if !ocel.event_types.iter().any(|ty| ty.name == ev_type) {
+                    return Err(format!("undeclared event type {ev_type:?}"));
+                }
+                for rel in &e2o {
+                    if !ocel.objects.iter().any(|o| o.id == rel.object_id) {
+                        return Err(format!("e2o references unknown object {:?}", rel.object_id));
+                    }
+                }
+                ocel.events.push(OCELEvent {
+                    id: ev_id.clone(),
+                    event_type: ev_type,
+                    time,
+                    attributes: Vec::new(),
+                    relationships: e2o,
+                });
+                Ok(serde_json::json!({ "added": ev_id }))
+            })?;
+            ok_json(&value)
+        }
+        "ocel_stats" => {
+            let id = req_u64(&v, "handle").or_else(|_| req_u64(&v, "ocel_handle"))?;
+            let ocel = take_ocel(id)?;
+            let mut ev_counts: BTreeMap<&str, u64> = BTreeMap::new();
+            for e in &ocel.events {
+                *ev_counts.entry(e.event_type.as_str()).or_insert(0) += 1;
+            }
+            let mut ob_counts: BTreeMap<&str, u64> = BTreeMap::new();
+            for o in &ocel.objects {
+                *ob_counts.entry(o.object_type.as_str()).or_insert(0) += 1;
+            }
+            let value = serde_json::json!({
+                "num_events": ocel.events.len(),
+                "num_objects": ocel.objects.len(),
+                "num_event_types": ocel.event_types.len(),
+                "num_object_types": ocel.object_types.len(),
+                "events_per_type": ev_counts,
+                "objects_per_type": ob_counts,
+            });
+            put_ocel(id, ocel);
+            ok_json(&value)
+        }
+        "ocel_to_json" => {
+            let id = req_u64(&v, "handle").or_else(|_| req_u64(&v, "ocel_handle"))?;
+            let ocel = take_ocel(id)?;
+            let value = serde_json::to_value(&ocel)
+                .map_err(|e| format!("internal: OCEL serialization failed: {e}"));
+            put_ocel(id, ocel);
+            ok_json(&serde_json::json!({ "ocel": value? }))
+        }
+        "xes_to_ocel" => {
+            // Canonical-dataset variant of the "Building a Linked OCEL"
+            // example: one OCEL object per XES case (object type =
+            // `case_object_type`), one OCEL event per XES event with an E2O
+            // relation to its case object. Only plumbing over crate
+            // structures -- no algorithm.
+            let id = req_u64(&v, "handle")?;
+            let case_object_type = req_str(&v, "case_object_type")?.to_string();
+            let qualifier = req_str(&v, "qualifier")?.to_string();
+            let ocel = with_log(id, |log| {
+                let mut event_types: Vec<OCELType> = Vec::new();
+                let mut objects: Vec<OCELObject> = Vec::new();
+                let mut events: Vec<OCELEvent> = Vec::new();
+                for (t_idx, trace) in log.traces.iter().enumerate() {
+                    let case_id = trace
+                        .attributes
+                        .iter()
+                        .find(|a| a.key == ACTIVITY_NAME)
+                        .and_then(|a| match &a.value {
+                            AttributeValue::String(s) => Some(s.clone()),
+                            _ => None,
+                        })
+                        .unwrap_or_else(|| format!("case_{t_idx}"));
+                    let obj_id = format!("{case_object_type}:{case_id}");
+                    objects.push(OCELObject {
+                        id: obj_id.clone(),
+                        object_type: case_object_type.clone(),
+                        attributes: Vec::new(),
+                        relationships: Vec::new(),
+                    });
+                    for (e_idx, event) in trace.events.iter().enumerate() {
+                        let activity = event
+                            .attributes
+                            .iter()
+                            .find(|a| a.key == ACTIVITY_NAME)
+                            .and_then(|a| match &a.value {
+                                AttributeValue::String(s) => Some(s.clone()),
+                                _ => None,
+                            });
+                        let Some(activity) = activity else { continue };
+                        let time = event
+                            .attributes
+                            .iter()
+                            .find(|a| a.key == "time:timestamp")
+                            .and_then(|a| match &a.value {
+                                AttributeValue::Date(d) => Some(*d),
+                                _ => None,
+                            })
+                            .ok_or_else(|| {
+                                format!(
+                                    "event {e_idx} of case {case_id:?} has no                                      time:timestamp Date attribute"
+                                )
+                            })?;
+                        if !event_types.iter().any(|ty| ty.name == activity) {
+                            event_types.push(OCELType {
+                                name: activity.clone(),
+                                attributes: Vec::new(),
+                            });
+                        }
+                        events.push(OCELEvent {
+                            id: format!("e_{t_idx}_{e_idx}"),
+                            event_type: activity,
+                            time,
+                            attributes: Vec::new(),
+                            relationships: vec![OCELRelationship {
+                                object_id: obj_id.clone(),
+                                qualifier: qualifier.clone(),
+                            }],
+                        });
+                    }
+                }
+                event_types.sort_by(|a, b| a.name.cmp(&b.name));
+                Ok(OCEL {
+                    event_types,
+                    object_types: vec![OCELType {
+                        name: case_object_type.clone(),
+                        attributes: Vec::new(),
+                    }],
+                    events,
+                    objects,
+                })
+            })?;
+            let ocel_id = insert_ocel(ocel)?;
+            ok_json(&serde_json::json!({ "ocel_handle": ocel_id }))
+        }
+        "free_ocel" => {
+            let id = req_u64(&v, "handle").or_else(|_| req_u64(&v, "ocel_handle"))?;
+            let _ = take_ocel(id)?;
             ok_json(&serde_json::json!({ "freed": true }))
         }
         other => Err(format!("unknown op: {other}")),
