@@ -2803,3 +2803,21 @@ b4pe:ramp_commitment_committed_amount_f a bpm:Field ;
 
 b4pe:ramp_commitment_effective_at_f a bpm:Field ;
     bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Phase activation instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-017 -- End-of-period reconciliation policy for committed consumption.
+b4pe:true_up_policy_rt a bpm:RecordType ;
+    bpm:recordName "true_up_policy" ;
+    bpm:recordDoc "End-of-period reconciliation policy for committed consumption." ;
+    bpm:hasField b4pe:true_up_policy_policy_id_f , b4pe:true_up_policy_commitment_id_f , b4pe:true_up_policy_cadence_f , b4pe:true_up_policy_shortfall_behavior_f .
+
+b4pe:true_up_policy_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable true-up identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:true_up_policy_commitment_id_f a bpm:Field ;
+    bpm:fieldName "commitment_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Commitment under reconciliation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:true_up_policy_cadence_f a bpm:Field ;
+    bpm:fieldName "cadence" ; bpm:fieldType "atom" ; bpm:fieldDoc "True-up cadence." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:true_up_policy_shortfall_behavior_f a bpm:Field ;
+    bpm:fieldName "shortfall_behavior" ; bpm:fieldType "atom" ; bpm:fieldDoc "Shortfall treatment." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
