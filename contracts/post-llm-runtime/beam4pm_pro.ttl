@@ -41,3 +41,4 @@ b4:pro_authority_policy odrl:permission [ odrl:action odrl:use ] .
 
 b4:pro_runtime rt:enablesCapability "pro_procurement_constraint_admission" .
 b4:pro_runtime rt:enablesCapability "pro_security_requirement_admission" .
+b4:pro_runtime rt:enablesCapability "pro_roi_payback_model" .
