@@ -2785,3 +2785,21 @@ b4pe:discount_schedule_discount_percent_f a bpm:Field ;
 
 b4pe:discount_schedule_currency_f a bpm:Field ;
     bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "Applicable settlement currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-016 -- Phased commercial commitment with effective window.
+b4pe:ramp_commitment_rt a bpm:RecordType ;
+    bpm:recordName "ramp_commitment" ;
+    bpm:recordDoc "Phased commercial commitment with effective window." ;
+    bpm:hasField b4pe:ramp_commitment_ramp_id_f , b4pe:ramp_commitment_phase_f , b4pe:ramp_commitment_committed_amount_f , b4pe:ramp_commitment_effective_at_f .
+
+b4pe:ramp_commitment_ramp_id_f a bpm:Field ;
+    bpm:fieldName "ramp_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable ramp identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:ramp_commitment_phase_f a bpm:Field ;
+    bpm:fieldName "phase" ; bpm:fieldType "integer" ; bpm:fieldDoc "Ordered ramp phase." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:ramp_commitment_committed_amount_f a bpm:Field ;
+    bpm:fieldName "committed_amount" ; bpm:fieldType "float" ; bpm:fieldDoc "Phase commitment amount." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:ramp_commitment_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Phase activation instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
