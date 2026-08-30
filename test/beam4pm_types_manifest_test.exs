@@ -3,35 +3,143 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 35
+    assert length(BeamPM.Types.Manifest.record_names()) == 85
+  end
+
+  test "fields/1 returns the ordered field-name list for add_on_bundle" do
+    assert BeamPM.Types.Manifest.fields(:add_on_bundle) == [:add_on_id, :name, :capability_ids, :status]
   end
 
   test "fields/1 returns the ordered field-name list for alignment_move" do
     assert BeamPM.Types.Manifest.fields(:alignment_move) == [:move_type, :cost]
   end
 
+  test "fields/1 returns the ordered field-name list for annual_subscription" do
+    assert BeamPM.Types.Manifest.fields(:annual_subscription) == [:subscription_id, :sku, :seat_count, :renews_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for billing_account" do
+    assert BeamPM.Types.Manifest.fields(:billing_account) == [:billing_account_id, :account_id, :currency, :invoice_profile]
+  end
+
   test "fields/1 returns the ordered field-name list for billing_reconciliation" do
     assert BeamPM.Types.Manifest.fields(:billing_reconciliation) == [:entitlement_id, :metric_name, :total_quantity, :applied_event_ids, :period_start, :period_end]
+  end
+
+  test "fields/1 returns the ordered field-name list for capability_bundle" do
+    assert BeamPM.Types.Manifest.fields(:capability_bundle) == [:bundle_id, :name, :capability_ids, :version]
   end
 
   test "fields/1 returns the ordered field-name list for case_stats" do
     assert BeamPM.Types.Manifest.fields(:case_stats) == [:case_id, :event_count, :duration_seconds]
   end
 
+  test "fields/1 returns the ordered field-name list for catalog_release" do
+    assert BeamPM.Types.Manifest.fields(:catalog_release) == [:release_id, :version, :sku_ids, :effective_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for channel_agreement" do
+    assert BeamPM.Types.Manifest.fields(:channel_agreement) == [:agreement_id, :partner_id, :territory, :valid_until]
+  end
+
+  test "fields/1 returns the ordered field-name list for chargeback_rule" do
+    assert BeamPM.Types.Manifest.fields(:chargeback_rule) == [:rule_id, :cost_center, :metric_name, :rate]
+  end
+
+  test "fields/1 returns the ordered field-name list for commercial_approval" do
+    assert BeamPM.Types.Manifest.fields(:commercial_approval) == [:approval_id, :quote_id, :authority, :status]
+  end
+
+  test "fields/1 returns the ordered field-name list for commercial_execution_receipt" do
+    assert BeamPM.Types.Manifest.fields(:commercial_execution_receipt) == [:receipt_id, :subject_id, :operation, :evidence_hash]
+  end
+
+  test "fields/1 returns the ordered field-name list for commercial_forecast" do
+    assert BeamPM.Types.Manifest.fields(:commercial_forecast) == [:forecast_id, :account_id, :amount, :confidence]
+  end
+
+  test "fields/1 returns the ordered field-name list for commercial_quote" do
+    assert BeamPM.Types.Manifest.fields(:commercial_quote) == [:quote_id, :account_id, :currency, :status]
+  end
+
+  test "fields/1 returns the ordered field-name list for commercial_quote_line" do
+    assert BeamPM.Types.Manifest.fields(:commercial_quote_line) == [:quote_id, :sku, :quantity, :unit_price]
+  end
+
+  test "fields/1 returns the ordered field-name list for committed_spend" do
+    assert BeamPM.Types.Manifest.fields(:committed_spend) == [:commitment_id, :amount, :currency, :expires_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for compatibility_contract" do
+    assert BeamPM.Types.Manifest.fields(:compatibility_contract) == [:contract_id, :product_version, :schema_version, :api_version]
+  end
+
+  test "fields/1 returns the ordered field-name list for configuration_export" do
+    assert BeamPM.Types.Manifest.fields(:configuration_export) == [:export_id, :tenant_id, :configuration_hash, :exported_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for configuration_import" do
+    assert BeamPM.Types.Manifest.fields(:configuration_import) == [:import_id, :tenant_id, :configuration_hash, :status]
+  end
+
   test "fields/1 returns the ordered field-name list for conformance_result" do
     assert BeamPM.Types.Manifest.fields(:conformance_result) == [:trace_id, :fitness, :precision]
+  end
+
+  test "fields/1 returns the ordered field-name list for consumption_pool" do
+    assert BeamPM.Types.Manifest.fields(:consumption_pool) == [:pool_id, :account_id, :unit, :remaining_quantity]
+  end
+
+  test "fields/1 returns the ordered field-name list for consumption_subscription" do
+    assert BeamPM.Types.Manifest.fields(:consumption_subscription) == [:subscription_id, :account_id, :plan_id, :status]
+  end
+
+  test "fields/1 returns the ordered field-name list for data_residency_policy" do
+    assert BeamPM.Types.Manifest.fields(:data_residency_policy) == [:policy_id, :tenant_id, :allowed_regions, :status]
+  end
+
+  test "fields/1 returns the ordered field-name list for deployment_entitlement" do
+    assert BeamPM.Types.Manifest.fields(:deployment_entitlement) == [:entitlement_id, :tenant_id, :profile_id, :valid_until]
   end
 
   test "fields/1 returns the ordered field-name list for dfg_edge" do
     assert BeamPM.Types.Manifest.fields(:dfg_edge) == [:source_activity, :target_activity, :frequency]
   end
 
+  test "fields/1 returns the ordered field-name list for discount_schedule" do
+    assert BeamPM.Types.Manifest.fields(:discount_schedule) == [:schedule_id, :threshold, :discount_percent, :currency]
+  end
+
+  test "fields/1 returns the ordered field-name list for edition_definition" do
+    assert BeamPM.Types.Manifest.fields(:edition_definition) == [:edition_id, :name, :bundle_ids, :support_tier]
+  end
+
+  test "fields/1 returns the ordered field-name list for enterprise_order" do
+    assert BeamPM.Types.Manifest.fields(:enterprise_order) == [:order_id, :account_id, :quote_id, :status]
+  end
+
+  test "fields/1 returns the ordered field-name list for enterprise_order_line" do
+    assert BeamPM.Types.Manifest.fields(:enterprise_order_line) == [:order_id, :sku, :quantity, :unit_price]
+  end
+
   test "fields/1 returns the ordered field-name list for entitlement_event" do
     assert BeamPM.Types.Manifest.fields(:entitlement_event) == [:event_id, :entitlement_id, :event_type, :effective_at, :payload]
   end
 
+  test "fields/1 returns the ordered field-name list for entitlement_grant" do
+    assert BeamPM.Types.Manifest.fields(:entitlement_grant) == [:grant_id, :tenant_id, :capability_id, :valid_until]
+  end
+
+  test "fields/1 returns the ordered field-name list for entitlement_revocation" do
+    assert BeamPM.Types.Manifest.fields(:entitlement_revocation) == [:revocation_id, :grant_id, :reason, :revoked_at]
+  end
+
   test "fields/1 returns the ordered field-name list for entitlement_state" do
     assert BeamPM.Types.Manifest.fields(:entitlement_state) == [:entitlement_id, :status, :last_applied_event_id, :updated_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for environment_profile" do
+    assert BeamPM.Types.Manifest.fields(:environment_profile) == [:profile_id, :environment, :region, :configuration_hash]
   end
 
   test "fields/1 returns the ordered field-name list for event_log" do
@@ -42,8 +150,16 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:event_type) == [:type_name, :attribute_names]
   end
 
+  test "fields/1 returns the ordered field-name list for expansion_option" do
+    assert BeamPM.Types.Manifest.fields(:expansion_option) == [:option_id, :account_id, :sku, :max_quantity]
+  end
+
   test "fields/1 returns the ordered field-name list for heuristic_arc" do
     assert BeamPM.Types.Manifest.fields(:heuristic_arc) == [:source_activity, :target_activity, :dependency_measure]
+  end
+
+  test "fields/1 returns the ordered field-name list for invoice_schedule" do
+    assert BeamPM.Types.Manifest.fields(:invoice_schedule) == [:schedule_id, :billing_account_id, :cadence, :next_invoice_at]
   end
 
   test "fields/1 returns the ordered field-name list for k8s_object_ref" do
@@ -52,6 +168,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for log_trace" do
     assert BeamPM.Types.Manifest.fields(:log_trace) == [:case_id, :activity_sequence]
+  end
+
+  test "fields/1 returns the ordered field-name list for migration_contract" do
+    assert BeamPM.Types.Manifest.fields(:migration_contract) == [:migration_id, :from_version, :to_version, :rollback_plan]
   end
 
   test "fields/1 returns the ordered field-name list for object_attribute_change" do
@@ -82,12 +202,20 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:ocel_relationship) == [:qualifier, :object_id]
   end
 
+  test "fields/1 returns the ordered field-name list for overage_policy" do
+    assert BeamPM.Types.Manifest.fields(:overage_policy) == [:policy_id, :quota_id, :unit_price, :behavior]
+  end
+
   test "fields/1 returns the ordered field-name list for path_schema" do
     assert BeamPM.Types.Manifest.fields(:path_schema) == [:schema_id, :source_type, :target_type, :support]
   end
 
   test "fields/1 returns the ordered field-name list for path_schema_query" do
     assert BeamPM.Types.Manifest.fields(:path_schema_query) == [:source_type, :target_type, :max_length]
+  end
+
+  test "fields/1 returns the ordered field-name list for payment_terms" do
+    assert BeamPM.Types.Manifest.fields(:payment_terms) == [:terms_id, :net_days, :late_policy, :status]
   end
 
   test "fields/1 returns the ordered field-name list for petri_arc" do
@@ -114,28 +242,88 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:policy_decision) == [:decision_id, :verdict, :reason]
   end
 
+  test "fields/1 returns the ordered field-name list for private_offer" do
+    assert BeamPM.Types.Manifest.fields(:private_offer) == [:offer_id, :account_id, :total_price, :expires_at]
+  end
+
   test "fields/1 returns the ordered field-name list for process_variant" do
     assert BeamPM.Types.Manifest.fields(:process_variant) == [:variant_id, :activity_sequence, :frequency]
+  end
+
+  test "fields/1 returns the ordered field-name list for purchase_order_binding" do
+    assert BeamPM.Types.Manifest.fields(:purchase_order_binding) == [:binding_id, :order_id, :purchase_order_number, :status]
   end
 
   test "fields/1 returns the ordered field-name list for queue_snapshot" do
     assert BeamPM.Types.Manifest.fields(:queue_snapshot) == [:queue_name, :depth, :observed_at]
   end
 
+  test "fields/1 returns the ordered field-name list for quota_policy" do
+    assert BeamPM.Types.Manifest.fields(:quota_policy) == [:quota_id, :metric_name, :limit, :window]
+  end
+
+  test "fields/1 returns the ordered field-name list for ramp_commitment" do
+    assert BeamPM.Types.Manifest.fields(:ramp_commitment) == [:ramp_id, :phase, :committed_amount, :effective_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for renewal_option" do
+    assert BeamPM.Types.Manifest.fields(:renewal_option) == [:option_id, :subscription_id, :term_months, :notice_by]
+  end
+
+  test "fields/1 returns the ordered field-name list for reseller_authorization" do
+    assert BeamPM.Types.Manifest.fields(:reseller_authorization) == [:authorization_id, :reseller_id, :sku, :status]
+  end
+
   test "fields/1 returns the ordered field-name list for resource_allocation" do
     assert BeamPM.Types.Manifest.fields(:resource_allocation) == [:resource_id, :activity, :event_id]
+  end
+
+  test "fields/1 returns the ordered field-name list for service_credit" do
+    assert BeamPM.Types.Manifest.fields(:service_credit) == [:credit_id, :slo_id, :amount, :currency]
+  end
+
+  test "fields/1 returns the ordered field-name list for service_level_objective" do
+    assert BeamPM.Types.Manifest.fields(:service_level_objective) == [:slo_id, :contract_id, :target_percent, :measurement_window]
   end
 
   test "fields/1 returns the ordered field-name list for service_span" do
     assert BeamPM.Types.Manifest.fields(:service_span) == [:span_id, :service_name, :duration_ms, :parent_span_id]
   end
 
+  test "fields/1 returns the ordered field-name list for showback_allocation" do
+    assert BeamPM.Types.Manifest.fields(:showback_allocation) == [:allocation_id, :project_id, :metric_name, :quantity]
+  end
+
+  test "fields/1 returns the ordered field-name list for sku_definition" do
+    assert BeamPM.Types.Manifest.fields(:sku_definition) == [:sku, :edition_id, :billing_model, :status]
+  end
+
   test "fields/1 returns the ordered field-name list for sojourn_time" do
     assert BeamPM.Types.Manifest.fields(:sojourn_time) == [:object_id, :event_type, :seconds]
   end
 
+  test "fields/1 returns the ordered field-name list for support_contract" do
+    assert BeamPM.Types.Manifest.fields(:support_contract) == [:contract_id, :account_id, :tier, :valid_until]
+  end
+
   test "fields/1 returns the ordered field-name list for sync_time" do
     assert BeamPM.Types.Manifest.fields(:sync_time) == [:object_id, :delaying_object_id, :seconds]
+  end
+
+  test "fields/1 returns the ordered field-name list for tenant_account" do
+    assert BeamPM.Types.Manifest.fields(:tenant_account) == [:tenant_id, :account_id, :home_region, :edition_id]
+  end
+
+  test "fields/1 returns the ordered field-name list for tenant_project" do
+    assert BeamPM.Types.Manifest.fields(:tenant_project) == [:project_id, :tenant_id, :cost_center, :status]
+  end
+
+  test "fields/1 returns the ordered field-name list for term_subscription" do
+    assert BeamPM.Types.Manifest.fields(:term_subscription) == [:subscription_id, :sku, :starts_at, :ends_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for true_up_policy" do
+    assert BeamPM.Types.Manifest.fields(:true_up_policy) == [:policy_id, :commitment_id, :cadence, :shortfall_behavior]
   end
 
   test "fields/1 returns the ordered field-name list for type_edge" do
@@ -144,6 +332,18 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for usage_event" do
     assert BeamPM.Types.Manifest.fields(:usage_event) == [:event_id, :entitlement_id, :quantity, :metric_name, :occurred_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for usage_plan" do
+    assert BeamPM.Types.Manifest.fields(:usage_plan) == [:plan_id, :metric_name, :unit, :billing_mode]
+  end
+
+  test "fields/1 returns the ordered field-name list for value_baseline" do
+    assert BeamPM.Types.Manifest.fields(:value_baseline) == [:baseline_id, :account_id, :metric_name, :baseline_value]
+  end
+
+  test "fields/1 returns the ordered field-name list for value_realization" do
+    assert BeamPM.Types.Manifest.fields(:value_realization) == [:realization_id, :baseline_id, :realized_value, :measured_at]
   end
 
   test "fields/1 returns an empty list for an unknown record name" do

@@ -14,18 +14,48 @@
 -spec record_names() -> [atom()].
 record_names() ->
     [
+        add_on_bundle,
         alignment_move,
+        annual_subscription,
+        billing_account,
         billing_reconciliation,
+        capability_bundle,
         case_stats,
+        catalog_release,
+        channel_agreement,
+        chargeback_rule,
+        commercial_approval,
+        commercial_execution_receipt,
+        commercial_forecast,
+        commercial_quote,
+        commercial_quote_line,
+        committed_spend,
+        compatibility_contract,
+        configuration_export,
+        configuration_import,
         conformance_result,
+        consumption_pool,
+        consumption_subscription,
+        data_residency_policy,
+        deployment_entitlement,
         dfg_edge,
+        discount_schedule,
+        edition_definition,
+        enterprise_order,
+        enterprise_order_line,
         entitlement_event,
+        entitlement_grant,
+        entitlement_revocation,
         entitlement_state,
+        environment_profile,
         event_log,
         event_type,
+        expansion_option,
         heuristic_arc,
+        invoice_schedule,
         k8s_object_ref,
         log_trace,
+        migration_contract,
         object_attribute_change,
         object_type,
         oc_declare_constraint,
@@ -33,22 +63,42 @@ record_names() ->
         ocel_event,
         ocel_object,
         ocel_relationship,
+        overage_policy,
         path_schema,
         path_schema_query,
+        payment_terms,
         petri_arc,
         petri_place,
         petri_transition,
         planning_action,
         planning_state,
         policy_decision,
+        private_offer,
         process_variant,
+        purchase_order_binding,
         queue_snapshot,
+        quota_policy,
+        ramp_commitment,
+        renewal_option,
+        reseller_authorization,
         resource_allocation,
+        service_credit,
+        service_level_objective,
         service_span,
+        showback_allocation,
+        sku_definition,
         sojourn_time,
+        support_contract,
         sync_time,
+        tenant_account,
+        tenant_project,
+        term_subscription,
+        true_up_policy,
         type_edge,
-        usage_event
+        usage_event,
+        usage_plan,
+        value_baseline,
+        value_realization
     ].
 
 %% Deterministic sample values, keyed by bpm:fieldType:
@@ -57,6 +107,20 @@ record_names() ->
 %% list_string -> [<<"alpha">>, <<"beta">>], map -> #{<<"k">> => <<"v">>}.
 %% minimal = required fields only; full = every field.
 -spec sample(atom(), variant()) -> {ok, tuple()}.
+sample(add_on_bundle, full) ->
+    beam4pm_types:new_add_on_bundle(#{
+        add_on_id => <<"sample_add_on_id">>,
+        name => <<"sample_name">>,
+        capability_ids => [<<"alpha">>, <<"beta">>],
+        status => sample_atom
+    });
+sample(add_on_bundle, minimal) ->
+    beam4pm_types:new_add_on_bundle(#{
+        add_on_id => <<"sample_add_on_id">>,
+        name => <<"sample_name">>,
+        capability_ids => [<<"alpha">>, <<"beta">>],
+        status => sample_atom
+    });
 sample(alignment_move, full) ->
     beam4pm_types:new_alignment_move(#{
         move_type => sample_atom,
@@ -66,6 +130,34 @@ sample(alignment_move, minimal) ->
     beam4pm_types:new_alignment_move(#{
         move_type => sample_atom,
         cost => 42
+    });
+sample(annual_subscription, full) ->
+    beam4pm_types:new_annual_subscription(#{
+        subscription_id => <<"sample_subscription_id">>,
+        sku => <<"sample_sku">>,
+        seat_count => 42,
+        renews_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(annual_subscription, minimal) ->
+    beam4pm_types:new_annual_subscription(#{
+        subscription_id => <<"sample_subscription_id">>,
+        sku => <<"sample_sku">>,
+        seat_count => 42,
+        renews_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(billing_account, full) ->
+    beam4pm_types:new_billing_account(#{
+        billing_account_id => <<"sample_billing_account_id">>,
+        account_id => <<"sample_account_id">>,
+        currency => <<"sample_currency">>,
+        invoice_profile => <<"sample_invoice_profile">>
+    });
+sample(billing_account, minimal) ->
+    beam4pm_types:new_billing_account(#{
+        billing_account_id => <<"sample_billing_account_id">>,
+        account_id => <<"sample_account_id">>,
+        currency => <<"sample_currency">>,
+        invoice_profile => <<"sample_invoice_profile">>
     });
 sample(billing_reconciliation, full) ->
     beam4pm_types:new_billing_reconciliation(#{
@@ -85,6 +177,20 @@ sample(billing_reconciliation, minimal) ->
         period_start => <<"2026-08-29T12:00:00Z">>,
         period_end => <<"2026-08-29T12:00:00Z">>
     });
+sample(capability_bundle, full) ->
+    beam4pm_types:new_capability_bundle(#{
+        bundle_id => <<"sample_bundle_id">>,
+        name => <<"sample_name">>,
+        capability_ids => [<<"alpha">>, <<"beta">>],
+        version => <<"sample_version">>
+    });
+sample(capability_bundle, minimal) ->
+    beam4pm_types:new_capability_bundle(#{
+        bundle_id => <<"sample_bundle_id">>,
+        name => <<"sample_name">>,
+        capability_ids => [<<"alpha">>, <<"beta">>],
+        version => <<"sample_version">>
+    });
 sample(case_stats, full) ->
     beam4pm_types:new_case_stats(#{
         case_id => <<"sample_case_id">>,
@@ -95,6 +201,174 @@ sample(case_stats, minimal) ->
     beam4pm_types:new_case_stats(#{
         case_id => <<"sample_case_id">>,
         event_count => 42
+    });
+sample(catalog_release, full) ->
+    beam4pm_types:new_catalog_release(#{
+        release_id => <<"sample_release_id">>,
+        version => <<"sample_version">>,
+        sku_ids => [<<"alpha">>, <<"beta">>],
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(catalog_release, minimal) ->
+    beam4pm_types:new_catalog_release(#{
+        release_id => <<"sample_release_id">>,
+        version => <<"sample_version">>,
+        sku_ids => [<<"alpha">>, <<"beta">>],
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(channel_agreement, full) ->
+    beam4pm_types:new_channel_agreement(#{
+        agreement_id => <<"sample_agreement_id">>,
+        partner_id => <<"sample_partner_id">>,
+        territory => <<"sample_territory">>,
+        valid_until => <<"2026-08-29T12:00:00Z">>
+    });
+sample(channel_agreement, minimal) ->
+    beam4pm_types:new_channel_agreement(#{
+        agreement_id => <<"sample_agreement_id">>,
+        partner_id => <<"sample_partner_id">>,
+        territory => <<"sample_territory">>,
+        valid_until => <<"2026-08-29T12:00:00Z">>
+    });
+sample(chargeback_rule, full) ->
+    beam4pm_types:new_chargeback_rule(#{
+        rule_id => <<"sample_rule_id">>,
+        cost_center => <<"sample_cost_center">>,
+        metric_name => <<"sample_metric_name">>,
+        rate => 3.5
+    });
+sample(chargeback_rule, minimal) ->
+    beam4pm_types:new_chargeback_rule(#{
+        rule_id => <<"sample_rule_id">>,
+        cost_center => <<"sample_cost_center">>,
+        metric_name => <<"sample_metric_name">>,
+        rate => 3.5
+    });
+sample(commercial_approval, full) ->
+    beam4pm_types:new_commercial_approval(#{
+        approval_id => <<"sample_approval_id">>,
+        quote_id => <<"sample_quote_id">>,
+        authority => <<"sample_authority">>,
+        status => sample_atom
+    });
+sample(commercial_approval, minimal) ->
+    beam4pm_types:new_commercial_approval(#{
+        approval_id => <<"sample_approval_id">>,
+        quote_id => <<"sample_quote_id">>,
+        authority => <<"sample_authority">>,
+        status => sample_atom
+    });
+sample(commercial_execution_receipt, full) ->
+    beam4pm_types:new_commercial_execution_receipt(#{
+        receipt_id => <<"sample_receipt_id">>,
+        subject_id => <<"sample_subject_id">>,
+        operation => <<"sample_operation">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(commercial_execution_receipt, minimal) ->
+    beam4pm_types:new_commercial_execution_receipt(#{
+        receipt_id => <<"sample_receipt_id">>,
+        subject_id => <<"sample_subject_id">>,
+        operation => <<"sample_operation">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(commercial_forecast, full) ->
+    beam4pm_types:new_commercial_forecast(#{
+        forecast_id => <<"sample_forecast_id">>,
+        account_id => <<"sample_account_id">>,
+        amount => 3.5,
+        confidence => 3.5
+    });
+sample(commercial_forecast, minimal) ->
+    beam4pm_types:new_commercial_forecast(#{
+        forecast_id => <<"sample_forecast_id">>,
+        account_id => <<"sample_account_id">>,
+        amount => 3.5,
+        confidence => 3.5
+    });
+sample(commercial_quote, full) ->
+    beam4pm_types:new_commercial_quote(#{
+        quote_id => <<"sample_quote_id">>,
+        account_id => <<"sample_account_id">>,
+        currency => <<"sample_currency">>,
+        status => sample_atom
+    });
+sample(commercial_quote, minimal) ->
+    beam4pm_types:new_commercial_quote(#{
+        quote_id => <<"sample_quote_id">>,
+        account_id => <<"sample_account_id">>,
+        currency => <<"sample_currency">>,
+        status => sample_atom
+    });
+sample(commercial_quote_line, full) ->
+    beam4pm_types:new_commercial_quote_line(#{
+        quote_id => <<"sample_quote_id">>,
+        sku => <<"sample_sku">>,
+        quantity => 42,
+        unit_price => 3.5
+    });
+sample(commercial_quote_line, minimal) ->
+    beam4pm_types:new_commercial_quote_line(#{
+        quote_id => <<"sample_quote_id">>,
+        sku => <<"sample_sku">>,
+        quantity => 42,
+        unit_price => 3.5
+    });
+sample(committed_spend, full) ->
+    beam4pm_types:new_committed_spend(#{
+        commitment_id => <<"sample_commitment_id">>,
+        amount => 3.5,
+        currency => <<"sample_currency">>,
+        expires_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(committed_spend, minimal) ->
+    beam4pm_types:new_committed_spend(#{
+        commitment_id => <<"sample_commitment_id">>,
+        amount => 3.5,
+        currency => <<"sample_currency">>,
+        expires_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(compatibility_contract, full) ->
+    beam4pm_types:new_compatibility_contract(#{
+        contract_id => <<"sample_contract_id">>,
+        product_version => <<"sample_product_version">>,
+        schema_version => <<"sample_schema_version">>,
+        api_version => <<"sample_api_version">>
+    });
+sample(compatibility_contract, minimal) ->
+    beam4pm_types:new_compatibility_contract(#{
+        contract_id => <<"sample_contract_id">>,
+        product_version => <<"sample_product_version">>,
+        schema_version => <<"sample_schema_version">>,
+        api_version => <<"sample_api_version">>
+    });
+sample(configuration_export, full) ->
+    beam4pm_types:new_configuration_export(#{
+        export_id => <<"sample_export_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        configuration_hash => <<"sample_configuration_hash">>,
+        exported_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(configuration_export, minimal) ->
+    beam4pm_types:new_configuration_export(#{
+        export_id => <<"sample_export_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        configuration_hash => <<"sample_configuration_hash">>,
+        exported_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(configuration_import, full) ->
+    beam4pm_types:new_configuration_import(#{
+        import_id => <<"sample_import_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        configuration_hash => <<"sample_configuration_hash">>,
+        status => sample_atom
+    });
+sample(configuration_import, minimal) ->
+    beam4pm_types:new_configuration_import(#{
+        import_id => <<"sample_import_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        configuration_hash => <<"sample_configuration_hash">>,
+        status => sample_atom
     });
 sample(conformance_result, full) ->
     beam4pm_types:new_conformance_result(#{
@@ -107,6 +381,62 @@ sample(conformance_result, minimal) ->
         trace_id => <<"sample_trace_id">>,
         fitness => 3.5
     });
+sample(consumption_pool, full) ->
+    beam4pm_types:new_consumption_pool(#{
+        pool_id => <<"sample_pool_id">>,
+        account_id => <<"sample_account_id">>,
+        unit => <<"sample_unit">>,
+        remaining_quantity => 3.5
+    });
+sample(consumption_pool, minimal) ->
+    beam4pm_types:new_consumption_pool(#{
+        pool_id => <<"sample_pool_id">>,
+        account_id => <<"sample_account_id">>,
+        unit => <<"sample_unit">>,
+        remaining_quantity => 3.5
+    });
+sample(consumption_subscription, full) ->
+    beam4pm_types:new_consumption_subscription(#{
+        subscription_id => <<"sample_subscription_id">>,
+        account_id => <<"sample_account_id">>,
+        plan_id => <<"sample_plan_id">>,
+        status => sample_atom
+    });
+sample(consumption_subscription, minimal) ->
+    beam4pm_types:new_consumption_subscription(#{
+        subscription_id => <<"sample_subscription_id">>,
+        account_id => <<"sample_account_id">>,
+        plan_id => <<"sample_plan_id">>,
+        status => sample_atom
+    });
+sample(data_residency_policy, full) ->
+    beam4pm_types:new_data_residency_policy(#{
+        policy_id => <<"sample_policy_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        allowed_regions => [<<"alpha">>, <<"beta">>],
+        status => sample_atom
+    });
+sample(data_residency_policy, minimal) ->
+    beam4pm_types:new_data_residency_policy(#{
+        policy_id => <<"sample_policy_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        allowed_regions => [<<"alpha">>, <<"beta">>],
+        status => sample_atom
+    });
+sample(deployment_entitlement, full) ->
+    beam4pm_types:new_deployment_entitlement(#{
+        entitlement_id => <<"sample_entitlement_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        profile_id => <<"sample_profile_id">>,
+        valid_until => <<"2026-08-29T12:00:00Z">>
+    });
+sample(deployment_entitlement, minimal) ->
+    beam4pm_types:new_deployment_entitlement(#{
+        entitlement_id => <<"sample_entitlement_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        profile_id => <<"sample_profile_id">>,
+        valid_until => <<"2026-08-29T12:00:00Z">>
+    });
 sample(dfg_edge, full) ->
     beam4pm_types:new_dfg_edge(#{
         source_activity => <<"sample_source_activity">>,
@@ -118,6 +448,62 @@ sample(dfg_edge, minimal) ->
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
         frequency => 42
+    });
+sample(discount_schedule, full) ->
+    beam4pm_types:new_discount_schedule(#{
+        schedule_id => <<"sample_schedule_id">>,
+        threshold => 3.5,
+        discount_percent => 3.5,
+        currency => <<"sample_currency">>
+    });
+sample(discount_schedule, minimal) ->
+    beam4pm_types:new_discount_schedule(#{
+        schedule_id => <<"sample_schedule_id">>,
+        threshold => 3.5,
+        discount_percent => 3.5,
+        currency => <<"sample_currency">>
+    });
+sample(edition_definition, full) ->
+    beam4pm_types:new_edition_definition(#{
+        edition_id => <<"sample_edition_id">>,
+        name => <<"sample_name">>,
+        bundle_ids => [<<"alpha">>, <<"beta">>],
+        support_tier => <<"sample_support_tier">>
+    });
+sample(edition_definition, minimal) ->
+    beam4pm_types:new_edition_definition(#{
+        edition_id => <<"sample_edition_id">>,
+        name => <<"sample_name">>,
+        bundle_ids => [<<"alpha">>, <<"beta">>],
+        support_tier => <<"sample_support_tier">>
+    });
+sample(enterprise_order, full) ->
+    beam4pm_types:new_enterprise_order(#{
+        order_id => <<"sample_order_id">>,
+        account_id => <<"sample_account_id">>,
+        quote_id => <<"sample_quote_id">>,
+        status => sample_atom
+    });
+sample(enterprise_order, minimal) ->
+    beam4pm_types:new_enterprise_order(#{
+        order_id => <<"sample_order_id">>,
+        account_id => <<"sample_account_id">>,
+        quote_id => <<"sample_quote_id">>,
+        status => sample_atom
+    });
+sample(enterprise_order_line, full) ->
+    beam4pm_types:new_enterprise_order_line(#{
+        order_id => <<"sample_order_id">>,
+        sku => <<"sample_sku">>,
+        quantity => 42,
+        unit_price => 3.5
+    });
+sample(enterprise_order_line, minimal) ->
+    beam4pm_types:new_enterprise_order_line(#{
+        order_id => <<"sample_order_id">>,
+        sku => <<"sample_sku">>,
+        quantity => 42,
+        unit_price => 3.5
     });
 sample(entitlement_event, full) ->
     beam4pm_types:new_entitlement_event(#{
@@ -134,6 +520,34 @@ sample(entitlement_event, minimal) ->
         event_type => <<"sample_event_type">>,
         effective_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(entitlement_grant, full) ->
+    beam4pm_types:new_entitlement_grant(#{
+        grant_id => <<"sample_grant_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        capability_id => <<"sample_capability_id">>,
+        valid_until => <<"2026-08-29T12:00:00Z">>
+    });
+sample(entitlement_grant, minimal) ->
+    beam4pm_types:new_entitlement_grant(#{
+        grant_id => <<"sample_grant_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        capability_id => <<"sample_capability_id">>,
+        valid_until => <<"2026-08-29T12:00:00Z">>
+    });
+sample(entitlement_revocation, full) ->
+    beam4pm_types:new_entitlement_revocation(#{
+        revocation_id => <<"sample_revocation_id">>,
+        grant_id => <<"sample_grant_id">>,
+        reason => <<"sample_reason">>,
+        revoked_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(entitlement_revocation, minimal) ->
+    beam4pm_types:new_entitlement_revocation(#{
+        revocation_id => <<"sample_revocation_id">>,
+        grant_id => <<"sample_grant_id">>,
+        reason => <<"sample_reason">>,
+        revoked_at => <<"2026-08-29T12:00:00Z">>
+    });
 sample(entitlement_state, full) ->
     beam4pm_types:new_entitlement_state(#{
         entitlement_id => <<"sample_entitlement_id">>,
@@ -147,6 +561,20 @@ sample(entitlement_state, minimal) ->
         status => <<"sample_status">>,
         last_applied_event_id => <<"sample_last_applied_event_id">>,
         updated_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(environment_profile, full) ->
+    beam4pm_types:new_environment_profile(#{
+        profile_id => <<"sample_profile_id">>,
+        environment => sample_atom,
+        region => <<"sample_region">>,
+        configuration_hash => <<"sample_configuration_hash">>
+    });
+sample(environment_profile, minimal) ->
+    beam4pm_types:new_environment_profile(#{
+        profile_id => <<"sample_profile_id">>,
+        environment => sample_atom,
+        region => <<"sample_region">>,
+        configuration_hash => <<"sample_configuration_hash">>
     });
 sample(event_log, full) ->
     beam4pm_types:new_event_log(#{
@@ -168,6 +596,20 @@ sample(event_type, minimal) ->
     beam4pm_types:new_event_type(#{
         type_name => <<"sample_type_name">>
     });
+sample(expansion_option, full) ->
+    beam4pm_types:new_expansion_option(#{
+        option_id => <<"sample_option_id">>,
+        account_id => <<"sample_account_id">>,
+        sku => <<"sample_sku">>,
+        max_quantity => 42
+    });
+sample(expansion_option, minimal) ->
+    beam4pm_types:new_expansion_option(#{
+        option_id => <<"sample_option_id">>,
+        account_id => <<"sample_account_id">>,
+        sku => <<"sample_sku">>,
+        max_quantity => 42
+    });
 sample(heuristic_arc, full) ->
     beam4pm_types:new_heuristic_arc(#{
         source_activity => <<"sample_source_activity">>,
@@ -179,6 +621,20 @@ sample(heuristic_arc, minimal) ->
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
         dependency_measure => 3.5
+    });
+sample(invoice_schedule, full) ->
+    beam4pm_types:new_invoice_schedule(#{
+        schedule_id => <<"sample_schedule_id">>,
+        billing_account_id => <<"sample_billing_account_id">>,
+        cadence => sample_atom,
+        next_invoice_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(invoice_schedule, minimal) ->
+    beam4pm_types:new_invoice_schedule(#{
+        schedule_id => <<"sample_schedule_id">>,
+        billing_account_id => <<"sample_billing_account_id">>,
+        cadence => sample_atom,
+        next_invoice_at => <<"2026-08-29T12:00:00Z">>
     });
 sample(k8s_object_ref, full) ->
     beam4pm_types:new_k8s_object_ref(#{
@@ -200,6 +656,20 @@ sample(log_trace, minimal) ->
     beam4pm_types:new_log_trace(#{
         case_id => <<"sample_case_id">>,
         activity_sequence => [<<"alpha">>, <<"beta">>]
+    });
+sample(migration_contract, full) ->
+    beam4pm_types:new_migration_contract(#{
+        migration_id => <<"sample_migration_id">>,
+        from_version => <<"sample_from_version">>,
+        to_version => <<"sample_to_version">>,
+        rollback_plan => <<"sample_rollback_plan">>
+    });
+sample(migration_contract, minimal) ->
+    beam4pm_types:new_migration_contract(#{
+        migration_id => <<"sample_migration_id">>,
+        from_version => <<"sample_from_version">>,
+        to_version => <<"sample_to_version">>,
+        rollback_plan => <<"sample_rollback_plan">>
     });
 sample(object_attribute_change, full) ->
     beam4pm_types:new_object_attribute_change(#{
@@ -284,6 +754,20 @@ sample(ocel_relationship, minimal) ->
         qualifier => <<"sample_qualifier">>,
         object_id => <<"sample_object_id">>
     });
+sample(overage_policy, full) ->
+    beam4pm_types:new_overage_policy(#{
+        policy_id => <<"sample_policy_id">>,
+        quota_id => <<"sample_quota_id">>,
+        unit_price => 3.5,
+        behavior => sample_atom
+    });
+sample(overage_policy, minimal) ->
+    beam4pm_types:new_overage_policy(#{
+        policy_id => <<"sample_policy_id">>,
+        quota_id => <<"sample_quota_id">>,
+        unit_price => 3.5,
+        behavior => sample_atom
+    });
 sample(path_schema, full) ->
     beam4pm_types:new_path_schema(#{
         schema_id => <<"sample_schema_id">>,
@@ -309,6 +793,20 @@ sample(path_schema_query, minimal) ->
         source_type => <<"sample_source_type">>,
         target_type => <<"sample_target_type">>,
         max_length => 42
+    });
+sample(payment_terms, full) ->
+    beam4pm_types:new_payment_terms(#{
+        terms_id => <<"sample_terms_id">>,
+        net_days => 42,
+        late_policy => <<"sample_late_policy">>,
+        status => sample_atom
+    });
+sample(payment_terms, minimal) ->
+    beam4pm_types:new_payment_terms(#{
+        terms_id => <<"sample_terms_id">>,
+        net_days => 42,
+        late_policy => <<"sample_late_policy">>,
+        status => sample_atom
     });
 sample(petri_arc, full) ->
     beam4pm_types:new_petri_arc(#{
@@ -372,6 +870,20 @@ sample(policy_decision, minimal) ->
         decision_id => <<"sample_decision_id">>,
         verdict => sample_atom
     });
+sample(private_offer, full) ->
+    beam4pm_types:new_private_offer(#{
+        offer_id => <<"sample_offer_id">>,
+        account_id => <<"sample_account_id">>,
+        total_price => 3.5,
+        expires_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(private_offer, minimal) ->
+    beam4pm_types:new_private_offer(#{
+        offer_id => <<"sample_offer_id">>,
+        account_id => <<"sample_account_id">>,
+        total_price => 3.5,
+        expires_at => <<"2026-08-29T12:00:00Z">>
+    });
 sample(process_variant, full) ->
     beam4pm_types:new_process_variant(#{
         variant_id => <<"sample_variant_id">>,
@@ -383,6 +895,20 @@ sample(process_variant, minimal) ->
         variant_id => <<"sample_variant_id">>,
         activity_sequence => [<<"alpha">>, <<"beta">>],
         frequency => 42
+    });
+sample(purchase_order_binding, full) ->
+    beam4pm_types:new_purchase_order_binding(#{
+        binding_id => <<"sample_binding_id">>,
+        order_id => <<"sample_order_id">>,
+        purchase_order_number => <<"sample_purchase_order_number">>,
+        status => sample_atom
+    });
+sample(purchase_order_binding, minimal) ->
+    beam4pm_types:new_purchase_order_binding(#{
+        binding_id => <<"sample_binding_id">>,
+        order_id => <<"sample_order_id">>,
+        purchase_order_number => <<"sample_purchase_order_number">>,
+        status => sample_atom
     });
 sample(queue_snapshot, full) ->
     beam4pm_types:new_queue_snapshot(#{
@@ -396,6 +922,62 @@ sample(queue_snapshot, minimal) ->
         depth => 42,
         observed_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(quota_policy, full) ->
+    beam4pm_types:new_quota_policy(#{
+        quota_id => <<"sample_quota_id">>,
+        metric_name => <<"sample_metric_name">>,
+        limit => 3.5,
+        window => sample_atom
+    });
+sample(quota_policy, minimal) ->
+    beam4pm_types:new_quota_policy(#{
+        quota_id => <<"sample_quota_id">>,
+        metric_name => <<"sample_metric_name">>,
+        limit => 3.5,
+        window => sample_atom
+    });
+sample(ramp_commitment, full) ->
+    beam4pm_types:new_ramp_commitment(#{
+        ramp_id => <<"sample_ramp_id">>,
+        phase => 42,
+        committed_amount => 3.5,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(ramp_commitment, minimal) ->
+    beam4pm_types:new_ramp_commitment(#{
+        ramp_id => <<"sample_ramp_id">>,
+        phase => 42,
+        committed_amount => 3.5,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(renewal_option, full) ->
+    beam4pm_types:new_renewal_option(#{
+        option_id => <<"sample_option_id">>,
+        subscription_id => <<"sample_subscription_id">>,
+        term_months => 42,
+        notice_by => <<"2026-08-29T12:00:00Z">>
+    });
+sample(renewal_option, minimal) ->
+    beam4pm_types:new_renewal_option(#{
+        option_id => <<"sample_option_id">>,
+        subscription_id => <<"sample_subscription_id">>,
+        term_months => 42,
+        notice_by => <<"2026-08-29T12:00:00Z">>
+    });
+sample(reseller_authorization, full) ->
+    beam4pm_types:new_reseller_authorization(#{
+        authorization_id => <<"sample_authorization_id">>,
+        reseller_id => <<"sample_reseller_id">>,
+        sku => <<"sample_sku">>,
+        status => sample_atom
+    });
+sample(reseller_authorization, minimal) ->
+    beam4pm_types:new_reseller_authorization(#{
+        authorization_id => <<"sample_authorization_id">>,
+        reseller_id => <<"sample_reseller_id">>,
+        sku => <<"sample_sku">>,
+        status => sample_atom
+    });
 sample(resource_allocation, full) ->
     beam4pm_types:new_resource_allocation(#{
         resource_id => <<"sample_resource_id">>,
@@ -407,6 +989,34 @@ sample(resource_allocation, minimal) ->
         resource_id => <<"sample_resource_id">>,
         activity => <<"sample_activity">>,
         event_id => <<"sample_event_id">>
+    });
+sample(service_credit, full) ->
+    beam4pm_types:new_service_credit(#{
+        credit_id => <<"sample_credit_id">>,
+        slo_id => <<"sample_slo_id">>,
+        amount => 3.5,
+        currency => <<"sample_currency">>
+    });
+sample(service_credit, minimal) ->
+    beam4pm_types:new_service_credit(#{
+        credit_id => <<"sample_credit_id">>,
+        slo_id => <<"sample_slo_id">>,
+        amount => 3.5,
+        currency => <<"sample_currency">>
+    });
+sample(service_level_objective, full) ->
+    beam4pm_types:new_service_level_objective(#{
+        slo_id => <<"sample_slo_id">>,
+        contract_id => <<"sample_contract_id">>,
+        target_percent => 3.5,
+        measurement_window => sample_atom
+    });
+sample(service_level_objective, minimal) ->
+    beam4pm_types:new_service_level_objective(#{
+        slo_id => <<"sample_slo_id">>,
+        contract_id => <<"sample_contract_id">>,
+        target_percent => 3.5,
+        measurement_window => sample_atom
     });
 sample(service_span, full) ->
     beam4pm_types:new_service_span(#{
@@ -421,6 +1031,34 @@ sample(service_span, minimal) ->
         service_name => <<"sample_service_name">>,
         duration_ms => 42
     });
+sample(showback_allocation, full) ->
+    beam4pm_types:new_showback_allocation(#{
+        allocation_id => <<"sample_allocation_id">>,
+        project_id => <<"sample_project_id">>,
+        metric_name => <<"sample_metric_name">>,
+        quantity => 3.5
+    });
+sample(showback_allocation, minimal) ->
+    beam4pm_types:new_showback_allocation(#{
+        allocation_id => <<"sample_allocation_id">>,
+        project_id => <<"sample_project_id">>,
+        metric_name => <<"sample_metric_name">>,
+        quantity => 3.5
+    });
+sample(sku_definition, full) ->
+    beam4pm_types:new_sku_definition(#{
+        sku => <<"sample_sku">>,
+        edition_id => <<"sample_edition_id">>,
+        billing_model => sample_atom,
+        status => sample_atom
+    });
+sample(sku_definition, minimal) ->
+    beam4pm_types:new_sku_definition(#{
+        sku => <<"sample_sku">>,
+        edition_id => <<"sample_edition_id">>,
+        billing_model => sample_atom,
+        status => sample_atom
+    });
 sample(sojourn_time, full) ->
     beam4pm_types:new_sojourn_time(#{
         object_id => <<"sample_object_id">>,
@@ -433,6 +1071,20 @@ sample(sojourn_time, minimal) ->
         event_type => <<"sample_event_type">>,
         seconds => 3.5
     });
+sample(support_contract, full) ->
+    beam4pm_types:new_support_contract(#{
+        contract_id => <<"sample_contract_id">>,
+        account_id => <<"sample_account_id">>,
+        tier => sample_atom,
+        valid_until => <<"2026-08-29T12:00:00Z">>
+    });
+sample(support_contract, minimal) ->
+    beam4pm_types:new_support_contract(#{
+        contract_id => <<"sample_contract_id">>,
+        account_id => <<"sample_account_id">>,
+        tier => sample_atom,
+        valid_until => <<"2026-08-29T12:00:00Z">>
+    });
 sample(sync_time, full) ->
     beam4pm_types:new_sync_time(#{
         object_id => <<"sample_object_id">>,
@@ -443,6 +1095,62 @@ sample(sync_time, minimal) ->
     beam4pm_types:new_sync_time(#{
         object_id => <<"sample_object_id">>,
         seconds => 3.5
+    });
+sample(tenant_account, full) ->
+    beam4pm_types:new_tenant_account(#{
+        tenant_id => <<"sample_tenant_id">>,
+        account_id => <<"sample_account_id">>,
+        home_region => <<"sample_home_region">>,
+        edition_id => <<"sample_edition_id">>
+    });
+sample(tenant_account, minimal) ->
+    beam4pm_types:new_tenant_account(#{
+        tenant_id => <<"sample_tenant_id">>,
+        account_id => <<"sample_account_id">>,
+        home_region => <<"sample_home_region">>,
+        edition_id => <<"sample_edition_id">>
+    });
+sample(tenant_project, full) ->
+    beam4pm_types:new_tenant_project(#{
+        project_id => <<"sample_project_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        cost_center => <<"sample_cost_center">>,
+        status => sample_atom
+    });
+sample(tenant_project, minimal) ->
+    beam4pm_types:new_tenant_project(#{
+        project_id => <<"sample_project_id">>,
+        tenant_id => <<"sample_tenant_id">>,
+        cost_center => <<"sample_cost_center">>,
+        status => sample_atom
+    });
+sample(term_subscription, full) ->
+    beam4pm_types:new_term_subscription(#{
+        subscription_id => <<"sample_subscription_id">>,
+        sku => <<"sample_sku">>,
+        starts_at => <<"2026-08-29T12:00:00Z">>,
+        ends_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(term_subscription, minimal) ->
+    beam4pm_types:new_term_subscription(#{
+        subscription_id => <<"sample_subscription_id">>,
+        sku => <<"sample_sku">>,
+        starts_at => <<"2026-08-29T12:00:00Z">>,
+        ends_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(true_up_policy, full) ->
+    beam4pm_types:new_true_up_policy(#{
+        policy_id => <<"sample_policy_id">>,
+        commitment_id => <<"sample_commitment_id">>,
+        cadence => sample_atom,
+        shortfall_behavior => sample_atom
+    });
+sample(true_up_policy, minimal) ->
+    beam4pm_types:new_true_up_policy(#{
+        policy_id => <<"sample_policy_id">>,
+        commitment_id => <<"sample_commitment_id">>,
+        cadence => sample_atom,
+        shortfall_behavior => sample_atom
     });
 sample(type_edge, full) ->
     beam4pm_types:new_type_edge(#{
@@ -473,6 +1181,48 @@ sample(usage_event, minimal) ->
         quantity => 3.5,
         metric_name => <<"sample_metric_name">>,
         occurred_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(usage_plan, full) ->
+    beam4pm_types:new_usage_plan(#{
+        plan_id => <<"sample_plan_id">>,
+        metric_name => <<"sample_metric_name">>,
+        unit => <<"sample_unit">>,
+        billing_mode => sample_atom
+    });
+sample(usage_plan, minimal) ->
+    beam4pm_types:new_usage_plan(#{
+        plan_id => <<"sample_plan_id">>,
+        metric_name => <<"sample_metric_name">>,
+        unit => <<"sample_unit">>,
+        billing_mode => sample_atom
+    });
+sample(value_baseline, full) ->
+    beam4pm_types:new_value_baseline(#{
+        baseline_id => <<"sample_baseline_id">>,
+        account_id => <<"sample_account_id">>,
+        metric_name => <<"sample_metric_name">>,
+        baseline_value => 3.5
+    });
+sample(value_baseline, minimal) ->
+    beam4pm_types:new_value_baseline(#{
+        baseline_id => <<"sample_baseline_id">>,
+        account_id => <<"sample_account_id">>,
+        metric_name => <<"sample_metric_name">>,
+        baseline_value => 3.5
+    });
+sample(value_realization, full) ->
+    beam4pm_types:new_value_realization(#{
+        realization_id => <<"sample_realization_id">>,
+        baseline_id => <<"sample_baseline_id">>,
+        realized_value => 3.5,
+        measured_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(value_realization, minimal) ->
+    beam4pm_types:new_value_realization(#{
+        realization_id => <<"sample_realization_id">>,
+        baseline_id => <<"sample_baseline_id">>,
+        realized_value => 3.5,
+        measured_at => <<"2026-08-29T12:00:00Z">>
     });
 sample(Name, Variant) ->
     erlang:error({unknown_sample, Name, Variant}).

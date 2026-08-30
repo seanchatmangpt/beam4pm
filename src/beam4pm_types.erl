@@ -3,18 +3,48 @@
 -module(beam4pm_types).
 
 -export([
+    new_add_on_bundle/1,
     new_alignment_move/1,
+    new_annual_subscription/1,
+    new_billing_account/1,
     new_billing_reconciliation/1,
+    new_capability_bundle/1,
     new_case_stats/1,
+    new_catalog_release/1,
+    new_channel_agreement/1,
+    new_chargeback_rule/1,
+    new_commercial_approval/1,
+    new_commercial_execution_receipt/1,
+    new_commercial_forecast/1,
+    new_commercial_quote/1,
+    new_commercial_quote_line/1,
+    new_committed_spend/1,
+    new_compatibility_contract/1,
+    new_configuration_export/1,
+    new_configuration_import/1,
     new_conformance_result/1,
+    new_consumption_pool/1,
+    new_consumption_subscription/1,
+    new_data_residency_policy/1,
+    new_deployment_entitlement/1,
     new_dfg_edge/1,
+    new_discount_schedule/1,
+    new_edition_definition/1,
+    new_enterprise_order/1,
+    new_enterprise_order_line/1,
     new_entitlement_event/1,
+    new_entitlement_grant/1,
+    new_entitlement_revocation/1,
     new_entitlement_state/1,
+    new_environment_profile/1,
     new_event_log/1,
     new_event_type/1,
+    new_expansion_option/1,
     new_heuristic_arc/1,
+    new_invoice_schedule/1,
     new_k8s_object_ref/1,
     new_log_trace/1,
+    new_migration_contract/1,
     new_object_attribute_change/1,
     new_object_type/1,
     new_oc_declare_constraint/1,
@@ -22,37 +52,87 @@
     new_ocel_event/1,
     new_ocel_object/1,
     new_ocel_relationship/1,
+    new_overage_policy/1,
     new_path_schema/1,
     new_path_schema_query/1,
+    new_payment_terms/1,
     new_petri_arc/1,
     new_petri_place/1,
     new_petri_transition/1,
     new_planning_action/1,
     new_planning_state/1,
     new_policy_decision/1,
+    new_private_offer/1,
     new_process_variant/1,
+    new_purchase_order_binding/1,
     new_queue_snapshot/1,
+    new_quota_policy/1,
+    new_ramp_commitment/1,
+    new_renewal_option/1,
+    new_reseller_authorization/1,
     new_resource_allocation/1,
+    new_service_credit/1,
+    new_service_level_objective/1,
     new_service_span/1,
+    new_showback_allocation/1,
+    new_sku_definition/1,
     new_sojourn_time/1,
+    new_support_contract/1,
     new_sync_time/1,
+    new_tenant_account/1,
+    new_tenant_project/1,
+    new_term_subscription/1,
+    new_true_up_policy/1,
     new_type_edge/1,
-    new_usage_event/1
+    new_usage_event/1,
+    new_usage_plan/1,
+    new_value_baseline/1,
+    new_value_realization/1
 ]).
 
 -export_type([
+    add_on_bundle/0,
     alignment_move/0,
+    annual_subscription/0,
+    billing_account/0,
     billing_reconciliation/0,
+    capability_bundle/0,
     case_stats/0,
+    catalog_release/0,
+    channel_agreement/0,
+    chargeback_rule/0,
+    commercial_approval/0,
+    commercial_execution_receipt/0,
+    commercial_forecast/0,
+    commercial_quote/0,
+    commercial_quote_line/0,
+    committed_spend/0,
+    compatibility_contract/0,
+    configuration_export/0,
+    configuration_import/0,
     conformance_result/0,
+    consumption_pool/0,
+    consumption_subscription/0,
+    data_residency_policy/0,
+    deployment_entitlement/0,
     dfg_edge/0,
+    discount_schedule/0,
+    edition_definition/0,
+    enterprise_order/0,
+    enterprise_order_line/0,
     entitlement_event/0,
+    entitlement_grant/0,
+    entitlement_revocation/0,
     entitlement_state/0,
+    environment_profile/0,
     event_log/0,
     event_type/0,
+    expansion_option/0,
     heuristic_arc/0,
+    invoice_schedule/0,
     k8s_object_ref/0,
     log_trace/0,
+    migration_contract/0,
     object_attribute_change/0,
     object_type/0,
     oc_declare_constraint/0,
@@ -60,23 +140,78 @@
     ocel_event/0,
     ocel_object/0,
     ocel_relationship/0,
+    overage_policy/0,
     path_schema/0,
     path_schema_query/0,
+    payment_terms/0,
     petri_arc/0,
     petri_place/0,
     petri_transition/0,
     planning_action/0,
     planning_state/0,
     policy_decision/0,
+    private_offer/0,
     process_variant/0,
+    purchase_order_binding/0,
     queue_snapshot/0,
+    quota_policy/0,
+    ramp_commitment/0,
+    renewal_option/0,
+    reseller_authorization/0,
     resource_allocation/0,
+    service_credit/0,
+    service_level_objective/0,
     service_span/0,
+    showback_allocation/0,
+    sku_definition/0,
     sojourn_time/0,
+    support_contract/0,
     sync_time/0,
+    tenant_account/0,
+    tenant_project/0,
+    term_subscription/0,
+    true_up_policy/0,
     type_edge/0,
-    usage_event/0
+    usage_event/0,
+    usage_plan/0,
+    value_baseline/0,
+    value_realization/0
 ]).
+
+%% Optional paid add-on attachable to an edition.
+-record(add_on_bundle, {
+    add_on_id :: binary(), %% add_on_id: Stable add-on identity.
+    name :: binary(), %% name: Buyer-facing add-on name.
+    capability_ids :: [binary()], %% capability_ids: Additional capabilities.
+    status :: atom() %% status: Add-on lifecycle standing.
+}).
+
+-type add_on_bundle() :: #add_on_bundle{}.
+
+-spec new_add_on_bundle(map()) -> {ok, add_on_bundle()} | {error, {missing_field, atom()}}.
+new_add_on_bundle(Map) ->
+    case maps:is_key(add_on_id, Map) of
+        false -> {error, {missing_field, add_on_id}};
+        true ->
+    case maps:is_key(name, Map) of
+        false -> {error, {missing_field, name}};
+        true ->
+    case maps:is_key(capability_ids, Map) of
+        false -> {error, {missing_field, capability_ids}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #add_on_bundle{
+        add_on_id = maps:get(add_on_id, Map, undefined),
+        name = maps:get(name, Map, undefined),
+        capability_ids = maps:get(capability_ids, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
 
 %% One step of a conformance-checking alignment between log and model.
 -record(alignment_move, {
@@ -98,6 +233,76 @@ new_alignment_move(Map) ->
         move_type = maps:get(move_type, Map, undefined),
         cost = maps:get(cost, Map, undefined)
     }}
+    end
+    end.
+
+%% Annual package binding SKU, seats, and renewal date.
+-record(annual_subscription, {
+    subscription_id :: binary(), %% subscription_id: Stable annual subscription.
+    sku :: binary(), %% sku: Subscribed SKU.
+    seat_count :: integer(), %% seat_count: Contracted seats.
+    renews_at :: binary() %% renews_at: Annual renewal instant.
+}).
+
+-type annual_subscription() :: #annual_subscription{}.
+
+-spec new_annual_subscription(map()) -> {ok, annual_subscription()} | {error, {missing_field, atom()}}.
+new_annual_subscription(Map) ->
+    case maps:is_key(subscription_id, Map) of
+        false -> {error, {missing_field, subscription_id}};
+        true ->
+    case maps:is_key(sku, Map) of
+        false -> {error, {missing_field, sku}};
+        true ->
+    case maps:is_key(seat_count, Map) of
+        false -> {error, {missing_field, seat_count}};
+        true ->
+    case maps:is_key(renews_at, Map) of
+        false -> {error, {missing_field, renews_at}};
+        true ->
+    {ok, #annual_subscription{
+        subscription_id = maps:get(subscription_id, Map, undefined),
+        sku = maps:get(sku, Map, undefined),
+        seat_count = maps:get(seat_count, Map, undefined),
+        renews_at = maps:get(renews_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Bill-to account with currency and invoice delivery profile.
+-record(billing_account, {
+    billing_account_id :: binary(), %% billing_account_id: Stable bill-to account identity.
+    account_id :: binary(), %% account_id: Commercial account owner.
+    currency :: binary(), %% currency: ISO 4217 billing currency.
+    invoice_profile :: binary() %% invoice_profile: Invoice delivery profile identity.
+}).
+
+-type billing_account() :: #billing_account{}.
+
+-spec new_billing_account(map()) -> {ok, billing_account()} | {error, {missing_field, atom()}}.
+new_billing_account(Map) ->
+    case maps:is_key(billing_account_id, Map) of
+        false -> {error, {missing_field, billing_account_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(currency, Map) of
+        false -> {error, {missing_field, currency}};
+        true ->
+    case maps:is_key(invoice_profile, Map) of
+        false -> {error, {missing_field, invoice_profile}};
+        true ->
+    {ok, #billing_account{
+        billing_account_id = maps:get(billing_account_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        currency = maps:get(currency, Map, undefined),
+        invoice_profile = maps:get(invoice_profile, Map, undefined)
+    }}
+    end
+    end
     end
     end.
 
@@ -148,6 +353,41 @@ new_billing_reconciliation(Map) ->
     end
     end.
 
+%% Named capability bundle with constituent capability identities.
+-record(capability_bundle, {
+    bundle_id :: binary(), %% bundle_id: Stable bundle identity.
+    name :: binary(), %% name: Buyer-facing bundle name.
+    capability_ids :: [binary()], %% capability_ids: Included capability identities.
+    version :: binary() %% version: Bundle semantic version.
+}).
+
+-type capability_bundle() :: #capability_bundle{}.
+
+-spec new_capability_bundle(map()) -> {ok, capability_bundle()} | {error, {missing_field, atom()}}.
+new_capability_bundle(Map) ->
+    case maps:is_key(bundle_id, Map) of
+        false -> {error, {missing_field, bundle_id}};
+        true ->
+    case maps:is_key(name, Map) of
+        false -> {error, {missing_field, name}};
+        true ->
+    case maps:is_key(capability_ids, Map) of
+        false -> {error, {missing_field, capability_ids}};
+        true ->
+    case maps:is_key(version, Map) of
+        false -> {error, {missing_field, version}};
+        true ->
+    {ok, #capability_bundle{
+        bundle_id = maps:get(bundle_id, Map, undefined),
+        name = maps:get(name, Map, undefined),
+        capability_ids = maps:get(capability_ids, Map, undefined),
+        version = maps:get(version, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Aggregate statistics computed for one process instance (case).
 -record(case_stats, {
     case_id :: binary(), %% case_id: Unique case identifier.
@@ -170,6 +410,426 @@ new_case_stats(Map) ->
         event_count = maps:get(event_count, Map, undefined),
         duration_seconds = maps:get(duration_seconds, Map, undefined)
     }}
+    end
+    end.
+
+%% Immutable commercial catalog release with effective time.
+-record(catalog_release, {
+    release_id :: binary(), %% release_id: Stable catalog release.
+    version :: binary(), %% version: Catalog semantic version.
+    sku_ids :: [binary()], %% sku_ids: Published SKU identities.
+    effective_at :: binary() %% effective_at: Catalog activation instant.
+}).
+
+-type catalog_release() :: #catalog_release{}.
+
+-spec new_catalog_release(map()) -> {ok, catalog_release()} | {error, {missing_field, atom()}}.
+new_catalog_release(Map) ->
+    case maps:is_key(release_id, Map) of
+        false -> {error, {missing_field, release_id}};
+        true ->
+    case maps:is_key(version, Map) of
+        false -> {error, {missing_field, version}};
+        true ->
+    case maps:is_key(sku_ids, Map) of
+        false -> {error, {missing_field, sku_ids}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #catalog_release{
+        release_id = maps:get(release_id, Map, undefined),
+        version = maps:get(version, Map, undefined),
+        sku_ids = maps:get(sku_ids, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Channel partner agreement with territory and validity.
+-record(channel_agreement, {
+    agreement_id :: binary(), %% agreement_id: Stable channel agreement.
+    partner_id :: binary(), %% partner_id: Authorized channel partner.
+    territory :: binary(), %% territory: Authorized sales territory.
+    valid_until :: binary() %% valid_until: Agreement expiration instant.
+}).
+
+-type channel_agreement() :: #channel_agreement{}.
+
+-spec new_channel_agreement(map()) -> {ok, channel_agreement()} | {error, {missing_field, atom()}}.
+new_channel_agreement(Map) ->
+    case maps:is_key(agreement_id, Map) of
+        false -> {error, {missing_field, agreement_id}};
+        true ->
+    case maps:is_key(partner_id, Map) of
+        false -> {error, {missing_field, partner_id}};
+        true ->
+    case maps:is_key(territory, Map) of
+        false -> {error, {missing_field, territory}};
+        true ->
+    case maps:is_key(valid_until, Map) of
+        false -> {error, {missing_field, valid_until}};
+        true ->
+    {ok, #channel_agreement{
+        agreement_id = maps:get(agreement_id, Map, undefined),
+        partner_id = maps:get(partner_id, Map, undefined),
+        territory = maps:get(territory, Map, undefined),
+        valid_until = maps:get(valid_until, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Cost allocation rule mapping usage to a cost center.
+-record(chargeback_rule, {
+    rule_id :: binary(), %% rule_id: Stable chargeback rule.
+    cost_center :: binary(), %% cost_center: Charged cost center.
+    metric_name :: binary(), %% metric_name: Allocated usage metric.
+    rate :: float() %% rate: Internal chargeback rate.
+}).
+
+-type chargeback_rule() :: #chargeback_rule{}.
+
+-spec new_chargeback_rule(map()) -> {ok, chargeback_rule()} | {error, {missing_field, atom()}}.
+new_chargeback_rule(Map) ->
+    case maps:is_key(rule_id, Map) of
+        false -> {error, {missing_field, rule_id}};
+        true ->
+    case maps:is_key(cost_center, Map) of
+        false -> {error, {missing_field, cost_center}};
+        true ->
+    case maps:is_key(metric_name, Map) of
+        false -> {error, {missing_field, metric_name}};
+        true ->
+    case maps:is_key(rate, Map) of
+        false -> {error, {missing_field, rate}};
+        true ->
+    {ok, #chargeback_rule{
+        rule_id = maps:get(rule_id, Map, undefined),
+        cost_center = maps:get(cost_center, Map, undefined),
+        metric_name = maps:get(metric_name, Map, undefined),
+        rate = maps:get(rate, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Commercial approval decision with exact subject and authority.
+-record(commercial_approval, {
+    approval_id :: binary(), %% approval_id: Stable approval identity.
+    quote_id :: binary(), %% quote_id: Exact quote under approval.
+    authority :: binary(), %% authority: Principal granting commercial authority.
+    status :: atom() %% status: Approval lifecycle standing.
+}).
+
+-type commercial_approval() :: #commercial_approval{}.
+
+-spec new_commercial_approval(map()) -> {ok, commercial_approval()} | {error, {missing_field, atom()}}.
+new_commercial_approval(Map) ->
+    case maps:is_key(approval_id, Map) of
+        false -> {error, {missing_field, approval_id}};
+        true ->
+    case maps:is_key(quote_id, Map) of
+        false -> {error, {missing_field, quote_id}};
+        true ->
+    case maps:is_key(authority, Map) of
+        false -> {error, {missing_field, authority}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #commercial_approval{
+        approval_id = maps:get(approval_id, Map, undefined),
+        quote_id = maps:get(quote_id, Map, undefined),
+        authority = maps:get(authority, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Exact-subject commercial operation receipt with evidence digest.
+-record(commercial_execution_receipt, {
+    receipt_id :: binary(), %% receipt_id: Stable commercial receipt.
+    subject_id :: binary(), %% subject_id: Exact commercial subject.
+    operation :: binary(), %% operation: Executed commercial operation.
+    evidence_hash :: binary() %% evidence_hash: Digest of observed consequence evidence.
+}).
+
+-type commercial_execution_receipt() :: #commercial_execution_receipt{}.
+
+-spec new_commercial_execution_receipt(map()) -> {ok, commercial_execution_receipt()} | {error, {missing_field, atom()}}.
+new_commercial_execution_receipt(Map) ->
+    case maps:is_key(receipt_id, Map) of
+        false -> {error, {missing_field, receipt_id}};
+        true ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(operation, Map) of
+        false -> {error, {missing_field, operation}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #commercial_execution_receipt{
+        receipt_id = maps:get(receipt_id, Map, undefined),
+        subject_id = maps:get(subject_id, Map, undefined),
+        operation = maps:get(operation, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Time-bound account forecast with amount and confidence.
+-record(commercial_forecast, {
+    forecast_id :: binary(), %% forecast_id: Stable forecast identity.
+    account_id :: binary(), %% account_id: Forecast enterprise account.
+    amount :: float(), %% amount: Forecast monetary amount.
+    confidence :: float() %% confidence: Forecast confidence ratio.
+}).
+
+-type commercial_forecast() :: #commercial_forecast{}.
+
+-spec new_commercial_forecast(map()) -> {ok, commercial_forecast()} | {error, {missing_field, atom()}}.
+new_commercial_forecast(Map) ->
+    case maps:is_key(forecast_id, Map) of
+        false -> {error, {missing_field, forecast_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(amount, Map) of
+        false -> {error, {missing_field, amount}};
+        true ->
+    case maps:is_key(confidence, Map) of
+        false -> {error, {missing_field, confidence}};
+        true ->
+    {ok, #commercial_forecast{
+        forecast_id = maps:get(forecast_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        amount = maps:get(amount, Map, undefined),
+        confidence = maps:get(confidence, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% A versioned enterprise quote binding an account, currency, and lifecycle standing.
+-record(commercial_quote, {
+    quote_id :: binary(), %% quote_id: Stable quote identity used across approval and ordering.
+    account_id :: binary(), %% account_id: Enterprise account receiving the quote.
+    currency :: binary(), %% currency: ISO 4217 settlement currency.
+    status :: atom() %% status: Quote lifecycle standing.
+}).
+
+-type commercial_quote() :: #commercial_quote{}.
+
+-spec new_commercial_quote(map()) -> {ok, commercial_quote()} | {error, {missing_field, atom()}}.
+new_commercial_quote(Map) ->
+    case maps:is_key(quote_id, Map) of
+        false -> {error, {missing_field, quote_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(currency, Map) of
+        false -> {error, {missing_field, currency}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #commercial_quote{
+        quote_id = maps:get(quote_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        currency = maps:get(currency, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Enterprise quote line binding a sellable SKU, quantity, and unit price.
+-record(commercial_quote_line, {
+    quote_id :: binary(), %% quote_id: Parent quote identity.
+    sku :: binary(), %% sku: Sellable catalog SKU.
+    quantity :: integer(), %% quantity: Quoted unit count.
+    unit_price :: float() %% unit_price: Price per unit in quote currency.
+}).
+
+-type commercial_quote_line() :: #commercial_quote_line{}.
+
+-spec new_commercial_quote_line(map()) -> {ok, commercial_quote_line()} | {error, {missing_field, atom()}}.
+new_commercial_quote_line(Map) ->
+    case maps:is_key(quote_id, Map) of
+        false -> {error, {missing_field, quote_id}};
+        true ->
+    case maps:is_key(sku, Map) of
+        false -> {error, {missing_field, sku}};
+        true ->
+    case maps:is_key(quantity, Map) of
+        false -> {error, {missing_field, quantity}};
+        true ->
+    case maps:is_key(unit_price, Map) of
+        false -> {error, {missing_field, unit_price}};
+        true ->
+    {ok, #commercial_quote_line{
+        quote_id = maps:get(quote_id, Map, undefined),
+        sku = maps:get(sku, Map, undefined),
+        quantity = maps:get(quantity, Map, undefined),
+        unit_price = maps:get(unit_price, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Term commitment with amount, currency, and expiration.
+-record(committed_spend, {
+    commitment_id :: binary(), %% commitment_id: Stable commitment identity.
+    amount :: float(), %% amount: Committed monetary amount.
+    currency :: binary(), %% currency: ISO 4217 commitment currency.
+    expires_at :: binary() %% expires_at: Commitment expiration instant.
+}).
+
+-type committed_spend() :: #committed_spend{}.
+
+-spec new_committed_spend(map()) -> {ok, committed_spend()} | {error, {missing_field, atom()}}.
+new_committed_spend(Map) ->
+    case maps:is_key(commitment_id, Map) of
+        false -> {error, {missing_field, commitment_id}};
+        true ->
+    case maps:is_key(amount, Map) of
+        false -> {error, {missing_field, amount}};
+        true ->
+    case maps:is_key(currency, Map) of
+        false -> {error, {missing_field, currency}};
+        true ->
+    case maps:is_key(expires_at, Map) of
+        false -> {error, {missing_field, expires_at}};
+        true ->
+    {ok, #committed_spend{
+        commitment_id = maps:get(commitment_id, Map, undefined),
+        amount = maps:get(amount, Map, undefined),
+        currency = maps:get(currency, Map, undefined),
+        expires_at = maps:get(expires_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Compatibility declaration across product, schema, and API versions.
+-record(compatibility_contract, {
+    contract_id :: binary(), %% contract_id: Stable compatibility contract.
+    product_version :: binary(), %% product_version: Product version subject.
+    schema_version :: binary(), %% schema_version: Supported schema version.
+    api_version :: binary() %% api_version: Supported API version.
+}).
+
+-type compatibility_contract() :: #compatibility_contract{}.
+
+-spec new_compatibility_contract(map()) -> {ok, compatibility_contract()} | {error, {missing_field, atom()}}.
+new_compatibility_contract(Map) ->
+    case maps:is_key(contract_id, Map) of
+        false -> {error, {missing_field, contract_id}};
+        true ->
+    case maps:is_key(product_version, Map) of
+        false -> {error, {missing_field, product_version}};
+        true ->
+    case maps:is_key(schema_version, Map) of
+        false -> {error, {missing_field, schema_version}};
+        true ->
+    case maps:is_key(api_version, Map) of
+        false -> {error, {missing_field, api_version}};
+        true ->
+    {ok, #compatibility_contract{
+        contract_id = maps:get(contract_id, Map, undefined),
+        product_version = maps:get(product_version, Map, undefined),
+        schema_version = maps:get(schema_version, Map, undefined),
+        api_version = maps:get(api_version, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Receiptable export of deterministic enterprise configuration.
+-record(configuration_export, {
+    export_id :: binary(), %% export_id: Stable export identity.
+    tenant_id :: binary(), %% tenant_id: Exported tenant.
+    configuration_hash :: binary(), %% configuration_hash: Canonical exported digest.
+    exported_at :: binary() %% exported_at: Export completion instant.
+}).
+
+-type configuration_export() :: #configuration_export{}.
+
+-spec new_configuration_export(map()) -> {ok, configuration_export()} | {error, {missing_field, atom()}}.
+new_configuration_export(Map) ->
+    case maps:is_key(export_id, Map) of
+        false -> {error, {missing_field, export_id}};
+        true ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(configuration_hash, Map) of
+        false -> {error, {missing_field, configuration_hash}};
+        true ->
+    case maps:is_key(exported_at, Map) of
+        false -> {error, {missing_field, exported_at}};
+        true ->
+    {ok, #configuration_export{
+        export_id = maps:get(export_id, Map, undefined),
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        configuration_hash = maps:get(configuration_hash, Map, undefined),
+        exported_at = maps:get(exported_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Validated configuration import bound to an exported digest.
+-record(configuration_import, {
+    import_id :: binary(), %% import_id: Stable import identity.
+    tenant_id :: binary(), %% tenant_id: Destination tenant.
+    configuration_hash :: binary(), %% configuration_hash: Imported canonical digest.
+    status :: atom() %% status: Import validation standing.
+}).
+
+-type configuration_import() :: #configuration_import{}.
+
+-spec new_configuration_import(map()) -> {ok, configuration_import()} | {error, {missing_field, atom()}}.
+new_configuration_import(Map) ->
+    case maps:is_key(import_id, Map) of
+        false -> {error, {missing_field, import_id}};
+        true ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(configuration_hash, Map) of
+        false -> {error, {missing_field, configuration_hash}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #configuration_import{
+        import_id = maps:get(import_id, Map, undefined),
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        configuration_hash = maps:get(configuration_hash, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
+    end
     end
     end.
 
@@ -198,6 +858,146 @@ new_conformance_result(Map) ->
     end
     end.
 
+%% Shared enterprise consumption pool with unit and balance.
+-record(consumption_pool, {
+    pool_id :: binary(), %% pool_id: Stable pool identity.
+    account_id :: binary(), %% account_id: Owning account.
+    unit :: binary(), %% unit: Metered consumption unit.
+    remaining_quantity :: float() %% remaining_quantity: Remaining pooled quantity.
+}).
+
+-type consumption_pool() :: #consumption_pool{}.
+
+-spec new_consumption_pool(map()) -> {ok, consumption_pool()} | {error, {missing_field, atom()}}.
+new_consumption_pool(Map) ->
+    case maps:is_key(pool_id, Map) of
+        false -> {error, {missing_field, pool_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit, Map) of
+        false -> {error, {missing_field, unit}};
+        true ->
+    case maps:is_key(remaining_quantity, Map) of
+        false -> {error, {missing_field, remaining_quantity}};
+        true ->
+    {ok, #consumption_pool{
+        pool_id = maps:get(pool_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit = maps:get(unit, Map, undefined),
+        remaining_quantity = maps:get(remaining_quantity, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Consumption package binding plan, account, and standing.
+-record(consumption_subscription, {
+    subscription_id :: binary(), %% subscription_id: Stable consumption subscription.
+    account_id :: binary(), %% account_id: Purchasing account.
+    plan_id :: binary(), %% plan_id: Usage plan identity.
+    status :: atom() %% status: Subscription lifecycle standing.
+}).
+
+-type consumption_subscription() :: #consumption_subscription{}.
+
+-spec new_consumption_subscription(map()) -> {ok, consumption_subscription()} | {error, {missing_field, atom()}}.
+new_consumption_subscription(Map) ->
+    case maps:is_key(subscription_id, Map) of
+        false -> {error, {missing_field, subscription_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #consumption_subscription{
+        subscription_id = maps:get(subscription_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        plan_id = maps:get(plan_id, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Tenant data-location contract with allowed regions.
+-record(data_residency_policy, {
+    policy_id :: binary(), %% policy_id: Stable residency policy.
+    tenant_id :: binary(), %% tenant_id: Governed tenant.
+    allowed_regions :: [binary()], %% allowed_regions: Permitted data regions.
+    status :: atom() %% status: Residency policy standing.
+}).
+
+-type data_residency_policy() :: #data_residency_policy{}.
+
+-spec new_data_residency_policy(map()) -> {ok, data_residency_policy()} | {error, {missing_field, atom()}}.
+new_data_residency_policy(Map) ->
+    case maps:is_key(policy_id, Map) of
+        false -> {error, {missing_field, policy_id}};
+        true ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(allowed_regions, Map) of
+        false -> {error, {missing_field, allowed_regions}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #data_residency_policy{
+        policy_id = maps:get(policy_id, Map, undefined),
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        allowed_regions = maps:get(allowed_regions, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Paid right to deploy an edition into an environment.
+-record(deployment_entitlement, {
+    entitlement_id :: binary(), %% entitlement_id: Stable deployment entitlement.
+    tenant_id :: binary(), %% tenant_id: Entitled tenant.
+    profile_id :: binary(), %% profile_id: Allowed environment profile.
+    valid_until :: binary() %% valid_until: Deployment right expiration.
+}).
+
+-type deployment_entitlement() :: #deployment_entitlement{}.
+
+-spec new_deployment_entitlement(map()) -> {ok, deployment_entitlement()} | {error, {missing_field, atom()}}.
+new_deployment_entitlement(Map) ->
+    case maps:is_key(entitlement_id, Map) of
+        false -> {error, {missing_field, entitlement_id}};
+        true ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(profile_id, Map) of
+        false -> {error, {missing_field, profile_id}};
+        true ->
+    case maps:is_key(valid_until, Map) of
+        false -> {error, {missing_field, valid_until}};
+        true ->
+    {ok, #deployment_entitlement{
+        entitlement_id = maps:get(entitlement_id, Map, undefined),
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        profile_id = maps:get(profile_id, Map, undefined),
+        valid_until = maps:get(valid_until, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One frequency-annotated directly-follows edge between two activities.
 -record(dfg_edge, {
     source_activity :: binary(), %% source_activity: The preceding activity name.
@@ -223,6 +1023,146 @@ new_dfg_edge(Map) ->
         target_activity = maps:get(target_activity, Map, undefined),
         frequency = maps:get(frequency, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Volume discount tier with threshold and percentage.
+-record(discount_schedule, {
+    schedule_id :: binary(), %% schedule_id: Stable discount schedule.
+    threshold :: float(), %% threshold: Quantity activating the tier.
+    discount_percent :: float(), %% discount_percent: Percentage discount.
+    currency :: binary() %% currency: Applicable settlement currency.
+}).
+
+-type discount_schedule() :: #discount_schedule{}.
+
+-spec new_discount_schedule(map()) -> {ok, discount_schedule()} | {error, {missing_field, atom()}}.
+new_discount_schedule(Map) ->
+    case maps:is_key(schedule_id, Map) of
+        false -> {error, {missing_field, schedule_id}};
+        true ->
+    case maps:is_key(threshold, Map) of
+        false -> {error, {missing_field, threshold}};
+        true ->
+    case maps:is_key(discount_percent, Map) of
+        false -> {error, {missing_field, discount_percent}};
+        true ->
+    case maps:is_key(currency, Map) of
+        false -> {error, {missing_field, currency}};
+        true ->
+    {ok, #discount_schedule{
+        schedule_id = maps:get(schedule_id, Map, undefined),
+        threshold = maps:get(threshold, Map, undefined),
+        discount_percent = maps:get(discount_percent, Map, undefined),
+        currency = maps:get(currency, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Enterprise edition binding capabilities and support tier.
+-record(edition_definition, {
+    edition_id :: binary(), %% edition_id: Stable edition identity.
+    name :: binary(), %% name: Buyer-facing edition name.
+    bundle_ids :: [binary()], %% bundle_ids: Included capability bundles.
+    support_tier :: binary() %% support_tier: Default support tier.
+}).
+
+-type edition_definition() :: #edition_definition{}.
+
+-spec new_edition_definition(map()) -> {ok, edition_definition()} | {error, {missing_field, atom()}}.
+new_edition_definition(Map) ->
+    case maps:is_key(edition_id, Map) of
+        false -> {error, {missing_field, edition_id}};
+        true ->
+    case maps:is_key(name, Map) of
+        false -> {error, {missing_field, name}};
+        true ->
+    case maps:is_key(bundle_ids, Map) of
+        false -> {error, {missing_field, bundle_ids}};
+        true ->
+    case maps:is_key(support_tier, Map) of
+        false -> {error, {missing_field, support_tier}};
+        true ->
+    {ok, #edition_definition{
+        edition_id = maps:get(edition_id, Map, undefined),
+        name = maps:get(name, Map, undefined),
+        bundle_ids = maps:get(bundle_ids, Map, undefined),
+        support_tier = maps:get(support_tier, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Accepted enterprise order binding account, quote, and standing.
+-record(enterprise_order, {
+    order_id :: binary(), %% order_id: Stable enterprise order identity.
+    account_id :: binary(), %% account_id: Purchasing enterprise account.
+    quote_id :: binary(), %% quote_id: Accepted quote identity.
+    status :: atom() %% status: Order lifecycle standing.
+}).
+
+-type enterprise_order() :: #enterprise_order{}.
+
+-spec new_enterprise_order(map()) -> {ok, enterprise_order()} | {error, {missing_field, atom()}}.
+new_enterprise_order(Map) ->
+    case maps:is_key(order_id, Map) of
+        false -> {error, {missing_field, order_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(quote_id, Map) of
+        false -> {error, {missing_field, quote_id}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #enterprise_order{
+        order_id = maps:get(order_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        quote_id = maps:get(quote_id, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Order line preserving SKU, quantity, and contracted unit price.
+-record(enterprise_order_line, {
+    order_id :: binary(), %% order_id: Parent enterprise order.
+    sku :: binary(), %% sku: Ordered catalog SKU.
+    quantity :: integer(), %% quantity: Contracted unit count.
+    unit_price :: float() %% unit_price: Contracted price per unit.
+}).
+
+-type enterprise_order_line() :: #enterprise_order_line{}.
+
+-spec new_enterprise_order_line(map()) -> {ok, enterprise_order_line()} | {error, {missing_field, atom()}}.
+new_enterprise_order_line(Map) ->
+    case maps:is_key(order_id, Map) of
+        false -> {error, {missing_field, order_id}};
+        true ->
+    case maps:is_key(sku, Map) of
+        false -> {error, {missing_field, sku}};
+        true ->
+    case maps:is_key(quantity, Map) of
+        false -> {error, {missing_field, quantity}};
+        true ->
+    case maps:is_key(unit_price, Map) of
+        false -> {error, {missing_field, unit_price}};
+        true ->
+    {ok, #enterprise_order_line{
+        order_id = maps:get(order_id, Map, undefined),
+        sku = maps:get(sku, Map, undefined),
+        quantity = maps:get(quantity, Map, undefined),
+        unit_price = maps:get(unit_price, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -264,6 +1204,76 @@ new_entitlement_event(Map) ->
     end
     end.
 
+%% Receiptable grant of a capability to a tenant.
+-record(entitlement_grant, {
+    grant_id :: binary(), %% grant_id: Stable entitlement grant.
+    tenant_id :: binary(), %% tenant_id: Receiving tenant.
+    capability_id :: binary(), %% capability_id: Granted capability.
+    valid_until :: binary() %% valid_until: Grant expiration instant.
+}).
+
+-type entitlement_grant() :: #entitlement_grant{}.
+
+-spec new_entitlement_grant(map()) -> {ok, entitlement_grant()} | {error, {missing_field, atom()}}.
+new_entitlement_grant(Map) ->
+    case maps:is_key(grant_id, Map) of
+        false -> {error, {missing_field, grant_id}};
+        true ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(capability_id, Map) of
+        false -> {error, {missing_field, capability_id}};
+        true ->
+    case maps:is_key(valid_until, Map) of
+        false -> {error, {missing_field, valid_until}};
+        true ->
+    {ok, #entitlement_grant{
+        grant_id = maps:get(grant_id, Map, undefined),
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        capability_id = maps:get(capability_id, Map, undefined),
+        valid_until = maps:get(valid_until, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Receiptable capability revocation with reason and time.
+-record(entitlement_revocation, {
+    revocation_id :: binary(), %% revocation_id: Stable revocation identity.
+    grant_id :: binary(), %% grant_id: Revoked entitlement grant.
+    reason :: binary(), %% reason: Typed revocation reason.
+    revoked_at :: binary() %% revoked_at: Revocation effective instant.
+}).
+
+-type entitlement_revocation() :: #entitlement_revocation{}.
+
+-spec new_entitlement_revocation(map()) -> {ok, entitlement_revocation()} | {error, {missing_field, atom()}}.
+new_entitlement_revocation(Map) ->
+    case maps:is_key(revocation_id, Map) of
+        false -> {error, {missing_field, revocation_id}};
+        true ->
+    case maps:is_key(grant_id, Map) of
+        false -> {error, {missing_field, grant_id}};
+        true ->
+    case maps:is_key(reason, Map) of
+        false -> {error, {missing_field, reason}};
+        true ->
+    case maps:is_key(revoked_at, Map) of
+        false -> {error, {missing_field, revoked_at}};
+        true ->
+    {ok, #entitlement_revocation{
+        revocation_id = maps:get(revocation_id, Map, undefined),
+        grant_id = maps:get(grant_id, Map, undefined),
+        reason = maps:get(reason, Map, undefined),
+        revoked_at = maps:get(revoked_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark.
 -record(entitlement_state, {
     entitlement_id :: binary(), %% entitlement_id: The commercial identity this state describes (Partner Procurement ENTITLEMENT_ID). Unique key: at most one entitlement_state exists per entitlement_id.
@@ -293,6 +1303,41 @@ new_entitlement_state(Map) ->
         status = maps:get(status, Map, undefined),
         last_applied_event_id = maps:get(last_applied_event_id, Map, undefined),
         updated_at = maps:get(updated_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Deterministic environment profile for demo, POC, or production.
+-record(environment_profile, {
+    profile_id :: binary(), %% profile_id: Stable environment profile.
+    environment :: atom(), %% environment: Deployment environment class.
+    region :: binary(), %% region: Target deployment region.
+    configuration_hash :: binary() %% configuration_hash: Canonical configuration digest.
+}).
+
+-type environment_profile() :: #environment_profile{}.
+
+-spec new_environment_profile(map()) -> {ok, environment_profile()} | {error, {missing_field, atom()}}.
+new_environment_profile(Map) ->
+    case maps:is_key(profile_id, Map) of
+        false -> {error, {missing_field, profile_id}};
+        true ->
+    case maps:is_key(environment, Map) of
+        false -> {error, {missing_field, environment}};
+        true ->
+    case maps:is_key(region, Map) of
+        false -> {error, {missing_field, region}};
+        true ->
+    case maps:is_key(configuration_hash, Map) of
+        false -> {error, {missing_field, configuration_hash}};
+        true ->
+    {ok, #environment_profile{
+        profile_id = maps:get(profile_id, Map, undefined),
+        environment = maps:get(environment, Map, undefined),
+        region = maps:get(region, Map, undefined),
+        configuration_hash = maps:get(configuration_hash, Map, undefined)
     }}
     end
     end
@@ -343,6 +1388,41 @@ new_event_type(Map) ->
     }}
     end.
 
+%% Pre-negotiated expansion right for a SKU and unit ceiling.
+-record(expansion_option, {
+    option_id :: binary(), %% option_id: Stable expansion option.
+    account_id :: binary(), %% account_id: Eligible enterprise account.
+    sku :: binary(), %% sku: Expandable SKU.
+    max_quantity :: integer() %% max_quantity: Maximum expansion quantity.
+}).
+
+-type expansion_option() :: #expansion_option{}.
+
+-spec new_expansion_option(map()) -> {ok, expansion_option()} | {error, {missing_field, atom()}}.
+new_expansion_option(Map) ->
+    case maps:is_key(option_id, Map) of
+        false -> {error, {missing_field, option_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(sku, Map) of
+        false -> {error, {missing_field, sku}};
+        true ->
+    case maps:is_key(max_quantity, Map) of
+        false -> {error, {missing_field, max_quantity}};
+        true ->
+    {ok, #expansion_option{
+        option_id = maps:get(option_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        sku = maps:get(sku, Map, undefined),
+        max_quantity = maps:get(max_quantity, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One dependency-scored candidate arc considered during heuristic-net discovery.
 -record(heuristic_arc, {
     source_activity :: binary(), %% source_activity: The candidate arc source activity.
@@ -368,6 +1448,41 @@ new_heuristic_arc(Map) ->
         target_activity = maps:get(target_activity, Map, undefined),
         dependency_measure = maps:get(dependency_measure, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Deterministic invoicing cadence for a billing account.
+-record(invoice_schedule, {
+    schedule_id :: binary(), %% schedule_id: Stable schedule identity.
+    billing_account_id :: binary(), %% billing_account_id: Bill-to account subject.
+    cadence :: atom(), %% cadence: Invoice cadence.
+    next_invoice_at :: binary() %% next_invoice_at: Next scheduled invoice instant.
+}).
+
+-type invoice_schedule() :: #invoice_schedule{}.
+
+-spec new_invoice_schedule(map()) -> {ok, invoice_schedule()} | {error, {missing_field, atom()}}.
+new_invoice_schedule(Map) ->
+    case maps:is_key(schedule_id, Map) of
+        false -> {error, {missing_field, schedule_id}};
+        true ->
+    case maps:is_key(billing_account_id, Map) of
+        false -> {error, {missing_field, billing_account_id}};
+        true ->
+    case maps:is_key(cadence, Map) of
+        false -> {error, {missing_field, cadence}};
+        true ->
+    case maps:is_key(next_invoice_at, Map) of
+        false -> {error, {missing_field, next_invoice_at}};
+        true ->
+    {ok, #invoice_schedule{
+        schedule_id = maps:get(schedule_id, Map, undefined),
+        billing_account_id = maps:get(billing_account_id, Map, undefined),
+        cadence = maps:get(cadence, Map, undefined),
+        next_invoice_at = maps:get(next_invoice_at, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -417,6 +1532,41 @@ new_log_trace(Map) ->
         case_id = maps:get(case_id, Map, undefined),
         activity_sequence = maps:get(activity_sequence, Map, undefined)
     }}
+    end
+    end.
+
+%% Versioned migration path with source, target, and rollback identity.
+-record(migration_contract, {
+    migration_id :: binary(), %% migration_id: Stable migration identity.
+    from_version :: binary(), %% from_version: Source product version.
+    to_version :: binary(), %% to_version: Target product version.
+    rollback_plan :: binary() %% rollback_plan: Rollback plan identity.
+}).
+
+-type migration_contract() :: #migration_contract{}.
+
+-spec new_migration_contract(map()) -> {ok, migration_contract()} | {error, {missing_field, atom()}}.
+new_migration_contract(Map) ->
+    case maps:is_key(migration_id, Map) of
+        false -> {error, {missing_field, migration_id}};
+        true ->
+    case maps:is_key(from_version, Map) of
+        false -> {error, {missing_field, from_version}};
+        true ->
+    case maps:is_key(to_version, Map) of
+        false -> {error, {missing_field, to_version}};
+        true ->
+    case maps:is_key(rollback_plan, Map) of
+        false -> {error, {missing_field, rollback_plan}};
+        true ->
+    {ok, #migration_contract{
+        migration_id = maps:get(migration_id, Map, undefined),
+        from_version = maps:get(from_version, Map, undefined),
+        to_version = maps:get(to_version, Map, undefined),
+        rollback_plan = maps:get(rollback_plan, Map, undefined)
+    }}
+    end
+    end
     end
     end.
 
@@ -615,6 +1765,41 @@ new_ocel_relationship(Map) ->
     end
     end.
 
+%% Explicit overage treatment for a quota boundary.
+-record(overage_policy, {
+    policy_id :: binary(), %% policy_id: Stable policy identity.
+    quota_id :: binary(), %% quota_id: Governed quota.
+    unit_price :: float(), %% unit_price: Price per overage unit.
+    behavior :: atom() %% behavior: Overage enforcement behavior.
+}).
+
+-type overage_policy() :: #overage_policy{}.
+
+-spec new_overage_policy(map()) -> {ok, overage_policy()} | {error, {missing_field, atom()}}.
+new_overage_policy(Map) ->
+    case maps:is_key(policy_id, Map) of
+        false -> {error, {missing_field, policy_id}};
+        true ->
+    case maps:is_key(quota_id, Map) of
+        false -> {error, {missing_field, quota_id}};
+        true ->
+    case maps:is_key(unit_price, Map) of
+        false -> {error, {missing_field, unit_price}};
+        true ->
+    case maps:is_key(behavior, Map) of
+        false -> {error, {missing_field, behavior}};
+        true ->
+    {ok, #overage_policy{
+        policy_id = maps:get(policy_id, Map, undefined),
+        quota_id = maps:get(quota_id, Map, undefined),
+        unit_price = maps:get(unit_price, Map, undefined),
+        behavior = maps:get(behavior, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One reusable, scored connection pattern between two OCEL types.
 -record(path_schema, {
     schema_id :: binary(), %% schema_id: Unique path schema identifier.
@@ -675,6 +1860,41 @@ new_path_schema_query(Map) ->
         target_type = maps:get(target_type, Map, undefined),
         max_length = maps:get(max_length, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Contracted payment window and late-policy identity.
+-record(payment_terms, {
+    terms_id :: binary(), %% terms_id: Stable payment terms identity.
+    net_days :: integer(), %% net_days: Days from invoice to due date.
+    late_policy :: binary(), %% late_policy: Late-payment policy identity.
+    status :: atom() %% status: Terms lifecycle standing.
+}).
+
+-type payment_terms() :: #payment_terms{}.
+
+-spec new_payment_terms(map()) -> {ok, payment_terms()} | {error, {missing_field, atom()}}.
+new_payment_terms(Map) ->
+    case maps:is_key(terms_id, Map) of
+        false -> {error, {missing_field, terms_id}};
+        true ->
+    case maps:is_key(net_days, Map) of
+        false -> {error, {missing_field, net_days}};
+        true ->
+    case maps:is_key(late_policy, Map) of
+        false -> {error, {missing_field, late_policy}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #payment_terms{
+        terms_id = maps:get(terms_id, Map, undefined),
+        net_days = maps:get(net_days, Map, undefined),
+        late_policy = maps:get(late_policy, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -819,6 +2039,41 @@ new_policy_decision(Map) ->
     end
     end.
 
+%% Negotiated private offer with customer, price, and expiration.
+-record(private_offer, {
+    offer_id :: binary(), %% offer_id: Stable private offer identity.
+    account_id :: binary(), %% account_id: Target enterprise account.
+    total_price :: float(), %% total_price: Negotiated total price.
+    expires_at :: binary() %% expires_at: Offer expiration instant.
+}).
+
+-type private_offer() :: #private_offer{}.
+
+-spec new_private_offer(map()) -> {ok, private_offer()} | {error, {missing_field, atom()}}.
+new_private_offer(Map) ->
+    case maps:is_key(offer_id, Map) of
+        false -> {error, {missing_field, offer_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(total_price, Map) of
+        false -> {error, {missing_field, total_price}};
+        true ->
+    case maps:is_key(expires_at, Map) of
+        false -> {error, {missing_field, expires_at}};
+        true ->
+    {ok, #private_offer{
+        offer_id = maps:get(offer_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        total_price = maps:get(total_price, Map, undefined),
+        expires_at = maps:get(expires_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One distinct activity-sequence variant observed in a log, with its frequency.
 -record(process_variant, {
     variant_id :: binary(), %% variant_id: Unique variant identifier.
@@ -844,6 +2099,41 @@ new_process_variant(Map) ->
         activity_sequence = maps:get(activity_sequence, Map, undefined),
         frequency = maps:get(frequency, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Customer purchase-order evidence bound to an enterprise order.
+-record(purchase_order_binding, {
+    binding_id :: binary(), %% binding_id: Stable binding identity.
+    order_id :: binary(), %% order_id: Enterprise order subject.
+    purchase_order_number :: binary(), %% purchase_order_number: Customer purchase-order number.
+    status :: atom() %% status: Binding validation standing.
+}).
+
+-type purchase_order_binding() :: #purchase_order_binding{}.
+
+-spec new_purchase_order_binding(map()) -> {ok, purchase_order_binding()} | {error, {missing_field, atom()}}.
+new_purchase_order_binding(Map) ->
+    case maps:is_key(binding_id, Map) of
+        false -> {error, {missing_field, binding_id}};
+        true ->
+    case maps:is_key(order_id, Map) of
+        false -> {error, {missing_field, order_id}};
+        true ->
+    case maps:is_key(purchase_order_number, Map) of
+        false -> {error, {missing_field, purchase_order_number}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #purchase_order_binding{
+        binding_id = maps:get(binding_id, Map, undefined),
+        order_id = maps:get(order_id, Map, undefined),
+        purchase_order_number = maps:get(purchase_order_number, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -877,6 +2167,146 @@ new_queue_snapshot(Map) ->
     end
     end.
 
+%% Enforceable quota limit over a named measurement window.
+-record(quota_policy, {
+    quota_id :: binary(), %% quota_id: Stable quota identity.
+    metric_name :: binary(), %% metric_name: Governed metric.
+    limit :: float(), %% limit: Maximum allowed quantity.
+    window :: atom() %% window: Quota measurement window.
+}).
+
+-type quota_policy() :: #quota_policy{}.
+
+-spec new_quota_policy(map()) -> {ok, quota_policy()} | {error, {missing_field, atom()}}.
+new_quota_policy(Map) ->
+    case maps:is_key(quota_id, Map) of
+        false -> {error, {missing_field, quota_id}};
+        true ->
+    case maps:is_key(metric_name, Map) of
+        false -> {error, {missing_field, metric_name}};
+        true ->
+    case maps:is_key(limit, Map) of
+        false -> {error, {missing_field, limit}};
+        true ->
+    case maps:is_key(window, Map) of
+        false -> {error, {missing_field, window}};
+        true ->
+    {ok, #quota_policy{
+        quota_id = maps:get(quota_id, Map, undefined),
+        metric_name = maps:get(metric_name, Map, undefined),
+        limit = maps:get(limit, Map, undefined),
+        window = maps:get(window, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Phased commercial commitment with effective window.
+-record(ramp_commitment, {
+    ramp_id :: binary(), %% ramp_id: Stable ramp identity.
+    phase :: integer(), %% phase: Ordered ramp phase.
+    committed_amount :: float(), %% committed_amount: Phase commitment amount.
+    effective_at :: binary() %% effective_at: Phase activation instant.
+}).
+
+-type ramp_commitment() :: #ramp_commitment{}.
+
+-spec new_ramp_commitment(map()) -> {ok, ramp_commitment()} | {error, {missing_field, atom()}}.
+new_ramp_commitment(Map) ->
+    case maps:is_key(ramp_id, Map) of
+        false -> {error, {missing_field, ramp_id}};
+        true ->
+    case maps:is_key(phase, Map) of
+        false -> {error, {missing_field, phase}};
+        true ->
+    case maps:is_key(committed_amount, Map) of
+        false -> {error, {missing_field, committed_amount}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #ramp_commitment{
+        ramp_id = maps:get(ramp_id, Map, undefined),
+        phase = maps:get(phase, Map, undefined),
+        committed_amount = maps:get(committed_amount, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Contractual renewal option with term and notice deadline.
+-record(renewal_option, {
+    option_id :: binary(), %% option_id: Stable renewal option.
+    subscription_id :: binary(), %% subscription_id: Renewable subscription.
+    term_months :: integer(), %% term_months: Renewal term months.
+    notice_by :: binary() %% notice_by: Renewal notice deadline.
+}).
+
+-type renewal_option() :: #renewal_option{}.
+
+-spec new_renewal_option(map()) -> {ok, renewal_option()} | {error, {missing_field, atom()}}.
+new_renewal_option(Map) ->
+    case maps:is_key(option_id, Map) of
+        false -> {error, {missing_field, option_id}};
+        true ->
+    case maps:is_key(subscription_id, Map) of
+        false -> {error, {missing_field, subscription_id}};
+        true ->
+    case maps:is_key(term_months, Map) of
+        false -> {error, {missing_field, term_months}};
+        true ->
+    case maps:is_key(notice_by, Map) of
+        false -> {error, {missing_field, notice_by}};
+        true ->
+    {ok, #renewal_option{
+        option_id = maps:get(option_id, Map, undefined),
+        subscription_id = maps:get(subscription_id, Map, undefined),
+        term_months = maps:get(term_months, Map, undefined),
+        notice_by = maps:get(notice_by, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% SKU-scoped reseller authorization with standing.
+-record(reseller_authorization, {
+    authorization_id :: binary(), %% authorization_id: Stable authorization identity.
+    reseller_id :: binary(), %% reseller_id: Authorized reseller.
+    sku :: binary(), %% sku: Authorized sellable SKU.
+    status :: atom() %% status: Authorization standing.
+}).
+
+-type reseller_authorization() :: #reseller_authorization{}.
+
+-spec new_reseller_authorization(map()) -> {ok, reseller_authorization()} | {error, {missing_field, atom()}}.
+new_reseller_authorization(Map) ->
+    case maps:is_key(authorization_id, Map) of
+        false -> {error, {missing_field, authorization_id}};
+        true ->
+    case maps:is_key(reseller_id, Map) of
+        false -> {error, {missing_field, reseller_id}};
+        true ->
+    case maps:is_key(sku, Map) of
+        false -> {error, {missing_field, sku}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #reseller_authorization{
+        authorization_id = maps:get(authorization_id, Map, undefined),
+        reseller_id = maps:get(reseller_id, Map, undefined),
+        sku = maps:get(sku, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One recorded assignment of a resource to an activity occurrence.
 -record(resource_allocation, {
     resource_id :: binary(), %% resource_id: Identifier of the assigned resource.
@@ -902,6 +2332,76 @@ new_resource_allocation(Map) ->
         activity = maps:get(activity, Map, undefined),
         event_id = maps:get(event_id, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Receiptable credit issued for an SLO breach.
+-record(service_credit, {
+    credit_id :: binary(), %% credit_id: Stable service credit.
+    slo_id :: binary(), %% slo_id: Breached SLO.
+    amount :: float(), %% amount: Credit monetary amount.
+    currency :: binary() %% currency: ISO 4217 credit currency.
+}).
+
+-type service_credit() :: #service_credit{}.
+
+-spec new_service_credit(map()) -> {ok, service_credit()} | {error, {missing_field, atom()}}.
+new_service_credit(Map) ->
+    case maps:is_key(credit_id, Map) of
+        false -> {error, {missing_field, credit_id}};
+        true ->
+    case maps:is_key(slo_id, Map) of
+        false -> {error, {missing_field, slo_id}};
+        true ->
+    case maps:is_key(amount, Map) of
+        false -> {error, {missing_field, amount}};
+        true ->
+    case maps:is_key(currency, Map) of
+        false -> {error, {missing_field, currency}};
+        true ->
+    {ok, #service_credit{
+        credit_id = maps:get(credit_id, Map, undefined),
+        slo_id = maps:get(slo_id, Map, undefined),
+        amount = maps:get(amount, Map, undefined),
+        currency = maps:get(currency, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Measurable service target bound to a support contract.
+-record(service_level_objective, {
+    slo_id :: binary(), %% slo_id: Stable SLO identity.
+    contract_id :: binary(), %% contract_id: Governing support contract.
+    target_percent :: float(), %% target_percent: Contracted target percentage.
+    measurement_window :: atom() %% measurement_window: SLO measurement window.
+}).
+
+-type service_level_objective() :: #service_level_objective{}.
+
+-spec new_service_level_objective(map()) -> {ok, service_level_objective()} | {error, {missing_field, atom()}}.
+new_service_level_objective(Map) ->
+    case maps:is_key(slo_id, Map) of
+        false -> {error, {missing_field, slo_id}};
+        true ->
+    case maps:is_key(contract_id, Map) of
+        false -> {error, {missing_field, contract_id}};
+        true ->
+    case maps:is_key(target_percent, Map) of
+        false -> {error, {missing_field, target_percent}};
+        true ->
+    case maps:is_key(measurement_window, Map) of
+        false -> {error, {missing_field, measurement_window}};
+        true ->
+    {ok, #service_level_objective{
+        slo_id = maps:get(slo_id, Map, undefined),
+        contract_id = maps:get(contract_id, Map, undefined),
+        target_percent = maps:get(target_percent, Map, undefined),
+        measurement_window = maps:get(measurement_window, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -937,6 +2437,76 @@ new_service_span(Map) ->
     end
     end.
 
+%% Non-billing usage allocation for enterprise transparency.
+-record(showback_allocation, {
+    allocation_id :: binary(), %% allocation_id: Stable showback allocation.
+    project_id :: binary(), %% project_id: Attributed tenant project.
+    metric_name :: binary(), %% metric_name: Reported usage metric.
+    quantity :: float() %% quantity: Attributed usage quantity.
+}).
+
+-type showback_allocation() :: #showback_allocation{}.
+
+-spec new_showback_allocation(map()) -> {ok, showback_allocation()} | {error, {missing_field, atom()}}.
+new_showback_allocation(Map) ->
+    case maps:is_key(allocation_id, Map) of
+        false -> {error, {missing_field, allocation_id}};
+        true ->
+    case maps:is_key(project_id, Map) of
+        false -> {error, {missing_field, project_id}};
+        true ->
+    case maps:is_key(metric_name, Map) of
+        false -> {error, {missing_field, metric_name}};
+        true ->
+    case maps:is_key(quantity, Map) of
+        false -> {error, {missing_field, quantity}};
+        true ->
+    {ok, #showback_allocation{
+        allocation_id = maps:get(allocation_id, Map, undefined),
+        project_id = maps:get(project_id, Map, undefined),
+        metric_name = maps:get(metric_name, Map, undefined),
+        quantity = maps:get(quantity, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Catalog SKU binding edition, billing model, and lifecycle.
+-record(sku_definition, {
+    sku :: binary(), %% sku: Stable sellable SKU.
+    edition_id :: binary(), %% edition_id: Product edition identity.
+    billing_model :: atom(), %% billing_model: Commercial billing model.
+    status :: atom() %% status: SKU lifecycle standing.
+}).
+
+-type sku_definition() :: #sku_definition{}.
+
+-spec new_sku_definition(map()) -> {ok, sku_definition()} | {error, {missing_field, atom()}}.
+new_sku_definition(Map) ->
+    case maps:is_key(sku, Map) of
+        false -> {error, {missing_field, sku}};
+        true ->
+    case maps:is_key(edition_id, Map) of
+        false -> {error, {missing_field, edition_id}};
+        true ->
+    case maps:is_key(billing_model, Map) of
+        false -> {error, {missing_field, billing_model}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #sku_definition{
+        sku = maps:get(sku, Map, undefined),
+        edition_id = maps:get(edition_id, Map, undefined),
+        billing_model = maps:get(billing_model, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric).
 -record(sojourn_time, {
     object_id :: binary(), %% object_id: Identifier of the object this measurement is for.
@@ -966,6 +2536,41 @@ new_sojourn_time(Map) ->
     end
     end.
 
+%% Purchased support tier with response target and term.
+-record(support_contract, {
+    contract_id :: binary(), %% contract_id: Stable support contract.
+    account_id :: binary(), %% account_id: Covered enterprise account.
+    tier :: atom(), %% tier: Purchased support tier.
+    valid_until :: binary() %% valid_until: Support term expiration.
+}).
+
+-type support_contract() :: #support_contract{}.
+
+-spec new_support_contract(map()) -> {ok, support_contract()} | {error, {missing_field, atom()}}.
+new_support_contract(Map) ->
+    case maps:is_key(contract_id, Map) of
+        false -> {error, {missing_field, contract_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(tier, Map) of
+        false -> {error, {missing_field, tier}};
+        true ->
+    case maps:is_key(valid_until, Map) of
+        false -> {error, {missing_field, valid_until}};
+        true ->
+    {ok, #support_contract{
+        contract_id = maps:get(contract_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        tier = maps:get(tier, Map, undefined),
+        valid_until = maps:get(valid_until, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% The time one object waited to synchronize with another object at a shared event.
 -record(sync_time, {
     object_id :: binary(), %% object_id: Identifier of the object this measurement is for.
@@ -988,6 +2593,146 @@ new_sync_time(Map) ->
         delaying_object_id = maps:get(delaying_object_id, Map, undefined),
         seconds = maps:get(seconds, Map, undefined)
     }}
+    end
+    end.
+
+%% Commercial tenant bound to account, region, and edition.
+-record(tenant_account, {
+    tenant_id :: binary(), %% tenant_id: Stable tenant identity.
+    account_id :: binary(), %% account_id: Owning enterprise account.
+    home_region :: binary(), %% home_region: Tenant home region.
+    edition_id :: binary() %% edition_id: Provisioned product edition.
+}).
+
+-type tenant_account() :: #tenant_account{}.
+
+-spec new_tenant_account(map()) -> {ok, tenant_account()} | {error, {missing_field, atom()}}.
+new_tenant_account(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(home_region, Map) of
+        false -> {error, {missing_field, home_region}};
+        true ->
+    case maps:is_key(edition_id, Map) of
+        false -> {error, {missing_field, edition_id}};
+        true ->
+    {ok, #tenant_account{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        home_region = maps:get(home_region, Map, undefined),
+        edition_id = maps:get(edition_id, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Billable tenant project with cost-center attribution.
+-record(tenant_project, {
+    project_id :: binary(), %% project_id: Stable tenant project.
+    tenant_id :: binary(), %% tenant_id: Owning tenant.
+    cost_center :: binary(), %% cost_center: Enterprise cost-center code.
+    status :: atom() %% status: Project lifecycle standing.
+}).
+
+-type tenant_project() :: #tenant_project{}.
+
+-spec new_tenant_project(map()) -> {ok, tenant_project()} | {error, {missing_field, atom()}}.
+new_tenant_project(Map) ->
+    case maps:is_key(project_id, Map) of
+        false -> {error, {missing_field, project_id}};
+        true ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(cost_center, Map) of
+        false -> {error, {missing_field, cost_center}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    {ok, #tenant_project{
+        project_id = maps:get(project_id, Map, undefined),
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        cost_center = maps:get(cost_center, Map, undefined),
+        status = maps:get(status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Fixed-term package with explicit start and end.
+-record(term_subscription, {
+    subscription_id :: binary(), %% subscription_id: Stable term subscription.
+    sku :: binary(), %% sku: Subscribed SKU.
+    starts_at :: binary(), %% starts_at: Term start instant.
+    ends_at :: binary() %% ends_at: Term end instant.
+}).
+
+-type term_subscription() :: #term_subscription{}.
+
+-spec new_term_subscription(map()) -> {ok, term_subscription()} | {error, {missing_field, atom()}}.
+new_term_subscription(Map) ->
+    case maps:is_key(subscription_id, Map) of
+        false -> {error, {missing_field, subscription_id}};
+        true ->
+    case maps:is_key(sku, Map) of
+        false -> {error, {missing_field, sku}};
+        true ->
+    case maps:is_key(starts_at, Map) of
+        false -> {error, {missing_field, starts_at}};
+        true ->
+    case maps:is_key(ends_at, Map) of
+        false -> {error, {missing_field, ends_at}};
+        true ->
+    {ok, #term_subscription{
+        subscription_id = maps:get(subscription_id, Map, undefined),
+        sku = maps:get(sku, Map, undefined),
+        starts_at = maps:get(starts_at, Map, undefined),
+        ends_at = maps:get(ends_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% End-of-period reconciliation policy for committed consumption.
+-record(true_up_policy, {
+    policy_id :: binary(), %% policy_id: Stable true-up identity.
+    commitment_id :: binary(), %% commitment_id: Commitment under reconciliation.
+    cadence :: atom(), %% cadence: True-up cadence.
+    shortfall_behavior :: atom() %% shortfall_behavior: Shortfall treatment.
+}).
+
+-type true_up_policy() :: #true_up_policy{}.
+
+-spec new_true_up_policy(map()) -> {ok, true_up_policy()} | {error, {missing_field, atom()}}.
+new_true_up_policy(Map) ->
+    case maps:is_key(policy_id, Map) of
+        false -> {error, {missing_field, policy_id}};
+        true ->
+    case maps:is_key(commitment_id, Map) of
+        false -> {error, {missing_field, commitment_id}};
+        true ->
+    case maps:is_key(cadence, Map) of
+        false -> {error, {missing_field, cadence}};
+        true ->
+    case maps:is_key(shortfall_behavior, Map) of
+        false -> {error, {missing_field, shortfall_behavior}};
+        true ->
+    {ok, #true_up_policy{
+        policy_id = maps:get(policy_id, Map, undefined),
+        commitment_id = maps:get(commitment_id, Map, undefined),
+        cadence = maps:get(cadence, Map, undefined),
+        shortfall_behavior = maps:get(shortfall_behavior, Map, undefined)
+    }}
+    end
+    end
     end
     end.
 
@@ -1062,6 +2807,111 @@ new_usage_event(Map) ->
         occurred_at = maps:get(occurred_at, Map, undefined)
     }}
     end
+    end
+    end
+    end
+    end.
+
+%% Meter-to-price plan binding dimension, unit, and billing mode.
+-record(usage_plan, {
+    plan_id :: binary(), %% plan_id: Stable usage plan identity.
+    metric_name :: binary(), %% metric_name: Metered dimension.
+    unit :: binary(), %% unit: Commercial measurement unit.
+    billing_mode :: atom() %% billing_mode: Billing calculation mode.
+}).
+
+-type usage_plan() :: #usage_plan{}.
+
+-spec new_usage_plan(map()) -> {ok, usage_plan()} | {error, {missing_field, atom()}}.
+new_usage_plan(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(metric_name, Map) of
+        false -> {error, {missing_field, metric_name}};
+        true ->
+    case maps:is_key(unit, Map) of
+        false -> {error, {missing_field, unit}};
+        true ->
+    case maps:is_key(billing_mode, Map) of
+        false -> {error, {missing_field, billing_mode}};
+        true ->
+    {ok, #usage_plan{
+        plan_id = maps:get(plan_id, Map, undefined),
+        metric_name = maps:get(metric_name, Map, undefined),
+        unit = maps:get(unit, Map, undefined),
+        billing_mode = maps:get(billing_mode, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Measured pre-adoption business baseline for ROI comparison.
+-record(value_baseline, {
+    baseline_id :: binary(), %% baseline_id: Stable baseline identity.
+    account_id :: binary(), %% account_id: Measured enterprise account.
+    metric_name :: binary(), %% metric_name: Business value metric.
+    baseline_value :: float() %% baseline_value: Pre-adoption measured value.
+}).
+
+-type value_baseline() :: #value_baseline{}.
+
+-spec new_value_baseline(map()) -> {ok, value_baseline()} | {error, {missing_field, atom()}}.
+new_value_baseline(Map) ->
+    case maps:is_key(baseline_id, Map) of
+        false -> {error, {missing_field, baseline_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(metric_name, Map) of
+        false -> {error, {missing_field, metric_name}};
+        true ->
+    case maps:is_key(baseline_value, Map) of
+        false -> {error, {missing_field, baseline_value}};
+        true ->
+    {ok, #value_baseline{
+        baseline_id = maps:get(baseline_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        metric_name = maps:get(metric_name, Map, undefined),
+        baseline_value = maps:get(baseline_value, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Measured post-adoption outcome linked to its baseline.
+-record(value_realization, {
+    realization_id :: binary(), %% realization_id: Stable realization identity.
+    baseline_id :: binary(), %% baseline_id: Compared value baseline.
+    realized_value :: float(), %% realized_value: Observed post-adoption value.
+    measured_at :: binary() %% measured_at: Outcome measurement instant.
+}).
+
+-type value_realization() :: #value_realization{}.
+
+-spec new_value_realization(map()) -> {ok, value_realization()} | {error, {missing_field, atom()}}.
+new_value_realization(Map) ->
+    case maps:is_key(realization_id, Map) of
+        false -> {error, {missing_field, realization_id}};
+        true ->
+    case maps:is_key(baseline_id, Map) of
+        false -> {error, {missing_field, baseline_id}};
+        true ->
+    case maps:is_key(realized_value, Map) of
+        false -> {error, {missing_field, realized_value}};
+        true ->
+    case maps:is_key(measured_at, Map) of
+        false -> {error, {missing_field, measured_at}};
+        true ->
+    {ok, #value_realization{
+        realization_id = maps:get(realization_id, Map, undefined),
+        baseline_id = maps:get(baseline_id, Map, undefined),
+        realized_value = maps:get(realized_value, Map, undefined),
+        measured_at = maps:get(measured_at, Map, undefined)
+    }}
     end
     end
     end

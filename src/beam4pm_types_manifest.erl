@@ -11,21 +11,51 @@
 -export([record_names/0, fields/1]).
 
 -spec record_names() -> [atom()].
-record_names() -> [alignment_move, billing_reconciliation, case_stats, conformance_result, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, k8s_object_ref, log_trace, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, path_schema, path_schema_query, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, queue_snapshot, resource_allocation, service_span, sojourn_time, sync_time, type_edge, usage_event].
+record_names() -> [add_on_bundle, alignment_move, annual_subscription, billing_account, billing_reconciliation, capability_bundle, case_stats, catalog_release, channel_agreement, chargeback_rule, commercial_approval, commercial_execution_receipt, commercial_forecast, commercial_quote, commercial_quote_line, committed_spend, compatibility_contract, configuration_export, configuration_import, conformance_result, consumption_pool, consumption_subscription, data_residency_policy, deployment_entitlement, dfg_edge, discount_schedule, edition_definition, enterprise_order, enterprise_order_line, entitlement_event, entitlement_grant, entitlement_revocation, entitlement_state, environment_profile, event_log, event_type, expansion_option, heuristic_arc, invoice_schedule, k8s_object_ref, log_trace, migration_contract, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, overage_policy, path_schema, path_schema_query, payment_terms, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, private_offer, process_variant, purchase_order_binding, queue_snapshot, quota_policy, ramp_commitment, renewal_option, reseller_authorization, resource_allocation, service_credit, service_level_objective, service_span, showback_allocation, sku_definition, sojourn_time, support_contract, sync_time, tenant_account, tenant_project, term_subscription, true_up_policy, type_edge, usage_event, usage_plan, value_baseline, value_realization].
 
 -spec fields(atom()) -> [atom()].
+fields(add_on_bundle) -> [add_on_id, name, capability_ids, status];
 fields(alignment_move) -> [move_type, cost];
+fields(annual_subscription) -> [subscription_id, sku, seat_count, renews_at];
+fields(billing_account) -> [billing_account_id, account_id, currency, invoice_profile];
 fields(billing_reconciliation) -> [entitlement_id, metric_name, total_quantity, applied_event_ids, period_start, period_end];
+fields(capability_bundle) -> [bundle_id, name, capability_ids, version];
 fields(case_stats) -> [case_id, event_count, duration_seconds];
+fields(catalog_release) -> [release_id, version, sku_ids, effective_at];
+fields(channel_agreement) -> [agreement_id, partner_id, territory, valid_until];
+fields(chargeback_rule) -> [rule_id, cost_center, metric_name, rate];
+fields(commercial_approval) -> [approval_id, quote_id, authority, status];
+fields(commercial_execution_receipt) -> [receipt_id, subject_id, operation, evidence_hash];
+fields(commercial_forecast) -> [forecast_id, account_id, amount, confidence];
+fields(commercial_quote) -> [quote_id, account_id, currency, status];
+fields(commercial_quote_line) -> [quote_id, sku, quantity, unit_price];
+fields(committed_spend) -> [commitment_id, amount, currency, expires_at];
+fields(compatibility_contract) -> [contract_id, product_version, schema_version, api_version];
+fields(configuration_export) -> [export_id, tenant_id, configuration_hash, exported_at];
+fields(configuration_import) -> [import_id, tenant_id, configuration_hash, status];
 fields(conformance_result) -> [trace_id, fitness, precision];
+fields(consumption_pool) -> [pool_id, account_id, unit, remaining_quantity];
+fields(consumption_subscription) -> [subscription_id, account_id, plan_id, status];
+fields(data_residency_policy) -> [policy_id, tenant_id, allowed_regions, status];
+fields(deployment_entitlement) -> [entitlement_id, tenant_id, profile_id, valid_until];
 fields(dfg_edge) -> [source_activity, target_activity, frequency];
+fields(discount_schedule) -> [schedule_id, threshold, discount_percent, currency];
+fields(edition_definition) -> [edition_id, name, bundle_ids, support_tier];
+fields(enterprise_order) -> [order_id, account_id, quote_id, status];
+fields(enterprise_order_line) -> [order_id, sku, quantity, unit_price];
 fields(entitlement_event) -> [event_id, entitlement_id, event_type, effective_at, payload];
+fields(entitlement_grant) -> [grant_id, tenant_id, capability_id, valid_until];
+fields(entitlement_revocation) -> [revocation_id, grant_id, reason, revoked_at];
 fields(entitlement_state) -> [entitlement_id, status, last_applied_event_id, updated_at];
+fields(environment_profile) -> [profile_id, environment, region, configuration_hash];
 fields(event_log) -> [log_id, name, description];
 fields(event_type) -> [type_name, attribute_names];
+fields(expansion_option) -> [option_id, account_id, sku, max_quantity];
 fields(heuristic_arc) -> [source_activity, target_activity, dependency_measure];
+fields(invoice_schedule) -> [schedule_id, billing_account_id, cadence, next_invoice_at];
 fields(k8s_object_ref) -> [kind, name, namespace];
 fields(log_trace) -> [case_id, activity_sequence];
+fields(migration_contract) -> [migration_id, from_version, to_version, rollback_plan];
 fields(object_attribute_change) -> [object_id, attribute_name, old_value, new_value, changed_at];
 fields(object_type) -> [type_name, attribute_names];
 fields(oc_declare_constraint) -> [constraint_id, source_activity, target_activity, constraint_type];
@@ -33,20 +63,40 @@ fields(ocel_attribute) -> [attribute_name, attribute_value, recorded_at];
 fields(ocel_event) -> [event_id, event_type, event_time, attributes];
 fields(ocel_object) -> [object_id, object_type, attributes];
 fields(ocel_relationship) -> [qualifier, object_id];
+fields(overage_policy) -> [policy_id, quota_id, unit_price, behavior];
 fields(path_schema) -> [schema_id, source_type, target_type, support];
 fields(path_schema_query) -> [source_type, target_type, max_length];
+fields(payment_terms) -> [terms_id, net_days, late_policy, status];
 fields(petri_arc) -> [source_id, target_id, weight];
 fields(petri_place) -> [place_id, tokens];
 fields(petri_transition) -> [transition_id, label];
 fields(planning_action) -> [action_name, preconditions, effects];
 fields(planning_state) -> [state_id, facts];
 fields(policy_decision) -> [decision_id, verdict, reason];
+fields(private_offer) -> [offer_id, account_id, total_price, expires_at];
 fields(process_variant) -> [variant_id, activity_sequence, frequency];
+fields(purchase_order_binding) -> [binding_id, order_id, purchase_order_number, status];
 fields(queue_snapshot) -> [queue_name, depth, observed_at];
+fields(quota_policy) -> [quota_id, metric_name, limit, window];
+fields(ramp_commitment) -> [ramp_id, phase, committed_amount, effective_at];
+fields(renewal_option) -> [option_id, subscription_id, term_months, notice_by];
+fields(reseller_authorization) -> [authorization_id, reseller_id, sku, status];
 fields(resource_allocation) -> [resource_id, activity, event_id];
+fields(service_credit) -> [credit_id, slo_id, amount, currency];
+fields(service_level_objective) -> [slo_id, contract_id, target_percent, measurement_window];
 fields(service_span) -> [span_id, service_name, duration_ms, parent_span_id];
+fields(showback_allocation) -> [allocation_id, project_id, metric_name, quantity];
+fields(sku_definition) -> [sku, edition_id, billing_model, status];
 fields(sojourn_time) -> [object_id, event_type, seconds];
+fields(support_contract) -> [contract_id, account_id, tier, valid_until];
 fields(sync_time) -> [object_id, delaying_object_id, seconds];
+fields(tenant_account) -> [tenant_id, account_id, home_region, edition_id];
+fields(tenant_project) -> [project_id, tenant_id, cost_center, status];
+fields(term_subscription) -> [subscription_id, sku, starts_at, ends_at];
+fields(true_up_policy) -> [policy_id, commitment_id, cadence, shortfall_behavior];
 fields(type_edge) -> [source_type, target_type, qualifier, direction];
 fields(usage_event) -> [event_id, entitlement_id, quantity, metric_name, occurred_at];
+fields(usage_plan) -> [plan_id, metric_name, unit, billing_mode];
+fields(value_baseline) -> [baseline_id, account_id, metric_name, baseline_value];
+fields(value_realization) -> [realization_id, baseline_id, realized_value, measured_at];
 fields(_) -> [].
