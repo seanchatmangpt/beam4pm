@@ -1,0 +1,48 @@
+@prefix b4: <https://beam4pm.dev/runtime/> .
+@prefix rt: <https://ggen.dev/ontology/runtime-integration#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+
+# Canonical beam4pm_pro runtime graph; generated projections are ggen-owned.
+b4:pro_runtime a rt:Integration, rt:RuntimeContract ; rt:hasSubject b4:pro_subject ; rt:hasAuthorityPolicy b4:pro_authority_policy ; rt:replayKey "beam4pm-pro-runtime-v1" ; rt:refusalCode "AUTHORITY_REFUSED" ; rt:refusalReason "beam4pm_pro DO requires an exact subject, admitted capability, policy context and explicit authority" ; rt:enablesCapability "classify_standing", "compensate", "emit_event_envelope", "infer_hypothesis", "manufacture_intent", "observe_process_twin", "plan_candidate", "policy_evaluation", "rank_reversible_options", "receipt_replay", "select_candidate", "write_receipted_file", "pro_exact_subject_rebinding", "pro_enterprise_opportunity_admission", "pro_icp_qualification", "pro_business_outcome_hypothesis", "pro_use_case_decomposition", "pro_stakeholder_authority_map", "pro_rfp_requirement_ingestion", "pro_procurement_constraint_admission", "pro_security_requirement_admission", "pro_roi_payback_model", "pro_poc_success_criteria" .
+b4:pro_subject a rt:ExactSubject ; dct:identifier "aba3e80ae08499fe7020aa526e26dcb794b7e9b9" ; dct:isPartOf "seanchatmangpt/beam4pm" ; dct:source "main" .
+b4:pro_authority_policy odrl:permission [ odrl:action odrl:use ] .
+b4:pro_runtime rt:enablesCapability "pro_edition_bundle_selection" .
+b4:pro_runtime rt:enablesCapability "pro_tenant_account_projection" .
+b4:pro_runtime rt:enablesCapability "pro_entitlement_policy_evaluation" .
+b4:pro_runtime rt:enablesCapability "pro_sku_capability_mapping" .
+b4:pro_runtime rt:enablesCapability "pro_usage_meter_dimension" .
+b4:pro_runtime rt:enablesCapability "pro_chargeback_projection" .
+b4:pro_runtime rt:enablesCapability "pro_deployment_profile_selection" .
+b4:pro_runtime rt:enablesCapability "pro_private_hybrid_profile" .
+b4:pro_runtime rt:enablesCapability "pro_upgrade_migration_plan" .
+b4:pro_runtime rt:enablesCapability "pro_backward_compatibility_contract" .
+b4:pro_runtime rt:enablesCapability "pro_runtime_tenant_isolation" .
+b4:pro_runtime rt:enablesCapability "pro_supervision_recovery" .
+b4:pro_runtime rt:enablesCapability "pro_backpressure_policy" .
+b4:pro_runtime rt:enablesCapability "pro_idempotent_retry" .
+b4:pro_runtime rt:enablesCapability "pro_timeout_cancellation" .
+b4:pro_runtime rt:enablesCapability "pro_ha_failover_plan" .
+b4:pro_runtime rt:enablesCapability "pro_runtime_policy_admission" .
+b4:pro_runtime rt:enablesCapability "pro_receipt_chain_verification" .
+b4:pro_runtime rt:enablesCapability "pro_sla_slo_evidence" .
+b4:pro_runtime rt:enablesCapability "pro_cost_to_serve_observation" .
+b4:pro_runtime rt:enablesCapability "pro_sbom_attestation_admission" .
+b4:pro_runtime rt:enablesCapability "pro_artifact_digest_verification" .
+b4:pro_runtime rt:enablesCapability "pro_supply_chain_policy" .
+b4:pro_runtime rt:enablesCapability "pro_security_control_mapping" .
+b4:pro_runtime rt:enablesCapability "pro_data_residency_policy" .
+b4:pro_runtime rt:enablesCapability "pro_privacy_retention_policy" .
+b4:pro_runtime rt:enablesCapability "pro_least_authority_check" .
+b4:pro_runtime rt:enablesCapability "pro_incident_response_evidence" .
+b4:pro_runtime rt:enablesCapability "pro_vendor_risk_evidence" .
+b4:pro_runtime rt:enablesCapability "pro_release_canary_rollback" .
+b4:pro_runtime rt:enablesCapability "pro_guided_enterprise_onboarding" .
+b4:pro_runtime rt:enablesCapability "pro_qualified_poc_bootstrap" .
+b4:pro_runtime rt:enablesCapability "pro_scenario_catalog_discovery" .
+b4:pro_runtime rt:enablesCapability "pro_fortune5_sample_workload" .
+b4:pro_runtime rt:enablesCapability "pro_solution_architect_doctor" .
+b4:pro_runtime rt:enablesCapability "pro_proof_of_value_scorecard" .
+b4:pro_runtime rt:enablesCapability "pro_stakeholder_value_summary" .
+b4:pro_runtime rt:enablesCapability "pro_migration_import_readiness" .
+b4:pro_runtime rt:enablesCapability "pro_renewal_expansion_evidence" .
