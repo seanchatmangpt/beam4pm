@@ -5,7 +5,7 @@ name = "beam4pm"
 source = "ontology.ttl"
 
 [packs]
-beam4pm-process-model = { path = "vendor/ggen-marketplace/packs/beam4pm-process-model-pack" }
+beam4pm-process-model = { git = "https://github.com/seanchatmangpt/ggen-marketplace.git", version = "94d1e00ce56749742a5ffeb52979877854e45b60", subdir = "packs/beam4pm-process-model-pack" }
 
 [templates]
 dir = "templates"

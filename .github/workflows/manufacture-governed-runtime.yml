@@ -8,12 +8,17 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: beam4pm-post-llm-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   manufacture:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - name: Checkout exact subject with marketplace pack
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           submodules: recursive
           fetch-depth: 0
@@ -23,6 +28,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$(git -C vendor/ggen-marketplace rev-parse HEAD)" = "94d1e00ce56749742a5ffeb52979877854e45b60"
+          grep -Fq 'version = "94d1e00ce56749742a5ffeb52979877854e45b60"' ggen.toml
 
       - name: Set up Erlang/OTP + Elixir
         uses: erlef/setup-beam@v1
@@ -31,18 +37,23 @@ jobs:
           elixir-version: "1.17.3"
           rebar3-version: "3.24.0"
 
-      - name: Build exact ggen source with repository-pinned Rust toolchain
+      - name: Install exact digest-pinned ggen release
         shell: bash
         run: |
           set -euo pipefail
-          git clone https://github.com/seanchatmangpt/ggen.git /tmp/ggen
-          git -C /tmp/ggen checkout 36caa86eba04de0eae1769e71142df86fd370854
-          (
-            cd /tmp/ggen
-            rustup show active-toolchain
-            cargo --config 'build.rustc-wrapper=""' build -p ggen-cli-lib --bin ggen
-          )
-          sudo install -m 0755 /tmp/ggen/target/debug/ggen /usr/local/bin/ggen
+          release="v26.8.27"
+          digest="ab442ced90a9836fd4eb07a5d61eb58293843cd515d864699fc0d0453444a035"
+          asset="ggen-x86_64-unknown-linux-gnu.tar.gz"
+          archive="$RUNNER_TEMP/$asset"
+          extract="$RUNNER_TEMP/ggen-release"
+          curl --fail --location --retry 3 --retry-all-errors --proto '=https' --tlsv1.2 \
+            --output "$archive" "https://github.com/seanchatmangpt/ggen/releases/download/${release}/${asset}"
+          printf '%s  %s\n' "$digest" "$archive" | sha256sum --check --strict
+          mkdir -p "$extract"
+          tar -xzf "$archive" -C "$extract"
+          mapfile -t bins < <(find "$extract" -type f -name ggen -print)
+          test "${#bins[@]}" -eq 1
+          sudo install -m 0755 "${bins[0]}" /usr/local/bin/ggen
           ggen --version
 
       - name: Manufacture governed execution projection through ggen

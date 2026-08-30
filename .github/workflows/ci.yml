@@ -10,81 +10,64 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Erlang/Elixir tests + determinism check
-    runs-on: ubuntu-latest
+  ggen-manufacture:
+    permissions:
+      contents: read
+    uses: seanchatmangpt/ggen/.github/workflows/ggen-sync-run.yml@36caa86eba04de0eae1769e71142df86fd370854
+    with:
+      ggen_release: v26.8.27
+      ggen_asset_sha256: ab442ced90a9836fd4eb07a5d61eb58293843cd515d864699fc0d0453444a035
+      working_directory: .
+      dry_run: false
+      artifact_retention_days: 30
+
+  beam-chicago:
+    name: Exact-head BEAM + dual-engine determinism
+    needs: ggen-manufacture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
-      # submodules: recursive is required -- vendor/ggen-marketplace is a
-      # real git submodule (see .gitmodules) that the ggen pack config
-      # (ggen.toml -> packs.beam4pm-process-model) depends on.
-      - name: Checkout (with vendor/ggen-marketplace submodule)
-        uses: actions/checkout@v4
+      - name: Checkout exact subject and ecosystem producer
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           submodules: recursive
+          fetch-depth: 1
+          persist-credentials: false
 
-      # erlef/setup-beam is the standard, well-known GitHub Action for
-      # installing Erlang/OTP + Elixir + rebar3 on GitHub-hosted runners.
-      #
-      # NOTE ON VERSION PINS: OTP 27.2 / Elixir 1.17.3 / rebar3 3.24.0 below
-      # are reasonable, real released versions as of this workflow's
-      # authoring, chosen to be mutually compatible (Elixir 1.17.x supports
-      # OTP 27). This was written without live access to verify exact
-      # current tags, checksums, or whether a newer patch release exists --
-      # verify these version strings (and, if this org's supply-chain policy
-      # requires pinning third-party `uses:` actions to a commit SHA rather
-      # than a floating major-version tag like `@v1`, pin both
-      # actions/checkout and erlef/setup-beam to verified SHAs) before
-      # merging this workflow.
+      - name: Refuse producer or projection drift
+        env:
+          GGEN_CHANGED: ${{ needs.ggen-manufacture.outputs.changed }}
+          GGEN_EXIT: ${{ needs.ggen-manufacture.outputs.sync_exit_code }}
+        run: |
+          set -euo pipefail
+          test "$GGEN_EXIT" = "0"
+          test "$GGEN_CHANGED" = "false"
+          test "$(git -C vendor/ggen-marketplace rev-parse HEAD)" = "94d1e00ce56749742a5ffeb52979877854e45b60"
+          test -f generated/elixir/lib/beam4pm_governor.ex
+          test -f generated/elixir/test/beam4pm_governor_test.exs
+          grep -q 'defmodule BeamPM.Governor do' generated/elixir/lib/beam4pm_governor.ex
+          grep -q 'defmodule BeamPM.Autonomy.Kernel do' generated/elixir/lib/beam4pm_ash.ex
+
       - name: Set up Erlang/OTP + Elixir
-        uses: erlef/setup-beam@v1
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
         with:
           otp-version: "27.2"
           elixir-version: "1.17.3"
           rebar3-version: "3.24.0"
 
-      - name: rebar3 eunit
+      - name: Execute Erlang Chicago suite
         run: rebar3 eunit
 
-      # mix.exs currently declares zero deps (deps() returns []), so this is
-      # a harmless no-op today. Kept as a real step (not skipped) so it
-      # starts working correctly the moment a real dependency is added,
-      # rather than needing this workflow to be remembered and edited then.
-      - name: mix deps.get
-        run: mix deps.get
-
-      - name: mix test
-        run: mix test
-
-      # Determinism check: prove that re-running ggen against the checked-in
-      # ontology.ttl + pack templates reproduces the committed output under
-      # generated/ byte-for-byte. This guards against generated/erlang and
-      # generated/elixir drifting from their real source of truth (see
-      # generated/README.md: "Never hand-edit; edit ontology.ttl or the
-      # beam4pm-process-model-pack templates and re-run `ggen sync run`").
-      #
-      # KNOWN GAP -- stated honestly, not faked: this step needs a real
-      # `ggen` binary on the runner, and this workflow does NOT install one.
-      # No install method is wired in here yet -- there is no verified
-      # released-binary URL+checksum, package-registry entry, or
-      # cargo/crates.io source confirmed at authoring time, so adding one
-      # here would mean guessing at a download that might not exist or
-      # might not match a real ggen release. `ggen sync run` below is the
-      # actual command this repo's own generated/README.md documents; it is
-      # left in place deliberately so this step fails loudly and
-      # informatively ("ggen: command not found") instead of silently
-      # skipping the check or faking a pass with `true`/`echo`.
-      # `continue-on-error: true` is set only so this one tracked,
-      # documented gap doesn't turn every future push/PR on main red for a
-      # reason contributors can't fix from within their own PR -- remove
-      # continue-on-error once a real "install ggen" step is added
-      # immediately before this one (follow-up work, not done here).
-      - name: Determinism check -- regenerate and diff against committed output
-        continue-on-error: true
+      - name: Re-manufacture ggen_igniter projection and execute Elixir/Ash Chicago suite
+        shell: bash
         run: |
-          cp -r generated /tmp/before-regen
-          rm -rf generated/erlang generated/elixir
-          rm -f ggen.lock
-          # TODO(known gap): install a real ggen binary in a prior step
-          # before this line can succeed. See comment above.
-          ggen sync run
-          diff -r /tmp/before-regen generated
+          set -euo pipefail
+          bash scripts/igniter_sync.sh
+          rm -rf tmp_probe
+          grep -q 'defmodule BeamPM.AutonomyKernelGeneratedTest do' generated/elixir/test/beam4pm_ash_test.exs
+          git diff --exit-code -- generated/elixir/lib/beam4pm_ash.ex generated/elixir/test/beam4pm_ash_test.exs
+
+      - name: Prove clean exact-head subject
+        run: |
+          set -euo pipefail
+          git diff --exit-code
