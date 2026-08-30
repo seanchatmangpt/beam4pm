@@ -87,7 +87,7 @@ jobs:
             --arg source_sha "$GITHUB_SHA" \
             --arg ggen_receipt_sha256 "${{ needs.manufacture.outputs.receipt_sha256 }}" \
             --arg ggen_binary_sha256 "${{ needs.manufacture.outputs.ggen_binary_sha256 }}" \
-            --arg pack_sha "e120890b4b4e0ad463b0421669d4b67e4e3a2fe4" \
+            --arg pack_sha "783b44d585ae123f4ed805add5aab0ea97f76f0a" \
             --arg exact_subject "c7d871a7f86ebe7af51d9bf1f294bc755b30e0cf" \
             '{
               standing: "ALIVE[POST_LLM_GOVERNED_RUNTIME]",
