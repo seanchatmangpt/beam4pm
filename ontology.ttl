@@ -2767,3 +2767,21 @@ b4pe:overage_policy_unit_price_f a bpm:Field ;
 
 b4pe:overage_policy_behavior_f a bpm:Field ;
     bpm:fieldName "behavior" ; bpm:fieldType "atom" ; bpm:fieldDoc "Overage enforcement behavior." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-015 -- Volume discount tier with threshold and percentage.
+b4pe:discount_schedule_rt a bpm:RecordType ;
+    bpm:recordName "discount_schedule" ;
+    bpm:recordDoc "Volume discount tier with threshold and percentage." ;
+    bpm:hasField b4pe:discount_schedule_schedule_id_f , b4pe:discount_schedule_threshold_f , b4pe:discount_schedule_discount_percent_f , b4pe:discount_schedule_currency_f .
+
+b4pe:discount_schedule_schedule_id_f a bpm:Field ;
+    bpm:fieldName "schedule_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable discount schedule." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:discount_schedule_threshold_f a bpm:Field ;
+    bpm:fieldName "threshold" ; bpm:fieldType "float" ; bpm:fieldDoc "Quantity activating the tier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:discount_schedule_discount_percent_f a bpm:Field ;
+    bpm:fieldName "discount_percent" ; bpm:fieldType "float" ; bpm:fieldDoc "Percentage discount." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:discount_schedule_currency_f a bpm:Field ;
+    bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "Applicable settlement currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
