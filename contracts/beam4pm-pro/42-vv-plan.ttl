@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2602 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2602" ; dct:title "Verification and validation plan" ;
+ pro:requiredEvidence "each enterprise acceptance crown has exact subject, positive witness, falsifier, independent verifier, environment identity, expected consequence and replay path" ;
+ pro:independentVerifierRequired true ; pro:authorityCeiling "VERIFY" ;
+ pro:refusalCode "REFUSED[V_AND_V_PLAN_INCOMPLETE]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/09-jira-epics-stories-acceptance.md> .
