@@ -24,3 +24,4 @@ b4:pro_runtime rt:enablesCapability "pro_idempotent_retry" .
 b4:pro_runtime rt:enablesCapability "pro_timeout_cancellation" .
 b4:pro_runtime rt:enablesCapability "pro_ha_failover_plan" .
 b4:pro_runtime rt:enablesCapability "pro_runtime_policy_admission" .
+b4:pro_runtime rt:enablesCapability "pro_receipt_chain_verification" .
