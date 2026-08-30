@@ -17,3 +17,4 @@ b4:pro_runtime rt:enablesCapability "pro_deployment_profile_selection" .
 b4:pro_runtime rt:enablesCapability "pro_private_hybrid_profile" .
 b4:pro_runtime rt:enablesCapability "pro_upgrade_migration_plan" .
 b4:pro_runtime rt:enablesCapability "pro_backward_compatibility_contract" .
+b4:pro_runtime rt:enablesCapability "pro_runtime_tenant_isolation" .
