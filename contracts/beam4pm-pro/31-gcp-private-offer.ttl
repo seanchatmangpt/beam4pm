@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2406 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2406" ; dct:title "Google private offer path" ;
+ pro:requiredEvidence "buyer, offer, pricing model, payment schedule, acceptance, entitlement and deployment are bound by exact identifiers and authorized commercial terms" ;
+ pro:provider "Google Cloud Marketplace" ; pro:bindingTermsRequireAuthority true ;
+ pro:refusalCode "REFUSED[UNAUTHORIZED_GCP_PRIVATE_OFFER]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .
