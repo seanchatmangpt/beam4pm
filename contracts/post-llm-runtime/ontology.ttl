@@ -17,7 +17,7 @@ b4:post_llm_runtime a rt:Integration ;
   rt:hasReceipt b4:receipt ;
   rt:replayActivity b4:replay ;
   rt:hasReplayKey "beam4pm-c7d871a7-post-llm-runtime-v1" ;
-  rt:hasDependencyDigest "ggen-marketplace-f060a79416cf1c5e94b997ebe43cd70cf623a188" ;
+  rt:hasDependencyDigest "ggen-marketplace-fb672841d4a3ad49076e19d02fef541cc56b7b21" ;
   rt:hasConfigDigest "beam4pm-post-llm-runtime-v1" ;
   rt:runtimeConfig b4:runtime_config ;
   rt:resourceModule "BeamPM.Ash.Domain" ;
