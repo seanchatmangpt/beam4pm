@@ -35,6 +35,37 @@ echo "found ${#before_files[@]} manufactured files"
 echo "== pass 2: sha256 before deletion =="
 before_sums="$(for f in "${before_files[@]}"; do shasum -a 256 "$f"; done | sort)"
 
+# Hand-authored test files (no GENERATED marker -- gate_m2_check.sh never
+# deletes them) that nonetheless reference a manufactured module at compile
+# time (e.g. test/beam4pm_actuation_k8s_test.exs's `alias BeamPM.Actuation`
+# + direct BeamPM.Actuation.run/2 calls). Real bug caught by this gate: the
+# FIRST sync script (igniter_sync.sh, rendering beam4pm_ash.ex) triggers a
+# whole-project `mix compile`/`mix test` as its own internal verification,
+# at a point where pass 3 has already deleted beam4pm_actuation.ex (marked)
+# but not yet regenerated it (that happens later, inside
+# receipt_chain_sync.sh) -- this file, unmarked and therefore never
+# deleted, still gets compiled during that window and fails on an
+# undefined BeamPM.Actuation. Stash it out of test/ for the regeneration
+# window, restore it once every manufactured module it depends on is real
+# again, right before the final byte-identity check.
+STASH_DIR="$(mktemp -d)"
+HAND_AUTHORED_DEPENDENT_TESTS=(test/beam4pm_actuation_k8s_test.exs)
+restore_stash() {
+  for f in "${HAND_AUTHORED_DEPENDENT_TESTS[@]}"; do
+    stashed="$STASH_DIR/$(basename "$f")"
+    [ -f "$stashed" ] && mv "$stashed" "$f"
+  done
+  rmdir "$STASH_DIR" 2>/dev/null || true
+}
+# Restore on ANY exit, not just the happy path -- an earlier round of
+# debugging this exact script left manufactured files deleted-and-never-
+# regenerated when a sync script aborted mid-sequence; a bare stash without
+# this trap would reproduce the same class of self-inflicted damage here.
+trap restore_stash EXIT
+for f in "${HAND_AUTHORED_DEPENDENT_TESTS[@]}"; do
+  [ -f "$f" ] && mv "$f" "$STASH_DIR/$(basename "$f")"
+done
+
 echo "== pass 3: delete manufactured files, regenerate (both engines) =="
 for f in "${before_files[@]}"; do rm -f "$f"; done
 rm -f ggen.lock
@@ -61,6 +92,13 @@ source scripts/env/rust4pm_reactor_env.sh
 bash scripts/rf1_dfg_sync.sh
 bash scripts/rf2_conformance_sync.sh
 bash scripts/rf3_ocel_sync.sh
+
+# Restore the stashed hand-authored tests now that every manufactured
+# module they depend on is real again (also happens automatically via the
+# EXIT trap on any earlier failure -- calling it explicitly here too just
+# means it runs before pass 4 rather than after this script exits).
+restore_stash
+trap - EXIT
 
 echo "== pass 4: sha256 after regeneration =="
 mapfile -t after_files < <(find_manufactured)

@@ -23,7 +23,7 @@ defmodule BeamPM.ActuationTest do
   # Graph-derived qualification data (rendered by ggen_igniter):
   @inc_action "increment_counter"
   @inc_requires ["counter_ready"]
-  @allowlist_names ["increment_counter", "observe_counter"]
+  @allowlist_names ["increment_counter", "k8s_scale_down", "k8s_scale_up", "observe_counter"]
 
   defp bridge_path do
     path = Path.expand("qualification/fixtures/toy_gym_bridge.py")

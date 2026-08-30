@@ -173,7 +173,20 @@ def do_step(context, action):
         NAMESPACE,
         f"--timeout={ROLLOUT_TIMEOUT}",
     )
+    # Real, disclosed race: `kubectl rollout status` can report success
+    # (the Deployment's generation/updatedReplicas are current) a moment
+    # before `.status.readyReplicas` itself reconciles down to the new
+    # target on a scale-DOWN (excess pods must actually terminate) --
+    # observed for real during qualification (one run out of two hit it).
+    # Bounded poll-retry closes it honestly: re-observe a few times rather
+    # than trust a single snapshot, still bounded so a genuine failure
+    # (target never reached) surfaces as reward 0.0, not a hang.
     obs = observe(context)
+    retries = 0
+    while obs["ready_replicas"] != target and retries < 10:
+        time.sleep(1)
+        obs = observe(context)
+        retries += 1
     reward = 1.0 if obs["ready_replicas"] == target else 0.0
     return {
         "ok": True,
@@ -185,7 +198,22 @@ def do_step(context, action):
 
 
 def do_close(context):
-    kubectl(context, "delete", "namespace", NAMESPACE, "--wait=false", check=False)
+    # Real, disclosed race (caught for real: back-to-back Actuation.run/2
+    # calls each doing their own reset+close hit "error: object has been
+    # deleted" when a fresh `reset` tried to recreate the namespace while
+    # the prior `close`'s async delete was still terminating it).
+    # `--wait=false` made close() itself fast at the cost of leaving that
+    # race for every caller to hit; blocking here (bounded, so a genuinely
+    # stuck termination still returns rather than hanging forever) means
+    # `close` returning {"ok":true} actually implies the namespace is gone.
+    kubectl(
+        context,
+        "delete",
+        "namespace",
+        NAMESPACE,
+        f"--timeout={ROLLOUT_TIMEOUT}",
+        check=False,
+    )
     return {"ok": True}
 
 

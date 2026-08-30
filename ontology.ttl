@@ -921,6 +921,23 @@ bpma:observe_counter_aa a bpma:AdmittedActuation ;
     bpma:actionName "observe_counter" ;
     bpma:gymOp "noop" .
 
+# Real production actuation target (gate: "no toys, fortune 5 production
+# only"): drives a real Kubernetes Deployment on the real, live kind-ex4pm
+# cluster via qualification/k8s_gym_bridge.py's real kubectl subprocess
+# calls -- an isolated beam4pm-actuation-demo namespace, never the cluster's
+# real ex4pm/postgres workloads. No requiresFact: unlike increment_counter
+# (which models a precondition on prior in-process counter state), a k8s
+# scale op's real precondition is the live cluster/namespace reachability
+# check k8s_gym_bridge.py itself performs fail-closed (exit 2) before ever
+# touching kubectl -- there is no separate planning-layer fact to require.
+bpma:k8s_scale_up_aa a bpma:AdmittedActuation ;
+    bpma:actionName "k8s_scale_up" ;
+    bpma:gymOp "scale_up" .
+
+bpma:k8s_scale_down_aa a bpma:AdmittedActuation ;
+    bpma:actionName "k8s_scale_down" ;
+    bpma:gymOp "scale_down" .
+
 # =============================================================================
 # GitHub Actions CI + GHCR container-publish workflow instance data
 # =============================================================================

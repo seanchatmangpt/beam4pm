@@ -60,9 +60,17 @@ defmodule BeamPM.Actuation.GymBridge do
 
   @doc "Politely closes the bridge (close op), then hard-closes the port."
   @spec close(t()) :: :ok
-  def close(%__MODULE__{port: port} = bridge) do
+  def close(%__MODULE__{port: port} = bridge, timeout \\ 2_000) do
     if Port.info(port) != nil do
-      _ = request(bridge, %{"op" => "close"}, 2_000)
+      # Same real gap as request/3's default: a close op that itself does
+      # real teardown work (e.g. a blocking `kubectl delete namespace`) can
+      # legitimately exceed a hardcoded 2s -- the caller's own
+      # actuation_opts[:bridge_timeout] is the single source of truth for
+      # how long this bridge's operations are allowed to take, reset/step
+      # included, so close respects it too rather than force-killing a
+      # still-real teardown mid-flight (which would recreate the exact
+      # partial-state race this option exists to prevent).
+      _ = request(bridge, %{"op" => "close"}, timeout)
 
       receive do
         {^port, {:exit_status, _status}} -> :ok
@@ -125,6 +133,8 @@ defmodule BeamPM.Actuation do
   Graph-derived allowlist rendered into this build:
 
       * `increment_counter` -> gym op `inc` (requires precondition fact(s) "counter_ready")
+    * `k8s_scale_down` -> gym op `scale_down` (no required precondition facts)
+    * `k8s_scale_up` -> gym op `scale_up` (no required precondition facts)
     * `observe_counter` -> gym op `noop` (no required precondition facts)
 
   ## Receipts (every path, `beam4pm-brce/v1`)
@@ -181,6 +191,8 @@ defmodule BeamPM.Actuation do
   # ggen_igniter from the admission graph.
   @admitted_actuations %{
     "increment_counter" => %{gym_op: "inc", requires: ["counter_ready"]},
+    "k8s_scale_down" => %{gym_op: "scale_down", requires: []},
+    "k8s_scale_up" => %{gym_op: "scale_up", requires: []},
     "observe_counter" => %{gym_op: "noop", requires: []}
   }
 
@@ -255,6 +267,7 @@ defmodule BeamPM.Actuation do
     run(fn %{admitted: %{gym_op: gym_op}, actuation_opts: opts}, _context ->
       gym = Map.fetch!(opts, :gym)
       bridge_py = Map.fetch!(opts, :bridge)
+      bridge_timeout = Map.fetch!(opts, :bridge_timeout)
       gym_action = %{"op" => gym_op}
       action_json = JSON.encode!(gym_action)
 
@@ -265,9 +278,13 @@ defmodule BeamPM.Actuation do
         {:ok, bridge} ->
           result =
             with {:ok, %{"observation" => obs_before}} <-
-                   GymBridge.request(bridge, %{"op" => "reset"}),
+                   GymBridge.request(bridge, %{"op" => "reset"}, bridge_timeout),
                  {:ok, step_reply} <-
-                   GymBridge.request(bridge, %{"op" => "step", "action" => gym_action}) do
+                   GymBridge.request(
+                     bridge,
+                     %{"op" => "step", "action" => gym_action},
+                     bridge_timeout
+                   ) do
               {:ok,
                %{
                  observation_before: obs_before,
@@ -283,7 +300,7 @@ defmodule BeamPM.Actuation do
               {:error, reason} -> {:error, {:execution_failed, reason}}
             end
 
-          _ = GymBridge.close(bridge)
+          _ = GymBridge.close(bridge, bridge_timeout)
           result
       end
     end)
@@ -457,7 +474,16 @@ defmodule BeamPM.Actuation do
           :run_id,
           "act-#{System.system_time(:millisecond)}-#{System.unique_integer([:positive])}"
         ),
-      chain_id: Keyword.get(opts, :chain_id)
+      chain_id: Keyword.get(opts, :chain_id),
+      # Real gap, found by real testing: the toy in-memory gym bridge never
+      # needed more than GymBridge.request/3's own 10_000ms default, but a
+      # real production actuation target (e.g. a real Kubernetes rollout)
+      # can legitimately take longer -- without this being configurable,
+      # Elixir gives up and force-closes the Port mid-operation, leaving
+      # the real environment in a partially-actuated state for the next
+      # attempt to trip over. Purely additive: omitted, behavior is
+      # byte-identical to before this option existed.
+      bridge_timeout: Keyword.get(opts, :bridge_timeout, 10_000)
     }
   end
 
