@@ -6,9 +6,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
 
 permissions:
   contents: read
@@ -36,19 +38,14 @@ jobs:
           rebar3-version: '3.24.0'
           elixir-version: '1.18.5'
           otp-version: '27.2'
-
+        
       - name: Cache rebar3 dependencies
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
-          path: |
-            _build
-            ~/.cache/rebar3
+          restore-keys: "${{ runner.os }}-rebar3-27.2-3.24.0-\n${{ runner.os }}-rebar3-27.2-\n${{ runner.os }}-rebar3-\n"
           key: ${{ runner.os }}-rebar3-27.2-3.24.0-${{ hashFiles('rebar.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-rebar3-27.2-3.24.0-
-            ${{ runner.os }}-rebar3-27.2-
-            ${{ runner.os }}-rebar3-
-
+          path: "_build\n~/.cache/rebar3\n"
+        
       - name: rebar3 eunit
         shell: bash
         run: |
@@ -69,16 +66,10 @@ jobs:
       - name: Cache mix dependencies
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
-          path: |
-            deps
-            ~/.hex
-            ~/.mix
+          restore-keys: "${{ runner.os }}-mix-27.2-1.18.5-\n${{ runner.os }}-mix-27.2-\n${{ runner.os }}-mix-\n"
           key: ${{ runner.os }}-mix-27.2-1.18.5-${{ hashFiles('mix.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-mix-27.2-1.18.5-
-            ${{ runner.os }}-mix-27.2-
-            ${{ runner.os }}-mix-
-
+          path: "deps\n~/.hex\n~/.mix\n"
+        
       - name: mix deps.get
         shell: bash
         run: |
@@ -105,10 +96,7 @@ jobs:
         continue-on-error: true
         shell: bash
         run: |
-          # KNOWN GAP (carried from the replaced hand-authored ci.yml, still open):
-          # this step needs a real `ggen` binary on the runner and none is installed
-          # here yet. It fails loudly ('ggen: command not found') instead of faking a
-          # pass; continue-on-error is set only so this one tracked gap does not turn
-          # every push/PR red. Remove continue-on-error once a real install step lands.
-          bash scripts/gate_m2_check.sh
+          docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace \
+            ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 \
+            bash scripts/gate_m2_check.sh
 
