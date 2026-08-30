@@ -2947,3 +2947,21 @@ b4pe:sku_definition_billing_model_f a bpm:Field ;
 
 b4pe:sku_definition_status_f a bpm:Field ;
     bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "SKU lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-025 -- Named capability bundle with constituent capability identities.
+b4pe:capability_bundle_rt a bpm:RecordType ;
+    bpm:recordName "capability_bundle" ;
+    bpm:recordDoc "Named capability bundle with constituent capability identities." ;
+    bpm:hasField b4pe:capability_bundle_bundle_id_f , b4pe:capability_bundle_name_f , b4pe:capability_bundle_capability_ids_f , b4pe:capability_bundle_version_f .
+
+b4pe:capability_bundle_bundle_id_f a bpm:Field ;
+    bpm:fieldName "bundle_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable bundle identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:capability_bundle_name_f a bpm:Field ;
+    bpm:fieldName "name" ; bpm:fieldType "string" ; bpm:fieldDoc "Buyer-facing bundle name." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:capability_bundle_capability_ids_f a bpm:Field ;
+    bpm:fieldName "capability_ids" ; bpm:fieldType "list_string" ; bpm:fieldDoc "Included capability identities." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:capability_bundle_version_f a bpm:Field ;
+    bpm:fieldName "version" ; bpm:fieldType "string" ; bpm:fieldDoc "Bundle semantic version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
