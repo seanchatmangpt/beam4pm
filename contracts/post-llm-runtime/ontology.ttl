@@ -147,3 +147,4 @@ b4:actuation a prov:Activity .
 
 # beam4pm_pro 50-commit factory additions.
 b4:post_llm_runtime rt:enablesCapability "pro_exact_subject_rebinding" .
+b4:post_llm_runtime rt:enablesCapability "pro_enterprise_opportunity_admission" .
