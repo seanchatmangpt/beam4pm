@@ -2659,3 +2659,21 @@ b4pe:invoice_schedule_cadence_f a bpm:Field ;
 
 b4pe:invoice_schedule_next_invoice_at_f a bpm:Field ;
     bpm:fieldName "next_invoice_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Next scheduled invoice instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-009 -- Contracted payment window and late-policy identity.
+b4pe:payment_terms_rt a bpm:RecordType ;
+    bpm:recordName "payment_terms" ;
+    bpm:recordDoc "Contracted payment window and late-policy identity." ;
+    bpm:hasField b4pe:payment_terms_terms_id_f , b4pe:payment_terms_net_days_f , b4pe:payment_terms_late_policy_f , b4pe:payment_terms_status_f .
+
+b4pe:payment_terms_terms_id_f a bpm:Field ;
+    bpm:fieldName "terms_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable payment terms identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:payment_terms_net_days_f a bpm:Field ;
+    bpm:fieldName "net_days" ; bpm:fieldType "integer" ; bpm:fieldDoc "Days from invoice to due date." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:payment_terms_late_policy_f a bpm:Field ;
+    bpm:fieldName "late_policy" ; bpm:fieldType "string" ; bpm:fieldDoc "Late-payment policy identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:payment_terms_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Terms lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
