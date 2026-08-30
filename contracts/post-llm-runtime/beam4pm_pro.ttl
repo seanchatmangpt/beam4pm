@@ -36,3 +36,4 @@ b4:pro_runtime rt:enablesCapability "pro_privacy_retention_policy" .
 b4:pro_runtime rt:enablesCapability "pro_least_authority_check" .
 b4:pro_runtime rt:enablesCapability "pro_incident_response_evidence" .
 b4:pro_runtime rt:enablesCapability "pro_vendor_risk_evidence" .
+b4:pro_runtime rt:enablesCapability "pro_release_canary_rollback" .
