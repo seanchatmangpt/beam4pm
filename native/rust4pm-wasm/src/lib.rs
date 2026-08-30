@@ -137,6 +137,11 @@ use process_mining::core::event_data::case_centric::utils::activity_projection::
     log_to_activity_projection,
 };
 use process_mining::core::event_data::case_centric::xes::{import_xes_slice, XESImportOptions};
+use process_mining::core::event_data::object_centric::linked_ocel::SlimLinkedOCEL;
+use process_mining::core::event_data::object_centric::ocel_json::import_ocel_json_slice;
+use process_mining::core::event_data::object_centric::ocel_xml::{
+    export_ocel_xml, import_ocel_xml_slice,
+};
 use process_mining::core::event_data::object_centric::{
     OCELEvent, OCELObject, OCELRelationship, OCELType, OCELTypeAttribute, OCEL,
 };
@@ -146,6 +151,8 @@ use process_mining::discovery::case_centric::alphappp::full::{
     alphappp_discover_petri_net, AlphaPPPConfig,
 };
 use process_mining::discovery::case_centric::dfg::discover_dfg;
+use process_mining::discovery::object_centric::dfg::get_dfg_of_object_type;
+use process_mining::discovery::object_centric::variants::get_variants_of_object_type;
 use process_mining::{EventLog, PetriNet};
 
 /// Registry of imported event logs, keyed by handle.
@@ -1079,6 +1086,109 @@ fn dispatch(input: &[u8]) -> Result<Vec<u8>, String> {
             })?;
             let ocel_id = insert_ocel(ocel)?;
             ok_json(&serde_json::json!({ "ocel_handle": ocel_id }))
+        }
+        "import_ocel_json" => {
+            // Docs example "Importing OCEL 2.0 JSON" via the crate's real
+            // slice importer (same function family rf4-oc-discovery-oracle
+            // pins via `import_ocel_json_path`; slice variant is the
+            // wasm-safe one -- no filesystem in wasip1 here).
+            let content = req_str(&v, "content")?;
+            let ocel: OCEL = import_ocel_json_slice(content.as_bytes())
+                .map_err(|e| format!("ocel json import failed: {e}"))?;
+            let id = insert_ocel(ocel)?;
+            ok_json(&serde_json::json!({ "ocel_handle": id }))
+        }
+        "import_ocel_xml" => {
+            // Docs example "Importing OCEL 2.0 XML". base64 like
+            // import_xes_gz so arbitrary bytes survive the JSON ABI.
+            let b64 = req_str(&v, "content_b64")?;
+            let bytes = base64::engine::general_purpose::STANDARD
+                .decode(b64)
+                .map_err(|e| format!("bad base64 in content_b64: {e}"))?;
+            let ocel: OCEL = import_ocel_xml_slice(&bytes)
+                .map_err(|e| format!("ocel xml import failed: {e}"))?;
+            let id = insert_ocel(ocel)?;
+            ok_json(&serde_json::json!({ "ocel_handle": id }))
+        }
+        "ocel_to_xml" => {
+            // Docs example "Exporting OCEL 2.0 XML" via the crate's own
+            // `export_ocel_xml` into an in-memory quick_xml Writer; returned
+            // base64 so the bytes survive the JSON ABI unmangled (mirror of
+            // import_ocel_xml's content_b64).
+            let id = req_u64(&v, "handle").or_else(|_| req_u64(&v, "ocel_handle"))?;
+            let ocel = take_ocel(id)?;
+            let mut buf: Vec<u8> = Vec::new();
+            let result = {
+                let mut writer = quick_xml::Writer::new(&mut buf);
+                export_ocel_xml(&mut writer, &ocel)
+            };
+            put_ocel(id, ocel);
+            result.map_err(|e| format!("ocel xml export failed: {e}"))?;
+            ok_json(&serde_json::json!({
+                "content_b64": base64::engine::general_purpose::STANDARD.encode(&buf),
+            }))
+        }
+        "ocel_dfg_of_object_type" | "ocel_variants_of_object_type" => {
+            // Docs examples "Object-Centric DFG" / "Object-Centric
+            // Variants": SlimLinkedOCEL::from_ocel + the two real discovery
+            // functions (exact paths + output orderings read from the
+            // crate's vendored source -- see rf4-oc-discovery-oracle's
+            // header doc; this is the same code compiled to wasm).
+            //
+            // from_ocel consumes an OCEL by value, so clone out of the
+            // registry and re-insert the original BEFORE computing: the
+            // handle stays live across this call, and a hypothetical trap
+            // inside discovery costs only this call, never the handle
+            // (same Q1-F1 discipline as everywhere else).
+            let id = req_u64(&v, "handle").or_else(|_| req_u64(&v, "ocel_handle"))?;
+            let object_type = req_str(&v, "object_type")?.to_string();
+            let ocel = take_ocel(id)?;
+            let owned = ocel.clone();
+            put_ocel(id, ocel);
+            if !owned.object_types.iter().any(|t| t.name == object_type) {
+                return Err(format!(
+                    "unknown object_type {object_type:?} (known: {:?})",
+                    owned
+                        .object_types
+                        .iter()
+                        .map(|t| t.name.as_str())
+                        .collect::<Vec<_>>()
+                ));
+            }
+            let slim = SlimLinkedOCEL::from_ocel(owned);
+            if op == "ocel_dfg_of_object_type" {
+                // Crate already sorts: count desc, ties by (from, to).
+                let edges = get_dfg_of_object_type(&slim, object_type);
+                let rendered: Vec<serde_json::Value> = edges
+                    .iter()
+                    .map(|((from, to), count)| {
+                        serde_json::json!({ "from": from, "to": to, "count": count })
+                    })
+                    .collect();
+                ok_json(&serde_json::json!({
+                    "num_edges": rendered.len(),
+                    "edges": rendered,
+                }))
+            } else {
+                // Crate already sorts: count desc, ties by the trace itself.
+                let variants = get_variants_of_object_type(&slim, object_type);
+                let num_variants = variants.len();
+                let n = v
+                    .get("n")
+                    .and_then(serde_json::Value::as_u64)
+                    .map_or(usize::MAX, |n| n as usize);
+                let rendered: Vec<serde_json::Value> = variants
+                    .iter()
+                    .take(n)
+                    .map(|(activities, count)| {
+                        serde_json::json!({ "activities": activities, "count": count })
+                    })
+                    .collect();
+                ok_json(&serde_json::json!({
+                    "num_variants": num_variants,
+                    "variants": rendered,
+                }))
+            }
         }
         "free_ocel" => {
             let id = req_u64(&v, "handle").or_else(|_| req_u64(&v, "ocel_handle"))?;

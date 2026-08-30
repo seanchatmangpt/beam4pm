@@ -526,4 +526,151 @@ defmodule BeamPM.Rust4PMTest do
       assert {:ok, %{"freed" => true}} = Rust4PM.free_ocel(oh)
     end
   end
+
+  describe "T10-T12: object-centric discovery (import_ocel_json/xml, SlimLinkedOCEL DFG + variants)" do
+    # Same crate, two compile targets: the wasm engine's
+    # ocel_dfg_of_object_type / ocel_variants_of_object_type vs the native
+    # rf4-oc-discovery-oracle (whose header doc pins the exact
+    # get_dfg_of_object_type / get_variants_of_object_type paths and output
+    # orderings from the vendored crate source).
+    defp rf4_oracle_bin do
+      path = Path.expand("native/rf4-oc-discovery-oracle/target/release/rf4-oc-discovery-oracle")
+
+      unless File.exists?(path) do
+        raise "rf4-oc-discovery-oracle binary not found at #{path} -- run " <>
+                "`cargo build --release` in native/rf4-oc-discovery-oracle/ first, and run " <>
+                "mix test again"
+      end
+
+      path
+    end
+
+    @ocel_json_fixture Path.expand("qualification/fixtures/positive-self-authored.ocel.json")
+
+    test "T10: import_ocel_json + per-type DFG/variants vs the real rf4 oracle on the same file" do
+      fixture = real_fixture!(@ocel_json_fixture)
+      assert {:ok, %{"ocel_handle" => oh}} = Rust4PM.import_ocel_json(File.read!(fixture))
+
+      for ob_type <- ["Order", "Item"] do
+        # DFG: wasm {from,to,count} must equal oracle {source,target,frequency}
+        # in the crate's own order (count desc, ties (from,to)).
+        assert {:ok, %{"edges" => wasm_edges}} = Rust4PM.ocel_dfg_of_object_type(oh, ob_type)
+
+        %{"edges" => oracle_edges} =
+          shell_invoke_oracle!(rf4_oracle_bin(), %{
+            "op" => "oc_dfg_discover",
+            "ocel_path" => fixture,
+            "ob_type" => ob_type
+          })
+
+        assert Enum.map(wasm_edges, &[&1["from"], &1["to"], &1["count"]]) ==
+                 Enum.map(oracle_edges, &[&1["source"], &1["target"], &1["frequency"]]),
+               "oc DFG mismatch for object type #{ob_type}"
+
+        # Variants: wasm {activities,count} vs oracle {trace,count}, same order.
+        assert {:ok, %{"variants" => wasm_vars, "num_variants" => n}} =
+                 Rust4PM.ocel_variants_of_object_type(oh, ob_type)
+
+        assert n == length(wasm_vars)
+
+        %{"variants" => oracle_vars} =
+          shell_invoke_oracle!(rf4_oracle_bin(), %{
+            "op" => "oc_variants_discover",
+            "ocel_path" => fixture,
+            "ob_type" => ob_type
+          })
+
+        assert Enum.map(wasm_vars, &[&1["activities"], &1["count"]]) ==
+                 Enum.map(oracle_vars, &[&1["trace"], &1["count"]]),
+               "oc variants mismatch for object type #{ob_type}"
+      end
+
+      # Typed refusal, not a trap: unknown object type names the known ones.
+      assert {:error, {:engine, msg}} = Rust4PM.ocel_dfg_of_object_type(oh, "NoSuchType")
+      assert msg =~ "unknown object_type" and msg =~ "Order"
+
+      assert {:ok, %{"freed" => true}} = Rust4PM.free_ocel(oh)
+    end
+
+    test "T11: xes_to_ocel(running-example) round-trips through ocel_to_json to the native " <>
+           "oracle, and its case-type variants equal the case-centric variants",
+         %{run: run_h} do
+      assert {:ok, %{"ocel_handle" => oh}} = Rust4PM.xes_to_ocel(run_h, "case", "belongs_to")
+
+      # Wasm-side OC discovery on the built OCEL.
+      assert {:ok, %{"edges" => wasm_edges}} = Rust4PM.ocel_dfg_of_object_type(oh, "case")
+      assert {:ok, %{"variants" => wasm_vars}} = Rust4PM.ocel_variants_of_object_type(oh, "case")
+
+      # Native-side: export the SAME OCEL as JSON, feed the file to the rf4
+      # oracle -- exercises import_ocel_json/ocel_to_json compatibility AND
+      # cross-target discovery equality in one pass.
+      assert {:ok, %{"ocel" => doc}} = Rust4PM.ocel_to_json(oh)
+
+      scratch =
+        Path.join(System.tmp_dir!(), "rust4pm-t11-#{System.unique_integer([:positive])}.json")
+
+      File.write!(scratch, JSON.encode!(doc))
+
+      %{"edges" => oracle_edges} =
+        shell_invoke_oracle!(rf4_oracle_bin(), %{
+          "op" => "oc_dfg_discover",
+          "ocel_path" => scratch,
+          "ob_type" => "case"
+        })
+
+      %{"variants" => oracle_vars} =
+        shell_invoke_oracle!(rf4_oracle_bin(), %{
+          "op" => "oc_variants_discover",
+          "ocel_path" => scratch,
+          "ob_type" => "case"
+        })
+
+      File.rm(scratch)
+
+      assert Enum.map(wasm_edges, &[&1["from"], &1["to"], &1["count"]]) ==
+               Enum.map(oracle_edges, &[&1["source"], &1["target"], &1["frequency"]])
+
+      assert Enum.map(wasm_vars, &[&1["activities"], &1["count"]]) ==
+               Enum.map(oracle_vars, &[&1["trace"], &1["count"]])
+
+      # Semantic invariant: each case object's E2O trace IS its XES case's
+      # activity trace, so OC variants of the case type must equal the
+      # case-centric variants as a multiset (orderings differ only in
+      # tie-breaking direction between the two crate functions).
+      assert {:ok, %{"variants" => cc_vars}} = Rust4PM.top_n_variants(run_h, 100)
+
+      as_set = fn vars -> vars |> Enum.map(&{&1["activities"], &1["count"]}) |> Enum.sort() end
+      assert as_set.(wasm_vars) == as_set.(cc_vars)
+
+      assert {:ok, %{"freed" => true}} = Rust4PM.free_ocel(oh)
+    end
+
+    test "T12: ocel_to_xml -> import_ocel_xml round trip preserves stats and the OC DFG",
+         %{run: run_h} do
+      assert {:ok, %{"ocel_handle" => oh}} = Rust4PM.xes_to_ocel(run_h, "case", "belongs_to")
+      assert {:ok, stats_before} = Rust4PM.ocel_stats(oh)
+      assert {:ok, %{"edges" => dfg_before}} = Rust4PM.ocel_dfg_of_object_type(oh, "case")
+
+      # Crate's own exporter -> crate's own parser; no hand-authored XML.
+      assert {:ok, %{"content_b64" => b64}} = Rust4PM.ocel_to_xml(oh)
+      xml = Base.decode64!(b64)
+      assert String.starts_with?(xml, "<?xml")
+
+      assert {:ok, %{"ocel_handle" => oh2}} = Rust4PM.import_ocel_xml(xml)
+      assert {:ok, stats_after} = Rust4PM.ocel_stats(oh2)
+      assert {:ok, %{"edges" => dfg_after}} = Rust4PM.ocel_dfg_of_object_type(oh2, "case")
+
+      assert stats_after == stats_before
+      assert dfg_after == dfg_before
+
+      # Malformed input is a typed error, not a trap. (The crate accepts
+      # "not xml at all" as an empty document and then rejects it for
+      # having no object/event types -- still the typed engine error path.)
+      assert {:error, {:engine, msg}} = Rust4PM.import_ocel_xml("not xml at all")
+      assert msg =~ "ocel xml import failed"
+
+      assert {:ok, %{"freed" => true}} = Rust4PM.free_ocel(oh)
+      assert {:ok, %{"freed" => true}} = Rust4PM.free_ocel(oh2)
+    end
+  end
 end
