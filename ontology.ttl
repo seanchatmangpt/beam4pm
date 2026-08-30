@@ -3253,3 +3253,21 @@ b4pe:migration_contract_to_version_f a bpm:Field ;
 
 b4pe:migration_contract_rollback_plan_f a bpm:Field ;
     bpm:fieldName "rollback_plan" ; bpm:fieldType "string" ; bpm:fieldDoc "Rollback plan identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-042 -- Compatibility declaration across product, schema, and API versions.
+b4pe:compatibility_contract_rt a bpm:RecordType ;
+    bpm:recordName "compatibility_contract" ;
+    bpm:recordDoc "Compatibility declaration across product, schema, and API versions." ;
+    bpm:hasField b4pe:compatibility_contract_contract_id_f , b4pe:compatibility_contract_product_version_f , b4pe:compatibility_contract_schema_version_f , b4pe:compatibility_contract_api_version_f .
+
+b4pe:compatibility_contract_contract_id_f a bpm:Field ;
+    bpm:fieldName "contract_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable compatibility contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:compatibility_contract_product_version_f a bpm:Field ;
+    bpm:fieldName "product_version" ; bpm:fieldType "string" ; bpm:fieldDoc "Product version subject." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:compatibility_contract_schema_version_f a bpm:Field ;
+    bpm:fieldName "schema_version" ; bpm:fieldType "string" ; bpm:fieldDoc "Supported schema version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:compatibility_contract_api_version_f a bpm:Field ;
+    bpm:fieldName "api_version" ; bpm:fieldType "string" ; bpm:fieldDoc "Supported API version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
