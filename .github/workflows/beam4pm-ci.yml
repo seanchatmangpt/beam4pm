@@ -1,0 +1,68 @@
+name: beam4pm CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+
+    name: Erlang/Elixir/Gleam tests + determinism check
+
+    steps:
+      - name: Checkout (with vendor/ggen-marketplace submodule)
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+          submodules: recursive
+        
+      - name: Set up Erlang/OTP + Elixir + rebar3 + Gleam
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          gleam-version: '1.18.1'
+          rebar3-version: '3.24.0'
+          elixir-version: '1.18.5'
+          otp-version: '27.2'
+        
+      - name: rebar3 eunit
+        shell: bash
+        run: |
+          rebar3 eunit
+
+      - name: mix deps.get
+        shell: bash
+        run: |
+          mix deps.get
+
+      - name: mix test
+        shell: bash
+        run: |
+          mix test
+
+      - name: gleam test (gleam/ projection)
+        shell: bash
+        run: |
+          cd gleam
+          gleam test
+
+      - name: Determinism check -- regenerate and diff against committed output
+        continue-on-error: true
+        shell: bash
+        run: |
+          # KNOWN GAP (carried from the replaced hand-authored ci.yml, still open):
+          # this step needs a real `ggen` binary on the runner and none is installed
+          # here yet. It fails loudly ('ggen: command not found') instead of faking a
+          # pass; continue-on-error is set only so this one tracked gap does not turn
+          # every push/PR red. Remove continue-on-error once a real install step lands.
+          bash scripts/gate_m2_check.sh
+

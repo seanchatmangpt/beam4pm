@@ -920,3 +920,783 @@ bpma:increment_counter_aa a bpma:AdmittedActuation ;
 bpma:observe_counter_aa a bpma:AdmittedActuation ;
     bpma:actionName "observe_counter" ;
     bpma:gymOp "noop" .
+
+# =============================================================================
+# GitHub Actions CI + GHCR container-publish workflow instance data
+# =============================================================================
+# ---------------------------------------------------------------------------
+# GitHub Actions manufacturing facts (github-actions-pack vocabulary).
+#
+# APPEND this fragment to beam4pm's ontology.ttl. It declares beam4pm's OWN
+# gha:Workflow/gha:Job/gha:Step individuals against the schema-only
+# vendor/ggen-marketplace/packs/github-actions-pack vocabulary, exactly the
+# way ggen-ecosystem's ontology.ttl does for its two workflows. The rendered
+# .github/workflows/beam4pm-ci.yml and .github/workflows/beam4pm-container.yml
+# are MANUFACTURED consequences of these facts (via the pack's
+# templates/workflow.yml.tmpl) -- never hand-edit the rendered YAML; edit
+# these facts and re-run `ggen sync run`.
+#
+# beam4pm-ci.yml REPLACES the previously hand-authored .github/workflows/ci.yml
+# (same OTP 27.2 / rebar3 3.24.0 choices, same steps including the
+# honestly-gapped determinism check, plus: gleam test over the Gleam
+# projection, workflow_dispatch, and every third-party action pinned to a
+# 40-hex commit SHA as the pack's gate 020 requires). Delete ci.yml in the
+# same change that lands the manufactured replacement.
+#
+# ELIXIR BUMP 1.17.3 -> 1.18.5, measured not assumed: the current
+# beam4pm's Elixir code calls Elixir's built-in JSON module (JSON.encode!/1,
+# new in Elixir 1.18), and mix.exs's ex_ast transitive dep requires ~> 1.18.
+# A real containerized `mix test` on 1.17.3 (2026-08-29) failed 34/248 tests
+# with UndefinedFunctionError on JSON.encode!/1; the same suite passes 248/248
+# on >= 1.18. So the hand-authored ci.yml's 1.17.3 pin is already broken
+# against beam4pm's own current code -- this is the "conflict" case where the
+# old version choice must not be kept. v1.18.5-otp-27 confirmed present in
+# https://builds.hex.pm/builds/elixir/builds.txt (published 2026-08-28), the
+# exact list erlef/setup-beam installs from.
+#
+# Action pins resolved for real on 2026-08-29 (not assumed):
+#   - actions/checkout d23441a4... / docker/login-action 74a5d142... /
+#     docker/setup-buildx-action 8d2750c6... / docker/build-push-action
+#     10e90e36... reuse the exact SHAs already verified and in production in
+#     ggen-ecosystem's ontology.ttl.
+#   - erlef/setup-beam v1.24.1 resolved via `git ls-remote --tags
+#     https://github.com/erlef/setup-beam.git` -> 54075bcc5e249e4758d363f27d099f55d843f124
+#     (lightweight tag, so the tag SHA is the commit SHA), and its real
+#     action.yml at that exact SHA was fetched and confirmed to declare the
+#     `gleam-version` input used below -- that is the clean, single-action
+#     install path for Gleam 1.18.1 on the runner.
+# ---------------------------------------------------------------------------
+
+@prefix gha: <http://seanchatmangpt.github.io/packs/github-actions#> .
+@prefix bex: <https://ggen.dev/beam4pm/github-sync#> .
+
+# --- Workflow 1: CI (manufactured replacement for the hand-authored ci.yml) --
+
+bex:ciWorkflow
+    a gha:Workflow ;
+    gha:fileName "beam4pm-ci.yml" ;
+    gha:purpose "beam4pm CI" ;
+    gha:permissionCeiling "contents: read" ;
+    gha:trigger gha:EventPush ;
+    gha:trigger gha:EventPullRequest ;
+    gha:trigger gha:EventWorkflowDispatch ;
+    gha:onBlock """push:
+  branches: [main]
+pull_request:
+  branches: [main]
+workflow_dispatch:""" ;
+    gha:evidenceObligation "green rebar3 eunit, mix test, and gleam test runs against the exact candidate SHA, plus the (currently continue-on-error) GATE M2 determinism check (scripts/gate_m2_check.sh)" ;
+    gha:standingEffect "a green run confers test-passing standing on the exact candidate SHA for the Erlang, Elixir, and Gleam projections; it does not confer determinism standing until the ggen-install gap in the final step is closed" .
+
+bex:ciTest
+    a gha:Job ;
+    gha:inWorkflow bex:ciWorkflow ;
+    gha:jobName "test" ;
+    gha:runner "ubuntu-latest" ;
+    gha:timeoutMinutes 30 ;
+    gha:jobPermissions "contents: read" ;
+    gha:jobExtra "name: Erlang/Elixir/Gleam tests + determinism check" ;
+    gha:evidenceEmitted "eunit, mix test, and gleam test results in the run log" ;
+    gha:failureClassification "BUILD_BROKEN for a compile failure; a red test suite is a production defect in the manufactured projections or their semantic inputs" .
+
+bex:ciCheckout
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 1 ;
+    gha:stepName "Checkout (with vendor/ggen-marketplace submodule)" ;
+    gha:usesAction "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6" ;
+    gha:withParam "submodules: recursive" ;
+    gha:withParam "persist-credentials: false" .
+
+bex:ciSetupBeam
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 2 ;
+    gha:stepName "Set up Erlang/OTP + Elixir + rebar3 + Gleam" ;
+    gha:usesAction "erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1" ;
+    gha:withParam "otp-version: '27.2'" ;
+    gha:withParam "elixir-version: '1.18.5'" ;
+    gha:withParam "rebar3-version: '3.24.0'" ;
+    gha:withParam "gleam-version: '1.18.1'" .
+
+bex:ciRebar3Eunit
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 3 ;
+    gha:stepName "rebar3 eunit" ;
+    gha:runCommand "rebar3 eunit" .
+
+bex:ciMixDepsGet
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 4 ;
+    gha:stepName "mix deps.get" ;
+    gha:runCommand "mix deps.get" .
+
+bex:ciMixTest
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 5 ;
+    gha:stepName "mix test" ;
+    gha:runCommand "mix test" .
+
+bex:ciGleamTest
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 6 ;
+    gha:stepName "gleam test (gleam/ projection)" ;
+    gha:runCommand """cd gleam
+gleam test""" .
+
+# Determinism check carried over verbatim-in-spirit from the hand-authored
+# ci.yml, including its honestly-declared gap: no real `ggen` install step is
+# wired yet, so the step stays continue-on-error until one is added. The gap
+# is documented (not faked into a pass) exactly as before.
+bex:ciDeterminism
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 7 ;
+    gha:stepName "Determinism check -- regenerate and diff against committed output" ;
+    gha:continueOnError true ;
+    gha:runCommand """# KNOWN GAP (carried from the replaced hand-authored ci.yml, still open):
+# this step needs a real `ggen` binary on the runner and none is installed
+# here yet. It fails loudly ('ggen: command not found') instead of faking a
+# pass; continue-on-error is set only so this one tracked gap does not turn
+# every push/PR red. Remove continue-on-error once a real install step lands.
+bash scripts/gate_m2_check.sh""" .
+
+# --- Workflow 2: GHCR container build + publish ------------------------------
+# Mirrors ggen-ecosystem's container workflow structure (checkout-with-
+# submodules -> buildx -> GHCR login with the ephemeral GITHUB_TOKEN ->
+# build-push-action with type=gha layer cache + SBOM/provenance), collapsed to
+# a single native-arch job: beam4pm's image is a BEAM build measured in
+# seconds, not ggen-ecosystem's QEMU-hostile Rust LTO workspace that forced
+# its two-native-jobs + manifest-merge split.
+
+bex:containerWorkflow
+    a gha:Workflow ;
+    gha:fileName "beam4pm-container.yml" ;
+    gha:purpose "beam4pm Container Build & Publish" ;
+    gha:permissionCeiling "contents: read" ;
+    gha:trigger gha:EventPush ;
+    gha:trigger gha:EventWorkflowDispatch ;
+    gha:onBlock """push:
+  branches: [main]
+workflow_dispatch:""" ;
+    gha:requiredSecret "GITHUB_TOKEN" ;
+    gha:secretReason "GHCR login (docker/login-action) to push the beam4pm image; the workflow's own ephemeral token under the job's packages:write grant, no PAT" ;
+    gha:evidenceObligation "bind the exact candidate SHA to the published image digest under tags latest and sha-<sha>" ;
+    gha:standingEffect "a pushed image is evidence only for the exact commit and Dockerfile content that produced it; publish is distribution, not test standing" .
+
+bex:containerBuildPush
+    a gha:Job ;
+    gha:inWorkflow bex:containerWorkflow ;
+    gha:jobName "build-and-push" ;
+    gha:runner "ubuntu-latest" ;
+    gha:timeoutMinutes 30 ;
+    gha:jobPermissions """contents: read
+packages: write""" ;
+    gha:jobExtra "name: Build and push beam4pm image to GHCR" ;
+    gha:evidenceEmitted "published ghcr.io/<repository> image digest under tags latest and sha-${{ github.sha }}" ;
+    gha:failureClassification "BUILD_BROKEN if the image build or its in-build rebar3 eunit / mix test gates fail" .
+
+bex:containerCheckout
+    a gha:Step ;
+    gha:inJob bex:containerBuildPush ; gha:stepOrder 1 ;
+    gha:stepName "Checkout with submodules" ;
+    gha:usesAction "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6" ;
+    gha:withParam "submodules: recursive" ;
+    gha:withParam "persist-credentials: false" .
+
+bex:containerBuildx
+    a gha:Step ;
+    gha:inJob bex:containerBuildPush ; gha:stepOrder 2 ;
+    gha:stepName "Set up Docker Buildx" ;
+    gha:usesAction "docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3" .
+
+bex:containerLogin
+    a gha:Step ;
+    gha:inJob bex:containerBuildPush ; gha:stepOrder 3 ;
+    gha:stepName "Log in to GHCR" ;
+    gha:usesAction "docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3" ;
+    gha:withParam "registry: ghcr.io" ;
+    gha:withParam "username: ${{ github.actor }}" ;
+    gha:withParam "password: ${{ secrets.GITHUB_TOKEN }}" .
+
+bex:containerBuildPushStep
+    a gha:Step ;
+    gha:inJob bex:containerBuildPush ; gha:stepOrder 4 ;
+    gha:stepName "Build and push beam4pm image" ;
+    gha:usesAction "docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6" ;
+    gha:withParam "context: ." ;
+    gha:withParam "push: true" ;
+    gha:withParam "sbom: true" ;
+    gha:withParam "provenance: true" ;
+    gha:withParam "cache-from: type=gha,scope=beam4pm" ;
+    gha:withParam "cache-to: type=gha,mode=max,scope=beam4pm" ;
+    gha:withParam "tags: ghcr.io/${{ github.repository }}:latest,ghcr.io/${{ github.repository }}:sha-${{ github.sha }}" .
+
+# =============================================================================
+# beam4pm-ai-contracts-pack instance data (P0-A: canonical AI/evidence contracts)
+# =============================================================================
+@prefix aic: <https://ggen.dev/ontology/beam4pm-ai#> .
+@prefix bap: <https://ggen.dev/projects/beam4pm#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ---------------------------------------------------------------------------
+# 1. evidence_envelope
+# ---------------------------------------------------------------------------
+
+bap:evidence_envelope_ct a aic:ContractType ;
+    aic:contractName "evidence_envelope" ;
+    aic:contractDoc "A content-addressed unit of ingested evidence, carrying provenance, access-control, and redaction metadata for downstream research and grounding." ;
+    aic:hasField bap:evidence_envelope_evidence_id_f ,
+                 bap:evidence_envelope_tenant_id_f ,
+                 bap:evidence_envelope_source_uri_f ,
+                 bap:evidence_envelope_source_kind_f ,
+                 bap:evidence_envelope_content_hash_f ,
+                 bap:evidence_envelope_mime_type_f ,
+                 bap:evidence_envelope_modality_f ,
+                 bap:evidence_envelope_observed_at_f ,
+                 bap:evidence_envelope_retrieved_at_f ,
+                 bap:evidence_envelope_acl_labels_f ,
+                 bap:evidence_envelope_canonical_entity_ids_f ,
+                 bap:evidence_envelope_redaction_class_f ,
+                 bap:evidence_envelope_schema_version_f .
+
+bap:evidence_envelope_evidence_id_f a aic:Field ;
+    aic:fieldName "evidence_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this evidence envelope." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:evidence_envelope_tenant_id_f a aic:Field ;
+    aic:fieldName "tenant_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Owning tenant/organization identifier." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 2 .
+
+bap:evidence_envelope_source_uri_f a aic:Field ;
+    aic:fieldName "source_uri" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "URI the evidence was retrieved from." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 3 .
+
+bap:evidence_envelope_source_kind_f a aic:Field ;
+    aic:fieldName "source_kind" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Kind of source (e.g. web, document, api, sensor)." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 4 .
+
+bap:evidence_envelope_content_hash_f a aic:Field ;
+    aic:fieldName "content_hash" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Content-addressed hash of the evidence payload." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 5 .
+
+bap:evidence_envelope_mime_type_f a aic:Field ;
+    aic:fieldName "mime_type" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "MIME type of the underlying content." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 6 .
+
+bap:evidence_envelope_modality_f a aic:Field ;
+    aic:fieldName "modality" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Modality of the evidence (e.g. text, image, audio, video, structured)." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 7 .
+
+bap:evidence_envelope_observed_at_f a aic:Field ;
+    aic:fieldName "observed_at" ;
+    aic:fieldType "datetime" ;
+    aic:fieldDoc "Timestamp the underlying event/content was observed." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 8 .
+
+bap:evidence_envelope_retrieved_at_f a aic:Field ;
+    aic:fieldName "retrieved_at" ;
+    aic:fieldType "datetime" ;
+    aic:fieldDoc "Timestamp this envelope was retrieved/ingested." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 9 .
+
+bap:evidence_envelope_acl_labels_f a aic:Field ;
+    aic:fieldName "acl_labels" ;
+    aic:fieldType "list_string" ;
+    aic:fieldDoc "Access-control labels gating who may read this evidence." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 10 .
+
+bap:evidence_envelope_canonical_entity_ids_f a aic:Field ;
+    aic:fieldName "canonical_entity_ids" ;
+    aic:fieldType "list_string" ;
+    aic:fieldDoc "Canonical entity identifiers this evidence resolves to." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 11 .
+
+bap:evidence_envelope_redaction_class_f a aic:Field ;
+    aic:fieldName "redaction_class" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Redaction/sensitivity classification applied to this evidence." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 12 .
+
+bap:evidence_envelope_schema_version_f a aic:Field ;
+    aic:fieldName "schema_version" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Schema version this envelope conforms to." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 13 .
+
+# ---------------------------------------------------------------------------
+# 2. research_task
+# ---------------------------------------------------------------------------
+
+bap:research_task_ct a aic:ContractType ;
+    aic:contractName "research_task" ;
+    aic:contractDoc "A bounded research request issued by a principal, scoping freshness, privacy, and resource limits for the work it authorizes." ;
+    aic:hasField bap:research_task_task_id_f ,
+                 bap:research_task_principal_id_f ,
+                 bap:research_task_query_f ,
+                 bap:research_task_freshness_requirement_f ,
+                 bap:research_task_privacy_class_f ,
+                 bap:research_task_max_tokens_f ,
+                 bap:research_task_max_tool_calls_f ,
+                 bap:research_task_output_contract_f ,
+                 bap:research_task_policy_version_f ,
+                 bap:research_task_correlation_id_f .
+
+bap:research_task_task_id_f a aic:Field ;
+    aic:fieldName "task_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this research task." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:research_task_principal_id_f a aic:Field ;
+    aic:fieldName "principal_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the principal that issued this task." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 2 .
+
+bap:research_task_query_f a aic:Field ;
+    aic:fieldName "query" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "The research query/prompt driving this task." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 3 .
+
+bap:research_task_freshness_requirement_f a aic:Field ;
+    aic:fieldName "freshness_requirement" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Required recency of evidence used to answer the query." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 4 .
+
+bap:research_task_privacy_class_f a aic:Field ;
+    aic:fieldName "privacy_class" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Privacy classification bounding what evidence/tools may be used." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 5 .
+
+bap:research_task_max_tokens_f a aic:Field ;
+    aic:fieldName "max_tokens" ;
+    aic:fieldType "integer" ;
+    aic:fieldDoc "Maximum tokens the task's model calls may consume." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 6 .
+
+bap:research_task_max_tool_calls_f a aic:Field ;
+    aic:fieldName "max_tool_calls" ;
+    aic:fieldType "integer" ;
+    aic:fieldDoc "Maximum number of tool invocations permitted for this task." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 7 .
+
+bap:research_task_output_contract_f a aic:Field ;
+    aic:fieldName "output_contract" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the output contract the answer must satisfy." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 8 .
+
+bap:research_task_policy_version_f a aic:Field ;
+    aic:fieldName "policy_version" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Version of the governing policy this task was admitted under." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 9 .
+
+bap:research_task_correlation_id_f a aic:Field ;
+    aic:fieldName "correlation_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Correlation identifier linking this task to related records." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 10 .
+
+# ---------------------------------------------------------------------------
+# 3. candidate_claim
+# ---------------------------------------------------------------------------
+
+bap:candidate_claim_ct a aic:ContractType ;
+    aic:contractName "candidate_claim" ;
+    aic:contractDoc "A candidate factual claim produced by a research task, linked to the evidence that supports or contradicts it." ;
+    aic:hasField bap:candidate_claim_claim_id_f ,
+                 bap:candidate_claim_task_id_f ,
+                 bap:candidate_claim_statement_f ,
+                 bap:candidate_claim_support_evidence_ids_f ,
+                 bap:candidate_claim_contradict_evidence_ids_f ,
+                 bap:candidate_claim_confidence_f ,
+                 bap:candidate_claim_semantic_status_f .
+
+bap:candidate_claim_claim_id_f a aic:Field ;
+    aic:fieldName "claim_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this candidate claim." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:candidate_claim_task_id_f a aic:Field ;
+    aic:fieldName "task_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the research task that produced this claim." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 2 .
+
+bap:candidate_claim_statement_f a aic:Field ;
+    aic:fieldName "statement" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "The natural-language statement of the claim." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 3 .
+
+bap:candidate_claim_support_evidence_ids_f a aic:Field ;
+    aic:fieldName "support_evidence_ids" ;
+    aic:fieldType "list_string" ;
+    aic:fieldDoc "Evidence identifiers cited as supporting this claim." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 4 .
+
+bap:candidate_claim_contradict_evidence_ids_f a aic:Field ;
+    aic:fieldName "contradict_evidence_ids" ;
+    aic:fieldType "list_string" ;
+    aic:fieldDoc "Evidence identifiers cited as contradicting this claim." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 5 .
+
+bap:candidate_claim_confidence_f a aic:Field ;
+    aic:fieldName "confidence" ;
+    aic:fieldType "float" ;
+    aic:fieldDoc "Model-estimated confidence in the claim, in the range [0,1]." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 6 .
+
+bap:candidate_claim_semantic_status_f a aic:Field ;
+    aic:fieldName "semantic_status" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Closed-vocabulary semantic status of the claim (e.g. supported, contradicted, unverified)." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 7 .
+
+# ---------------------------------------------------------------------------
+# 4. tool_intent
+#
+# NOTE: this contract type carries NO execution-authority field of any
+# kind. Authority/admission semantics belong exclusively to the concurrent
+# session's beam4pm-post-llm-runtime-pack (rt: vocabulary). This record is
+# inert descriptive data about a proposed call, nothing more.
+# ---------------------------------------------------------------------------
+
+bap:tool_intent_ct a aic:ContractType ;
+    aic:contractName "tool_intent" ;
+    aic:contractDoc "A proposed tool invocation awaiting admission. Carries no execution authority of any kind -- authority and admission are the exclusive responsibility of the concurrent beam4pm-post-llm-runtime-pack's rt: vocabulary; this type is inert data describing what a caller would like to do." ;
+    aic:hasField bap:tool_intent_intent_id_f ,
+                 bap:tool_intent_task_id_f ,
+                 bap:tool_intent_tool_id_f ,
+                 bap:tool_intent_tool_version_f ,
+                 bap:tool_intent_canonical_args_hash_f ,
+                 bap:tool_intent_side_effect_class_f ,
+                 bap:tool_intent_required_capability_f ,
+                 bap:tool_intent_dry_run_f ,
+                 bap:tool_intent_idempotency_key_f ,
+                 bap:tool_intent_status_f .
+
+bap:tool_intent_intent_id_f a aic:Field ;
+    aic:fieldName "intent_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this tool intent." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:tool_intent_task_id_f a aic:Field ;
+    aic:fieldName "task_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the research task this intent was proposed for." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 2 .
+
+bap:tool_intent_tool_id_f a aic:Field ;
+    aic:fieldName "tool_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the tool this intent targets." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 3 .
+
+bap:tool_intent_tool_version_f a aic:Field ;
+    aic:fieldName "tool_version" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Version of the targeted tool." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 4 .
+
+bap:tool_intent_canonical_args_hash_f a aic:Field ;
+    aic:fieldName "canonical_args_hash" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Content hash of the canonicalized tool arguments." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 5 .
+
+bap:tool_intent_side_effect_class_f a aic:Field ;
+    aic:fieldName "side_effect_class" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Declared side-effect class of the intended call (e.g. read, write, external)." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 6 .
+
+bap:tool_intent_required_capability_f a aic:Field ;
+    aic:fieldName "required_capability" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Capability label this intent would require if authorized. Descriptive only -- confers no authority itself; see the scope note on aic:tool_intent above." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 7 .
+
+bap:tool_intent_dry_run_f a aic:Field ;
+    aic:fieldName "dry_run" ;
+    aic:fieldType "boolean" ;
+    aic:fieldDoc "Whether this intent is a dry-run/simulation rather than a live proposal." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 8 .
+
+bap:tool_intent_idempotency_key_f a aic:Field ;
+    aic:fieldName "idempotency_key" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Idempotency key for de-duplicating repeated proposals of this intent." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 9 .
+
+bap:tool_intent_status_f a aic:Field ;
+    aic:fieldName "status" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Lifecycle status of this intent record (e.g. proposed, withdrawn, superseded)." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 10 .
+
+# ---------------------------------------------------------------------------
+# 5. admission_decision
+# ---------------------------------------------------------------------------
+
+bap:admission_decision_ct a aic:ContractType ;
+    aic:contractName "admission_decision" ;
+    aic:contractDoc "An independently adjudicated verdict on a subject (e.g. a tool_intent), carrying a typed reason and the policy identity it was decided under." ;
+    aic:hasField bap:admission_decision_decision_id_f ,
+                 bap:admission_decision_subject_id_f ,
+                 bap:admission_decision_principal_id_f ,
+                 bap:admission_decision_verdict_f ,
+                 bap:admission_decision_typed_reason_f ,
+                 bap:admission_decision_policy_id_f ,
+                 bap:admission_decision_policy_version_f ,
+                 bap:admission_decision_decided_at_f .
+
+bap:admission_decision_decision_id_f a aic:Field ;
+    aic:fieldName "decision_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this admission decision." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:admission_decision_subject_id_f a aic:Field ;
+    aic:fieldName "subject_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the subject (e.g. a tool_intent or candidate_claim) being decided on." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 2 .
+
+bap:admission_decision_principal_id_f a aic:Field ;
+    aic:fieldName "principal_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the principal the decision was made on behalf of." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 3 .
+
+bap:admission_decision_verdict_f a aic:Field ;
+    aic:fieldName "verdict" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "The decision verdict (e.g. admit, refuse)." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 4 .
+
+bap:admission_decision_typed_reason_f a aic:Field ;
+    aic:fieldName "typed_reason" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Typed reason code explaining the verdict." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 5 .
+
+bap:admission_decision_policy_id_f a aic:Field ;
+    aic:fieldName "policy_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the policy evaluated to reach this verdict." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 6 .
+
+bap:admission_decision_policy_version_f a aic:Field ;
+    aic:fieldName "policy_version" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Version of the policy evaluated to reach this verdict." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 7 .
+
+bap:admission_decision_decided_at_f a aic:Field ;
+    aic:fieldName "decided_at" ;
+    aic:fieldType "datetime" ;
+    aic:fieldDoc "Timestamp the decision was made." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 8 .
+
+# ---------------------------------------------------------------------------
+# 6. model_call_receipt
+# ---------------------------------------------------------------------------
+
+bap:model_call_receipt_ct a aic:ContractType ;
+    aic:contractName "model_call_receipt" ;
+    aic:contractDoc "Deterministic evidence binding a single model-gateway call's request and response identities, for replay and audit." ;
+    aic:hasField bap:model_call_receipt_call_id_f ,
+                 bap:model_call_receipt_provider_profile_f ,
+                 bap:model_call_receipt_model_id_or_snapshot_f ,
+                 bap:model_call_receipt_request_hash_f ,
+                 bap:model_call_receipt_response_hash_f ,
+                 bap:model_call_receipt_prompt_template_id_f ,
+                 bap:model_call_receipt_prompt_template_version_f ,
+                 bap:model_call_receipt_latency_ms_f ,
+                 bap:model_call_receipt_trace_id_f .
+
+bap:model_call_receipt_call_id_f a aic:Field ;
+    aic:fieldName "call_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this model call receipt." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:model_call_receipt_provider_profile_f a aic:Field ;
+    aic:fieldName "provider_profile" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the model provider/gateway profile used." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 2 .
+
+bap:model_call_receipt_model_id_or_snapshot_f a aic:Field ;
+    aic:fieldName "model_id_or_snapshot" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Model identifier or pinned snapshot used for this call." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 3 .
+
+bap:model_call_receipt_request_hash_f a aic:Field ;
+    aic:fieldName "request_hash" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Content hash of the canonicalized request." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 4 .
+
+bap:model_call_receipt_response_hash_f a aic:Field ;
+    aic:fieldName "response_hash" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Content hash of the canonicalized response." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 5 .
+
+bap:model_call_receipt_prompt_template_id_f a aic:Field ;
+    aic:fieldName "prompt_template_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the prompt template used to construct the request." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 6 .
+
+bap:model_call_receipt_prompt_template_version_f a aic:Field ;
+    aic:fieldName "prompt_template_version" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Version of the prompt template used to construct the request." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 7 .
+
+bap:model_call_receipt_latency_ms_f a aic:Field ;
+    aic:fieldName "latency_ms" ;
+    aic:fieldType "integer" ;
+    aic:fieldDoc "Observed end-to-end latency of the call, in milliseconds." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 8 .
+
+bap:model_call_receipt_trace_id_f a aic:Field ;
+    aic:fieldName "trace_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Distributed trace identifier correlating this call with other records." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 9 .
+
+# ---------------------------------------------------------------------------
+# 7. evidence_hit
+# ---------------------------------------------------------------------------
+
+bap:evidence_hit_ct a aic:ContractType ;
+    aic:contractName "evidence_hit" ;
+    aic:contractDoc "One scored retrieval result linking a query to an evidence_envelope." ;
+    aic:hasField bap:evidence_hit_hit_id_f ,
+                 bap:evidence_hit_query_id_f ,
+                 bap:evidence_hit_evidence_id_f ,
+                 bap:evidence_hit_score_f ,
+                 bap:evidence_hit_retrieval_method_f ,
+                 bap:evidence_hit_rank_f .
+
+bap:evidence_hit_hit_id_f a aic:Field ;
+    aic:fieldName "hit_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this retrieval hit." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:evidence_hit_query_id_f a aic:Field ;
+    aic:fieldName "query_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the query that produced this hit." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 2 .
+
+bap:evidence_hit_evidence_id_f a aic:Field ;
+    aic:fieldName "evidence_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the evidence_envelope this hit resolves to." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 3 .
+
+bap:evidence_hit_score_f a aic:Field ;
+    aic:fieldName "score" ;
+    aic:fieldType "float" ;
+    aic:fieldDoc "Relevance score assigned to this hit by the retrieval method." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 4 .
+
+bap:evidence_hit_retrieval_method_f a aic:Field ;
+    aic:fieldName "retrieval_method" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the retrieval method that produced this hit (e.g. bm25, dense, hybrid)." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 5 .
+
+bap:evidence_hit_rank_f a aic:Field ;
+    aic:fieldName "rank" ;
+    aic:fieldType "integer" ;
+    aic:fieldDoc "Rank position of this hit within its query's result set." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 6 .

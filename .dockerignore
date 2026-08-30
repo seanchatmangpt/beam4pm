@@ -1,0 +1,16 @@
+# .dockerignore for beam4pm (rename this file to `.dockerignore` at the repo
+# root when integrating). The Dockerfile COPYs only rebar.config, mix.exs,
+# mix.lock, src/ and generated/, but docker still uploads the whole build
+# context first -- without this file that context includes the full
+# vendor/ggen-marketplace submodule and local build dirs (~500MB measured on
+# the real scratch build of 2026-08-29 even with vendor excluded from the
+# copy). Keeping the context lean also stops vendor/_build churn from
+# invalidating the build-push-action type=gha layer cache.
+.git/
+.github/
+vendor/
+_build/
+deps/
+docs/
+playground/
+generated/gleam/build/
