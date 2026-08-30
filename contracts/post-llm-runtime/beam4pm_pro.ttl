@@ -39,3 +39,4 @@ b4:pro_runtime rt:enablesCapability "pro_vendor_risk_evidence" .
 b4:pro_runtime rt:enablesCapability "pro_release_canary_rollback" .
 b4:pro_runtime rt:enablesCapability "pro_guided_enterprise_onboarding" .
 b4:pro_runtime rt:enablesCapability "pro_qualified_poc_bootstrap" .
+b4:pro_runtime rt:enablesCapability "pro_scenario_catalog_discovery" .
