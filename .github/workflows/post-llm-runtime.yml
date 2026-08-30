@@ -136,7 +136,7 @@ jobs:
             --arg source_sha "$GITHUB_SHA" \
             --arg ggen_receipt_sha256 "${{ needs.manufacture.outputs.receipt_sha256 }}" \
             --arg ggen_binary_sha256 "${{ needs.manufacture.outputs.ggen_binary_sha256 }}" \
-            --arg pack_sha "f060a79416cf1c5e94b997ebe43cd70cf623a188" \
+            --arg pack_sha "fb672841d4a3ad49076e19d02fef541cc56b7b21" \
             --arg exact_subject "c7d871a7f86ebe7af51d9bf1f294bc755b30e0cf" \
             '{
               standing: "ALIVE[POST_LLM_RUNTIME_CONTRACT]",
