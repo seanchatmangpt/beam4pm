@@ -33,10 +33,12 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout exact caller head
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
 
       - name: Recover manufactured projection from GGen receipt artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           pattern: ggen-sync-*
           merge-multiple: true
@@ -50,7 +52,7 @@ jobs:
           tar -xzf .ggen-evidence/untracked-output.tar.gz
 
       - name: Set up BEAM
-        uses: erlef/setup-beam@v1
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
         with:
           otp-version: "27.2"
           elixir-version: "1.17.3"
@@ -85,7 +87,7 @@ jobs:
             --arg source_sha "$GITHUB_SHA" \
             --arg ggen_receipt_sha256 "${{ needs.manufacture.outputs.receipt_sha256 }}" \
             --arg ggen_binary_sha256 "${{ needs.manufacture.outputs.ggen_binary_sha256 }}" \
-            --arg pack_sha "598f4b45fe980183d0396fb564a61cd88dd9bcd3" \
+            --arg pack_sha "e120890b4b4e0ad463b0421669d4b67e4e3a2fe4" \
             --arg exact_subject "c7d871a7f86ebe7af51d9bf1f294bc755b30e0cf" \
             '{
               standing: "ALIVE[POST_LLM_GOVERNED_RUNTIME]",
@@ -115,7 +117,7 @@ jobs:
           sha256sum .ggen-evidence/post-llm-chicago-receipt.json
 
       - name: Upload Chicago receipt
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: post-llm-chicago-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
