@@ -11,9 +11,12 @@
 %% validating beam4pm_types:new_*/1 constructors.
 -type known_record() ::
     beam4pm_types:alignment_move() |
+    beam4pm_types:billing_reconciliation() |
     beam4pm_types:case_stats() |
     beam4pm_types:conformance_result() |
     beam4pm_types:dfg_edge() |
+    beam4pm_types:entitlement_event() |
+    beam4pm_types:entitlement_state() |
     beam4pm_types:event_log() |
     beam4pm_types:event_type() |
     beam4pm_types:heuristic_arc() |
@@ -40,7 +43,8 @@
     beam4pm_types:service_span() |
     beam4pm_types:sojourn_time() |
     beam4pm_types:sync_time() |
-    beam4pm_types:type_edge().
+    beam4pm_types:type_edge() |
+    beam4pm_types:usage_event().
 
 %% to_map/1: project a record onto a JSON-ready map with binary keys.
 %% Fields whose value is 'undefined' are omitted; atom-typed fields are
@@ -50,6 +54,15 @@ to_map(R) when element(1, R) =:= alignment_move ->
     pairs_to_map([
         {<<"move_type">>, atom, element(2, R)},
         {<<"cost">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= billing_reconciliation ->
+    pairs_to_map([
+        {<<"entitlement_id">>, plain, element(2, R)},
+        {<<"metric_name">>, plain, element(3, R)},
+        {<<"total_quantity">>, plain, element(4, R)},
+        {<<"applied_event_ids">>, plain, element(5, R)},
+        {<<"period_start">>, plain, element(6, R)},
+        {<<"period_end">>, plain, element(7, R)}
     ]);
 to_map(R) when element(1, R) =:= case_stats ->
     pairs_to_map([
@@ -68,6 +81,21 @@ to_map(R) when element(1, R) =:= dfg_edge ->
         {<<"source_activity">>, plain, element(2, R)},
         {<<"target_activity">>, plain, element(3, R)},
         {<<"frequency">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= entitlement_event ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"entitlement_id">>, plain, element(3, R)},
+        {<<"event_type">>, plain, element(4, R)},
+        {<<"effective_at">>, plain, element(5, R)},
+        {<<"payload">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= entitlement_state ->
+    pairs_to_map([
+        {<<"entitlement_id">>, plain, element(2, R)},
+        {<<"status">>, plain, element(3, R)},
+        {<<"last_applied_event_id">>, plain, element(4, R)},
+        {<<"updated_at">>, plain, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= event_log ->
     pairs_to_map([
@@ -230,6 +258,14 @@ to_map(R) when element(1, R) =:= type_edge ->
         {<<"target_type">>, plain, element(3, R)},
         {<<"qualifier">>, plain, element(4, R)},
         {<<"direction">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= usage_event ->
+    pairs_to_map([
+        {<<"event_id">>, plain, element(2, R)},
+        {<<"entitlement_id">>, plain, element(3, R)},
+        {<<"quantity">>, plain, element(4, R)},
+        {<<"metric_name">>, plain, element(5, R)},
+        {<<"occurred_at">>, plain, element(6, R)}
     ]).
 
 %% from_map/2: rebuild a record from a binary-keyed map. Only KNOWN
@@ -246,6 +282,15 @@ from_map(alignment_move, Map) when is_map(Map) ->
     beam4pm_types:new_alignment_move(take_known(Map, [
         {<<"move_type">>, move_type, atom},
         {<<"cost">>, cost, plain}
+    ]));
+from_map(billing_reconciliation, Map) when is_map(Map) ->
+    beam4pm_types:new_billing_reconciliation(take_known(Map, [
+        {<<"entitlement_id">>, entitlement_id, plain},
+        {<<"metric_name">>, metric_name, plain},
+        {<<"total_quantity">>, total_quantity, plain},
+        {<<"applied_event_ids">>, applied_event_ids, plain},
+        {<<"period_start">>, period_start, plain},
+        {<<"period_end">>, period_end, plain}
     ]));
 from_map(case_stats, Map) when is_map(Map) ->
     beam4pm_types:new_case_stats(take_known(Map, [
@@ -264,6 +309,21 @@ from_map(dfg_edge, Map) when is_map(Map) ->
         {<<"source_activity">>, source_activity, plain},
         {<<"target_activity">>, target_activity, plain},
         {<<"frequency">>, frequency, plain}
+    ]));
+from_map(entitlement_event, Map) when is_map(Map) ->
+    beam4pm_types:new_entitlement_event(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"entitlement_id">>, entitlement_id, plain},
+        {<<"event_type">>, event_type, plain},
+        {<<"effective_at">>, effective_at, plain},
+        {<<"payload">>, payload, plain}
+    ]));
+from_map(entitlement_state, Map) when is_map(Map) ->
+    beam4pm_types:new_entitlement_state(take_known(Map, [
+        {<<"entitlement_id">>, entitlement_id, plain},
+        {<<"status">>, status, plain},
+        {<<"last_applied_event_id">>, last_applied_event_id, plain},
+        {<<"updated_at">>, updated_at, plain}
     ]));
 from_map(event_log, Map) when is_map(Map) ->
     beam4pm_types:new_event_log(take_known(Map, [
@@ -426,6 +486,14 @@ from_map(type_edge, Map) when is_map(Map) ->
         {<<"target_type">>, target_type, plain},
         {<<"qualifier">>, qualifier, plain},
         {<<"direction">>, direction, atom}
+    ]));
+from_map(usage_event, Map) when is_map(Map) ->
+    beam4pm_types:new_usage_event(take_known(Map, [
+        {<<"event_id">>, event_id, plain},
+        {<<"entitlement_id">>, entitlement_id, plain},
+        {<<"quantity">>, quantity, plain},
+        {<<"metric_name">>, metric_name, plain},
+        {<<"occurred_at">>, occurred_at, plain}
     ]));
 from_map(RecordName, Map) when is_atom(RecordName), is_map(Map) ->
     {error, {unknown_record, RecordName}}.

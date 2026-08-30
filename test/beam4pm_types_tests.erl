@@ -18,6 +18,19 @@ alignment_move_ok_test() ->
 alignment_move_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_alignment_move(#{})).
 
+billing_reconciliation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_billing_reconciliation(#{
+        entitlement_id => <<"x">>,
+        metric_name => <<"x">>,
+        total_quantity => 1.0,
+        applied_event_ids => [<<"a">>],
+        period_start => <<"2026-01-01T00:00:00Z">>,
+        period_end => <<"2026-01-01T00:00:00Z">>
+    })).
+
+billing_reconciliation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_billing_reconciliation(#{})).
+
 case_stats_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_case_stats(#{
         case_id => <<"x">>,
@@ -47,6 +60,29 @@ dfg_edge_ok_test() ->
 
 dfg_edge_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_dfg_edge(#{})).
+
+entitlement_event_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_entitlement_event(#{
+        event_id => <<"x">>,
+        entitlement_id => <<"x">>,
+        event_type => <<"x">>,
+        effective_at => <<"2026-01-01T00:00:00Z">>,
+        payload => #{}
+    })).
+
+entitlement_event_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_entitlement_event(#{})).
+
+entitlement_state_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_entitlement_state(#{
+        entitlement_id => <<"x">>,
+        status => <<"x">>,
+        last_applied_event_id => <<"x">>,
+        updated_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+entitlement_state_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_entitlement_state(#{})).
 
 event_log_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_event_log(#{
@@ -317,4 +353,16 @@ type_edge_ok_test() ->
 
 type_edge_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_type_edge(#{})).
+
+usage_event_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_usage_event(#{
+        event_id => <<"x">>,
+        entitlement_id => <<"x">>,
+        quantity => 1.0,
+        metric_name => <<"x">>,
+        occurred_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+usage_event_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_usage_event(#{})).
 

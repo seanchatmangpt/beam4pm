@@ -21,6 +21,17 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.BillingReconciliation{} = r) do
+    to_known_map([
+      {"entitlement_id", r.entitlement_id, :passthrough},
+      {"metric_name", r.metric_name, :passthrough},
+      {"total_quantity", r.total_quantity, :passthrough},
+      {"applied_event_ids", r.applied_event_ids, :passthrough},
+      {"period_start", r.period_start, :passthrough},
+      {"period_end", r.period_end, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.CaseStats{} = r) do
     to_known_map([
       {"case_id", r.case_id, :passthrough},
@@ -42,6 +53,25 @@ defmodule BeamPM.Codec do
       {"source_activity", r.source_activity, :passthrough},
       {"target_activity", r.target_activity, :passthrough},
       {"frequency", r.frequency, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.EntitlementEvent{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"entitlement_id", r.entitlement_id, :passthrough},
+      {"event_type", r.event_type, :passthrough},
+      {"effective_at", r.effective_at, :passthrough},
+      {"payload", r.payload, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.EntitlementState{} = r) do
+    to_known_map([
+      {"entitlement_id", r.entitlement_id, :passthrough},
+      {"status", r.status, :passthrough},
+      {"last_applied_event_id", r.last_applied_event_id, :passthrough},
+      {"updated_at", r.updated_at, :passthrough}
     ])
   end
 
@@ -261,6 +291,16 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.UsageEvent{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"entitlement_id", r.entitlement_id, :passthrough},
+      {"quantity", r.quantity, :passthrough},
+      {"metric_name", r.metric_name, :passthrough},
+      {"occurred_at", r.occurred_at, :passthrough}
+    ])
+  end
+
   @spec from_map(atom(), %{String.t() => term()}) ::
           {:ok, struct()}
           | {:error, {:missing_field, atom()}}
@@ -273,6 +313,21 @@ defmodule BeamPM.Codec do
         {"cost", :cost, :passthrough}
       ],
       &BeamPM.Types.AlignmentMove.new/1
+    )
+  end
+
+  def from_map(:billing_reconciliation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"entitlement_id", :entitlement_id, :passthrough},
+        {"metric_name", :metric_name, :passthrough},
+        {"total_quantity", :total_quantity, :passthrough},
+        {"applied_event_ids", :applied_event_ids, :passthrough},
+        {"period_start", :period_start, :passthrough},
+        {"period_end", :period_end, :passthrough}
+      ],
+      &BeamPM.Types.BillingReconciliation.new/1
     )
   end
 
@@ -309,6 +364,33 @@ defmodule BeamPM.Codec do
         {"frequency", :frequency, :passthrough}
       ],
       &BeamPM.Types.DfgEdge.new/1
+    )
+  end
+
+  def from_map(:entitlement_event, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"entitlement_id", :entitlement_id, :passthrough},
+        {"event_type", :event_type, :passthrough},
+        {"effective_at", :effective_at, :passthrough},
+        {"payload", :payload, :passthrough}
+      ],
+      &BeamPM.Types.EntitlementEvent.new/1
+    )
+  end
+
+  def from_map(:entitlement_state, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"entitlement_id", :entitlement_id, :passthrough},
+        {"status", :status, :passthrough},
+        {"last_applied_event_id", :last_applied_event_id, :passthrough},
+        {"updated_at", :updated_at, :passthrough}
+      ],
+      &BeamPM.Types.EntitlementState.new/1
     )
   end
 
@@ -633,6 +715,20 @@ defmodule BeamPM.Codec do
         {"direction", :direction, :atom}
       ],
       &BeamPM.Types.TypeEdge.new/1
+    )
+  end
+
+  def from_map(:usage_event, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"entitlement_id", :entitlement_id, :passthrough},
+        {"quantity", :quantity, :passthrough},
+        {"metric_name", :metric_name, :passthrough},
+        {"occurred_at", :occurred_at, :passthrough}
+      ],
+      &BeamPM.Types.UsageEvent.new/1
     )
   end
 

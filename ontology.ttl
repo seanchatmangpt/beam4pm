@@ -1982,3 +1982,184 @@ rf2:ConformanceStream a rf2:AdmittedOracleStream ;
     rf2:datasetPath "/Users/sac/wasm4pm/fixtures/shared/receipt.xes" ;
     rf2:moduleName "BeamPM.Rf2Conformance" .
 
+# =============================================================================
+# beam4pm_pro MP3 (entitlement reconciliation) + MP6 (billing/usage dedup)
+# admitted bpm:RecordType instance data
+# =============================================================================
+#
+# Manufactured by vendor/ggen-marketplace/packs/beam4pm-pro-entitlement-pack
+# (schema-only, same contract as beam4pm-pro-infra-pack -- the pack ships
+# zero individuals of its own; these four facts are this consumer's own
+# fragment). bpm:RecordType / bpm:Field and their properties are the SAME
+# vocabulary beam4pm-process-model-pack already declares, reused verbatim,
+# not redefined. Field names below are exactly what
+# beam4pm_entitlement.{erl,ex}.tmpl and beam4pm_billing.{erl,ex}.tmpl require
+# to exist (a real, documented constraint -- see those templates' own module
+# headers) -- entitlement_event: event_id, entitlement_id, event_type,
+# effective_at, payload; entitlement_state: entitlement_id, status,
+# last_applied_event_id, updated_at; usage_event: event_id, entitlement_id,
+# quantity, metric_name, occurred_at; billing_reconciliation: entitlement_id,
+# metric_name, total_quantity, applied_event_ids, period_start, period_end.
+#
+# STANDING: SELECT-layer facts only. They manufacture types and two
+# reconciliation algorithms verified against synthetic events (real
+# adversarial verification, 2026-08-30: 9 findings, all CONFIRMED, all fixed
+# before this pack's first commit -- see ggen-marketplace commit de03103b6);
+# they confer no MP3/MP6 release standing. A record type is not a deployed
+# entitlement/billing system; both gates remain BLOCKED on real Partner
+# Procurement API access and a seller account.
+@prefix b4pe: <http://seanchatmangpt.github.io/packs/beam4pm-pro-entitlement#> .
+
+# ---------------------------------------------------------------------------
+# entitlement_event -- one inbound entitlement/order/agreement lifecycle
+# notification from the marketplace provider (Google Cloud Commerce Partner
+# Procurement API Pub/Sub message shape). Append-only, at-least-once.
+# ---------------------------------------------------------------------------
+b4pe:entitlement_event_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_event" ;
+    bpm:recordDoc "One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id." ;
+    bpm:hasField b4pe:entitlement_event_event_id_f ,
+                 b4pe:entitlement_event_entitlement_id_f ,
+                 b4pe:entitlement_event_event_type_f ,
+                 b4pe:entitlement_event_effective_at_f ,
+                 b4pe:entitlement_event_payload_f .
+
+b4pe:entitlement_event_event_id_f a bpm:Field ;
+    bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "DEDUP KEY. The provider's own globally unique notification identifier (the eventId field of the Partner Procurement Pub/Sub message). Two deliveries carrying the same event_id are the same event and must fold to the same entitlement_state exactly once. This is provider-assigned, never locally minted -- a locally generated id would make redelivery indistinguishable from a genuine new event." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:entitlement_event_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The commercial identity this event applies to (Partner Procurement ENTITLEMENT_ID). Reconciliation partitions strictly by this key. Google supports multiple concurrent orders of the same product, so entitlement_id -- not account id and not product id -- is the only admissible partition key." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:entitlement_event_event_type_f a bpm:Field ;
+    bpm:fieldName "event_type" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "CLOSED SET, exactly the 13 entitlement event types published by Google Cloud Marketplace for integrated SaaS products: ENTITLEMENT_CREATION_REQUESTED | ENTITLEMENT_OFFER_ACCEPTED | ENTITLEMENT_ACTIVE | ENTITLEMENT_PLAN_CHANGE_REQUESTED | ENTITLEMENT_PLAN_CHANGED | ENTITLEMENT_PLAN_CHANGE_CANCELLED | ENTITLEMENT_PENDING_CANCELLATION | ENTITLEMENT_CANCELLATION_REVERTED | ENTITLEMENT_CANCELLED | ENTITLEMENT_CANCELLING | ENTITLEMENT_RENEWED | ENTITLEMENT_OFFER_ENDED | ENTITLEMENT_DELETED. Typed string, deliberately NOT atom: these values arrive verbatim from an external wire and binary_to_atom/2 over untrusted input is an unbounded atom-table growth path on the BEAM. An unrecognized value is a typed refusal, never a silently ignored event." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:entitlement_event_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 UTC instant at which this event takes commercial effect (provider-assigned, not local receipt time). Primary component of the reconciliation watermark; ties are broken by event_id so that the fold is a total order and therefore order-independent. Local receipt time is deliberately not modeled: it would make the fold non-deterministic under replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4pe:entitlement_event_payload_f a bpm:Field ;
+    bpm:fieldName "payload" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Optional provider-specific extra fields carried verbatim (e.g. account id, product/plan id, offer id, newPlan, newOffer, scheduled start time). Retained for receipt/audit fidelity; the reconciliation fold reads NO field from this map -- everything the fold depends on is promoted to a typed top-level field above." ;
+    bpm:fieldRequired "false" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# entitlement_state -- the reconciled current state of exactly one
+# entitlement, the single-valued result of folding its entitlement_event set.
+# ---------------------------------------------------------------------------
+b4pe:entitlement_state_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_state" ;
+    bpm:recordDoc "The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark." ;
+    bpm:hasField b4pe:entitlement_state_entitlement_id_f ,
+                 b4pe:entitlement_state_status_f ,
+                 b4pe:entitlement_state_last_applied_event_id_f ,
+                 b4pe:entitlement_state_updated_at_f .
+
+b4pe:entitlement_state_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The commercial identity this state describes (Partner Procurement ENTITLEMENT_ID). Unique key: at most one entitlement_state exists per entitlement_id." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:entitlement_state_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "CLOSED SET, exactly the 8 values of the Cloud Commerce Partner Procurement API's EntitlementState enum: ENTITLEMENT_STATE_UNSPECIFIED | ENTITLEMENT_ACTIVATION_REQUESTED | ENTITLEMENT_ACTIVE | ENTITLEMENT_PENDING_CANCELLATION | ENTITLEMENT_CANCELLED | ENTITLEMENT_PENDING_PLAN_CHANGE | ENTITLEMENT_PENDING_PLAN_CHANGE_APPROVAL | ENTITLEMENT_SUSPENDED. This is the provider's STATE enum, which is deliberately not the same closed set as entitlement_event.event_type: ENTITLEMENT_SUSPENDED is a reachable state with no corresponding notification event type, and ENTITLEMENT_RENEWED / ENTITLEMENT_OFFER_ENDED / ENTITLEMENT_DELETED are event types with no distinct state. The event_type -> status transition table is therefore an explicit, non-identity mapping, never a string rename." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:entitlement_state_last_applied_event_id_f a bpm:Field ;
+    bpm:fieldName "last_applied_event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The event_id of the single entitlement_event that produced this state. Second (tiebreak) component of the reconciliation watermark, and the audit link from a commercial state back to the exact provider notification that caused it. Required, never undefined: an entitlement_state may only be constructed by applying a real event, so there is no lawful state without a causing event id." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:entitlement_state_updated_at_f a bpm:Field ;
+    bpm:fieldName "updated_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "The effective_at of the last applied event -- NOT wall-clock ingestion time. First component of the reconciliation watermark. Defining it as provider effective time (a) makes the state a pure function of the event set, so the same events replayed in any order at any later date rebuild a byte-identical state, and (b) makes the strictly-greater-than admission test well-founded. A wall-clock updated_at would silently admit an out-of-order older event, because it always advances." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# ---------------------------------------------------------------------------
+# usage_event -- one metered consumption event to be billed. At-least-once
+# delivery; dedup is a property of the reconciliation fold, not the store.
+# ---------------------------------------------------------------------------
+b4pe:usage_event_rt a bpm:RecordType ;
+    bpm:recordName "usage_event" ;
+    bpm:recordDoc "One metered usage/consumption occurrence to be billed against an entitlement. event_id is the idempotency key that is ALSO the operationId reported to the provider's usage API, so local dedup and provider-side dedup are keyed identically and can never disagree." ;
+    bpm:hasField b4pe:usage_event_event_id_f ,
+                 b4pe:usage_event_entitlement_id_f ,
+                 b4pe:usage_event_quantity_f ,
+                 b4pe:usage_event_metric_name_f ,
+                 b4pe:usage_event_occurred_at_f .
+
+b4pe:usage_event_event_id_f a bpm:Field ;
+    bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "DEDUP KEY. Stable, deterministic, locally minted identifier for this metered occurrence -- and the exact value sent as operationId on the Service Control services.report call, which is the provider's own documented deduplication mechanism. It MUST be derived from the occurrence itself, never from a random UUID or a wall clock: a re-minted id on retry would defeat both local and provider-side dedup and double bill. Counting the same event_id twice in a billing_reconciliation.total_quantity is the exact MP6 failure." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:usage_event_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The entitlement this usage is billed against (Partner Procurement ENTITLEMENT_ID); resolves to the provider's consumerId at report time. Usage whose entitlement_id has no reconciled entitlement_state is a typed refusal, never silently billed and never silently dropped." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:usage_event_quantity_f a bpm:Field ;
+    bpm:fieldName "quantity" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "The measured amount for this single occurrence, in the unit implied by metric_name. Non-negative: a correction is a separate, explicitly-typed adjustment, never a negative usage_event, because negative quantities make the dedup-set sum order-sensitive at the boundaries and make a double-counted event cancellable rather than detectable." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:usage_event_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The fully qualified metered dimension this occurrence counts against. Reconciliation partitions by (entitlement_id, metric_name): quantities in different metrics are never summed together." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4pe:usage_event_occurred_at_f a bpm:Field ;
+    bpm:fieldName "occurred_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 UTC instant the usage actually occurred (not when it was observed, queued, or reported)." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# billing_reconciliation -- the reconciled total for one (entitlement_id,
+# metric_name) over one caller-supplied half-open period.
+# ---------------------------------------------------------------------------
+b4pe:billing_reconciliation_rt a bpm:RecordType ;
+    bpm:recordName "billing_reconciliation" ;
+    bpm:recordDoc "The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream." ;
+    bpm:hasField b4pe:billing_reconciliation_entitlement_id_f ,
+                 b4pe:billing_reconciliation_metric_name_f ,
+                 b4pe:billing_reconciliation_total_quantity_f ,
+                 b4pe:billing_reconciliation_applied_event_ids_f ,
+                 b4pe:billing_reconciliation_period_start_f ,
+                 b4pe:billing_reconciliation_period_end_f .
+
+b4pe:billing_reconciliation_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The entitlement this total is billed against. First component of the reconciliation partition key." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:billing_reconciliation_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The metered dimension this total is for. Second component of the reconciliation partition key; totals are never summed across metrics." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:billing_reconciliation_total_quantity_f a bpm:Field ;
+    bpm:fieldName "total_quantity" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "The billable total: the sum of quantity over the distinct events named in applied_event_ids, accumulated in that list's ascending event_id order. The fixed summation order is load-bearing, not incidental -- float addition is non-associative, so only a canonical order makes the total bit-identical across arrival orders and across replays. Recomputable by any third party from applied_event_ids plus the usage_event store, which is what makes this a receipt rather than a claim." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:billing_reconciliation_applied_event_ids_f a bpm:Field ;
+    bpm:fieldName "applied_event_ids" ; bpm:fieldType "list_string" ;
+    bpm:fieldDoc "The exact deduplicated evidence set behind total_quantity: every usage_event.event_id counted, sorted ascending, with no duplicates. This is the dedup contract made auditable -- |applied_event_ids| is the honest count of billed occurrences, and any event_id appearing at most once here is a mechanically checkable falsifier for MP6 double-billing." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4pe:billing_reconciliation_period_start_f a bpm:Field ;
+    bpm:fieldName "period_start" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 UTC INCLUSIVE lower bound of the billing period. An event is in-period when period_start <= occurred_at. Caller-supplied to reconcile_billing/4, never derived from the input events themselves -- see period_end's fieldDoc for why." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4pe:billing_reconciliation_period_end_f a bpm:Field ;
+    bpm:fieldName "period_end" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+

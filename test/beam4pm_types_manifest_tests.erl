@@ -15,10 +15,13 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(31, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(35, length(beam4pm_types_manifest:record_names())).
 
 alignment_move_fields_test() ->
     ?assertEqual([move_type, cost], beam4pm_types_manifest:fields(alignment_move)).
+
+billing_reconciliation_fields_test() ->
+    ?assertEqual([entitlement_id, metric_name, total_quantity, applied_event_ids, period_start, period_end], beam4pm_types_manifest:fields(billing_reconciliation)).
 
 case_stats_fields_test() ->
     ?assertEqual([case_id, event_count, duration_seconds], beam4pm_types_manifest:fields(case_stats)).
@@ -28,6 +31,12 @@ conformance_result_fields_test() ->
 
 dfg_edge_fields_test() ->
     ?assertEqual([source_activity, target_activity, frequency], beam4pm_types_manifest:fields(dfg_edge)).
+
+entitlement_event_fields_test() ->
+    ?assertEqual([event_id, entitlement_id, event_type, effective_at, payload], beam4pm_types_manifest:fields(entitlement_event)).
+
+entitlement_state_fields_test() ->
+    ?assertEqual([entitlement_id, status, last_applied_event_id, updated_at], beam4pm_types_manifest:fields(entitlement_state)).
 
 event_log_fields_test() ->
     ?assertEqual([log_id, name, description], beam4pm_types_manifest:fields(event_log)).
@@ -109,4 +118,7 @@ sync_time_fields_test() ->
 
 type_edge_fields_test() ->
     ?assertEqual([source_type, target_type, qualifier, direction], beam4pm_types_manifest:fields(type_edge)).
+
+usage_event_fields_test() ->
+    ?assertEqual([event_id, entitlement_id, quantity, metric_name, occurred_at], beam4pm_types_manifest:fields(usage_event)).
 

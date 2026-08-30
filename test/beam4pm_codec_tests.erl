@@ -36,6 +36,40 @@ alignment_move_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(alignment_move, Json),
     ?assertEqual(Rec, Rec2).
 
+billing_reconciliation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_billing_reconciliation(#{
+        entitlement_id => <<"sample_entitlement_id">>,
+        metric_name => <<"sample_metric_name">>,
+        total_quantity => 3.5,
+        applied_event_ids => [<<"alpha">>, <<"beta">>],
+        period_start => <<"2026-08-29T12:00:00Z">>,
+        period_end => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_entitlement_id">>, maps:get(<<"entitlement_id">>, Map)),
+    ?assertEqual(<<"sample_metric_name">>, maps:get(<<"metric_name">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"total_quantity">>, Map)),
+    ?assertEqual([<<"alpha">>, <<"beta">>], maps:get(<<"applied_event_ids">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"period_start">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"period_end">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(billing_reconciliation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+billing_reconciliation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_billing_reconciliation(#{
+        entitlement_id => <<"sample_entitlement_id">>,
+        metric_name => <<"sample_metric_name">>,
+        total_quantity => 3.5,
+        applied_event_ids => [<<"alpha">>, <<"beta">>],
+        period_start => <<"2026-08-29T12:00:00Z">>,
+        period_end => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(billing_reconciliation, Json),
+    ?assertEqual(Rec, Rec2).
+
 case_stats_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_case_stats(#{
         case_id => <<"sample_case_id">>,
@@ -109,6 +143,65 @@ dfg_edge_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(dfg_edge, Json),
+    ?assertEqual(Rec, Rec2).
+
+entitlement_event_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_entitlement_event(#{
+        event_id => <<"sample_event_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        event_type => <<"sample_event_type">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>,
+        payload => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"sample_entitlement_id">>, maps:get(<<"entitlement_id">>, Map)),
+    ?assertEqual(<<"sample_event_type">>, maps:get(<<"event_type">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"payload">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(entitlement_event,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+entitlement_event_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_entitlement_event(#{
+        event_id => <<"sample_event_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        event_type => <<"sample_event_type">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>,
+        payload => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(entitlement_event, Json),
+    ?assertEqual(Rec, Rec2).
+
+entitlement_state_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_entitlement_state(#{
+        entitlement_id => <<"sample_entitlement_id">>,
+        status => <<"sample_status">>,
+        last_applied_event_id => <<"sample_last_applied_event_id">>,
+        updated_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_entitlement_id">>, maps:get(<<"entitlement_id">>, Map)),
+    ?assertEqual(<<"sample_status">>, maps:get(<<"status">>, Map)),
+    ?assertEqual(<<"sample_last_applied_event_id">>, maps:get(<<"last_applied_event_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"updated_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(entitlement_state,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+entitlement_state_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_entitlement_state(#{
+        entitlement_id => <<"sample_entitlement_id">>,
+        status => <<"sample_status">>,
+        last_applied_event_id => <<"sample_last_applied_event_id">>,
+        updated_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(entitlement_state, Json),
     ?assertEqual(Rec, Rec2).
 
 event_log_map_roundtrip_test() ->
@@ -784,6 +877,37 @@ type_edge_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(type_edge, Json),
+    ?assertEqual(Rec, Rec2).
+
+usage_event_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_usage_event(#{
+        event_id => <<"sample_event_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        quantity => 3.5,
+        metric_name => <<"sample_metric_name">>,
+        occurred_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"sample_entitlement_id">>, maps:get(<<"entitlement_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"quantity">>, Map)),
+    ?assertEqual(<<"sample_metric_name">>, maps:get(<<"metric_name">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"occurred_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(usage_event,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+usage_event_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_usage_event(#{
+        event_id => <<"sample_event_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        quantity => 3.5,
+        metric_name => <<"sample_metric_name">>,
+        occurred_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(usage_event, Json),
     ?assertEqual(Rec, Rec2).
 
 unknown_record_test() ->

@@ -11,6 +11,19 @@
 | `move_type` | `atom` | true | One of: sync \| model \| log \| silent. |
 | `cost` | `integer` | true | Non-negative cost assigned to this move. |
 
+## billing_reconciliation
+
+> The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `entitlement_id` | `string` | true | The entitlement this total is billed against. First component of the reconciliation partition key. |
+| `metric_name` | `string` | true | The metered dimension this total is for. Second component of the reconciliation partition key; totals are never summed across metrics. |
+| `total_quantity` | `float` | true | The billable total: the sum of quantity over the distinct events named in applied_event_ids, accumulated in that list's ascending event_id order. The fixed summation order is load-bearing, not incidental -- float addition is non-associative, so only a canonical order makes the total bit-identical across arrival orders and across replays. Recomputable by any third party from applied_event_ids plus the usage_event store, which is what makes this a receipt rather than a claim. |
+| `applied_event_ids` | `list_string` | true | The exact deduplicated evidence set behind total_quantity: every usage_event.event_id counted, sorted ascending, with no duplicates. This is the dedup contract made auditable -- \|applied_event_ids\| is the honest count of billed occurrences, and any event_id appearing at most once here is a mechanically checkable falsifier for MP6 double-billing. |
+| `period_start` | `datetime` | true | ISO8601 UTC INCLUSIVE lower bound of the billing period. An event is in-period when period_start <= occurred_at. Caller-supplied to reconcile_billing/4, never derived from the input events themselves -- see period_end's fieldDoc for why. |
+| `period_end` | `datetime` | true | ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real. |
+
 ## case_stats
 
 > Aggregate statistics computed for one process instance (case).
@@ -40,6 +53,29 @@
 | `source_activity` | `string` | true | The preceding activity name. |
 | `target_activity` | `string` | true | The following activity name. |
 | `frequency` | `integer` | true | Observed occurrence count of this edge. |
+
+## entitlement_event
+
+> One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | DEDUP KEY. The provider's own globally unique notification identifier (the eventId field of the Partner Procurement Pub/Sub message). Two deliveries carrying the same event_id are the same event and must fold to the same entitlement_state exactly once. This is provider-assigned, never locally minted -- a locally generated id would make redelivery indistinguishable from a genuine new event. |
+| `entitlement_id` | `string` | true | The commercial identity this event applies to (Partner Procurement ENTITLEMENT_ID). Reconciliation partitions strictly by this key. Google supports multiple concurrent orders of the same product, so entitlement_id -- not account id and not product id -- is the only admissible partition key. |
+| `event_type` | `string` | true | CLOSED SET, exactly the 13 entitlement event types published by Google Cloud Marketplace for integrated SaaS products: ENTITLEMENT_CREATION_REQUESTED \| ENTITLEMENT_OFFER_ACCEPTED \| ENTITLEMENT_ACTIVE \| ENTITLEMENT_PLAN_CHANGE_REQUESTED \| ENTITLEMENT_PLAN_CHANGED \| ENTITLEMENT_PLAN_CHANGE_CANCELLED \| ENTITLEMENT_PENDING_CANCELLATION \| ENTITLEMENT_CANCELLATION_REVERTED \| ENTITLEMENT_CANCELLED \| ENTITLEMENT_CANCELLING \| ENTITLEMENT_RENEWED \| ENTITLEMENT_OFFER_ENDED \| ENTITLEMENT_DELETED. Typed string, deliberately NOT atom: these values arrive verbatim from an external wire and binary_to_atom/2 over untrusted input is an unbounded atom-table growth path on the BEAM. An unrecognized value is a typed refusal, never a silently ignored event. |
+| `effective_at` | `datetime` | true | ISO8601 UTC instant at which this event takes commercial effect (provider-assigned, not local receipt time). Primary component of the reconciliation watermark; ties are broken by event_id so that the fold is a total order and therefore order-independent. Local receipt time is deliberately not modeled: it would make the fold non-deterministic under replay. |
+| `payload` | `map` | false | Optional provider-specific extra fields carried verbatim (e.g. account id, product/plan id, offer id, newPlan, newOffer, scheduled start time). Retained for receipt/audit fidelity; the reconciliation fold reads NO field from this map -- everything the fold depends on is promoted to a typed top-level field above. |
+
+## entitlement_state
+
+> The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `entitlement_id` | `string` | true | The commercial identity this state describes (Partner Procurement ENTITLEMENT_ID). Unique key: at most one entitlement_state exists per entitlement_id. |
+| `status` | `string` | true | CLOSED SET, exactly the 8 values of the Cloud Commerce Partner Procurement API's EntitlementState enum: ENTITLEMENT_STATE_UNSPECIFIED \| ENTITLEMENT_ACTIVATION_REQUESTED \| ENTITLEMENT_ACTIVE \| ENTITLEMENT_PENDING_CANCELLATION \| ENTITLEMENT_CANCELLED \| ENTITLEMENT_PENDING_PLAN_CHANGE \| ENTITLEMENT_PENDING_PLAN_CHANGE_APPROVAL \| ENTITLEMENT_SUSPENDED. This is the provider's STATE enum, which is deliberately not the same closed set as entitlement_event.event_type: ENTITLEMENT_SUSPENDED is a reachable state with no corresponding notification event type, and ENTITLEMENT_RENEWED / ENTITLEMENT_OFFER_ENDED / ENTITLEMENT_DELETED are event types with no distinct state. The event_type -> status transition table is therefore an explicit, non-identity mapping, never a string rename. |
+| `last_applied_event_id` | `string` | true | The event_id of the single entitlement_event that produced this state. Second (tiebreak) component of the reconciliation watermark, and the audit link from a commercial state back to the exact provider notification that caused it. Required, never undefined: an entitlement_state may only be constructed by applying a real event, so there is no lawful state without a causing event id. |
+| `updated_at` | `datetime` | true | The effective_at of the last applied event -- NOT wall-clock ingestion time. First component of the reconciliation watermark. Defining it as provider effective time (a) makes the state a pure function of the event set, so the same events replayed in any order at any later date rebuild a byte-identical state, and (b) makes the strictly-greater-than admission test well-founded. A wall-clock updated_at would silently admit an out-of-order older event, because it always advances. |
 
 ## event_log
 
@@ -310,4 +346,16 @@
 | `target_type` | `string` | true | The edge target type name. |
 | `qualifier` | `string` | true | The relationship qualifier/role name for this edge. |
 | `direction` | `atom` | true | One of: e2o \| o2o. |
+
+## usage_event
+
+> One metered usage/consumption occurrence to be billed against an entitlement. event_id is the idempotency key that is ALSO the operationId reported to the provider's usage API, so local dedup and provider-side dedup are keyed identically and can never disagree.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | DEDUP KEY. Stable, deterministic, locally minted identifier for this metered occurrence -- and the exact value sent as operationId on the Service Control services.report call, which is the provider's own documented deduplication mechanism. It MUST be derived from the occurrence itself, never from a random UUID or a wall clock: a re-minted id on retry would defeat both local and provider-side dedup and double bill. Counting the same event_id twice in a billing_reconciliation.total_quantity is the exact MP6 failure. |
+| `entitlement_id` | `string` | true | The entitlement this usage is billed against (Partner Procurement ENTITLEMENT_ID); resolves to the provider's consumerId at report time. Usage whose entitlement_id has no reconciled entitlement_state is a typed refusal, never silently billed and never silently dropped. |
+| `quantity` | `float` | true | The measured amount for this single occurrence, in the unit implied by metric_name. Non-negative: a correction is a separate, explicitly-typed adjustment, never a negative usage_event, because negative quantities make the dedup-set sum order-sensitive at the boundaries and make a double-counted event cancellable rather than detectable. |
+| `metric_name` | `string` | true | The fully qualified metered dimension this occurrence counts against. Reconciliation partitions by (entitlement_id, metric_name): quantities in different metrics are never summed together. |
+| `occurred_at` | `datetime` | true | ISO8601 UTC instant the usage actually occurred (not when it was observed, queued, or reported). |
 

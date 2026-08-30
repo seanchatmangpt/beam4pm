@@ -19,6 +19,29 @@ defmodule BeamPM.Ash.Resources.AlignmentMove do
   end
 end
 
+defmodule BeamPM.Ash.Resources.BillingReconciliation do
+  @moduledoc "The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :entitlement_id, :string, public?: true, allow_nil?: false
+    attribute :metric_name, :string, public?: true, allow_nil?: false
+    attribute :total_quantity, :float, public?: true, allow_nil?: false
+    attribute :applied_event_ids, {:array, :string}, public?: true, allow_nil?: false
+    attribute :period_start, :utc_datetime, public?: true, allow_nil?: false
+    attribute :period_end, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.CaseStats do
   @moduledoc "Aggregate statistics computed for one process instance (case)."
   use Ash.Resource,
@@ -71,6 +94,49 @@ defmodule BeamPM.Ash.Resources.DfgEdge do
     attribute :source_activity, :string, public?: true, allow_nil?: false
     attribute :target_activity, :string, public?: true, allow_nil?: false
     attribute :frequency, :integer, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.EntitlementEvent do
+  @moduledoc "One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :event_id, :string, public?: true, allow_nil?: false
+    attribute :entitlement_id, :string, public?: true, allow_nil?: false
+    attribute :event_type, :string, public?: true, allow_nil?: false
+    attribute :effective_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :payload, :map, public?: true
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.EntitlementState do
+  @moduledoc "The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :entitlement_id, :string, public?: true, allow_nil?: false
+    attribute :status, :string, public?: true, allow_nil?: false
+    attribute :last_applied_event_id, :string, public?: true, allow_nil?: false
+    attribute :updated_at, :utc_datetime, public?: true, allow_nil?: false
   end
 
   actions do
@@ -619,15 +685,40 @@ defmodule BeamPM.Ash.Resources.TypeEdge do
   end
 end
 
+defmodule BeamPM.Ash.Resources.UsageEvent do
+  @moduledoc "One metered usage/consumption occurrence to be billed against an entitlement. event_id is the idempotency key that is ALSO the operationId reported to the provider's usage API, so local dedup and provider-side dedup are keyed identically and can never disagree."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :event_id, :string, public?: true, allow_nil?: false
+    attribute :entitlement_id, :string, public?: true, allow_nil?: false
+    attribute :quantity, :float, public?: true, allow_nil?: false
+    attribute :metric_name, :string, public?: true, allow_nil?: false
+    attribute :occurred_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Domain do
   @moduledoc "GENERATED Ash domain over all admitted bpm:RecordType resources."
   use Ash.Domain, validate_config_inclusion?: false
 
   resources do
     resource BeamPM.Ash.Resources.AlignmentMove
+    resource BeamPM.Ash.Resources.BillingReconciliation
     resource BeamPM.Ash.Resources.CaseStats
     resource BeamPM.Ash.Resources.ConformanceResult
     resource BeamPM.Ash.Resources.DfgEdge
+    resource BeamPM.Ash.Resources.EntitlementEvent
+    resource BeamPM.Ash.Resources.EntitlementState
     resource BeamPM.Ash.Resources.EventLog
     resource BeamPM.Ash.Resources.EventType
     resource BeamPM.Ash.Resources.HeuristicArc
@@ -655,6 +746,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.SojournTime
     resource BeamPM.Ash.Resources.SyncTime
     resource BeamPM.Ash.Resources.TypeEdge
+    resource BeamPM.Ash.Resources.UsageEvent
   end
 end
 

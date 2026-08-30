@@ -4,9 +4,12 @@
 
 -export([
     new_alignment_move/1,
+    new_billing_reconciliation/1,
     new_case_stats/1,
     new_conformance_result/1,
     new_dfg_edge/1,
+    new_entitlement_event/1,
+    new_entitlement_state/1,
     new_event_log/1,
     new_event_type/1,
     new_heuristic_arc/1,
@@ -33,14 +36,18 @@
     new_service_span/1,
     new_sojourn_time/1,
     new_sync_time/1,
-    new_type_edge/1
+    new_type_edge/1,
+    new_usage_event/1
 ]).
 
 -export_type([
     alignment_move/0,
+    billing_reconciliation/0,
     case_stats/0,
     conformance_result/0,
     dfg_edge/0,
+    entitlement_event/0,
+    entitlement_state/0,
     event_log/0,
     event_type/0,
     heuristic_arc/0,
@@ -67,7 +74,8 @@
     service_span/0,
     sojourn_time/0,
     sync_time/0,
-    type_edge/0
+    type_edge/0,
+    usage_event/0
 ]).
 
 %% One step of a conformance-checking alignment between log and model.
@@ -90,6 +98,53 @@ new_alignment_move(Map) ->
         move_type = maps:get(move_type, Map, undefined),
         cost = maps:get(cost, Map, undefined)
     }}
+    end
+    end.
+
+%% The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream.
+-record(billing_reconciliation, {
+    entitlement_id :: binary(), %% entitlement_id: The entitlement this total is billed against. First component of the reconciliation partition key.
+    metric_name :: binary(), %% metric_name: The metered dimension this total is for. Second component of the reconciliation partition key; totals are never summed across metrics.
+    total_quantity :: float(), %% total_quantity: The billable total: the sum of quantity over the distinct events named in applied_event_ids, accumulated in that list's ascending event_id order. The fixed summation order is load-bearing, not incidental -- float addition is non-associative, so only a canonical order makes the total bit-identical across arrival orders and across replays. Recomputable by any third party from applied_event_ids plus the usage_event store, which is what makes this a receipt rather than a claim.
+    applied_event_ids :: [binary()], %% applied_event_ids: The exact deduplicated evidence set behind total_quantity: every usage_event.event_id counted, sorted ascending, with no duplicates. This is the dedup contract made auditable -- |applied_event_ids| is the honest count of billed occurrences, and any event_id appearing at most once here is a mechanically checkable falsifier for MP6 double-billing.
+    period_start :: binary(), %% period_start: ISO8601 UTC INCLUSIVE lower bound of the billing period. An event is in-period when period_start <= occurred_at. Caller-supplied to reconcile_billing/4, never derived from the input events themselves -- see period_end's fieldDoc for why.
+    period_end :: binary() %% period_end: ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real.
+}).
+
+-type billing_reconciliation() :: #billing_reconciliation{}.
+
+-spec new_billing_reconciliation(map()) -> {ok, billing_reconciliation()} | {error, {missing_field, atom()}}.
+new_billing_reconciliation(Map) ->
+    case maps:is_key(entitlement_id, Map) of
+        false -> {error, {missing_field, entitlement_id}};
+        true ->
+    case maps:is_key(metric_name, Map) of
+        false -> {error, {missing_field, metric_name}};
+        true ->
+    case maps:is_key(total_quantity, Map) of
+        false -> {error, {missing_field, total_quantity}};
+        true ->
+    case maps:is_key(applied_event_ids, Map) of
+        false -> {error, {missing_field, applied_event_ids}};
+        true ->
+    case maps:is_key(period_start, Map) of
+        false -> {error, {missing_field, period_start}};
+        true ->
+    case maps:is_key(period_end, Map) of
+        false -> {error, {missing_field, period_end}};
+        true ->
+    {ok, #billing_reconciliation{
+        entitlement_id = maps:get(entitlement_id, Map, undefined),
+        metric_name = maps:get(metric_name, Map, undefined),
+        total_quantity = maps:get(total_quantity, Map, undefined),
+        applied_event_ids = maps:get(applied_event_ids, Map, undefined),
+        period_start = maps:get(period_start, Map, undefined),
+        period_end = maps:get(period_end, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
     end
     end.
 
@@ -168,6 +223,78 @@ new_dfg_edge(Map) ->
         target_activity = maps:get(target_activity, Map, undefined),
         frequency = maps:get(frequency, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id.
+-record(entitlement_event, {
+    event_id :: binary(), %% event_id: DEDUP KEY. The provider's own globally unique notification identifier (the eventId field of the Partner Procurement Pub/Sub message). Two deliveries carrying the same event_id are the same event and must fold to the same entitlement_state exactly once. This is provider-assigned, never locally minted -- a locally generated id would make redelivery indistinguishable from a genuine new event.
+    entitlement_id :: binary(), %% entitlement_id: The commercial identity this event applies to (Partner Procurement ENTITLEMENT_ID). Reconciliation partitions strictly by this key. Google supports multiple concurrent orders of the same product, so entitlement_id -- not account id and not product id -- is the only admissible partition key.
+    event_type :: binary(), %% event_type: CLOSED SET, exactly the 13 entitlement event types published by Google Cloud Marketplace for integrated SaaS products: ENTITLEMENT_CREATION_REQUESTED | ENTITLEMENT_OFFER_ACCEPTED | ENTITLEMENT_ACTIVE | ENTITLEMENT_PLAN_CHANGE_REQUESTED | ENTITLEMENT_PLAN_CHANGED | ENTITLEMENT_PLAN_CHANGE_CANCELLED | ENTITLEMENT_PENDING_CANCELLATION | ENTITLEMENT_CANCELLATION_REVERTED | ENTITLEMENT_CANCELLED | ENTITLEMENT_CANCELLING | ENTITLEMENT_RENEWED | ENTITLEMENT_OFFER_ENDED | ENTITLEMENT_DELETED. Typed string, deliberately NOT atom: these values arrive verbatim from an external wire and binary_to_atom/2 over untrusted input is an unbounded atom-table growth path on the BEAM. An unrecognized value is a typed refusal, never a silently ignored event.
+    effective_at :: binary(), %% effective_at: ISO8601 UTC instant at which this event takes commercial effect (provider-assigned, not local receipt time). Primary component of the reconciliation watermark; ties are broken by event_id so that the fold is a total order and therefore order-independent. Local receipt time is deliberately not modeled: it would make the fold non-deterministic under replay.
+    payload :: map() | undefined %% payload: Optional provider-specific extra fields carried verbatim (e.g. account id, product/plan id, offer id, newPlan, newOffer, scheduled start time). Retained for receipt/audit fidelity; the reconciliation fold reads NO field from this map -- everything the fold depends on is promoted to a typed top-level field above.
+}).
+
+-type entitlement_event() :: #entitlement_event{}.
+
+-spec new_entitlement_event(map()) -> {ok, entitlement_event()} | {error, {missing_field, atom()}}.
+new_entitlement_event(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(entitlement_id, Map) of
+        false -> {error, {missing_field, entitlement_id}};
+        true ->
+    case maps:is_key(event_type, Map) of
+        false -> {error, {missing_field, event_type}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #entitlement_event{
+        event_id = maps:get(event_id, Map, undefined),
+        entitlement_id = maps:get(entitlement_id, Map, undefined),
+        event_type = maps:get(event_type, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined),
+        payload = maps:get(payload, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark.
+-record(entitlement_state, {
+    entitlement_id :: binary(), %% entitlement_id: The commercial identity this state describes (Partner Procurement ENTITLEMENT_ID). Unique key: at most one entitlement_state exists per entitlement_id.
+    status :: binary(), %% status: CLOSED SET, exactly the 8 values of the Cloud Commerce Partner Procurement API's EntitlementState enum: ENTITLEMENT_STATE_UNSPECIFIED | ENTITLEMENT_ACTIVATION_REQUESTED | ENTITLEMENT_ACTIVE | ENTITLEMENT_PENDING_CANCELLATION | ENTITLEMENT_CANCELLED | ENTITLEMENT_PENDING_PLAN_CHANGE | ENTITLEMENT_PENDING_PLAN_CHANGE_APPROVAL | ENTITLEMENT_SUSPENDED. This is the provider's STATE enum, which is deliberately not the same closed set as entitlement_event.event_type: ENTITLEMENT_SUSPENDED is a reachable state with no corresponding notification event type, and ENTITLEMENT_RENEWED / ENTITLEMENT_OFFER_ENDED / ENTITLEMENT_DELETED are event types with no distinct state. The event_type -> status transition table is therefore an explicit, non-identity mapping, never a string rename.
+    last_applied_event_id :: binary(), %% last_applied_event_id: The event_id of the single entitlement_event that produced this state. Second (tiebreak) component of the reconciliation watermark, and the audit link from a commercial state back to the exact provider notification that caused it. Required, never undefined: an entitlement_state may only be constructed by applying a real event, so there is no lawful state without a causing event id.
+    updated_at :: binary() %% updated_at: The effective_at of the last applied event -- NOT wall-clock ingestion time. First component of the reconciliation watermark. Defining it as provider effective time (a) makes the state a pure function of the event set, so the same events replayed in any order at any later date rebuild a byte-identical state, and (b) makes the strictly-greater-than admission test well-founded. A wall-clock updated_at would silently admit an out-of-order older event, because it always advances.
+}).
+
+-type entitlement_state() :: #entitlement_state{}.
+
+-spec new_entitlement_state(map()) -> {ok, entitlement_state()} | {error, {missing_field, atom()}}.
+new_entitlement_state(Map) ->
+    case maps:is_key(entitlement_id, Map) of
+        false -> {error, {missing_field, entitlement_id}};
+        true ->
+    case maps:is_key(status, Map) of
+        false -> {error, {missing_field, status}};
+        true ->
+    case maps:is_key(last_applied_event_id, Map) of
+        false -> {error, {missing_field, last_applied_event_id}};
+        true ->
+    case maps:is_key(updated_at, Map) of
+        false -> {error, {missing_field, updated_at}};
+        true ->
+    {ok, #entitlement_state{
+        entitlement_id = maps:get(entitlement_id, Map, undefined),
+        status = maps:get(status, Map, undefined),
+        last_applied_event_id = maps:get(last_applied_event_id, Map, undefined),
+        updated_at = maps:get(updated_at, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -894,6 +1021,47 @@ new_type_edge(Map) ->
         qualifier = maps:get(qualifier, Map, undefined),
         direction = maps:get(direction, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% One metered usage/consumption occurrence to be billed against an entitlement. event_id is the idempotency key that is ALSO the operationId reported to the provider's usage API, so local dedup and provider-side dedup are keyed identically and can never disagree.
+-record(usage_event, {
+    event_id :: binary(), %% event_id: DEDUP KEY. Stable, deterministic, locally minted identifier for this metered occurrence -- and the exact value sent as operationId on the Service Control services.report call, which is the provider's own documented deduplication mechanism. It MUST be derived from the occurrence itself, never from a random UUID or a wall clock: a re-minted id on retry would defeat both local and provider-side dedup and double bill. Counting the same event_id twice in a billing_reconciliation.total_quantity is the exact MP6 failure.
+    entitlement_id :: binary(), %% entitlement_id: The entitlement this usage is billed against (Partner Procurement ENTITLEMENT_ID); resolves to the provider's consumerId at report time. Usage whose entitlement_id has no reconciled entitlement_state is a typed refusal, never silently billed and never silently dropped.
+    quantity :: float(), %% quantity: The measured amount for this single occurrence, in the unit implied by metric_name. Non-negative: a correction is a separate, explicitly-typed adjustment, never a negative usage_event, because negative quantities make the dedup-set sum order-sensitive at the boundaries and make a double-counted event cancellable rather than detectable.
+    metric_name :: binary(), %% metric_name: The fully qualified metered dimension this occurrence counts against. Reconciliation partitions by (entitlement_id, metric_name): quantities in different metrics are never summed together.
+    occurred_at :: binary() %% occurred_at: ISO8601 UTC instant the usage actually occurred (not when it was observed, queued, or reported).
+}).
+
+-type usage_event() :: #usage_event{}.
+
+-spec new_usage_event(map()) -> {ok, usage_event()} | {error, {missing_field, atom()}}.
+new_usage_event(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(entitlement_id, Map) of
+        false -> {error, {missing_field, entitlement_id}};
+        true ->
+    case maps:is_key(quantity, Map) of
+        false -> {error, {missing_field, quantity}};
+        true ->
+    case maps:is_key(metric_name, Map) of
+        false -> {error, {missing_field, metric_name}};
+        true ->
+    case maps:is_key(occurred_at, Map) of
+        false -> {error, {missing_field, occurred_at}};
+        true ->
+    {ok, #usage_event{
+        event_id = maps:get(event_id, Map, undefined),
+        entitlement_id = maps:get(entitlement_id, Map, undefined),
+        quantity = maps:get(quantity, Map, undefined),
+        metric_name = maps:get(metric_name, Map, undefined),
+        occurred_at = maps:get(occurred_at, Map, undefined)
+    }}
+    end
     end
     end
     end

@@ -3,13 +3,16 @@ defmodule BeamPM.Types.Manifest do
   @moduledoc "Reflection manifest over the admitted bpm:RecordType graph: every admitted record name, and each record's ordered field-name list, without needing to know the individual struct modules."
 
   @spec record_names() :: [atom()]
-  def record_names, do: [:alignment_move, :case_stats, :conformance_result, :dfg_edge, :event_log, :event_type, :heuristic_arc, :k8s_object_ref, :log_trace, :object_attribute_change, :object_type, :oc_declare_constraint, :ocel_attribute, :ocel_event, :ocel_object, :ocel_relationship, :path_schema, :path_schema_query, :petri_arc, :petri_place, :petri_transition, :planning_action, :planning_state, :policy_decision, :process_variant, :queue_snapshot, :resource_allocation, :service_span, :sojourn_time, :sync_time, :type_edge]
+  def record_names, do: [:alignment_move, :billing_reconciliation, :case_stats, :conformance_result, :dfg_edge, :entitlement_event, :entitlement_state, :event_log, :event_type, :heuristic_arc, :k8s_object_ref, :log_trace, :object_attribute_change, :object_type, :oc_declare_constraint, :ocel_attribute, :ocel_event, :ocel_object, :ocel_relationship, :path_schema, :path_schema_query, :petri_arc, :petri_place, :petri_transition, :planning_action, :planning_state, :policy_decision, :process_variant, :queue_snapshot, :resource_allocation, :service_span, :sojourn_time, :sync_time, :type_edge, :usage_event]
 
   @spec fields(atom()) :: [atom()]
   def fields(:alignment_move), do: [:move_type, :cost]
+  def fields(:billing_reconciliation), do: [:entitlement_id, :metric_name, :total_quantity, :applied_event_ids, :period_start, :period_end]
   def fields(:case_stats), do: [:case_id, :event_count, :duration_seconds]
   def fields(:conformance_result), do: [:trace_id, :fitness, :precision]
   def fields(:dfg_edge), do: [:source_activity, :target_activity, :frequency]
+  def fields(:entitlement_event), do: [:event_id, :entitlement_id, :event_type, :effective_at, :payload]
+  def fields(:entitlement_state), do: [:entitlement_id, :status, :last_applied_event_id, :updated_at]
   def fields(:event_log), do: [:log_id, :name, :description]
   def fields(:event_type), do: [:type_name, :attribute_names]
   def fields(:heuristic_arc), do: [:source_activity, :target_activity, :dependency_measure]
@@ -37,5 +40,6 @@ defmodule BeamPM.Types.Manifest do
   def fields(:sojourn_time), do: [:object_id, :event_type, :seconds]
   def fields(:sync_time), do: [:object_id, :delaying_object_id, :seconds]
   def fields(:type_edge), do: [:source_type, :target_type, :qualifier, :direction]
+  def fields(:usage_event), do: [:event_id, :entitlement_id, :quantity, :metric_name, :occurred_at]
   def fields(_), do: []
 end

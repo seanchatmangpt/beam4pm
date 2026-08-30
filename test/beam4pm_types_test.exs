@@ -16,6 +16,24 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "billing_reconciliation new/1 succeeds when all fields are present" do
+    attrs = %{
+      entitlement_id: "x",
+      metric_name: "x",
+      total_quantity: 1.0,
+      applied_event_ids: ["a"],
+      period_start: "2026-01-01T00:00:00Z",
+      period_end: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.BillingReconciliation.new(attrs)
+  end
+
+  test "billing_reconciliation new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.BillingReconciliation.new(%{})
+  end
+
+
   test "case_stats new/1 succeeds when all fields are present" do
     attrs = %{
       case_id: "x",
@@ -58,6 +76,39 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "dfg_edge new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.DfgEdge.new(%{})
+  end
+
+
+  test "entitlement_event new/1 succeeds when all fields are present" do
+    attrs = %{
+      event_id: "x",
+      entitlement_id: "x",
+      event_type: "x",
+      effective_at: "2026-01-01T00:00:00Z",
+      payload: %{}
+    }
+
+    assert {:ok, _} = BeamPM.Types.EntitlementEvent.new(attrs)
+  end
+
+  test "entitlement_event new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementEvent.new(%{})
+  end
+
+
+  test "entitlement_state new/1 succeeds when all fields are present" do
+    attrs = %{
+      entitlement_id: "x",
+      status: "x",
+      last_applied_event_id: "x",
+      updated_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.EntitlementState.new(attrs)
+  end
+
+  test "entitlement_state new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementState.new(%{})
   end
 
 
@@ -463,6 +514,23 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "type_edge new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.TypeEdge.new(%{})
+  end
+
+
+  test "usage_event new/1 succeeds when all fields are present" do
+    attrs = %{
+      event_id: "x",
+      entitlement_id: "x",
+      quantity: 1.0,
+      metric_name: "x",
+      occurred_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.UsageEvent.new(attrs)
+  end
+
+  test "usage_event new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.UsageEvent.new(%{})
   end
 
 end

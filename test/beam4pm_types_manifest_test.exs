@@ -3,11 +3,15 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 31
+    assert length(BeamPM.Types.Manifest.record_names()) == 35
   end
 
   test "fields/1 returns the ordered field-name list for alignment_move" do
     assert BeamPM.Types.Manifest.fields(:alignment_move) == [:move_type, :cost]
+  end
+
+  test "fields/1 returns the ordered field-name list for billing_reconciliation" do
+    assert BeamPM.Types.Manifest.fields(:billing_reconciliation) == [:entitlement_id, :metric_name, :total_quantity, :applied_event_ids, :period_start, :period_end]
   end
 
   test "fields/1 returns the ordered field-name list for case_stats" do
@@ -20,6 +24,14 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for dfg_edge" do
     assert BeamPM.Types.Manifest.fields(:dfg_edge) == [:source_activity, :target_activity, :frequency]
+  end
+
+  test "fields/1 returns the ordered field-name list for entitlement_event" do
+    assert BeamPM.Types.Manifest.fields(:entitlement_event) == [:event_id, :entitlement_id, :event_type, :effective_at, :payload]
+  end
+
+  test "fields/1 returns the ordered field-name list for entitlement_state" do
+    assert BeamPM.Types.Manifest.fields(:entitlement_state) == [:entitlement_id, :status, :last_applied_event_id, :updated_at]
   end
 
   test "fields/1 returns the ordered field-name list for event_log" do
@@ -128,6 +140,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for type_edge" do
     assert BeamPM.Types.Manifest.fields(:type_edge) == [:source_type, :target_type, :qualifier, :direction]
+  end
+
+  test "fields/1 returns the ordered field-name list for usage_event" do
+    assert BeamPM.Types.Manifest.fields(:usage_event) == [:event_id, :entitlement_id, :quantity, :metric_name, :occurred_at]
   end
 
   test "fields/1 returns an empty list for an unknown record name" do

@@ -55,6 +55,52 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "billing_reconciliation to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      entitlement_id: "sample_entitlement_id",
+      metric_name: "sample_metric_name",
+      total_quantity: 3.5,
+      applied_event_ids: ["alpha", "beta"],
+      period_start: "2026-08-29T12:00:00Z",
+      period_end: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BillingReconciliation.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["entitlement_id"] == "sample_entitlement_id"
+    assert m["metric_name"] == "sample_metric_name"
+    assert m["total_quantity"] == 3.5
+    assert m["applied_event_ids"] == ["alpha", "beta"]
+    assert m["period_start"] == "2026-08-29T12:00:00Z"
+    assert m["period_end"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 6
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:billing_reconciliation, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:billing_reconciliation, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "billing_reconciliation encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      entitlement_id: "sample_entitlement_id",
+      metric_name: "sample_metric_name",
+      total_quantity: 3.5,
+      applied_event_ids: ["alpha", "beta"],
+      period_start: "2026-08-29T12:00:00Z",
+      period_end: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BillingReconciliation.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:billing_reconciliation, json)
+  end
+
+  test "billing_reconciliation from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :entitlement_id}} =
+             BeamPM.Codec.from_map(:billing_reconciliation, %{})
+  end
+
+
   test "case_stats to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       case_id: "sample_case_id",
@@ -187,6 +233,103 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "dfg_edge from_map reports the first missing required field" do
     assert {:error, {:missing_field, :source_activity}} =
              BeamPM.Codec.from_map(:dfg_edge, %{})
+  end
+
+
+  test "entitlement_event to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      event_id: "sample_event_id",
+      entitlement_id: "sample_entitlement_id",
+      event_type: "sample_event_type",
+      effective_at: "2026-08-29T12:00:00Z",
+      payload: %{"k" => "v"}
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EntitlementEvent.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["event_id"] == "sample_event_id"
+    assert m["entitlement_id"] == "sample_entitlement_id"
+    assert m["event_type"] == "sample_event_type"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert m["payload"] == %{"k" => "v"}
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:entitlement_event, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:entitlement_event, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "entitlement_event encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      event_id: "sample_event_id",
+      entitlement_id: "sample_entitlement_id",
+      event_type: "sample_event_type",
+      effective_at: "2026-08-29T12:00:00Z",
+      payload: %{"k" => "v"}
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EntitlementEvent.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:entitlement_event, json)
+  end
+
+  test "entitlement_event from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :event_id}} =
+             BeamPM.Codec.from_map(:entitlement_event, %{})
+  end
+
+  test "entitlement_event to_map omits nil optional fields (minimal variant roundtrip)" do
+    attrs = %{
+      event_id: "sample_event_id",
+      entitlement_id: "sample_entitlement_id",
+      event_type: "sample_event_type",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EntitlementEvent.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    refute Map.has_key?(m, "payload")
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:entitlement_event, m)
+  end
+
+  test "entitlement_state to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      entitlement_id: "sample_entitlement_id",
+      status: "sample_status",
+      last_applied_event_id: "sample_last_applied_event_id",
+      updated_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EntitlementState.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["entitlement_id"] == "sample_entitlement_id"
+    assert m["status"] == "sample_status"
+    assert m["last_applied_event_id"] == "sample_last_applied_event_id"
+    assert m["updated_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:entitlement_state, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:entitlement_state, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "entitlement_state encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      entitlement_id: "sample_entitlement_id",
+      status: "sample_status",
+      last_applied_event_id: "sample_last_applied_event_id",
+      updated_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EntitlementState.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:entitlement_state, json)
+  end
+
+  test "entitlement_state from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :entitlement_id}} =
+             BeamPM.Codec.from_map(:entitlement_state, %{})
   end
 
 
@@ -1343,6 +1486,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "type_edge from_map reports the first missing required field" do
     assert {:error, {:missing_field, :source_type}} =
              BeamPM.Codec.from_map(:type_edge, %{})
+  end
+
+
+  test "usage_event to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      event_id: "sample_event_id",
+      entitlement_id: "sample_entitlement_id",
+      quantity: 3.5,
+      metric_name: "sample_metric_name",
+      occurred_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.UsageEvent.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["event_id"] == "sample_event_id"
+    assert m["entitlement_id"] == "sample_entitlement_id"
+    assert m["quantity"] == 3.5
+    assert m["metric_name"] == "sample_metric_name"
+    assert m["occurred_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:usage_event, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:usage_event, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "usage_event encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      event_id: "sample_event_id",
+      entitlement_id: "sample_entitlement_id",
+      quantity: 3.5,
+      metric_name: "sample_metric_name",
+      occurred_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.UsageEvent.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:usage_event, json)
+  end
+
+  test "usage_event from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :event_id}} =
+             BeamPM.Codec.from_map(:usage_event, %{})
   end
 
 end

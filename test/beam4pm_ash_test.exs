@@ -20,6 +20,32 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.cost == 42
   end
 
+  test "billing_reconciliation: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        entitlement_id: "sample_entitlement_id",
+        metric_name: "sample_metric_name",
+        total_quantity: 3.5,
+        applied_event_ids: ["alpha", "beta"],
+        period_start: "2026-08-29T12:00:00Z",
+        period_end: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.BillingReconciliation
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.BillingReconciliation)
+    assert read_back.id == created.id
+    assert read_back.entitlement_id == "sample_entitlement_id"
+    assert read_back.metric_name == "sample_metric_name"
+    assert read_back.total_quantity == 3.5
+    assert read_back.applied_event_ids == ["alpha", "beta"]
+    assert read_back.period_start == ~U[2026-08-29 12:00:00Z]
+    assert read_back.period_end == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "case_stats: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -78,6 +104,52 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.source_activity == "sample_source_activity"
     assert read_back.target_activity == "sample_target_activity"
     assert read_back.frequency == 42
+  end
+
+  test "entitlement_event: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        event_id: "sample_event_id",
+        entitlement_id: "sample_entitlement_id",
+        event_type: "sample_event_type",
+        effective_at: "2026-08-29T12:00:00Z",
+        payload: %{"k" => "v"}
+      }
+
+    created =
+      BeamPM.Ash.Resources.EntitlementEvent
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.EntitlementEvent)
+    assert read_back.id == created.id
+    assert read_back.event_id == "sample_event_id"
+    assert read_back.entitlement_id == "sample_entitlement_id"
+    assert read_back.event_type == "sample_event_type"
+    assert read_back.effective_at == ~U[2026-08-29 12:00:00Z]
+    assert read_back.payload == %{"k" => "v"}
+  end
+
+  test "entitlement_state: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        entitlement_id: "sample_entitlement_id",
+        status: "sample_status",
+        last_applied_event_id: "sample_last_applied_event_id",
+        updated_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.EntitlementState
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.EntitlementState)
+    assert read_back.id == created.id
+    assert read_back.entitlement_id == "sample_entitlement_id"
+    assert read_back.status == "sample_status"
+    assert read_back.last_applied_event_id == "sample_last_applied_event_id"
+    assert read_back.updated_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "event_log: real Ash ETS create/read round-trips every field" do
@@ -618,6 +690,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.target_type == "sample_target_type"
     assert read_back.qualifier == "sample_qualifier"
     assert read_back.direction == :sample_atom
+  end
+
+  test "usage_event: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        event_id: "sample_event_id",
+        entitlement_id: "sample_entitlement_id",
+        quantity: 3.5,
+        metric_name: "sample_metric_name",
+        occurred_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.UsageEvent
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.UsageEvent)
+    assert read_back.id == created.id
+    assert read_back.event_id == "sample_event_id"
+    assert read_back.entitlement_id == "sample_entitlement_id"
+    assert read_back.quantity == 3.5
+    assert read_back.metric_name == "sample_metric_name"
+    assert read_back.occurred_at == ~U[2026-08-29 12:00:00Z]
   end
 end
 

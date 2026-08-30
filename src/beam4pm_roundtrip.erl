@@ -15,9 +15,12 @@
 record_names() ->
     [
         alignment_move,
+        billing_reconciliation,
         case_stats,
         conformance_result,
         dfg_edge,
+        entitlement_event,
+        entitlement_state,
         event_log,
         event_type,
         heuristic_arc,
@@ -44,7 +47,8 @@ record_names() ->
         service_span,
         sojourn_time,
         sync_time,
-        type_edge
+        type_edge,
+        usage_event
     ].
 
 %% Deterministic sample values, keyed by bpm:fieldType:
@@ -62,6 +66,24 @@ sample(alignment_move, minimal) ->
     beam4pm_types:new_alignment_move(#{
         move_type => sample_atom,
         cost => 42
+    });
+sample(billing_reconciliation, full) ->
+    beam4pm_types:new_billing_reconciliation(#{
+        entitlement_id => <<"sample_entitlement_id">>,
+        metric_name => <<"sample_metric_name">>,
+        total_quantity => 3.5,
+        applied_event_ids => [<<"alpha">>, <<"beta">>],
+        period_start => <<"2026-08-29T12:00:00Z">>,
+        period_end => <<"2026-08-29T12:00:00Z">>
+    });
+sample(billing_reconciliation, minimal) ->
+    beam4pm_types:new_billing_reconciliation(#{
+        entitlement_id => <<"sample_entitlement_id">>,
+        metric_name => <<"sample_metric_name">>,
+        total_quantity => 3.5,
+        applied_event_ids => [<<"alpha">>, <<"beta">>],
+        period_start => <<"2026-08-29T12:00:00Z">>,
+        period_end => <<"2026-08-29T12:00:00Z">>
     });
 sample(case_stats, full) ->
     beam4pm_types:new_case_stats(#{
@@ -96,6 +118,35 @@ sample(dfg_edge, minimal) ->
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
         frequency => 42
+    });
+sample(entitlement_event, full) ->
+    beam4pm_types:new_entitlement_event(#{
+        event_id => <<"sample_event_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        event_type => <<"sample_event_type">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>,
+        payload => #{<<"k">> => <<"v">>}
+    });
+sample(entitlement_event, minimal) ->
+    beam4pm_types:new_entitlement_event(#{
+        event_id => <<"sample_event_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        event_type => <<"sample_event_type">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(entitlement_state, full) ->
+    beam4pm_types:new_entitlement_state(#{
+        entitlement_id => <<"sample_entitlement_id">>,
+        status => <<"sample_status">>,
+        last_applied_event_id => <<"sample_last_applied_event_id">>,
+        updated_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(entitlement_state, minimal) ->
+    beam4pm_types:new_entitlement_state(#{
+        entitlement_id => <<"sample_entitlement_id">>,
+        status => <<"sample_status">>,
+        last_applied_event_id => <<"sample_last_applied_event_id">>,
+        updated_at => <<"2026-08-29T12:00:00Z">>
     });
 sample(event_log, full) ->
     beam4pm_types:new_event_log(#{
@@ -406,6 +457,22 @@ sample(type_edge, minimal) ->
         target_type => <<"sample_target_type">>,
         qualifier => <<"sample_qualifier">>,
         direction => sample_atom
+    });
+sample(usage_event, full) ->
+    beam4pm_types:new_usage_event(#{
+        event_id => <<"sample_event_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        quantity => 3.5,
+        metric_name => <<"sample_metric_name">>,
+        occurred_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(usage_event, minimal) ->
+    beam4pm_types:new_usage_event(#{
+        event_id => <<"sample_event_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        quantity => 3.5,
+        metric_name => <<"sample_metric_name">>,
+        occurred_at => <<"2026-08-29T12:00:00Z">>
     });
 sample(Name, Variant) ->
     erlang:error({unknown_sample, Name, Variant}).

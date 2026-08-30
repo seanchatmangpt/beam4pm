@@ -10,9 +10,12 @@ defmodule BeamPM.Roundtrip do
 
   @record_names [
     :alignment_move,
+    :billing_reconciliation,
     :case_stats,
     :conformance_result,
     :dfg_edge,
+    :entitlement_event,
+    :entitlement_state,
     :event_log,
     :event_type,
     :heuristic_arc,
@@ -39,7 +42,8 @@ defmodule BeamPM.Roundtrip do
     :service_span,
     :sojourn_time,
     :sync_time,
-    :type_edge
+    :type_edge,
+    :usage_event
   ]
 
   @variants [:full, :minimal]
@@ -65,6 +69,28 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.AlignmentMove.new(%{
       move_type: :sample_atom,
       cost: 42
+    })
+  end
+
+  def sample(:billing_reconciliation, :full) do
+    BeamPM.Types.BillingReconciliation.new(%{
+      entitlement_id: "sample_entitlement_id",
+      metric_name: "sample_metric_name",
+      total_quantity: 3.5,
+      applied_event_ids: ["alpha", "beta"],
+      period_start: "2026-08-29T12:00:00Z",
+      period_end: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:billing_reconciliation, :minimal) do
+    BeamPM.Types.BillingReconciliation.new(%{
+      entitlement_id: "sample_entitlement_id",
+      metric_name: "sample_metric_name",
+      total_quantity: 3.5,
+      applied_event_ids: ["alpha", "beta"],
+      period_start: "2026-08-29T12:00:00Z",
+      period_end: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -111,6 +137,43 @@ defmodule BeamPM.Roundtrip do
       source_activity: "sample_source_activity",
       target_activity: "sample_target_activity",
       frequency: 42
+    })
+  end
+
+  def sample(:entitlement_event, :full) do
+    BeamPM.Types.EntitlementEvent.new(%{
+      event_id: "sample_event_id",
+      entitlement_id: "sample_entitlement_id",
+      event_type: "sample_event_type",
+      effective_at: "2026-08-29T12:00:00Z",
+      payload: %{"k" => "v"}
+    })
+  end
+
+  def sample(:entitlement_event, :minimal) do
+    BeamPM.Types.EntitlementEvent.new(%{
+      event_id: "sample_event_id",
+      entitlement_id: "sample_entitlement_id",
+      event_type: "sample_event_type",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:entitlement_state, :full) do
+    BeamPM.Types.EntitlementState.new(%{
+      entitlement_id: "sample_entitlement_id",
+      status: "sample_status",
+      last_applied_event_id: "sample_last_applied_event_id",
+      updated_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:entitlement_state, :minimal) do
+    BeamPM.Types.EntitlementState.new(%{
+      entitlement_id: "sample_entitlement_id",
+      status: "sample_status",
+      last_applied_event_id: "sample_last_applied_event_id",
+      updated_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -529,6 +592,26 @@ defmodule BeamPM.Roundtrip do
       target_type: "sample_target_type",
       qualifier: "sample_qualifier",
       direction: :sample_atom
+    })
+  end
+
+  def sample(:usage_event, :full) do
+    BeamPM.Types.UsageEvent.new(%{
+      event_id: "sample_event_id",
+      entitlement_id: "sample_entitlement_id",
+      quantity: 3.5,
+      metric_name: "sample_metric_name",
+      occurred_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:usage_event, :minimal) do
+    BeamPM.Types.UsageEvent.new(%{
+      event_id: "sample_event_id",
+      entitlement_id: "sample_entitlement_id",
+      quantity: 3.5,
+      metric_name: "sample_metric_name",
+      occurred_at: "2026-08-29T12:00:00Z"
     })
   end
 

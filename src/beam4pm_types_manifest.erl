@@ -11,13 +11,16 @@
 -export([record_names/0, fields/1]).
 
 -spec record_names() -> [atom()].
-record_names() -> [alignment_move, case_stats, conformance_result, dfg_edge, event_log, event_type, heuristic_arc, k8s_object_ref, log_trace, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, path_schema, path_schema_query, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, queue_snapshot, resource_allocation, service_span, sojourn_time, sync_time, type_edge].
+record_names() -> [alignment_move, billing_reconciliation, case_stats, conformance_result, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, k8s_object_ref, log_trace, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, path_schema, path_schema_query, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, queue_snapshot, resource_allocation, service_span, sojourn_time, sync_time, type_edge, usage_event].
 
 -spec fields(atom()) -> [atom()].
 fields(alignment_move) -> [move_type, cost];
+fields(billing_reconciliation) -> [entitlement_id, metric_name, total_quantity, applied_event_ids, period_start, period_end];
 fields(case_stats) -> [case_id, event_count, duration_seconds];
 fields(conformance_result) -> [trace_id, fitness, precision];
 fields(dfg_edge) -> [source_activity, target_activity, frequency];
+fields(entitlement_event) -> [event_id, entitlement_id, event_type, effective_at, payload];
+fields(entitlement_state) -> [entitlement_id, status, last_applied_event_id, updated_at];
 fields(event_log) -> [log_id, name, description];
 fields(event_type) -> [type_name, attribute_names];
 fields(heuristic_arc) -> [source_activity, target_activity, dependency_measure];
@@ -45,4 +48,5 @@ fields(service_span) -> [span_id, service_name, duration_ms, parent_span_id];
 fields(sojourn_time) -> [object_id, event_type, seconds];
 fields(sync_time) -> [object_id, delaying_object_id, seconds];
 fields(type_edge) -> [source_type, target_type, qualifier, direction];
+fields(usage_event) -> [event_id, entitlement_id, quantity, metric_name, occurred_at];
 fields(_) -> [].

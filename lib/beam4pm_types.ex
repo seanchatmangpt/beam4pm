@@ -24,6 +24,42 @@ defmodule BeamPM.Types.AlignmentMove do
   end
 end
 
+defmodule BeamPM.Types.BillingReconciliation do
+  @moduledoc "The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream."
+
+  defstruct [:entitlement_id, :metric_name, :total_quantity, :applied_event_ids, :period_start, :period_end]
+
+  @type t :: %__MODULE__{
+    entitlement_id: String.t() | nil,
+    metric_name: String.t() | nil,
+    total_quantity: float() | nil,
+    applied_event_ids: [String.t()] | nil,
+    period_start: String.t() | nil,
+    period_end: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :entitlement_id) -> {:error, {:missing_field, :entitlement_id}}
+      not Map.has_key?(attrs, :metric_name) -> {:error, {:missing_field, :metric_name}}
+      not Map.has_key?(attrs, :total_quantity) -> {:error, {:missing_field, :total_quantity}}
+      not Map.has_key?(attrs, :applied_event_ids) -> {:error, {:missing_field, :applied_event_ids}}
+      not Map.has_key?(attrs, :period_start) -> {:error, {:missing_field, :period_start}}
+      not Map.has_key?(attrs, :period_end) -> {:error, {:missing_field, :period_end}}
+      true ->
+        {:ok, %__MODULE__{
+          entitlement_id: Map.get(attrs, :entitlement_id),
+          metric_name: Map.get(attrs, :metric_name),
+          total_quantity: Map.get(attrs, :total_quantity),
+          applied_event_ids: Map.get(attrs, :applied_event_ids),
+          period_start: Map.get(attrs, :period_start),
+          period_end: Map.get(attrs, :period_end)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.CaseStats do
   @moduledoc "Aggregate statistics computed for one process instance (case)."
 
@@ -98,6 +134,68 @@ defmodule BeamPM.Types.DfgEdge do
           source_activity: Map.get(attrs, :source_activity),
           target_activity: Map.get(attrs, :target_activity),
           frequency: Map.get(attrs, :frequency)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.EntitlementEvent do
+  @moduledoc "One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id."
+
+  defstruct [:event_id, :entitlement_id, :event_type, :effective_at, :payload]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    entitlement_id: String.t() | nil,
+    event_type: String.t() | nil,
+    effective_at: String.t() | nil,
+    payload: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :entitlement_id) -> {:error, {:missing_field, :entitlement_id}}
+      not Map.has_key?(attrs, :event_type) -> {:error, {:missing_field, :event_type}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          entitlement_id: Map.get(attrs, :entitlement_id),
+          event_type: Map.get(attrs, :event_type),
+          effective_at: Map.get(attrs, :effective_at),
+          payload: Map.get(attrs, :payload)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.EntitlementState do
+  @moduledoc "The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark."
+
+  defstruct [:entitlement_id, :status, :last_applied_event_id, :updated_at]
+
+  @type t :: %__MODULE__{
+    entitlement_id: String.t() | nil,
+    status: String.t() | nil,
+    last_applied_event_id: String.t() | nil,
+    updated_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :entitlement_id) -> {:error, {:missing_field, :entitlement_id}}
+      not Map.has_key?(attrs, :status) -> {:error, {:missing_field, :status}}
+      not Map.has_key?(attrs, :last_applied_event_id) -> {:error, {:missing_field, :last_applied_event_id}}
+      not Map.has_key?(attrs, :updated_at) -> {:error, {:missing_field, :updated_at}}
+      true ->
+        {:ok, %__MODULE__{
+          entitlement_id: Map.get(attrs, :entitlement_id),
+          status: Map.get(attrs, :status),
+          last_applied_event_id: Map.get(attrs, :last_applied_event_id),
+          updated_at: Map.get(attrs, :updated_at)
         }}
     end
   end
@@ -813,6 +911,39 @@ defmodule BeamPM.Types.TypeEdge do
           target_type: Map.get(attrs, :target_type),
           qualifier: Map.get(attrs, :qualifier),
           direction: Map.get(attrs, :direction)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.UsageEvent do
+  @moduledoc "One metered usage/consumption occurrence to be billed against an entitlement. event_id is the idempotency key that is ALSO the operationId reported to the provider's usage API, so local dedup and provider-side dedup are keyed identically and can never disagree."
+
+  defstruct [:event_id, :entitlement_id, :quantity, :metric_name, :occurred_at]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    entitlement_id: String.t() | nil,
+    quantity: float() | nil,
+    metric_name: String.t() | nil,
+    occurred_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :entitlement_id) -> {:error, {:missing_field, :entitlement_id}}
+      not Map.has_key?(attrs, :quantity) -> {:error, {:missing_field, :quantity}}
+      not Map.has_key?(attrs, :metric_name) -> {:error, {:missing_field, :metric_name}}
+      not Map.has_key?(attrs, :occurred_at) -> {:error, {:missing_field, :occurred_at}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          entitlement_id: Map.get(attrs, :entitlement_id),
+          quantity: Map.get(attrs, :quantity),
+          metric_name: Map.get(attrs, :metric_name),
+          occurred_at: Map.get(attrs, :occurred_at)
         }}
     end
   end
