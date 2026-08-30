@@ -37,9 +37,19 @@ defmodule BeamPM.ActuationK8sTest do
   @context "kind-ex4pm"
 
   setup_all do
-    case System.cmd("kubectl", ["--context", @context, "cluster-info"], stderr_to_stdout: true) do
-      {_out, 0} -> :ok
-      {out, _status} -> {:skip, "kind-ex4pm cluster unreachable: #{String.slice(out, 0, 200)}"}
+    # System.cmd/3 RAISES ErlangError{original: :enoent} rather than
+    # returning a tuple when the executable itself doesn't exist on PATH
+    # (confirmed for real -- a genuinely likely case here: CI/Docker never
+    # install kubectl at all) -- caught explicitly so an environment with
+    # no kubectl binary skips exactly as cleanly as one with kubectl but no
+    # reachable cluster, never crashing the whole test run.
+    try do
+      case System.cmd("kubectl", ["--context", @context, "cluster-info"], stderr_to_stdout: true) do
+        {_out, 0} -> :ok
+        {out, _status} -> {:skip, "kind-ex4pm cluster unreachable: #{String.slice(out, 0, 200)}"}
+      end
+    rescue
+      e in ErlangError -> {:skip, "kubectl not available: #{inspect(e)}"}
     end
   end
 
