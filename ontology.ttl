@@ -2731,3 +2731,21 @@ b4pe:usage_plan_unit_f a bpm:Field ;
 
 b4pe:usage_plan_billing_mode_f a bpm:Field ;
     bpm:fieldName "billing_mode" ; bpm:fieldType "atom" ; bpm:fieldDoc "Billing calculation mode." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-013 -- Enforceable quota limit over a named measurement window.
+b4pe:quota_policy_rt a bpm:RecordType ;
+    bpm:recordName "quota_policy" ;
+    bpm:recordDoc "Enforceable quota limit over a named measurement window." ;
+    bpm:hasField b4pe:quota_policy_quota_id_f , b4pe:quota_policy_metric_name_f , b4pe:quota_policy_limit_f , b4pe:quota_policy_window_f .
+
+b4pe:quota_policy_quota_id_f a bpm:Field ;
+    bpm:fieldName "quota_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable quota identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:quota_policy_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Governed metric." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:quota_policy_limit_f a bpm:Field ;
+    bpm:fieldName "limit" ; bpm:fieldType "float" ; bpm:fieldDoc "Maximum allowed quantity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:quota_policy_window_f a bpm:Field ;
+    bpm:fieldName "window" ; bpm:fieldType "atom" ; bpm:fieldDoc "Quota measurement window." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
