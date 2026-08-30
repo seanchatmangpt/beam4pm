@@ -13,7 +13,7 @@
 
 -module(beam4pm_discovery).
 
--export([traces_from_events/2, dfg_from_traces/1, conformance/2]).
+-export([traces_from_events/2, dfg_from_traces/1, conformance/2, variants_from_traces/1]).
 
 %% Schema-driven positional accessors (exported as a stable read API).
 
@@ -41,6 +41,12 @@
     conformance_result_precision/1
 ]).
 
+-export([
+    process_variant_variant_id/1,
+    process_variant_activity_sequence/1,
+    process_variant_frequency/1
+]).
+
 
 %% Positional accessors for #ocel_event: the tuple pattern is generated from the
 %% admitted field_order rows (4 fields), never hand-numbered.
@@ -65,6 +71,12 @@ dfg_edge_frequency({ dfg_edge, _, _, Value }) -> Value.
 conformance_result_trace_id({ conformance_result, Value, _, _ }) -> Value.
 conformance_result_fitness({ conformance_result, _, Value, _ }) -> Value.
 conformance_result_precision({ conformance_result, _, _, Value }) -> Value.
+
+%% Positional accessors for #process_variant: the tuple pattern is generated from the
+%% admitted field_order rows (3 fields), never hand-numbered.
+process_variant_variant_id({ process_variant, Value, _, _ }) -> Value.
+process_variant_activity_sequence({ process_variant, _, Value, _ }) -> Value.
+process_variant_frequency({ process_variant, _, _, Value }) -> Value.
 
 %% traces_from_events(Events, CaseAttrKey) -> [LogTrace].
 %%
@@ -127,6 +139,34 @@ dfg_from_traces(Traces) ->
             Edge
         end,
         lists:sort(maps:to_list(Counts))).
+
+%% variants_from_traces(Traces) -> [ProcessVariant].
+%%
+%% Groups Traces by identical activity_sequence, emitting one process_variant
+%% per distinct sequence with frequency = the count of traces observed with
+%% exactly that sequence. Variants are sorted by activity_sequence, and
+%% variant_id is the 1-based rank in that sorted order, stringified.
+-spec variants_from_traces([beam4pm_types:log_trace()]) -> [beam4pm_types:process_variant()].
+variants_from_traces(Traces) ->
+    Counts = lists:foldl(
+        fun(Trace, Acc) ->
+            Seq = log_trace_activity_sequence(Trace),
+            maps:update_with(Seq, fun(N) -> N + 1 end, 1, Acc)
+        end,
+        #{},
+        Traces),
+    Sorted = lists:sort(maps:to_list(Counts)),
+    {Variants, _} = lists:foldl(
+        fun({Seq, Frequency}, {Acc, Rank}) ->
+            {ok, Variant} = beam4pm_types:new_process_variant(
+                #{variant_id => integer_to_binary(Rank),
+                  activity_sequence => Seq,
+                  frequency => Frequency}),
+            {[Variant | Acc], Rank + 1}
+        end,
+        {[], 1},
+        Sorted),
+    lists:reverse(Variants).
 
 %% conformance(Edges, Trace) -> ConformanceResult.
 %%
