@@ -2875,3 +2875,21 @@ b4pe:consumption_subscription_plan_id_f a bpm:Field ;
 
 b4pe:consumption_subscription_status_f a bpm:Field ;
     bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Subscription lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-021 -- Negotiated private offer with customer, price, and expiration.
+b4pe:private_offer_rt a bpm:RecordType ;
+    bpm:recordName "private_offer" ;
+    bpm:recordDoc "Negotiated private offer with customer, price, and expiration." ;
+    bpm:hasField b4pe:private_offer_offer_id_f , b4pe:private_offer_account_id_f , b4pe:private_offer_total_price_f , b4pe:private_offer_expires_at_f .
+
+b4pe:private_offer_offer_id_f a bpm:Field ;
+    bpm:fieldName "offer_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable private offer identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:private_offer_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Target enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:private_offer_total_price_f a bpm:Field ;
+    bpm:fieldName "total_price" ; bpm:fieldType "float" ; bpm:fieldDoc "Negotiated total price." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:private_offer_expires_at_f a bpm:Field ;
+    bpm:fieldName "expires_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Offer expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
