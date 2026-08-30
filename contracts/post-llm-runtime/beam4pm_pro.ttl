@@ -34,3 +34,4 @@ b4:pro_runtime rt:enablesCapability "pro_security_control_mapping" .
 b4:pro_runtime rt:enablesCapability "pro_data_residency_policy" .
 b4:pro_runtime rt:enablesCapability "pro_privacy_retention_policy" .
 b4:pro_runtime rt:enablesCapability "pro_least_authority_check" .
+b4:pro_runtime rt:enablesCapability "pro_incident_response_evidence" .
