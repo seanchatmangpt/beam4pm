@@ -2839,3 +2839,21 @@ b4pe:annual_subscription_seat_count_f a bpm:Field ;
 
 b4pe:annual_subscription_renews_at_f a bpm:Field ;
     bpm:fieldName "renews_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Annual renewal instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-019 -- Fixed-term package with explicit start and end.
+b4pe:term_subscription_rt a bpm:RecordType ;
+    bpm:recordName "term_subscription" ;
+    bpm:recordDoc "Fixed-term package with explicit start and end." ;
+    bpm:hasField b4pe:term_subscription_subscription_id_f , b4pe:term_subscription_sku_f , b4pe:term_subscription_starts_at_f , b4pe:term_subscription_ends_at_f .
+
+b4pe:term_subscription_subscription_id_f a bpm:Field ;
+    bpm:fieldName "subscription_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable term subscription." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:term_subscription_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Subscribed SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:term_subscription_starts_at_f a bpm:Field ;
+    bpm:fieldName "starts_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Term start instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:term_subscription_ends_at_f a bpm:Field ;
+    bpm:fieldName "ends_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Term end instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
