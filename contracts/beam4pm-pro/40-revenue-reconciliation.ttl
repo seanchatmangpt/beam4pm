@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2508 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2508" ; dct:title "Contract, usage and revenue reconciliation" ;
+ pro:requiredEvidence "contracted dimensions, active entitlements, deployments, admitted usage, provider billing events and recognized revenue reconcile without orphan or double-billed units" ;
+ pro:doubleBillingAllowed false ; pro:authorityCeiling "VERIFY" ;
+ pro:refusalCode "REFUSED[COMMERCIAL_RECONCILIATION_MISMATCH]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .
