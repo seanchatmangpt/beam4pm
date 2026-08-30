@@ -994,6 +994,8 @@ bex:ciWorkflow
     gha:fileName "beam4pm-ci.yml" ;
     gha:purpose "beam4pm CI" ;
     gha:permissionCeiling "contents: read" ;
+    gha:concurrencyPolicy """group: ${{ github.workflow }}-${{ github.ref }}
+cancel-in-progress: true""" ;
     gha:trigger gha:EventPush ;
     gha:trigger gha:EventPullRequest ;
     gha:trigger gha:EventWorkflowDispatch ;
@@ -1034,15 +1036,24 @@ bex:ciSetupBeam
     gha:withParam "rebar3-version: '3.24.0'" ;
     gha:withParam "gleam-version: '1.18.1'" .
 
-bex:ciRebar3Eunit
+bex:ciRebar3Cache
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 3 ;
+    gha:stepName "Cache rebar3 dependencies" ;
+    gha:usesAction "actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4" ;
+    gha:withParam "path: \"_build\\n~/.cache/rebar3\\n\"" ;
+    gha:withParam "key: ${{ runner.os }}-rebar3-27.2-3.24.0-${{ hashFiles('rebar.lock') }}" ;
+    gha:withParam "restore-keys: \"${{ runner.os }}-rebar3-27.2-3.24.0-\\n${{ runner.os }}-rebar3-27.2-\\n${{ runner.os }}-rebar3-\\n\"" .
+
+bex:ciRebar3Eunit
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 4 ;
     gha:stepName "rebar3 eunit" ;
     gha:runCommand "rebar3 eunit" .
 
 bex:ciRf123OracleBuild
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 4 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 5 ;
     gha:stepName "Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3)" ;
     gha:runCommand """# Real Rust subprocess oracles the RF1/RF2/RF3 Chicago tests spawn (thin
 # adapters over the real process_mining =0.6.2 function surface, no
@@ -1053,41 +1064,66 @@ cd native/rf1-dfg-oracle && cargo build --release && cd -
 cd native/rf2-conformance-oracle && cargo build --release && cd -
 cd native/rf3-ocel-oracle && cargo build --release && cd -""" .
 
+bex:ciMixCache
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 6 ;
+    gha:stepName "Cache mix dependencies" ;
+    gha:usesAction "actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4" ;
+    gha:withParam "path: \"deps\\n~/.hex\\n~/.mix\\n\"" ;
+    gha:withParam "key: ${{ runner.os }}-mix-27.2-1.18.5-${{ hashFiles('mix.lock') }}" ;
+    gha:withParam "restore-keys: \"${{ runner.os }}-mix-27.2-1.18.5-\\n${{ runner.os }}-mix-27.2-\\n${{ runner.os }}-mix-\\n\"" .
+
 bex:ciMixDepsGet
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 5 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 7 ;
     gha:stepName "mix deps.get" ;
     gha:runCommand "mix deps.get" .
 
 bex:ciMixTest
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 6 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 8 ;
     gha:stepName "mix test" ;
     gha:runCommand """source scripts/env/rust4pm_reactor_env.sh
 mix test""" .
 
 bex:ciGleamTest
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 7 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 9 ;
     gha:stepName "gleam test (gleam/ projection)" ;
     gha:runCommand """cd gleam
 gleam test""" .
 
-# Determinism check carried over verbatim-in-spirit from the hand-authored
-# ci.yml, including its honestly-declared gap: no real `ggen` install step is
-# wired yet, so the step stays continue-on-error until one is added. The gap
-# is documented (not faked into a pass) exactly as before.
+bex:ciRoundtrip
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 10 ;
+    gha:stepName "Cross-language wire identity (Erlang<->Elixir roundtrip)" ;
+    gha:runCommand "bash scripts/roundtrip_check.sh" .
+
+# Determinism check now runs a real `ggen` binary via the ggen-ecosystem
+# container (ghcr.io/seanchatmangpt/ggen-ecosystem, pinned to an exact tag,
+# never :latest) instead of the previous KNOWN GAP ("ggen: command not
+# found" -- no binary was ever installed on the runner). Packs still come
+# from THIS repo's own vendor/ggen-marketplace submodule checkout (bind-
+# mounted into the container), never from the container's own bundled
+# /opt/ggen-marketplace -- see ontology.ttl's "gh-terraform-pack consumption
+# -- INVESTIGATED AND DECLINED" comment for why that distinction matters.
+# continue-on-error STAYS set: closing the binary gap surfaced a second,
+# real, pre-existing, disclosed gap it had been silently masking -- the
+# committed src/beam4pm_discovery.erl and lib equivalents are missing
+# variants_from_traces/1 relative to what current ontology.ttl + templates
+# regenerate (added to the Elixir/Gleam projections in a prior commit but
+# never ported to the Erlang template) -- so a real, honest content-diff
+# failure now replaces the previous fake missing-binary one. Tracked as a
+# separate follow-up, not fixed here; continue-on-error keeps this one
+# known, disclosed gap from turning every push/PR red in the meantime.
 bex:ciDeterminism
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 8 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 11 ;
     gha:stepName "Determinism check -- regenerate and diff against committed output" ;
     gha:continueOnError true ;
-    gha:runCommand """# KNOWN GAP (carried from the replaced hand-authored ci.yml, still open):
-# this step needs a real `ggen` binary on the runner and none is installed
-# here yet. It fails loudly ('ggen: command not found') instead of faking a
-# pass; continue-on-error is set only so this one tracked gap does not turn
-# every push/PR red. Remove continue-on-error once a real install step lands.
-bash scripts/gate_m2_check.sh""" .
+    gha:runCommand """docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace \\
+  ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 \\
+  bash scripts/gate_m2_check.sh""" .
 
 # --- Workflow 2: GHCR container build + publish ------------------------------
 # Mirrors ggen-ecosystem's container workflow structure (checkout-with-
@@ -1102,6 +1138,8 @@ bex:containerWorkflow
     gha:fileName "beam4pm-container.yml" ;
     gha:purpose "beam4pm Container Build & Publish" ;
     gha:permissionCeiling "contents: read" ;
+    gha:concurrencyPolicy """group: ${{ github.workflow }}-${{ github.ref }}
+cancel-in-progress: true""" ;
     gha:trigger gha:EventPush ;
     gha:trigger gha:EventWorkflowDispatch ;
     gha:onBlock """push:
