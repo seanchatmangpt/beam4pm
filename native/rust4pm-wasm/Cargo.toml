@@ -18,6 +18,8 @@ crate-type = ["cdylib"]
 process_mining = { version = "=0.6.2", default-features = false }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+# timestamp parsing for ocel_add_event (same chrono the crate itself uses)
+chrono = { version = "0.4", default-features = false, features = ["std"] }
 # JSON strings cannot carry raw gzip bytes; the import_xes_gz op ships
 # .xes.gz content as base64 (pure-Rust codec, wasm-clean).
 base64 = "0.22"
