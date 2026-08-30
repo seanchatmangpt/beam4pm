@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2005 a pro:CapabilityContract ;
+ dct:identifier "B4PMP-2005" ; dct:title "Support diagnostics" ;
+ pro:requiredEvidence "diagnostic bundle proves health and failure context without hidden vendor access or raw secret export" ;
+ pro:diagnosticMode "customer-initiated" ; pro:authorityCeiling "OBSERVE" ;
+ pro:refusalCode "REFUSED[HIDDEN_VENDOR_ACCESS]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/07-security-airgap-compliance.md> .
