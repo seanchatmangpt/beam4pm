@@ -106,7 +106,16 @@
 -type entitlement_event() :: #entitlement_event{}.
 
 -spec new_entitlement_event(map()) -> {ok, entitlement_event()} | {error, {missing_field, atom()}}.
-new_entitlement_event(Map) ->
+%% Required-field checks iterate rfields in admitted field_order with an
+%% inline required test (string "true" OR boolean true), exactly mirroring
+%% the Elixir projection's cond ordering -- a prior revision concatenated
+%% the string-literal-required fields before the boolean-literal-required
+%% ones, so a consumer graph mixing literal types would report a DIFFERENT
+%% first {missing_field, _} in each language (Q2 cross-language identity
+%% review, 2026-08-30). The is_map/1 guard matches the Elixir projection's
+%% own is_map guard: a non-map argument is a function_clause error in both
+%% languages, never a badarg deep inside maps:is_key/2.
+new_entitlement_event(Map) when is_map(Map) ->
     case maps:is_key(event_id, Map) of
         false -> {error, {missing_field, event_id}};
         true ->
@@ -142,7 +151,16 @@ new_entitlement_event(Map) ->
 -type entitlement_state() :: #entitlement_state{}.
 
 -spec new_entitlement_state(map()) -> {ok, entitlement_state()} | {error, {missing_field, atom()}}.
-new_entitlement_state(Map) ->
+%% Required-field checks iterate rfields in admitted field_order with an
+%% inline required test (string "true" OR boolean true), exactly mirroring
+%% the Elixir projection's cond ordering -- a prior revision concatenated
+%% the string-literal-required fields before the boolean-literal-required
+%% ones, so a consumer graph mixing literal types would report a DIFFERENT
+%% first {missing_field, _} in each language (Q2 cross-language identity
+%% review, 2026-08-30). The is_map/1 guard matches the Elixir projection's
+%% own is_map guard: a non-map argument is a function_clause error in both
+%% languages, never a badarg deep inside maps:is_key/2.
+new_entitlement_state(Map) when is_map(Map) ->
     case maps:is_key(entitlement_id, Map) of
         false -> {error, {missing_field, entitlement_id}};
         true ->
@@ -242,15 +260,35 @@ initial_entitlement_state(EntitlementId) ->
 %% point (both are "the position-defining fields don't look like real
 %% values") rather than patching each symptom separately.
 %% ---------------------------------------------------------------------------
+%% Q2 CROSS-LANGUAGE IDENTITY FIX (2026-08-30): an earlier revision built
+%% {byte_size(EventId), re:run(EffectiveAt, Re)} EAGERLY, so a non-binary
+%% value in either position-defining field (undefined passes the
+%% constructor's presence-only check) crashed with badarg BEFORE any typed
+%% refusal could be returned -- while the Elixir projection's lazy clause
+%% sequence returned {:error, {:malformed_event, :empty_event_id}} for the
+%% same input, and returned :ok outright for a nil event_id with a valid
+%% effective_at (admitting a nil audit link into the watermark). Both
+%% projections now check sequentially and treat a NON-BINARY value the
+%% same as the malformed value of that field: non-binary/empty event_id ->
+%% empty_event_id; non-binary/non-ISO8601 effective_at ->
+%% invalid_effective_at. Identical typed refusals in both languages, no
+%% crash path, no silent admit; behavior on well-formed binary inputs is
+%% unchanged.
 -spec validate_event_shape(entitlement_event()) -> ok | {error, {malformed_event, atom()}}.
 validate_event_shape(Event) ->
     EventId = Event#entitlement_event.event_id,
     EffectiveAt = Event#entitlement_event.effective_at,
     Iso8601Re = "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$",
-    case {byte_size(EventId), re:run(EffectiveAt, Iso8601Re)} of
-        {0, _} -> {error, {malformed_event, empty_event_id}};
-        {_, nomatch} -> {error, {malformed_event, invalid_effective_at}};
-        {_, {match, _}} -> ok
+    if
+        not is_binary(EventId); byte_size(EventId) =:= 0 ->
+            {error, {malformed_event, empty_event_id}};
+        not is_binary(EffectiveAt) ->
+            {error, {malformed_event, invalid_effective_at}};
+        true ->
+            case re:run(EffectiveAt, Iso8601Re) of
+                nomatch -> {error, {malformed_event, invalid_effective_at}};
+                {match, _} -> ok
+            end
     end.
 
 -spec reconcile_entitlement(entitlement_state() | undefined, entitlement_event()) ->

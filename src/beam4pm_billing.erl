@@ -95,7 +95,16 @@
 -type billing_reconciliation() :: #billing_reconciliation{}.
 
 -spec new_billing_reconciliation(map()) -> {ok, billing_reconciliation()} | {error, {missing_field, atom()}}.
-new_billing_reconciliation(Map) ->
+%% Required-field checks iterate rfields in admitted field_order with an
+%% inline required test (string "true" OR boolean true), exactly mirroring
+%% the Elixir projection's cond ordering -- a prior revision concatenated
+%% the string-literal-required fields before the boolean-literal-required
+%% ones, so a consumer graph mixing literal types would report a DIFFERENT
+%% first {missing_field, _} in each language (Q2 cross-language identity
+%% review, 2026-08-30). The is_map/1 guard matches the Elixir projection's
+%% own is_map guard: a non-map argument is a function_clause error in both
+%% languages, never a badarg deep inside maps:is_key/2.
+new_billing_reconciliation(Map) when is_map(Map) ->
     case maps:is_key(entitlement_id, Map) of
         false -> {error, {missing_field, entitlement_id}};
         true ->
@@ -141,7 +150,16 @@ new_billing_reconciliation(Map) ->
 -type usage_event() :: #usage_event{}.
 
 -spec new_usage_event(map()) -> {ok, usage_event()} | {error, {missing_field, atom()}}.
-new_usage_event(Map) ->
+%% Required-field checks iterate rfields in admitted field_order with an
+%% inline required test (string "true" OR boolean true), exactly mirroring
+%% the Elixir projection's cond ordering -- a prior revision concatenated
+%% the string-literal-required fields before the boolean-literal-required
+%% ones, so a consumer graph mixing literal types would report a DIFFERENT
+%% first {missing_field, _} in each language (Q2 cross-language identity
+%% review, 2026-08-30). The is_map/1 guard matches the Elixir projection's
+%% own is_map guard: a non-map argument is a function_clause error in both
+%% languages, never a badarg deep inside maps:is_key/2.
+new_usage_event(Map) when is_map(Map) ->
     case maps:is_key(event_id, Map) of
         false -> {error, {missing_field, event_id}};
         true ->
@@ -241,7 +259,8 @@ usage_event_occurred_at({ usage_event, _, _, _, _, Value }) -> Value.
 reconcile_billing(_Events, _EntitlementId, _MetricName, {PeriodStart, PeriodEnd})
         when PeriodStart >= PeriodEnd ->
     {error, {invalid_period, PeriodStart, PeriodEnd}};
-reconcile_billing(Events, EntitlementId, MetricName, {PeriodStart, PeriodEnd}) ->
+reconcile_billing(Events, EntitlementId, MetricName, {PeriodStart, PeriodEnd})
+        when is_list(Events) ->
     InScope = lists:filter(
         fun(Ev) ->
             usage_event_entitlement_id(Ev) =:= EntitlementId
