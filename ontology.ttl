@@ -3019,3 +3019,21 @@ b4pe:catalog_release_sku_ids_f a bpm:Field ;
 
 b4pe:catalog_release_effective_at_f a bpm:Field ;
     bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Catalog activation instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-029 -- Receiptable grant of a capability to a tenant.
+b4pe:entitlement_grant_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_grant" ;
+    bpm:recordDoc "Receiptable grant of a capability to a tenant." ;
+    bpm:hasField b4pe:entitlement_grant_grant_id_f , b4pe:entitlement_grant_tenant_id_f , b4pe:entitlement_grant_capability_id_f , b4pe:entitlement_grant_valid_until_f .
+
+b4pe:entitlement_grant_grant_id_f a bpm:Field ;
+    bpm:fieldName "grant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable entitlement grant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:entitlement_grant_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Receiving tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:entitlement_grant_capability_id_f a bpm:Field ;
+    bpm:fieldName "capability_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Granted capability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:entitlement_grant_valid_until_f a bpm:Field ;
+    bpm:fieldName "valid_until" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Grant expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
