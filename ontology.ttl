@@ -2857,3 +2857,21 @@ b4pe:term_subscription_starts_at_f a bpm:Field ;
 
 b4pe:term_subscription_ends_at_f a bpm:Field ;
     bpm:fieldName "ends_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Term end instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-020 -- Consumption package binding plan, account, and standing.
+b4pe:consumption_subscription_rt a bpm:RecordType ;
+    bpm:recordName "consumption_subscription" ;
+    bpm:recordDoc "Consumption package binding plan, account, and standing." ;
+    bpm:hasField b4pe:consumption_subscription_subscription_id_f , b4pe:consumption_subscription_account_id_f , b4pe:consumption_subscription_plan_id_f , b4pe:consumption_subscription_status_f .
+
+b4pe:consumption_subscription_subscription_id_f a bpm:Field ;
+    bpm:fieldName "subscription_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable consumption subscription." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:consumption_subscription_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Purchasing account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:consumption_subscription_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Usage plan identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:consumption_subscription_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Subscription lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
