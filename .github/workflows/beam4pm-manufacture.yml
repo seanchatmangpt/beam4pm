@@ -1,0 +1,76 @@
+# Hand-authored (no GENERATED marker), same tier as post-llm-runtime.yml:
+# workflows that CALL reusable workflows are not expressible as
+# github-actions-pack gha:Job facts (a `uses:` job has no runner/steps, and
+# gate 010 requires gha:runner per job), so this file is a legitimate
+# manufacturing input, not ggen output.
+#
+# Calls ggen-ecosystem's canonical manufacture rail (the same reusable
+# workflow ggen-ecosystem runs on itself): `ggen sync run` inside the pinned
+# composed container, against THIS repo's exact candidate SHA and THIS
+# repo's own vendor/ggen-marketplace submodule pin, producing a deterministic
+# replay receipt artifact (patch + pack identities + sync exit code, all
+# sha256-bound). The marketplace_sha input is resolved from the actual
+# submodule pointer at the exact candidate SHA -- never hardcoded -- so the
+# rail's MARKETPLACE_SUBMODULE_DRIFT refusal can only fire on real drift.
+#
+# Reusable-workflow ref pinned to an exact ggen-ecosystem commit (not a
+# branch), same discipline as every action pin in this repo.
+name: beam4pm Manufacture (ggen-ecosystem rail)
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ontology.ttl"
+      - "ggen.toml"
+      - "vendor/ggen-marketplace"
+      - ".github/workflows/beam4pm-manufacture.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "ontology.ttl"
+      - "ggen.toml"
+      - "vendor/ggen-marketplace"
+      - ".github/workflows/beam4pm-manufacture.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    name: Resolve exact marketplace submodule pin
+    outputs:
+      marketplace_sha: ${{ steps.pin.outputs.sha }}
+    steps:
+      - name: Checkout exact candidate (submodule pointer only, no recursion needed)
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Read vendor/ggen-marketplace gitlink at this exact commit
+        id: pin
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha="$(git rev-parse HEAD:vendor/ggen-marketplace)"
+          [[ "$sha" =~ ^[0-9a-f]{40}$ ]] || { echo "REFUSED[NOT_A_GITLINK]:$sha" >&2; exit 2; }
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "marketplace submodule pin: $sha"
+
+  manufacture:
+    name: GGen ecosystem manufacture
+    needs: resolve
+    uses: seanchatmangpt/ggen-ecosystem/.github/workflows/ggen-ecosystem-sync.yml@24df72465dff17e3711ffde6691a647d97fff595
+    with:
+      ggen_container_tag: v26.8.28
+      marketplace_sha: ${{ needs.resolve.outputs.marketplace_sha }}
+      working_directory: .
+      dry_run: false
+      artifact_retention_days: 7
