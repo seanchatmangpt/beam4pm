@@ -30,3 +30,4 @@ b4:pro_runtime rt:enablesCapability "pro_cost_to_serve_observation" .
 b4:pro_runtime rt:enablesCapability "pro_sbom_attestation_admission" .
 b4:pro_runtime rt:enablesCapability "pro_artifact_digest_verification" .
 b4:pro_runtime rt:enablesCapability "pro_supply_chain_policy" .
+b4:pro_runtime rt:enablesCapability "pro_security_control_mapping" .
