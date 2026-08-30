@@ -2677,3 +2677,21 @@ b4pe:payment_terms_late_policy_f a bpm:Field ;
 
 b4pe:payment_terms_status_f a bpm:Field ;
     bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Terms lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-010 -- Term commitment with amount, currency, and expiration.
+b4pe:committed_spend_rt a bpm:RecordType ;
+    bpm:recordName "committed_spend" ;
+    bpm:recordDoc "Term commitment with amount, currency, and expiration." ;
+    bpm:hasField b4pe:committed_spend_commitment_id_f , b4pe:committed_spend_amount_f , b4pe:committed_spend_currency_f , b4pe:committed_spend_expires_at_f .
+
+b4pe:committed_spend_commitment_id_f a bpm:Field ;
+    bpm:fieldName "commitment_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable commitment identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:committed_spend_amount_f a bpm:Field ;
+    bpm:fieldName "amount" ; bpm:fieldType "float" ; bpm:fieldDoc "Committed monetary amount." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:committed_spend_currency_f a bpm:Field ;
+    bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "ISO 4217 commitment currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:committed_spend_expires_at_f a bpm:Field ;
+    bpm:fieldName "expires_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Commitment expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
