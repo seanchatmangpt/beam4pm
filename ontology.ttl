@@ -867,3 +867,42 @@ bpm:service_span_parent_span_id_f a bpm:Field ;
     bpm:fieldDoc "Optional identifier of the parent span." ;
     bpm:fieldRequired "false" ;
     bpm:fieldOrder 4 .
+
+# =============================================================================
+# beam4pm_pro infrastructure instance data (beam4pm-pro-infra-pack)
+# =============================================================================
+@prefix b4p:  <https://ggen.dev/projects/beam4pm-pro#> .
+@prefix b4pi: <http://seanchatmangpt.github.io/packs/beam4pm-pro-infra#> .
+
+b4p:beam4pm_pro_cloudrun a b4pi:Deployment ;
+    b4pi:serviceName          "beam4pm-pro" ;
+    b4pi:region               "us-central1" ;
+    b4pi:containerImage       "ghcr.io/seanchatmangpt/beam4pm:latest" ;
+    b4pi:cpuLimit             "1" ;
+    b4pi:memoryLimit          "512Mi" ;
+    b4pi:minInstances         0 ;
+    b4pi:maxInstances         3 ;
+    b4pi:port                 8080 ;
+    b4pi:allowUnauthenticated false ;
+    b4pi:purpose              "beam4pm_pro commercial service surface: the published beam4pm container (ghcr.io/seanchatmangpt/beam4pm) run as a scale-to-zero Cloud Run v2 service with demo-grade resource bounds." .
+
+@prefix b4pp: <http://seanchatmangpt.github.io/beam4pm-pro#> .
+
+b4pp:proVmImage
+    a b4pi:PackerImage ;
+    b4pi:imageName "beam4pm-pro" ;
+    b4pi:imageFamily "beam4pm-pro" ;
+    b4pi:imageDescription "beam4pm_pro VM image: Debian 12 + Docker + pre-pulled beam4pm container under systemd" ;
+    b4pi:gcpProjectDefault "beam4pm-pro-demo" ;
+    b4pi:buildZone "us-central1-a" ;
+    b4pi:buildMachineType "e2-medium" ;
+    b4pi:buildDiskGb 20 ;
+    b4pi:sourceImageFamily "debian-12" ;
+    b4pi:sourceImageProject "debian-cloud" ;
+    b4pi:sshUsername "packer" ;
+    b4pi:containerImage "ghcr.io/seanchatmangpt/beam4pm:latest" ;
+    b4pi:containerName "beam4pm" ;
+    b4pi:servicePort 8080 ;
+    b4pi:serviceDescription "beam4pm_pro BEAM process-mining service (containerized)" ;
+    b4pi:networkTag "beam4pm-pro" ;
+    b4pi:networkTag "packer-build" .

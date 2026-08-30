@@ -26,3 +26,8 @@ tmp_probe/
 # rust4pm-oracle (qualification/) Rust build artifacts -- Cargo.lock IS
 # committed (binary crate, reproducible builds); target/ is not.
 qualification/*/target/
+
+# local terraform/tofu init state under generated infra/ modules (never
+# committed; the .tf files themselves ARE ggen output and are committed)
+infra/**/.terraform/
+infra/**/.terraform.lock.hcl

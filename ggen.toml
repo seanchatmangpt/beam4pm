@@ -6,6 +6,7 @@ source = "ontology.ttl"
 
 [packs]
 beam4pm-process-model = { path = "vendor/ggen-marketplace/packs/beam4pm-process-model-pack" }
+beam4pm-pro-infra = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-infra-pack" }
 
 [templates]
 dir = "templates"
