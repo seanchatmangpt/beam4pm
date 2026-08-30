@@ -3091,3 +3091,21 @@ b4pe:tenant_project_cost_center_f a bpm:Field ;
 
 b4pe:tenant_project_status_f a bpm:Field ;
     bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Project lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-033 -- Deterministic environment profile for demo, POC, or production.
+b4pe:environment_profile_rt a bpm:RecordType ;
+    bpm:recordName "environment_profile" ;
+    bpm:recordDoc "Deterministic environment profile for demo, POC, or production." ;
+    bpm:hasField b4pe:environment_profile_profile_id_f , b4pe:environment_profile_environment_f , b4pe:environment_profile_region_f , b4pe:environment_profile_configuration_hash_f .
+
+b4pe:environment_profile_profile_id_f a bpm:Field ;
+    bpm:fieldName "profile_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable environment profile." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:environment_profile_environment_f a bpm:Field ;
+    bpm:fieldName "environment" ; bpm:fieldType "atom" ; bpm:fieldDoc "Deployment environment class." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:environment_profile_region_f a bpm:Field ;
+    bpm:fieldName "region" ; bpm:fieldType "string" ; bpm:fieldDoc "Target deployment region." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:environment_profile_configuration_hash_f a bpm:Field ;
+    bpm:fieldName "configuration_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Canonical configuration digest." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
