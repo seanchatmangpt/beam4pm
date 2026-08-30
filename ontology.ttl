@@ -3037,3 +3037,21 @@ b4pe:entitlement_grant_capability_id_f a bpm:Field ;
 
 b4pe:entitlement_grant_valid_until_f a bpm:Field ;
     bpm:fieldName "valid_until" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Grant expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-030 -- Receiptable capability revocation with reason and time.
+b4pe:entitlement_revocation_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_revocation" ;
+    bpm:recordDoc "Receiptable capability revocation with reason and time." ;
+    bpm:hasField b4pe:entitlement_revocation_revocation_id_f , b4pe:entitlement_revocation_grant_id_f , b4pe:entitlement_revocation_reason_f , b4pe:entitlement_revocation_revoked_at_f .
+
+b4pe:entitlement_revocation_revocation_id_f a bpm:Field ;
+    bpm:fieldName "revocation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable revocation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:entitlement_revocation_grant_id_f a bpm:Field ;
+    bpm:fieldName "grant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Revoked entitlement grant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:entitlement_revocation_reason_f a bpm:Field ;
+    bpm:fieldName "reason" ; bpm:fieldType "string" ; bpm:fieldDoc "Typed revocation reason." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:entitlement_revocation_revoked_at_f a bpm:Field ;
+    bpm:fieldName "revoked_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Revocation effective instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
