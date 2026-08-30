@@ -3181,3 +3181,21 @@ b4pe:service_level_objective_target_percent_f a bpm:Field ;
 
 b4pe:service_level_objective_measurement_window_f a bpm:Field ;
     bpm:fieldName "measurement_window" ; bpm:fieldType "atom" ; bpm:fieldDoc "SLO measurement window." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-038 -- Receiptable credit issued for an SLO breach.
+b4pe:service_credit_rt a bpm:RecordType ;
+    bpm:recordName "service_credit" ;
+    bpm:recordDoc "Receiptable credit issued for an SLO breach." ;
+    bpm:hasField b4pe:service_credit_credit_id_f , b4pe:service_credit_slo_id_f , b4pe:service_credit_amount_f , b4pe:service_credit_currency_f .
+
+b4pe:service_credit_credit_id_f a bpm:Field ;
+    bpm:fieldName "credit_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable service credit." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:service_credit_slo_id_f a bpm:Field ;
+    bpm:fieldName "slo_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Breached SLO." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:service_credit_amount_f a bpm:Field ;
+    bpm:fieldName "amount" ; bpm:fieldType "float" ; bpm:fieldDoc "Credit monetary amount." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:service_credit_currency_f a bpm:Field ;
+    bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "ISO 4217 credit currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
