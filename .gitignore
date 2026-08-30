@@ -1,0 +1,14 @@
+# ggen ephemeral state -- never committed (receipt-log/keys are local working
+# state, not the lock file or the manufactured output).
+.ggen-v2/
+.ggen/
+
+# Erlang/rebar3 build artifacts
+_build/
+
+# Elixir/Mix build artifacts
+deps/
+.elixir_ls/
+
+.DS_Store
+*.tmp

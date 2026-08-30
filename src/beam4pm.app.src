@@ -1,0 +1,13 @@
+%% Hand-authored OTP application resource file (project scaffolding, not
+%% generated process-mining domain source -- analogous to ggen.toml/
+%% rebar.config/mix.exs). Declares the beam4pm OTP application shell that
+%% rebar3 needs to compile and test the ggen-manufactured modules under
+%% generated/erlang/src (see rebar.config's src_dirs).
+{application, beam4pm,
+ [{description, "beam4pm: BEAM-first process-mining substrate (ggen-manufactured types)."},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {applications, [kernel, stdlib]},
+  {env, []},
+  {modules, []}
+ ]}.

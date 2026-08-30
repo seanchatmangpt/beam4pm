@@ -1,0 +1,64 @@
+{
+  "schema": "https://ggen.dev/receipts/beam4pm-manufacturing/v1",
+  "date": "2026-08-29",
+  "subject": "beam4pm first real ggen-marketplace-first manufacturing slice",
+  "claim_ceiling": "8 admitted bpm:RecordType record types (ocel_event, ocel_object, ocel_relationship, dfg_edge, petri_place, petri_transition, petri_arc, alignment_move) manufactured end-to-end via a new ggen-marketplace pack and independently compiled/tested on real Erlang and Elixir toolchains. This is a bounded first slice, NOT the full beam4pm/beam4pm_pro product described in docs/jira/v26.8.29/.",
+  "manufacturing_pack": {
+    "repository": "seanchatmangpt/ggen-marketplace",
+    "pack": "beam4pm-process-model-pack",
+    "commit": "e79e39ba4c4b6ac9092423d5fc181c05cc8e22d6",
+    "vendored_at": "vendor/ggen-marketplace (git submodule)"
+  },
+  "manufacturing_inputs_authored_by_human_or_llm": [
+    "ontology.ttl (beam4pm project instance graph: 8 bpm:RecordType individuals)",
+    "ggen.toml, rebar.config, mix.exs, src/beam4pm.app.src (project scaffolding, not process-mining domain source)",
+    "vendor/ggen-marketplace/packs/beam4pm-process-model-pack/{pack.toml,ontology.ttl,gates/*.rq,templates/*.tmpl}"
+  ],
+  "manufactured_output_not_hand_authored": [
+    "generated/erlang/src/beam4pm_types.erl",
+    "generated/erlang/test/beam4pm_types_tests.erl",
+    "generated/elixir/lib/beam4pm_types.ex",
+    "generated/elixir/test/beam4pm_types_test.exs",
+    "generated/elixir/test/test_helper.exs"
+  ],
+  "ggen_sync_run": {
+    "actuator": "ggen@26.8.18",
+    "graph_hash_hex": "619b8ae725cae59cc6c6ebc521e7f2a8fafd70584164376d36718167a0bc3237",
+    "exit_code": 0
+  },
+  "gate_m2_deterministic_reprojection": {
+    "method": "sha256sum of all 5 generated files, then rm -rf generated/erlang generated/elixir, then ggen sync run, then sha256sum again",
+    "result": "IDENTICAL -- zero-diff reprojection confirmed"
+  },
+  "real_toolchain_verification": {
+    "erlang": {
+      "otp_release": "28.3.1 (real local /Users/sac/.erlmcp/otp-28.3.1)",
+      "commands": ["rebar3 compile", "rebar3 eunit"],
+      "compile_result": "clean (only a harmless 'already exported' warning from EUnit's own auto-export of _test functions colliding with the generated explicit -export list)",
+      "test_result": "16/16 EUnit tests passed, 0 failures"
+    },
+    "elixir": {
+      "version": "1.19.5 (compiled with Erlang/OTP 28)",
+      "commands": ["mix compile --warnings-as-errors", "mix test"],
+      "compile_result": "clean, zero warnings",
+      "test_result": "16/16 ExUnit tests passed, 0 failures"
+    },
+    "gleam": "UNSUPPORTED -- gleam toolchain not installed on this machine; no Gleam projection was attempted or claimed for this slice."
+  },
+  "real_bugs_found_and_fixed_during_this_run": [
+    "Turtle syntax error: bare numeric literals cannot carry an explicit ^^xsd:integer datatype suffix (`1^^xsd:integer` is invalid; `1` alone is already xsd:integer, or `\"1\"^^xsd:integer` if an explicit datatype annotation is wanted) -- fixed in beam4pm/ontology.ttl.",
+    "ggen's [FM-WRITE-002] guard refuses `../` path traversal in a template's `to:` target -- `to:` is resolved relative to the CONSUMING project's root, not the template file's own location -- fixed in all beam4pm-process-model-pack templates.",
+    "bpm:fieldRequired was authored as an ^^xsd:boolean-typed literal; normalized to a plain string literal (\"true\"/\"false\") so the Tera template's string comparison (`field_required == \"true\"`) is correct regardless of how any SPARQL engine happens to serialize a typed boolean.",
+    "A bare `rebar.config` src_dirs override with no OTP application resource file does not make modules loadable for `rebar3 eunit` (undef errors) -- fixed by adding a minimal hand-authored src/beam4pm.app.src (project scaffolding, not generated domain source) so rebar3 recognizes and compiles generated/erlang/src into the `beam4pm` OTP application.",
+    "Mix requires test_helper.exs to exist inside an explicitly configured test_paths directory -- rather than hand-authoring it under generated/ (which would violate the 'generated/ is 100% ggen output' invariant), added a 5th pack template that generates it from the same admitted graph."
+  ],
+  "standing": "PARTIAL_ALIVE[FIRST_SLICE_GGEN_ONLY_ERLANG_ELIXIR_ALIVE, GLEAM_UNSUPPORTED, PROCESS_INFERENCE_NOT_ATTEMPTED, MARKETPLACE_NOT_ATTEMPTED]",
+  "not_yet_attempted": [
+    "Gleam projection (toolchain unavailable locally)",
+    "Ash resource projection",
+    "examples/ and playground/ (release gates in docs/jira/v26.8.29/03-architecture-and-ggen-manufacturing.md)",
+    "cross-language identity/roundtrip proof (GATE M5)",
+    "any process-mining algorithm (discovery, conformance, alignment computation) -- only the data TYPES for these concepts were manufactured, not behavior",
+    "beam4pm_pro (observability ingestion, marketplace listing, RevOps) -- entirely out of scope for this slice"
+  ]
+}

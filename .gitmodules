@@ -1,0 +1,3 @@
+[submodule "vendor/ggen-marketplace"]
+	path = vendor/ggen-marketplace
+	url = https://github.com/seanchatmangpt/ggen-marketplace

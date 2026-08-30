@@ -1,0 +1,250 @@
+# ontology.ttl -- beam4pm project instance graph (admitted O* data)
+#
+# This file is beam4pm's OWN instance data, expressed using the bpm: vocabulary
+# defined by the vendored ggen-marketplace pack "beam4pm-process-model-pack"
+# (vendor/ggen-marketplace/packs/beam4pm-process-model-pack). The bpm:RecordType
+# and bpm:Field classes/properties themselves live in that pack, not here --
+# this file only contains individuals built from that vocabulary.
+#
+# Per beam4pm's source-authority doctrine
+# (docs/jira/v26.8.29/03-architecture-and-ggen-manufacturing.md): this
+# ontology.ttl and the beam4pm-process-model-pack's templates are legitimate
+# human/LLM-authored manufacturing inputs. The Erlang and Elixir source under
+# generated/ that they produce is NOT hand-authored -- it is ggen's
+# manufactured output. Never hand-edit anything under generated/; edit this
+# file or the pack's templates instead, then re-run `ggen sync run`.
+
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ---------------------------------------------------------------------------
+# 1. ocel_event
+# ---------------------------------------------------------------------------
+
+bpm:ocel_event_rt a bpm:RecordType ;
+    bpm:recordName "ocel_event" ;
+    bpm:recordDoc "An OCEL 2.0 event: one recorded occurrence in an object-centric log." ;
+    bpm:hasField bpm:ocel_event_event_id_f ,
+                 bpm:ocel_event_event_type_f ,
+                 bpm:ocel_event_event_time_f ,
+                 bpm:ocel_event_attributes_f .
+
+bpm:ocel_event_event_id_f a bpm:Field ;
+    bpm:fieldName "event_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique event identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:ocel_event_event_type_f a bpm:Field ;
+    bpm:fieldName "event_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The event's type/activity name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:ocel_event_event_time_f a bpm:Field ;
+    bpm:fieldName "event_time" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the event occurred." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:ocel_event_attributes_f a bpm:Field ;
+    bpm:fieldName "attributes" ;
+    bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named event attributes." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 4 .
+
+# ---------------------------------------------------------------------------
+# 2. ocel_object
+# ---------------------------------------------------------------------------
+
+bpm:ocel_object_rt a bpm:RecordType ;
+    bpm:recordName "ocel_object" ;
+    bpm:recordDoc "An OCEL 2.0 object: one entity participating in the process." ;
+    bpm:hasField bpm:ocel_object_object_id_f ,
+                 bpm:ocel_object_object_type_f ,
+                 bpm:ocel_object_attributes_f .
+
+bpm:ocel_object_object_id_f a bpm:Field ;
+    bpm:fieldName "object_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique object identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:ocel_object_object_type_f a bpm:Field ;
+    bpm:fieldName "object_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The object's type." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:ocel_object_attributes_f a bpm:Field ;
+    bpm:fieldName "attributes" ;
+    bpm:fieldType "map" ;
+    bpm:fieldDoc "Arbitrary named, time-indexed object attributes." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 3 .
+
+# ---------------------------------------------------------------------------
+# 3. ocel_relationship
+# ---------------------------------------------------------------------------
+
+bpm:ocel_relationship_rt a bpm:RecordType ;
+    bpm:recordName "ocel_relationship" ;
+    bpm:recordDoc "A qualified relationship linking an event or object to an object." ;
+    bpm:hasField bpm:ocel_relationship_qualifier_f ,
+                 bpm:ocel_relationship_object_id_f .
+
+bpm:ocel_relationship_qualifier_f a bpm:Field ;
+    bpm:fieldName "qualifier" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The relationship qualifier/role name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:ocel_relationship_object_id_f a bpm:Field ;
+    bpm:fieldName "object_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The related object's identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+# ---------------------------------------------------------------------------
+# 4. dfg_edge
+# ---------------------------------------------------------------------------
+
+bpm:dfg_edge_rt a bpm:RecordType ;
+    bpm:recordName "dfg_edge" ;
+    bpm:recordDoc "One frequency-annotated directly-follows edge between two activities." ;
+    bpm:hasField bpm:dfg_edge_source_activity_f ,
+                 bpm:dfg_edge_target_activity_f ,
+                 bpm:dfg_edge_frequency_f .
+
+bpm:dfg_edge_source_activity_f a bpm:Field ;
+    bpm:fieldName "source_activity" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The preceding activity name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:dfg_edge_target_activity_f a bpm:Field ;
+    bpm:fieldName "target_activity" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The following activity name." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:dfg_edge_frequency_f a bpm:Field ;
+    bpm:fieldName "frequency" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Observed occurrence count of this edge." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# ---------------------------------------------------------------------------
+# 5. petri_place
+# ---------------------------------------------------------------------------
+
+bpm:petri_place_rt a bpm:RecordType ;
+    bpm:recordName "petri_place" ;
+    bpm:recordDoc "A place in a Petri net, holding a non-negative token count." ;
+    bpm:hasField bpm:petri_place_place_id_f ,
+                 bpm:petri_place_tokens_f .
+
+bpm:petri_place_place_id_f a bpm:Field ;
+    bpm:fieldName "place_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique place identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:petri_place_tokens_f a bpm:Field ;
+    bpm:fieldName "tokens" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Current token count (marking) at this place." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+# ---------------------------------------------------------------------------
+# 6. petri_transition
+# ---------------------------------------------------------------------------
+
+bpm:petri_transition_rt a bpm:RecordType ;
+    bpm:recordName "petri_transition" ;
+    bpm:recordDoc "A transition in a Petri net." ;
+    bpm:hasField bpm:petri_transition_transition_id_f ,
+                 bpm:petri_transition_label_f .
+
+bpm:petri_transition_transition_id_f a bpm:Field ;
+    bpm:fieldName "transition_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique transition identifier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:petri_transition_label_f a bpm:Field ;
+    bpm:fieldName "label" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Optional human-readable/activity label (silent transition if absent)." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 2 .
+
+# ---------------------------------------------------------------------------
+# 7. petri_arc
+# ---------------------------------------------------------------------------
+
+bpm:petri_arc_rt a bpm:RecordType ;
+    bpm:recordName "petri_arc" ;
+    bpm:recordDoc "A weighted arc connecting a place and a transition (either direction)." ;
+    bpm:hasField bpm:petri_arc_source_id_f ,
+                 bpm:petri_arc_target_id_f ,
+                 bpm:petri_arc_weight_f .
+
+bpm:petri_arc_source_id_f a bpm:Field ;
+    bpm:fieldName "source_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the arc's source node." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:petri_arc_target_id_f a bpm:Field ;
+    bpm:fieldName "target_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the arc's target node." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:petri_arc_weight_f a bpm:Field ;
+    bpm:fieldName "weight" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Arc weight (tokens consumed/produced per firing)." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# ---------------------------------------------------------------------------
+# 8. alignment_move
+# ---------------------------------------------------------------------------
+
+bpm:alignment_move_rt a bpm:RecordType ;
+    bpm:recordName "alignment_move" ;
+    bpm:recordDoc "One step of a conformance-checking alignment between log and model." ;
+    bpm:hasField bpm:alignment_move_move_type_f ,
+                 bpm:alignment_move_cost_f .
+
+bpm:alignment_move_move_type_f a bpm:Field ;
+    bpm:fieldName "move_type" ;
+    bpm:fieldType "atom" ;
+    bpm:fieldDoc "One of: sync | model | log | silent." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:alignment_move_cost_f a bpm:Field ;
+    bpm:fieldName "cost" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Non-negative cost assigned to this move." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .

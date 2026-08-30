@@ -1,0 +1,11 @@
+[project]
+name = "beam4pm"
+
+[ontology]
+source = "ontology.ttl"
+
+[packs]
+beam4pm-process-model = { path = "vendor/ggen-marketplace/packs/beam4pm-process-model-pack" }
+
+[templates]
+dir = "templates"
