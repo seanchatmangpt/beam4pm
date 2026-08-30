@@ -3397,3 +3397,21 @@ b4pe:commercial_forecast_amount_f a bpm:Field ;
 
 b4pe:commercial_forecast_confidence_f a bpm:Field ;
     bpm:fieldName "confidence" ; bpm:fieldType "float" ; bpm:fieldDoc "Forecast confidence ratio." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-050 -- Exact-subject commercial operation receipt with evidence digest.
+b4pe:commercial_execution_receipt_rt a bpm:RecordType ;
+    bpm:recordName "commercial_execution_receipt" ;
+    bpm:recordDoc "Exact-subject commercial operation receipt with evidence digest." ;
+    bpm:hasField b4pe:commercial_execution_receipt_receipt_id_f , b4pe:commercial_execution_receipt_subject_id_f , b4pe:commercial_execution_receipt_operation_f , b4pe:commercial_execution_receipt_evidence_hash_f .
+
+b4pe:commercial_execution_receipt_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable commercial receipt." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:commercial_execution_receipt_subject_id_f a bpm:Field ;
+    bpm:fieldName "subject_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact commercial subject." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:commercial_execution_receipt_operation_f a bpm:Field ;
+    bpm:fieldName "operation" ; bpm:fieldType "string" ; bpm:fieldDoc "Executed commercial operation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:commercial_execution_receipt_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of observed consequence evidence." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
