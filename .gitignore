@@ -10,10 +10,10 @@ _build/
 deps/
 .elixir_ls/
 
-# Gleam build artifacts (generated/gleam/gleam.toml is ggen output and IS
+# Gleam build artifacts (gleam/gleam.toml is ggen output and IS
 # committed; the compiler's own outputs below it are not)
-generated/gleam/build/
-generated/gleam/manifest.toml
+gleam/build/
+gleam/manifest.toml
 erl_crash.dump
 
 .DS_Store
@@ -21,4 +21,21 @@ erl_crash.dump
 
 # ggen_igniter reconciliation manifest + probe output (manufacturing-time state)
 .ggen_igniter/
+.ggen_igniter_tmp/
 tmp_probe/
+tmp/
+
+# rust4pm-oracle (qualification/) Rust build artifacts -- Cargo.lock IS
+# committed (binary crate, reproducible builds); target/ is not.
+qualification/*/target/
+
+# RF1/RF2/RF3 rust4pm-Reactor-validation oracle crates (native/) -- same
+# convention: Cargo.lock committed, target/ is not (rebuilt by
+# scripts/rf{1,2,3}_*_sync.sh's own cargo build --release, the Dockerfile,
+# and .github/workflows/beam4pm-ci.yml).
+native/*/target/
+
+# local terraform/tofu init state under generated infra/ modules (never
+# committed; the .tf files themselves ARE ggen output and are committed)
+infra/**/.terraform/
+infra/**/.terraform.lock.hcl

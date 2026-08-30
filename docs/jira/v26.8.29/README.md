@@ -1,6 +1,6 @@
 # beam4pm v26.8.29 — Cloud Marketplace Revenue Operations Charter
 
-Status: `PARTIAL_ALIVE` — documentation bootstrap only; no runtime or marketplace listing evidence yet.
+Status: `PARTIAL_ALIVE[BEAM4PM_GGEN_ONLY_ALIVE(M0-M6, exact subject in receipts/2026-08-29-gate-closure-m0-m6.json), PI/AIRGAP/MARKETPLACE/REVOPS gate families UNKNOWN or BLOCKED on external authorities]` — see `16-gate-closure-m0-m6.md`.
 
 ## Mission
 
@@ -67,6 +67,13 @@ Applied to beam4pm, this means cloud marketplace publication is not the finish l
 - `12-vision-institutional-legibility.md` — the long-horizon civilizational/economic argument for why this mission matters, kept separate from operational claims.
 - `13-portfolio-monetization-strategy.md` — full comparison against the rest of the portfolio (ggen, ggen-marketplace, AutoFDE, GymAct, XaaS, CASTLE) and why beam4pm_pro is the commercial front door.
 - `14-rust4pm-reference-boundary.md` — the concrete concept-extraction worklist from Rust4PM's public type/API surface, and the hard line between "reference input" and "source to port."
+- `15-manufacturing-slice-1-status.md` — the first executed manufacturing slice (8 -> 31 record types, Erlang+Elixir, gates M0-M2 first closed here) with its adversarial-verification record.
+- `16-gate-closure-m0-m6.md` — full M0-M6 gate closure (codecs, discovery/conformance, Gleam + Ash projections, cross-language roundtrip, fresh-clone playground) and the exact-subject crown claim.
+- `17-dogfood-differential-gate.md` — the real Erlang/Elixir/rust4pm-WASM-oracle 4-way differential agreement gate.
+- `18-dogfood-selfmine-loop.md` — beam4pm mining its own manufacturing process end to end, executed for real in a scratch consumer.
+- `19-marketplace-substrate-gcp.md` — GCP Marketplace listing substrate for beam4pm_pro (MP0/MP1), companion to docs 04/05.
+- `21-governor-first-principles-rewrite.md` — the 4-lens adversarial audit and first-principles rewrite of `BeamPM.Governor` into `BeamPM.ProcessGovernor`.
+- `22-gate-closure-delta-current-head.md` — delta gate-closure receipt covering everything manufactured since the M0-M6 crown (EX1-3 precision/receipt-chain/ontology-alignment, RF1-3 rust4pm-Reactor validation, real k8s production actuation), without restating the prior crown for a newer head.
 
 ## Marketplace source-of-truth notes captured 2026-08-29
 

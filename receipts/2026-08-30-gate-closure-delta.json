@@ -1,0 +1,87 @@
+{
+  "schema": "https://ggen.dev/receipts/beam4pm-manufacturing/v1",
+  "date": "2026-08-30",
+  "subject": "Delta gate-closure receipt: manufactured capital added since the 2026-08-29 M0-M6 crown (30ac658)",
+  "claim_ceiling": "This receipt does NOT re-derive M0-M6 -- those stand as recorded in receipts/2026-08-29-gate-closure-m0-m6.json for their own exact head (30ac658) per this repo's own doctrine that a historical receipt is admissible only for its recorded head, never restated for a newer one. This receipt covers exactly the 13 real commits manufactured between that head and the current one, each with its own real evidence below. It closes no PI, air-gap, marketplace, or RevOps gate family; those remain UNKNOWN or BLOCKED on external authorities, unchanged from the prior crown.",
+  "exact_release_subject": {
+    "beam4pm_head": "be3f039c1996bb35c55e03f3e023ff0726a0235b",
+    "ggen_marketplace_submodule": "313189103e9ba893f0b64c4c7ad54f0a4172aed1",
+    "delta_from": "30ac6586391341cba41980fe3deb1ddaa5cdfa3d",
+    "commits_in_delta": [
+      "3ea5a57 feat: rust4pm WASM oracle + 4-way differential dogfood gate + self-mine loop",
+      "9f67700 docs: M0-M6 gate-closure report, crown receipt, README/CONTRIBUTING updates",
+      "9500973 feat: beam4pm_pro deployment substrate - Cloud Run terraform + GCE packer image",
+      "8a2b711 docs: GCP Marketplace listing substrate for beam4pm_pro (MP0/MP1)",
+      "724ce42 feat: Reactor BRCE actuation (PI7/PI8) + real gymact bridge + self-mine loop",
+      "4e55df7 refactor: drop the generated/ folder — ggen output is first-class source",
+      "e64d7a6 feat: GHCR CI/container workflows (ggen-manufactured) + AI-contracts pack",
+      "3865e5d fix: replace BeamPM.Governor with BeamPM.ProcessGovernor (first-principles rewrite)",
+      "36e7845 feat: ex4pm-adapted precision + hash-chained receipts + ontology alignment",
+      "090568b feat: RF1/RF2/RF3 rust4pm function-surface Reactor validation",
+      "de6e121 fix: RF1 test fixture portability, same bug as RF2/RF3 (caught by real docker build)",
+      "330ac97 feat: wire k8s_gym_bridge.py into a real bpma:AdmittedActuation (Reactor-level)",
+      "be3f039 fix: harden k8s actuation test's cluster-reachability skip against missing kubectl"
+    ],
+    "toolchain": {
+      "otp": "27.2.4",
+      "elixir": "1.19.5",
+      "gleam": "1.18.1",
+      "rebar3": "3.24.0",
+      "host": "darwin 25.2 (macOS), local execution"
+    }
+  },
+  "capability_evidence": {
+    "EX1_conformance_precision_wired": {
+      "standing": "ALIVE",
+      "evidence": "BeamPM.Precision (ETC/escaping-edges, adapted from ex4pm's real Ex4pmEngine.ETCPrecision) wired into BeamPM.Discovery.conformance/2 -- resolves a limitation explicitly disclosed in the prior crown ('conformance computes fitness only; precision never set'). test/beam4pm_precision_test.exs: 8 tests over a real branching model, by-hand-computed expected values inline."
+    },
+    "EX2_hash_chained_receipts": {
+      "standing": "ALIVE",
+      "evidence": "BeamPM.ReceiptChain (hash-chained beam4pm-brce/v1 receipts, adapted from ex4pm's real Ex4pm.Evidence.Replay.Chain), purely additive via actuation_opts[:chain_id]. test/beam4pm_receipt_chain_test.exs: real 2-step chain verified end to end, incl. composition with BeamPM.ProcessGovernor."
+    },
+    "EX3_ontology_alignment": {
+      "standing": "ALIVE",
+      "evidence": "ontology.ttl: bpma:AdmittedActuation declared rdfs:subClassOf ex4pm:Authority; bpm:ocel_event_rt rdfs:seeAlso ex4pm:Event/ex4pm:Observation; a b4a:standingVocabulary individual documenting beam4pm's STANDING vocabulary as string-identical to ex4pm.ttl's six real ex4pm:Capability individuals, confirmed via bash scripts/standing_vocabulary_check.sh -> STANDING VOCABULARY CHECK: PASS (all 6 canonical strings present in receipts/, docs/, lib/). This script is new as of this receipt: the prior claim (ontology.ttl, dated 2026-08-29) rested on a one-time manual grep with no re-runnable check, correctly flagged by this receipt's own adversarial verification pass before commit -- see known_limitations_disclosed."
+    },
+    "RF1_dfg_discovery": {
+      "standing": "ALIVE",
+      "evidence": "native/rf1-dfg-oracle (real process_mining=0.6.2 discover_dfg, no algorithm re-implemented) driven through a real Reactor pipeline against real wasm4pm canonical fixtures (small-example.xes, roadtraffic100traces.xes, checked in byte-identical) plus two real falsify scenarios (nonexistent path, byte-truncated XES) with typed compensate/2 refusal receipts. test/beam4pm_rf1_dfg_test.exs: 8/8."
+    },
+    "RF2_conformance_alpha_ppp": {
+      "standing": "ALIVE",
+      "evidence": "native/rf2-conformance-oracle drives real Alpha+++ discovery + align_variants + compute_fitness against the real 1434-trace receipt.xes dataset (checked in byte-identical). Falsify scenario: a one-line-mutated log shows measurably lower fitness (0.90338->0.90327), proving genuine discrimination. Genuinely queries rf2:ConformanceStream via real oxigraph. test/beam4pm_rf2_conformance_test.exs: 3/3."
+    },
+    "RF3_ocel_slim_bindings": {
+      "standing": "ALIVE",
+      "evidence": "native/rf3-ocel-oracle drives real process_mining::bindings (slim_link_ocel, SlimLinkedOCEL) against a self-authored positive fixture plus three real wasm4pm adversarial fixtures (n05-o2o-dangling, n13-duplicate-object-id, n14-undeclared-event-type, all checked in byte-identical). test/beam4pm_rf3_ocel_test.exs: 8/8."
+    },
+    "K8S_real_production_actuation": {
+      "standing": "ALIVE",
+      "evidence": "New bpma:k8s_scale_up_aa/bpma:k8s_scale_down_aa admitted actuations drive qualification/k8s_gym_bridge.py (real kubectl subprocess calls) against the real, live kind-ex4pm cluster's isolated beam4pm-actuation-demo namespace through the full BeamPM.Actuation Reactor pipeline -- not just the standalone bridge script. test/beam4pm_actuation_k8s_test.exs: 3/3, independently re-run 3 separate times this session against the live cluster.",
+      "real_bugs_found_and_fixed_by_running_this_for_real": [
+        "observe() reward-observation race on scale-down (kubectl rollout status can report success a moment before .status.readyReplicas itself reconciles down) -- fixed with a bounded poll-retry",
+        "do_close's async --wait=false namespace delete raced a fresh reset() recreating the same-named namespace -- fixed: close() now blocks (bounded)",
+        "GymBridge.request/3's hardcoded 10_000ms default (fine for the toy in-memory gym, never exercised past a few ms) was too short for a real k8s rollout -- Elixir force-closed the Port mid-operation, leaving the cluster partially-actuated. Fixed at the ggen-marketplace template source with a new, purely-additive actuation_opts[:bridge_timeout]",
+        "System.cmd/3 raises ErlangError{:enoent} rather than returning a tuple when kubectl isn't on PATH at all (the real case in CI/Docker) -- the cluster-reachability setup_all check would have crashed instead of skipping; wrapped in try/rescue"
+      ],
+      "disclosed_current_condition": "At the moment this receipt was drafted (2026-08-30 ~01:56), the live kind-ex4pm cluster was genuinely unreachable (real TLS handshake timeout, confirmed via a direct `kubectl cluster-info` call) due to real, disclosed machine-wide Docker/Virtualization-framework contention (docker ps itself hanging past 120s, the backing VM at 400%+ CPU) -- NOT a regression in this capability. The fail-closed setup_all design handled this correctly and honestly: the 3 k8s tests reported as 'invalid' (ExUnit's term for a setup_all-skipped module) in that specific mix test run, rather than failing or crashing. Standing is ALIVE based on the 3 prior successful live-cluster runs this session, re-verifiable once contention clears."
+    },
+    "gate_m2_and_container_build": {
+      "standing": "ALIVE",
+      "evidence": "bash scripts/gate_m2_check.sh -> GATE M2: PASS, 50 manufactured files byte-identical across a real delete+regenerate cycle (re-run 14+ times across this session's fixes, PASS every time the underlying code was actually correct). docker build -t beam4pm:rf-verify2 . -> 345/345 tests in-container, image confirmed via `docker images` (271MB, real). A k8s-wiring-specific container rebuild is deferred pending Docker contention clearing (see K8S entry above) -- not required to support this receipt's ALIVE claims, which rest on faster, independently-repeated local/live-cluster verification."
+    }
+  },
+  "test_totals_current_head": {
+    "eunit": "204/204",
+    "exunit_core": "345/345 (the 3 k8s tests are conditionally gated on live-cluster reachability, not counted against this total when skipped)",
+    "exunit_k8s_live_cluster": "3/3 across 3 independent runs this session; 0/3 run (cleanly skipped, not failed) at receipt-drafting time due to disclosed real infrastructure contention"
+  },
+  "known_limitations_disclosed": [
+    "all items from receipts/2026-08-29-gate-closure-m0-m6.json's own disclosed-limitations list stand except 'conformance computes fitness only; precision never set', which EX1 above resolves",
+    "EX3's ontology-alignment claim was, until this receipt, backed only by a one-time manual grep (ontology.ttl's own 2026-08-29 comment), not a re-runnable check like every other ALIVE item here -- an adversarial verification pass on a draft of this exact receipt caught that gap before commit; scripts/standing_vocabulary_check.sh now closes it for real",
+    "k8s actuation's live-cluster tests require a real, locally-running kind-ex4pm cluster; they skip (not fail) cleanly when one isn't reachable, by design -- this is disclosed as a real environmental dependency, not hidden behind a fabricated pass",
+    "BeamPM.Actuation.run/2's own reset+close-per-call semantics mean back-to-back admitted actuations against the k8s gym do not prove a continuous multi-step transition on one running deployment -- that would be BeamPM.ProcessGovernor's job, not yet wired to the k8s gym",
+    "the container-build verification specifically for the k8s wiring commit was not completed at receipt-drafting time (real Docker VM contention); the RF1-3 container build was independently confirmed green"
+  ],
+  "replay": "git clone --recurse-submodules https://github.com/seanchatmangpt/beam4pm && cd beam4pm && git checkout be3f039 && rebar3 eunit && source scripts/env/rust4pm_reactor_env.sh && mix test && bash scripts/gate_m2_check.sh"
+}

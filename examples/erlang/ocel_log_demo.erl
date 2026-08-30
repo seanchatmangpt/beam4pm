@@ -3,7 +3,7 @@
 
 %% ocel_log_demo -- a real, runnable exercise of beam4pm_types, the
 %% ggen-manufactured Erlang module generated from the admitted bpm:RecordType
-%% RDF/SHACL graph (see /Users/sac/beam4pm/generated/erlang/src/beam4pm_types.erl
+%% RDF/SHACL graph (see /Users/sac/beam4pm/src/beam4pm_types.erl
 %% and its ggen template at
 %% .../beam4pm-process-model-pack/templates/beam4pm_types.erl.tmpl).
 %% This is not a stub: every event below is constructed by a real call to

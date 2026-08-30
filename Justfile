@@ -14,7 +14,7 @@ sync:
     ggen sync run --dry-run
     ggen sync run
 
-# Run the BEAM test suites: rebar3 eunit for generated/erlang, mix test for generated/elixir
+# Run the BEAM test suites: rebar3 eunit for Erlang, mix test for Elixir
 test:
     rebar3 eunit
     mix test

@@ -9,9 +9,9 @@ assignees: ""
 <!--
 This proposes a new admitted bpm:RecordType individual for beam4pm's own
 ontology.ttl (NOT the vendored pack's ontology.ttl, which holds only the
-bpm: vocabulary itself, no record individuals). It does not itself change
-generated/ -- once admitted, it enters through ontology.ttl and is projected
-via `rm ggen.lock && ggen sync run`. See CONTRIBUTING.md / the PR template
+bpm: vocabulary itself, no record individuals). It does not itself change any
+manufactured file -- once admitted, it enters through ontology.ttl and is
+projected via `rm ggen.lock && ggen sync run`. See CONTRIBUTING.md / the PR template
 for the sync + verification steps required to land it.
 -->
 
@@ -26,7 +26,7 @@ valid identifier fragment in both languages. -->
 
 <!-- A single sentence: what real-world process-mining/runtime concept does
 this record represent, and why does it need to exist as its own type rather
-than reusing an existing one (check generated/docs/beam4pm_types_reference.md
+than reusing an existing one (check docs/reference/beam4pm_types_reference.md
 for the current full list before proposing)? -->
 
 ## Proposed fields
@@ -58,7 +58,7 @@ bpm:RecordType individual. -->
 ## Admission checklist
 
 - [ ] `record_name` does not duplicate an existing admitted `bpm:RecordType`
-      (check `generated/docs/beam4pm_types_reference.md`)
+      (check `docs/reference/beam4pm_types_reference.md`)
 - [ ] Every proposed field has a `fieldOrder`, `fieldName`, `fieldType` (one of
       the 8 closed enum values), `fieldRequired` (`"true"`/`"false"` as a plain
       string), and a one-line `fieldDoc`

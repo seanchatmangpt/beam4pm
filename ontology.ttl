@@ -867,3 +867,1324 @@ bpm:service_span_parent_span_id_f a bpm:Field ;
     bpm:fieldDoc "Optional identifier of the parent span." ;
     bpm:fieldRequired "false" ;
     bpm:fieldOrder 4 .
+
+# =============================================================================
+# beam4pm_pro infrastructure instance data (beam4pm-pro-infra-pack)
+# =============================================================================
+@prefix b4p:  <https://ggen.dev/projects/beam4pm-pro#> .
+@prefix b4pi: <http://seanchatmangpt.github.io/packs/beam4pm-pro-infra#> .
+
+b4p:beam4pm_pro_cloudrun a b4pi:Deployment ;
+    b4pi:serviceName          "beam4pm-pro" ;
+    b4pi:region               "us-central1" ;
+    b4pi:containerImage       "ghcr.io/seanchatmangpt/beam4pm:latest" ;
+    b4pi:cpuLimit             "1" ;
+    b4pi:memoryLimit          "512Mi" ;
+    b4pi:minInstances         0 ;
+    b4pi:maxInstances         3 ;
+    b4pi:port                 8080 ;
+    b4pi:allowUnauthenticated false ;
+    b4pi:purpose              "beam4pm_pro commercial service surface: the published beam4pm container (ghcr.io/seanchatmangpt/beam4pm) run as a scale-to-zero Cloud Run v2 service with demo-grade resource bounds." .
+
+@prefix b4pp: <http://seanchatmangpt.github.io/beam4pm-pro#> .
+
+b4pp:proVmImage
+    a b4pi:PackerImage ;
+    b4pi:imageName "beam4pm-pro" ;
+    b4pi:imageFamily "beam4pm-pro" ;
+    b4pi:imageDescription "beam4pm_pro VM image: Debian 12 + Docker + pre-pulled beam4pm container under systemd" ;
+    b4pi:gcpProjectDefault "beam4pm-pro-demo" ;
+    b4pi:buildZone "us-central1-a" ;
+    b4pi:buildMachineType "e2-medium" ;
+    b4pi:buildDiskGb 20 ;
+    b4pi:sourceImageFamily "debian-12" ;
+    b4pi:sourceImageProject "debian-cloud" ;
+    b4pi:sshUsername "packer" ;
+    b4pi:packerContainerImage "ghcr.io/seanchatmangpt/beam4pm:latest" ;
+    b4pi:containerName "beam4pm" ;
+    b4pi:servicePort 8080 ;
+    b4pi:serviceDescription "beam4pm_pro BEAM process-mining service (containerized)" ;
+    b4pi:networkTag "beam4pm-pro" ;
+    b4pi:networkTag "packer-build" .
+
+# =============================================================================
+# beam4pm BRCE actuation admission graph (SELECT layer, gate PI7/PI8)
+# =============================================================================
+@prefix bpma: <https://ggen.dev/ontology/beam4pm-actuation#> .
+
+bpma:increment_counter_aa a bpma:AdmittedActuation ;
+    bpma:actionName "increment_counter" ;
+    bpma:gymOp "inc" ;
+    bpma:requiresFact "counter_ready" .
+
+bpma:observe_counter_aa a bpma:AdmittedActuation ;
+    bpma:actionName "observe_counter" ;
+    bpma:gymOp "noop" .
+
+# Real production actuation target (gate: "no toys, fortune 5 production
+# only"): drives a real Kubernetes Deployment on the real, live kind-ex4pm
+# cluster via qualification/k8s_gym_bridge.py's real kubectl subprocess
+# calls -- an isolated beam4pm-actuation-demo namespace, never the cluster's
+# real ex4pm/postgres workloads. No requiresFact: unlike increment_counter
+# (which models a precondition on prior in-process counter state), a k8s
+# scale op's real precondition is the live cluster/namespace reachability
+# check k8s_gym_bridge.py itself performs fail-closed (exit 2) before ever
+# touching kubectl -- there is no separate planning-layer fact to require.
+bpma:k8s_scale_up_aa a bpma:AdmittedActuation ;
+    bpma:actionName "k8s_scale_up" ;
+    bpma:gymOp "scale_up" .
+
+bpma:k8s_scale_down_aa a bpma:AdmittedActuation ;
+    bpma:actionName "k8s_scale_down" ;
+    bpma:gymOp "scale_down" .
+
+# =============================================================================
+# GitHub Actions CI + GHCR container-publish workflow instance data
+# =============================================================================
+# ---------------------------------------------------------------------------
+# GitHub Actions manufacturing facts (github-actions-pack vocabulary).
+#
+# APPEND this fragment to beam4pm's ontology.ttl. It declares beam4pm's OWN
+# gha:Workflow/gha:Job/gha:Step individuals against the schema-only
+# vendor/ggen-marketplace/packs/github-actions-pack vocabulary, exactly the
+# way ggen-ecosystem's ontology.ttl does for its two workflows. The rendered
+# .github/workflows/beam4pm-ci.yml and .github/workflows/beam4pm-container.yml
+# are MANUFACTURED consequences of these facts (via the pack's
+# templates/workflow.yml.tmpl) -- never hand-edit the rendered YAML; edit
+# these facts and re-run `ggen sync run`.
+#
+# beam4pm-ci.yml REPLACES the previously hand-authored .github/workflows/ci.yml
+# (same OTP 27.2 / rebar3 3.24.0 choices, same steps including the
+# honestly-gapped determinism check, plus: gleam test over the Gleam
+# projection, workflow_dispatch, and every third-party action pinned to a
+# 40-hex commit SHA as the pack's gate 020 requires). Delete ci.yml in the
+# same change that lands the manufactured replacement.
+#
+# ELIXIR BUMP 1.17.3 -> 1.18.5, measured not assumed: the current
+# beam4pm's Elixir code calls Elixir's built-in JSON module (JSON.encode!/1,
+# new in Elixir 1.18), and mix.exs's ex_ast transitive dep requires ~> 1.18.
+# A real containerized `mix test` on 1.17.3 (2026-08-29) failed 34/248 tests
+# with UndefinedFunctionError on JSON.encode!/1; the same suite passes 248/248
+# on >= 1.18. So the hand-authored ci.yml's 1.17.3 pin is already broken
+# against beam4pm's own current code -- this is the "conflict" case where the
+# old version choice must not be kept. v1.18.5-otp-27 confirmed present in
+# https://builds.hex.pm/builds/elixir/builds.txt (published 2026-08-28), the
+# exact list erlef/setup-beam installs from.
+#
+# Action pins resolved for real on 2026-08-29 (not assumed):
+#   - actions/checkout d23441a4... / docker/login-action 74a5d142... /
+#     docker/setup-buildx-action 8d2750c6... / docker/build-push-action
+#     10e90e36... reuse the exact SHAs already verified and in production in
+#     ggen-ecosystem's ontology.ttl.
+#   - erlef/setup-beam v1.24.1 resolved via `git ls-remote --tags
+#     https://github.com/erlef/setup-beam.git` -> 54075bcc5e249e4758d363f27d099f55d843f124
+#     (lightweight tag, so the tag SHA is the commit SHA), and its real
+#     action.yml at that exact SHA was fetched and confirmed to declare the
+#     `gleam-version` input used below -- that is the clean, single-action
+#     install path for Gleam 1.18.1 on the runner.
+# ---------------------------------------------------------------------------
+
+@prefix gha: <http://seanchatmangpt.github.io/packs/github-actions#> .
+@prefix bex: <https://ggen.dev/beam4pm/github-sync#> .
+
+# --- Workflow 1: CI (manufactured replacement for the hand-authored ci.yml) --
+
+bex:ciWorkflow
+    a gha:Workflow ;
+    gha:fileName "beam4pm-ci.yml" ;
+    gha:purpose "beam4pm CI" ;
+    gha:permissionCeiling "contents: read" ;
+    gha:trigger gha:EventPush ;
+    gha:trigger gha:EventPullRequest ;
+    gha:trigger gha:EventWorkflowDispatch ;
+    gha:onBlock """push:
+  branches: [main]
+pull_request:
+  branches: [main]
+workflow_dispatch:""" ;
+    gha:evidenceObligation "green rebar3 eunit, mix test, and gleam test runs against the exact candidate SHA, plus the (currently continue-on-error) GATE M2 determinism check (scripts/gate_m2_check.sh)" ;
+    gha:standingEffect "a green run confers test-passing standing on the exact candidate SHA for the Erlang, Elixir, and Gleam projections; it does not confer determinism standing until the ggen-install gap in the final step is closed" .
+
+bex:ciTest
+    a gha:Job ;
+    gha:inWorkflow bex:ciWorkflow ;
+    gha:jobName "test" ;
+    gha:runner "ubuntu-latest" ;
+    gha:timeoutMinutes 30 ;
+    gha:jobPermissions "contents: read" ;
+    gha:jobExtra "name: Erlang/Elixir/Gleam tests + determinism check" ;
+    gha:evidenceEmitted "eunit, mix test, and gleam test results in the run log" ;
+    gha:failureClassification "BUILD_BROKEN for a compile failure; a red test suite is a production defect in the manufactured projections or their semantic inputs" .
+
+bex:ciCheckout
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 1 ;
+    gha:stepName "Checkout (with vendor/ggen-marketplace submodule)" ;
+    gha:usesAction "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6" ;
+    gha:withParam "submodules: recursive" ;
+    gha:withParam "persist-credentials: false" .
+
+bex:ciSetupBeam
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 2 ;
+    gha:stepName "Set up Erlang/OTP + Elixir + rebar3 + Gleam" ;
+    gha:usesAction "erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1" ;
+    gha:withParam "otp-version: '27.2'" ;
+    gha:withParam "elixir-version: '1.18.5'" ;
+    gha:withParam "rebar3-version: '3.24.0'" ;
+    gha:withParam "gleam-version: '1.18.1'" .
+
+bex:ciRebar3Eunit
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 3 ;
+    gha:stepName "rebar3 eunit" ;
+    gha:runCommand "rebar3 eunit" .
+
+bex:ciRf123OracleBuild
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 4 ;
+    gha:stepName "Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3)" ;
+    gha:runCommand """# Real Rust subprocess oracles the RF1/RF2/RF3 Chicago tests spawn (thin
+# adapters over the real process_mining =0.6.2 function surface, no
+# algorithm re-implemented). ubuntu-latest ships a preinstalled
+# cargo/rustc, the same toolchain that already compiles ggen_igniter's
+# native/ggen_graph_nif rustler NIF at `mix test` time.
+cd native/rf1-dfg-oracle && cargo build --release && cd -
+cd native/rf2-conformance-oracle && cargo build --release && cd -
+cd native/rf3-ocel-oracle && cargo build --release && cd -""" .
+
+bex:ciMixDepsGet
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 5 ;
+    gha:stepName "mix deps.get" ;
+    gha:runCommand "mix deps.get" .
+
+bex:ciMixTest
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 6 ;
+    gha:stepName "mix test" ;
+    gha:runCommand """source scripts/env/rust4pm_reactor_env.sh
+mix test""" .
+
+bex:ciGleamTest
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 7 ;
+    gha:stepName "gleam test (gleam/ projection)" ;
+    gha:runCommand """cd gleam
+gleam test""" .
+
+# Determinism check carried over verbatim-in-spirit from the hand-authored
+# ci.yml, including its honestly-declared gap: no real `ggen` install step is
+# wired yet, so the step stays continue-on-error until one is added. The gap
+# is documented (not faked into a pass) exactly as before.
+bex:ciDeterminism
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 8 ;
+    gha:stepName "Determinism check -- regenerate and diff against committed output" ;
+    gha:continueOnError true ;
+    gha:runCommand """# KNOWN GAP (carried from the replaced hand-authored ci.yml, still open):
+# this step needs a real `ggen` binary on the runner and none is installed
+# here yet. It fails loudly ('ggen: command not found') instead of faking a
+# pass; continue-on-error is set only so this one tracked gap does not turn
+# every push/PR red. Remove continue-on-error once a real install step lands.
+bash scripts/gate_m2_check.sh""" .
+
+# --- Workflow 2: GHCR container build + publish ------------------------------
+# Mirrors ggen-ecosystem's container workflow structure (checkout-with-
+# submodules -> buildx -> GHCR login with the ephemeral GITHUB_TOKEN ->
+# build-push-action with type=gha layer cache + SBOM/provenance), collapsed to
+# a single native-arch job: beam4pm's image is a BEAM build measured in
+# seconds, not ggen-ecosystem's QEMU-hostile Rust LTO workspace that forced
+# its two-native-jobs + manifest-merge split.
+
+bex:containerWorkflow
+    a gha:Workflow ;
+    gha:fileName "beam4pm-container.yml" ;
+    gha:purpose "beam4pm Container Build & Publish" ;
+    gha:permissionCeiling "contents: read" ;
+    gha:trigger gha:EventPush ;
+    gha:trigger gha:EventWorkflowDispatch ;
+    gha:onBlock """push:
+  branches: [main]
+workflow_dispatch:""" ;
+    gha:requiredSecret "GITHUB_TOKEN" ;
+    gha:secretReason "GHCR login (docker/login-action) to push the beam4pm image; the workflow's own ephemeral token under the job's packages:write grant, no PAT" ;
+    gha:evidenceObligation "bind the exact candidate SHA to the published image digest under tags latest and sha-<sha>" ;
+    gha:standingEffect "a pushed image is evidence only for the exact commit and Dockerfile content that produced it; publish is distribution, not test standing" .
+
+bex:containerBuildPush
+    a gha:Job ;
+    gha:inWorkflow bex:containerWorkflow ;
+    gha:jobName "build-and-push" ;
+    gha:runner "ubuntu-latest" ;
+    gha:timeoutMinutes 30 ;
+    gha:jobPermissions """contents: read
+packages: write""" ;
+    gha:jobExtra "name: Build and push beam4pm image to GHCR" ;
+    gha:evidenceEmitted "published ghcr.io/<repository> image digest under tags latest and sha-${{ github.sha }}" ;
+    gha:failureClassification "BUILD_BROKEN if the image build or its in-build rebar3 eunit / mix test gates fail" .
+
+bex:containerCheckout
+    a gha:Step ;
+    gha:inJob bex:containerBuildPush ; gha:stepOrder 1 ;
+    gha:stepName "Checkout with submodules" ;
+    gha:usesAction "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6" ;
+    gha:withParam "submodules: recursive" ;
+    gha:withParam "persist-credentials: false" .
+
+bex:containerBuildx
+    a gha:Step ;
+    gha:inJob bex:containerBuildPush ; gha:stepOrder 2 ;
+    gha:stepName "Set up Docker Buildx" ;
+    gha:usesAction "docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3" .
+
+bex:containerLogin
+    a gha:Step ;
+    gha:inJob bex:containerBuildPush ; gha:stepOrder 3 ;
+    gha:stepName "Log in to GHCR" ;
+    gha:usesAction "docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3" ;
+    gha:withParam "registry: ghcr.io" ;
+    gha:withParam "username: ${{ github.actor }}" ;
+    gha:withParam "password: ${{ secrets.GITHUB_TOKEN }}" .
+
+bex:containerBuildPushStep
+    a gha:Step ;
+    gha:inJob bex:containerBuildPush ; gha:stepOrder 4 ;
+    gha:stepName "Build and push beam4pm image" ;
+    gha:usesAction "docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6" ;
+    gha:withParam "context: ." ;
+    gha:withParam "push: true" ;
+    gha:withParam "sbom: true" ;
+    gha:withParam "provenance: true" ;
+    gha:withParam "cache-from: type=gha,scope=beam4pm" ;
+    gha:withParam "cache-to: type=gha,mode=max,scope=beam4pm" ;
+    gha:withParam "tags: ghcr.io/${{ github.repository }}:latest,ghcr.io/${{ github.repository }}:sha-${{ github.sha }}" .
+
+# =============================================================================
+# beam4pm-ai-contracts-pack instance data (P0-A: canonical AI/evidence contracts)
+# =============================================================================
+@prefix aic: <https://ggen.dev/ontology/beam4pm-ai#> .
+@prefix bap: <https://ggen.dev/projects/beam4pm#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ---------------------------------------------------------------------------
+# 1. evidence_envelope
+# ---------------------------------------------------------------------------
+
+bap:evidence_envelope_ct a aic:ContractType ;
+    aic:contractName "evidence_envelope" ;
+    aic:contractDoc "A content-addressed unit of ingested evidence, carrying provenance, access-control, and redaction metadata for downstream research and grounding." ;
+    aic:hasField bap:evidence_envelope_evidence_id_f ,
+                 bap:evidence_envelope_tenant_id_f ,
+                 bap:evidence_envelope_source_uri_f ,
+                 bap:evidence_envelope_source_kind_f ,
+                 bap:evidence_envelope_content_hash_f ,
+                 bap:evidence_envelope_mime_type_f ,
+                 bap:evidence_envelope_modality_f ,
+                 bap:evidence_envelope_observed_at_f ,
+                 bap:evidence_envelope_retrieved_at_f ,
+                 bap:evidence_envelope_acl_labels_f ,
+                 bap:evidence_envelope_canonical_entity_ids_f ,
+                 bap:evidence_envelope_redaction_class_f ,
+                 bap:evidence_envelope_schema_version_f .
+
+bap:evidence_envelope_evidence_id_f a aic:Field ;
+    aic:fieldName "evidence_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this evidence envelope." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:evidence_envelope_tenant_id_f a aic:Field ;
+    aic:fieldName "tenant_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Owning tenant/organization identifier." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 2 .
+
+bap:evidence_envelope_source_uri_f a aic:Field ;
+    aic:fieldName "source_uri" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "URI the evidence was retrieved from." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 3 .
+
+bap:evidence_envelope_source_kind_f a aic:Field ;
+    aic:fieldName "source_kind" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Kind of source (e.g. web, document, api, sensor)." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 4 .
+
+bap:evidence_envelope_content_hash_f a aic:Field ;
+    aic:fieldName "content_hash" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Content-addressed hash of the evidence payload." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 5 .
+
+bap:evidence_envelope_mime_type_f a aic:Field ;
+    aic:fieldName "mime_type" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "MIME type of the underlying content." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 6 .
+
+bap:evidence_envelope_modality_f a aic:Field ;
+    aic:fieldName "modality" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Modality of the evidence (e.g. text, image, audio, video, structured)." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 7 .
+
+bap:evidence_envelope_observed_at_f a aic:Field ;
+    aic:fieldName "observed_at" ;
+    aic:fieldType "datetime" ;
+    aic:fieldDoc "Timestamp the underlying event/content was observed." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 8 .
+
+bap:evidence_envelope_retrieved_at_f a aic:Field ;
+    aic:fieldName "retrieved_at" ;
+    aic:fieldType "datetime" ;
+    aic:fieldDoc "Timestamp this envelope was retrieved/ingested." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 9 .
+
+bap:evidence_envelope_acl_labels_f a aic:Field ;
+    aic:fieldName "acl_labels" ;
+    aic:fieldType "list_string" ;
+    aic:fieldDoc "Access-control labels gating who may read this evidence." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 10 .
+
+bap:evidence_envelope_canonical_entity_ids_f a aic:Field ;
+    aic:fieldName "canonical_entity_ids" ;
+    aic:fieldType "list_string" ;
+    aic:fieldDoc "Canonical entity identifiers this evidence resolves to." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 11 .
+
+bap:evidence_envelope_redaction_class_f a aic:Field ;
+    aic:fieldName "redaction_class" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Redaction/sensitivity classification applied to this evidence." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 12 .
+
+bap:evidence_envelope_schema_version_f a aic:Field ;
+    aic:fieldName "schema_version" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Schema version this envelope conforms to." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 13 .
+
+# ---------------------------------------------------------------------------
+# 2. research_task
+# ---------------------------------------------------------------------------
+
+bap:research_task_ct a aic:ContractType ;
+    aic:contractName "research_task" ;
+    aic:contractDoc "A bounded research request issued by a principal, scoping freshness, privacy, and resource limits for the work it authorizes." ;
+    aic:hasField bap:research_task_task_id_f ,
+                 bap:research_task_principal_id_f ,
+                 bap:research_task_query_f ,
+                 bap:research_task_freshness_requirement_f ,
+                 bap:research_task_privacy_class_f ,
+                 bap:research_task_max_tokens_f ,
+                 bap:research_task_max_tool_calls_f ,
+                 bap:research_task_output_contract_f ,
+                 bap:research_task_policy_version_f ,
+                 bap:research_task_correlation_id_f .
+
+bap:research_task_task_id_f a aic:Field ;
+    aic:fieldName "task_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this research task." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:research_task_principal_id_f a aic:Field ;
+    aic:fieldName "principal_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the principal that issued this task." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 2 .
+
+bap:research_task_query_f a aic:Field ;
+    aic:fieldName "query" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "The research query/prompt driving this task." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 3 .
+
+bap:research_task_freshness_requirement_f a aic:Field ;
+    aic:fieldName "freshness_requirement" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Required recency of evidence used to answer the query." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 4 .
+
+bap:research_task_privacy_class_f a aic:Field ;
+    aic:fieldName "privacy_class" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Privacy classification bounding what evidence/tools may be used." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 5 .
+
+bap:research_task_max_tokens_f a aic:Field ;
+    aic:fieldName "max_tokens" ;
+    aic:fieldType "integer" ;
+    aic:fieldDoc "Maximum tokens the task's model calls may consume." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 6 .
+
+bap:research_task_max_tool_calls_f a aic:Field ;
+    aic:fieldName "max_tool_calls" ;
+    aic:fieldType "integer" ;
+    aic:fieldDoc "Maximum number of tool invocations permitted for this task." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 7 .
+
+bap:research_task_output_contract_f a aic:Field ;
+    aic:fieldName "output_contract" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the output contract the answer must satisfy." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 8 .
+
+bap:research_task_policy_version_f a aic:Field ;
+    aic:fieldName "policy_version" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Version of the governing policy this task was admitted under." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 9 .
+
+bap:research_task_correlation_id_f a aic:Field ;
+    aic:fieldName "correlation_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Correlation identifier linking this task to related records." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 10 .
+
+# ---------------------------------------------------------------------------
+# 3. candidate_claim
+# ---------------------------------------------------------------------------
+
+bap:candidate_claim_ct a aic:ContractType ;
+    aic:contractName "candidate_claim" ;
+    aic:contractDoc "A candidate factual claim produced by a research task, linked to the evidence that supports or contradicts it." ;
+    aic:hasField bap:candidate_claim_claim_id_f ,
+                 bap:candidate_claim_task_id_f ,
+                 bap:candidate_claim_statement_f ,
+                 bap:candidate_claim_support_evidence_ids_f ,
+                 bap:candidate_claim_contradict_evidence_ids_f ,
+                 bap:candidate_claim_confidence_f ,
+                 bap:candidate_claim_semantic_status_f .
+
+bap:candidate_claim_claim_id_f a aic:Field ;
+    aic:fieldName "claim_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this candidate claim." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:candidate_claim_task_id_f a aic:Field ;
+    aic:fieldName "task_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the research task that produced this claim." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 2 .
+
+bap:candidate_claim_statement_f a aic:Field ;
+    aic:fieldName "statement" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "The natural-language statement of the claim." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 3 .
+
+bap:candidate_claim_support_evidence_ids_f a aic:Field ;
+    aic:fieldName "support_evidence_ids" ;
+    aic:fieldType "list_string" ;
+    aic:fieldDoc "Evidence identifiers cited as supporting this claim." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 4 .
+
+bap:candidate_claim_contradict_evidence_ids_f a aic:Field ;
+    aic:fieldName "contradict_evidence_ids" ;
+    aic:fieldType "list_string" ;
+    aic:fieldDoc "Evidence identifiers cited as contradicting this claim." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 5 .
+
+bap:candidate_claim_confidence_f a aic:Field ;
+    aic:fieldName "confidence" ;
+    aic:fieldType "float" ;
+    aic:fieldDoc "Model-estimated confidence in the claim, in the range [0,1]." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 6 .
+
+bap:candidate_claim_semantic_status_f a aic:Field ;
+    aic:fieldName "semantic_status" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Closed-vocabulary semantic status of the claim (e.g. supported, contradicted, unverified)." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 7 .
+
+# ---------------------------------------------------------------------------
+# 4. tool_intent
+#
+# NOTE: this contract type carries NO execution-authority field of any
+# kind. Authority/admission semantics belong exclusively to the concurrent
+# session's beam4pm-post-llm-runtime-pack (rt: vocabulary). This record is
+# inert descriptive data about a proposed call, nothing more.
+# ---------------------------------------------------------------------------
+
+bap:tool_intent_ct a aic:ContractType ;
+    aic:contractName "tool_intent" ;
+    aic:contractDoc "A proposed tool invocation awaiting admission. Carries no execution authority of any kind -- authority and admission are the exclusive responsibility of the concurrent beam4pm-post-llm-runtime-pack's rt: vocabulary; this type is inert data describing what a caller would like to do." ;
+    aic:hasField bap:tool_intent_intent_id_f ,
+                 bap:tool_intent_task_id_f ,
+                 bap:tool_intent_tool_id_f ,
+                 bap:tool_intent_tool_version_f ,
+                 bap:tool_intent_canonical_args_hash_f ,
+                 bap:tool_intent_side_effect_class_f ,
+                 bap:tool_intent_required_capability_f ,
+                 bap:tool_intent_dry_run_f ,
+                 bap:tool_intent_idempotency_key_f ,
+                 bap:tool_intent_status_f .
+
+bap:tool_intent_intent_id_f a aic:Field ;
+    aic:fieldName "intent_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this tool intent." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:tool_intent_task_id_f a aic:Field ;
+    aic:fieldName "task_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the research task this intent was proposed for." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 2 .
+
+bap:tool_intent_tool_id_f a aic:Field ;
+    aic:fieldName "tool_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the tool this intent targets." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 3 .
+
+bap:tool_intent_tool_version_f a aic:Field ;
+    aic:fieldName "tool_version" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Version of the targeted tool." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 4 .
+
+bap:tool_intent_canonical_args_hash_f a aic:Field ;
+    aic:fieldName "canonical_args_hash" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Content hash of the canonicalized tool arguments." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 5 .
+
+bap:tool_intent_side_effect_class_f a aic:Field ;
+    aic:fieldName "side_effect_class" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Declared side-effect class of the intended call (e.g. read, write, external)." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 6 .
+
+bap:tool_intent_required_capability_f a aic:Field ;
+    aic:fieldName "required_capability" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Capability label this intent would require if authorized. Descriptive only -- confers no authority itself; see the scope note on aic:tool_intent above." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 7 .
+
+bap:tool_intent_dry_run_f a aic:Field ;
+    aic:fieldName "dry_run" ;
+    aic:fieldType "boolean" ;
+    aic:fieldDoc "Whether this intent is a dry-run/simulation rather than a live proposal." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 8 .
+
+bap:tool_intent_idempotency_key_f a aic:Field ;
+    aic:fieldName "idempotency_key" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Idempotency key for de-duplicating repeated proposals of this intent." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 9 .
+
+bap:tool_intent_status_f a aic:Field ;
+    aic:fieldName "status" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Lifecycle status of this intent record (e.g. proposed, withdrawn, superseded)." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 10 .
+
+# ---------------------------------------------------------------------------
+# 5. admission_decision
+# ---------------------------------------------------------------------------
+
+bap:admission_decision_ct a aic:ContractType ;
+    aic:contractName "admission_decision" ;
+    aic:contractDoc "An independently adjudicated verdict on a subject (e.g. a tool_intent), carrying a typed reason and the policy identity it was decided under." ;
+    aic:hasField bap:admission_decision_decision_id_f ,
+                 bap:admission_decision_subject_id_f ,
+                 bap:admission_decision_principal_id_f ,
+                 bap:admission_decision_verdict_f ,
+                 bap:admission_decision_typed_reason_f ,
+                 bap:admission_decision_policy_id_f ,
+                 bap:admission_decision_policy_version_f ,
+                 bap:admission_decision_decided_at_f .
+
+bap:admission_decision_decision_id_f a aic:Field ;
+    aic:fieldName "decision_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this admission decision." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:admission_decision_subject_id_f a aic:Field ;
+    aic:fieldName "subject_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the subject (e.g. a tool_intent or candidate_claim) being decided on." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 2 .
+
+bap:admission_decision_principal_id_f a aic:Field ;
+    aic:fieldName "principal_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the principal the decision was made on behalf of." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 3 .
+
+bap:admission_decision_verdict_f a aic:Field ;
+    aic:fieldName "verdict" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "The decision verdict (e.g. admit, refuse)." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 4 .
+
+bap:admission_decision_typed_reason_f a aic:Field ;
+    aic:fieldName "typed_reason" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Typed reason code explaining the verdict." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 5 .
+
+bap:admission_decision_policy_id_f a aic:Field ;
+    aic:fieldName "policy_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the policy evaluated to reach this verdict." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 6 .
+
+bap:admission_decision_policy_version_f a aic:Field ;
+    aic:fieldName "policy_version" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Version of the policy evaluated to reach this verdict." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 7 .
+
+bap:admission_decision_decided_at_f a aic:Field ;
+    aic:fieldName "decided_at" ;
+    aic:fieldType "datetime" ;
+    aic:fieldDoc "Timestamp the decision was made." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 8 .
+
+# ---------------------------------------------------------------------------
+# 6. model_call_receipt
+# ---------------------------------------------------------------------------
+
+bap:model_call_receipt_ct a aic:ContractType ;
+    aic:contractName "model_call_receipt" ;
+    aic:contractDoc "Deterministic evidence binding a single model-gateway call's request and response identities, for replay and audit." ;
+    aic:hasField bap:model_call_receipt_call_id_f ,
+                 bap:model_call_receipt_provider_profile_f ,
+                 bap:model_call_receipt_model_id_or_snapshot_f ,
+                 bap:model_call_receipt_request_hash_f ,
+                 bap:model_call_receipt_response_hash_f ,
+                 bap:model_call_receipt_prompt_template_id_f ,
+                 bap:model_call_receipt_prompt_template_version_f ,
+                 bap:model_call_receipt_latency_ms_f ,
+                 bap:model_call_receipt_trace_id_f .
+
+bap:model_call_receipt_call_id_f a aic:Field ;
+    aic:fieldName "call_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this model call receipt." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:model_call_receipt_provider_profile_f a aic:Field ;
+    aic:fieldName "provider_profile" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the model provider/gateway profile used." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 2 .
+
+bap:model_call_receipt_model_id_or_snapshot_f a aic:Field ;
+    aic:fieldName "model_id_or_snapshot" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Model identifier or pinned snapshot used for this call." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 3 .
+
+bap:model_call_receipt_request_hash_f a aic:Field ;
+    aic:fieldName "request_hash" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Content hash of the canonicalized request." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 4 .
+
+bap:model_call_receipt_response_hash_f a aic:Field ;
+    aic:fieldName "response_hash" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Content hash of the canonicalized response." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 5 .
+
+bap:model_call_receipt_prompt_template_id_f a aic:Field ;
+    aic:fieldName "prompt_template_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the prompt template used to construct the request." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 6 .
+
+bap:model_call_receipt_prompt_template_version_f a aic:Field ;
+    aic:fieldName "prompt_template_version" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Version of the prompt template used to construct the request." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 7 .
+
+bap:model_call_receipt_latency_ms_f a aic:Field ;
+    aic:fieldName "latency_ms" ;
+    aic:fieldType "integer" ;
+    aic:fieldDoc "Observed end-to-end latency of the call, in milliseconds." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 8 .
+
+bap:model_call_receipt_trace_id_f a aic:Field ;
+    aic:fieldName "trace_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Distributed trace identifier correlating this call with other records." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 9 .
+
+# ---------------------------------------------------------------------------
+# 7. evidence_hit
+# ---------------------------------------------------------------------------
+
+bap:evidence_hit_ct a aic:ContractType ;
+    aic:contractName "evidence_hit" ;
+    aic:contractDoc "One scored retrieval result linking a query to an evidence_envelope." ;
+    aic:hasField bap:evidence_hit_hit_id_f ,
+                 bap:evidence_hit_query_id_f ,
+                 bap:evidence_hit_evidence_id_f ,
+                 bap:evidence_hit_score_f ,
+                 bap:evidence_hit_retrieval_method_f ,
+                 bap:evidence_hit_rank_f .
+
+bap:evidence_hit_hit_id_f a aic:Field ;
+    aic:fieldName "hit_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Unique identifier for this retrieval hit." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 1 .
+
+bap:evidence_hit_query_id_f a aic:Field ;
+    aic:fieldName "query_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the query that produced this hit." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 2 .
+
+bap:evidence_hit_evidence_id_f a aic:Field ;
+    aic:fieldName "evidence_id" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the evidence_envelope this hit resolves to." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 3 .
+
+bap:evidence_hit_score_f a aic:Field ;
+    aic:fieldName "score" ;
+    aic:fieldType "float" ;
+    aic:fieldDoc "Relevance score assigned to this hit by the retrieval method." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 4 .
+
+bap:evidence_hit_retrieval_method_f a aic:Field ;
+    aic:fieldName "retrieval_method" ;
+    aic:fieldType "string" ;
+    aic:fieldDoc "Identifier of the retrieval method that produced this hit (e.g. bm25, dense, hybrid)." ;
+    aic:fieldRequired "false" ;
+    aic:fieldOrder 5 .
+
+bap:evidence_hit_rank_f a aic:Field ;
+    aic:fieldName "rank" ;
+    aic:fieldType "integer" ;
+    aic:fieldDoc "Rank position of this hit within its query's result set." ;
+    aic:fieldRequired "true" ;
+    aic:fieldOrder 6 .
+
+# =============================================================================
+# BeamPM.ProcessGovernor instance data (multi-step process governance,
+# delegates entirely to the existing bpma:AdmittedActuation graph above)
+# =============================================================================
+# fragment never declares its own bpma:AdmittedActuation individuals.
+
+@prefix bpmg: <https://ggen.dev/ontology/beam4pm-process-governor#> .
+@prefix bpma: <https://ggen.dev/ontology/beam4pm-actuation#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# -- Vocabulary (two classes, five properties; no admission/execution/receipt
+#    concepts duplicated from bpma:/BeamPM.Actuation) -------------------------
+
+bpmg:ProcessContract a rdfs:Class ;
+    rdfs:comment "A named, ordered sequence of admitted actuations forming one governed multi-step process. Confers zero actuation authority of its own: every transition still passes through BeamPM.Actuation's real admit/execute/receipt boundary one layer down. Distinct from bpma:AdmittedActuation (a single admitted actuation) the way a plan is distinct from one of its steps." .
+
+bpmg:ProcessTransition a rdfs:Class ;
+    rdfs:comment "One step of a bpmg:ProcessContract: an exact from-state/to-state pair mapped to exactly one already-admitted bpma:AdmittedActuation by name (bpmg:actuationName). Carries no admission, execution, or receipt logic of its own -- BeamPM.ProcessGovernor.apply_transition/3 delegates the actual admit/execute/receipt work to BeamPM.Actuation.run/2 for the named actuation." .
+
+bpmg:processId a rdf:Property ;
+    rdfs:domain bpmg:ProcessContract ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Stable process identifier, unique across the merged graph." .
+
+bpmg:initialState a rdf:Property ;
+    rdfs:domain bpmg:ProcessContract ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The state a fresh BeamPM.ProcessGovernor.initial_snapshot/2 starts at." .
+
+bpmg:hasTransition a rdf:Property ;
+    rdfs:domain bpmg:ProcessContract ;
+    rdfs:range bpmg:ProcessTransition .
+
+bpmg:ordinal a rdf:Property ;
+    rdfs:domain bpmg:ProcessTransition ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "1-based position of this transition within its contract's sequence." .
+
+bpmg:fromState a rdf:Property ;
+    rdfs:domain bpmg:ProcessTransition ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Exact-state-hash precondition: apply_transition/3 refuses unless the snapshot presented was produced at exactly this state." .
+
+bpmg:toState a rdf:Property ;
+    rdfs:domain bpmg:ProcessTransition ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The state the snapshot advances to once the delegated BeamPM.Actuation.run/2 call succeeds." .
+
+bpmg:actuationName a rdf:Property ;
+    rdfs:domain bpmg:ProcessTransition ;
+    rdfs:range xsd:string ;
+    rdfs:comment "MUST equal a bpma:actionName of some bpma:AdmittedActuation individual already admitted in this graph. This vocabulary never defines its own admitted-action names or gym ops -- BeamPM.Actuation.admitted_actuations/0 is the single source of truth apply_transition/3 consults." .
+
+# -- Instance data (consumer-admitted) ---------------------------------------
+#
+# A 2-step governed process over the toy-counter gym, reusing the two
+# bpma:AdmittedActuation individuals beam4pm already admits at
+# ontology.ttl:915-922 (bpma:increment_counter_aa, action_name
+# "increment_counter", requires "counter_ready"; bpma:observe_counter_aa,
+# action_name "observe_counter", no required facts). No new bpma:
+# individuals are declared here.
+
+bpmg:toy_counter_governed a bpmg:ProcessContract ;
+    bpmg:processId "toy_counter_governed" ;
+    bpmg:initialState "reset" ;
+    bpmg:hasTransition bpmg:toy_counter_t1, bpmg:toy_counter_t2 .
+
+bpmg:toy_counter_t1 a bpmg:ProcessTransition ;
+    bpmg:ordinal 1 ;
+    bpmg:fromState "reset" ;
+    bpmg:toState "incremented_once" ;
+    bpmg:actuationName "increment_counter" .
+
+bpmg:toy_counter_t2 a bpmg:ProcessTransition ;
+    bpmg:ordinal 2 ;
+    bpmg:fromState "incremented_once" ;
+    bpmg:toState "observed" ;
+    bpmg:actuationName "observe_counter" .
+
+# A 2-step governed process over the real k8s-deployment-scaler gym,
+# reusing the two bpma:AdmittedActuation individuals already admitted above
+# (bpma:k8s_scale_up_aa, action_name "k8s_scale_up"; bpma:k8s_scale_down_aa,
+# action_name "k8s_scale_down"). No new bpma: individuals declared here.
+# Exercised in continuous-session mode (BeamPM.ProcessGovernor.run/2's
+# `continuous: true` opt-in) so the whole 2-transition sequence runs
+# against ONE continuously-running Deployment: one reset, then scale_up
+# (1->3), then scale_down (3->1), then one close.
+bpmg:k8s_scaling_governed a bpmg:ProcessContract ;
+    bpmg:processId "k8s_scaling_governed" ;
+    bpmg:initialState "reset" ;
+    bpmg:hasTransition bpmg:k8s_scaling_t1, bpmg:k8s_scaling_t2 .
+
+bpmg:k8s_scaling_t1 a bpmg:ProcessTransition ;
+    bpmg:ordinal 1 ;
+    bpmg:fromState "reset" ;
+    bpmg:toState "scaled_up" ;
+    bpmg:actuationName "k8s_scale_up" .
+
+bpmg:k8s_scaling_t2 a bpmg:ProcessTransition ;
+    bpmg:ordinal 2 ;
+    bpmg:fromState "scaled_up" ;
+    bpmg:toState "scaled_down" ;
+    bpmg:actuationName "k8s_scale_down" .
+
+# =============================================================================
+# EX3 -- ex4pm semantic-lineage alignment (deliberate, documentation-grade)
+# =============================================================================
+#
+# beam4pm is being reconstituted from ex4pm's real, currently-deployed-in-
+# production foundational calculus -- a live 2-replica Deployment on a real
+# local Kubernetes cluster (kind-ex4pm context, Postgres-backed, 11 real
+# rollout revisions, verified via real kubectl on 2026-08-29) -- rather than
+# standing as an independently-invented vocabulary. ex4pm's own README states
+# it is "derived from the semantic laws of wasm4pm rather than from its
+# directory structure"; this section applies the same discipline to beam4pm,
+# one level down the lineage.
+#
+# This is a beam4pm-side PROJECT INSTANCE/VOCABULARY-ALIGNMENT fragment, not a
+# ggen-marketplace pack change: it declares no new bpm:RecordType or bpm:Field
+# individuals and adds/queries no vocabulary the beam4pm-process-model-pack
+# gates (gates/010_required.rq, gates/020_field_type_enum.rq) inspect, so it
+# is inert with respect to gates M0/M1 standing -- confirmed by reading both
+# gate queries in full before writing this fragment (both scope strictly to
+# `?subject a bpm:RecordType` / `?subject a bpm:Field`).
+#
+# Sources read in full for this alignment (both are small; read completely,
+# not skimmed):
+#   - ~/ex4pm/apps/ex4pm_contracts/priv/ontology/ex4pm.ttl (37 lines: the
+#     PROV-aligned Observation/EventLog/Event/Object/ProcessModel/Engine/
+#     Capability/Intent/Authority/Actuation/Receipt/Refusal calculus, plus
+#     the UNKNOWN/PARTIAL_ALIVE/ALIVE/BLOCKED/BUILD_BROKEN/UNSUPPORTED
+#     standing vocabulary this whole ecosystem already uses)
+#   - ~/ex4pm/apps/ex4pm_contracts/priv/shacl/ex4pm-shapes.ttl (SHACL shapes
+#     for ex4pm:Event / ex4pm:ProcessModel / ex4pm:Receipt)
+#
+# The ex4pm: prefix below is genuinely new to this file -- grep confirmed zero
+# prior "ex4pm:" occurrences anywhere in beam4pm's own ontology.ttl before
+# this section was appended.
+@prefix ex4pm: <https://chatman.ai/ex4pm#> .
+@prefix b4a:   <https://ggen.dev/beam4pm/ex4pm-alignment#> .
+
+# -----------------------------------------------------------------------
+# 1. bpma:AdmittedActuation -- ex4pm:Authority, not Capability, not Actuation
+# -----------------------------------------------------------------------
+#
+# ex4pm.ttl offers three superficially plausible targets. All three real
+# class definitions were read before picking one; two are rejected below by
+# name so the choice is falsifiable, not just asserted.
+#
+#   ex4pm:Capability a rdfs:Class .                          (no subClassOf)
+#   -- REJECTED. Its only real instances declared in ex4pm.ttl (lines 32-37
+#   there) are the six standing values: ex4pm:UNKNOWN, ex4pm:PARTIAL_ALIVE,
+#   ex4pm:ALIVE, ex4pm:BLOCKED, ex4pm:BUILD_BROKEN, ex4pm:UNSUPPORTED. By the
+#   ontology's own evidence ex4pm:Capability is the class of STANDING STATES,
+#   not of admitted-action definitions. Aligning bpma:AdmittedActuation here
+#   would force-fit an action-admission record into an enum-of-statuses class
+#   it does not belong to.
+#
+#   ex4pm:Actuation a rdfs:Class ; rdfs:subClassOf prov:Activity .
+#   -- REJECTED. This is the EXECUTED activity (the real DO event) in ex4pm's
+#   PROV-aligned calculus. beam4pm's own comment at ontology.ttl:911 ("beam4pm
+#   BRCE actuation admission graph (SELECT layer, gate PI7/PI8)") is explicit
+#   that bpma:AdmittedActuation lives in the SELECT layer: a static,
+#   admission-time record (action_name, gym_op, required facts), never the
+#   executed occurrence. The thing beam4pm actually executes
+#   (BeamPM.Actuation.run/2, a real side-effecting call) is the true
+#   structural analogue of ex4pm:Actuation -- not this admission record.
+#
+#   ex4pm:Authority a rdfs:Class ; rdfs:subClassOf prov:Entity .
+#   -- ACCEPTED. ex4pm:requiresAuthority (rdfs:range ex4pm:Authority)
+#   expresses "this activity requires this entity's permission to proceed" --
+#   exactly the role bpma:AdmittedActuation plays for beam4pm: a pre-admitted
+#   entity recording that one specific named action IS authorized (with which
+#   gym_op, under which required facts) before BeamPM.Actuation.run/2 will
+#   ever execute it. An Authority (prov:Entity) that a real Actuation
+#   (prov:Activity) requires is structurally identical to an
+#   AdmittedActuation that a real actuation run consults before executing.
+# bpma:AdmittedActuation is used throughout this file only as an rdf:type
+# value (`bpma:increment_counter_aa a bpma:AdmittedActuation`, ontology.ttl
+# lines 915-922) and was never itself explicitly declared `a rdfs:Class`
+# elsewhere in this file. Declaring it here matches this file's own
+# convention for every other named class (bpm:RecordType, bpm:Field,
+# bpmg:ProcessContract, bpmg:ProcessTransition all carry an explicit
+# `a rdfs:Class`) and is required for the rdfs:subClassOf triple below to be
+# a class-to-class statement rather than leaving bpma:AdmittedActuation's
+# class-hood merely implicit.
+bpma:AdmittedActuation a rdfs:Class ;
+    rdfs:subClassOf ex4pm:Authority .
+
+# -----------------------------------------------------------------------
+# 2. ocel_event -- vocabulary-level rdfs:seeAlso, not a false subClassOf
+# -----------------------------------------------------------------------
+#
+# bpm:RecordType (beam4pm-process-model-pack/ontology.ttl:13-15) is a
+# META-CLASS describing record SHAPES ("One admitted BEAM record/struct type
+# projected into generated code"). Its instances (bpm:ocel_event_rt,
+# bpm:petri_place_rt, ... 31 total in beam4pm's ontology.ttl) are themselves
+# individuals, not classes: `bpm:ocel_event_rt a bpm:RecordType`, never
+# `bpm:ocel_event_rt a rdfs:Class`. Two candidate alignments were considered
+# and rejected before choosing the one below:
+#
+#   - `bpm:RecordType rdfs:subClassOf ex4pm:Event` -- WRONG. This would claim
+#     every one of the 31 admitted record shapes (petri_place, dfg_edge,
+#     alignment_move, k8s_object_ref, service_span, ...) is an ex4pm:Event,
+#     which is false for 30 of the 31.
+#   - `bpm:ocel_event_rt rdfs:subClassOf ex4pm:Event` -- WRONG. RDFS
+#     subClassOf relates two classes; bpm:ocel_event_rt is an individual (a
+#     record-shape descriptor), not a class. RDF does not mechanically forbid
+#     the triple, but it would be a category error identical in kind to
+#     saying an instance of Dog "is a subclass of" Animal instead of "is a"
+#     Animal.
+#
+# The genuine correspondence sits one level down: real runtime values SHAPED
+# like bpm:ocel_event_rt (an OCEL 2.0 event: event_id / event_type /
+# event_time / attributes) are semantically ex4pm:Event instances
+# (ex4pm:Event rdfs:subClassOf ex4pm:Observation in ex4pm.ttl). This is
+# reinforced field-by-field: bpm:ocel_event_event_type_f and
+# bpm:ocel_event_event_time_f (both domain bpm:ocel_event_rt's field set)
+# correspond to ex4pm:activity and ex4pm:timestamp (both rdfs:domain
+# ex4pm:Event in ex4pm.ttl) -- same two facts (an activity name, a time), same
+# governing class, different vocabularies. rdfs:seeAlso -- a real RDFS
+# property with no domain/range restriction, meant exactly for "more
+# information about this resource lives here" -- states that correspondence
+# honestly without asserting a false class hierarchy:
+bpm:ocel_event_rt rdfs:seeAlso ex4pm:Event, ex4pm:Observation .
+
+# -----------------------------------------------------------------------
+# 3. Standing vocabulary -- confirmed string-identical, cited not modeled
+# -----------------------------------------------------------------------
+#
+# beam4pm has no RDF-level standing individuals of its own anywhere in this
+# file or the vendored packs -- UNKNOWN / PARTIAL_ALIVE / ALIVE / BLOCKED /
+# BUILD_BROKEN / UNSUPPORTED appear only as plain JSON/Markdown string
+# literals (e.g. receipts/2026-08-29-gate-closure-m0-m6.json's
+# gate_evidence.*.standing fields; docs/jira/v26.8.29/16-gate-closure-m0-m6.md's
+# "GATE M0 ... ALIVE" headings). Verified 2026-08-29 by a one-time manual
+# grep of the six exact strings across beam4pm's own receipts/**, docs/**,
+# and lib/**; that manual check is now a real, re-runnable script instead
+# (`scripts/standing_vocabulary_check.sh`, added 2026-08-30 after an
+# adversarial verification pass correctly flagged the manual-grep-only
+# claim as the one ALIVE item in that receipt with no re-runnable evidence
+# behind it, unlike its siblings). All six are present, and all six match
+# ex4pm.ttl's six ex4pm:Capability individuals (lines 32-37 there)
+# character-for-character. No discrepancy was found -- there is nothing to
+# force-align, only shared
+# lineage to cite:
+b4a:standingVocabulary
+    rdfs:comment "beam4pm's own STANDING vocabulary -- UNKNOWN, PARTIAL_ALIVE, ALIVE, BLOCKED, BUILD_BROKEN, UNSUPPORTED -- used as plain string literals throughout receipts/*.json and docs/jira/**/*.md (e.g. receipts/2026-08-29-gate-closure-m0-m6.json, docs/jira/v26.8.29/16-gate-closure-m0-m6.md) is confirmed STRING-IDENTICAL, character-for-character, to ex4pm's six real ex4pm:Capability individuals (ex4pm.ttl lines 32-37). beam4pm never independently invented this vocabulary and defines no separate RDF-level standing class of its own; it deliberately reuses ex4pm's, cited here as the single shared source of truth for this enum rather than re-derived or restated elsewhere." ;
+    rdfs:seeAlso ex4pm:UNKNOWN, ex4pm:PARTIAL_ALIVE, ex4pm:ALIVE, ex4pm:BLOCKED, ex4pm:BUILD_BROKEN, ex4pm:UNSUPPORTED .
+
+# -----------------------------------------------------------------------
+# 4. RF2 -- rust4pm function-surface Reactor validation (conformance)
+# -----------------------------------------------------------------------
+#
+# Real admission fact for RF2 (process_mining::conformance::case_centric):
+# names the exact oracle binary, wire op, and dataset BeamPM.Rf2Conformance's
+# Reactor pipeline is manufactured against. Not used for numeric gating (the
+# fitness/place/transition constants baked into lib/beam4pm_rf2_conformance.ex
+# are physical measurements from a real rf2-conformance-oracle run against
+# this exact dataset, not RDF-derived) -- this graph documents WHICH oracle/
+# dataset pairing is admitted, and is queried for real via
+# mix ggen_igniter.sync's real oxigraph engine, proving the render pipeline
+# itself (not just its template body) is real. Adapted from the
+# rust4pm-Reactor-validation swarm (wf_7cdca56f-f92), independently
+# re-verified (clean cargo rebuild, fresh mix test) before integration.
+@prefix rf2: <https://ggen.dev/beam4pm/rf2-conformance#> .
+
+rf2:ConformanceStream a rf2:AdmittedOracleStream ;
+    rf2:oracleName "rf2-conformance-oracle" ;
+    rf2:wireOp "conformance" ;
+    rf2:datasetPath "/Users/sac/wasm4pm/fixtures/shared/receipt.xes" ;
+    rf2:moduleName "BeamPM.Rf2Conformance" .
+
+# =============================================================================
+# beam4pm_pro MP3 (entitlement reconciliation) + MP6 (billing/usage dedup)
+# admitted bpm:RecordType instance data
+# =============================================================================
+#
+# Manufactured by vendor/ggen-marketplace/packs/beam4pm-pro-entitlement-pack
+# (schema-only, same contract as beam4pm-pro-infra-pack -- the pack ships
+# zero individuals of its own; these four facts are this consumer's own
+# fragment). bpm:RecordType / bpm:Field and their properties are the SAME
+# vocabulary beam4pm-process-model-pack already declares, reused verbatim,
+# not redefined. Field names below are exactly what
+# beam4pm_entitlement.{erl,ex}.tmpl and beam4pm_billing.{erl,ex}.tmpl require
+# to exist (a real, documented constraint -- see those templates' own module
+# headers) -- entitlement_event: event_id, entitlement_id, event_type,
+# effective_at, payload; entitlement_state: entitlement_id, status,
+# last_applied_event_id, updated_at; usage_event: event_id, entitlement_id,
+# quantity, metric_name, occurred_at; billing_reconciliation: entitlement_id,
+# metric_name, total_quantity, applied_event_ids, period_start, period_end.
+#
+# STANDING: SELECT-layer facts only. They manufacture types and two
+# reconciliation algorithms verified against synthetic events (real
+# adversarial verification, 2026-08-30: 9 findings, all CONFIRMED, all fixed
+# before this pack's first commit -- see ggen-marketplace commit de03103b6);
+# they confer no MP3/MP6 release standing. A record type is not a deployed
+# entitlement/billing system; both gates remain BLOCKED on real Partner
+# Procurement API access and a seller account.
+@prefix b4pe: <http://seanchatmangpt.github.io/packs/beam4pm-pro-entitlement#> .
+
+# ---------------------------------------------------------------------------
+# entitlement_event -- one inbound entitlement/order/agreement lifecycle
+# notification from the marketplace provider (Google Cloud Commerce Partner
+# Procurement API Pub/Sub message shape). Append-only, at-least-once.
+# ---------------------------------------------------------------------------
+b4pe:entitlement_event_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_event" ;
+    bpm:recordDoc "One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id." ;
+    bpm:hasField b4pe:entitlement_event_event_id_f ,
+                 b4pe:entitlement_event_entitlement_id_f ,
+                 b4pe:entitlement_event_event_type_f ,
+                 b4pe:entitlement_event_effective_at_f ,
+                 b4pe:entitlement_event_payload_f .
+
+b4pe:entitlement_event_event_id_f a bpm:Field ;
+    bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "DEDUP KEY. The provider's own globally unique notification identifier (the eventId field of the Partner Procurement Pub/Sub message). Two deliveries carrying the same event_id are the same event and must fold to the same entitlement_state exactly once. This is provider-assigned, never locally minted -- a locally generated id would make redelivery indistinguishable from a genuine new event." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:entitlement_event_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The commercial identity this event applies to (Partner Procurement ENTITLEMENT_ID). Reconciliation partitions strictly by this key. Google supports multiple concurrent orders of the same product, so entitlement_id -- not account id and not product id -- is the only admissible partition key." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:entitlement_event_event_type_f a bpm:Field ;
+    bpm:fieldName "event_type" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "CLOSED SET, exactly the 13 entitlement event types published by Google Cloud Marketplace for integrated SaaS products: ENTITLEMENT_CREATION_REQUESTED | ENTITLEMENT_OFFER_ACCEPTED | ENTITLEMENT_ACTIVE | ENTITLEMENT_PLAN_CHANGE_REQUESTED | ENTITLEMENT_PLAN_CHANGED | ENTITLEMENT_PLAN_CHANGE_CANCELLED | ENTITLEMENT_PENDING_CANCELLATION | ENTITLEMENT_CANCELLATION_REVERTED | ENTITLEMENT_CANCELLED | ENTITLEMENT_CANCELLING | ENTITLEMENT_RENEWED | ENTITLEMENT_OFFER_ENDED | ENTITLEMENT_DELETED. Typed string, deliberately NOT atom: these values arrive verbatim from an external wire and binary_to_atom/2 over untrusted input is an unbounded atom-table growth path on the BEAM. An unrecognized value is a typed refusal, never a silently ignored event." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:entitlement_event_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 UTC instant at which this event takes commercial effect (provider-assigned, not local receipt time). Primary component of the reconciliation watermark; ties are broken by event_id so that the fold is a total order and therefore order-independent. Local receipt time is deliberately not modeled: it would make the fold non-deterministic under replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4pe:entitlement_event_payload_f a bpm:Field ;
+    bpm:fieldName "payload" ; bpm:fieldType "map" ;
+    bpm:fieldDoc "Optional provider-specific extra fields carried verbatim (e.g. account id, product/plan id, offer id, newPlan, newOffer, scheduled start time). Retained for receipt/audit fidelity; the reconciliation fold reads NO field from this map -- everything the fold depends on is promoted to a typed top-level field above." ;
+    bpm:fieldRequired "false" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# entitlement_state -- the reconciled current state of exactly one
+# entitlement, the single-valued result of folding its entitlement_event set.
+# ---------------------------------------------------------------------------
+b4pe:entitlement_state_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_state" ;
+    bpm:recordDoc "The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark." ;
+    bpm:hasField b4pe:entitlement_state_entitlement_id_f ,
+                 b4pe:entitlement_state_status_f ,
+                 b4pe:entitlement_state_last_applied_event_id_f ,
+                 b4pe:entitlement_state_updated_at_f .
+
+b4pe:entitlement_state_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The commercial identity this state describes (Partner Procurement ENTITLEMENT_ID). Unique key: at most one entitlement_state exists per entitlement_id." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:entitlement_state_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "CLOSED SET, exactly the 8 values of the Cloud Commerce Partner Procurement API's EntitlementState enum: ENTITLEMENT_STATE_UNSPECIFIED | ENTITLEMENT_ACTIVATION_REQUESTED | ENTITLEMENT_ACTIVE | ENTITLEMENT_PENDING_CANCELLATION | ENTITLEMENT_CANCELLED | ENTITLEMENT_PENDING_PLAN_CHANGE | ENTITLEMENT_PENDING_PLAN_CHANGE_APPROVAL | ENTITLEMENT_SUSPENDED. This is the provider's STATE enum, which is deliberately not the same closed set as entitlement_event.event_type: ENTITLEMENT_SUSPENDED is a reachable state with no corresponding notification event type, and ENTITLEMENT_RENEWED / ENTITLEMENT_OFFER_ENDED / ENTITLEMENT_DELETED are event types with no distinct state. The event_type -> status transition table is therefore an explicit, non-identity mapping, never a string rename." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:entitlement_state_last_applied_event_id_f a bpm:Field ;
+    bpm:fieldName "last_applied_event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The event_id of the single entitlement_event that produced this state. Second (tiebreak) component of the reconciliation watermark, and the audit link from a commercial state back to the exact provider notification that caused it. Required, never undefined: an entitlement_state may only be constructed by applying a real event, so there is no lawful state without a causing event id." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:entitlement_state_updated_at_f a bpm:Field ;
+    bpm:fieldName "updated_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "The effective_at of the last applied event -- NOT wall-clock ingestion time. First component of the reconciliation watermark. Defining it as provider effective time (a) makes the state a pure function of the event set, so the same events replayed in any order at any later date rebuild a byte-identical state, and (b) makes the strictly-greater-than admission test well-founded. A wall-clock updated_at would silently admit an out-of-order older event, because it always advances." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# ---------------------------------------------------------------------------
+# usage_event -- one metered consumption event to be billed. At-least-once
+# delivery; dedup is a property of the reconciliation fold, not the store.
+# ---------------------------------------------------------------------------
+b4pe:usage_event_rt a bpm:RecordType ;
+    bpm:recordName "usage_event" ;
+    bpm:recordDoc "One metered usage/consumption occurrence to be billed against an entitlement. event_id is the idempotency key that is ALSO the operationId reported to the provider's usage API, so local dedup and provider-side dedup are keyed identically and can never disagree." ;
+    bpm:hasField b4pe:usage_event_event_id_f ,
+                 b4pe:usage_event_entitlement_id_f ,
+                 b4pe:usage_event_quantity_f ,
+                 b4pe:usage_event_metric_name_f ,
+                 b4pe:usage_event_occurred_at_f .
+
+b4pe:usage_event_event_id_f a bpm:Field ;
+    bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "DEDUP KEY. Stable, deterministic, locally minted identifier for this metered occurrence -- and the exact value sent as operationId on the Service Control services.report call, which is the provider's own documented deduplication mechanism. It MUST be derived from the occurrence itself, never from a random UUID or a wall clock: a re-minted id on retry would defeat both local and provider-side dedup and double bill. Counting the same event_id twice in a billing_reconciliation.total_quantity is the exact MP6 failure." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:usage_event_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The entitlement this usage is billed against (Partner Procurement ENTITLEMENT_ID); resolves to the provider's consumerId at report time. Usage whose entitlement_id has no reconciled entitlement_state is a typed refusal, never silently billed and never silently dropped." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:usage_event_quantity_f a bpm:Field ;
+    bpm:fieldName "quantity" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "The measured amount for this single occurrence, in the unit implied by metric_name. Non-negative: a correction is a separate, explicitly-typed adjustment, never a negative usage_event, because negative quantities make the dedup-set sum order-sensitive at the boundaries and make a double-counted event cancellable rather than detectable." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:usage_event_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The fully qualified metered dimension this occurrence counts against. Reconciliation partitions by (entitlement_id, metric_name): quantities in different metrics are never summed together." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4pe:usage_event_occurred_at_f a bpm:Field ;
+    bpm:fieldName "occurred_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 UTC instant the usage actually occurred (not when it was observed, queued, or reported)." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# billing_reconciliation -- the reconciled total for one (entitlement_id,
+# metric_name) over one caller-supplied half-open period.
+# ---------------------------------------------------------------------------
+b4pe:billing_reconciliation_rt a bpm:RecordType ;
+    bpm:recordName "billing_reconciliation" ;
+    bpm:recordDoc "The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream." ;
+    bpm:hasField b4pe:billing_reconciliation_entitlement_id_f ,
+                 b4pe:billing_reconciliation_metric_name_f ,
+                 b4pe:billing_reconciliation_total_quantity_f ,
+                 b4pe:billing_reconciliation_applied_event_ids_f ,
+                 b4pe:billing_reconciliation_period_start_f ,
+                 b4pe:billing_reconciliation_period_end_f .
+
+b4pe:billing_reconciliation_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The entitlement this total is billed against. First component of the reconciliation partition key." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:billing_reconciliation_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "The metered dimension this total is for. Second component of the reconciliation partition key; totals are never summed across metrics." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:billing_reconciliation_total_quantity_f a bpm:Field ;
+    bpm:fieldName "total_quantity" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "The billable total: the sum of quantity over the distinct events named in applied_event_ids, accumulated in that list's ascending event_id order. The fixed summation order is load-bearing, not incidental -- float addition is non-associative, so only a canonical order makes the total bit-identical across arrival orders and across replays. Recomputable by any third party from applied_event_ids plus the usage_event store, which is what makes this a receipt rather than a claim." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:billing_reconciliation_applied_event_ids_f a bpm:Field ;
+    bpm:fieldName "applied_event_ids" ; bpm:fieldType "list_string" ;
+    bpm:fieldDoc "The exact deduplicated evidence set behind total_quantity: every usage_event.event_id counted, sorted ascending, with no duplicates. This is the dedup contract made auditable -- |applied_event_ids| is the honest count of billed occurrences, and any event_id appearing at most once here is a mechanically checkable falsifier for MP6 double-billing." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4pe:billing_reconciliation_period_start_f a bpm:Field ;
+    bpm:fieldName "period_start" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 UTC INCLUSIVE lower bound of the billing period. An event is in-period when period_start <= occurred_at. Caller-supplied to reconcile_billing/4, never derived from the input events themselves -- see period_end's fieldDoc for why." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4pe:billing_reconciliation_period_end_f a bpm:Field ;
+    bpm:fieldName "period_end" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+

@@ -1,7 +1,7 @@
 # Real, runnable demo of the ggen-manufactured BeamPM.Types.OcelEvent module.
 #
 # This script builds a small in-memory OCEL 2.0 event log (three events) directly
-# against `BeamPM.Types.OcelEvent` from generated/elixir/lib/beam4pm_types.ex --
+# against `BeamPM.Types.OcelEvent` from lib/beam4pm_types.ex --
 # no mocks, no stubs, no fixtures standing in for the real module.
 #
 # Invocation (from the beam4pm project root, after `mix compile`):

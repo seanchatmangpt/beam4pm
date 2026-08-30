@@ -14,7 +14,7 @@
 # language's JSON)) must equal to_map(locally constructed sample). Any failure
 # in either direction exits non-zero. This script is ops tooling only — every
 # module it calls (beam4pm_roundtrip, BeamPM.Roundtrip, the codecs, the types)
-# is ggen-manufactured under generated/.
+# is ggen-manufactured (see the header comment in each file, not directory placement).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -22,7 +22,7 @@ TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 mkdir -p "$TMP/ebin" "$TMP/wire"
 
-erlc -o "$TMP/ebin" generated/erlang/src/*.erl
+erlc -o "$TMP/ebin" src/*.erl
 
 erl -noshell -pa "$TMP/ebin" -eval "ok = beam4pm_roundtrip:write_samples(\"$TMP/wire\"), halt(0)."
 

@@ -1,0 +1,22 @@
+[package]
+name = "rf3-ocel-oracle"
+version = "0.1.0"
+edition = "2021"
+description = "RF3 oracle: process_mining 0.6.2 OCEL JSON import + bindings::{num_events,num_objects,ocel_type_stats,slim_link_ocel} and the real SlimLinkedOCEL construction path (SlimLinkedOCEL::new/add_event_type/add_object_type/add_event/add_object/add_e2o/construct_ocel), run against real wasm4pm OCEL fixtures."
+license = "MIT"
+
+[dependencies]
+# rust4pm -- the canonical process-discovery/object-centric implementation. Pinned exactly,
+# same version as qualification/rust4pm-oracle. `bindings` feature is required: it is the
+# ONLY feature gate behind which process_mining::bindings (num_events/num_objects/
+# ocel_type_stats/slim_link_ocel, and the private locel_* #[register_binding] trampolines
+# in bindings::slim_ocel_bindings) is compiled at all (`#![cfg(feature = "bindings")]` at
+# the top of src/bindings/mod.rs).
+process_mining = { version = "=0.6.2", default-features = false, features = ["bindings"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", features = ["serde"] }
+
+[profile.release]
+opt-level = "s"
+lto = true

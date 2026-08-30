@@ -1,0 +1,23 @@
+[package]
+name = "rf1-dfg-oracle"
+version = "0.1.0"
+edition = "2021"
+description = "RF1 differential-testing oracle: beam4pm DFG discovery (XES import -> log_to_activity_projection -> discover_dfg -> case_centric queries) verified against the canonical rust4pm (process_mining) implementation."
+license = "MIT"
+
+[[bin]]
+name = "rf1-dfg-oracle"
+path = "src/main.rs"
+
+[dependencies]
+# rust4pm -- the canonical process-discovery implementation. Pinned exactly,
+# mirroring beam4pm/qualification/rust4pm-oracle's proven feature-flag recipe
+# (default-features = false: no polars/sqlite/duckdb/graphviz/token-replay
+# needed here, and several would not compile for wasm32-wasip1).
+process_mining = { version = "=0.6.2", default-features = false }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = "s"
+lto = true

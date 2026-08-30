@@ -35,7 +35,7 @@ mix ggen_igniter.sync \
   --query records="$IGN/queries/records.rq" \
   --query fields="$IGN/queries/fields.rq" \
   --template "$IGN/templates/beam4pm_ash.ex.eex" \
-  --out generated/elixir/lib/beam4pm_ash.ex
+  --out lib/beam4pm_ash.ex
 
 # 2. Chicago ExUnit CRUD suite: one real Ash.create!/Ash.read! round-trip
 #    per admitted record type, deterministic sample values, no mocks.
@@ -44,11 +44,11 @@ mix ggen_igniter.sync \
   --query records="$IGN/queries/records.rq" \
   --query fields="$IGN/queries/fields.rq" \
   --template "$IGN/templates/beam4pm_ash_test.exs.eex" \
-  --out generated/elixir/test/beam4pm_ash_test.exs
+  --out test/beam4pm_ash_test.exs
 
 # 3. (optional) Cross-engine identity probe: the EEx-rendered manifest must
 #    be byte-identical to the Rust-ggen/Tera-manufactured
-#    generated/elixir/lib/beam4pm_types_manifest.ex.
+#    lib/beam4pm_types_manifest.ex.
 #    Verified result 2026-08-29: BYTE-IDENTICAL (on both engines).
 mix ggen_igniter.sync \
   --ontology ontology.ttl \
@@ -56,7 +56,7 @@ mix ggen_igniter.sync \
   --query fields="$IGN/queries/fields.rq" \
   --template "$IGN/templates/beam4pm_types_manifest.ex.eex" \
   --out tmp_probe/beam4pm_types_manifest.ex
-diff -u generated/elixir/lib/beam4pm_types_manifest.ex tmp_probe/beam4pm_types_manifest.ex \
+diff -u lib/beam4pm_types_manifest.ex tmp_probe/beam4pm_types_manifest.ex \
   && echo "cross-engine identity probe: BYTE-IDENTICAL"
 
 # Verify (as actually run in the scratch consumer: exit 0, and

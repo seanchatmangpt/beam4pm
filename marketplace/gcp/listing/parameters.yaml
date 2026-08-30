@@ -1,0 +1,151 @@
+# ============================================================================
+# Deployment Parameters for beam4pm_pro Marketplace Substrate
+# Mapping of schema inputs to Terraform variables (streams I1/I2) and of
+# commercial inputs to entitlement-policy dimensions (never feature forks).
+# ============================================================================
+# STATUS: locally-manufactured substrate. The terraform module paths refer to
+# the concurrently-manufactured stream I1 (Cloud Run) and stream I2 (VM
+# image/packer) trees under marketplace/gcp/. No seller account, listing, or
+# billing integration exists (MP0/MP1/MP6 BLOCKED on external authority).
+# ============================================================================
+
+# ========================================================================
+# Deployment type -> terraform tree
+# ========================================================================
+deployment_type:
+  terraform_variable: deployment_type
+  module_mapping:
+    cloud-run: marketplace/gcp/terraform/cloud-run   # stream I1
+    gce-vm: marketplace/gcp/terraform/vm             # stream I2
+
+# ========================================================================
+# Project / region
+# ========================================================================
+project_id:
+  terraform_variable: project_id
+  module: all
+  default: beam4pm-pro-demo   # placeholder, buyer-supplied at deploy time
+
+region:
+  terraform_variable: region
+  module: all
+
+zone:
+  terraform_variable: zone
+  default_from_region:
+    us-central1: us-central1-a
+    us-east1: us-east1-b
+    us-west1: us-west1-a
+    europe-west1: europe-west1-b
+    asia-southeast1: asia-southeast1-a
+
+# ========================================================================
+# Runtime parameters
+# ========================================================================
+image:
+  terraform_variable: image
+  module: all
+  default: ghcr.io/seanchatmangpt/beam4pm:latest
+  note: >-
+    Marketplace-hosted deployments must reference an Artifact Registry
+    mirror; the GHCR image is the manufacturing source of truth published by
+    the beam4pm container workflow.
+
+instance_name:
+  terraform_variable: service_name
+  module: all
+
+min_instances:
+  terraform_variable: min_instances
+  module: cloud-run
+
+max_instances:
+  terraform_variable: max_instances
+  module: cloud-run
+
+machine_type:
+  terraform_variable: machine_type
+  module: gce-vm
+
+# ========================================================================
+# Observability parameters
+# ========================================================================
+enable_monitoring:
+  terraform_variable: enable_monitoring
+  module: all
+
+enable_logging:
+  terraform_variable: enable_logging
+  module: all
+
+notification_email:
+  terraform_variable: notification_email
+  module: all
+  terraform_values:
+    enabled: true
+    address: "${notification_email}"
+
+# ========================================================================
+# Commercial dimensions -> entitlement policy (NOT terraform)
+#
+# These inputs never change deployed code; they select entitlement policy.
+# Dimension vocabulary is taken verbatim from beam4pm
+# docs/jira/v26.8.29/05-pricing-packaging-unit-economics.md:
+#   - capability ladder: Observe -> Infer -> Govern -> Sovereign
+#   - Model A - estate bands (governed environment/cluster/service-estate
+#     band)
+#   - Model B - process scope (discovered/governed process-estate band)
+#   - Model C - capacity units (marketplace-compatible capacity basket)
+#   - Model D - platform commitment + overage
+# Per doc 05, actual dollar levels remain UNKNOWN until buyer discovery;
+# no price constants are encoded anywhere in this substrate.
+# ========================================================================
+capability_tier:
+  entitlement_dimension: capability_tier
+  values: [observe, infer, govern, sovereign]
+  binding: entitlement-policy
+  terraform_variable: null   # deliberately none - no marketplace feature fork
+
+estate_band:
+  entitlement_dimension: estate_band
+  pricing_model_candidate: model-a-estate-bands
+  values: [departmental, enterprise, sovereign-fleet]
+  binding: entitlement-policy
+  terraform_variable: null
+
+# Preserved (DfCM: multiple lawful pricing models until evidence selects):
+pricing_model_candidates:
+  model-a-estate-bands:
+    unit: governed environment/cluster/service-estate band
+    status: preserved
+  model-b-process-scope:
+    unit: discovered/governed process-estate band
+    status: preserved
+    note: requires a defensible canonical measurement
+  model-c-capacity-units:
+    unit: marketplace-compatible capacity unit (basket of estate/process capacity)
+    status: preserved
+  model-d-commitment-overage:
+    unit: annual/multi-year base commitment with metered expansion
+    status: preserved
+    note: strong fit for GCP private offers (flat-fee, usage-based, hybrid)
+
+# ========================================================================
+# Computed outputs
+# ========================================================================
+outputs:
+  service_url:
+    description: "URL to access the deployed service"
+    value_from:
+      cloud-run: module.cloud_run.service_url
+      gce-vm: module.vm.external_ip
+
+  health_check_url:
+    description: "Health check endpoint URL"
+    value_from:
+      cloud-run: "${module.cloud_run.service_url}/health"
+      gce-vm: "http://${module.vm.external_ip}/health"
+
+  dashboard_url:
+    description: "Cloud Monitoring dashboard URL"
+    value_from: "https://console.cloud.google.com/monitoring/dashboards?project=${project_id}"

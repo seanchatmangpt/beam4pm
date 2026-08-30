@@ -1,0 +1,52 @@
+{
+  "schema": "https://ggen.dev/receipts/beam4pm-manufacturing/v1",
+  "date": "2026-08-29",
+  "subject": "Full M0-M6 gate closure and the exact-subject crown BEAM4PM_GGEN_ONLY_ALIVE",
+  "claim_ceiling": "Gates M0-M6 of docs/jira/v26.8.29/11-release-gates-receipts.md are ALIVE for the exact release subject below, crowning BEAM4PM_GGEN_ONLY_ALIVE for that subject only. Nothing here closes any PI, air-gap, marketplace, or RevOps gate; those families remain UNKNOWN or BLOCKED on external authorities.",
+  "exact_release_subject": {
+    "beam4pm_head": "30ac6586391341cba41980fe3deb1ddaa5cdfa3d",
+    "ggen_marketplace_submodule": "f060a79416cf1c5e94b997ebe43cd70cf623a188",
+    "pack": "beam4pm-process-model-pack (26 Tera templates + igniter/ EEx assets)",
+    "engines": {
+      "primary": "ggen 26.8.18 (Rust, Tera templates)",
+      "secondary": "ggen_igniter 26.8.30 (hex.pm, Elixir, EEx templates, oxigraph Rustler NIF engine)"
+    },
+    "toolchain": {
+      "otp": "28 (erts 16.2)",
+      "elixir": "1.19.5",
+      "gleam": "1.18.1",
+      "rebar3": "3.27.0",
+      "ash": "3.32.1",
+      "host": "darwin 26.2 (macOS), local execution"
+    }
+  },
+  "manufactured_this_closure": {
+    "pack_commits": ["cc2c28ac5 (15 Tera templates: codecs erl/ex + tests, discovery erl/ex + tests, 5 gleam, roundtrip erl/ex)", "f060a7941 (igniter/: records.rq, fields.rq, beam4pm_ash.ex.eex, beam4pm_ash_test.exs.eex, beam4pm_types_manifest.ex.eex)"],
+    "beam4pm_commits": ["81d235c (codecs/discovery/gleam/roundtrip artifacts + scripts/roundtrip_check.sh)", "c7d871a (ggen_igniter second engine, Ash projection 31 resources + 31 CRUD tests, discovery demos, playground)", "30ac658 (playground deps.get fix surfaced by the real fresh-clone run)"],
+    "authoring_provenance": "7-stream parallel swarm (workflow wf_ae9164c5-7d1), each stream Chicago-verified in an isolated scratch consumer with real ggen/compilers/tests before integration; integrator re-verified everything in the real repo after integration"
+  },
+  "gate_evidence": {
+    "M0_canonical_input_admitted": { "standing": "ALIVE", "evidence": "31 bpm:RecordType graph passes both pack gates under ggen sync run" },
+    "M1_manufacture_succeeds": { "standing": "ALIVE", "evidence": "rm -f ggen.lock && ggen sync run exit 0 (26 artifacts); bash scripts/igniter_sync.sh exit 0 (2 Ash artifacts + probe)" },
+    "M2_deterministic_reprojection": { "standing": "ALIVE", "evidence": "two consecutive full deletions + regenerations byte-identical across all 27 generated files (sha256 double-pass, empty diff); cross-engine probe: ggen_igniter/EEx manifest rendering BYTE-IDENTICAL to ggen/Tera output on both oxigraph and sparql engines" },
+    "M3_compile_type_verification": { "standing": "ALIVE", "legs": { "erlang": "erlc -Werror clean, OTP 28", "elixir": "mix compile --warnings-as-errors --force clean", "gleam": "gleam build warning-free", "ash": "31 Ash.Resource modules compile under --warnings-as-errors against Ash 3.32.1" } },
+    "M4_executable_examples": { "standing": "ALIVE", "evidence": "real DFG discovery + conformance with hard in-demo assertions executed in all three: escript examples/erlang/dfg_discovery_demo.erl (PASS), mix run examples/elixir/dfg_discovery_demo.exs (PASS), gleam run (same edges/fitness). Deviant-trace fitness 0.0 < 1.0 asserted." },
+    "M5_cross_language_identity": { "standing": "ALIVE", "evidence": "scripts/roundtrip_check.sh: 31 records x full/minimal over JSON wire; elixir-verifies-erlang 62 pass 0 fail; erlang-verifies-elixir 62 pass 0 fail; identity at to_map semantic level", "scope_limit": "Erlang<->Elixir only; Gleam has no codec leg" },
+    "M6_playground": { "standing": "ALIVE", "evidence": "genuine git clone --recurse-submodules https://github.com/seanchatmangpt/beam4pm (head 30ac658) + bash playground/playground.sh: exit 0, PLAYGROUND: end-to-end PASS (toolchain -> submodules -> mix deps.get -> manufacture -> 165/165 eunit -> 248/248 mix test -> gleam 7/7 + demo -> both discovery demos -> M5 roundtrip)", "defect_found_and_fixed_forward": "first fresh-clone attempt failed at mix test on unfetched hex deps (playground.sh predated mix.exs having deps); fixed as 30ac658, re-proven from a new fresh clone of the pushed head" }
+  },
+  "crown": {
+    "name": "BEAM4PM_GGEN_ONLY_ALIVE",
+    "scope": "exactly the release subject above, executed 2026-08-29 on this host; not transferable to any other head, toolchain, or gate family",
+    "zero_hand_authored_domain_source": "all application/domain source under generated/ is engine output; hand-authored files are ops/infra only (scripts/, playground/playground.sh, examples/ thin demo wrappers, rebar.config, mix.exs, src/beam4pm.app.src, docs)"
+  },
+  "test_totals": { "eunit": "165/165", "exunit": "248/248 (incl. 31 real Ash ETS CRUD roundtrips)", "gleeunit": "7/7", "roundtrip_fixtures": "62+62 both directions" },
+  "known_limitations_disclosed": [
+    "all seven items from receipts/2026-08-29-50-agent-swarm-slice-expansion.json stand",
+    "conformance computes fitness only; precision never set",
+    "case-attribute keying is the only trace notion (no OCEL relationship-based object-centric traces)",
+    "Gleam projection diverges on atom->String and map->Dict(String,String), disclosed in generated comments; no Gleam codec/roundtrip leg",
+    "Ash projection adds synthetic uuid_primary_key :id absent from the wire schema; Ash resources not exercised by the roundtrip",
+    "compiling :ggen_igniter requires Rust/cargo (Rustler NIF), a real contributor-environment constraint (fail-closed in playground toolchain check)"
+  ],
+  "replay": "git clone --recurse-submodules https://github.com/seanchatmangpt/beam4pm && cd beam4pm && git checkout 30ac658 && bash playground/playground.sh"
+}

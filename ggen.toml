@@ -6,6 +6,10 @@ source = "ontology.ttl"
 
 [packs]
 beam4pm-process-model = { path = "vendor/ggen-marketplace/packs/beam4pm-process-model-pack" }
+beam4pm-pro-infra = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-infra-pack" }
+github-actions-pack = { path = "vendor/ggen-marketplace/packs/github-actions-pack" }
+beam4pm-ai-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-ai-contracts-pack" }
+beam4pm-pro-entitlement = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-entitlement-pack" }
 
 [templates]
 dir = "templates"
