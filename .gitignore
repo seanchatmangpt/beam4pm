@@ -18,3 +18,7 @@ erl_crash.dump
 
 .DS_Store
 *.tmp
+
+# ggen_igniter reconciliation manifest + probe output (manufacturing-time state)
+.ggen_igniter/
+tmp_probe/
