@@ -1,0 +1,11 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:CommercialStanding a pro:CommercialControl ;
+ dct:identifier "B4PMP-STANDING-001" ; dct:title "Commercial standing lattice" ;
+ pro:requiredEvidence "commercial claims advance only through UNKNOWN, PARTIAL_ALIVE and ALIVE from exact executed evidence; BLOCKED, REFUSED and UNSUPPORTED remain scoped failure states" ;
+ pro:aliveFromDocumentsAloneAllowed false ; pro:authorityCeiling "VERIFY" ;
+ pro:refusalCode "REFUSED[COMMERCIAL_CROWN_WITHOUT_EXECUTION]" ;
+ pro:standingValues "UNKNOWN|PARTIAL_ALIVE|ALIVE|BLOCKED|REFUSED|UNSUPPORTED" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/09-jira-epics-stories-acceptance.md> .
