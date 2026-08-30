@@ -2520,3 +2520,17 @@ b4pe:billing_reconciliation_period_end_f a bpm:Field ;
     bpm:fieldDoc "ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
 
+# WS2-REV-001 -- executable commercial quote contract.
+b4pe:commercial_quote_rt a bpm:RecordType ;
+    bpm:recordName "commercial_quote" ;
+    bpm:recordDoc "A versioned enterprise quote binding an account, currency, and lifecycle standing." ;
+    bpm:hasField b4pe:commercial_quote_quote_id_f , b4pe:commercial_quote_account_id_f , b4pe:commercial_quote_currency_f , b4pe:commercial_quote_status_f .
+
+b4pe:commercial_quote_quote_id_f a bpm:Field ;
+    bpm:fieldName "quote_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable quote identity used across approval and ordering." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:commercial_quote_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account receiving the quote." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:commercial_quote_currency_f a bpm:Field ;
+    bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "ISO 4217 settlement currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:commercial_quote_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Quote lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
