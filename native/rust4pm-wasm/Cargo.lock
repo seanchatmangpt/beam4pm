@@ -714,6 +714,7 @@ dependencies = [
  "base64",
  "chrono",
  "process_mining",
+ "quick-xml",
  "serde",
  "serde_json",
 ]

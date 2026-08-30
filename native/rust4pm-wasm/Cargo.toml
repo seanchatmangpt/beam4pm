@@ -23,6 +23,9 @@ chrono = { version = "0.4", default-features = false, features = ["std"] }
 # JSON strings cannot carry raw gzip bytes; the import_xes_gz op ships
 # .xes.gz content as base64 (pure-Rust codec, wasm-clean).
 base64 = "0.22"
+# Same quick-xml line process_mining 0.6.2 itself resolves (0.37.x) -- used only
+# to hand export_ocel_xml a recoverable Writer over an in-memory Vec<u8>.
+quick-xml = "0.37"
 
 [profile.release]
 opt-level = "s"

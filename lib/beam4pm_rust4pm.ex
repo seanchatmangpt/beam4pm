@@ -468,6 +468,66 @@ defmodule BeamPM.Rust4PM do
     )
   end
 
+  @doc "Import an OCEL 2.0 JSON document (the crate's `import_ocel_json_slice`)."
+  def import_ocel_json(json_content, opts \\ []) when is_binary(json_content) do
+    call(
+      %{"op" => "import_ocel_json", "content" => json_content},
+      timeout(opts, @heavy_timeout)
+    )
+  end
+
+  @doc """
+  Export the OCEL as OCEL 2.0 XML (the crate's `export_ocel_xml`). Returns
+  `{:ok, %{"content_b64" => ...}}`; decode with `Base.decode64!/1`.
+  """
+  def ocel_to_xml(ocel, opts \\ []) when is_integer(ocel) do
+    call(%{"op" => "ocel_to_xml", "ocel_handle" => ocel}, timeout(opts, @heavy_timeout))
+  end
+
+  @doc "Import an OCEL 2.0 XML document (the crate's `import_ocel_xml_slice`)."
+  def import_ocel_xml(xml_bytes, opts \\ []) when is_binary(xml_bytes) do
+    call(
+      %{"op" => "import_ocel_xml", "content_b64" => Base.encode64(xml_bytes)},
+      timeout(opts, @heavy_timeout)
+    )
+  end
+
+  @doc """
+  Object-centric DFG for one object type (`get_dfg_of_object_type` over
+  `SlimLinkedOCEL`): adjacent activity pairs per object's timestamp-ordered
+  trace, sorted by count desc then (from, to) — the crate's own ordering.
+  """
+  def ocel_dfg_of_object_type(ocel, object_type, opts \\ [])
+      when is_integer(ocel) and is_binary(object_type) do
+    call(
+      %{"op" => "ocel_dfg_of_object_type", "ocel_handle" => ocel, "object_type" => object_type},
+      timeout(opts, @heavy_timeout)
+    )
+  end
+
+  @doc """
+  Object-centric variants for one object type (`get_variants_of_object_type`
+  over `SlimLinkedOCEL`), sorted by count desc then trace — the crate's own
+  ordering. `n` (optional) truncates the rendered list; `num_variants` is
+  always the full count.
+  """
+  def ocel_variants_of_object_type(ocel, object_type, opts \\ [])
+      when is_integer(ocel) and is_binary(object_type) do
+    base = %{
+      "op" => "ocel_variants_of_object_type",
+      "ocel_handle" => ocel,
+      "object_type" => object_type
+    }
+
+    req =
+      case Keyword.get(opts, :n) do
+        nil -> base
+        n when is_integer(n) and n > 0 -> Map.put(base, "n", n)
+      end
+
+    call(req, timeout(opts, @heavy_timeout))
+  end
+
   @doc "Free an OCEL handle."
   def free_ocel(ocel, opts \\ []) when is_integer(ocel) do
     call(%{"op" => "free_ocel", "ocel_handle" => ocel}, timeout(opts, @cheap_timeout))

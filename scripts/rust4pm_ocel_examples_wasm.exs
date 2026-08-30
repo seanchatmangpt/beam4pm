@@ -73,4 +73,32 @@ ostats["num_objects"] == 6449 || Die.die("ASSERT: expected 6449 declaration obje
 ostats["num_event_types"] == 34 || Die.die("ASSERT: expected the log's real 34 activities as event types")
 ostats["num_events"] > 70_000 || Die.die("ASSERT: implausible event total #{ostats["num_events"]}")
 
+# Example C -- Object-Centric Discovery (docs "Object-Centric DFG" /
+# "Object-Centric Variants" via SlimLinkedOCEL) at canonical scale: 6449
+# declaration objects linked to 72k+ events.
+IO.puts("\n== example C: object-centric discovery over the canonical OCEL ==")
+{:ok, %{"num_edges" => ne, "edges" => [top_edge | _]}} =
+  Rust4PM.ocel_dfg_of_object_type(oh, "declaration")
+
+{:ok, %{"num_variants" => nv, "variants" => [top_var | _]}} =
+  Rust4PM.ocel_variants_of_object_type(oh, "declaration", n: 1)
+
+IO.puts("   OC-DFG edges:          #{ne} (top: #{top_edge["from"]} -> #{top_edge["to"]} x#{top_edge["count"]})")
+IO.puts("   OC variants:           #{nv} (top count: #{top_var["count"]}, length #{length(top_var["activities"])})")
+
+# Each declaration object's E2O trace IS its XES case's activity trace, so
+# object-centric discovery over this OCEL must reproduce the case-centric
+# numbers the engine already verified on this exact log: 753 variants, and
+# the same edge set as discover_dfg up to the crate's DFG-vs-OC-DFG
+# start/end-node handling (the OC DFG has no artificial start/end nodes,
+# so compare against the real-activity-pair subset).
+nv == 753 || Die.die("ASSERT: OC variants of the case object type must equal the log's real 753 case variants, got #{nv}")
+
+{:ok, %{"variants" => cc_top}} = Rust4PM.top_n_variants(log, 1)
+[%{"activities" => cc_acts, "count" => cc_count}] = cc_top
+(top_var["activities"] == cc_acts and top_var["count"] == cc_count) ||
+  Die.die("ASSERT: OC top variant must equal the case-centric top variant")
+
+ne > 0 || Die.die("ASSERT: empty OC DFG on a 72k-event OCEL")
+
 IO.puts("\nRUST4PM OCEL EXAMPLES (wasm): PASS -- all assertions held")
