@@ -3379,3 +3379,21 @@ b4pe:value_realization_realized_value_f a bpm:Field ;
 
 b4pe:value_realization_measured_at_f a bpm:Field ;
     bpm:fieldName "measured_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Outcome measurement instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-049 -- Time-bound account forecast with amount and confidence.
+b4pe:commercial_forecast_rt a bpm:RecordType ;
+    bpm:recordName "commercial_forecast" ;
+    bpm:recordDoc "Time-bound account forecast with amount and confidence." ;
+    bpm:hasField b4pe:commercial_forecast_forecast_id_f , b4pe:commercial_forecast_account_id_f , b4pe:commercial_forecast_amount_f , b4pe:commercial_forecast_confidence_f .
+
+b4pe:commercial_forecast_forecast_id_f a bpm:Field ;
+    bpm:fieldName "forecast_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable forecast identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:commercial_forecast_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Forecast enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:commercial_forecast_amount_f a bpm:Field ;
+    bpm:fieldName "amount" ; bpm:fieldType "float" ; bpm:fieldDoc "Forecast monetary amount." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:commercial_forecast_confidence_f a bpm:Field ;
+    bpm:fieldName "confidence" ; bpm:fieldType "float" ; bpm:fieldDoc "Forecast confidence ratio." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
