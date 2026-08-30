@@ -2893,3 +2893,21 @@ b4pe:private_offer_total_price_f a bpm:Field ;
 
 b4pe:private_offer_expires_at_f a bpm:Field ;
     bpm:fieldName "expires_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Offer expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-022 -- Channel partner agreement with territory and validity.
+b4pe:channel_agreement_rt a bpm:RecordType ;
+    bpm:recordName "channel_agreement" ;
+    bpm:recordDoc "Channel partner agreement with territory and validity." ;
+    bpm:hasField b4pe:channel_agreement_agreement_id_f , b4pe:channel_agreement_partner_id_f , b4pe:channel_agreement_territory_f , b4pe:channel_agreement_valid_until_f .
+
+b4pe:channel_agreement_agreement_id_f a bpm:Field ;
+    bpm:fieldName "agreement_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable channel agreement." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:channel_agreement_partner_id_f a bpm:Field ;
+    bpm:fieldName "partner_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Authorized channel partner." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:channel_agreement_territory_f a bpm:Field ;
+    bpm:fieldName "territory" ; bpm:fieldType "string" ; bpm:fieldDoc "Authorized sales territory." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:channel_agreement_valid_until_f a bpm:Field ;
+    bpm:fieldName "valid_until" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Agreement expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
