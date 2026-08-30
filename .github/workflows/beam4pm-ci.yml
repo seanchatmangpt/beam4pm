@@ -39,6 +39,18 @@ jobs:
         run: |
           rebar3 eunit
 
+      - name: Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3)
+        shell: bash
+        run: |
+          # Real Rust subprocess oracles the RF1/RF2/RF3 Chicago tests spawn (thin
+          # adapters over the real process_mining =0.6.2 function surface, no
+          # algorithm re-implemented). ubuntu-latest ships a preinstalled
+          # cargo/rustc, the same toolchain that already compiles ggen_igniter's
+          # native/ggen_graph_nif rustler NIF at `mix test` time.
+          cd native/rf1-dfg-oracle && cargo build --release && cd -
+          cd native/rf2-conformance-oracle && cargo build --release && cd -
+          cd native/rf3-ocel-oracle && cargo build --release && cd -
+
       - name: mix deps.get
         shell: bash
         run: |
@@ -47,6 +59,7 @@ jobs:
       - name: mix test
         shell: bash
         run: |
+          source scripts/env/rust4pm_reactor_env.sh
           mix test
 
       - name: gleam test (gleam/ projection)

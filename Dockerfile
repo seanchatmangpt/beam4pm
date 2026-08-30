@@ -60,6 +60,16 @@ COPY src ./src
 COPY lib ./lib
 COPY test ./test
 COPY qualification ./qualification
+COPY native ./native
+COPY scripts/env ./scripts/env
+
+# RF1/RF2/RF3's real Chicago tests spawn these compiled Rust oracle binaries
+# as subprocesses (rust4pm's own process_mining =0.6.2 function surface, no
+# algorithm re-implemented) -- built fresh here, same as ggen-ecosystem's own
+# Dockerfile builds oxrocksdb-sys against the rustup toolchain above.
+RUN cd native/rf1-dfg-oracle && cargo build --release \
+    && cd ../rf2-conformance-oracle && cargo build --release \
+    && cd ../rf3-ocel-oracle && cargo build --release
 
 # Build gates: the real test suites, run against real collaborators (the
 # compiled projections themselves) -- a failing suite fails the image build.
@@ -67,7 +77,7 @@ COPY qualification ./qualification
 # artifacts); rebar3 eunit compiles/runs the test profile on top of it.
 RUN rebar3 compile && rebar3 eunit
 RUN mix local.hex --force && mix deps.get
-RUN mix test
+RUN . ./scripts/env/rust4pm_reactor_env.sh && mix test
 
 # Demo module: seeds the same known OCEL log shape the generated eunit court
 # uses (8 events, 3 cases keyed by attribute "case_id", two skip cases), then

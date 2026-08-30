@@ -29,6 +29,12 @@ tmp/
 # committed (binary crate, reproducible builds); target/ is not.
 qualification/*/target/
 
+# RF1/RF2/RF3 rust4pm-Reactor-validation oracle crates (native/) -- same
+# convention: Cargo.lock committed, target/ is not (rebuilt by
+# scripts/rf{1,2,3}_*_sync.sh's own cargo build --release, the Dockerfile,
+# and .github/workflows/beam4pm-ci.yml).
+native/*/target/
+
 # local terraform/tofu init state under generated infra/ modules (never
 # committed; the .tf files themselves ARE ggen output and are committed)
 infra/**/.terraform/

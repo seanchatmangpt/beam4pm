@@ -1,0 +1,44 @@
+{
+  "_comment": "SELF-AUTHORED positive fixture for STREAM RF3 (process_mining::bindings::slim_ocel_bindings). NOT a wasm4pm fixture -- constructed by this session because /Users/sac/wasm4pm/fixtures/ contains no file that both (a) is genuine positive/lawful process data and (b) parses as OCEL 2.0 JSON against process_mining 0.6.2's real importer. Every fixture under wasm4pm/fixtures/negative/ is an explicit adversarial fixture for wasm4pm's OWN validator (each carries an 'expected_refusal' field), so using one as a 'positive' case would misrepresent its purpose even where it happens to be structurally well-formed. The one candidate wasm4pm 'real' OCEL file found (fixtures/real/trace-conform-accepted/expected-ocel.json) uses wasm4pm's own OCEL-1.0-style shape (ocel_version/ocel_global_log/ocel_events/ocel_objects) and was empirically confirmed (via this stream's own oracle) to fail process_mining's real importer with 'missing field `eventTypes` at line 107 column 1' -- a real, disclosed, typed refusal, not a guess.",
+  "eventTypes": [
+    { "name": "Create Order", "attributes": [{ "name": "amount", "type": "float" }] },
+    { "name": "Ship Order", "attributes": [] }
+  ],
+  "objectTypes": [
+    { "name": "Order", "attributes": [{ "name": "priority", "type": "string" }] },
+    { "name": "Item", "attributes": [] }
+  ],
+  "events": [
+    {
+      "id": "e1",
+      "type": "Create Order",
+      "time": "2026-05-01T09:00:00Z",
+      "attributes": [{ "name": "amount", "value": 42.5 }],
+      "relationships": [{ "objectId": "order-1", "qualifier": "order" }]
+    },
+    {
+      "id": "e2",
+      "type": "Ship Order",
+      "time": "2026-05-01T12:00:00Z",
+      "attributes": [],
+      "relationships": [
+        { "objectId": "order-1", "qualifier": "order" },
+        { "objectId": "item-1", "qualifier": "item" }
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "order-1",
+      "type": "Order",
+      "attributes": [{ "name": "priority", "value": "high", "time": "2026-05-01T09:00:00Z" }],
+      "relationships": [{ "objectId": "item-1", "qualifier": "contains" }]
+    },
+    {
+      "id": "item-1",
+      "type": "Item",
+      "attributes": [],
+      "relationships": []
+    }
+  ]
+}

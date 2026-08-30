@@ -1,0 +1,15 @@
+[package]
+name = "rf2-conformance-oracle"
+version = "0.1.0"
+edition = "2021"
+description = "RF2: real conformance-checking oracle (align_variants/compute_fitness over a real discover_alpha+++ Petri net) against the canonical rust4pm (process_mining) implementation."
+license = "MIT"
+
+[dependencies]
+process_mining = { version = "=0.6.2", default-features = false }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+libc = "0.2"
+
+[profile.release]
+opt-level = "s"

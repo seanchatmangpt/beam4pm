@@ -52,6 +52,16 @@ ggen sync run
 bash scripts/igniter_sync.sh
 bash scripts/receipt_chain_sync.sh
 
+# RF1/RF2/RF3 (rust4pm function-surface Reactor validation) are mutually
+# independent of the Ash/actuation/governor/receipt-chain modules above and
+# of each other -- no compile-order constraint between them. RF2/RF3's own
+# mix test verification (run internally by mix ggen_igniter.sync) needs the
+# real oracle-binary/fixture env vars sourced first.
+source scripts/env/rust4pm_reactor_env.sh
+bash scripts/rf1_dfg_sync.sh
+bash scripts/rf2_conformance_sync.sh
+bash scripts/rf3_ocel_sync.sh
+
 echo "== pass 4: sha256 after regeneration =="
 mapfile -t after_files < <(find_manufactured)
 after_sums="$(for f in "${after_files[@]}"; do shasum -a 256 "$f"; done | sort)"

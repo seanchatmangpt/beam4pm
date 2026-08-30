@@ -1023,21 +1023,35 @@ bex:ciRebar3Eunit
     gha:stepName "rebar3 eunit" ;
     gha:runCommand "rebar3 eunit" .
 
-bex:ciMixDepsGet
+bex:ciRf123OracleBuild
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 4 ;
+    gha:stepName "Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3)" ;
+    gha:runCommand """# Real Rust subprocess oracles the RF1/RF2/RF3 Chicago tests spawn (thin
+# adapters over the real process_mining =0.6.2 function surface, no
+# algorithm re-implemented). ubuntu-latest ships a preinstalled
+# cargo/rustc, the same toolchain that already compiles ggen_igniter's
+# native/ggen_graph_nif rustler NIF at `mix test` time.
+cd native/rf1-dfg-oracle && cargo build --release && cd -
+cd native/rf2-conformance-oracle && cargo build --release && cd -
+cd native/rf3-ocel-oracle && cargo build --release && cd -""" .
+
+bex:ciMixDepsGet
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 5 ;
     gha:stepName "mix deps.get" ;
     gha:runCommand "mix deps.get" .
 
 bex:ciMixTest
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 5 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 6 ;
     gha:stepName "mix test" ;
-    gha:runCommand "mix test" .
+    gha:runCommand """source scripts/env/rust4pm_reactor_env.sh
+mix test""" .
 
 bex:ciGleamTest
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 6 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 7 ;
     gha:stepName "gleam test (gleam/ projection)" ;
     gha:runCommand """cd gleam
 gleam test""" .
@@ -1048,7 +1062,7 @@ gleam test""" .
 # is documented (not faked into a pass) exactly as before.
 bex:ciDeterminism
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 7 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 8 ;
     gha:stepName "Determinism check -- regenerate and diff against committed output" ;
     gha:continueOnError true ;
     gha:runCommand """# KNOWN GAP (carried from the replaced hand-authored ci.yml, still open):
@@ -1922,4 +1936,27 @@ bpm:ocel_event_rt rdfs:seeAlso ex4pm:Event, ex4pm:Observation .
 b4a:standingVocabulary
     rdfs:comment "beam4pm's own STANDING vocabulary -- UNKNOWN, PARTIAL_ALIVE, ALIVE, BLOCKED, BUILD_BROKEN, UNSUPPORTED -- used as plain string literals throughout receipts/*.json and docs/jira/**/*.md (e.g. receipts/2026-08-29-gate-closure-m0-m6.json, docs/jira/v26.8.29/16-gate-closure-m0-m6.md) is confirmed STRING-IDENTICAL, character-for-character, to ex4pm's six real ex4pm:Capability individuals (ex4pm.ttl lines 32-37). beam4pm never independently invented this vocabulary and defines no separate RDF-level standing class of its own; it deliberately reuses ex4pm's, cited here as the single shared source of truth for this enum rather than re-derived or restated elsewhere." ;
     rdfs:seeAlso ex4pm:UNKNOWN, ex4pm:PARTIAL_ALIVE, ex4pm:ALIVE, ex4pm:BLOCKED, ex4pm:BUILD_BROKEN, ex4pm:UNSUPPORTED .
+
+# -----------------------------------------------------------------------
+# 4. RF2 -- rust4pm function-surface Reactor validation (conformance)
+# -----------------------------------------------------------------------
+#
+# Real admission fact for RF2 (process_mining::conformance::case_centric):
+# names the exact oracle binary, wire op, and dataset BeamPM.Rf2Conformance's
+# Reactor pipeline is manufactured against. Not used for numeric gating (the
+# fitness/place/transition constants baked into lib/beam4pm_rf2_conformance.ex
+# are physical measurements from a real rf2-conformance-oracle run against
+# this exact dataset, not RDF-derived) -- this graph documents WHICH oracle/
+# dataset pairing is admitted, and is queried for real via
+# mix ggen_igniter.sync's real oxigraph engine, proving the render pipeline
+# itself (not just its template body) is real. Adapted from the
+# rust4pm-Reactor-validation swarm (wf_7cdca56f-f92), independently
+# re-verified (clean cargo rebuild, fresh mix test) before integration.
+@prefix rf2: <https://ggen.dev/beam4pm/rf2-conformance#> .
+
+rf2:ConformanceStream a rf2:AdmittedOracleStream ;
+    rf2:oracleName "rf2-conformance-oracle" ;
+    rf2:wireOp "conformance" ;
+    rf2:datasetPath "/Users/sac/wasm4pm/fixtures/shared/receipt.xes" ;
+    rf2:moduleName "BeamPM.Rf2Conformance" .
 
