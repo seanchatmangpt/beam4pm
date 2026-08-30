@@ -9,3 +9,4 @@ b4:pro_subject a rt:ExactSubject ; dct:identifier "16d6d7a75d0e2283925e3bc8553c1
 b4:pro_authority_policy odrl:permission [ odrl:action odrl:use ] .
 b4:pro_runtime rt:enablesCapability "pro_edition_bundle_selection" .
 b4:pro_runtime rt:enablesCapability "pro_tenant_account_projection" .
+b4:pro_runtime rt:enablesCapability "pro_entitlement_policy_evaluation" .
