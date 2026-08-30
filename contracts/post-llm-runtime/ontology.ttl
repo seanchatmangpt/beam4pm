@@ -30,8 +30,8 @@ b4:post_llm_runtime a rt:Integration, rt:RuntimeContract ;
     "receipt_replay",
     "select_candidate",
     "write_receipted_file" ;
-  rt:hasDependencyDigest "ggen-marketplace-598f4b45fe980183d0396fb564a61cd88dd9bcd3" ;
-  rt:hasConfigDigest "beam4pm-post-llm-runtime-v2" ;
+  rt:hasDependencyDigest "ggen-marketplace-783b44d585ae123f4ed805add5aab0ea97f76f0a" ;
+  rt:hasConfigDigest "beam4pm-pro-runtime-50-v1" ;
   rt:runtimeConfig b4:runtime_config ;
   rt:resourceModule "BeamPM.Ash.Domain" ;
   rt:domainModule "BeamPM.Ash.Domain" ;
@@ -118,7 +118,7 @@ b4:post_llm_runtime a rt:Integration, rt:RuntimeContract ;
   rt:eventDataField "data" .
 
 b4:subject a rt:ExactSubject ;
-  dct:identifier "c7d871a7f86ebe7af51d9bf1f294bc755b30e0cf" ;
+  dct:identifier "16d6d7a75d0e2283925e3bc8553c10f19bce72a0" ;
   dct:isPartOf "seanchatmangpt/beam4pm" ;
   dct:source "main" .
 
@@ -144,3 +144,6 @@ b4:witness a rt:PositiveWitness ;
   prov:wasGeneratedBy b4:actuation .
 
 b4:actuation a prov:Activity .
+
+# beam4pm_pro 50-commit factory additions.
+b4:post_llm_runtime rt:enablesCapability "pro_exact_subject_rebinding" .
