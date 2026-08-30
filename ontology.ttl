@@ -3199,3 +3199,21 @@ b4pe:service_credit_amount_f a bpm:Field ;
 
 b4pe:service_credit_currency_f a bpm:Field ;
     bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "ISO 4217 credit currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-039 -- Contractual renewal option with term and notice deadline.
+b4pe:renewal_option_rt a bpm:RecordType ;
+    bpm:recordName "renewal_option" ;
+    bpm:recordDoc "Contractual renewal option with term and notice deadline." ;
+    bpm:hasField b4pe:renewal_option_option_id_f , b4pe:renewal_option_subscription_id_f , b4pe:renewal_option_term_months_f , b4pe:renewal_option_notice_by_f .
+
+b4pe:renewal_option_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable renewal option." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:renewal_option_subscription_id_f a bpm:Field ;
+    bpm:fieldName "subscription_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Renewable subscription." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:renewal_option_term_months_f a bpm:Field ;
+    bpm:fieldName "term_months" ; bpm:fieldType "integer" ; bpm:fieldDoc "Renewal term months." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:renewal_option_notice_by_f a bpm:Field ;
+    bpm:fieldName "notice_by" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Renewal notice deadline." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
