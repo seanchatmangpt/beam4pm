@@ -2965,3 +2965,21 @@ b4pe:capability_bundle_capability_ids_f a bpm:Field ;
 
 b4pe:capability_bundle_version_f a bpm:Field ;
     bpm:fieldName "version" ; bpm:fieldType "string" ; bpm:fieldDoc "Bundle semantic version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-026 -- Enterprise edition binding capabilities and support tier.
+b4pe:edition_definition_rt a bpm:RecordType ;
+    bpm:recordName "edition_definition" ;
+    bpm:recordDoc "Enterprise edition binding capabilities and support tier." ;
+    bpm:hasField b4pe:edition_definition_edition_id_f , b4pe:edition_definition_name_f , b4pe:edition_definition_bundle_ids_f , b4pe:edition_definition_support_tier_f .
+
+b4pe:edition_definition_edition_id_f a bpm:Field ;
+    bpm:fieldName "edition_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable edition identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:edition_definition_name_f a bpm:Field ;
+    bpm:fieldName "name" ; bpm:fieldType "string" ; bpm:fieldDoc "Buyer-facing edition name." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:edition_definition_bundle_ids_f a bpm:Field ;
+    bpm:fieldName "bundle_ids" ; bpm:fieldType "list_string" ; bpm:fieldDoc "Included capability bundles." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:edition_definition_support_tier_f a bpm:Field ;
+    bpm:fieldName "support_tier" ; bpm:fieldType "string" ; bpm:fieldDoc "Default support tier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
