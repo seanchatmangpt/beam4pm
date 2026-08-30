@@ -14,3 +14,4 @@ b4:pro_runtime rt:enablesCapability "pro_sku_capability_mapping" .
 b4:pro_runtime rt:enablesCapability "pro_usage_meter_dimension" .
 b4:pro_runtime rt:enablesCapability "pro_chargeback_projection" .
 b4:pro_runtime rt:enablesCapability "pro_deployment_profile_selection" .
+b4:pro_runtime rt:enablesCapability "pro_private_hybrid_profile" .
