@@ -3127,3 +3127,21 @@ b4pe:deployment_entitlement_profile_id_f a bpm:Field ;
 
 b4pe:deployment_entitlement_valid_until_f a bpm:Field ;
     bpm:fieldName "valid_until" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Deployment right expiration." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-035 -- Tenant data-location contract with allowed regions.
+b4pe:data_residency_policy_rt a bpm:RecordType ;
+    bpm:recordName "data_residency_policy" ;
+    bpm:recordDoc "Tenant data-location contract with allowed regions." ;
+    bpm:hasField b4pe:data_residency_policy_policy_id_f , b4pe:data_residency_policy_tenant_id_f , b4pe:data_residency_policy_allowed_regions_f , b4pe:data_residency_policy_status_f .
+
+b4pe:data_residency_policy_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable residency policy." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:data_residency_policy_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Governed tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:data_residency_policy_allowed_regions_f a bpm:Field ;
+    bpm:fieldName "allowed_regions" ; bpm:fieldType "list_string" ; bpm:fieldDoc "Permitted data regions." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:data_residency_policy_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Residency policy standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
