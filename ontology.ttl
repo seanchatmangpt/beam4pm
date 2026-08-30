@@ -1944,11 +1944,16 @@ bpm:ocel_event_rt rdfs:seeAlso ex4pm:Event, ex4pm:Observation .
 # BUILD_BROKEN / UNSUPPORTED appear only as plain JSON/Markdown string
 # literals (e.g. receipts/2026-08-29-gate-closure-m0-m6.json's
 # gate_evidence.*.standing fields; docs/jira/v26.8.29/16-gate-closure-m0-m6.md's
-# "GATE M0 ... ALIVE" headings). Verified 2026-08-29 by grepping every one of
-# the six exact double-quoted strings across beam4pm's own receipts/**,
-# docs/**, and lib/**: all six are present, and all six match ex4pm.ttl's six
-# ex4pm:Capability individuals (lines 32-37 there) character-for-character.
-# No discrepancy was found -- there is nothing to force-align, only shared
+# "GATE M0 ... ALIVE" headings). Verified 2026-08-29 by a one-time manual
+# grep of the six exact strings across beam4pm's own receipts/**, docs/**,
+# and lib/**; that manual check is now a real, re-runnable script instead
+# (`scripts/standing_vocabulary_check.sh`, added 2026-08-30 after an
+# adversarial verification pass correctly flagged the manual-grep-only
+# claim as the one ALIVE item in that receipt with no re-runnable evidence
+# behind it, unlike its siblings). All six are present, and all six match
+# ex4pm.ttl's six ex4pm:Capability individuals (lines 32-37 there)
+# character-for-character. No discrepancy was found -- there is nothing to
+# force-align, only shared
 # lineage to cite:
 b4a:standingVocabulary
     rdfs:comment "beam4pm's own STANDING vocabulary -- UNKNOWN, PARTIAL_ALIVE, ALIVE, BLOCKED, BUILD_BROKEN, UNSUPPORTED -- used as plain string literals throughout receipts/*.json and docs/jira/**/*.md (e.g. receipts/2026-08-29-gate-closure-m0-m6.json, docs/jira/v26.8.29/16-gate-closure-m0-m6.md) is confirmed STRING-IDENTICAL, character-for-character, to ex4pm's six real ex4pm:Capability individuals (ex4pm.ttl lines 32-37). beam4pm never independently invented this vocabulary and defines no separate RDF-level standing class of its own; it deliberately reuses ex4pm's, cited here as the single shared source of truth for this enum rather than re-derived or restated elsewhere." ;
