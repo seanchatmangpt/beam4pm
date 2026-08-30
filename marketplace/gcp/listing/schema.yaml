@@ -1,0 +1,241 @@
+# beam4pm_pro Marketplace Deployment Schema
+# Input schema for the Google Cloud Marketplace deployment UI.
+#
+# STATUS: locally-manufactured substrate (MP1 substrate). Not submitted to,
+# reviewed by, or accepted in any producer portal - no seller account exists
+# (MP0 BLOCKED). No real GCP project id appears here; defaults are
+# placeholders like "beam4pm-pro-demo".
+
+$schema: http://json-schema.org/draft-07/schema#
+title: "beam4pm_pro Deployment Configuration"
+description: "Configure beam4pm_pro process-intelligence deployment on Google Cloud"
+
+required:
+  - instance_name
+  - deployment_type
+  - project_id
+  - region
+
+properties:
+  instance_name:
+    type: string
+    pattern: "^[a-z][a-z0-9-]*$"
+    minLength: 1
+    maxLength: 40
+    description: "Name for the deployment instance"
+    title: "Instance Name"
+    default: "beam4pm-pro"
+    x-google-marketplace:
+      type: STRING
+      title: "Instance Name"
+      description: "A unique name for your beam4pm_pro deployment"
+      required: true
+
+  deployment_type:
+    type: string
+    enum: [cloud-run, gce-vm]
+    description: "Type of deployment to create"
+    title: "Deployment Type"
+    default: "cloud-run"
+    x-google-marketplace:
+      type: ENUM
+      title: "Deployment Type"
+      description: >-
+        Cloud Run runs the beam4pm container serverlessly (stream I1
+        terraform). Compute Engine deploys the packer-built VM image
+        (stream I2 terraform + packer).
+      enum:
+        - cloud-run
+        - gce-vm
+
+  project_id:
+    type: string
+    pattern: "^[a-z][a-z0-9-]{4,28}[a-z0-9]$"
+    title: "Project ID"
+    description: "Buyer-supplied Google Cloud project id"
+    default: "beam4pm-pro-demo"
+    x-google-marketplace:
+      type: STRING
+      title: "Project ID"
+      description: "The Google Cloud project to deploy into"
+      required: true
+
+  region:
+    type: string
+    title: "Region"
+    description: "Google Cloud region for deployment"
+    enum:
+      - us-central1
+      - us-east1
+      - us-west1
+      - europe-west1
+      - europe-west2
+      - asia-southeast1
+      - asia-northeast1
+    default: "us-central1"
+    x-google-marketplace:
+      type: ENUM
+      title: "Region"
+      description: "Region where beam4pm_pro will run"
+
+  # ==========================================================================
+  # Commercial dimensions (entitlement policy inputs, never feature forks).
+  # Vocabulary comes from beam4pm docs/jira/v26.8.29/05-pricing-packaging-
+  # unit-economics.md: the Observe/Infer/Govern/Sovereign capability ladder
+  # and the "Model A - estate bands" commercial dimension.
+  # ==========================================================================
+  capability_tier:
+    type: string
+    title: Capability Tier
+    description: Select the capability ladder tier
+    enum:
+      - observe
+      - infer
+      - govern
+      - sovereign
+    default: observe
+    x-google-property:
+      type: RADIO_GROUP
+      displayName: Capability Tier
+      tooltip: |
+        Observe: discovery, service/process graph, baseline metrics
+        Infer: Observe + continuous process inference, variants, OCEL
+        Govern: Infer + conformance, formal projections, policy/admission
+        Sovereign: Govern + air-gapped operation, offline entitlement
+    oneOf:
+      - const: observe
+        title: Observe
+        description: >-
+          Zero/low-config discovery, service graph, process candidates,
+          baseline process metrics, local UI/API
+      - const: infer
+        title: Infer
+        description: >-
+          Continuous process inference, variants, OCEL/event-object
+          reconstruction, confidence/provenance, anomaly detection
+      - const: govern
+        title: Govern
+        description: >-
+          Conformance, formal projections, planning, policy/admission
+          integration, enterprise fleet controls, advanced audit/receipts
+      - const: sovereign
+        title: Sovereign
+        description: >-
+          Air-gapped operation, signed offline bundles, offline entitlement
+          reconciliation, regulated-environment evidence packs
+
+  estate_band:
+    type: string
+    title: Governed Estate Band
+    description: Governed environment/cluster/service-estate band
+    enum:
+      - departmental
+      - enterprise
+      - sovereign-fleet
+    default: departmental
+    x-google-property:
+      type: SINGLE_SELECT
+      displayName: Estate Band
+      tooltip: |
+        Departmental: bounded estate, one use case, standard support
+        Enterprise: multi-environment, richer inference/governance
+        Sovereign fleet: disconnected/regulated deployment, premium support
+    oneOf:
+      - const: departmental
+        title: Departmental
+        description: Bounded estate, one use case, standard support
+      - const: enterprise
+        title: Enterprise
+        description: Multi-environment estate, private-offer route expected
+      - const: sovereign-fleet
+        title: Sovereign Fleet
+        description: Disconnected/regulated deployment, premium lifecycle
+
+  # ==========================================================================
+  # Runtime configuration
+  # ==========================================================================
+  image:
+    type: string
+    title: Container Image
+    description: "beam4pm container image (default: GHCR publish target)"
+    default: "ghcr.io/seanchatmangpt/beam4pm:latest"
+    pattern: "^[a-z0-9.\\-_/]+(:[a-zA-Z0-9._\\-]+)?(@sha256:[a-f0-9]{64})?$"
+    x-google-property:
+      displayName: Container Image
+      tooltip: >-
+        Marketplace review requires the image be mirrored to Artifact
+        Registry; the GHCR reference is the manufacturing source of truth.
+
+  min_instances:
+    type: integer
+    title: Minimum Instances
+    description: Minimum number of serving instances
+    default: 1
+    minimum: 0
+    maximum: 100
+    x-google-property:
+      displayName: Min Instances
+      tooltip: Minimum number of instances that will always be running
+
+  max_instances:
+    type: integer
+    title: Maximum Instances
+    description: Maximum number of instances for auto-scaling
+    default: 10
+    minimum: 1
+    maximum: 1000
+    x-google-property:
+      displayName: Max Instances
+      tooltip: Maximum number of instances for auto-scaling
+
+  machine_type:
+    type: string
+    enum: [e2-standard-2, e2-standard-4, n2-standard-2, n2-standard-4]
+    description: "Machine type for gce-vm deployments"
+    title: "Machine Type"
+    default: "e2-standard-2"
+    x-google-marketplace:
+      type: ENUM
+      title: "Machine Size"
+      description: "VM size (gce-vm deployment type only)"
+      enum:
+        - e2-standard-2
+        - e2-standard-4
+        - n2-standard-2
+        - n2-standard-4
+
+  # ==========================================================================
+  # Observability configuration
+  # ==========================================================================
+  enable_monitoring:
+    type: boolean
+    title: Enable Cloud Monitoring
+    description: Enable integration with Google Cloud Monitoring
+    default: true
+
+  enable_logging:
+    type: boolean
+    title: Enable Cloud Logging
+    description: Enable integration with Google Cloud Logging
+    default: true
+
+  notification_email:
+    type: string
+    title: Notification Email
+    description: Email address for alerts and notifications
+    format: email
+    default: ""
+    x-google-property:
+      displayName: Alert Email
+      tooltip: Receive deployment and alert notifications
+
+# Conditional visibility rules
+x-google-visibility:
+  rules:
+    - condition: ${deployment_type == 'cloud-run'}
+      visible:
+        - min_instances
+        - max_instances
+    - condition: ${deployment_type == 'gce-vm'}
+      visible:
+        - machine_type

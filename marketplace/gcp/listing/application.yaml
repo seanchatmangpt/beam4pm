@@ -1,0 +1,261 @@
+# ============================================================================
+# Google Cloud Marketplace Application Definition for beam4pm_pro
+# ============================================================================
+# STATUS: locally-manufactured producer-portal substrate (MP0/MP1 substrate).
+# No seller account exists; nothing here has been submitted to or accepted by
+# Google Cloud Marketplace. See marketplace/gcp/listing/README.md for the
+# MP0-MP9 gate standing map. All identifiers are placeholders/variables —
+# no real GCP project id appears anywhere in this file.
+# ============================================================================
+
+apiVersion: marketplace.cloud.google.com/v1
+kind: Application
+metadata:
+  name: beam4pm-pro
+  displayName: beam4pm_pro - BEAM-Native Process Intelligence Platform
+  description: |
+    beam4pm_pro is the commercial layer of beam4pm, a BEAM-first
+    process-mining and process-intelligence substrate whose application source
+    is manufactured entirely by ggen from an RDF ontology and a vendored
+    ggen-marketplace pack.
+
+    * **Process discovery**: reconstruct traces, directly-follows graphs, and
+      process variants from real event data (OCEL event/object model,
+      31 admitted record types across Erlang, Elixir, Gleam, and Ash
+      projections)
+    * **Conformance**: fitness checking of observed traces against discovered
+      models, with typed, validating constructors for every record
+    * **Cross-language identity**: proven Erlang <-> Elixir JSON wire
+      round-trip for all admitted record types
+    * **Customer-boundary data**: telemetry and process evidence stay inside
+      the customer boundary by default; no vendor egress is required for the
+      core value path
+
+    **Supported deployments:**
+    - Cloud Run (serverless, container-based) - terraform in
+      marketplace/gcp/terraform/cloud-run (stream I1)
+    - Compute Engine VM image (packer-built) - marketplace/gcp/packer and
+      marketplace/gcp/terraform/vm (stream I2)
+
+    **Deployable artifact:** ghcr.io/seanchatmangpt/beam4pm (container),
+    republishable to Artifact Registry for Marketplace-required hosting.
+  version: "26.8.29"
+  tagline: Governed process intelligence for BEAM and cloud-native estates
+  # Publisher identity is a placeholder until a Google Cloud Marketplace
+  # seller/producer account exists (gate MP0 - BLOCKED on external authority).
+  publisher: beam4pm-pro-publisher-placeholder
+  icon: >-
+    https://example.com/beam4pm-pro/icon.png
+  documentationURL: https://github.com/seanchatmangpt/beam4pm
+  supportURL: https://github.com/seanchatmangpt/beam4pm/issues
+  logo:
+    image: https://example.com/beam4pm-pro/logo.png
+    text: "beam4pm_pro"
+
+spec:
+  runtimePolicy:
+    minDeploymentDuration: 10m
+    estimatedDeploymentDuration: 15m
+
+  # Input schema for deployment configuration.
+  # The full deployment UI schema with x-google-marketplace hints lives in
+  # schema.yaml; this is the application-level contract.
+  inputSchema:
+    $schema: http://json-schema.org/draft-07/schema#
+    title: beam4pm_pro Deployment Configuration
+    type: object
+    required:
+      - deployment_type
+      - project_id
+      - region
+    properties:
+      deployment_type:
+        type: string
+        title: Deployment Type
+        description: Choose the deployment platform
+        enum:
+          - cloud-run
+          - gce-vm
+        default: cloud-run
+        enumLabels:
+          cloud-run: Cloud Run (serverless container)
+          gce-vm: Compute Engine (packer-built VM image)
+
+      project_id:
+        type: string
+        title: Google Cloud Project ID
+        description: Target project for the deployment (buyer-supplied)
+        default: beam4pm-pro-demo
+
+      region:
+        type: string
+        title: Region
+        description: Google Cloud region for deployment
+        enum:
+          - us-central1
+          - us-east1
+          - us-west1
+          - europe-west1
+          - europe-west2
+          - asia-southeast1
+          - asia-northeast1
+        default: us-central1
+        enumLabels:
+          us-central1: Iowa
+          us-east1: South Carolina
+          us-west1: Oregon
+          europe-west1: Belgium
+          europe-west2: London
+          asia-southeast1: Singapore
+          asia-northeast1: Tokyo
+
+      # Capability tier follows the doc 05 capability ladder exactly:
+      # Observe -> Infer -> Govern -> Sovereign. Tier selection is an
+      # entitlement-policy input, never a feature fork.
+      capability_tier:
+        type: string
+        title: Capability Tier
+        description: >-
+          Capability ladder tier (entitlement policy dimension, not a code
+          fork)
+        enum:
+          - observe
+          - infer
+          - govern
+          - sovereign
+        default: observe
+        enumLabels:
+          observe: Observe (discovery, service/process graph, baseline metrics)
+          infer: Infer (continuous process inference and variants)
+          govern: Govern (conformance, policy, planning, enterprise controls)
+          sovereign: Sovereign (air-gap/offline/fleet/security/support package)
+
+      # Estate band follows doc 05 "Model A - estate bands": charge by
+      # governed environment/cluster/service-estate band.
+      estate_band:
+        type: string
+        title: Governed Estate Band
+        description: Governed environment/cluster/service-estate band
+        enum:
+          - departmental
+          - enterprise
+          - sovereign-fleet
+        default: departmental
+        enumLabels:
+          departmental: Departmental (bounded estate, one use case)
+          enterprise: Enterprise (multi-environment)
+          sovereign-fleet: Sovereign fleet (disconnected/regulated)
+
+      image:
+        type: string
+        title: Container Image
+        description: >-
+          beam4pm container image reference. Marketplace listing review will
+          require an Artifact Registry mirror of the GHCR source image.
+        default: ghcr.io/seanchatmangpt/beam4pm:latest
+
+      min_instances:
+        type: integer
+        title: Minimum Instances
+        description: Minimum serving instances (Cloud Run) or VMs (GCE)
+        default: 1
+        minimum: 0
+        maximum: 100
+
+      max_instances:
+        type: integer
+        title: Maximum Instances
+        description: Maximum serving instances (Cloud Run) or VMs (GCE)
+        default: 10
+        minimum: 1
+        maximum: 1000
+
+      enable_monitoring:
+        type: boolean
+        title: Enable Cloud Monitoring
+        description: Enable Google Cloud Monitoring integration
+        default: true
+
+      enable_logging:
+        type: boolean
+        title: Enable Cloud Logging
+        description: Enable Google Cloud Logging integration
+        default: true
+
+      notification_email:
+        type: string
+        title: Notification Email
+        description: Email address for alerts and notifications
+        format: email
+        default: ""
+
+  # Deployment configuration: manifests are the terraform trees manufactured
+  # by concurrent streams I1 (Cloud Run) and I2 (VM image). Paths are
+  # project-root relative in the beam4pm_pro collateral tree.
+  deployment:
+    manifests:
+      - name: cloud-run-manifest
+        selector:
+          matchLabels:
+            deployment_type: cloud-run
+        template: marketplace/gcp/terraform/cloud-run
+
+      - name: gce-vm-manifest
+        selector:
+          matchLabels:
+            deployment_type: gce-vm
+        template: marketplace/gcp/terraform/vm
+
+  properties:
+    deployment_type:
+      type: string
+      description: Deployment platform type
+    project_id:
+      type: string
+      description: Buyer-supplied GCP project id
+    region:
+      type: string
+      description: GCP region
+    capability_tier:
+      type: string
+      description: Capability ladder tier (observe/infer/govern/sovereign)
+    estate_band:
+      type: string
+      description: Governed estate band (entitlement dimension)
+    image:
+      type: string
+      description: Container image reference
+    min_instances:
+      type: integer
+      description: Minimum instances
+    max_instances:
+      type: integer
+      description: Maximum instances
+    enable_monitoring:
+      type: boolean
+      description: Cloud Monitoring enabled
+    enable_logging:
+      type: boolean
+      description: Cloud Logging enabled
+
+  outputSchema:
+    type: object
+    properties:
+      service_url:
+        type: string
+        title: Service URL
+        description: URL to access the deployed beam4pm_pro service
+      health_check_url:
+        type: string
+        title: Health Check URL
+        description: URL for the health check endpoint
+      instance_names:
+        type: array
+        title: Instance Names
+        description: VM instance names (gce-vm deployments only)
+        items:
+          type: string
+      dashboard_url:
+        type: string
+        title: Monitoring Dashboard URL
+        description: Link to the Cloud Monitoring dashboard

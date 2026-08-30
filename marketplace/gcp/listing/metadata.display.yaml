@@ -1,0 +1,227 @@
+# Google Cloud Marketplace Display Metadata for beam4pm_pro
+# Defines how the product would be displayed in Google Cloud Marketplace.
+#
+# STATUS: locally-manufactured substrate. Never submitted; no seller account
+# (MP0 BLOCKED), no listing review (MP1 BLOCKED), no billing integration
+# (MP6 BLOCKED). All URLs/contacts are placeholders except the public GitHub
+# product repository. Per beam4pm docs/jira/v26.8.29/05-pricing-packaging-
+# unit-economics.md, actual dollar levels remain UNKNOWN until buyer
+# discovery - no price constants appear in this file by design.
+
+title: "beam4pm_pro: BEAM-Native Process Intelligence Platform"
+shortDescription: "Governed process mining and process intelligence, manufactured from an RDF ontology by ggen, for BEAM and cloud-native estates"
+longDescription: |
+  beam4pm_pro is the commercial layer of beam4pm, a BEAM-first
+  process-mining substrate whose application source is manufactured entirely
+  by ggen from an RDF ontology and a vendored ggen-marketplace pack.
+
+  ## Key Features
+  - **Process discovery**: traces, directly-follows graphs, process variants
+    from real event data (OCEL event/object model, 31 admitted record types)
+  - **Conformance**: fitness checking of observed traces against discovered
+    models
+  - **Four projections**: Erlang, Elixir, Gleam, and Ash from one canonical
+    ontology, with proven Erlang <-> Elixir cross-language wire identity
+  - **Manufactured, not hand-written**: every generated artifact is
+    reproducible from the ontology; a deterministic reprojection gate is part
+    of the release discipline
+  - **Customer-boundary data**: telemetry and process evidence stay inside
+    the customer boundary by default
+
+  ## Capability Ladder
+  Entitlement tiers follow a monotonic capability ladder (policy-expressed,
+  never a marketplace-specific feature fork):
+  - **Observe** - zero/low-config discovery, service graph, process
+    candidates, baseline process metrics, local UI/API
+  - **Infer** - Observe plus continuous process inference, variants,
+    OCEL/event-object reconstruction, confidence/provenance, anomaly and
+    repeated-loop detection
+  - **Govern** - Infer plus conformance, formal projections, planning,
+    policy/admission integration, enterprise fleet controls, advanced
+    audit/receipt retention
+  - **Sovereign** - Govern plus air-gapped operation, signed offline
+    bundles, customer-managed keys, offline entitlement reconciliation
+
+  ## Deployment Options
+  - **Cloud Run**: serverless container deployment (terraform, stream I1)
+  - **Compute Engine**: packer-built VM image (terraform + packer, stream I2)
+
+version: "26.8.29"
+minimumVersion: "26.8.29"
+
+# Required APIs that need to be enabled in the buyer project
+requiredApis:
+  - compute.googleapis.com
+  - run.googleapis.com
+  - logging.googleapis.com
+  - monitoring.googleapis.com
+  - iam.googleapis.com
+  - artifactregistry.googleapis.com
+
+# ============================================================================
+# Pricing - usage-based placeholder dimensions only.
+#
+# Dimension identities come from beam4pm
+# docs/jira/v26.8.29/05-pricing-packaging-unit-economics.md ("Commercial
+# dimensions to experiment with"). Per DfCM, multiple lawful pricing models
+# are preserved until customer and marketplace evidence selects a best fit.
+# Dollar levels are deliberately absent: doc 05 states actual dollar levels
+# remain UNKNOWN until buyer discovery and willingness-to-pay evidence exist.
+# ============================================================================
+pricing:
+  status: PLACEHOLDER_DIMENSIONS_ONLY
+  priceLevels: UNKNOWN   # per doc 05 - never turn a price guess into doctrine
+  billingIntegration: BLOCKED   # MP6 - requires seller account + Cloud Commerce
+  capabilityTiers:
+    - id: observe
+      name: Observe
+      description: Discovery, service/process graph, baseline metrics
+    - id: infer
+      name: Infer
+      description: Continuous process inference, variants, OCEL reconstruction
+    - id: govern
+      name: Govern
+      description: Conformance, formal projections, planning, policy controls
+    - id: sovereign
+      name: Sovereign
+      description: Air-gap/offline/fleet/security/support premium tier
+  usageDimensionCandidates:
+    - id: estate-band
+      model: "Model A - estate bands"
+      unit: governed environment/cluster/service-estate band
+    - id: process-scope
+      model: "Model B - process scope"
+      unit: discovered/governed process-estate band
+    - id: capacity-unit
+      model: "Model C - capacity units"
+      unit: marketplace-compatible capacity unit
+    - id: commitment-overage
+      model: "Model D - platform commitment + overage"
+      unit: annual/multi-year commitment with metered expansion
+  segmentation:
+    - departmental/land - bounded estate, one use case, standard support
+    - enterprise - multi-environment, richer inference/governance, private offer
+    - sovereign - disconnected/regulated deployment, premium support
+  googleCompatibility: >-
+    Support subscription, usage or hybrid private-offer structures where
+    product form permits; preserve entitlement/order identity for
+    multiple-order scenarios (ENTITLEMENT_ID is the commercial identity).
+
+# Support information (placeholders - no support organization exists yet)
+support:
+  level: "PLACEHOLDER"
+  url: "https://github.com/seanchatmangpt/beam4pm/issues"
+  policy: |
+    ## Support Policy (placeholder)
+
+    Support packaging follows the capability ladder: bounded support at
+    Observe, expanded support at Infer/Govern, premium mission support at
+    Sovereign. Concrete response-time commitments are BLOCKED on a real
+    support organization and remain UNKNOWN.
+
+# Documentation links
+documentation:
+  overview: "https://github.com/seanchatmangpt/beam4pm#readme"
+  architecture: "https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/03-architecture-and-ggen-manufacturing.md"
+  gates: "https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/11-release-gates-receipts.md"
+  pricing: "https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/05-pricing-packaging-unit-economics.md"
+
+# Regions where the product would be available
+regions:
+  - us-central1
+  - us-east1
+  - us-west1
+  - europe-west1
+  - europe-west2
+  - asia-southeast1
+  - asia-northeast1
+
+# Features for filtering and discovery
+features:
+  - name: "Process Discovery"
+    description: "Traces, DFGs, and variants from real event data"
+    icon: "analytics"
+  - name: "Conformance Checking"
+    description: "Fitness of observed traces against discovered models"
+    icon: "verified"
+  - name: "OCEL Event-Object Model"
+    description: "Object-centric event log identity preserved end to end"
+    icon: "schema"
+  - name: "Ontology-Manufactured"
+    description: "All application source generated by ggen from RDF"
+    icon: "factory"
+  - name: "Customer-Boundary Data"
+    description: "No vendor egress required for the core value path"
+    icon: "security"
+  - name: "Air-Gap Ready (roadmap)"
+    description: "Sovereign tier targets disconnected operation"
+    icon: "offline"
+
+keywords:
+  - "Process Mining"
+  - "Process Intelligence"
+  - "OCEL"
+  - "Conformance Checking"
+  - "Erlang/OTP"
+  - "Elixir"
+  - "Gleam"
+  - "BEAM"
+  - "Observability"
+  - "Cloud Native"
+
+categories:
+  - "analytics"
+  - "developer-tools"
+  - "monitoring"
+
+tags:
+  - "process-mining"
+  - "process-intelligence"
+  - "beam"
+  - "erlang"
+  - "elixir"
+  - "ocel"
+  - "ggen"
+
+# Vendor information (seller identity BLOCKED on MP0 - placeholders)
+vendor:
+  name: "beam4pm project"
+  url: "https://github.com/seanchatmangpt/beam4pm"
+  email: "seller-contact-placeholder@example.com"
+  logo: "https://example.com/beam4pm-pro/logo.svg"
+
+updateFrequency: "with each qualified release"
+releaseNotesUrl: "https://github.com/seanchatmangpt/beam4pm/releases"
+
+contacts:
+  - type: "url"
+    label: "Issues"
+    value: "https://github.com/seanchatmangpt/beam4pm/issues"
+  - type: "url"
+    label: "Documentation"
+    value: "https://github.com/seanchatmangpt/beam4pm#readme"
+
+# Deployment options display
+deploymentOptions:
+  - name: "Cloud Run"
+    description: "Serverless container deployment of the GHCR-published image"
+    icon: "cloud_run"
+    bestFor: ["evaluation", "departmental", "production"]
+    features: ["auto-scaling", "serverless", "cost-effective"]
+  - name: "Compute Engine"
+    description: "Packer-built VM image with full runtime control"
+    icon: "compute"
+    bestFor: ["enterprise", "regulated", "sovereign-path"]
+    features: ["full-control", "custom-images", "air-gap-adjacent"]
+
+# Security posture (claims limited to what the substrate actually holds)
+security:
+  dataProcessing:
+    locations: ["customer-selected region"]
+    encryption: "in-transit via TLS; at-rest via Google-managed encryption"
+    retention: "configurable by customer; data stays in customer boundary"
+  network:
+    ports: ["8080"]
+    protocols: ["HTTP", "HTTPS"]
+    firewalls: "configurable via VPC"
+  compliance: []   # UNKNOWN - no certification exists; do not overclaim
