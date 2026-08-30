@@ -120,6 +120,12 @@ bash scripts/rf1_dfg_sync.sh
 bash scripts/rf2_conformance_sync.sh
 bash scripts/rf3_ocel_sync.sh
 
+# Revenue suite + Claude-workflow-Reactor families (igniter-rendered like
+# the rf families; mutually independent of them and of each other).
+bash scripts/revenue_economics_sync.sh
+bash scripts/revenue_metering_sync.sh
+bash scripts/claude_workflow_reactor_sync.sh
+
 # Restore the stashed hand-authored tests now that every manufactured
 # module they depend on is real again (also happens automatically via the
 # EXIT trap on any earlier failure -- calling it explicitly here too just
