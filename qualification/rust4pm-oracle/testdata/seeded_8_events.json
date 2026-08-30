@@ -1,0 +1,13 @@
+{
+  "case_attr_key": "case_id",
+  "events": [
+    {"event_id": "e5", "event_type": "validate_order", "event_time": "2026-08-29T10:05:00Z", "attributes": {"case_id": "c2"}},
+    {"event_id": "e1", "event_type": "receive_order",  "event_time": "2026-08-29T10:00:00Z", "attributes": {"case_id": "c1"}},
+    {"event_id": "e6", "event_type": "ship_order",     "event_time": "2026-08-29T10:06:00Z", "attributes": {"case_id": "c2"}},
+    {"event_id": "e2", "event_type": "validate_order", "event_time": "2026-08-29T10:01:00Z", "attributes": {"case_id": "c1"}},
+    {"event_id": "e4", "event_type": "receive_order",  "event_time": "2026-08-29T10:04:00Z", "attributes": {"case_id": "c2"}},
+    {"event_id": "e3", "event_type": "ship_order",     "event_time": "2026-08-29T10:02:00Z", "attributes": {"case_id": "c1"}},
+    {"event_id": "e7", "event_type": "receive_order",  "event_time": "2026-08-29T10:07:00Z", "attributes": {"case_id": "c3"}},
+    {"event_id": "e8", "event_type": "ship_order",     "event_time": "2026-08-29T10:08:00Z", "attributes": {"case_id": "c3"}}
+  ]
+}

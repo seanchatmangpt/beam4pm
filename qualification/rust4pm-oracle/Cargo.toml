@@ -1,0 +1,16 @@
+[package]
+name = "rust4pm-oracle"
+version = "0.1.0"
+edition = "2021"
+description = "Differential-testing oracle: beam4pm DFG discovery verified against the canonical rust4pm (process_mining) implementation"
+license = "MIT"
+
+[dependencies]
+# rust4pm -- the canonical process-discovery implementation. Pinned exactly.
+process_mining = { version = "=0.6.2", default-features = false }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = "s"
+lto = true
