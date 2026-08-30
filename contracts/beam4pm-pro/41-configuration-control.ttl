@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2601 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2601" ; dct:title "Configuration and document control" ;
+ pro:requiredEvidence "release configuration, commercial configuration, deployment configuration and customer-facing documents bind to exact version, source, approver and effective state" ;
+ pro:authorityCeiling "VERIFY" ; pro:refusalCode "REFUSED[UNCONTROLLED_CONFIGURATION]" ;
+ pro:exactVersionRequired true ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/09-jira-epics-stories-acceptance.md> .

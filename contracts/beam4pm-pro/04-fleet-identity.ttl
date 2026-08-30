@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2004 a pro:CapabilityContract ;
+ dct:identifier "B4PMP-2004" ; dct:title "Fleet identity" ;
+ pro:requiredEvidence "organization, tenant, environment, runtime, deployment, contract, and marketplace identities remain distinct and correlated" ;
+ pro:identityRule "no identifier conflation across domains" ;
+ pro:authorityCeiling "VERIFY" ; pro:refusalCode "REFUSED[IDENTITY_CONFLATION]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .

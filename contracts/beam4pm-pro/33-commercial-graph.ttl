@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2501 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2501" ; dct:title "Canonical opportunity and commercial graph" ;
+ pro:requiredEvidence "opportunity, buyer, proof, offer, agreement, entitlement, deployment, adoption, expansion and renewal identities form one traceable graph" ;
+ pro:orphanCommercialIdentityAllowed false ; pro:authorityCeiling "CONSTRUCT" ;
+ pro:refusalCode "REFUSED[ORPHAN_COMMERCIAL_IDENTITY]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .

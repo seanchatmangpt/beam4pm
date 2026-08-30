@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2605 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2605" ; dct:title "24/7 mission severity runbook" ;
+ pro:requiredEvidence "severity classification binds owner, response clock, diagnostic evidence, authority boundary, mitigation, recovery, communication and closure receipt" ;
+ pro:authorityCeiling "DO:incident-mitigation" ; pro:refusalCode "REFUSED[UNOWNED_MISSION_INCIDENT]" ;
+ pro:receiptRequired true ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/09-jira-epics-stories-acceptance.md> .

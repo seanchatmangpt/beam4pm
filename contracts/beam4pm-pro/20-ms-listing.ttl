@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2301 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2301" ; dct:title "Microsoft partner and listing readiness" ;
+ pro:requiredEvidence "offer, plan visibility, pricing, support, security, fulfillment endpoint, and seller identities validate against current marketplace rules" ;
+ pro:provider "Microsoft Marketplace" ; pro:authorityCeiling "CONSTRUCT" ;
+ pro:refusalCode "REFUSED[STALE_MICROSOFT_LISTING_REQUIREMENTS]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .

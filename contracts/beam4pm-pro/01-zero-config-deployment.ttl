@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2001 a pro:CapabilityContract ;
+ dct:identifier "B4PMP-2001" ; dct:title "Local all-in-one deployment" ;
+ pro:acceptanceCrown "BEAM4PM_PRO_ZERO_CONFIG_ALIVE" ;
+ pro:requiredEvidence "fresh seeded environment installs, starts, observes, and produces first meaningful process graph without application rewrite" ;
+ pro:authorityCeiling "CONSTRUCT" ; pro:refusalCode "REFUSED[DEPLOYMENT_NOT_REPLAYABLE]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/09-jira-epics-stories-acceptance.md> .

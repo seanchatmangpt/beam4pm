@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2606 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2606" ; dct:title "Customer acceptance packet" ;
+ pro:requiredEvidence "customer acceptance packet binds scope, release identity, deployment identity, security assumptions, executed acceptance evidence, open limitations, support route and customer signoff state" ;
+ pro:customerSignoffExplicit true ; pro:authorityCeiling "VERIFY" ;
+ pro:refusalCode "REFUSED[CUSTOMER_ACCEPTANCE_UNBOUND]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/09-jira-epics-stories-acceptance.md> .

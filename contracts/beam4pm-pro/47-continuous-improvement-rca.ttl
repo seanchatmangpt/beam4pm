@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2607 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2607" ; dct:title "Continuous-improvement RCA loop" ;
+ pro:requiredEvidence "incident or acceptance failure records observation, failed transition, root-cause hypothesis, falsifier, upstream repair, exact reexecution, consequence and retained learning receipt" ;
+ pro:unchangedRerunAllowed false ; pro:authorityCeiling "CONSTRUCT" ;
+ pro:refusalCode "REFUSED[RCA_WITHOUT_STATE_CHANGE]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/09-jira-epics-stories-acceptance.md> .

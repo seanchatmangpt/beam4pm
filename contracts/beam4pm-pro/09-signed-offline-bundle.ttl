@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2103 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2103" ; dct:title "Signed offline bundle" ;
+ pro:requiredEvidence "offline bundle contains signature, SBOM, provenance, immutable artifact digests, compatibility metadata, and verifier instructions" ;
+ pro:authorityCeiling "VERIFY" ; pro:refusalCode "REFUSED[UNSIGNED_OFFLINE_BUNDLE]" ;
+ pro:replayRequired true ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/07-security-airgap-compliance.md> .

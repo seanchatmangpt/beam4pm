@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2504 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2504" ; dct:title "Quote and private-offer package generation" ;
+ pro:requiredEvidence "package deterministically derives provider route, buyer scope, package tier, term, pricing dimensions, support, terms metadata, and approval requirements from admitted commercial state" ;
+ pro:bindingTermsRequireAuthority true ; pro:authorityCeiling "CONSTRUCT" ;
+ pro:refusalCode "REFUSED[OFFER_PACKAGE_WITHOUT_COMMERCIAL_AUTHORITY]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .

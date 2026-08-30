@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2102 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2102" ; dct:title "Private registry install" ;
+ pro:requiredEvidence "digest-pinned product artifacts install exclusively from a customer-controlled registry" ;
+ pro:artifactIdentity "immutable-digest" ; pro:authorityCeiling "CONSTRUCT" ;
+ pro:refusalCode "REFUSED[PUBLIC_REGISTRY_REQUIRED]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/07-security-airgap-compliance.md> .

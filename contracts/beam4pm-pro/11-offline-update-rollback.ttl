@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2105 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2105" ; dct:title "Offline update and rollback" ;
+ pro:requiredEvidence "customer imports signed update, verifies compatibility, deploys, verifies post-state, and can restore the previously receipted artifact" ;
+ pro:rollbackRequired true ; pro:authorityCeiling "DO:customer-update" ;
+ pro:refusalCode "REFUSED[NO_ROLLBACK_ARTIFACT]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/07-security-airgap-compliance.md> .

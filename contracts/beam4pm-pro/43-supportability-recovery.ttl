@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2603 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2603" ; dct:title "Supportability and recovery plan" ;
+ pro:requiredEvidence "seeded runtime failure is diagnosed from customer-visible evidence, restored from declared recovery assets, and post-recovery state is independently verified" ;
+ pro:hiddenVendorAccessAllowed false ; pro:authorityCeiling "DO:recovery" ;
+ pro:refusalCode "REFUSED[UNVERIFIED_RECOVERY]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/09-jira-epics-stories-acceptance.md> .

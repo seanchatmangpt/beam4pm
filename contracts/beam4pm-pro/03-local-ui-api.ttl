@@ -1,0 +1,11 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2003 a pro:CapabilityContract ;
+ dct:identifier "B4PMP-2003" ; dct:title "Local UI/API" ;
+ pro:requiredEvidence "customer-local UI and API remain usable with vendor network unavailable" ;
+ pro:networkDependency "none-after-activation" ;
+ pro:authorityCeiling "VERIFY" ;
+ pro:refusalCode "REFUSED[VENDOR_UI_DEPENDENCY]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/07-security-airgap-compliance.md> .

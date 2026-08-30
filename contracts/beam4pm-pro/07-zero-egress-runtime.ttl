@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2101 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2101" ; dct:title "Zero-egress runtime" ;
+ pro:acceptanceCrown "AIRGAP_ALIVE" ;
+ pro:requiredEvidence "runtime discovers, infers, reports, audits, and replays with external DNS and HTTP denied" ;
+ pro:authorityCeiling "VERIFY" ; pro:refusalCode "REFUSED[MANDATORY_EGRESS]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/07-security-airgap-compliance.md> .
