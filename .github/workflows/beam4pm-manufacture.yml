@@ -67,7 +67,7 @@ jobs:
   manufacture:
     name: GGen ecosystem manufacture
     needs: resolve
-    uses: seanchatmangpt/ggen-ecosystem/.github/workflows/ggen-ecosystem-sync.yml@24df72465dff17e3711ffde6691a647d97fff595
+    uses: seanchatmangpt/ggen-ecosystem/.github/workflows/ggen-ecosystem-sync.yml@cef697e03922c107722bb6ef5ab3e5085e8ccd1e
     with:
       ggen_container_tag: v26.8.28
       marketplace_sha: ${{ needs.resolve.outputs.marketplace_sha }}
