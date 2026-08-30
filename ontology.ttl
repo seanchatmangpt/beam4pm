@@ -1099,39 +1099,57 @@ bex:ciRoundtrip
     gha:stepName "Cross-language wire identity (Erlang<->Elixir roundtrip)" ;
     gha:runCommand "bash scripts/roundtrip_check.sh" .
 
-# Determinism check now runs a real `ggen` binary via the ggen-ecosystem
-# container (ghcr.io/seanchatmangpt/ggen-ecosystem, pinned to an exact tag,
-# never :latest) instead of the previous KNOWN GAP ("ggen: command not
-# found" -- no binary was ever installed on the runner). Packs still come
-# from THIS repo's own vendor/ggen-marketplace submodule checkout (bind-
-# mounted into the container), never from the container's own bundled
-# /opt/ggen-marketplace -- see ontology.ttl's "gh-terraform-pack consumption
-# -- INVESTIGATED AND DECLINED" comment for why that distinction matters.
-# continue-on-error STAYS set: closing the binary gap surfaced a second,
-# real, pre-existing, disclosed gap it had been silently masking -- the
-# committed src/beam4pm_discovery.erl and lib equivalents are missing
-# variants_from_traces/1 relative to what current ontology.ttl + templates
-# regenerate (added to the Elixir/Gleam projections in a prior commit but
-# never ported to the Erlang template) -- so a real, honest content-diff
-# failure now replaces the previous fake missing-binary one. Tracked as a
-# separate follow-up, not fixed here; continue-on-error keeps this one
-# known, disclosed gap from turning every push/PR red in the meantime.
+# Determinism check: a real, HARD gate now -- no continue-on-error. History
+# of this step's two closed gaps, both closed by running things for real:
+# (1) "ggen: command not found" -- no binary was ever installed on the
+# runner; closed by delegating `ggen` through the pinned ggen-ecosystem
+# container (never :latest). (2) With a real binary, the check immediately
+# caught real template drift the missing binary had been masking --
+# variants_from_traces was hand-added to the generated discovery projections
+# (beam4pm commit b3b40e6) with a claimed-but-nonexistent template-sync
+# commit, so every clean regenerate silently reverted it, and two generated
+# Gleam files had no producing template at all; closed by the real template
+# sync in ggen-marketplace (beam4pm-process-model-pack), verified 49/49
+# regenerated files byte-identical before this step was hardened.
+#
+# Mechanism: gate_m2_check.sh runs ON the runner (it needs the full BEAM +
+# cargo toolchain for the ggen_igniter second engine, which the ggen-only
+# container does not carry); only the `ggen` calls inside it delegate into
+# the container via a PATH shim. Packs still come from THIS repo's own
+# vendor/ggen-marketplace submodule checkout (bind-mounted), never from the
+# container's bundled /opt/ggen-marketplace -- see the "gh-terraform-pack
+# consumption -- INVESTIGATED AND DECLINED" comment for why that matters.
 bex:ciDeterminism
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 11 ;
-    gha:stepName "Determinism check -- regenerate and diff against committed output" ;
-    gha:continueOnError true ;
-    gha:runCommand """docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace \\
-  ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 \\
-  bash scripts/gate_m2_check.sh""" .
+    gha:stepName "Determinism check -- regenerate via ggen-ecosystem container and diff against committed output" ;
+    gha:runCommand """set -euo pipefail
+mkdir -p "$HOME/.local/bin"
+printf '%s\\n' \\
+  '#!/usr/bin/env bash' \\
+  'exec docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 ggen "$@"' \\
+  > "$HOME/.local/bin/ggen"
+chmod +x "$HOME/.local/bin/ggen"
+export PATH="$HOME/.local/bin:$PATH"
+ggen --version
+bash scripts/gate_m2_check.sh""" .
 
 # --- Workflow 2: GHCR container build + publish ------------------------------
 # Mirrors ggen-ecosystem's container workflow structure (checkout-with-
 # submodules -> buildx -> GHCR login with the ephemeral GITHUB_TOKEN ->
-# build-push-action with type=gha layer cache + SBOM/provenance), collapsed to
-# a single native-arch job: beam4pm's image is a BEAM build measured in
-# seconds, not ggen-ecosystem's QEMU-hostile Rust LTO workspace that forced
-# its two-native-jobs + manifest-merge split.
+# build-push-action with type=gha layer cache + SBOM/provenance). Upgraded
+# 2026-08-30 from the earlier single-native-arch collapse to ggen-ecosystem's
+# FULL container rail, ported structurally: two native-arch build jobs
+# (ubuntu-24.04 amd64 + ubuntu-24.04-arm arm64 -- native runners, no QEMU
+# emulation tax) pushing per-arch tags, then a merge job that stitches one
+# multi-arch manifest, signs it keylessly (cosign + GitHub OIDC, no signing
+# key stored anywhere), and Trivy-scans the published image with SARIF
+# uploaded to GitHub code scanning. Action pins for cosign/trivy come from
+# ggen-ecosystem's production container workflow; upload-sarif was re-resolved
+# fresh via `git ls-remote --tags` (2026-08-30) because ggen-ecosystem's own
+# pinned SHA for the same "v4.37.9" label no longer matches where that tag
+# points today -- a real moved-tag finding, not cargo-culted. The docker/*
+# and checkout pins are the ones this file already verified for Workflows 1/2.
 
 bex:containerWorkflow
     a gha:Workflow ;
@@ -1147,56 +1165,176 @@ cancel-in-progress: true""" ;
 workflow_dispatch:""" ;
     gha:requiredSecret "GITHUB_TOKEN" ;
     gha:secretReason "GHCR login (docker/login-action) to push the beam4pm image; the workflow's own ephemeral token under the job's packages:write grant, no PAT" ;
-    gha:evidenceObligation "bind the exact candidate SHA to the published image digest under tags latest and sha-<sha>" ;
-    gha:standingEffect "a pushed image is evidence only for the exact commit and Dockerfile content that produced it; publish is distribution, not test standing" .
+    gha:evidenceObligation "bind the exact candidate SHA to one published multi-arch (amd64+arm64) manifest digest under tags latest and sha-<sha>, keylessly signed via GitHub OIDC, with a Trivy scan of that exact published image uploaded to code scanning" ;
+    gha:standingEffect "a pushed image is evidence only for the exact commit and Dockerfile content that produced it; publish is distribution, not test standing. The cosign signature attests the image was built by THIS workflow in THIS repo (OIDC identity), nothing more; a Trivy SARIF upload is observation, not a gate" .
 
-bex:containerBuildPush
+bex:containerBuildAmd64
     a gha:Job ;
     gha:inWorkflow bex:containerWorkflow ;
-    gha:jobName "build-and-push" ;
-    gha:runner "ubuntu-latest" ;
+    gha:jobName "build-amd64" ;
+    gha:runner "ubuntu-24.04" ;
     gha:timeoutMinutes 30 ;
     gha:jobPermissions """contents: read
 packages: write""" ;
-    gha:jobExtra "name: Build and push beam4pm image to GHCR" ;
-    gha:evidenceEmitted "published ghcr.io/<repository> image digest under tags latest and sha-${{ github.sha }}" ;
+    gha:jobExtra "name: Build and push linux/amd64 image" ;
+    gha:evidenceEmitted "published ghcr.io/<repository>:sha-${{ github.sha }}-amd64 image digest" ;
     gha:failureClassification "BUILD_BROKEN if the image build or its in-build rebar3 eunit / mix test gates fail" .
 
-bex:containerCheckout
+bex:containerAmd64Checkout
     a gha:Step ;
-    gha:inJob bex:containerBuildPush ; gha:stepOrder 1 ;
+    gha:inJob bex:containerBuildAmd64 ; gha:stepOrder 1 ;
     gha:stepName "Checkout with submodules" ;
     gha:usesAction "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6" ;
     gha:withParam "submodules: recursive" ;
     gha:withParam "persist-credentials: false" .
 
-bex:containerBuildx
+bex:containerAmd64Buildx
     a gha:Step ;
-    gha:inJob bex:containerBuildPush ; gha:stepOrder 2 ;
+    gha:inJob bex:containerBuildAmd64 ; gha:stepOrder 2 ;
     gha:stepName "Set up Docker Buildx" ;
     gha:usesAction "docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3" .
 
-bex:containerLogin
+bex:containerAmd64Login
     a gha:Step ;
-    gha:inJob bex:containerBuildPush ; gha:stepOrder 3 ;
+    gha:inJob bex:containerBuildAmd64 ; gha:stepOrder 3 ;
     gha:stepName "Log in to GHCR" ;
     gha:usesAction "docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3" ;
     gha:withParam "registry: ghcr.io" ;
     gha:withParam "username: ${{ github.actor }}" ;
     gha:withParam "password: ${{ secrets.GITHUB_TOKEN }}" .
 
-bex:containerBuildPushStep
+bex:containerAmd64BuildPush
     a gha:Step ;
-    gha:inJob bex:containerBuildPush ; gha:stepOrder 4 ;
-    gha:stepName "Build and push beam4pm image" ;
+    gha:inJob bex:containerBuildAmd64 ; gha:stepOrder 4 ;
+    gha:stepName "Build and push linux/amd64" ;
     gha:usesAction "docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6" ;
     gha:withParam "context: ." ;
     gha:withParam "push: true" ;
     gha:withParam "sbom: true" ;
     gha:withParam "provenance: true" ;
-    gha:withParam "cache-from: type=gha,scope=beam4pm" ;
-    gha:withParam "cache-to: type=gha,mode=max,scope=beam4pm" ;
-    gha:withParam "tags: ghcr.io/${{ github.repository }}:latest,ghcr.io/${{ github.repository }}:sha-${{ github.sha }}" .
+    gha:withParam "platforms: linux/amd64" ;
+    gha:withParam "cache-from: type=gha,scope=beam4pm-amd64" ;
+    gha:withParam "cache-to: type=gha,mode=max,scope=beam4pm-amd64" ;
+    gha:withParam "tags: ghcr.io/${{ github.repository }}:sha-${{ github.sha }}-amd64" .
+
+bex:containerBuildArm64
+    a gha:Job ;
+    gha:inWorkflow bex:containerWorkflow ;
+    gha:jobName "build-arm64" ;
+    gha:runner "ubuntu-24.04-arm" ;
+    gha:timeoutMinutes 30 ;
+    gha:jobPermissions """contents: read
+packages: write""" ;
+    gha:jobExtra "name: Build and push linux/arm64 image" ;
+    gha:evidenceEmitted "published ghcr.io/<repository>:sha-${{ github.sha }}-arm64 image digest" ;
+    gha:failureClassification "BUILD_BROKEN if the image build or its in-build rebar3 eunit / mix test gates fail" .
+
+bex:containerArm64Checkout
+    a gha:Step ;
+    gha:inJob bex:containerBuildArm64 ; gha:stepOrder 1 ;
+    gha:stepName "Checkout with submodules" ;
+    gha:usesAction "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6" ;
+    gha:withParam "submodules: recursive" ;
+    gha:withParam "persist-credentials: false" .
+
+bex:containerArm64Buildx
+    a gha:Step ;
+    gha:inJob bex:containerBuildArm64 ; gha:stepOrder 2 ;
+    gha:stepName "Set up Docker Buildx" ;
+    gha:usesAction "docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3" .
+
+bex:containerArm64Login
+    a gha:Step ;
+    gha:inJob bex:containerBuildArm64 ; gha:stepOrder 3 ;
+    gha:stepName "Log in to GHCR" ;
+    gha:usesAction "docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3" ;
+    gha:withParam "registry: ghcr.io" ;
+    gha:withParam "username: ${{ github.actor }}" ;
+    gha:withParam "password: ${{ secrets.GITHUB_TOKEN }}" .
+
+bex:containerArm64BuildPush
+    a gha:Step ;
+    gha:inJob bex:containerBuildArm64 ; gha:stepOrder 4 ;
+    gha:stepName "Build and push linux/arm64" ;
+    gha:usesAction "docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6" ;
+    gha:withParam "context: ." ;
+    gha:withParam "push: true" ;
+    gha:withParam "sbom: true" ;
+    gha:withParam "provenance: true" ;
+    gha:withParam "platforms: linux/arm64" ;
+    gha:withParam "cache-from: type=gha,scope=beam4pm-arm64" ;
+    gha:withParam "cache-to: type=gha,mode=max,scope=beam4pm-arm64" ;
+    gha:withParam "tags: ghcr.io/${{ github.repository }}:sha-${{ github.sha }}-arm64" .
+
+bex:containerMergeManifest
+    a gha:Job ;
+    gha:inWorkflow bex:containerWorkflow ;
+    gha:jobName "merge-manifest" ;
+    gha:runner "ubuntu-24.04" ;
+    gha:timeoutMinutes 10 ;
+    gha:jobPermissions """contents: read
+packages: write
+id-token: write
+security-events: write""" ;
+    gha:jobExtra """name: Merge into one multi-arch manifest, sign, scan
+needs: [build-arm64,build-amd64]""" ;
+    gha:evidenceEmitted "one multi-arch manifest digest under tags latest + sha-<sha>, a cosign keyless signature on that digest, and a Trivy SARIF report in code scanning" ;
+    gha:failureClassification "an infrastructure fault (registry/OIDC/scanner), never a production defect -- both arch images already built and pushed green before this job starts" .
+
+bex:containerMergeLogin
+    a gha:Step ;
+    gha:inJob bex:containerMergeManifest ; gha:stepOrder 1 ;
+    gha:stepName "Log in to GHCR" ;
+    gha:usesAction "docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3" ;
+    gha:withParam "registry: ghcr.io" ;
+    gha:withParam "username: ${{ github.actor }}" ;
+    gha:withParam "password: ${{ secrets.GITHUB_TOKEN }}" .
+
+bex:containerMergeCreate
+    a gha:Step ;
+    gha:inJob bex:containerMergeManifest ; gha:stepOrder 2 ;
+    gha:stepName "Create and push multi-arch manifest" ;
+    gha:runCommand """set -euo pipefail
+IMAGE="ghcr.io/${{ github.repository }}"
+docker buildx imagetools create \\
+  -t "${IMAGE}:sha-${{ github.sha }}" \\
+  -t "${IMAGE}:latest" \\
+  "${IMAGE}:sha-${{ github.sha }}-amd64" \\
+  "${IMAGE}:sha-${{ github.sha }}-arm64"
+docker buildx imagetools inspect "${IMAGE}:sha-${{ github.sha }}\"""" .
+
+bex:containerMergeCosignInstall
+    a gha:Step ;
+    gha:inJob bex:containerMergeManifest ; gha:stepOrder 3 ;
+    gha:stepName "Install cosign" ;
+    gha:usesAction "sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2" .
+
+bex:containerMergeCosignSign
+    a gha:Step ;
+    gha:inJob bex:containerMergeManifest ; gha:stepOrder 4 ;
+    gha:stepName "Sign multi-arch manifest keylessly (cosign + GitHub OIDC)" ;
+    gha:runCommand """set -euo pipefail
+IMAGE="ghcr.io/${{ github.repository }}:sha-${{ github.sha }}"
+DIGEST=$(docker buildx imagetools inspect "${IMAGE}" --format "{{json .Manifest}}" | jq -r '.digest')
+echo "Signing ${IMAGE}@${DIGEST} keylessly via GitHub OIDC (no signing key in this repo)"
+cosign sign --yes "ghcr.io/${{ github.repository }}@${DIGEST}\"""" .
+
+bex:containerMergeTrivy
+    a gha:Step ;
+    gha:inJob bex:containerMergeManifest ; gha:stepOrder 5 ;
+    gha:stepName "Run Trivy vulnerability scanner on published image" ;
+    gha:usesAction "aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0" ;
+    gha:withParam "image-ref: ghcr.io/${{ github.repository }}:sha-${{ github.sha }}" ;
+    gha:withParam "format: sarif" ;
+    gha:withParam "output: trivy-results.sarif" .
+
+bex:containerMergeSarifUpload
+    a gha:Step ;
+    gha:inJob bex:containerMergeManifest ; gha:stepOrder 6 ;
+    gha:stepName "Upload Trivy scan results to GitHub code scanning" ;
+    gha:condition "always()" ;
+    gha:usesAction "github/codeql-action/upload-sarif@a35ac6e6798d72df5475948b28efb89edc2e19ca # v4.37.9" ;
+    gha:withParam "sarif_file: trivy-results.sarif" .
 
 # --- Workflow 3: Infra validate (Terraform + Packer, validate-only) ---------
 # New workflow per the infra-validate design decision (design.include_ci_validate_workflow

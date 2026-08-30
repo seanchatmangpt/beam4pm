@@ -1,0 +1,50 @@
+# Hand-authored (no GENERATED marker). OpenSSF Scorecard supply-chain
+# posture analysis, published to GitHub code scanning -- the same rail
+# ggen-ecosystem runs on itself. Pins resolved fresh via
+# `git ls-remote --tags` on 2026-08-30 (scorecard-action's v2.4.4 tag no
+# longer matches the SHA ggen-ecosystem's copy pinned under that label --
+# re-resolved rather than copied).
+name: OpenSSF Scorecard
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '41 6 * * 2'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analysis:
+    name: Scorecard analysis
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      security-events: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Run Scorecard analysis
+        uses: ossf/scorecard-action@55891bbd73f2425e97637d96e306fc9d491d0b21 # v2.4.4
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          publish_results: true
+
+      - name: Upload Scorecard artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: scorecard-results
+          path: results.sarif
+          retention-days: 5
+
+      - name: Upload to code scanning
+        uses: github/codeql-action/upload-sarif@a35ac6e6798d72df5475948b28efb89edc2e19ca # v4.37.9
+        with:
+          sarif_file: results.sarif

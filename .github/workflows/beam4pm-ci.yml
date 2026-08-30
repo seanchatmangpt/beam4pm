@@ -92,11 +92,17 @@ jobs:
         run: |
           bash scripts/roundtrip_check.sh
 
-      - name: Determinism check -- regenerate and diff against committed output
-        continue-on-error: true
+      - name: Determinism check -- regenerate via ggen-ecosystem container and diff against committed output
         shell: bash
         run: |
-          docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace \
-            ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 \
-            bash scripts/gate_m2_check.sh
+          set -euo pipefail
+          mkdir -p "$HOME/.local/bin"
+          printf '%s\n' \
+            '#!/usr/bin/env bash' \
+            'exec docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 ggen "$@"' \
+            > "$HOME/.local/bin/ggen"
+          chmod +x "$HOME/.local/bin/ggen"
+          export PATH="$HOME/.local/bin:$PATH"
+          ggen --version
+          bash scripts/gate_m2_check.sh
 

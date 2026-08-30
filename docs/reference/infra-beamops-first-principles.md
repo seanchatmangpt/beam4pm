@@ -150,21 +150,20 @@ on `${{ runner.os }}-<tool>-<otp>-<rebar3-or-elixir>-${{ hashFiles(...) }}` with
 three-level `restore-keys` fallback, mirroring the book's graduated-key idiom. A Dialyzer
 PLT cache is not yet present, since this repo's CI job has no Dialyzer step to cache for.
 
-## 5. CI Docker multi-arch build: not yet adopted
+## 5. CI Docker multi-arch build: adopted
 
-The book's `docker/setup-qemu-action` + `platforms: linux/amd64,linux/arm64` addition, and
-its registry-backed `cache-from`/`cache-to: type=registry,ref=ghcr.io/...:cache`, are also
-provider-agnostic (QEMU emulation and GHCR are not AWS constructs). `.github/workflows/
-beam4pm-container.yml` already uses `docker/setup-buildx-action`, but has no
-`setup-qemu-action` and no `platforms:` key -- it builds single-architecture (implicit
-`linux/amd64`) -- and its cache backend is `type=gha` rather than the book's
-`type=registry`. `type=gha` is a valid, arguably more modern choice for a repo already on
-GitHub Actions (it avoids a second registry round-trip), so this is a deliberate difference
-in cache backend, not a defect. Multi-arch support itself remains unadopted; it is a
-legitimate additive gap if beam4pm ever needs arm64 runners, tracked as a follow-up rather
-than folded into the infra-provisioning work that produced this document, since
-`beam4pm-container.yml` carries a real `packages: write` scope and pushing an untested
-multi-platform change through it is a separate, higher-privilege change.
+The book's multi-arch pattern is now adopted -- via ggen-ecosystem's own,
+better-fitting variant rather than the book's QEMU route: two **native**-arch
+build jobs (`ubuntu-24.04` for amd64, `ubuntu-24.04-arm` for arm64 -- GitHub's
+free arm64 runners for public repos, no emulation tax) each push a per-arch
+tag, then a `merge-manifest` job stitches one multi-arch manifest under
+`latest` + `sha-<sha>`, signs it keylessly (cosign + GitHub OIDC, no stored
+key), and Trivy-scans the published image with SARIF uploaded to GitHub code
+scanning -- the exact structure of ggen-ecosystem's production container
+workflow, ported as `gha:` facts in `ontology.ttl` (the rendered
+`beam4pm-container.yml` is manufactured, not hand-written). The `type=gha`
+build-cache backend is kept (per-arch scopes) rather than the book's
+`type=registry` -- same deliberate choice as before.
 
 ## 6. CI infra validate (Terraform + Packer): newly adopted
 
@@ -195,7 +194,7 @@ edit if a GitHub-provider module is ever legitimately added by some other means 
 | GitHub-provider Terraform (repo/milestones/labels/issues) | No | Investigated + built + reverted -- real `gh-terraform-pack` scoping defect, see §3 |
 | CI dependency caching (`actions/cache`) | No | Adopted (`beam4pm-ci.yml`, rebar3 + mix caches) |
 | CI Dialyzer PLT cache | No | Not adopted -- no Dialyzer step exists yet |
-| CI Docker multi-arch (QEMU + platforms) | No | Not yet adopted; tracked follow-up |
+| CI Docker multi-arch (native arm64 + manifest merge) | No | Adopted (`beam4pm-container.yml`, + cosign signing + Trivy scan) |
 | CI Terraform/Packer validate workflow | No | Adopted, new (`beam4pm-infra-validate.yml`, not a book pattern) |
 
 ## Standing

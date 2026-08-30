@@ -1,0 +1,58 @@
+# Hand-authored (no GENERATED marker). CodeQL static analysis for the two
+# language surfaces CodeQL can actually cover in this repo:
+#   - actions: every workflow under .github/workflows (untrusted-input flows,
+#     injection via ${{ }} contexts, permissions misuse)
+#   - rust: the three native/ oracle crates (rf1-dfg, rf2-conformance,
+#     rf3-ocel), build-mode none (no cross-crate build orchestration needed
+#     for extraction)
+# Erlang/Elixir/Gleam -- the bulk of this repo -- have no CodeQL extractor;
+# that coverage remains with the real test suites, not pretended here.
+# Pins resolved fresh via `git ls-remote --tags` on 2026-08-30.
+name: CodeQL
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '23 7 * * 3'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+            build-mode: none
+          - language: rust
+            build-mode: none
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@a35ac6e6798d72df5475948b28efb89edc2e19ca # v4.37.9
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@a35ac6e6798d72df5475948b28efb89edc2e19ca # v4.37.9
+        with:
+          category: "/language:${{ matrix.language }}"

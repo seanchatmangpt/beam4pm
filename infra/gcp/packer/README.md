@@ -50,7 +50,7 @@ packer build -var "project_id=YOUR_PROJECT" infra/gcp/packer
 
 | Variable | Default | Source fact |
 |---|---|---|
-| `project_id` | `beam4pm-pro-demo` (demo placeholder -- always override) | `b4pi:gcpProjectDefault` |
+| `project_id` | `beam4pm-pro-demo` (non-production default -- always override) | `b4pi:gcpProjectDefault` |
 | `zone` | `us-central1-a` | `b4pi:buildZone` |
 | `machine_type` | `e2-medium` | `b4pi:buildMachineType` |
 | `source_image_family` | `debian-12` | `b4pi:sourceImageFamily` |
