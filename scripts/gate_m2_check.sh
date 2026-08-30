@@ -96,7 +96,8 @@ done
 echo "== pass 3: delete manufactured files, regenerate (both engines) =="
 for f in "${before_files[@]}"; do rm -f "$f"; done
 rm -f ggen.lock
-ggen sync run
+GGEN_BIN="${GGEN_BIN:-ggen}"
+"$GGEN_BIN" sync run
 # lib/beam4pm_ash.ex, lib/beam4pm_actuation.ex, lib/beam4pm_process_governor.ex,
 # lib/beam4pm_receipt_chain.ex, and their tests are manufactured by the
 # SECOND engine (ggen_igniter, mix ggen_igniter.sync), not by the Rust ggen
