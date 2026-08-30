@@ -1,0 +1,81 @@
+name: GATE M2 Deterministic Reprojection
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "ontology.ttl"
+      - "ggen.toml"
+      - "scripts/gate_m2_check.sh"
+      - "scripts/ggen_ecosystem.sh"
+      - "scripts/*_sync.sh"
+      - "scripts/env/**"
+      - "vendor/ggen-marketplace/**"
+      - ".github/workflows/gate-m2-determinism.yml"
+  push:
+    branches: [main]
+    paths:
+      - "ontology.ttl"
+      - "ggen.toml"
+      - "scripts/gate_m2_check.sh"
+      - "scripts/ggen_ecosystem.sh"
+      - "scripts/*_sync.sh"
+      - "scripts/env/**"
+      - "vendor/ggen-marketplace/**"
+      - ".github/workflows/gate-m2-determinism.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gate-m2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deterministic-reprojection:
+    name: GGen + ggen_igniter byte identity
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact subject with marketplace submodule
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+          submodules: recursive
+
+      - name: Set up BEAM and Gleam
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          gleam-version: '1.18.1'
+          rebar3-version: '3.24.0'
+          elixir-version: '1.18.5'
+          otp-version: '27.2'
+
+      - name: Resolve Mix dependencies
+        shell: bash
+        run: mix deps.get
+
+      - name: Build rust4pm oracle binaries required by Igniter syncs
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd native/rf1-dfg-oracle && cargo build --release && cd -
+          cd native/rf2-conformance-oracle && cargo build --release && cd -
+          cd native/rf3-ocel-oracle && cargo build --release && cd -
+
+      - name: Execute blocking GATE M2 on host with digest-pinned GGen
+        shell: bash
+        env:
+          GGEN_BIN: ${{ github.workspace }}/scripts/ggen_ecosystem.sh
+          GGEN_ECOSYSTEM_IMAGE: ghcr.io/seanchatmangpt/ggen-ecosystem@sha256:c9ff7e414e0a176df2045c1ea84bd75b6b2fabc7227510b68e6044de067610c8
+        run: |
+          set -euo pipefail
+          bash scripts/gate_m2_check.sh
+
+      - name: Refuse uncommitted manufacturing drift
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
