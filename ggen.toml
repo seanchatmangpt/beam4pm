@@ -10,6 +10,11 @@ beam4pm-pro-infra = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-infra-pa
 github-actions-pack = { path = "vendor/ggen-marketplace/packs/github-actions-pack" }
 beam4pm-ai-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-ai-contracts-pack" }
 beam4pm-pro-entitlement = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-entitlement-pack" }
+# gh-terraform-pack: investigated 2026-08-30, NOT wired -- ships unscoped
+# reference-repo instance data that hard-collides (family "repository") or
+# pollutes (families "milestones"/"labels") any second consumer's output.
+# See the "gh-terraform-pack consumption -- INVESTIGATED AND DECLINED"
+# comment block in ontology.ttl for the full, confirmed finding.
 
 [templates]
 dir = "templates"

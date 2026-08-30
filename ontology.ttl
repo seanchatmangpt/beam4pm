@@ -1160,6 +1160,160 @@ bex:containerBuildPushStep
     gha:withParam "cache-to: type=gha,mode=max,scope=beam4pm" ;
     gha:withParam "tags: ghcr.io/${{ github.repository }}:latest,ghcr.io/${{ github.repository }}:sha-${{ github.sha }}" .
 
+# --- Workflow 3: Infra validate (Terraform + Packer, validate-only) ---------
+# New workflow per the infra-validate design decision (design.include_ci_validate_workflow
+# = true): a permanent, standing CI check that the Terraform (infra/gcp/cloudrun)
+# and Packer (infra/gcp/packer) configuration this repo carries is real,
+# well-formed HCL -- never previously exercised by any CI workflow.
+#
+# VALIDATE-ONLY, by construction, satisfying gate 020_security.rq without
+# any performsOperation-derivation dance: permissionCeiling is "contents:
+# read" only, no write scope of any kind is granted, and every runCommand
+# below is exactly `terraform init -backend=false` / `terraform validate` or
+# `packer init` / `packer validate` -- never `terraform apply`, never a
+# `terraform plan` against a real backend, never `packer build`. Zero cloud
+# credentials are read, required, or consumed anywhere in this workflow.
+#
+# Action pins resolved for real via `git ls-remote --tags` on 2026-08-30 (not
+# assumed), the same verification discipline as Workflows 1/2 above:
+#   - actions/checkout reuses the exact d23441a4...af803 SHA already verified
+#     and in production for bex:ciCheckout / bex:containerCheckout in this
+#     same file.
+#   - hashicorp/setup-terraform -> b9cd54a3c349d3f38e8881555d616ced269862dd,
+#     tag v3.1.2 (newest v3.x tag at resolution time).
+#   - hashicorp/setup-packer -> ce93c3c08a6c2ff2275bf4b54ff0d9a75f6c9789, tag
+#     v3.4.0 -- `git ls-remote` confirms this is the identical commit the
+#     floating "v3" tag also points at.
+#
+# The terraform step below still names infra/terraform/github alongside
+# infra/gcp/cloudrun, guarded by a directory-existence check, even though a
+# GitHub-provider Terraform module was investigated and explicitly declined
+# for this repo (see the "gh-terraform-pack consumption -- INVESTIGATED AND
+# DECLINED" comment block later in this file for the real, confirmed reason:
+# the vendored pack ships unscoped reference-repo instance data that pollutes
+# or hard-collides with any second consumer's output). Left in place, gated
+# on the directory existing, purely so this gate degrades gracefully rather
+# than needing another ontology edit if that path is ever legitimately added
+# by some other means later; it currently always skips.
+
+bex:infraValidateWorkflow
+    a gha:Workflow ;
+    gha:fileName "beam4pm-infra-validate.yml" ;
+    gha:purpose "beam4pm Infra Validate (Terraform + Packer, validate-only)" ;
+    gha:permissionCeiling "contents: read" ;
+    gha:trigger gha:EventPush ;
+    gha:trigger gha:EventPullRequest ;
+    gha:trigger gha:EventWorkflowDispatch ;
+    gha:onBlock """push:
+  branches: [main]
+  paths:
+    - "infra/**"
+    - "ontology.ttl"
+    - "vendor/ggen-marketplace/packs/beam4pm-pro-infra-pack/**"
+pull_request:
+  branches: [main]
+  paths:
+    - "infra/**"
+    - "ontology.ttl"
+    - "vendor/ggen-marketplace/packs/beam4pm-pro-infra-pack/**"
+workflow_dispatch:""" ;
+    gha:evidenceObligation "a clean terraform init -backend=false + terraform validate for infra/gcp/cloudrun, and a clean packer init + packer validate for infra/gcp/packer, all against the exact candidate SHA" ;
+    gha:standingEffect "a green run confers syntactic/semantic HCL-validity standing only -- no plan, no apply, no cloud credentials consumed, no remote state read or written. It proves the committed Terraform and Packer configuration is well-formed and internally consistent; it never proves a real apply/build against live GCP would succeed." .
+
+bex:infraValidateJob
+    a gha:Job ;
+    gha:inWorkflow bex:infraValidateWorkflow ;
+    gha:jobName "validate" ;
+    gha:runner "ubuntu-latest" ;
+    gha:timeoutMinutes 15 ;
+    gha:jobExtra "name: Terraform + Packer validate (no apply, no build, zero cloud credentials)" ;
+    gha:evidenceEmitted "terraform validate and packer validate output (both exit 0) in the run log for every module listed above" ;
+    gha:failureClassification "a red run is either a real HCL syntax/reference defect in the committed configuration or a stale/incompatible provider version pin -- never a live-infrastructure fault, since no apply or build ever executes." .
+
+bex:infraValidateCheckout
+    a gha:Step ;
+    gha:inJob bex:infraValidateJob ; gha:stepOrder 1 ;
+    gha:stepName "Checkout" ;
+    gha:usesAction "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6" ;
+    gha:withParam "persist-credentials: false" .
+
+bex:infraValidateSetupTerraform
+    a gha:Step ;
+    gha:inJob bex:infraValidateJob ; gha:stepOrder 2 ;
+    gha:stepName "Set up Terraform" ;
+    gha:usesAction "hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2" ;
+    gha:withParam "terraform_wrapper: false" .
+
+bex:infraValidateSetupPacker
+    a gha:Step ;
+    gha:inJob bex:infraValidateJob ; gha:stepOrder 3 ;
+    gha:stepName "Set up Packer" ;
+    gha:usesAction "hashicorp/setup-packer@ce93c3c08a6c2ff2275bf4b54ff0d9a75f6c9789 # v3.4.0" ;
+    gha:withParam "version: 'latest'" .
+
+bex:infraValidateTerraformInitValidate
+    a gha:Step ;
+    gha:inJob bex:infraValidateJob ; gha:stepOrder 4 ;
+    gha:stepName "terraform init -backend=false + terraform validate (all infra/ Terraform modules)" ;
+    gha:runCommand """set -euo pipefail
+for d in infra/gcp/cloudrun infra/terraform/github; do
+  if [ ! -d "$d" ]; then
+    echo "== skip (not present yet): $d =="
+    continue
+  fi
+  echo "== terraform init/validate: $d =="
+  terraform -chdir="$d" init -backend=false -input=false
+  terraform -chdir="$d" validate
+done""" .
+
+bex:infraValidatePackerInitValidate
+    a gha:Step ;
+    gha:inJob bex:infraValidateJob ; gha:stepOrder 5 ;
+    gha:stepName "packer init + packer validate (infra/gcp/packer)" ;
+    gha:runCommand """set -euo pipefail
+packer init infra/gcp/packer
+packer validate infra/gcp/packer""" .
+
+# =============================================================================
+# gh-terraform-pack consumption -- INVESTIGATED AND DECLINED (2026-08-30)
+# =============================================================================
+# An earlier pass wired vendor/ggen-marketplace/packs/gh-terraform-pack into
+# ggen.toml [packs] and drafted ghtf:RepoManagementInstance individuals here
+# (repository/milestones/labels/issues for seanchatmangpt/beam4pm, plus one
+# ghtf:OrgTenant + ghtf:GcsBackend for a real non-AWS state backend). Building
+# and rendering it for real (in an isolated scratch copy, per this repo's own
+# "run it, don't just describe it" discipline) surfaced a load-bearing defect
+# NOT caught by reading the pack's ontology.ttl/pack.toml alone: gh-terraform-
+# pack ships its own real, unscoped ghtf:RepoManagementInstance individuals
+# (its self-referential "seanchatmangpt/ggen" + "org_retail" reference/dogfood
+# data) directly in its ontology.ttl -- not a schema-only, zero-individuals
+# pack the way github-actions-pack is. Every family template SPARQL-selects
+# `?s a ghtf:RepoManagementInstance ; ghtf:family "<X>" ; ghtf:hclBody ?body`
+# across the WHOLE unified graph with no per-consumer/per-repo scoping
+# predicate anywhere in the pack (confirmed by reading every *_tf.tmpl's
+# frontmatter directly). Consequences, confirmed by real render:
+#   - family "repository": a hard, unconditional `terraform validate` failure
+#     -- the pack's own example and any consumer's individual both render as
+#     `resource "github_repository" "managed"`, a duplicate resource address
+#     in the same file.
+#   - families "milestones"/"labels": not a hard error, but every consumer's
+#     file is unconditionally polluted with the pack's own "seanchatmangpt/
+#     ggen" reference milestones/labels (confirmed: 6 milestones rendered
+#     where only 5 were beam4pm's own; 19 labels where only 8 were).
+#   - branch-protection.tf/collaborators.tf/environments.tf/files.tf/
+#     org-security.tf/rulesets.tf/secrets.tf/teams.tf/webhooks.tf/providers.tf
+#     all render unconditionally too, entirely from the pack's own bundled
+#     "ggen"/"org_retail" data, regardless of anything a consumer declares.
+#   - family "issues" is the one family that renders clean (the pack ships
+#     zero issues examples), but that alone doesn't justify shipping an
+#     infra/terraform/github/ directory otherwise full of a different
+#     project's Terraform resources under beam4pm's own infra tree.
+# Reverted rather than shipped broken/misleading. Not this repo's pack to fix
+# (shared marketplace capital in a vendored submodule); worth reporting
+# upstream to gh-terraform-pack as a real per-consumer-scoping gap. No
+# ghtf:/bgt: individuals of any kind are declared anywhere in this file.
+# =============================================================================
+
 # =============================================================================
 # beam4pm-ai-contracts-pack instance data (P0-A: canonical AI/evidence contracts)
 # =============================================================================

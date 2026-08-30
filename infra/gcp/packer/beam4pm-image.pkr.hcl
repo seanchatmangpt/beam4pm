@@ -82,6 +82,23 @@ build {
     EOT
   }
 
+  # Generic Debian/apt base-package bootstrap (Docker + prerequisites),
+  # rendered from templates/packer-setup.sh.tmpl into a real sibling file
+  # (infra/gcp/packer/setup.sh) instead of an inline heredoc -- the
+  # BEAMOps/PragProg pattern. ${path.root} keeps this correct regardless of
+  # the caller's CWD when invoking `packer build infra/gcp/packer`.
+  provisioner "file" {
+    source      = "${path.root}/setup.sh"
+    destination = "/tmp/setup.sh"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "chmod +x /tmp/setup.sh",
+      "sudo bash /tmp/setup.sh",
+    ]
+  }
+
   provisioner "file" {
     destination = "/tmp/beam4pm-provision.sh"
     content     = <<-EOT
@@ -89,11 +106,6 @@ build {
       set -euo pipefail
 
       echo "=== beam4pm_pro image provisioning ==="
-
-      export DEBIAN_FRONTEND=noninteractive
-      apt-get update
-      apt-get install -y --no-install-recommends docker.io ca-certificates curl
-      systemctl enable --now docker
 
       # Pre-pull the product container so first boot needs no registry
       # round-trip (the image ref is public on GHCR; no credentials baked).
@@ -126,7 +138,7 @@ build {
   provisioner "shell" {
     inline = [
       "sudo apt-get clean",
-      "sudo rm -f /tmp/beam4pm-provision.sh /tmp/beam4pm.service",
+      "sudo rm -f /tmp/setup.sh /tmp/beam4pm-provision.sh /tmp/beam4pm.service",
     ]
   }
 }
