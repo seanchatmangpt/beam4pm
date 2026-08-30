@@ -1,0 +1,10 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:B4PMP_2106 a pro:CommercialControl ;
+ dct:identifier "B4PMP-2106" ; dct:title "Local receipt export" ;
+ pro:requiredEvidence "customer can export signed process, support, entitlement, update, and actuation receipts without exporting underlying telemetry" ;
+ pro:customerControlsExport true ; pro:authorityCeiling "OBSERVE" ;
+ pro:refusalCode "REFUSED[TELEMETRY_REQUIRED_FOR_RECEIPT_EXPORT]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/07-security-airgap-compliance.md> .
