@@ -2821,3 +2821,21 @@ b4pe:true_up_policy_cadence_f a bpm:Field ;
 
 b4pe:true_up_policy_shortfall_behavior_f a bpm:Field ;
     bpm:fieldName "shortfall_behavior" ; bpm:fieldType "atom" ; bpm:fieldDoc "Shortfall treatment." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-018 -- Annual package binding SKU, seats, and renewal date.
+b4pe:annual_subscription_rt a bpm:RecordType ;
+    bpm:recordName "annual_subscription" ;
+    bpm:recordDoc "Annual package binding SKU, seats, and renewal date." ;
+    bpm:hasField b4pe:annual_subscription_subscription_id_f , b4pe:annual_subscription_sku_f , b4pe:annual_subscription_seat_count_f , b4pe:annual_subscription_renews_at_f .
+
+b4pe:annual_subscription_subscription_id_f a bpm:Field ;
+    bpm:fieldName "subscription_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable annual subscription." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:annual_subscription_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Subscribed SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:annual_subscription_seat_count_f a bpm:Field ;
+    bpm:fieldName "seat_count" ; bpm:fieldType "integer" ; bpm:fieldDoc "Contracted seats." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:annual_subscription_renews_at_f a bpm:Field ;
+    bpm:fieldName "renews_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Annual renewal instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
