@@ -3066,4 +3066,30 @@ b4pe:license_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-022 — entitlement evidence.
+b4pe:entitlement_evidence_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_evidence" ;
+    bpm:recordDoc "Executable entitlement evidence binding an exact subject to the paid capability grant actually evaluated." ;
+    bpm:hasField b4pe:entitlement_evidence_id_f,
+                 b4pe:entitlement_subject_sha_f,
+                 b4pe:entitlement_entitlement_id_f,
+                 b4pe:entitlement_observed_result_f .
+
+b4pe:entitlement_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this entitlement observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:entitlement_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:entitlement_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the entitlement evaluated at the capability boundary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:entitlement_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
