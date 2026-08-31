@@ -109,6 +109,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "committed_spend_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      commitment_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CommittedSpendAdmission.new(attrs)
+  end
+
+  test "committed_spend_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CommittedSpendAdmission.new(%{})
+  end
+
+
   test "conformance_result new/1 succeeds when all fields are present" do
     attrs = %{
       trace_id: "x",

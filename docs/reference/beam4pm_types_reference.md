@@ -74,6 +74,16 @@
 | `event_count` | `integer` | true | Number of events observed for this case. |
 | `duration_seconds` | `float` | false | Optional case duration in seconds (end minus start). |
 
+## committed_spend_admission
+
+> Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required committed spend admission input; omission is an executable typed refusal, never an inferred approval. |
+| `commitment_id` | `string` | true | Required committed spend admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## conformance_result
 
 > Conformance-checking metrics computed for one trace against a model.

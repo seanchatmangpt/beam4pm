@@ -10,6 +10,7 @@
     new_billing_reconciliation/1,
     new_budget_period_alignment/1,
     new_case_stats/1,
+    new_committed_spend_admission/1,
     new_conformance_result/1,
     new_contracting_entity_identity/1,
     new_credit_risk_admission/1,
@@ -72,6 +73,7 @@
     billing_reconciliation/0,
     budget_period_alignment/0,
     case_stats/0,
+    committed_spend_admission/0,
     conformance_result/0,
     contracting_entity_identity/0,
     credit_risk_admission/0,
@@ -334,6 +336,35 @@ new_case_stats(Map) ->
         event_count = maps:get(event_count, Map, undefined),
         duration_seconds = maps:get(duration_seconds, Map, undefined)
     }}
+    end
+    end.
+
+%% Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.
+-record(committed_spend_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required committed spend admission input; omission is an executable typed refusal, never an inferred approval.
+    commitment_id :: binary(), %% commitment_id: Required committed spend admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type committed_spend_admission() :: #committed_spend_admission{}.
+
+-spec new_committed_spend_admission(map()) -> {ok, committed_spend_admission()} | {error, {missing_field, atom()}}.
+new_committed_spend_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(commitment_id, Map) of
+        false -> {error, {missing_field, commitment_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #committed_spend_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        commitment_id = maps:get(commitment_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
     end
     end.
 

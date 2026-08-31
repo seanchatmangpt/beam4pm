@@ -195,6 +195,31 @@ case_stats_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(case_stats, Json),
     ?assertEqual(Rec, Rec2).
 
+committed_spend_admission_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_committed_spend_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        commitment_id => <<"sample_commitment_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_commitment_id">>, maps:get(<<"commitment_id">>, Map)),
+    ?assertEqual(<<"sample_decision">>, maps:get(<<"decision">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(committed_spend_admission,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+committed_spend_admission_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_committed_spend_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        commitment_id => <<"sample_commitment_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(committed_spend_admission, Json),
+    ?assertEqual(Rec, Rec2).
+
 conformance_result_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_conformance_result(#{
         trace_id => <<"sample_trace_id">>,

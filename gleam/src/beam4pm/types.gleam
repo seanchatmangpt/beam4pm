@@ -97,6 +97,18 @@ pub type CaseStats {
   )
 }
 
+/// Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.
+pub type CommittedSpendAdmission {
+  CommittedSpendAdmission(
+    /// Required committed spend admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required committed spend admission input; omission is an executable typed refusal, never an inferred approval.
+    commitment_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// Conformance-checking metrics computed for one trace against a model.
 pub type ConformanceResult {
   ConformanceResult(

@@ -3068,6 +3068,29 @@ b4p:volume_tier_admission_volume_tier_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:volume_tier_admission_decision_f a bpm:Field ;
+   bpm:fieldName "decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-025 — committed_spend_admission
+b4p:committed_spend_admission_rt a bpm:RecordType ;
+    bpm:recordName "committed_spend_admission" ;
+    bpm:recordDoc "Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage." ;
+    bpm:hasField b4p:committed_spend_admission_opportunity_id_f ,
+                 b4p:committed_spend_admission_commitment_id_f ,
+                 b4p:committed_spend_admission_decision_f .
+
+b4p:committed_spend_admission_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required committed spend admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:committed_spend_admission_commitment_id_f a bpm:Field ;
+    bpm:fieldName "commitment_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required committed spend admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:committed_spend_admission_decision_f a bpm:Field ;
     bpm:fieldName "decision" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

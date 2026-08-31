@@ -21,6 +21,7 @@ record_names() ->
         billing_reconciliation,
         budget_period_alignment,
         case_stats,
+        committed_spend_admission,
         conformance_result,
         contracting_entity_identity,
         credit_risk_admission,
@@ -167,6 +168,18 @@ sample(case_stats, minimal) ->
     beam4pm_types:new_case_stats(#{
         case_id => <<"sample_case_id">>,
         event_count => 42
+    });
+sample(committed_spend_admission, full) ->
+    beam4pm_types:new_committed_spend_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        commitment_id => <<"sample_commitment_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(committed_spend_admission, minimal) ->
+    beam4pm_types:new_committed_spend_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        commitment_id => <<"sample_commitment_id">>,
+        decision => <<"sample_decision">>
     });
 sample(conformance_result, full) ->
     beam4pm_types:new_conformance_result(#{

@@ -16,6 +16,7 @@ defmodule BeamPM.Roundtrip do
     :billing_reconciliation,
     :budget_period_alignment,
     :case_stats,
+    :committed_spend_admission,
     :conformance_result,
     :contracting_entity_identity,
     :credit_risk_admission,
@@ -194,6 +195,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.CaseStats.new(%{
       case_id: "sample_case_id",
       event_count: 42
+    })
+  end
+
+  def sample(:committed_spend_admission, :full) do
+    BeamPM.Types.CommittedSpendAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      commitment_id: "sample_commitment_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:committed_spend_admission, :minimal) do
+    BeamPM.Types.CommittedSpendAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      commitment_id: "sample_commitment_id",
+      decision: "sample_decision"
     })
   end
 

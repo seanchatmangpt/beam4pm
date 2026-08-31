@@ -81,6 +81,16 @@ case_stats_ok_test() ->
 case_stats_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_case_stats(#{})).
 
+committed_spend_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_committed_spend_admission(#{
+        opportunity_id => <<"x">>,
+        commitment_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+committed_spend_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_committed_spend_admission(#{})).
+
 conformance_result_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_conformance_result(#{
         trace_id => <<"x">>,

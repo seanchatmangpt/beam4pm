@@ -194,6 +194,33 @@ defmodule BeamPM.Types.CaseStats do
   end
 end
 
+defmodule BeamPM.Types.CommittedSpendAdmission do
+  @moduledoc "Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage."
+
+  defstruct [:opportunity_id, :commitment_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    commitment_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :commitment_id) -> {:error, {:missing_field, :commitment_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          commitment_id: Map.get(attrs, :commitment_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ConformanceResult do
   @moduledoc "Conformance-checking metrics computed for one trace against a model."
 
