@@ -9,18 +9,42 @@ defmodule BeamPM.Roundtrip do
   @moduledoc "Cross-language roundtrip sample fixtures for every admitted record type."
 
   @record_names [
+    :action_pin_evidence,
     :alignment_move,
+    :approval_separation_evidence,
+    :architecture_review_evidence,
+    :artifact_digest_evidence,
+    :attestation_verification_evidence,
+    :audit_chain_evidence,
+    :availability_slo_evidence,
+    :backup_restore_evidence,
     :billing_reconciliation,
+    :business_continuity_evidence,
+    :canary_evidence,
     :case_stats,
+    :change_control_evidence,
+    :commercial_artifact_crown_evidence,
     :conformance_result,
+    :customer_managed_key_evidence,
+    :data_egress_evidence,
+    :deletion_proof_evidence,
+    :dependency_inventory_evidence,
     :dfg_edge,
+    :disaster_recovery_evidence,
     :entitlement_event,
+    :entitlement_evidence,
     :entitlement_state,
     :event_log,
     :event_type,
+    :evidence_freshness_evidence,
     :heuristic_arc,
+    :incident_response_evidence,
     :k8s_object_ref,
+    :least_authority_evidence,
+    :license_evidence,
     :log_trace,
+    :multiarch_evidence,
+    :mutable_identity_refusal_evidence,
     :object_attribute_change,
     :object_type,
     :oc_declare_constraint,
@@ -28,22 +52,48 @@ defmodule BeamPM.Roundtrip do
     :ocel_event,
     :ocel_object,
     :ocel_relationship,
+    :oci_manifest_evidence,
+    :offline_bundle_evidence,
     :path_schema,
     :path_schema_query,
+    :performance_slo_evidence,
     :petri_arc,
     :petri_place,
     :petri_transition,
     :planning_action,
     :planning_state,
     :policy_decision,
+    :privacy_classification_evidence,
+    :private_registry_evidence,
     :process_variant,
+    :procurement_acceptance_evidence,
+    :provenance_binding_evidence,
     :queue_snapshot,
+    :receipt_replay_evidence,
+    :remediation_sla_evidence,
+    :reproducible_build_evidence,
+    :residency_evidence,
     :resource_allocation,
+    :retention_policy_evidence,
+    :rfp_response_evidence,
+    :rollback_evidence,
+    :sbom_inventory_evidence,
+    :secret_boundary_evidence,
     :service_span,
+    :signature_evidence,
     :sojourn_time,
+    :stale_subject_refusal_evidence,
+    :support_escalation_evidence,
+    :support_sla_evidence,
+    :support_window_evidence,
     :sync_time,
     :type_edge,
-    :usage_event
+    :unsupported_capability_evidence,
+    :upgrade_evidence,
+    :usage_event,
+    :vendor_risk_evidence,
+    :version_lifecycle_evidence,
+    :vulnerability_scan_evidence
   ]
 
   @variants [:full, :minimal]
@@ -58,6 +108,24 @@ defmodule BeamPM.Roundtrip do
   # :minimal = required fields only; :full = every field.
   @spec sample(atom(), :full | :minimal) :: {:ok, struct()}
 
+  def sample(:action_pin_evidence, :full) do
+    BeamPM.Types.ActionPinEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      action_sha: "sample_action_sha",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:action_pin_evidence, :minimal) do
+    BeamPM.Types.ActionPinEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      action_sha: "sample_action_sha",
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:alignment_move, :full) do
     BeamPM.Types.AlignmentMove.new(%{
       move_type: :sample_atom,
@@ -69,6 +137,132 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.AlignmentMove.new(%{
       move_type: :sample_atom,
       cost: 42
+    })
+  end
+
+  def sample(:approval_separation_evidence, :full) do
+    BeamPM.Types.ApprovalSeparationEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      approver_identity: "sample_approver_identity",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:approval_separation_evidence, :minimal) do
+    BeamPM.Types.ApprovalSeparationEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      approver_identity: "sample_approver_identity",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:architecture_review_evidence, :full) do
+    BeamPM.Types.ArchitectureReviewEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      review_decision: "sample_review_decision",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:architecture_review_evidence, :minimal) do
+    BeamPM.Types.ArchitectureReviewEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      review_decision: "sample_review_decision",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:artifact_digest_evidence, :full) do
+    BeamPM.Types.ArtifactDigestEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      digest: "sample_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:artifact_digest_evidence, :minimal) do
+    BeamPM.Types.ArtifactDigestEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      digest: "sample_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:attestation_verification_evidence, :full) do
+    BeamPM.Types.AttestationVerificationEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      predicate_type: "sample_predicate_type",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:attestation_verification_evidence, :minimal) do
+    BeamPM.Types.AttestationVerificationEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      predicate_type: "sample_predicate_type",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:audit_chain_evidence, :full) do
+    BeamPM.Types.AuditChainEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      previous_receipt_hash: "sample_previous_receipt_hash",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:audit_chain_evidence, :minimal) do
+    BeamPM.Types.AuditChainEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      previous_receipt_hash: "sample_previous_receipt_hash",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:availability_slo_evidence, :full) do
+    BeamPM.Types.AvailabilitySloEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      availability_percent: 3.5,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:availability_slo_evidence, :minimal) do
+    BeamPM.Types.AvailabilitySloEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      availability_percent: 3.5,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:backup_restore_evidence, :full) do
+    BeamPM.Types.BackupRestoreEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      backup_digest: "sample_backup_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:backup_restore_evidence, :minimal) do
+    BeamPM.Types.BackupRestoreEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      backup_digest: "sample_backup_digest",
+      observed_result: :sample_atom
     })
   end
 
@@ -94,6 +288,42 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:business_continuity_evidence, :full) do
+    BeamPM.Types.BusinessContinuityEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      continuity_mode: "sample_continuity_mode",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:business_continuity_evidence, :minimal) do
+    BeamPM.Types.BusinessContinuityEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      continuity_mode: "sample_continuity_mode",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:canary_evidence, :full) do
+    BeamPM.Types.CanaryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      canary_percentage: 3.5,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:canary_evidence, :minimal) do
+    BeamPM.Types.CanaryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      canary_percentage: 3.5,
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:case_stats, :full) do
     BeamPM.Types.CaseStats.new(%{
       case_id: "sample_case_id",
@@ -109,6 +339,42 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:change_control_evidence, :full) do
+    BeamPM.Types.ChangeControlEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      change_request_id: "sample_change_request_id",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:change_control_evidence, :minimal) do
+    BeamPM.Types.ChangeControlEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      change_request_id: "sample_change_request_id",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:commercial_artifact_crown_evidence, :full) do
+    BeamPM.Types.CommercialArtifactCrownEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      artifact_digest: "sample_artifact_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:commercial_artifact_crown_evidence, :minimal) do
+    BeamPM.Types.CommercialArtifactCrownEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      artifact_digest: "sample_artifact_digest",
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:conformance_result, :full) do
     BeamPM.Types.ConformanceResult.new(%{
       trace_id: "sample_trace_id",
@@ -121,6 +387,78 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.ConformanceResult.new(%{
       trace_id: "sample_trace_id",
       fitness: 3.5
+    })
+  end
+
+  def sample(:customer_managed_key_evidence, :full) do
+    BeamPM.Types.CustomerManagedKeyEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      key_identifier: "sample_key_identifier",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:customer_managed_key_evidence, :minimal) do
+    BeamPM.Types.CustomerManagedKeyEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      key_identifier: "sample_key_identifier",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:data_egress_evidence, :full) do
+    BeamPM.Types.DataEgressEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      egress_bytes: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:data_egress_evidence, :minimal) do
+    BeamPM.Types.DataEgressEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      egress_bytes: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:deletion_proof_evidence, :full) do
+    BeamPM.Types.DeletionProofEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      deletion_receipt_id: "sample_deletion_receipt_id",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:deletion_proof_evidence, :minimal) do
+    BeamPM.Types.DeletionProofEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      deletion_receipt_id: "sample_deletion_receipt_id",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:dependency_inventory_evidence, :full) do
+    BeamPM.Types.DependencyInventoryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      dependency_count: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:dependency_inventory_evidence, :minimal) do
+    BeamPM.Types.DependencyInventoryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      dependency_count: 42,
+      observed_result: :sample_atom
     })
   end
 
@@ -140,6 +478,24 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:disaster_recovery_evidence, :full) do
+    BeamPM.Types.DisasterRecoveryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      recovered_at: "2026-08-29T12:00:00Z",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:disaster_recovery_evidence, :minimal) do
+    BeamPM.Types.DisasterRecoveryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      recovered_at: "2026-08-29T12:00:00Z",
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:entitlement_event, :full) do
     BeamPM.Types.EntitlementEvent.new(%{
       event_id: "sample_event_id",
@@ -156,6 +512,24 @@ defmodule BeamPM.Roundtrip do
       entitlement_id: "sample_entitlement_id",
       event_type: "sample_event_type",
       effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:entitlement_evidence, :full) do
+    BeamPM.Types.EntitlementEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      entitlement_id: "sample_entitlement_id",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:entitlement_evidence, :minimal) do
+    BeamPM.Types.EntitlementEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      entitlement_id: "sample_entitlement_id",
+      observed_result: :sample_atom
     })
   end
 
@@ -205,6 +579,24 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:evidence_freshness_evidence, :full) do
+    BeamPM.Types.EvidenceFreshnessEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      observed_at: "2026-08-29T12:00:00Z",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:evidence_freshness_evidence, :minimal) do
+    BeamPM.Types.EvidenceFreshnessEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      observed_at: "2026-08-29T12:00:00Z",
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:heuristic_arc, :full) do
     BeamPM.Types.HeuristicArc.new(%{
       source_activity: "sample_source_activity",
@@ -218,6 +610,24 @@ defmodule BeamPM.Roundtrip do
       source_activity: "sample_source_activity",
       target_activity: "sample_target_activity",
       dependency_measure: 3.5
+    })
+  end
+
+  def sample(:incident_response_evidence, :full) do
+    BeamPM.Types.IncidentResponseEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      incident_id: "sample_incident_id",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:incident_response_evidence, :minimal) do
+    BeamPM.Types.IncidentResponseEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      incident_id: "sample_incident_id",
+      observed_result: :sample_atom
     })
   end
 
@@ -236,6 +646,42 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:least_authority_evidence, :full) do
+    BeamPM.Types.LeastAuthorityEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      granted_permissions: ["alpha", "beta"],
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:least_authority_evidence, :minimal) do
+    BeamPM.Types.LeastAuthorityEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      granted_permissions: ["alpha", "beta"],
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:license_evidence, :full) do
+    BeamPM.Types.LicenseEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      license_expression: "sample_license_expression",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:license_evidence, :minimal) do
+    BeamPM.Types.LicenseEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      license_expression: "sample_license_expression",
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:log_trace, :full) do
     BeamPM.Types.LogTrace.new(%{
       case_id: "sample_case_id",
@@ -247,6 +693,42 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.LogTrace.new(%{
       case_id: "sample_case_id",
       activity_sequence: ["alpha", "beta"]
+    })
+  end
+
+  def sample(:multiarch_evidence, :full) do
+    BeamPM.Types.MultiarchEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      platforms: ["alpha", "beta"],
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:multiarch_evidence, :minimal) do
+    BeamPM.Types.MultiarchEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      platforms: ["alpha", "beta"],
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:mutable_identity_refusal_evidence, :full) do
+    BeamPM.Types.MutableIdentityRefusalEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      mutable_reference: "sample_mutable_reference",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:mutable_identity_refusal_evidence, :minimal) do
+    BeamPM.Types.MutableIdentityRefusalEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      mutable_reference: "sample_mutable_reference",
+      observed_result: :sample_atom
     })
   end
 
@@ -361,6 +843,42 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:oci_manifest_evidence, :full) do
+    BeamPM.Types.OciManifestEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      manifest_digest: "sample_manifest_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:oci_manifest_evidence, :minimal) do
+    BeamPM.Types.OciManifestEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      manifest_digest: "sample_manifest_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:offline_bundle_evidence, :full) do
+    BeamPM.Types.OfflineBundleEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      bundle_digest: "sample_bundle_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:offline_bundle_evidence, :minimal) do
+    BeamPM.Types.OfflineBundleEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      bundle_digest: "sample_bundle_digest",
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:path_schema, :full) do
     BeamPM.Types.PathSchema.new(%{
       schema_id: "sample_schema_id",
@@ -392,6 +910,24 @@ defmodule BeamPM.Roundtrip do
       source_type: "sample_source_type",
       target_type: "sample_target_type",
       max_length: 42
+    })
+  end
+
+  def sample(:performance_slo_evidence, :full) do
+    BeamPM.Types.PerformanceSloEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      latency_p95_ms: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:performance_slo_evidence, :minimal) do
+    BeamPM.Types.PerformanceSloEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      latency_p95_ms: 42,
+      observed_result: :sample_atom
     })
   end
 
@@ -481,6 +1017,42 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:privacy_classification_evidence, :full) do
+    BeamPM.Types.PrivacyClassificationEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      privacy_class: "sample_privacy_class",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:privacy_classification_evidence, :minimal) do
+    BeamPM.Types.PrivacyClassificationEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      privacy_class: "sample_privacy_class",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:private_registry_evidence, :full) do
+    BeamPM.Types.PrivateRegistryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      registry_digest: "sample_registry_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:private_registry_evidence, :minimal) do
+    BeamPM.Types.PrivateRegistryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      registry_digest: "sample_registry_digest",
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:process_variant, :full) do
     BeamPM.Types.ProcessVariant.new(%{
       variant_id: "sample_variant_id",
@@ -494,6 +1066,42 @@ defmodule BeamPM.Roundtrip do
       variant_id: "sample_variant_id",
       activity_sequence: ["alpha", "beta"],
       frequency: 42
+    })
+  end
+
+  def sample(:procurement_acceptance_evidence, :full) do
+    BeamPM.Types.ProcurementAcceptanceEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      acceptance_decision: "sample_acceptance_decision",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:procurement_acceptance_evidence, :minimal) do
+    BeamPM.Types.ProcurementAcceptanceEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      acceptance_decision: "sample_acceptance_decision",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:provenance_binding_evidence, :full) do
+    BeamPM.Types.ProvenanceBindingEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      builder_identity: "sample_builder_identity",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:provenance_binding_evidence, :minimal) do
+    BeamPM.Types.ProvenanceBindingEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      builder_identity: "sample_builder_identity",
+      observed_result: :sample_atom
     })
   end
 
@@ -513,6 +1121,78 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:receipt_replay_evidence, :full) do
+    BeamPM.Types.ReceiptReplayEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      replay_result_hash: "sample_replay_result_hash",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:receipt_replay_evidence, :minimal) do
+    BeamPM.Types.ReceiptReplayEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      replay_result_hash: "sample_replay_result_hash",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:remediation_sla_evidence, :full) do
+    BeamPM.Types.RemediationSlaEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      remediation_due_at: "2026-08-29T12:00:00Z",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:remediation_sla_evidence, :minimal) do
+    BeamPM.Types.RemediationSlaEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      remediation_due_at: "2026-08-29T12:00:00Z",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:reproducible_build_evidence, :full) do
+    BeamPM.Types.ReproducibleBuildEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      build_digest: "sample_build_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:reproducible_build_evidence, :minimal) do
+    BeamPM.Types.ReproducibleBuildEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      build_digest: "sample_build_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:residency_evidence, :full) do
+    BeamPM.Types.ResidencyEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      region: "sample_region",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:residency_evidence, :minimal) do
+    BeamPM.Types.ResidencyEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      region: "sample_region",
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:resource_allocation, :full) do
     BeamPM.Types.ResourceAllocation.new(%{
       resource_id: "sample_resource_id",
@@ -526,6 +1206,96 @@ defmodule BeamPM.Roundtrip do
       resource_id: "sample_resource_id",
       activity: "sample_activity",
       event_id: "sample_event_id"
+    })
+  end
+
+  def sample(:retention_policy_evidence, :full) do
+    BeamPM.Types.RetentionPolicyEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      retention_days: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:retention_policy_evidence, :minimal) do
+    BeamPM.Types.RetentionPolicyEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      retention_days: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:rfp_response_evidence, :full) do
+    BeamPM.Types.RfpResponseEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      answer_set_hash: "sample_answer_set_hash",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:rfp_response_evidence, :minimal) do
+    BeamPM.Types.RfpResponseEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      answer_set_hash: "sample_answer_set_hash",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:rollback_evidence, :full) do
+    BeamPM.Types.RollbackEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      rollback_digest: "sample_rollback_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:rollback_evidence, :minimal) do
+    BeamPM.Types.RollbackEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      rollback_digest: "sample_rollback_digest",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:sbom_inventory_evidence, :full) do
+    BeamPM.Types.SbomInventoryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      component_count: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:sbom_inventory_evidence, :minimal) do
+    BeamPM.Types.SbomInventoryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      component_count: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:secret_boundary_evidence, :full) do
+    BeamPM.Types.SecretBoundaryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      secret_source: "sample_secret_source",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:secret_boundary_evidence, :minimal) do
+    BeamPM.Types.SecretBoundaryEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      secret_source: "sample_secret_source",
+      observed_result: :sample_atom
     })
   end
 
@@ -546,6 +1316,24 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:signature_evidence, :full) do
+    BeamPM.Types.SignatureEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      signature_identity: "sample_signature_identity",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:signature_evidence, :minimal) do
+    BeamPM.Types.SignatureEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      signature_identity: "sample_signature_identity",
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:sojourn_time, :full) do
     BeamPM.Types.SojournTime.new(%{
       object_id: "sample_object_id",
@@ -559,6 +1347,78 @@ defmodule BeamPM.Roundtrip do
       object_id: "sample_object_id",
       event_type: "sample_event_type",
       seconds: 3.5
+    })
+  end
+
+  def sample(:stale_subject_refusal_evidence, :full) do
+    BeamPM.Types.StaleSubjectRefusalEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      stale_sha: "sample_stale_sha",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:stale_subject_refusal_evidence, :minimal) do
+    BeamPM.Types.StaleSubjectRefusalEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      stale_sha: "sample_stale_sha",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:support_escalation_evidence, :full) do
+    BeamPM.Types.SupportEscalationEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      escalation_owner: "sample_escalation_owner",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:support_escalation_evidence, :minimal) do
+    BeamPM.Types.SupportEscalationEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      escalation_owner: "sample_escalation_owner",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:support_sla_evidence, :full) do
+    BeamPM.Types.SupportSlaEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      response_minutes: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:support_sla_evidence, :minimal) do
+    BeamPM.Types.SupportSlaEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      response_minutes: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:support_window_evidence, :full) do
+    BeamPM.Types.SupportWindowEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      support_channel: "sample_support_channel",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:support_window_evidence, :minimal) do
+    BeamPM.Types.SupportWindowEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      support_channel: "sample_support_channel",
+      observed_result: :sample_atom
     })
   end
 
@@ -595,6 +1455,42 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:unsupported_capability_evidence, :full) do
+    BeamPM.Types.UnsupportedCapabilityEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      capability_name: "sample_capability_name",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:unsupported_capability_evidence, :minimal) do
+    BeamPM.Types.UnsupportedCapabilityEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      capability_name: "sample_capability_name",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:upgrade_evidence, :full) do
+    BeamPM.Types.UpgradeEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      from_version: "sample_from_version",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:upgrade_evidence, :minimal) do
+    BeamPM.Types.UpgradeEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      from_version: "sample_from_version",
+      observed_result: :sample_atom
+    })
+  end
+
   def sample(:usage_event, :full) do
     BeamPM.Types.UsageEvent.new(%{
       event_id: "sample_event_id",
@@ -612,6 +1508,60 @@ defmodule BeamPM.Roundtrip do
       quantity: 3.5,
       metric_name: "sample_metric_name",
       occurred_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:vendor_risk_evidence, :full) do
+    BeamPM.Types.VendorRiskEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      risk_score: 3.5,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:vendor_risk_evidence, :minimal) do
+    BeamPM.Types.VendorRiskEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      risk_score: 3.5,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:version_lifecycle_evidence, :full) do
+    BeamPM.Types.VersionLifecycleEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      supported_until: "2026-08-29T12:00:00Z",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:version_lifecycle_evidence, :minimal) do
+    BeamPM.Types.VersionLifecycleEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      supported_until: "2026-08-29T12:00:00Z",
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:vulnerability_scan_evidence, :full) do
+    BeamPM.Types.VulnerabilityScanEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      vulnerability_count: 42,
+      observed_result: :sample_atom
+    })
+  end
+
+  def sample(:vulnerability_scan_evidence, :minimal) do
+    BeamPM.Types.VulnerabilityScanEvidence.new(%{
+      evidence_id: "sample_evidence_id",
+      subject_sha: "sample_subject_sha",
+      vulnerability_count: 42,
+      observed_result: :sample_atom
     })
   end
 
