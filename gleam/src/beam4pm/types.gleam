@@ -21,6 +21,18 @@ pub type AccountMasterMatch {
   )
 }
 
+/// Qualifies an account only when its buying scope is bound to the correct global parent, preventing subsidiary demand from being double-counted as independent enterprise pipeline.
+pub type AccountParentScope {
+  AccountParentScope(
+    /// Required account parent scope input; omission is an executable typed refusal, never an inferred approval.
+    account_id: String,
+    /// Required account parent scope input; omission is an executable typed refusal, never an inferred approval.
+    parent_account_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    scope_evidence_hash: String,
+  )
+}
+
 /// One step of a conformance-checking alignment between log and model.
 pub type AlignmentMove {
   AlignmentMove(

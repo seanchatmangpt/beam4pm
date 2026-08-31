@@ -2539,6 +2539,29 @@ b4p:account_master_match_canonical_account_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:account_master_match_match_evidence_hash_f a bpm:Field ;
-    bpm:fieldName "match_evidence_hash" ; bpm:fieldType "string" ;
+   bpm:fieldName "match_evidence_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity that makes this admission independently replayable." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-002 — account_parent_scope
+b4p:account_parent_scope_rt a bpm:RecordType ;
+    bpm:recordName "account_parent_scope" ;
+    bpm:recordDoc "Qualifies an account only when its buying scope is bound to the correct global parent, preventing subsidiary demand from being double-counted as independent enterprise pipeline." ;
+    bpm:hasField b4p:account_parent_scope_account_id_f ,
+                 b4p:account_parent_scope_parent_account_id_f ,
+                 b4p:account_parent_scope_scope_evidence_hash_f .
+
+b4p:account_parent_scope_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required account parent scope input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:account_parent_scope_parent_account_id_f a bpm:Field ;
+    bpm:fieldName "parent_account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required account parent scope input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:account_parent_scope_scope_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "scope_evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

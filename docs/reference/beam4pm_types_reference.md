@@ -12,6 +12,16 @@
 | `canonical_account_id` | `string` | true | Required commercial-admission input for account master match. Missing input is a typed refusal. |
 | `match_evidence_hash` | `string` | true | Immutable evidence identity that makes this admission independently replayable. |
 
+## account_parent_scope
+
+> Qualifies an account only when its buying scope is bound to the correct global parent, preventing subsidiary demand from being double-counted as independent enterprise pipeline.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `account_id` | `string` | true | Required account parent scope input; omission is an executable typed refusal, never an inferred approval. |
+| `parent_account_id` | `string` | true | Required account parent scope input; omission is an executable typed refusal, never an inferred approval. |
+| `scope_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## alignment_move
 
 > One step of a conformance-checking alignment between log and model.

@@ -27,6 +27,33 @@ defmodule BeamPM.Types.AccountMasterMatch do
   end
 end
 
+defmodule BeamPM.Types.AccountParentScope do
+  @moduledoc "Qualifies an account only when its buying scope is bound to the correct global parent, preventing subsidiary demand from being double-counted as independent enterprise pipeline."
+
+  defstruct [:account_id, :parent_account_id, :scope_evidence_hash]
+
+  @type t :: %__MODULE__{
+    account_id: String.t() | nil,
+    parent_account_id: String.t() | nil,
+    scope_evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :parent_account_id) -> {:error, {:missing_field, :parent_account_id}}
+      not Map.has_key?(attrs, :scope_evidence_hash) -> {:error, {:missing_field, :scope_evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          account_id: Map.get(attrs, :account_id),
+          parent_account_id: Map.get(attrs, :parent_account_id),
+          scope_evidence_hash: Map.get(attrs, :scope_evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.AlignmentMove do
   @moduledoc "One step of a conformance-checking alignment between log and model."
 

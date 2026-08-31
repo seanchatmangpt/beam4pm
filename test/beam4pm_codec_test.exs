@@ -58,6 +58,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "account_parent_scope to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      account_id: "sample_account_id",
+      parent_account_id: "sample_parent_account_id",
+      scope_evidence_hash: "sample_scope_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AccountParentScope.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["account_id"] == "sample_account_id"
+    assert m["parent_account_id"] == "sample_parent_account_id"
+    assert m["scope_evidence_hash"] == "sample_scope_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:account_parent_scope, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:account_parent_scope, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "account_parent_scope encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      account_id: "sample_account_id",
+      parent_account_id: "sample_parent_account_id",
+      scope_evidence_hash: "sample_scope_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AccountParentScope.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:account_parent_scope, json)
+  end
+
+  test "account_parent_scope from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :account_id}} =
+             BeamPM.Codec.from_map(:account_parent_scope, %{})
+  end
+
+
   test "alignment_move to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       move_type: :sample_atom,

@@ -10,6 +10,7 @@ defmodule BeamPM.Roundtrip do
 
   @record_names [
     :account_master_match,
+    :account_parent_scope,
     :alignment_move,
     :billing_reconciliation,
     :case_stats,
@@ -72,6 +73,22 @@ defmodule BeamPM.Roundtrip do
       source_account_id: "sample_source_account_id",
       canonical_account_id: "sample_canonical_account_id",
       match_evidence_hash: "sample_match_evidence_hash"
+    })
+  end
+
+  def sample(:account_parent_scope, :full) do
+    BeamPM.Types.AccountParentScope.new(%{
+      account_id: "sample_account_id",
+      parent_account_id: "sample_parent_account_id",
+      scope_evidence_hash: "sample_scope_evidence_hash"
+    })
+  end
+
+  def sample(:account_parent_scope, :minimal) do
+    BeamPM.Types.AccountParentScope.new(%{
+      account_id: "sample_account_id",
+      parent_account_id: "sample_parent_account_id",
+      scope_evidence_hash: "sample_scope_evidence_hash"
     })
   end
 

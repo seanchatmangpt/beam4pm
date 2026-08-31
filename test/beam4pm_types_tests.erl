@@ -19,6 +19,16 @@ account_master_match_ok_test() ->
 account_master_match_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_account_master_match(#{})).
 
+account_parent_scope_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_account_parent_scope(#{
+        account_id => <<"x">>,
+        parent_account_id => <<"x">>,
+        scope_evidence_hash => <<"x">>
+    })).
+
+account_parent_scope_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_account_parent_scope(#{})).
+
 alignment_move_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_alignment_move(#{
         move_type => some_atom,

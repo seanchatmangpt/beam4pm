@@ -22,6 +22,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.AccountParentScope{} = r) do
+    to_known_map([
+      {"account_id", r.account_id, :passthrough},
+      {"parent_account_id", r.parent_account_id, :passthrough},
+      {"scope_evidence_hash", r.scope_evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.AlignmentMove{} = r) do
     to_known_map([
       {"move_type", r.move_type, :atom},
@@ -322,6 +330,18 @@ defmodule BeamPM.Codec do
         {"match_evidence_hash", :match_evidence_hash, :passthrough}
       ],
       &BeamPM.Types.AccountMasterMatch.new/1
+    )
+  end
+
+  def from_map(:account_parent_scope, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"account_id", :account_id, :passthrough},
+        {"parent_account_id", :parent_account_id, :passthrough},
+        {"scope_evidence_hash", :scope_evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.AccountParentScope.new/1
     )
   end
 

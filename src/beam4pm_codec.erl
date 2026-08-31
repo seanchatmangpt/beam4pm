@@ -11,6 +11,7 @@
 %% validating beam4pm_types:new_*/1 constructors.
 -type known_record() ::
     beam4pm_types:account_master_match() |
+    beam4pm_types:account_parent_scope() |
     beam4pm_types:alignment_move() |
     beam4pm_types:billing_reconciliation() |
     beam4pm_types:case_stats() |
@@ -56,6 +57,12 @@ to_map(R) when element(1, R) =:= account_master_match ->
         {<<"source_account_id">>, plain, element(2, R)},
         {<<"canonical_account_id">>, plain, element(3, R)},
         {<<"match_evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= account_parent_scope ->
+    pairs_to_map([
+        {<<"account_id">>, plain, element(2, R)},
+        {<<"parent_account_id">>, plain, element(3, R)},
+        {<<"scope_evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= alignment_move ->
     pairs_to_map([
@@ -290,6 +297,12 @@ from_map(account_master_match, Map) when is_map(Map) ->
         {<<"source_account_id">>, source_account_id, plain},
         {<<"canonical_account_id">>, canonical_account_id, plain},
         {<<"match_evidence_hash">>, match_evidence_hash, plain}
+    ]));
+from_map(account_parent_scope, Map) when is_map(Map) ->
+    beam4pm_types:new_account_parent_scope(take_known(Map, [
+        {<<"account_id">>, account_id, plain},
+        {<<"parent_account_id">>, parent_account_id, plain},
+        {<<"scope_evidence_hash">>, scope_evidence_hash, plain}
     ]));
 from_map(alignment_move, Map) when is_map(Map) ->
     beam4pm_types:new_alignment_move(take_known(Map, [

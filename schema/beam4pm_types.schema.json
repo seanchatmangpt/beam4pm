@@ -23,6 +23,27 @@
       ]
 
     },
+    "account_parent_scope": {
+      "type": "object",
+      "description": "Qualifies an account only when its buying scope is bound to the correct global parent, preventing subsidiary demand from being double-counted as independent enterprise pipeline.",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Required account parent scope input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "parent_account_id": {
+          "type": "string",
+          "description": "Required account parent scope input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "scope_evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["account_id", "parent_account_id", "scope_evidence_hash"
+      ]
+
+    },
     "alignment_move": {
       "type": "object",
       "description": "One step of a conformance-checking alignment between log and model.",

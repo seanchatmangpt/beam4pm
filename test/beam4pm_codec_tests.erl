@@ -39,6 +39,31 @@ account_master_match_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(account_master_match, Json),
     ?assertEqual(Rec, Rec2).
 
+account_parent_scope_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_account_parent_scope(#{
+        account_id => <<"sample_account_id">>,
+        parent_account_id => <<"sample_parent_account_id">>,
+        scope_evidence_hash => <<"sample_scope_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_parent_account_id">>, maps:get(<<"parent_account_id">>, Map)),
+    ?assertEqual(<<"sample_scope_evidence_hash">>, maps:get(<<"scope_evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(account_parent_scope,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+account_parent_scope_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_account_parent_scope(#{
+        account_id => <<"sample_account_id">>,
+        parent_account_id => <<"sample_parent_account_id">>,
+        scope_evidence_hash => <<"sample_scope_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(account_parent_scope, Json),
+    ?assertEqual(Rec, Rec2).
+
 alignment_move_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_alignment_move(#{
         move_type => sample_atom,

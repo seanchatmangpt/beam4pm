@@ -17,6 +17,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "account_parent_scope new/1 succeeds when all fields are present" do
+    attrs = %{
+      account_id: "x",
+      parent_account_id: "x",
+      scope_evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AccountParentScope.new(attrs)
+  end
+
+  test "account_parent_scope new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AccountParentScope.new(%{})
+  end
+
+
   test "alignment_move new/1 succeeds when all fields are present" do
     attrs = %{
       move_type: :some_atom,

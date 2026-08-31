@@ -4,6 +4,7 @@
 
 -export([
     new_account_master_match/1,
+    new_account_parent_scope/1,
     new_alignment_move/1,
     new_billing_reconciliation/1,
     new_case_stats/1,
@@ -43,6 +44,7 @@
 
 -export_type([
     account_master_match/0,
+    account_parent_scope/0,
     alignment_move/0,
     billing_reconciliation/0,
     case_stats/0,
@@ -104,6 +106,35 @@ new_account_master_match(Map) ->
         source_account_id = maps:get(source_account_id, Map, undefined),
         canonical_account_id = maps:get(canonical_account_id, Map, undefined),
         match_evidence_hash = maps:get(match_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies an account only when its buying scope is bound to the correct global parent, preventing subsidiary demand from being double-counted as independent enterprise pipeline.
+-record(account_parent_scope, {
+    account_id :: binary(), %% account_id: Required account parent scope input; omission is an executable typed refusal, never an inferred approval.
+    parent_account_id :: binary(), %% parent_account_id: Required account parent scope input; omission is an executable typed refusal, never an inferred approval.
+    scope_evidence_hash :: binary() %% scope_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type account_parent_scope() :: #account_parent_scope{}.
+
+-spec new_account_parent_scope(map()) -> {ok, account_parent_scope()} | {error, {missing_field, atom()}}.
+new_account_parent_scope(Map) ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(parent_account_id, Map) of
+        false -> {error, {missing_field, parent_account_id}};
+        true ->
+    case maps:is_key(scope_evidence_hash, Map) of
+        false -> {error, {missing_field, scope_evidence_hash}};
+        true ->
+    {ok, #account_parent_scope{
+        account_id = maps:get(account_id, Map, undefined),
+        parent_account_id = maps:get(parent_account_id, Map, undefined),
+        scope_evidence_hash = maps:get(scope_evidence_hash, Map, undefined)
     }}
     end
     end
