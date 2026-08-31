@@ -70,6 +70,7 @@ record_names() ->
         revenue_schedule_assumption,
         sanctions_screening_result,
         security_addendum_state,
+        service_credit_admission,
         service_span,
         sojourn_time,
         sync_time,
@@ -749,6 +750,18 @@ sample(security_addendum_state, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         addendum_id => <<"sample_addendum_id">>,
         addendum_state => <<"sample_addendum_state">>
+    });
+sample(service_credit_admission, full) ->
+    beam4pm_types:new_service_credit_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        service_credit_id => <<"sample_service_credit_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(service_credit_admission, minimal) ->
+    beam4pm_types:new_service_credit_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        service_credit_id => <<"sample_service_credit_id">>,
+        decision => <<"sample_decision">>
     });
 sample(service_span, full) ->
     beam4pm_types:new_service_span(#{

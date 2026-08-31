@@ -65,6 +65,7 @@ defmodule BeamPM.Roundtrip do
     :revenue_schedule_assumption,
     :sanctions_screening_result,
     :security_addendum_state,
+    :service_credit_admission,
     :service_span,
     :sojourn_time,
     :sync_time,
@@ -972,6 +973,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       addendum_id: "sample_addendum_id",
       addendum_state: "sample_addendum_state"
+    })
+  end
+
+  def sample(:service_credit_admission, :full) do
+    BeamPM.Types.ServiceCreditAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      service_credit_id: "sample_service_credit_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:service_credit_admission, :minimal) do
+    BeamPM.Types.ServiceCreditAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      service_credit_id: "sample_service_credit_id",
+      decision: "sample_decision"
     })
   end
 

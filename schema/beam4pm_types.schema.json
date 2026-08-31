@@ -1198,6 +1198,27 @@
       ]
 
     },
+    "service_credit_admission": {
+      "type": "object",
+      "description": "Qualifies the exact service-credit obligation that prices runtime reliability risk.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required service credit admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "service_credit_id": {
+          "type": "string",
+          "description": "Required service credit admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "service_credit_id", "decision"
+      ]
+
+    },
     "service_span": {
       "type": "object",
       "description": "One OpenTelemetry-style tracing span observed for a service call.",

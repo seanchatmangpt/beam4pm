@@ -1506,6 +1506,33 @@ defmodule BeamPM.Types.SecurityAddendumState do
   end
 end
 
+defmodule BeamPM.Types.ServiceCreditAdmission do
+  @moduledoc "Qualifies the exact service-credit obligation that prices runtime reliability risk."
+
+  defstruct [:opportunity_id, :service_credit_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    service_credit_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :service_credit_id) -> {:error, {:missing_field, :service_credit_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          service_credit_id: Map.get(attrs, :service_credit_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ServiceSpan do
   @moduledoc "One OpenTelemetry-style tracing span observed for a service call."
 

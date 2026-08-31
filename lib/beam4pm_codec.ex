@@ -465,6 +465,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ServiceCreditAdmission{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"service_credit_id", r.service_credit_id, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ServiceSpan{} = r) do
     to_known_map([
       {"span_id", r.span_id, :passthrough},
@@ -1217,6 +1225,18 @@ defmodule BeamPM.Codec do
         {"addendum_state", :addendum_state, :passthrough}
       ],
       &BeamPM.Types.SecurityAddendumState.new/1
+    )
+  end
+
+  def from_map(:service_credit_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"service_credit_id", :service_credit_id, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.ServiceCreditAdmission.new/1
     )
   end
 

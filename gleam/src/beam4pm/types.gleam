@@ -687,6 +687,18 @@ pub type SecurityAddendumState {
   )
 }
 
+/// Qualifies the exact service-credit obligation that prices runtime reliability risk.
+pub type ServiceCreditAdmission {
+  ServiceCreditAdmission(
+    /// Required service credit admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required service credit admission input; omission is an executable typed refusal, never an inferred approval.
+    service_credit_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// One OpenTelemetry-style tracing span observed for a service call.
 pub type ServiceSpan {
   ServiceSpan(

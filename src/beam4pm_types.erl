@@ -59,6 +59,7 @@
     new_revenue_schedule_assumption/1,
     new_sanctions_screening_result/1,
     new_security_addendum_state/1,
+    new_service_credit_admission/1,
     new_service_span/1,
     new_sojourn_time/1,
     new_sync_time/1,
@@ -127,6 +128,7 @@
     revenue_schedule_assumption/0,
     sanctions_screening_result/0,
     security_addendum_state/0,
+    service_credit_admission/0,
     service_span/0,
     sojourn_time/0,
     sync_time/0,
@@ -1715,6 +1717,35 @@ new_security_addendum_state(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         addendum_id = maps:get(addendum_id, Map, undefined),
         addendum_state = maps:get(addendum_state, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies the exact service-credit obligation that prices runtime reliability risk.
+-record(service_credit_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required service credit admission input; omission is an executable typed refusal, never an inferred approval.
+    service_credit_id :: binary(), %% service_credit_id: Required service credit admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type service_credit_admission() :: #service_credit_admission{}.
+
+-spec new_service_credit_admission(map()) -> {ok, service_credit_admission()} | {error, {missing_field, atom()}}.
+new_service_credit_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(service_credit_id, Map) of
+        false -> {error, {missing_field, service_credit_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #service_credit_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        service_credit_id = maps:get(service_credit_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

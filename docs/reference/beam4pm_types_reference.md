@@ -565,6 +565,16 @@
 | `addendum_id` | `string` | true | Required security addendum state input; omission is an executable typed refusal, never an inferred approval. |
 | `addendum_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## service_credit_admission
+
+> Qualifies the exact service-credit obligation that prices runtime reliability risk.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required service credit admission input; omission is an executable typed refusal, never an inferred approval. |
+| `service_credit_id` | `string` | true | Required service credit admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## service_span
 
 > One OpenTelemetry-style tracing span observed for a service call.
