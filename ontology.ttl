@@ -3578,3 +3578,17 @@ bpm:commercial_outcome_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; b
 bpm:commercial_outcome_outcome_value_f a bpm:Field ; bpm:fieldName "outcome_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified commercial value in account currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:commercial_outcome_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:commercial_outcome_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-149 — revenue attribution
+# ---------------------------------------------------------------------------
+
+bpm:revenue_attribution_rt a bpm:RecordType ;
+    bpm:recordName "revenue_attribution" ; bpm:recordDoc "Receipted revenue attribution bound to exact enterprise evidence." ;
+    bpm:hasField bpm:revenue_attribution_revenue_attribution_id_f , bpm:revenue_attribution_account_id_f , bpm:revenue_attribution_attributed_revenue_f , bpm:revenue_attribution_evidence_digest_f , bpm:revenue_attribution_observed_at_f .
+
+bpm:revenue_attribution_revenue_attribution_id_f a bpm:Field ; bpm:fieldName "revenue_attribution_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this revenue attribution observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:revenue_attribution_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose revenue attribution state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:revenue_attribution_attributed_revenue_f a bpm:Field ; bpm:fieldName "attributed_revenue" ; bpm:fieldType "float" ; bpm:fieldDoc "Revenue attributed to the verified value path." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:revenue_attribution_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:revenue_attribution_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
