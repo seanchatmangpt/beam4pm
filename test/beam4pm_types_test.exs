@@ -981,6 +981,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "training_scope_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      training_scope_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.TrainingScopeAdmission.new(attrs)
+  end
+
+  test "training_scope_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TrainingScopeAdmission.new(%{})
+  end
+
+
   test "type_edge new/1 succeeds when all fields are present" do
     attrs = %{
       source_type: "x",

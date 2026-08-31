@@ -74,6 +74,7 @@ defmodule BeamPM.Roundtrip do
     :sync_time,
     :tax_jurisdiction_evidence,
     :termination_right_admission,
+    :training_scope_admission,
     :type_edge,
     :usage_event,
     :vendor_registration_state,
@@ -1119,6 +1120,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.TerminationRightAdmission.new(%{
       opportunity_id: "sample_opportunity_id",
       termination_right_id: "sample_termination_right_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:training_scope_admission, :full) do
+    BeamPM.Types.TrainingScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      training_scope_id: "sample_training_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:training_scope_admission, :minimal) do
+    BeamPM.Types.TrainingScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      training_scope_id: "sample_training_scope_id",
       decision: "sample_decision"
     })
   end

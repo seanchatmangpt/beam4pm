@@ -656,6 +656,16 @@
 | `termination_right_id` | `string` | true | Required termination right admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## training_scope_admission
+
+> Qualifies training scope as an explicit paid delivery obligation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required training scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `training_scope_id` | `string` | true | Required training scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## type_edge
 
 > A directed, qualified edge in the OCEL type graph between two types.

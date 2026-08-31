@@ -1391,6 +1391,27 @@
       ]
 
     },
+    "training_scope_admission": {
+      "type": "object",
+      "description": "Qualifies training scope as an explicit paid delivery obligation.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required training scope admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "training_scope_id": {
+          "type": "string",
+          "description": "Required training scope admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "training_scope_id", "decision"
+      ]
+
+    },
     "type_edge": {
       "type": "object",
       "description": "A directed, qualified edge in the OCEL type graph between two types.",

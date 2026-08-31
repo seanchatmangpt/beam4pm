@@ -1651,6 +1651,31 @@ termination_right_admission_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(termination_right_admission, Json),
     ?assertEqual(Rec, Rec2).
 
+training_scope_admission_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_training_scope_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        training_scope_id => <<"sample_training_scope_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_training_scope_id">>, maps:get(<<"training_scope_id">>, Map)),
+    ?assertEqual(<<"sample_decision">>, maps:get(<<"decision">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(training_scope_admission,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+training_scope_admission_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_training_scope_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        training_scope_id => <<"sample_training_scope_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(training_scope_admission, Json),
+    ?assertEqual(Rec, Rec2).
+
 type_edge_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_type_edge(#{
         source_type => <<"sample_source_type">>,

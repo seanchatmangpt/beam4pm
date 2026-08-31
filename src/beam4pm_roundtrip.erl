@@ -79,6 +79,7 @@ record_names() ->
         sync_time,
         tax_jurisdiction_evidence,
         termination_right_admission,
+        training_scope_admission,
         type_edge,
         usage_event,
         vendor_registration_state,
@@ -860,6 +861,18 @@ sample(termination_right_admission, minimal) ->
     beam4pm_types:new_termination_right_admission(#{
         opportunity_id => <<"sample_opportunity_id">>,
         termination_right_id => <<"sample_termination_right_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(training_scope_admission, full) ->
+    beam4pm_types:new_training_scope_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        training_scope_id => <<"sample_training_scope_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(training_scope_admission, minimal) ->
+    beam4pm_types:new_training_scope_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        training_scope_id => <<"sample_training_scope_id">>,
         decision => <<"sample_decision">>
     });
 sample(type_edge, full) ->

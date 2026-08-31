@@ -75,6 +75,7 @@
     beam4pm_types:sync_time() |
     beam4pm_types:tax_jurisdiction_evidence() |
     beam4pm_types:termination_right_admission() |
+    beam4pm_types:training_scope_admission() |
     beam4pm_types:type_edge() |
     beam4pm_types:usage_event() |
     beam4pm_types:vendor_registration_state() |
@@ -476,6 +477,12 @@ to_map(R) when element(1, R) =:= termination_right_admission ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"termination_right_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= training_scope_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"training_scope_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= type_edge ->
@@ -908,6 +915,12 @@ from_map(termination_right_admission, Map) when is_map(Map) ->
     beam4pm_types:new_termination_right_admission(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"termination_right_id">>, termination_right_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(training_scope_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_training_scope_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"training_scope_id">>, training_scope_id, plain},
         {<<"decision">>, decision, plain}
     ]));
 from_map(type_edge, Map) when is_map(Map) ->

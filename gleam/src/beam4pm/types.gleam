@@ -797,6 +797,18 @@ pub type TerminationRightAdmission {
   )
 }
 
+/// Qualifies training scope as an explicit paid delivery obligation.
+pub type TrainingScopeAdmission {
+  TrainingScopeAdmission(
+    /// Required training scope admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required training scope admission input; omission is an executable typed refusal, never an inferred approval.
+    training_scope_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// A directed, qualified edge in the OCEL type graph between two types.
 pub type TypeEdge {
   TypeEdge(

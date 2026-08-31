@@ -68,6 +68,7 @@
     new_sync_time/1,
     new_tax_jurisdiction_evidence/1,
     new_termination_right_admission/1,
+    new_training_scope_admission/1,
     new_type_edge/1,
     new_usage_event/1,
     new_vendor_registration_state/1,
@@ -140,6 +141,7 @@
     sync_time/0,
     tax_jurisdiction_evidence/0,
     termination_right_admission/0,
+    training_scope_admission/0,
     type_edge/0,
     usage_event/0,
     vendor_registration_state/0,
@@ -1981,6 +1983,35 @@ new_termination_right_admission(Map) ->
     {ok, #termination_right_admission{
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         termination_right_id = maps:get(termination_right_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies training scope as an explicit paid delivery obligation.
+-record(training_scope_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required training scope admission input; omission is an executable typed refusal, never an inferred approval.
+    training_scope_id :: binary(), %% training_scope_id: Required training scope admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type training_scope_admission() :: #training_scope_admission{}.
+
+-spec new_training_scope_admission(map()) -> {ok, training_scope_admission()} | {error, {missing_field, atom()}}.
+new_training_scope_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(training_scope_id, Map) of
+        false -> {error, {missing_field, training_scope_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #training_scope_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        training_scope_id = maps:get(training_scope_id, Map, undefined),
         decision = maps:get(decision, Map, undefined)
     }}
     end

@@ -3298,6 +3298,29 @@ b4p:support_tier_admission_support_tier_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:support_tier_admission_decision_f a bpm:Field ;
+   bpm:fieldName "decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-035 — training_scope_admission
+b4p:training_scope_admission_rt a bpm:RecordType ;
+    bpm:recordName "training_scope_admission" ;
+    bpm:recordDoc "Qualifies training scope as an explicit paid delivery obligation." ;
+    bpm:hasField b4p:training_scope_admission_opportunity_id_f ,
+                 b4p:training_scope_admission_training_scope_id_f ,
+                 b4p:training_scope_admission_decision_f .
+
+b4p:training_scope_admission_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required training scope admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:training_scope_admission_training_scope_id_f a bpm:Field ;
+    bpm:fieldName "training_scope_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required training scope admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:training_scope_admission_decision_f a bpm:Field ;
     bpm:fieldName "decision" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

@@ -663,6 +663,16 @@ termination_right_admission_ok_test() ->
 termination_right_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_termination_right_admission(#{})).
 
+training_scope_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_training_scope_admission(#{
+        opportunity_id => <<"x">>,
+        training_scope_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+training_scope_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_training_scope_admission(#{})).
+
 type_edge_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_type_edge(#{
         source_type => <<"x">>,
