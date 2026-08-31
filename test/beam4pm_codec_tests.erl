@@ -1485,6 +1485,31 @@ vendor_registration_state_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(vendor_registration_state, Json),
     ?assertEqual(Rec, Rec2).
 
+volume_tier_admission_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_volume_tier_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        volume_tier_id => <<"sample_volume_tier_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_volume_tier_id">>, maps:get(<<"volume_tier_id">>, Map)),
+    ?assertEqual(<<"sample_decision">>, maps:get(<<"decision">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(volume_tier_admission,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+volume_tier_admission_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_volume_tier_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        volume_tier_id => <<"sample_volume_tier_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(volume_tier_admission, Json),
+    ?assertEqual(Rec, Rec2).
+
 unknown_record_test() ->
     ?assertEqual({error, {unknown_record, not_a_known_record}},
                  beam4pm_codec:from_map(not_a_known_record, #{})).

@@ -71,7 +71,8 @@ record_names() ->
         tax_jurisdiction_evidence,
         type_edge,
         usage_event,
-        vendor_registration_state
+        vendor_registration_state,
+        volume_tier_admission
     ].
 
 %% Deterministic sample values, keyed by bpm:fieldType:
@@ -772,6 +773,18 @@ sample(vendor_registration_state, minimal) ->
         account_id => <<"sample_account_id">>,
         registration_id => <<"sample_registration_id">>,
         registration_state => <<"sample_registration_state">>
+    });
+sample(volume_tier_admission, full) ->
+    beam4pm_types:new_volume_tier_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        volume_tier_id => <<"sample_volume_tier_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(volume_tier_admission, minimal) ->
+    beam4pm_types:new_volume_tier_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        volume_tier_id => <<"sample_volume_tier_id">>,
+        decision => <<"sample_decision">>
     });
 sample(Name, Variant) ->
     erlang:error({unknown_sample, Name, Variant}).

@@ -1255,6 +1255,27 @@
       "required": ["account_id", "registration_id", "registration_state"
       ]
 
+    },
+    "volume_tier_admission": {
+      "type": "object",
+      "description": "Admits a volume discount tier only through an explicit decision tied to the opportunity.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required volume tier admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "volume_tier_id": {
+          "type": "string",
+          "description": "Required volume tier admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "volume_tier_id", "decision"
+      ]
+
     }
   }
 }

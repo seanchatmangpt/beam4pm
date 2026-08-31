@@ -719,3 +719,15 @@ pub type VendorRegistrationState {
   )
 }
 
+/// Admits a volume discount tier only through an explicit decision tied to the opportunity.
+pub type VolumeTierAdmission {
+  VolumeTierAdmission(
+    /// Required volume tier admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required volume tier admission input; omission is an executable typed refusal, never an inferred approval.
+    volume_tier_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+

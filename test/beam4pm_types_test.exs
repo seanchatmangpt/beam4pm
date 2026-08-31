@@ -878,4 +878,19 @@ defmodule BeamPM.Types.GeneratedTest do
     assert {:error, {:missing_field, _}} = BeamPM.Types.VendorRegistrationState.new(%{})
   end
 
+
+  test "volume_tier_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      volume_tier_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.VolumeTierAdmission.new(attrs)
+  end
+
+  test "volume_tier_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.VolumeTierAdmission.new(%{})
+  end
+
 end

@@ -67,7 +67,8 @@
     beam4pm_types:tax_jurisdiction_evidence() |
     beam4pm_types:type_edge() |
     beam4pm_types:usage_event() |
-    beam4pm_types:vendor_registration_state().
+    beam4pm_types:vendor_registration_state() |
+    beam4pm_types:volume_tier_admission().
 
 %% to_map/1: project a record onto a JSON-ready map with binary keys.
 %% Fields whose value is 'undefined' are omitted; atom-typed fields are
@@ -427,6 +428,12 @@ to_map(R) when element(1, R) =:= vendor_registration_state ->
         {<<"account_id">>, plain, element(2, R)},
         {<<"registration_id">>, plain, element(3, R)},
         {<<"registration_state">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= volume_tier_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"volume_tier_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]).
 
 %% from_map/2: rebuild a record from a binary-keyed map. Only KNOWN
@@ -793,6 +800,12 @@ from_map(vendor_registration_state, Map) when is_map(Map) ->
         {<<"account_id">>, account_id, plain},
         {<<"registration_id">>, registration_id, plain},
         {<<"registration_state">>, registration_state, plain}
+    ]));
+from_map(volume_tier_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_volume_tier_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"volume_tier_id">>, volume_tier_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(RecordName, Map) when is_atom(RecordName), is_map(Map) ->
     {error, {unknown_record, RecordName}}.

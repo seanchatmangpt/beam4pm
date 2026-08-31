@@ -589,3 +589,13 @@
 | `registration_id` | `string` | true | Required vendor registration state input; omission is an executable typed refusal, never an inferred approval. |
 | `registration_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## volume_tier_admission
+
+> Admits a volume discount tier only through an explicit decision tied to the opportunity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required volume tier admission input; omission is an executable typed refusal, never an inferred approval. |
+| `volume_tier_id` | `string` | true | Required volume tier admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+

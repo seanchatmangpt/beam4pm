@@ -596,3 +596,13 @@ vendor_registration_state_ok_test() ->
 vendor_registration_state_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_vendor_registration_state(#{})).
 
+volume_tier_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_volume_tier_admission(#{
+        opportunity_id => <<"x">>,
+        volume_tier_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+volume_tier_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_volume_tier_admission(#{})).
+

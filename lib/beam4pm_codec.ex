@@ -485,6 +485,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.VolumeTierAdmission{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"volume_tier_id", r.volume_tier_id, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   @spec from_map(atom(), %{String.t() => term()}) ::
           {:ok, struct()}
           | {:error, {:missing_field, atom()}}
@@ -1189,6 +1197,18 @@ defmodule BeamPM.Codec do
         {"registration_state", :registration_state, :passthrough}
       ],
       &BeamPM.Types.VendorRegistrationState.new/1
+    )
+  end
+
+  def from_map(:volume_tier_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"volume_tier_id", :volume_tier_id, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.VolumeTierAdmission.new/1
     )
   end
 

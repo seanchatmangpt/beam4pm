@@ -60,7 +60,8 @@
     new_tax_jurisdiction_evidence/1,
     new_type_edge/1,
     new_usage_event/1,
-    new_vendor_registration_state/1
+    new_vendor_registration_state/1,
+    new_volume_tier_admission/1
 ]).
 
 -export_type([
@@ -121,7 +122,8 @@
     tax_jurisdiction_evidence/0,
     type_edge/0,
     usage_event/0,
-    vendor_registration_state/0
+    vendor_registration_state/0,
+    volume_tier_admission/0
 ]).
 
 %% Admits a source account only when it is bound to one canonical Fortune-5 account by immutable matching evidence; prevents pipeline value from being booked against an ambiguous customer identity.
@@ -1775,6 +1777,35 @@ new_vendor_registration_state(Map) ->
         account_id = maps:get(account_id, Map, undefined),
         registration_id = maps:get(registration_id, Map, undefined),
         registration_state = maps:get(registration_state, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits a volume discount tier only through an explicit decision tied to the opportunity.
+-record(volume_tier_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required volume tier admission input; omission is an executable typed refusal, never an inferred approval.
+    volume_tier_id :: binary(), %% volume_tier_id: Required volume tier admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type volume_tier_admission() :: #volume_tier_admission{}.
+
+-spec new_volume_tier_admission(map()) -> {ok, volume_tier_admission()} | {error, {missing_field, atom()}}.
+new_volume_tier_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(volume_tier_id, Map) of
+        false -> {error, {missing_field, volume_tier_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #volume_tier_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        volume_tier_id = maps:get(volume_tier_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

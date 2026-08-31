@@ -66,7 +66,8 @@ defmodule BeamPM.Roundtrip do
     :tax_jurisdiction_evidence,
     :type_edge,
     :usage_event,
-    :vendor_registration_state
+    :vendor_registration_state,
+    :volume_tier_admission
   ]
 
   @variants [:full, :minimal]
@@ -1003,6 +1004,22 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       registration_id: "sample_registration_id",
       registration_state: "sample_registration_state"
+    })
+  end
+
+  def sample(:volume_tier_admission, :full) do
+    BeamPM.Types.VolumeTierAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      volume_tier_id: "sample_volume_tier_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:volume_tier_admission, :minimal) do
+    BeamPM.Types.VolumeTierAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      volume_tier_id: "sample_volume_tier_id",
+      decision: "sample_decision"
     })
   end
 

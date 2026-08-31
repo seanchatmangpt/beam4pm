@@ -3045,6 +3045,29 @@ b4p:pricing_basis_contract_pricing_basis_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:pricing_basis_contract_evidence_hash_f a bpm:Field ;
-    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+   bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-024 — volume_tier_admission
+b4p:volume_tier_admission_rt a bpm:RecordType ;
+    bpm:recordName "volume_tier_admission" ;
+    bpm:recordDoc "Admits a volume discount tier only through an explicit decision tied to the opportunity." ;
+    bpm:hasField b4p:volume_tier_admission_opportunity_id_f ,
+                 b4p:volume_tier_admission_volume_tier_id_f ,
+                 b4p:volume_tier_admission_decision_f .
+
+b4p:volume_tier_admission_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required volume tier admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:volume_tier_admission_volume_tier_id_f a bpm:Field ;
+    bpm:fieldName "volume_tier_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required volume tier admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:volume_tier_admission_decision_f a bpm:Field ;
+    bpm:fieldName "decision" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
