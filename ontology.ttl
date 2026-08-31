@@ -3612,4 +3612,30 @@ b4pe:data_egress_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-043 — customer-managed-key evidence.
+b4pe:customer_managed_key_evidence_rt a bpm:RecordType ;
+    bpm:recordName "customer_managed_key_evidence" ;
+    bpm:recordDoc "Executable encryption evidence binding an exact subject to the customer-managed key identity actually used." ;
+    bpm:hasField b4pe:customer_managed_key_evidence_id_f,
+                 b4pe:customer_managed_key_subject_sha_f,
+                 b4pe:customer_managed_key_key_identifier_f,
+                 b4pe:customer_managed_key_observed_result_f .
+
+b4pe:customer_managed_key_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this customer-managed-key observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:customer_managed_key_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:customer_managed_key_key_identifier_f a bpm:Field ;
+    bpm:fieldName "key_identifier" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Non-secret identifier of the customer-managed key observed at encryption." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:customer_managed_key_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
