@@ -37,6 +37,7 @@
     beam4pm_types:opportunity_value_range() |
     beam4pm_types:path_schema() |
     beam4pm_types:path_schema_query() |
+    beam4pm_types:payment_terms_admission() |
     beam4pm_types:petri_arc() |
     beam4pm_types:petri_place() |
     beam4pm_types:petri_transition() |
@@ -228,6 +229,12 @@ to_map(R) when element(1, R) =:= path_schema_query ->
         {<<"source_type">>, plain, element(2, R)},
         {<<"target_type">>, plain, element(3, R)},
         {<<"max_length">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= payment_terms_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"payment_terms">>, plain, element(3, R)},
+        {<<"authority_evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= petri_arc ->
     pairs_to_map([
@@ -522,6 +529,12 @@ from_map(path_schema_query, Map) when is_map(Map) ->
         {<<"source_type">>, source_type, plain},
         {<<"target_type">>, target_type, plain},
         {<<"max_length">>, max_length, plain}
+    ]));
+from_map(payment_terms_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_payment_terms_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"payment_terms">>, payment_terms, plain},
+        {<<"authority_evidence_hash">>, authority_evidence_hash, plain}
     ]));
 from_map(petri_arc, Map) when is_map(Map) ->
     beam4pm_types:new_petri_arc(take_known(Map, [

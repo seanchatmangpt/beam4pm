@@ -1173,6 +1173,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "payment_terms_admission to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      payment_terms: "sample_payment_terms",
+      authority_evidence_hash: "sample_authority_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PaymentTermsAdmission.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["payment_terms"] == "sample_payment_terms"
+    assert m["authority_evidence_hash"] == "sample_authority_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:payment_terms_admission, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:payment_terms_admission, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "payment_terms_admission encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      payment_terms: "sample_payment_terms",
+      authority_evidence_hash: "sample_authority_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PaymentTermsAdmission.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:payment_terms_admission, json)
+  end
+
+  test "payment_terms_admission from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:payment_terms_admission, %{})
+  end
+
+
   test "petri_arc to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       source_id: "sample_source_id",

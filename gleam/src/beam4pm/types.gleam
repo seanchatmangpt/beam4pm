@@ -345,6 +345,18 @@ pub type PathSchemaQuery {
   )
 }
 
+/// Admits payment terms only when authorized evidence supports the cash-conversion assumption.
+pub type PaymentTermsAdmission {
+  PaymentTermsAdmission(
+    /// Required payment terms admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required payment terms admission input; omission is an executable typed refusal, never an inferred approval.
+    payment_terms: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    authority_evidence_hash: String,
+  )
+}
+
 /// A weighted arc connecting a place and a transition (either direction).
 pub type PetriArc {
   PetriArc(

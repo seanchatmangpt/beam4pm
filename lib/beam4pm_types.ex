@@ -736,6 +736,33 @@ defmodule BeamPM.Types.PathSchemaQuery do
   end
 end
 
+defmodule BeamPM.Types.PaymentTermsAdmission do
+  @moduledoc "Admits payment terms only when authorized evidence supports the cash-conversion assumption."
+
+  defstruct [:opportunity_id, :payment_terms, :authority_evidence_hash]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    payment_terms: String.t() | nil,
+    authority_evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :payment_terms) -> {:error, {:missing_field, :payment_terms}}
+      not Map.has_key?(attrs, :authority_evidence_hash) -> {:error, {:missing_field, :authority_evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          payment_terms: Map.get(attrs, :payment_terms),
+          authority_evidence_hash: Map.get(attrs, :authority_evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PetriArc do
   @moduledoc "A weighted arc connecting a place and a transition (either direction)."
 

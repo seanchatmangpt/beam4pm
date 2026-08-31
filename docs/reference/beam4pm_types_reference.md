@@ -278,6 +278,16 @@
 | `target_type` | `string` | true | The query target type name. |
 | `max_length` | `integer` | true | Maximum number of hops to search. |
 
+## payment_terms_admission
+
+> Admits payment terms only when authorized evidence supports the cash-conversion assumption.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required payment terms admission input; omission is an executable typed refusal, never an inferred approval. |
+| `payment_terms` | `string` | true | Required payment terms admission input; omission is an executable typed refusal, never an inferred approval. |
+| `authority_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## petri_arc
 
 > A weighted arc connecting a place and a transition (either direction).

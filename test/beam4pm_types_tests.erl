@@ -285,6 +285,16 @@ path_schema_query_ok_test() ->
 path_schema_query_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_path_schema_query(#{})).
 
+payment_terms_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_payment_terms_admission(#{
+        opportunity_id => <<"x">>,
+        payment_terms => <<"x">>,
+        authority_evidence_hash => <<"x">>
+    })).
+
+payment_terms_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_payment_terms_admission(#{})).
+
 petri_arc_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_petri_arc(#{
         source_id => <<"x">>,

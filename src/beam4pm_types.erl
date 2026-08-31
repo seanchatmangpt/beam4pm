@@ -30,6 +30,7 @@
     new_opportunity_value_range/1,
     new_path_schema/1,
     new_path_schema_query/1,
+    new_payment_terms_admission/1,
     new_petri_arc/1,
     new_petri_place/1,
     new_petri_transition/1,
@@ -79,6 +80,7 @@
     opportunity_value_range/0,
     path_schema/0,
     path_schema_query/0,
+    payment_terms_admission/0,
     petri_arc/0,
     petri_place/0,
     petri_transition/0,
@@ -870,6 +872,35 @@ new_path_schema_query(Map) ->
         source_type = maps:get(source_type, Map, undefined),
         target_type = maps:get(target_type, Map, undefined),
         max_length = maps:get(max_length, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits payment terms only when authorized evidence supports the cash-conversion assumption.
+-record(payment_terms_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required payment terms admission input; omission is an executable typed refusal, never an inferred approval.
+    payment_terms :: binary(), %% payment_terms: Required payment terms admission input; omission is an executable typed refusal, never an inferred approval.
+    authority_evidence_hash :: binary() %% authority_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type payment_terms_admission() :: #payment_terms_admission{}.
+
+-spec new_payment_terms_admission(map()) -> {ok, payment_terms_admission()} | {error, {missing_field, atom()}}.
+new_payment_terms_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(payment_terms, Map) of
+        false -> {error, {missing_field, payment_terms}};
+        true ->
+    case maps:is_key(authority_evidence_hash, Map) of
+        false -> {error, {missing_field, authority_evidence_hash}};
+        true ->
+    {ok, #payment_terms_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        payment_terms = maps:get(payment_terms, Map, undefined),
+        authority_evidence_hash = maps:get(authority_evidence_hash, Map, undefined)
     }}
     end
     end

@@ -236,6 +236,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.PaymentTermsAdmission{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"payment_terms", r.payment_terms, :passthrough},
+      {"authority_evidence_hash", r.authority_evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.PetriArc{} = r) do
     to_known_map([
       {"source_id", r.source_id, :passthrough},
@@ -720,6 +728,18 @@ defmodule BeamPM.Codec do
         {"max_length", :max_length, :passthrough}
       ],
       &BeamPM.Types.PathSchemaQuery.new/1
+    )
+  end
+
+  def from_map(:payment_terms_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"payment_terms", :payment_terms, :passthrough},
+        {"authority_evidence_hash", :authority_evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.PaymentTermsAdmission.new/1
     )
   end
 

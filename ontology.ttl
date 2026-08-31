@@ -2769,6 +2769,29 @@ b4p:purchase_order_requirement_requirement_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:purchase_order_requirement_evidence_hash_f a bpm:Field ;
-    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+   bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-012 — payment_terms_admission
+b4p:payment_terms_admission_rt a bpm:RecordType ;
+    bpm:recordName "payment_terms_admission" ;
+    bpm:recordDoc "Admits payment terms only when authorized evidence supports the cash-conversion assumption." ;
+    bpm:hasField b4p:payment_terms_admission_opportunity_id_f ,
+                 b4p:payment_terms_admission_payment_terms_f ,
+                 b4p:payment_terms_admission_authority_evidence_hash_f .
+
+b4p:payment_terms_admission_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required payment terms admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:payment_terms_admission_payment_terms_f a bpm:Field ;
+    bpm:fieldName "payment_terms" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required payment terms admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:payment_terms_admission_authority_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "authority_evidence_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

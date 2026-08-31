@@ -41,6 +41,7 @@ record_names() ->
         opportunity_value_range,
         path_schema,
         path_schema_query,
+        payment_terms_admission,
         petri_arc,
         petri_place,
         petri_transition,
@@ -392,6 +393,18 @@ sample(path_schema_query, minimal) ->
         source_type => <<"sample_source_type">>,
         target_type => <<"sample_target_type">>,
         max_length => 42
+    });
+sample(payment_terms_admission, full) ->
+    beam4pm_types:new_payment_terms_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        payment_terms => <<"sample_payment_terms">>,
+        authority_evidence_hash => <<"sample_authority_evidence_hash">>
+    });
+sample(payment_terms_admission, minimal) ->
+    beam4pm_types:new_payment_terms_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        payment_terms => <<"sample_payment_terms">>,
+        authority_evidence_hash => <<"sample_authority_evidence_hash">>
     });
 sample(petri_arc, full) ->
     beam4pm_types:new_petri_arc(#{

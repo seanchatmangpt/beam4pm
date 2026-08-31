@@ -597,6 +597,27 @@
       ]
 
     },
+    "payment_terms_admission": {
+      "type": "object",
+      "description": "Admits payment terms only when authorized evidence supports the cash-conversion assumption.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required payment terms admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "payment_terms": {
+          "type": "string",
+          "description": "Required payment terms admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "authority_evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "payment_terms", "authority_evidence_hash"
+      ]
+
+    },
     "petri_arc": {
       "type": "object",
       "description": "A weighted arc connecting a place and a transition (either direction).",

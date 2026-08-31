@@ -36,6 +36,7 @@ defmodule BeamPM.Roundtrip do
     :opportunity_value_range,
     :path_schema,
     :path_schema_query,
+    :payment_terms_admission,
     :petri_arc,
     :petri_place,
     :petri_transition,
@@ -499,6 +500,22 @@ defmodule BeamPM.Roundtrip do
       source_type: "sample_source_type",
       target_type: "sample_target_type",
       max_length: 42
+    })
+  end
+
+  def sample(:payment_terms_admission, :full) do
+    BeamPM.Types.PaymentTermsAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      payment_terms: "sample_payment_terms",
+      authority_evidence_hash: "sample_authority_evidence_hash"
+    })
+  end
+
+  def sample(:payment_terms_admission, :minimal) do
+    BeamPM.Types.PaymentTermsAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      payment_terms: "sample_payment_terms",
+      authority_evidence_hash: "sample_authority_evidence_hash"
     })
   end
 

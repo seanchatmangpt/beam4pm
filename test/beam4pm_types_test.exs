@@ -413,6 +413,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "payment_terms_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      payment_terms: "x",
+      authority_evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.PaymentTermsAdmission.new(attrs)
+  end
+
+  test "payment_terms_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PaymentTermsAdmission.new(%{})
+  end
+
+
   test "petri_arc new/1 succeeds when all fields are present" do
     attrs = %{
       source_id: "x",

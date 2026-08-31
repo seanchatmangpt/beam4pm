@@ -707,6 +707,31 @@ path_schema_query_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(path_schema_query, Json),
     ?assertEqual(Rec, Rec2).
 
+payment_terms_admission_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_payment_terms_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        payment_terms => <<"sample_payment_terms">>,
+        authority_evidence_hash => <<"sample_authority_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_payment_terms">>, maps:get(<<"payment_terms">>, Map)),
+    ?assertEqual(<<"sample_authority_evidence_hash">>, maps:get(<<"authority_evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(payment_terms_admission,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+payment_terms_admission_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_payment_terms_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        payment_terms => <<"sample_payment_terms">>,
+        authority_evidence_hash => <<"sample_authority_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(payment_terms_admission, Json),
+    ?assertEqual(Rec, Rec2).
+
 petri_arc_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_petri_arc(#{
         source_id => <<"sample_source_id">>,
