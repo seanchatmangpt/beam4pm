@@ -3768,4 +3768,30 @@ b4pe:performance_slo_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-049 — commercial-artifact crown evidence.
+b4pe:commercial_artifact_crown_evidence_rt a bpm:RecordType ;
+    bpm:recordName "commercial_artifact_crown_evidence" ;
+    bpm:recordDoc "Executable commercial-release evidence binding the exact paid artifact to the cumulative trust evidence crown." ;
+    bpm:hasField b4pe:commercial_artifact_crown_evidence_id_f,
+                 b4pe:commercial_artifact_crown_subject_sha_f,
+                 b4pe:commercial_artifact_crown_artifact_digest_f,
+                 b4pe:commercial_artifact_crown_observed_result_f .
+
+b4pe:commercial_artifact_crown_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this commercial-artifact crown observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:commercial_artifact_crown_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:commercial_artifact_crown_artifact_digest_f a bpm:Field ;
+    bpm:fieldName "artifact_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact commercial artifact evaluated by the cumulative crown." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:commercial_artifact_crown_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
