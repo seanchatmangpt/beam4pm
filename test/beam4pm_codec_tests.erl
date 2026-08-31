@@ -623,6 +623,31 @@ master_service_agreement_state_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(master_service_agreement_state, Json),
     ?assertEqual(Rec, Rec2).
 
+minimum_term_admission_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_minimum_term_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        minimum_term => <<"sample_minimum_term">>,
+        decision => <<"sample_decision">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_minimum_term">>, maps:get(<<"minimum_term">>, Map)),
+    ?assertEqual(<<"sample_decision">>, maps:get(<<"decision">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(minimum_term_admission,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+minimum_term_admission_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_minimum_term_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        minimum_term => <<"sample_minimum_term">>,
+        decision => <<"sample_decision">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(minimum_term_admission, Json),
+    ?assertEqual(Rec, Rec2).
+
 object_attribute_change_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_object_attribute_change(#{
         object_id => <<"sample_object_id">>,

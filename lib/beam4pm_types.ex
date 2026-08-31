@@ -651,6 +651,33 @@ defmodule BeamPM.Types.MasterServiceAgreementState do
   end
 end
 
+defmodule BeamPM.Types.MinimumTermAdmission do
+  @moduledoc "Admits the minimum paid term as a decision input needed for durable contract value."
+
+  defstruct [:opportunity_id, :minimum_term, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    minimum_term: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :minimum_term) -> {:error, {:missing_field, :minimum_term}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          minimum_term: Map.get(attrs, :minimum_term),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ObjectAttributeChange do
   @moduledoc "One recorded change to a time-indexed object attribute."
 

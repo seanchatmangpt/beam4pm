@@ -521,6 +521,27 @@
       ]
 
     },
+    "minimum_term_admission": {
+      "type": "object",
+      "description": "Admits the minimum paid term as a decision input needed for durable contract value.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required minimum term admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "minimum_term": {
+          "type": "string",
+          "description": "Required minimum term admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "minimum_term", "decision"
+      ]
+
+    },
     "object_attribute_change": {
       "type": "object",
       "description": "One recorded change to a time-indexed object attribute.",

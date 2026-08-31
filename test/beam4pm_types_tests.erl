@@ -252,6 +252,16 @@ master_service_agreement_state_ok_test() ->
 master_service_agreement_state_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_master_service_agreement_state(#{})).
 
+minimum_term_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_minimum_term_admission(#{
+        opportunity_id => <<"x">>,
+        minimum_term => <<"x">>,
+        decision => <<"x">>
+    })).
+
+minimum_term_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_minimum_term_admission(#{})).
+
 object_attribute_change_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_object_attribute_change(#{
         object_id => <<"x">>,

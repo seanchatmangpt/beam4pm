@@ -209,6 +209,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.MinimumTermAdmission{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"minimum_term", r.minimum_term, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ObjectAttributeChange{} = r) do
     to_known_map([
       {"object_id", r.object_id, :passthrough},
@@ -793,6 +801,18 @@ defmodule BeamPM.Codec do
         {"agreement_state", :agreement_state, :passthrough}
       ],
       &BeamPM.Types.MasterServiceAgreementState.new/1
+    )
+  end
+
+  def from_map(:minimum_term_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"minimum_term", :minimum_term, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.MinimumTermAdmission.new/1
     )
   end
 

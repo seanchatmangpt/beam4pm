@@ -303,6 +303,18 @@ pub type MasterServiceAgreementState {
   )
 }
 
+/// Admits the minimum paid term as a decision input needed for durable contract value.
+pub type MinimumTermAdmission {
+  MinimumTermAdmission(
+    /// Required minimum term admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required minimum term admission input; omission is an executable typed refusal, never an inferred approval.
+    minimum_term: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// One recorded change to a time-indexed object attribute.
 pub type ObjectAttributeChange {
   ObjectAttributeChange(

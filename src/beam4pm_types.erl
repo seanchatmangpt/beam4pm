@@ -27,6 +27,7 @@
     new_k8s_object_ref/1,
     new_log_trace/1,
     new_master_service_agreement_state/1,
+    new_minimum_term_admission/1,
     new_object_attribute_change/1,
     new_object_type/1,
     new_oc_declare_constraint/1,
@@ -90,6 +91,7 @@
     k8s_object_ref/0,
     log_trace/0,
     master_service_agreement_state/0,
+    minimum_term_admission/0,
     object_attribute_change/0,
     object_type/0,
     oc_declare_constraint/0,
@@ -813,6 +815,35 @@ new_master_service_agreement_state(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         agreement_id = maps:get(agreement_id, Map, undefined),
         agreement_state = maps:get(agreement_state, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits the minimum paid term as a decision input needed for durable contract value.
+-record(minimum_term_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required minimum term admission input; omission is an executable typed refusal, never an inferred approval.
+    minimum_term :: binary(), %% minimum_term: Required minimum term admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type minimum_term_admission() :: #minimum_term_admission{}.
+
+-spec new_minimum_term_admission(map()) -> {ok, minimum_term_admission()} | {error, {missing_field, atom()}}.
+new_minimum_term_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(minimum_term, Map) of
+        false -> {error, {missing_field, minimum_term}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #minimum_term_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        minimum_term = maps:get(minimum_term, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

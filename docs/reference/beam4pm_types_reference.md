@@ -245,6 +245,16 @@
 | `agreement_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
 | `agreement_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## minimum_term_admission
+
+> Admits the minimum paid term as a decision input needed for durable contract value.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required minimum term admission input; omission is an executable typed refusal, never an inferred approval. |
+| `minimum_term` | `string` | true | Required minimum term admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## object_attribute_change
 
 > One recorded change to a time-indexed object attribute.

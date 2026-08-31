@@ -33,6 +33,7 @@ defmodule BeamPM.Roundtrip do
     :k8s_object_ref,
     :log_trace,
     :master_service_agreement_state,
+    :minimum_term_admission,
     :object_attribute_change,
     :object_type,
     :oc_declare_constraint,
@@ -464,6 +465,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       agreement_id: "sample_agreement_id",
       agreement_state: "sample_agreement_state"
+    })
+  end
+
+  def sample(:minimum_term_admission, :full) do
+    BeamPM.Types.MinimumTermAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      minimum_term: "sample_minimum_term",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:minimum_term_admission, :minimal) do
+    BeamPM.Types.MinimumTermAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      minimum_term: "sample_minimum_term",
+      decision: "sample_decision"
     })
   end
 
