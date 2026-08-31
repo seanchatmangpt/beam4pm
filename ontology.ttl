@@ -3638,4 +3638,30 @@ b4pe:customer_managed_key_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-044 — backup-restore evidence.
+b4pe:backup_restore_evidence_rt a bpm:RecordType ;
+    bpm:recordName "backup_restore_evidence" ;
+    bpm:recordDoc "Executable recovery evidence binding an exact subject to the backup artifact successfully restored." ;
+    bpm:hasField b4pe:backup_restore_evidence_id_f,
+                 b4pe:backup_restore_subject_sha_f,
+                 b4pe:backup_restore_backup_digest_f,
+                 b4pe:backup_restore_observed_result_f .
+
+b4pe:backup_restore_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this backup-restore observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:backup_restore_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:backup_restore_backup_digest_f a bpm:Field ;
+    bpm:fieldName "backup_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the backup artifact admitted by the restore operation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:backup_restore_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
