@@ -73,6 +73,18 @@ pub type BillingReconciliation {
   )
 }
 
+/// Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.
+pub type BudgetPeriodAlignment {
+  BudgetPeriodAlignment(
+    /// Required budget period alignment input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required budget period alignment input; omission is an executable typed refusal, never an inferred approval.
+    budget_period: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    alignment_result: String,
+  )
+}
+
 /// Aggregate statistics computed for one process instance (case).
 pub type CaseStats {
   CaseStats(

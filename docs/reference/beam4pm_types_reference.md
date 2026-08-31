@@ -54,6 +54,16 @@
 | `period_start` | `datetime` | true | ISO8601 UTC INCLUSIVE lower bound of the billing period. An event is in-period when period_start <= occurred_at. Caller-supplied to reconcile_billing/4, never derived from the input events themselves -- see period_end's fieldDoc for why. |
 | `period_end` | `datetime` | true | ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real. |
 
+## budget_period_alignment
+
+> Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required budget period alignment input; omission is an executable typed refusal, never an inferred approval. |
+| `budget_period` | `string` | true | Required budget period alignment input; omission is an executable typed refusal, never an inferred approval. |
+| `alignment_result` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## case_stats
 
 > Aggregate statistics computed for one process instance (case).

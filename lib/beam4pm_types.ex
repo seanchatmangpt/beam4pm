@@ -141,6 +141,33 @@ defmodule BeamPM.Types.BillingReconciliation do
   end
 end
 
+defmodule BeamPM.Types.BudgetPeriodAlignment do
+  @moduledoc "Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk."
+
+  defstruct [:opportunity_id, :budget_period, :alignment_result]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    budget_period: String.t() | nil,
+    alignment_result: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :budget_period) -> {:error, {:missing_field, :budget_period}}
+      not Map.has_key?(attrs, :alignment_result) -> {:error, {:missing_field, :alignment_result}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          budget_period: Map.get(attrs, :budget_period),
+          alignment_result: Map.get(attrs, :alignment_result)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.CaseStats do
   @moduledoc "Aggregate statistics computed for one process instance (case)."
 

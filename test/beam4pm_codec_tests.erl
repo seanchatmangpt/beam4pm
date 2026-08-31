@@ -145,6 +145,31 @@ billing_reconciliation_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(billing_reconciliation, Json),
     ?assertEqual(Rec, Rec2).
 
+budget_period_alignment_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_budget_period_alignment(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        budget_period => <<"sample_budget_period">>,
+        alignment_result => <<"sample_alignment_result">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_budget_period">>, maps:get(<<"budget_period">>, Map)),
+    ?assertEqual(<<"sample_alignment_result">>, maps:get(<<"alignment_result">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(budget_period_alignment,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+budget_period_alignment_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_budget_period_alignment(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        budget_period => <<"sample_budget_period">>,
+        alignment_result => <<"sample_alignment_result">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(budget_period_alignment, Json),
+    ?assertEqual(Rec, Rec2).
+
 case_stats_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_case_stats(#{
         case_id => <<"sample_case_id">>,

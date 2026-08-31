@@ -8,6 +8,7 @@
     new_alignment_move/1,
     new_beneficial_owner_evidence/1,
     new_billing_reconciliation/1,
+    new_budget_period_alignment/1,
     new_case_stats/1,
     new_conformance_result/1,
     new_contracting_entity_identity/1,
@@ -66,6 +67,7 @@
     alignment_move/0,
     beneficial_owner_evidence/0,
     billing_reconciliation/0,
+    budget_period_alignment/0,
     case_stats/0,
     conformance_result/0,
     contracting_entity_identity/0,
@@ -271,6 +273,35 @@ new_billing_reconciliation(Map) ->
     end
     end
     end
+    end
+    end
+    end.
+
+%% Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.
+-record(budget_period_alignment, {
+    opportunity_id :: binary(), %% opportunity_id: Required budget period alignment input; omission is an executable typed refusal, never an inferred approval.
+    budget_period :: binary(), %% budget_period: Required budget period alignment input; omission is an executable typed refusal, never an inferred approval.
+    alignment_result :: binary() %% alignment_result: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type budget_period_alignment() :: #budget_period_alignment{}.
+
+-spec new_budget_period_alignment(map()) -> {ok, budget_period_alignment()} | {error, {missing_field, atom()}}.
+new_budget_period_alignment(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(budget_period, Map) of
+        false -> {error, {missing_field, budget_period}};
+        true ->
+    case maps:is_key(alignment_result, Map) of
+        false -> {error, {missing_field, alignment_result}};
+        true ->
+    {ok, #budget_period_alignment{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        budget_period = maps:get(budget_period, Map, undefined),
+        alignment_result = maps:get(alignment_result, Map, undefined)
+    }}
     end
     end
     end.

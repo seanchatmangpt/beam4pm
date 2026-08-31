@@ -2976,6 +2976,29 @@ b4p:credit_risk_admission_risk_band_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:credit_risk_admission_decision_f a bpm:Field ;
-    bpm:fieldName "decision" ; bpm:fieldType "string" ;
+   bpm:fieldName "decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-021 — budget_period_alignment
+b4p:budget_period_alignment_rt a bpm:RecordType ;
+    bpm:recordName "budget_period_alignment" ;
+    bpm:recordDoc "Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk." ;
+    bpm:hasField b4p:budget_period_alignment_opportunity_id_f ,
+                 b4p:budget_period_alignment_budget_period_f ,
+                 b4p:budget_period_alignment_alignment_result_f .
+
+b4p:budget_period_alignment_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required budget period alignment input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:budget_period_alignment_budget_period_f a bpm:Field ;
+    bpm:fieldName "budget_period" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required budget period alignment input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:budget_period_alignment_alignment_result_f a bpm:Field ;
+    bpm:fieldName "alignment_result" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

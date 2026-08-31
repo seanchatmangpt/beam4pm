@@ -79,6 +79,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "budget_period_alignment new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      budget_period: "x",
+      alignment_result: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.BudgetPeriodAlignment.new(attrs)
+  end
+
+  test "budget_period_alignment new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.BudgetPeriodAlignment.new(%{})
+  end
+
+
   test "case_stats new/1 succeeds when all fields are present" do
     attrs = %{
       case_id: "x",

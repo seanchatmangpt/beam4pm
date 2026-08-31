@@ -61,6 +61,16 @@ billing_reconciliation_ok_test() ->
 billing_reconciliation_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_billing_reconciliation(#{})).
 
+budget_period_alignment_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_budget_period_alignment(#{
+        opportunity_id => <<"x">>,
+        budget_period => <<"x">>,
+        alignment_result => <<"x">>
+    })).
+
+budget_period_alignment_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_budget_period_alignment(#{})).
+
 case_stats_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_case_stats(#{
         case_id => <<"x">>,

@@ -19,6 +19,7 @@ record_names() ->
         alignment_move,
         beneficial_owner_evidence,
         billing_reconciliation,
+        budget_period_alignment,
         case_stats,
         conformance_result,
         contracting_entity_identity,
@@ -140,6 +141,18 @@ sample(billing_reconciliation, minimal) ->
         applied_event_ids => [<<"alpha">>, <<"beta">>],
         period_start => <<"2026-08-29T12:00:00Z">>,
         period_end => <<"2026-08-29T12:00:00Z">>
+    });
+sample(budget_period_alignment, full) ->
+    beam4pm_types:new_budget_period_alignment(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        budget_period => <<"sample_budget_period">>,
+        alignment_result => <<"sample_alignment_result">>
+    });
+sample(budget_period_alignment, minimal) ->
+    beam4pm_types:new_budget_period_alignment(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        budget_period => <<"sample_budget_period">>,
+        alignment_result => <<"sample_alignment_result">>
     });
 sample(case_stats, full) ->
     beam4pm_types:new_case_stats(#{

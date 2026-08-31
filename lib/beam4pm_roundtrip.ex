@@ -14,6 +14,7 @@ defmodule BeamPM.Roundtrip do
     :alignment_move,
     :beneficial_owner_evidence,
     :billing_reconciliation,
+    :budget_period_alignment,
     :case_stats,
     :conformance_result,
     :contracting_entity_identity,
@@ -159,6 +160,22 @@ defmodule BeamPM.Roundtrip do
       applied_event_ids: ["alpha", "beta"],
       period_start: "2026-08-29T12:00:00Z",
       period_end: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:budget_period_alignment, :full) do
+    BeamPM.Types.BudgetPeriodAlignment.new(%{
+      opportunity_id: "sample_opportunity_id",
+      budget_period: "sample_budget_period",
+      alignment_result: "sample_alignment_result"
+    })
+  end
+
+  def sample(:budget_period_alignment, :minimal) do
+    BeamPM.Types.BudgetPeriodAlignment.new(%{
+      opportunity_id: "sample_opportunity_id",
+      budget_period: "sample_budget_period",
+      alignment_result: "sample_alignment_result"
     })
   end
 

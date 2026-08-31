@@ -116,6 +116,27 @@
       ]
 
     },
+    "budget_period_alignment": {
+      "type": "object",
+      "description": "Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required budget period alignment input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "budget_period": {
+          "type": "string",
+          "description": "Required budget period alignment input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "alignment_result": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "budget_period", "alignment_result"
+      ]
+
+    },
     "case_stats": {
       "type": "object",
       "description": "Aggregate statistics computed for one process instance (case).",

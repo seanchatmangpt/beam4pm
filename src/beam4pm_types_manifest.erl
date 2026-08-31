@@ -11,7 +11,7 @@
 -export([record_names/0, fields/1]).
 
 -spec record_names() -> [atom()].
-record_names() -> [account_master_match, account_parent_scope, alignment_move, beneficial_owner_evidence, billing_reconciliation, case_stats, conformance_result, contracting_entity_identity, credit_risk_admission, data_processing_addendum_state, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, insurance_requirement, invoice_entity_identity, k8s_object_ref, log_trace, master_service_agreement_state, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, opportunity_currency_contract, opportunity_value_range, path_schema, path_schema_query, payment_terms_admission, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, procurement_channel_selection, purchase_order_requirement, purchasing_entity_identity, queue_snapshot, resource_allocation, revenue_schedule_assumption, sanctions_screening_result, security_addendum_state, service_span, sojourn_time, sync_time, tax_jurisdiction_evidence, type_edge, usage_event, vendor_registration_state].
+record_names() -> [account_master_match, account_parent_scope, alignment_move, beneficial_owner_evidence, billing_reconciliation, budget_period_alignment, case_stats, conformance_result, contracting_entity_identity, credit_risk_admission, data_processing_addendum_state, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, insurance_requirement, invoice_entity_identity, k8s_object_ref, log_trace, master_service_agreement_state, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, opportunity_currency_contract, opportunity_value_range, path_schema, path_schema_query, payment_terms_admission, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, procurement_channel_selection, purchase_order_requirement, purchasing_entity_identity, queue_snapshot, resource_allocation, revenue_schedule_assumption, sanctions_screening_result, security_addendum_state, service_span, sojourn_time, sync_time, tax_jurisdiction_evidence, type_edge, usage_event, vendor_registration_state].
 
 -spec fields(atom()) -> [atom()].
 fields(account_master_match) -> [source_account_id, canonical_account_id, match_evidence_hash];
@@ -19,6 +19,7 @@ fields(account_parent_scope) -> [account_id, parent_account_id, scope_evidence_h
 fields(alignment_move) -> [move_type, cost];
 fields(beneficial_owner_evidence) -> [account_id, owner_id, evidence_hash];
 fields(billing_reconciliation) -> [entitlement_id, metric_name, total_quantity, applied_event_ids, period_start, period_end];
+fields(budget_period_alignment) -> [opportunity_id, budget_period, alignment_result];
 fields(case_stats) -> [case_id, event_count, duration_seconds];
 fields(conformance_result) -> [trace_id, fitness, precision];
 fields(contracting_entity_identity) -> [opportunity_id, contracting_entity_id, identity_evidence_hash];

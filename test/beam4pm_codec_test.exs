@@ -212,6 +212,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "budget_period_alignment to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      budget_period: "sample_budget_period",
+      alignment_result: "sample_alignment_result"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BudgetPeriodAlignment.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["budget_period"] == "sample_budget_period"
+    assert m["alignment_result"] == "sample_alignment_result"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:budget_period_alignment, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:budget_period_alignment, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "budget_period_alignment encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      budget_period: "sample_budget_period",
+      alignment_result: "sample_alignment_result"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BudgetPeriodAlignment.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:budget_period_alignment, json)
+  end
+
+  test "budget_period_alignment from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:budget_period_alignment, %{})
+  end
+
+
   test "case_stats to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       case_id: "sample_case_id",
