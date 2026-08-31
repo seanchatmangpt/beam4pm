@@ -3340,3 +3340,17 @@ bpm:time_to_value_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fi
 bpm:time_to_value_verified_days_f a bpm:Field ; bpm:fieldName "verified_days" ; bpm:fieldType "integer" ; bpm:fieldDoc "Days from admission to first verified value." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:time_to_value_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:time_to_value_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-132 — expansion signal
+# ---------------------------------------------------------------------------
+
+bpm:expansion_signal_rt a bpm:RecordType ;
+    bpm:recordName "expansion_signal" ; bpm:recordDoc "Observed usage-and-value signal indicating an expansion path." ;
+    bpm:hasField bpm:expansion_signal_expansion_signal_id_f , bpm:expansion_signal_account_id_f , bpm:expansion_signal_expansion_signal_score_f , bpm:expansion_signal_evidence_digest_f , bpm:expansion_signal_observed_at_f .
+
+bpm:expansion_signal_expansion_signal_id_f a bpm:Field ; bpm:fieldName "expansion_signal_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this expansion signal observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:expansion_signal_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose expansion signal state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:expansion_signal_expansion_signal_score_f a bpm:Field ; bpm:fieldName "expansion_signal_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Measured strength of the expansion signal." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:expansion_signal_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:expansion_signal_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
