@@ -586,6 +586,16 @@
 | `duration_ms` | `integer` | true | Span duration in milliseconds. |
 | `parent_span_id` | `string` | false | Optional identifier of the parent span. |
 
+## sla_offer_admission
+
+> Admits an exact service-level offer before it becomes a paid customer commitment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required sla offer admission input; omission is an executable typed refusal, never an inferred approval. |
+| `sla_offer_id` | `string` | true | Required sla offer admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## sojourn_time
 
 > The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric).

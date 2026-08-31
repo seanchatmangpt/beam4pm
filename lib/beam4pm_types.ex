@@ -1562,6 +1562,33 @@ defmodule BeamPM.Types.ServiceSpan do
   end
 end
 
+defmodule BeamPM.Types.SlaOfferAdmission do
+  @moduledoc "Admits an exact service-level offer before it becomes a paid customer commitment."
+
+  defstruct [:opportunity_id, :sla_offer_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    sla_offer_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :sla_offer_id) -> {:error, {:missing_field, :sla_offer_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          sla_offer_id: Map.get(attrs, :sla_offer_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.SojournTime do
   @moduledoc "The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric)."
 

@@ -713,6 +713,18 @@ pub type ServiceSpan {
   )
 }
 
+/// Admits an exact service-level offer before it becomes a paid customer commitment.
+pub type SlaOfferAdmission {
+  SlaOfferAdmission(
+    /// Required sla offer admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required sla offer admission input; omission is an executable typed refusal, never an inferred approval.
+    sla_offer_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric).
 pub type SojournTime {
   SojournTime(

@@ -593,6 +593,16 @@ service_span_ok_test() ->
 service_span_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_service_span(#{})).
 
+sla_offer_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_sla_offer_admission(#{
+        opportunity_id => <<"x">>,
+        sla_offer_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+sla_offer_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_sla_offer_admission(#{})).
+
 sojourn_time_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_sojourn_time(#{
         object_id => <<"x">>,

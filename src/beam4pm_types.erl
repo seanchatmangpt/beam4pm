@@ -61,6 +61,7 @@
     new_security_addendum_state/1,
     new_service_credit_admission/1,
     new_service_span/1,
+    new_sla_offer_admission/1,
     new_sojourn_time/1,
     new_sync_time/1,
     new_tax_jurisdiction_evidence/1,
@@ -130,6 +131,7 @@
     security_addendum_state/0,
     service_credit_admission/0,
     service_span/0,
+    sla_offer_admission/0,
     sojourn_time/0,
     sync_time/0,
     tax_jurisdiction_evidence/0,
@@ -1777,6 +1779,35 @@ new_service_span(Map) ->
         service_name = maps:get(service_name, Map, undefined),
         duration_ms = maps:get(duration_ms, Map, undefined),
         parent_span_id = maps:get(parent_span_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits an exact service-level offer before it becomes a paid customer commitment.
+-record(sla_offer_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required sla offer admission input; omission is an executable typed refusal, never an inferred approval.
+    sla_offer_id :: binary(), %% sla_offer_id: Required sla offer admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type sla_offer_admission() :: #sla_offer_admission{}.
+
+-spec new_sla_offer_admission(map()) -> {ok, sla_offer_admission()} | {error, {missing_field, atom()}}.
+new_sla_offer_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(sla_offer_id, Map) of
+        false -> {error, {missing_field, sla_offer_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #sla_offer_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        sla_offer_id = maps:get(sla_offer_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

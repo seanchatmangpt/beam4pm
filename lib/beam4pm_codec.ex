@@ -482,6 +482,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.SlaOfferAdmission{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"sla_offer_id", r.sla_offer_id, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.SojournTime{} = r) do
     to_known_map([
       {"object_id", r.object_id, :passthrough},
@@ -1250,6 +1258,18 @@ defmodule BeamPM.Codec do
         {"parent_span_id", :parent_span_id, :passthrough}
       ],
       &BeamPM.Types.ServiceSpan.new/1
+    )
+  end
+
+  def from_map(:sla_offer_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"sla_offer_id", :sla_offer_id, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.SlaOfferAdmission.new/1
     )
   end
 

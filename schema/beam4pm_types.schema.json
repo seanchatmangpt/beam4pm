@@ -1244,6 +1244,27 @@
       ]
 
     },
+    "sla_offer_admission": {
+      "type": "object",
+      "description": "Admits an exact service-level offer before it becomes a paid customer commitment.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required sla offer admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "sla_offer_id": {
+          "type": "string",
+          "description": "Required sla offer admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "sla_offer_id", "decision"
+      ]
+
+    },
     "sojourn_time": {
       "type": "object",
       "description": "The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric).",

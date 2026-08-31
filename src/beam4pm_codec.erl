@@ -68,6 +68,7 @@
     beam4pm_types:security_addendum_state() |
     beam4pm_types:service_credit_admission() |
     beam4pm_types:service_span() |
+    beam4pm_types:sla_offer_admission() |
     beam4pm_types:sojourn_time() |
     beam4pm_types:sync_time() |
     beam4pm_types:tax_jurisdiction_evidence() |
@@ -432,6 +433,12 @@ to_map(R) when element(1, R) =:= service_span ->
         {<<"service_name">>, plain, element(3, R)},
         {<<"duration_ms">>, plain, element(4, R)},
         {<<"parent_span_id">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= sla_offer_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"sla_offer_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= sojourn_time ->
     pairs_to_map([
@@ -846,6 +853,12 @@ from_map(service_span, Map) when is_map(Map) ->
         {<<"service_name">>, service_name, plain},
         {<<"duration_ms">>, duration_ms, plain},
         {<<"parent_span_id">>, parent_span_id, plain}
+    ]));
+from_map(sla_offer_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_sla_offer_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"sla_offer_id">>, sla_offer_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(sojourn_time, Map) when is_map(Map) ->
     beam4pm_types:new_sojourn_time(take_known(Map, [

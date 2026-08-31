@@ -67,6 +67,7 @@ defmodule BeamPM.Roundtrip do
     :security_addendum_state,
     :service_credit_admission,
     :service_span,
+    :sla_offer_admission,
     :sojourn_time,
     :sync_time,
     :tax_jurisdiction_evidence,
@@ -1006,6 +1007,22 @@ defmodule BeamPM.Roundtrip do
       span_id: "sample_span_id",
       service_name: "sample_service_name",
       duration_ms: 42
+    })
+  end
+
+  def sample(:sla_offer_admission, :full) do
+    BeamPM.Types.SlaOfferAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      sla_offer_id: "sample_sla_offer_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:sla_offer_admission, :minimal) do
+    BeamPM.Types.SlaOfferAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      sla_offer_id: "sample_sla_offer_id",
+      decision: "sample_decision"
     })
   end
 
