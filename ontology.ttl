@@ -3352,4 +3352,30 @@ b4pe:rollback_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-033 — upgrade-assurance evidence.
+b4pe:upgrade_evidence_rt a bpm:RecordType ;
+    bpm:recordName "upgrade_evidence" ;
+    bpm:recordDoc "Executable upgrade evidence binding an exact subject to the source version accepted by the migration path." ;
+    bpm:hasField b4pe:upgrade_evidence_id_f,
+                 b4pe:upgrade_subject_sha_f,
+                 b4pe:upgrade_from_version_f,
+                 b4pe:upgrade_observed_result_f .
+
+b4pe:upgrade_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this upgrade-assurance observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:upgrade_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:upgrade_from_version_f a bpm:Field ;
+    bpm:fieldName "from_version" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Version from which the observed upgrade execution began." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:upgrade_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
