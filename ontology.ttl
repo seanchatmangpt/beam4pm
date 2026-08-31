@@ -2598,4 +2598,30 @@ b4pe:attestation_verification_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-004 — artifact digest evidence.
+b4pe:artifact_digest_evidence_rt a bpm:RecordType ;
+    bpm:recordName "artifact_digest_evidence" ;
+    bpm:recordDoc "Executable artifact-integrity evidence binding an exact commercial subject to the digest actually observed by the verifier." ;
+    bpm:hasField b4pe:artifact_digest_evidence_id_f,
+                 b4pe:artifact_digest_subject_sha_f,
+                 b4pe:artifact_digest_digest_f,
+                 b4pe:artifact_digest_observed_result_f .
+
+b4pe:artifact_digest_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this artifact digest observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:artifact_digest_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:artifact_digest_digest_f a bpm:Field ;
+    bpm:fieldName "digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content digest observed for the admitted commercial artifact." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:artifact_digest_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
