@@ -2520,3 +2520,28 @@ b4pe:billing_reconciliation_period_end_f a bpm:Field ;
     bpm:fieldDoc "ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
 
+# WS4-REV-001 — exact-head provenance binding evidence.
+b4pe:provenance_binding_evidence_rt a bpm:RecordType ;
+    bpm:recordName "provenance_binding_evidence" ;
+    bpm:recordDoc "Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result." ;
+    bpm:hasField b4pe:provenance_binding_evidence_id_f,
+                 b4pe:provenance_binding_subject_sha_f,
+                 b4pe:provenance_binding_builder_identity_f,
+                 b4pe:provenance_binding_observed_result_f .
+
+b4pe:provenance_binding_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this provenance observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:provenance_binding_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:provenance_binding_builder_identity_f a bpm:Field ;
+    bpm:fieldName "builder_identity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable identity of the builder that emitted the provenance." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:provenance_binding_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verification consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
