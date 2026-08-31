@@ -3560,4 +3560,30 @@ b4pe:mutable_identity_refusal_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-041 — unsupported-capability evidence.
+b4pe:unsupported_capability_evidence_rt a bpm:RecordType ;
+    bpm:recordName "unsupported_capability_evidence" ;
+    bpm:recordDoc "Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses." ;
+    bpm:hasField b4pe:unsupported_capability_evidence_id_f,
+                 b4pe:unsupported_capability_subject_sha_f,
+                 b4pe:unsupported_capability_capability_name_f,
+                 b4pe:unsupported_capability_observed_result_f .
+
+b4pe:unsupported_capability_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this unsupported-capability observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:unsupported_capability_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:unsupported_capability_capability_name_f a bpm:Field ;
+    bpm:fieldName "capability_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Capability name observed at the unsupported routing boundary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:unsupported_capability_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
