@@ -3564,3 +3564,17 @@ bpm:rollback_decision_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bp
 bpm:rollback_decision_rollback_result_f a bpm:Field ; bpm:fieldName "rollback_result" ; bpm:fieldType "string" ; bpm:fieldDoc "Observed outcome of the rollback action." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:rollback_decision_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:rollback_decision_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-148 — commercial outcome
+# ---------------------------------------------------------------------------
+
+bpm:commercial_outcome_rt a bpm:RecordType ;
+    bpm:recordName "commercial_outcome" ; bpm:recordDoc "Verified commercial outcome attributable to the admitted customer journey." ;
+    bpm:hasField bpm:commercial_outcome_commercial_outcome_id_f , bpm:commercial_outcome_account_id_f , bpm:commercial_outcome_outcome_value_f , bpm:commercial_outcome_evidence_digest_f , bpm:commercial_outcome_observed_at_f .
+
+bpm:commercial_outcome_commercial_outcome_id_f a bpm:Field ; bpm:fieldName "commercial_outcome_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this commercial outcome observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:commercial_outcome_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose commercial outcome state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:commercial_outcome_outcome_value_f a bpm:Field ; bpm:fieldName "outcome_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified commercial value in account currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:commercial_outcome_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:commercial_outcome_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
