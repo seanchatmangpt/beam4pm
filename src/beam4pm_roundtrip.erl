@@ -66,6 +66,7 @@ record_names() ->
         pricing_basis_contract,
         process_variant,
         procurement_channel_selection,
+        proof_of_value_budget,
         purchase_order_requirement,
         purchasing_entity_identity,
         queue_snapshot,
@@ -709,6 +710,18 @@ sample(procurement_channel_selection, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         channel_id => <<"sample_channel_id">>,
         selection_evidence_hash => <<"sample_selection_evidence_hash">>
+    });
+sample(proof_of_value_budget, full) ->
+    beam4pm_types:new_proof_of_value_budget(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        budget_id => <<"sample_budget_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(proof_of_value_budget, minimal) ->
+    beam4pm_types:new_proof_of_value_budget(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        budget_id => <<"sample_budget_id">>,
+        decision => <<"sample_decision">>
     });
 sample(purchase_order_requirement, full) ->
     beam4pm_types:new_purchase_order_requirement(#{

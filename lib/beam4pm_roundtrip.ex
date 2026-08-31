@@ -61,6 +61,7 @@ defmodule BeamPM.Roundtrip do
     :pricing_basis_contract,
     :process_variant,
     :procurement_channel_selection,
+    :proof_of_value_budget,
     :purchase_order_requirement,
     :purchasing_entity_identity,
     :queue_snapshot,
@@ -916,6 +917,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       channel_id: "sample_channel_id",
       selection_evidence_hash: "sample_selection_evidence_hash"
+    })
+  end
+
+  def sample(:proof_of_value_budget, :full) do
+    BeamPM.Types.ProofOfValueBudget.new(%{
+      opportunity_id: "sample_opportunity_id",
+      budget_id: "sample_budget_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:proof_of_value_budget, :minimal) do
+    BeamPM.Types.ProofOfValueBudget.new(%{
+      opportunity_id: "sample_opportunity_id",
+      budget_id: "sample_budget_id",
+      decision: "sample_decision"
     })
   end
 

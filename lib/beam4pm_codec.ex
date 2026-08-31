@@ -433,6 +433,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ProofOfValueBudget{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"budget_id", r.budget_id, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.PurchaseOrderRequirement{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -1233,6 +1241,18 @@ defmodule BeamPM.Codec do
         {"selection_evidence_hash", :selection_evidence_hash, :passthrough}
       ],
       &BeamPM.Types.ProcurementChannelSelection.new/1
+    )
+  end
+
+  def from_map(:proof_of_value_budget, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"budget_id", :budget_id, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.ProofOfValueBudget.new/1
     )
   end
 

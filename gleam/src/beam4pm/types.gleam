@@ -639,6 +639,18 @@ pub type ProcurementChannelSelection {
   )
 }
 
+/// Qualifies whether a proof-of-value has an actual budget and decision rather than free-pilot ambiguity.
+pub type ProofOfValueBudget {
+  ProofOfValueBudget(
+    /// Required proof of value budget input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required proof of value budget input; omission is an executable typed refusal, never an inferred approval.
+    budget_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness.
 pub type PurchaseOrderRequirement {
   PurchaseOrderRequirement(

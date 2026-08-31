@@ -2124,6 +2124,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "proof_of_value_budget to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      budget_id: "sample_budget_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProofOfValueBudget.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["budget_id"] == "sample_budget_id"
+    assert m["decision"] == "sample_decision"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:proof_of_value_budget, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:proof_of_value_budget, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "proof_of_value_budget encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      budget_id: "sample_budget_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProofOfValueBudget.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:proof_of_value_budget, json)
+  end
+
+  test "proof_of_value_budget from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:proof_of_value_budget, %{})
+  end
+
+
   test "purchase_order_requirement to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

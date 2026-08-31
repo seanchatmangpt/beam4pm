@@ -1323,6 +1323,31 @@ procurement_channel_selection_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(procurement_channel_selection, Json),
     ?assertEqual(Rec, Rec2).
 
+proof_of_value_budget_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_proof_of_value_budget(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        budget_id => <<"sample_budget_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_budget_id">>, maps:get(<<"budget_id">>, Map)),
+    ?assertEqual(<<"sample_decision">>, maps:get(<<"decision">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(proof_of_value_budget,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+proof_of_value_budget_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_proof_of_value_budget(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        budget_id => <<"sample_budget_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(proof_of_value_budget, Json),
+    ?assertEqual(Rec, Rec2).
+
 purchase_order_requirement_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_purchase_order_requirement(#{
         opportunity_id => <<"sample_opportunity_id">>,

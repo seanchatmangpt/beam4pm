@@ -532,6 +532,16 @@ procurement_channel_selection_ok_test() ->
 procurement_channel_selection_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_procurement_channel_selection(#{})).
 
+proof_of_value_budget_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_proof_of_value_budget(#{
+        opportunity_id => <<"x">>,
+        budget_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+proof_of_value_budget_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_proof_of_value_budget(#{})).
+
 purchase_order_requirement_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_purchase_order_requirement(#{
         opportunity_id => <<"x">>,

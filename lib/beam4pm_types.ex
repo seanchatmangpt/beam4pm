@@ -1398,6 +1398,33 @@ defmodule BeamPM.Types.ProcurementChannelSelection do
   end
 end
 
+defmodule BeamPM.Types.ProofOfValueBudget do
+  @moduledoc "Qualifies whether a proof-of-value has an actual budget and decision rather than free-pilot ambiguity."
+
+  defstruct [:opportunity_id, :budget_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    budget_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :budget_id) -> {:error, {:missing_field, :budget_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          budget_id: Map.get(attrs, :budget_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PurchaseOrderRequirement do
   @moduledoc "Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness."
 

@@ -3390,6 +3390,29 @@ b4p:change_order_authority_authority_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:change_order_authority_evidence_hash_f a bpm:Field ;
-    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+   bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-039 — proof_of_value_budget
+b4p:proof_of_value_budget_rt a bpm:RecordType ;
+    bpm:recordName "proof_of_value_budget" ;
+    bpm:recordDoc "Qualifies whether a proof-of-value has an actual budget and decision rather than free-pilot ambiguity." ;
+    bpm:hasField b4p:proof_of_value_budget_opportunity_id_f ,
+                 b4p:proof_of_value_budget_budget_id_f ,
+                 b4p:proof_of_value_budget_decision_f .
+
+b4p:proof_of_value_budget_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required proof of value budget input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:proof_of_value_budget_budget_id_f a bpm:Field ;
+    bpm:fieldName "budget_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required proof of value budget input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:proof_of_value_budget_decision_f a bpm:Field ;
+    bpm:fieldName "decision" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

@@ -55,6 +55,7 @@
     new_pricing_basis_contract/1,
     new_process_variant/1,
     new_procurement_channel_selection/1,
+    new_proof_of_value_budget/1,
     new_purchase_order_requirement/1,
     new_purchasing_entity_identity/1,
     new_queue_snapshot/1,
@@ -131,6 +132,7 @@
     pricing_basis_contract/0,
     process_variant/0,
     procurement_channel_selection/0,
+    proof_of_value_budget/0,
     purchase_order_requirement/0,
     purchasing_entity_identity/0,
     queue_snapshot/0,
@@ -1615,6 +1617,35 @@ new_procurement_channel_selection(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         channel_id = maps:get(channel_id, Map, undefined),
         selection_evidence_hash = maps:get(selection_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies whether a proof-of-value has an actual budget and decision rather than free-pilot ambiguity.
+-record(proof_of_value_budget, {
+    opportunity_id :: binary(), %% opportunity_id: Required proof of value budget input; omission is an executable typed refusal, never an inferred approval.
+    budget_id :: binary(), %% budget_id: Required proof of value budget input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type proof_of_value_budget() :: #proof_of_value_budget{}.
+
+-spec new_proof_of_value_budget(map()) -> {ok, proof_of_value_budget()} | {error, {missing_field, atom()}}.
+new_proof_of_value_budget(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(budget_id, Map) of
+        false -> {error, {missing_field, budget_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #proof_of_value_budget{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        budget_id = maps:get(budget_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end
