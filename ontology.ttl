@@ -3794,4 +3794,30 @@ b4pe:commercial_artifact_crown_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-050 — procurement-acceptance evidence.
+b4pe:procurement_acceptance_evidence_rt a bpm:RecordType ;
+    bpm:recordName "procurement_acceptance_evidence" ;
+    bpm:recordDoc "Executable procurement evidence binding the exact commercial subject to the final decision derived from admitted controls." ;
+    bpm:hasField b4pe:procurement_acceptance_evidence_id_f,
+                 b4pe:procurement_acceptance_subject_sha_f,
+                 b4pe:procurement_acceptance_acceptance_decision_f,
+                 b4pe:procurement_acceptance_observed_result_f .
+
+b4pe:procurement_acceptance_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this procurement-acceptance observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:procurement_acceptance_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:procurement_acceptance_acceptance_decision_f a bpm:Field ;
+    bpm:fieldName "acceptance_decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed procurement decision derived from the exact subject evidence set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:procurement_acceptance_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
