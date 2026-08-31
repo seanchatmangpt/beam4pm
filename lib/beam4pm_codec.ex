@@ -281,6 +281,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.PurchasingEntityIdentity{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"purchasing_entity_id", r.purchasing_entity_id, :passthrough},
+      {"identity_evidence_hash", r.identity_evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.QueueSnapshot{} = r) do
     to_known_map([
       {"queue_name", r.queue_name, :passthrough},
@@ -749,6 +757,18 @@ defmodule BeamPM.Codec do
         {"selection_evidence_hash", :selection_evidence_hash, :passthrough}
       ],
       &BeamPM.Types.ProcurementChannelSelection.new/1
+    )
+  end
+
+  def from_map(:purchasing_entity_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"purchasing_entity_id", :purchasing_entity_id, :passthrough},
+        {"identity_evidence_hash", :identity_evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.PurchasingEntityIdentity.new/1
     )
   end
 

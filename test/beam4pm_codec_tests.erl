@@ -848,6 +848,31 @@ procurement_channel_selection_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(procurement_channel_selection, Json),
     ?assertEqual(Rec, Rec2).
 
+purchasing_entity_identity_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_purchasing_entity_identity(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        purchasing_entity_id => <<"sample_purchasing_entity_id">>,
+        identity_evidence_hash => <<"sample_identity_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_purchasing_entity_id">>, maps:get(<<"purchasing_entity_id">>, Map)),
+    ?assertEqual(<<"sample_identity_evidence_hash">>, maps:get(<<"identity_evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(purchasing_entity_identity,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+purchasing_entity_identity_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_purchasing_entity_identity(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        purchasing_entity_id => <<"sample_purchasing_entity_id">>,
+        identity_evidence_hash => <<"sample_identity_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(purchasing_entity_identity, Json),
+    ?assertEqual(Rec, Rec2).
+
 queue_snapshot_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_queue_snapshot(#{
         queue_name => <<"sample_queue_name">>,

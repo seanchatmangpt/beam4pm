@@ -342,6 +342,16 @@ procurement_channel_selection_ok_test() ->
 procurement_channel_selection_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_procurement_channel_selection(#{})).
 
+purchasing_entity_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_purchasing_entity_identity(#{
+        opportunity_id => <<"x">>,
+        purchasing_entity_id => <<"x">>,
+        identity_evidence_hash => <<"x">>
+    })).
+
+purchasing_entity_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_purchasing_entity_identity(#{})).
+
 queue_snapshot_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_queue_snapshot(#{
         queue_name => <<"x">>,

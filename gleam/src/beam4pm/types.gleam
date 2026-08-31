@@ -411,6 +411,18 @@ pub type ProcurementChannelSelection {
   )
 }
 
+/// Requires the legal entity that will issue purchasing authority before commercial progression.
+pub type PurchasingEntityIdentity {
+  PurchasingEntityIdentity(
+    /// Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval.
+    purchasing_entity_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    identity_evidence_hash: String,
+  )
+}
+
 /// One point-in-time observation of a queue depth.
 pub type QueueSnapshot {
   QueueSnapshot(

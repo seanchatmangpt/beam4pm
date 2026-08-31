@@ -335,6 +335,16 @@
 | `channel_id` | `string` | true | Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval. |
 | `selection_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## purchasing_entity_identity
+
+> Requires the legal entity that will issue purchasing authority before commercial progression.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `purchasing_entity_id` | `string` | true | Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## queue_snapshot
 
 > One point-in-time observation of a queue depth.

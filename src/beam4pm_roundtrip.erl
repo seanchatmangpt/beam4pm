@@ -47,6 +47,7 @@ record_names() ->
         policy_decision,
         process_variant,
         procurement_channel_selection,
+        purchasing_entity_identity,
         queue_snapshot,
         resource_allocation,
         revenue_schedule_assumption,
@@ -449,6 +450,18 @@ sample(procurement_channel_selection, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         channel_id => <<"sample_channel_id">>,
         selection_evidence_hash => <<"sample_selection_evidence_hash">>
+    });
+sample(purchasing_entity_identity, full) ->
+    beam4pm_types:new_purchasing_entity_identity(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        purchasing_entity_id => <<"sample_purchasing_entity_id">>,
+        identity_evidence_hash => <<"sample_identity_evidence_hash">>
+    });
+sample(purchasing_entity_identity, minimal) ->
+    beam4pm_types:new_purchasing_entity_identity(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        purchasing_entity_id => <<"sample_purchasing_entity_id">>,
+        identity_evidence_hash => <<"sample_identity_evidence_hash">>
     });
 sample(queue_snapshot, full) ->
     beam4pm_types:new_queue_snapshot(#{

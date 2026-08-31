@@ -42,6 +42,7 @@ defmodule BeamPM.Roundtrip do
     :policy_decision,
     :process_variant,
     :procurement_channel_selection,
+    :purchasing_entity_identity,
     :queue_snapshot,
     :resource_allocation,
     :revenue_schedule_assumption,
@@ -580,6 +581,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       channel_id: "sample_channel_id",
       selection_evidence_hash: "sample_selection_evidence_hash"
+    })
+  end
+
+  def sample(:purchasing_entity_identity, :full) do
+    BeamPM.Types.PurchasingEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      purchasing_entity_id: "sample_purchasing_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    })
+  end
+
+  def sample(:purchasing_entity_identity, :minimal) do
+    BeamPM.Types.PurchasingEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      purchasing_entity_id: "sample_purchasing_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
     })
   end
 

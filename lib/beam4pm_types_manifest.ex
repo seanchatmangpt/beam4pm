@@ -3,7 +3,7 @@ defmodule BeamPM.Types.Manifest do
   @moduledoc "Reflection manifest over the admitted bpm:RecordType graph: every admitted record name, and each record's ordered field-name list, without needing to know the individual struct modules."
 
   @spec record_names() :: [atom()]
-  def record_names, do: [:account_master_match, :account_parent_scope, :alignment_move, :billing_reconciliation, :case_stats, :conformance_result, :dfg_edge, :entitlement_event, :entitlement_state, :event_log, :event_type, :heuristic_arc, :k8s_object_ref, :log_trace, :object_attribute_change, :object_type, :oc_declare_constraint, :ocel_attribute, :ocel_event, :ocel_object, :ocel_relationship, :opportunity_currency_contract, :opportunity_value_range, :path_schema, :path_schema_query, :petri_arc, :petri_place, :petri_transition, :planning_action, :planning_state, :policy_decision, :process_variant, :procurement_channel_selection, :queue_snapshot, :resource_allocation, :revenue_schedule_assumption, :service_span, :sojourn_time, :sync_time, :type_edge, :usage_event]
+  def record_names, do: [:account_master_match, :account_parent_scope, :alignment_move, :billing_reconciliation, :case_stats, :conformance_result, :dfg_edge, :entitlement_event, :entitlement_state, :event_log, :event_type, :heuristic_arc, :k8s_object_ref, :log_trace, :object_attribute_change, :object_type, :oc_declare_constraint, :ocel_attribute, :ocel_event, :ocel_object, :ocel_relationship, :opportunity_currency_contract, :opportunity_value_range, :path_schema, :path_schema_query, :petri_arc, :petri_place, :petri_transition, :planning_action, :planning_state, :policy_decision, :process_variant, :procurement_channel_selection, :purchasing_entity_identity, :queue_snapshot, :resource_allocation, :revenue_schedule_assumption, :service_span, :sojourn_time, :sync_time, :type_edge, :usage_event]
 
   @spec fields(atom()) :: [atom()]
   def fields(:account_master_match), do: [:source_account_id, :canonical_account_id, :match_evidence_hash]
@@ -39,6 +39,7 @@ defmodule BeamPM.Types.Manifest do
   def fields(:policy_decision), do: [:decision_id, :verdict, :reason]
   def fields(:process_variant), do: [:variant_id, :activity_sequence, :frequency]
   def fields(:procurement_channel_selection), do: [:opportunity_id, :channel_id, :selection_evidence_hash]
+  def fields(:purchasing_entity_identity), do: [:opportunity_id, :purchasing_entity_id, :identity_evidence_hash]
   def fields(:queue_snapshot), do: [:queue_name, :depth, :observed_at]
   def fields(:resource_allocation), do: [:resource_id, :activity, :event_id]
   def fields(:revenue_schedule_assumption), do: [:opportunity_id, :schedule_id, :assumption_evidence_hash]

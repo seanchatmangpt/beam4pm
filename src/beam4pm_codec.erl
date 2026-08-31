@@ -43,6 +43,7 @@
     beam4pm_types:policy_decision() |
     beam4pm_types:process_variant() |
     beam4pm_types:procurement_channel_selection() |
+    beam4pm_types:purchasing_entity_identity() |
     beam4pm_types:queue_snapshot() |
     beam4pm_types:resource_allocation() |
     beam4pm_types:revenue_schedule_assumption() |
@@ -256,6 +257,12 @@ to_map(R) when element(1, R) =:= procurement_channel_selection ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"channel_id">>, plain, element(3, R)},
         {<<"selection_evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= purchasing_entity_identity ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"purchasing_entity_id">>, plain, element(3, R)},
+        {<<"identity_evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= queue_snapshot ->
     pairs_to_map([
@@ -520,6 +527,12 @@ from_map(procurement_channel_selection, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"channel_id">>, channel_id, plain},
         {<<"selection_evidence_hash">>, selection_evidence_hash, plain}
+    ]));
+from_map(purchasing_entity_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_purchasing_entity_identity(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"purchasing_entity_id">>, purchasing_entity_id, plain},
+        {<<"identity_evidence_hash">>, identity_evidence_hash, plain}
     ]));
 from_map(queue_snapshot, Map) when is_map(Map) ->
     beam4pm_types:new_queue_snapshot(take_known(Map, [

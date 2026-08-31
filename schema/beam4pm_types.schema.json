@@ -715,6 +715,27 @@
       ]
 
     },
+    "purchasing_entity_identity": {
+      "type": "object",
+      "description": "Requires the legal entity that will issue purchasing authority before commercial progression.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "purchasing_entity_id": {
+          "type": "string",
+          "description": "Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "identity_evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "purchasing_entity_id", "identity_evidence_hash"
+      ]
+
+    },
     "queue_snapshot": {
       "type": "object",
       "description": "One point-in-time observation of a queue depth.",
