@@ -11,28 +11,54 @@
 -export([record_names/0, fields/1]).
 
 -spec record_names() -> [atom()].
-record_names() -> [alignment_move, billing_reconciliation, case_stats, conformance_result, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, k8s_object_ref, log_trace, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, path_schema, path_schema_query, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, queue_snapshot, resource_allocation, service_span, sojourn_time, sync_time, type_edge, usage_event].
+record_names() -> [account_discovery, activation_event, adoption_milestone, alignment_move, architecture_readiness, baseline_metric, billing_reconciliation, buying_committee, canary_decision, capability_gap, case_stats, commercial_outcome, conformance_result, cross_sell_fit, customer_health, data_readiness, demo_run, demo_scenario, developer_readiness, dfg_edge, discovery_hypothesis, entitlement_event, entitlement_state, event_log, event_type, executive_business_review, executive_sponsor, expansion_opportunity, expansion_receipt, expansion_signal, heuristic_arc, integration_readiness, k8s_object_ref, log_trace, migration_readiness, object_attribute_change, object_type, objection, objection_resolution, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, operator_readiness, path_schema, path_schema_query, petri_arc, petri_place, petri_transition, planning_action, planning_state, poc_exit_criteria, poc_risk, poc_scope, poc_timeline, policy_decision, process_variant, procurement_readiness, production_readiness, queue_snapshot, recovery_plan, renewal_evidence, renewal_health, renewal_risk, resource_allocation, revenue_attribution, rollback_decision, security_readiness, service_span, sojourn_time, solution_fit, stakeholder_map, success_plan, support_readiness, sync_time, target_metric, time_to_value, training_readiness, type_edge, upsell_readiness, usage_event, usage_signal, value_driver, value_realization].
 
 -spec fields(atom()) -> [atom()].
+fields(account_discovery) -> [account_discovery_id, account_id, discovery_score, evidence_digest, observed_at];
+fields(activation_event) -> [activation_event_id, account_id, activation_type, evidence_digest, observed_at];
+fields(adoption_milestone) -> [adoption_milestone_id, account_id, milestone_name, evidence_digest, observed_at];
 fields(alignment_move) -> [move_type, cost];
+fields(architecture_readiness) -> [architecture_readiness_id, account_id, architecture_score, evidence_digest, observed_at];
+fields(baseline_metric) -> [baseline_metric_id, account_id, baseline_value, evidence_digest, observed_at];
 fields(billing_reconciliation) -> [entitlement_id, metric_name, total_quantity, applied_event_ids, period_start, period_end];
+fields(buying_committee) -> [buying_committee_id, account_id, committee_coverage, evidence_digest, observed_at];
+fields(canary_decision) -> [canary_decision_id, account_id, canary_result, evidence_digest, observed_at];
+fields(capability_gap) -> [capability_gap_id, account_id, gap_severity, evidence_digest, observed_at];
 fields(case_stats) -> [case_id, event_count, duration_seconds];
+fields(commercial_outcome) -> [commercial_outcome_id, account_id, outcome_value, evidence_digest, observed_at];
 fields(conformance_result) -> [trace_id, fitness, precision];
+fields(cross_sell_fit) -> [cross_sell_fit_id, account_id, cross_sell_score, evidence_digest, observed_at];
+fields(customer_health) -> [customer_health_id, account_id, health_score, evidence_digest, observed_at];
+fields(data_readiness) -> [data_readiness_id, account_id, data_quality_score, evidence_digest, observed_at];
+fields(demo_run) -> [demo_run_id, account_id, demo_result, evidence_digest, observed_at];
+fields(demo_scenario) -> [demo_scenario_id, account_id, scenario_name, evidence_digest, observed_at];
+fields(developer_readiness) -> [developer_readiness_id, account_id, developer_readiness_score, evidence_digest, observed_at];
 fields(dfg_edge) -> [source_activity, target_activity, frequency];
+fields(discovery_hypothesis) -> [discovery_hypothesis_id, account_id, expected_value, evidence_digest, observed_at];
 fields(entitlement_event) -> [event_id, entitlement_id, event_type, effective_at, payload];
 fields(entitlement_state) -> [entitlement_id, status, last_applied_event_id, updated_at];
 fields(event_log) -> [log_id, name, description];
 fields(event_type) -> [type_name, attribute_names];
+fields(executive_business_review) -> [executive_business_review_id, account_id, executive_outcome, evidence_digest, observed_at];
+fields(executive_sponsor) -> [executive_sponsor_id, account_id, sponsor_commitment, evidence_digest, observed_at];
+fields(expansion_opportunity) -> [expansion_opportunity_id, account_id, expansion_value, evidence_digest, observed_at];
+fields(expansion_receipt) -> [expansion_receipt_id, account_id, receipt_value, evidence_digest, observed_at];
+fields(expansion_signal) -> [expansion_signal_id, account_id, expansion_signal_score, evidence_digest, observed_at];
 fields(heuristic_arc) -> [source_activity, target_activity, dependency_measure];
+fields(integration_readiness) -> [integration_readiness_id, account_id, integration_score, evidence_digest, observed_at];
 fields(k8s_object_ref) -> [kind, name, namespace];
 fields(log_trace) -> [case_id, activity_sequence];
+fields(migration_readiness) -> [migration_readiness_id, account_id, migration_effort_days, evidence_digest, observed_at];
 fields(object_attribute_change) -> [object_id, attribute_name, old_value, new_value, changed_at];
 fields(object_type) -> [type_name, attribute_names];
+fields(objection) -> [objection_id, account_id, objection_type, evidence_digest, observed_at];
+fields(objection_resolution) -> [objection_resolution_id, account_id, resolution_status, evidence_digest, observed_at];
 fields(oc_declare_constraint) -> [constraint_id, source_activity, target_activity, constraint_type];
 fields(ocel_attribute) -> [attribute_name, attribute_value, recorded_at];
 fields(ocel_event) -> [event_id, event_type, event_time, attributes];
 fields(ocel_object) -> [object_id, object_type, attributes];
 fields(ocel_relationship) -> [qualifier, object_id];
+fields(operator_readiness) -> [operator_readiness_id, account_id, operator_readiness_score, evidence_digest, observed_at];
 fields(path_schema) -> [schema_id, source_type, target_type, support];
 fields(path_schema_query) -> [source_type, target_type, max_length];
 fields(petri_arc) -> [source_id, target_id, weight];
@@ -40,13 +66,37 @@ fields(petri_place) -> [place_id, tokens];
 fields(petri_transition) -> [transition_id, label];
 fields(planning_action) -> [action_name, preconditions, effects];
 fields(planning_state) -> [state_id, facts];
+fields(poc_exit_criteria) -> [poc_exit_criteria_id, account_id, criteria_pass_rate, evidence_digest, observed_at];
+fields(poc_risk) -> [poc_risk_id, account_id, risk_score, evidence_digest, observed_at];
+fields(poc_scope) -> [poc_scope_id, account_id, use_case_count, evidence_digest, observed_at];
+fields(poc_timeline) -> [poc_timeline_id, account_id, days_to_value, evidence_digest, observed_at];
 fields(policy_decision) -> [decision_id, verdict, reason];
 fields(process_variant) -> [variant_id, activity_sequence, frequency];
+fields(procurement_readiness) -> [procurement_readiness_id, account_id, procurement_stage, evidence_digest, observed_at];
+fields(production_readiness) -> [production_readiness_id, account_id, production_readiness_score, evidence_digest, observed_at];
 fields(queue_snapshot) -> [queue_name, depth, observed_at];
+fields(recovery_plan) -> [recovery_plan_id, account_id, recovery_time_hours, evidence_digest, observed_at];
+fields(renewal_evidence) -> [renewal_evidence_id, account_id, renewal_value, evidence_digest, observed_at];
+fields(renewal_health) -> [renewal_health_id, account_id, renewal_health_score, evidence_digest, observed_at];
+fields(renewal_risk) -> [renewal_risk_id, account_id, renewal_risk_score, evidence_digest, observed_at];
 fields(resource_allocation) -> [resource_id, activity, event_id];
+fields(revenue_attribution) -> [revenue_attribution_id, account_id, attributed_revenue, evidence_digest, observed_at];
+fields(rollback_decision) -> [rollback_decision_id, account_id, rollback_result, evidence_digest, observed_at];
+fields(security_readiness) -> [security_readiness_id, account_id, control_coverage, evidence_digest, observed_at];
 fields(service_span) -> [span_id, service_name, duration_ms, parent_span_id];
 fields(sojourn_time) -> [object_id, event_type, seconds];
+fields(solution_fit) -> [solution_fit_id, account_id, fit_score, evidence_digest, observed_at];
+fields(stakeholder_map) -> [stakeholder_map_id, account_id, stakeholder_count, evidence_digest, observed_at];
+fields(success_plan) -> [success_plan_id, account_id, success_target, evidence_digest, observed_at];
+fields(support_readiness) -> [support_readiness_id, account_id, support_readiness_score, evidence_digest, observed_at];
 fields(sync_time) -> [object_id, delaying_object_id, seconds];
+fields(target_metric) -> [target_metric_id, account_id, target_value, evidence_digest, observed_at];
+fields(time_to_value) -> [time_to_value_id, account_id, verified_days, evidence_digest, observed_at];
+fields(training_readiness) -> [training_readiness_id, account_id, training_completion_rate, evidence_digest, observed_at];
 fields(type_edge) -> [source_type, target_type, qualifier, direction];
+fields(upsell_readiness) -> [upsell_readiness_id, account_id, upsell_score, evidence_digest, observed_at];
 fields(usage_event) -> [event_id, entitlement_id, quantity, metric_name, occurred_at];
+fields(usage_signal) -> [usage_signal_id, account_id, active_user_count, evidence_digest, observed_at];
+fields(value_driver) -> [value_driver_id, account_id, annual_value, evidence_digest, observed_at];
+fields(value_realization) -> [value_realization_id, account_id, realized_value, evidence_digest, observed_at];
 fields(_) -> [].
