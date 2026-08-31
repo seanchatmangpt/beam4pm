@@ -3,18 +3,42 @@
 -module(beam4pm_types).
 
 -export([
+    new_action_pin_evidence/1,
     new_alignment_move/1,
+    new_approval_separation_evidence/1,
+    new_architecture_review_evidence/1,
+    new_artifact_digest_evidence/1,
+    new_attestation_verification_evidence/1,
+    new_audit_chain_evidence/1,
+    new_availability_slo_evidence/1,
+    new_backup_restore_evidence/1,
     new_billing_reconciliation/1,
+    new_business_continuity_evidence/1,
+    new_canary_evidence/1,
     new_case_stats/1,
+    new_change_control_evidence/1,
+    new_commercial_artifact_crown_evidence/1,
     new_conformance_result/1,
+    new_customer_managed_key_evidence/1,
+    new_data_egress_evidence/1,
+    new_deletion_proof_evidence/1,
+    new_dependency_inventory_evidence/1,
     new_dfg_edge/1,
+    new_disaster_recovery_evidence/1,
     new_entitlement_event/1,
+    new_entitlement_evidence/1,
     new_entitlement_state/1,
     new_event_log/1,
     new_event_type/1,
+    new_evidence_freshness_evidence/1,
     new_heuristic_arc/1,
+    new_incident_response_evidence/1,
     new_k8s_object_ref/1,
+    new_least_authority_evidence/1,
+    new_license_evidence/1,
     new_log_trace/1,
+    new_multiarch_evidence/1,
+    new_mutable_identity_refusal_evidence/1,
     new_object_attribute_change/1,
     new_object_type/1,
     new_oc_declare_constraint/1,
@@ -22,37 +46,87 @@
     new_ocel_event/1,
     new_ocel_object/1,
     new_ocel_relationship/1,
+    new_oci_manifest_evidence/1,
+    new_offline_bundle_evidence/1,
     new_path_schema/1,
     new_path_schema_query/1,
+    new_performance_slo_evidence/1,
     new_petri_arc/1,
     new_petri_place/1,
     new_petri_transition/1,
     new_planning_action/1,
     new_planning_state/1,
     new_policy_decision/1,
+    new_privacy_classification_evidence/1,
+    new_private_registry_evidence/1,
     new_process_variant/1,
+    new_procurement_acceptance_evidence/1,
+    new_provenance_binding_evidence/1,
     new_queue_snapshot/1,
+    new_receipt_replay_evidence/1,
+    new_remediation_sla_evidence/1,
+    new_reproducible_build_evidence/1,
+    new_residency_evidence/1,
     new_resource_allocation/1,
+    new_retention_policy_evidence/1,
+    new_rfp_response_evidence/1,
+    new_rollback_evidence/1,
+    new_sbom_inventory_evidence/1,
+    new_secret_boundary_evidence/1,
     new_service_span/1,
+    new_signature_evidence/1,
     new_sojourn_time/1,
+    new_stale_subject_refusal_evidence/1,
+    new_support_escalation_evidence/1,
+    new_support_sla_evidence/1,
+    new_support_window_evidence/1,
     new_sync_time/1,
     new_type_edge/1,
-    new_usage_event/1
+    new_unsupported_capability_evidence/1,
+    new_upgrade_evidence/1,
+    new_usage_event/1,
+    new_vendor_risk_evidence/1,
+    new_version_lifecycle_evidence/1,
+    new_vulnerability_scan_evidence/1
 ]).
 
 -export_type([
+    action_pin_evidence/0,
     alignment_move/0,
+    approval_separation_evidence/0,
+    architecture_review_evidence/0,
+    artifact_digest_evidence/0,
+    attestation_verification_evidence/0,
+    audit_chain_evidence/0,
+    availability_slo_evidence/0,
+    backup_restore_evidence/0,
     billing_reconciliation/0,
+    business_continuity_evidence/0,
+    canary_evidence/0,
     case_stats/0,
+    change_control_evidence/0,
+    commercial_artifact_crown_evidence/0,
     conformance_result/0,
+    customer_managed_key_evidence/0,
+    data_egress_evidence/0,
+    deletion_proof_evidence/0,
+    dependency_inventory_evidence/0,
     dfg_edge/0,
+    disaster_recovery_evidence/0,
     entitlement_event/0,
+    entitlement_evidence/0,
     entitlement_state/0,
     event_log/0,
     event_type/0,
+    evidence_freshness_evidence/0,
     heuristic_arc/0,
+    incident_response_evidence/0,
     k8s_object_ref/0,
+    least_authority_evidence/0,
+    license_evidence/0,
     log_trace/0,
+    multiarch_evidence/0,
+    mutable_identity_refusal_evidence/0,
     object_attribute_change/0,
     object_type/0,
     oc_declare_constraint/0,
@@ -60,23 +134,84 @@
     ocel_event/0,
     ocel_object/0,
     ocel_relationship/0,
+    oci_manifest_evidence/0,
+    offline_bundle_evidence/0,
     path_schema/0,
     path_schema_query/0,
+    performance_slo_evidence/0,
     petri_arc/0,
     petri_place/0,
     petri_transition/0,
     planning_action/0,
     planning_state/0,
     policy_decision/0,
+    privacy_classification_evidence/0,
+    private_registry_evidence/0,
     process_variant/0,
+    procurement_acceptance_evidence/0,
+    provenance_binding_evidence/0,
     queue_snapshot/0,
+    receipt_replay_evidence/0,
+    remediation_sla_evidence/0,
+    reproducible_build_evidence/0,
+    residency_evidence/0,
     resource_allocation/0,
+    retention_policy_evidence/0,
+    rfp_response_evidence/0,
+    rollback_evidence/0,
+    sbom_inventory_evidence/0,
+    secret_boundary_evidence/0,
     service_span/0,
+    signature_evidence/0,
     sojourn_time/0,
+    stale_subject_refusal_evidence/0,
+    support_escalation_evidence/0,
+    support_sla_evidence/0,
+    support_window_evidence/0,
     sync_time/0,
     type_edge/0,
-    usage_event/0
+    unsupported_capability_evidence/0,
+    upgrade_evidence/0,
+    usage_event/0,
+    vendor_risk_evidence/0,
+    version_lifecycle_evidence/0,
+    vulnerability_scan_evidence/0
 ]).
+
+%% Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.
+-record(action_pin_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this immutable action pin observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    action_sha :: binary(), %% action_sha: Immutable commit SHA resolved for the admitted workflow action.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type action_pin_evidence() :: #action_pin_evidence{}.
+
+-spec new_action_pin_evidence(map()) -> {ok, action_pin_evidence()} | {error, {missing_field, atom()}}.
+new_action_pin_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(action_sha, Map) of
+        false -> {error, {missing_field, action_sha}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #action_pin_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        action_sha = maps:get(action_sha, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
 
 %% One step of a conformance-checking alignment between log and model.
 -record(alignment_move, {
@@ -98,6 +233,251 @@ new_alignment_move(Map) ->
         move_type = maps:get(move_type, Map, undefined),
         cost = maps:get(cost, Map, undefined)
     }}
+    end
+    end.
+
+%% Executable segregation-of-duties evidence binding an exact subject to an approver distinct from its producer.
+-record(approval_separation_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this approval-separation observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    approver_identity :: binary(), %% approver_identity: Identity of the independent approver observed by the control.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type approval_separation_evidence() :: #approval_separation_evidence{}.
+
+-spec new_approval_separation_evidence(map()) -> {ok, approval_separation_evidence()} | {error, {missing_field, atom()}}.
+new_approval_separation_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(approver_identity, Map) of
+        false -> {error, {missing_field, approver_identity}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #approval_separation_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        approver_identity = maps:get(approver_identity, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable architecture-review evidence binding an exact subject to the decision produced by the admitted review.
+-record(architecture_review_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this architecture-review observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    review_decision :: binary(), %% review_decision: Observed architecture review decision for the subject.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type architecture_review_evidence() :: #architecture_review_evidence{}.
+
+-spec new_architecture_review_evidence(map()) -> {ok, architecture_review_evidence()} | {error, {missing_field, atom()}}.
+new_architecture_review_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(review_decision, Map) of
+        false -> {error, {missing_field, review_decision}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #architecture_review_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        review_decision = maps:get(review_decision, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable artifact-integrity evidence binding an exact commercial subject to the digest actually observed by the verifier.
+-record(artifact_digest_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this artifact digest observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    digest :: binary(), %% digest: Content digest observed for the admitted commercial artifact.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type artifact_digest_evidence() :: #artifact_digest_evidence{}.
+
+-spec new_artifact_digest_evidence(map()) -> {ok, artifact_digest_evidence()} | {error, {missing_field, atom()}}.
+new_artifact_digest_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(digest, Map) of
+        false -> {error, {missing_field, digest}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #artifact_digest_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        digest = maps:get(digest, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
+-record(attestation_verification_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this attestation verification observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    predicate_type :: binary(), %% predicate_type: Verified in-toto predicate type carried by the attestation.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type attestation_verification_evidence() :: #attestation_verification_evidence{}.
+
+-spec new_attestation_verification_evidence(map()) -> {ok, attestation_verification_evidence()} | {error, {missing_field, atom()}}.
+new_attestation_verification_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(predicate_type, Map) of
+        false -> {error, {missing_field, predicate_type}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #attestation_verification_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        predicate_type = maps:get(predicate_type, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable audit evidence binding an exact subject receipt to its immutable predecessor.
+-record(audit_chain_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this audit-chain observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    previous_receipt_hash :: binary(), %% previous_receipt_hash: Hash of the preceding receipt in the observed audit chain.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type audit_chain_evidence() :: #audit_chain_evidence{}.
+
+-spec new_audit_chain_evidence(map()) -> {ok, audit_chain_evidence()} | {error, {missing_field, atom()}}.
+new_audit_chain_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(previous_receipt_hash, Map) of
+        false -> {error, {missing_field, previous_receipt_hash}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #audit_chain_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        previous_receipt_hash = maps:get(previous_receipt_hash, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable availability evidence binding an exact subject to the service level actually observed over the admitted window.
+-record(availability_slo_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this availability-SLO observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    availability_percent :: float(), %% availability_percent: Observed availability ratio for the exact subject and measurement window.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type availability_slo_evidence() :: #availability_slo_evidence{}.
+
+-spec new_availability_slo_evidence(map()) -> {ok, availability_slo_evidence()} | {error, {missing_field, atom()}}.
+new_availability_slo_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(availability_percent, Map) of
+        false -> {error, {missing_field, availability_percent}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #availability_slo_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        availability_percent = maps:get(availability_percent, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable recovery evidence binding an exact subject to the backup artifact successfully restored.
+-record(backup_restore_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this backup-restore observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    backup_digest :: binary(), %% backup_digest: Digest of the backup artifact admitted by the restore operation.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type backup_restore_evidence() :: #backup_restore_evidence{}.
+
+-spec new_backup_restore_evidence(map()) -> {ok, backup_restore_evidence()} | {error, {missing_field, atom()}}.
+new_backup_restore_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(backup_digest, Map) of
+        false -> {error, {missing_field, backup_digest}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #backup_restore_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        backup_digest = maps:get(backup_digest, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
     end
     end.
 
@@ -148,6 +528,76 @@ new_billing_reconciliation(Map) ->
     end
     end.
 
+%% Executable continuity evidence binding an exact subject to the fallback operating mode actually entered.
+-record(business_continuity_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this business-continuity observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    continuity_mode :: binary(), %% continuity_mode: Observed fallback mode used to preserve admitted operations.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type business_continuity_evidence() :: #business_continuity_evidence{}.
+
+-spec new_business_continuity_evidence(map()) -> {ok, business_continuity_evidence()} | {error, {missing_field, atom()}}.
+new_business_continuity_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(continuity_mode, Map) of
+        false -> {error, {missing_field, continuity_mode}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #business_continuity_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        continuity_mode = maps:get(continuity_mode, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable canary evidence binding an exact subject to the traffic fraction actually admitted before promotion.
+-record(canary_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this canary-release observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    canary_percentage :: float(), %% canary_percentage: Observed fraction of production traffic routed to the canary subject.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type canary_evidence() :: #canary_evidence{}.
+
+-spec new_canary_evidence(map()) -> {ok, canary_evidence()} | {error, {missing_field, atom()}}.
+new_canary_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(canary_percentage, Map) of
+        false -> {error, {missing_field, canary_percentage}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #canary_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        canary_percentage = maps:get(canary_percentage, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Aggregate statistics computed for one process instance (case).
 -record(case_stats, {
     case_id :: binary(), %% case_id: Unique case identifier.
@@ -170,6 +620,76 @@ new_case_stats(Map) ->
         event_count = maps:get(event_count, Map, undefined),
         duration_seconds = maps:get(duration_seconds, Map, undefined)
     }}
+    end
+    end.
+
+%% Executable change-control evidence binding an exact subject to the approved request governing its mutation.
+-record(change_control_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this change-control observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    change_request_id :: binary(), %% change_request_id: Identity of the change request observed at the deployment boundary.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type change_control_evidence() :: #change_control_evidence{}.
+
+-spec new_change_control_evidence(map()) -> {ok, change_control_evidence()} | {error, {missing_field, atom()}}.
+new_change_control_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(change_request_id, Map) of
+        false -> {error, {missing_field, change_request_id}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #change_control_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        change_request_id = maps:get(change_request_id, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable commercial-release evidence binding the exact paid artifact to the cumulative trust evidence crown.
+-record(commercial_artifact_crown_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this commercial-artifact crown observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    artifact_digest :: binary(), %% artifact_digest: Digest of the exact commercial artifact evaluated by the cumulative crown.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type commercial_artifact_crown_evidence() :: #commercial_artifact_crown_evidence{}.
+
+-spec new_commercial_artifact_crown_evidence(map()) -> {ok, commercial_artifact_crown_evidence()} | {error, {missing_field, atom()}}.
+new_commercial_artifact_crown_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(artifact_digest, Map) of
+        false -> {error, {missing_field, artifact_digest}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #commercial_artifact_crown_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        artifact_digest = maps:get(artifact_digest, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
     end
     end.
 
@@ -198,6 +718,146 @@ new_conformance_result(Map) ->
     end
     end.
 
+%% Executable encryption evidence binding an exact subject to the customer-managed key identity actually used.
+-record(customer_managed_key_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this customer-managed-key observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    key_identifier :: binary(), %% key_identifier: Non-secret identifier of the customer-managed key observed at encryption.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type customer_managed_key_evidence() :: #customer_managed_key_evidence{}.
+
+-spec new_customer_managed_key_evidence(map()) -> {ok, customer_managed_key_evidence()} | {error, {missing_field, atom()}}.
+new_customer_managed_key_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(key_identifier, Map) of
+        false -> {error, {missing_field, key_identifier}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #customer_managed_key_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        key_identifier = maps:get(key_identifier, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable egress evidence binding an exact subject to the bytes observed crossing its admitted data boundary.
+-record(data_egress_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this data-egress observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    egress_bytes :: integer(), %% egress_bytes: Observed byte count crossing the controlled egress boundary.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type data_egress_evidence() :: #data_egress_evidence{}.
+
+-spec new_data_egress_evidence(map()) -> {ok, data_egress_evidence()} | {error, {missing_field, atom()}}.
+new_data_egress_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(egress_bytes, Map) of
+        false -> {error, {missing_field, egress_bytes}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #data_egress_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        egress_bytes = maps:get(egress_bytes, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable deletion evidence binding an exact subject to a verifiable deletion receipt.
+-record(deletion_proof_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this deletion-proof observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    deletion_receipt_id :: binary(), %% deletion_receipt_id: Identity of the receipt emitted by the completed deletion operation.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type deletion_proof_evidence() :: #deletion_proof_evidence{}.
+
+-spec new_deletion_proof_evidence(map()) -> {ok, deletion_proof_evidence()} | {error, {missing_field, atom()}}.
+new_deletion_proof_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(deletion_receipt_id, Map) of
+        false -> {error, {missing_field, deletion_receipt_id}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #deletion_proof_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        deletion_receipt_id = maps:get(deletion_receipt_id, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.
+-record(dependency_inventory_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this dependency inventory observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    dependency_count :: integer(), %% dependency_count: Observed number of resolved direct and transitive dependencies.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type dependency_inventory_evidence() :: #dependency_inventory_evidence{}.
+
+-spec new_dependency_inventory_evidence(map()) -> {ok, dependency_inventory_evidence()} | {error, {missing_field, atom()}}.
+new_dependency_inventory_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(dependency_count, Map) of
+        false -> {error, {missing_field, dependency_count}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #dependency_inventory_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        dependency_count = maps:get(dependency_count, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One frequency-annotated directly-follows edge between two activities.
 -record(dfg_edge, {
     source_activity :: binary(), %% source_activity: The preceding activity name.
@@ -223,6 +883,41 @@ new_dfg_edge(Map) ->
         target_activity = maps:get(target_activity, Map, undefined),
         frequency = maps:get(frequency, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Executable disaster-recovery evidence binding an exact subject to the instant service recovery was observed.
+-record(disaster_recovery_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this disaster-recovery observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    recovered_at :: binary(), %% recovered_at: UTC instant at which the recovered subject passed its availability probe.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type disaster_recovery_evidence() :: #disaster_recovery_evidence{}.
+
+-spec new_disaster_recovery_evidence(map()) -> {ok, disaster_recovery_evidence()} | {error, {missing_field, atom()}}.
+new_disaster_recovery_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(recovered_at, Map) of
+        false -> {error, {missing_field, recovered_at}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #disaster_recovery_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        recovered_at = maps:get(recovered_at, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -258,6 +953,41 @@ new_entitlement_event(Map) ->
         event_type = maps:get(event_type, Map, undefined),
         effective_at = maps:get(effective_at, Map, undefined),
         payload = maps:get(payload, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable entitlement evidence binding an exact subject to the paid capability grant actually evaluated.
+-record(entitlement_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this entitlement observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    entitlement_id :: binary(), %% entitlement_id: Identity of the entitlement evaluated at the capability boundary.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type entitlement_evidence() :: #entitlement_evidence{}.
+
+-spec new_entitlement_evidence(map()) -> {ok, entitlement_evidence()} | {error, {missing_field, atom()}}.
+new_entitlement_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(entitlement_id, Map) of
+        false -> {error, {missing_field, entitlement_id}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #entitlement_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        entitlement_id = maps:get(entitlement_id, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
     end
@@ -343,6 +1073,41 @@ new_event_type(Map) ->
     }}
     end.
 
+%% Executable freshness evidence binding an exact subject to the observation instant used by policy.
+-record(evidence_freshness_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this evidence-freshness observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    observed_at :: binary(), %% observed_at: UTC instant at which the subject evidence was observed.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type evidence_freshness_evidence() :: #evidence_freshness_evidence{}.
+
+-spec new_evidence_freshness_evidence(map()) -> {ok, evidence_freshness_evidence()} | {error, {missing_field, atom()}}.
+new_evidence_freshness_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #evidence_freshness_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One dependency-scored candidate arc considered during heuristic-net discovery.
 -record(heuristic_arc, {
     source_activity :: binary(), %% source_activity: The candidate arc source activity.
@@ -372,6 +1137,41 @@ new_heuristic_arc(Map) ->
     end
     end.
 
+%% Executable incident evidence binding an exact subject to the response case opened by a real detection.
+-record(incident_response_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this incident-response observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    incident_id :: binary(), %% incident_id: Identity of the incident response case observed by the control.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type incident_response_evidence() :: #incident_response_evidence{}.
+
+-spec new_incident_response_evidence(map()) -> {ok, incident_response_evidence()} | {error, {missing_field, atom()}}.
+new_incident_response_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(incident_id, Map) of
+        false -> {error, {missing_field, incident_id}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #incident_response_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        incident_id = maps:get(incident_id, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% A reference to one Kubernetes object observed in the runtime topology.
 -record(k8s_object_ref, {
     kind :: binary(), %% kind: The Kubernetes object kind (e.g. Pod, Deployment).
@@ -397,6 +1197,76 @@ new_k8s_object_ref(Map) ->
     end
     end.
 
+%% Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
+-record(least_authority_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this least-authority permission observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    granted_permissions :: [binary()], %% granted_permissions: Canonical set of permissions observed at the execution boundary.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type least_authority_evidence() :: #least_authority_evidence{}.
+
+-spec new_least_authority_evidence(map()) -> {ok, least_authority_evidence()} | {error, {missing_field, atom()}}.
+new_least_authority_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(granted_permissions, Map) of
+        false -> {error, {missing_field, granted_permissions}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #least_authority_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        granted_permissions = maps:get(granted_permissions, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable licensing evidence binding an exact subject to its machine-verified SPDX expression.
+-record(license_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this license-expression observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    license_expression :: binary(), %% license_expression: SPDX license expression observed for the commercial subject.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type license_evidence() :: #license_evidence{}.
+
+-spec new_license_evidence(map()) -> {ok, license_evidence()} | {error, {missing_field, atom()}}.
+new_license_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(license_expression, Map) of
+        false -> {error, {missing_field, license_expression}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #license_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        license_expression = maps:get(license_expression, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One case-centric trace: an ordered activity sequence for a single case.
 -record(log_trace, {
     case_id :: binary(), %% case_id: Identifier of the case this trace belongs to.
@@ -417,6 +1287,76 @@ new_log_trace(Map) ->
         case_id = maps:get(case_id, Map, undefined),
         activity_sequence = maps:get(activity_sequence, Map, undefined)
     }}
+    end
+    end.
+
+%% Executable architecture evidence binding an exact subject to the platform set actually present in its OCI index.
+-record(multiarch_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this multi-architecture observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    platforms :: [binary()], %% platforms: Canonical set of platforms observed in the admitted OCI index.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type multiarch_evidence() :: #multiarch_evidence{}.
+
+-spec new_multiarch_evidence(map()) -> {ok, multiarch_evidence()} | {error, {missing_field, atom()}}.
+new_multiarch_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(platforms, Map) of
+        false -> {error, {missing_field, platforms}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #multiarch_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        platforms = maps:get(platforms, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable refusal evidence recording the mutable artifact reference rejected by procurement policy.
+-record(mutable_identity_refusal_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this mutable-identity refusal observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    mutable_reference :: binary(), %% mutable_reference: Mutable reference observed and refused before artifact admission.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type mutable_identity_refusal_evidence() :: #mutable_identity_refusal_evidence{}.
+
+-spec new_mutable_identity_refusal_evidence(map()) -> {ok, mutable_identity_refusal_evidence()} | {error, {missing_field, atom()}}.
+new_mutable_identity_refusal_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(mutable_reference, Map) of
+        false -> {error, {missing_field, mutable_reference}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #mutable_identity_refusal_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        mutable_reference = maps:get(mutable_reference, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
     end
     end.
 
@@ -615,6 +1555,76 @@ new_ocel_relationship(Map) ->
     end
     end.
 
+%% Executable OCI evidence binding an exact subject to its verified manifest-list identity.
+-record(oci_manifest_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this OCI-manifest observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    manifest_digest :: binary(), %% manifest_digest: Digest of the OCI manifest or index verified for the subject.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type oci_manifest_evidence() :: #oci_manifest_evidence{}.
+
+-spec new_oci_manifest_evidence(map()) -> {ok, oci_manifest_evidence()} | {error, {missing_field, atom()}}.
+new_oci_manifest_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(manifest_digest, Map) of
+        false -> {error, {missing_field, manifest_digest}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #oci_manifest_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        manifest_digest = maps:get(manifest_digest, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable private-deployment evidence binding an exact subject to a verified offline installation bundle.
+-record(offline_bundle_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this offline-bundle observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    bundle_digest :: binary(), %% bundle_digest: Digest of the offline bundle admitted by the verifier.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type offline_bundle_evidence() :: #offline_bundle_evidence{}.
+
+-spec new_offline_bundle_evidence(map()) -> {ok, offline_bundle_evidence()} | {error, {missing_field, atom()}}.
+new_offline_bundle_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(bundle_digest, Map) of
+        false -> {error, {missing_field, bundle_digest}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #offline_bundle_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        bundle_digest = maps:get(bundle_digest, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One reusable, scored connection pattern between two OCEL types.
 -record(path_schema, {
     schema_id :: binary(), %% schema_id: Unique path schema identifier.
@@ -675,6 +1685,41 @@ new_path_schema_query(Map) ->
         target_type = maps:get(target_type, Map, undefined),
         max_length = maps:get(max_length, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Executable performance evidence binding an exact subject to the percentile latency actually measured.
+-record(performance_slo_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this performance-SLO observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    latency_p95_ms :: integer(), %% latency_p95_ms: Observed p95 end-to-end latency in milliseconds for the admitted subject.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type performance_slo_evidence() :: #performance_slo_evidence{}.
+
+-spec new_performance_slo_evidence(map()) -> {ok, performance_slo_evidence()} | {error, {missing_field, atom()}}.
+new_performance_slo_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(latency_p95_ms, Map) of
+        false -> {error, {missing_field, latency_p95_ms}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #performance_slo_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        latency_p95_ms = maps:get(latency_p95_ms, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -819,6 +1864,76 @@ new_policy_decision(Map) ->
     end
     end.
 
+%% Executable privacy evidence binding an exact subject to the classification enforced for its handled data.
+-record(privacy_classification_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this privacy-classification observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    privacy_class :: binary(), %% privacy_class: Privacy classification observed at the enforcement boundary.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type privacy_classification_evidence() :: #privacy_classification_evidence{}.
+
+-spec new_privacy_classification_evidence(map()) -> {ok, privacy_classification_evidence()} | {error, {missing_field, atom()}}.
+new_privacy_classification_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(privacy_class, Map) of
+        false -> {error, {missing_field, privacy_class}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #privacy_classification_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        privacy_class = maps:get(privacy_class, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable private-registry evidence binding an exact subject to the digest pulled from the authorized registry.
+-record(private_registry_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this private-registry observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    registry_digest :: binary(), %% registry_digest: Digest observed after resolving the subject from the private registry.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type private_registry_evidence() :: #private_registry_evidence{}.
+
+-spec new_private_registry_evidence(map()) -> {ok, private_registry_evidence()} | {error, {missing_field, atom()}}.
+new_private_registry_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(registry_digest, Map) of
+        false -> {error, {missing_field, registry_digest}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #private_registry_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        registry_digest = maps:get(registry_digest, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One distinct activity-sequence variant observed in a log, with its frequency.
 -record(process_variant, {
     variant_id :: binary(), %% variant_id: Unique variant identifier.
@@ -844,6 +1959,76 @@ new_process_variant(Map) ->
         activity_sequence = maps:get(activity_sequence, Map, undefined),
         frequency = maps:get(frequency, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Executable procurement evidence binding the exact commercial subject to the final decision derived from admitted controls.
+-record(procurement_acceptance_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this procurement-acceptance observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    acceptance_decision :: binary(), %% acceptance_decision: Observed procurement decision derived from the exact subject evidence set.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type procurement_acceptance_evidence() :: #procurement_acceptance_evidence{}.
+
+-spec new_procurement_acceptance_evidence(map()) -> {ok, procurement_acceptance_evidence()} | {error, {missing_field, atom()}}.
+new_procurement_acceptance_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(acceptance_decision, Map) of
+        false -> {error, {missing_field, acceptance_decision}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #procurement_acceptance_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        acceptance_decision = maps:get(acceptance_decision, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
+-record(provenance_binding_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this provenance observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    builder_identity :: binary(), %% builder_identity: Immutable identity of the builder that emitted the provenance.
+    observed_result :: atom() %% observed_result: Observed verification consequence: verified or refused.
+}).
+
+-type provenance_binding_evidence() :: #provenance_binding_evidence{}.
+
+-spec new_provenance_binding_evidence(map()) -> {ok, provenance_binding_evidence()} | {error, {missing_field, atom()}}.
+new_provenance_binding_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(builder_identity, Map) of
+        false -> {error, {missing_field, builder_identity}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #provenance_binding_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        builder_identity = maps:get(builder_identity, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -877,6 +2062,146 @@ new_queue_snapshot(Map) ->
     end
     end.
 
+%% Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt.
+-record(receipt_replay_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this receipt-replay observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    replay_result_hash :: binary(), %% replay_result_hash: Hash of the consequence reproduced by receipt replay.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type receipt_replay_evidence() :: #receipt_replay_evidence{}.
+
+-spec new_receipt_replay_evidence(map()) -> {ok, receipt_replay_evidence()} | {error, {missing_field, atom()}}.
+new_receipt_replay_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(replay_result_hash, Map) of
+        false -> {error, {missing_field, replay_result_hash}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #receipt_replay_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        replay_result_hash = maps:get(replay_result_hash, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable remediation evidence binding an exact subject and finding to its enforced due instant.
+-record(remediation_sla_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this remediation-SLA observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    remediation_due_at :: binary(), %% remediation_due_at: UTC deadline enforced for remediation of the admitted finding.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type remediation_sla_evidence() :: #remediation_sla_evidence{}.
+
+-spec new_remediation_sla_evidence(map()) -> {ok, remediation_sla_evidence()} | {error, {missing_field, atom()}}.
+new_remediation_sla_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(remediation_due_at, Map) of
+        false -> {error, {missing_field, remediation_due_at}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #remediation_sla_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        remediation_due_at = maps:get(remediation_due_at, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable reproducibility evidence binding an exact subject to the independently reproduced build digest.
+-record(reproducible_build_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this reproducible-build observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    build_digest :: binary(), %% build_digest: Digest observed from the independent reproduction build.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type reproducible_build_evidence() :: #reproducible_build_evidence{}.
+
+-spec new_reproducible_build_evidence(map()) -> {ok, reproducible_build_evidence()} | {error, {missing_field, atom()}}.
+new_reproducible_build_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(build_digest, Map) of
+        false -> {error, {missing_field, build_digest}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #reproducible_build_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        build_digest = maps:get(build_digest, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.
+-record(residency_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this data-residency observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    region :: binary(), %% region: Observed region for the controlled data operation.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type residency_evidence() :: #residency_evidence{}.
+
+-spec new_residency_evidence(map()) -> {ok, residency_evidence()} | {error, {missing_field, atom()}}.
+new_residency_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(region, Map) of
+        false -> {error, {missing_field, region}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #residency_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        region = maps:get(region, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One recorded assignment of a resource to an activity occurrence.
 -record(resource_allocation, {
     resource_id :: binary(), %% resource_id: Identifier of the assigned resource.
@@ -902,6 +2227,181 @@ new_resource_allocation(Map) ->
         activity = maps:get(activity, Map, undefined),
         event_id = maps:get(event_id, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Executable retention evidence binding an exact subject to the duration enforced by the storage lifecycle.
+-record(retention_policy_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this retention-policy observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    retention_days :: integer(), %% retention_days: Enforced number of days before lifecycle expiry.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type retention_policy_evidence() :: #retention_policy_evidence{}.
+
+-spec new_retention_policy_evidence(map()) -> {ok, retention_policy_evidence()} | {error, {missing_field, atom()}}.
+new_retention_policy_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(retention_days, Map) of
+        false -> {error, {missing_field, retention_days}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #retention_policy_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        retention_days = maps:get(retention_days, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
+-record(rfp_response_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this RFP-response observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    answer_set_hash :: binary(), %% answer_set_hash: Digest of the answer set derived from verified subject facts.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type rfp_response_evidence() :: #rfp_response_evidence{}.
+
+-spec new_rfp_response_evidence(map()) -> {ok, rfp_response_evidence()} | {error, {missing_field, atom()}}.
+new_rfp_response_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(answer_set_hash, Map) of
+        false -> {error, {missing_field, answer_set_hash}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #rfp_response_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        answer_set_hash = maps:get(answer_set_hash, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable rollback evidence binding an exact subject to the artifact identity restored by a real rollback transition.
+-record(rollback_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this rollback observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    rollback_digest :: binary(), %% rollback_digest: Digest of the prior artifact restored by the rollback operation.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type rollback_evidence() :: #rollback_evidence{}.
+
+-spec new_rollback_evidence(map()) -> {ok, rollback_evidence()} | {error, {missing_field, atom()}}.
+new_rollback_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(rollback_digest, Map) of
+        false -> {error, {missing_field, rollback_digest}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #rollback_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        rollback_digest = maps:get(rollback_digest, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable SBOM evidence binding an exact commercial subject to the observed component inventory cardinality.
+-record(sbom_inventory_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this SBOM inventory observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    component_count :: integer(), %% component_count: Observed number of components in the parsed SBOM inventory.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type sbom_inventory_evidence() :: #sbom_inventory_evidence{}.
+
+-spec new_sbom_inventory_evidence(map()) -> {ok, sbom_inventory_evidence()} | {error, {missing_field, atom()}}.
+new_sbom_inventory_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(component_count, Map) of
+        false -> {error, {missing_field, component_count}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #sbom_inventory_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        component_count = maps:get(component_count, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable secrets-boundary evidence proving the admitted subject used an authorized credential source.
+-record(secret_boundary_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this secret-boundary observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    secret_source :: binary(), %% secret_source: Observed source of credentials used by the execution.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type secret_boundary_evidence() :: #secret_boundary_evidence{}.
+
+-spec new_secret_boundary_evidence(map()) -> {ok, secret_boundary_evidence()} | {error, {missing_field, atom()}}.
+new_secret_boundary_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(secret_source, Map) of
+        false -> {error, {missing_field, secret_source}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #secret_boundary_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        secret_source = maps:get(secret_source, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -937,6 +2437,41 @@ new_service_span(Map) ->
     end
     end.
 
+%% Executable signature evidence binding an exact subject to the workload identity accepted by cryptographic verification.
+-record(signature_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this artifact-signature observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    signature_identity :: binary(), %% signature_identity: Workload identity observed in the verified artifact signature.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type signature_evidence() :: #signature_evidence{}.
+
+-spec new_signature_evidence(map()) -> {ok, signature_evidence()} | {error, {missing_field, atom()}}.
+new_signature_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(signature_identity, Map) of
+        false -> {error, {missing_field, signature_identity}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #signature_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        signature_identity = maps:get(signature_identity, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric).
 -record(sojourn_time, {
     object_id :: binary(), %% object_id: Identifier of the object this measurement is for.
@@ -962,6 +2497,146 @@ new_sojourn_time(Map) ->
         event_type = maps:get(event_type, Map, undefined),
         seconds = maps:get(seconds, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial.
+-record(stale_subject_refusal_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this stale-subject refusal observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    stale_sha :: binary(), %% stale_sha: Stale subject SHA observed and refused by exact-head policy.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type stale_subject_refusal_evidence() :: #stale_subject_refusal_evidence{}.
+
+-spec new_stale_subject_refusal_evidence(map()) -> {ok, stale_subject_refusal_evidence()} | {error, {missing_field, atom()}}.
+new_stale_subject_refusal_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(stale_sha, Map) of
+        false -> {error, {missing_field, stale_sha}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #stale_subject_refusal_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        stale_sha = maps:get(stale_sha, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable support evidence binding an exact subject to the accountable escalation owner.
+-record(support_escalation_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this support-escalation observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    escalation_owner :: binary(), %% escalation_owner: Observed accountable owner of the admitted escalation.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type support_escalation_evidence() :: #support_escalation_evidence{}.
+
+-spec new_support_escalation_evidence(map()) -> {ok, support_escalation_evidence()} | {error, {missing_field, atom()}}.
+new_support_escalation_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(escalation_owner, Map) of
+        false -> {error, {missing_field, escalation_owner}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #support_escalation_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        escalation_owner = maps:get(escalation_owner, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable support evidence binding an exact subject to the response latency actually observed.
+-record(support_sla_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this support-SLA observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    response_minutes :: integer(), %% response_minutes: Observed minutes from support intake to acknowledged response.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type support_sla_evidence() :: #support_sla_evidence{}.
+
+-spec new_support_sla_evidence(map()) -> {ok, support_sla_evidence()} | {error, {missing_field, atom()}}.
+new_support_sla_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(response_minutes, Map) of
+        false -> {error, {missing_field, response_minutes}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #support_sla_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        response_minutes = maps:get(response_minutes, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable support-window evidence binding an exact subject to the channel available during the observed coverage window.
+-record(support_window_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this support-window observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    support_channel :: binary(), %% support_channel: Observed support channel satisfying the admitted coverage window.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type support_window_evidence() :: #support_window_evidence{}.
+
+-spec new_support_window_evidence(map()) -> {ok, support_window_evidence()} | {error, {missing_field, atom()}}.
+new_support_window_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(support_channel, Map) of
+        false -> {error, {missing_field, support_channel}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #support_window_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        support_channel = maps:get(support_channel, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -1026,6 +2701,76 @@ new_type_edge(Map) ->
     end
     end.
 
+%% Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses.
+-record(unsupported_capability_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this unsupported-capability observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    capability_name :: binary(), %% capability_name: Capability name observed at the unsupported routing boundary.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type unsupported_capability_evidence() :: #unsupported_capability_evidence{}.
+
+-spec new_unsupported_capability_evidence(map()) -> {ok, unsupported_capability_evidence()} | {error, {missing_field, atom()}}.
+new_unsupported_capability_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(capability_name, Map) of
+        false -> {error, {missing_field, capability_name}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #unsupported_capability_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        capability_name = maps:get(capability_name, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable upgrade evidence binding an exact subject to the source version accepted by the migration path.
+-record(upgrade_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this upgrade-assurance observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    from_version :: binary(), %% from_version: Version from which the observed upgrade execution began.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type upgrade_evidence() :: #upgrade_evidence{}.
+
+-spec new_upgrade_evidence(map()) -> {ok, upgrade_evidence()} | {error, {missing_field, atom()}}.
+new_upgrade_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(from_version, Map) of
+        false -> {error, {missing_field, from_version}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #upgrade_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        from_version = maps:get(from_version, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% One metered usage/consumption occurrence to be billed against an entitlement. event_id is the idempotency key that is ALSO the operationId reported to the provider's usage API, so local dedup and provider-side dedup are keyed identically and can never disagree.
 -record(usage_event, {
     event_id :: binary(), %% event_id: DEDUP KEY. Stable, deterministic, locally minted identifier for this metered occurrence -- and the exact value sent as operationId on the Service Control services.report call, which is the provider's own documented deduplication mechanism. It MUST be derived from the occurrence itself, never from a random UUID or a wall clock: a re-minted id on retry would defeat both local and provider-side dedup and double bill. Counting the same event_id twice in a billing_reconciliation.total_quantity is the exact MP6 failure.
@@ -1062,6 +2807,111 @@ new_usage_event(Map) ->
         occurred_at = maps:get(occurred_at, Map, undefined)
     }}
     end
+    end
+    end
+    end
+    end.
+
+%% Executable vendor-risk evidence binding an exact subject to the risk score emitted from verified controls.
+-record(vendor_risk_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this vendor-risk observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    risk_score :: float(), %% risk_score: Observed normalized vendor-risk score derived from executable evidence.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type vendor_risk_evidence() :: #vendor_risk_evidence{}.
+
+-spec new_vendor_risk_evidence(map()) -> {ok, vendor_risk_evidence()} | {error, {missing_field, atom()}}.
+new_vendor_risk_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(risk_score, Map) of
+        false -> {error, {missing_field, risk_score}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #vendor_risk_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        risk_score = maps:get(risk_score, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable lifecycle evidence binding an exact subject version to its enforced support horizon.
+-record(version_lifecycle_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this version-lifecycle observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    supported_until :: binary(), %% supported_until: UTC instant through which the subject version is admitted for support.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type version_lifecycle_evidence() :: #version_lifecycle_evidence{}.
+
+-spec new_version_lifecycle_evidence(map()) -> {ok, version_lifecycle_evidence()} | {error, {missing_field, atom()}}.
+new_version_lifecycle_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(supported_until, Map) of
+        false -> {error, {missing_field, supported_until}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #version_lifecycle_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        supported_until = maps:get(supported_until, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executable vulnerability evidence binding an exact subject to the findings actually emitted by a scanner.
+-record(vulnerability_scan_evidence, {
+    evidence_id :: binary(), %% evidence_id: Content-addressed identity of this vulnerability-scan observation.
+    subject_sha :: binary(), %% subject_sha: Exact immutable beam4pm commit verified by this observation.
+    vulnerability_count :: integer(), %% vulnerability_count: Observed count of admitted vulnerability findings.
+    observed_result :: atom() %% observed_result: Observed verifier consequence: verified or refused.
+}).
+
+-type vulnerability_scan_evidence() :: #vulnerability_scan_evidence{}.
+
+-spec new_vulnerability_scan_evidence(map()) -> {ok, vulnerability_scan_evidence()} | {error, {missing_field, atom()}}.
+new_vulnerability_scan_evidence(Map) ->
+    case maps:is_key(evidence_id, Map) of
+        false -> {error, {missing_field, evidence_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(vulnerability_count, Map) of
+        false -> {error, {missing_field, vulnerability_count}};
+        true ->
+    case maps:is_key(observed_result, Map) of
+        false -> {error, {missing_field, observed_result}};
+        true ->
+    {ok, #vulnerability_scan_evidence{
+        evidence_id = maps:get(evidence_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        vulnerability_count = maps:get(vulnerability_count, Map, undefined),
+        observed_result = maps:get(observed_result, Map, undefined)
+    }}
     end
     end
     end
