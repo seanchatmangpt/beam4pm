@@ -9,6 +9,18 @@
 import gleam/dict
 import gleam/option
 
+/// Admits a source account only when it is bound to one canonical Fortune-5 account by immutable matching evidence; prevents pipeline value from being booked against an ambiguous customer identity.
+pub type AccountMasterMatch {
+  AccountMasterMatch(
+    /// Required commercial-admission input for account master match. Missing input is a typed refusal.
+    source_account_id: String,
+    /// Required commercial-admission input for account master match. Missing input is a typed refusal.
+    canonical_account_id: String,
+    /// Immutable evidence identity that makes this admission independently replayable.
+    match_evidence_hash: String,
+  )
+}
+
 /// One step of a conformance-checking alignment between log and model.
 pub type AlignmentMove {
   AlignmentMove(

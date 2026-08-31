@@ -21,6 +21,43 @@ defmodule BeamPM.Codec.GeneratedTest do
              BeamPM.Codec.decode(:not_a_real_record, "[1,2,3]")
   end
 
+  test "account_master_match to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      source_account_id: "sample_source_account_id",
+      canonical_account_id: "sample_canonical_account_id",
+      match_evidence_hash: "sample_match_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AccountMasterMatch.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["source_account_id"] == "sample_source_account_id"
+    assert m["canonical_account_id"] == "sample_canonical_account_id"
+    assert m["match_evidence_hash"] == "sample_match_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:account_master_match, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:account_master_match, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "account_master_match encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      source_account_id: "sample_source_account_id",
+      canonical_account_id: "sample_canonical_account_id",
+      match_evidence_hash: "sample_match_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AccountMasterMatch.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:account_master_match, json)
+  end
+
+  test "account_master_match from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :source_account_id}} =
+             BeamPM.Codec.from_map(:account_master_match, %{})
+  end
+
+
   test "alignment_move to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       move_type: :sample_atom,

@@ -2520,3 +2520,25 @@ b4pe:billing_reconciliation_period_end_f a bpm:Field ;
     bpm:fieldDoc "ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
 
+# WS1-REV-001 — account_master_match
+b4p:account_master_match_rt a bpm:RecordType ;
+    bpm:recordName "account_master_match" ;
+    bpm:recordDoc "Admits a source account only when it is bound to one canonical Fortune-5 account by immutable matching evidence; prevents pipeline value from being booked against an ambiguous customer identity." ;
+    bpm:hasField b4p:account_master_match_source_account_id_f ,
+                 b4p:account_master_match_canonical_account_id_f ,
+                 b4p:account_master_match_match_evidence_hash_f .
+
+b4p:account_master_match_source_account_id_f a bpm:Field ;
+    bpm:fieldName "source_account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required commercial-admission input for account master match. Missing input is a typed refusal." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:account_master_match_canonical_account_id_f a bpm:Field ;
+    bpm:fieldName "canonical_account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required commercial-admission input for account master match. Missing input is a typed refusal." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:account_master_match_match_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "match_evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity that makes this admission independently replayable." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

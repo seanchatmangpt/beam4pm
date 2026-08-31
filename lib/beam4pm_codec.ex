@@ -14,6 +14,14 @@ defmodule BeamPM.Codec do
   """
 
   @spec to_map(struct()) :: %{String.t() => term()}
+  def to_map(%BeamPM.Types.AccountMasterMatch{} = r) do
+    to_known_map([
+      {"source_account_id", r.source_account_id, :passthrough},
+      {"canonical_account_id", r.canonical_account_id, :passthrough},
+      {"match_evidence_hash", r.match_evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.AlignmentMove{} = r) do
     to_known_map([
       {"move_type", r.move_type, :atom},
@@ -305,6 +313,18 @@ defmodule BeamPM.Codec do
           {:ok, struct()}
           | {:error, {:missing_field, atom()}}
           | {:error, {:unknown_record, atom()}}
+  def from_map(:account_master_match, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"source_account_id", :source_account_id, :passthrough},
+        {"canonical_account_id", :canonical_account_id, :passthrough},
+        {"match_evidence_hash", :match_evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.AccountMasterMatch.new/1
+    )
+  end
+
   def from_map(:alignment_move, m) when is_map(m) do
     from_known_fields(
       m,

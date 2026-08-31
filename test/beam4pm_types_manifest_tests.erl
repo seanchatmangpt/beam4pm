@@ -15,7 +15,10 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(35, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(36, length(beam4pm_types_manifest:record_names())).
+
+account_master_match_fields_test() ->
+    ?assertEqual([source_account_id, canonical_account_id, match_evidence_hash], beam4pm_types_manifest:fields(account_master_match)).
 
 alignment_move_fields_test() ->
     ?assertEqual([move_type, cost], beam4pm_types_manifest:fields(alignment_move)).

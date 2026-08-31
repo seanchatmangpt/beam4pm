@@ -14,6 +14,7 @@
 -spec record_names() -> [atom()].
 record_names() ->
     [
+        account_master_match,
         alignment_move,
         billing_reconciliation,
         case_stats,
@@ -57,6 +58,18 @@ record_names() ->
 %% list_string -> [<<"alpha">>, <<"beta">>], map -> #{<<"k">> => <<"v">>}.
 %% minimal = required fields only; full = every field.
 -spec sample(atom(), variant()) -> {ok, tuple()}.
+sample(account_master_match, full) ->
+    beam4pm_types:new_account_master_match(#{
+        source_account_id => <<"sample_source_account_id">>,
+        canonical_account_id => <<"sample_canonical_account_id">>,
+        match_evidence_hash => <<"sample_match_evidence_hash">>
+    });
+sample(account_master_match, minimal) ->
+    beam4pm_types:new_account_master_match(#{
+        source_account_id => <<"sample_source_account_id">>,
+        canonical_account_id => <<"sample_canonical_account_id">>,
+        match_evidence_hash => <<"sample_match_evidence_hash">>
+    });
 sample(alignment_move, full) ->
     beam4pm_types:new_alignment_move(#{
         move_type => sample_atom,

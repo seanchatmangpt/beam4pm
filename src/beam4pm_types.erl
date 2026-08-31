@@ -3,6 +3,7 @@
 -module(beam4pm_types).
 
 -export([
+    new_account_master_match/1,
     new_alignment_move/1,
     new_billing_reconciliation/1,
     new_case_stats/1,
@@ -41,6 +42,7 @@
 ]).
 
 -export_type([
+    account_master_match/0,
     alignment_move/0,
     billing_reconciliation/0,
     case_stats/0,
@@ -77,6 +79,35 @@
     type_edge/0,
     usage_event/0
 ]).
+
+%% Admits a source account only when it is bound to one canonical Fortune-5 account by immutable matching evidence; prevents pipeline value from being booked against an ambiguous customer identity.
+-record(account_master_match, {
+    source_account_id :: binary(), %% source_account_id: Required commercial-admission input for account master match. Missing input is a typed refusal.
+    canonical_account_id :: binary(), %% canonical_account_id: Required commercial-admission input for account master match. Missing input is a typed refusal.
+    match_evidence_hash :: binary() %% match_evidence_hash: Immutable evidence identity that makes this admission independently replayable.
+}).
+
+-type account_master_match() :: #account_master_match{}.
+
+-spec new_account_master_match(map()) -> {ok, account_master_match()} | {error, {missing_field, atom()}}.
+new_account_master_match(Map) ->
+    case maps:is_key(source_account_id, Map) of
+        false -> {error, {missing_field, source_account_id}};
+        true ->
+    case maps:is_key(canonical_account_id, Map) of
+        false -> {error, {missing_field, canonical_account_id}};
+        true ->
+    case maps:is_key(match_evidence_hash, Map) of
+        false -> {error, {missing_field, match_evidence_hash}};
+        true ->
+    {ok, #account_master_match{
+        source_account_id = maps:get(source_account_id, Map, undefined),
+        canonical_account_id = maps:get(canonical_account_id, Map, undefined),
+        match_evidence_hash = maps:get(match_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
 
 %% One step of a conformance-checking alignment between log and model.
 -record(alignment_move, {

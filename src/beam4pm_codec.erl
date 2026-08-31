@@ -10,6 +10,7 @@
 %% reads fields positionally, and it builds records only through the
 %% validating beam4pm_types:new_*/1 constructors.
 -type known_record() ::
+    beam4pm_types:account_master_match() |
     beam4pm_types:alignment_move() |
     beam4pm_types:billing_reconciliation() |
     beam4pm_types:case_stats() |
@@ -50,6 +51,12 @@
 %% Fields whose value is 'undefined' are omitted; atom-typed fields are
 %% converted with atom_to_binary/2; every other value passes through.
 -spec to_map(known_record()) -> #{binary() => term()}.
+to_map(R) when element(1, R) =:= account_master_match ->
+    pairs_to_map([
+        {<<"source_account_id">>, plain, element(2, R)},
+        {<<"canonical_account_id">>, plain, element(3, R)},
+        {<<"match_evidence_hash">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= alignment_move ->
     pairs_to_map([
         {<<"move_type">>, atom, element(2, R)},
@@ -278,6 +285,12 @@ to_map(R) when element(1, R) =:= usage_event ->
           {ok, known_record()}
         | {error, {missing_field, atom()}}
         | {error, {unknown_record, atom()}}.
+from_map(account_master_match, Map) when is_map(Map) ->
+    beam4pm_types:new_account_master_match(take_known(Map, [
+        {<<"source_account_id">>, source_account_id, plain},
+        {<<"canonical_account_id">>, canonical_account_id, plain},
+        {<<"match_evidence_hash">>, match_evidence_hash, plain}
+    ]));
 from_map(alignment_move, Map) when is_map(Map) ->
     beam4pm_types:new_alignment_move(take_known(Map, [
         {<<"move_type">>, move_type, atom},

@@ -14,6 +14,31 @@
 %% integer -> 42, float -> 3.5, boolean -> true, atom -> sample_atom,
 %% list_string -> [<<"alpha">>, <<"beta">>], map -> #{<<"k">> => <<"v">>}.
 
+account_master_match_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_account_master_match(#{
+        source_account_id => <<"sample_source_account_id">>,
+        canonical_account_id => <<"sample_canonical_account_id">>,
+        match_evidence_hash => <<"sample_match_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_source_account_id">>, maps:get(<<"source_account_id">>, Map)),
+    ?assertEqual(<<"sample_canonical_account_id">>, maps:get(<<"canonical_account_id">>, Map)),
+    ?assertEqual(<<"sample_match_evidence_hash">>, maps:get(<<"match_evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(account_master_match,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+account_master_match_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_account_master_match(#{
+        source_account_id => <<"sample_source_account_id">>,
+        canonical_account_id => <<"sample_canonical_account_id">>,
+        match_evidence_hash => <<"sample_match_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(account_master_match, Json),
+    ?assertEqual(Rec, Rec2).
+
 alignment_move_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_alignment_move(#{
         move_type => sample_atom,
@@ -915,11 +940,11 @@ unknown_record_test() ->
                  beam4pm_codec:from_map(not_a_known_record, #{})).
 
 missing_field_test() ->
-    %% alignment_move requires move_type; an empty map must
+    %% account_master_match requires source_account_id; an empty map must
     %% surface the constructor's own missing-field validation unchanged.
     ?assertMatch({error, {missing_field, _}},
-                 beam4pm_codec:from_map(alignment_move, #{})).
+                 beam4pm_codec:from_map(account_master_match, #{})).
 
 invalid_json_test() ->
     ?assertMatch({error, _},
-                 beam4pm_codec:decode(alignment_move, <<"not json at all">>)).
+                 beam4pm_codec:decode(account_master_match, <<"not json at all">>)).

@@ -9,6 +9,16 @@
 %% functions produces a real "already exported" compiler warning (which
 %% would become a hard failure under warnings_as_errors).
 
+account_master_match_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_account_master_match(#{
+        source_account_id => <<"x">>,
+        canonical_account_id => <<"x">>,
+        match_evidence_hash => <<"x">>
+    })).
+
+account_master_match_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_account_master_match(#{})).
+
 alignment_move_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_alignment_move(#{
         move_type => some_atom,

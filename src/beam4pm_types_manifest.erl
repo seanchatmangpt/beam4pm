@@ -11,9 +11,10 @@
 -export([record_names/0, fields/1]).
 
 -spec record_names() -> [atom()].
-record_names() -> [alignment_move, billing_reconciliation, case_stats, conformance_result, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, k8s_object_ref, log_trace, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, path_schema, path_schema_query, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, queue_snapshot, resource_allocation, service_span, sojourn_time, sync_time, type_edge, usage_event].
+record_names() -> [account_master_match, alignment_move, billing_reconciliation, case_stats, conformance_result, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, k8s_object_ref, log_trace, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, path_schema, path_schema_query, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, queue_snapshot, resource_allocation, service_span, sojourn_time, sync_time, type_edge, usage_event].
 
 -spec fields(atom()) -> [atom()].
+fields(account_master_match) -> [source_account_id, canonical_account_id, match_evidence_hash];
 fields(alignment_move) -> [move_type, cost];
 fields(billing_reconciliation) -> [entitlement_id, metric_name, total_quantity, applied_event_ids, period_start, period_end];
 fields(case_stats) -> [case_id, event_count, duration_seconds];

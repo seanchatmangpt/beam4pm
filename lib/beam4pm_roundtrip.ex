@@ -9,6 +9,7 @@ defmodule BeamPM.Roundtrip do
   @moduledoc "Cross-language roundtrip sample fixtures for every admitted record type."
 
   @record_names [
+    :account_master_match,
     :alignment_move,
     :billing_reconciliation,
     :case_stats,
@@ -57,6 +58,22 @@ defmodule BeamPM.Roundtrip do
   # list_string -> ["alpha", "beta"], map -> a single-entry map "k" => "v".
   # :minimal = required fields only; :full = every field.
   @spec sample(atom(), :full | :minimal) :: {:ok, struct()}
+
+  def sample(:account_master_match, :full) do
+    BeamPM.Types.AccountMasterMatch.new(%{
+      source_account_id: "sample_source_account_id",
+      canonical_account_id: "sample_canonical_account_id",
+      match_evidence_hash: "sample_match_evidence_hash"
+    })
+  end
+
+  def sample(:account_master_match, :minimal) do
+    BeamPM.Types.AccountMasterMatch.new(%{
+      source_account_id: "sample_source_account_id",
+      canonical_account_id: "sample_canonical_account_id",
+      match_evidence_hash: "sample_match_evidence_hash"
+    })
+  end
 
   def sample(:alignment_move, :full) do
     BeamPM.Types.AlignmentMove.new(%{

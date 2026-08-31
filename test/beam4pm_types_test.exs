@@ -2,6 +2,21 @@
 defmodule BeamPM.Types.GeneratedTest do
   use ExUnit.Case, async: true
 
+  test "account_master_match new/1 succeeds when all fields are present" do
+    attrs = %{
+      source_account_id: "x",
+      canonical_account_id: "x",
+      match_evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AccountMasterMatch.new(attrs)
+  end
+
+  test "account_master_match new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AccountMasterMatch.new(%{})
+  end
+
+
   test "alignment_move new/1 succeeds when all fields are present" do
     attrs = %{
       move_type: :some_atom,
