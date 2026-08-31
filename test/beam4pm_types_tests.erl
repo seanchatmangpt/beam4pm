@@ -213,6 +213,16 @@ event_type_ok_test() ->
 event_type_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_event_type(#{})).
 
+exception_authority_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_exception_authority(#{
+        exception_id => <<"x">>,
+        authority_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+exception_authority_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_exception_authority(#{})).
+
 funding_approval_chain_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_funding_approval_chain(#{
         opportunity_id => <<"x">>,

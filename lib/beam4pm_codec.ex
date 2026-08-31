@@ -178,6 +178,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ExceptionAuthority{} = r) do
+    to_known_map([
+      {"exception_id", r.exception_id, :passthrough},
+      {"authority_id", r.authority_id, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.FundingApprovalChain{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -906,6 +914,18 @@ defmodule BeamPM.Codec do
         {"attribute_names", :attribute_names, :passthrough}
       ],
       &BeamPM.Types.EventType.new/1
+    )
+  end
+
+  def from_map(:exception_authority, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"exception_id", :exception_id, :passthrough},
+        {"authority_id", :authority_id, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.ExceptionAuthority.new/1
     )
   end
 

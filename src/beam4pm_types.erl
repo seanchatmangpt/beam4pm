@@ -23,6 +23,7 @@
     new_entitlement_state/1,
     new_event_log/1,
     new_event_type/1,
+    new_exception_authority/1,
     new_funding_approval_chain/1,
     new_heuristic_arc/1,
     new_implementation_fee_admission/1,
@@ -106,6 +107,7 @@
     entitlement_state/0,
     event_log/0,
     event_type/0,
+    exception_authority/0,
     funding_approval_chain/0,
     heuristic_arc/0,
     implementation_fee_admission/0,
@@ -750,6 +752,35 @@ new_event_type(Map) ->
         type_name = maps:get(type_name, Map, undefined),
         attribute_names = maps:get(attribute_names, Map, undefined)
     }}
+    end.
+
+%% Admits a commercial exception only when the exact authority and decision are present.
+-record(exception_authority, {
+    exception_id :: binary(), %% exception_id: Required exception authority input; omission is an executable typed refusal, never an inferred approval.
+    authority_id :: binary(), %% authority_id: Required exception authority input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type exception_authority() :: #exception_authority{}.
+
+-spec new_exception_authority(map()) -> {ok, exception_authority()} | {error, {missing_field, atom()}}.
+new_exception_authority(Map) ->
+    case maps:is_key(exception_id, Map) of
+        false -> {error, {missing_field, exception_id}};
+        true ->
+    case maps:is_key(authority_id, Map) of
+        false -> {error, {missing_field, authority_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #exception_authority{
+        exception_id = maps:get(exception_id, Map, undefined),
+        authority_id = maps:get(authority_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
     end.
 
 %% Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.

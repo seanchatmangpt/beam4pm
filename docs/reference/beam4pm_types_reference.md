@@ -206,6 +206,16 @@
 | `type_name` | `string` | true | The event type name. |
 | `attribute_names` | `list_string` | false | Optional declared attribute names for events of this type (name-only; per-attribute value types are not yet modeled). |
 
+## exception_authority
+
+> Admits a commercial exception only when the exact authority and decision are present.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `exception_id` | `string` | true | Required exception authority input; omission is an executable typed refusal, never an inferred approval. |
+| `authority_id` | `string` | true | Required exception authority input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## funding_approval_chain
 
 > Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.

@@ -547,6 +547,33 @@ defmodule BeamPM.Types.EventType do
   end
 end
 
+defmodule BeamPM.Types.ExceptionAuthority do
+  @moduledoc "Admits a commercial exception only when the exact authority and decision are present."
+
+  defstruct [:exception_id, :authority_id, :decision]
+
+  @type t :: %__MODULE__{
+    exception_id: String.t() | nil,
+    authority_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :exception_id) -> {:error, {:missing_field, :exception_id}}
+      not Map.has_key?(attrs, :authority_id) -> {:error, {:missing_field, :authority_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          exception_id: Map.get(attrs, :exception_id),
+          authority_id: Map.get(attrs, :authority_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.FundingApprovalChain do
   @moduledoc "Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim."
 

@@ -526,6 +526,31 @@ event_type_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(event_type, Json),
     ?assertEqual(Rec, Rec2).
 
+exception_authority_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_exception_authority(#{
+        exception_id => <<"sample_exception_id">>,
+        authority_id => <<"sample_authority_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_exception_id">>, maps:get(<<"exception_id">>, Map)),
+    ?assertEqual(<<"sample_authority_id">>, maps:get(<<"authority_id">>, Map)),
+    ?assertEqual(<<"sample_decision">>, maps:get(<<"decision">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(exception_authority,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+exception_authority_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_exception_authority(#{
+        exception_id => <<"sample_exception_id">>,
+        authority_id => <<"sample_authority_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(exception_authority, Json),
+    ?assertEqual(Rec, Rec2).
+
 funding_approval_chain_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_funding_approval_chain(#{
         opportunity_id => <<"sample_opportunity_id">>,

@@ -29,6 +29,7 @@ defmodule BeamPM.Roundtrip do
     :entitlement_state,
     :event_log,
     :event_type,
+    :exception_authority,
     :funding_approval_chain,
     :heuristic_arc,
     :implementation_fee_admission,
@@ -423,6 +424,22 @@ defmodule BeamPM.Roundtrip do
   def sample(:event_type, :minimal) do
     BeamPM.Types.EventType.new(%{
       type_name: "sample_type_name"
+    })
+  end
+
+  def sample(:exception_authority, :full) do
+    BeamPM.Types.ExceptionAuthority.new(%{
+      exception_id: "sample_exception_id",
+      authority_id: "sample_authority_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:exception_authority, :minimal) do
+    BeamPM.Types.ExceptionAuthority.new(%{
+      exception_id: "sample_exception_id",
+      authority_id: "sample_authority_id",
+      decision: "sample_decision"
     })
   end
 

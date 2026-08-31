@@ -34,6 +34,7 @@ record_names() ->
         entitlement_state,
         event_log,
         event_type,
+        exception_authority,
         funding_approval_chain,
         heuristic_arc,
         implementation_fee_admission,
@@ -344,6 +345,18 @@ sample(event_type, full) ->
 sample(event_type, minimal) ->
     beam4pm_types:new_event_type(#{
         type_name => <<"sample_type_name">>
+    });
+sample(exception_authority, full) ->
+    beam4pm_types:new_exception_authority(#{
+        exception_id => <<"sample_exception_id">>,
+        authority_id => <<"sample_authority_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(exception_authority, minimal) ->
+    beam4pm_types:new_exception_authority(#{
+        exception_id => <<"sample_exception_id">>,
+        authority_id => <<"sample_authority_id">>,
+        decision => <<"sample_decision">>
     });
 sample(funding_approval_chain, full) ->
     beam4pm_types:new_funding_approval_chain(#{

@@ -834,6 +834,43 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:event_type, m)
   end
 
+  test "exception_authority to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      exception_id: "sample_exception_id",
+      authority_id: "sample_authority_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ExceptionAuthority.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["exception_id"] == "sample_exception_id"
+    assert m["authority_id"] == "sample_authority_id"
+    assert m["decision"] == "sample_decision"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:exception_authority, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:exception_authority, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "exception_authority encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      exception_id: "sample_exception_id",
+      authority_id: "sample_authority_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ExceptionAuthority.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:exception_authority, json)
+  end
+
+  test "exception_authority from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :exception_id}} =
+             BeamPM.Codec.from_map(:exception_authority, %{})
+  end
+
+
   test "funding_approval_chain to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

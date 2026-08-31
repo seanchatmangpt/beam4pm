@@ -440,6 +440,27 @@
       ]
 
     },
+    "exception_authority": {
+      "type": "object",
+      "description": "Admits a commercial exception only when the exact authority and decision are present.",
+      "properties": {
+        "exception_id": {
+          "type": "string",
+          "description": "Required exception authority input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "authority_id": {
+          "type": "string",
+          "description": "Required exception authority input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["exception_id", "authority_id", "decision"
+      ]
+
+    },
     "funding_approval_chain": {
       "type": "object",
       "description": "Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.",

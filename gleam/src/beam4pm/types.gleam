@@ -257,6 +257,18 @@ pub type EventType {
   )
 }
 
+/// Admits a commercial exception only when the exact authority and decision are present.
+pub type ExceptionAuthority {
+  ExceptionAuthority(
+    /// Required exception authority input; omission is an executable typed refusal, never an inferred approval.
+    exception_id: String,
+    /// Required exception authority input; omission is an executable typed refusal, never an inferred approval.
+    authority_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
 pub type FundingApprovalChain {
   FundingApprovalChain(

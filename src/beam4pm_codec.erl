@@ -30,6 +30,7 @@
     beam4pm_types:entitlement_state() |
     beam4pm_types:event_log() |
     beam4pm_types:event_type() |
+    beam4pm_types:exception_authority() |
     beam4pm_types:funding_approval_chain() |
     beam4pm_types:heuristic_arc() |
     beam4pm_types:implementation_fee_admission() |
@@ -218,6 +219,12 @@ to_map(R) when element(1, R) =:= event_type ->
     pairs_to_map([
         {<<"type_name">>, plain, element(2, R)},
         {<<"attribute_names">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= exception_authority ->
+    pairs_to_map([
+        {<<"exception_id">>, plain, element(2, R)},
+        {<<"authority_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= funding_approval_chain ->
     pairs_to_map([
@@ -716,6 +723,12 @@ from_map(event_type, Map) when is_map(Map) ->
     beam4pm_types:new_event_type(take_known(Map, [
         {<<"type_name">>, type_name, plain},
         {<<"attribute_names">>, attribute_names, plain}
+    ]));
+from_map(exception_authority, Map) when is_map(Map) ->
+    beam4pm_types:new_exception_authority(take_known(Map, [
+        {<<"exception_id">>, exception_id, plain},
+        {<<"authority_id">>, authority_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(funding_approval_chain, Map) when is_map(Map) ->
     beam4pm_types:new_funding_approval_chain(take_known(Map, [

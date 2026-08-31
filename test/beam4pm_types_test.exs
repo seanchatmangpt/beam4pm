@@ -306,6 +306,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "exception_authority new/1 succeeds when all fields are present" do
+    attrs = %{
+      exception_id: "x",
+      authority_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ExceptionAuthority.new(attrs)
+  end
+
+  test "exception_authority new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ExceptionAuthority.new(%{})
+  end
+
+
   test "funding_approval_chain new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

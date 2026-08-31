@@ -3551,6 +3551,29 @@ b4p:commercial_exception_exception_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:commercial_exception_exception_state_f a bpm:Field ;
-    bpm:fieldName "exception_state" ; bpm:fieldType "string" ;
+   bpm:fieldName "exception_state" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-046 — exception_authority
+b4p:exception_authority_rt a bpm:RecordType ;
+    bpm:recordName "exception_authority" ;
+    bpm:recordDoc "Admits a commercial exception only when the exact authority and decision are present." ;
+    bpm:hasField b4p:exception_authority_exception_id_f ,
+                 b4p:exception_authority_authority_id_f ,
+                 b4p:exception_authority_decision_f .
+
+b4p:exception_authority_exception_id_f a bpm:Field ;
+    bpm:fieldName "exception_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required exception authority input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:exception_authority_authority_id_f a bpm:Field ;
+    bpm:fieldName "authority_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required exception authority input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:exception_authority_decision_f a bpm:Field ;
+    bpm:fieldName "decision" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
