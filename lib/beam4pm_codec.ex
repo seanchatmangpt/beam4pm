@@ -345,6 +345,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.PricingBasisContract{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"pricing_basis_id", r.pricing_basis_id, :passthrough},
+      {"evidence_hash", r.evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ProcessVariant{} = r) do
     to_known_map([
       {"variant_id", r.variant_id, :passthrough},
@@ -973,6 +981,18 @@ defmodule BeamPM.Codec do
         {"reason", :reason, :passthrough}
       ],
       &BeamPM.Types.PolicyDecision.new/1
+    )
+  end
+
+  def from_map(:pricing_basis_contract, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"pricing_basis_id", :pricing_basis_id, :passthrough},
+        {"evidence_hash", :evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.PricingBasisContract.new/1
     )
   end
 

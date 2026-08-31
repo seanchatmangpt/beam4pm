@@ -51,6 +51,7 @@
     beam4pm_types:planning_action() |
     beam4pm_types:planning_state() |
     beam4pm_types:policy_decision() |
+    beam4pm_types:pricing_basis_contract() |
     beam4pm_types:process_variant() |
     beam4pm_types:procurement_channel_selection() |
     beam4pm_types:purchase_order_requirement() |
@@ -320,6 +321,12 @@ to_map(R) when element(1, R) =:= policy_decision ->
         {<<"decision_id">>, plain, element(2, R)},
         {<<"verdict">>, atom, element(3, R)},
         {<<"reason">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= pricing_basis_contract ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"pricing_basis_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= process_variant ->
     pairs_to_map([
@@ -680,6 +687,12 @@ from_map(policy_decision, Map) when is_map(Map) ->
         {<<"decision_id">>, decision_id, plain},
         {<<"verdict">>, verdict, atom},
         {<<"reason">>, reason, plain}
+    ]));
+from_map(pricing_basis_contract, Map) when is_map(Map) ->
+    beam4pm_types:new_pricing_basis_contract(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"pricing_basis_id">>, pricing_basis_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
     ]));
 from_map(process_variant, Map) when is_map(Map) ->
     beam4pm_types:new_process_variant(take_known(Map, [

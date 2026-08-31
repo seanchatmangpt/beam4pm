@@ -11,7 +11,7 @@
 -export([record_names/0, fields/1]).
 
 -spec record_names() -> [atom()].
-record_names() -> [account_master_match, account_parent_scope, alignment_move, beneficial_owner_evidence, billing_reconciliation, budget_period_alignment, case_stats, conformance_result, contracting_entity_identity, credit_risk_admission, data_processing_addendum_state, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, funding_approval_chain, heuristic_arc, insurance_requirement, invoice_entity_identity, k8s_object_ref, log_trace, master_service_agreement_state, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, opportunity_currency_contract, opportunity_value_range, path_schema, path_schema_query, payment_terms_admission, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, procurement_channel_selection, purchase_order_requirement, purchasing_entity_identity, queue_snapshot, resource_allocation, revenue_schedule_assumption, sanctions_screening_result, security_addendum_state, service_span, sojourn_time, sync_time, tax_jurisdiction_evidence, type_edge, usage_event, vendor_registration_state].
+record_names() -> [account_master_match, account_parent_scope, alignment_move, beneficial_owner_evidence, billing_reconciliation, budget_period_alignment, case_stats, conformance_result, contracting_entity_identity, credit_risk_admission, data_processing_addendum_state, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, funding_approval_chain, heuristic_arc, insurance_requirement, invoice_entity_identity, k8s_object_ref, log_trace, master_service_agreement_state, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, opportunity_currency_contract, opportunity_value_range, path_schema, path_schema_query, payment_terms_admission, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, pricing_basis_contract, process_variant, procurement_channel_selection, purchase_order_requirement, purchasing_entity_identity, queue_snapshot, resource_allocation, revenue_schedule_assumption, sanctions_screening_result, security_addendum_state, service_span, sojourn_time, sync_time, tax_jurisdiction_evidence, type_edge, usage_event, vendor_registration_state].
 
 -spec fields(atom()) -> [atom()].
 fields(account_master_match) -> [source_account_id, canonical_account_id, match_evidence_hash];
@@ -55,6 +55,7 @@ fields(petri_transition) -> [transition_id, label];
 fields(planning_action) -> [action_name, preconditions, effects];
 fields(planning_state) -> [state_id, facts];
 fields(policy_decision) -> [decision_id, verdict, reason];
+fields(pricing_basis_contract) -> [opportunity_id, pricing_basis_id, evidence_hash];
 fields(process_variant) -> [variant_id, activity_sequence, frequency];
 fields(procurement_channel_selection) -> [opportunity_id, channel_id, selection_evidence_hash];
 fields(purchase_order_requirement) -> [opportunity_id, requirement_id, evidence_hash];

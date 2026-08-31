@@ -44,6 +44,7 @@
     new_planning_action/1,
     new_planning_state/1,
     new_policy_decision/1,
+    new_pricing_basis_contract/1,
     new_process_variant/1,
     new_procurement_channel_selection/1,
     new_purchase_order_requirement/1,
@@ -104,6 +105,7 @@
     planning_action/0,
     planning_state/0,
     policy_decision/0,
+    pricing_basis_contract/0,
     process_variant/0,
     procurement_channel_selection/0,
     purchase_order_requirement/0,
@@ -1266,6 +1268,35 @@ new_policy_decision(Map) ->
         verdict = maps:get(verdict, Map, undefined),
         reason = maps:get(reason, Map, undefined)
     }}
+    end
+    end.
+
+%% Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
+-record(pricing_basis_contract, {
+    opportunity_id :: binary(), %% opportunity_id: Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval.
+    pricing_basis_id :: binary(), %% pricing_basis_id: Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type pricing_basis_contract() :: #pricing_basis_contract{}.
+
+-spec new_pricing_basis_contract(map()) -> {ok, pricing_basis_contract()} | {error, {missing_field, atom()}}.
+new_pricing_basis_contract(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(pricing_basis_id, Map) of
+        false -> {error, {missing_field, pricing_basis_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #pricing_basis_contract{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        pricing_basis_id = maps:get(pricing_basis_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
     end
     end.
 

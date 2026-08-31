@@ -620,6 +620,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "pricing_basis_contract new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      pricing_basis_id: "x",
+      evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.PricingBasisContract.new(attrs)
+  end
+
+  test "pricing_basis_contract new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PricingBasisContract.new(%{})
+  end
+
+
   test "process_variant new/1 succeeds when all fields are present" do
     attrs = %{
       variant_id: "x",

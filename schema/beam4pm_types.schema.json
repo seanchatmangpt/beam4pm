@@ -882,6 +882,27 @@
       ]
 
     },
+    "pricing_basis_contract": {
+      "type": "object",
+      "description": "Binds the opportunity to an exact pricing basis and evidence identity before quote construction.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "pricing_basis_id": {
+          "type": "string",
+          "description": "Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "pricing_basis_id", "evidence_hash"
+      ]
+
+    },
     "process_variant": {
       "type": "object",
       "description": "One distinct activity-sequence variant observed in a log, with its frequency.",

@@ -55,6 +55,7 @@ record_names() ->
         planning_action,
         planning_state,
         policy_decision,
+        pricing_basis_contract,
         process_variant,
         procurement_channel_selection,
         purchase_order_requirement,
@@ -561,6 +562,18 @@ sample(policy_decision, minimal) ->
     beam4pm_types:new_policy_decision(#{
         decision_id => <<"sample_decision_id">>,
         verdict => sample_atom
+    });
+sample(pricing_basis_contract, full) ->
+    beam4pm_types:new_pricing_basis_contract(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        pricing_basis_id => <<"sample_pricing_basis_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(pricing_basis_contract, minimal) ->
+    beam4pm_types:new_pricing_basis_contract(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        pricing_basis_id => <<"sample_pricing_basis_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
     });
 sample(process_variant, full) ->
     beam4pm_types:new_process_variant(#{

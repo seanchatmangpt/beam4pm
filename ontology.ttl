@@ -3022,6 +3022,29 @@ b4p:funding_approval_chain_approval_chain_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:funding_approval_chain_evidence_hash_f a bpm:Field ;
+   bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-023 — pricing_basis_contract
+b4p:pricing_basis_contract_rt a bpm:RecordType ;
+    bpm:recordName "pricing_basis_contract" ;
+    bpm:recordDoc "Binds the opportunity to an exact pricing basis and evidence identity before quote construction." ;
+    bpm:hasField b4p:pricing_basis_contract_opportunity_id_f ,
+                 b4p:pricing_basis_contract_pricing_basis_id_f ,
+                 b4p:pricing_basis_contract_evidence_hash_f .
+
+b4p:pricing_basis_contract_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:pricing_basis_contract_pricing_basis_id_f a bpm:Field ;
+    bpm:fieldName "pricing_basis_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:pricing_basis_contract_evidence_hash_f a bpm:Field ;
     bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

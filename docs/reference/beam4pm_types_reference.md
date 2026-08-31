@@ -415,6 +415,16 @@
 | `verdict` | `atom` | true | One of: admitted \| refused \| blocked. |
 | `reason` | `string` | false | Optional human-readable reason for this verdict. |
 
+## pricing_basis_contract
+
+> Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval. |
+| `pricing_basis_id` | `string` | true | Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## process_variant
 
 > One distinct activity-sequence variant observed in a log, with its frequency.

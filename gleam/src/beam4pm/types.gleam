@@ -507,6 +507,18 @@ pub type PolicyDecision {
   )
 }
 
+/// Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
+pub type PricingBasisContract {
+  PricingBasisContract(
+    /// Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval.
+    pricing_basis_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
 /// One distinct activity-sequence variant observed in a log, with its frequency.
 pub type ProcessVariant {
   ProcessVariant(

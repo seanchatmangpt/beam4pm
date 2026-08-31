@@ -422,6 +422,16 @@ policy_decision_ok_test() ->
 policy_decision_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_policy_decision(#{})).
 
+pricing_basis_contract_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_pricing_basis_contract(#{
+        opportunity_id => <<"x">>,
+        pricing_basis_id => <<"x">>,
+        evidence_hash => <<"x">>
+    })).
+
+pricing_basis_contract_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_pricing_basis_contract(#{})).
+
 process_variant_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_process_variant(#{
         variant_id => <<"x">>,

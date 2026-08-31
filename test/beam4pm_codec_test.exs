@@ -1717,6 +1717,43 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:policy_decision, m)
   end
 
+  test "pricing_basis_contract to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      pricing_basis_id: "sample_pricing_basis_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PricingBasisContract.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["pricing_basis_id"] == "sample_pricing_basis_id"
+    assert m["evidence_hash"] == "sample_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:pricing_basis_contract, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:pricing_basis_contract, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "pricing_basis_contract encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      pricing_basis_id: "sample_pricing_basis_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PricingBasisContract.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:pricing_basis_contract, json)
+  end
+
+  test "pricing_basis_contract from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:pricing_basis_contract, %{})
+  end
+
+
   test "process_variant to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       variant_id: "sample_variant_id",

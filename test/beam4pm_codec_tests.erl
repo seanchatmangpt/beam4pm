@@ -1048,6 +1048,31 @@ policy_decision_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(policy_decision, Json),
     ?assertEqual(Rec, Rec2).
 
+pricing_basis_contract_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_pricing_basis_contract(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        pricing_basis_id => <<"sample_pricing_basis_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_pricing_basis_id">>, maps:get(<<"pricing_basis_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_hash">>, maps:get(<<"evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(pricing_basis_contract,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+pricing_basis_contract_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_pricing_basis_contract(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        pricing_basis_id => <<"sample_pricing_basis_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(pricing_basis_contract, Json),
+    ?assertEqual(Rec, Rec2).
+
 process_variant_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_process_variant(#{
         variant_id => <<"sample_variant_id">>,

@@ -50,6 +50,7 @@ defmodule BeamPM.Roundtrip do
     :planning_action,
     :planning_state,
     :policy_decision,
+    :pricing_basis_contract,
     :process_variant,
     :procurement_channel_selection,
     :purchase_order_requirement,
@@ -724,6 +725,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.PolicyDecision.new(%{
       decision_id: "sample_decision_id",
       verdict: :sample_atom
+    })
+  end
+
+  def sample(:pricing_basis_contract, :full) do
+    BeamPM.Types.PricingBasisContract.new(%{
+      opportunity_id: "sample_opportunity_id",
+      pricing_basis_id: "sample_pricing_basis_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:pricing_basis_contract, :minimal) do
+    BeamPM.Types.PricingBasisContract.new(%{
+      opportunity_id: "sample_opportunity_id",
+      pricing_basis_id: "sample_pricing_basis_id",
+      evidence_hash: "sample_evidence_hash"
     })
   end
 
