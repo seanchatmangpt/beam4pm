@@ -67,6 +67,7 @@ defmodule BeamPM.Roundtrip do
     :sojourn_time,
     :sync_time,
     :tax_jurisdiction_evidence,
+    :termination_right_admission,
     :type_edge,
     :usage_event,
     :vendor_registration_state,
@@ -1001,6 +1002,22 @@ defmodule BeamPM.Roundtrip do
       contracting_entity_id: "sample_contracting_entity_id",
       tax_jurisdiction: "sample_tax_jurisdiction",
       evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:termination_right_admission, :full) do
+    BeamPM.Types.TerminationRightAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      termination_right_id: "sample_termination_right_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:termination_right_admission, :minimal) do
+    BeamPM.Types.TerminationRightAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      termination_right_id: "sample_termination_right_id",
+      decision: "sample_decision"
     })
   end
 

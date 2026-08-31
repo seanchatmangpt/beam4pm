@@ -1244,6 +1244,27 @@
       ]
 
     },
+    "termination_right_admission": {
+      "type": "object",
+      "description": "Qualifies termination rights that materially change collectible contract value and delivery exposure.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required termination right admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "termination_right_id": {
+          "type": "string",
+          "description": "Required termination right admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "termination_right_id", "decision"
+      ]
+
+    },
     "type_edge": {
       "type": "object",
       "description": "A directed, qualified edge in the OCEL type graph between two types.",

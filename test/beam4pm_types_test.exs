@@ -876,6 +876,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "termination_right_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      termination_right_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.TerminationRightAdmission.new(attrs)
+  end
+
+  test "termination_right_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TerminationRightAdmission.new(%{})
+  end
+
+
   test "type_edge new/1 succeeds when all fields are present" do
     attrs = %{
       source_type: "x",

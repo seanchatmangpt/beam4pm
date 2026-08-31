@@ -68,6 +68,7 @@
     beam4pm_types:sojourn_time() |
     beam4pm_types:sync_time() |
     beam4pm_types:tax_jurisdiction_evidence() |
+    beam4pm_types:termination_right_admission() |
     beam4pm_types:type_edge() |
     beam4pm_types:usage_event() |
     beam4pm_types:vendor_registration_state() |
@@ -428,6 +429,12 @@ to_map(R) when element(1, R) =:= tax_jurisdiction_evidence ->
         {<<"contracting_entity_id">>, plain, element(2, R)},
         {<<"tax_jurisdiction">>, plain, element(3, R)},
         {<<"evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= termination_right_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"termination_right_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= type_edge ->
     pairs_to_map([
@@ -818,6 +825,12 @@ from_map(tax_jurisdiction_evidence, Map) when is_map(Map) ->
         {<<"contracting_entity_id">>, contracting_entity_id, plain},
         {<<"tax_jurisdiction">>, tax_jurisdiction, plain},
         {<<"evidence_hash">>, evidence_hash, plain}
+    ]));
+from_map(termination_right_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_termination_right_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"termination_right_id">>, termination_right_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(type_edge, Map) when is_map(Map) ->
     beam4pm_types:new_type_edge(take_known(Map, [

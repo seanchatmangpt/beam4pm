@@ -586,6 +586,16 @@
 | `tax_jurisdiction` | `string` | true | Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## termination_right_admission
+
+> Qualifies termination rights that materially change collectible contract value and delivery exposure.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required termination right admission input; omission is an executable typed refusal, never an inferred approval. |
+| `termination_right_id` | `string` | true | Required termination right admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## type_edge
 
 > A directed, qualified edge in the OCEL type graph between two types.

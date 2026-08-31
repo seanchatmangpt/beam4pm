@@ -72,6 +72,7 @@ record_names() ->
         sojourn_time,
         sync_time,
         tax_jurisdiction_evidence,
+        termination_right_admission,
         type_edge,
         usage_event,
         vendor_registration_state,
@@ -770,6 +771,18 @@ sample(tax_jurisdiction_evidence, minimal) ->
         contracting_entity_id => <<"sample_contracting_entity_id">>,
         tax_jurisdiction => <<"sample_tax_jurisdiction">>,
         evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(termination_right_admission, full) ->
+    beam4pm_types:new_termination_right_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        termination_right_id => <<"sample_termination_right_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(termination_right_admission, minimal) ->
+    beam4pm_types:new_termination_right_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        termination_right_id => <<"sample_termination_right_id">>,
+        decision => <<"sample_decision">>
     });
 sample(type_edge, full) ->
     beam4pm_types:new_type_edge(#{

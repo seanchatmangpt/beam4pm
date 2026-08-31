@@ -713,6 +713,18 @@ pub type TaxJurisdictionEvidence {
   )
 }
 
+/// Qualifies termination rights that materially change collectible contract value and delivery exposure.
+pub type TerminationRightAdmission {
+  TerminationRightAdmission(
+    /// Required termination right admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required termination right admission input; omission is an executable typed refusal, never an inferred approval.
+    termination_right_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// A directed, qualified edge in the OCEL type graph between two types.
 pub type TypeEdge {
   TypeEdge(

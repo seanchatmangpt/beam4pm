@@ -61,6 +61,7 @@
     new_sojourn_time/1,
     new_sync_time/1,
     new_tax_jurisdiction_evidence/1,
+    new_termination_right_admission/1,
     new_type_edge/1,
     new_usage_event/1,
     new_vendor_registration_state/1,
@@ -126,6 +127,7 @@
     sojourn_time/0,
     sync_time/0,
     tax_jurisdiction_evidence/0,
+    termination_right_admission/0,
     type_edge/0,
     usage_event/0,
     vendor_registration_state/0,
@@ -1765,6 +1767,35 @@ new_tax_jurisdiction_evidence(Map) ->
         contracting_entity_id = maps:get(contracting_entity_id, Map, undefined),
         tax_jurisdiction = maps:get(tax_jurisdiction, Map, undefined),
         evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies termination rights that materially change collectible contract value and delivery exposure.
+-record(termination_right_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required termination right admission input; omission is an executable typed refusal, never an inferred approval.
+    termination_right_id :: binary(), %% termination_right_id: Required termination right admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type termination_right_admission() :: #termination_right_admission{}.
+
+-spec new_termination_right_admission(map()) -> {ok, termination_right_admission()} | {error, {missing_field, atom()}}.
+new_termination_right_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(termination_right_id, Map) of
+        false -> {error, {missing_field, termination_right_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #termination_right_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        termination_right_id = maps:get(termination_right_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end
