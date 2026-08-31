@@ -3298,3 +3298,17 @@ bpm:activation_event_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm
 bpm:activation_event_activation_type_f a bpm:Field ; bpm:fieldName "activation_type" ; bpm:fieldType "string" ; bpm:fieldDoc "Type of customer activation observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:activation_event_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:activation_event_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-129 — usage signal
+# ---------------------------------------------------------------------------
+
+bpm:usage_signal_rt a bpm:RecordType ;
+    bpm:recordName "usage_signal" ; bpm:recordDoc "Measured product-usage signal for an admitted enterprise account." ;
+    bpm:hasField bpm:usage_signal_usage_signal_id_f , bpm:usage_signal_account_id_f , bpm:usage_signal_active_user_count_f , bpm:usage_signal_evidence_digest_f , bpm:usage_signal_observed_at_f .
+
+bpm:usage_signal_usage_signal_id_f a bpm:Field ; bpm:fieldName "usage_signal_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this usage signal observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:usage_signal_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose usage signal state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:usage_signal_active_user_count_f a bpm:Field ; bpm:fieldName "active_user_count" ; bpm:fieldType "integer" ; bpm:fieldDoc "Distinct active users in the observation window." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:usage_signal_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:usage_signal_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
