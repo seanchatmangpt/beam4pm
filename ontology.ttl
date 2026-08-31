@@ -2562,6 +2562,29 @@ b4p:account_parent_scope_parent_account_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:account_parent_scope_scope_evidence_hash_f a bpm:Field ;
-    bpm:fieldName "scope_evidence_hash" ; bpm:fieldType "string" ;
+   bpm:fieldName "scope_evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-003 — opportunity_currency_contract
+b4p:opportunity_currency_contract_rt a bpm:RecordType ;
+    bpm:recordName "opportunity_currency_contract" ;
+    bpm:recordDoc "Admits opportunity value only with an explicit deal currency and immutable foreign-exchange basis, making forecast value comparable and replayable." ;
+    bpm:hasField b4p:opportunity_currency_contract_opportunity_id_f ,
+                 b4p:opportunity_currency_contract_currency_code_f ,
+                 b4p:opportunity_currency_contract_fx_basis_id_f .
+
+b4p:opportunity_currency_contract_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:opportunity_currency_contract_currency_code_f a bpm:Field ;
+    bpm:fieldName "currency_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:opportunity_currency_contract_fx_basis_id_f a bpm:Field ;
+    bpm:fieldName "fx_basis_id" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

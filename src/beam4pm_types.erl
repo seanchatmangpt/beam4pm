@@ -24,6 +24,7 @@
     new_ocel_event/1,
     new_ocel_object/1,
     new_ocel_relationship/1,
+    new_opportunity_currency_contract/1,
     new_path_schema/1,
     new_path_schema_query/1,
     new_petri_arc/1,
@@ -64,6 +65,7 @@
     ocel_event/0,
     ocel_object/0,
     ocel_relationship/0,
+    opportunity_currency_contract/0,
     path_schema/0,
     path_schema_query/0,
     petri_arc/0,
@@ -674,6 +676,35 @@ new_ocel_relationship(Map) ->
         qualifier = maps:get(qualifier, Map, undefined),
         object_id = maps:get(object_id, Map, undefined)
     }}
+    end
+    end.
+
+%% Admits opportunity value only with an explicit deal currency and immutable foreign-exchange basis, making forecast value comparable and replayable.
+-record(opportunity_currency_contract, {
+    opportunity_id :: binary(), %% opportunity_id: Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval.
+    currency_code :: binary(), %% currency_code: Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval.
+    fx_basis_id :: binary() %% fx_basis_id: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type opportunity_currency_contract() :: #opportunity_currency_contract{}.
+
+-spec new_opportunity_currency_contract(map()) -> {ok, opportunity_currency_contract()} | {error, {missing_field, atom()}}.
+new_opportunity_currency_contract(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(currency_code, Map) of
+        false -> {error, {missing_field, currency_code}};
+        true ->
+    case maps:is_key(fx_basis_id, Map) of
+        false -> {error, {missing_field, fx_basis_id}};
+        true ->
+    {ok, #opportunity_currency_contract{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        currency_code = maps:get(currency_code, Map, undefined),
+        fx_basis_id = maps:get(fx_basis_id, Map, undefined)
+    }}
+    end
     end
     end.
 

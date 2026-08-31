@@ -554,6 +554,31 @@ ocel_relationship_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(ocel_relationship, Json),
     ?assertEqual(Rec, Rec2).
 
+opportunity_currency_contract_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_opportunity_currency_contract(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        currency_code => <<"sample_currency_code">>,
+        fx_basis_id => <<"sample_fx_basis_id">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_currency_code">>, maps:get(<<"currency_code">>, Map)),
+    ?assertEqual(<<"sample_fx_basis_id">>, maps:get(<<"fx_basis_id">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(opportunity_currency_contract,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+opportunity_currency_contract_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_opportunity_currency_contract(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        currency_code => <<"sample_currency_code">>,
+        fx_basis_id => <<"sample_fx_basis_id">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(opportunity_currency_contract, Json),
+    ?assertEqual(Rec, Rec2).
+
 path_schema_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_path_schema(#{
         schema_id => <<"sample_schema_id">>,

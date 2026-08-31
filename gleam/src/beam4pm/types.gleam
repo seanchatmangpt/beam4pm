@@ -271,6 +271,18 @@ pub type OcelRelationship {
   )
 }
 
+/// Admits opportunity value only with an explicit deal currency and immutable foreign-exchange basis, making forecast value comparable and replayable.
+pub type OpportunityCurrencyContract {
+  OpportunityCurrencyContract(
+    /// Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval.
+    currency_code: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    fx_basis_id: String,
+  )
+}
+
 /// One reusable, scored connection pattern between two OCEL types.
 pub type PathSchema {
   PathSchema(

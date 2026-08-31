@@ -467,6 +467,27 @@
       ]
 
     },
+    "opportunity_currency_contract": {
+      "type": "object",
+      "description": "Admits opportunity value only with an explicit deal currency and immutable foreign-exchange basis, making forecast value comparable and replayable.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "currency_code": {
+          "type": "string",
+          "description": "Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "fx_basis_id": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "currency_code", "fx_basis_id"
+      ]
+
+    },
     "path_schema": {
       "type": "object",
       "description": "One reusable, scored connection pattern between two OCEL types.",

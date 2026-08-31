@@ -30,6 +30,7 @@ defmodule BeamPM.Roundtrip do
     :ocel_event,
     :ocel_object,
     :ocel_relationship,
+    :opportunity_currency_contract,
     :path_schema,
     :path_schema_query,
     :petri_arc,
@@ -392,6 +393,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.OcelRelationship.new(%{
       qualifier: "sample_qualifier",
       object_id: "sample_object_id"
+    })
+  end
+
+  def sample(:opportunity_currency_contract, :full) do
+    BeamPM.Types.OpportunityCurrencyContract.new(%{
+      opportunity_id: "sample_opportunity_id",
+      currency_code: "sample_currency_code",
+      fx_basis_id: "sample_fx_basis_id"
+    })
+  end
+
+  def sample(:opportunity_currency_contract, :minimal) do
+    BeamPM.Types.OpportunityCurrencyContract.new(%{
+      opportunity_id: "sample_opportunity_id",
+      currency_code: "sample_currency_code",
+      fx_basis_id: "sample_fx_basis_id"
     })
   end
 

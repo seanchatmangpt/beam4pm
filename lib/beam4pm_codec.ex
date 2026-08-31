@@ -187,6 +187,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.OpportunityCurrencyContract{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"currency_code", r.currency_code, :passthrough},
+      {"fx_basis_id", r.fx_basis_id, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.PathSchema{} = r) do
     to_known_map([
       {"schema_id", r.schema_id, :passthrough},
@@ -575,6 +583,18 @@ defmodule BeamPM.Codec do
         {"object_id", :object_id, :passthrough}
       ],
       &BeamPM.Types.OcelRelationship.new/1
+    )
+  end
+
+  def from_map(:opportunity_currency_contract, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"currency_code", :currency_code, :passthrough},
+        {"fx_basis_id", :fx_basis_id, :passthrough}
+      ],
+      &BeamPM.Types.OpportunityCurrencyContract.new/1
     )
   end
 

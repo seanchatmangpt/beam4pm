@@ -224,6 +224,16 @@ ocel_relationship_ok_test() ->
 ocel_relationship_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_ocel_relationship(#{})).
 
+opportunity_currency_contract_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_opportunity_currency_contract(#{
+        opportunity_id => <<"x">>,
+        currency_code => <<"x">>,
+        fx_basis_id => <<"x">>
+    })).
+
+opportunity_currency_contract_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_opportunity_currency_contract(#{})).
+
 path_schema_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_path_schema(#{
         schema_id => <<"x">>,

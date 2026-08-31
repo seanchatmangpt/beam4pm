@@ -35,6 +35,7 @@ record_names() ->
         ocel_event,
         ocel_object,
         ocel_relationship,
+        opportunity_currency_contract,
         path_schema,
         path_schema_query,
         petri_arc,
@@ -309,6 +310,18 @@ sample(ocel_relationship, minimal) ->
     beam4pm_types:new_ocel_relationship(#{
         qualifier => <<"sample_qualifier">>,
         object_id => <<"sample_object_id">>
+    });
+sample(opportunity_currency_contract, full) ->
+    beam4pm_types:new_opportunity_currency_contract(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        currency_code => <<"sample_currency_code">>,
+        fx_basis_id => <<"sample_fx_basis_id">>
+    });
+sample(opportunity_currency_contract, minimal) ->
+    beam4pm_types:new_opportunity_currency_contract(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        currency_code => <<"sample_currency_code">>,
+        fx_basis_id => <<"sample_fx_basis_id">>
     });
 sample(path_schema, full) ->
     beam4pm_types:new_path_schema(#{

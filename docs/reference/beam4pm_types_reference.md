@@ -217,6 +217,16 @@
 | `qualifier` | `string` | true | The relationship qualifier/role name. |
 | `object_id` | `string` | true | The related object's identifier. |
 
+## opportunity_currency_contract
+
+> Admits opportunity value only with an explicit deal currency and immutable foreign-exchange basis, making forecast value comparable and replayable.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval. |
+| `currency_code` | `string` | true | Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval. |
+| `fx_basis_id` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## path_schema
 
 > One reusable, scored connection pattern between two OCEL types.

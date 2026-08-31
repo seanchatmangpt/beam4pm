@@ -948,6 +948,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "opportunity_currency_contract to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      currency_code: "sample_currency_code",
+      fx_basis_id: "sample_fx_basis_id"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OpportunityCurrencyContract.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["currency_code"] == "sample_currency_code"
+    assert m["fx_basis_id"] == "sample_fx_basis_id"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:opportunity_currency_contract, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:opportunity_currency_contract, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "opportunity_currency_contract encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      currency_code: "sample_currency_code",
+      fx_basis_id: "sample_fx_basis_id"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OpportunityCurrencyContract.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:opportunity_currency_contract, json)
+  end
+
+  test "opportunity_currency_contract from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:opportunity_currency_contract, %{})
+  end
+
+
   test "path_schema to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       schema_id: "sample_schema_id",

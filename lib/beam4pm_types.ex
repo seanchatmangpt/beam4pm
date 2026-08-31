@@ -571,6 +571,33 @@ defmodule BeamPM.Types.OcelRelationship do
   end
 end
 
+defmodule BeamPM.Types.OpportunityCurrencyContract do
+  @moduledoc "Admits opportunity value only with an explicit deal currency and immutable foreign-exchange basis, making forecast value comparable and replayable."
+
+  defstruct [:opportunity_id, :currency_code, :fx_basis_id]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    currency_code: String.t() | nil,
+    fx_basis_id: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :currency_code) -> {:error, {:missing_field, :currency_code}}
+      not Map.has_key?(attrs, :fx_basis_id) -> {:error, {:missing_field, :fx_basis_id}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          currency_code: Map.get(attrs, :currency_code),
+          fx_basis_id: Map.get(attrs, :fx_basis_id)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PathSchema do
   @moduledoc "One reusable, scored connection pattern between two OCEL types."
 

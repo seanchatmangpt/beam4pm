@@ -322,6 +322,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "opportunity_currency_contract new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      currency_code: "x",
+      fx_basis_id: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.OpportunityCurrencyContract.new(attrs)
+  end
+
+  test "opportunity_currency_contract new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.OpportunityCurrencyContract.new(%{})
+  end
+
+
   test "path_schema new/1 succeeds when all fields are present" do
     attrs = %{
       schema_id: "x",

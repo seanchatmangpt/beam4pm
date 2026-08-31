@@ -31,6 +31,7 @@
     beam4pm_types:ocel_event() |
     beam4pm_types:ocel_object() |
     beam4pm_types:ocel_relationship() |
+    beam4pm_types:opportunity_currency_contract() |
     beam4pm_types:path_schema() |
     beam4pm_types:path_schema_query() |
     beam4pm_types:petri_arc() |
@@ -182,6 +183,12 @@ to_map(R) when element(1, R) =:= ocel_relationship ->
     pairs_to_map([
         {<<"qualifier">>, plain, element(2, R)},
         {<<"object_id">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= opportunity_currency_contract ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"currency_code">>, plain, element(3, R)},
+        {<<"fx_basis_id">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= path_schema ->
     pairs_to_map([
@@ -422,6 +429,12 @@ from_map(ocel_relationship, Map) when is_map(Map) ->
     beam4pm_types:new_ocel_relationship(take_known(Map, [
         {<<"qualifier">>, qualifier, plain},
         {<<"object_id">>, object_id, plain}
+    ]));
+from_map(opportunity_currency_contract, Map) when is_map(Map) ->
+    beam4pm_types:new_opportunity_currency_contract(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"currency_code">>, currency_code, plain},
+        {<<"fx_basis_id">>, fx_basis_id, plain}
     ]));
 from_map(path_schema, Map) when is_map(Map) ->
     beam4pm_types:new_path_schema(take_known(Map, [
