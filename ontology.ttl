@@ -3040,3 +3040,27 @@ bpm:integration_readiness_evidence_digest_f a bpm:Field ;
 
 bpm:integration_readiness_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-117 — data readiness
+# ---------------------------------------------------------------------------
+
+bpm:data_readiness_rt a bpm:RecordType ;
+    bpm:recordName "data_readiness" ;
+    bpm:recordDoc "Measured source-data readiness for a production proof of value." ;
+    bpm:hasField bpm:data_readiness_data_readiness_id_f , bpm:data_readiness_account_id_f , bpm:data_readiness_data_quality_score_f , bpm:data_readiness_evidence_digest_f , bpm:data_readiness_observed_at_f .
+
+bpm:data_readiness_data_readiness_id_f a bpm:Field ;
+    bpm:fieldName "data_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this data readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:data_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose data readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:data_readiness_data_quality_score_f a bpm:Field ;
+    bpm:fieldName "data_quality_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed quality score of admitted customer data." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:data_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:data_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
