@@ -1,9 +1,9 @@
-2026-08-31T13:47:12.558306Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.emit{operation.name="pipeline.emit" operation.type="pipeline" pipeline.stage="emit" pipeline.duration_ms=1 pipeline.files_generated=21}: ggen_engine::sync: close time.busy=1.76ms time.idle=15.2ms
-2026-08-31T13:47:12.558520Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.generate{operation.name="pipeline.generate" operation.type="pipeline" pipeline.stage="generate" pipeline.duration_ms=1229}: ggen_engine::sync: close time.busy=1.23s time.idle=17.2ms
-2026-08-31T13:47:12.558526Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.validate{operation.name="pipeline.validate" operation.type="pipeline" pipeline.stage="validate" pipeline.duration_ms=40}: ggen_engine::sync: close time.busy=40.7ms time.idle=1.25s
-2026-08-31T13:47:12.558528Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.extract{operation.name="pipeline.extract" operation.type="pipeline" pipeline.stage="extract" pipeline.duration_ms=0}: ggen_engine::sync: close time.busy=691ns time.idle=1.29s
-2026-08-31T13:47:12.562230Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.load{operation.name="pipeline.load" operation.type="pipeline" pipeline.stage="load" pipeline.duration_ms=44}: ggen_engine::sync: close time.busy=44.3ms time.idle=1.30s
-2026-08-31T13:47:12.563304Z  INFO ggen.cli{command=sync run version="26.8.28"}: ggen_cli_lib: close time.busy=1.34s time.idle=2.58µs
+2026-08-31T13:47:18.479706Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.emit{operation.name="pipeline.emit" operation.type="pipeline" pipeline.stage="emit" pipeline.duration_ms=2 pipeline.files_generated=21}: ggen_engine::sync: close time.busy=2.68ms time.idle=13.4ms
+2026-08-31T13:47:18.480003Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.generate{operation.name="pipeline.generate" operation.type="pipeline" pipeline.stage="generate" pipeline.duration_ms=1569}: ggen_engine::sync: close time.busy=1.57s time.idle=16.4ms
+2026-08-31T13:47:18.480068Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.validate{operation.name="pipeline.validate" operation.type="pipeline" pipeline.stage="validate" pipeline.duration_ms=49}: ggen_engine::sync: close time.busy=49.1ms time.idle=1.60s
+2026-08-31T13:47:18.480123Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.extract{operation.name="pipeline.extract" operation.type="pipeline" pipeline.stage="extract" pipeline.duration_ms=0}: ggen_engine::sync: close time.busy=982ns time.idle=1.64s
+2026-08-31T13:47:18.480563Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.load{operation.name="pipeline.load" operation.type="pipeline" pipeline.stage="load" pipeline.duration_ms=51}: ggen_engine::sync: close time.busy=50.8ms time.idle=1.65s
+2026-08-31T13:47:18.480846Z  INFO ggen.cli{command=sync run version="26.8.28"}: ggen_cli_lib: close time.busy=1.70s time.idle=3.06µs
 # ontology.ttl -- beam4pm project instance graph (admitted O* data)
 #
 # This file is beam4pm's OWN instance data, expressed using the bpm: vocabulary
@@ -3742,5 +3742,28 @@ b4p:tenant_data_partition_partition_id_f a bpm:Field ;
 
 b4p:tenant_data_partition_isolation_hash_f a bpm:Field ;
     bpm:fieldName "isolation_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-004 — tenant_key_scope
+b4p:tenant_key_scope_rt a bpm:RecordType ;
+    bpm:recordName "tenant_key_scope" ;
+    bpm:recordDoc "Binds tenant cryptographic material to one runtime key scope and attested key identity." ;
+    bpm:hasField b4p:tenant_key_scope_tenant_id_f,
+                 b4p:tenant_key_scope_key_scope_id_f,
+                 b4p:tenant_key_scope_key_attestation_hash_f .
+
+b4p:tenant_key_scope_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:tenant_key_scope_key_scope_id_f a bpm:Field ;
+    bpm:fieldName "key_scope_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:tenant_key_scope_key_attestation_hash_f a bpm:Field ;
+    bpm:fieldName "key_attestation_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
