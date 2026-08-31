@@ -46,6 +46,17 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## add_on_bundle
+
+> Optional paid add-on attachable to an edition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `add_on_id` | `string` | true | Stable add-on identity. |
+| `name` | `string` | true | Buyer-facing add-on name. |
+| `capability_ids` | `list_string` | true | Additional capabilities. |
+| `status` | `atom` | true | Add-on lifecycle standing. |
+
 ## adoption_milestone
 
 > Receipted customer adoption milestone tied to observable use.
@@ -66,6 +77,17 @@
 | --- | --- | --- | --- |
 | `move_type` | `atom` | true | One of: sync \| model \| log \| silent. |
 | `cost` | `integer` | true | Non-negative cost assigned to this move. |
+
+## annual_subscription
+
+> Annual package binding SKU, seats, and renewal date.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subscription_id` | `string` | true | Stable annual subscription. |
+| `sku` | `string` | true | Subscribed SKU. |
+| `seat_count` | `integer` | true | Contracted seats. |
+| `renews_at` | `datetime` | true | Annual renewal instant. |
 
 ## architecture_readiness
 
@@ -100,6 +122,17 @@
 | `account_id` | `string` | true | Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval. |
 | `owner_id` | `string` | true | Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## billing_account
+
+> Bill-to account with currency and invoice delivery profile.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `billing_account_id` | `string` | true | Stable bill-to account identity. |
+| `account_id` | `string` | true | Commercial account owner. |
+| `currency` | `string` | true | ISO 4217 billing currency. |
+| `invoice_profile` | `string` | true | Invoice delivery profile identity. |
 
 ## billing_reconciliation
 
@@ -158,6 +191,17 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## capability_bundle
+
+> Named capability bundle with constituent capability identities.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `bundle_id` | `string` | true | Stable bundle identity. |
+| `name` | `string` | true | Buyer-facing bundle name. |
+| `capability_ids` | `list_string` | true | Included capability identities. |
+| `version` | `string` | true | Bundle semantic version. |
+
 ## capability_gap
 
 > Detected capability gap blocking enterprise value or expansion.
@@ -180,6 +224,17 @@
 | `event_count` | `integer` | true | Number of events observed for this case. |
 | `duration_seconds` | `float` | false | Optional case duration in seconds (end minus start). |
 
+## catalog_release
+
+> Immutable commercial catalog release with effective time.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `release_id` | `string` | true | Stable catalog release. |
+| `version` | `string` | true | Catalog semantic version. |
+| `sku_ids` | `list_string` | true | Published SKU identities. |
+| `effective_at` | `datetime` | true | Catalog activation instant. |
+
 ## change_order_authority
 
 > Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.
@@ -190,6 +245,39 @@
 | `authority_id` | `string` | true | Required change order authority input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## channel_agreement
+
+> Channel partner agreement with territory and validity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `agreement_id` | `string` | true | Stable channel agreement. |
+| `partner_id` | `string` | true | Authorized channel partner. |
+| `territory` | `string` | true | Authorized sales territory. |
+| `valid_until` | `datetime` | true | Agreement expiration instant. |
+
+## chargeback_rule
+
+> Cost allocation rule mapping usage to a cost center.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `rule_id` | `string` | true | Stable chargeback rule. |
+| `cost_center` | `string` | true | Charged cost center. |
+| `metric_name` | `string` | true | Allocated usage metric. |
+| `rate` | `float` | true | Internal chargeback rate. |
+
+## commercial_approval
+
+> Commercial approval decision with exact subject and authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `approval_id` | `string` | true | Stable approval identity. |
+| `quote_id` | `string` | true | Exact quote under approval. |
+| `authority` | `string` | true | Principal granting commercial authority. |
+| `status` | `atom` | true | Approval lifecycle standing. |
+
 ## commercial_exception
 
 > Represents a nonstandard commercial request as an identified exception with explicit state.
@@ -199,6 +287,28 @@
 | `opportunity_id` | `string` | true | Required commercial exception input; omission is an executable typed refusal, never an inferred approval. |
 | `exception_id` | `string` | true | Required commercial exception input; omission is an executable typed refusal, never an inferred approval. |
 | `exception_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## commercial_execution_receipt
+
+> Exact-subject commercial operation receipt with evidence digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `receipt_id` | `string` | true | Stable commercial receipt. |
+| `subject_id` | `string` | true | Exact commercial subject. |
+| `operation` | `string` | true | Executed commercial operation. |
+| `evidence_hash` | `string` | true | Digest of observed consequence evidence. |
+
+## commercial_forecast
+
+> Time-bound account forecast with amount and confidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `forecast_id` | `string` | true | Stable forecast identity. |
+| `account_id` | `string` | true | Forecast enterprise account. |
+| `amount` | `float` | true | Forecast monetary amount. |
+| `confidence` | `float` | true | Forecast confidence ratio. |
 
 ## commercial_outcome
 
@@ -212,6 +322,50 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## commercial_quote
+
+> A versioned enterprise quote binding an account, currency, and lifecycle standing.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `quote_id` | `string` | true | Stable quote identity used across approval and ordering. |
+| `account_id` | `string` | true | Enterprise account receiving the quote. |
+| `currency` | `string` | true | ISO 4217 settlement currency. |
+| `status` | `atom` | true | Quote lifecycle standing. |
+
+## commercial_quote_line
+
+> Enterprise quote line binding a sellable SKU, quantity, and unit price.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `quote_id` | `string` | true | Parent quote identity. |
+| `sku` | `string` | true | Sellable catalog SKU. |
+| `quantity` | `integer` | true | Quoted unit count. |
+| `unit_price` | `float` | true | Price per unit in quote currency. |
+
+## commercial_value_realization
+
+> Measured post-adoption outcome linked to its baseline.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `realization_id` | `string` | true | Stable realization identity. |
+| `baseline_id` | `string` | true | Compared value baseline. |
+| `realized_value` | `float` | true | Observed post-adoption value. |
+| `measured_at` | `datetime` | true | Outcome measurement instant. |
+
+## committed_spend
+
+> Term commitment with amount, currency, and expiration.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `commitment_id` | `string` | true | Stable commitment identity. |
+| `amount` | `float` | true | Committed monetary amount. |
+| `currency` | `string` | true | ISO 4217 commitment currency. |
+| `expires_at` | `datetime` | true | Commitment expiration instant. |
+
 ## committed_spend_admission
 
 > Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.
@@ -222,6 +376,39 @@
 | `commitment_id` | `string` | true | Required committed spend admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## compatibility_contract
+
+> Compatibility declaration across product, schema, and API versions.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `contract_id` | `string` | true | Stable compatibility contract. |
+| `product_version` | `string` | true | Product version subject. |
+| `schema_version` | `string` | true | Supported schema version. |
+| `api_version` | `string` | true | Supported API version. |
+
+## configuration_export
+
+> Receiptable export of deterministic enterprise configuration.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `export_id` | `string` | true | Stable export identity. |
+| `tenant_id` | `string` | true | Exported tenant. |
+| `configuration_hash` | `string` | true | Canonical exported digest. |
+| `exported_at` | `datetime` | true | Export completion instant. |
+
+## configuration_import
+
+> Validated configuration import bound to an exported digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `import_id` | `string` | true | Stable import identity. |
+| `tenant_id` | `string` | true | Destination tenant. |
+| `configuration_hash` | `string` | true | Imported canonical digest. |
+| `status` | `atom` | true | Import validation standing. |
+
 ## conformance_result
 
 > Conformance-checking metrics computed for one trace against a model.
@@ -231,6 +418,28 @@
 | `trace_id` | `string` | true | Identifier of the trace this result was computed for. |
 | `fitness` | `float` | true | Fitness score in [0.0, 1.0]. |
 | `precision` | `float` | false | Optional precision score in [0.0, 1.0]. |
+
+## consumption_pool
+
+> Shared enterprise consumption pool with unit and balance.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `pool_id` | `string` | true | Stable pool identity. |
+| `account_id` | `string` | true | Owning account. |
+| `unit` | `string` | true | Metered consumption unit. |
+| `remaining_quantity` | `float` | true | Remaining pooled quantity. |
+
+## consumption_subscription
+
+> Consumption package binding plan, account, and standing.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subscription_id` | `string` | true | Stable consumption subscription. |
+| `account_id` | `string` | true | Purchasing account. |
+| `plan_id` | `string` | true | Usage plan identity. |
+| `status` | `atom` | true | Subscription lifecycle standing. |
 
 ## contracting_entity_identity
 
@@ -308,6 +517,17 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## data_residency_policy
+
+> Tenant data-location contract with allowed regions.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `policy_id` | `string` | true | Stable residency policy. |
+| `tenant_id` | `string` | true | Governed tenant. |
+| `allowed_regions` | `list_string` | true | Permitted data regions. |
+| `status` | `atom` | true | Residency policy standing. |
+
 ## deal_desk_packet
 
 > Binds cross-functional deal-desk approval evidence into one replayable packet identity.
@@ -342,6 +562,17 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## deployment_entitlement
+
+> Paid right to deploy an edition into an environment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `entitlement_id` | `string` | true | Stable deployment entitlement. |
+| `tenant_id` | `string` | true | Entitled tenant. |
+| `profile_id` | `string` | true | Allowed environment profile. |
+| `valid_until` | `datetime` | true | Deployment right expiration. |
+
 ## developer_readiness
 
 > Measured developer enablement readiness for enterprise adoption.
@@ -364,6 +595,17 @@
 | `target_activity` | `string` | true | The following activity name. |
 | `frequency` | `integer` | true | Observed occurrence count of this edge. |
 
+## discount_schedule
+
+> Volume discount tier with threshold and percentage.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `schedule_id` | `string` | true | Stable discount schedule. |
+| `threshold` | `float` | true | Quantity activating the tier. |
+| `discount_percent` | `float` | true | Percentage discount. |
+| `currency` | `string` | true | Applicable settlement currency. |
+
 ## discovery_hypothesis
 
 > Receipted enterprise discovery hypothesis linking an account to a falsifiable customer-value expectation.
@@ -375,6 +617,39 @@
 | `expected_value` | `string` | true | Falsifiable value expectation stated by the customer. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## edition_definition
+
+> Enterprise edition binding capabilities and support tier.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `edition_id` | `string` | true | Stable edition identity. |
+| `name` | `string` | true | Buyer-facing edition name. |
+| `bundle_ids` | `list_string` | true | Included capability bundles. |
+| `support_tier` | `string` | true | Default support tier. |
+
+## enterprise_order
+
+> Accepted enterprise order binding account, quote, and standing.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `order_id` | `string` | true | Stable enterprise order identity. |
+| `account_id` | `string` | true | Purchasing enterprise account. |
+| `quote_id` | `string` | true | Accepted quote identity. |
+| `status` | `atom` | true | Order lifecycle standing. |
+
+## enterprise_order_line
+
+> Order line preserving SKU, quantity, and contracted unit price.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `order_id` | `string` | true | Parent enterprise order. |
+| `sku` | `string` | true | Ordered catalog SKU. |
+| `quantity` | `integer` | true | Contracted unit count. |
+| `unit_price` | `float` | true | Contracted price per unit. |
 
 ## entitlement_event
 
@@ -388,6 +663,28 @@
 | `effective_at` | `datetime` | true | ISO8601 UTC instant at which this event takes commercial effect (provider-assigned, not local receipt time). Primary component of the reconciliation watermark; ties are broken by event_id so that the fold is a total order and therefore order-independent. Local receipt time is deliberately not modeled: it would make the fold non-deterministic under replay. |
 | `payload` | `map` | false | Optional provider-specific extra fields carried verbatim (e.g. account id, product/plan id, offer id, newPlan, newOffer, scheduled start time). Retained for receipt/audit fidelity; the reconciliation fold reads NO field from this map -- everything the fold depends on is promoted to a typed top-level field above. |
 
+## entitlement_grant
+
+> Receiptable grant of a capability to a tenant.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `grant_id` | `string` | true | Stable entitlement grant. |
+| `tenant_id` | `string` | true | Receiving tenant. |
+| `capability_id` | `string` | true | Granted capability. |
+| `valid_until` | `datetime` | true | Grant expiration instant. |
+
+## entitlement_revocation
+
+> Receiptable capability revocation with reason and time.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `revocation_id` | `string` | true | Stable revocation identity. |
+| `grant_id` | `string` | true | Revoked entitlement grant. |
+| `reason` | `string` | true | Typed revocation reason. |
+| `revoked_at` | `datetime` | true | Revocation effective instant. |
+
 ## entitlement_state
 
 > The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark.
@@ -398,6 +695,17 @@
 | `status` | `string` | true | CLOSED SET, exactly the 8 values of the Cloud Commerce Partner Procurement API's EntitlementState enum: ENTITLEMENT_STATE_UNSPECIFIED \| ENTITLEMENT_ACTIVATION_REQUESTED \| ENTITLEMENT_ACTIVE \| ENTITLEMENT_PENDING_CANCELLATION \| ENTITLEMENT_CANCELLED \| ENTITLEMENT_PENDING_PLAN_CHANGE \| ENTITLEMENT_PENDING_PLAN_CHANGE_APPROVAL \| ENTITLEMENT_SUSPENDED. This is the provider's STATE enum, which is deliberately not the same closed set as entitlement_event.event_type: ENTITLEMENT_SUSPENDED is a reachable state with no corresponding notification event type, and ENTITLEMENT_RENEWED / ENTITLEMENT_OFFER_ENDED / ENTITLEMENT_DELETED are event types with no distinct state. The event_type -> status transition table is therefore an explicit, non-identity mapping, never a string rename. |
 | `last_applied_event_id` | `string` | true | The event_id of the single entitlement_event that produced this state. Second (tiebreak) component of the reconciliation watermark, and the audit link from a commercial state back to the exact provider notification that caused it. Required, never undefined: an entitlement_state may only be constructed by applying a real event, so there is no lawful state without a causing event id. |
 | `updated_at` | `datetime` | true | The effective_at of the last applied event -- NOT wall-clock ingestion time. First component of the reconciliation watermark. Defining it as provider effective time (a) makes the state a pure function of the event set, so the same events replayed in any order at any later date rebuild a byte-identical state, and (b) makes the strictly-greater-than admission test well-founded. A wall-clock updated_at would silently admit an out-of-order older event, because it always advances. |
+
+## environment_profile
+
+> Deterministic environment profile for demo, POC, or production.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `profile_id` | `string` | true | Stable environment profile. |
+| `environment` | `atom` | true | Deployment environment class. |
+| `region` | `string` | true | Target deployment region. |
+| `configuration_hash` | `string` | true | Canonical configuration digest. |
 
 ## event_log
 
@@ -463,6 +771,17 @@
 | `expansion_value` | `float` | true | Qualified expansion value in account currency. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## expansion_option
+
+> Pre-negotiated expansion right for a SKU and unit ceiling.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Stable expansion option. |
+| `account_id` | `string` | true | Eligible enterprise account. |
+| `sku` | `string` | true | Expandable SKU. |
+| `max_quantity` | `integer` | true | Maximum expansion quantity. |
 
 ## expansion_receipt
 
@@ -570,6 +889,17 @@
 | `invoice_entity_id` | `string` | true | Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval. |
 | `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## invoice_schedule
+
+> Deterministic invoicing cadence for a billing account.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `schedule_id` | `string` | true | Stable schedule identity. |
+| `billing_account_id` | `string` | true | Bill-to account subject. |
+| `cadence` | `atom` | true | Invoice cadence. |
+| `next_invoice_at` | `datetime` | true | Next scheduled invoice instant. |
+
 ## k8s_object_ref
 
 > A reference to one Kubernetes object observed in the runtime topology.
@@ -618,6 +948,17 @@
 | `opportunity_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
 | `agreement_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
 | `agreement_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## migration_contract
+
+> Versioned migration path with source, target, and rollback identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `migration_id` | `string` | true | Stable migration identity. |
+| `from_version` | `string` | true | Source product version. |
+| `to_version` | `string` | true | Target product version. |
+| `rollback_plan` | `string` | true | Rollback plan identity. |
 
 ## migration_readiness
 
@@ -779,6 +1120,17 @@
 | `order_form_id` | `string` | true | Required order form admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## overage_policy
+
+> Explicit overage treatment for a quota boundary.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `policy_id` | `string` | true | Stable policy identity. |
+| `quota_id` | `string` | true | Governed quota. |
+| `unit_price` | `float` | true | Price per overage unit. |
+| `behavior` | `atom` | true | Overage enforcement behavior. |
+
 ## path_schema
 
 > One reusable, scored connection pattern between two OCEL types.
@@ -799,6 +1151,17 @@
 | `source_type` | `string` | true | The query source type name. |
 | `target_type` | `string` | true | The query target type name. |
 | `max_length` | `integer` | true | Maximum number of hops to search. |
+
+## payment_terms
+
+> Contracted payment window and late-policy identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `terms_id` | `string` | true | Stable payment terms identity. |
+| `net_days` | `integer` | true | Days from invoice to due date. |
+| `late_policy` | `string` | true | Late-payment policy identity. |
+| `status` | `atom` | true | Terms lifecycle standing. |
 
 ## payment_terms_admission
 
@@ -925,6 +1288,17 @@
 | `pricing_basis_id` | `string` | true | Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## private_offer
+
+> Negotiated private offer with customer, price, and expiration.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `offer_id` | `string` | true | Stable private offer identity. |
+| `account_id` | `string` | true | Target enterprise account. |
+| `total_price` | `float` | true | Negotiated total price. |
+| `expires_at` | `datetime` | true | Offer expiration instant. |
+
 ## process_variant
 
 > One distinct activity-sequence variant observed in a log, with its frequency.
@@ -999,6 +1373,17 @@
 | `exit_gate_id` | `string` | true | Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## purchase_order_binding
+
+> Customer purchase-order evidence bound to an enterprise order.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `binding_id` | `string` | true | Stable binding identity. |
+| `order_id` | `string` | true | Enterprise order subject. |
+| `purchase_order_number` | `string` | true | Customer purchase-order number. |
+| `status` | `atom` | true | Binding validation standing. |
+
 ## purchase_order_requirement
 
 > Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness.
@@ -1028,6 +1413,28 @@
 | `queue_name` | `string` | true | Name of the observed queue. |
 | `depth` | `integer` | true | Observed queue depth at this point in time. |
 | `observed_at` | `datetime` | true | ISO8601 timestamp of this observation. |
+
+## quota_policy
+
+> Enforceable quota limit over a named measurement window.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `quota_id` | `string` | true | Stable quota identity. |
+| `metric_name` | `string` | true | Governed metric. |
+| `limit` | `float` | true | Maximum allowed quantity. |
+| `window` | `atom` | true | Quota measurement window. |
+
+## ramp_commitment
+
+> Phased commercial commitment with effective window.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `ramp_id` | `string` | true | Stable ramp identity. |
+| `phase` | `integer` | true | Ordered ramp phase. |
+| `committed_amount` | `float` | true | Phase commitment amount. |
+| `effective_at` | `datetime` | true | Phase activation instant. |
 
 ## recovery_plan
 
@@ -1065,6 +1472,17 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## renewal_option
+
+> Contractual renewal option with term and notice deadline.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Stable renewal option. |
+| `subscription_id` | `string` | true | Renewable subscription. |
+| `term_months` | `integer` | true | Renewal term months. |
+| `notice_by` | `datetime` | true | Renewal notice deadline. |
+
 ## renewal_risk
 
 > Evidence-backed renewal risk requiring customer-success action.
@@ -1086,6 +1504,17 @@
 | `opportunity_id` | `string` | true | Required renewal term admission input; omission is an executable typed refusal, never an inferred approval. |
 | `renewal_term` | `string` | true | Required renewal term admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## reseller_authorization
+
+> SKU-scoped reseller authorization with standing.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `authorization_id` | `string` | true | Stable authorization identity. |
+| `reseller_id` | `string` | true | Authorized reseller. |
+| `sku` | `string` | true | Authorized sellable SKU. |
+| `status` | `atom` | true | Authorization standing. |
 
 ## resource_allocation
 
@@ -1183,6 +1612,17 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## service_credit
+
+> Receiptable credit issued for an SLO breach.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `credit_id` | `string` | true | Stable service credit. |
+| `slo_id` | `string` | true | Breached SLO. |
+| `amount` | `float` | true | Credit monetary amount. |
+| `currency` | `string` | true | ISO 4217 credit currency. |
+
 ## service_credit_admission
 
 > Qualifies the exact service-credit obligation that prices runtime reliability risk.
@@ -1192,6 +1632,17 @@
 | `opportunity_id` | `string` | true | Required service credit admission input; omission is an executable typed refusal, never an inferred approval. |
 | `service_credit_id` | `string` | true | Required service credit admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## service_level_objective
+
+> Measurable service target bound to a support contract.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `slo_id` | `string` | true | Stable SLO identity. |
+| `contract_id` | `string` | true | Governing support contract. |
+| `target_percent` | `float` | true | Contracted target percentage. |
+| `measurement_window` | `atom` | true | SLO measurement window. |
 
 ## service_span
 
@@ -1203,6 +1654,28 @@
 | `service_name` | `string` | true | Name of the service that produced this span. |
 | `duration_ms` | `integer` | true | Span duration in milliseconds. |
 | `parent_span_id` | `string` | false | Optional identifier of the parent span. |
+
+## showback_allocation
+
+> Non-billing usage allocation for enterprise transparency.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `allocation_id` | `string` | true | Stable showback allocation. |
+| `project_id` | `string` | true | Attributed tenant project. |
+| `metric_name` | `string` | true | Reported usage metric. |
+| `quantity` | `float` | true | Attributed usage quantity. |
+
+## sku_definition
+
+> Catalog SKU binding edition, billing model, and lifecycle.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `sku` | `string` | true | Stable sellable SKU. |
+| `edition_id` | `string` | true | Product edition identity. |
+| `billing_model` | `atom` | true | Commercial billing model. |
+| `status` | `atom` | true | SKU lifecycle standing. |
 
 ## sla_offer_admission
 
@@ -1259,6 +1732,17 @@
 | `success_target` | `string` | true | Next verified customer-success target. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## support_contract
+
+> Purchased support tier with response target and term.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `contract_id` | `string` | true | Stable support contract. |
+| `account_id` | `string` | true | Covered enterprise account. |
+| `tier` | `atom` | true | Purchased support tier. |
+| `valid_until` | `datetime` | true | Support term expiration. |
 
 ## support_readiness
 
@@ -1324,6 +1808,39 @@
 | `blocker_id` | `string` | true | Required technical blocker input; omission is an executable typed refusal, never an inferred approval. |
 | `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## tenant_account
+
+> Commercial tenant bound to account, region, and edition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Stable tenant identity. |
+| `account_id` | `string` | true | Owning enterprise account. |
+| `home_region` | `string` | true | Tenant home region. |
+| `edition_id` | `string` | true | Provisioned product edition. |
+
+## tenant_project
+
+> Billable tenant project with cost-center attribution.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `project_id` | `string` | true | Stable tenant project. |
+| `tenant_id` | `string` | true | Owning tenant. |
+| `cost_center` | `string` | true | Enterprise cost-center code. |
+| `status` | `atom` | true | Project lifecycle standing. |
+
+## term_subscription
+
+> Fixed-term package with explicit start and end.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subscription_id` | `string` | true | Stable term subscription. |
+| `sku` | `string` | true | Subscribed SKU. |
+| `starts_at` | `datetime` | true | Term start instant. |
+| `ends_at` | `datetime` | true | Term end instant. |
+
 ## termination_right_admission
 
 > Qualifies termination rights that materially change collectible contract value and delivery exposure.
@@ -1368,6 +1885,17 @@
 | `training_scope_id` | `string` | true | Required training scope admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## true_up_policy
+
+> End-of-period reconciliation policy for committed consumption.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `policy_id` | `string` | true | Stable true-up identity. |
+| `commitment_id` | `string` | true | Commitment under reconciliation. |
+| `cadence` | `atom` | true | True-up cadence. |
+| `shortfall_behavior` | `atom` | true | Shortfall treatment. |
+
 ## type_edge
 
 > A directed, qualified edge in the OCEL type graph between two types.
@@ -1403,6 +1931,17 @@
 | `metric_name` | `string` | true | The fully qualified metered dimension this occurrence counts against. Reconciliation partitions by (entitlement_id, metric_name): quantities in different metrics are never summed together. |
 | `occurred_at` | `datetime` | true | ISO8601 UTC instant the usage actually occurred (not when it was observed, queued, or reported). |
 
+## usage_plan
+
+> Meter-to-price plan binding dimension, unit, and billing mode.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Stable usage plan identity. |
+| `metric_name` | `string` | true | Metered dimension. |
+| `unit` | `string` | true | Commercial measurement unit. |
+| `billing_mode` | `atom` | true | Billing calculation mode. |
+
 ## usage_signal
 
 > Measured product-usage signal for an admitted enterprise account.
@@ -1414,6 +1953,17 @@
 | `active_user_count` | `integer` | true | Distinct active users in the observation window. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## value_baseline
+
+> Measured pre-adoption business baseline for ROI comparison.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `baseline_id` | `string` | true | Stable baseline identity. |
+| `account_id` | `string` | true | Measured enterprise account. |
+| `metric_name` | `string` | true | Business value metric. |
+| `baseline_value` | `float` | true | Pre-adoption measured value. |
 
 ## value_driver
 

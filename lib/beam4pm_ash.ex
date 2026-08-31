@@ -84,6 +84,27 @@ defmodule BeamPM.Ash.Resources.ActivationEvent do
   end
 end
 
+defmodule BeamPM.Ash.Resources.AddOnBundle do
+  @moduledoc "Optional paid add-on attachable to an edition."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :add_on_id, :string, public?: true, allow_nil?: false
+    attribute :name, :string, public?: true, allow_nil?: false
+    attribute :capability_ids, {:array, :string}, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.AdoptionMilestone do
   @moduledoc "Receipted customer adoption milestone tied to observable use."
   use Ash.Resource,
@@ -117,6 +138,27 @@ defmodule BeamPM.Ash.Resources.AlignmentMove do
     uuid_primary_key :id
     attribute :move_type, :atom, public?: true, allow_nil?: false
     attribute :cost, :integer, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.AnnualSubscription do
+  @moduledoc "Annual package binding SKU, seats, and renewal date."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :subscription_id, :string, public?: true, allow_nil?: false
+    attribute :sku, :string, public?: true, allow_nil?: false
+    attribute :seat_count, :integer, public?: true, allow_nil?: false
+    attribute :renews_at, :utc_datetime, public?: true, allow_nil?: false
   end
 
   actions do
@@ -181,6 +223,27 @@ defmodule BeamPM.Ash.Resources.BeneficialOwnerEvidence do
     attribute :account_id, :string, public?: true, allow_nil?: false
     attribute :owner_id, :string, public?: true, allow_nil?: false
     attribute :evidence_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.BillingAccount do
+  @moduledoc "Bill-to account with currency and invoice delivery profile."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :billing_account_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :currency, :string, public?: true, allow_nil?: false
+    attribute :invoice_profile, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -296,6 +359,27 @@ defmodule BeamPM.Ash.Resources.CanaryDecision do
   end
 end
 
+defmodule BeamPM.Ash.Resources.CapabilityBundle do
+  @moduledoc "Named capability bundle with constituent capability identities."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :bundle_id, :string, public?: true, allow_nil?: false
+    attribute :name, :string, public?: true, allow_nil?: false
+    attribute :capability_ids, {:array, :string}, public?: true, allow_nil?: false
+    attribute :version, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.CapabilityGap do
   @moduledoc "Detected capability gap blocking enterprise value or expansion."
   use Ash.Resource,
@@ -338,6 +422,27 @@ defmodule BeamPM.Ash.Resources.CaseStats do
   end
 end
 
+defmodule BeamPM.Ash.Resources.CatalogRelease do
+  @moduledoc "Immutable commercial catalog release with effective time."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :release_id, :string, public?: true, allow_nil?: false
+    attribute :version, :string, public?: true, allow_nil?: false
+    attribute :sku_ids, {:array, :string}, public?: true, allow_nil?: false
+    attribute :effective_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ChangeOrderAuthority do
   @moduledoc "Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin."
   use Ash.Resource,
@@ -358,6 +463,69 @@ defmodule BeamPM.Ash.Resources.ChangeOrderAuthority do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ChannelAgreement do
+  @moduledoc "Channel partner agreement with territory and validity."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :agreement_id, :string, public?: true, allow_nil?: false
+    attribute :partner_id, :string, public?: true, allow_nil?: false
+    attribute :territory, :string, public?: true, allow_nil?: false
+    attribute :valid_until, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ChargebackRule do
+  @moduledoc "Cost allocation rule mapping usage to a cost center."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :rule_id, :string, public?: true, allow_nil?: false
+    attribute :cost_center, :string, public?: true, allow_nil?: false
+    attribute :metric_name, :string, public?: true, allow_nil?: false
+    attribute :rate, :float, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CommercialApproval do
+  @moduledoc "Commercial approval decision with exact subject and authority."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :approval_id, :string, public?: true, allow_nil?: false
+    attribute :quote_id, :string, public?: true, allow_nil?: false
+    attribute :authority, :string, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.CommercialException do
   @moduledoc "Represents a nonstandard commercial request as an identified exception with explicit state."
   use Ash.Resource,
@@ -370,6 +538,48 @@ defmodule BeamPM.Ash.Resources.CommercialException do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :exception_id, :string, public?: true, allow_nil?: false
     attribute :exception_state, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CommercialExecutionReceipt do
+  @moduledoc "Exact-subject commercial operation receipt with evidence digest."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :receipt_id, :string, public?: true, allow_nil?: false
+    attribute :subject_id, :string, public?: true, allow_nil?: false
+    attribute :operation, :string, public?: true, allow_nil?: false
+    attribute :evidence_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CommercialForecast do
+  @moduledoc "Time-bound account forecast with amount and confidence."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :forecast_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :amount, :float, public?: true, allow_nil?: false
+    attribute :confidence, :float, public?: true, allow_nil?: false
   end
 
   actions do
@@ -400,6 +610,90 @@ defmodule BeamPM.Ash.Resources.CommercialOutcome do
   end
 end
 
+defmodule BeamPM.Ash.Resources.CommercialQuote do
+  @moduledoc "A versioned enterprise quote binding an account, currency, and lifecycle standing."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :quote_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :currency, :string, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CommercialQuoteLine do
+  @moduledoc "Enterprise quote line binding a sellable SKU, quantity, and unit price."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :quote_id, :string, public?: true, allow_nil?: false
+    attribute :sku, :string, public?: true, allow_nil?: false
+    attribute :quantity, :integer, public?: true, allow_nil?: false
+    attribute :unit_price, :float, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CommercialValueRealization do
+  @moduledoc "Measured post-adoption outcome linked to its baseline."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :realization_id, :string, public?: true, allow_nil?: false
+    attribute :baseline_id, :string, public?: true, allow_nil?: false
+    attribute :realized_value, :float, public?: true, allow_nil?: false
+    attribute :measured_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CommittedSpend do
+  @moduledoc "Term commitment with amount, currency, and expiration."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :commitment_id, :string, public?: true, allow_nil?: false
+    attribute :amount, :float, public?: true, allow_nil?: false
+    attribute :currency, :string, public?: true, allow_nil?: false
+    attribute :expires_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.CommittedSpendAdmission do
   @moduledoc "Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage."
   use Ash.Resource,
@@ -420,6 +714,69 @@ defmodule BeamPM.Ash.Resources.CommittedSpendAdmission do
   end
 end
 
+defmodule BeamPM.Ash.Resources.CompatibilityContract do
+  @moduledoc "Compatibility declaration across product, schema, and API versions."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :contract_id, :string, public?: true, allow_nil?: false
+    attribute :product_version, :string, public?: true, allow_nil?: false
+    attribute :schema_version, :string, public?: true, allow_nil?: false
+    attribute :api_version, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ConfigurationExport do
+  @moduledoc "Receiptable export of deterministic enterprise configuration."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :export_id, :string, public?: true, allow_nil?: false
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :configuration_hash, :string, public?: true, allow_nil?: false
+    attribute :exported_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ConfigurationImport do
+  @moduledoc "Validated configuration import bound to an exported digest."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :import_id, :string, public?: true, allow_nil?: false
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :configuration_hash, :string, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ConformanceResult do
   @moduledoc "Conformance-checking metrics computed for one trace against a model."
   use Ash.Resource,
@@ -432,6 +789,48 @@ defmodule BeamPM.Ash.Resources.ConformanceResult do
     attribute :trace_id, :string, public?: true, allow_nil?: false
     attribute :fitness, :float, public?: true, allow_nil?: false
     attribute :precision, :float, public?: true
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ConsumptionPool do
+  @moduledoc "Shared enterprise consumption pool with unit and balance."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :pool_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :unit, :string, public?: true, allow_nil?: false
+    attribute :remaining_quantity, :float, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ConsumptionSubscription do
+  @moduledoc "Consumption package binding plan, account, and standing."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :subscription_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :plan_id, :string, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -586,6 +985,27 @@ defmodule BeamPM.Ash.Resources.DataReadiness do
   end
 end
 
+defmodule BeamPM.Ash.Resources.DataResidencyPolicy do
+  @moduledoc "Tenant data-location contract with allowed regions."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :policy_id, :string, public?: true, allow_nil?: false
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :allowed_regions, {:array, :string}, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.DealDeskPacket do
   @moduledoc "Binds cross-functional deal-desk approval evidence into one replayable packet identity."
   use Ash.Resource,
@@ -650,6 +1070,27 @@ defmodule BeamPM.Ash.Resources.DemoScenario do
   end
 end
 
+defmodule BeamPM.Ash.Resources.DeploymentEntitlement do
+  @moduledoc "Paid right to deploy an edition into an environment."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :entitlement_id, :string, public?: true, allow_nil?: false
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :profile_id, :string, public?: true, allow_nil?: false
+    attribute :valid_until, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.DeveloperReadiness do
   @moduledoc "Measured developer enablement readiness for enterprise adoption."
   use Ash.Resource,
@@ -692,6 +1133,27 @@ defmodule BeamPM.Ash.Resources.DfgEdge do
   end
 end
 
+defmodule BeamPM.Ash.Resources.DiscountSchedule do
+  @moduledoc "Volume discount tier with threshold and percentage."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :schedule_id, :string, public?: true, allow_nil?: false
+    attribute :threshold, :float, public?: true, allow_nil?: false
+    attribute :discount_percent, :float, public?: true, allow_nil?: false
+    attribute :currency, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.DiscoveryHypothesis do
   @moduledoc "Receipted enterprise discovery hypothesis linking an account to a falsifiable customer-value expectation."
   use Ash.Resource,
@@ -706,6 +1168,69 @@ defmodule BeamPM.Ash.Resources.DiscoveryHypothesis do
     attribute :expected_value, :string, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.EditionDefinition do
+  @moduledoc "Enterprise edition binding capabilities and support tier."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :edition_id, :string, public?: true, allow_nil?: false
+    attribute :name, :string, public?: true, allow_nil?: false
+    attribute :bundle_ids, {:array, :string}, public?: true, allow_nil?: false
+    attribute :support_tier, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.EnterpriseOrder do
+  @moduledoc "Accepted enterprise order binding account, quote, and standing."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :order_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :quote_id, :string, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.EnterpriseOrderLine do
+  @moduledoc "Order line preserving SKU, quantity, and contracted unit price."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :order_id, :string, public?: true, allow_nil?: false
+    attribute :sku, :string, public?: true, allow_nil?: false
+    attribute :quantity, :integer, public?: true, allow_nil?: false
+    attribute :unit_price, :float, public?: true, allow_nil?: false
   end
 
   actions do
@@ -736,6 +1261,48 @@ defmodule BeamPM.Ash.Resources.EntitlementEvent do
   end
 end
 
+defmodule BeamPM.Ash.Resources.EntitlementGrant do
+  @moduledoc "Receiptable grant of a capability to a tenant."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :grant_id, :string, public?: true, allow_nil?: false
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :capability_id, :string, public?: true, allow_nil?: false
+    attribute :valid_until, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.EntitlementRevocation do
+  @moduledoc "Receiptable capability revocation with reason and time."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :revocation_id, :string, public?: true, allow_nil?: false
+    attribute :grant_id, :string, public?: true, allow_nil?: false
+    attribute :reason, :string, public?: true, allow_nil?: false
+    attribute :revoked_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.EntitlementState do
   @moduledoc "The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark."
   use Ash.Resource,
@@ -749,6 +1316,27 @@ defmodule BeamPM.Ash.Resources.EntitlementState do
     attribute :status, :string, public?: true, allow_nil?: false
     attribute :last_applied_event_id, :string, public?: true, allow_nil?: false
     attribute :updated_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.EnvironmentProfile do
+  @moduledoc "Deterministic environment profile for demo, POC, or production."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :profile_id, :string, public?: true, allow_nil?: false
+    attribute :environment, :atom, public?: true, allow_nil?: false
+    attribute :region, :string, public?: true, allow_nil?: false
+    attribute :configuration_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -874,6 +1462,27 @@ defmodule BeamPM.Ash.Resources.ExpansionOpportunity do
     attribute :expansion_value, :float, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ExpansionOption do
+  @moduledoc "Pre-negotiated expansion right for a SKU and unit ceiling."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :option_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :sku, :string, public?: true, allow_nil?: false
+    attribute :max_quantity, :integer, public?: true, allow_nil?: false
   end
 
   actions do
@@ -1088,6 +1697,27 @@ defmodule BeamPM.Ash.Resources.InvoiceEntityIdentity do
   end
 end
 
+defmodule BeamPM.Ash.Resources.InvoiceSchedule do
+  @moduledoc "Deterministic invoicing cadence for a billing account."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :schedule_id, :string, public?: true, allow_nil?: false
+    attribute :billing_account_id, :string, public?: true, allow_nil?: false
+    attribute :cadence, :atom, public?: true, allow_nil?: false
+    attribute :next_invoice_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.K8sObjectRef do
   @moduledoc "A reference to one Kubernetes object observed in the runtime topology."
   use Ash.Resource,
@@ -1179,6 +1809,27 @@ defmodule BeamPM.Ash.Resources.MasterServiceAgreementState do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :agreement_id, :string, public?: true, allow_nil?: false
     attribute :agreement_state, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.MigrationContract do
+  @moduledoc "Versioned migration path with source, target, and rollback identity."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :migration_id, :string, public?: true, allow_nil?: false
+    attribute :from_version, :string, public?: true, allow_nil?: false
+    attribute :to_version, :string, public?: true, allow_nil?: false
+    attribute :rollback_plan, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -1497,6 +2148,27 @@ defmodule BeamPM.Ash.Resources.OrderFormAdmission do
   end
 end
 
+defmodule BeamPM.Ash.Resources.OveragePolicy do
+  @moduledoc "Explicit overage treatment for a quota boundary."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :policy_id, :string, public?: true, allow_nil?: false
+    attribute :quota_id, :string, public?: true, allow_nil?: false
+    attribute :unit_price, :float, public?: true, allow_nil?: false
+    attribute :behavior, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.PathSchema do
   @moduledoc "One reusable, scored connection pattern between two OCEL types."
   use Ash.Resource,
@@ -1530,6 +2202,27 @@ defmodule BeamPM.Ash.Resources.PathSchemaQuery do
     attribute :source_type, :string, public?: true, allow_nil?: false
     attribute :target_type, :string, public?: true, allow_nil?: false
     attribute :max_length, :integer, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.PaymentTerms do
+  @moduledoc "Contracted payment window and late-policy identity."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :terms_id, :string, public?: true, allow_nil?: false
+    attribute :net_days, :integer, public?: true, allow_nil?: false
+    attribute :late_policy, :string, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -1783,6 +2476,27 @@ defmodule BeamPM.Ash.Resources.PricingBasisContract do
   end
 end
 
+defmodule BeamPM.Ash.Resources.PrivateOffer do
+  @moduledoc "Negotiated private offer with customer, price, and expiration."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :offer_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :total_price, :float, public?: true, allow_nil?: false
+    attribute :expires_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ProcessVariant do
   @moduledoc "One distinct activity-sequence variant observed in a log, with its frequency."
   use Ash.Resource,
@@ -1927,6 +2641,27 @@ defmodule BeamPM.Ash.Resources.ProofOfValueExitGate do
   end
 end
 
+defmodule BeamPM.Ash.Resources.PurchaseOrderBinding do
+  @moduledoc "Customer purchase-order evidence bound to an enterprise order."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :binding_id, :string, public?: true, allow_nil?: false
+    attribute :order_id, :string, public?: true, allow_nil?: false
+    attribute :purchase_order_number, :string, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.PurchaseOrderRequirement do
   @moduledoc "Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness."
   use Ash.Resource,
@@ -1979,6 +2714,48 @@ defmodule BeamPM.Ash.Resources.QueueSnapshot do
     attribute :queue_name, :string, public?: true, allow_nil?: false
     attribute :depth, :integer, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.QuotaPolicy do
+  @moduledoc "Enforceable quota limit over a named measurement window."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :quota_id, :string, public?: true, allow_nil?: false
+    attribute :metric_name, :string, public?: true, allow_nil?: false
+    attribute :limit, :float, public?: true, allow_nil?: false
+    attribute :window, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.RampCommitment do
+  @moduledoc "Phased commercial commitment with effective window."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :ramp_id, :string, public?: true, allow_nil?: false
+    attribute :phase, :integer, public?: true, allow_nil?: false
+    attribute :committed_amount, :float, public?: true, allow_nil?: false
+    attribute :effective_at, :utc_datetime, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2053,6 +2830,27 @@ defmodule BeamPM.Ash.Resources.RenewalHealth do
   end
 end
 
+defmodule BeamPM.Ash.Resources.RenewalOption do
+  @moduledoc "Contractual renewal option with term and notice deadline."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :option_id, :string, public?: true, allow_nil?: false
+    attribute :subscription_id, :string, public?: true, allow_nil?: false
+    attribute :term_months, :integer, public?: true, allow_nil?: false
+    attribute :notice_by, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.RenewalRisk do
   @moduledoc "Evidence-backed renewal risk requiring customer-success action."
   use Ash.Resource,
@@ -2087,6 +2885,27 @@ defmodule BeamPM.Ash.Resources.RenewalTermAdmission do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :renewal_term, :string, public?: true, allow_nil?: false
     attribute :decision, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ResellerAuthorization do
+  @moduledoc "SKU-scoped reseller authorization with standing."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :authorization_id, :string, public?: true, allow_nil?: false
+    attribute :reseller_id, :string, public?: true, allow_nil?: false
+    attribute :sku, :string, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2281,6 +3100,27 @@ defmodule BeamPM.Ash.Resources.SecurityReadiness do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ServiceCredit do
+  @moduledoc "Receiptable credit issued for an SLO breach."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :credit_id, :string, public?: true, allow_nil?: false
+    attribute :slo_id, :string, public?: true, allow_nil?: false
+    attribute :amount, :float, public?: true, allow_nil?: false
+    attribute :currency, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ServiceCreditAdmission do
   @moduledoc "Qualifies the exact service-credit obligation that prices runtime reliability risk."
   use Ash.Resource,
@@ -2293,6 +3133,27 @@ defmodule BeamPM.Ash.Resources.ServiceCreditAdmission do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :service_credit_id, :string, public?: true, allow_nil?: false
     attribute :decision, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ServiceLevelObjective do
+  @moduledoc "Measurable service target bound to a support contract."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :slo_id, :string, public?: true, allow_nil?: false
+    attribute :contract_id, :string, public?: true, allow_nil?: false
+    attribute :target_percent, :float, public?: true, allow_nil?: false
+    attribute :measurement_window, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2314,6 +3175,48 @@ defmodule BeamPM.Ash.Resources.ServiceSpan do
     attribute :service_name, :string, public?: true, allow_nil?: false
     attribute :duration_ms, :integer, public?: true, allow_nil?: false
     attribute :parent_span_id, :string, public?: true
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ShowbackAllocation do
+  @moduledoc "Non-billing usage allocation for enterprise transparency."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :allocation_id, :string, public?: true, allow_nil?: false
+    attribute :project_id, :string, public?: true, allow_nil?: false
+    attribute :metric_name, :string, public?: true, allow_nil?: false
+    attribute :quantity, :float, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.SkuDefinition do
+  @moduledoc "Catalog SKU binding edition, billing model, and lifecycle."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :sku, :string, public?: true, allow_nil?: false
+    attribute :edition_id, :string, public?: true, allow_nil?: false
+    attribute :billing_model, :atom, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2420,6 +3323,27 @@ defmodule BeamPM.Ash.Resources.SuccessPlan do
     attribute :success_target, :string, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.SupportContract do
+  @moduledoc "Purchased support tier with response target and term."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :contract_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :tier, :atom, public?: true, allow_nil?: false
+    attribute :valid_until, :utc_datetime, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2552,6 +3476,69 @@ defmodule BeamPM.Ash.Resources.TechnicalBlocker do
   end
 end
 
+defmodule BeamPM.Ash.Resources.TenantAccount do
+  @moduledoc "Commercial tenant bound to account, region, and edition."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :home_region, :string, public?: true, allow_nil?: false
+    attribute :edition_id, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.TenantProject do
+  @moduledoc "Billable tenant project with cost-center attribution."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :project_id, :string, public?: true, allow_nil?: false
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :cost_center, :string, public?: true, allow_nil?: false
+    attribute :status, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.TermSubscription do
+  @moduledoc "Fixed-term package with explicit start and end."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :subscription_id, :string, public?: true, allow_nil?: false
+    attribute :sku, :string, public?: true, allow_nil?: false
+    attribute :starts_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :ends_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.TerminationRightAdmission do
   @moduledoc "Qualifies termination rights that materially change collectible contract value and delivery exposure."
   use Ash.Resource,
@@ -2636,6 +3623,27 @@ defmodule BeamPM.Ash.Resources.TrainingScopeAdmission do
   end
 end
 
+defmodule BeamPM.Ash.Resources.TrueUpPolicy do
+  @moduledoc "End-of-period reconciliation policy for committed consumption."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :policy_id, :string, public?: true, allow_nil?: false
+    attribute :commitment_id, :string, public?: true, allow_nil?: false
+    attribute :cadence, :atom, public?: true, allow_nil?: false
+    attribute :shortfall_behavior, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.TypeEdge do
   @moduledoc "A directed, qualified edge in the OCEL type graph between two types."
   use Ash.Resource,
@@ -2701,6 +3709,27 @@ defmodule BeamPM.Ash.Resources.UsageEvent do
   end
 end
 
+defmodule BeamPM.Ash.Resources.UsagePlan do
+  @moduledoc "Meter-to-price plan binding dimension, unit, and billing mode."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :plan_id, :string, public?: true, allow_nil?: false
+    attribute :metric_name, :string, public?: true, allow_nil?: false
+    attribute :unit, :string, public?: true, allow_nil?: false
+    attribute :billing_mode, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.UsageSignal do
   @moduledoc "Measured product-usage signal for an admitted enterprise account."
   use Ash.Resource,
@@ -2715,6 +3744,27 @@ defmodule BeamPM.Ash.Resources.UsageSignal do
     attribute :active_user_count, :integer, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ValueBaseline do
+  @moduledoc "Measured pre-adoption business baseline for ROI comparison."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :baseline_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :metric_name, :string, public?: true, allow_nil?: false
+    attribute :baseline_value, :float, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2816,23 +3866,42 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.AccountMasterMatch
     resource BeamPM.Ash.Resources.AccountParentScope
     resource BeamPM.Ash.Resources.ActivationEvent
+    resource BeamPM.Ash.Resources.AddOnBundle
     resource BeamPM.Ash.Resources.AdoptionMilestone
     resource BeamPM.Ash.Resources.AlignmentMove
+    resource BeamPM.Ash.Resources.AnnualSubscription
     resource BeamPM.Ash.Resources.ArchitectureReadiness
     resource BeamPM.Ash.Resources.BaselineMetric
     resource BeamPM.Ash.Resources.BeneficialOwnerEvidence
+    resource BeamPM.Ash.Resources.BillingAccount
     resource BeamPM.Ash.Resources.BillingReconciliation
     resource BeamPM.Ash.Resources.BookingReadiness
     resource BeamPM.Ash.Resources.BudgetPeriodAlignment
     resource BeamPM.Ash.Resources.BuyingCommittee
     resource BeamPM.Ash.Resources.CanaryDecision
+    resource BeamPM.Ash.Resources.CapabilityBundle
     resource BeamPM.Ash.Resources.CapabilityGap
     resource BeamPM.Ash.Resources.CaseStats
+    resource BeamPM.Ash.Resources.CatalogRelease
     resource BeamPM.Ash.Resources.ChangeOrderAuthority
+    resource BeamPM.Ash.Resources.ChannelAgreement
+    resource BeamPM.Ash.Resources.ChargebackRule
+    resource BeamPM.Ash.Resources.CommercialApproval
     resource BeamPM.Ash.Resources.CommercialException
+    resource BeamPM.Ash.Resources.CommercialExecutionReceipt
+    resource BeamPM.Ash.Resources.CommercialForecast
     resource BeamPM.Ash.Resources.CommercialOutcome
+    resource BeamPM.Ash.Resources.CommercialQuote
+    resource BeamPM.Ash.Resources.CommercialQuoteLine
+    resource BeamPM.Ash.Resources.CommercialValueRealization
+    resource BeamPM.Ash.Resources.CommittedSpend
     resource BeamPM.Ash.Resources.CommittedSpendAdmission
+    resource BeamPM.Ash.Resources.CompatibilityContract
+    resource BeamPM.Ash.Resources.ConfigurationExport
+    resource BeamPM.Ash.Resources.ConfigurationImport
     resource BeamPM.Ash.Resources.ConformanceResult
+    resource BeamPM.Ash.Resources.ConsumptionPool
+    resource BeamPM.Ash.Resources.ConsumptionSubscription
     resource BeamPM.Ash.Resources.ContractingEntityIdentity
     resource BeamPM.Ash.Resources.CreditRiskAdmission
     resource BeamPM.Ash.Resources.CrossSellFit
@@ -2840,20 +3909,30 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.DataMigrationScopeAdmission
     resource BeamPM.Ash.Resources.DataProcessingAddendumState
     resource BeamPM.Ash.Resources.DataReadiness
+    resource BeamPM.Ash.Resources.DataResidencyPolicy
     resource BeamPM.Ash.Resources.DealDeskPacket
     resource BeamPM.Ash.Resources.DemoRun
     resource BeamPM.Ash.Resources.DemoScenario
+    resource BeamPM.Ash.Resources.DeploymentEntitlement
     resource BeamPM.Ash.Resources.DeveloperReadiness
     resource BeamPM.Ash.Resources.DfgEdge
+    resource BeamPM.Ash.Resources.DiscountSchedule
     resource BeamPM.Ash.Resources.DiscoveryHypothesis
+    resource BeamPM.Ash.Resources.EditionDefinition
+    resource BeamPM.Ash.Resources.EnterpriseOrder
+    resource BeamPM.Ash.Resources.EnterpriseOrderLine
     resource BeamPM.Ash.Resources.EntitlementEvent
+    resource BeamPM.Ash.Resources.EntitlementGrant
+    resource BeamPM.Ash.Resources.EntitlementRevocation
     resource BeamPM.Ash.Resources.EntitlementState
+    resource BeamPM.Ash.Resources.EnvironmentProfile
     resource BeamPM.Ash.Resources.EventLog
     resource BeamPM.Ash.Resources.EventType
     resource BeamPM.Ash.Resources.ExceptionAuthority
     resource BeamPM.Ash.Resources.ExecutiveBusinessReview
     resource BeamPM.Ash.Resources.ExecutiveSponsor
     resource BeamPM.Ash.Resources.ExpansionOpportunity
+    resource BeamPM.Ash.Resources.ExpansionOption
     resource BeamPM.Ash.Resources.ExpansionReceipt
     resource BeamPM.Ash.Resources.ExpansionSignal
     resource BeamPM.Ash.Resources.FundingApprovalChain
@@ -2864,11 +3943,13 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.IntegrationReadiness
     resource BeamPM.Ash.Resources.IntegrationScopeAdmission
     resource BeamPM.Ash.Resources.InvoiceEntityIdentity
+    resource BeamPM.Ash.Resources.InvoiceSchedule
     resource BeamPM.Ash.Resources.K8sObjectRef
     resource BeamPM.Ash.Resources.LegalBlocker
     resource BeamPM.Ash.Resources.LiabilityCapAdmission
     resource BeamPM.Ash.Resources.LogTrace
     resource BeamPM.Ash.Resources.MasterServiceAgreementState
+    resource BeamPM.Ash.Resources.MigrationContract
     resource BeamPM.Ash.Resources.MigrationReadiness
     resource BeamPM.Ash.Resources.MinimumTermAdmission
     resource BeamPM.Ash.Resources.ObjectAttributeChange
@@ -2884,8 +3965,10 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.OpportunityCurrencyContract
     resource BeamPM.Ash.Resources.OpportunityValueRange
     resource BeamPM.Ash.Resources.OrderFormAdmission
+    resource BeamPM.Ash.Resources.OveragePolicy
     resource BeamPM.Ash.Resources.PathSchema
     resource BeamPM.Ash.Resources.PathSchemaQuery
+    resource BeamPM.Ash.Resources.PaymentTerms
     resource BeamPM.Ash.Resources.PaymentTermsAdmission
     resource BeamPM.Ash.Resources.PetriArc
     resource BeamPM.Ash.Resources.PetriPlace
@@ -2898,6 +3981,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.PocTimeline
     resource BeamPM.Ash.Resources.PolicyDecision
     resource BeamPM.Ash.Resources.PricingBasisContract
+    resource BeamPM.Ash.Resources.PrivateOffer
     resource BeamPM.Ash.Resources.ProcessVariant
     resource BeamPM.Ash.Resources.ProcurementBlocker
     resource BeamPM.Ash.Resources.ProcurementChannelSelection
@@ -2905,14 +3989,19 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ProductionReadiness
     resource BeamPM.Ash.Resources.ProofOfValueBudget
     resource BeamPM.Ash.Resources.ProofOfValueExitGate
+    resource BeamPM.Ash.Resources.PurchaseOrderBinding
     resource BeamPM.Ash.Resources.PurchaseOrderRequirement
     resource BeamPM.Ash.Resources.PurchasingEntityIdentity
     resource BeamPM.Ash.Resources.QueueSnapshot
+    resource BeamPM.Ash.Resources.QuotaPolicy
+    resource BeamPM.Ash.Resources.RampCommitment
     resource BeamPM.Ash.Resources.RecoveryPlan
     resource BeamPM.Ash.Resources.RenewalEvidence
     resource BeamPM.Ash.Resources.RenewalHealth
+    resource BeamPM.Ash.Resources.RenewalOption
     resource BeamPM.Ash.Resources.RenewalRisk
     resource BeamPM.Ash.Resources.RenewalTermAdmission
+    resource BeamPM.Ash.Resources.ResellerAuthorization
     resource BeamPM.Ash.Resources.ResourceAllocation
     resource BeamPM.Ash.Resources.RevenueAttribution
     resource BeamPM.Ash.Resources.RevenueContractAdmission
@@ -2922,27 +4011,38 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.SecurityAddendumState
     resource BeamPM.Ash.Resources.SecurityBlocker
     resource BeamPM.Ash.Resources.SecurityReadiness
+    resource BeamPM.Ash.Resources.ServiceCredit
     resource BeamPM.Ash.Resources.ServiceCreditAdmission
+    resource BeamPM.Ash.Resources.ServiceLevelObjective
     resource BeamPM.Ash.Resources.ServiceSpan
+    resource BeamPM.Ash.Resources.ShowbackAllocation
+    resource BeamPM.Ash.Resources.SkuDefinition
     resource BeamPM.Ash.Resources.SlaOfferAdmission
     resource BeamPM.Ash.Resources.SojournTime
     resource BeamPM.Ash.Resources.SolutionFit
     resource BeamPM.Ash.Resources.StakeholderMap
     resource BeamPM.Ash.Resources.SuccessPlan
+    resource BeamPM.Ash.Resources.SupportContract
     resource BeamPM.Ash.Resources.SupportReadiness
     resource BeamPM.Ash.Resources.SupportTierAdmission
     resource BeamPM.Ash.Resources.SyncTime
     resource BeamPM.Ash.Resources.TargetMetric
     resource BeamPM.Ash.Resources.TaxJurisdictionEvidence
     resource BeamPM.Ash.Resources.TechnicalBlocker
+    resource BeamPM.Ash.Resources.TenantAccount
+    resource BeamPM.Ash.Resources.TenantProject
+    resource BeamPM.Ash.Resources.TermSubscription
     resource BeamPM.Ash.Resources.TerminationRightAdmission
     resource BeamPM.Ash.Resources.TimeToValue
     resource BeamPM.Ash.Resources.TrainingReadiness
     resource BeamPM.Ash.Resources.TrainingScopeAdmission
+    resource BeamPM.Ash.Resources.TrueUpPolicy
     resource BeamPM.Ash.Resources.TypeEdge
     resource BeamPM.Ash.Resources.UpsellReadiness
     resource BeamPM.Ash.Resources.UsageEvent
+    resource BeamPM.Ash.Resources.UsagePlan
     resource BeamPM.Ash.Resources.UsageSignal
+    resource BeamPM.Ash.Resources.ValueBaseline
     resource BeamPM.Ash.Resources.ValueDriver
     resource BeamPM.Ash.Resources.ValueRealization
     resource BeamPM.Ash.Resources.VendorRegistrationState

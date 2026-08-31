@@ -2535,6 +2535,901 @@ b4pe:billing_reconciliation_period_end_f a bpm:Field ;
     bpm:fieldDoc "ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
 
+# WS2-REV-001 -- executable commercial quote contract.
+b4pe:commercial_quote_rt a bpm:RecordType ;
+    bpm:recordName "commercial_quote" ;
+    bpm:recordDoc "A versioned enterprise quote binding an account, currency, and lifecycle standing." ;
+    bpm:hasField b4pe:commercial_quote_quote_id_f , b4pe:commercial_quote_account_id_f , b4pe:commercial_quote_currency_f , b4pe:commercial_quote_status_f .
+
+b4pe:commercial_quote_quote_id_f a bpm:Field ;
+    bpm:fieldName "quote_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable quote identity used across approval and ordering." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:commercial_quote_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account receiving the quote." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:commercial_quote_currency_f a bpm:Field ;
+    bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "ISO 4217 settlement currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:commercial_quote_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Quote lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+# WS2-REV-002 -- Enterprise quote line binding a sellable SKU, quantity, and unit price.
+b4pe:commercial_quote_line_rt a bpm:RecordType ;
+    bpm:recordName "commercial_quote_line" ;
+    bpm:recordDoc "Enterprise quote line binding a sellable SKU, quantity, and unit price." ;
+    bpm:hasField b4pe:commercial_quote_line_quote_id_f , b4pe:commercial_quote_line_sku_f , b4pe:commercial_quote_line_quantity_f , b4pe:commercial_quote_line_unit_price_f .
+
+b4pe:commercial_quote_line_quote_id_f a bpm:Field ;
+    bpm:fieldName "quote_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Parent quote identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:commercial_quote_line_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Sellable catalog SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:commercial_quote_line_quantity_f a bpm:Field ;
+    bpm:fieldName "quantity" ; bpm:fieldType "integer" ; bpm:fieldDoc "Quoted unit count." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:commercial_quote_line_unit_price_f a bpm:Field ;
+    bpm:fieldName "unit_price" ; bpm:fieldType "float" ; bpm:fieldDoc "Price per unit in quote currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-003 -- Commercial approval decision with exact subject and authority.
+b4pe:commercial_approval_rt a bpm:RecordType ;
+    bpm:recordName "commercial_approval" ;
+    bpm:recordDoc "Commercial approval decision with exact subject and authority." ;
+    bpm:hasField b4pe:commercial_approval_approval_id_f , b4pe:commercial_approval_quote_id_f , b4pe:commercial_approval_authority_f , b4pe:commercial_approval_status_f .
+
+b4pe:commercial_approval_approval_id_f a bpm:Field ;
+    bpm:fieldName "approval_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable approval identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:commercial_approval_quote_id_f a bpm:Field ;
+    bpm:fieldName "quote_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact quote under approval." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:commercial_approval_authority_f a bpm:Field ;
+    bpm:fieldName "authority" ; bpm:fieldType "string" ; bpm:fieldDoc "Principal granting commercial authority." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:commercial_approval_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Approval lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-004 -- Accepted enterprise order binding account, quote, and standing.
+b4pe:enterprise_order_rt a bpm:RecordType ;
+    bpm:recordName "enterprise_order" ;
+    bpm:recordDoc "Accepted enterprise order binding account, quote, and standing." ;
+    bpm:hasField b4pe:enterprise_order_order_id_f , b4pe:enterprise_order_account_id_f , b4pe:enterprise_order_quote_id_f , b4pe:enterprise_order_status_f .
+
+b4pe:enterprise_order_order_id_f a bpm:Field ;
+    bpm:fieldName "order_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable enterprise order identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:enterprise_order_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Purchasing enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:enterprise_order_quote_id_f a bpm:Field ;
+    bpm:fieldName "quote_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Accepted quote identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:enterprise_order_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Order lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-005 -- Order line preserving SKU, quantity, and contracted unit price.
+b4pe:enterprise_order_line_rt a bpm:RecordType ;
+    bpm:recordName "enterprise_order_line" ;
+    bpm:recordDoc "Order line preserving SKU, quantity, and contracted unit price." ;
+    bpm:hasField b4pe:enterprise_order_line_order_id_f , b4pe:enterprise_order_line_sku_f , b4pe:enterprise_order_line_quantity_f , b4pe:enterprise_order_line_unit_price_f .
+
+b4pe:enterprise_order_line_order_id_f a bpm:Field ;
+    bpm:fieldName "order_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Parent enterprise order." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:enterprise_order_line_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Ordered catalog SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:enterprise_order_line_quantity_f a bpm:Field ;
+    bpm:fieldName "quantity" ; bpm:fieldType "integer" ; bpm:fieldDoc "Contracted unit count." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:enterprise_order_line_unit_price_f a bpm:Field ;
+    bpm:fieldName "unit_price" ; bpm:fieldType "float" ; bpm:fieldDoc "Contracted price per unit." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-006 -- Customer purchase-order evidence bound to an enterprise order.
+b4pe:purchase_order_binding_rt a bpm:RecordType ;
+    bpm:recordName "purchase_order_binding" ;
+    bpm:recordDoc "Customer purchase-order evidence bound to an enterprise order." ;
+    bpm:hasField b4pe:purchase_order_binding_binding_id_f , b4pe:purchase_order_binding_order_id_f , b4pe:purchase_order_binding_purchase_order_number_f , b4pe:purchase_order_binding_status_f .
+
+b4pe:purchase_order_binding_binding_id_f a bpm:Field ;
+    bpm:fieldName "binding_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable binding identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:purchase_order_binding_order_id_f a bpm:Field ;
+    bpm:fieldName "order_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise order subject." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:purchase_order_binding_purchase_order_number_f a bpm:Field ;
+    bpm:fieldName "purchase_order_number" ; bpm:fieldType "string" ; bpm:fieldDoc "Customer purchase-order number." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:purchase_order_binding_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Binding validation standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-007 -- Bill-to account with currency and invoice delivery profile.
+b4pe:billing_account_rt a bpm:RecordType ;
+    bpm:recordName "billing_account" ;
+    bpm:recordDoc "Bill-to account with currency and invoice delivery profile." ;
+    bpm:hasField b4pe:billing_account_billing_account_id_f , b4pe:billing_account_account_id_f , b4pe:billing_account_currency_f , b4pe:billing_account_invoice_profile_f .
+
+b4pe:billing_account_billing_account_id_f a bpm:Field ;
+    bpm:fieldName "billing_account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable bill-to account identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:billing_account_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Commercial account owner." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:billing_account_currency_f a bpm:Field ;
+    bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "ISO 4217 billing currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:billing_account_invoice_profile_f a bpm:Field ;
+    bpm:fieldName "invoice_profile" ; bpm:fieldType "string" ; bpm:fieldDoc "Invoice delivery profile identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-008 -- Deterministic invoicing cadence for a billing account.
+b4pe:invoice_schedule_rt a bpm:RecordType ;
+    bpm:recordName "invoice_schedule" ;
+    bpm:recordDoc "Deterministic invoicing cadence for a billing account." ;
+    bpm:hasField b4pe:invoice_schedule_schedule_id_f , b4pe:invoice_schedule_billing_account_id_f , b4pe:invoice_schedule_cadence_f , b4pe:invoice_schedule_next_invoice_at_f .
+
+b4pe:invoice_schedule_schedule_id_f a bpm:Field ;
+    bpm:fieldName "schedule_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable schedule identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:invoice_schedule_billing_account_id_f a bpm:Field ;
+    bpm:fieldName "billing_account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Bill-to account subject." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:invoice_schedule_cadence_f a bpm:Field ;
+    bpm:fieldName "cadence" ; bpm:fieldType "atom" ; bpm:fieldDoc "Invoice cadence." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:invoice_schedule_next_invoice_at_f a bpm:Field ;
+    bpm:fieldName "next_invoice_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Next scheduled invoice instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-009 -- Contracted payment window and late-policy identity.
+b4pe:payment_terms_rt a bpm:RecordType ;
+    bpm:recordName "payment_terms" ;
+    bpm:recordDoc "Contracted payment window and late-policy identity." ;
+    bpm:hasField b4pe:payment_terms_terms_id_f , b4pe:payment_terms_net_days_f , b4pe:payment_terms_late_policy_f , b4pe:payment_terms_status_f .
+
+b4pe:payment_terms_terms_id_f a bpm:Field ;
+    bpm:fieldName "terms_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable payment terms identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:payment_terms_net_days_f a bpm:Field ;
+    bpm:fieldName "net_days" ; bpm:fieldType "integer" ; bpm:fieldDoc "Days from invoice to due date." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:payment_terms_late_policy_f a bpm:Field ;
+    bpm:fieldName "late_policy" ; bpm:fieldType "string" ; bpm:fieldDoc "Late-payment policy identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:payment_terms_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Terms lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-010 -- Term commitment with amount, currency, and expiration.
+b4pe:committed_spend_rt a bpm:RecordType ;
+    bpm:recordName "committed_spend" ;
+    bpm:recordDoc "Term commitment with amount, currency, and expiration." ;
+    bpm:hasField b4pe:committed_spend_commitment_id_f , b4pe:committed_spend_amount_f , b4pe:committed_spend_currency_f , b4pe:committed_spend_expires_at_f .
+
+b4pe:committed_spend_commitment_id_f a bpm:Field ;
+    bpm:fieldName "commitment_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable commitment identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:committed_spend_amount_f a bpm:Field ;
+    bpm:fieldName "amount" ; bpm:fieldType "float" ; bpm:fieldDoc "Committed monetary amount." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:committed_spend_currency_f a bpm:Field ;
+    bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "ISO 4217 commitment currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:committed_spend_expires_at_f a bpm:Field ;
+    bpm:fieldName "expires_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Commitment expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-011 -- Shared enterprise consumption pool with unit and balance.
+b4pe:consumption_pool_rt a bpm:RecordType ;
+    bpm:recordName "consumption_pool" ;
+    bpm:recordDoc "Shared enterprise consumption pool with unit and balance." ;
+    bpm:hasField b4pe:consumption_pool_pool_id_f , b4pe:consumption_pool_account_id_f , b4pe:consumption_pool_unit_f , b4pe:consumption_pool_remaining_quantity_f .
+
+b4pe:consumption_pool_pool_id_f a bpm:Field ;
+    bpm:fieldName "pool_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable pool identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:consumption_pool_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Owning account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:consumption_pool_unit_f a bpm:Field ;
+    bpm:fieldName "unit" ; bpm:fieldType "string" ; bpm:fieldDoc "Metered consumption unit." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:consumption_pool_remaining_quantity_f a bpm:Field ;
+    bpm:fieldName "remaining_quantity" ; bpm:fieldType "float" ; bpm:fieldDoc "Remaining pooled quantity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-012 -- Meter-to-price plan binding dimension, unit, and billing mode.
+b4pe:usage_plan_rt a bpm:RecordType ;
+    bpm:recordName "usage_plan" ;
+    bpm:recordDoc "Meter-to-price plan binding dimension, unit, and billing mode." ;
+    bpm:hasField b4pe:usage_plan_plan_id_f , b4pe:usage_plan_metric_name_f , b4pe:usage_plan_unit_f , b4pe:usage_plan_billing_mode_f .
+
+b4pe:usage_plan_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable usage plan identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:usage_plan_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Metered dimension." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:usage_plan_unit_f a bpm:Field ;
+    bpm:fieldName "unit" ; bpm:fieldType "string" ; bpm:fieldDoc "Commercial measurement unit." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:usage_plan_billing_mode_f a bpm:Field ;
+    bpm:fieldName "billing_mode" ; bpm:fieldType "atom" ; bpm:fieldDoc "Billing calculation mode." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-013 -- Enforceable quota limit over a named measurement window.
+b4pe:quota_policy_rt a bpm:RecordType ;
+    bpm:recordName "quota_policy" ;
+    bpm:recordDoc "Enforceable quota limit over a named measurement window." ;
+    bpm:hasField b4pe:quota_policy_quota_id_f , b4pe:quota_policy_metric_name_f , b4pe:quota_policy_limit_f , b4pe:quota_policy_window_f .
+
+b4pe:quota_policy_quota_id_f a bpm:Field ;
+    bpm:fieldName "quota_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable quota identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:quota_policy_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Governed metric." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:quota_policy_limit_f a bpm:Field ;
+    bpm:fieldName "limit" ; bpm:fieldType "float" ; bpm:fieldDoc "Maximum allowed quantity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:quota_policy_window_f a bpm:Field ;
+    bpm:fieldName "window" ; bpm:fieldType "atom" ; bpm:fieldDoc "Quota measurement window." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-014 -- Explicit overage treatment for a quota boundary.
+b4pe:overage_policy_rt a bpm:RecordType ;
+    bpm:recordName "overage_policy" ;
+    bpm:recordDoc "Explicit overage treatment for a quota boundary." ;
+    bpm:hasField b4pe:overage_policy_policy_id_f , b4pe:overage_policy_quota_id_f , b4pe:overage_policy_unit_price_f , b4pe:overage_policy_behavior_f .
+
+b4pe:overage_policy_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable policy identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:overage_policy_quota_id_f a bpm:Field ;
+    bpm:fieldName "quota_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Governed quota." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:overage_policy_unit_price_f a bpm:Field ;
+    bpm:fieldName "unit_price" ; bpm:fieldType "float" ; bpm:fieldDoc "Price per overage unit." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:overage_policy_behavior_f a bpm:Field ;
+    bpm:fieldName "behavior" ; bpm:fieldType "atom" ; bpm:fieldDoc "Overage enforcement behavior." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-015 -- Volume discount tier with threshold and percentage.
+b4pe:discount_schedule_rt a bpm:RecordType ;
+    bpm:recordName "discount_schedule" ;
+    bpm:recordDoc "Volume discount tier with threshold and percentage." ;
+    bpm:hasField b4pe:discount_schedule_schedule_id_f , b4pe:discount_schedule_threshold_f , b4pe:discount_schedule_discount_percent_f , b4pe:discount_schedule_currency_f .
+
+b4pe:discount_schedule_schedule_id_f a bpm:Field ;
+    bpm:fieldName "schedule_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable discount schedule." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:discount_schedule_threshold_f a bpm:Field ;
+    bpm:fieldName "threshold" ; bpm:fieldType "float" ; bpm:fieldDoc "Quantity activating the tier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:discount_schedule_discount_percent_f a bpm:Field ;
+    bpm:fieldName "discount_percent" ; bpm:fieldType "float" ; bpm:fieldDoc "Percentage discount." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:discount_schedule_currency_f a bpm:Field ;
+    bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "Applicable settlement currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-016 -- Phased commercial commitment with effective window.
+b4pe:ramp_commitment_rt a bpm:RecordType ;
+    bpm:recordName "ramp_commitment" ;
+    bpm:recordDoc "Phased commercial commitment with effective window." ;
+    bpm:hasField b4pe:ramp_commitment_ramp_id_f , b4pe:ramp_commitment_phase_f , b4pe:ramp_commitment_committed_amount_f , b4pe:ramp_commitment_effective_at_f .
+
+b4pe:ramp_commitment_ramp_id_f a bpm:Field ;
+    bpm:fieldName "ramp_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable ramp identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:ramp_commitment_phase_f a bpm:Field ;
+    bpm:fieldName "phase" ; bpm:fieldType "integer" ; bpm:fieldDoc "Ordered ramp phase." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:ramp_commitment_committed_amount_f a bpm:Field ;
+    bpm:fieldName "committed_amount" ; bpm:fieldType "float" ; bpm:fieldDoc "Phase commitment amount." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:ramp_commitment_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Phase activation instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-017 -- End-of-period reconciliation policy for committed consumption.
+b4pe:true_up_policy_rt a bpm:RecordType ;
+    bpm:recordName "true_up_policy" ;
+    bpm:recordDoc "End-of-period reconciliation policy for committed consumption." ;
+    bpm:hasField b4pe:true_up_policy_policy_id_f , b4pe:true_up_policy_commitment_id_f , b4pe:true_up_policy_cadence_f , b4pe:true_up_policy_shortfall_behavior_f .
+
+b4pe:true_up_policy_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable true-up identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:true_up_policy_commitment_id_f a bpm:Field ;
+    bpm:fieldName "commitment_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Commitment under reconciliation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:true_up_policy_cadence_f a bpm:Field ;
+    bpm:fieldName "cadence" ; bpm:fieldType "atom" ; bpm:fieldDoc "True-up cadence." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:true_up_policy_shortfall_behavior_f a bpm:Field ;
+    bpm:fieldName "shortfall_behavior" ; bpm:fieldType "atom" ; bpm:fieldDoc "Shortfall treatment." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-018 -- Annual package binding SKU, seats, and renewal date.
+b4pe:annual_subscription_rt a bpm:RecordType ;
+    bpm:recordName "annual_subscription" ;
+    bpm:recordDoc "Annual package binding SKU, seats, and renewal date." ;
+    bpm:hasField b4pe:annual_subscription_subscription_id_f , b4pe:annual_subscription_sku_f , b4pe:annual_subscription_seat_count_f , b4pe:annual_subscription_renews_at_f .
+
+b4pe:annual_subscription_subscription_id_f a bpm:Field ;
+    bpm:fieldName "subscription_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable annual subscription." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:annual_subscription_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Subscribed SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:annual_subscription_seat_count_f a bpm:Field ;
+    bpm:fieldName "seat_count" ; bpm:fieldType "integer" ; bpm:fieldDoc "Contracted seats." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:annual_subscription_renews_at_f a bpm:Field ;
+    bpm:fieldName "renews_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Annual renewal instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-019 -- Fixed-term package with explicit start and end.
+b4pe:term_subscription_rt a bpm:RecordType ;
+    bpm:recordName "term_subscription" ;
+    bpm:recordDoc "Fixed-term package with explicit start and end." ;
+    bpm:hasField b4pe:term_subscription_subscription_id_f , b4pe:term_subscription_sku_f , b4pe:term_subscription_starts_at_f , b4pe:term_subscription_ends_at_f .
+
+b4pe:term_subscription_subscription_id_f a bpm:Field ;
+    bpm:fieldName "subscription_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable term subscription." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:term_subscription_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Subscribed SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:term_subscription_starts_at_f a bpm:Field ;
+    bpm:fieldName "starts_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Term start instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:term_subscription_ends_at_f a bpm:Field ;
+    bpm:fieldName "ends_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Term end instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-020 -- Consumption package binding plan, account, and standing.
+b4pe:consumption_subscription_rt a bpm:RecordType ;
+    bpm:recordName "consumption_subscription" ;
+    bpm:recordDoc "Consumption package binding plan, account, and standing." ;
+    bpm:hasField b4pe:consumption_subscription_subscription_id_f , b4pe:consumption_subscription_account_id_f , b4pe:consumption_subscription_plan_id_f , b4pe:consumption_subscription_status_f .
+
+b4pe:consumption_subscription_subscription_id_f a bpm:Field ;
+    bpm:fieldName "subscription_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable consumption subscription." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:consumption_subscription_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Purchasing account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:consumption_subscription_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Usage plan identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:consumption_subscription_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Subscription lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-021 -- Negotiated private offer with customer, price, and expiration.
+b4pe:private_offer_rt a bpm:RecordType ;
+    bpm:recordName "private_offer" ;
+    bpm:recordDoc "Negotiated private offer with customer, price, and expiration." ;
+    bpm:hasField b4pe:private_offer_offer_id_f , b4pe:private_offer_account_id_f , b4pe:private_offer_total_price_f , b4pe:private_offer_expires_at_f .
+
+b4pe:private_offer_offer_id_f a bpm:Field ;
+    bpm:fieldName "offer_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable private offer identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:private_offer_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Target enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:private_offer_total_price_f a bpm:Field ;
+    bpm:fieldName "total_price" ; bpm:fieldType "float" ; bpm:fieldDoc "Negotiated total price." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:private_offer_expires_at_f a bpm:Field ;
+    bpm:fieldName "expires_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Offer expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-022 -- Channel partner agreement with territory and validity.
+b4pe:channel_agreement_rt a bpm:RecordType ;
+    bpm:recordName "channel_agreement" ;
+    bpm:recordDoc "Channel partner agreement with territory and validity." ;
+    bpm:hasField b4pe:channel_agreement_agreement_id_f , b4pe:channel_agreement_partner_id_f , b4pe:channel_agreement_territory_f , b4pe:channel_agreement_valid_until_f .
+
+b4pe:channel_agreement_agreement_id_f a bpm:Field ;
+    bpm:fieldName "agreement_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable channel agreement." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:channel_agreement_partner_id_f a bpm:Field ;
+    bpm:fieldName "partner_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Authorized channel partner." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:channel_agreement_territory_f a bpm:Field ;
+    bpm:fieldName "territory" ; bpm:fieldType "string" ; bpm:fieldDoc "Authorized sales territory." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:channel_agreement_valid_until_f a bpm:Field ;
+    bpm:fieldName "valid_until" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Agreement expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-023 -- SKU-scoped reseller authorization with standing.
+b4pe:reseller_authorization_rt a bpm:RecordType ;
+    bpm:recordName "reseller_authorization" ;
+    bpm:recordDoc "SKU-scoped reseller authorization with standing." ;
+    bpm:hasField b4pe:reseller_authorization_authorization_id_f , b4pe:reseller_authorization_reseller_id_f , b4pe:reseller_authorization_sku_f , b4pe:reseller_authorization_status_f .
+
+b4pe:reseller_authorization_authorization_id_f a bpm:Field ;
+    bpm:fieldName "authorization_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable authorization identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:reseller_authorization_reseller_id_f a bpm:Field ;
+    bpm:fieldName "reseller_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Authorized reseller." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:reseller_authorization_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Authorized sellable SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:reseller_authorization_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Authorization standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-024 -- Catalog SKU binding edition, billing model, and lifecycle.
+b4pe:sku_definition_rt a bpm:RecordType ;
+    bpm:recordName "sku_definition" ;
+    bpm:recordDoc "Catalog SKU binding edition, billing model, and lifecycle." ;
+    bpm:hasField b4pe:sku_definition_sku_f , b4pe:sku_definition_edition_id_f , b4pe:sku_definition_billing_model_f , b4pe:sku_definition_status_f .
+
+b4pe:sku_definition_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable sellable SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:sku_definition_edition_id_f a bpm:Field ;
+    bpm:fieldName "edition_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Product edition identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:sku_definition_billing_model_f a bpm:Field ;
+    bpm:fieldName "billing_model" ; bpm:fieldType "atom" ; bpm:fieldDoc "Commercial billing model." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:sku_definition_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "SKU lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-025 -- Named capability bundle with constituent capability identities.
+b4pe:capability_bundle_rt a bpm:RecordType ;
+    bpm:recordName "capability_bundle" ;
+    bpm:recordDoc "Named capability bundle with constituent capability identities." ;
+    bpm:hasField b4pe:capability_bundle_bundle_id_f , b4pe:capability_bundle_name_f , b4pe:capability_bundle_capability_ids_f , b4pe:capability_bundle_version_f .
+
+b4pe:capability_bundle_bundle_id_f a bpm:Field ;
+    bpm:fieldName "bundle_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable bundle identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:capability_bundle_name_f a bpm:Field ;
+    bpm:fieldName "name" ; bpm:fieldType "string" ; bpm:fieldDoc "Buyer-facing bundle name." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:capability_bundle_capability_ids_f a bpm:Field ;
+    bpm:fieldName "capability_ids" ; bpm:fieldType "list_string" ; bpm:fieldDoc "Included capability identities." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:capability_bundle_version_f a bpm:Field ;
+    bpm:fieldName "version" ; bpm:fieldType "string" ; bpm:fieldDoc "Bundle semantic version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-026 -- Enterprise edition binding capabilities and support tier.
+b4pe:edition_definition_rt a bpm:RecordType ;
+    bpm:recordName "edition_definition" ;
+    bpm:recordDoc "Enterprise edition binding capabilities and support tier." ;
+    bpm:hasField b4pe:edition_definition_edition_id_f , b4pe:edition_definition_name_f , b4pe:edition_definition_bundle_ids_f , b4pe:edition_definition_support_tier_f .
+
+b4pe:edition_definition_edition_id_f a bpm:Field ;
+    bpm:fieldName "edition_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable edition identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:edition_definition_name_f a bpm:Field ;
+    bpm:fieldName "name" ; bpm:fieldType "string" ; bpm:fieldDoc "Buyer-facing edition name." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:edition_definition_bundle_ids_f a bpm:Field ;
+    bpm:fieldName "bundle_ids" ; bpm:fieldType "list_string" ; bpm:fieldDoc "Included capability bundles." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:edition_definition_support_tier_f a bpm:Field ;
+    bpm:fieldName "support_tier" ; bpm:fieldType "string" ; bpm:fieldDoc "Default support tier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-027 -- Optional paid add-on attachable to an edition.
+b4pe:add_on_bundle_rt a bpm:RecordType ;
+    bpm:recordName "add_on_bundle" ;
+    bpm:recordDoc "Optional paid add-on attachable to an edition." ;
+    bpm:hasField b4pe:add_on_bundle_add_on_id_f , b4pe:add_on_bundle_name_f , b4pe:add_on_bundle_capability_ids_f , b4pe:add_on_bundle_status_f .
+
+b4pe:add_on_bundle_add_on_id_f a bpm:Field ;
+    bpm:fieldName "add_on_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable add-on identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:add_on_bundle_name_f a bpm:Field ;
+    bpm:fieldName "name" ; bpm:fieldType "string" ; bpm:fieldDoc "Buyer-facing add-on name." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:add_on_bundle_capability_ids_f a bpm:Field ;
+    bpm:fieldName "capability_ids" ; bpm:fieldType "list_string" ; bpm:fieldDoc "Additional capabilities." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:add_on_bundle_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Add-on lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-028 -- Immutable commercial catalog release with effective time.
+b4pe:catalog_release_rt a bpm:RecordType ;
+    bpm:recordName "catalog_release" ;
+    bpm:recordDoc "Immutable commercial catalog release with effective time." ;
+    bpm:hasField b4pe:catalog_release_release_id_f , b4pe:catalog_release_version_f , b4pe:catalog_release_sku_ids_f , b4pe:catalog_release_effective_at_f .
+
+b4pe:catalog_release_release_id_f a bpm:Field ;
+    bpm:fieldName "release_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable catalog release." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:catalog_release_version_f a bpm:Field ;
+    bpm:fieldName "version" ; bpm:fieldType "string" ; bpm:fieldDoc "Catalog semantic version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:catalog_release_sku_ids_f a bpm:Field ;
+    bpm:fieldName "sku_ids" ; bpm:fieldType "list_string" ; bpm:fieldDoc "Published SKU identities." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:catalog_release_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Catalog activation instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-029 -- Receiptable grant of a capability to a tenant.
+b4pe:entitlement_grant_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_grant" ;
+    bpm:recordDoc "Receiptable grant of a capability to a tenant." ;
+    bpm:hasField b4pe:entitlement_grant_grant_id_f , b4pe:entitlement_grant_tenant_id_f , b4pe:entitlement_grant_capability_id_f , b4pe:entitlement_grant_valid_until_f .
+
+b4pe:entitlement_grant_grant_id_f a bpm:Field ;
+    bpm:fieldName "grant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable entitlement grant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:entitlement_grant_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Receiving tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:entitlement_grant_capability_id_f a bpm:Field ;
+    bpm:fieldName "capability_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Granted capability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:entitlement_grant_valid_until_f a bpm:Field ;
+    bpm:fieldName "valid_until" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Grant expiration instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-030 -- Receiptable capability revocation with reason and time.
+b4pe:entitlement_revocation_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_revocation" ;
+    bpm:recordDoc "Receiptable capability revocation with reason and time." ;
+    bpm:hasField b4pe:entitlement_revocation_revocation_id_f , b4pe:entitlement_revocation_grant_id_f , b4pe:entitlement_revocation_reason_f , b4pe:entitlement_revocation_revoked_at_f .
+
+b4pe:entitlement_revocation_revocation_id_f a bpm:Field ;
+    bpm:fieldName "revocation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable revocation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:entitlement_revocation_grant_id_f a bpm:Field ;
+    bpm:fieldName "grant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Revoked entitlement grant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:entitlement_revocation_reason_f a bpm:Field ;
+    bpm:fieldName "reason" ; bpm:fieldType "string" ; bpm:fieldDoc "Typed revocation reason." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:entitlement_revocation_revoked_at_f a bpm:Field ;
+    bpm:fieldName "revoked_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Revocation effective instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-031 -- Commercial tenant bound to account, region, and edition.
+b4pe:tenant_account_rt a bpm:RecordType ;
+    bpm:recordName "tenant_account" ;
+    bpm:recordDoc "Commercial tenant bound to account, region, and edition." ;
+    bpm:hasField b4pe:tenant_account_tenant_id_f , b4pe:tenant_account_account_id_f , b4pe:tenant_account_home_region_f , b4pe:tenant_account_edition_id_f .
+
+b4pe:tenant_account_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable tenant identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:tenant_account_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Owning enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:tenant_account_home_region_f a bpm:Field ;
+    bpm:fieldName "home_region" ; bpm:fieldType "string" ; bpm:fieldDoc "Tenant home region." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:tenant_account_edition_id_f a bpm:Field ;
+    bpm:fieldName "edition_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Provisioned product edition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-032 -- Billable tenant project with cost-center attribution.
+b4pe:tenant_project_rt a bpm:RecordType ;
+    bpm:recordName "tenant_project" ;
+    bpm:recordDoc "Billable tenant project with cost-center attribution." ;
+    bpm:hasField b4pe:tenant_project_project_id_f , b4pe:tenant_project_tenant_id_f , b4pe:tenant_project_cost_center_f , b4pe:tenant_project_status_f .
+
+b4pe:tenant_project_project_id_f a bpm:Field ;
+    bpm:fieldName "project_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable tenant project." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:tenant_project_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Owning tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:tenant_project_cost_center_f a bpm:Field ;
+    bpm:fieldName "cost_center" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise cost-center code." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:tenant_project_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Project lifecycle standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-033 -- Deterministic environment profile for demo, POC, or production.
+b4pe:environment_profile_rt a bpm:RecordType ;
+    bpm:recordName "environment_profile" ;
+    bpm:recordDoc "Deterministic environment profile for demo, POC, or production." ;
+    bpm:hasField b4pe:environment_profile_profile_id_f , b4pe:environment_profile_environment_f , b4pe:environment_profile_region_f , b4pe:environment_profile_configuration_hash_f .
+
+b4pe:environment_profile_profile_id_f a bpm:Field ;
+    bpm:fieldName "profile_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable environment profile." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:environment_profile_environment_f a bpm:Field ;
+    bpm:fieldName "environment" ; bpm:fieldType "atom" ; bpm:fieldDoc "Deployment environment class." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:environment_profile_region_f a bpm:Field ;
+    bpm:fieldName "region" ; bpm:fieldType "string" ; bpm:fieldDoc "Target deployment region." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:environment_profile_configuration_hash_f a bpm:Field ;
+    bpm:fieldName "configuration_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Canonical configuration digest." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-034 -- Paid right to deploy an edition into an environment.
+b4pe:deployment_entitlement_rt a bpm:RecordType ;
+    bpm:recordName "deployment_entitlement" ;
+    bpm:recordDoc "Paid right to deploy an edition into an environment." ;
+    bpm:hasField b4pe:deployment_entitlement_entitlement_id_f , b4pe:deployment_entitlement_tenant_id_f , b4pe:deployment_entitlement_profile_id_f , b4pe:deployment_entitlement_valid_until_f .
+
+b4pe:deployment_entitlement_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable deployment entitlement." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:deployment_entitlement_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Entitled tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:deployment_entitlement_profile_id_f a bpm:Field ;
+    bpm:fieldName "profile_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Allowed environment profile." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:deployment_entitlement_valid_until_f a bpm:Field ;
+    bpm:fieldName "valid_until" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Deployment right expiration." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-035 -- Tenant data-location contract with allowed regions.
+b4pe:data_residency_policy_rt a bpm:RecordType ;
+    bpm:recordName "data_residency_policy" ;
+    bpm:recordDoc "Tenant data-location contract with allowed regions." ;
+    bpm:hasField b4pe:data_residency_policy_policy_id_f , b4pe:data_residency_policy_tenant_id_f , b4pe:data_residency_policy_allowed_regions_f , b4pe:data_residency_policy_status_f .
+
+b4pe:data_residency_policy_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable residency policy." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:data_residency_policy_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Governed tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:data_residency_policy_allowed_regions_f a bpm:Field ;
+    bpm:fieldName "allowed_regions" ; bpm:fieldType "list_string" ; bpm:fieldDoc "Permitted data regions." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:data_residency_policy_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Residency policy standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-036 -- Purchased support tier with response target and term.
+b4pe:support_contract_rt a bpm:RecordType ;
+    bpm:recordName "support_contract" ;
+    bpm:recordDoc "Purchased support tier with response target and term." ;
+    bpm:hasField b4pe:support_contract_contract_id_f , b4pe:support_contract_account_id_f , b4pe:support_contract_tier_f , b4pe:support_contract_valid_until_f .
+
+b4pe:support_contract_contract_id_f a bpm:Field ;
+    bpm:fieldName "contract_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable support contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:support_contract_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Covered enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:support_contract_tier_f a bpm:Field ;
+    bpm:fieldName "tier" ; bpm:fieldType "atom" ; bpm:fieldDoc "Purchased support tier." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:support_contract_valid_until_f a bpm:Field ;
+    bpm:fieldName "valid_until" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Support term expiration." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-037 -- Measurable service target bound to a support contract.
+b4pe:service_level_objective_rt a bpm:RecordType ;
+    bpm:recordName "service_level_objective" ;
+    bpm:recordDoc "Measurable service target bound to a support contract." ;
+    bpm:hasField b4pe:service_level_objective_slo_id_f , b4pe:service_level_objective_contract_id_f , b4pe:service_level_objective_target_percent_f , b4pe:service_level_objective_measurement_window_f .
+
+b4pe:service_level_objective_slo_id_f a bpm:Field ;
+    bpm:fieldName "slo_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable SLO identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:service_level_objective_contract_id_f a bpm:Field ;
+    bpm:fieldName "contract_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Governing support contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:service_level_objective_target_percent_f a bpm:Field ;
+    bpm:fieldName "target_percent" ; bpm:fieldType "float" ; bpm:fieldDoc "Contracted target percentage." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:service_level_objective_measurement_window_f a bpm:Field ;
+    bpm:fieldName "measurement_window" ; bpm:fieldType "atom" ; bpm:fieldDoc "SLO measurement window." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-038 -- Receiptable credit issued for an SLO breach.
+b4pe:service_credit_rt a bpm:RecordType ;
+    bpm:recordName "service_credit" ;
+    bpm:recordDoc "Receiptable credit issued for an SLO breach." ;
+    bpm:hasField b4pe:service_credit_credit_id_f , b4pe:service_credit_slo_id_f , b4pe:service_credit_amount_f , b4pe:service_credit_currency_f .
+
+b4pe:service_credit_credit_id_f a bpm:Field ;
+    bpm:fieldName "credit_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable service credit." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:service_credit_slo_id_f a bpm:Field ;
+    bpm:fieldName "slo_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Breached SLO." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:service_credit_amount_f a bpm:Field ;
+    bpm:fieldName "amount" ; bpm:fieldType "float" ; bpm:fieldDoc "Credit monetary amount." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:service_credit_currency_f a bpm:Field ;
+    bpm:fieldName "currency" ; bpm:fieldType "string" ; bpm:fieldDoc "ISO 4217 credit currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-039 -- Contractual renewal option with term and notice deadline.
+b4pe:renewal_option_rt a bpm:RecordType ;
+    bpm:recordName "renewal_option" ;
+    bpm:recordDoc "Contractual renewal option with term and notice deadline." ;
+    bpm:hasField b4pe:renewal_option_option_id_f , b4pe:renewal_option_subscription_id_f , b4pe:renewal_option_term_months_f , b4pe:renewal_option_notice_by_f .
+
+b4pe:renewal_option_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable renewal option." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:renewal_option_subscription_id_f a bpm:Field ;
+    bpm:fieldName "subscription_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Renewable subscription." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:renewal_option_term_months_f a bpm:Field ;
+    bpm:fieldName "term_months" ; bpm:fieldType "integer" ; bpm:fieldDoc "Renewal term months." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:renewal_option_notice_by_f a bpm:Field ;
+    bpm:fieldName "notice_by" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Renewal notice deadline." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-040 -- Pre-negotiated expansion right for a SKU and unit ceiling.
+b4pe:expansion_option_rt a bpm:RecordType ;
+    bpm:recordName "expansion_option" ;
+    bpm:recordDoc "Pre-negotiated expansion right for a SKU and unit ceiling." ;
+    bpm:hasField b4pe:expansion_option_option_id_f , b4pe:expansion_option_account_id_f , b4pe:expansion_option_sku_f , b4pe:expansion_option_max_quantity_f .
+
+b4pe:expansion_option_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable expansion option." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:expansion_option_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Eligible enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:expansion_option_sku_f a bpm:Field ;
+    bpm:fieldName "sku" ; bpm:fieldType "string" ; bpm:fieldDoc "Expandable SKU." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:expansion_option_max_quantity_f a bpm:Field ;
+    bpm:fieldName "max_quantity" ; bpm:fieldType "integer" ; bpm:fieldDoc "Maximum expansion quantity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-041 -- Versioned migration path with source, target, and rollback identity.
+b4pe:migration_contract_rt a bpm:RecordType ;
+    bpm:recordName "migration_contract" ;
+    bpm:recordDoc "Versioned migration path with source, target, and rollback identity." ;
+    bpm:hasField b4pe:migration_contract_migration_id_f , b4pe:migration_contract_from_version_f , b4pe:migration_contract_to_version_f , b4pe:migration_contract_rollback_plan_f .
+
+b4pe:migration_contract_migration_id_f a bpm:Field ;
+    bpm:fieldName "migration_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable migration identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:migration_contract_from_version_f a bpm:Field ;
+    bpm:fieldName "from_version" ; bpm:fieldType "string" ; bpm:fieldDoc "Source product version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:migration_contract_to_version_f a bpm:Field ;
+    bpm:fieldName "to_version" ; bpm:fieldType "string" ; bpm:fieldDoc "Target product version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:migration_contract_rollback_plan_f a bpm:Field ;
+    bpm:fieldName "rollback_plan" ; bpm:fieldType "string" ; bpm:fieldDoc "Rollback plan identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-042 -- Compatibility declaration across product, schema, and API versions.
+b4pe:compatibility_contract_rt a bpm:RecordType ;
+    bpm:recordName "compatibility_contract" ;
+    bpm:recordDoc "Compatibility declaration across product, schema, and API versions." ;
+    bpm:hasField b4pe:compatibility_contract_contract_id_f , b4pe:compatibility_contract_product_version_f , b4pe:compatibility_contract_schema_version_f , b4pe:compatibility_contract_api_version_f .
+
+b4pe:compatibility_contract_contract_id_f a bpm:Field ;
+    bpm:fieldName "contract_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable compatibility contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:compatibility_contract_product_version_f a bpm:Field ;
+    bpm:fieldName "product_version" ; bpm:fieldType "string" ; bpm:fieldDoc "Product version subject." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:compatibility_contract_schema_version_f a bpm:Field ;
+    bpm:fieldName "schema_version" ; bpm:fieldType "string" ; bpm:fieldDoc "Supported schema version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:compatibility_contract_api_version_f a bpm:Field ;
+    bpm:fieldName "api_version" ; bpm:fieldType "string" ; bpm:fieldDoc "Supported API version." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-043 -- Receiptable export of deterministic enterprise configuration.
+b4pe:configuration_export_rt a bpm:RecordType ;
+    bpm:recordName "configuration_export" ;
+    bpm:recordDoc "Receiptable export of deterministic enterprise configuration." ;
+    bpm:hasField b4pe:configuration_export_export_id_f , b4pe:configuration_export_tenant_id_f , b4pe:configuration_export_configuration_hash_f , b4pe:configuration_export_exported_at_f .
+
+b4pe:configuration_export_export_id_f a bpm:Field ;
+    bpm:fieldName "export_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable export identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:configuration_export_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Exported tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:configuration_export_configuration_hash_f a bpm:Field ;
+    bpm:fieldName "configuration_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Canonical exported digest." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:configuration_export_exported_at_f a bpm:Field ;
+    bpm:fieldName "exported_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Export completion instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-044 -- Validated configuration import bound to an exported digest.
+b4pe:configuration_import_rt a bpm:RecordType ;
+    bpm:recordName "configuration_import" ;
+    bpm:recordDoc "Validated configuration import bound to an exported digest." ;
+    bpm:hasField b4pe:configuration_import_import_id_f , b4pe:configuration_import_tenant_id_f , b4pe:configuration_import_configuration_hash_f , b4pe:configuration_import_status_f .
+
+b4pe:configuration_import_import_id_f a bpm:Field ;
+    bpm:fieldName "import_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable import identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:configuration_import_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Destination tenant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:configuration_import_configuration_hash_f a bpm:Field ;
+    bpm:fieldName "configuration_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Imported canonical digest." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:configuration_import_status_f a bpm:Field ;
+    bpm:fieldName "status" ; bpm:fieldType "atom" ; bpm:fieldDoc "Import validation standing." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-045 -- Cost allocation rule mapping usage to a cost center.
+b4pe:chargeback_rule_rt a bpm:RecordType ;
+    bpm:recordName "chargeback_rule" ;
+    bpm:recordDoc "Cost allocation rule mapping usage to a cost center." ;
+    bpm:hasField b4pe:chargeback_rule_rule_id_f , b4pe:chargeback_rule_cost_center_f , b4pe:chargeback_rule_metric_name_f , b4pe:chargeback_rule_rate_f .
+
+b4pe:chargeback_rule_rule_id_f a bpm:Field ;
+    bpm:fieldName "rule_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable chargeback rule." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:chargeback_rule_cost_center_f a bpm:Field ;
+    bpm:fieldName "cost_center" ; bpm:fieldType "string" ; bpm:fieldDoc "Charged cost center." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:chargeback_rule_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Allocated usage metric." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:chargeback_rule_rate_f a bpm:Field ;
+    bpm:fieldName "rate" ; bpm:fieldType "float" ; bpm:fieldDoc "Internal chargeback rate." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-046 -- Non-billing usage allocation for enterprise transparency.
+b4pe:showback_allocation_rt a bpm:RecordType ;
+    bpm:recordName "showback_allocation" ;
+    bpm:recordDoc "Non-billing usage allocation for enterprise transparency." ;
+    bpm:hasField b4pe:showback_allocation_allocation_id_f , b4pe:showback_allocation_project_id_f , b4pe:showback_allocation_metric_name_f , b4pe:showback_allocation_quantity_f .
+
+b4pe:showback_allocation_allocation_id_f a bpm:Field ;
+    bpm:fieldName "allocation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable showback allocation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:showback_allocation_project_id_f a bpm:Field ;
+    bpm:fieldName "project_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Attributed tenant project." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:showback_allocation_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Reported usage metric." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:showback_allocation_quantity_f a bpm:Field ;
+    bpm:fieldName "quantity" ; bpm:fieldType "float" ; bpm:fieldDoc "Attributed usage quantity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-047 -- Measured pre-adoption business baseline for ROI comparison.
+b4pe:value_baseline_rt a bpm:RecordType ;
+    bpm:recordName "value_baseline" ;
+    bpm:recordDoc "Measured pre-adoption business baseline for ROI comparison." ;
+    bpm:hasField b4pe:value_baseline_baseline_id_f , b4pe:value_baseline_account_id_f , b4pe:value_baseline_metric_name_f , b4pe:value_baseline_baseline_value_f .
+
+b4pe:value_baseline_baseline_id_f a bpm:Field ;
+    bpm:fieldName "baseline_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable baseline identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:value_baseline_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Measured enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:value_baseline_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Business value metric." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:value_baseline_baseline_value_f a bpm:Field ;
+    bpm:fieldName "baseline_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Pre-adoption measured value." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-048 -- Measured post-adoption outcome linked to its baseline.
+b4pe:commercial_value_realization_rt a bpm:RecordType ;
+    bpm:recordName "commercial_value_realization" ;
+    bpm:recordDoc "Measured post-adoption outcome linked to its baseline." ;
+    bpm:hasField b4pe:commercial_value_realization_realization_id_f , b4pe:commercial_value_realization_baseline_id_f , b4pe:commercial_value_realization_realized_value_f , b4pe:commercial_value_realization_measured_at_f .
+
+b4pe:commercial_value_realization_realization_id_f a bpm:Field ;
+    bpm:fieldName "realization_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable realization identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:commercial_value_realization_baseline_id_f a bpm:Field ;
+    bpm:fieldName "baseline_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Compared value baseline." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:commercial_value_realization_realized_value_f a bpm:Field ;
+    bpm:fieldName "realized_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed post-adoption value." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:commercial_value_realization_measured_at_f a bpm:Field ;
+    bpm:fieldName "measured_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "Outcome measurement instant." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-049 -- Time-bound account forecast with amount and confidence.
+b4pe:commercial_forecast_rt a bpm:RecordType ;
+    bpm:recordName "commercial_forecast" ;
+    bpm:recordDoc "Time-bound account forecast with amount and confidence." ;
+    bpm:hasField b4pe:commercial_forecast_forecast_id_f , b4pe:commercial_forecast_account_id_f , b4pe:commercial_forecast_amount_f , b4pe:commercial_forecast_confidence_f .
+
+b4pe:commercial_forecast_forecast_id_f a bpm:Field ;
+    bpm:fieldName "forecast_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable forecast identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:commercial_forecast_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Forecast enterprise account." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:commercial_forecast_amount_f a bpm:Field ;
+    bpm:fieldName "amount" ; bpm:fieldType "float" ; bpm:fieldDoc "Forecast monetary amount." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:commercial_forecast_confidence_f a bpm:Field ;
+    bpm:fieldName "confidence" ; bpm:fieldType "float" ; bpm:fieldDoc "Forecast confidence ratio." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS2-REV-050 -- Exact-subject commercial operation receipt with evidence digest.
+b4pe:commercial_execution_receipt_rt a bpm:RecordType ;
+    bpm:recordName "commercial_execution_receipt" ;
+    bpm:recordDoc "Exact-subject commercial operation receipt with evidence digest." ;
+    bpm:hasField b4pe:commercial_execution_receipt_receipt_id_f , b4pe:commercial_execution_receipt_subject_id_f , b4pe:commercial_execution_receipt_operation_f , b4pe:commercial_execution_receipt_evidence_hash_f .
+
+b4pe:commercial_execution_receipt_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable commercial receipt." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4pe:commercial_execution_receipt_subject_id_f a bpm:Field ;
+    bpm:fieldName "subject_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact commercial subject." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4pe:commercial_execution_receipt_operation_f a bpm:Field ;
+    bpm:fieldName "operation" ; bpm:fieldType "string" ; bpm:fieldDoc "Executed commercial operation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4pe:commercial_execution_receipt_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of observed consequence evidence." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 # WS1-REV-001 — account_master_match
 b4p:account_master_match_rt a bpm:RecordType ;
     bpm:recordName "account_master_match" ;

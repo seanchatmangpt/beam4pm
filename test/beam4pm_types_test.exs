@@ -66,6 +66,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "add_on_bundle new/1 succeeds when all fields are present" do
+    attrs = %{
+      add_on_id: "x",
+      name: "x",
+      capability_ids: ["a"],
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.AddOnBundle.new(attrs)
+  end
+
+  test "add_on_bundle new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AddOnBundle.new(%{})
+  end
+
+
   test "adoption_milestone new/1 succeeds when all fields are present" do
     attrs = %{
       adoption_milestone_id: "x",
@@ -94,6 +110,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "alignment_move new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.AlignmentMove.new(%{})
+  end
+
+
+  test "annual_subscription new/1 succeeds when all fields are present" do
+    attrs = %{
+      subscription_id: "x",
+      sku: "x",
+      seat_count: 1,
+      renews_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AnnualSubscription.new(attrs)
+  end
+
+  test "annual_subscription new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AnnualSubscription.new(%{})
   end
 
 
@@ -143,6 +175,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "beneficial_owner_evidence new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.BeneficialOwnerEvidence.new(%{})
+  end
+
+
+  test "billing_account new/1 succeeds when all fields are present" do
+    attrs = %{
+      billing_account_id: "x",
+      account_id: "x",
+      currency: "x",
+      invoice_profile: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.BillingAccount.new(attrs)
+  end
+
+  test "billing_account new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.BillingAccount.new(%{})
   end
 
 
@@ -228,6 +276,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "capability_bundle new/1 succeeds when all fields are present" do
+    attrs = %{
+      bundle_id: "x",
+      name: "x",
+      capability_ids: ["a"],
+      version: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CapabilityBundle.new(attrs)
+  end
+
+  test "capability_bundle new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CapabilityBundle.new(%{})
+  end
+
+
   test "capability_gap new/1 succeeds when all fields are present" do
     attrs = %{
       capability_gap_id: "x",
@@ -260,6 +324,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "catalog_release new/1 succeeds when all fields are present" do
+    attrs = %{
+      release_id: "x",
+      version: "x",
+      sku_ids: ["a"],
+      effective_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CatalogRelease.new(attrs)
+  end
+
+  test "catalog_release new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CatalogRelease.new(%{})
+  end
+
+
   test "change_order_authority new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",
@@ -275,6 +355,54 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "channel_agreement new/1 succeeds when all fields are present" do
+    attrs = %{
+      agreement_id: "x",
+      partner_id: "x",
+      territory: "x",
+      valid_until: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ChannelAgreement.new(attrs)
+  end
+
+  test "channel_agreement new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ChannelAgreement.new(%{})
+  end
+
+
+  test "chargeback_rule new/1 succeeds when all fields are present" do
+    attrs = %{
+      rule_id: "x",
+      cost_center: "x",
+      metric_name: "x",
+      rate: 1.0
+    }
+
+    assert {:ok, _} = BeamPM.Types.ChargebackRule.new(attrs)
+  end
+
+  test "chargeback_rule new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ChargebackRule.new(%{})
+  end
+
+
+  test "commercial_approval new/1 succeeds when all fields are present" do
+    attrs = %{
+      approval_id: "x",
+      quote_id: "x",
+      authority: "x",
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.CommercialApproval.new(attrs)
+  end
+
+  test "commercial_approval new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialApproval.new(%{})
+  end
+
+
   test "commercial_exception new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",
@@ -287,6 +415,38 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "commercial_exception new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialException.new(%{})
+  end
+
+
+  test "commercial_execution_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      receipt_id: "x",
+      subject_id: "x",
+      operation: "x",
+      evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CommercialExecutionReceipt.new(attrs)
+  end
+
+  test "commercial_execution_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialExecutionReceipt.new(%{})
+  end
+
+
+  test "commercial_forecast new/1 succeeds when all fields are present" do
+    attrs = %{
+      forecast_id: "x",
+      account_id: "x",
+      amount: 1.0,
+      confidence: 1.0
+    }
+
+    assert {:ok, _} = BeamPM.Types.CommercialForecast.new(attrs)
+  end
+
+  test "commercial_forecast new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialForecast.new(%{})
   end
 
 
@@ -307,6 +467,70 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "commercial_quote new/1 succeeds when all fields are present" do
+    attrs = %{
+      quote_id: "x",
+      account_id: "x",
+      currency: "x",
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.CommercialQuote.new(attrs)
+  end
+
+  test "commercial_quote new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialQuote.new(%{})
+  end
+
+
+  test "commercial_quote_line new/1 succeeds when all fields are present" do
+    attrs = %{
+      quote_id: "x",
+      sku: "x",
+      quantity: 1,
+      unit_price: 1.0
+    }
+
+    assert {:ok, _} = BeamPM.Types.CommercialQuoteLine.new(attrs)
+  end
+
+  test "commercial_quote_line new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialQuoteLine.new(%{})
+  end
+
+
+  test "commercial_value_realization new/1 succeeds when all fields are present" do
+    attrs = %{
+      realization_id: "x",
+      baseline_id: "x",
+      realized_value: 1.0,
+      measured_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CommercialValueRealization.new(attrs)
+  end
+
+  test "commercial_value_realization new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialValueRealization.new(%{})
+  end
+
+
+  test "committed_spend new/1 succeeds when all fields are present" do
+    attrs = %{
+      commitment_id: "x",
+      amount: 1.0,
+      currency: "x",
+      expires_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CommittedSpend.new(attrs)
+  end
+
+  test "committed_spend new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CommittedSpend.new(%{})
+  end
+
+
   test "committed_spend_admission new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",
@@ -322,6 +546,54 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "compatibility_contract new/1 succeeds when all fields are present" do
+    attrs = %{
+      contract_id: "x",
+      product_version: "x",
+      schema_version: "x",
+      api_version: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CompatibilityContract.new(attrs)
+  end
+
+  test "compatibility_contract new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CompatibilityContract.new(%{})
+  end
+
+
+  test "configuration_export new/1 succeeds when all fields are present" do
+    attrs = %{
+      export_id: "x",
+      tenant_id: "x",
+      configuration_hash: "x",
+      exported_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ConfigurationExport.new(attrs)
+  end
+
+  test "configuration_export new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ConfigurationExport.new(%{})
+  end
+
+
+  test "configuration_import new/1 succeeds when all fields are present" do
+    attrs = %{
+      import_id: "x",
+      tenant_id: "x",
+      configuration_hash: "x",
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.ConfigurationImport.new(attrs)
+  end
+
+  test "configuration_import new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ConfigurationImport.new(%{})
+  end
+
+
   test "conformance_result new/1 succeeds when all fields are present" do
     attrs = %{
       trace_id: "x",
@@ -334,6 +606,38 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "conformance_result new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.ConformanceResult.new(%{})
+  end
+
+
+  test "consumption_pool new/1 succeeds when all fields are present" do
+    attrs = %{
+      pool_id: "x",
+      account_id: "x",
+      unit: "x",
+      remaining_quantity: 1.0
+    }
+
+    assert {:ok, _} = BeamPM.Types.ConsumptionPool.new(attrs)
+  end
+
+  test "consumption_pool new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ConsumptionPool.new(%{})
+  end
+
+
+  test "consumption_subscription new/1 succeeds when all fields are present" do
+    attrs = %{
+      subscription_id: "x",
+      account_id: "x",
+      plan_id: "x",
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.ConsumptionSubscription.new(attrs)
+  end
+
+  test "consumption_subscription new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ConsumptionSubscription.new(%{})
   end
 
 
@@ -448,6 +752,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "data_residency_policy new/1 succeeds when all fields are present" do
+    attrs = %{
+      policy_id: "x",
+      tenant_id: "x",
+      allowed_regions: ["a"],
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.DataResidencyPolicy.new(attrs)
+  end
+
+  test "data_residency_policy new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.DataResidencyPolicy.new(%{})
+  end
+
+
   test "deal_desk_packet new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",
@@ -497,6 +817,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "deployment_entitlement new/1 succeeds when all fields are present" do
+    attrs = %{
+      entitlement_id: "x",
+      tenant_id: "x",
+      profile_id: "x",
+      valid_until: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.DeploymentEntitlement.new(attrs)
+  end
+
+  test "deployment_entitlement new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.DeploymentEntitlement.new(%{})
+  end
+
+
   test "developer_readiness new/1 succeeds when all fields are present" do
     attrs = %{
       developer_readiness_id: "x",
@@ -529,6 +865,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "discount_schedule new/1 succeeds when all fields are present" do
+    attrs = %{
+      schedule_id: "x",
+      threshold: 1.0,
+      discount_percent: 1.0,
+      currency: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.DiscountSchedule.new(attrs)
+  end
+
+  test "discount_schedule new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.DiscountSchedule.new(%{})
+  end
+
+
   test "discovery_hypothesis new/1 succeeds when all fields are present" do
     attrs = %{
       discovery_hypothesis_id: "x",
@@ -543,6 +895,54 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "discovery_hypothesis new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.DiscoveryHypothesis.new(%{})
+  end
+
+
+  test "edition_definition new/1 succeeds when all fields are present" do
+    attrs = %{
+      edition_id: "x",
+      name: "x",
+      bundle_ids: ["a"],
+      support_tier: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.EditionDefinition.new(attrs)
+  end
+
+  test "edition_definition new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EditionDefinition.new(%{})
+  end
+
+
+  test "enterprise_order new/1 succeeds when all fields are present" do
+    attrs = %{
+      order_id: "x",
+      account_id: "x",
+      quote_id: "x",
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.EnterpriseOrder.new(attrs)
+  end
+
+  test "enterprise_order new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EnterpriseOrder.new(%{})
+  end
+
+
+  test "enterprise_order_line new/1 succeeds when all fields are present" do
+    attrs = %{
+      order_id: "x",
+      sku: "x",
+      quantity: 1,
+      unit_price: 1.0
+    }
+
+    assert {:ok, _} = BeamPM.Types.EnterpriseOrderLine.new(attrs)
+  end
+
+  test "enterprise_order_line new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EnterpriseOrderLine.new(%{})
   end
 
 
@@ -563,6 +963,38 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "entitlement_grant new/1 succeeds when all fields are present" do
+    attrs = %{
+      grant_id: "x",
+      tenant_id: "x",
+      capability_id: "x",
+      valid_until: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.EntitlementGrant.new(attrs)
+  end
+
+  test "entitlement_grant new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementGrant.new(%{})
+  end
+
+
+  test "entitlement_revocation new/1 succeeds when all fields are present" do
+    attrs = %{
+      revocation_id: "x",
+      grant_id: "x",
+      reason: "x",
+      revoked_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.EntitlementRevocation.new(attrs)
+  end
+
+  test "entitlement_revocation new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementRevocation.new(%{})
+  end
+
+
   test "entitlement_state new/1 succeeds when all fields are present" do
     attrs = %{
       entitlement_id: "x",
@@ -576,6 +1008,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "entitlement_state new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementState.new(%{})
+  end
+
+
+  test "environment_profile new/1 succeeds when all fields are present" do
+    attrs = %{
+      profile_id: "x",
+      environment: :some_atom,
+      region: "x",
+      configuration_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.EnvironmentProfile.new(attrs)
+  end
+
+  test "environment_profile new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EnvironmentProfile.new(%{})
   end
 
 
@@ -671,6 +1119,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "expansion_opportunity new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.ExpansionOpportunity.new(%{})
+  end
+
+
+  test "expansion_option new/1 succeeds when all fields are present" do
+    attrs = %{
+      option_id: "x",
+      account_id: "x",
+      sku: "x",
+      max_quantity: 1
+    }
+
+    assert {:ok, _} = BeamPM.Types.ExpansionOption.new(attrs)
+  end
+
+  test "expansion_option new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ExpansionOption.new(%{})
   end
 
 
@@ -830,6 +1294,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "invoice_schedule new/1 succeeds when all fields are present" do
+    attrs = %{
+      schedule_id: "x",
+      billing_account_id: "x",
+      cadence: :some_atom,
+      next_invoice_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.InvoiceSchedule.new(attrs)
+  end
+
+  test "invoice_schedule new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.InvoiceSchedule.new(%{})
+  end
+
+
   test "k8s_object_ref new/1 succeeds when all fields are present" do
     attrs = %{
       kind: "x",
@@ -901,6 +1381,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "master_service_agreement_state new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.MasterServiceAgreementState.new(%{})
+  end
+
+
+  test "migration_contract new/1 succeeds when all fields are present" do
+    attrs = %{
+      migration_id: "x",
+      from_version: "x",
+      to_version: "x",
+      rollback_plan: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.MigrationContract.new(attrs)
+  end
+
+  test "migration_contract new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.MigrationContract.new(%{})
   end
 
 
@@ -1139,6 +1635,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "overage_policy new/1 succeeds when all fields are present" do
+    attrs = %{
+      policy_id: "x",
+      quota_id: "x",
+      unit_price: 1.0,
+      behavior: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.OveragePolicy.new(attrs)
+  end
+
+  test "overage_policy new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.OveragePolicy.new(%{})
+  end
+
+
   test "path_schema new/1 succeeds when all fields are present" do
     attrs = %{
       schema_id: "x",
@@ -1167,6 +1679,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "path_schema_query new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.PathSchemaQuery.new(%{})
+  end
+
+
+  test "payment_terms new/1 succeeds when all fields are present" do
+    attrs = %{
+      terms_id: "x",
+      net_days: 1,
+      late_policy: "x",
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.PaymentTerms.new(attrs)
+  end
+
+  test "payment_terms new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PaymentTerms.new(%{})
   end
 
 
@@ -1355,6 +1883,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "private_offer new/1 succeeds when all fields are present" do
+    attrs = %{
+      offer_id: "x",
+      account_id: "x",
+      total_price: 1.0,
+      expires_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.PrivateOffer.new(attrs)
+  end
+
+  test "private_offer new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PrivateOffer.new(%{})
+  end
+
+
   test "process_variant new/1 succeeds when all fields are present" do
     attrs = %{
       variant_id: "x",
@@ -1464,6 +2008,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "purchase_order_binding new/1 succeeds when all fields are present" do
+    attrs = %{
+      binding_id: "x",
+      order_id: "x",
+      purchase_order_number: "x",
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.PurchaseOrderBinding.new(attrs)
+  end
+
+  test "purchase_order_binding new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PurchaseOrderBinding.new(%{})
+  end
+
+
   test "purchase_order_requirement new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",
@@ -1506,6 +2066,38 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "queue_snapshot new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.QueueSnapshot.new(%{})
+  end
+
+
+  test "quota_policy new/1 succeeds when all fields are present" do
+    attrs = %{
+      quota_id: "x",
+      metric_name: "x",
+      limit: 1.0,
+      window: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.QuotaPolicy.new(attrs)
+  end
+
+  test "quota_policy new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.QuotaPolicy.new(%{})
+  end
+
+
+  test "ramp_commitment new/1 succeeds when all fields are present" do
+    attrs = %{
+      ramp_id: "x",
+      phase: 1,
+      committed_amount: 1.0,
+      effective_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.RampCommitment.new(attrs)
+  end
+
+  test "ramp_commitment new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.RampCommitment.new(%{})
   end
 
 
@@ -1560,6 +2152,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "renewal_option new/1 succeeds when all fields are present" do
+    attrs = %{
+      option_id: "x",
+      subscription_id: "x",
+      term_months: 1,
+      notice_by: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.RenewalOption.new(attrs)
+  end
+
+  test "renewal_option new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.RenewalOption.new(%{})
+  end
+
+
   test "renewal_risk new/1 succeeds when all fields are present" do
     attrs = %{
       renewal_risk_id: "x",
@@ -1589,6 +2197,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "renewal_term_admission new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.RenewalTermAdmission.new(%{})
+  end
+
+
+  test "reseller_authorization new/1 succeeds when all fields are present" do
+    attrs = %{
+      authorization_id: "x",
+      reseller_id: "x",
+      sku: "x",
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.ResellerAuthorization.new(attrs)
+  end
+
+  test "reseller_authorization new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ResellerAuthorization.new(%{})
   end
 
 
@@ -1733,6 +2357,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "service_credit new/1 succeeds when all fields are present" do
+    attrs = %{
+      credit_id: "x",
+      slo_id: "x",
+      amount: 1.0,
+      currency: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ServiceCredit.new(attrs)
+  end
+
+  test "service_credit new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceCredit.new(%{})
+  end
+
+
   test "service_credit_admission new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",
@@ -1745,6 +2385,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "service_credit_admission new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceCreditAdmission.new(%{})
+  end
+
+
+  test "service_level_objective new/1 succeeds when all fields are present" do
+    attrs = %{
+      slo_id: "x",
+      contract_id: "x",
+      target_percent: 1.0,
+      measurement_window: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.ServiceLevelObjective.new(attrs)
+  end
+
+  test "service_level_objective new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceLevelObjective.new(%{})
   end
 
 
@@ -1761,6 +2417,38 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "service_span new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceSpan.new(%{})
+  end
+
+
+  test "showback_allocation new/1 succeeds when all fields are present" do
+    attrs = %{
+      allocation_id: "x",
+      project_id: "x",
+      metric_name: "x",
+      quantity: 1.0
+    }
+
+    assert {:ok, _} = BeamPM.Types.ShowbackAllocation.new(attrs)
+  end
+
+  test "showback_allocation new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ShowbackAllocation.new(%{})
+  end
+
+
+  test "sku_definition new/1 succeeds when all fields are present" do
+    attrs = %{
+      sku: "x",
+      edition_id: "x",
+      billing_model: :some_atom,
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.SkuDefinition.new(attrs)
+  end
+
+  test "sku_definition new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.SkuDefinition.new(%{})
   end
 
 
@@ -1842,6 +2530,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "success_plan new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.SuccessPlan.new(%{})
+  end
+
+
+  test "support_contract new/1 succeeds when all fields are present" do
+    attrs = %{
+      contract_id: "x",
+      account_id: "x",
+      tier: :some_atom,
+      valid_until: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.SupportContract.new(attrs)
+  end
+
+  test "support_contract new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.SupportContract.new(%{})
   end
 
 
@@ -1939,6 +2643,54 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "tenant_account new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      account_id: "x",
+      home_region: "x",
+      edition_id: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.TenantAccount.new(attrs)
+  end
+
+  test "tenant_account new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantAccount.new(%{})
+  end
+
+
+  test "tenant_project new/1 succeeds when all fields are present" do
+    attrs = %{
+      project_id: "x",
+      tenant_id: "x",
+      cost_center: "x",
+      status: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.TenantProject.new(attrs)
+  end
+
+  test "tenant_project new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantProject.new(%{})
+  end
+
+
+  test "term_subscription new/1 succeeds when all fields are present" do
+    attrs = %{
+      subscription_id: "x",
+      sku: "x",
+      starts_at: "2026-01-01T00:00:00Z",
+      ends_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.TermSubscription.new(attrs)
+  end
+
+  test "term_subscription new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TermSubscription.new(%{})
+  end
+
+
   test "termination_right_admission new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",
@@ -2003,6 +2755,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "true_up_policy new/1 succeeds when all fields are present" do
+    attrs = %{
+      policy_id: "x",
+      commitment_id: "x",
+      cadence: :some_atom,
+      shortfall_behavior: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.TrueUpPolicy.new(attrs)
+  end
+
+  test "true_up_policy new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TrueUpPolicy.new(%{})
+  end
+
+
   test "type_edge new/1 succeeds when all fields are present" do
     attrs = %{
       source_type: "x",
@@ -2053,6 +2821,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "usage_plan new/1 succeeds when all fields are present" do
+    attrs = %{
+      plan_id: "x",
+      metric_name: "x",
+      unit: "x",
+      billing_mode: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.UsagePlan.new(attrs)
+  end
+
+  test "usage_plan new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.UsagePlan.new(%{})
+  end
+
+
   test "usage_signal new/1 succeeds when all fields are present" do
     attrs = %{
       usage_signal_id: "x",
@@ -2067,6 +2851,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "usage_signal new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.UsageSignal.new(%{})
+  end
+
+
+  test "value_baseline new/1 succeeds when all fields are present" do
+    attrs = %{
+      baseline_id: "x",
+      account_id: "x",
+      metric_name: "x",
+      baseline_value: 1.0
+    }
+
+    assert {:ok, _} = BeamPM.Types.ValueBaseline.new(attrs)
+  end
+
+  test "value_baseline new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueBaseline.new(%{})
   end
 
 

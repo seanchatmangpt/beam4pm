@@ -65,6 +65,20 @@ pub type ActivationEvent {
   )
 }
 
+/// Optional paid add-on attachable to an edition.
+pub type AddOnBundle {
+  AddOnBundle(
+    /// Stable add-on identity.
+    add_on_id: String,
+    /// Buyer-facing add-on name.
+    name: String,
+    /// Additional capabilities.
+    capability_ids: List(String),
+    /// Add-on lifecycle standing.
+    status: String,
+  )
+}
+
 /// Receipted customer adoption milestone tied to observable use.
 pub type AdoptionMilestone {
   AdoptionMilestone(
@@ -88,6 +102,20 @@ pub type AlignmentMove {
     move_type: String,
     /// Non-negative cost assigned to this move.
     cost: Int,
+  )
+}
+
+/// Annual package binding SKU, seats, and renewal date.
+pub type AnnualSubscription {
+  AnnualSubscription(
+    /// Stable annual subscription.
+    subscription_id: String,
+    /// Subscribed SKU.
+    sku: String,
+    /// Contracted seats.
+    seat_count: Int,
+    /// Annual renewal instant.
+    renews_at: String,
   )
 }
 
@@ -132,6 +160,20 @@ pub type BeneficialOwnerEvidence {
     owner_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     evidence_hash: String,
+  )
+}
+
+/// Bill-to account with currency and invoice delivery profile.
+pub type BillingAccount {
+  BillingAccount(
+    /// Stable bill-to account identity.
+    billing_account_id: String,
+    /// Commercial account owner.
+    account_id: String,
+    /// ISO 4217 billing currency.
+    currency: String,
+    /// Invoice delivery profile identity.
+    invoice_profile: String,
   )
 }
 
@@ -209,6 +251,20 @@ pub type CanaryDecision {
   )
 }
 
+/// Named capability bundle with constituent capability identities.
+pub type CapabilityBundle {
+  CapabilityBundle(
+    /// Stable bundle identity.
+    bundle_id: String,
+    /// Buyer-facing bundle name.
+    name: String,
+    /// Included capability identities.
+    capability_ids: List(String),
+    /// Bundle semantic version.
+    version: String,
+  )
+}
+
 /// Detected capability gap blocking enterprise value or expansion.
 pub type CapabilityGap {
   CapabilityGap(
@@ -237,6 +293,20 @@ pub type CaseStats {
   )
 }
 
+/// Immutable commercial catalog release with effective time.
+pub type CatalogRelease {
+  CatalogRelease(
+    /// Stable catalog release.
+    release_id: String,
+    /// Catalog semantic version.
+    version: String,
+    /// Published SKU identities.
+    sku_ids: List(String),
+    /// Catalog activation instant.
+    effective_at: String,
+  )
+}
+
 /// Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.
 pub type ChangeOrderAuthority {
   ChangeOrderAuthority(
@@ -249,6 +319,48 @@ pub type ChangeOrderAuthority {
   )
 }
 
+/// Channel partner agreement with territory and validity.
+pub type ChannelAgreement {
+  ChannelAgreement(
+    /// Stable channel agreement.
+    agreement_id: String,
+    /// Authorized channel partner.
+    partner_id: String,
+    /// Authorized sales territory.
+    territory: String,
+    /// Agreement expiration instant.
+    valid_until: String,
+  )
+}
+
+/// Cost allocation rule mapping usage to a cost center.
+pub type ChargebackRule {
+  ChargebackRule(
+    /// Stable chargeback rule.
+    rule_id: String,
+    /// Charged cost center.
+    cost_center: String,
+    /// Allocated usage metric.
+    metric_name: String,
+    /// Internal chargeback rate.
+    rate: Float,
+  )
+}
+
+/// Commercial approval decision with exact subject and authority.
+pub type CommercialApproval {
+  CommercialApproval(
+    /// Stable approval identity.
+    approval_id: String,
+    /// Exact quote under approval.
+    quote_id: String,
+    /// Principal granting commercial authority.
+    authority: String,
+    /// Approval lifecycle standing.
+    status: String,
+  )
+}
+
 /// Represents a nonstandard commercial request as an identified exception with explicit state.
 pub type CommercialException {
   CommercialException(
@@ -258,6 +370,34 @@ pub type CommercialException {
     exception_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     exception_state: String,
+  )
+}
+
+/// Exact-subject commercial operation receipt with evidence digest.
+pub type CommercialExecutionReceipt {
+  CommercialExecutionReceipt(
+    /// Stable commercial receipt.
+    receipt_id: String,
+    /// Exact commercial subject.
+    subject_id: String,
+    /// Executed commercial operation.
+    operation: String,
+    /// Digest of observed consequence evidence.
+    evidence_hash: String,
+  )
+}
+
+/// Time-bound account forecast with amount and confidence.
+pub type CommercialForecast {
+  CommercialForecast(
+    /// Stable forecast identity.
+    forecast_id: String,
+    /// Forecast enterprise account.
+    account_id: String,
+    /// Forecast monetary amount.
+    amount: Float,
+    /// Forecast confidence ratio.
+    confidence: Float,
   )
 }
 
@@ -277,6 +417,62 @@ pub type CommercialOutcome {
   )
 }
 
+/// A versioned enterprise quote binding an account, currency, and lifecycle standing.
+pub type CommercialQuote {
+  CommercialQuote(
+    /// Stable quote identity used across approval and ordering.
+    quote_id: String,
+    /// Enterprise account receiving the quote.
+    account_id: String,
+    /// ISO 4217 settlement currency.
+    currency: String,
+    /// Quote lifecycle standing.
+    status: String,
+  )
+}
+
+/// Enterprise quote line binding a sellable SKU, quantity, and unit price.
+pub type CommercialQuoteLine {
+  CommercialQuoteLine(
+    /// Parent quote identity.
+    quote_id: String,
+    /// Sellable catalog SKU.
+    sku: String,
+    /// Quoted unit count.
+    quantity: Int,
+    /// Price per unit in quote currency.
+    unit_price: Float,
+  )
+}
+
+/// Measured post-adoption outcome linked to its baseline.
+pub type CommercialValueRealization {
+  CommercialValueRealization(
+    /// Stable realization identity.
+    realization_id: String,
+    /// Compared value baseline.
+    baseline_id: String,
+    /// Observed post-adoption value.
+    realized_value: Float,
+    /// Outcome measurement instant.
+    measured_at: String,
+  )
+}
+
+/// Term commitment with amount, currency, and expiration.
+pub type CommittedSpend {
+  CommittedSpend(
+    /// Stable commitment identity.
+    commitment_id: String,
+    /// Committed monetary amount.
+    amount: Float,
+    /// ISO 4217 commitment currency.
+    currency: String,
+    /// Commitment expiration instant.
+    expires_at: String,
+  )
+}
+
 /// Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.
 pub type CommittedSpendAdmission {
   CommittedSpendAdmission(
@@ -289,6 +485,48 @@ pub type CommittedSpendAdmission {
   )
 }
 
+/// Compatibility declaration across product, schema, and API versions.
+pub type CompatibilityContract {
+  CompatibilityContract(
+    /// Stable compatibility contract.
+    contract_id: String,
+    /// Product version subject.
+    product_version: String,
+    /// Supported schema version.
+    schema_version: String,
+    /// Supported API version.
+    api_version: String,
+  )
+}
+
+/// Receiptable export of deterministic enterprise configuration.
+pub type ConfigurationExport {
+  ConfigurationExport(
+    /// Stable export identity.
+    export_id: String,
+    /// Exported tenant.
+    tenant_id: String,
+    /// Canonical exported digest.
+    configuration_hash: String,
+    /// Export completion instant.
+    exported_at: String,
+  )
+}
+
+/// Validated configuration import bound to an exported digest.
+pub type ConfigurationImport {
+  ConfigurationImport(
+    /// Stable import identity.
+    import_id: String,
+    /// Destination tenant.
+    tenant_id: String,
+    /// Imported canonical digest.
+    configuration_hash: String,
+    /// Import validation standing.
+    status: String,
+  )
+}
+
 /// Conformance-checking metrics computed for one trace against a model.
 pub type ConformanceResult {
   ConformanceResult(
@@ -298,6 +536,34 @@ pub type ConformanceResult {
     fitness: Float,
     /// Optional precision score in [0.0, 1.0].
     precision: option.Option(Float),
+  )
+}
+
+/// Shared enterprise consumption pool with unit and balance.
+pub type ConsumptionPool {
+  ConsumptionPool(
+    /// Stable pool identity.
+    pool_id: String,
+    /// Owning account.
+    account_id: String,
+    /// Metered consumption unit.
+    unit: String,
+    /// Remaining pooled quantity.
+    remaining_quantity: Float,
+  )
+}
+
+/// Consumption package binding plan, account, and standing.
+pub type ConsumptionSubscription {
+  ConsumptionSubscription(
+    /// Stable consumption subscription.
+    subscription_id: String,
+    /// Purchasing account.
+    account_id: String,
+    /// Usage plan identity.
+    plan_id: String,
+    /// Subscription lifecycle standing.
+    status: String,
   )
 }
 
@@ -397,6 +663,20 @@ pub type DataReadiness {
   )
 }
 
+/// Tenant data-location contract with allowed regions.
+pub type DataResidencyPolicy {
+  DataResidencyPolicy(
+    /// Stable residency policy.
+    policy_id: String,
+    /// Governed tenant.
+    tenant_id: String,
+    /// Permitted data regions.
+    allowed_regions: List(String),
+    /// Residency policy standing.
+    status: String,
+  )
+}
+
 /// Binds cross-functional deal-desk approval evidence into one replayable packet identity.
 pub type DealDeskPacket {
   DealDeskPacket(
@@ -441,6 +721,20 @@ pub type DemoScenario {
   )
 }
 
+/// Paid right to deploy an edition into an environment.
+pub type DeploymentEntitlement {
+  DeploymentEntitlement(
+    /// Stable deployment entitlement.
+    entitlement_id: String,
+    /// Entitled tenant.
+    tenant_id: String,
+    /// Allowed environment profile.
+    profile_id: String,
+    /// Deployment right expiration.
+    valid_until: String,
+  )
+}
+
 /// Measured developer enablement readiness for enterprise adoption.
 pub type DeveloperReadiness {
   DeveloperReadiness(
@@ -469,6 +763,20 @@ pub type DfgEdge {
   )
 }
 
+/// Volume discount tier with threshold and percentage.
+pub type DiscountSchedule {
+  DiscountSchedule(
+    /// Stable discount schedule.
+    schedule_id: String,
+    /// Quantity activating the tier.
+    threshold: Float,
+    /// Percentage discount.
+    discount_percent: Float,
+    /// Applicable settlement currency.
+    currency: String,
+  )
+}
+
 /// Receipted enterprise discovery hypothesis linking an account to a falsifiable customer-value expectation.
 pub type DiscoveryHypothesis {
   DiscoveryHypothesis(
@@ -482,6 +790,48 @@ pub type DiscoveryHypothesis {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Enterprise edition binding capabilities and support tier.
+pub type EditionDefinition {
+  EditionDefinition(
+    /// Stable edition identity.
+    edition_id: String,
+    /// Buyer-facing edition name.
+    name: String,
+    /// Included capability bundles.
+    bundle_ids: List(String),
+    /// Default support tier.
+    support_tier: String,
+  )
+}
+
+/// Accepted enterprise order binding account, quote, and standing.
+pub type EnterpriseOrder {
+  EnterpriseOrder(
+    /// Stable enterprise order identity.
+    order_id: String,
+    /// Purchasing enterprise account.
+    account_id: String,
+    /// Accepted quote identity.
+    quote_id: String,
+    /// Order lifecycle standing.
+    status: String,
+  )
+}
+
+/// Order line preserving SKU, quantity, and contracted unit price.
+pub type EnterpriseOrderLine {
+  EnterpriseOrderLine(
+    /// Parent enterprise order.
+    order_id: String,
+    /// Ordered catalog SKU.
+    sku: String,
+    /// Contracted unit count.
+    quantity: Int,
+    /// Contracted price per unit.
+    unit_price: Float,
   )
 }
 
@@ -501,6 +851,34 @@ pub type EntitlementEvent {
   )
 }
 
+/// Receiptable grant of a capability to a tenant.
+pub type EntitlementGrant {
+  EntitlementGrant(
+    /// Stable entitlement grant.
+    grant_id: String,
+    /// Receiving tenant.
+    tenant_id: String,
+    /// Granted capability.
+    capability_id: String,
+    /// Grant expiration instant.
+    valid_until: String,
+  )
+}
+
+/// Receiptable capability revocation with reason and time.
+pub type EntitlementRevocation {
+  EntitlementRevocation(
+    /// Stable revocation identity.
+    revocation_id: String,
+    /// Revoked entitlement grant.
+    grant_id: String,
+    /// Typed revocation reason.
+    reason: String,
+    /// Revocation effective instant.
+    revoked_at: String,
+  )
+}
+
 /// The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark.
 pub type EntitlementState {
   EntitlementState(
@@ -512,6 +890,20 @@ pub type EntitlementState {
     last_applied_event_id: String,
     /// The effective_at of the last applied event -- NOT wall-clock ingestion time. First component of the reconciliation watermark. Defining it as provider effective time (a) makes the state a pure function of the event set, so the same events replayed in any order at any later date rebuild a byte-identical state, and (b) makes the strictly-greater-than admission test well-founded. A wall-clock updated_at would silently admit an out-of-order older event, because it always advances.
     updated_at: String,
+  )
+}
+
+/// Deterministic environment profile for demo, POC, or production.
+pub type EnvironmentProfile {
+  EnvironmentProfile(
+    /// Stable environment profile.
+    profile_id: String,
+    /// Deployment environment class.
+    environment: String,
+    /// Target deployment region.
+    region: String,
+    /// Canonical configuration digest.
+    configuration_hash: String,
   )
 }
 
@@ -594,6 +986,20 @@ pub type ExpansionOpportunity {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Pre-negotiated expansion right for a SKU and unit ceiling.
+pub type ExpansionOption {
+  ExpansionOption(
+    /// Stable expansion option.
+    option_id: String,
+    /// Eligible enterprise account.
+    account_id: String,
+    /// Expandable SKU.
+    sku: String,
+    /// Maximum expansion quantity.
+    max_quantity: Int,
   )
 }
 
@@ -729,6 +1135,20 @@ pub type InvoiceEntityIdentity {
   )
 }
 
+/// Deterministic invoicing cadence for a billing account.
+pub type InvoiceSchedule {
+  InvoiceSchedule(
+    /// Stable schedule identity.
+    schedule_id: String,
+    /// Bill-to account subject.
+    billing_account_id: String,
+    /// Invoice cadence.
+    cadence: String,
+    /// Next scheduled invoice instant.
+    next_invoice_at: String,
+  )
+}
+
 /// A reference to one Kubernetes object observed in the runtime topology.
 pub type K8SObjectRef {
   K8SObjectRef(
@@ -784,6 +1204,20 @@ pub type MasterServiceAgreementState {
     agreement_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     agreement_state: String,
+  )
+}
+
+/// Versioned migration path with source, target, and rollback identity.
+pub type MigrationContract {
+  MigrationContract(
+    /// Stable migration identity.
+    migration_id: String,
+    /// Source product version.
+    from_version: String,
+    /// Target product version.
+    to_version: String,
+    /// Rollback plan identity.
+    rollback_plan: String,
   )
 }
 
@@ -987,6 +1421,20 @@ pub type OrderFormAdmission {
   )
 }
 
+/// Explicit overage treatment for a quota boundary.
+pub type OveragePolicy {
+  OveragePolicy(
+    /// Stable policy identity.
+    policy_id: String,
+    /// Governed quota.
+    quota_id: String,
+    /// Price per overage unit.
+    unit_price: Float,
+    /// Overage enforcement behavior.
+    behavior: String,
+  )
+}
+
 /// One reusable, scored connection pattern between two OCEL types.
 pub type PathSchema {
   PathSchema(
@@ -1010,6 +1458,20 @@ pub type PathSchemaQuery {
     target_type: String,
     /// Maximum number of hops to search.
     max_length: Int,
+  )
+}
+
+/// Contracted payment window and late-policy identity.
+pub type PaymentTerms {
+  PaymentTerms(
+    /// Stable payment terms identity.
+    terms_id: String,
+    /// Days from invoice to due date.
+    net_days: Int,
+    /// Late-payment policy identity.
+    late_policy: String,
+    /// Terms lifecycle standing.
+    status: String,
   )
 }
 
@@ -1167,6 +1629,20 @@ pub type PricingBasisContract {
   )
 }
 
+/// Negotiated private offer with customer, price, and expiration.
+pub type PrivateOffer {
+  PrivateOffer(
+    /// Stable private offer identity.
+    offer_id: String,
+    /// Target enterprise account.
+    account_id: String,
+    /// Negotiated total price.
+    total_price: Float,
+    /// Offer expiration instant.
+    expires_at: String,
+  )
+}
+
 /// One distinct activity-sequence variant observed in a log, with its frequency.
 pub type ProcessVariant {
   ProcessVariant(
@@ -1259,6 +1735,20 @@ pub type ProofOfValueExitGate {
   )
 }
 
+/// Customer purchase-order evidence bound to an enterprise order.
+pub type PurchaseOrderBinding {
+  PurchaseOrderBinding(
+    /// Stable binding identity.
+    binding_id: String,
+    /// Enterprise order subject.
+    order_id: String,
+    /// Customer purchase-order number.
+    purchase_order_number: String,
+    /// Binding validation standing.
+    status: String,
+  )
+}
+
 /// Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness.
 pub type PurchaseOrderRequirement {
   PurchaseOrderRequirement(
@@ -1292,6 +1782,34 @@ pub type QueueSnapshot {
     depth: Int,
     /// ISO8601 timestamp of this observation.
     observed_at: String,
+  )
+}
+
+/// Enforceable quota limit over a named measurement window.
+pub type QuotaPolicy {
+  QuotaPolicy(
+    /// Stable quota identity.
+    quota_id: String,
+    /// Governed metric.
+    metric_name: String,
+    /// Maximum allowed quantity.
+    limit: Float,
+    /// Quota measurement window.
+    window: String,
+  )
+}
+
+/// Phased commercial commitment with effective window.
+pub type RampCommitment {
+  RampCommitment(
+    /// Stable ramp identity.
+    ramp_id: String,
+    /// Ordered ramp phase.
+    phase: Int,
+    /// Phase commitment amount.
+    committed_amount: Float,
+    /// Phase activation instant.
+    effective_at: String,
   )
 }
 
@@ -1343,6 +1861,20 @@ pub type RenewalHealth {
   )
 }
 
+/// Contractual renewal option with term and notice deadline.
+pub type RenewalOption {
+  RenewalOption(
+    /// Stable renewal option.
+    option_id: String,
+    /// Renewable subscription.
+    subscription_id: String,
+    /// Renewal term months.
+    term_months: Int,
+    /// Renewal notice deadline.
+    notice_by: String,
+  )
+}
+
 /// Evidence-backed renewal risk requiring customer-success action.
 pub type RenewalRisk {
   RenewalRisk(
@@ -1368,6 +1900,20 @@ pub type RenewalTermAdmission {
     renewal_term: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// SKU-scoped reseller authorization with standing.
+pub type ResellerAuthorization {
+  ResellerAuthorization(
+    /// Stable authorization identity.
+    authorization_id: String,
+    /// Authorized reseller.
+    reseller_id: String,
+    /// Authorized sellable SKU.
+    sku: String,
+    /// Authorization standing.
+    status: String,
   )
 }
 
@@ -1491,6 +2037,20 @@ pub type SecurityReadiness {
   )
 }
 
+/// Receiptable credit issued for an SLO breach.
+pub type ServiceCredit {
+  ServiceCredit(
+    /// Stable service credit.
+    credit_id: String,
+    /// Breached SLO.
+    slo_id: String,
+    /// Credit monetary amount.
+    amount: Float,
+    /// ISO 4217 credit currency.
+    currency: String,
+  )
+}
+
 /// Qualifies the exact service-credit obligation that prices runtime reliability risk.
 pub type ServiceCreditAdmission {
   ServiceCreditAdmission(
@@ -1500,6 +2060,20 @@ pub type ServiceCreditAdmission {
     service_credit_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Measurable service target bound to a support contract.
+pub type ServiceLevelObjective {
+  ServiceLevelObjective(
+    /// Stable SLO identity.
+    slo_id: String,
+    /// Governing support contract.
+    contract_id: String,
+    /// Contracted target percentage.
+    target_percent: Float,
+    /// SLO measurement window.
+    measurement_window: String,
   )
 }
 
@@ -1514,6 +2088,34 @@ pub type ServiceSpan {
     duration_ms: Int,
     /// Optional identifier of the parent span.
     parent_span_id: option.Option(String),
+  )
+}
+
+/// Non-billing usage allocation for enterprise transparency.
+pub type ShowbackAllocation {
+  ShowbackAllocation(
+    /// Stable showback allocation.
+    allocation_id: String,
+    /// Attributed tenant project.
+    project_id: String,
+    /// Reported usage metric.
+    metric_name: String,
+    /// Attributed usage quantity.
+    quantity: Float,
+  )
+}
+
+/// Catalog SKU binding edition, billing model, and lifecycle.
+pub type SkuDefinition {
+  SkuDefinition(
+    /// Stable sellable SKU.
+    sku: String,
+    /// Product edition identity.
+    edition_id: String,
+    /// Commercial billing model.
+    billing_model: String,
+    /// SKU lifecycle standing.
+    status: String,
   )
 }
 
@@ -1586,6 +2188,20 @@ pub type SuccessPlan {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Purchased support tier with response target and term.
+pub type SupportContract {
+  SupportContract(
+    /// Stable support contract.
+    contract_id: String,
+    /// Covered enterprise account.
+    account_id: String,
+    /// Purchased support tier.
+    tier: String,
+    /// Support term expiration.
+    valid_until: String,
   )
 }
 
@@ -1669,6 +2285,48 @@ pub type TechnicalBlocker {
   )
 }
 
+/// Commercial tenant bound to account, region, and edition.
+pub type TenantAccount {
+  TenantAccount(
+    /// Stable tenant identity.
+    tenant_id: String,
+    /// Owning enterprise account.
+    account_id: String,
+    /// Tenant home region.
+    home_region: String,
+    /// Provisioned product edition.
+    edition_id: String,
+  )
+}
+
+/// Billable tenant project with cost-center attribution.
+pub type TenantProject {
+  TenantProject(
+    /// Stable tenant project.
+    project_id: String,
+    /// Owning tenant.
+    tenant_id: String,
+    /// Enterprise cost-center code.
+    cost_center: String,
+    /// Project lifecycle standing.
+    status: String,
+  )
+}
+
+/// Fixed-term package with explicit start and end.
+pub type TermSubscription {
+  TermSubscription(
+    /// Stable term subscription.
+    subscription_id: String,
+    /// Subscribed SKU.
+    sku: String,
+    /// Term start instant.
+    starts_at: String,
+    /// Term end instant.
+    ends_at: String,
+  )
+}
+
 /// Qualifies termination rights that materially change collectible contract value and delivery exposure.
 pub type TerminationRightAdmission {
   TerminationRightAdmission(
@@ -1725,6 +2383,20 @@ pub type TrainingScopeAdmission {
   )
 }
 
+/// End-of-period reconciliation policy for committed consumption.
+pub type TrueUpPolicy {
+  TrueUpPolicy(
+    /// Stable true-up identity.
+    policy_id: String,
+    /// Commitment under reconciliation.
+    commitment_id: String,
+    /// True-up cadence.
+    cadence: String,
+    /// Shortfall treatment.
+    shortfall_behavior: String,
+  )
+}
+
 /// A directed, qualified edge in the OCEL type graph between two types.
 pub type TypeEdge {
   TypeEdge(
@@ -1771,6 +2443,20 @@ pub type UsageEvent {
   )
 }
 
+/// Meter-to-price plan binding dimension, unit, and billing mode.
+pub type UsagePlan {
+  UsagePlan(
+    /// Stable usage plan identity.
+    plan_id: String,
+    /// Metered dimension.
+    metric_name: String,
+    /// Commercial measurement unit.
+    unit: String,
+    /// Billing calculation mode.
+    billing_mode: String,
+  )
+}
+
 /// Measured product-usage signal for an admitted enterprise account.
 pub type UsageSignal {
   UsageSignal(
@@ -1784,6 +2470,20 @@ pub type UsageSignal {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Measured pre-adoption business baseline for ROI comparison.
+pub type ValueBaseline {
+  ValueBaseline(
+    /// Stable baseline identity.
+    baseline_id: String,
+    /// Measured enterprise account.
+    account_id: String,
+    /// Business value metric.
+    metric_name: String,
+    /// Pre-adoption measured value.
+    baseline_value: Float,
   )
 }
 
