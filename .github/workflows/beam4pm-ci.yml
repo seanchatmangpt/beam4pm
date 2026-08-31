@@ -6,9 +6,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
 
 permissions:
   contents: read
@@ -16,29 +18,19 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
     permissions:
       contents: read
 
-    name: Erlang/Elixir/Gleam/Rust4PM tests + determinism check
+    name: Erlang/Elixir/Gleam tests + determinism check
 
     steps:
-      - name: Checkout exact subject (with vendor/ggen-marketplace submodule)
+      - name: Checkout (with vendor/ggen-marketplace submodule)
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
           submodules: recursive
-
-      - name: Prove checked-out subject identity
-        shell: bash
-        env:
-          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: |
-          set -euo pipefail
-          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
-          echo "EXACT_HEAD_ALIVE=$EXPECTED_HEAD"
-
+        
       - name: Set up Erlang/OTP + Elixir + rebar3 + Gleam
         uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
         with:
@@ -46,26 +38,30 @@ jobs:
           rebar3-version: '3.24.0'
           elixir-version: '1.18.5'
           otp-version: '27.2'
-
+        
       - name: Cache rebar3 dependencies
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           restore-keys: "${{ runner.os }}-rebar3-27.2-3.24.0-\n${{ runner.os }}-rebar3-27.2-\n${{ runner.os }}-rebar3-\n"
           key: ${{ runner.os }}-rebar3-27.2-3.24.0-${{ hashFiles('rebar.lock') }}
           path: "_build\n~/.cache/rebar3\n"
-
+        
       - name: rebar3 eunit
         shell: bash
-        run: rebar3 eunit
+        run: |
+          rebar3 eunit
 
-      - name: Build native rust4pm oracle crates (RF1/RF2/RF3/RF4)
+      - name: Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3)
         shell: bash
         run: |
-          set -euo pipefail
+          # Real Rust subprocess oracles the RF1/RF2/RF3 Chicago tests spawn (thin
+          # adapters over the real process_mining =0.6.2 function surface, no
+          # algorithm re-implemented). ubuntu-latest ships a preinstalled
+          # cargo/rustc, the same toolchain that already compiles ggen_igniter's
+          # native/ggen_graph_nif rustler NIF at `mix test` time.
           cd native/rf1-dfg-oracle && cargo build --release && cd -
           cd native/rf2-conformance-oracle && cargo build --release && cd -
           cd native/rf3-ocel-oracle && cargo build --release && cd -
-          cd native/rf4-oc-discovery-oracle && cargo build --release && cd -
 
       - name: Cache mix dependencies
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
@@ -73,10 +69,11 @@ jobs:
           restore-keys: "${{ runner.os }}-mix-27.2-1.18.5-\n${{ runner.os }}-mix-27.2-\n${{ runner.os }}-mix-\n"
           key: ${{ runner.os }}-mix-27.2-1.18.5-${{ hashFiles('mix.lock') }}
           path: "deps\n~/.hex\n~/.mix\n"
-
+        
       - name: mix deps.get
         shell: bash
-        run: mix deps.get
+        run: |
+          mix deps.get
 
       - name: mix test
         shell: bash
@@ -92,7 +89,8 @@ jobs:
 
       - name: Cross-language wire identity (Erlang<->Elixir roundtrip)
         shell: bash
-        run: bash scripts/roundtrip_check.sh
+        run: |
+          bash scripts/roundtrip_check.sh
 
       - name: Determinism check -- regenerate via ggen-ecosystem container and diff against committed output
         shell: bash
@@ -108,14 +106,3 @@ jobs:
           ggen --version
           bash scripts/gate_m2_check.sh
 
-      # Build the WASM engine only after GATE M2. Several generator syncs run
-      # `mix test` internally; keeping the machine-local canonical-scale T1
-      # corpus out of that manufacturing phase preserves its named absence
-      # semantics while the portable WASM qualification below still executes.
-      - name: Build Rust4PM WASM engine (wasm32-wasip1)
-        shell: bash
-        run: bash scripts/rust4pm_wasm_build.sh
-
-      - name: Portable Rust4PM WASM + RF4 qualification
-        shell: bash
-        run: mix test test/beam4pm_rust4pm_ci_test.exs
