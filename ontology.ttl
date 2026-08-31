@@ -2630,3 +2630,41 @@ bpm:stakeholder_map_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-104 — executive sponsor
+# ---------------------------------------------------------------------------
+
+bpm:executive_sponsor_rt a bpm:RecordType ;
+    bpm:recordName "executive_sponsor" ;
+    bpm:recordDoc "Receipted executive sponsorship commitment for an enterprise proof of value." ;
+    bpm:hasField bpm:executive_sponsor_executive_sponsor_id_f ,
+                 bpm:executive_sponsor_account_id_f ,
+                 bpm:executive_sponsor_sponsor_commitment_f ,
+                 bpm:executive_sponsor_evidence_digest_f ,
+                 bpm:executive_sponsor_observed_at_f .
+
+bpm:executive_sponsor_executive_sponsor_id_f a bpm:Field ;
+    bpm:fieldName "executive_sponsor_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this executive sponsor observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:executive_sponsor_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose executive sponsor state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:executive_sponsor_sponsor_commitment_f a bpm:Field ;
+    bpm:fieldName "sponsor_commitment" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed level of sponsor commitment." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:executive_sponsor_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:executive_sponsor_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
