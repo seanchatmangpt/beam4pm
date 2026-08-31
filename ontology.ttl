@@ -3404,4 +3404,30 @@ b4pe:change_control_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-035 — approval-separation evidence.
+b4pe:approval_separation_evidence_rt a bpm:RecordType ;
+    bpm:recordName "approval_separation_evidence" ;
+    bpm:recordDoc "Executable segregation-of-duties evidence binding an exact subject to an approver distinct from its producer." ;
+    bpm:hasField b4pe:approval_separation_evidence_id_f,
+                 b4pe:approval_separation_subject_sha_f,
+                 b4pe:approval_separation_approver_identity_f,
+                 b4pe:approval_separation_observed_result_f .
+
+b4pe:approval_separation_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this approval-separation observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:approval_separation_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:approval_separation_approver_identity_f a bpm:Field ;
+    bpm:fieldName "approver_identity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the independent approver observed by the control." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:approval_separation_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
