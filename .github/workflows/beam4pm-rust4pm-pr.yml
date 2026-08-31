@@ -1,0 +1,91 @@
+name: beam4pm Rust4PM PR Qualification
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "native/**"
+      - "lib/beam4pm_rust4pm.ex"
+      - "test/beam4pm_rust4pm*.exs"
+      - "qualification/**"
+      - "scripts/gate_m2_check.sh"
+      - "scripts/*_sync.sh"
+      - "scripts/env/**"
+      - scripts/rust4pm_wasm_build.sh
+      - ontology.ttl
+      - ggen.toml
+      - ".github/workflows/beam4pm-rust4pm-pr.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    name: Exact-head RF1-RF4 + GATE M2 + WASM differential
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout exact PR head with marketplace submodule
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+          submodules: recursive
+
+      - name: Prove exact subject identity
+        shell: bash
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          echo "EXACT_HEAD_ALIVE=$EXPECTED_HEAD"
+
+      - name: Set up BEAM
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          rebar3-version: '3.24.0'
+          elixir-version: '1.18.5'
+          otp-version: '27.2'
+
+      - name: Resolve Mix dependencies
+        shell: bash
+        run: mix deps.get
+
+      - name: Build RF1/RF2/RF3/RF4 native oracles
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd native/rf1-dfg-oracle && cargo build --release && cd -
+          cd native/rf2-conformance-oracle && cargo build --release && cd -
+          cd native/rf3-ocel-oracle && cargo build --release && cd -
+          cd native/rf4-oc-discovery-oracle && cargo build --release && cd -
+
+      - name: Prove deterministic manufacture on canonical projections
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.local/bin"
+          printf '%s\n' \
+            '#!/usr/bin/env bash' \
+            'exec docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 ggen "$@"' \
+            > "$HOME/.local/bin/ggen"
+          chmod +x "$HOME/.local/bin/ggen"
+          export PATH="$HOME/.local/bin:$PATH"
+          source scripts/env/rust4pm_reactor_env.sh
+          ggen --version
+          bash scripts/gate_m2_check.sh
+
+      - name: Build Rust4PM WASM engine
+        shell: bash
+        run: bash scripts/rust4pm_wasm_build.sh
+
+      - name: Execute portable WASM ↔ RF4 differential court
+        shell: bash
+        run: mix test test/beam4pm_rust4pm_ci_test.exs
