@@ -3430,4 +3430,30 @@ b4pe:approval_separation_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-036 — audit-chain evidence.
+b4pe:audit_chain_evidence_rt a bpm:RecordType ;
+    bpm:recordName "audit_chain_evidence" ;
+    bpm:recordDoc "Executable audit evidence binding an exact subject receipt to its immutable predecessor." ;
+    bpm:hasField b4pe:audit_chain_evidence_id_f,
+                 b4pe:audit_chain_subject_sha_f,
+                 b4pe:audit_chain_previous_receipt_hash_f,
+                 b4pe:audit_chain_observed_result_f .
+
+b4pe:audit_chain_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this audit-chain observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:audit_chain_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:audit_chain_previous_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "previous_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Hash of the preceding receipt in the observed audit chain." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:audit_chain_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
