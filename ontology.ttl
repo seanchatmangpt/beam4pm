@@ -3092,4 +3092,30 @@ b4pe:entitlement_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-023 — version-lifecycle evidence.
+b4pe:version_lifecycle_evidence_rt a bpm:RecordType ;
+    bpm:recordName "version_lifecycle_evidence" ;
+    bpm:recordDoc "Executable lifecycle evidence binding an exact subject version to its enforced support horizon." ;
+    bpm:hasField b4pe:version_lifecycle_evidence_id_f,
+                 b4pe:version_lifecycle_subject_sha_f,
+                 b4pe:version_lifecycle_supported_until_f,
+                 b4pe:version_lifecycle_observed_result_f .
+
+b4pe:version_lifecycle_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this version-lifecycle observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:version_lifecycle_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:version_lifecycle_supported_until_f a bpm:Field ;
+    bpm:fieldName "supported_until" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "UTC instant through which the subject version is admitted for support." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:version_lifecycle_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
