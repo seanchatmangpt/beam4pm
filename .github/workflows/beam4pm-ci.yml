@@ -92,17 +92,29 @@ jobs:
         run: |
           bash scripts/roundtrip_check.sh
 
-      - name: Determinism check -- regenerate via ggen-ecosystem container and diff against committed output
+      - name: Determinism check -- regenerate via identity-verified GGen release and diff
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p "$HOME/.local/bin"
-          printf '%s\n' \
-            '#!/usr/bin/env bash' \
-            'exec docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 ggen "$@"' \
-            > "$HOME/.local/bin/ggen"
+          archive="$RUNNER_TEMP/ggen-x86_64-unknown-linux-gnu.tar.gz"
+          curl --fail --location --silent --show-error --retry 3 \
+            --proto '=https' --tlsv1.2 \
+            -o "$archive" \
+            https://github.com/seanchatmangpt/ggen/releases/download/v26.8.28/ggen-x86_64-unknown-linux-gnu.tar.gz
+          echo 'ccb9fe78ef0c84d8b240b45beb6e73f47e2c930d5db3efcf9a0e58dfe071d313  '"$archive" | sha256sum --check --strict
+          tar -xzf "$archive" -C "$HOME/.local/bin" ggen
           chmod +x "$HOME/.local/bin/ggen"
           export PATH="$HOME/.local/bin:$PATH"
           ggen --version
           bash scripts/gate_m2_check.sh
 
+      - name: Preserve deterministic Ash repair evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          retention-days: 7
+          if-no-files-found: error
+          path: "**/beam4pm_ash*.ex*"
+          name: beam4pm-ash-determinism-${{ github.sha }}
+        

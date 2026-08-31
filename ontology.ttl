@@ -1102,8 +1102,8 @@ bex:ciRoundtrip
 # Determinism check: a real, HARD gate now -- no continue-on-error. History
 # of this step's two closed gaps, both closed by running things for real:
 # (1) "ggen: command not found" -- no binary was ever installed on the
-# runner; closed by delegating `ggen` through the pinned ggen-ecosystem
-# container (never :latest). (2) With a real binary, the check immediately
+# runner; closed by installing the immutable v26.8.28 release archive and
+# verifying its published SHA-256 before use. (2) With a real binary, the check immediately
 # caught real template drift the missing binary had been masking --
 # variants_from_traces was hand-added to the generated discovery projections
 # (beam4pm commit b3b40e6) with a claimed-but-nonexistent template-sync
@@ -1113,26 +1113,41 @@ bex:ciRoundtrip
 # regenerated files byte-identical before this step was hardened.
 #
 # Mechanism: gate_m2_check.sh runs ON the runner (it needs the full BEAM +
-# cargo toolchain for the ggen_igniter second engine, which the ggen-only
-# container does not carry); only the `ggen` calls inside it delegate into
-# the container via a PATH shim. Packs still come from THIS repo's own
-# vendor/ggen-marketplace submodule checkout (bind-mounted), never from the
-# container's bundled /opt/ggen-marketplace -- see the "gh-terraform-pack
-# consumption -- INVESTIGATED AND DECLINED" comment for why that matters.
+# cargo toolchain for the ggen_igniter second engine). Its `ggen` calls use
+# the same identity-verified release executable that manufactured the
+# committed projections. Packs still come from THIS repo's own exact
+# vendor/ggen-marketplace submodule checkout.
 bex:ciDeterminism
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 11 ;
-    gha:stepName "Determinism check -- regenerate via ggen-ecosystem container and diff against committed output" ;
+    gha:stepName "Determinism check -- regenerate via identity-verified GGen release and diff" ;
     gha:runCommand """set -euo pipefail
 mkdir -p "$HOME/.local/bin"
-printf '%s\\n' \\
-  '#!/usr/bin/env bash' \\
-  'exec docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 ggen "$@"' \\
-  > "$HOME/.local/bin/ggen"
+archive="$RUNNER_TEMP/ggen-x86_64-unknown-linux-gnu.tar.gz"
+curl --fail --location --silent --show-error --retry 3 \\
+  --proto '=https' --tlsv1.2 \\
+  -o "$archive" \\
+  https://github.com/seanchatmangpt/ggen/releases/download/v26.8.28/ggen-x86_64-unknown-linux-gnu.tar.gz
+echo 'ccb9fe78ef0c84d8b240b45beb6e73f47e2c930d5db3efcf9a0e58dfe071d313  '"$archive" | sha256sum --check --strict
+tar -xzf "$archive" -C "$HOME/.local/bin" ggen
 chmod +x "$HOME/.local/bin/ggen"
 export PATH="$HOME/.local/bin:$PATH"
 ggen --version
 bash scripts/gate_m2_check.sh""" .
+
+# Preserve the exact post-regeneration Ash projections whenever the hard
+# determinism court fires. This keeps the failure actionable without granting
+# the workflow any write authority over the repository.
+bex:ciDeterminismEvidence
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 12 ;
+    gha:stepName "Preserve deterministic Ash repair evidence" ;
+    gha:condition "always()" ;
+    gha:usesAction "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1" ;
+    gha:withParam "name: beam4pm-ash-determinism-${{ github.sha }}" ;
+    gha:withParam "path: \"**/beam4pm_ash*.ex*\"" ;
+    gha:withParam "if-no-files-found: error" ;
+    gha:withParam "retention-days: 7" .
 
 # --- Workflow 2: GHCR container build + publish ------------------------------
 # Mirrors ggen-ecosystem's container workflow structure (checkout-with-
@@ -3669,3 +3684,1091 @@ b4p:revenue_contract_admission_admission_receipt_hash_f a bpm:Field ;
     bpm:fieldName "admission_receipt_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-101 — account discovery
+bpm:ws5_account_discovery_rt a bpm:RecordType ;
+    bpm:recordName "account_discovery" ;
+    bpm:recordDoc "Receipted enterprise account-discovery outcome that binds qualification evidence to a measurable discovery score." ;
+    bpm:hasField bpm:ws5_account_discovery_account_discovery_id_f ,
+                 bpm:ws5_account_discovery_account_id_f ,
+                 bpm:ws5_account_discovery_discovery_score_f ,
+                 bpm:ws5_account_discovery_evidence_digest_f ,
+                 bpm:ws5_account_discovery_observed_at_f .
+
+bpm:ws5_account_discovery_account_discovery_id_f a bpm:Field ;
+    bpm:fieldName "account_discovery_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this discovery experiment." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:ws5_account_discovery_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose discovery state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:ws5_account_discovery_discovery_score_f a bpm:Field ;
+    bpm:fieldName "discovery_score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed bounded discovery qualification score." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:ws5_account_discovery_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this outcome." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:ws5_account_discovery_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the customer-value consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-102 — discovery hypothesis
+# ---------------------------------------------------------------------------
+
+bpm:discovery_hypothesis_rt a bpm:RecordType ;
+    bpm:recordName "discovery_hypothesis" ;
+    bpm:recordDoc "Receipted enterprise discovery hypothesis linking an account to a falsifiable customer-value expectation." ;
+    bpm:hasField bpm:discovery_hypothesis_discovery_hypothesis_id_f ,
+                 bpm:discovery_hypothesis_account_id_f ,
+                 bpm:discovery_hypothesis_expected_value_f ,
+                 bpm:discovery_hypothesis_evidence_digest_f ,
+                 bpm:discovery_hypothesis_observed_at_f .
+
+bpm:discovery_hypothesis_discovery_hypothesis_id_f a bpm:Field ;
+    bpm:fieldName "discovery_hypothesis_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this discovery hypothesis observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:discovery_hypothesis_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose discovery hypothesis state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:discovery_hypothesis_expected_value_f a bpm:Field ;
+    bpm:fieldName "expected_value" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Falsifiable value expectation stated by the customer." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:discovery_hypothesis_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:discovery_hypothesis_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-103 — stakeholder map
+# ---------------------------------------------------------------------------
+
+bpm:stakeholder_map_rt a bpm:RecordType ;
+    bpm:recordName "stakeholder_map" ;
+    bpm:recordDoc "Executable stakeholder-coverage contract for a qualified enterprise evaluation." ;
+    bpm:hasField bpm:stakeholder_map_stakeholder_map_id_f ,
+                 bpm:stakeholder_map_account_id_f ,
+                 bpm:stakeholder_map_stakeholder_count_f ,
+                 bpm:stakeholder_map_evidence_digest_f ,
+                 bpm:stakeholder_map_observed_at_f .
+
+bpm:stakeholder_map_stakeholder_map_id_f a bpm:Field ;
+    bpm:fieldName "stakeholder_map_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this stakeholder map observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:stakeholder_map_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose stakeholder map state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:stakeholder_map_stakeholder_count_f a bpm:Field ;
+    bpm:fieldName "stakeholder_count" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Number of distinct admitted stakeholder roles." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:stakeholder_map_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:stakeholder_map_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-104 — executive sponsor
+# ---------------------------------------------------------------------------
+
+bpm:executive_sponsor_rt a bpm:RecordType ;
+    bpm:recordName "executive_sponsor" ;
+    bpm:recordDoc "Receipted executive sponsorship commitment for an enterprise proof of value." ;
+    bpm:hasField bpm:executive_sponsor_executive_sponsor_id_f ,
+                 bpm:executive_sponsor_account_id_f ,
+                 bpm:executive_sponsor_sponsor_commitment_f ,
+                 bpm:executive_sponsor_evidence_digest_f ,
+                 bpm:executive_sponsor_observed_at_f .
+
+bpm:executive_sponsor_executive_sponsor_id_f a bpm:Field ;
+    bpm:fieldName "executive_sponsor_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this executive sponsor observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:executive_sponsor_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose executive sponsor state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:executive_sponsor_sponsor_commitment_f a bpm:Field ;
+    bpm:fieldName "sponsor_commitment" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed level of sponsor commitment." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:executive_sponsor_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:executive_sponsor_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-105 — buying committee
+# ---------------------------------------------------------------------------
+
+bpm:buying_committee_rt a bpm:RecordType ;
+    bpm:recordName "buying_committee" ;
+    bpm:recordDoc "Measured buying-committee coverage for an enterprise decision path." ;
+    bpm:hasField bpm:buying_committee_buying_committee_id_f ,
+                 bpm:buying_committee_account_id_f ,
+                 bpm:buying_committee_committee_coverage_f ,
+                 bpm:buying_committee_evidence_digest_f ,
+                 bpm:buying_committee_observed_at_f .
+
+bpm:buying_committee_buying_committee_id_f a bpm:Field ;
+    bpm:fieldName "buying_committee_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this buying committee observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:buying_committee_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose buying committee state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:buying_committee_committee_coverage_f a bpm:Field ;
+    bpm:fieldName "committee_coverage" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Fraction of required buying roles actively represented." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:buying_committee_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:buying_committee_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-106 — value driver
+# ---------------------------------------------------------------------------
+
+bpm:value_driver_rt a bpm:RecordType ;
+    bpm:recordName "value_driver" ;
+    bpm:recordDoc "Account-specific value driver tied to an observed annualized business outcome." ;
+    bpm:hasField bpm:value_driver_value_driver_id_f ,
+                 bpm:value_driver_account_id_f ,
+                 bpm:value_driver_annual_value_f ,
+                 bpm:value_driver_evidence_digest_f ,
+                 bpm:value_driver_observed_at_f .
+
+bpm:value_driver_value_driver_id_f a bpm:Field ;
+    bpm:fieldName "value_driver_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this value driver observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:value_driver_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose value driver state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:value_driver_annual_value_f a bpm:Field ;
+    bpm:fieldName "annual_value" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed annualized value in account currency." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:value_driver_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:value_driver_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-107 — baseline metric
+# ---------------------------------------------------------------------------
+
+bpm:baseline_metric_rt a bpm:RecordType ;
+    bpm:recordName "baseline_metric" ;
+    bpm:recordDoc "Pre-POC customer baseline used to falsify or confirm realized value." ;
+    bpm:hasField bpm:baseline_metric_baseline_metric_id_f ,
+                 bpm:baseline_metric_account_id_f ,
+                 bpm:baseline_metric_baseline_value_f ,
+                 bpm:baseline_metric_evidence_digest_f ,
+                 bpm:baseline_metric_observed_at_f .
+
+bpm:baseline_metric_baseline_metric_id_f a bpm:Field ;
+    bpm:fieldName "baseline_metric_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this baseline metric observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:baseline_metric_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose baseline metric state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:baseline_metric_baseline_value_f a bpm:Field ;
+    bpm:fieldName "baseline_value" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Measured value before the intervention." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:baseline_metric_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:baseline_metric_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-108 — target metric
+# ---------------------------------------------------------------------------
+
+bpm:target_metric_rt a bpm:RecordType ;
+    bpm:recordName "target_metric" ;
+    bpm:recordDoc "Customer-approved target metric for a qualified proof of value." ;
+    bpm:hasField bpm:target_metric_target_metric_id_f ,
+                 bpm:target_metric_account_id_f ,
+                 bpm:target_metric_target_value_f ,
+                 bpm:target_metric_evidence_digest_f ,
+                 bpm:target_metric_observed_at_f .
+
+bpm:target_metric_target_metric_id_f a bpm:Field ;
+    bpm:fieldName "target_metric_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this target metric observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:target_metric_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose target metric state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:target_metric_target_value_f a bpm:Field ;
+    bpm:fieldName "target_value" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Target value required for acceptance." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:target_metric_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:target_metric_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-109 — poc scope
+# ---------------------------------------------------------------------------
+
+bpm:poc_scope_rt a bpm:RecordType ;
+    bpm:recordName "poc_scope" ;
+    bpm:recordDoc "Bounded proof-of-concept scope with an explicit number of customer use cases." ;
+    bpm:hasField bpm:poc_scope_poc_scope_id_f ,
+                 bpm:poc_scope_account_id_f ,
+                 bpm:poc_scope_use_case_count_f ,
+                 bpm:poc_scope_evidence_digest_f ,
+                 bpm:poc_scope_observed_at_f .
+
+bpm:poc_scope_poc_scope_id_f a bpm:Field ;
+    bpm:fieldName "poc_scope_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this poc scope observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:poc_scope_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose poc scope state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:poc_scope_use_case_count_f a bpm:Field ;
+    bpm:fieldName "use_case_count" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Count of admitted use cases in the POC." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:poc_scope_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:poc_scope_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-110 — poc exit criteria
+# ---------------------------------------------------------------------------
+
+bpm:poc_exit_criteria_rt a bpm:RecordType ;
+    bpm:recordName "poc_exit_criteria" ;
+    bpm:recordDoc "Measured POC exit-criteria result that gates production readiness." ;
+    bpm:hasField bpm:poc_exit_criteria_poc_exit_criteria_id_f ,
+                 bpm:poc_exit_criteria_account_id_f ,
+                 bpm:poc_exit_criteria_criteria_pass_rate_f ,
+                 bpm:poc_exit_criteria_evidence_digest_f ,
+                 bpm:poc_exit_criteria_observed_at_f .
+
+bpm:poc_exit_criteria_poc_exit_criteria_id_f a bpm:Field ;
+    bpm:fieldName "poc_exit_criteria_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this poc exit criteria observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:poc_exit_criteria_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose poc exit criteria state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:poc_exit_criteria_criteria_pass_rate_f a bpm:Field ;
+    bpm:fieldName "criteria_pass_rate" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Fraction of customer-approved exit criteria satisfied." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:poc_exit_criteria_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:poc_exit_criteria_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-111 — poc timeline
+# ---------------------------------------------------------------------------
+
+bpm:poc_timeline_rt a bpm:RecordType ;
+    bpm:recordName "poc_timeline" ;
+    bpm:recordDoc "Measured proof-of-concept timeline tied to verified customer value." ;
+    bpm:hasField bpm:poc_timeline_poc_timeline_id_f , bpm:poc_timeline_account_id_f , bpm:poc_timeline_days_to_value_f , bpm:poc_timeline_evidence_digest_f , bpm:poc_timeline_observed_at_f .
+
+bpm:poc_timeline_poc_timeline_id_f a bpm:Field ;
+    bpm:fieldName "poc_timeline_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this poc timeline observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:poc_timeline_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose poc timeline state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:poc_timeline_days_to_value_f a bpm:Field ;
+    bpm:fieldName "days_to_value" ; bpm:fieldType "integer" ; bpm:fieldDoc "Calendar days from admitted POC start to verified value." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:poc_timeline_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:poc_timeline_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-112 — poc risk
+# ---------------------------------------------------------------------------
+
+bpm:poc_risk_rt a bpm:RecordType ;
+    bpm:recordName "poc_risk" ;
+    bpm:recordDoc "Evidence-backed POC delivery risk visible to the solution architect." ;
+    bpm:hasField bpm:poc_risk_poc_risk_id_f , bpm:poc_risk_account_id_f , bpm:poc_risk_risk_score_f , bpm:poc_risk_evidence_digest_f , bpm:poc_risk_observed_at_f .
+
+bpm:poc_risk_poc_risk_id_f a bpm:Field ;
+    bpm:fieldName "poc_risk_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this poc risk observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:poc_risk_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose poc risk state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:poc_risk_risk_score_f a bpm:Field ;
+    bpm:fieldName "risk_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed delivery-risk score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:poc_risk_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:poc_risk_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-113 — demo scenario
+# ---------------------------------------------------------------------------
+
+bpm:demo_scenario_rt a bpm:RecordType ;
+    bpm:recordName "demo_scenario" ;
+    bpm:recordDoc "Account-specific executable demonstration scenario for enterprise evaluation." ;
+    bpm:hasField bpm:demo_scenario_demo_scenario_id_f , bpm:demo_scenario_account_id_f , bpm:demo_scenario_scenario_name_f , bpm:demo_scenario_evidence_digest_f , bpm:demo_scenario_observed_at_f .
+
+bpm:demo_scenario_demo_scenario_id_f a bpm:Field ;
+    bpm:fieldName "demo_scenario_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this demo scenario observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:demo_scenario_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose demo scenario state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:demo_scenario_scenario_name_f a bpm:Field ;
+    bpm:fieldName "scenario_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable name of the selected customer scenario." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:demo_scenario_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:demo_scenario_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-114 — demo run
+# ---------------------------------------------------------------------------
+
+bpm:demo_run_rt a bpm:RecordType ;
+    bpm:recordName "demo_run" ;
+    bpm:recordDoc "Receipted execution result for a reproducible enterprise demo." ;
+    bpm:hasField bpm:demo_run_demo_run_id_f , bpm:demo_run_account_id_f , bpm:demo_run_demo_result_f , bpm:demo_run_evidence_digest_f , bpm:demo_run_observed_at_f .
+
+bpm:demo_run_demo_run_id_f a bpm:Field ;
+    bpm:fieldName "demo_run_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this demo run observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:demo_run_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose demo run state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:demo_run_demo_result_f a bpm:Field ;
+    bpm:fieldName "demo_result" ; bpm:fieldType "string" ; bpm:fieldDoc "Observed result of the exact demo execution." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:demo_run_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:demo_run_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-115 — solution fit
+# ---------------------------------------------------------------------------
+
+bpm:solution_fit_rt a bpm:RecordType ;
+    bpm:recordName "solution_fit" ;
+    bpm:recordDoc "Measured solution-fit observation for the account's admitted requirements." ;
+    bpm:hasField bpm:solution_fit_solution_fit_id_f , bpm:solution_fit_account_id_f , bpm:solution_fit_fit_score_f , bpm:solution_fit_evidence_digest_f , bpm:solution_fit_observed_at_f .
+
+bpm:solution_fit_solution_fit_id_f a bpm:Field ;
+    bpm:fieldName "solution_fit_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this solution fit observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:solution_fit_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose solution fit state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:solution_fit_fit_score_f a bpm:Field ;
+    bpm:fieldName "fit_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Fraction of admitted requirements satisfied." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:solution_fit_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:solution_fit_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-116 — integration readiness
+# ---------------------------------------------------------------------------
+
+bpm:integration_readiness_rt a bpm:RecordType ;
+    bpm:recordName "integration_readiness" ;
+    bpm:recordDoc "Executable readiness contract for required enterprise integrations." ;
+    bpm:hasField bpm:integration_readiness_integration_readiness_id_f , bpm:integration_readiness_account_id_f , bpm:integration_readiness_integration_score_f , bpm:integration_readiness_evidence_digest_f , bpm:integration_readiness_observed_at_f .
+
+bpm:integration_readiness_integration_readiness_id_f a bpm:Field ;
+    bpm:fieldName "integration_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this integration readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:integration_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose integration readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:integration_readiness_integration_score_f a bpm:Field ;
+    bpm:fieldName "integration_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed integration-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:integration_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:integration_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-117 — data readiness
+# ---------------------------------------------------------------------------
+
+bpm:data_readiness_rt a bpm:RecordType ;
+    bpm:recordName "data_readiness" ;
+    bpm:recordDoc "Measured source-data readiness for a production proof of value." ;
+    bpm:hasField bpm:data_readiness_data_readiness_id_f , bpm:data_readiness_account_id_f , bpm:data_readiness_data_quality_score_f , bpm:data_readiness_evidence_digest_f , bpm:data_readiness_observed_at_f .
+
+bpm:data_readiness_data_readiness_id_f a bpm:Field ;
+    bpm:fieldName "data_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this data readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:data_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose data readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:data_readiness_data_quality_score_f a bpm:Field ;
+    bpm:fieldName "data_quality_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed quality score of admitted customer data." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:data_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:data_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-118 — security readiness
+# ---------------------------------------------------------------------------
+
+bpm:security_readiness_rt a bpm:RecordType ;
+    bpm:recordName "security_readiness" ;
+    bpm:recordDoc "Evidence-backed security-control readiness for enterprise adoption." ;
+    bpm:hasField bpm:security_readiness_security_readiness_id_f , bpm:security_readiness_account_id_f , bpm:security_readiness_control_coverage_f , bpm:security_readiness_evidence_digest_f , bpm:security_readiness_observed_at_f .
+
+bpm:security_readiness_security_readiness_id_f a bpm:Field ;
+    bpm:fieldName "security_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this security readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:security_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose security readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:security_readiness_control_coverage_f a bpm:Field ;
+    bpm:fieldName "control_coverage" ; bpm:fieldType "float" ; bpm:fieldDoc "Fraction of required controls with accepted evidence." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:security_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:security_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-119 — procurement readiness
+# ---------------------------------------------------------------------------
+
+bpm:procurement_readiness_rt a bpm:RecordType ;
+    bpm:recordName "procurement_readiness" ;
+    bpm:recordDoc "Observable procurement journey state for an enterprise commercial transition." ;
+    bpm:hasField bpm:procurement_readiness_procurement_readiness_id_f , bpm:procurement_readiness_account_id_f , bpm:procurement_readiness_procurement_stage_f , bpm:procurement_readiness_evidence_digest_f , bpm:procurement_readiness_observed_at_f .
+
+bpm:procurement_readiness_procurement_readiness_id_f a bpm:Field ;
+    bpm:fieldName "procurement_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this procurement readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:procurement_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose procurement readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:procurement_readiness_procurement_stage_f a bpm:Field ;
+    bpm:fieldName "procurement_stage" ; bpm:fieldType "string" ; bpm:fieldDoc "Current admitted procurement stage." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:procurement_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:procurement_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-120 — architecture readiness
+# ---------------------------------------------------------------------------
+
+bpm:architecture_readiness_rt a bpm:RecordType ;
+    bpm:recordName "architecture_readiness" ;
+    bpm:recordDoc "Measured architecture readiness for the customer's production environment." ;
+    bpm:hasField bpm:architecture_readiness_architecture_readiness_id_f , bpm:architecture_readiness_account_id_f , bpm:architecture_readiness_architecture_score_f , bpm:architecture_readiness_evidence_digest_f , bpm:architecture_readiness_observed_at_f .
+
+bpm:architecture_readiness_architecture_readiness_id_f a bpm:Field ;
+    bpm:fieldName "architecture_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this architecture readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:architecture_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose architecture readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:architecture_readiness_architecture_score_f a bpm:Field ;
+    bpm:fieldName "architecture_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed architecture-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:architecture_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:architecture_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-121 — migration readiness
+# ---------------------------------------------------------------------------
+
+bpm:migration_readiness_rt a bpm:RecordType ;
+    bpm:recordName "migration_readiness" ;
+    bpm:recordDoc "Measured migration readiness and bounded effort for enterprise adoption." ;
+    bpm:hasField bpm:migration_readiness_migration_readiness_id_f , bpm:migration_readiness_account_id_f , bpm:migration_readiness_migration_effort_days_f , bpm:migration_readiness_evidence_digest_f , bpm:migration_readiness_observed_at_f .
+
+bpm:migration_readiness_migration_readiness_id_f a bpm:Field ;
+    bpm:fieldName "migration_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this migration readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:migration_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose migration readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:migration_readiness_migration_effort_days_f a bpm:Field ;
+    bpm:fieldName "migration_effort_days" ; bpm:fieldType "integer" ; bpm:fieldDoc "Estimated engineering days for the admitted migration." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:migration_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:migration_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-122 — training readiness
+# ---------------------------------------------------------------------------
+
+bpm:training_readiness_rt a bpm:RecordType ;
+    bpm:recordName "training_readiness" ;
+    bpm:recordDoc "Observed workforce training readiness for production adoption." ;
+    bpm:hasField bpm:training_readiness_training_readiness_id_f , bpm:training_readiness_account_id_f , bpm:training_readiness_training_completion_rate_f , bpm:training_readiness_evidence_digest_f , bpm:training_readiness_observed_at_f .
+
+bpm:training_readiness_training_readiness_id_f a bpm:Field ;
+    bpm:fieldName "training_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this training readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:training_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose training readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:training_readiness_training_completion_rate_f a bpm:Field ;
+    bpm:fieldName "training_completion_rate" ; bpm:fieldType "float" ; bpm:fieldDoc "Fraction of assigned learners completing qualification." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:training_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:training_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-123 — operator readiness
+# ---------------------------------------------------------------------------
+
+bpm:operator_readiness_rt a bpm:RecordType ;
+    bpm:recordName "operator_readiness" ;
+    bpm:recordDoc "Measured operations-team readiness for governed production use." ;
+    bpm:hasField bpm:operator_readiness_operator_readiness_id_f , bpm:operator_readiness_account_id_f , bpm:operator_readiness_operator_readiness_score_f , bpm:operator_readiness_evidence_digest_f , bpm:operator_readiness_observed_at_f .
+
+bpm:operator_readiness_operator_readiness_id_f a bpm:Field ;
+    bpm:fieldName "operator_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this operator readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:operator_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose operator readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:operator_readiness_operator_readiness_score_f a bpm:Field ;
+    bpm:fieldName "operator_readiness_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed operator-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:operator_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:operator_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-124 — developer readiness
+# ---------------------------------------------------------------------------
+
+bpm:developer_readiness_rt a bpm:RecordType ;
+    bpm:recordName "developer_readiness" ;
+    bpm:recordDoc "Measured developer enablement readiness for enterprise adoption." ;
+    bpm:hasField bpm:developer_readiness_developer_readiness_id_f , bpm:developer_readiness_account_id_f , bpm:developer_readiness_developer_readiness_score_f , bpm:developer_readiness_evidence_digest_f , bpm:developer_readiness_observed_at_f .
+
+bpm:developer_readiness_developer_readiness_id_f a bpm:Field ;
+    bpm:fieldName "developer_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this developer readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:developer_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose developer readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:developer_readiness_developer_readiness_score_f a bpm:Field ;
+    bpm:fieldName "developer_readiness_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed developer-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:developer_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:developer_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-125 — support readiness
+# ---------------------------------------------------------------------------
+
+bpm:support_readiness_rt a bpm:RecordType ;
+    bpm:recordName "support_readiness" ;
+    bpm:recordDoc "Measured support-team readiness for enterprise production." ;
+    bpm:hasField bpm:support_readiness_support_readiness_id_f , bpm:support_readiness_account_id_f , bpm:support_readiness_support_readiness_score_f , bpm:support_readiness_evidence_digest_f , bpm:support_readiness_observed_at_f .
+
+bpm:support_readiness_support_readiness_id_f a bpm:Field ;
+    bpm:fieldName "support_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this support readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:support_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose support readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:support_readiness_support_readiness_score_f a bpm:Field ;
+    bpm:fieldName "support_readiness_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed support-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:support_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:support_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-126 — production readiness
+# ---------------------------------------------------------------------------
+
+bpm:production_readiness_rt a bpm:RecordType ;
+    bpm:recordName "production_readiness" ; bpm:recordDoc "Cumulative evidence-backed production readiness for the enterprise account." ;
+    bpm:hasField bpm:production_readiness_production_readiness_id_f , bpm:production_readiness_account_id_f , bpm:production_readiness_production_readiness_score_f , bpm:production_readiness_evidence_digest_f , bpm:production_readiness_observed_at_f .
+
+bpm:production_readiness_production_readiness_id_f a bpm:Field ; bpm:fieldName "production_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this production readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:production_readiness_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose production readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:production_readiness_production_readiness_score_f a bpm:Field ; bpm:fieldName "production_readiness_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed production-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:production_readiness_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:production_readiness_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-127 — adoption milestone
+# ---------------------------------------------------------------------------
+
+bpm:adoption_milestone_rt a bpm:RecordType ;
+    bpm:recordName "adoption_milestone" ; bpm:recordDoc "Receipted customer adoption milestone tied to observable use." ;
+    bpm:hasField bpm:adoption_milestone_adoption_milestone_id_f , bpm:adoption_milestone_account_id_f , bpm:adoption_milestone_milestone_name_f , bpm:adoption_milestone_evidence_digest_f , bpm:adoption_milestone_observed_at_f .
+
+bpm:adoption_milestone_adoption_milestone_id_f a bpm:Field ; bpm:fieldName "adoption_milestone_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this adoption milestone observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:adoption_milestone_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose adoption milestone state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:adoption_milestone_milestone_name_f a bpm:Field ; bpm:fieldName "milestone_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable name of the achieved adoption milestone." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:adoption_milestone_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:adoption_milestone_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-128 — activation event
+# ---------------------------------------------------------------------------
+
+bpm:activation_event_rt a bpm:RecordType ;
+    bpm:recordName "activation_event" ; bpm:recordDoc "First verified activation event for an enterprise user cohort." ;
+    bpm:hasField bpm:activation_event_activation_event_id_f , bpm:activation_event_account_id_f , bpm:activation_event_activation_type_f , bpm:activation_event_evidence_digest_f , bpm:activation_event_observed_at_f .
+
+bpm:activation_event_activation_event_id_f a bpm:Field ; bpm:fieldName "activation_event_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this activation event observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:activation_event_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose activation event state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:activation_event_activation_type_f a bpm:Field ; bpm:fieldName "activation_type" ; bpm:fieldType "string" ; bpm:fieldDoc "Type of customer activation observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:activation_event_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:activation_event_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-129 — usage signal
+# ---------------------------------------------------------------------------
+
+bpm:usage_signal_rt a bpm:RecordType ;
+    bpm:recordName "usage_signal" ; bpm:recordDoc "Measured product-usage signal for an admitted enterprise account." ;
+    bpm:hasField bpm:usage_signal_usage_signal_id_f , bpm:usage_signal_account_id_f , bpm:usage_signal_active_user_count_f , bpm:usage_signal_evidence_digest_f , bpm:usage_signal_observed_at_f .
+
+bpm:usage_signal_usage_signal_id_f a bpm:Field ; bpm:fieldName "usage_signal_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this usage signal observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:usage_signal_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose usage signal state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:usage_signal_active_user_count_f a bpm:Field ; bpm:fieldName "active_user_count" ; bpm:fieldType "integer" ; bpm:fieldDoc "Distinct active users in the observation window." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:usage_signal_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:usage_signal_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-130 — value realization
+# ---------------------------------------------------------------------------
+
+bpm:value_realization_rt a bpm:RecordType ;
+    bpm:recordName "value_realization" ; bpm:recordDoc "Receipted realized customer value derived from observed consequences." ;
+    bpm:hasField bpm:value_realization_value_realization_id_f , bpm:value_realization_account_id_f , bpm:value_realization_realized_value_f , bpm:value_realization_evidence_digest_f , bpm:value_realization_observed_at_f .
+
+bpm:value_realization_value_realization_id_f a bpm:Field ; bpm:fieldName "value_realization_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this value realization observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:value_realization_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose value realization state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:value_realization_realized_value_f a bpm:Field ; bpm:fieldName "realized_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified realized value in account currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:value_realization_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:value_realization_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-131 — time to value
+# ---------------------------------------------------------------------------
+
+bpm:time_to_value_rt a bpm:RecordType ;
+    bpm:recordName "time_to_value" ; bpm:recordDoc "Measured elapsed time to the customer's first verified business value." ;
+    bpm:hasField bpm:time_to_value_time_to_value_id_f , bpm:time_to_value_account_id_f , bpm:time_to_value_verified_days_f , bpm:time_to_value_evidence_digest_f , bpm:time_to_value_observed_at_f .
+
+bpm:time_to_value_time_to_value_id_f a bpm:Field ; bpm:fieldName "time_to_value_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this time to value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:time_to_value_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose time to value state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:time_to_value_verified_days_f a bpm:Field ; bpm:fieldName "verified_days" ; bpm:fieldType "integer" ; bpm:fieldDoc "Days from admission to first verified value." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:time_to_value_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:time_to_value_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-132 — expansion signal
+# ---------------------------------------------------------------------------
+
+bpm:expansion_signal_rt a bpm:RecordType ;
+    bpm:recordName "expansion_signal" ; bpm:recordDoc "Observed usage-and-value signal indicating an expansion path." ;
+    bpm:hasField bpm:expansion_signal_expansion_signal_id_f , bpm:expansion_signal_account_id_f , bpm:expansion_signal_expansion_signal_score_f , bpm:expansion_signal_evidence_digest_f , bpm:expansion_signal_observed_at_f .
+
+bpm:expansion_signal_expansion_signal_id_f a bpm:Field ; bpm:fieldName "expansion_signal_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this expansion signal observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:expansion_signal_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose expansion signal state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:expansion_signal_expansion_signal_score_f a bpm:Field ; bpm:fieldName "expansion_signal_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Measured strength of the expansion signal." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:expansion_signal_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:expansion_signal_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-133 — expansion opportunity
+# ---------------------------------------------------------------------------
+
+bpm:expansion_opportunity_rt a bpm:RecordType ;
+    bpm:recordName "expansion_opportunity" ; bpm:recordDoc "Qualified account expansion opportunity backed by observed adoption evidence." ;
+    bpm:hasField bpm:expansion_opportunity_expansion_opportunity_id_f , bpm:expansion_opportunity_account_id_f , bpm:expansion_opportunity_expansion_value_f , bpm:expansion_opportunity_evidence_digest_f , bpm:expansion_opportunity_observed_at_f .
+
+bpm:expansion_opportunity_expansion_opportunity_id_f a bpm:Field ; bpm:fieldName "expansion_opportunity_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this expansion opportunity observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:expansion_opportunity_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose expansion opportunity state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:expansion_opportunity_expansion_value_f a bpm:Field ; bpm:fieldName "expansion_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Qualified expansion value in account currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:expansion_opportunity_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:expansion_opportunity_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-134 — cross sell fit
+# ---------------------------------------------------------------------------
+
+bpm:cross_sell_fit_rt a bpm:RecordType ;
+    bpm:recordName "cross_sell_fit" ; bpm:recordDoc "Evidence-backed fit for an adjacent enterprise capability." ;
+    bpm:hasField bpm:cross_sell_fit_cross_sell_fit_id_f , bpm:cross_sell_fit_account_id_f , bpm:cross_sell_fit_cross_sell_score_f , bpm:cross_sell_fit_evidence_digest_f , bpm:cross_sell_fit_observed_at_f .
+
+bpm:cross_sell_fit_cross_sell_fit_id_f a bpm:Field ; bpm:fieldName "cross_sell_fit_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this cross sell fit observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:cross_sell_fit_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose cross sell fit state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:cross_sell_fit_cross_sell_score_f a bpm:Field ; bpm:fieldName "cross_sell_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed cross-sell fit score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:cross_sell_fit_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:cross_sell_fit_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-135 — upsell readiness
+# ---------------------------------------------------------------------------
+
+bpm:upsell_readiness_rt a bpm:RecordType ;
+    bpm:recordName "upsell_readiness" ; bpm:recordDoc "Measured readiness to transition the account to greater product capacity." ;
+    bpm:hasField bpm:upsell_readiness_upsell_readiness_id_f , bpm:upsell_readiness_account_id_f , bpm:upsell_readiness_upsell_score_f , bpm:upsell_readiness_evidence_digest_f , bpm:upsell_readiness_observed_at_f .
+
+bpm:upsell_readiness_upsell_readiness_id_f a bpm:Field ; bpm:fieldName "upsell_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this upsell readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:upsell_readiness_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose upsell readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:upsell_readiness_upsell_score_f a bpm:Field ; bpm:fieldName "upsell_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed upsell-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:upsell_readiness_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:upsell_readiness_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-136 — renewal health
+# ---------------------------------------------------------------------------
+
+bpm:renewal_health_rt a bpm:RecordType ;
+    bpm:recordName "renewal_health" ; bpm:recordDoc "Measured renewal health derived from adoption and realized-value evidence." ;
+    bpm:hasField bpm:renewal_health_renewal_health_id_f , bpm:renewal_health_account_id_f , bpm:renewal_health_renewal_health_score_f , bpm:renewal_health_evidence_digest_f , bpm:renewal_health_observed_at_f .
+
+bpm:renewal_health_renewal_health_id_f a bpm:Field ; bpm:fieldName "renewal_health_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this renewal health observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:renewal_health_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose renewal health state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:renewal_health_renewal_health_score_f a bpm:Field ; bpm:fieldName "renewal_health_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed renewal-health score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:renewal_health_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:renewal_health_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-137 — renewal risk
+# ---------------------------------------------------------------------------
+
+bpm:renewal_risk_rt a bpm:RecordType ;
+    bpm:recordName "renewal_risk" ; bpm:recordDoc "Evidence-backed renewal risk requiring customer-success action." ;
+    bpm:hasField bpm:renewal_risk_renewal_risk_id_f , bpm:renewal_risk_account_id_f , bpm:renewal_risk_renewal_risk_score_f , bpm:renewal_risk_evidence_digest_f , bpm:renewal_risk_observed_at_f .
+
+bpm:renewal_risk_renewal_risk_id_f a bpm:Field ; bpm:fieldName "renewal_risk_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this renewal risk observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:renewal_risk_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose renewal risk state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:renewal_risk_renewal_risk_score_f a bpm:Field ; bpm:fieldName "renewal_risk_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed renewal-risk score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:renewal_risk_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:renewal_risk_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-138 — renewal evidence
+# ---------------------------------------------------------------------------
+
+bpm:renewal_evidence_rt a bpm:RecordType ;
+    bpm:recordName "renewal_evidence" ; bpm:recordDoc "Receipted value evidence supporting a multi-year renewal decision." ;
+    bpm:hasField bpm:renewal_evidence_renewal_evidence_id_f , bpm:renewal_evidence_account_id_f , bpm:renewal_evidence_renewal_value_f , bpm:renewal_evidence_evidence_digest_f , bpm:renewal_evidence_observed_at_f .
+
+bpm:renewal_evidence_renewal_evidence_id_f a bpm:Field ; bpm:fieldName "renewal_evidence_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this renewal evidence observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:renewal_evidence_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose renewal evidence state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:renewal_evidence_renewal_value_f a bpm:Field ; bpm:fieldName "renewal_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified value supporting renewal." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:renewal_evidence_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:renewal_evidence_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-139 — customer health
+# ---------------------------------------------------------------------------
+
+bpm:customer_health_rt a bpm:RecordType ;
+    bpm:recordName "customer_health" ; bpm:recordDoc "Cumulative customer-health observation across usage, outcomes, and support." ;
+    bpm:hasField bpm:customer_health_customer_health_id_f , bpm:customer_health_account_id_f , bpm:customer_health_health_score_f , bpm:customer_health_evidence_digest_f , bpm:customer_health_observed_at_f .
+
+bpm:customer_health_customer_health_id_f a bpm:Field ; bpm:fieldName "customer_health_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this customer health observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:customer_health_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose customer health state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:customer_health_health_score_f a bpm:Field ; bpm:fieldName "health_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed account health score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:customer_health_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:customer_health_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-140 — success plan
+# ---------------------------------------------------------------------------
+
+bpm:success_plan_rt a bpm:RecordType ;
+    bpm:recordName "success_plan" ; bpm:recordDoc "Executable customer-success plan target with receipted account identity." ;
+    bpm:hasField bpm:success_plan_success_plan_id_f , bpm:success_plan_account_id_f , bpm:success_plan_success_target_f , bpm:success_plan_evidence_digest_f , bpm:success_plan_observed_at_f .
+
+bpm:success_plan_success_plan_id_f a bpm:Field ; bpm:fieldName "success_plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this success plan observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:success_plan_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose success plan state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:success_plan_success_target_f a bpm:Field ; bpm:fieldName "success_target" ; bpm:fieldType "string" ; bpm:fieldDoc "Next verified customer-success target." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:success_plan_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:success_plan_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-141 — executive business review
+# ---------------------------------------------------------------------------
+
+bpm:executive_business_review_rt a bpm:RecordType ;
+    bpm:recordName "executive_business_review" ; bpm:recordDoc "Observed executive business-review outcome derived from receipts." ;
+    bpm:hasField bpm:executive_business_review_executive_business_review_id_f , bpm:executive_business_review_account_id_f , bpm:executive_business_review_executive_outcome_f , bpm:executive_business_review_evidence_digest_f , bpm:executive_business_review_observed_at_f .
+
+bpm:executive_business_review_executive_business_review_id_f a bpm:Field ; bpm:fieldName "executive_business_review_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this executive business review observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:executive_business_review_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose executive business review state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:executive_business_review_executive_outcome_f a bpm:Field ; bpm:fieldName "executive_outcome" ; bpm:fieldType "string" ; bpm:fieldDoc "Decision recorded by the executive review." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:executive_business_review_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:executive_business_review_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-142 — capability gap
+# ---------------------------------------------------------------------------
+
+bpm:capability_gap_rt a bpm:RecordType ;
+    bpm:recordName "capability_gap" ; bpm:recordDoc "Detected capability gap blocking enterprise value or expansion." ;
+    bpm:hasField bpm:capability_gap_capability_gap_id_f , bpm:capability_gap_account_id_f , bpm:capability_gap_gap_severity_f , bpm:capability_gap_evidence_digest_f , bpm:capability_gap_observed_at_f .
+
+bpm:capability_gap_capability_gap_id_f a bpm:Field ; bpm:fieldName "capability_gap_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this capability gap observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:capability_gap_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose capability gap state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:capability_gap_gap_severity_f a bpm:Field ; bpm:fieldName "gap_severity" ; bpm:fieldType "string" ; bpm:fieldDoc "Observed severity of the capability gap." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:capability_gap_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:capability_gap_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-143 — objection
+# ---------------------------------------------------------------------------
+
+bpm:objection_rt a bpm:RecordType ;
+    bpm:recordName "objection" ; bpm:recordDoc "Typed enterprise objection linked to an exact account and evidence." ;
+    bpm:hasField bpm:objection_objection_id_f , bpm:objection_account_id_f , bpm:objection_objection_type_f , bpm:objection_evidence_digest_f , bpm:objection_observed_at_f .
+
+bpm:objection_objection_id_f a bpm:Field ; bpm:fieldName "objection_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this objection observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:objection_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose objection state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:objection_objection_type_f a bpm:Field ; bpm:fieldName "objection_type" ; bpm:fieldType "string" ; bpm:fieldDoc "Category of the observed buying objection." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:objection_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:objection_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-144 — objection resolution
+# ---------------------------------------------------------------------------
+
+bpm:objection_resolution_rt a bpm:RecordType ;
+    bpm:recordName "objection_resolution" ; bpm:recordDoc "Receipted resolution of an enterprise buying objection." ;
+    bpm:hasField bpm:objection_resolution_objection_resolution_id_f , bpm:objection_resolution_account_id_f , bpm:objection_resolution_resolution_status_f , bpm:objection_resolution_evidence_digest_f , bpm:objection_resolution_observed_at_f .
+
+bpm:objection_resolution_objection_resolution_id_f a bpm:Field ; bpm:fieldName "objection_resolution_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this objection resolution observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:objection_resolution_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose objection resolution state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:objection_resolution_resolution_status_f a bpm:Field ; bpm:fieldName "resolution_status" ; bpm:fieldType "string" ; bpm:fieldDoc "Observed resolution status." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:objection_resolution_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:objection_resolution_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-145 — recovery plan
+# ---------------------------------------------------------------------------
+
+bpm:recovery_plan_rt a bpm:RecordType ;
+    bpm:recordName "recovery_plan" ; bpm:recordDoc "Executable account recovery plan with a measured recovery interval." ;
+    bpm:hasField bpm:recovery_plan_recovery_plan_id_f , bpm:recovery_plan_account_id_f , bpm:recovery_plan_recovery_time_hours_f , bpm:recovery_plan_evidence_digest_f , bpm:recovery_plan_observed_at_f .
+
+bpm:recovery_plan_recovery_plan_id_f a bpm:Field ; bpm:fieldName "recovery_plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this recovery plan observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:recovery_plan_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose recovery plan state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:recovery_plan_recovery_time_hours_f a bpm:Field ; bpm:fieldName "recovery_time_hours" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified hours from failure to recovered customer consequence." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:recovery_plan_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:recovery_plan_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-146 — canary decision
+# ---------------------------------------------------------------------------
+
+bpm:canary_decision_rt a bpm:RecordType ;
+    bpm:recordName "canary_decision" ; bpm:recordDoc "Receipted enterprise canary decision based on an observed rollout consequence." ;
+    bpm:hasField bpm:canary_decision_canary_decision_id_f , bpm:canary_decision_account_id_f , bpm:canary_decision_canary_result_f , bpm:canary_decision_evidence_digest_f , bpm:canary_decision_observed_at_f .
+
+bpm:canary_decision_canary_decision_id_f a bpm:Field ; bpm:fieldName "canary_decision_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this canary decision observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:canary_decision_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose canary decision state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:canary_decision_canary_result_f a bpm:Field ; bpm:fieldName "canary_result" ; bpm:fieldType "string" ; bpm:fieldDoc "Observed outcome of the canary qualification." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:canary_decision_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:canary_decision_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-147 — rollback decision
+# ---------------------------------------------------------------------------
+
+bpm:rollback_decision_rt a bpm:RecordType ;
+    bpm:recordName "rollback_decision" ; bpm:recordDoc "Receipted rollback decision and recovered account consequence." ;
+    bpm:hasField bpm:rollback_decision_rollback_decision_id_f , bpm:rollback_decision_account_id_f , bpm:rollback_decision_rollback_result_f , bpm:rollback_decision_evidence_digest_f , bpm:rollback_decision_observed_at_f .
+
+bpm:rollback_decision_rollback_decision_id_f a bpm:Field ; bpm:fieldName "rollback_decision_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this rollback decision observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:rollback_decision_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose rollback decision state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:rollback_decision_rollback_result_f a bpm:Field ; bpm:fieldName "rollback_result" ; bpm:fieldType "string" ; bpm:fieldDoc "Observed outcome of the rollback action." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:rollback_decision_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:rollback_decision_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-148 — commercial outcome
+# ---------------------------------------------------------------------------
+
+bpm:commercial_outcome_rt a bpm:RecordType ;
+    bpm:recordName "commercial_outcome" ; bpm:recordDoc "Verified commercial outcome attributable to the admitted customer journey." ;
+    bpm:hasField bpm:commercial_outcome_commercial_outcome_id_f , bpm:commercial_outcome_account_id_f , bpm:commercial_outcome_outcome_value_f , bpm:commercial_outcome_evidence_digest_f , bpm:commercial_outcome_observed_at_f .
+
+bpm:commercial_outcome_commercial_outcome_id_f a bpm:Field ; bpm:fieldName "commercial_outcome_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this commercial outcome observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:commercial_outcome_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose commercial outcome state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:commercial_outcome_outcome_value_f a bpm:Field ; bpm:fieldName "outcome_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified commercial value in account currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:commercial_outcome_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:commercial_outcome_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-149 — revenue attribution
+# ---------------------------------------------------------------------------
+
+bpm:revenue_attribution_rt a bpm:RecordType ;
+    bpm:recordName "revenue_attribution" ; bpm:recordDoc "Receipted revenue attribution bound to exact enterprise evidence." ;
+    bpm:hasField bpm:revenue_attribution_revenue_attribution_id_f , bpm:revenue_attribution_account_id_f , bpm:revenue_attribution_attributed_revenue_f , bpm:revenue_attribution_evidence_digest_f , bpm:revenue_attribution_observed_at_f .
+
+bpm:revenue_attribution_revenue_attribution_id_f a bpm:Field ; bpm:fieldName "revenue_attribution_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this revenue attribution observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:revenue_attribution_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose revenue attribution state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:revenue_attribution_attributed_revenue_f a bpm:Field ; bpm:fieldName "attributed_revenue" ; bpm:fieldType "float" ; bpm:fieldDoc "Revenue attributed to the verified value path." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:revenue_attribution_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:revenue_attribution_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-150 — expansion receipt
+# ---------------------------------------------------------------------------
+
+bpm:expansion_receipt_rt a bpm:RecordType ;
+    bpm:recordName "expansion_receipt" ; bpm:recordDoc "Final expansion receipt binding adoption evidence to realized expansion value." ;
+    bpm:hasField bpm:expansion_receipt_expansion_receipt_id_f , bpm:expansion_receipt_account_id_f , bpm:expansion_receipt_receipt_value_f , bpm:expansion_receipt_evidence_digest_f , bpm:expansion_receipt_observed_at_f .
+
+bpm:expansion_receipt_expansion_receipt_id_f a bpm:Field ; bpm:fieldName "expansion_receipt_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this expansion receipt observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:expansion_receipt_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose expansion receipt state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:expansion_receipt_receipt_value_f a bpm:Field ; bpm:fieldName "receipt_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified expansion value named by this receipt." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:expansion_receipt_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:expansion_receipt_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .

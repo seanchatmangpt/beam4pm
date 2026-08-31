@@ -2,6 +2,30 @@
 defmodule BeamPM.AshGeneratedTest do
   use ExUnit.Case, async: false
 
+  test "account_discovery: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        account_discovery_id: "sample_account_discovery_id",
+        account_id: "sample_account_id",
+        discovery_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.AccountDiscovery
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.AccountDiscovery)
+    assert read_back.id == created.id
+    assert read_back.account_discovery_id == "sample_account_discovery_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.discovery_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "account_master_match: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -42,6 +66,54 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.scope_evidence_hash == "sample_scope_evidence_hash"
   end
 
+  test "activation_event: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        activation_event_id: "sample_activation_event_id",
+        account_id: "sample_account_id",
+        activation_type: "sample_activation_type",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ActivationEvent
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ActivationEvent)
+    assert read_back.id == created.id
+    assert read_back.activation_event_id == "sample_activation_event_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.activation_type == "sample_activation_type"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "adoption_milestone: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        adoption_milestone_id: "sample_adoption_milestone_id",
+        account_id: "sample_account_id",
+        milestone_name: "sample_milestone_name",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.AdoptionMilestone
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.AdoptionMilestone)
+    assert read_back.id == created.id
+    assert read_back.adoption_milestone_id == "sample_adoption_milestone_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.milestone_name == "sample_milestone_name"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "alignment_move: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -58,6 +130,54 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.id == created.id
     assert read_back.move_type == :sample_atom
     assert read_back.cost == 42
+  end
+
+  test "architecture_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        architecture_readiness_id: "sample_architecture_readiness_id",
+        account_id: "sample_account_id",
+        architecture_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ArchitectureReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ArchitectureReadiness)
+    assert read_back.id == created.id
+    assert read_back.architecture_readiness_id == "sample_architecture_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.architecture_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "baseline_metric: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        baseline_metric_id: "sample_baseline_metric_id",
+        account_id: "sample_account_id",
+        baseline_value: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.BaselineMetric
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.BaselineMetric)
+    assert read_back.id == created.id
+    assert read_back.baseline_metric_id == "sample_baseline_metric_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.baseline_value == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "beneficial_owner_evidence: real Ash ETS create/read round-trips every field" do
@@ -146,6 +266,78 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.alignment_result == "sample_alignment_result"
   end
 
+  test "buying_committee: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        buying_committee_id: "sample_buying_committee_id",
+        account_id: "sample_account_id",
+        committee_coverage: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.BuyingCommittee
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.BuyingCommittee)
+    assert read_back.id == created.id
+    assert read_back.buying_committee_id == "sample_buying_committee_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.committee_coverage == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "canary_decision: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        canary_decision_id: "sample_canary_decision_id",
+        account_id: "sample_account_id",
+        canary_result: "sample_canary_result",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.CanaryDecision
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.CanaryDecision)
+    assert read_back.id == created.id
+    assert read_back.canary_decision_id == "sample_canary_decision_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.canary_result == "sample_canary_result"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "capability_gap: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        capability_gap_id: "sample_capability_gap_id",
+        account_id: "sample_account_id",
+        gap_severity: "sample_gap_severity",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.CapabilityGap
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.CapabilityGap)
+    assert read_back.id == created.id
+    assert read_back.capability_gap_id == "sample_capability_gap_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.gap_severity == "sample_gap_severity"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "case_stats: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -204,6 +396,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.opportunity_id == "sample_opportunity_id"
     assert read_back.exception_id == "sample_exception_id"
     assert read_back.exception_state == "sample_exception_state"
+  end
+
+  test "commercial_outcome: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        commercial_outcome_id: "sample_commercial_outcome_id",
+        account_id: "sample_account_id",
+        outcome_value: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.CommercialOutcome
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.CommercialOutcome)
+    assert read_back.id == created.id
+    assert read_back.commercial_outcome_id == "sample_commercial_outcome_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.outcome_value == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "committed_spend_admission: real Ash ETS create/read round-trips every field" do
@@ -286,6 +502,54 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.decision == "sample_decision"
   end
 
+  test "cross_sell_fit: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        cross_sell_fit_id: "sample_cross_sell_fit_id",
+        account_id: "sample_account_id",
+        cross_sell_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.CrossSellFit
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.CrossSellFit)
+    assert read_back.id == created.id
+    assert read_back.cross_sell_fit_id == "sample_cross_sell_fit_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.cross_sell_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "customer_health: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        customer_health_id: "sample_customer_health_id",
+        account_id: "sample_account_id",
+        health_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.CustomerHealth
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.CustomerHealth)
+    assert read_back.id == created.id
+    assert read_back.customer_health_id == "sample_customer_health_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.health_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "data_migration_scope_admission: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -326,6 +590,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.addendum_state == "sample_addendum_state"
   end
 
+  test "data_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        data_readiness_id: "sample_data_readiness_id",
+        account_id: "sample_account_id",
+        data_quality_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.DataReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.DataReadiness)
+    assert read_back.id == created.id
+    assert read_back.data_readiness_id == "sample_data_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.data_quality_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "deal_desk_packet: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -346,6 +634,78 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.evidence_hash == "sample_evidence_hash"
   end
 
+  test "demo_run: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        demo_run_id: "sample_demo_run_id",
+        account_id: "sample_account_id",
+        demo_result: "sample_demo_result",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.DemoRun
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.DemoRun)
+    assert read_back.id == created.id
+    assert read_back.demo_run_id == "sample_demo_run_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.demo_result == "sample_demo_result"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "demo_scenario: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        demo_scenario_id: "sample_demo_scenario_id",
+        account_id: "sample_account_id",
+        scenario_name: "sample_scenario_name",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.DemoScenario
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.DemoScenario)
+    assert read_back.id == created.id
+    assert read_back.demo_scenario_id == "sample_demo_scenario_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.scenario_name == "sample_scenario_name"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "developer_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        developer_readiness_id: "sample_developer_readiness_id",
+        account_id: "sample_account_id",
+        developer_readiness_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.DeveloperReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.DeveloperReadiness)
+    assert read_back.id == created.id
+    assert read_back.developer_readiness_id == "sample_developer_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.developer_readiness_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "dfg_edge: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -364,6 +724,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.source_activity == "sample_source_activity"
     assert read_back.target_activity == "sample_target_activity"
     assert read_back.frequency == 42
+  end
+
+  test "discovery_hypothesis: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        discovery_hypothesis_id: "sample_discovery_hypothesis_id",
+        account_id: "sample_account_id",
+        expected_value: "sample_expected_value",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.DiscoveryHypothesis
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.DiscoveryHypothesis)
+    assert read_back.id == created.id
+    assert read_back.discovery_hypothesis_id == "sample_discovery_hypothesis_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.expected_value == "sample_expected_value"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "entitlement_event: real Ash ETS create/read round-trips every field" do
@@ -470,6 +854,126 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.decision == "sample_decision"
   end
 
+  test "executive_business_review: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        executive_business_review_id: "sample_executive_business_review_id",
+        account_id: "sample_account_id",
+        executive_outcome: "sample_executive_outcome",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ExecutiveBusinessReview
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ExecutiveBusinessReview)
+    assert read_back.id == created.id
+    assert read_back.executive_business_review_id == "sample_executive_business_review_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.executive_outcome == "sample_executive_outcome"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "executive_sponsor: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        executive_sponsor_id: "sample_executive_sponsor_id",
+        account_id: "sample_account_id",
+        sponsor_commitment: "sample_sponsor_commitment",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ExecutiveSponsor
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ExecutiveSponsor)
+    assert read_back.id == created.id
+    assert read_back.executive_sponsor_id == "sample_executive_sponsor_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.sponsor_commitment == "sample_sponsor_commitment"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "expansion_opportunity: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        expansion_opportunity_id: "sample_expansion_opportunity_id",
+        account_id: "sample_account_id",
+        expansion_value: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ExpansionOpportunity
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ExpansionOpportunity)
+    assert read_back.id == created.id
+    assert read_back.expansion_opportunity_id == "sample_expansion_opportunity_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.expansion_value == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "expansion_receipt: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        expansion_receipt_id: "sample_expansion_receipt_id",
+        account_id: "sample_account_id",
+        receipt_value: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ExpansionReceipt
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ExpansionReceipt)
+    assert read_back.id == created.id
+    assert read_back.expansion_receipt_id == "sample_expansion_receipt_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.receipt_value == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "expansion_signal: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        expansion_signal_id: "sample_expansion_signal_id",
+        account_id: "sample_account_id",
+        expansion_signal_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ExpansionSignal
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ExpansionSignal)
+    assert read_back.id == created.id
+    assert read_back.expansion_signal_id == "sample_expansion_signal_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.expansion_signal_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "funding_approval_chain: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -568,6 +1072,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.opportunity_id == "sample_opportunity_id"
     assert read_back.coverage_id == "sample_coverage_id"
     assert read_back.evidence_hash == "sample_evidence_hash"
+  end
+
+  test "integration_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        integration_readiness_id: "sample_integration_readiness_id",
+        account_id: "sample_account_id",
+        integration_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.IntegrationReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.IntegrationReadiness)
+    assert read_back.id == created.id
+    assert read_back.integration_readiness_id == "sample_integration_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.integration_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "integration_scope_admission: real Ash ETS create/read round-trips every field" do
@@ -708,6 +1236,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.agreement_state == "sample_agreement_state"
   end
 
+  test "migration_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        migration_readiness_id: "sample_migration_readiness_id",
+        account_id: "sample_account_id",
+        migration_effort_days: 42,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.MigrationReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.MigrationReadiness)
+    assert read_back.id == created.id
+    assert read_back.migration_readiness_id == "sample_migration_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.migration_effort_days == 42
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "minimum_term_admission: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -768,6 +1320,54 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.id == created.id
     assert read_back.type_name == "sample_type_name"
     assert read_back.attribute_names == ["alpha", "beta"]
+  end
+
+  test "objection: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        objection_id: "sample_objection_id",
+        account_id: "sample_account_id",
+        objection_type: "sample_objection_type",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.Objection
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.Objection)
+    assert read_back.id == created.id
+    assert read_back.objection_id == "sample_objection_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.objection_type == "sample_objection_type"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "objection_resolution: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        objection_resolution_id: "sample_objection_resolution_id",
+        account_id: "sample_account_id",
+        resolution_status: "sample_resolution_status",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ObjectionResolution
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ObjectionResolution)
+    assert read_back.id == created.id
+    assert read_back.objection_resolution_id == "sample_objection_resolution_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.resolution_status == "sample_resolution_status"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "oc_declare_constraint: real Ash ETS create/read round-trips every field" do
@@ -870,6 +1470,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.id == created.id
     assert read_back.qualifier == "sample_qualifier"
     assert read_back.object_id == "sample_object_id"
+  end
+
+  test "operator_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        operator_readiness_id: "sample_operator_readiness_id",
+        account_id: "sample_account_id",
+        operator_readiness_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.OperatorReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.OperatorReadiness)
+    assert read_back.id == created.id
+    assert read_back.operator_readiness_id == "sample_operator_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.operator_readiness_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "opportunity_currency_contract: real Ash ETS create/read round-trips every field" do
@@ -1088,6 +1712,102 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.facts == ["alpha", "beta"]
   end
 
+  test "poc_exit_criteria: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        poc_exit_criteria_id: "sample_poc_exit_criteria_id",
+        account_id: "sample_account_id",
+        criteria_pass_rate: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.PocExitCriteria
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.PocExitCriteria)
+    assert read_back.id == created.id
+    assert read_back.poc_exit_criteria_id == "sample_poc_exit_criteria_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.criteria_pass_rate == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "poc_risk: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        poc_risk_id: "sample_poc_risk_id",
+        account_id: "sample_account_id",
+        risk_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.PocRisk
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.PocRisk)
+    assert read_back.id == created.id
+    assert read_back.poc_risk_id == "sample_poc_risk_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.risk_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "poc_scope: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        poc_scope_id: "sample_poc_scope_id",
+        account_id: "sample_account_id",
+        use_case_count: 42,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.PocScope
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.PocScope)
+    assert read_back.id == created.id
+    assert read_back.poc_scope_id == "sample_poc_scope_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.use_case_count == 42
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "poc_timeline: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        poc_timeline_id: "sample_poc_timeline_id",
+        account_id: "sample_account_id",
+        days_to_value: 42,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.PocTimeline
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.PocTimeline)
+    assert read_back.id == created.id
+    assert read_back.poc_timeline_id == "sample_poc_timeline_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.days_to_value == 42
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "policy_decision: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -1186,6 +1906,54 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.opportunity_id == "sample_opportunity_id"
     assert read_back.channel_id == "sample_channel_id"
     assert read_back.selection_evidence_hash == "sample_selection_evidence_hash"
+  end
+
+  test "procurement_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        procurement_readiness_id: "sample_procurement_readiness_id",
+        account_id: "sample_account_id",
+        procurement_stage: "sample_procurement_stage",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ProcurementReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ProcurementReadiness)
+    assert read_back.id == created.id
+    assert read_back.procurement_readiness_id == "sample_procurement_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.procurement_stage == "sample_procurement_stage"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "production_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        production_readiness_id: "sample_production_readiness_id",
+        account_id: "sample_account_id",
+        production_readiness_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ProductionReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ProductionReadiness)
+    assert read_back.id == created.id
+    assert read_back.production_readiness_id == "sample_production_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.production_readiness_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "proof_of_value_budget: real Ash ETS create/read round-trips every field" do
@@ -1288,6 +2056,102 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
+  test "recovery_plan: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        recovery_plan_id: "sample_recovery_plan_id",
+        account_id: "sample_account_id",
+        recovery_time_hours: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.RecoveryPlan
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.RecoveryPlan)
+    assert read_back.id == created.id
+    assert read_back.recovery_plan_id == "sample_recovery_plan_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.recovery_time_hours == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "renewal_evidence: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        renewal_evidence_id: "sample_renewal_evidence_id",
+        account_id: "sample_account_id",
+        renewal_value: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.RenewalEvidence
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.RenewalEvidence)
+    assert read_back.id == created.id
+    assert read_back.renewal_evidence_id == "sample_renewal_evidence_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.renewal_value == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "renewal_health: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        renewal_health_id: "sample_renewal_health_id",
+        account_id: "sample_account_id",
+        renewal_health_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.RenewalHealth
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.RenewalHealth)
+    assert read_back.id == created.id
+    assert read_back.renewal_health_id == "sample_renewal_health_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.renewal_health_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "renewal_risk: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        renewal_risk_id: "sample_renewal_risk_id",
+        account_id: "sample_account_id",
+        renewal_risk_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.RenewalRisk
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.RenewalRisk)
+    assert read_back.id == created.id
+    assert read_back.renewal_risk_id == "sample_renewal_risk_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.renewal_risk_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "renewal_term_admission: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -1328,6 +2192,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.event_id == "sample_event_id"
   end
 
+  test "revenue_attribution: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        revenue_attribution_id: "sample_revenue_attribution_id",
+        account_id: "sample_account_id",
+        attributed_revenue: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.RevenueAttribution
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.RevenueAttribution)
+    assert read_back.id == created.id
+    assert read_back.revenue_attribution_id == "sample_revenue_attribution_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.attributed_revenue == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "revenue_contract_admission: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -1366,6 +2254,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.opportunity_id == "sample_opportunity_id"
     assert read_back.schedule_id == "sample_schedule_id"
     assert read_back.assumption_evidence_hash == "sample_assumption_evidence_hash"
+  end
+
+  test "rollback_decision: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        rollback_decision_id: "sample_rollback_decision_id",
+        account_id: "sample_account_id",
+        rollback_result: "sample_rollback_result",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.RollbackDecision
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.RollbackDecision)
+    assert read_back.id == created.id
+    assert read_back.rollback_decision_id == "sample_rollback_decision_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.rollback_result == "sample_rollback_result"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "sanctions_screening_result: real Ash ETS create/read round-trips every field" do
@@ -1426,6 +2338,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.opportunity_id == "sample_opportunity_id"
     assert read_back.blocker_id == "sample_blocker_id"
     assert read_back.refusal_code == "sample_refusal_code"
+  end
+
+  test "security_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        security_readiness_id: "sample_security_readiness_id",
+        account_id: "sample_account_id",
+        control_coverage: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.SecurityReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.SecurityReadiness)
+    assert read_back.id == created.id
+    assert read_back.security_readiness_id == "sample_security_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.control_coverage == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "service_credit_admission: real Ash ETS create/read round-trips every field" do
@@ -1510,6 +2446,102 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.seconds == 3.5
   end
 
+  test "solution_fit: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        solution_fit_id: "sample_solution_fit_id",
+        account_id: "sample_account_id",
+        fit_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.SolutionFit
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.SolutionFit)
+    assert read_back.id == created.id
+    assert read_back.solution_fit_id == "sample_solution_fit_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.fit_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "stakeholder_map: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        stakeholder_map_id: "sample_stakeholder_map_id",
+        account_id: "sample_account_id",
+        stakeholder_count: 42,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.StakeholderMap
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.StakeholderMap)
+    assert read_back.id == created.id
+    assert read_back.stakeholder_map_id == "sample_stakeholder_map_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.stakeholder_count == 42
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "success_plan: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        success_plan_id: "sample_success_plan_id",
+        account_id: "sample_account_id",
+        success_target: "sample_success_target",
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.SuccessPlan
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.SuccessPlan)
+    assert read_back.id == created.id
+    assert read_back.success_plan_id == "sample_success_plan_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.success_target == "sample_success_target"
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "support_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        support_readiness_id: "sample_support_readiness_id",
+        account_id: "sample_account_id",
+        support_readiness_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.SupportReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.SupportReadiness)
+    assert read_back.id == created.id
+    assert read_back.support_readiness_id == "sample_support_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.support_readiness_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "support_tier_admission: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -1548,6 +2580,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.object_id == "sample_object_id"
     assert read_back.delaying_object_id == "sample_delaying_object_id"
     assert read_back.seconds == 3.5
+  end
+
+  test "target_metric: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        target_metric_id: "sample_target_metric_id",
+        account_id: "sample_account_id",
+        target_value: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.TargetMetric
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.TargetMetric)
+    assert read_back.id == created.id
+    assert read_back.target_metric_id == "sample_target_metric_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.target_value == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "tax_jurisdiction_evidence: real Ash ETS create/read round-trips every field" do
@@ -1610,6 +2666,54 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.decision == "sample_decision"
   end
 
+  test "time_to_value: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        time_to_value_id: "sample_time_to_value_id",
+        account_id: "sample_account_id",
+        verified_days: 42,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.TimeToValue
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.TimeToValue)
+    assert read_back.id == created.id
+    assert read_back.time_to_value_id == "sample_time_to_value_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.verified_days == 42
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "training_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        training_readiness_id: "sample_training_readiness_id",
+        account_id: "sample_account_id",
+        training_completion_rate: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.TrainingReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.TrainingReadiness)
+    assert read_back.id == created.id
+    assert read_back.training_readiness_id == "sample_training_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.training_completion_rate == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "training_scope_admission: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -1652,6 +2756,30 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.direction == :sample_atom
   end
 
+  test "upsell_readiness: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        upsell_readiness_id: "sample_upsell_readiness_id",
+        account_id: "sample_account_id",
+        upsell_score: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.UpsellReadiness
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.UpsellReadiness)
+    assert read_back.id == created.id
+    assert read_back.upsell_readiness_id == "sample_upsell_readiness_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.upsell_score == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
   test "usage_event: real Ash ETS create/read round-trips every field" do
     params =
       %{
@@ -1674,6 +2802,78 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.quantity == 3.5
     assert read_back.metric_name == "sample_metric_name"
     assert read_back.occurred_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "usage_signal: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        usage_signal_id: "sample_usage_signal_id",
+        account_id: "sample_account_id",
+        active_user_count: 42,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.UsageSignal
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.UsageSignal)
+    assert read_back.id == created.id
+    assert read_back.usage_signal_id == "sample_usage_signal_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.active_user_count == 42
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "value_driver: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        value_driver_id: "sample_value_driver_id",
+        account_id: "sample_account_id",
+        annual_value: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ValueDriver
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ValueDriver)
+    assert read_back.id == created.id
+    assert read_back.value_driver_id == "sample_value_driver_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.annual_value == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+  end
+
+  test "value_realization: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        value_realization_id: "sample_value_realization_id",
+        account_id: "sample_account_id",
+        realized_value: 3.5,
+        evidence_digest: "sample_evidence_digest",
+        observed_at: "2026-08-29T12:00:00Z"
+      }
+
+    created =
+      BeamPM.Ash.Resources.ValueRealization
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.ValueRealization)
+    assert read_back.id == created.id
+    assert read_back.value_realization_id == "sample_value_realization_id"
+    assert read_back.account_id == "sample_account_id"
+    assert read_back.realized_value == 3.5
+    assert read_back.evidence_digest == "sample_evidence_digest"
+    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
   end
 
   test "vendor_registration_state: real Ash ETS create/read round-trips every field" do

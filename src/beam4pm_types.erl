@@ -3,34 +3,56 @@
 -module(beam4pm_types).
 
 -export([
+    new_account_discovery/1,
     new_account_master_match/1,
     new_account_parent_scope/1,
+    new_activation_event/1,
+    new_adoption_milestone/1,
     new_alignment_move/1,
+    new_architecture_readiness/1,
+    new_baseline_metric/1,
     new_beneficial_owner_evidence/1,
     new_billing_reconciliation/1,
     new_booking_readiness/1,
     new_budget_period_alignment/1,
+    new_buying_committee/1,
+    new_canary_decision/1,
+    new_capability_gap/1,
     new_case_stats/1,
     new_change_order_authority/1,
     new_commercial_exception/1,
+    new_commercial_outcome/1,
     new_committed_spend_admission/1,
     new_conformance_result/1,
     new_contracting_entity_identity/1,
     new_credit_risk_admission/1,
+    new_cross_sell_fit/1,
+    new_customer_health/1,
     new_data_migration_scope_admission/1,
     new_data_processing_addendum_state/1,
+    new_data_readiness/1,
     new_deal_desk_packet/1,
+    new_demo_run/1,
+    new_demo_scenario/1,
+    new_developer_readiness/1,
     new_dfg_edge/1,
+    new_discovery_hypothesis/1,
     new_entitlement_event/1,
     new_entitlement_state/1,
     new_event_log/1,
     new_event_type/1,
     new_exception_authority/1,
+    new_executive_business_review/1,
+    new_executive_sponsor/1,
+    new_expansion_opportunity/1,
+    new_expansion_receipt/1,
+    new_expansion_signal/1,
     new_funding_approval_chain/1,
     new_heuristic_arc/1,
     new_implementation_fee_admission/1,
     new_indemnity_scope_admission/1,
     new_insurance_requirement/1,
+    new_integration_readiness/1,
     new_integration_scope_admission/1,
     new_invoice_entity_identity/1,
     new_k8s_object_ref/1,
@@ -38,14 +60,18 @@
     new_liability_cap_admission/1,
     new_log_trace/1,
     new_master_service_agreement_state/1,
+    new_migration_readiness/1,
     new_minimum_term_admission/1,
     new_object_attribute_change/1,
     new_object_type/1,
+    new_objection/1,
+    new_objection_resolution/1,
     new_oc_declare_constraint/1,
     new_ocel_attribute/1,
     new_ocel_event/1,
     new_ocel_object/1,
     new_ocel_relationship/1,
+    new_operator_readiness/1,
     new_opportunity_currency_contract/1,
     new_opportunity_value_range/1,
     new_order_form_admission/1,
@@ -57,68 +83,114 @@
     new_petri_transition/1,
     new_planning_action/1,
     new_planning_state/1,
+    new_poc_exit_criteria/1,
+    new_poc_risk/1,
+    new_poc_scope/1,
+    new_poc_timeline/1,
     new_policy_decision/1,
     new_pricing_basis_contract/1,
     new_process_variant/1,
     new_procurement_blocker/1,
     new_procurement_channel_selection/1,
+    new_procurement_readiness/1,
+    new_production_readiness/1,
     new_proof_of_value_budget/1,
     new_proof_of_value_exit_gate/1,
     new_purchase_order_requirement/1,
     new_purchasing_entity_identity/1,
     new_queue_snapshot/1,
+    new_recovery_plan/1,
+    new_renewal_evidence/1,
+    new_renewal_health/1,
+    new_renewal_risk/1,
     new_renewal_term_admission/1,
     new_resource_allocation/1,
+    new_revenue_attribution/1,
     new_revenue_contract_admission/1,
     new_revenue_schedule_assumption/1,
+    new_rollback_decision/1,
     new_sanctions_screening_result/1,
     new_security_addendum_state/1,
     new_security_blocker/1,
+    new_security_readiness/1,
     new_service_credit_admission/1,
     new_service_span/1,
     new_sla_offer_admission/1,
     new_sojourn_time/1,
+    new_solution_fit/1,
+    new_stakeholder_map/1,
+    new_success_plan/1,
+    new_support_readiness/1,
     new_support_tier_admission/1,
     new_sync_time/1,
+    new_target_metric/1,
     new_tax_jurisdiction_evidence/1,
     new_technical_blocker/1,
     new_termination_right_admission/1,
+    new_time_to_value/1,
+    new_training_readiness/1,
     new_training_scope_admission/1,
     new_type_edge/1,
+    new_upsell_readiness/1,
     new_usage_event/1,
+    new_usage_signal/1,
+    new_value_driver/1,
+    new_value_realization/1,
     new_vendor_registration_state/1,
     new_volume_tier_admission/1
 ]).
 
 -export_type([
+    account_discovery/0,
     account_master_match/0,
     account_parent_scope/0,
+    activation_event/0,
+    adoption_milestone/0,
     alignment_move/0,
+    architecture_readiness/0,
+    baseline_metric/0,
     beneficial_owner_evidence/0,
     billing_reconciliation/0,
     booking_readiness/0,
     budget_period_alignment/0,
+    buying_committee/0,
+    canary_decision/0,
+    capability_gap/0,
     case_stats/0,
     change_order_authority/0,
     commercial_exception/0,
+    commercial_outcome/0,
     committed_spend_admission/0,
     conformance_result/0,
     contracting_entity_identity/0,
     credit_risk_admission/0,
+    cross_sell_fit/0,
+    customer_health/0,
     data_migration_scope_admission/0,
     data_processing_addendum_state/0,
+    data_readiness/0,
     deal_desk_packet/0,
+    demo_run/0,
+    demo_scenario/0,
+    developer_readiness/0,
     dfg_edge/0,
+    discovery_hypothesis/0,
     entitlement_event/0,
     entitlement_state/0,
     event_log/0,
     event_type/0,
     exception_authority/0,
+    executive_business_review/0,
+    executive_sponsor/0,
+    expansion_opportunity/0,
+    expansion_receipt/0,
+    expansion_signal/0,
     funding_approval_chain/0,
     heuristic_arc/0,
     implementation_fee_admission/0,
     indemnity_scope_admission/0,
     insurance_requirement/0,
+    integration_readiness/0,
     integration_scope_admission/0,
     invoice_entity_identity/0,
     k8s_object_ref/0,
@@ -126,14 +198,18 @@
     liability_cap_admission/0,
     log_trace/0,
     master_service_agreement_state/0,
+    migration_readiness/0,
     minimum_term_admission/0,
     object_attribute_change/0,
     object_type/0,
+    objection/0,
+    objection_resolution/0,
     oc_declare_constraint/0,
     ocel_attribute/0,
     ocel_event/0,
     ocel_object/0,
     ocel_relationship/0,
+    operator_readiness/0,
     opportunity_currency_contract/0,
     opportunity_value_range/0,
     order_form_admission/0,
@@ -145,38 +221,103 @@
     petri_transition/0,
     planning_action/0,
     planning_state/0,
+    poc_exit_criteria/0,
+    poc_risk/0,
+    poc_scope/0,
+    poc_timeline/0,
     policy_decision/0,
     pricing_basis_contract/0,
     process_variant/0,
     procurement_blocker/0,
     procurement_channel_selection/0,
+    procurement_readiness/0,
+    production_readiness/0,
     proof_of_value_budget/0,
     proof_of_value_exit_gate/0,
     purchase_order_requirement/0,
     purchasing_entity_identity/0,
     queue_snapshot/0,
+    recovery_plan/0,
+    renewal_evidence/0,
+    renewal_health/0,
+    renewal_risk/0,
     renewal_term_admission/0,
     resource_allocation/0,
+    revenue_attribution/0,
     revenue_contract_admission/0,
     revenue_schedule_assumption/0,
+    rollback_decision/0,
     sanctions_screening_result/0,
     security_addendum_state/0,
     security_blocker/0,
+    security_readiness/0,
     service_credit_admission/0,
     service_span/0,
     sla_offer_admission/0,
     sojourn_time/0,
+    solution_fit/0,
+    stakeholder_map/0,
+    success_plan/0,
+    support_readiness/0,
     support_tier_admission/0,
     sync_time/0,
+    target_metric/0,
     tax_jurisdiction_evidence/0,
     technical_blocker/0,
     termination_right_admission/0,
+    time_to_value/0,
+    training_readiness/0,
     training_scope_admission/0,
     type_edge/0,
+    upsell_readiness/0,
     usage_event/0,
+    usage_signal/0,
+    value_driver/0,
+    value_realization/0,
     vendor_registration_state/0,
     volume_tier_admission/0
 ]).
+
+%% Receipted enterprise account-discovery outcome that binds qualification evidence to a measurable discovery score.
+-record(account_discovery, {
+    account_discovery_id :: binary(), %% account_discovery_id: Stable identity of this discovery experiment.
+    account_id :: binary(), %% account_id: Enterprise account whose discovery state was observed.
+    discovery_score :: float(), %% discovery_score: Observed bounded discovery qualification score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this outcome.
+    observed_at :: binary() %% observed_at: ISO8601 instant the customer-value consequence was observed.
+}).
+
+-type account_discovery() :: #account_discovery{}.
+
+-spec new_account_discovery(map()) -> {ok, account_discovery()} | {error, {missing_field, atom()}}.
+new_account_discovery(Map) ->
+    case maps:is_key(account_discovery_id, Map) of
+        false -> {error, {missing_field, account_discovery_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(discovery_score, Map) of
+        false -> {error, {missing_field, discovery_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #account_discovery{
+        account_discovery_id = maps:get(account_discovery_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        discovery_score = maps:get(discovery_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
 
 %% Admits a source account only when it is bound to one canonical Fortune-5 account by immutable matching evidence; prevents pipeline value from being booked against an ambiguous customer identity.
 -record(account_master_match, {
@@ -236,6 +377,88 @@ new_account_parent_scope(Map) ->
     end
     end.
 
+%% First verified activation event for an enterprise user cohort.
+-record(activation_event, {
+    activation_event_id :: binary(), %% activation_event_id: Stable identity of this activation event observation.
+    account_id :: binary(), %% account_id: Enterprise account whose activation event state was observed.
+    activation_type :: binary(), %% activation_type: Type of customer activation observed.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type activation_event() :: #activation_event{}.
+
+-spec new_activation_event(map()) -> {ok, activation_event()} | {error, {missing_field, atom()}}.
+new_activation_event(Map) ->
+    case maps:is_key(activation_event_id, Map) of
+        false -> {error, {missing_field, activation_event_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(activation_type, Map) of
+        false -> {error, {missing_field, activation_type}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #activation_event{
+        activation_event_id = maps:get(activation_event_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        activation_type = maps:get(activation_type, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipted customer adoption milestone tied to observable use.
+-record(adoption_milestone, {
+    adoption_milestone_id :: binary(), %% adoption_milestone_id: Stable identity of this adoption milestone observation.
+    account_id :: binary(), %% account_id: Enterprise account whose adoption milestone state was observed.
+    milestone_name :: binary(), %% milestone_name: Stable name of the achieved adoption milestone.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type adoption_milestone() :: #adoption_milestone{}.
+
+-spec new_adoption_milestone(map()) -> {ok, adoption_milestone()} | {error, {missing_field, atom()}}.
+new_adoption_milestone(Map) ->
+    case maps:is_key(adoption_milestone_id, Map) of
+        false -> {error, {missing_field, adoption_milestone_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(milestone_name, Map) of
+        false -> {error, {missing_field, milestone_name}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #adoption_milestone{
+        adoption_milestone_id = maps:get(adoption_milestone_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        milestone_name = maps:get(milestone_name, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% One step of a conformance-checking alignment between log and model.
 -record(alignment_move, {
     move_type :: atom(), %% move_type: One of: sync | model | log | silent.
@@ -256,6 +479,88 @@ new_alignment_move(Map) ->
         move_type = maps:get(move_type, Map, undefined),
         cost = maps:get(cost, Map, undefined)
     }}
+    end
+    end.
+
+%% Measured architecture readiness for the customer's production environment.
+-record(architecture_readiness, {
+    architecture_readiness_id :: binary(), %% architecture_readiness_id: Stable identity of this architecture readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose architecture readiness state was observed.
+    architecture_score :: float(), %% architecture_score: Observed architecture-readiness score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type architecture_readiness() :: #architecture_readiness{}.
+
+-spec new_architecture_readiness(map()) -> {ok, architecture_readiness()} | {error, {missing_field, atom()}}.
+new_architecture_readiness(Map) ->
+    case maps:is_key(architecture_readiness_id, Map) of
+        false -> {error, {missing_field, architecture_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(architecture_score, Map) of
+        false -> {error, {missing_field, architecture_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #architecture_readiness{
+        architecture_readiness_id = maps:get(architecture_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        architecture_score = maps:get(architecture_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Pre-POC customer baseline used to falsify or confirm realized value.
+-record(baseline_metric, {
+    baseline_metric_id :: binary(), %% baseline_metric_id: Stable identity of this baseline metric observation.
+    account_id :: binary(), %% account_id: Enterprise account whose baseline metric state was observed.
+    baseline_value :: float(), %% baseline_value: Measured value before the intervention.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type baseline_metric() :: #baseline_metric{}.
+
+-spec new_baseline_metric(map()) -> {ok, baseline_metric()} | {error, {missing_field, atom()}}.
+new_baseline_metric(Map) ->
+    case maps:is_key(baseline_metric_id, Map) of
+        false -> {error, {missing_field, baseline_metric_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(baseline_value, Map) of
+        false -> {error, {missing_field, baseline_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #baseline_metric{
+        baseline_metric_id = maps:get(baseline_metric_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        baseline_value = maps:get(baseline_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
     end
     end.
 
@@ -393,6 +698,129 @@ new_budget_period_alignment(Map) ->
     end
     end.
 
+%% Measured buying-committee coverage for an enterprise decision path.
+-record(buying_committee, {
+    buying_committee_id :: binary(), %% buying_committee_id: Stable identity of this buying committee observation.
+    account_id :: binary(), %% account_id: Enterprise account whose buying committee state was observed.
+    committee_coverage :: float(), %% committee_coverage: Fraction of required buying roles actively represented.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type buying_committee() :: #buying_committee{}.
+
+-spec new_buying_committee(map()) -> {ok, buying_committee()} | {error, {missing_field, atom()}}.
+new_buying_committee(Map) ->
+    case maps:is_key(buying_committee_id, Map) of
+        false -> {error, {missing_field, buying_committee_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(committee_coverage, Map) of
+        false -> {error, {missing_field, committee_coverage}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #buying_committee{
+        buying_committee_id = maps:get(buying_committee_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        committee_coverage = maps:get(committee_coverage, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipted enterprise canary decision based on an observed rollout consequence.
+-record(canary_decision, {
+    canary_decision_id :: binary(), %% canary_decision_id: Stable identity of this canary decision observation.
+    account_id :: binary(), %% account_id: Enterprise account whose canary decision state was observed.
+    canary_result :: binary(), %% canary_result: Observed outcome of the canary qualification.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type canary_decision() :: #canary_decision{}.
+
+-spec new_canary_decision(map()) -> {ok, canary_decision()} | {error, {missing_field, atom()}}.
+new_canary_decision(Map) ->
+    case maps:is_key(canary_decision_id, Map) of
+        false -> {error, {missing_field, canary_decision_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(canary_result, Map) of
+        false -> {error, {missing_field, canary_result}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #canary_decision{
+        canary_decision_id = maps:get(canary_decision_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        canary_result = maps:get(canary_result, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Detected capability gap blocking enterprise value or expansion.
+-record(capability_gap, {
+    capability_gap_id :: binary(), %% capability_gap_id: Stable identity of this capability gap observation.
+    account_id :: binary(), %% account_id: Enterprise account whose capability gap state was observed.
+    gap_severity :: binary(), %% gap_severity: Observed severity of the capability gap.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type capability_gap() :: #capability_gap{}.
+
+-spec new_capability_gap(map()) -> {ok, capability_gap()} | {error, {missing_field, atom()}}.
+new_capability_gap(Map) ->
+    case maps:is_key(capability_gap_id, Map) of
+        false -> {error, {missing_field, capability_gap_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(gap_severity, Map) of
+        false -> {error, {missing_field, gap_severity}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #capability_gap{
+        capability_gap_id = maps:get(capability_gap_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        gap_severity = maps:get(gap_severity, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Aggregate statistics computed for one process instance (case).
 -record(case_stats, {
     case_id :: binary(), %% case_id: Unique case identifier.
@@ -472,6 +900,47 @@ new_commercial_exception(Map) ->
         exception_id = maps:get(exception_id, Map, undefined),
         exception_state = maps:get(exception_state, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Verified commercial outcome attributable to the admitted customer journey.
+-record(commercial_outcome, {
+    commercial_outcome_id :: binary(), %% commercial_outcome_id: Stable identity of this commercial outcome observation.
+    account_id :: binary(), %% account_id: Enterprise account whose commercial outcome state was observed.
+    outcome_value :: float(), %% outcome_value: Verified commercial value in account currency.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type commercial_outcome() :: #commercial_outcome{}.
+
+-spec new_commercial_outcome(map()) -> {ok, commercial_outcome()} | {error, {missing_field, atom()}}.
+new_commercial_outcome(Map) ->
+    case maps:is_key(commercial_outcome_id, Map) of
+        false -> {error, {missing_field, commercial_outcome_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(outcome_value, Map) of
+        false -> {error, {missing_field, outcome_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #commercial_outcome{
+        commercial_outcome_id = maps:get(commercial_outcome_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        outcome_value = maps:get(outcome_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -588,6 +1057,88 @@ new_credit_risk_admission(Map) ->
     end
     end.
 
+%% Evidence-backed fit for an adjacent enterprise capability.
+-record(cross_sell_fit, {
+    cross_sell_fit_id :: binary(), %% cross_sell_fit_id: Stable identity of this cross sell fit observation.
+    account_id :: binary(), %% account_id: Enterprise account whose cross sell fit state was observed.
+    cross_sell_score :: float(), %% cross_sell_score: Observed cross-sell fit score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type cross_sell_fit() :: #cross_sell_fit{}.
+
+-spec new_cross_sell_fit(map()) -> {ok, cross_sell_fit()} | {error, {missing_field, atom()}}.
+new_cross_sell_fit(Map) ->
+    case maps:is_key(cross_sell_fit_id, Map) of
+        false -> {error, {missing_field, cross_sell_fit_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(cross_sell_score, Map) of
+        false -> {error, {missing_field, cross_sell_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #cross_sell_fit{
+        cross_sell_fit_id = maps:get(cross_sell_fit_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        cross_sell_score = maps:get(cross_sell_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Cumulative customer-health observation across usage, outcomes, and support.
+-record(customer_health, {
+    customer_health_id :: binary(), %% customer_health_id: Stable identity of this customer health observation.
+    account_id :: binary(), %% account_id: Enterprise account whose customer health state was observed.
+    health_score :: float(), %% health_score: Observed account health score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type customer_health() :: #customer_health{}.
+
+-spec new_customer_health(map()) -> {ok, customer_health()} | {error, {missing_field, atom()}}.
+new_customer_health(Map) ->
+    case maps:is_key(customer_health_id, Map) of
+        false -> {error, {missing_field, customer_health_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(health_score, Map) of
+        false -> {error, {missing_field, health_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #customer_health{
+        customer_health_id = maps:get(customer_health_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        health_score = maps:get(health_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Admits a bounded data-migration scope before margin and timeline promises are accepted.
 -record(data_migration_scope_admission, {
     opportunity_id :: binary(), %% opportunity_id: Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval.
@@ -646,6 +1197,47 @@ new_data_processing_addendum_state(Map) ->
     end
     end.
 
+%% Measured source-data readiness for a production proof of value.
+-record(data_readiness, {
+    data_readiness_id :: binary(), %% data_readiness_id: Stable identity of this data readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose data readiness state was observed.
+    data_quality_score :: float(), %% data_quality_score: Observed quality score of admitted customer data.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type data_readiness() :: #data_readiness{}.
+
+-spec new_data_readiness(map()) -> {ok, data_readiness()} | {error, {missing_field, atom()}}.
+new_data_readiness(Map) ->
+    case maps:is_key(data_readiness_id, Map) of
+        false -> {error, {missing_field, data_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(data_quality_score, Map) of
+        false -> {error, {missing_field, data_quality_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #data_readiness{
+        data_readiness_id = maps:get(data_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        data_quality_score = maps:get(data_quality_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Binds cross-functional deal-desk approval evidence into one replayable packet identity.
 -record(deal_desk_packet, {
     opportunity_id :: binary(), %% opportunity_id: Required deal desk packet input; omission is an executable typed refusal, never an inferred approval.
@@ -675,6 +1267,129 @@ new_deal_desk_packet(Map) ->
     end
     end.
 
+%% Receipted execution result for a reproducible enterprise demo.
+-record(demo_run, {
+    demo_run_id :: binary(), %% demo_run_id: Stable identity of this demo run observation.
+    account_id :: binary(), %% account_id: Enterprise account whose demo run state was observed.
+    demo_result :: binary(), %% demo_result: Observed result of the exact demo execution.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type demo_run() :: #demo_run{}.
+
+-spec new_demo_run(map()) -> {ok, demo_run()} | {error, {missing_field, atom()}}.
+new_demo_run(Map) ->
+    case maps:is_key(demo_run_id, Map) of
+        false -> {error, {missing_field, demo_run_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(demo_result, Map) of
+        false -> {error, {missing_field, demo_result}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #demo_run{
+        demo_run_id = maps:get(demo_run_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        demo_result = maps:get(demo_result, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Account-specific executable demonstration scenario for enterprise evaluation.
+-record(demo_scenario, {
+    demo_scenario_id :: binary(), %% demo_scenario_id: Stable identity of this demo scenario observation.
+    account_id :: binary(), %% account_id: Enterprise account whose demo scenario state was observed.
+    scenario_name :: binary(), %% scenario_name: Stable name of the selected customer scenario.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type demo_scenario() :: #demo_scenario{}.
+
+-spec new_demo_scenario(map()) -> {ok, demo_scenario()} | {error, {missing_field, atom()}}.
+new_demo_scenario(Map) ->
+    case maps:is_key(demo_scenario_id, Map) of
+        false -> {error, {missing_field, demo_scenario_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(scenario_name, Map) of
+        false -> {error, {missing_field, scenario_name}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #demo_scenario{
+        demo_scenario_id = maps:get(demo_scenario_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        scenario_name = maps:get(scenario_name, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Measured developer enablement readiness for enterprise adoption.
+-record(developer_readiness, {
+    developer_readiness_id :: binary(), %% developer_readiness_id: Stable identity of this developer readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose developer readiness state was observed.
+    developer_readiness_score :: float(), %% developer_readiness_score: Observed developer-readiness score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type developer_readiness() :: #developer_readiness{}.
+
+-spec new_developer_readiness(map()) -> {ok, developer_readiness()} | {error, {missing_field, atom()}}.
+new_developer_readiness(Map) ->
+    case maps:is_key(developer_readiness_id, Map) of
+        false -> {error, {missing_field, developer_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(developer_readiness_score, Map) of
+        false -> {error, {missing_field, developer_readiness_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #developer_readiness{
+        developer_readiness_id = maps:get(developer_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        developer_readiness_score = maps:get(developer_readiness_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% One frequency-annotated directly-follows edge between two activities.
 -record(dfg_edge, {
     source_activity :: binary(), %% source_activity: The preceding activity name.
@@ -700,6 +1415,47 @@ new_dfg_edge(Map) ->
         target_activity = maps:get(target_activity, Map, undefined),
         frequency = maps:get(frequency, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Receipted enterprise discovery hypothesis linking an account to a falsifiable customer-value expectation.
+-record(discovery_hypothesis, {
+    discovery_hypothesis_id :: binary(), %% discovery_hypothesis_id: Stable identity of this discovery hypothesis observation.
+    account_id :: binary(), %% account_id: Enterprise account whose discovery hypothesis state was observed.
+    expected_value :: binary(), %% expected_value: Falsifiable value expectation stated by the customer.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type discovery_hypothesis() :: #discovery_hypothesis{}.
+
+-spec new_discovery_hypothesis(map()) -> {ok, discovery_hypothesis()} | {error, {missing_field, atom()}}.
+new_discovery_hypothesis(Map) ->
+    case maps:is_key(discovery_hypothesis_id, Map) of
+        false -> {error, {missing_field, discovery_hypothesis_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(expected_value, Map) of
+        false -> {error, {missing_field, expected_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #discovery_hypothesis{
+        discovery_hypothesis_id = maps:get(discovery_hypothesis_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        expected_value = maps:get(expected_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -849,6 +1605,211 @@ new_exception_authority(Map) ->
     end
     end.
 
+%% Observed executive business-review outcome derived from receipts.
+-record(executive_business_review, {
+    executive_business_review_id :: binary(), %% executive_business_review_id: Stable identity of this executive business review observation.
+    account_id :: binary(), %% account_id: Enterprise account whose executive business review state was observed.
+    executive_outcome :: binary(), %% executive_outcome: Decision recorded by the executive review.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type executive_business_review() :: #executive_business_review{}.
+
+-spec new_executive_business_review(map()) -> {ok, executive_business_review()} | {error, {missing_field, atom()}}.
+new_executive_business_review(Map) ->
+    case maps:is_key(executive_business_review_id, Map) of
+        false -> {error, {missing_field, executive_business_review_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(executive_outcome, Map) of
+        false -> {error, {missing_field, executive_outcome}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #executive_business_review{
+        executive_business_review_id = maps:get(executive_business_review_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        executive_outcome = maps:get(executive_outcome, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipted executive sponsorship commitment for an enterprise proof of value.
+-record(executive_sponsor, {
+    executive_sponsor_id :: binary(), %% executive_sponsor_id: Stable identity of this executive sponsor observation.
+    account_id :: binary(), %% account_id: Enterprise account whose executive sponsor state was observed.
+    sponsor_commitment :: binary(), %% sponsor_commitment: Observed level of sponsor commitment.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type executive_sponsor() :: #executive_sponsor{}.
+
+-spec new_executive_sponsor(map()) -> {ok, executive_sponsor()} | {error, {missing_field, atom()}}.
+new_executive_sponsor(Map) ->
+    case maps:is_key(executive_sponsor_id, Map) of
+        false -> {error, {missing_field, executive_sponsor_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(sponsor_commitment, Map) of
+        false -> {error, {missing_field, sponsor_commitment}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #executive_sponsor{
+        executive_sponsor_id = maps:get(executive_sponsor_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        sponsor_commitment = maps:get(sponsor_commitment, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Qualified account expansion opportunity backed by observed adoption evidence.
+-record(expansion_opportunity, {
+    expansion_opportunity_id :: binary(), %% expansion_opportunity_id: Stable identity of this expansion opportunity observation.
+    account_id :: binary(), %% account_id: Enterprise account whose expansion opportunity state was observed.
+    expansion_value :: float(), %% expansion_value: Qualified expansion value in account currency.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type expansion_opportunity() :: #expansion_opportunity{}.
+
+-spec new_expansion_opportunity(map()) -> {ok, expansion_opportunity()} | {error, {missing_field, atom()}}.
+new_expansion_opportunity(Map) ->
+    case maps:is_key(expansion_opportunity_id, Map) of
+        false -> {error, {missing_field, expansion_opportunity_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(expansion_value, Map) of
+        false -> {error, {missing_field, expansion_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #expansion_opportunity{
+        expansion_opportunity_id = maps:get(expansion_opportunity_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        expansion_value = maps:get(expansion_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Final expansion receipt binding adoption evidence to realized expansion value.
+-record(expansion_receipt, {
+    expansion_receipt_id :: binary(), %% expansion_receipt_id: Stable identity of this expansion receipt observation.
+    account_id :: binary(), %% account_id: Enterprise account whose expansion receipt state was observed.
+    receipt_value :: float(), %% receipt_value: Verified expansion value named by this receipt.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type expansion_receipt() :: #expansion_receipt{}.
+
+-spec new_expansion_receipt(map()) -> {ok, expansion_receipt()} | {error, {missing_field, atom()}}.
+new_expansion_receipt(Map) ->
+    case maps:is_key(expansion_receipt_id, Map) of
+        false -> {error, {missing_field, expansion_receipt_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(receipt_value, Map) of
+        false -> {error, {missing_field, receipt_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #expansion_receipt{
+        expansion_receipt_id = maps:get(expansion_receipt_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        receipt_value = maps:get(receipt_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Observed usage-and-value signal indicating an expansion path.
+-record(expansion_signal, {
+    expansion_signal_id :: binary(), %% expansion_signal_id: Stable identity of this expansion signal observation.
+    account_id :: binary(), %% account_id: Enterprise account whose expansion signal state was observed.
+    expansion_signal_score :: float(), %% expansion_signal_score: Measured strength of the expansion signal.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type expansion_signal() :: #expansion_signal{}.
+
+-spec new_expansion_signal(map()) -> {ok, expansion_signal()} | {error, {missing_field, atom()}}.
+new_expansion_signal(Map) ->
+    case maps:is_key(expansion_signal_id, Map) of
+        false -> {error, {missing_field, expansion_signal_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(expansion_signal_score, Map) of
+        false -> {error, {missing_field, expansion_signal_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #expansion_signal{
+        expansion_signal_id = maps:get(expansion_signal_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        expansion_signal_score = maps:get(expansion_signal_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
 -record(funding_approval_chain, {
     opportunity_id :: binary(), %% opportunity_id: Required funding approval chain input; omission is an executable typed refusal, never an inferred approval.
@@ -990,6 +1951,47 @@ new_insurance_requirement(Map) ->
         coverage_id = maps:get(coverage_id, Map, undefined),
         evidence_hash = maps:get(evidence_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Executable readiness contract for required enterprise integrations.
+-record(integration_readiness, {
+    integration_readiness_id :: binary(), %% integration_readiness_id: Stable identity of this integration readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose integration readiness state was observed.
+    integration_score :: float(), %% integration_score: Observed integration-readiness score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type integration_readiness() :: #integration_readiness{}.
+
+-spec new_integration_readiness(map()) -> {ok, integration_readiness()} | {error, {missing_field, atom()}}.
+new_integration_readiness(Map) ->
+    case maps:is_key(integration_readiness_id, Map) of
+        false -> {error, {missing_field, integration_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(integration_score, Map) of
+        false -> {error, {missing_field, integration_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #integration_readiness{
+        integration_readiness_id = maps:get(integration_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        integration_score = maps:get(integration_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -1187,6 +2189,47 @@ new_master_service_agreement_state(Map) ->
     end
     end.
 
+%% Measured migration readiness and bounded effort for enterprise adoption.
+-record(migration_readiness, {
+    migration_readiness_id :: binary(), %% migration_readiness_id: Stable identity of this migration readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose migration readiness state was observed.
+    migration_effort_days :: integer(), %% migration_effort_days: Estimated engineering days for the admitted migration.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type migration_readiness() :: #migration_readiness{}.
+
+-spec new_migration_readiness(map()) -> {ok, migration_readiness()} | {error, {missing_field, atom()}}.
+new_migration_readiness(Map) ->
+    case maps:is_key(migration_readiness_id, Map) of
+        false -> {error, {missing_field, migration_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(migration_effort_days, Map) of
+        false -> {error, {missing_field, migration_effort_days}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #migration_readiness{
+        migration_readiness_id = maps:get(migration_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        migration_effort_days = maps:get(migration_effort_days, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Admits the minimum paid term as a decision input needed for durable contract value.
 -record(minimum_term_admission, {
     opportunity_id :: binary(), %% opportunity_id: Required minimum term admission input; omission is an executable typed refusal, never an inferred approval.
@@ -1270,6 +2313,88 @@ new_object_type(Map) ->
         type_name = maps:get(type_name, Map, undefined),
         attribute_names = maps:get(attribute_names, Map, undefined)
     }}
+    end.
+
+%% Typed enterprise objection linked to an exact account and evidence.
+-record(objection, {
+    objection_id :: binary(), %% objection_id: Stable identity of this objection observation.
+    account_id :: binary(), %% account_id: Enterprise account whose objection state was observed.
+    objection_type :: binary(), %% objection_type: Category of the observed buying objection.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type objection() :: #objection{}.
+
+-spec new_objection(map()) -> {ok, objection()} | {error, {missing_field, atom()}}.
+new_objection(Map) ->
+    case maps:is_key(objection_id, Map) of
+        false -> {error, {missing_field, objection_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(objection_type, Map) of
+        false -> {error, {missing_field, objection_type}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #objection{
+        objection_id = maps:get(objection_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        objection_type = maps:get(objection_type, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipted resolution of an enterprise buying objection.
+-record(objection_resolution, {
+    objection_resolution_id :: binary(), %% objection_resolution_id: Stable identity of this objection resolution observation.
+    account_id :: binary(), %% account_id: Enterprise account whose objection resolution state was observed.
+    resolution_status :: binary(), %% resolution_status: Observed resolution status.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type objection_resolution() :: #objection_resolution{}.
+
+-spec new_objection_resolution(map()) -> {ok, objection_resolution()} | {error, {missing_field, atom()}}.
+new_objection_resolution(Map) ->
+    case maps:is_key(objection_resolution_id, Map) of
+        false -> {error, {missing_field, objection_resolution_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(resolution_status, Map) of
+        false -> {error, {missing_field, resolution_status}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #objection_resolution{
+        objection_resolution_id = maps:get(objection_resolution_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        resolution_status = maps:get(resolution_status, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
     end.
 
 %% One declarative object-centric behavioral constraint between two activities.
@@ -1408,6 +2533,47 @@ new_ocel_relationship(Map) ->
         qualifier = maps:get(qualifier, Map, undefined),
         object_id = maps:get(object_id, Map, undefined)
     }}
+    end
+    end.
+
+%% Measured operations-team readiness for governed production use.
+-record(operator_readiness, {
+    operator_readiness_id :: binary(), %% operator_readiness_id: Stable identity of this operator readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose operator readiness state was observed.
+    operator_readiness_score :: float(), %% operator_readiness_score: Observed operator-readiness score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type operator_readiness() :: #operator_readiness{}.
+
+-spec new_operator_readiness(map()) -> {ok, operator_readiness()} | {error, {missing_field, atom()}}.
+new_operator_readiness(Map) ->
+    case maps:is_key(operator_readiness_id, Map) of
+        false -> {error, {missing_field, operator_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(operator_readiness_score, Map) of
+        false -> {error, {missing_field, operator_readiness_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #operator_readiness{
+        operator_readiness_id = maps:get(operator_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        operator_readiness_score = maps:get(operator_readiness_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
     end
     end.
 
@@ -1706,6 +2872,170 @@ new_planning_state(Map) ->
     end
     end.
 
+%% Measured POC exit-criteria result that gates production readiness.
+-record(poc_exit_criteria, {
+    poc_exit_criteria_id :: binary(), %% poc_exit_criteria_id: Stable identity of this poc exit criteria observation.
+    account_id :: binary(), %% account_id: Enterprise account whose poc exit criteria state was observed.
+    criteria_pass_rate :: float(), %% criteria_pass_rate: Fraction of customer-approved exit criteria satisfied.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type poc_exit_criteria() :: #poc_exit_criteria{}.
+
+-spec new_poc_exit_criteria(map()) -> {ok, poc_exit_criteria()} | {error, {missing_field, atom()}}.
+new_poc_exit_criteria(Map) ->
+    case maps:is_key(poc_exit_criteria_id, Map) of
+        false -> {error, {missing_field, poc_exit_criteria_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(criteria_pass_rate, Map) of
+        false -> {error, {missing_field, criteria_pass_rate}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #poc_exit_criteria{
+        poc_exit_criteria_id = maps:get(poc_exit_criteria_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        criteria_pass_rate = maps:get(criteria_pass_rate, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Evidence-backed POC delivery risk visible to the solution architect.
+-record(poc_risk, {
+    poc_risk_id :: binary(), %% poc_risk_id: Stable identity of this poc risk observation.
+    account_id :: binary(), %% account_id: Enterprise account whose poc risk state was observed.
+    risk_score :: float(), %% risk_score: Observed delivery-risk score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type poc_risk() :: #poc_risk{}.
+
+-spec new_poc_risk(map()) -> {ok, poc_risk()} | {error, {missing_field, atom()}}.
+new_poc_risk(Map) ->
+    case maps:is_key(poc_risk_id, Map) of
+        false -> {error, {missing_field, poc_risk_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(risk_score, Map) of
+        false -> {error, {missing_field, risk_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #poc_risk{
+        poc_risk_id = maps:get(poc_risk_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        risk_score = maps:get(risk_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Bounded proof-of-concept scope with an explicit number of customer use cases.
+-record(poc_scope, {
+    poc_scope_id :: binary(), %% poc_scope_id: Stable identity of this poc scope observation.
+    account_id :: binary(), %% account_id: Enterprise account whose poc scope state was observed.
+    use_case_count :: integer(), %% use_case_count: Count of admitted use cases in the POC.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type poc_scope() :: #poc_scope{}.
+
+-spec new_poc_scope(map()) -> {ok, poc_scope()} | {error, {missing_field, atom()}}.
+new_poc_scope(Map) ->
+    case maps:is_key(poc_scope_id, Map) of
+        false -> {error, {missing_field, poc_scope_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(use_case_count, Map) of
+        false -> {error, {missing_field, use_case_count}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #poc_scope{
+        poc_scope_id = maps:get(poc_scope_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        use_case_count = maps:get(use_case_count, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Measured proof-of-concept timeline tied to verified customer value.
+-record(poc_timeline, {
+    poc_timeline_id :: binary(), %% poc_timeline_id: Stable identity of this poc timeline observation.
+    account_id :: binary(), %% account_id: Enterprise account whose poc timeline state was observed.
+    days_to_value :: integer(), %% days_to_value: Calendar days from admitted POC start to verified value.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type poc_timeline() :: #poc_timeline{}.
+
+-spec new_poc_timeline(map()) -> {ok, poc_timeline()} | {error, {missing_field, atom()}}.
+new_poc_timeline(Map) ->
+    case maps:is_key(poc_timeline_id, Map) of
+        false -> {error, {missing_field, poc_timeline_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(days_to_value, Map) of
+        false -> {error, {missing_field, days_to_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #poc_timeline{
+        poc_timeline_id = maps:get(poc_timeline_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        days_to_value = maps:get(days_to_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% One admission/authority policy decision recorded for an attempted action.
 -record(policy_decision, {
     decision_id :: binary(), %% decision_id: Unique decision identifier.
@@ -1843,6 +3173,88 @@ new_procurement_channel_selection(Map) ->
         channel_id = maps:get(channel_id, Map, undefined),
         selection_evidence_hash = maps:get(selection_evidence_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Observable procurement journey state for an enterprise commercial transition.
+-record(procurement_readiness, {
+    procurement_readiness_id :: binary(), %% procurement_readiness_id: Stable identity of this procurement readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose procurement readiness state was observed.
+    procurement_stage :: binary(), %% procurement_stage: Current admitted procurement stage.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type procurement_readiness() :: #procurement_readiness{}.
+
+-spec new_procurement_readiness(map()) -> {ok, procurement_readiness()} | {error, {missing_field, atom()}}.
+new_procurement_readiness(Map) ->
+    case maps:is_key(procurement_readiness_id, Map) of
+        false -> {error, {missing_field, procurement_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(procurement_stage, Map) of
+        false -> {error, {missing_field, procurement_stage}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #procurement_readiness{
+        procurement_readiness_id = maps:get(procurement_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        procurement_stage = maps:get(procurement_stage, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Cumulative evidence-backed production readiness for the enterprise account.
+-record(production_readiness, {
+    production_readiness_id :: binary(), %% production_readiness_id: Stable identity of this production readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose production readiness state was observed.
+    production_readiness_score :: float(), %% production_readiness_score: Observed production-readiness score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type production_readiness() :: #production_readiness{}.
+
+-spec new_production_readiness(map()) -> {ok, production_readiness()} | {error, {missing_field, atom()}}.
+new_production_readiness(Map) ->
+    case maps:is_key(production_readiness_id, Map) of
+        false -> {error, {missing_field, production_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(production_readiness_score, Map) of
+        false -> {error, {missing_field, production_readiness_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #production_readiness{
+        production_readiness_id = maps:get(production_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        production_readiness_score = maps:get(production_readiness_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -1992,6 +3404,170 @@ new_queue_snapshot(Map) ->
     end
     end.
 
+%% Executable account recovery plan with a measured recovery interval.
+-record(recovery_plan, {
+    recovery_plan_id :: binary(), %% recovery_plan_id: Stable identity of this recovery plan observation.
+    account_id :: binary(), %% account_id: Enterprise account whose recovery plan state was observed.
+    recovery_time_hours :: float(), %% recovery_time_hours: Verified hours from failure to recovered customer consequence.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type recovery_plan() :: #recovery_plan{}.
+
+-spec new_recovery_plan(map()) -> {ok, recovery_plan()} | {error, {missing_field, atom()}}.
+new_recovery_plan(Map) ->
+    case maps:is_key(recovery_plan_id, Map) of
+        false -> {error, {missing_field, recovery_plan_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(recovery_time_hours, Map) of
+        false -> {error, {missing_field, recovery_time_hours}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #recovery_plan{
+        recovery_plan_id = maps:get(recovery_plan_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        recovery_time_hours = maps:get(recovery_time_hours, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipted value evidence supporting a multi-year renewal decision.
+-record(renewal_evidence, {
+    renewal_evidence_id :: binary(), %% renewal_evidence_id: Stable identity of this renewal evidence observation.
+    account_id :: binary(), %% account_id: Enterprise account whose renewal evidence state was observed.
+    renewal_value :: float(), %% renewal_value: Verified value supporting renewal.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type renewal_evidence() :: #renewal_evidence{}.
+
+-spec new_renewal_evidence(map()) -> {ok, renewal_evidence()} | {error, {missing_field, atom()}}.
+new_renewal_evidence(Map) ->
+    case maps:is_key(renewal_evidence_id, Map) of
+        false -> {error, {missing_field, renewal_evidence_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(renewal_value, Map) of
+        false -> {error, {missing_field, renewal_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #renewal_evidence{
+        renewal_evidence_id = maps:get(renewal_evidence_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        renewal_value = maps:get(renewal_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Measured renewal health derived from adoption and realized-value evidence.
+-record(renewal_health, {
+    renewal_health_id :: binary(), %% renewal_health_id: Stable identity of this renewal health observation.
+    account_id :: binary(), %% account_id: Enterprise account whose renewal health state was observed.
+    renewal_health_score :: float(), %% renewal_health_score: Observed renewal-health score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type renewal_health() :: #renewal_health{}.
+
+-spec new_renewal_health(map()) -> {ok, renewal_health()} | {error, {missing_field, atom()}}.
+new_renewal_health(Map) ->
+    case maps:is_key(renewal_health_id, Map) of
+        false -> {error, {missing_field, renewal_health_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(renewal_health_score, Map) of
+        false -> {error, {missing_field, renewal_health_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #renewal_health{
+        renewal_health_id = maps:get(renewal_health_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        renewal_health_score = maps:get(renewal_health_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Evidence-backed renewal risk requiring customer-success action.
+-record(renewal_risk, {
+    renewal_risk_id :: binary(), %% renewal_risk_id: Stable identity of this renewal risk observation.
+    account_id :: binary(), %% account_id: Enterprise account whose renewal risk state was observed.
+    renewal_risk_score :: float(), %% renewal_risk_score: Observed renewal-risk score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type renewal_risk() :: #renewal_risk{}.
+
+-spec new_renewal_risk(map()) -> {ok, renewal_risk()} | {error, {missing_field, atom()}}.
+new_renewal_risk(Map) ->
+    case maps:is_key(renewal_risk_id, Map) of
+        false -> {error, {missing_field, renewal_risk_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(renewal_risk_score, Map) of
+        false -> {error, {missing_field, renewal_risk_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #renewal_risk{
+        renewal_risk_id = maps:get(renewal_risk_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        renewal_risk_score = maps:get(renewal_risk_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Makes renewal duration and its decision explicit for lifetime-value qualification.
 -record(renewal_term_admission, {
     opportunity_id :: binary(), %% opportunity_id: Required renewal term admission input; omission is an executable typed refusal, never an inferred approval.
@@ -2050,6 +3626,47 @@ new_resource_allocation(Map) ->
     end
     end.
 
+%% Receipted revenue attribution bound to exact enterprise evidence.
+-record(revenue_attribution, {
+    revenue_attribution_id :: binary(), %% revenue_attribution_id: Stable identity of this revenue attribution observation.
+    account_id :: binary(), %% account_id: Enterprise account whose revenue attribution state was observed.
+    attributed_revenue :: float(), %% attributed_revenue: Revenue attributed to the verified value path.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type revenue_attribution() :: #revenue_attribution{}.
+
+-spec new_revenue_attribution(map()) -> {ok, revenue_attribution()} | {error, {missing_field, atom()}}.
+new_revenue_attribution(Map) ->
+    case maps:is_key(revenue_attribution_id, Map) of
+        false -> {error, {missing_field, revenue_attribution_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(attributed_revenue, Map) of
+        false -> {error, {missing_field, attributed_revenue}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #revenue_attribution{
+        revenue_attribution_id = maps:get(revenue_attribution_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        attributed_revenue = maps:get(attributed_revenue, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Produces the terminal immutable admission receipt binding a qualified opportunity to an executable paid revenue contract.
 -record(revenue_contract_admission, {
     opportunity_id :: binary(), %% opportunity_id: Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval.
@@ -2104,6 +3721,47 @@ new_revenue_schedule_assumption(Map) ->
         schedule_id = maps:get(schedule_id, Map, undefined),
         assumption_evidence_hash = maps:get(assumption_evidence_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Receipted rollback decision and recovered account consequence.
+-record(rollback_decision, {
+    rollback_decision_id :: binary(), %% rollback_decision_id: Stable identity of this rollback decision observation.
+    account_id :: binary(), %% account_id: Enterprise account whose rollback decision state was observed.
+    rollback_result :: binary(), %% rollback_result: Observed outcome of the rollback action.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type rollback_decision() :: #rollback_decision{}.
+
+-spec new_rollback_decision(map()) -> {ok, rollback_decision()} | {error, {missing_field, atom()}}.
+new_rollback_decision(Map) ->
+    case maps:is_key(rollback_decision_id, Map) of
+        false -> {error, {missing_field, rollback_decision_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(rollback_result, Map) of
+        false -> {error, {missing_field, rollback_result}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #rollback_decision{
+        rollback_decision_id = maps:get(rollback_decision_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        rollback_result = maps:get(rollback_result, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -2191,6 +3849,47 @@ new_security_blocker(Map) ->
         blocker_id = maps:get(blocker_id, Map, undefined),
         refusal_code = maps:get(refusal_code, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Evidence-backed security-control readiness for enterprise adoption.
+-record(security_readiness, {
+    security_readiness_id :: binary(), %% security_readiness_id: Stable identity of this security readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose security readiness state was observed.
+    control_coverage :: float(), %% control_coverage: Fraction of required controls with accepted evidence.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type security_readiness() :: #security_readiness{}.
+
+-spec new_security_readiness(map()) -> {ok, security_readiness()} | {error, {missing_field, atom()}}.
+new_security_readiness(Map) ->
+    case maps:is_key(security_readiness_id, Map) of
+        false -> {error, {missing_field, security_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(control_coverage, Map) of
+        false -> {error, {missing_field, control_coverage}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #security_readiness{
+        security_readiness_id = maps:get(security_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        control_coverage = maps:get(control_coverage, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -2313,6 +4012,170 @@ new_sojourn_time(Map) ->
     end
     end.
 
+%% Measured solution-fit observation for the account's admitted requirements.
+-record(solution_fit, {
+    solution_fit_id :: binary(), %% solution_fit_id: Stable identity of this solution fit observation.
+    account_id :: binary(), %% account_id: Enterprise account whose solution fit state was observed.
+    fit_score :: float(), %% fit_score: Fraction of admitted requirements satisfied.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type solution_fit() :: #solution_fit{}.
+
+-spec new_solution_fit(map()) -> {ok, solution_fit()} | {error, {missing_field, atom()}}.
+new_solution_fit(Map) ->
+    case maps:is_key(solution_fit_id, Map) of
+        false -> {error, {missing_field, solution_fit_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(fit_score, Map) of
+        false -> {error, {missing_field, fit_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #solution_fit{
+        solution_fit_id = maps:get(solution_fit_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        fit_score = maps:get(fit_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Executable stakeholder-coverage contract for a qualified enterprise evaluation.
+-record(stakeholder_map, {
+    stakeholder_map_id :: binary(), %% stakeholder_map_id: Stable identity of this stakeholder map observation.
+    account_id :: binary(), %% account_id: Enterprise account whose stakeholder map state was observed.
+    stakeholder_count :: integer(), %% stakeholder_count: Number of distinct admitted stakeholder roles.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type stakeholder_map() :: #stakeholder_map{}.
+
+-spec new_stakeholder_map(map()) -> {ok, stakeholder_map()} | {error, {missing_field, atom()}}.
+new_stakeholder_map(Map) ->
+    case maps:is_key(stakeholder_map_id, Map) of
+        false -> {error, {missing_field, stakeholder_map_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(stakeholder_count, Map) of
+        false -> {error, {missing_field, stakeholder_count}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #stakeholder_map{
+        stakeholder_map_id = maps:get(stakeholder_map_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        stakeholder_count = maps:get(stakeholder_count, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Executable customer-success plan target with receipted account identity.
+-record(success_plan, {
+    success_plan_id :: binary(), %% success_plan_id: Stable identity of this success plan observation.
+    account_id :: binary(), %% account_id: Enterprise account whose success plan state was observed.
+    success_target :: binary(), %% success_target: Next verified customer-success target.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type success_plan() :: #success_plan{}.
+
+-spec new_success_plan(map()) -> {ok, success_plan()} | {error, {missing_field, atom()}}.
+new_success_plan(Map) ->
+    case maps:is_key(success_plan_id, Map) of
+        false -> {error, {missing_field, success_plan_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(success_target, Map) of
+        false -> {error, {missing_field, success_target}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #success_plan{
+        success_plan_id = maps:get(success_plan_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        success_target = maps:get(success_target, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Measured support-team readiness for enterprise production.
+-record(support_readiness, {
+    support_readiness_id :: binary(), %% support_readiness_id: Stable identity of this support readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose support readiness state was observed.
+    support_readiness_score :: float(), %% support_readiness_score: Observed support-readiness score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type support_readiness() :: #support_readiness{}.
+
+-spec new_support_readiness(map()) -> {ok, support_readiness()} | {error, {missing_field, atom()}}.
+new_support_readiness(Map) ->
+    case maps:is_key(support_readiness_id, Map) of
+        false -> {error, {missing_field, support_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(support_readiness_score, Map) of
+        false -> {error, {missing_field, support_readiness_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #support_readiness{
+        support_readiness_id = maps:get(support_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        support_readiness_score = maps:get(support_readiness_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Admits the paid support tier that determines service obligation and cost-to-serve.
 -record(support_tier_admission, {
     opportunity_id :: binary(), %% opportunity_id: Required support tier admission input; omission is an executable typed refusal, never an inferred approval.
@@ -2364,6 +4227,47 @@ new_sync_time(Map) ->
         delaying_object_id = maps:get(delaying_object_id, Map, undefined),
         seconds = maps:get(seconds, Map, undefined)
     }}
+    end
+    end.
+
+%% Customer-approved target metric for a qualified proof of value.
+-record(target_metric, {
+    target_metric_id :: binary(), %% target_metric_id: Stable identity of this target metric observation.
+    account_id :: binary(), %% account_id: Enterprise account whose target metric state was observed.
+    target_value :: float(), %% target_value: Target value required for acceptance.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type target_metric() :: #target_metric{}.
+
+-spec new_target_metric(map()) -> {ok, target_metric()} | {error, {missing_field, atom()}}.
+new_target_metric(Map) ->
+    case maps:is_key(target_metric_id, Map) of
+        false -> {error, {missing_field, target_metric_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(target_value, Map) of
+        false -> {error, {missing_field, target_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #target_metric{
+        target_metric_id = maps:get(target_metric_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        target_value = maps:get(target_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
     end
     end.
 
@@ -2454,6 +4358,88 @@ new_termination_right_admission(Map) ->
     end
     end.
 
+%% Measured elapsed time to the customer's first verified business value.
+-record(time_to_value, {
+    time_to_value_id :: binary(), %% time_to_value_id: Stable identity of this time to value observation.
+    account_id :: binary(), %% account_id: Enterprise account whose time to value state was observed.
+    verified_days :: integer(), %% verified_days: Days from admission to first verified value.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type time_to_value() :: #time_to_value{}.
+
+-spec new_time_to_value(map()) -> {ok, time_to_value()} | {error, {missing_field, atom()}}.
+new_time_to_value(Map) ->
+    case maps:is_key(time_to_value_id, Map) of
+        false -> {error, {missing_field, time_to_value_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(verified_days, Map) of
+        false -> {error, {missing_field, verified_days}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #time_to_value{
+        time_to_value_id = maps:get(time_to_value_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        verified_days = maps:get(verified_days, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Observed workforce training readiness for production adoption.
+-record(training_readiness, {
+    training_readiness_id :: binary(), %% training_readiness_id: Stable identity of this training readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose training readiness state was observed.
+    training_completion_rate :: float(), %% training_completion_rate: Fraction of assigned learners completing qualification.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type training_readiness() :: #training_readiness{}.
+
+-spec new_training_readiness(map()) -> {ok, training_readiness()} | {error, {missing_field, atom()}}.
+new_training_readiness(Map) ->
+    case maps:is_key(training_readiness_id, Map) of
+        false -> {error, {missing_field, training_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(training_completion_rate, Map) of
+        false -> {error, {missing_field, training_completion_rate}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #training_readiness{
+        training_readiness_id = maps:get(training_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        training_completion_rate = maps:get(training_completion_rate, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Qualifies training scope as an explicit paid delivery obligation.
 -record(training_scope_admission, {
     opportunity_id :: binary(), %% opportunity_id: Required training scope admission input; omission is an executable typed refusal, never an inferred approval.
@@ -2518,6 +4504,47 @@ new_type_edge(Map) ->
     end
     end.
 
+%% Measured readiness to transition the account to greater product capacity.
+-record(upsell_readiness, {
+    upsell_readiness_id :: binary(), %% upsell_readiness_id: Stable identity of this upsell readiness observation.
+    account_id :: binary(), %% account_id: Enterprise account whose upsell readiness state was observed.
+    upsell_score :: float(), %% upsell_score: Observed upsell-readiness score.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type upsell_readiness() :: #upsell_readiness{}.
+
+-spec new_upsell_readiness(map()) -> {ok, upsell_readiness()} | {error, {missing_field, atom()}}.
+new_upsell_readiness(Map) ->
+    case maps:is_key(upsell_readiness_id, Map) of
+        false -> {error, {missing_field, upsell_readiness_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(upsell_score, Map) of
+        false -> {error, {missing_field, upsell_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #upsell_readiness{
+        upsell_readiness_id = maps:get(upsell_readiness_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        upsell_score = maps:get(upsell_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% One metered usage/consumption occurrence to be billed against an entitlement. event_id is the idempotency key that is ALSO the operationId reported to the provider's usage API, so local dedup and provider-side dedup are keyed identically and can never disagree.
 -record(usage_event, {
     event_id :: binary(), %% event_id: DEDUP KEY. Stable, deterministic, locally minted identifier for this metered occurrence -- and the exact value sent as operationId on the Service Control services.report call, which is the provider's own documented deduplication mechanism. It MUST be derived from the occurrence itself, never from a random UUID or a wall clock: a re-minted id on retry would defeat both local and provider-side dedup and double bill. Counting the same event_id twice in a billing_reconciliation.total_quantity is the exact MP6 failure.
@@ -2552,6 +4579,129 @@ new_usage_event(Map) ->
         quantity = maps:get(quantity, Map, undefined),
         metric_name = maps:get(metric_name, Map, undefined),
         occurred_at = maps:get(occurred_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Measured product-usage signal for an admitted enterprise account.
+-record(usage_signal, {
+    usage_signal_id :: binary(), %% usage_signal_id: Stable identity of this usage signal observation.
+    account_id :: binary(), %% account_id: Enterprise account whose usage signal state was observed.
+    active_user_count :: integer(), %% active_user_count: Distinct active users in the observation window.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type usage_signal() :: #usage_signal{}.
+
+-spec new_usage_signal(map()) -> {ok, usage_signal()} | {error, {missing_field, atom()}}.
+new_usage_signal(Map) ->
+    case maps:is_key(usage_signal_id, Map) of
+        false -> {error, {missing_field, usage_signal_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(active_user_count, Map) of
+        false -> {error, {missing_field, active_user_count}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #usage_signal{
+        usage_signal_id = maps:get(usage_signal_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        active_user_count = maps:get(active_user_count, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Account-specific value driver tied to an observed annualized business outcome.
+-record(value_driver, {
+    value_driver_id :: binary(), %% value_driver_id: Stable identity of this value driver observation.
+    account_id :: binary(), %% account_id: Enterprise account whose value driver state was observed.
+    annual_value :: float(), %% annual_value: Observed annualized value in account currency.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type value_driver() :: #value_driver{}.
+
+-spec new_value_driver(map()) -> {ok, value_driver()} | {error, {missing_field, atom()}}.
+new_value_driver(Map) ->
+    case maps:is_key(value_driver_id, Map) of
+        false -> {error, {missing_field, value_driver_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(annual_value, Map) of
+        false -> {error, {missing_field, annual_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #value_driver{
+        value_driver_id = maps:get(value_driver_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        annual_value = maps:get(annual_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipted realized customer value derived from observed consequences.
+-record(value_realization, {
+    value_realization_id :: binary(), %% value_realization_id: Stable identity of this value realization observation.
+    account_id :: binary(), %% account_id: Enterprise account whose value realization state was observed.
+    realized_value :: float(), %% realized_value: Verified realized value in account currency.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting this customer-value observation.
+    observed_at :: binary() %% observed_at: ISO8601 instant the enterprise consequence was observed.
+}).
+
+-type value_realization() :: #value_realization{}.
+
+-spec new_value_realization(map()) -> {ok, value_realization()} | {error, {missing_field, atom()}}.
+new_value_realization(Map) ->
+    case maps:is_key(value_realization_id, Map) of
+        false -> {error, {missing_field, value_realization_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(realized_value, Map) of
+        false -> {error, {missing_field, realized_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #value_realization{
+        value_realization_id = maps:get(value_realization_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        realized_value = maps:get(realized_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
     }}
     end
     end
