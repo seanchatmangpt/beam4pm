@@ -3456,4 +3456,30 @@ b4pe:audit_chain_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-037 — receipt-replay evidence.
+b4pe:receipt_replay_evidence_rt a bpm:RecordType ;
+    bpm:recordName "receipt_replay_evidence" ;
+    bpm:recordDoc "Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt." ;
+    bpm:hasField b4pe:receipt_replay_evidence_id_f,
+                 b4pe:receipt_replay_subject_sha_f,
+                 b4pe:receipt_replay_replay_result_hash_f,
+                 b4pe:receipt_replay_observed_result_f .
+
+b4pe:receipt_replay_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this receipt-replay observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:receipt_replay_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:receipt_replay_replay_result_hash_f a bpm:Field ;
+    bpm:fieldName "replay_result_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Hash of the consequence reproduced by receipt replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:receipt_replay_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
