@@ -645,6 +645,16 @@
 | `addendum_id` | `string` | true | Required security addendum state input; omission is an executable typed refusal, never an inferred approval. |
 | `addendum_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## security_blocker
+
+> Encodes an unresolved security blocker as a typed refusal before production commitment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required security blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `blocker_id` | `string` | true | Required security blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## service_credit_admission
 
 > Qualifies the exact service-credit obligation that prices runtime reliability risk.

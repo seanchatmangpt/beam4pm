@@ -1366,6 +1366,27 @@
       ]
 
     },
+    "security_blocker": {
+      "type": "object",
+      "description": "Encodes an unresolved security blocker as a typed refusal before production commitment.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required security blocker input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "blocker_id": {
+          "type": "string",
+          "description": "Required security blocker input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "refusal_code": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "blocker_id", "refusal_code"
+      ]
+
+    },
     "service_credit_admission": {
       "type": "object",
       "description": "Qualifies the exact service-credit obligation that prices runtime reliability risk.",

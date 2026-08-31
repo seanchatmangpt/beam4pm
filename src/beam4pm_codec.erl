@@ -74,6 +74,7 @@
     beam4pm_types:revenue_schedule_assumption() |
     beam4pm_types:sanctions_screening_result() |
     beam4pm_types:security_addendum_state() |
+    beam4pm_types:security_blocker() |
     beam4pm_types:service_credit_admission() |
     beam4pm_types:service_span() |
     beam4pm_types:sla_offer_admission() |
@@ -478,6 +479,12 @@ to_map(R) when element(1, R) =:= security_addendum_state ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"addendum_id">>, plain, element(3, R)},
         {<<"addendum_state">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= security_blocker ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"blocker_id">>, plain, element(3, R)},
+        {<<"refusal_code">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= service_credit_admission ->
     pairs_to_map([
@@ -958,6 +965,12 @@ from_map(security_addendum_state, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"addendum_id">>, addendum_id, plain},
         {<<"addendum_state">>, addendum_state, plain}
+    ]));
+from_map(security_blocker, Map) when is_map(Map) ->
+    beam4pm_types:new_security_blocker(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"blocker_id">>, blocker_id, plain},
+        {<<"refusal_code">>, refusal_code, plain}
     ]));
 from_map(service_credit_admission, Map) when is_map(Map) ->
     beam4pm_types:new_service_credit_admission(take_known(Map, [

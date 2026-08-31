@@ -652,6 +652,16 @@ security_addendum_state_ok_test() ->
 security_addendum_state_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_security_addendum_state(#{})).
 
+security_blocker_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_security_blocker(#{
+        opportunity_id => <<"x">>,
+        blocker_id => <<"x">>,
+        refusal_code => <<"x">>
+    })).
+
+security_blocker_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_security_blocker(#{})).
+
 service_credit_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_service_credit_admission(#{
         opportunity_id => <<"x">>,

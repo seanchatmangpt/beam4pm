@@ -73,6 +73,7 @@ defmodule BeamPM.Roundtrip do
     :revenue_schedule_assumption,
     :sanctions_screening_result,
     :security_addendum_state,
+    :security_blocker,
     :service_credit_admission,
     :service_span,
     :sla_offer_admission,
@@ -1112,6 +1113,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       addendum_id: "sample_addendum_id",
       addendum_state: "sample_addendum_state"
+    })
+  end
+
+  def sample(:security_blocker, :full) do
+    BeamPM.Types.SecurityBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:security_blocker, :minimal) do
+    BeamPM.Types.SecurityBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
     })
   end
 

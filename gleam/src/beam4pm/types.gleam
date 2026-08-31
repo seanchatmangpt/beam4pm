@@ -783,6 +783,18 @@ pub type SecurityAddendumState {
   )
 }
 
+/// Encodes an unresolved security blocker as a typed refusal before production commitment.
+pub type SecurityBlocker {
+  SecurityBlocker(
+    /// Required security blocker input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required security blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    refusal_code: String,
+  )
+}
+
 /// Qualifies the exact service-credit obligation that prices runtime reliability risk.
 pub type ServiceCreditAdmission {
   ServiceCreditAdmission(

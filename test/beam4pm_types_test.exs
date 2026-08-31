@@ -965,6 +965,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "security_blocker new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      blocker_id: "x",
+      refusal_code: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.SecurityBlocker.new(attrs)
+  end
+
+  test "security_blocker new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.SecurityBlocker.new(%{})
+  end
+
+
   test "service_credit_admission new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

@@ -78,6 +78,7 @@ record_names() ->
         revenue_schedule_assumption,
         sanctions_screening_result,
         security_addendum_state,
+        security_blocker,
         service_credit_admission,
         service_span,
         sla_offer_admission,
@@ -857,6 +858,18 @@ sample(security_addendum_state, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         addendum_id => <<"sample_addendum_id">>,
         addendum_state => <<"sample_addendum_state">>
+    });
+sample(security_blocker, full) ->
+    beam4pm_types:new_security_blocker(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        blocker_id => <<"sample_blocker_id">>,
+        refusal_code => <<"sample_refusal_code">>
+    });
+sample(security_blocker, minimal) ->
+    beam4pm_types:new_security_blocker(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        blocker_id => <<"sample_blocker_id">>,
+        refusal_code => <<"sample_refusal_code">>
     });
 sample(service_credit_admission, full) ->
     beam4pm_types:new_service_credit_admission(#{
