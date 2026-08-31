@@ -3424,3 +3424,17 @@ bpm:renewal_risk_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fie
 bpm:renewal_risk_renewal_risk_score_f a bpm:Field ; bpm:fieldName "renewal_risk_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed renewal-risk score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:renewal_risk_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:renewal_risk_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-138 — renewal evidence
+# ---------------------------------------------------------------------------
+
+bpm:renewal_evidence_rt a bpm:RecordType ;
+    bpm:recordName "renewal_evidence" ; bpm:recordDoc "Receipted value evidence supporting a multi-year renewal decision." ;
+    bpm:hasField bpm:renewal_evidence_renewal_evidence_id_f , bpm:renewal_evidence_account_id_f , bpm:renewal_evidence_renewal_value_f , bpm:renewal_evidence_evidence_digest_f , bpm:renewal_evidence_observed_at_f .
+
+bpm:renewal_evidence_renewal_evidence_id_f a bpm:Field ; bpm:fieldName "renewal_evidence_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this renewal evidence observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:renewal_evidence_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose renewal evidence state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:renewal_evidence_renewal_value_f a bpm:Field ; bpm:fieldName "renewal_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified value supporting renewal." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:renewal_evidence_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:renewal_evidence_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
