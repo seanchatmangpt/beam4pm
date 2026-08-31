@@ -10,7 +10,7 @@ content_hash = "blake3:9a15eca16d8eda823e55eddb56ff930b0e1834cd44306b5bc836cd61d
 
 [packs.beam4pm-pro-infra]
 source = "path:vendor/ggen-marketplace/packs/beam4pm-pro-infra-pack"
-content_hash = "blake3:d43a7f704615b62acd205d1ca47b8ff2ddada2af4886d81a7df76e0430ccfef5"
+content_hash = "blake3:53743e55c57597e81a6ec23e88ecdbb37c78e0b16429235cd17b016de317cd77"
 
 [packs.beam4pm-process-model]
 source = "path:vendor/ggen-marketplace/packs/beam4pm-process-model-pack"
