@@ -23,6 +23,7 @@ defmodule BeamPM.Roundtrip do
     :event_log,
     :event_type,
     :heuristic_arc,
+    :insurance_requirement,
     :invoice_entity_identity,
     :k8s_object_ref,
     :log_trace,
@@ -297,6 +298,22 @@ defmodule BeamPM.Roundtrip do
       source_activity: "sample_source_activity",
       target_activity: "sample_target_activity",
       dependency_measure: 3.5
+    })
+  end
+
+  def sample(:insurance_requirement, :full) do
+    BeamPM.Types.InsuranceRequirement.new(%{
+      opportunity_id: "sample_opportunity_id",
+      coverage_id: "sample_coverage_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:insurance_requirement, :minimal) do
+    BeamPM.Types.InsuranceRequirement.new(%{
+      opportunity_id: "sample_opportunity_id",
+      coverage_id: "sample_coverage_id",
+      evidence_hash: "sample_evidence_hash"
     })
   end
 

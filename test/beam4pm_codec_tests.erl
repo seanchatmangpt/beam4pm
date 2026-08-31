@@ -376,6 +376,31 @@ heuristic_arc_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(heuristic_arc, Json),
     ?assertEqual(Rec, Rec2).
 
+insurance_requirement_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_insurance_requirement(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        coverage_id => <<"sample_coverage_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_coverage_id">>, maps:get(<<"coverage_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_hash">>, maps:get(<<"evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(insurance_requirement,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+insurance_requirement_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_insurance_requirement(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        coverage_id => <<"sample_coverage_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(insurance_requirement, Json),
+    ?assertEqual(Rec, Rec2).
+
 invoice_entity_identity_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_invoice_entity_identity(#{
         opportunity_id => <<"sample_opportunity_id">>,

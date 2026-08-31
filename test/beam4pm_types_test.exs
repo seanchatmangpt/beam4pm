@@ -216,6 +216,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "insurance_requirement new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      coverage_id: "x",
+      evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.InsuranceRequirement.new(attrs)
+  end
+
+  test "insurance_requirement new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.InsuranceRequirement.new(%{})
+  end
+
+
   test "invoice_entity_identity new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

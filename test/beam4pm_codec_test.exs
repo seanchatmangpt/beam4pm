@@ -612,6 +612,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "insurance_requirement to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      coverage_id: "sample_coverage_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.InsuranceRequirement.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["coverage_id"] == "sample_coverage_id"
+    assert m["evidence_hash"] == "sample_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:insurance_requirement, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:insurance_requirement, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "insurance_requirement encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      coverage_id: "sample_coverage_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.InsuranceRequirement.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:insurance_requirement, json)
+  end
+
+  test "insurance_requirement from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:insurance_requirement, %{})
+  end
+
+
   test "invoice_entity_identity to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

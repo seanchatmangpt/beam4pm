@@ -146,6 +146,16 @@
 | `target_activity` | `string` | true | The candidate arc target activity. |
 | `dependency_measure` | `float` | true | The computed dependency/confidence score for this candidate arc. |
 
+## insurance_requirement
+
+> Admits contractual insurance coverage only with an exact coverage identity and supporting evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required insurance requirement input; omission is an executable typed refusal, never an inferred approval. |
+| `coverage_id` | `string` | true | Required insurance requirement input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## invoice_entity_identity
 
 > Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.

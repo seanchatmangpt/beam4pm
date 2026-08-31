@@ -17,6 +17,7 @@
     new_event_log/1,
     new_event_type/1,
     new_heuristic_arc/1,
+    new_insurance_requirement/1,
     new_invoice_entity_identity/1,
     new_k8s_object_ref/1,
     new_log_trace/1,
@@ -70,6 +71,7 @@
     event_log/0,
     event_type/0,
     heuristic_arc/0,
+    insurance_requirement/0,
     invoice_entity_identity/0,
     k8s_object_ref/0,
     log_trace/0,
@@ -513,6 +515,35 @@ new_heuristic_arc(Map) ->
         source_activity = maps:get(source_activity, Map, undefined),
         target_activity = maps:get(target_activity, Map, undefined),
         dependency_measure = maps:get(dependency_measure, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits contractual insurance coverage only with an exact coverage identity and supporting evidence.
+-record(insurance_requirement, {
+    opportunity_id :: binary(), %% opportunity_id: Required insurance requirement input; omission is an executable typed refusal, never an inferred approval.
+    coverage_id :: binary(), %% coverage_id: Required insurance requirement input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type insurance_requirement() :: #insurance_requirement{}.
+
+-spec new_insurance_requirement(map()) -> {ok, insurance_requirement()} | {error, {missing_field, atom()}}.
+new_insurance_requirement(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(coverage_id, Map) of
+        false -> {error, {missing_field, coverage_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #insurance_requirement{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        coverage_id = maps:get(coverage_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
     }}
     end
     end

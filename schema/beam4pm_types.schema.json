@@ -314,6 +314,27 @@
       ]
 
     },
+    "insurance_requirement": {
+      "type": "object",
+      "description": "Admits contractual insurance coverage only with an exact coverage identity and supporting evidence.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required insurance requirement input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "coverage_id": {
+          "type": "string",
+          "description": "Required insurance requirement input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "coverage_id", "evidence_hash"
+      ]
+
+    },
     "invoice_entity_identity": {
       "type": "object",
       "description": "Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.",

@@ -385,6 +385,33 @@ defmodule BeamPM.Types.HeuristicArc do
   end
 end
 
+defmodule BeamPM.Types.InsuranceRequirement do
+  @moduledoc "Admits contractual insurance coverage only with an exact coverage identity and supporting evidence."
+
+  defstruct [:opportunity_id, :coverage_id, :evidence_hash]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    coverage_id: String.t() | nil,
+    evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :coverage_id) -> {:error, {:missing_field, :coverage_id}}
+      not Map.has_key?(attrs, :evidence_hash) -> {:error, {:missing_field, :evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          coverage_id: Map.get(attrs, :coverage_id),
+          evidence_hash: Map.get(attrs, :evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.InvoiceEntityIdentity do
   @moduledoc "Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue."
 

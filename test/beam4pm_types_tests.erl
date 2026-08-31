@@ -153,6 +153,16 @@ heuristic_arc_ok_test() ->
 heuristic_arc_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_heuristic_arc(#{})).
 
+insurance_requirement_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_insurance_requirement(#{
+        opportunity_id => <<"x">>,
+        coverage_id => <<"x">>,
+        evidence_hash => <<"x">>
+    })).
+
+insurance_requirement_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_insurance_requirement(#{})).
+
 invoice_entity_identity_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_invoice_entity_identity(#{
         opportunity_id => <<"x">>,

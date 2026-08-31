@@ -28,6 +28,7 @@ record_names() ->
         event_log,
         event_type,
         heuristic_arc,
+        insurance_requirement,
         invoice_entity_identity,
         k8s_object_ref,
         log_trace,
@@ -242,6 +243,18 @@ sample(heuristic_arc, minimal) ->
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
         dependency_measure => 3.5
+    });
+sample(insurance_requirement, full) ->
+    beam4pm_types:new_insurance_requirement(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        coverage_id => <<"sample_coverage_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(insurance_requirement, minimal) ->
+    beam4pm_types:new_insurance_requirement(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        coverage_id => <<"sample_coverage_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
     });
 sample(invoice_entity_identity, full) ->
     beam4pm_types:new_invoice_entity_identity(#{

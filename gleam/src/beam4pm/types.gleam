@@ -185,6 +185,18 @@ pub type HeuristicArc {
   )
 }
 
+/// Admits contractual insurance coverage only with an exact coverage identity and supporting evidence.
+pub type InsuranceRequirement {
+  InsuranceRequirement(
+    /// Required insurance requirement input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required insurance requirement input; omission is an executable typed refusal, never an inferred approval.
+    coverage_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
 /// Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.
 pub type InvoiceEntityIdentity {
   InvoiceEntityIdentity(
