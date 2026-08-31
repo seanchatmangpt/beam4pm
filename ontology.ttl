@@ -3592,3 +3592,17 @@ bpm:revenue_attribution_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; 
 bpm:revenue_attribution_attributed_revenue_f a bpm:Field ; bpm:fieldName "attributed_revenue" ; bpm:fieldType "float" ; bpm:fieldDoc "Revenue attributed to the verified value path." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:revenue_attribution_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:revenue_attribution_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-150 — expansion receipt
+# ---------------------------------------------------------------------------
+
+bpm:expansion_receipt_rt a bpm:RecordType ;
+    bpm:recordName "expansion_receipt" ; bpm:recordDoc "Final expansion receipt binding adoption evidence to realized expansion value." ;
+    bpm:hasField bpm:expansion_receipt_expansion_receipt_id_f , bpm:expansion_receipt_account_id_f , bpm:expansion_receipt_receipt_value_f , bpm:expansion_receipt_evidence_digest_f , bpm:expansion_receipt_observed_at_f .
+
+bpm:expansion_receipt_expansion_receipt_id_f a bpm:Field ; bpm:fieldName "expansion_receipt_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this expansion receipt observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:expansion_receipt_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose expansion receipt state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:expansion_receipt_receipt_value_f a bpm:Field ; bpm:fieldName "receipt_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified expansion value named by this receipt." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:expansion_receipt_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:expansion_receipt_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
