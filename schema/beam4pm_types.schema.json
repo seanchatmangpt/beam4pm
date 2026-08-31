@@ -694,6 +694,27 @@
       ]
 
     },
+    "procurement_channel_selection": {
+      "type": "object",
+      "description": "Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "channel_id": {
+          "type": "string",
+          "description": "Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "selection_evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "channel_id", "selection_evidence_hash"
+      ]
+
+    },
     "queue_snapshot": {
       "type": "object",
       "description": "One point-in-time observation of a queue depth.",

@@ -858,6 +858,33 @@ defmodule BeamPM.Types.ProcessVariant do
   end
 end
 
+defmodule BeamPM.Types.ProcurementChannelSelection do
+  @moduledoc "Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting."
+
+  defstruct [:opportunity_id, :channel_id, :selection_evidence_hash]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    channel_id: String.t() | nil,
+    selection_evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :channel_id) -> {:error, {:missing_field, :channel_id}}
+      not Map.has_key?(attrs, :selection_evidence_hash) -> {:error, {:missing_field, :selection_evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          channel_id: Map.get(attrs, :channel_id),
+          selection_evidence_hash: Map.get(attrs, :selection_evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.QueueSnapshot do
   @moduledoc "One point-in-time observation of a queue depth."
 

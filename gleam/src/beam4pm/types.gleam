@@ -399,6 +399,18 @@ pub type ProcessVariant {
   )
 }
 
+/// Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting.
+pub type ProcurementChannelSelection {
+  ProcurementChannelSelection(
+    /// Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval.
+    channel_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    selection_evidence_hash: String,
+  )
+}
+
 /// One point-in-time observation of a queue depth.
 pub type QueueSnapshot {
   QueueSnapshot(

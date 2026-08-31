@@ -332,6 +332,16 @@ process_variant_ok_test() ->
 process_variant_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_process_variant(#{})).
 
+procurement_channel_selection_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_procurement_channel_selection(#{
+        opportunity_id => <<"x">>,
+        channel_id => <<"x">>,
+        selection_evidence_hash => <<"x">>
+    })).
+
+procurement_channel_selection_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_procurement_channel_selection(#{})).
+
 queue_snapshot_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_queue_snapshot(#{
         queue_name => <<"x">>,

@@ -325,6 +325,16 @@
 | `activity_sequence` | `list_string` | true | Ordered list of activity names making up this variant. |
 | `frequency` | `integer` | true | Number of traces observed with exactly this activity sequence. |
 
+## procurement_channel_selection
+
+> Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval. |
+| `channel_id` | `string` | true | Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval. |
+| `selection_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## queue_snapshot
 
 > One point-in-time observation of a queue depth.

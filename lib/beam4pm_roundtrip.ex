@@ -41,6 +41,7 @@ defmodule BeamPM.Roundtrip do
     :planning_state,
     :policy_decision,
     :process_variant,
+    :procurement_channel_selection,
     :queue_snapshot,
     :resource_allocation,
     :revenue_schedule_assumption,
@@ -563,6 +564,22 @@ defmodule BeamPM.Roundtrip do
       variant_id: "sample_variant_id",
       activity_sequence: ["alpha", "beta"],
       frequency: 42
+    })
+  end
+
+  def sample(:procurement_channel_selection, :full) do
+    BeamPM.Types.ProcurementChannelSelection.new(%{
+      opportunity_id: "sample_opportunity_id",
+      channel_id: "sample_channel_id",
+      selection_evidence_hash: "sample_selection_evidence_hash"
+    })
+  end
+
+  def sample(:procurement_channel_selection, :minimal) do
+    BeamPM.Types.ProcurementChannelSelection.new(%{
+      opportunity_id: "sample_opportunity_id",
+      channel_id: "sample_channel_id",
+      selection_evidence_hash: "sample_selection_evidence_hash"
     })
   end
 

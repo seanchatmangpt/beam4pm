@@ -823,6 +823,31 @@ process_variant_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(process_variant, Json),
     ?assertEqual(Rec, Rec2).
 
+procurement_channel_selection_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_procurement_channel_selection(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        channel_id => <<"sample_channel_id">>,
+        selection_evidence_hash => <<"sample_selection_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_channel_id">>, maps:get(<<"channel_id">>, Map)),
+    ?assertEqual(<<"sample_selection_evidence_hash">>, maps:get(<<"selection_evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(procurement_channel_selection,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+procurement_channel_selection_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_procurement_channel_selection(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        channel_id => <<"sample_channel_id">>,
+        selection_evidence_hash => <<"sample_selection_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(procurement_channel_selection, Json),
+    ?assertEqual(Rec, Rec2).
+
 queue_snapshot_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_queue_snapshot(#{
         queue_name => <<"sample_queue_name">>,

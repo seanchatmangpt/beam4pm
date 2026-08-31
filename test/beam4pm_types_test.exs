@@ -485,6 +485,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "procurement_channel_selection new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      channel_id: "x",
+      selection_evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ProcurementChannelSelection.new(attrs)
+  end
+
+  test "procurement_channel_selection new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ProcurementChannelSelection.new(%{})
+  end
+
+
   test "queue_snapshot new/1 succeeds when all fields are present" do
     attrs = %{
       queue_name: "x",

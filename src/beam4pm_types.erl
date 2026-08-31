@@ -35,6 +35,7 @@
     new_planning_state/1,
     new_policy_decision/1,
     new_process_variant/1,
+    new_procurement_channel_selection/1,
     new_queue_snapshot/1,
     new_resource_allocation/1,
     new_revenue_schedule_assumption/1,
@@ -78,6 +79,7 @@
     planning_state/0,
     policy_decision/0,
     process_variant/0,
+    procurement_channel_selection/0,
     queue_snapshot/0,
     resource_allocation/0,
     revenue_schedule_assumption/0,
@@ -969,6 +971,35 @@ new_process_variant(Map) ->
         variant_id = maps:get(variant_id, Map, undefined),
         activity_sequence = maps:get(activity_sequence, Map, undefined),
         frequency = maps:get(frequency, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting.
+-record(procurement_channel_selection, {
+    opportunity_id :: binary(), %% opportunity_id: Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval.
+    channel_id :: binary(), %% channel_id: Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval.
+    selection_evidence_hash :: binary() %% selection_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type procurement_channel_selection() :: #procurement_channel_selection{}.
+
+-spec new_procurement_channel_selection(map()) -> {ok, procurement_channel_selection()} | {error, {missing_field, atom()}}.
+new_procurement_channel_selection(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(channel_id, Map) of
+        false -> {error, {missing_field, channel_id}};
+        true ->
+    case maps:is_key(selection_evidence_hash, Map) of
+        false -> {error, {missing_field, selection_evidence_hash}};
+        true ->
+    {ok, #procurement_channel_selection{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        channel_id = maps:get(channel_id, Map, undefined),
+        selection_evidence_hash = maps:get(selection_evidence_hash, Map, undefined)
     }}
     end
     end
