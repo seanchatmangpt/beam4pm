@@ -1,9 +1,9 @@
-2026-08-31T13:49:22.714614Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.emit{operation.name="pipeline.emit" operation.type="pipeline" pipeline.stage="emit" pipeline.duration_ms=9 pipeline.files_generated=21}: ggen_engine::sync: close time.busy=9.83ms time.idle=22.5ms
-2026-08-31T13:49:22.714739Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.generate{operation.name="pipeline.generate" operation.type="pipeline" pipeline.stage="generate" pipeline.duration_ms=2572}: ggen_engine::sync: close time.busy=2.57s time.idle=32.4ms
-2026-08-31T13:49:22.714743Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.validate{operation.name="pipeline.validate" operation.type="pipeline" pipeline.stage="validate" pipeline.duration_ms=56}: ggen_engine::sync: close time.busy=56.6ms time.idle=2.62s
-2026-08-31T13:49:22.714745Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.extract{operation.name="pipeline.extract" operation.type="pipeline" pipeline.stage="extract" pipeline.duration_ms=0}: ggen_engine::sync: close time.busy=1.30µs time.idle=2.67s
-2026-08-31T13:49:22.715702Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.load{operation.name="pipeline.load" operation.type="pipeline" pipeline.stage="load" pipeline.duration_ms=49}: ggen_engine::sync: close time.busy=49.2ms time.idle=2.67s
-2026-08-31T13:49:22.716064Z  INFO ggen.cli{command=sync run version="26.8.28"}: ggen_cli_lib: close time.busy=2.73s time.idle=2.60µs
+2026-08-31T13:49:30.976210Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.emit{operation.name="pipeline.emit" operation.type="pipeline" pipeline.stage="emit" pipeline.duration_ms=4 pipeline.files_generated=21}: ggen_engine::sync: close time.busy=4.58ms time.idle=18.1ms
+2026-08-31T13:49:30.976312Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.generate{operation.name="pipeline.generate" operation.type="pipeline" pipeline.stage="generate" pipeline.duration_ms=2412}: ggen_engine::sync: close time.busy=2.41s time.idle=22.8ms
+2026-08-31T13:49:30.976317Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.validate{operation.name="pipeline.validate" operation.type="pipeline" pipeline.stage="validate" pipeline.duration_ms=45}: ggen_engine::sync: close time.busy=45.4ms time.idle=2.45s
+2026-08-31T13:49:30.976319Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.extract{operation.name="pipeline.extract" operation.type="pipeline" pipeline.stage="extract" pipeline.duration_ms=0}: ggen_engine::sync: close time.busy=961ns time.idle=2.49s
+2026-08-31T13:49:30.976842Z  INFO ggen.cli{command=sync run version="26.8.28"}:pipeline.load{operation.name="pipeline.load" operation.type="pipeline" pipeline.stage="load" pipeline.duration_ms=62}: ggen_engine::sync: close time.busy=62.2ms time.idle=2.49s
+2026-08-31T13:49:30.977105Z  INFO ggen.cli{command=sync run version="26.8.28"}: ggen_cli_lib: close time.busy=2.56s time.idle=1.99µs
 # ontology.ttl -- beam4pm project instance graph (admitted O* data)
 #
 # This file is beam4pm's OWN instance data, expressed using the bpm: vocabulary
@@ -3972,5 +3972,28 @@ b4p:crash_recovery_receipt_crash_id_f a bpm:Field ;
 
 b4p:crash_recovery_receipt_receipt_hash_f a bpm:Field ;
     bpm:fieldName "receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-014 — node_failover_event
+b4p:node_failover_event_rt a bpm:RecordType ;
+    bpm:recordName "node_failover_event" ;
+    bpm:recordDoc "Records the exact node failure and observed failover consequence for a paid service." ;
+    bpm:hasField b4p:node_failover_event_tenant_id_f,
+                 b4p:node_failover_event_node_id_f,
+                 b4p:node_failover_event_failover_hash_f .
+
+b4p:node_failover_event_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:node_failover_event_node_id_f a bpm:Field ;
+    bpm:fieldName "node_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:node_failover_event_failover_hash_f a bpm:Field ;
+    bpm:fieldName "failover_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
