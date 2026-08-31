@@ -20,6 +20,7 @@ defmodule BeamPM.Roundtrip do
     :conformance_result,
     :contracting_entity_identity,
     :credit_risk_admission,
+    :data_migration_scope_admission,
     :data_processing_addendum_state,
     :dfg_edge,
     :entitlement_event,
@@ -267,6 +268,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.CreditRiskAdmission.new(%{
       account_id: "sample_account_id",
       risk_band: "sample_risk_band",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:data_migration_scope_admission, :full) do
+    BeamPM.Types.DataMigrationScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      migration_scope_id: "sample_migration_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:data_migration_scope_admission, :minimal) do
+    BeamPM.Types.DataMigrationScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      migration_scope_id: "sample_migration_scope_id",
       decision: "sample_decision"
     })
   end

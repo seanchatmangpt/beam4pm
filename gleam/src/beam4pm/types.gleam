@@ -145,6 +145,18 @@ pub type CreditRiskAdmission {
   )
 }
 
+/// Admits a bounded data-migration scope before margin and timeline promises are accepted.
+pub type DataMigrationScopeAdmission {
+  DataMigrationScopeAdmission(
+    /// Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    migration_scope_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// Requires an identified data-processing addendum state for workloads involving regulated enterprise data.
 pub type DataProcessingAddendumState {
   DataProcessingAddendumState(

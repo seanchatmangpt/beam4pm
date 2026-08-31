@@ -121,6 +121,16 @@ credit_risk_admission_ok_test() ->
 credit_risk_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_credit_risk_admission(#{})).
 
+data_migration_scope_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_data_migration_scope_admission(#{
+        opportunity_id => <<"x">>,
+        migration_scope_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+data_migration_scope_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_data_migration_scope_admission(#{})).
+
 data_processing_addendum_state_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_data_processing_addendum_state(#{
         opportunity_id => <<"x">>,

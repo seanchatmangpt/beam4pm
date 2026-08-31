@@ -114,6 +114,16 @@
 | `risk_band` | `string` | true | Required credit risk admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## data_migration_scope_admission
+
+> Admits a bounded data-migration scope before margin and timeline promises are accepted.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `migration_scope_id` | `string` | true | Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## data_processing_addendum_state
 
 > Requires an identified data-processing addendum state for workloads involving regulated enterprise data.

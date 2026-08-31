@@ -21,6 +21,7 @@
     beam4pm_types:conformance_result() |
     beam4pm_types:contracting_entity_identity() |
     beam4pm_types:credit_risk_admission() |
+    beam4pm_types:data_migration_scope_admission() |
     beam4pm_types:data_processing_addendum_state() |
     beam4pm_types:dfg_edge() |
     beam4pm_types:entitlement_event() |
@@ -151,6 +152,12 @@ to_map(R) when element(1, R) =:= credit_risk_admission ->
     pairs_to_map([
         {<<"account_id">>, plain, element(2, R)},
         {<<"risk_band">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= data_migration_scope_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"migration_scope_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= data_processing_addendum_state ->
@@ -589,6 +596,12 @@ from_map(credit_risk_admission, Map) when is_map(Map) ->
     beam4pm_types:new_credit_risk_admission(take_known(Map, [
         {<<"account_id">>, account_id, plain},
         {<<"risk_band">>, risk_band, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(data_migration_scope_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_data_migration_scope_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"migration_scope_id">>, migration_scope_id, plain},
         {<<"decision">>, decision, plain}
     ]));
 from_map(data_processing_addendum_state, Map) when is_map(Map) ->

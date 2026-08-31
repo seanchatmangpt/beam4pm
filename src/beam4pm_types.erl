@@ -14,6 +14,7 @@
     new_conformance_result/1,
     new_contracting_entity_identity/1,
     new_credit_risk_admission/1,
+    new_data_migration_scope_admission/1,
     new_data_processing_addendum_state/1,
     new_dfg_edge/1,
     new_entitlement_event/1,
@@ -87,6 +88,7 @@
     conformance_result/0,
     contracting_entity_identity/0,
     credit_risk_admission/0,
+    data_migration_scope_admission/0,
     data_processing_addendum_state/0,
     dfg_edge/0,
     entitlement_event/0,
@@ -465,6 +467,35 @@ new_credit_risk_admission(Map) ->
     {ok, #credit_risk_admission{
         account_id = maps:get(account_id, Map, undefined),
         risk_band = maps:get(risk_band, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits a bounded data-migration scope before margin and timeline promises are accepted.
+-record(data_migration_scope_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    migration_scope_id :: binary(), %% migration_scope_id: Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type data_migration_scope_admission() :: #data_migration_scope_admission{}.
+
+-spec new_data_migration_scope_admission(map()) -> {ok, data_migration_scope_admission()} | {error, {missing_field, atom()}}.
+new_data_migration_scope_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(migration_scope_id, Map) of
+        false -> {error, {missing_field, migration_scope_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #data_migration_scope_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        migration_scope_id = maps:get(migration_scope_id, Map, undefined),
         decision = maps:get(decision, Map, undefined)
     }}
     end

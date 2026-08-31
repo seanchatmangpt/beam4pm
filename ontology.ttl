@@ -3321,6 +3321,29 @@ b4p:training_scope_admission_training_scope_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:training_scope_admission_decision_f a bpm:Field ;
+   bpm:fieldName "decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-036 — data_migration_scope_admission
+b4p:data_migration_scope_admission_rt a bpm:RecordType ;
+    bpm:recordName "data_migration_scope_admission" ;
+    bpm:recordDoc "Admits a bounded data-migration scope before margin and timeline promises are accepted." ;
+    bpm:hasField b4p:data_migration_scope_admission_opportunity_id_f ,
+                 b4p:data_migration_scope_admission_migration_scope_id_f ,
+                 b4p:data_migration_scope_admission_decision_f .
+
+b4p:data_migration_scope_admission_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:data_migration_scope_admission_migration_scope_id_f a bpm:Field ;
+    bpm:fieldName "migration_scope_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:data_migration_scope_admission_decision_f a bpm:Field ;
     bpm:fieldName "decision" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

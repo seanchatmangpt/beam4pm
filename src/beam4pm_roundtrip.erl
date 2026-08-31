@@ -25,6 +25,7 @@ record_names() ->
         conformance_result,
         contracting_entity_identity,
         credit_risk_admission,
+        data_migration_scope_admission,
         data_processing_addendum_state,
         dfg_edge,
         entitlement_event,
@@ -224,6 +225,18 @@ sample(credit_risk_admission, minimal) ->
     beam4pm_types:new_credit_risk_admission(#{
         account_id => <<"sample_account_id">>,
         risk_band => <<"sample_risk_band">>,
+        decision => <<"sample_decision">>
+    });
+sample(data_migration_scope_admission, full) ->
+    beam4pm_types:new_data_migration_scope_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        migration_scope_id => <<"sample_migration_scope_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(data_migration_scope_admission, minimal) ->
+    beam4pm_types:new_data_migration_scope_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        migration_scope_id => <<"sample_migration_scope_id">>,
         decision => <<"sample_decision">>
     });
 sample(data_processing_addendum_state, full) ->

@@ -242,6 +242,27 @@
       ]
 
     },
+    "data_migration_scope_admission": {
+      "type": "object",
+      "description": "Admits a bounded data-migration scope before margin and timeline promises are accepted.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "migration_scope_id": {
+          "type": "string",
+          "description": "Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "migration_scope_id", "decision"
+      ]
+
+    },
     "data_processing_addendum_state": {
       "type": "object",
       "description": "Requires an identified data-processing addendum state for workloads involving regulated enterprise data.",

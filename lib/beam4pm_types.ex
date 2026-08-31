@@ -301,6 +301,33 @@ defmodule BeamPM.Types.CreditRiskAdmission do
   end
 end
 
+defmodule BeamPM.Types.DataMigrationScopeAdmission do
+  @moduledoc "Admits a bounded data-migration scope before margin and timeline promises are accepted."
+
+  defstruct [:opportunity_id, :migration_scope_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    migration_scope_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :migration_scope_id) -> {:error, {:missing_field, :migration_scope_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          migration_scope_id: Map.get(attrs, :migration_scope_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.DataProcessingAddendumState do
   @moduledoc "Requires an identified data-processing addendum state for workloads involving regulated enterprise data."
 
