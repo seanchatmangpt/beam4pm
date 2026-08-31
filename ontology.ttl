@@ -2907,6 +2907,29 @@ b4p:vendor_registration_state_registration_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:vendor_registration_state_registration_state_f a bpm:Field ;
-    bpm:fieldName "registration_state" ; bpm:fieldType "string" ;
+   bpm:fieldName "registration_state" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-018 — sanctions_screening_result
+b4p:sanctions_screening_result_rt a bpm:RecordType ;
+    bpm:recordName "sanctions_screening_result" ;
+    bpm:recordDoc "Requires a named sanctions screening result before accepting the commercial counterparty." ;
+    bpm:hasField b4p:sanctions_screening_result_account_id_f ,
+                 b4p:sanctions_screening_result_screening_id_f ,
+                 b4p:sanctions_screening_result_screening_result_f .
+
+b4p:sanctions_screening_result_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:sanctions_screening_result_screening_id_f a bpm:Field ;
+    bpm:fieldName "screening_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:sanctions_screening_result_screening_result_f a bpm:Field ;
+    bpm:fieldName "screening_result" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

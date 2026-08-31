@@ -452,6 +452,16 @@ revenue_schedule_assumption_ok_test() ->
 revenue_schedule_assumption_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_revenue_schedule_assumption(#{})).
 
+sanctions_screening_result_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_sanctions_screening_result(#{
+        account_id => <<"x">>,
+        screening_id => <<"x">>,
+        screening_result => <<"x">>
+    })).
+
+sanctions_screening_result_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_sanctions_screening_result(#{})).
+
 security_addendum_state_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_security_addendum_state(#{
         opportunity_id => <<"x">>,

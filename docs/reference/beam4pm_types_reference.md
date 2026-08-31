@@ -445,6 +445,16 @@
 | `schedule_id` | `string` | true | Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval. |
 | `assumption_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## sanctions_screening_result
+
+> Requires a named sanctions screening result before accepting the commercial counterparty.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `account_id` | `string` | true | Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval. |
+| `screening_id` | `string` | true | Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval. |
+| `screening_result` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## security_addendum_state
 
 > Requires an identified security addendum state before promising a paid production deployment.

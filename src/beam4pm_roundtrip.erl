@@ -58,6 +58,7 @@ record_names() ->
         queue_snapshot,
         resource_allocation,
         revenue_schedule_assumption,
+        sanctions_screening_result,
         security_addendum_state,
         service_span,
         sojourn_time,
@@ -592,6 +593,18 @@ sample(revenue_schedule_assumption, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         schedule_id => <<"sample_schedule_id">>,
         assumption_evidence_hash => <<"sample_assumption_evidence_hash">>
+    });
+sample(sanctions_screening_result, full) ->
+    beam4pm_types:new_sanctions_screening_result(#{
+        account_id => <<"sample_account_id">>,
+        screening_id => <<"sample_screening_id">>,
+        screening_result => <<"sample_screening_result">>
+    });
+sample(sanctions_screening_result, minimal) ->
+    beam4pm_types:new_sanctions_screening_result(#{
+        account_id => <<"sample_account_id">>,
+        screening_id => <<"sample_screening_id">>,
+        screening_result => <<"sample_screening_result">>
     });
 sample(security_addendum_state, full) ->
     beam4pm_types:new_security_addendum_state(#{

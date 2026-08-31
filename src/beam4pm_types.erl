@@ -47,6 +47,7 @@
     new_queue_snapshot/1,
     new_resource_allocation/1,
     new_revenue_schedule_assumption/1,
+    new_sanctions_screening_result/1,
     new_security_addendum_state/1,
     new_service_span/1,
     new_sojourn_time/1,
@@ -102,6 +103,7 @@
     queue_snapshot/0,
     resource_allocation/0,
     revenue_schedule_assumption/0,
+    sanctions_screening_result/0,
     security_addendum_state/0,
     service_span/0,
     sojourn_time/0,
@@ -1341,6 +1343,35 @@ new_revenue_schedule_assumption(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         schedule_id = maps:get(schedule_id, Map, undefined),
         assumption_evidence_hash = maps:get(assumption_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Requires a named sanctions screening result before accepting the commercial counterparty.
+-record(sanctions_screening_result, {
+    account_id :: binary(), %% account_id: Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval.
+    screening_id :: binary(), %% screening_id: Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval.
+    screening_result :: binary() %% screening_result: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type sanctions_screening_result() :: #sanctions_screening_result{}.
+
+-spec new_sanctions_screening_result(map()) -> {ok, sanctions_screening_result()} | {error, {missing_field, atom()}}.
+new_sanctions_screening_result(Map) ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(screening_id, Map) of
+        false -> {error, {missing_field, screening_id}};
+        true ->
+    case maps:is_key(screening_result, Map) of
+        false -> {error, {missing_field, screening_result}};
+        true ->
+    {ok, #sanctions_screening_result{
+        account_id = maps:get(account_id, Map, undefined),
+        screening_id = maps:get(screening_id, Map, undefined),
+        screening_result = maps:get(screening_result, Map, undefined)
     }}
     end
     end

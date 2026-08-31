@@ -665,6 +665,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "sanctions_screening_result new/1 succeeds when all fields are present" do
+    attrs = %{
+      account_id: "x",
+      screening_id: "x",
+      screening_result: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.SanctionsScreeningResult.new(attrs)
+  end
+
+  test "sanctions_screening_result new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.SanctionsScreeningResult.new(%{})
+  end
+
+
   test "security_addendum_state new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

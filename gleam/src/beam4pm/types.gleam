@@ -543,6 +543,18 @@ pub type RevenueScheduleAssumption {
   )
 }
 
+/// Requires a named sanctions screening result before accepting the commercial counterparty.
+pub type SanctionsScreeningResult {
+  SanctionsScreeningResult(
+    /// Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval.
+    account_id: String,
+    /// Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval.
+    screening_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    screening_result: String,
+  )
+}
+
 /// Requires an identified security addendum state before promising a paid production deployment.
 pub type SecurityAddendumState {
   SecurityAddendumState(

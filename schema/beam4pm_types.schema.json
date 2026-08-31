@@ -946,6 +946,27 @@
       ]
 
     },
+    "sanctions_screening_result": {
+      "type": "object",
+      "description": "Requires a named sanctions screening result before accepting the commercial counterparty.",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "screening_id": {
+          "type": "string",
+          "description": "Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "screening_result": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["account_id", "screening_id", "screening_result"
+      ]
+
+    },
     "security_addendum_state": {
       "type": "object",
       "description": "Requires an identified security addendum state before promising a paid production deployment.",

@@ -1182,6 +1182,33 @@ defmodule BeamPM.Types.RevenueScheduleAssumption do
   end
 end
 
+defmodule BeamPM.Types.SanctionsScreeningResult do
+  @moduledoc "Requires a named sanctions screening result before accepting the commercial counterparty."
+
+  defstruct [:account_id, :screening_id, :screening_result]
+
+  @type t :: %__MODULE__{
+    account_id: String.t() | nil,
+    screening_id: String.t() | nil,
+    screening_result: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :screening_id) -> {:error, {:missing_field, :screening_id}}
+      not Map.has_key?(attrs, :screening_result) -> {:error, {:missing_field, :screening_result}}
+      true ->
+        {:ok, %__MODULE__{
+          account_id: Map.get(attrs, :account_id),
+          screening_id: Map.get(attrs, :screening_id),
+          screening_result: Map.get(attrs, :screening_result)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.SecurityAddendumState do
   @moduledoc "Requires an identified security addendum state before promising a paid production deployment."
 

@@ -1828,6 +1828,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "sanctions_screening_result to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      account_id: "sample_account_id",
+      screening_id: "sample_screening_id",
+      screening_result: "sample_screening_result"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SanctionsScreeningResult.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["account_id"] == "sample_account_id"
+    assert m["screening_id"] == "sample_screening_id"
+    assert m["screening_result"] == "sample_screening_result"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:sanctions_screening_result, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:sanctions_screening_result, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "sanctions_screening_result encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      account_id: "sample_account_id",
+      screening_id: "sample_screening_id",
+      screening_result: "sample_screening_result"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SanctionsScreeningResult.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:sanctions_screening_result, json)
+  end
+
+  test "sanctions_screening_result from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :account_id}} =
+             BeamPM.Codec.from_map(:sanctions_screening_result, %{})
+  end
+
+
   test "security_addendum_state to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

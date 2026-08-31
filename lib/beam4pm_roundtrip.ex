@@ -53,6 +53,7 @@ defmodule BeamPM.Roundtrip do
     :queue_snapshot,
     :resource_allocation,
     :revenue_schedule_assumption,
+    :sanctions_screening_result,
     :security_addendum_state,
     :service_span,
     :sojourn_time,
@@ -767,6 +768,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       schedule_id: "sample_schedule_id",
       assumption_evidence_hash: "sample_assumption_evidence_hash"
+    })
+  end
+
+  def sample(:sanctions_screening_result, :full) do
+    BeamPM.Types.SanctionsScreeningResult.new(%{
+      account_id: "sample_account_id",
+      screening_id: "sample_screening_id",
+      screening_result: "sample_screening_result"
+    })
+  end
+
+  def sample(:sanctions_screening_result, :minimal) do
+    BeamPM.Types.SanctionsScreeningResult.new(%{
+      account_id: "sample_account_id",
+      screening_id: "sample_screening_id",
+      screening_result: "sample_screening_result"
     })
   end
 

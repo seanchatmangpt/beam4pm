@@ -1123,6 +1123,31 @@ revenue_schedule_assumption_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(revenue_schedule_assumption, Json),
     ?assertEqual(Rec, Rec2).
 
+sanctions_screening_result_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_sanctions_screening_result(#{
+        account_id => <<"sample_account_id">>,
+        screening_id => <<"sample_screening_id">>,
+        screening_result => <<"sample_screening_result">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_screening_id">>, maps:get(<<"screening_id">>, Map)),
+    ?assertEqual(<<"sample_screening_result">>, maps:get(<<"screening_result">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(sanctions_screening_result,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+sanctions_screening_result_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_sanctions_screening_result(#{
+        account_id => <<"sample_account_id">>,
+        screening_id => <<"sample_screening_id">>,
+        screening_result => <<"sample_screening_result">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(sanctions_screening_result, Json),
+    ?assertEqual(Rec, Rec2).
+
 security_addendum_state_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_security_addendum_state(#{
         opportunity_id => <<"sample_opportunity_id">>,

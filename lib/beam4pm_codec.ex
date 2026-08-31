@@ -369,6 +369,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.SanctionsScreeningResult{} = r) do
+    to_known_map([
+      {"account_id", r.account_id, :passthrough},
+      {"screening_id", r.screening_id, :passthrough},
+      {"screening_result", r.screening_result, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.SecurityAddendumState{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -969,6 +977,18 @@ defmodule BeamPM.Codec do
         {"assumption_evidence_hash", :assumption_evidence_hash, :passthrough}
       ],
       &BeamPM.Types.RevenueScheduleAssumption.new/1
+    )
+  end
+
+  def from_map(:sanctions_screening_result, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"account_id", :account_id, :passthrough},
+        {"screening_id", :screening_id, :passthrough},
+        {"screening_result", :screening_result, :passthrough}
+      ],
+      &BeamPM.Types.SanctionsScreeningResult.new/1
     )
   end
 

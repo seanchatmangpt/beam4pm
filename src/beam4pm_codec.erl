@@ -54,6 +54,7 @@
     beam4pm_types:queue_snapshot() |
     beam4pm_types:resource_allocation() |
     beam4pm_types:revenue_schedule_assumption() |
+    beam4pm_types:sanctions_screening_result() |
     beam4pm_types:security_addendum_state() |
     beam4pm_types:service_span() |
     beam4pm_types:sojourn_time() |
@@ -333,6 +334,12 @@ to_map(R) when element(1, R) =:= revenue_schedule_assumption ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"schedule_id">>, plain, element(3, R)},
         {<<"assumption_evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= sanctions_screening_result ->
+    pairs_to_map([
+        {<<"account_id">>, plain, element(2, R)},
+        {<<"screening_id">>, plain, element(3, R)},
+        {<<"screening_result">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= security_addendum_state ->
     pairs_to_map([
@@ -663,6 +670,12 @@ from_map(revenue_schedule_assumption, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"schedule_id">>, schedule_id, plain},
         {<<"assumption_evidence_hash">>, assumption_evidence_hash, plain}
+    ]));
+from_map(sanctions_screening_result, Map) when is_map(Map) ->
+    beam4pm_types:new_sanctions_screening_result(take_known(Map, [
+        {<<"account_id">>, account_id, plain},
+        {<<"screening_id">>, screening_id, plain},
+        {<<"screening_result">>, screening_result, plain}
     ]));
 from_map(security_addendum_state, Map) when is_map(Map) ->
     beam4pm_types:new_security_addendum_state(take_known(Map, [
