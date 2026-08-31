@@ -71,6 +71,16 @@ conformance_result_ok_test() ->
 conformance_result_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_conformance_result(#{})).
 
+contracting_entity_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_contracting_entity_identity(#{
+        opportunity_id => <<"x">>,
+        contracting_entity_id => <<"x">>,
+        identity_evidence_hash => <<"x">>
+    })).
+
+contracting_entity_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_contracting_entity_identity(#{})).
+
 dfg_edge_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_dfg_edge(#{
         source_activity => <<"x">>,

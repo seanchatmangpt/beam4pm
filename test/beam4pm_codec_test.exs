@@ -273,6 +273,43 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:conformance_result, m)
   end
 
+  test "contracting_entity_identity to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      contracting_entity_id: "sample_contracting_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ContractingEntityIdentity.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["contracting_entity_id"] == "sample_contracting_entity_id"
+    assert m["identity_evidence_hash"] == "sample_identity_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:contracting_entity_identity, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:contracting_entity_identity, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "contracting_entity_identity encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      contracting_entity_id: "sample_contracting_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ContractingEntityIdentity.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:contracting_entity_identity, json)
+  end
+
+  test "contracting_entity_identity from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:contracting_entity_identity, %{})
+  end
+
+
   test "dfg_edge to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       source_activity: "sample_source_activity",

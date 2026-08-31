@@ -64,6 +64,16 @@
 | `fitness` | `float` | true | Fitness score in [0.0, 1.0]. |
 | `precision` | `float` | false | Optional precision score in [0.0, 1.0]. |
 
+## contracting_entity_identity
+
+> Requires the counterparty that will sign the agreement, separating contractual authority from account interest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `contracting_entity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## dfg_edge
 
 > One frequency-annotated directly-follows edge between two activities.

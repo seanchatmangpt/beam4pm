@@ -85,6 +85,18 @@ pub type ConformanceResult {
   )
 }
 
+/// Requires the counterparty that will sign the agreement, separating contractual authority from account interest.
+pub type ContractingEntityIdentity {
+  ContractingEntityIdentity(
+    /// Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval.
+    contracting_entity_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    identity_evidence_hash: String,
+  )
+}
+
 /// One frequency-annotated directly-follows edge between two activities.
 pub type DfgEdge {
   DfgEdge(

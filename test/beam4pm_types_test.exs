@@ -94,6 +94,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "contracting_entity_identity new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      contracting_entity_id: "x",
+      identity_evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ContractingEntityIdentity.new(attrs)
+  end
+
+  test "contracting_entity_identity new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ContractingEntityIdentity.new(%{})
+  end
+
+
   test "dfg_edge new/1 succeeds when all fields are present" do
     attrs = %{
       source_activity: "x",

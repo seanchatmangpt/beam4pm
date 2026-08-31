@@ -16,6 +16,7 @@
     beam4pm_types:billing_reconciliation() |
     beam4pm_types:case_stats() |
     beam4pm_types:conformance_result() |
+    beam4pm_types:contracting_entity_identity() |
     beam4pm_types:dfg_edge() |
     beam4pm_types:entitlement_event() |
     beam4pm_types:entitlement_state() |
@@ -94,6 +95,12 @@ to_map(R) when element(1, R) =:= conformance_result ->
         {<<"trace_id">>, plain, element(2, R)},
         {<<"fitness">>, plain, element(3, R)},
         {<<"precision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= contracting_entity_identity ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"contracting_entity_id">>, plain, element(3, R)},
+        {<<"identity_evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= dfg_edge ->
     pairs_to_map([
@@ -364,6 +371,12 @@ from_map(conformance_result, Map) when is_map(Map) ->
         {<<"trace_id">>, trace_id, plain},
         {<<"fitness">>, fitness, plain},
         {<<"precision">>, precision, plain}
+    ]));
+from_map(contracting_entity_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_contracting_entity_identity(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"contracting_entity_id">>, contracting_entity_id, plain},
+        {<<"identity_evidence_hash">>, identity_evidence_hash, plain}
     ]));
 from_map(dfg_edge, Map) when is_map(Map) ->
     beam4pm_types:new_dfg_edge(take_known(Map, [

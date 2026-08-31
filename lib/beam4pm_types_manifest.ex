@@ -3,7 +3,7 @@ defmodule BeamPM.Types.Manifest do
   @moduledoc "Reflection manifest over the admitted bpm:RecordType graph: every admitted record name, and each record's ordered field-name list, without needing to know the individual struct modules."
 
   @spec record_names() :: [atom()]
-  def record_names, do: [:account_master_match, :account_parent_scope, :alignment_move, :billing_reconciliation, :case_stats, :conformance_result, :dfg_edge, :entitlement_event, :entitlement_state, :event_log, :event_type, :heuristic_arc, :k8s_object_ref, :log_trace, :object_attribute_change, :object_type, :oc_declare_constraint, :ocel_attribute, :ocel_event, :ocel_object, :ocel_relationship, :opportunity_currency_contract, :opportunity_value_range, :path_schema, :path_schema_query, :petri_arc, :petri_place, :petri_transition, :planning_action, :planning_state, :policy_decision, :process_variant, :procurement_channel_selection, :purchasing_entity_identity, :queue_snapshot, :resource_allocation, :revenue_schedule_assumption, :service_span, :sojourn_time, :sync_time, :type_edge, :usage_event]
+  def record_names, do: [:account_master_match, :account_parent_scope, :alignment_move, :billing_reconciliation, :case_stats, :conformance_result, :contracting_entity_identity, :dfg_edge, :entitlement_event, :entitlement_state, :event_log, :event_type, :heuristic_arc, :k8s_object_ref, :log_trace, :object_attribute_change, :object_type, :oc_declare_constraint, :ocel_attribute, :ocel_event, :ocel_object, :ocel_relationship, :opportunity_currency_contract, :opportunity_value_range, :path_schema, :path_schema_query, :petri_arc, :petri_place, :petri_transition, :planning_action, :planning_state, :policy_decision, :process_variant, :procurement_channel_selection, :purchasing_entity_identity, :queue_snapshot, :resource_allocation, :revenue_schedule_assumption, :service_span, :sojourn_time, :sync_time, :type_edge, :usage_event]
 
   @spec fields(atom()) :: [atom()]
   def fields(:account_master_match), do: [:source_account_id, :canonical_account_id, :match_evidence_hash]
@@ -12,6 +12,7 @@ defmodule BeamPM.Types.Manifest do
   def fields(:billing_reconciliation), do: [:entitlement_id, :metric_name, :total_quantity, :applied_event_ids, :period_start, :period_end]
   def fields(:case_stats), do: [:case_id, :event_count, :duration_seconds]
   def fields(:conformance_result), do: [:trace_id, :fitness, :precision]
+  def fields(:contracting_entity_identity), do: [:opportunity_id, :contracting_entity_id, :identity_evidence_hash]
   def fields(:dfg_edge), do: [:source_activity, :target_activity, :frequency]
   def fields(:entitlement_event), do: [:event_id, :entitlement_id, :event_type, :effective_at, :payload]
   def fields(:entitlement_state), do: [:entitlement_id, :status, :last_applied_event_id, :updated_at]

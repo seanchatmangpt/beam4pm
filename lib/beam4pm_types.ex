@@ -166,6 +166,33 @@ defmodule BeamPM.Types.ConformanceResult do
   end
 end
 
+defmodule BeamPM.Types.ContractingEntityIdentity do
+  @moduledoc "Requires the counterparty that will sign the agreement, separating contractual authority from account interest."
+
+  defstruct [:opportunity_id, :contracting_entity_id, :identity_evidence_hash]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    contracting_entity_id: String.t() | nil,
+    identity_evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :contracting_entity_id) -> {:error, {:missing_field, :contracting_entity_id}}
+      not Map.has_key?(attrs, :identity_evidence_hash) -> {:error, {:missing_field, :identity_evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          contracting_entity_id: Map.get(attrs, :contracting_entity_id),
+          identity_evidence_hash: Map.get(attrs, :identity_evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.DfgEdge do
   @moduledoc "One frequency-annotated directly-follows edge between two activities."
 

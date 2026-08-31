@@ -20,6 +20,7 @@ record_names() ->
         billing_reconciliation,
         case_stats,
         conformance_result,
+        contracting_entity_identity,
         dfg_edge,
         entitlement_event,
         entitlement_state,
@@ -137,6 +138,18 @@ sample(conformance_result, minimal) ->
     beam4pm_types:new_conformance_result(#{
         trace_id => <<"sample_trace_id">>,
         fitness => 3.5
+    });
+sample(contracting_entity_identity, full) ->
+    beam4pm_types:new_contracting_entity_identity(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        contracting_entity_id => <<"sample_contracting_entity_id">>,
+        identity_evidence_hash => <<"sample_identity_evidence_hash">>
+    });
+sample(contracting_entity_identity, minimal) ->
+    beam4pm_types:new_contracting_entity_identity(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        contracting_entity_id => <<"sample_contracting_entity_id">>,
+        identity_evidence_hash => <<"sample_identity_evidence_hash">>
     });
 sample(dfg_edge, full) ->
     beam4pm_types:new_dfg_edge(#{

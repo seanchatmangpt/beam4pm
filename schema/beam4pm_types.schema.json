@@ -137,6 +137,27 @@
       ]
 
     },
+    "contracting_entity_identity": {
+      "type": "object",
+      "description": "Requires the counterparty that will sign the agreement, separating contractual authority from account interest.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "contracting_entity_id": {
+          "type": "string",
+          "description": "Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "identity_evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "contracting_entity_id", "identity_evidence_hash"
+      ]
+
+    },
     "dfg_edge": {
       "type": "object",
       "description": "One frequency-annotated directly-follows edge between two activities.",

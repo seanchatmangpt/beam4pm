@@ -15,6 +15,7 @@ defmodule BeamPM.Roundtrip do
     :billing_reconciliation,
     :case_stats,
     :conformance_result,
+    :contracting_entity_identity,
     :dfg_edge,
     :entitlement_event,
     :entitlement_state,
@@ -160,6 +161,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.ConformanceResult.new(%{
       trace_id: "sample_trace_id",
       fitness: 3.5
+    })
+  end
+
+  def sample(:contracting_entity_identity, :full) do
+    BeamPM.Types.ContractingEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      contracting_entity_id: "sample_contracting_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    })
+  end
+
+  def sample(:contracting_entity_identity, :minimal) do
+    BeamPM.Types.ContractingEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      contracting_entity_id: "sample_contracting_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
     })
   end
 

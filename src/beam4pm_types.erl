@@ -9,6 +9,7 @@
     new_billing_reconciliation/1,
     new_case_stats/1,
     new_conformance_result/1,
+    new_contracting_entity_identity/1,
     new_dfg_edge/1,
     new_entitlement_event/1,
     new_entitlement_state/1,
@@ -54,6 +55,7 @@
     billing_reconciliation/0,
     case_stats/0,
     conformance_result/0,
+    contracting_entity_identity/0,
     dfg_edge/0,
     entitlement_event/0,
     entitlement_state/0,
@@ -267,6 +269,35 @@ new_conformance_result(Map) ->
         fitness = maps:get(fitness, Map, undefined),
         precision = maps:get(precision, Map, undefined)
     }}
+    end
+    end.
+
+%% Requires the counterparty that will sign the agreement, separating contractual authority from account interest.
+-record(contracting_entity_identity, {
+    opportunity_id :: binary(), %% opportunity_id: Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval.
+    contracting_entity_id :: binary(), %% contracting_entity_id: Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval.
+    identity_evidence_hash :: binary() %% identity_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type contracting_entity_identity() :: #contracting_entity_identity{}.
+
+-spec new_contracting_entity_identity(map()) -> {ok, contracting_entity_identity()} | {error, {missing_field, atom()}}.
+new_contracting_entity_identity(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(contracting_entity_id, Map) of
+        false -> {error, {missing_field, contracting_entity_id}};
+        true ->
+    case maps:is_key(identity_evidence_hash, Map) of
+        false -> {error, {missing_field, identity_evidence_hash}};
+        true ->
+    {ok, #contracting_entity_identity{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        contracting_entity_id = maps:get(contracting_entity_id, Map, undefined),
+        identity_evidence_hash = maps:get(identity_evidence_hash, Map, undefined)
+    }}
+    end
     end
     end.
 
