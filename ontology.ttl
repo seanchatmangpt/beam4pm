@@ -2992,3 +2992,27 @@ bpm:demo_run_evidence_digest_f a bpm:Field ;
 
 bpm:demo_run_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-115 — solution fit
+# ---------------------------------------------------------------------------
+
+bpm:solution_fit_rt a bpm:RecordType ;
+    bpm:recordName "solution_fit" ;
+    bpm:recordDoc "Measured solution-fit observation for the account's admitted requirements." ;
+    bpm:hasField bpm:solution_fit_solution_fit_id_f , bpm:solution_fit_account_id_f , bpm:solution_fit_fit_score_f , bpm:solution_fit_evidence_digest_f , bpm:solution_fit_observed_at_f .
+
+bpm:solution_fit_solution_fit_id_f a bpm:Field ;
+    bpm:fieldName "solution_fit_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this solution fit observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:solution_fit_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose solution fit state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:solution_fit_fit_score_f a bpm:Field ;
+    bpm:fieldName "fit_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Fraction of admitted requirements satisfied." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:solution_fit_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:solution_fit_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
