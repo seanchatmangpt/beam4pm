@@ -9,6 +9,20 @@
 import gleam/dict
 import gleam/option
 
+/// Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.
+pub type ActionPinEvidence {
+  ActionPinEvidence(
+    /// Content-addressed identity of this immutable action pin observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Immutable commit SHA resolved for the admitted workflow action.
+    action_sha: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
 /// One step of a conformance-checking alignment between log and model.
 pub type AlignmentMove {
   AlignmentMove(
@@ -16,6 +30,104 @@ pub type AlignmentMove {
     move_type: String,
     /// Non-negative cost assigned to this move.
     cost: Int,
+  )
+}
+
+/// Executable segregation-of-duties evidence binding an exact subject to an approver distinct from its producer.
+pub type ApprovalSeparationEvidence {
+  ApprovalSeparationEvidence(
+    /// Content-addressed identity of this approval-separation observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Identity of the independent approver observed by the control.
+    approver_identity: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable architecture-review evidence binding an exact subject to the decision produced by the admitted review.
+pub type ArchitectureReviewEvidence {
+  ArchitectureReviewEvidence(
+    /// Content-addressed identity of this architecture-review observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed architecture review decision for the subject.
+    review_decision: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable artifact-integrity evidence binding an exact commercial subject to the digest actually observed by the verifier.
+pub type ArtifactDigestEvidence {
+  ArtifactDigestEvidence(
+    /// Content-addressed identity of this artifact digest observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Content digest observed for the admitted commercial artifact.
+    digest: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
+pub type AttestationVerificationEvidence {
+  AttestationVerificationEvidence(
+    /// Content-addressed identity of this attestation verification observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Verified in-toto predicate type carried by the attestation.
+    predicate_type: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable audit evidence binding an exact subject receipt to its immutable predecessor.
+pub type AuditChainEvidence {
+  AuditChainEvidence(
+    /// Content-addressed identity of this audit-chain observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Hash of the preceding receipt in the observed audit chain.
+    previous_receipt_hash: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable availability evidence binding an exact subject to the service level actually observed over the admitted window.
+pub type AvailabilitySloEvidence {
+  AvailabilitySloEvidence(
+    /// Content-addressed identity of this availability-SLO observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed availability ratio for the exact subject and measurement window.
+    availability_percent: Float,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable recovery evidence binding an exact subject to the backup artifact successfully restored.
+pub type BackupRestoreEvidence {
+  BackupRestoreEvidence(
+    /// Content-addressed identity of this backup-restore observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Digest of the backup artifact admitted by the restore operation.
+    backup_digest: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
   )
 }
 
@@ -37,6 +149,34 @@ pub type BillingReconciliation {
   )
 }
 
+/// Executable continuity evidence binding an exact subject to the fallback operating mode actually entered.
+pub type BusinessContinuityEvidence {
+  BusinessContinuityEvidence(
+    /// Content-addressed identity of this business-continuity observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed fallback mode used to preserve admitted operations.
+    continuity_mode: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable canary evidence binding an exact subject to the traffic fraction actually admitted before promotion.
+pub type CanaryEvidence {
+  CanaryEvidence(
+    /// Content-addressed identity of this canary-release observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed fraction of production traffic routed to the canary subject.
+    canary_percentage: Float,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
 /// Aggregate statistics computed for one process instance (case).
 pub type CaseStats {
   CaseStats(
@@ -46,6 +186,34 @@ pub type CaseStats {
     event_count: Int,
     /// Optional case duration in seconds (end minus start).
     duration_seconds: option.Option(Float),
+  )
+}
+
+/// Executable change-control evidence binding an exact subject to the approved request governing its mutation.
+pub type ChangeControlEvidence {
+  ChangeControlEvidence(
+    /// Content-addressed identity of this change-control observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Identity of the change request observed at the deployment boundary.
+    change_request_id: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable commercial-release evidence binding the exact paid artifact to the cumulative trust evidence crown.
+pub type CommercialArtifactCrownEvidence {
+  CommercialArtifactCrownEvidence(
+    /// Content-addressed identity of this commercial-artifact crown observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Digest of the exact commercial artifact evaluated by the cumulative crown.
+    artifact_digest: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
   )
 }
 
@@ -61,6 +229,62 @@ pub type ConformanceResult {
   )
 }
 
+/// Executable encryption evidence binding an exact subject to the customer-managed key identity actually used.
+pub type CustomerManagedKeyEvidence {
+  CustomerManagedKeyEvidence(
+    /// Content-addressed identity of this customer-managed-key observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Non-secret identifier of the customer-managed key observed at encryption.
+    key_identifier: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable egress evidence binding an exact subject to the bytes observed crossing its admitted data boundary.
+pub type DataEgressEvidence {
+  DataEgressEvidence(
+    /// Content-addressed identity of this data-egress observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed byte count crossing the controlled egress boundary.
+    egress_bytes: Int,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable deletion evidence binding an exact subject to a verifiable deletion receipt.
+pub type DeletionProofEvidence {
+  DeletionProofEvidence(
+    /// Content-addressed identity of this deletion-proof observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Identity of the receipt emitted by the completed deletion operation.
+    deletion_receipt_id: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.
+pub type DependencyInventoryEvidence {
+  DependencyInventoryEvidence(
+    /// Content-addressed identity of this dependency inventory observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed number of resolved direct and transitive dependencies.
+    dependency_count: Int,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
 /// One frequency-annotated directly-follows edge between two activities.
 pub type DfgEdge {
   DfgEdge(
@@ -70,6 +294,20 @@ pub type DfgEdge {
     target_activity: String,
     /// Observed occurrence count of this edge.
     frequency: Int,
+  )
+}
+
+/// Executable disaster-recovery evidence binding an exact subject to the instant service recovery was observed.
+pub type DisasterRecoveryEvidence {
+  DisasterRecoveryEvidence(
+    /// Content-addressed identity of this disaster-recovery observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// UTC instant at which the recovered subject passed its availability probe.
+    recovered_at: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
   )
 }
 
@@ -86,6 +324,20 @@ pub type EntitlementEvent {
     effective_at: String,
     /// Optional provider-specific extra fields carried verbatim (e.g. account id, product/plan id, offer id, newPlan, newOffer, scheduled start time). Retained for receipt/audit fidelity; the reconciliation fold reads NO field from this map -- everything the fold depends on is promoted to a typed top-level field above.
     payload: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// Executable entitlement evidence binding an exact subject to the paid capability grant actually evaluated.
+pub type EntitlementEvidence {
+  EntitlementEvidence(
+    /// Content-addressed identity of this entitlement observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Identity of the entitlement evaluated at the capability boundary.
+    entitlement_id: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
   )
 }
 
@@ -125,6 +377,20 @@ pub type EventType {
   )
 }
 
+/// Executable freshness evidence binding an exact subject to the observation instant used by policy.
+pub type EvidenceFreshnessEvidence {
+  EvidenceFreshnessEvidence(
+    /// Content-addressed identity of this evidence-freshness observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// UTC instant at which the subject evidence was observed.
+    observed_at: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
 /// One dependency-scored candidate arc considered during heuristic-net discovery.
 pub type HeuristicArc {
   HeuristicArc(
@@ -134,6 +400,20 @@ pub type HeuristicArc {
     target_activity: String,
     /// The computed dependency/confidence score for this candidate arc.
     dependency_measure: Float,
+  )
+}
+
+/// Executable incident evidence binding an exact subject to the response case opened by a real detection.
+pub type IncidentResponseEvidence {
+  IncidentResponseEvidence(
+    /// Content-addressed identity of this incident-response observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Identity of the incident response case observed by the control.
+    incident_id: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
   )
 }
 
@@ -149,6 +429,34 @@ pub type K8SObjectRef {
   )
 }
 
+/// Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
+pub type LeastAuthorityEvidence {
+  LeastAuthorityEvidence(
+    /// Content-addressed identity of this least-authority permission observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Canonical set of permissions observed at the execution boundary.
+    granted_permissions: List(String),
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable licensing evidence binding an exact subject to its machine-verified SPDX expression.
+pub type LicenseEvidence {
+  LicenseEvidence(
+    /// Content-addressed identity of this license-expression observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// SPDX license expression observed for the commercial subject.
+    license_expression: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
 /// One case-centric trace: an ordered activity sequence for a single case.
 pub type LogTrace {
   LogTrace(
@@ -156,6 +464,34 @@ pub type LogTrace {
     case_id: String,
     /// Ordered list of activity names observed for this case.
     activity_sequence: List(String),
+  )
+}
+
+/// Executable architecture evidence binding an exact subject to the platform set actually present in its OCI index.
+pub type MultiarchEvidence {
+  MultiarchEvidence(
+    /// Content-addressed identity of this multi-architecture observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Canonical set of platforms observed in the admitted OCI index.
+    platforms: List(String),
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable refusal evidence recording the mutable artifact reference rejected by procurement policy.
+pub type MutableIdentityRefusalEvidence {
+  MutableIdentityRefusalEvidence(
+    /// Content-addressed identity of this mutable-identity refusal observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Mutable reference observed and refused before artifact admission.
+    mutable_reference: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
   )
 }
 
@@ -247,6 +583,34 @@ pub type OcelRelationship {
   )
 }
 
+/// Executable OCI evidence binding an exact subject to its verified manifest-list identity.
+pub type OciManifestEvidence {
+  OciManifestEvidence(
+    /// Content-addressed identity of this OCI-manifest observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Digest of the OCI manifest or index verified for the subject.
+    manifest_digest: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable private-deployment evidence binding an exact subject to a verified offline installation bundle.
+pub type OfflineBundleEvidence {
+  OfflineBundleEvidence(
+    /// Content-addressed identity of this offline-bundle observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Digest of the offline bundle admitted by the verifier.
+    bundle_digest: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
 /// One reusable, scored connection pattern between two OCEL types.
 pub type PathSchema {
   PathSchema(
@@ -270,6 +634,20 @@ pub type PathSchemaQuery {
     target_type: String,
     /// Maximum number of hops to search.
     max_length: Int,
+  )
+}
+
+/// Executable performance evidence binding an exact subject to the percentile latency actually measured.
+pub type PerformanceSloEvidence {
+  PerformanceSloEvidence(
+    /// Content-addressed identity of this performance-SLO observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed p95 end-to-end latency in milliseconds for the admitted subject.
+    latency_p95_ms: Int,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
   )
 }
 
@@ -339,6 +717,34 @@ pub type PolicyDecision {
   )
 }
 
+/// Executable privacy evidence binding an exact subject to the classification enforced for its handled data.
+pub type PrivacyClassificationEvidence {
+  PrivacyClassificationEvidence(
+    /// Content-addressed identity of this privacy-classification observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Privacy classification observed at the enforcement boundary.
+    privacy_class: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable private-registry evidence binding an exact subject to the digest pulled from the authorized registry.
+pub type PrivateRegistryEvidence {
+  PrivateRegistryEvidence(
+    /// Content-addressed identity of this private-registry observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Digest observed after resolving the subject from the private registry.
+    registry_digest: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
 /// One distinct activity-sequence variant observed in a log, with its frequency.
 pub type ProcessVariant {
   ProcessVariant(
@@ -348,6 +754,34 @@ pub type ProcessVariant {
     activity_sequence: List(String),
     /// Number of traces observed with exactly this activity sequence.
     frequency: Int,
+  )
+}
+
+/// Executable procurement evidence binding the exact commercial subject to the final decision derived from admitted controls.
+pub type ProcurementAcceptanceEvidence {
+  ProcurementAcceptanceEvidence(
+    /// Content-addressed identity of this procurement-acceptance observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed procurement decision derived from the exact subject evidence set.
+    acceptance_decision: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
+pub type ProvenanceBindingEvidence {
+  ProvenanceBindingEvidence(
+    /// Content-addressed identity of this provenance observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Immutable identity of the builder that emitted the provenance.
+    builder_identity: String,
+    /// Observed verification consequence: verified or refused.
+    observed_result: String,
   )
 }
 
@@ -363,6 +797,62 @@ pub type QueueSnapshot {
   )
 }
 
+/// Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt.
+pub type ReceiptReplayEvidence {
+  ReceiptReplayEvidence(
+    /// Content-addressed identity of this receipt-replay observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Hash of the consequence reproduced by receipt replay.
+    replay_result_hash: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable remediation evidence binding an exact subject and finding to its enforced due instant.
+pub type RemediationSlaEvidence {
+  RemediationSlaEvidence(
+    /// Content-addressed identity of this remediation-SLA observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// UTC deadline enforced for remediation of the admitted finding.
+    remediation_due_at: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable reproducibility evidence binding an exact subject to the independently reproduced build digest.
+pub type ReproducibleBuildEvidence {
+  ReproducibleBuildEvidence(
+    /// Content-addressed identity of this reproducible-build observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Digest observed from the independent reproduction build.
+    build_digest: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.
+pub type ResidencyEvidence {
+  ResidencyEvidence(
+    /// Content-addressed identity of this data-residency observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed region for the controlled data operation.
+    region: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
 /// One recorded assignment of a resource to an activity occurrence.
 pub type ResourceAllocation {
   ResourceAllocation(
@@ -372,6 +862,76 @@ pub type ResourceAllocation {
     activity: String,
     /// Identifier of the specific event occurrence.
     event_id: String,
+  )
+}
+
+/// Executable retention evidence binding an exact subject to the duration enforced by the storage lifecycle.
+pub type RetentionPolicyEvidence {
+  RetentionPolicyEvidence(
+    /// Content-addressed identity of this retention-policy observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Enforced number of days before lifecycle expiry.
+    retention_days: Int,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
+pub type RfpResponseEvidence {
+  RfpResponseEvidence(
+    /// Content-addressed identity of this RFP-response observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Digest of the answer set derived from verified subject facts.
+    answer_set_hash: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable rollback evidence binding an exact subject to the artifact identity restored by a real rollback transition.
+pub type RollbackEvidence {
+  RollbackEvidence(
+    /// Content-addressed identity of this rollback observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Digest of the prior artifact restored by the rollback operation.
+    rollback_digest: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable SBOM evidence binding an exact commercial subject to the observed component inventory cardinality.
+pub type SbomInventoryEvidence {
+  SbomInventoryEvidence(
+    /// Content-addressed identity of this SBOM inventory observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed number of components in the parsed SBOM inventory.
+    component_count: Int,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable secrets-boundary evidence proving the admitted subject used an authorized credential source.
+pub type SecretBoundaryEvidence {
+  SecretBoundaryEvidence(
+    /// Content-addressed identity of this secret-boundary observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed source of credentials used by the execution.
+    secret_source: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
   )
 }
 
@@ -389,6 +949,20 @@ pub type ServiceSpan {
   )
 }
 
+/// Executable signature evidence binding an exact subject to the workload identity accepted by cryptographic verification.
+pub type SignatureEvidence {
+  SignatureEvidence(
+    /// Content-addressed identity of this artifact-signature observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Workload identity observed in the verified artifact signature.
+    signature_identity: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
 /// The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric).
 pub type SojournTime {
   SojournTime(
@@ -398,6 +972,62 @@ pub type SojournTime {
     event_type: String,
     /// Sojourn duration in seconds.
     seconds: Float,
+  )
+}
+
+/// Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial.
+pub type StaleSubjectRefusalEvidence {
+  StaleSubjectRefusalEvidence(
+    /// Content-addressed identity of this stale-subject refusal observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Stale subject SHA observed and refused by exact-head policy.
+    stale_sha: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable support evidence binding an exact subject to the accountable escalation owner.
+pub type SupportEscalationEvidence {
+  SupportEscalationEvidence(
+    /// Content-addressed identity of this support-escalation observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed accountable owner of the admitted escalation.
+    escalation_owner: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable support evidence binding an exact subject to the response latency actually observed.
+pub type SupportSlaEvidence {
+  SupportSlaEvidence(
+    /// Content-addressed identity of this support-SLA observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed minutes from support intake to acknowledged response.
+    response_minutes: Int,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable support-window evidence binding an exact subject to the channel available during the observed coverage window.
+pub type SupportWindowEvidence {
+  SupportWindowEvidence(
+    /// Content-addressed identity of this support-window observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed support channel satisfying the admitted coverage window.
+    support_channel: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
   )
 }
 
@@ -427,6 +1057,34 @@ pub type TypeEdge {
   )
 }
 
+/// Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses.
+pub type UnsupportedCapabilityEvidence {
+  UnsupportedCapabilityEvidence(
+    /// Content-addressed identity of this unsupported-capability observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Capability name observed at the unsupported routing boundary.
+    capability_name: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable upgrade evidence binding an exact subject to the source version accepted by the migration path.
+pub type UpgradeEvidence {
+  UpgradeEvidence(
+    /// Content-addressed identity of this upgrade-assurance observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Version from which the observed upgrade execution began.
+    from_version: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
 /// One metered usage/consumption occurrence to be billed against an entitlement. event_id is the idempotency key that is ALSO the operationId reported to the provider's usage API, so local dedup and provider-side dedup are keyed identically and can never disagree.
 pub type UsageEvent {
   UsageEvent(
@@ -440,6 +1098,48 @@ pub type UsageEvent {
     metric_name: String,
     /// ISO8601 UTC instant the usage actually occurred (not when it was observed, queued, or reported).
     occurred_at: String,
+  )
+}
+
+/// Executable vendor-risk evidence binding an exact subject to the risk score emitted from verified controls.
+pub type VendorRiskEvidence {
+  VendorRiskEvidence(
+    /// Content-addressed identity of this vendor-risk observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed normalized vendor-risk score derived from executable evidence.
+    risk_score: Float,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable lifecycle evidence binding an exact subject version to its enforced support horizon.
+pub type VersionLifecycleEvidence {
+  VersionLifecycleEvidence(
+    /// Content-addressed identity of this version-lifecycle observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// UTC instant through which the subject version is admitted for support.
+    supported_until: String,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
+  )
+}
+
+/// Executable vulnerability evidence binding an exact subject to the findings actually emitted by a scanner.
+pub type VulnerabilityScanEvidence {
+  VulnerabilityScanEvidence(
+    /// Content-addressed identity of this vulnerability-scan observation.
+    evidence_id: String,
+    /// Exact immutable beam4pm commit verified by this observation.
+    subject_sha: String,
+    /// Observed count of admitted vulnerability findings.
+    vulnerability_count: Int,
+    /// Observed verifier consequence: verified or refused.
+    observed_result: String,
   )
 }
 
