@@ -68,6 +68,7 @@ All application-source families remain manufactured from admitted ontology/spec/
 - [`02-beam4pm-pro-product-contract.md`](02-beam4pm-pro-product-contract.md) — target product topology, installation, licensing, upgrades, UX, support, and agent contract.
 - [`03-gap-closure-backlog.md`](03-gap-closure-backlog.md) — prioritized implementation epics with executable acceptance criteria.
 - [`04-release-and-commercial-acceptance.md`](04-release-and-commercial-acceptance.md) — release crowns and the definition of a paid-ready Pro product.
+- [`05-fortune5-deployment-revops-mermaid-atlas.md`](05-fortune5-deployment-revops-mermaid-atlas.md) — every current Mermaid diagram family applied to the Fortune-5 deployment, lead-to-cash, marketplace settlement, and beneficiary-bank posting path.
 
 ## External benchmark sources
 
