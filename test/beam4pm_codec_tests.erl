@@ -423,6 +423,31 @@ log_trace_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(log_trace, Json),
     ?assertEqual(Rec, Rec2).
 
+master_service_agreement_state_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_master_service_agreement_state(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        agreement_id => <<"sample_agreement_id">>,
+        agreement_state => <<"sample_agreement_state">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_agreement_id">>, maps:get(<<"agreement_id">>, Map)),
+    ?assertEqual(<<"sample_agreement_state">>, maps:get(<<"agreement_state">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(master_service_agreement_state,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+master_service_agreement_state_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_master_service_agreement_state(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        agreement_id => <<"sample_agreement_id">>,
+        agreement_state => <<"sample_agreement_state">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(master_service_agreement_state, Json),
+    ?assertEqual(Rec, Rec2).
+
 object_attribute_change_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_object_attribute_change(#{
         object_id => <<"sample_object_id">>,

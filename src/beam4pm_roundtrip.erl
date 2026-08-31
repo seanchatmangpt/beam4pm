@@ -30,6 +30,7 @@ record_names() ->
         invoice_entity_identity,
         k8s_object_ref,
         log_trace,
+        master_service_agreement_state,
         object_attribute_change,
         object_type,
         oc_declare_constraint,
@@ -260,6 +261,18 @@ sample(log_trace, minimal) ->
     beam4pm_types:new_log_trace(#{
         case_id => <<"sample_case_id">>,
         activity_sequence => [<<"alpha">>, <<"beta">>]
+    });
+sample(master_service_agreement_state, full) ->
+    beam4pm_types:new_master_service_agreement_state(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        agreement_id => <<"sample_agreement_id">>,
+        agreement_state => <<"sample_agreement_state">>
+    });
+sample(master_service_agreement_state, minimal) ->
+    beam4pm_types:new_master_service_agreement_state(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        agreement_id => <<"sample_agreement_id">>,
+        agreement_state => <<"sample_agreement_state">>
     });
 sample(object_attribute_change, full) ->
     beam4pm_types:new_object_attribute_change(#{

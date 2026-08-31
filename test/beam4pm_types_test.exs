@@ -245,6 +245,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "master_service_agreement_state new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      agreement_id: "x",
+      agreement_state: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.MasterServiceAgreementState.new(attrs)
+  end
+
+  test "master_service_agreement_state new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.MasterServiceAgreementState.new(%{})
+  end
+
+
   test "object_attribute_change new/1 succeeds when all fields are present" do
     attrs = %{
       object_id: "x",

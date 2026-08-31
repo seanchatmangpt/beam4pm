@@ -25,6 +25,7 @@ defmodule BeamPM.Roundtrip do
     :invoice_entity_identity,
     :k8s_object_ref,
     :log_trace,
+    :master_service_agreement_state,
     :object_attribute_change,
     :object_type,
     :oc_declare_constraint,
@@ -323,6 +324,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.LogTrace.new(%{
       case_id: "sample_case_id",
       activity_sequence: ["alpha", "beta"]
+    })
+  end
+
+  def sample(:master_service_agreement_state, :full) do
+    BeamPM.Types.MasterServiceAgreementState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      agreement_id: "sample_agreement_id",
+      agreement_state: "sample_agreement_state"
+    })
+  end
+
+  def sample(:master_service_agreement_state, :minimal) do
+    BeamPM.Types.MasterServiceAgreementState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      agreement_id: "sample_agreement_id",
+      agreement_state: "sample_agreement_state"
     })
   end
 

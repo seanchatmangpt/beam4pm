@@ -435,6 +435,33 @@ defmodule BeamPM.Types.LogTrace do
   end
 end
 
+defmodule BeamPM.Types.MasterServiceAgreementState do
+  @moduledoc "Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean."
+
+  defstruct [:opportunity_id, :agreement_id, :agreement_state]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    agreement_id: String.t() | nil,
+    agreement_state: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :agreement_id) -> {:error, {:missing_field, :agreement_id}}
+      not Map.has_key?(attrs, :agreement_state) -> {:error, {:missing_field, :agreement_state}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          agreement_id: Map.get(attrs, :agreement_id),
+          agreement_state: Map.get(attrs, :agreement_state)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ObjectAttributeChange do
   @moduledoc "One recorded change to a time-indexed object attribute."
 

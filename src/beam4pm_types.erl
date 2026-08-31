@@ -19,6 +19,7 @@
     new_invoice_entity_identity/1,
     new_k8s_object_ref/1,
     new_log_trace/1,
+    new_master_service_agreement_state/1,
     new_object_attribute_change/1,
     new_object_type/1,
     new_oc_declare_constraint/1,
@@ -69,6 +70,7 @@
     invoice_entity_identity/0,
     k8s_object_ref/0,
     log_trace/0,
+    master_service_agreement_state/0,
     object_attribute_change/0,
     object_type/0,
     oc_declare_constraint/0,
@@ -557,6 +559,35 @@ new_log_trace(Map) ->
         case_id = maps:get(case_id, Map, undefined),
         activity_sequence = maps:get(activity_sequence, Map, undefined)
     }}
+    end
+    end.
+
+%% Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
+-record(master_service_agreement_state, {
+    opportunity_id :: binary(), %% opportunity_id: Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
+    agreement_id :: binary(), %% agreement_id: Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
+    agreement_state :: binary() %% agreement_state: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type master_service_agreement_state() :: #master_service_agreement_state{}.
+
+-spec new_master_service_agreement_state(map()) -> {ok, master_service_agreement_state()} | {error, {missing_field, atom()}}.
+new_master_service_agreement_state(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(agreement_id, Map) of
+        false -> {error, {missing_field, agreement_id}};
+        true ->
+    case maps:is_key(agreement_state, Map) of
+        false -> {error, {missing_field, agreement_state}};
+        true ->
+    {ok, #master_service_agreement_state{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        agreement_id = maps:get(agreement_id, Map, undefined),
+        agreement_state = maps:get(agreement_state, Map, undefined)
+    }}
+    end
     end
     end.
 

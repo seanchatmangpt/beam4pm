@@ -207,6 +207,18 @@ pub type LogTrace {
   )
 }
 
+/// Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
+pub type MasterServiceAgreementState {
+  MasterServiceAgreementState(
+    /// Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
+    agreement_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    agreement_state: String,
+  )
+}
+
 /// One recorded change to a time-indexed object attribute.
 pub type ObjectAttributeChange {
   ObjectAttributeChange(

@@ -695,6 +695,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "master_service_agreement_state to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      agreement_id: "sample_agreement_id",
+      agreement_state: "sample_agreement_state"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MasterServiceAgreementState.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["agreement_id"] == "sample_agreement_id"
+    assert m["agreement_state"] == "sample_agreement_state"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:master_service_agreement_state, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:master_service_agreement_state, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "master_service_agreement_state encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      agreement_id: "sample_agreement_id",
+      agreement_state: "sample_agreement_state"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MasterServiceAgreementState.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:master_service_agreement_state, json)
+  end
+
+  test "master_service_agreement_state from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:master_service_agreement_state, %{})
+  end
+
+
   test "object_attribute_change to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       object_id: "sample_object_id",

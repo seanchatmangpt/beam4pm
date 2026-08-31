@@ -172,6 +172,16 @@ log_trace_ok_test() ->
 log_trace_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_log_trace(#{})).
 
+master_service_agreement_state_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_master_service_agreement_state(#{
+        opportunity_id => <<"x">>,
+        agreement_id => <<"x">>,
+        agreement_state => <<"x">>
+    })).
+
+master_service_agreement_state_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_master_service_agreement_state(#{})).
+
 object_attribute_change_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_object_attribute_change(#{
         object_id => <<"x">>,

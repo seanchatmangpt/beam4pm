@@ -26,6 +26,7 @@
     beam4pm_types:invoice_entity_identity() |
     beam4pm_types:k8s_object_ref() |
     beam4pm_types:log_trace() |
+    beam4pm_types:master_service_agreement_state() |
     beam4pm_types:object_attribute_change() |
     beam4pm_types:object_type() |
     beam4pm_types:oc_declare_constraint() |
@@ -160,6 +161,12 @@ to_map(R) when element(1, R) =:= log_trace ->
     pairs_to_map([
         {<<"case_id">>, plain, element(2, R)},
         {<<"activity_sequence">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= master_service_agreement_state ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"agreement_id">>, plain, element(3, R)},
+        {<<"agreement_state">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= object_attribute_change ->
     pairs_to_map([
@@ -460,6 +467,12 @@ from_map(log_trace, Map) when is_map(Map) ->
     beam4pm_types:new_log_trace(take_known(Map, [
         {<<"case_id">>, case_id, plain},
         {<<"activity_sequence">>, activity_sequence, plain}
+    ]));
+from_map(master_service_agreement_state, Map) when is_map(Map) ->
+    beam4pm_types:new_master_service_agreement_state(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"agreement_id">>, agreement_id, plain},
+        {<<"agreement_state">>, agreement_state, plain}
     ]));
 from_map(object_attribute_change, Map) when is_map(Map) ->
     beam4pm_types:new_object_attribute_change(take_known(Map, [

@@ -2792,6 +2792,29 @@ b4p:payment_terms_admission_payment_terms_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:payment_terms_admission_authority_evidence_hash_f a bpm:Field ;
-    bpm:fieldName "authority_evidence_hash" ; bpm:fieldType "string" ;
+   bpm:fieldName "authority_evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-013 — master_service_agreement_state
+b4p:master_service_agreement_state_rt a bpm:RecordType ;
+    bpm:recordName "master_service_agreement_state" ;
+    bpm:recordDoc "Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean." ;
+    bpm:hasField b4p:master_service_agreement_state_opportunity_id_f ,
+                 b4p:master_service_agreement_state_agreement_id_f ,
+                 b4p:master_service_agreement_state_agreement_state_f .
+
+b4p:master_service_agreement_state_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required master service agreement state input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:master_service_agreement_state_agreement_id_f a bpm:Field ;
+    bpm:fieldName "agreement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required master service agreement state input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:master_service_agreement_state_agreement_state_f a bpm:Field ;
+    bpm:fieldName "agreement_state" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

@@ -353,6 +353,27 @@
       ]
 
     },
+    "master_service_agreement_state": {
+      "type": "object",
+      "description": "Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required master service agreement state input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "agreement_id": {
+          "type": "string",
+          "description": "Required master service agreement state input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "agreement_state": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "agreement_id", "agreement_state"
+      ]
+
+    },
     "object_attribute_change": {
       "type": "object",
       "description": "One recorded change to a time-indexed object attribute.",

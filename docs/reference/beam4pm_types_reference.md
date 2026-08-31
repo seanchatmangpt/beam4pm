@@ -165,6 +165,16 @@
 | `case_id` | `string` | true | Identifier of the case this trace belongs to. |
 | `activity_sequence` | `list_string` | true | Ordered list of activity names observed for this case. |
 
+## master_service_agreement_state
+
+> Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
+| `agreement_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
+| `agreement_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## object_attribute_change
 
 > One recorded change to a time-indexed object attribute.
