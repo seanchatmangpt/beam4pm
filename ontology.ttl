@@ -3382,3 +3382,17 @@ bpm:cross_sell_fit_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:f
 bpm:cross_sell_fit_cross_sell_score_f a bpm:Field ; bpm:fieldName "cross_sell_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed cross-sell fit score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:cross_sell_fit_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:cross_sell_fit_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-135 — upsell readiness
+# ---------------------------------------------------------------------------
+
+bpm:upsell_readiness_rt a bpm:RecordType ;
+    bpm:recordName "upsell_readiness" ; bpm:recordDoc "Measured readiness to transition the account to greater product capacity." ;
+    bpm:hasField bpm:upsell_readiness_upsell_readiness_id_f , bpm:upsell_readiness_account_id_f , bpm:upsell_readiness_upsell_score_f , bpm:upsell_readiness_evidence_digest_f , bpm:upsell_readiness_observed_at_f .
+
+bpm:upsell_readiness_upsell_readiness_id_f a bpm:Field ; bpm:fieldName "upsell_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this upsell readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:upsell_readiness_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose upsell readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:upsell_readiness_upsell_score_f a bpm:Field ; bpm:fieldName "upsell_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed upsell-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:upsell_readiness_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:upsell_readiness_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
