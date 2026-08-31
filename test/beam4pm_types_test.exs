@@ -650,6 +650,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "security_addendum_state new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      addendum_id: "x",
+      addendum_state: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.SecurityAddendumState.new(attrs)
+  end
+
+  test "security_addendum_state new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.SecurityAddendumState.new(%{})
+  end
+
+
   test "service_span new/1 succeeds when all fields are present" do
     attrs = %{
       span_id: "x",

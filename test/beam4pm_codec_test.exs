@@ -1791,6 +1791,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "security_addendum_state to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      addendum_id: "sample_addendum_id",
+      addendum_state: "sample_addendum_state"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SecurityAddendumState.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["addendum_id"] == "sample_addendum_id"
+    assert m["addendum_state"] == "sample_addendum_state"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:security_addendum_state, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:security_addendum_state, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "security_addendum_state encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      addendum_id: "sample_addendum_id",
+      addendum_state: "sample_addendum_state"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SecurityAddendumState.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:security_addendum_state, json)
+  end
+
+  test "security_addendum_state from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:security_addendum_state, %{})
+  end
+
+
   test "service_span to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       span_id: "sample_span_id",

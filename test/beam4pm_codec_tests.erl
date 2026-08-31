@@ -1098,6 +1098,31 @@ revenue_schedule_assumption_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(revenue_schedule_assumption, Json),
     ?assertEqual(Rec, Rec2).
 
+security_addendum_state_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_security_addendum_state(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        addendum_id => <<"sample_addendum_id">>,
+        addendum_state => <<"sample_addendum_state">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_addendum_id">>, maps:get(<<"addendum_id">>, Map)),
+    ?assertEqual(<<"sample_addendum_state">>, maps:get(<<"addendum_state">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(security_addendum_state,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+security_addendum_state_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_security_addendum_state(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        addendum_id => <<"sample_addendum_id">>,
+        addendum_state => <<"sample_addendum_state">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(security_addendum_state, Json),
+    ?assertEqual(Rec, Rec2).
+
 service_span_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_service_span(#{
         span_id => <<"sample_span_id">>,

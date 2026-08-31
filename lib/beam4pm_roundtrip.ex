@@ -52,6 +52,7 @@ defmodule BeamPM.Roundtrip do
     :queue_snapshot,
     :resource_allocation,
     :revenue_schedule_assumption,
+    :security_addendum_state,
     :service_span,
     :sojourn_time,
     :sync_time,
@@ -748,6 +749,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       schedule_id: "sample_schedule_id",
       assumption_evidence_hash: "sample_assumption_evidence_hash"
+    })
+  end
+
+  def sample(:security_addendum_state, :full) do
+    BeamPM.Types.SecurityAddendumState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      addendum_id: "sample_addendum_id",
+      addendum_state: "sample_addendum_state"
+    })
+  end
+
+  def sample(:security_addendum_state, :minimal) do
+    BeamPM.Types.SecurityAddendumState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      addendum_id: "sample_addendum_id",
+      addendum_state: "sample_addendum_state"
     })
   end
 

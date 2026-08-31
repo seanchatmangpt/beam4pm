@@ -531,6 +531,18 @@ pub type RevenueScheduleAssumption {
   )
 }
 
+/// Requires an identified security addendum state before promising a paid production deployment.
+pub type SecurityAddendumState {
+  SecurityAddendumState(
+    /// Required security addendum state input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required security addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    addendum_state: String,
+  )
+}
+
 /// One OpenTelemetry-style tracing span observed for a service call.
 pub type ServiceSpan {
   ServiceSpan(

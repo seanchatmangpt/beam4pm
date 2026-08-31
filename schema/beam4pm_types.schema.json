@@ -925,6 +925,27 @@
       ]
 
     },
+    "security_addendum_state": {
+      "type": "object",
+      "description": "Requires an identified security addendum state before promising a paid production deployment.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required security addendum state input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "addendum_id": {
+          "type": "string",
+          "description": "Required security addendum state input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "addendum_state": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "addendum_id", "addendum_state"
+      ]
+
+    },
     "service_span": {
       "type": "object",
       "description": "One OpenTelemetry-style tracing span observed for a service call.",

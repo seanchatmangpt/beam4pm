@@ -46,6 +46,7 @@
     new_queue_snapshot/1,
     new_resource_allocation/1,
     new_revenue_schedule_assumption/1,
+    new_security_addendum_state/1,
     new_service_span/1,
     new_sojourn_time/1,
     new_sync_time/1,
@@ -98,6 +99,7 @@
     queue_snapshot/0,
     resource_allocation/0,
     revenue_schedule_assumption/0,
+    security_addendum_state/0,
     service_span/0,
     sojourn_time/0,
     sync_time/0,
@@ -1306,6 +1308,35 @@ new_revenue_schedule_assumption(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         schedule_id = maps:get(schedule_id, Map, undefined),
         assumption_evidence_hash = maps:get(assumption_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Requires an identified security addendum state before promising a paid production deployment.
+-record(security_addendum_state, {
+    opportunity_id :: binary(), %% opportunity_id: Required security addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_id :: binary(), %% addendum_id: Required security addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_state :: binary() %% addendum_state: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type security_addendum_state() :: #security_addendum_state{}.
+
+-spec new_security_addendum_state(map()) -> {ok, security_addendum_state()} | {error, {missing_field, atom()}}.
+new_security_addendum_state(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(addendum_id, Map) of
+        false -> {error, {missing_field, addendum_id}};
+        true ->
+    case maps:is_key(addendum_state, Map) of
+        false -> {error, {missing_field, addendum_state}};
+        true ->
+    {ok, #security_addendum_state{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        addendum_id = maps:get(addendum_id, Map, undefined),
+        addendum_state = maps:get(addendum_state, Map, undefined)
     }}
     end
     end

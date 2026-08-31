@@ -57,6 +57,7 @@ record_names() ->
         queue_snapshot,
         resource_allocation,
         revenue_schedule_assumption,
+        security_addendum_state,
         service_span,
         sojourn_time,
         sync_time,
@@ -577,6 +578,18 @@ sample(revenue_schedule_assumption, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         schedule_id => <<"sample_schedule_id">>,
         assumption_evidence_hash => <<"sample_assumption_evidence_hash">>
+    });
+sample(security_addendum_state, full) ->
+    beam4pm_types:new_security_addendum_state(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        addendum_id => <<"sample_addendum_id">>,
+        addendum_state => <<"sample_addendum_state">>
+    });
+sample(security_addendum_state, minimal) ->
+    beam4pm_types:new_security_addendum_state(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        addendum_id => <<"sample_addendum_id">>,
+        addendum_state => <<"sample_addendum_state">>
     });
 sample(service_span, full) ->
     beam4pm_types:new_service_span(#{

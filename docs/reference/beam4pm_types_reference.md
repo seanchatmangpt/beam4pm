@@ -435,6 +435,16 @@
 | `schedule_id` | `string` | true | Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval. |
 | `assumption_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## security_addendum_state
+
+> Requires an identified security addendum state before promising a paid production deployment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required security addendum state input; omission is an executable typed refusal, never an inferred approval. |
+| `addendum_id` | `string` | true | Required security addendum state input; omission is an executable typed refusal, never an inferred approval. |
+| `addendum_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## service_span
 
 > One OpenTelemetry-style tracing span observed for a service call.

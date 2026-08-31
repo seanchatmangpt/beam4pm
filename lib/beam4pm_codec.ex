@@ -361,6 +361,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.SecurityAddendumState{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"addendum_id", r.addendum_id, :passthrough},
+      {"addendum_state", r.addendum_state, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ServiceSpan{} = r) do
     to_known_map([
       {"span_id", r.span_id, :passthrough},
@@ -933,6 +941,18 @@ defmodule BeamPM.Codec do
         {"assumption_evidence_hash", :assumption_evidence_hash, :passthrough}
       ],
       &BeamPM.Types.RevenueScheduleAssumption.new/1
+    )
+  end
+
+  def from_map(:security_addendum_state, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"addendum_id", :addendum_id, :passthrough},
+        {"addendum_state", :addendum_state, :passthrough}
+      ],
+      &BeamPM.Types.SecurityAddendumState.new/1
     )
   end
 
