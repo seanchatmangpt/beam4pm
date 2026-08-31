@@ -106,12 +106,3 @@ jobs:
           ggen --version
           bash scripts/gate_m2_check.sh
 
-      - name: Preserve regenerated Ash determinism outputs for repair
-        if: failure()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: ws2-ash-determinism-repair
-          path: |
-            lib/beam4pm_ash.ex
-            test/beam4pm_ash_test.exs
-          if-no-files-found: error
