@@ -435,6 +435,18 @@ pub type ProcurementChannelSelection {
   )
 }
 
+/// Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness.
+pub type PurchaseOrderRequirement {
+  PurchaseOrderRequirement(
+    /// Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval.
+    requirement_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
 /// Requires the legal entity that will issue purchasing authority before commercial progression.
 pub type PurchasingEntityIdentity {
   PurchasingEntityIdentity(

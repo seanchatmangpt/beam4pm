@@ -939,6 +939,33 @@ defmodule BeamPM.Types.ProcurementChannelSelection do
   end
 end
 
+defmodule BeamPM.Types.PurchaseOrderRequirement do
+  @moduledoc "Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness."
+
+  defstruct [:opportunity_id, :requirement_id, :evidence_hash]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    requirement_id: String.t() | nil,
+    evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :requirement_id) -> {:error, {:missing_field, :requirement_id}}
+      not Map.has_key?(attrs, :evidence_hash) -> {:error, {:missing_field, :evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          requirement_id: Map.get(attrs, :requirement_id),
+          evidence_hash: Map.get(attrs, :evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PurchasingEntityIdentity do
   @moduledoc "Requires the legal entity that will issue purchasing authority before commercial progression."
 

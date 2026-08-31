@@ -898,6 +898,31 @@ procurement_channel_selection_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(procurement_channel_selection, Json),
     ?assertEqual(Rec, Rec2).
 
+purchase_order_requirement_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_purchase_order_requirement(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        requirement_id => <<"sample_requirement_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_requirement_id">>, maps:get(<<"requirement_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_hash">>, maps:get(<<"evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(purchase_order_requirement,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+purchase_order_requirement_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_purchase_order_requirement(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        requirement_id => <<"sample_requirement_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(purchase_order_requirement, Json),
+    ?assertEqual(Rec, Rec2).
+
 purchasing_entity_identity_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_purchasing_entity_identity(#{
         opportunity_id => <<"sample_opportunity_id">>,

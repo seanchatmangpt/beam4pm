@@ -1495,6 +1495,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "purchase_order_requirement to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      requirement_id: "sample_requirement_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PurchaseOrderRequirement.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["requirement_id"] == "sample_requirement_id"
+    assert m["evidence_hash"] == "sample_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:purchase_order_requirement, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:purchase_order_requirement, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "purchase_order_requirement encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      requirement_id: "sample_requirement_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PurchaseOrderRequirement.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:purchase_order_requirement, json)
+  end
+
+  test "purchase_order_requirement from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:purchase_order_requirement, %{})
+  end
+
+
   test "purchasing_entity_identity to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

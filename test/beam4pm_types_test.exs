@@ -530,6 +530,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "purchase_order_requirement new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      requirement_id: "x",
+      evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.PurchaseOrderRequirement.new(attrs)
+  end
+
+  test "purchase_order_requirement new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PurchaseOrderRequirement.new(%{})
+  end
+
+
   test "purchasing_entity_identity new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

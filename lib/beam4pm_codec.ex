@@ -297,6 +297,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.PurchaseOrderRequirement{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"requirement_id", r.requirement_id, :passthrough},
+      {"evidence_hash", r.evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.PurchasingEntityIdentity{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -805,6 +813,18 @@ defmodule BeamPM.Codec do
         {"selection_evidence_hash", :selection_evidence_hash, :passthrough}
       ],
       &BeamPM.Types.ProcurementChannelSelection.new/1
+    )
+  end
+
+  def from_map(:purchase_order_requirement, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"requirement_id", :requirement_id, :passthrough},
+        {"evidence_hash", :evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.PurchaseOrderRequirement.new/1
     )
   end
 

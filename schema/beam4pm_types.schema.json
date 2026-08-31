@@ -757,6 +757,27 @@
       ]
 
     },
+    "purchase_order_requirement": {
+      "type": "object",
+      "description": "Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "requirement_id": {
+          "type": "string",
+          "description": "Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "requirement_id", "evidence_hash"
+      ]
+
+    },
     "purchasing_entity_identity": {
       "type": "object",
       "description": "Requires the legal entity that will issue purchasing authority before commercial progression.",

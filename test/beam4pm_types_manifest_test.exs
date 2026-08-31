@@ -3,7 +3,7 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 45
+    assert length(BeamPM.Types.Manifest.record_names()) == 46
   end
 
   test "fields/1 returns the ordered field-name list for account_master_match" do
@@ -144,6 +144,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for procurement_channel_selection" do
     assert BeamPM.Types.Manifest.fields(:procurement_channel_selection) == [:opportunity_id, :channel_id, :selection_evidence_hash]
+  end
+
+  test "fields/1 returns the ordered field-name list for purchase_order_requirement" do
+    assert BeamPM.Types.Manifest.fields(:purchase_order_requirement) == [:opportunity_id, :requirement_id, :evidence_hash]
   end
 
   test "fields/1 returns the ordered field-name list for purchasing_entity_identity" do

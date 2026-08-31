@@ -2746,6 +2746,29 @@ b4p:tax_jurisdiction_evidence_tax_jurisdiction_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:tax_jurisdiction_evidence_evidence_hash_f a bpm:Field ;
+   bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-011 — purchase_order_requirement
+b4p:purchase_order_requirement_rt a bpm:RecordType ;
+    bpm:recordName "purchase_order_requirement" ;
+    bpm:recordDoc "Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness." ;
+    bpm:hasField b4p:purchase_order_requirement_opportunity_id_f ,
+                 b4p:purchase_order_requirement_requirement_id_f ,
+                 b4p:purchase_order_requirement_evidence_hash_f .
+
+b4p:purchase_order_requirement_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:purchase_order_requirement_requirement_id_f a bpm:Field ;
+    bpm:fieldName "requirement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:purchase_order_requirement_evidence_hash_f a bpm:Field ;
     bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
