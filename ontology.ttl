@@ -2554,3 +2554,41 @@ bpm:ws5_account_discovery_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "ISO8601 instant the customer-value consequence was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-102 — discovery hypothesis
+# ---------------------------------------------------------------------------
+
+bpm:discovery_hypothesis_rt a bpm:RecordType ;
+    bpm:recordName "discovery_hypothesis" ;
+    bpm:recordDoc "Receipted enterprise discovery hypothesis linking an account to a falsifiable customer-value expectation." ;
+    bpm:hasField bpm:discovery_hypothesis_discovery_hypothesis_id_f ,
+                 bpm:discovery_hypothesis_account_id_f ,
+                 bpm:discovery_hypothesis_expected_value_f ,
+                 bpm:discovery_hypothesis_evidence_digest_f ,
+                 bpm:discovery_hypothesis_observed_at_f .
+
+bpm:discovery_hypothesis_discovery_hypothesis_id_f a bpm:Field ;
+    bpm:fieldName "discovery_hypothesis_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this discovery hypothesis observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:discovery_hypothesis_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose discovery hypothesis state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:discovery_hypothesis_expected_value_f a bpm:Field ;
+    bpm:fieldName "expected_value" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Falsifiable value expectation stated by the customer." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:discovery_hypothesis_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:discovery_hypothesis_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
