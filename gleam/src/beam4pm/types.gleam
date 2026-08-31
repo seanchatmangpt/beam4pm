@@ -603,6 +603,18 @@ pub type QueueSnapshot {
   )
 }
 
+/// Makes renewal duration and its decision explicit for lifetime-value qualification.
+pub type RenewalTermAdmission {
+  RenewalTermAdmission(
+    /// Required renewal term admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required renewal term admission input; omission is an executable typed refusal, never an inferred approval.
+    renewal_term: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// One recorded assignment of a resource to an activity occurrence.
 pub type ResourceAllocation {
   ResourceAllocation(

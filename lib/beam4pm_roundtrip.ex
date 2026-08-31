@@ -58,6 +58,7 @@ defmodule BeamPM.Roundtrip do
     :purchase_order_requirement,
     :purchasing_entity_identity,
     :queue_snapshot,
+    :renewal_term_admission,
     :resource_allocation,
     :revenue_schedule_assumption,
     :sanctions_screening_result,
@@ -856,6 +857,22 @@ defmodule BeamPM.Roundtrip do
       queue_name: "sample_queue_name",
       depth: 42,
       observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:renewal_term_admission, :full) do
+    BeamPM.Types.RenewalTermAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      renewal_term: "sample_renewal_term",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:renewal_term_admission, :minimal) do
+    BeamPM.Types.RenewalTermAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      renewal_term: "sample_renewal_term",
+      decision: "sample_decision"
     })
   end
 

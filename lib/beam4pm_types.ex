@@ -1317,6 +1317,33 @@ defmodule BeamPM.Types.QueueSnapshot do
   end
 end
 
+defmodule BeamPM.Types.RenewalTermAdmission do
+  @moduledoc "Makes renewal duration and its decision explicit for lifetime-value qualification."
+
+  defstruct [:opportunity_id, :renewal_term, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    renewal_term: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :renewal_term) -> {:error, {:missing_field, :renewal_term}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          renewal_term: Map.get(attrs, :renewal_term),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ResourceAllocation do
   @moduledoc "One recorded assignment of a resource to an activity occurrence."
 

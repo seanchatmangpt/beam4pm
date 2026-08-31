@@ -63,6 +63,7 @@ record_names() ->
         purchase_order_requirement,
         purchasing_entity_identity,
         queue_snapshot,
+        renewal_term_admission,
         resource_allocation,
         revenue_schedule_assumption,
         sanctions_screening_result,
@@ -661,6 +662,18 @@ sample(queue_snapshot, minimal) ->
         queue_name => <<"sample_queue_name">>,
         depth => 42,
         observed_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(renewal_term_admission, full) ->
+    beam4pm_types:new_renewal_term_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        renewal_term => <<"sample_renewal_term">>,
+        decision => <<"sample_decision">>
+    });
+sample(renewal_term_admission, minimal) ->
+    beam4pm_types:new_renewal_term_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        renewal_term => <<"sample_renewal_term">>,
+        decision => <<"sample_decision">>
     });
 sample(resource_allocation, full) ->
     beam4pm_types:new_resource_allocation(#{

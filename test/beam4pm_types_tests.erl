@@ -502,6 +502,16 @@ queue_snapshot_ok_test() ->
 queue_snapshot_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_queue_snapshot(#{})).
 
+renewal_term_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_renewal_term_admission(#{
+        opportunity_id => <<"x">>,
+        renewal_term => <<"x">>,
+        decision => <<"x">>
+    })).
+
+renewal_term_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_renewal_term_admission(#{})).
+
 resource_allocation_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_resource_allocation(#{
         resource_id => <<"x">>,

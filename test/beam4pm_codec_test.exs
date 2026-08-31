@@ -2013,6 +2013,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "renewal_term_admission to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      renewal_term: "sample_renewal_term",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RenewalTermAdmission.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["renewal_term"] == "sample_renewal_term"
+    assert m["decision"] == "sample_decision"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:renewal_term_admission, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:renewal_term_admission, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "renewal_term_admission encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      renewal_term: "sample_renewal_term",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RenewalTermAdmission.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:renewal_term_admission, json)
+  end
+
+  test "renewal_term_admission from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:renewal_term_admission, %{})
+  end
+
+
   test "resource_allocation to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       resource_id: "sample_resource_id",

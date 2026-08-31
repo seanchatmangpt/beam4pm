@@ -52,6 +52,7 @@
     new_purchase_order_requirement/1,
     new_purchasing_entity_identity/1,
     new_queue_snapshot/1,
+    new_renewal_term_admission/1,
     new_resource_allocation/1,
     new_revenue_schedule_assumption/1,
     new_sanctions_screening_result/1,
@@ -116,6 +117,7 @@
     purchase_order_requirement/0,
     purchasing_entity_identity/0,
     queue_snapshot/0,
+    renewal_term_admission/0,
     resource_allocation/0,
     revenue_schedule_assumption/0,
     sanctions_screening_result/0,
@@ -1504,6 +1506,35 @@ new_queue_snapshot(Map) ->
         queue_name = maps:get(queue_name, Map, undefined),
         depth = maps:get(depth, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Makes renewal duration and its decision explicit for lifetime-value qualification.
+-record(renewal_term_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required renewal term admission input; omission is an executable typed refusal, never an inferred approval.
+    renewal_term :: binary(), %% renewal_term: Required renewal term admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type renewal_term_admission() :: #renewal_term_admission{}.
+
+-spec new_renewal_term_admission(map()) -> {ok, renewal_term_admission()} | {error, {missing_field, atom()}}.
+new_renewal_term_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(renewal_term, Map) of
+        false -> {error, {missing_field, renewal_term}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #renewal_term_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        renewal_term = maps:get(renewal_term, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

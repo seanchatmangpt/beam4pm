@@ -1051,6 +1051,27 @@
       ]
 
     },
+    "renewal_term_admission": {
+      "type": "object",
+      "description": "Makes renewal duration and its decision explicit for lifetime-value qualification.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required renewal term admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "renewal_term": {
+          "type": "string",
+          "description": "Required renewal term admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "renewal_term", "decision"
+      ]
+
+    },
     "resource_allocation": {
       "type": "object",
       "description": "One recorded assignment of a resource to an activity occurrence.",

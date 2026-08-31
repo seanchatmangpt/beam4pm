@@ -59,6 +59,7 @@
     beam4pm_types:purchase_order_requirement() |
     beam4pm_types:purchasing_entity_identity() |
     beam4pm_types:queue_snapshot() |
+    beam4pm_types:renewal_term_admission() |
     beam4pm_types:resource_allocation() |
     beam4pm_types:revenue_schedule_assumption() |
     beam4pm_types:sanctions_screening_result() |
@@ -372,6 +373,12 @@ to_map(R) when element(1, R) =:= queue_snapshot ->
         {<<"queue_name">>, plain, element(2, R)},
         {<<"depth">>, plain, element(3, R)},
         {<<"observed_at">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= renewal_term_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"renewal_term">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= resource_allocation ->
     pairs_to_map([
@@ -756,6 +763,12 @@ from_map(queue_snapshot, Map) when is_map(Map) ->
         {<<"queue_name">>, queue_name, plain},
         {<<"depth">>, depth, plain},
         {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(renewal_term_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_renewal_term_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"renewal_term">>, renewal_term, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(resource_allocation, Map) when is_map(Map) ->
     beam4pm_types:new_resource_allocation(take_known(Map, [

@@ -495,6 +495,16 @@
 | `depth` | `integer` | true | Observed queue depth at this point in time. |
 | `observed_at` | `datetime` | true | ISO8601 timestamp of this observation. |
 
+## renewal_term_admission
+
+> Makes renewal duration and its decision explicit for lifetime-value qualification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required renewal term admission input; omission is an executable typed refusal, never an inferred approval. |
+| `renewal_term` | `string` | true | Required renewal term admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## resource_allocation
 
 > One recorded assignment of a resource to an activity occurrence.
