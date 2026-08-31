@@ -236,6 +236,16 @@
 | `coverage_id` | `string` | true | Required insurance requirement input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## integration_scope_admission
+
+> Admits a bounded enterprise integration scope before solution fit becomes a commercial commitment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required integration scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `integration_scope_id` | `string` | true | Required integration scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## invoice_entity_identity
 
 > Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.

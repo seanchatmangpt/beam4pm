@@ -243,6 +243,16 @@ insurance_requirement_ok_test() ->
 insurance_requirement_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_insurance_requirement(#{})).
 
+integration_scope_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_integration_scope_admission(#{
+        opportunity_id => <<"x">>,
+        integration_scope_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+integration_scope_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_integration_scope_admission(#{})).
+
 invoice_entity_identity_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_invoice_entity_identity(#{
         opportunity_id => <<"x">>,

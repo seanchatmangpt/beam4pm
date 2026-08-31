@@ -503,6 +503,27 @@
       ]
 
     },
+    "integration_scope_admission": {
+      "type": "object",
+      "description": "Admits a bounded enterprise integration scope before solution fit becomes a commercial commitment.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required integration scope admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "integration_scope_id": {
+          "type": "string",
+          "description": "Required integration scope admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "integration_scope_id", "decision"
+      ]
+
+    },
     "invoice_entity_identity": {
       "type": "object",
       "description": "Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.",

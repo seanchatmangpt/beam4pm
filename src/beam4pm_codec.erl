@@ -33,6 +33,7 @@
     beam4pm_types:implementation_fee_admission() |
     beam4pm_types:indemnity_scope_admission() |
     beam4pm_types:insurance_requirement() |
+    beam4pm_types:integration_scope_admission() |
     beam4pm_types:invoice_entity_identity() |
     beam4pm_types:k8s_object_ref() |
     beam4pm_types:liability_cap_admission() |
@@ -227,6 +228,12 @@ to_map(R) when element(1, R) =:= insurance_requirement ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"coverage_id">>, plain, element(3, R)},
         {<<"evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= integration_scope_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"integration_scope_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= invoice_entity_identity ->
     pairs_to_map([
@@ -671,6 +678,12 @@ from_map(insurance_requirement, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"coverage_id">>, coverage_id, plain},
         {<<"evidence_hash">>, evidence_hash, plain}
+    ]));
+from_map(integration_scope_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_integration_scope_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"integration_scope_id">>, integration_scope_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(invoice_entity_identity, Map) when is_map(Map) ->
     beam4pm_types:new_invoice_entity_identity(take_known(Map, [

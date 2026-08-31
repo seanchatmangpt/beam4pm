@@ -351,6 +351,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "integration_scope_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      integration_scope_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.IntegrationScopeAdmission.new(attrs)
+  end
+
+  test "integration_scope_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.IntegrationScopeAdmission.new(%{})
+  end
+
+
   test "invoice_entity_identity new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

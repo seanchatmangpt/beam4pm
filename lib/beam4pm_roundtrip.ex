@@ -32,6 +32,7 @@ defmodule BeamPM.Roundtrip do
     :implementation_fee_admission,
     :indemnity_scope_admission,
     :insurance_requirement,
+    :integration_scope_admission,
     :invoice_entity_identity,
     :k8s_object_ref,
     :liability_cap_admission,
@@ -462,6 +463,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       coverage_id: "sample_coverage_id",
       evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:integration_scope_admission, :full) do
+    BeamPM.Types.IntegrationScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      integration_scope_id: "sample_integration_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:integration_scope_admission, :minimal) do
+    BeamPM.Types.IntegrationScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      integration_scope_id: "sample_integration_scope_id",
+      decision: "sample_decision"
     })
   end
 

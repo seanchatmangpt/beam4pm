@@ -26,6 +26,7 @@
     new_implementation_fee_admission/1,
     new_indemnity_scope_admission/1,
     new_insurance_requirement/1,
+    new_integration_scope_admission/1,
     new_invoice_entity_identity/1,
     new_k8s_object_ref/1,
     new_liability_cap_admission/1,
@@ -100,6 +101,7 @@
     implementation_fee_admission/0,
     indemnity_scope_admission/0,
     insurance_requirement/0,
+    integration_scope_admission/0,
     invoice_entity_identity/0,
     k8s_object_ref/0,
     liability_cap_admission/0,
@@ -816,6 +818,35 @@ new_insurance_requirement(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         coverage_id = maps:get(coverage_id, Map, undefined),
         evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits a bounded enterprise integration scope before solution fit becomes a commercial commitment.
+-record(integration_scope_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required integration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    integration_scope_id :: binary(), %% integration_scope_id: Required integration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type integration_scope_admission() :: #integration_scope_admission{}.
+
+-spec new_integration_scope_admission(map()) -> {ok, integration_scope_admission()} | {error, {missing_field, atom()}}.
+new_integration_scope_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(integration_scope_id, Map) of
+        false -> {error, {missing_field, integration_scope_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #integration_scope_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        integration_scope_id = maps:get(integration_scope_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

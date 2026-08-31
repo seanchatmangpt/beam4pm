@@ -628,6 +628,33 @@ defmodule BeamPM.Types.InsuranceRequirement do
   end
 end
 
+defmodule BeamPM.Types.IntegrationScopeAdmission do
+  @moduledoc "Admits a bounded enterprise integration scope before solution fit becomes a commercial commitment."
+
+  defstruct [:opportunity_id, :integration_scope_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    integration_scope_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :integration_scope_id) -> {:error, {:missing_field, :integration_scope_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          integration_scope_id: Map.get(attrs, :integration_scope_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.InvoiceEntityIdentity do
   @moduledoc "Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue."
 
