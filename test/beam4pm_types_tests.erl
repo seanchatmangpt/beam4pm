@@ -623,6 +623,16 @@ sojourn_time_ok_test() ->
 sojourn_time_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_sojourn_time(#{})).
 
+support_tier_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_support_tier_admission(#{
+        opportunity_id => <<"x">>,
+        support_tier_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+support_tier_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_support_tier_admission(#{})).
+
 sync_time_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_sync_time(#{
         object_id => <<"x">>,

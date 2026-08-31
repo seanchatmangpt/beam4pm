@@ -749,6 +749,18 @@ pub type SojournTime {
   )
 }
 
+/// Admits the paid support tier that determines service obligation and cost-to-serve.
+pub type SupportTierAdmission {
+  SupportTierAdmission(
+    /// Required support tier admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required support tier admission input; omission is an executable typed refusal, never an inferred approval.
+    support_tier_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// The time one object waited to synchronize with another object at a shared event.
 pub type SyncTime {
   SyncTime(

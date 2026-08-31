@@ -616,6 +616,16 @@
 | `event_type` | `string` | true | The event type/activity this sojourn measurement is at. |
 | `seconds` | `float` | true | Sojourn duration in seconds. |
 
+## support_tier_admission
+
+> Admits the paid support tier that determines service obligation and cost-to-serve.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required support tier admission input; omission is an executable typed refusal, never an inferred approval. |
+| `support_tier_id` | `string` | true | Required support tier admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## sync_time
 
 > The time one object waited to synchronize with another object at a shared event.

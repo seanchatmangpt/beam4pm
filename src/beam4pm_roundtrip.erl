@@ -75,6 +75,7 @@ record_names() ->
         service_span,
         sla_offer_admission,
         sojourn_time,
+        support_tier_admission,
         sync_time,
         tax_jurisdiction_evidence,
         termination_right_admission,
@@ -813,6 +814,18 @@ sample(sojourn_time, minimal) ->
         object_id => <<"sample_object_id">>,
         event_type => <<"sample_event_type">>,
         seconds => 3.5
+    });
+sample(support_tier_admission, full) ->
+    beam4pm_types:new_support_tier_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        support_tier_id => <<"sample_support_tier_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(support_tier_admission, minimal) ->
+    beam4pm_types:new_support_tier_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        support_tier_id => <<"sample_support_tier_id">>,
+        decision => <<"sample_decision">>
     });
 sample(sync_time, full) ->
     beam4pm_types:new_sync_time(#{

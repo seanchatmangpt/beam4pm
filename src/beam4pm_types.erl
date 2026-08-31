@@ -64,6 +64,7 @@
     new_service_span/1,
     new_sla_offer_admission/1,
     new_sojourn_time/1,
+    new_support_tier_admission/1,
     new_sync_time/1,
     new_tax_jurisdiction_evidence/1,
     new_termination_right_admission/1,
@@ -135,6 +136,7 @@
     service_span/0,
     sla_offer_admission/0,
     sojourn_time/0,
+    support_tier_admission/0,
     sync_time/0,
     tax_jurisdiction_evidence/0,
     termination_right_admission/0,
@@ -1868,6 +1870,35 @@ new_sojourn_time(Map) ->
         object_id = maps:get(object_id, Map, undefined),
         event_type = maps:get(event_type, Map, undefined),
         seconds = maps:get(seconds, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits the paid support tier that determines service obligation and cost-to-serve.
+-record(support_tier_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required support tier admission input; omission is an executable typed refusal, never an inferred approval.
+    support_tier_id :: binary(), %% support_tier_id: Required support tier admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type support_tier_admission() :: #support_tier_admission{}.
+
+-spec new_support_tier_admission(map()) -> {ok, support_tier_admission()} | {error, {missing_field, atom()}}.
+new_support_tier_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(support_tier_id, Map) of
+        false -> {error, {missing_field, support_tier_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #support_tier_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        support_tier_id = maps:get(support_tier_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

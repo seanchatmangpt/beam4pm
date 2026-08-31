@@ -71,6 +71,7 @@
     beam4pm_types:service_span() |
     beam4pm_types:sla_offer_admission() |
     beam4pm_types:sojourn_time() |
+    beam4pm_types:support_tier_admission() |
     beam4pm_types:sync_time() |
     beam4pm_types:tax_jurisdiction_evidence() |
     beam4pm_types:termination_right_admission() |
@@ -452,6 +453,12 @@ to_map(R) when element(1, R) =:= sojourn_time ->
         {<<"object_id">>, plain, element(2, R)},
         {<<"event_type">>, plain, element(3, R)},
         {<<"seconds">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= support_tier_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"support_tier_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= sync_time ->
     pairs_to_map([
@@ -878,6 +885,12 @@ from_map(sojourn_time, Map) when is_map(Map) ->
         {<<"object_id">>, object_id, plain},
         {<<"event_type">>, event_type, plain},
         {<<"seconds">>, seconds, plain}
+    ]));
+from_map(support_tier_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_support_tier_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"support_tier_id">>, support_tier_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(sync_time, Map) when is_map(Map) ->
     beam4pm_types:new_sync_time(take_known(Map, [

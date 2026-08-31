@@ -921,6 +921,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "support_tier_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      support_tier_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.SupportTierAdmission.new(attrs)
+  end
+
+  test "support_tier_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.SupportTierAdmission.new(%{})
+  end
+
+
   test "sync_time new/1 succeeds when all fields are present" do
     attrs = %{
       object_id: "x",

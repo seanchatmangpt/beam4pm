@@ -1643,6 +1643,33 @@ defmodule BeamPM.Types.SojournTime do
   end
 end
 
+defmodule BeamPM.Types.SupportTierAdmission do
+  @moduledoc "Admits the paid support tier that determines service obligation and cost-to-serve."
+
+  defstruct [:opportunity_id, :support_tier_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    support_tier_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :support_tier_id) -> {:error, {:missing_field, :support_tier_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          support_tier_id: Map.get(attrs, :support_tier_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.SyncTime do
   @moduledoc "The time one object waited to synchronize with another object at a shared event."
 

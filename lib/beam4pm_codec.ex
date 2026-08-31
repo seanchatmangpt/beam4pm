@@ -506,6 +506,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.SupportTierAdmission{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"support_tier_id", r.support_tier_id, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.SyncTime{} = r) do
     to_known_map([
       {"object_id", r.object_id, :passthrough},
@@ -1302,6 +1310,18 @@ defmodule BeamPM.Codec do
         {"seconds", :seconds, :passthrough}
       ],
       &BeamPM.Types.SojournTime.new/1
+    )
+  end
+
+  def from_map(:support_tier_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"support_tier_id", :support_tier_id, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.SupportTierAdmission.new/1
     )
   end
 

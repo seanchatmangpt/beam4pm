@@ -1307,6 +1307,27 @@
       ]
 
     },
+    "support_tier_admission": {
+      "type": "object",
+      "description": "Admits the paid support tier that determines service obligation and cost-to-serve.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required support tier admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "support_tier_id": {
+          "type": "string",
+          "description": "Required support tier admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "support_tier_id", "decision"
+      ]
+
+    },
     "sync_time": {
       "type": "object",
       "description": "The time one object waited to synchronize with another object at a shared event.",
