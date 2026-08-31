@@ -3232,3 +3232,27 @@ bpm:developer_readiness_evidence_digest_f a bpm:Field ;
 
 bpm:developer_readiness_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-125 — support readiness
+# ---------------------------------------------------------------------------
+
+bpm:support_readiness_rt a bpm:RecordType ;
+    bpm:recordName "support_readiness" ;
+    bpm:recordDoc "Measured support-team readiness for enterprise production." ;
+    bpm:hasField bpm:support_readiness_support_readiness_id_f , bpm:support_readiness_account_id_f , bpm:support_readiness_support_readiness_score_f , bpm:support_readiness_evidence_digest_f , bpm:support_readiness_observed_at_f .
+
+bpm:support_readiness_support_readiness_id_f a bpm:Field ;
+    bpm:fieldName "support_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this support readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:support_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose support readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:support_readiness_support_readiness_score_f a bpm:Field ;
+    bpm:fieldName "support_readiness_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed support-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:support_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:support_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
