@@ -2668,3 +2668,41 @@ bpm:executive_sponsor_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-105 — buying committee
+# ---------------------------------------------------------------------------
+
+bpm:buying_committee_rt a bpm:RecordType ;
+    bpm:recordName "buying_committee" ;
+    bpm:recordDoc "Measured buying-committee coverage for an enterprise decision path." ;
+    bpm:hasField bpm:buying_committee_buying_committee_id_f ,
+                 bpm:buying_committee_account_id_f ,
+                 bpm:buying_committee_committee_coverage_f ,
+                 bpm:buying_committee_evidence_digest_f ,
+                 bpm:buying_committee_observed_at_f .
+
+bpm:buying_committee_buying_committee_id_f a bpm:Field ;
+    bpm:fieldName "buying_committee_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this buying committee observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:buying_committee_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose buying committee state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:buying_committee_committee_coverage_f a bpm:Field ;
+    bpm:fieldName "committee_coverage" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Fraction of required buying roles actively represented." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:buying_committee_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:buying_committee_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
