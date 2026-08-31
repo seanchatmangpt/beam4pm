@@ -18,6 +18,7 @@
     beam4pm_types:budget_period_alignment() |
     beam4pm_types:case_stats() |
     beam4pm_types:change_order_authority() |
+    beam4pm_types:commercial_exception() |
     beam4pm_types:committed_spend_admission() |
     beam4pm_types:conformance_result() |
     beam4pm_types:contracting_entity_identity() |
@@ -143,6 +144,12 @@ to_map(R) when element(1, R) =:= change_order_authority ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"authority_id">>, plain, element(3, R)},
         {<<"evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= commercial_exception ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"exception_id">>, plain, element(3, R)},
+        {<<"exception_state">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= committed_spend_admission ->
     pairs_to_map([
@@ -635,6 +642,12 @@ from_map(change_order_authority, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"authority_id">>, authority_id, plain},
         {<<"evidence_hash">>, evidence_hash, plain}
+    ]));
+from_map(commercial_exception, Map) when is_map(Map) ->
+    beam4pm_types:new_commercial_exception(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"exception_id">>, exception_id, plain},
+        {<<"exception_state">>, exception_state, plain}
     ]));
 from_map(committed_spend_admission, Map) when is_map(Map) ->
     beam4pm_types:new_committed_spend_admission(take_known(Map, [

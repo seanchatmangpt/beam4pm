@@ -3528,6 +3528,29 @@ b4p:technical_blocker_blocker_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:technical_blocker_refusal_code_f a bpm:Field ;
-    bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
+   bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-045 — commercial_exception
+b4p:commercial_exception_rt a bpm:RecordType ;
+    bpm:recordName "commercial_exception" ;
+    bpm:recordDoc "Represents a nonstandard commercial request as an identified exception with explicit state." ;
+    bpm:hasField b4p:commercial_exception_opportunity_id_f ,
+                 b4p:commercial_exception_exception_id_f ,
+                 b4p:commercial_exception_exception_state_f .
+
+b4p:commercial_exception_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required commercial exception input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:commercial_exception_exception_id_f a bpm:Field ;
+    bpm:fieldName "exception_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required commercial exception input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:commercial_exception_exception_state_f a bpm:Field ;
+    bpm:fieldName "exception_state" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

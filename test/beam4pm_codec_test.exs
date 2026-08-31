@@ -335,6 +335,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "commercial_exception to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      exception_id: "sample_exception_id",
+      exception_state: "sample_exception_state"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CommercialException.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["exception_id"] == "sample_exception_id"
+    assert m["exception_state"] == "sample_exception_state"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:commercial_exception, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:commercial_exception, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "commercial_exception encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      exception_id: "sample_exception_id",
+      exception_state: "sample_exception_state"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CommercialException.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:commercial_exception, json)
+  end
+
+  test "commercial_exception from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:commercial_exception, %{})
+  end
+
+
   test "committed_spend_admission to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

@@ -17,6 +17,7 @@ defmodule BeamPM.Roundtrip do
     :budget_period_alignment,
     :case_stats,
     :change_order_authority,
+    :commercial_exception,
     :committed_spend_admission,
     :conformance_result,
     :contracting_entity_identity,
@@ -230,6 +231,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       authority_id: "sample_authority_id",
       evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:commercial_exception, :full) do
+    BeamPM.Types.CommercialException.new(%{
+      opportunity_id: "sample_opportunity_id",
+      exception_id: "sample_exception_id",
+      exception_state: "sample_exception_state"
+    })
+  end
+
+  def sample(:commercial_exception, :minimal) do
+    BeamPM.Types.CommercialException.new(%{
+      opportunity_id: "sample_opportunity_id",
+      exception_id: "sample_exception_id",
+      exception_state: "sample_exception_state"
     })
   end
 

@@ -179,6 +179,27 @@
       ]
 
     },
+    "commercial_exception": {
+      "type": "object",
+      "description": "Represents a nonstandard commercial request as an identified exception with explicit state.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required commercial exception input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "exception_id": {
+          "type": "string",
+          "description": "Required commercial exception input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "exception_state": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "exception_id", "exception_state"
+      ]
+
+    },
     "committed_spend_admission": {
       "type": "object",
       "description": "Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.",

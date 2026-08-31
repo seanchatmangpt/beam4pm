@@ -124,6 +124,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "commercial_exception new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      exception_id: "x",
+      exception_state: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CommercialException.new(attrs)
+  end
+
+  test "commercial_exception new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialException.new(%{})
+  end
+
+
   test "committed_spend_admission new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

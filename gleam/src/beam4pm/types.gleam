@@ -109,6 +109,18 @@ pub type ChangeOrderAuthority {
   )
 }
 
+/// Represents a nonstandard commercial request as an identified exception with explicit state.
+pub type CommercialException {
+  CommercialException(
+    /// Required commercial exception input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required commercial exception input; omission is an executable typed refusal, never an inferred approval.
+    exception_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    exception_state: String,
+  )
+}
+
 /// Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.
 pub type CommittedSpendAdmission {
   CommittedSpendAdmission(

@@ -22,6 +22,7 @@ record_names() ->
         budget_period_alignment,
         case_stats,
         change_order_authority,
+        commercial_exception,
         committed_spend_admission,
         conformance_result,
         contracting_entity_identity,
@@ -199,6 +200,18 @@ sample(change_order_authority, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         authority_id => <<"sample_authority_id">>,
         evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(commercial_exception, full) ->
+    beam4pm_types:new_commercial_exception(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        exception_id => <<"sample_exception_id">>,
+        exception_state => <<"sample_exception_state">>
+    });
+sample(commercial_exception, minimal) ->
+    beam4pm_types:new_commercial_exception(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        exception_id => <<"sample_exception_id">>,
+        exception_state => <<"sample_exception_state">>
     });
 sample(committed_spend_admission, full) ->
     beam4pm_types:new_committed_spend_admission(#{

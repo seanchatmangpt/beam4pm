@@ -220,6 +220,31 @@ change_order_authority_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(change_order_authority, Json),
     ?assertEqual(Rec, Rec2).
 
+commercial_exception_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_commercial_exception(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        exception_id => <<"sample_exception_id">>,
+        exception_state => <<"sample_exception_state">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_exception_id">>, maps:get(<<"exception_id">>, Map)),
+    ?assertEqual(<<"sample_exception_state">>, maps:get(<<"exception_state">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(commercial_exception,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+commercial_exception_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_commercial_exception(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        exception_id => <<"sample_exception_id">>,
+        exception_state => <<"sample_exception_state">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(commercial_exception, Json),
+    ?assertEqual(Rec, Rec2).
+
 committed_spend_admission_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_committed_spend_admission(#{
         opportunity_id => <<"sample_opportunity_id">>,

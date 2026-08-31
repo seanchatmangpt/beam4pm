@@ -84,6 +84,16 @@
 | `authority_id` | `string` | true | Required change order authority input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## commercial_exception
+
+> Represents a nonstandard commercial request as an identified exception with explicit state.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required commercial exception input; omission is an executable typed refusal, never an inferred approval. |
+| `exception_id` | `string` | true | Required commercial exception input; omission is an executable typed refusal, never an inferred approval. |
+| `exception_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## committed_spend_admission
 
 > Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.

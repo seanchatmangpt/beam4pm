@@ -11,6 +11,7 @@
     new_budget_period_alignment/1,
     new_case_stats/1,
     new_change_order_authority/1,
+    new_commercial_exception/1,
     new_committed_spend_admission/1,
     new_conformance_result/1,
     new_contracting_entity_identity/1,
@@ -93,6 +94,7 @@
     budget_period_alignment/0,
     case_stats/0,
     change_order_authority/0,
+    commercial_exception/0,
     committed_spend_admission/0,
     conformance_result/0,
     contracting_entity_identity/0,
@@ -401,6 +403,35 @@ new_change_order_authority(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         authority_id = maps:get(authority_id, Map, undefined),
         evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Represents a nonstandard commercial request as an identified exception with explicit state.
+-record(commercial_exception, {
+    opportunity_id :: binary(), %% opportunity_id: Required commercial exception input; omission is an executable typed refusal, never an inferred approval.
+    exception_id :: binary(), %% exception_id: Required commercial exception input; omission is an executable typed refusal, never an inferred approval.
+    exception_state :: binary() %% exception_state: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type commercial_exception() :: #commercial_exception{}.
+
+-spec new_commercial_exception(map()) -> {ok, commercial_exception()} | {error, {missing_field, atom()}}.
+new_commercial_exception(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(exception_id, Map) of
+        false -> {error, {missing_field, exception_id}};
+        true ->
+    case maps:is_key(exception_state, Map) of
+        false -> {error, {missing_field, exception_state}};
+        true ->
+    {ok, #commercial_exception{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        exception_id = maps:get(exception_id, Map, undefined),
+        exception_state = maps:get(exception_state, Map, undefined)
     }}
     end
     end

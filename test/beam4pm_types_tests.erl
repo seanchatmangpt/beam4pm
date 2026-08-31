@@ -91,6 +91,16 @@ change_order_authority_ok_test() ->
 change_order_authority_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_change_order_authority(#{})).
 
+commercial_exception_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_commercial_exception(#{
+        opportunity_id => <<"x">>,
+        exception_id => <<"x">>,
+        exception_state => <<"x">>
+    })).
+
+commercial_exception_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_commercial_exception(#{})).
+
 committed_spend_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_committed_spend_admission(#{
         opportunity_id => <<"x">>,

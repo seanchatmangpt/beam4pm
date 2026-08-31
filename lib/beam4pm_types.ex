@@ -221,6 +221,33 @@ defmodule BeamPM.Types.ChangeOrderAuthority do
   end
 end
 
+defmodule BeamPM.Types.CommercialException do
+  @moduledoc "Represents a nonstandard commercial request as an identified exception with explicit state."
+
+  defstruct [:opportunity_id, :exception_id, :exception_state]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    exception_id: String.t() | nil,
+    exception_state: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :exception_id) -> {:error, {:missing_field, :exception_id}}
+      not Map.has_key?(attrs, :exception_state) -> {:error, {:missing_field, :exception_state}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          exception_id: Map.get(attrs, :exception_id),
+          exception_state: Map.get(attrs, :exception_state)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.CommittedSpendAdmission do
   @moduledoc "Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage."
 
