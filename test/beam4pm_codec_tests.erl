@@ -195,6 +195,31 @@ case_stats_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(case_stats, Json),
     ?assertEqual(Rec, Rec2).
 
+change_order_authority_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_change_order_authority(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        authority_id => <<"sample_authority_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_authority_id">>, maps:get(<<"authority_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_hash">>, maps:get(<<"evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(change_order_authority,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+change_order_authority_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_change_order_authority(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        authority_id => <<"sample_authority_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(change_order_authority, Json),
+    ?assertEqual(Rec, Rec2).
+
 committed_spend_admission_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_committed_spend_admission(#{
         opportunity_id => <<"sample_opportunity_id">>,

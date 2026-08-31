@@ -298,6 +298,43 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:case_stats, m)
   end
 
+  test "change_order_authority to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      authority_id: "sample_authority_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ChangeOrderAuthority.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["authority_id"] == "sample_authority_id"
+    assert m["evidence_hash"] == "sample_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:change_order_authority, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:change_order_authority, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "change_order_authority encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      authority_id: "sample_authority_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ChangeOrderAuthority.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:change_order_authority, json)
+  end
+
+  test "change_order_authority from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:change_order_authority, %{})
+  end
+
+
   test "committed_spend_admission to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

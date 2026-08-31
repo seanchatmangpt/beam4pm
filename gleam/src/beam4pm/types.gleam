@@ -97,6 +97,18 @@ pub type CaseStats {
   )
 }
 
+/// Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.
+pub type ChangeOrderAuthority {
+  ChangeOrderAuthority(
+    /// Required change order authority input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required change order authority input; omission is an executable typed refusal, never an inferred approval.
+    authority_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
 /// Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.
 pub type CommittedSpendAdmission {
   CommittedSpendAdmission(

@@ -72,6 +72,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ChangeOrderAuthority{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"authority_id", r.authority_id, :passthrough},
+      {"evidence_hash", r.evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.CommittedSpendAdmission{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -684,6 +692,18 @@ defmodule BeamPM.Codec do
         {"duration_seconds", :duration_seconds, :passthrough}
       ],
       &BeamPM.Types.CaseStats.new/1
+    )
+  end
+
+  def from_map(:change_order_authority, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"authority_id", :authority_id, :passthrough},
+        {"evidence_hash", :evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.ChangeOrderAuthority.new/1
     )
   end
 

@@ -10,6 +10,7 @@
     new_billing_reconciliation/1,
     new_budget_period_alignment/1,
     new_case_stats/1,
+    new_change_order_authority/1,
     new_committed_spend_admission/1,
     new_conformance_result/1,
     new_contracting_entity_identity/1,
@@ -85,6 +86,7 @@
     billing_reconciliation/0,
     budget_period_alignment/0,
     case_stats/0,
+    change_order_authority/0,
     committed_spend_admission/0,
     conformance_result/0,
     contracting_entity_identity/0,
@@ -360,6 +362,35 @@ new_case_stats(Map) ->
         event_count = maps:get(event_count, Map, undefined),
         duration_seconds = maps:get(duration_seconds, Map, undefined)
     }}
+    end
+    end.
+
+%% Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.
+-record(change_order_authority, {
+    opportunity_id :: binary(), %% opportunity_id: Required change order authority input; omission is an executable typed refusal, never an inferred approval.
+    authority_id :: binary(), %% authority_id: Required change order authority input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type change_order_authority() :: #change_order_authority{}.
+
+-spec new_change_order_authority(map()) -> {ok, change_order_authority()} | {error, {missing_field, atom()}}.
+new_change_order_authority(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(authority_id, Map) of
+        false -> {error, {missing_field, authority_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #change_order_authority{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        authority_id = maps:get(authority_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
     end
     end.
 

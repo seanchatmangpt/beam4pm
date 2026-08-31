@@ -21,6 +21,7 @@ record_names() ->
         billing_reconciliation,
         budget_period_alignment,
         case_stats,
+        change_order_authority,
         committed_spend_admission,
         conformance_result,
         contracting_entity_identity,
@@ -180,6 +181,18 @@ sample(case_stats, minimal) ->
     beam4pm_types:new_case_stats(#{
         case_id => <<"sample_case_id">>,
         event_count => 42
+    });
+sample(change_order_authority, full) ->
+    beam4pm_types:new_change_order_authority(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        authority_id => <<"sample_authority_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(change_order_authority, minimal) ->
+    beam4pm_types:new_change_order_authority(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        authority_id => <<"sample_authority_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
     });
 sample(committed_spend_admission, full) ->
     beam4pm_types:new_committed_spend_admission(#{

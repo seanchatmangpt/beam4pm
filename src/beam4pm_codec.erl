@@ -17,6 +17,7 @@
     beam4pm_types:billing_reconciliation() |
     beam4pm_types:budget_period_alignment() |
     beam4pm_types:case_stats() |
+    beam4pm_types:change_order_authority() |
     beam4pm_types:committed_spend_admission() |
     beam4pm_types:conformance_result() |
     beam4pm_types:contracting_entity_identity() |
@@ -130,6 +131,12 @@ to_map(R) when element(1, R) =:= case_stats ->
         {<<"case_id">>, plain, element(2, R)},
         {<<"event_count">>, plain, element(3, R)},
         {<<"duration_seconds">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= change_order_authority ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"authority_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= committed_spend_admission ->
     pairs_to_map([
@@ -580,6 +587,12 @@ from_map(case_stats, Map) when is_map(Map) ->
         {<<"case_id">>, case_id, plain},
         {<<"event_count">>, event_count, plain},
         {<<"duration_seconds">>, duration_seconds, plain}
+    ]));
+from_map(change_order_authority, Map) when is_map(Map) ->
+    beam4pm_types:new_change_order_authority(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"authority_id">>, authority_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
     ]));
 from_map(committed_spend_admission, Map) when is_map(Map) ->
     beam4pm_types:new_committed_spend_admission(take_known(Map, [

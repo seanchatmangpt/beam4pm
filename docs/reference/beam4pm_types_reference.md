@@ -74,6 +74,16 @@
 | `event_count` | `integer` | true | Number of events observed for this case. |
 | `duration_seconds` | `float` | false | Optional case duration in seconds (end minus start). |
 
+## change_order_authority
+
+> Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required change order authority input; omission is an executable typed refusal, never an inferred approval. |
+| `authority_id` | `string` | true | Required change order authority input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## committed_spend_admission
 
 > Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.

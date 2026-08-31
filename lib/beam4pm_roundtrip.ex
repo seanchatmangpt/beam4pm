@@ -16,6 +16,7 @@ defmodule BeamPM.Roundtrip do
     :billing_reconciliation,
     :budget_period_alignment,
     :case_stats,
+    :change_order_authority,
     :committed_spend_admission,
     :conformance_result,
     :contracting_entity_identity,
@@ -207,6 +208,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.CaseStats.new(%{
       case_id: "sample_case_id",
       event_count: 42
+    })
+  end
+
+  def sample(:change_order_authority, :full) do
+    BeamPM.Types.ChangeOrderAuthority.new(%{
+      opportunity_id: "sample_opportunity_id",
+      authority_id: "sample_authority_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:change_order_authority, :minimal) do
+    BeamPM.Types.ChangeOrderAuthority.new(%{
+      opportunity_id: "sample_opportunity_id",
+      authority_id: "sample_authority_id",
+      evidence_hash: "sample_evidence_hash"
     })
   end
 

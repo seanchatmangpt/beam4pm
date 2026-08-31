@@ -81,6 +81,16 @@ case_stats_ok_test() ->
 case_stats_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_case_stats(#{})).
 
+change_order_authority_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_change_order_authority(#{
+        opportunity_id => <<"x">>,
+        authority_id => <<"x">>,
+        evidence_hash => <<"x">>
+    })).
+
+change_order_authority_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_change_order_authority(#{})).
+
 committed_spend_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_committed_spend_admission(#{
         opportunity_id => <<"x">>,

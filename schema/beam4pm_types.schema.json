@@ -158,6 +158,27 @@
       ]
 
     },
+    "change_order_authority": {
+      "type": "object",
+      "description": "Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required change order authority input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "authority_id": {
+          "type": "string",
+          "description": "Required change order authority input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "authority_id", "evidence_hash"
+      ]
+
+    },
     "committed_spend_admission": {
       "type": "object",
       "description": "Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.",

@@ -194,6 +194,33 @@ defmodule BeamPM.Types.CaseStats do
   end
 end
 
+defmodule BeamPM.Types.ChangeOrderAuthority do
+  @moduledoc "Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin."
+
+  defstruct [:opportunity_id, :authority_id, :evidence_hash]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    authority_id: String.t() | nil,
+    evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :authority_id) -> {:error, {:missing_field, :authority_id}}
+      not Map.has_key?(attrs, :evidence_hash) -> {:error, {:missing_field, :evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          authority_id: Map.get(attrs, :authority_id),
+          evidence_hash: Map.get(attrs, :evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.CommittedSpendAdmission do
   @moduledoc "Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage."
 
