@@ -482,6 +482,27 @@
       ]
 
     },
+    "liability_cap_admission": {
+      "type": "object",
+      "description": "Admits a specific liability-cap position before commercial approval.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required liability cap admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "liability_cap_id": {
+          "type": "string",
+          "description": "Required liability cap admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "liability_cap_id", "decision"
+      ]
+
+    },
     "log_trace": {
       "type": "object",
       "description": "One case-centric trace: an ordered activity sequence for a single case.",

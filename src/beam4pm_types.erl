@@ -25,6 +25,7 @@
     new_insurance_requirement/1,
     new_invoice_entity_identity/1,
     new_k8s_object_ref/1,
+    new_liability_cap_admission/1,
     new_log_trace/1,
     new_master_service_agreement_state/1,
     new_minimum_term_admission/1,
@@ -91,6 +92,7 @@
     insurance_requirement/0,
     invoice_entity_identity/0,
     k8s_object_ref/0,
+    liability_cap_admission/0,
     log_trace/0,
     master_service_agreement_state/0,
     minimum_term_admission/0,
@@ -769,6 +771,35 @@ new_k8s_object_ref(Map) ->
         name = maps:get(name, Map, undefined),
         namespace = maps:get(namespace, Map, undefined)
     }}
+    end
+    end.
+
+%% Admits a specific liability-cap position before commercial approval.
+-record(liability_cap_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required liability cap admission input; omission is an executable typed refusal, never an inferred approval.
+    liability_cap_id :: binary(), %% liability_cap_id: Required liability cap admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type liability_cap_admission() :: #liability_cap_admission{}.
+
+-spec new_liability_cap_admission(map()) -> {ok, liability_cap_admission()} | {error, {missing_field, atom()}}.
+new_liability_cap_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(liability_cap_id, Map) of
+        false -> {error, {missing_field, liability_cap_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #liability_cap_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        liability_cap_id = maps:get(liability_cap_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
     end
     end.
 

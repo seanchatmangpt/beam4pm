@@ -281,6 +281,18 @@ pub type K8SObjectRef {
   )
 }
 
+/// Admits a specific liability-cap position before commercial approval.
+pub type LiabilityCapAdmission {
+  LiabilityCapAdmission(
+    /// Required liability cap admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required liability cap admission input; omission is an executable typed refusal, never an inferred approval.
+    liability_cap_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// One case-centric trace: an ordered activity sequence for a single case.
 pub type LogTrace {
   LogTrace(

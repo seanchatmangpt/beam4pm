@@ -36,6 +36,7 @@ record_names() ->
         insurance_requirement,
         invoice_entity_identity,
         k8s_object_ref,
+        liability_cap_admission,
         log_trace,
         master_service_agreement_state,
         minimum_term_admission,
@@ -350,6 +351,18 @@ sample(k8s_object_ref, minimal) ->
     beam4pm_types:new_k8s_object_ref(#{
         kind => <<"sample_kind">>,
         name => <<"sample_name">>
+    });
+sample(liability_cap_admission, full) ->
+    beam4pm_types:new_liability_cap_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        liability_cap_id => <<"sample_liability_cap_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(liability_cap_admission, minimal) ->
+    beam4pm_types:new_liability_cap_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        liability_cap_id => <<"sample_liability_cap_id">>,
+        decision => <<"sample_decision">>
     });
 sample(log_trace, full) ->
     beam4pm_types:new_log_trace(#{

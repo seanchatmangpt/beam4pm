@@ -920,6 +920,43 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:k8s_object_ref, m)
   end
 
+  test "liability_cap_admission to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      liability_cap_id: "sample_liability_cap_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.LiabilityCapAdmission.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["liability_cap_id"] == "sample_liability_cap_id"
+    assert m["decision"] == "sample_decision"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:liability_cap_admission, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:liability_cap_admission, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "liability_cap_admission encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      liability_cap_id: "sample_liability_cap_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.LiabilityCapAdmission.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:liability_cap_admission, json)
+  end
+
+  test "liability_cap_admission from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:liability_cap_admission, %{})
+  end
+
+
   test "log_trace to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       case_id: "sample_case_id",

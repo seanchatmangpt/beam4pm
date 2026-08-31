@@ -233,6 +233,16 @@ k8s_object_ref_ok_test() ->
 k8s_object_ref_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_k8s_object_ref(#{})).
 
+liability_cap_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_liability_cap_admission(#{
+        opportunity_id => <<"x">>,
+        liability_cap_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+liability_cap_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_liability_cap_admission(#{})).
+
 log_trace_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_log_trace(#{
         case_id => <<"x">>,

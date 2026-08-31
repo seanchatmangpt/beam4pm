@@ -336,6 +336,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "liability_cap_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      liability_cap_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.LiabilityCapAdmission.new(attrs)
+  end
+
+  test "liability_cap_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.LiabilityCapAdmission.new(%{})
+  end
+
+
   test "log_trace new/1 succeeds when all fields are present" do
     attrs = %{
       case_id: "x",

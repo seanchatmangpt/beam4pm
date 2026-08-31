@@ -31,6 +31,7 @@ defmodule BeamPM.Roundtrip do
     :insurance_requirement,
     :invoice_entity_identity,
     :k8s_object_ref,
+    :liability_cap_admission,
     :log_trace,
     :master_service_agreement_state,
     :minimum_term_admission,
@@ -437,6 +438,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.K8SObjectRef.new(%{
       kind: "sample_kind",
       name: "sample_name"
+    })
+  end
+
+  def sample(:liability_cap_admission, :full) do
+    BeamPM.Types.LiabilityCapAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      liability_cap_id: "sample_liability_cap_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:liability_cap_admission, :minimal) do
+    BeamPM.Types.LiabilityCapAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      liability_cap_id: "sample_liability_cap_id",
+      decision: "sample_decision"
     })
   end
 

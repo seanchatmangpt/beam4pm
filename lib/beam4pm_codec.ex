@@ -194,6 +194,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.LiabilityCapAdmission{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"liability_cap_id", r.liability_cap_id, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.LogTrace{} = r) do
     to_known_map([
       {"case_id", r.case_id, :passthrough},
@@ -794,6 +802,18 @@ defmodule BeamPM.Codec do
         {"namespace", :namespace, :passthrough}
       ],
       &BeamPM.Types.K8SObjectRef.new/1
+    )
+  end
+
+  def from_map(:liability_cap_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"liability_cap_id", :liability_cap_id, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.LiabilityCapAdmission.new/1
     )
   end
 

@@ -226,6 +226,16 @@
 | `name` | `string` | true | The object name. |
 | `namespace` | `string` | false | Optional object namespace (absent for cluster-scoped kinds such as Node, PersistentVolume, ClusterRole, or Namespace itself). |
 
+## liability_cap_admission
+
+> Admits a specific liability-cap position before commercial approval.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required liability cap admission input; omission is an executable typed refusal, never an inferred approval. |
+| `liability_cap_id` | `string` | true | Required liability cap admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## log_trace
 
 > One case-centric trace: an ordered activity sequence for a single case.

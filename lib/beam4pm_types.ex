@@ -600,6 +600,33 @@ defmodule BeamPM.Types.K8SObjectRef do
   end
 end
 
+defmodule BeamPM.Types.LiabilityCapAdmission do
+  @moduledoc "Admits a specific liability-cap position before commercial approval."
+
+  defstruct [:opportunity_id, :liability_cap_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    liability_cap_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :liability_cap_id) -> {:error, {:missing_field, :liability_cap_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          liability_cap_id: Map.get(attrs, :liability_cap_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.LogTrace do
   @moduledoc "One case-centric trace: an ordered activity sequence for a single case."
 
