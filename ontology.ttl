@@ -3742,4 +3742,30 @@ b4pe:availability_slo_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-048 — performance-SLO evidence.
+b4pe:performance_slo_evidence_rt a bpm:RecordType ;
+    bpm:recordName "performance_slo_evidence" ;
+    bpm:recordDoc "Executable performance evidence binding an exact subject to the percentile latency actually measured." ;
+    bpm:hasField b4pe:performance_slo_evidence_id_f,
+                 b4pe:performance_slo_subject_sha_f,
+                 b4pe:performance_slo_latency_p95_ms_f,
+                 b4pe:performance_slo_observed_result_f .
+
+b4pe:performance_slo_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this performance-SLO observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:performance_slo_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:performance_slo_latency_p95_ms_f a bpm:Field ;
+    bpm:fieldName "latency_p95_ms" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Observed p95 end-to-end latency in milliseconds for the admitted subject." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:performance_slo_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
