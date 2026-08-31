@@ -196,6 +196,16 @@
 | `target_activity` | `string` | true | The candidate arc target activity. |
 | `dependency_measure` | `float` | true | The computed dependency/confidence score for this candidate arc. |
 
+## implementation_fee_admission
+
+> Qualifies implementation fees separately from recurring subscription value.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval. |
+| `fee_id` | `string` | true | Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## indemnity_scope_admission
 
 > Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.

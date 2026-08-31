@@ -28,6 +28,7 @@ defmodule BeamPM.Roundtrip do
     :event_type,
     :funding_approval_chain,
     :heuristic_arc,
+    :implementation_fee_admission,
     :indemnity_scope_admission,
     :insurance_requirement,
     :invoice_entity_identity,
@@ -394,6 +395,22 @@ defmodule BeamPM.Roundtrip do
       source_activity: "sample_source_activity",
       target_activity: "sample_target_activity",
       dependency_measure: 3.5
+    })
+  end
+
+  def sample(:implementation_fee_admission, :full) do
+    BeamPM.Types.ImplementationFeeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      fee_id: "sample_fee_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:implementation_fee_admission, :minimal) do
+    BeamPM.Types.ImplementationFeeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      fee_id: "sample_fee_id",
+      decision: "sample_decision"
     })
   end
 

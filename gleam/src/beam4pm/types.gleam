@@ -245,6 +245,18 @@ pub type HeuristicArc {
   )
 }
 
+/// Qualifies implementation fees separately from recurring subscription value.
+pub type ImplementationFeeAdmission {
+  ImplementationFeeAdmission(
+    /// Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval.
+    fee_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.
 pub type IndemnityScopeAdmission {
   IndemnityScopeAdmission(

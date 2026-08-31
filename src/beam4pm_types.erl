@@ -22,6 +22,7 @@
     new_event_type/1,
     new_funding_approval_chain/1,
     new_heuristic_arc/1,
+    new_implementation_fee_admission/1,
     new_indemnity_scope_admission/1,
     new_insurance_requirement/1,
     new_invoice_entity_identity/1,
@@ -92,6 +93,7 @@
     event_type/0,
     funding_approval_chain/0,
     heuristic_arc/0,
+    implementation_fee_admission/0,
     indemnity_scope_admission/0,
     insurance_requirement/0,
     invoice_entity_identity/0,
@@ -692,6 +694,35 @@ new_heuristic_arc(Map) ->
         source_activity = maps:get(source_activity, Map, undefined),
         target_activity = maps:get(target_activity, Map, undefined),
         dependency_measure = maps:get(dependency_measure, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies implementation fees separately from recurring subscription value.
+-record(implementation_fee_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval.
+    fee_id :: binary(), %% fee_id: Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type implementation_fee_admission() :: #implementation_fee_admission{}.
+
+-spec new_implementation_fee_admission(map()) -> {ok, implementation_fee_admission()} | {error, {missing_field, atom()}}.
+new_implementation_fee_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(fee_id, Map) of
+        false -> {error, {missing_field, fee_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #implementation_fee_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        fee_id = maps:get(fee_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

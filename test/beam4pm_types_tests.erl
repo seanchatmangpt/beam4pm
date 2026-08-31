@@ -203,6 +203,16 @@ heuristic_arc_ok_test() ->
 heuristic_arc_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_heuristic_arc(#{})).
 
+implementation_fee_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_implementation_fee_admission(#{
+        opportunity_id => <<"x">>,
+        fee_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+implementation_fee_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_implementation_fee_admission(#{})).
+
 indemnity_scope_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_indemnity_scope_admission(#{
         opportunity_id => <<"x">>,

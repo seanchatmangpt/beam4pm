@@ -419,6 +419,27 @@
       ]
 
     },
+    "implementation_fee_admission": {
+      "type": "object",
+      "description": "Qualifies implementation fees separately from recurring subscription value.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "fee_id": {
+          "type": "string",
+          "description": "Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "fee_id", "decision"
+      ]
+
+    },
     "indemnity_scope_admission": {
       "type": "object",
       "description": "Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.",

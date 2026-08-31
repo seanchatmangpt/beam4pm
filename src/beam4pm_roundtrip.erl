@@ -33,6 +33,7 @@ record_names() ->
         event_type,
         funding_approval_chain,
         heuristic_arc,
+        implementation_fee_admission,
         indemnity_scope_admission,
         insurance_requirement,
         invoice_entity_identity,
@@ -319,6 +320,18 @@ sample(heuristic_arc, minimal) ->
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
         dependency_measure => 3.5
+    });
+sample(implementation_fee_admission, full) ->
+    beam4pm_types:new_implementation_fee_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        fee_id => <<"sample_fee_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(implementation_fee_admission, minimal) ->
+    beam4pm_types:new_implementation_fee_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        fee_id => <<"sample_fee_id">>,
+        decision => <<"sample_decision">>
     });
 sample(indemnity_scope_admission, full) ->
     beam4pm_types:new_indemnity_scope_admission(#{
