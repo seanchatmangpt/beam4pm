@@ -37,6 +37,7 @@
     beam4pm_types:integration_scope_admission() |
     beam4pm_types:invoice_entity_identity() |
     beam4pm_types:k8s_object_ref() |
+    beam4pm_types:legal_blocker() |
     beam4pm_types:liability_cap_admission() |
     beam4pm_types:log_trace() |
     beam4pm_types:master_service_agreement_state() |
@@ -256,6 +257,12 @@ to_map(R) when element(1, R) =:= k8s_object_ref ->
         {<<"kind">>, plain, element(2, R)},
         {<<"name">>, plain, element(3, R)},
         {<<"namespace">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= legal_blocker ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"blocker_id">>, plain, element(3, R)},
+        {<<"refusal_code">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= liability_cap_admission ->
     pairs_to_map([
@@ -730,6 +737,12 @@ from_map(k8s_object_ref, Map) when is_map(Map) ->
         {<<"kind">>, kind, plain},
         {<<"name">>, name, plain},
         {<<"namespace">>, namespace, plain}
+    ]));
+from_map(legal_blocker, Map) when is_map(Map) ->
+    beam4pm_types:new_legal_blocker(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"blocker_id">>, blocker_id, plain},
+        {<<"refusal_code">>, refusal_code, plain}
     ]));
 from_map(liability_cap_admission, Map) when is_map(Map) ->
     beam4pm_types:new_liability_cap_admission(take_known(Map, [

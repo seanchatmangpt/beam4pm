@@ -36,6 +36,7 @@ defmodule BeamPM.Roundtrip do
     :integration_scope_admission,
     :invoice_entity_identity,
     :k8s_object_ref,
+    :legal_blocker,
     :liability_cap_admission,
     :log_trace,
     :master_service_agreement_state,
@@ -530,6 +531,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.K8SObjectRef.new(%{
       kind: "sample_kind",
       name: "sample_name"
+    })
+  end
+
+  def sample(:legal_blocker, :full) do
+    BeamPM.Types.LegalBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:legal_blocker, :minimal) do
+    BeamPM.Types.LegalBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
     })
   end
 

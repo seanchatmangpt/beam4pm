@@ -341,6 +341,18 @@ pub type K8SObjectRef {
   )
 }
 
+/// Encodes an unresolved legal blocker as a typed refusal with an actionable identity.
+pub type LegalBlocker {
+  LegalBlocker(
+    /// Required legal blocker input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required legal blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    refusal_code: String,
+  )
+}
+
 /// Admits a specific liability-cap position before commercial approval.
 pub type LiabilityCapAdmission {
   LiabilityCapAdmission(

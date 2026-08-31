@@ -276,6 +276,16 @@
 | `name` | `string` | true | The object name. |
 | `namespace` | `string` | false | Optional object namespace (absent for cluster-scoped kinds such as Node, PersistentVolume, ClusterRole, or Namespace itself). |
 
+## legal_blocker
+
+> Encodes an unresolved legal blocker as a typed refusal with an actionable identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required legal blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `blocker_id` | `string` | true | Required legal blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## liability_cap_admission
 
 > Admits a specific liability-cap position before commercial approval.

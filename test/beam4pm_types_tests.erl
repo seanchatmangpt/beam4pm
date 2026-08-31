@@ -283,6 +283,16 @@ k8s_object_ref_ok_test() ->
 k8s_object_ref_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_k8s_object_ref(#{})).
 
+legal_blocker_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_legal_blocker(#{
+        opportunity_id => <<"x">>,
+        blocker_id => <<"x">>,
+        refusal_code => <<"x">>
+    })).
+
+legal_blocker_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_legal_blocker(#{})).
+
 liability_cap_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_liability_cap_admission(#{
         opportunity_id => <<"x">>,

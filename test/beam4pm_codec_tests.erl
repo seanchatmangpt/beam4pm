@@ -701,6 +701,31 @@ k8s_object_ref_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(k8s_object_ref, Json),
     ?assertEqual(Rec, Rec2).
 
+legal_blocker_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_legal_blocker(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        blocker_id => <<"sample_blocker_id">>,
+        refusal_code => <<"sample_refusal_code">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_blocker_id">>, maps:get(<<"blocker_id">>, Map)),
+    ?assertEqual(<<"sample_refusal_code">>, maps:get(<<"refusal_code">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(legal_blocker,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+legal_blocker_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_legal_blocker(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        blocker_id => <<"sample_blocker_id">>,
+        refusal_code => <<"sample_refusal_code">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(legal_blocker, Json),
+    ?assertEqual(Rec, Rec2).
+
 liability_cap_admission_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_liability_cap_admission(#{
         opportunity_id => <<"sample_opportunity_id">>,

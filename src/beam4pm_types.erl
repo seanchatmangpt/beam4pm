@@ -30,6 +30,7 @@
     new_integration_scope_admission/1,
     new_invoice_entity_identity/1,
     new_k8s_object_ref/1,
+    new_legal_blocker/1,
     new_liability_cap_admission/1,
     new_log_trace/1,
     new_master_service_agreement_state/1,
@@ -109,6 +110,7 @@
     integration_scope_admission/0,
     invoice_entity_identity/0,
     k8s_object_ref/0,
+    legal_blocker/0,
     liability_cap_admission/0,
     log_trace/0,
     master_service_agreement_state/0,
@@ -940,6 +942,35 @@ new_k8s_object_ref(Map) ->
         name = maps:get(name, Map, undefined),
         namespace = maps:get(namespace, Map, undefined)
     }}
+    end
+    end.
+
+%% Encodes an unresolved legal blocker as a typed refusal with an actionable identity.
+-record(legal_blocker, {
+    opportunity_id :: binary(), %% opportunity_id: Required legal blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id :: binary(), %% blocker_id: Required legal blocker input; omission is an executable typed refusal, never an inferred approval.
+    refusal_code :: binary() %% refusal_code: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type legal_blocker() :: #legal_blocker{}.
+
+-spec new_legal_blocker(map()) -> {ok, legal_blocker()} | {error, {missing_field, atom()}}.
+new_legal_blocker(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(blocker_id, Map) of
+        false -> {error, {missing_field, blocker_id}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #legal_blocker{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        blocker_id = maps:get(blocker_id, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
+    }}
+    end
     end
     end.
 

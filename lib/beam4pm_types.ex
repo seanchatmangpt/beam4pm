@@ -735,6 +735,33 @@ defmodule BeamPM.Types.K8SObjectRef do
   end
 end
 
+defmodule BeamPM.Types.LegalBlocker do
+  @moduledoc "Encodes an unresolved legal blocker as a typed refusal with an actionable identity."
+
+  defstruct [:opportunity_id, :blocker_id, :refusal_code]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    blocker_id: String.t() | nil,
+    refusal_code: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :blocker_id) -> {:error, {:missing_field, :blocker_id}}
+      not Map.has_key?(attrs, :refusal_code) -> {:error, {:missing_field, :refusal_code}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          blocker_id: Map.get(attrs, :blocker_id),
+          refusal_code: Map.get(attrs, :refusal_code)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.LiabilityCapAdmission do
   @moduledoc "Admits a specific liability-cap position before commercial approval."
 

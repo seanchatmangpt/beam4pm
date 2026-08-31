@@ -587,6 +587,27 @@
       ]
 
     },
+    "legal_blocker": {
+      "type": "object",
+      "description": "Encodes an unresolved legal blocker as a typed refusal with an actionable identity.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required legal blocker input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "blocker_id": {
+          "type": "string",
+          "description": "Required legal blocker input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "refusal_code": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "blocker_id", "refusal_code"
+      ]
+
+    },
     "liability_cap_admission": {
       "type": "object",
       "description": "Admits a specific liability-cap position before commercial approval.",

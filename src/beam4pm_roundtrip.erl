@@ -41,6 +41,7 @@ record_names() ->
         integration_scope_admission,
         invoice_entity_identity,
         k8s_object_ref,
+        legal_blocker,
         liability_cap_admission,
         log_trace,
         master_service_agreement_state,
@@ -423,6 +424,18 @@ sample(k8s_object_ref, minimal) ->
     beam4pm_types:new_k8s_object_ref(#{
         kind => <<"sample_kind">>,
         name => <<"sample_name">>
+    });
+sample(legal_blocker, full) ->
+    beam4pm_types:new_legal_blocker(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        blocker_id => <<"sample_blocker_id">>,
+        refusal_code => <<"sample_refusal_code">>
+    });
+sample(legal_blocker, minimal) ->
+    beam4pm_types:new_legal_blocker(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        blocker_id => <<"sample_blocker_id">>,
+        refusal_code => <<"sample_refusal_code">>
     });
 sample(liability_cap_admission, full) ->
     beam4pm_types:new_liability_cap_admission(#{
