@@ -3184,3 +3184,27 @@ bpm:training_readiness_evidence_digest_f a bpm:Field ;
 
 bpm:training_readiness_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-123 — operator readiness
+# ---------------------------------------------------------------------------
+
+bpm:operator_readiness_rt a bpm:RecordType ;
+    bpm:recordName "operator_readiness" ;
+    bpm:recordDoc "Measured operations-team readiness for governed production use." ;
+    bpm:hasField bpm:operator_readiness_operator_readiness_id_f , bpm:operator_readiness_account_id_f , bpm:operator_readiness_operator_readiness_score_f , bpm:operator_readiness_evidence_digest_f , bpm:operator_readiness_observed_at_f .
+
+bpm:operator_readiness_operator_readiness_id_f a bpm:Field ;
+    bpm:fieldName "operator_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this operator readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:operator_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose operator readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:operator_readiness_operator_readiness_score_f a bpm:Field ;
+    bpm:fieldName "operator_readiness_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed operator-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:operator_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:operator_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
