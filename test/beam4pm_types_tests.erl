@@ -81,6 +81,16 @@ contracting_entity_identity_ok_test() ->
 contracting_entity_identity_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_contracting_entity_identity(#{})).
 
+data_processing_addendum_state_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_data_processing_addendum_state(#{
+        opportunity_id => <<"x">>,
+        addendum_id => <<"x">>,
+        addendum_state => <<"x">>
+    })).
+
+data_processing_addendum_state_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_data_processing_addendum_state(#{})).
+
 dfg_edge_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_dfg_edge(#{
         source_activity => <<"x">>,

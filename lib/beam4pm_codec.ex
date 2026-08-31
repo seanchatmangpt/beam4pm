@@ -72,6 +72,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.DataProcessingAddendumState{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"addendum_id", r.addendum_id, :passthrough},
+      {"addendum_state", r.addendum_state, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.DfgEdge{} = r) do
     to_known_map([
       {"source_activity", r.source_activity, :passthrough},
@@ -492,6 +500,18 @@ defmodule BeamPM.Codec do
         {"identity_evidence_hash", :identity_evidence_hash, :passthrough}
       ],
       &BeamPM.Types.ContractingEntityIdentity.new/1
+    )
+  end
+
+  def from_map(:data_processing_addendum_state, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"addendum_id", :addendum_id, :passthrough},
+        {"addendum_state", :addendum_state, :passthrough}
+      ],
+      &BeamPM.Types.DataProcessingAddendumState.new/1
     )
   end
 

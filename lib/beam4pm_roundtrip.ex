@@ -16,6 +16,7 @@ defmodule BeamPM.Roundtrip do
     :case_stats,
     :conformance_result,
     :contracting_entity_identity,
+    :data_processing_addendum_state,
     :dfg_edge,
     :entitlement_event,
     :entitlement_state,
@@ -182,6 +183,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       contracting_entity_id: "sample_contracting_entity_id",
       identity_evidence_hash: "sample_identity_evidence_hash"
+    })
+  end
+
+  def sample(:data_processing_addendum_state, :full) do
+    BeamPM.Types.DataProcessingAddendumState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      addendum_id: "sample_addendum_id",
+      addendum_state: "sample_addendum_state"
+    })
+  end
+
+  def sample(:data_processing_addendum_state, :minimal) do
+    BeamPM.Types.DataProcessingAddendumState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      addendum_id: "sample_addendum_id",
+      addendum_state: "sample_addendum_state"
     })
   end
 

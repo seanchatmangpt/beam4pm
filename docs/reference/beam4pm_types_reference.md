@@ -74,6 +74,16 @@
 | `contracting_entity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
 | `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## data_processing_addendum_state
+
+> Requires an identified data-processing addendum state for workloads involving regulated enterprise data.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval. |
+| `addendum_id` | `string` | true | Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval. |
+| `addendum_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## dfg_edge
 
 > One frequency-annotated directly-follows edge between two activities.

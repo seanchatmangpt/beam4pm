@@ -2815,6 +2815,29 @@ b4p:master_service_agreement_state_agreement_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:master_service_agreement_state_agreement_state_f a bpm:Field ;
-    bpm:fieldName "agreement_state" ; bpm:fieldType "string" ;
+   bpm:fieldName "agreement_state" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-014 — data_processing_addendum_state
+b4p:data_processing_addendum_state_rt a bpm:RecordType ;
+    bpm:recordName "data_processing_addendum_state" ;
+    bpm:recordDoc "Requires an identified data-processing addendum state for workloads involving regulated enterprise data." ;
+    bpm:hasField b4p:data_processing_addendum_state_opportunity_id_f ,
+                 b4p:data_processing_addendum_state_addendum_id_f ,
+                 b4p:data_processing_addendum_state_addendum_state_f .
+
+b4p:data_processing_addendum_state_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:data_processing_addendum_state_addendum_id_f a bpm:Field ;
+    bpm:fieldName "addendum_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:data_processing_addendum_state_addendum_state_f a bpm:Field ;
+    bpm:fieldName "addendum_state" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

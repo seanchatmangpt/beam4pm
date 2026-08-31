@@ -97,6 +97,18 @@ pub type ContractingEntityIdentity {
   )
 }
 
+/// Requires an identified data-processing addendum state for workloads involving regulated enterprise data.
+pub type DataProcessingAddendumState {
+  DataProcessingAddendumState(
+    /// Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    addendum_state: String,
+  )
+}
+
 /// One frequency-annotated directly-follows edge between two activities.
 pub type DfgEdge {
   DfgEdge(

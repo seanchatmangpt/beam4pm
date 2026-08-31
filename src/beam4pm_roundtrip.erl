@@ -21,6 +21,7 @@ record_names() ->
         case_stats,
         conformance_result,
         contracting_entity_identity,
+        data_processing_addendum_state,
         dfg_edge,
         entitlement_event,
         entitlement_state,
@@ -155,6 +156,18 @@ sample(contracting_entity_identity, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         contracting_entity_id => <<"sample_contracting_entity_id">>,
         identity_evidence_hash => <<"sample_identity_evidence_hash">>
+    });
+sample(data_processing_addendum_state, full) ->
+    beam4pm_types:new_data_processing_addendum_state(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        addendum_id => <<"sample_addendum_id">>,
+        addendum_state => <<"sample_addendum_state">>
+    });
+sample(data_processing_addendum_state, minimal) ->
+    beam4pm_types:new_data_processing_addendum_state(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        addendum_id => <<"sample_addendum_id">>,
+        addendum_state => <<"sample_addendum_state">>
     });
 sample(dfg_edge, full) ->
     beam4pm_types:new_dfg_edge(#{

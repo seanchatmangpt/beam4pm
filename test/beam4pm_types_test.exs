@@ -109,6 +109,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "data_processing_addendum_state new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      addendum_id: "x",
+      addendum_state: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.DataProcessingAddendumState.new(attrs)
+  end
+
+  test "data_processing_addendum_state new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.DataProcessingAddendumState.new(%{})
+  end
+
+
   test "dfg_edge new/1 succeeds when all fields are present" do
     attrs = %{
       source_activity: "x",

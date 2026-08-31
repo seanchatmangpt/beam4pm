@@ -158,6 +158,27 @@
       ]
 
     },
+    "data_processing_addendum_state": {
+      "type": "object",
+      "description": "Requires an identified data-processing addendum state for workloads involving regulated enterprise data.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "addendum_id": {
+          "type": "string",
+          "description": "Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "addendum_state": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "addendum_id", "addendum_state"
+      ]
+
+    },
     "dfg_edge": {
       "type": "object",
       "description": "One frequency-annotated directly-follows edge between two activities.",

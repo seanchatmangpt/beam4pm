@@ -193,6 +193,33 @@ defmodule BeamPM.Types.ContractingEntityIdentity do
   end
 end
 
+defmodule BeamPM.Types.DataProcessingAddendumState do
+  @moduledoc "Requires an identified data-processing addendum state for workloads involving regulated enterprise data."
+
+  defstruct [:opportunity_id, :addendum_id, :addendum_state]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    addendum_id: String.t() | nil,
+    addendum_state: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :addendum_id) -> {:error, {:missing_field, :addendum_id}}
+      not Map.has_key?(attrs, :addendum_state) -> {:error, {:missing_field, :addendum_state}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          addendum_id: Map.get(attrs, :addendum_id),
+          addendum_state: Map.get(attrs, :addendum_state)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.DfgEdge do
   @moduledoc "One frequency-annotated directly-follows edge between two activities."
 

@@ -10,6 +10,7 @@
     new_case_stats/1,
     new_conformance_result/1,
     new_contracting_entity_identity/1,
+    new_data_processing_addendum_state/1,
     new_dfg_edge/1,
     new_entitlement_event/1,
     new_entitlement_state/1,
@@ -61,6 +62,7 @@
     case_stats/0,
     conformance_result/0,
     contracting_entity_identity/0,
+    data_processing_addendum_state/0,
     dfg_edge/0,
     entitlement_event/0,
     entitlement_state/0,
@@ -306,6 +308,35 @@ new_contracting_entity_identity(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         contracting_entity_id = maps:get(contracting_entity_id, Map, undefined),
         identity_evidence_hash = maps:get(identity_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Requires an identified data-processing addendum state for workloads involving regulated enterprise data.
+-record(data_processing_addendum_state, {
+    opportunity_id :: binary(), %% opportunity_id: Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_id :: binary(), %% addendum_id: Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_state :: binary() %% addendum_state: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type data_processing_addendum_state() :: #data_processing_addendum_state{}.
+
+-spec new_data_processing_addendum_state(map()) -> {ok, data_processing_addendum_state()} | {error, {missing_field, atom()}}.
+new_data_processing_addendum_state(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(addendum_id, Map) of
+        false -> {error, {missing_field, addendum_id}};
+        true ->
+    case maps:is_key(addendum_state, Map) of
+        false -> {error, {missing_field, addendum_state}};
+        true ->
+    {ok, #data_processing_addendum_state{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        addendum_id = maps:get(addendum_id, Map, undefined),
+        addendum_state = maps:get(addendum_state, Map, undefined)
     }}
     end
     end
