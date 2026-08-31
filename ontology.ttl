@@ -3326,4 +3326,30 @@ b4pe:canary_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-032 — rollback evidence.
+b4pe:rollback_evidence_rt a bpm:RecordType ;
+    bpm:recordName "rollback_evidence" ;
+    bpm:recordDoc "Executable rollback evidence binding an exact subject to the artifact identity restored by a real rollback transition." ;
+    bpm:hasField b4pe:rollback_evidence_id_f,
+                 b4pe:rollback_subject_sha_f,
+                 b4pe:rollback_rollback_digest_f,
+                 b4pe:rollback_observed_result_f .
+
+b4pe:rollback_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this rollback observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:rollback_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:rollback_rollback_digest_f a bpm:Field ;
+    bpm:fieldName "rollback_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the prior artifact restored by the rollback operation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:rollback_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
