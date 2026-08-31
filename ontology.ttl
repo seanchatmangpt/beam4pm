@@ -3550,3 +3550,17 @@ bpm:canary_decision_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:
 bpm:canary_decision_canary_result_f a bpm:Field ; bpm:fieldName "canary_result" ; bpm:fieldType "string" ; bpm:fieldDoc "Observed outcome of the canary qualification." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:canary_decision_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:canary_decision_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-147 — rollback decision
+# ---------------------------------------------------------------------------
+
+bpm:rollback_decision_rt a bpm:RecordType ;
+    bpm:recordName "rollback_decision" ; bpm:recordDoc "Receipted rollback decision and recovered account consequence." ;
+    bpm:hasField bpm:rollback_decision_rollback_decision_id_f , bpm:rollback_decision_account_id_f , bpm:rollback_decision_rollback_result_f , bpm:rollback_decision_evidence_digest_f , bpm:rollback_decision_observed_at_f .
+
+bpm:rollback_decision_rollback_decision_id_f a bpm:Field ; bpm:fieldName "rollback_decision_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this rollback decision observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:rollback_decision_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose rollback decision state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:rollback_decision_rollback_result_f a bpm:Field ; bpm:fieldName "rollback_result" ; bpm:fieldType "string" ; bpm:fieldDoc "Observed outcome of the rollback action." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:rollback_decision_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:rollback_decision_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
