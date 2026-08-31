@@ -2780,4 +2780,30 @@ b4pe:privacy_classification_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-011 — retention-policy evidence.
+b4pe:retention_policy_evidence_rt a bpm:RecordType ;
+    bpm:recordName "retention_policy_evidence" ;
+    bpm:recordDoc "Executable retention evidence binding an exact subject to the duration enforced by the storage lifecycle." ;
+    bpm:hasField b4pe:retention_policy_evidence_id_f,
+                 b4pe:retention_policy_subject_sha_f,
+                 b4pe:retention_policy_retention_days_f,
+                 b4pe:retention_policy_observed_result_f .
+
+b4pe:retention_policy_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this retention-policy observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:retention_policy_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:retention_policy_retention_days_f a bpm:Field ;
+    bpm:fieldName "retention_days" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Enforced number of days before lifecycle expiry." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:retention_policy_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
