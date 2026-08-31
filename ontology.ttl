@@ -3326,3 +3326,17 @@ bpm:value_realization_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bp
 bpm:value_realization_realized_value_f a bpm:Field ; bpm:fieldName "realized_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified realized value in account currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:value_realization_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:value_realization_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-131 — time to value
+# ---------------------------------------------------------------------------
+
+bpm:time_to_value_rt a bpm:RecordType ;
+    bpm:recordName "time_to_value" ; bpm:recordDoc "Measured elapsed time to the customer's first verified business value." ;
+    bpm:hasField bpm:time_to_value_time_to_value_id_f , bpm:time_to_value_account_id_f , bpm:time_to_value_verified_days_f , bpm:time_to_value_evidence_digest_f , bpm:time_to_value_observed_at_f .
+
+bpm:time_to_value_time_to_value_id_f a bpm:Field ; bpm:fieldName "time_to_value_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this time to value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:time_to_value_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose time to value state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:time_to_value_verified_days_f a bpm:Field ; bpm:fieldName "verified_days" ; bpm:fieldType "integer" ; bpm:fieldDoc "Days from admission to first verified value." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:time_to_value_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:time_to_value_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
