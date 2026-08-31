@@ -8,6 +8,7 @@
     new_alignment_move/1,
     new_beneficial_owner_evidence/1,
     new_billing_reconciliation/1,
+    new_booking_readiness/1,
     new_budget_period_alignment/1,
     new_case_stats/1,
     new_change_order_authority/1,
@@ -93,6 +94,7 @@
     alignment_move/0,
     beneficial_owner_evidence/0,
     billing_reconciliation/0,
+    booking_readiness/0,
     budget_period_alignment/0,
     case_stats/0,
     change_order_authority/0,
@@ -325,6 +327,35 @@ new_billing_reconciliation(Map) ->
     end
     end
     end
+    end
+    end
+    end.
+
+%% Produces an explicit booking-readiness decision after commercial, legal, security, and procurement evidence converge.
+-record(booking_readiness, {
+    opportunity_id :: binary(), %% opportunity_id: Required booking readiness input; omission is an executable typed refusal, never an inferred approval.
+    readiness_id :: binary(), %% readiness_id: Required booking readiness input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type booking_readiness() :: #booking_readiness{}.
+
+-spec new_booking_readiness(map()) -> {ok, booking_readiness()} | {error, {missing_field, atom()}}.
+new_booking_readiness(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(readiness_id, Map) of
+        false -> {error, {missing_field, readiness_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #booking_readiness{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        readiness_id = maps:get(readiness_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
     end
     end
     end.

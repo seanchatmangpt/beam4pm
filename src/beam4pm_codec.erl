@@ -15,6 +15,7 @@
     beam4pm_types:alignment_move() |
     beam4pm_types:beneficial_owner_evidence() |
     beam4pm_types:billing_reconciliation() |
+    beam4pm_types:booking_readiness() |
     beam4pm_types:budget_period_alignment() |
     beam4pm_types:case_stats() |
     beam4pm_types:change_order_authority() |
@@ -128,6 +129,12 @@ to_map(R) when element(1, R) =:= billing_reconciliation ->
         {<<"applied_event_ids">>, plain, element(5, R)},
         {<<"period_start">>, plain, element(6, R)},
         {<<"period_end">>, plain, element(7, R)}
+    ]);
+to_map(R) when element(1, R) =:= booking_readiness ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"readiness_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= budget_period_alignment ->
     pairs_to_map([
@@ -638,6 +645,12 @@ from_map(billing_reconciliation, Map) when is_map(Map) ->
         {<<"applied_event_ids">>, applied_event_ids, plain},
         {<<"period_start">>, period_start, plain},
         {<<"period_end">>, period_end, plain}
+    ]));
+from_map(booking_readiness, Map) when is_map(Map) ->
+    beam4pm_types:new_booking_readiness(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"readiness_id">>, readiness_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(budget_period_alignment, Map) when is_map(Map) ->
     beam4pm_types:new_budget_period_alignment(take_known(Map, [

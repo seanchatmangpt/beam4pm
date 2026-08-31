@@ -212,6 +212,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "booking_readiness to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      readiness_id: "sample_readiness_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BookingReadiness.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["readiness_id"] == "sample_readiness_id"
+    assert m["decision"] == "sample_decision"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:booking_readiness, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:booking_readiness, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "booking_readiness encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      readiness_id: "sample_readiness_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BookingReadiness.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:booking_readiness, json)
+  end
+
+  test "booking_readiness from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:booking_readiness, %{})
+  end
+
+
   test "budget_period_alignment to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

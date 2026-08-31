@@ -73,6 +73,18 @@ pub type BillingReconciliation {
   )
 }
 
+/// Produces an explicit booking-readiness decision after commercial, legal, security, and procurement evidence converge.
+pub type BookingReadiness {
+  BookingReadiness(
+    /// Required booking readiness input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required booking readiness input; omission is an executable typed refusal, never an inferred approval.
+    readiness_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.
 pub type BudgetPeriodAlignment {
   BudgetPeriodAlignment(

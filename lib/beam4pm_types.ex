@@ -141,6 +141,33 @@ defmodule BeamPM.Types.BillingReconciliation do
   end
 end
 
+defmodule BeamPM.Types.BookingReadiness do
+  @moduledoc "Produces an explicit booking-readiness decision after commercial, legal, security, and procurement evidence converge."
+
+  defstruct [:opportunity_id, :readiness_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    readiness_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :readiness_id) -> {:error, {:missing_field, :readiness_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          readiness_id: Map.get(attrs, :readiness_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.BudgetPeriodAlignment do
   @moduledoc "Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk."
 

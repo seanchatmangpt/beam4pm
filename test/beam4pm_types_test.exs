@@ -79,6 +79,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "booking_readiness new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      readiness_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.BookingReadiness.new(attrs)
+  end
+
+  test "booking_readiness new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.BookingReadiness.new(%{})
+  end
+
+
   test "budget_period_alignment new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

@@ -116,6 +116,27 @@
       ]
 
     },
+    "booking_readiness": {
+      "type": "object",
+      "description": "Produces an explicit booking-readiness decision after commercial, legal, security, and procurement evidence converge.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required booking readiness input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "readiness_id": {
+          "type": "string",
+          "description": "Required booking readiness input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "readiness_id", "decision"
+      ]
+
+    },
     "budget_period_alignment": {
       "type": "object",
       "description": "Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.",

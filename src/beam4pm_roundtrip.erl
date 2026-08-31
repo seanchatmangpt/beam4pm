@@ -19,6 +19,7 @@ record_names() ->
         alignment_move,
         beneficial_owner_evidence,
         billing_reconciliation,
+        booking_readiness,
         budget_period_alignment,
         case_stats,
         change_order_authority,
@@ -167,6 +168,18 @@ sample(billing_reconciliation, minimal) ->
         applied_event_ids => [<<"alpha">>, <<"beta">>],
         period_start => <<"2026-08-29T12:00:00Z">>,
         period_end => <<"2026-08-29T12:00:00Z">>
+    });
+sample(booking_readiness, full) ->
+    beam4pm_types:new_booking_readiness(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        readiness_id => <<"sample_readiness_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(booking_readiness, minimal) ->
+    beam4pm_types:new_booking_readiness(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        readiness_id => <<"sample_readiness_id">>,
+        decision => <<"sample_decision">>
     });
 sample(budget_period_alignment, full) ->
     beam4pm_types:new_budget_period_alignment(#{

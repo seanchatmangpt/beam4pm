@@ -61,6 +61,16 @@ billing_reconciliation_ok_test() ->
 billing_reconciliation_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_billing_reconciliation(#{})).
 
+booking_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_booking_readiness(#{
+        opportunity_id => <<"x">>,
+        readiness_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+booking_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_booking_readiness(#{})).
+
 budget_period_alignment_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_budget_period_alignment(#{
         opportunity_id => <<"x">>,

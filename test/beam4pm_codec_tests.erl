@@ -145,6 +145,31 @@ billing_reconciliation_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(billing_reconciliation, Json),
     ?assertEqual(Rec, Rec2).
 
+booking_readiness_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_booking_readiness(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        readiness_id => <<"sample_readiness_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_readiness_id">>, maps:get(<<"readiness_id">>, Map)),
+    ?assertEqual(<<"sample_decision">>, maps:get(<<"decision">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(booking_readiness,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+booking_readiness_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_booking_readiness(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        readiness_id => <<"sample_readiness_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(booking_readiness, Json),
+    ?assertEqual(Rec, Rec2).
+
 budget_period_alignment_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_budget_period_alignment(#{
         opportunity_id => <<"sample_opportunity_id">>,

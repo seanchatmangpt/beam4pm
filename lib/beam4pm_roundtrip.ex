@@ -14,6 +14,7 @@ defmodule BeamPM.Roundtrip do
     :alignment_move,
     :beneficial_owner_evidence,
     :billing_reconciliation,
+    :booking_readiness,
     :budget_period_alignment,
     :case_stats,
     :change_order_authority,
@@ -186,6 +187,22 @@ defmodule BeamPM.Roundtrip do
       applied_event_ids: ["alpha", "beta"],
       period_start: "2026-08-29T12:00:00Z",
       period_end: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:booking_readiness, :full) do
+    BeamPM.Types.BookingReadiness.new(%{
+      opportunity_id: "sample_opportunity_id",
+      readiness_id: "sample_readiness_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:booking_readiness, :minimal) do
+    BeamPM.Types.BookingReadiness.new(%{
+      opportunity_id: "sample_opportunity_id",
+      readiness_id: "sample_readiness_id",
+      decision: "sample_decision"
     })
   end
 
