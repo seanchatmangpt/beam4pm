@@ -15,25 +15,79 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(35, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(85, length(beam4pm_types_manifest:record_names())).
+
+action_pin_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, action_sha, observed_result], beam4pm_types_manifest:fields(action_pin_evidence)).
 
 alignment_move_fields_test() ->
     ?assertEqual([move_type, cost], beam4pm_types_manifest:fields(alignment_move)).
 
+approval_separation_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, approver_identity, observed_result], beam4pm_types_manifest:fields(approval_separation_evidence)).
+
+architecture_review_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, review_decision, observed_result], beam4pm_types_manifest:fields(architecture_review_evidence)).
+
+artifact_digest_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, digest, observed_result], beam4pm_types_manifest:fields(artifact_digest_evidence)).
+
+attestation_verification_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, predicate_type, observed_result], beam4pm_types_manifest:fields(attestation_verification_evidence)).
+
+audit_chain_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, previous_receipt_hash, observed_result], beam4pm_types_manifest:fields(audit_chain_evidence)).
+
+availability_slo_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, availability_percent, observed_result], beam4pm_types_manifest:fields(availability_slo_evidence)).
+
+backup_restore_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, backup_digest, observed_result], beam4pm_types_manifest:fields(backup_restore_evidence)).
+
 billing_reconciliation_fields_test() ->
     ?assertEqual([entitlement_id, metric_name, total_quantity, applied_event_ids, period_start, period_end], beam4pm_types_manifest:fields(billing_reconciliation)).
+
+business_continuity_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, continuity_mode, observed_result], beam4pm_types_manifest:fields(business_continuity_evidence)).
+
+canary_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, canary_percentage, observed_result], beam4pm_types_manifest:fields(canary_evidence)).
 
 case_stats_fields_test() ->
     ?assertEqual([case_id, event_count, duration_seconds], beam4pm_types_manifest:fields(case_stats)).
 
+change_control_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, change_request_id, observed_result], beam4pm_types_manifest:fields(change_control_evidence)).
+
+commercial_artifact_crown_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, artifact_digest, observed_result], beam4pm_types_manifest:fields(commercial_artifact_crown_evidence)).
+
 conformance_result_fields_test() ->
     ?assertEqual([trace_id, fitness, precision], beam4pm_types_manifest:fields(conformance_result)).
+
+customer_managed_key_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, key_identifier, observed_result], beam4pm_types_manifest:fields(customer_managed_key_evidence)).
+
+data_egress_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, egress_bytes, observed_result], beam4pm_types_manifest:fields(data_egress_evidence)).
+
+deletion_proof_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, deletion_receipt_id, observed_result], beam4pm_types_manifest:fields(deletion_proof_evidence)).
+
+dependency_inventory_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, dependency_count, observed_result], beam4pm_types_manifest:fields(dependency_inventory_evidence)).
 
 dfg_edge_fields_test() ->
     ?assertEqual([source_activity, target_activity, frequency], beam4pm_types_manifest:fields(dfg_edge)).
 
+disaster_recovery_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, recovered_at, observed_result], beam4pm_types_manifest:fields(disaster_recovery_evidence)).
+
 entitlement_event_fields_test() ->
     ?assertEqual([event_id, entitlement_id, event_type, effective_at, payload], beam4pm_types_manifest:fields(entitlement_event)).
+
+entitlement_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, entitlement_id, observed_result], beam4pm_types_manifest:fields(entitlement_evidence)).
 
 entitlement_state_fields_test() ->
     ?assertEqual([entitlement_id, status, last_applied_event_id, updated_at], beam4pm_types_manifest:fields(entitlement_state)).
@@ -44,14 +98,32 @@ event_log_fields_test() ->
 event_type_fields_test() ->
     ?assertEqual([type_name, attribute_names], beam4pm_types_manifest:fields(event_type)).
 
+evidence_freshness_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, observed_at, observed_result], beam4pm_types_manifest:fields(evidence_freshness_evidence)).
+
 heuristic_arc_fields_test() ->
     ?assertEqual([source_activity, target_activity, dependency_measure], beam4pm_types_manifest:fields(heuristic_arc)).
+
+incident_response_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, incident_id, observed_result], beam4pm_types_manifest:fields(incident_response_evidence)).
 
 k8s_object_ref_fields_test() ->
     ?assertEqual([kind, name, namespace], beam4pm_types_manifest:fields(k8s_object_ref)).
 
+least_authority_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, granted_permissions, observed_result], beam4pm_types_manifest:fields(least_authority_evidence)).
+
+license_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, license_expression, observed_result], beam4pm_types_manifest:fields(license_evidence)).
+
 log_trace_fields_test() ->
     ?assertEqual([case_id, activity_sequence], beam4pm_types_manifest:fields(log_trace)).
+
+multiarch_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, platforms, observed_result], beam4pm_types_manifest:fields(multiarch_evidence)).
+
+mutable_identity_refusal_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, mutable_reference, observed_result], beam4pm_types_manifest:fields(mutable_identity_refusal_evidence)).
 
 object_attribute_change_fields_test() ->
     ?assertEqual([object_id, attribute_name, old_value, new_value, changed_at], beam4pm_types_manifest:fields(object_attribute_change)).
@@ -74,11 +146,20 @@ ocel_object_fields_test() ->
 ocel_relationship_fields_test() ->
     ?assertEqual([qualifier, object_id], beam4pm_types_manifest:fields(ocel_relationship)).
 
+oci_manifest_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, manifest_digest, observed_result], beam4pm_types_manifest:fields(oci_manifest_evidence)).
+
+offline_bundle_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, bundle_digest, observed_result], beam4pm_types_manifest:fields(offline_bundle_evidence)).
+
 path_schema_fields_test() ->
     ?assertEqual([schema_id, source_type, target_type, support], beam4pm_types_manifest:fields(path_schema)).
 
 path_schema_query_fields_test() ->
     ?assertEqual([source_type, target_type, max_length], beam4pm_types_manifest:fields(path_schema_query)).
+
+performance_slo_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, latency_p95_ms, observed_result], beam4pm_types_manifest:fields(performance_slo_evidence)).
 
 petri_arc_fields_test() ->
     ?assertEqual([source_id, target_id, weight], beam4pm_types_manifest:fields(petri_arc)).
@@ -98,20 +179,74 @@ planning_state_fields_test() ->
 policy_decision_fields_test() ->
     ?assertEqual([decision_id, verdict, reason], beam4pm_types_manifest:fields(policy_decision)).
 
+privacy_classification_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, privacy_class, observed_result], beam4pm_types_manifest:fields(privacy_classification_evidence)).
+
+private_registry_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, registry_digest, observed_result], beam4pm_types_manifest:fields(private_registry_evidence)).
+
 process_variant_fields_test() ->
     ?assertEqual([variant_id, activity_sequence, frequency], beam4pm_types_manifest:fields(process_variant)).
+
+procurement_acceptance_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, acceptance_decision, observed_result], beam4pm_types_manifest:fields(procurement_acceptance_evidence)).
+
+provenance_binding_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, builder_identity, observed_result], beam4pm_types_manifest:fields(provenance_binding_evidence)).
 
 queue_snapshot_fields_test() ->
     ?assertEqual([queue_name, depth, observed_at], beam4pm_types_manifest:fields(queue_snapshot)).
 
+receipt_replay_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, replay_result_hash, observed_result], beam4pm_types_manifest:fields(receipt_replay_evidence)).
+
+remediation_sla_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, remediation_due_at, observed_result], beam4pm_types_manifest:fields(remediation_sla_evidence)).
+
+reproducible_build_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, build_digest, observed_result], beam4pm_types_manifest:fields(reproducible_build_evidence)).
+
+residency_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, region, observed_result], beam4pm_types_manifest:fields(residency_evidence)).
+
 resource_allocation_fields_test() ->
     ?assertEqual([resource_id, activity, event_id], beam4pm_types_manifest:fields(resource_allocation)).
+
+retention_policy_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, retention_days, observed_result], beam4pm_types_manifest:fields(retention_policy_evidence)).
+
+rfp_response_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, answer_set_hash, observed_result], beam4pm_types_manifest:fields(rfp_response_evidence)).
+
+rollback_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, rollback_digest, observed_result], beam4pm_types_manifest:fields(rollback_evidence)).
+
+sbom_inventory_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, component_count, observed_result], beam4pm_types_manifest:fields(sbom_inventory_evidence)).
+
+secret_boundary_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, secret_source, observed_result], beam4pm_types_manifest:fields(secret_boundary_evidence)).
 
 service_span_fields_test() ->
     ?assertEqual([span_id, service_name, duration_ms, parent_span_id], beam4pm_types_manifest:fields(service_span)).
 
+signature_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, signature_identity, observed_result], beam4pm_types_manifest:fields(signature_evidence)).
+
 sojourn_time_fields_test() ->
     ?assertEqual([object_id, event_type, seconds], beam4pm_types_manifest:fields(sojourn_time)).
+
+stale_subject_refusal_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, stale_sha, observed_result], beam4pm_types_manifest:fields(stale_subject_refusal_evidence)).
+
+support_escalation_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, escalation_owner, observed_result], beam4pm_types_manifest:fields(support_escalation_evidence)).
+
+support_sla_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, response_minutes, observed_result], beam4pm_types_manifest:fields(support_sla_evidence)).
+
+support_window_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, support_channel, observed_result], beam4pm_types_manifest:fields(support_window_evidence)).
 
 sync_time_fields_test() ->
     ?assertEqual([object_id, delaying_object_id, seconds], beam4pm_types_manifest:fields(sync_time)).
@@ -119,6 +254,21 @@ sync_time_fields_test() ->
 type_edge_fields_test() ->
     ?assertEqual([source_type, target_type, qualifier, direction], beam4pm_types_manifest:fields(type_edge)).
 
+unsupported_capability_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, capability_name, observed_result], beam4pm_types_manifest:fields(unsupported_capability_evidence)).
+
+upgrade_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, from_version, observed_result], beam4pm_types_manifest:fields(upgrade_evidence)).
+
 usage_event_fields_test() ->
     ?assertEqual([event_id, entitlement_id, quantity, metric_name, occurred_at], beam4pm_types_manifest:fields(usage_event)).
+
+vendor_risk_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, risk_score, observed_result], beam4pm_types_manifest:fields(vendor_risk_evidence)).
+
+version_lifecycle_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, supported_until, observed_result], beam4pm_types_manifest:fields(version_lifecycle_evidence)).
+
+vulnerability_scan_evidence_fields_test() ->
+    ?assertEqual([evidence_id, subject_sha, vulnerability_count, observed_result], beam4pm_types_manifest:fields(vulnerability_scan_evidence)).
 
