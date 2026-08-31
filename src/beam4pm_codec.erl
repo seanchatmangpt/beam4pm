@@ -10,18 +10,42 @@
 %% reads fields positionally, and it builds records only through the
 %% validating beam4pm_types:new_*/1 constructors.
 -type known_record() ::
+    beam4pm_types:account_master_match() |
+    beam4pm_types:account_parent_scope() |
     beam4pm_types:alignment_move() |
+    beam4pm_types:beneficial_owner_evidence() |
     beam4pm_types:billing_reconciliation() |
+    beam4pm_types:booking_readiness() |
+    beam4pm_types:budget_period_alignment() |
     beam4pm_types:case_stats() |
+    beam4pm_types:change_order_authority() |
+    beam4pm_types:commercial_exception() |
+    beam4pm_types:committed_spend_admission() |
     beam4pm_types:conformance_result() |
+    beam4pm_types:contracting_entity_identity() |
+    beam4pm_types:credit_risk_admission() |
+    beam4pm_types:data_migration_scope_admission() |
+    beam4pm_types:data_processing_addendum_state() |
+    beam4pm_types:deal_desk_packet() |
     beam4pm_types:dfg_edge() |
     beam4pm_types:entitlement_event() |
     beam4pm_types:entitlement_state() |
     beam4pm_types:event_log() |
     beam4pm_types:event_type() |
+    beam4pm_types:exception_authority() |
+    beam4pm_types:funding_approval_chain() |
     beam4pm_types:heuristic_arc() |
+    beam4pm_types:implementation_fee_admission() |
+    beam4pm_types:indemnity_scope_admission() |
+    beam4pm_types:insurance_requirement() |
+    beam4pm_types:integration_scope_admission() |
+    beam4pm_types:invoice_entity_identity() |
     beam4pm_types:k8s_object_ref() |
+    beam4pm_types:legal_blocker() |
+    beam4pm_types:liability_cap_admission() |
     beam4pm_types:log_trace() |
+    beam4pm_types:master_service_agreement_state() |
+    beam4pm_types:minimum_term_admission() |
     beam4pm_types:object_attribute_change() |
     beam4pm_types:object_type() |
     beam4pm_types:oc_declare_constraint() |
@@ -29,31 +53,75 @@
     beam4pm_types:ocel_event() |
     beam4pm_types:ocel_object() |
     beam4pm_types:ocel_relationship() |
+    beam4pm_types:opportunity_currency_contract() |
+    beam4pm_types:opportunity_value_range() |
+    beam4pm_types:order_form_admission() |
     beam4pm_types:path_schema() |
     beam4pm_types:path_schema_query() |
+    beam4pm_types:payment_terms_admission() |
     beam4pm_types:petri_arc() |
     beam4pm_types:petri_place() |
     beam4pm_types:petri_transition() |
     beam4pm_types:planning_action() |
     beam4pm_types:planning_state() |
     beam4pm_types:policy_decision() |
+    beam4pm_types:pricing_basis_contract() |
     beam4pm_types:process_variant() |
+    beam4pm_types:procurement_blocker() |
+    beam4pm_types:procurement_channel_selection() |
+    beam4pm_types:proof_of_value_budget() |
+    beam4pm_types:proof_of_value_exit_gate() |
+    beam4pm_types:purchase_order_requirement() |
+    beam4pm_types:purchasing_entity_identity() |
     beam4pm_types:queue_snapshot() |
+    beam4pm_types:renewal_term_admission() |
     beam4pm_types:resource_allocation() |
+    beam4pm_types:revenue_contract_admission() |
+    beam4pm_types:revenue_schedule_assumption() |
+    beam4pm_types:sanctions_screening_result() |
+    beam4pm_types:security_addendum_state() |
+    beam4pm_types:security_blocker() |
+    beam4pm_types:service_credit_admission() |
     beam4pm_types:service_span() |
+    beam4pm_types:sla_offer_admission() |
     beam4pm_types:sojourn_time() |
+    beam4pm_types:support_tier_admission() |
     beam4pm_types:sync_time() |
+    beam4pm_types:tax_jurisdiction_evidence() |
+    beam4pm_types:technical_blocker() |
+    beam4pm_types:termination_right_admission() |
+    beam4pm_types:training_scope_admission() |
     beam4pm_types:type_edge() |
-    beam4pm_types:usage_event().
+    beam4pm_types:usage_event() |
+    beam4pm_types:vendor_registration_state() |
+    beam4pm_types:volume_tier_admission().
 
 %% to_map/1: project a record onto a JSON-ready map with binary keys.
 %% Fields whose value is 'undefined' are omitted; atom-typed fields are
 %% converted with atom_to_binary/2; every other value passes through.
 -spec to_map(known_record()) -> #{binary() => term()}.
+to_map(R) when element(1, R) =:= account_master_match ->
+    pairs_to_map([
+        {<<"source_account_id">>, plain, element(2, R)},
+        {<<"canonical_account_id">>, plain, element(3, R)},
+        {<<"match_evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= account_parent_scope ->
+    pairs_to_map([
+        {<<"account_id">>, plain, element(2, R)},
+        {<<"parent_account_id">>, plain, element(3, R)},
+        {<<"scope_evidence_hash">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= alignment_move ->
     pairs_to_map([
         {<<"move_type">>, atom, element(2, R)},
         {<<"cost">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= beneficial_owner_evidence ->
+    pairs_to_map([
+        {<<"account_id">>, plain, element(2, R)},
+        {<<"owner_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= billing_reconciliation ->
     pairs_to_map([
@@ -64,17 +132,77 @@ to_map(R) when element(1, R) =:= billing_reconciliation ->
         {<<"period_start">>, plain, element(6, R)},
         {<<"period_end">>, plain, element(7, R)}
     ]);
+to_map(R) when element(1, R) =:= booking_readiness ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"readiness_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= budget_period_alignment ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"budget_period">>, plain, element(3, R)},
+        {<<"alignment_result">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= case_stats ->
     pairs_to_map([
         {<<"case_id">>, plain, element(2, R)},
         {<<"event_count">>, plain, element(3, R)},
         {<<"duration_seconds">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= change_order_authority ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"authority_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= commercial_exception ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"exception_id">>, plain, element(3, R)},
+        {<<"exception_state">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= committed_spend_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"commitment_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= conformance_result ->
     pairs_to_map([
         {<<"trace_id">>, plain, element(2, R)},
         {<<"fitness">>, plain, element(3, R)},
         {<<"precision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= contracting_entity_identity ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"contracting_entity_id">>, plain, element(3, R)},
+        {<<"identity_evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= credit_risk_admission ->
+    pairs_to_map([
+        {<<"account_id">>, plain, element(2, R)},
+        {<<"risk_band">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= data_migration_scope_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"migration_scope_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= data_processing_addendum_state ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"addendum_id">>, plain, element(3, R)},
+        {<<"addendum_state">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= deal_desk_packet ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"packet_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= dfg_edge ->
     pairs_to_map([
@@ -108,11 +236,53 @@ to_map(R) when element(1, R) =:= event_type ->
         {<<"type_name">>, plain, element(2, R)},
         {<<"attribute_names">>, plain, element(3, R)}
     ]);
+to_map(R) when element(1, R) =:= exception_authority ->
+    pairs_to_map([
+        {<<"exception_id">>, plain, element(2, R)},
+        {<<"authority_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= funding_approval_chain ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"approval_chain_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= heuristic_arc ->
     pairs_to_map([
         {<<"source_activity">>, plain, element(2, R)},
         {<<"target_activity">>, plain, element(3, R)},
         {<<"dependency_measure">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= implementation_fee_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"fee_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= indemnity_scope_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"indemnity_scope_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= insurance_requirement ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"coverage_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= integration_scope_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"integration_scope_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= invoice_entity_identity ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"invoice_entity_id">>, plain, element(3, R)},
+        {<<"identity_evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= k8s_object_ref ->
     pairs_to_map([
@@ -120,10 +290,34 @@ to_map(R) when element(1, R) =:= k8s_object_ref ->
         {<<"name">>, plain, element(3, R)},
         {<<"namespace">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= legal_blocker ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"blocker_id">>, plain, element(3, R)},
+        {<<"refusal_code">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= liability_cap_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"liability_cap_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= log_trace ->
     pairs_to_map([
         {<<"case_id">>, plain, element(2, R)},
         {<<"activity_sequence">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= master_service_agreement_state ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"agreement_id">>, plain, element(3, R)},
+        {<<"agreement_state">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= minimum_term_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"minimum_term">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= object_attribute_change ->
     pairs_to_map([
@@ -169,6 +363,24 @@ to_map(R) when element(1, R) =:= ocel_relationship ->
         {<<"qualifier">>, plain, element(2, R)},
         {<<"object_id">>, plain, element(3, R)}
     ]);
+to_map(R) when element(1, R) =:= opportunity_currency_contract ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"currency_code">>, plain, element(3, R)},
+        {<<"fx_basis_id">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= opportunity_value_range ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"minimum_value">>, plain, element(3, R)},
+        {<<"maximum_value">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= order_form_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"order_form_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= path_schema ->
     pairs_to_map([
         {<<"schema_id">>, plain, element(2, R)},
@@ -181,6 +393,12 @@ to_map(R) when element(1, R) =:= path_schema_query ->
         {<<"source_type">>, plain, element(2, R)},
         {<<"target_type">>, plain, element(3, R)},
         {<<"max_length">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= payment_terms_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"payment_terms">>, plain, element(3, R)},
+        {<<"authority_evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= petri_arc ->
     pairs_to_map([
@@ -215,11 +433,53 @@ to_map(R) when element(1, R) =:= policy_decision ->
         {<<"verdict">>, atom, element(3, R)},
         {<<"reason">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= pricing_basis_contract ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"pricing_basis_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= process_variant ->
     pairs_to_map([
         {<<"variant_id">>, plain, element(2, R)},
         {<<"activity_sequence">>, plain, element(3, R)},
         {<<"frequency">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= procurement_blocker ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"blocker_id">>, plain, element(3, R)},
+        {<<"refusal_code">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= procurement_channel_selection ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"channel_id">>, plain, element(3, R)},
+        {<<"selection_evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= proof_of_value_budget ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"budget_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= proof_of_value_exit_gate ->
+    pairs_to_map([
+        {<<"pov_id">>, plain, element(2, R)},
+        {<<"exit_gate_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= purchase_order_requirement ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"requirement_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= purchasing_entity_identity ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"purchasing_entity_id">>, plain, element(3, R)},
+        {<<"identity_evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= queue_snapshot ->
     pairs_to_map([
@@ -227,11 +487,53 @@ to_map(R) when element(1, R) =:= queue_snapshot ->
         {<<"depth">>, plain, element(3, R)},
         {<<"observed_at">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= renewal_term_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"renewal_term">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= resource_allocation ->
     pairs_to_map([
         {<<"resource_id">>, plain, element(2, R)},
         {<<"activity">>, plain, element(3, R)},
         {<<"event_id">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= revenue_contract_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"contract_id">>, plain, element(3, R)},
+        {<<"admission_receipt_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= revenue_schedule_assumption ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"schedule_id">>, plain, element(3, R)},
+        {<<"assumption_evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= sanctions_screening_result ->
+    pairs_to_map([
+        {<<"account_id">>, plain, element(2, R)},
+        {<<"screening_id">>, plain, element(3, R)},
+        {<<"screening_result">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= security_addendum_state ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"addendum_id">>, plain, element(3, R)},
+        {<<"addendum_state">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= security_blocker ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"blocker_id">>, plain, element(3, R)},
+        {<<"refusal_code">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= service_credit_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"service_credit_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= service_span ->
     pairs_to_map([
@@ -240,17 +542,53 @@ to_map(R) when element(1, R) =:= service_span ->
         {<<"duration_ms">>, plain, element(4, R)},
         {<<"parent_span_id">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= sla_offer_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"sla_offer_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= sojourn_time ->
     pairs_to_map([
         {<<"object_id">>, plain, element(2, R)},
         {<<"event_type">>, plain, element(3, R)},
         {<<"seconds">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= support_tier_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"support_tier_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= sync_time ->
     pairs_to_map([
         {<<"object_id">>, plain, element(2, R)},
         {<<"delaying_object_id">>, plain, element(3, R)},
         {<<"seconds">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= tax_jurisdiction_evidence ->
+    pairs_to_map([
+        {<<"contracting_entity_id">>, plain, element(2, R)},
+        {<<"tax_jurisdiction">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= technical_blocker ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"blocker_id">>, plain, element(3, R)},
+        {<<"refusal_code">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= termination_right_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"termination_right_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= training_scope_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"training_scope_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= type_edge ->
     pairs_to_map([
@@ -266,6 +604,18 @@ to_map(R) when element(1, R) =:= usage_event ->
         {<<"quantity">>, plain, element(4, R)},
         {<<"metric_name">>, plain, element(5, R)},
         {<<"occurred_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= vendor_registration_state ->
+    pairs_to_map([
+        {<<"account_id">>, plain, element(2, R)},
+        {<<"registration_id">>, plain, element(3, R)},
+        {<<"registration_state">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= volume_tier_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"volume_tier_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]).
 
 %% from_map/2: rebuild a record from a binary-keyed map. Only KNOWN
@@ -278,10 +628,28 @@ to_map(R) when element(1, R) =:= usage_event ->
           {ok, known_record()}
         | {error, {missing_field, atom()}}
         | {error, {unknown_record, atom()}}.
+from_map(account_master_match, Map) when is_map(Map) ->
+    beam4pm_types:new_account_master_match(take_known(Map, [
+        {<<"source_account_id">>, source_account_id, plain},
+        {<<"canonical_account_id">>, canonical_account_id, plain},
+        {<<"match_evidence_hash">>, match_evidence_hash, plain}
+    ]));
+from_map(account_parent_scope, Map) when is_map(Map) ->
+    beam4pm_types:new_account_parent_scope(take_known(Map, [
+        {<<"account_id">>, account_id, plain},
+        {<<"parent_account_id">>, parent_account_id, plain},
+        {<<"scope_evidence_hash">>, scope_evidence_hash, plain}
+    ]));
 from_map(alignment_move, Map) when is_map(Map) ->
     beam4pm_types:new_alignment_move(take_known(Map, [
         {<<"move_type">>, move_type, atom},
         {<<"cost">>, cost, plain}
+    ]));
+from_map(beneficial_owner_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_beneficial_owner_evidence(take_known(Map, [
+        {<<"account_id">>, account_id, plain},
+        {<<"owner_id">>, owner_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
     ]));
 from_map(billing_reconciliation, Map) when is_map(Map) ->
     beam4pm_types:new_billing_reconciliation(take_known(Map, [
@@ -292,17 +660,77 @@ from_map(billing_reconciliation, Map) when is_map(Map) ->
         {<<"period_start">>, period_start, plain},
         {<<"period_end">>, period_end, plain}
     ]));
+from_map(booking_readiness, Map) when is_map(Map) ->
+    beam4pm_types:new_booking_readiness(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"readiness_id">>, readiness_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(budget_period_alignment, Map) when is_map(Map) ->
+    beam4pm_types:new_budget_period_alignment(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"budget_period">>, budget_period, plain},
+        {<<"alignment_result">>, alignment_result, plain}
+    ]));
 from_map(case_stats, Map) when is_map(Map) ->
     beam4pm_types:new_case_stats(take_known(Map, [
         {<<"case_id">>, case_id, plain},
         {<<"event_count">>, event_count, plain},
         {<<"duration_seconds">>, duration_seconds, plain}
     ]));
+from_map(change_order_authority, Map) when is_map(Map) ->
+    beam4pm_types:new_change_order_authority(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"authority_id">>, authority_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
+    ]));
+from_map(commercial_exception, Map) when is_map(Map) ->
+    beam4pm_types:new_commercial_exception(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"exception_id">>, exception_id, plain},
+        {<<"exception_state">>, exception_state, plain}
+    ]));
+from_map(committed_spend_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_committed_spend_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"commitment_id">>, commitment_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
 from_map(conformance_result, Map) when is_map(Map) ->
     beam4pm_types:new_conformance_result(take_known(Map, [
         {<<"trace_id">>, trace_id, plain},
         {<<"fitness">>, fitness, plain},
         {<<"precision">>, precision, plain}
+    ]));
+from_map(contracting_entity_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_contracting_entity_identity(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"contracting_entity_id">>, contracting_entity_id, plain},
+        {<<"identity_evidence_hash">>, identity_evidence_hash, plain}
+    ]));
+from_map(credit_risk_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_credit_risk_admission(take_known(Map, [
+        {<<"account_id">>, account_id, plain},
+        {<<"risk_band">>, risk_band, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(data_migration_scope_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_data_migration_scope_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"migration_scope_id">>, migration_scope_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(data_processing_addendum_state, Map) when is_map(Map) ->
+    beam4pm_types:new_data_processing_addendum_state(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"addendum_id">>, addendum_id, plain},
+        {<<"addendum_state">>, addendum_state, plain}
+    ]));
+from_map(deal_desk_packet, Map) when is_map(Map) ->
+    beam4pm_types:new_deal_desk_packet(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"packet_id">>, packet_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
     ]));
 from_map(dfg_edge, Map) when is_map(Map) ->
     beam4pm_types:new_dfg_edge(take_known(Map, [
@@ -336,11 +764,53 @@ from_map(event_type, Map) when is_map(Map) ->
         {<<"type_name">>, type_name, plain},
         {<<"attribute_names">>, attribute_names, plain}
     ]));
+from_map(exception_authority, Map) when is_map(Map) ->
+    beam4pm_types:new_exception_authority(take_known(Map, [
+        {<<"exception_id">>, exception_id, plain},
+        {<<"authority_id">>, authority_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(funding_approval_chain, Map) when is_map(Map) ->
+    beam4pm_types:new_funding_approval_chain(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"approval_chain_id">>, approval_chain_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
+    ]));
 from_map(heuristic_arc, Map) when is_map(Map) ->
     beam4pm_types:new_heuristic_arc(take_known(Map, [
         {<<"source_activity">>, source_activity, plain},
         {<<"target_activity">>, target_activity, plain},
         {<<"dependency_measure">>, dependency_measure, plain}
+    ]));
+from_map(implementation_fee_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_implementation_fee_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"fee_id">>, fee_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(indemnity_scope_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_indemnity_scope_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"indemnity_scope_id">>, indemnity_scope_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(insurance_requirement, Map) when is_map(Map) ->
+    beam4pm_types:new_insurance_requirement(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"coverage_id">>, coverage_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
+    ]));
+from_map(integration_scope_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_integration_scope_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"integration_scope_id">>, integration_scope_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(invoice_entity_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_invoice_entity_identity(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"invoice_entity_id">>, invoice_entity_id, plain},
+        {<<"identity_evidence_hash">>, identity_evidence_hash, plain}
     ]));
 from_map(k8s_object_ref, Map) when is_map(Map) ->
     beam4pm_types:new_k8s_object_ref(take_known(Map, [
@@ -348,10 +818,34 @@ from_map(k8s_object_ref, Map) when is_map(Map) ->
         {<<"name">>, name, plain},
         {<<"namespace">>, namespace, plain}
     ]));
+from_map(legal_blocker, Map) when is_map(Map) ->
+    beam4pm_types:new_legal_blocker(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"blocker_id">>, blocker_id, plain},
+        {<<"refusal_code">>, refusal_code, plain}
+    ]));
+from_map(liability_cap_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_liability_cap_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"liability_cap_id">>, liability_cap_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
 from_map(log_trace, Map) when is_map(Map) ->
     beam4pm_types:new_log_trace(take_known(Map, [
         {<<"case_id">>, case_id, plain},
         {<<"activity_sequence">>, activity_sequence, plain}
+    ]));
+from_map(master_service_agreement_state, Map) when is_map(Map) ->
+    beam4pm_types:new_master_service_agreement_state(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"agreement_id">>, agreement_id, plain},
+        {<<"agreement_state">>, agreement_state, plain}
+    ]));
+from_map(minimum_term_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_minimum_term_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"minimum_term">>, minimum_term, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(object_attribute_change, Map) when is_map(Map) ->
     beam4pm_types:new_object_attribute_change(take_known(Map, [
@@ -397,6 +891,24 @@ from_map(ocel_relationship, Map) when is_map(Map) ->
         {<<"qualifier">>, qualifier, plain},
         {<<"object_id">>, object_id, plain}
     ]));
+from_map(opportunity_currency_contract, Map) when is_map(Map) ->
+    beam4pm_types:new_opportunity_currency_contract(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"currency_code">>, currency_code, plain},
+        {<<"fx_basis_id">>, fx_basis_id, plain}
+    ]));
+from_map(opportunity_value_range, Map) when is_map(Map) ->
+    beam4pm_types:new_opportunity_value_range(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"minimum_value">>, minimum_value, plain},
+        {<<"maximum_value">>, maximum_value, plain}
+    ]));
+from_map(order_form_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_order_form_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"order_form_id">>, order_form_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
 from_map(path_schema, Map) when is_map(Map) ->
     beam4pm_types:new_path_schema(take_known(Map, [
         {<<"schema_id">>, schema_id, plain},
@@ -409,6 +921,12 @@ from_map(path_schema_query, Map) when is_map(Map) ->
         {<<"source_type">>, source_type, plain},
         {<<"target_type">>, target_type, plain},
         {<<"max_length">>, max_length, plain}
+    ]));
+from_map(payment_terms_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_payment_terms_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"payment_terms">>, payment_terms, plain},
+        {<<"authority_evidence_hash">>, authority_evidence_hash, plain}
     ]));
 from_map(petri_arc, Map) when is_map(Map) ->
     beam4pm_types:new_petri_arc(take_known(Map, [
@@ -443,11 +961,53 @@ from_map(policy_decision, Map) when is_map(Map) ->
         {<<"verdict">>, verdict, atom},
         {<<"reason">>, reason, plain}
     ]));
+from_map(pricing_basis_contract, Map) when is_map(Map) ->
+    beam4pm_types:new_pricing_basis_contract(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"pricing_basis_id">>, pricing_basis_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
+    ]));
 from_map(process_variant, Map) when is_map(Map) ->
     beam4pm_types:new_process_variant(take_known(Map, [
         {<<"variant_id">>, variant_id, plain},
         {<<"activity_sequence">>, activity_sequence, plain},
         {<<"frequency">>, frequency, plain}
+    ]));
+from_map(procurement_blocker, Map) when is_map(Map) ->
+    beam4pm_types:new_procurement_blocker(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"blocker_id">>, blocker_id, plain},
+        {<<"refusal_code">>, refusal_code, plain}
+    ]));
+from_map(procurement_channel_selection, Map) when is_map(Map) ->
+    beam4pm_types:new_procurement_channel_selection(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"channel_id">>, channel_id, plain},
+        {<<"selection_evidence_hash">>, selection_evidence_hash, plain}
+    ]));
+from_map(proof_of_value_budget, Map) when is_map(Map) ->
+    beam4pm_types:new_proof_of_value_budget(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"budget_id">>, budget_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(proof_of_value_exit_gate, Map) when is_map(Map) ->
+    beam4pm_types:new_proof_of_value_exit_gate(take_known(Map, [
+        {<<"pov_id">>, pov_id, plain},
+        {<<"exit_gate_id">>, exit_gate_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(purchase_order_requirement, Map) when is_map(Map) ->
+    beam4pm_types:new_purchase_order_requirement(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"requirement_id">>, requirement_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
+    ]));
+from_map(purchasing_entity_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_purchasing_entity_identity(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"purchasing_entity_id">>, purchasing_entity_id, plain},
+        {<<"identity_evidence_hash">>, identity_evidence_hash, plain}
     ]));
 from_map(queue_snapshot, Map) when is_map(Map) ->
     beam4pm_types:new_queue_snapshot(take_known(Map, [
@@ -455,11 +1015,53 @@ from_map(queue_snapshot, Map) when is_map(Map) ->
         {<<"depth">>, depth, plain},
         {<<"observed_at">>, observed_at, plain}
     ]));
+from_map(renewal_term_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_renewal_term_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"renewal_term">>, renewal_term, plain},
+        {<<"decision">>, decision, plain}
+    ]));
 from_map(resource_allocation, Map) when is_map(Map) ->
     beam4pm_types:new_resource_allocation(take_known(Map, [
         {<<"resource_id">>, resource_id, plain},
         {<<"activity">>, activity, plain},
         {<<"event_id">>, event_id, plain}
+    ]));
+from_map(revenue_contract_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_revenue_contract_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"contract_id">>, contract_id, plain},
+        {<<"admission_receipt_hash">>, admission_receipt_hash, plain}
+    ]));
+from_map(revenue_schedule_assumption, Map) when is_map(Map) ->
+    beam4pm_types:new_revenue_schedule_assumption(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"schedule_id">>, schedule_id, plain},
+        {<<"assumption_evidence_hash">>, assumption_evidence_hash, plain}
+    ]));
+from_map(sanctions_screening_result, Map) when is_map(Map) ->
+    beam4pm_types:new_sanctions_screening_result(take_known(Map, [
+        {<<"account_id">>, account_id, plain},
+        {<<"screening_id">>, screening_id, plain},
+        {<<"screening_result">>, screening_result, plain}
+    ]));
+from_map(security_addendum_state, Map) when is_map(Map) ->
+    beam4pm_types:new_security_addendum_state(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"addendum_id">>, addendum_id, plain},
+        {<<"addendum_state">>, addendum_state, plain}
+    ]));
+from_map(security_blocker, Map) when is_map(Map) ->
+    beam4pm_types:new_security_blocker(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"blocker_id">>, blocker_id, plain},
+        {<<"refusal_code">>, refusal_code, plain}
+    ]));
+from_map(service_credit_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_service_credit_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"service_credit_id">>, service_credit_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(service_span, Map) when is_map(Map) ->
     beam4pm_types:new_service_span(take_known(Map, [
@@ -468,17 +1070,53 @@ from_map(service_span, Map) when is_map(Map) ->
         {<<"duration_ms">>, duration_ms, plain},
         {<<"parent_span_id">>, parent_span_id, plain}
     ]));
+from_map(sla_offer_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_sla_offer_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"sla_offer_id">>, sla_offer_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
 from_map(sojourn_time, Map) when is_map(Map) ->
     beam4pm_types:new_sojourn_time(take_known(Map, [
         {<<"object_id">>, object_id, plain},
         {<<"event_type">>, event_type, plain},
         {<<"seconds">>, seconds, plain}
     ]));
+from_map(support_tier_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_support_tier_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"support_tier_id">>, support_tier_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
 from_map(sync_time, Map) when is_map(Map) ->
     beam4pm_types:new_sync_time(take_known(Map, [
         {<<"object_id">>, object_id, plain},
         {<<"delaying_object_id">>, delaying_object_id, plain},
         {<<"seconds">>, seconds, plain}
+    ]));
+from_map(tax_jurisdiction_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_tax_jurisdiction_evidence(take_known(Map, [
+        {<<"contracting_entity_id">>, contracting_entity_id, plain},
+        {<<"tax_jurisdiction">>, tax_jurisdiction, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
+    ]));
+from_map(technical_blocker, Map) when is_map(Map) ->
+    beam4pm_types:new_technical_blocker(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"blocker_id">>, blocker_id, plain},
+        {<<"refusal_code">>, refusal_code, plain}
+    ]));
+from_map(termination_right_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_termination_right_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"termination_right_id">>, termination_right_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(training_scope_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_training_scope_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"training_scope_id">>, training_scope_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(type_edge, Map) when is_map(Map) ->
     beam4pm_types:new_type_edge(take_known(Map, [
@@ -494,6 +1132,18 @@ from_map(usage_event, Map) when is_map(Map) ->
         {<<"quantity">>, quantity, plain},
         {<<"metric_name">>, metric_name, plain},
         {<<"occurred_at">>, occurred_at, plain}
+    ]));
+from_map(vendor_registration_state, Map) when is_map(Map) ->
+    beam4pm_types:new_vendor_registration_state(take_known(Map, [
+        {<<"account_id">>, account_id, plain},
+        {<<"registration_id">>, registration_id, plain},
+        {<<"registration_state">>, registration_state, plain}
+    ]));
+from_map(volume_tier_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_volume_tier_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"volume_tier_id">>, volume_tier_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(RecordName, Map) when is_atom(RecordName), is_map(Map) ->
     {error, {unknown_record, RecordName}}.

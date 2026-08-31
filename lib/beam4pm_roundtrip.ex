@@ -9,18 +9,42 @@ defmodule BeamPM.Roundtrip do
   @moduledoc "Cross-language roundtrip sample fixtures for every admitted record type."
 
   @record_names [
+    :account_master_match,
+    :account_parent_scope,
     :alignment_move,
+    :beneficial_owner_evidence,
     :billing_reconciliation,
+    :booking_readiness,
+    :budget_period_alignment,
     :case_stats,
+    :change_order_authority,
+    :commercial_exception,
+    :committed_spend_admission,
     :conformance_result,
+    :contracting_entity_identity,
+    :credit_risk_admission,
+    :data_migration_scope_admission,
+    :data_processing_addendum_state,
+    :deal_desk_packet,
     :dfg_edge,
     :entitlement_event,
     :entitlement_state,
     :event_log,
     :event_type,
+    :exception_authority,
+    :funding_approval_chain,
     :heuristic_arc,
+    :implementation_fee_admission,
+    :indemnity_scope_admission,
+    :insurance_requirement,
+    :integration_scope_admission,
+    :invoice_entity_identity,
     :k8s_object_ref,
+    :legal_blocker,
+    :liability_cap_admission,
     :log_trace,
+    :master_service_agreement_state,
+    :minimum_term_admission,
     :object_attribute_change,
     :object_type,
     :oc_declare_constraint,
@@ -28,22 +52,48 @@ defmodule BeamPM.Roundtrip do
     :ocel_event,
     :ocel_object,
     :ocel_relationship,
+    :opportunity_currency_contract,
+    :opportunity_value_range,
+    :order_form_admission,
     :path_schema,
     :path_schema_query,
+    :payment_terms_admission,
     :petri_arc,
     :petri_place,
     :petri_transition,
     :planning_action,
     :planning_state,
     :policy_decision,
+    :pricing_basis_contract,
     :process_variant,
+    :procurement_blocker,
+    :procurement_channel_selection,
+    :proof_of_value_budget,
+    :proof_of_value_exit_gate,
+    :purchase_order_requirement,
+    :purchasing_entity_identity,
     :queue_snapshot,
+    :renewal_term_admission,
     :resource_allocation,
+    :revenue_contract_admission,
+    :revenue_schedule_assumption,
+    :sanctions_screening_result,
+    :security_addendum_state,
+    :security_blocker,
+    :service_credit_admission,
     :service_span,
+    :sla_offer_admission,
     :sojourn_time,
+    :support_tier_admission,
     :sync_time,
+    :tax_jurisdiction_evidence,
+    :technical_blocker,
+    :termination_right_admission,
+    :training_scope_admission,
     :type_edge,
-    :usage_event
+    :usage_event,
+    :vendor_registration_state,
+    :volume_tier_admission
   ]
 
   @variants [:full, :minimal]
@@ -58,6 +108,38 @@ defmodule BeamPM.Roundtrip do
   # :minimal = required fields only; :full = every field.
   @spec sample(atom(), :full | :minimal) :: {:ok, struct()}
 
+  def sample(:account_master_match, :full) do
+    BeamPM.Types.AccountMasterMatch.new(%{
+      source_account_id: "sample_source_account_id",
+      canonical_account_id: "sample_canonical_account_id",
+      match_evidence_hash: "sample_match_evidence_hash"
+    })
+  end
+
+  def sample(:account_master_match, :minimal) do
+    BeamPM.Types.AccountMasterMatch.new(%{
+      source_account_id: "sample_source_account_id",
+      canonical_account_id: "sample_canonical_account_id",
+      match_evidence_hash: "sample_match_evidence_hash"
+    })
+  end
+
+  def sample(:account_parent_scope, :full) do
+    BeamPM.Types.AccountParentScope.new(%{
+      account_id: "sample_account_id",
+      parent_account_id: "sample_parent_account_id",
+      scope_evidence_hash: "sample_scope_evidence_hash"
+    })
+  end
+
+  def sample(:account_parent_scope, :minimal) do
+    BeamPM.Types.AccountParentScope.new(%{
+      account_id: "sample_account_id",
+      parent_account_id: "sample_parent_account_id",
+      scope_evidence_hash: "sample_scope_evidence_hash"
+    })
+  end
+
   def sample(:alignment_move, :full) do
     BeamPM.Types.AlignmentMove.new(%{
       move_type: :sample_atom,
@@ -69,6 +151,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.AlignmentMove.new(%{
       move_type: :sample_atom,
       cost: 42
+    })
+  end
+
+  def sample(:beneficial_owner_evidence, :full) do
+    BeamPM.Types.BeneficialOwnerEvidence.new(%{
+      account_id: "sample_account_id",
+      owner_id: "sample_owner_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:beneficial_owner_evidence, :minimal) do
+    BeamPM.Types.BeneficialOwnerEvidence.new(%{
+      account_id: "sample_account_id",
+      owner_id: "sample_owner_id",
+      evidence_hash: "sample_evidence_hash"
     })
   end
 
@@ -94,6 +192,38 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:booking_readiness, :full) do
+    BeamPM.Types.BookingReadiness.new(%{
+      opportunity_id: "sample_opportunity_id",
+      readiness_id: "sample_readiness_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:booking_readiness, :minimal) do
+    BeamPM.Types.BookingReadiness.new(%{
+      opportunity_id: "sample_opportunity_id",
+      readiness_id: "sample_readiness_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:budget_period_alignment, :full) do
+    BeamPM.Types.BudgetPeriodAlignment.new(%{
+      opportunity_id: "sample_opportunity_id",
+      budget_period: "sample_budget_period",
+      alignment_result: "sample_alignment_result"
+    })
+  end
+
+  def sample(:budget_period_alignment, :minimal) do
+    BeamPM.Types.BudgetPeriodAlignment.new(%{
+      opportunity_id: "sample_opportunity_id",
+      budget_period: "sample_budget_period",
+      alignment_result: "sample_alignment_result"
+    })
+  end
+
   def sample(:case_stats, :full) do
     BeamPM.Types.CaseStats.new(%{
       case_id: "sample_case_id",
@@ -109,6 +239,54 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:change_order_authority, :full) do
+    BeamPM.Types.ChangeOrderAuthority.new(%{
+      opportunity_id: "sample_opportunity_id",
+      authority_id: "sample_authority_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:change_order_authority, :minimal) do
+    BeamPM.Types.ChangeOrderAuthority.new(%{
+      opportunity_id: "sample_opportunity_id",
+      authority_id: "sample_authority_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:commercial_exception, :full) do
+    BeamPM.Types.CommercialException.new(%{
+      opportunity_id: "sample_opportunity_id",
+      exception_id: "sample_exception_id",
+      exception_state: "sample_exception_state"
+    })
+  end
+
+  def sample(:commercial_exception, :minimal) do
+    BeamPM.Types.CommercialException.new(%{
+      opportunity_id: "sample_opportunity_id",
+      exception_id: "sample_exception_id",
+      exception_state: "sample_exception_state"
+    })
+  end
+
+  def sample(:committed_spend_admission, :full) do
+    BeamPM.Types.CommittedSpendAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      commitment_id: "sample_commitment_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:committed_spend_admission, :minimal) do
+    BeamPM.Types.CommittedSpendAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      commitment_id: "sample_commitment_id",
+      decision: "sample_decision"
+    })
+  end
+
   def sample(:conformance_result, :full) do
     BeamPM.Types.ConformanceResult.new(%{
       trace_id: "sample_trace_id",
@@ -121,6 +299,86 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.ConformanceResult.new(%{
       trace_id: "sample_trace_id",
       fitness: 3.5
+    })
+  end
+
+  def sample(:contracting_entity_identity, :full) do
+    BeamPM.Types.ContractingEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      contracting_entity_id: "sample_contracting_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    })
+  end
+
+  def sample(:contracting_entity_identity, :minimal) do
+    BeamPM.Types.ContractingEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      contracting_entity_id: "sample_contracting_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    })
+  end
+
+  def sample(:credit_risk_admission, :full) do
+    BeamPM.Types.CreditRiskAdmission.new(%{
+      account_id: "sample_account_id",
+      risk_band: "sample_risk_band",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:credit_risk_admission, :minimal) do
+    BeamPM.Types.CreditRiskAdmission.new(%{
+      account_id: "sample_account_id",
+      risk_band: "sample_risk_band",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:data_migration_scope_admission, :full) do
+    BeamPM.Types.DataMigrationScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      migration_scope_id: "sample_migration_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:data_migration_scope_admission, :minimal) do
+    BeamPM.Types.DataMigrationScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      migration_scope_id: "sample_migration_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:data_processing_addendum_state, :full) do
+    BeamPM.Types.DataProcessingAddendumState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      addendum_id: "sample_addendum_id",
+      addendum_state: "sample_addendum_state"
+    })
+  end
+
+  def sample(:data_processing_addendum_state, :minimal) do
+    BeamPM.Types.DataProcessingAddendumState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      addendum_id: "sample_addendum_id",
+      addendum_state: "sample_addendum_state"
+    })
+  end
+
+  def sample(:deal_desk_packet, :full) do
+    BeamPM.Types.DealDeskPacket.new(%{
+      opportunity_id: "sample_opportunity_id",
+      packet_id: "sample_packet_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:deal_desk_packet, :minimal) do
+    BeamPM.Types.DealDeskPacket.new(%{
+      opportunity_id: "sample_opportunity_id",
+      packet_id: "sample_packet_id",
+      evidence_hash: "sample_evidence_hash"
     })
   end
 
@@ -205,6 +463,38 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:exception_authority, :full) do
+    BeamPM.Types.ExceptionAuthority.new(%{
+      exception_id: "sample_exception_id",
+      authority_id: "sample_authority_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:exception_authority, :minimal) do
+    BeamPM.Types.ExceptionAuthority.new(%{
+      exception_id: "sample_exception_id",
+      authority_id: "sample_authority_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:funding_approval_chain, :full) do
+    BeamPM.Types.FundingApprovalChain.new(%{
+      opportunity_id: "sample_opportunity_id",
+      approval_chain_id: "sample_approval_chain_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:funding_approval_chain, :minimal) do
+    BeamPM.Types.FundingApprovalChain.new(%{
+      opportunity_id: "sample_opportunity_id",
+      approval_chain_id: "sample_approval_chain_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
   def sample(:heuristic_arc, :full) do
     BeamPM.Types.HeuristicArc.new(%{
       source_activity: "sample_source_activity",
@@ -218,6 +508,86 @@ defmodule BeamPM.Roundtrip do
       source_activity: "sample_source_activity",
       target_activity: "sample_target_activity",
       dependency_measure: 3.5
+    })
+  end
+
+  def sample(:implementation_fee_admission, :full) do
+    BeamPM.Types.ImplementationFeeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      fee_id: "sample_fee_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:implementation_fee_admission, :minimal) do
+    BeamPM.Types.ImplementationFeeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      fee_id: "sample_fee_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:indemnity_scope_admission, :full) do
+    BeamPM.Types.IndemnityScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      indemnity_scope_id: "sample_indemnity_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:indemnity_scope_admission, :minimal) do
+    BeamPM.Types.IndemnityScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      indemnity_scope_id: "sample_indemnity_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:insurance_requirement, :full) do
+    BeamPM.Types.InsuranceRequirement.new(%{
+      opportunity_id: "sample_opportunity_id",
+      coverage_id: "sample_coverage_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:insurance_requirement, :minimal) do
+    BeamPM.Types.InsuranceRequirement.new(%{
+      opportunity_id: "sample_opportunity_id",
+      coverage_id: "sample_coverage_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:integration_scope_admission, :full) do
+    BeamPM.Types.IntegrationScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      integration_scope_id: "sample_integration_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:integration_scope_admission, :minimal) do
+    BeamPM.Types.IntegrationScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      integration_scope_id: "sample_integration_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:invoice_entity_identity, :full) do
+    BeamPM.Types.InvoiceEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      invoice_entity_id: "sample_invoice_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    })
+  end
+
+  def sample(:invoice_entity_identity, :minimal) do
+    BeamPM.Types.InvoiceEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      invoice_entity_id: "sample_invoice_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
     })
   end
 
@@ -236,6 +606,38 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:legal_blocker, :full) do
+    BeamPM.Types.LegalBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:legal_blocker, :minimal) do
+    BeamPM.Types.LegalBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:liability_cap_admission, :full) do
+    BeamPM.Types.LiabilityCapAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      liability_cap_id: "sample_liability_cap_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:liability_cap_admission, :minimal) do
+    BeamPM.Types.LiabilityCapAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      liability_cap_id: "sample_liability_cap_id",
+      decision: "sample_decision"
+    })
+  end
+
   def sample(:log_trace, :full) do
     BeamPM.Types.LogTrace.new(%{
       case_id: "sample_case_id",
@@ -247,6 +649,38 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.LogTrace.new(%{
       case_id: "sample_case_id",
       activity_sequence: ["alpha", "beta"]
+    })
+  end
+
+  def sample(:master_service_agreement_state, :full) do
+    BeamPM.Types.MasterServiceAgreementState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      agreement_id: "sample_agreement_id",
+      agreement_state: "sample_agreement_state"
+    })
+  end
+
+  def sample(:master_service_agreement_state, :minimal) do
+    BeamPM.Types.MasterServiceAgreementState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      agreement_id: "sample_agreement_id",
+      agreement_state: "sample_agreement_state"
+    })
+  end
+
+  def sample(:minimum_term_admission, :full) do
+    BeamPM.Types.MinimumTermAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      minimum_term: "sample_minimum_term",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:minimum_term_admission, :minimal) do
+    BeamPM.Types.MinimumTermAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      minimum_term: "sample_minimum_term",
+      decision: "sample_decision"
     })
   end
 
@@ -361,6 +795,54 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:opportunity_currency_contract, :full) do
+    BeamPM.Types.OpportunityCurrencyContract.new(%{
+      opportunity_id: "sample_opportunity_id",
+      currency_code: "sample_currency_code",
+      fx_basis_id: "sample_fx_basis_id"
+    })
+  end
+
+  def sample(:opportunity_currency_contract, :minimal) do
+    BeamPM.Types.OpportunityCurrencyContract.new(%{
+      opportunity_id: "sample_opportunity_id",
+      currency_code: "sample_currency_code",
+      fx_basis_id: "sample_fx_basis_id"
+    })
+  end
+
+  def sample(:opportunity_value_range, :full) do
+    BeamPM.Types.OpportunityValueRange.new(%{
+      opportunity_id: "sample_opportunity_id",
+      minimum_value: "sample_minimum_value",
+      maximum_value: "sample_maximum_value"
+    })
+  end
+
+  def sample(:opportunity_value_range, :minimal) do
+    BeamPM.Types.OpportunityValueRange.new(%{
+      opportunity_id: "sample_opportunity_id",
+      minimum_value: "sample_minimum_value",
+      maximum_value: "sample_maximum_value"
+    })
+  end
+
+  def sample(:order_form_admission, :full) do
+    BeamPM.Types.OrderFormAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      order_form_id: "sample_order_form_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:order_form_admission, :minimal) do
+    BeamPM.Types.OrderFormAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      order_form_id: "sample_order_form_id",
+      decision: "sample_decision"
+    })
+  end
+
   def sample(:path_schema, :full) do
     BeamPM.Types.PathSchema.new(%{
       schema_id: "sample_schema_id",
@@ -392,6 +874,22 @@ defmodule BeamPM.Roundtrip do
       source_type: "sample_source_type",
       target_type: "sample_target_type",
       max_length: 42
+    })
+  end
+
+  def sample(:payment_terms_admission, :full) do
+    BeamPM.Types.PaymentTermsAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      payment_terms: "sample_payment_terms",
+      authority_evidence_hash: "sample_authority_evidence_hash"
+    })
+  end
+
+  def sample(:payment_terms_admission, :minimal) do
+    BeamPM.Types.PaymentTermsAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      payment_terms: "sample_payment_terms",
+      authority_evidence_hash: "sample_authority_evidence_hash"
     })
   end
 
@@ -481,6 +979,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:pricing_basis_contract, :full) do
+    BeamPM.Types.PricingBasisContract.new(%{
+      opportunity_id: "sample_opportunity_id",
+      pricing_basis_id: "sample_pricing_basis_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:pricing_basis_contract, :minimal) do
+    BeamPM.Types.PricingBasisContract.new(%{
+      opportunity_id: "sample_opportunity_id",
+      pricing_basis_id: "sample_pricing_basis_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
   def sample(:process_variant, :full) do
     BeamPM.Types.ProcessVariant.new(%{
       variant_id: "sample_variant_id",
@@ -494,6 +1008,102 @@ defmodule BeamPM.Roundtrip do
       variant_id: "sample_variant_id",
       activity_sequence: ["alpha", "beta"],
       frequency: 42
+    })
+  end
+
+  def sample(:procurement_blocker, :full) do
+    BeamPM.Types.ProcurementBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:procurement_blocker, :minimal) do
+    BeamPM.Types.ProcurementBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:procurement_channel_selection, :full) do
+    BeamPM.Types.ProcurementChannelSelection.new(%{
+      opportunity_id: "sample_opportunity_id",
+      channel_id: "sample_channel_id",
+      selection_evidence_hash: "sample_selection_evidence_hash"
+    })
+  end
+
+  def sample(:procurement_channel_selection, :minimal) do
+    BeamPM.Types.ProcurementChannelSelection.new(%{
+      opportunity_id: "sample_opportunity_id",
+      channel_id: "sample_channel_id",
+      selection_evidence_hash: "sample_selection_evidence_hash"
+    })
+  end
+
+  def sample(:proof_of_value_budget, :full) do
+    BeamPM.Types.ProofOfValueBudget.new(%{
+      opportunity_id: "sample_opportunity_id",
+      budget_id: "sample_budget_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:proof_of_value_budget, :minimal) do
+    BeamPM.Types.ProofOfValueBudget.new(%{
+      opportunity_id: "sample_opportunity_id",
+      budget_id: "sample_budget_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:proof_of_value_exit_gate, :full) do
+    BeamPM.Types.ProofOfValueExitGate.new(%{
+      pov_id: "sample_pov_id",
+      exit_gate_id: "sample_exit_gate_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:proof_of_value_exit_gate, :minimal) do
+    BeamPM.Types.ProofOfValueExitGate.new(%{
+      pov_id: "sample_pov_id",
+      exit_gate_id: "sample_exit_gate_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:purchase_order_requirement, :full) do
+    BeamPM.Types.PurchaseOrderRequirement.new(%{
+      opportunity_id: "sample_opportunity_id",
+      requirement_id: "sample_requirement_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:purchase_order_requirement, :minimal) do
+    BeamPM.Types.PurchaseOrderRequirement.new(%{
+      opportunity_id: "sample_opportunity_id",
+      requirement_id: "sample_requirement_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:purchasing_entity_identity, :full) do
+    BeamPM.Types.PurchasingEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      purchasing_entity_id: "sample_purchasing_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    })
+  end
+
+  def sample(:purchasing_entity_identity, :minimal) do
+    BeamPM.Types.PurchasingEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      purchasing_entity_id: "sample_purchasing_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
     })
   end
 
@@ -513,6 +1123,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:renewal_term_admission, :full) do
+    BeamPM.Types.RenewalTermAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      renewal_term: "sample_renewal_term",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:renewal_term_admission, :minimal) do
+    BeamPM.Types.RenewalTermAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      renewal_term: "sample_renewal_term",
+      decision: "sample_decision"
+    })
+  end
+
   def sample(:resource_allocation, :full) do
     BeamPM.Types.ResourceAllocation.new(%{
       resource_id: "sample_resource_id",
@@ -526,6 +1152,102 @@ defmodule BeamPM.Roundtrip do
       resource_id: "sample_resource_id",
       activity: "sample_activity",
       event_id: "sample_event_id"
+    })
+  end
+
+  def sample(:revenue_contract_admission, :full) do
+    BeamPM.Types.RevenueContractAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      contract_id: "sample_contract_id",
+      admission_receipt_hash: "sample_admission_receipt_hash"
+    })
+  end
+
+  def sample(:revenue_contract_admission, :minimal) do
+    BeamPM.Types.RevenueContractAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      contract_id: "sample_contract_id",
+      admission_receipt_hash: "sample_admission_receipt_hash"
+    })
+  end
+
+  def sample(:revenue_schedule_assumption, :full) do
+    BeamPM.Types.RevenueScheduleAssumption.new(%{
+      opportunity_id: "sample_opportunity_id",
+      schedule_id: "sample_schedule_id",
+      assumption_evidence_hash: "sample_assumption_evidence_hash"
+    })
+  end
+
+  def sample(:revenue_schedule_assumption, :minimal) do
+    BeamPM.Types.RevenueScheduleAssumption.new(%{
+      opportunity_id: "sample_opportunity_id",
+      schedule_id: "sample_schedule_id",
+      assumption_evidence_hash: "sample_assumption_evidence_hash"
+    })
+  end
+
+  def sample(:sanctions_screening_result, :full) do
+    BeamPM.Types.SanctionsScreeningResult.new(%{
+      account_id: "sample_account_id",
+      screening_id: "sample_screening_id",
+      screening_result: "sample_screening_result"
+    })
+  end
+
+  def sample(:sanctions_screening_result, :minimal) do
+    BeamPM.Types.SanctionsScreeningResult.new(%{
+      account_id: "sample_account_id",
+      screening_id: "sample_screening_id",
+      screening_result: "sample_screening_result"
+    })
+  end
+
+  def sample(:security_addendum_state, :full) do
+    BeamPM.Types.SecurityAddendumState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      addendum_id: "sample_addendum_id",
+      addendum_state: "sample_addendum_state"
+    })
+  end
+
+  def sample(:security_addendum_state, :minimal) do
+    BeamPM.Types.SecurityAddendumState.new(%{
+      opportunity_id: "sample_opportunity_id",
+      addendum_id: "sample_addendum_id",
+      addendum_state: "sample_addendum_state"
+    })
+  end
+
+  def sample(:security_blocker, :full) do
+    BeamPM.Types.SecurityBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:security_blocker, :minimal) do
+    BeamPM.Types.SecurityBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:service_credit_admission, :full) do
+    BeamPM.Types.ServiceCreditAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      service_credit_id: "sample_service_credit_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:service_credit_admission, :minimal) do
+    BeamPM.Types.ServiceCreditAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      service_credit_id: "sample_service_credit_id",
+      decision: "sample_decision"
     })
   end
 
@@ -546,6 +1268,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:sla_offer_admission, :full) do
+    BeamPM.Types.SlaOfferAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      sla_offer_id: "sample_sla_offer_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:sla_offer_admission, :minimal) do
+    BeamPM.Types.SlaOfferAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      sla_offer_id: "sample_sla_offer_id",
+      decision: "sample_decision"
+    })
+  end
+
   def sample(:sojourn_time, :full) do
     BeamPM.Types.SojournTime.new(%{
       object_id: "sample_object_id",
@@ -562,6 +1300,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:support_tier_admission, :full) do
+    BeamPM.Types.SupportTierAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      support_tier_id: "sample_support_tier_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:support_tier_admission, :minimal) do
+    BeamPM.Types.SupportTierAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      support_tier_id: "sample_support_tier_id",
+      decision: "sample_decision"
+    })
+  end
+
   def sample(:sync_time, :full) do
     BeamPM.Types.SyncTime.new(%{
       object_id: "sample_object_id",
@@ -574,6 +1328,70 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.SyncTime.new(%{
       object_id: "sample_object_id",
       seconds: 3.5
+    })
+  end
+
+  def sample(:tax_jurisdiction_evidence, :full) do
+    BeamPM.Types.TaxJurisdictionEvidence.new(%{
+      contracting_entity_id: "sample_contracting_entity_id",
+      tax_jurisdiction: "sample_tax_jurisdiction",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:tax_jurisdiction_evidence, :minimal) do
+    BeamPM.Types.TaxJurisdictionEvidence.new(%{
+      contracting_entity_id: "sample_contracting_entity_id",
+      tax_jurisdiction: "sample_tax_jurisdiction",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:technical_blocker, :full) do
+    BeamPM.Types.TechnicalBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:technical_blocker, :minimal) do
+    BeamPM.Types.TechnicalBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:termination_right_admission, :full) do
+    BeamPM.Types.TerminationRightAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      termination_right_id: "sample_termination_right_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:termination_right_admission, :minimal) do
+    BeamPM.Types.TerminationRightAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      termination_right_id: "sample_termination_right_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:training_scope_admission, :full) do
+    BeamPM.Types.TrainingScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      training_scope_id: "sample_training_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:training_scope_admission, :minimal) do
+    BeamPM.Types.TrainingScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      training_scope_id: "sample_training_scope_id",
+      decision: "sample_decision"
     })
   end
 
@@ -612,6 +1430,38 @@ defmodule BeamPM.Roundtrip do
       quantity: 3.5,
       metric_name: "sample_metric_name",
       occurred_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:vendor_registration_state, :full) do
+    BeamPM.Types.VendorRegistrationState.new(%{
+      account_id: "sample_account_id",
+      registration_id: "sample_registration_id",
+      registration_state: "sample_registration_state"
+    })
+  end
+
+  def sample(:vendor_registration_state, :minimal) do
+    BeamPM.Types.VendorRegistrationState.new(%{
+      account_id: "sample_account_id",
+      registration_id: "sample_registration_id",
+      registration_state: "sample_registration_state"
+    })
+  end
+
+  def sample(:volume_tier_admission, :full) do
+    BeamPM.Types.VolumeTierAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      volume_tier_id: "sample_volume_tier_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:volume_tier_admission, :minimal) do
+    BeamPM.Types.VolumeTierAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      volume_tier_id: "sample_volume_tier_id",
+      decision: "sample_decision"
     })
   end
 

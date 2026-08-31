@@ -9,6 +9,30 @@
 import gleam/dict
 import gleam/option
 
+/// Admits a source account only when it is bound to one canonical Fortune-5 account by immutable matching evidence; prevents pipeline value from being booked against an ambiguous customer identity.
+pub type AccountMasterMatch {
+  AccountMasterMatch(
+    /// Required commercial-admission input for account master match. Missing input is a typed refusal.
+    source_account_id: String,
+    /// Required commercial-admission input for account master match. Missing input is a typed refusal.
+    canonical_account_id: String,
+    /// Immutable evidence identity that makes this admission independently replayable.
+    match_evidence_hash: String,
+  )
+}
+
+/// Qualifies an account only when its buying scope is bound to the correct global parent, preventing subsidiary demand from being double-counted as independent enterprise pipeline.
+pub type AccountParentScope {
+  AccountParentScope(
+    /// Required account parent scope input; omission is an executable typed refusal, never an inferred approval.
+    account_id: String,
+    /// Required account parent scope input; omission is an executable typed refusal, never an inferred approval.
+    parent_account_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    scope_evidence_hash: String,
+  )
+}
+
 /// One step of a conformance-checking alignment between log and model.
 pub type AlignmentMove {
   AlignmentMove(
@@ -16,6 +40,18 @@ pub type AlignmentMove {
     move_type: String,
     /// Non-negative cost assigned to this move.
     cost: Int,
+  )
+}
+
+/// Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence.
+pub type BeneficialOwnerEvidence {
+  BeneficialOwnerEvidence(
+    /// Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval.
+    account_id: String,
+    /// Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval.
+    owner_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
   )
 }
 
@@ -37,6 +73,30 @@ pub type BillingReconciliation {
   )
 }
 
+/// Produces an explicit booking-readiness decision after commercial, legal, security, and procurement evidence converge.
+pub type BookingReadiness {
+  BookingReadiness(
+    /// Required booking readiness input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required booking readiness input; omission is an executable typed refusal, never an inferred approval.
+    readiness_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
+/// Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.
+pub type BudgetPeriodAlignment {
+  BudgetPeriodAlignment(
+    /// Required budget period alignment input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required budget period alignment input; omission is an executable typed refusal, never an inferred approval.
+    budget_period: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    alignment_result: String,
+  )
+}
+
 /// Aggregate statistics computed for one process instance (case).
 pub type CaseStats {
   CaseStats(
@@ -49,6 +109,42 @@ pub type CaseStats {
   )
 }
 
+/// Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.
+pub type ChangeOrderAuthority {
+  ChangeOrderAuthority(
+    /// Required change order authority input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required change order authority input; omission is an executable typed refusal, never an inferred approval.
+    authority_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
+/// Represents a nonstandard commercial request as an identified exception with explicit state.
+pub type CommercialException {
+  CommercialException(
+    /// Required commercial exception input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required commercial exception input; omission is an executable typed refusal, never an inferred approval.
+    exception_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    exception_state: String,
+  )
+}
+
+/// Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.
+pub type CommittedSpendAdmission {
+  CommittedSpendAdmission(
+    /// Required committed spend admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required committed spend admission input; omission is an executable typed refusal, never an inferred approval.
+    commitment_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// Conformance-checking metrics computed for one trace against a model.
 pub type ConformanceResult {
   ConformanceResult(
@@ -58,6 +154,66 @@ pub type ConformanceResult {
     fitness: Float,
     /// Optional precision score in [0.0, 1.0].
     precision: option.Option(Float),
+  )
+}
+
+/// Requires the counterparty that will sign the agreement, separating contractual authority from account interest.
+pub type ContractingEntityIdentity {
+  ContractingEntityIdentity(
+    /// Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval.
+    contracting_entity_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    identity_evidence_hash: String,
+  )
+}
+
+/// Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure.
+pub type CreditRiskAdmission {
+  CreditRiskAdmission(
+    /// Required credit risk admission input; omission is an executable typed refusal, never an inferred approval.
+    account_id: String,
+    /// Required credit risk admission input; omission is an executable typed refusal, never an inferred approval.
+    risk_band: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
+/// Admits a bounded data-migration scope before margin and timeline promises are accepted.
+pub type DataMigrationScopeAdmission {
+  DataMigrationScopeAdmission(
+    /// Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    migration_scope_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
+/// Requires an identified data-processing addendum state for workloads involving regulated enterprise data.
+pub type DataProcessingAddendumState {
+  DataProcessingAddendumState(
+    /// Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    addendum_state: String,
+  )
+}
+
+/// Binds cross-functional deal-desk approval evidence into one replayable packet identity.
+pub type DealDeskPacket {
+  DealDeskPacket(
+    /// Required deal desk packet input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required deal desk packet input; omission is an executable typed refusal, never an inferred approval.
+    packet_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
   )
 }
 
@@ -125,6 +281,30 @@ pub type EventType {
   )
 }
 
+/// Admits a commercial exception only when the exact authority and decision are present.
+pub type ExceptionAuthority {
+  ExceptionAuthority(
+    /// Required exception authority input; omission is an executable typed refusal, never an inferred approval.
+    exception_id: String,
+    /// Required exception authority input; omission is an executable typed refusal, never an inferred approval.
+    authority_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
+/// Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
+pub type FundingApprovalChain {
+  FundingApprovalChain(
+    /// Required funding approval chain input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required funding approval chain input; omission is an executable typed refusal, never an inferred approval.
+    approval_chain_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
 /// One dependency-scored candidate arc considered during heuristic-net discovery.
 pub type HeuristicArc {
   HeuristicArc(
@@ -134,6 +314,66 @@ pub type HeuristicArc {
     target_activity: String,
     /// The computed dependency/confidence score for this candidate arc.
     dependency_measure: Float,
+  )
+}
+
+/// Qualifies implementation fees separately from recurring subscription value.
+pub type ImplementationFeeAdmission {
+  ImplementationFeeAdmission(
+    /// Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval.
+    fee_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
+/// Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.
+pub type IndemnityScopeAdmission {
+  IndemnityScopeAdmission(
+    /// Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval.
+    indemnity_scope_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
+/// Admits contractual insurance coverage only with an exact coverage identity and supporting evidence.
+pub type InsuranceRequirement {
+  InsuranceRequirement(
+    /// Required insurance requirement input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required insurance requirement input; omission is an executable typed refusal, never an inferred approval.
+    coverage_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
+/// Admits a bounded enterprise integration scope before solution fit becomes a commercial commitment.
+pub type IntegrationScopeAdmission {
+  IntegrationScopeAdmission(
+    /// Required integration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required integration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    integration_scope_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
+/// Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.
+pub type InvoiceEntityIdentity {
+  InvoiceEntityIdentity(
+    /// Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval.
+    invoice_entity_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    identity_evidence_hash: String,
   )
 }
 
@@ -149,6 +389,30 @@ pub type K8SObjectRef {
   )
 }
 
+/// Encodes an unresolved legal blocker as a typed refusal with an actionable identity.
+pub type LegalBlocker {
+  LegalBlocker(
+    /// Required legal blocker input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required legal blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    refusal_code: String,
+  )
+}
+
+/// Admits a specific liability-cap position before commercial approval.
+pub type LiabilityCapAdmission {
+  LiabilityCapAdmission(
+    /// Required liability cap admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required liability cap admission input; omission is an executable typed refusal, never an inferred approval.
+    liability_cap_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// One case-centric trace: an ordered activity sequence for a single case.
 pub type LogTrace {
   LogTrace(
@@ -156,6 +420,30 @@ pub type LogTrace {
     case_id: String,
     /// Ordered list of activity names observed for this case.
     activity_sequence: List(String),
+  )
+}
+
+/// Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
+pub type MasterServiceAgreementState {
+  MasterServiceAgreementState(
+    /// Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
+    agreement_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    agreement_state: String,
+  )
+}
+
+/// Admits the minimum paid term as a decision input needed for durable contract value.
+pub type MinimumTermAdmission {
+  MinimumTermAdmission(
+    /// Required minimum term admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required minimum term admission input; omission is an executable typed refusal, never an inferred approval.
+    minimum_term: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
   )
 }
 
@@ -247,6 +535,42 @@ pub type OcelRelationship {
   )
 }
 
+/// Admits opportunity value only with an explicit deal currency and immutable foreign-exchange basis, making forecast value comparable and replayable.
+pub type OpportunityCurrencyContract {
+  OpportunityCurrencyContract(
+    /// Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval.
+    currency_code: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    fx_basis_id: String,
+  )
+}
+
+/// Represents commercial value as an evidenced range rather than false point precision, enabling downside-aware qualification.
+pub type OpportunityValueRange {
+  OpportunityValueRange(
+    /// Required opportunity value range input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required opportunity value range input; omission is an executable typed refusal, never an inferred approval.
+    minimum_value: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    maximum_value: String,
+  )
+}
+
+/// Admits the exact order form that expresses the buyer's priced scope and authorized terms.
+pub type OrderFormAdmission {
+  OrderFormAdmission(
+    /// Required order form admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required order form admission input; omission is an executable typed refusal, never an inferred approval.
+    order_form_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// One reusable, scored connection pattern between two OCEL types.
 pub type PathSchema {
   PathSchema(
@@ -270,6 +594,18 @@ pub type PathSchemaQuery {
     target_type: String,
     /// Maximum number of hops to search.
     max_length: Int,
+  )
+}
+
+/// Admits payment terms only when authorized evidence supports the cash-conversion assumption.
+pub type PaymentTermsAdmission {
+  PaymentTermsAdmission(
+    /// Required payment terms admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required payment terms admission input; omission is an executable typed refusal, never an inferred approval.
+    payment_terms: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    authority_evidence_hash: String,
   )
 }
 
@@ -339,6 +675,18 @@ pub type PolicyDecision {
   )
 }
 
+/// Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
+pub type PricingBasisContract {
+  PricingBasisContract(
+    /// Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval.
+    pricing_basis_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
 /// One distinct activity-sequence variant observed in a log, with its frequency.
 pub type ProcessVariant {
   ProcessVariant(
@@ -348,6 +696,78 @@ pub type ProcessVariant {
     activity_sequence: List(String),
     /// Number of traces observed with exactly this activity sequence.
     frequency: Int,
+  )
+}
+
+/// Encodes an unresolved procurement blocker as a typed refusal instead of allowing false booking readiness.
+pub type ProcurementBlocker {
+  ProcurementBlocker(
+    /// Required procurement blocker input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required procurement blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    refusal_code: String,
+  )
+}
+
+/// Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting.
+pub type ProcurementChannelSelection {
+  ProcurementChannelSelection(
+    /// Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval.
+    channel_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    selection_evidence_hash: String,
+  )
+}
+
+/// Qualifies whether a proof-of-value has an actual budget and decision rather than free-pilot ambiguity.
+pub type ProofOfValueBudget {
+  ProofOfValueBudget(
+    /// Required proof of value budget input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required proof of value budget input; omission is an executable typed refusal, never an inferred approval.
+    budget_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
+/// Defines the exact commercial exit gate that converts a proof-of-value into a paid deployment or refusal.
+pub type ProofOfValueExitGate {
+  ProofOfValueExitGate(
+    /// Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval.
+    pov_id: String,
+    /// Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval.
+    exit_gate_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
+/// Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness.
+pub type PurchaseOrderRequirement {
+  PurchaseOrderRequirement(
+    /// Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval.
+    requirement_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
+/// Requires the legal entity that will issue purchasing authority before commercial progression.
+pub type PurchasingEntityIdentity {
+  PurchasingEntityIdentity(
+    /// Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval.
+    purchasing_entity_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    identity_evidence_hash: String,
   )
 }
 
@@ -363,6 +783,18 @@ pub type QueueSnapshot {
   )
 }
 
+/// Makes renewal duration and its decision explicit for lifetime-value qualification.
+pub type RenewalTermAdmission {
+  RenewalTermAdmission(
+    /// Required renewal term admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required renewal term admission input; omission is an executable typed refusal, never an inferred approval.
+    renewal_term: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// One recorded assignment of a resource to an activity occurrence.
 pub type ResourceAllocation {
   ResourceAllocation(
@@ -372,6 +804,78 @@ pub type ResourceAllocation {
     activity: String,
     /// Identifier of the specific event occurrence.
     event_id: String,
+  )
+}
+
+/// Produces the terminal immutable admission receipt binding a qualified opportunity to an executable paid revenue contract.
+pub type RevenueContractAdmission {
+  RevenueContractAdmission(
+    /// Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval.
+    contract_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    admission_receipt_hash: String,
+  )
+}
+
+/// Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged.
+pub type RevenueScheduleAssumption {
+  RevenueScheduleAssumption(
+    /// Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval.
+    schedule_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    assumption_evidence_hash: String,
+  )
+}
+
+/// Requires a named sanctions screening result before accepting the commercial counterparty.
+pub type SanctionsScreeningResult {
+  SanctionsScreeningResult(
+    /// Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval.
+    account_id: String,
+    /// Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval.
+    screening_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    screening_result: String,
+  )
+}
+
+/// Requires an identified security addendum state before promising a paid production deployment.
+pub type SecurityAddendumState {
+  SecurityAddendumState(
+    /// Required security addendum state input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required security addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    addendum_state: String,
+  )
+}
+
+/// Encodes an unresolved security blocker as a typed refusal before production commitment.
+pub type SecurityBlocker {
+  SecurityBlocker(
+    /// Required security blocker input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required security blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    refusal_code: String,
+  )
+}
+
+/// Qualifies the exact service-credit obligation that prices runtime reliability risk.
+pub type ServiceCreditAdmission {
+  ServiceCreditAdmission(
+    /// Required service credit admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required service credit admission input; omission is an executable typed refusal, never an inferred approval.
+    service_credit_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
   )
 }
 
@@ -389,6 +893,18 @@ pub type ServiceSpan {
   )
 }
 
+/// Admits an exact service-level offer before it becomes a paid customer commitment.
+pub type SlaOfferAdmission {
+  SlaOfferAdmission(
+    /// Required sla offer admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required sla offer admission input; omission is an executable typed refusal, never an inferred approval.
+    sla_offer_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// The total dwell/duration time an object was associated with one event/activity (object-centric sojourn time -- a duration metric, distinct from bpm:sync_time's wait-for-another-object metric).
 pub type SojournTime {
   SojournTime(
@@ -401,6 +917,18 @@ pub type SojournTime {
   )
 }
 
+/// Admits the paid support tier that determines service obligation and cost-to-serve.
+pub type SupportTierAdmission {
+  SupportTierAdmission(
+    /// Required support tier admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required support tier admission input; omission is an executable typed refusal, never an inferred approval.
+    support_tier_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// The time one object waited to synchronize with another object at a shared event.
 pub type SyncTime {
   SyncTime(
@@ -410,6 +938,54 @@ pub type SyncTime {
     delaying_object_id: option.Option(String),
     /// Synchronization wait duration in seconds.
     seconds: Float,
+  )
+}
+
+/// Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.
+pub type TaxJurisdictionEvidence {
+  TaxJurisdictionEvidence(
+    /// Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval.
+    contracting_entity_id: String,
+    /// Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval.
+    tax_jurisdiction: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
+/// Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.
+pub type TechnicalBlocker {
+  TechnicalBlocker(
+    /// Required technical blocker input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required technical blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    refusal_code: String,
+  )
+}
+
+/// Qualifies termination rights that materially change collectible contract value and delivery exposure.
+pub type TerminationRightAdmission {
+  TerminationRightAdmission(
+    /// Required termination right admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required termination right admission input; omission is an executable typed refusal, never an inferred approval.
+    termination_right_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
+/// Qualifies training scope as an explicit paid delivery obligation.
+pub type TrainingScopeAdmission {
+  TrainingScopeAdmission(
+    /// Required training scope admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required training scope admission input; omission is an executable typed refusal, never an inferred approval.
+    training_scope_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
   )
 }
 
@@ -440,6 +1016,30 @@ pub type UsageEvent {
     metric_name: String,
     /// ISO8601 UTC instant the usage actually occurred (not when it was observed, queued, or reported).
     occurred_at: String,
+  )
+}
+
+/// Makes buyer vendor-registration completion an explicit revenue gate instead of an invisible procurement delay.
+pub type VendorRegistrationState {
+  VendorRegistrationState(
+    /// Required vendor registration state input; omission is an executable typed refusal, never an inferred approval.
+    account_id: String,
+    /// Required vendor registration state input; omission is an executable typed refusal, never an inferred approval.
+    registration_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    registration_state: String,
+  )
+}
+
+/// Admits a volume discount tier only through an explicit decision tied to the opportunity.
+pub type VolumeTierAdmission {
+  VolumeTierAdmission(
+    /// Required volume tier admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required volume tier admission input; omission is an executable typed refusal, never an inferred approval.
+    volume_tier_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
   )
 }
 

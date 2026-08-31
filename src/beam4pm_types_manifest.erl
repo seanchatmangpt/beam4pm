@@ -11,21 +11,45 @@
 -export([record_names/0, fields/1]).
 
 -spec record_names() -> [atom()].
-record_names() -> [alignment_move, billing_reconciliation, case_stats, conformance_result, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, k8s_object_ref, log_trace, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, path_schema, path_schema_query, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, queue_snapshot, resource_allocation, service_span, sojourn_time, sync_time, type_edge, usage_event].
+record_names() -> [account_master_match, account_parent_scope, alignment_move, beneficial_owner_evidence, billing_reconciliation, booking_readiness, budget_period_alignment, case_stats, change_order_authority, commercial_exception, committed_spend_admission, conformance_result, contracting_entity_identity, credit_risk_admission, data_migration_scope_admission, data_processing_addendum_state, deal_desk_packet, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, exception_authority, funding_approval_chain, heuristic_arc, implementation_fee_admission, indemnity_scope_admission, insurance_requirement, integration_scope_admission, invoice_entity_identity, k8s_object_ref, legal_blocker, liability_cap_admission, log_trace, master_service_agreement_state, minimum_term_admission, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, opportunity_currency_contract, opportunity_value_range, order_form_admission, path_schema, path_schema_query, payment_terms_admission, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, pricing_basis_contract, process_variant, procurement_blocker, procurement_channel_selection, proof_of_value_budget, proof_of_value_exit_gate, purchase_order_requirement, purchasing_entity_identity, queue_snapshot, renewal_term_admission, resource_allocation, revenue_contract_admission, revenue_schedule_assumption, sanctions_screening_result, security_addendum_state, security_blocker, service_credit_admission, service_span, sla_offer_admission, sojourn_time, support_tier_admission, sync_time, tax_jurisdiction_evidence, technical_blocker, termination_right_admission, training_scope_admission, type_edge, usage_event, vendor_registration_state, volume_tier_admission].
 
 -spec fields(atom()) -> [atom()].
+fields(account_master_match) -> [source_account_id, canonical_account_id, match_evidence_hash];
+fields(account_parent_scope) -> [account_id, parent_account_id, scope_evidence_hash];
 fields(alignment_move) -> [move_type, cost];
+fields(beneficial_owner_evidence) -> [account_id, owner_id, evidence_hash];
 fields(billing_reconciliation) -> [entitlement_id, metric_name, total_quantity, applied_event_ids, period_start, period_end];
+fields(booking_readiness) -> [opportunity_id, readiness_id, decision];
+fields(budget_period_alignment) -> [opportunity_id, budget_period, alignment_result];
 fields(case_stats) -> [case_id, event_count, duration_seconds];
+fields(change_order_authority) -> [opportunity_id, authority_id, evidence_hash];
+fields(commercial_exception) -> [opportunity_id, exception_id, exception_state];
+fields(committed_spend_admission) -> [opportunity_id, commitment_id, decision];
 fields(conformance_result) -> [trace_id, fitness, precision];
+fields(contracting_entity_identity) -> [opportunity_id, contracting_entity_id, identity_evidence_hash];
+fields(credit_risk_admission) -> [account_id, risk_band, decision];
+fields(data_migration_scope_admission) -> [opportunity_id, migration_scope_id, decision];
+fields(data_processing_addendum_state) -> [opportunity_id, addendum_id, addendum_state];
+fields(deal_desk_packet) -> [opportunity_id, packet_id, evidence_hash];
 fields(dfg_edge) -> [source_activity, target_activity, frequency];
 fields(entitlement_event) -> [event_id, entitlement_id, event_type, effective_at, payload];
 fields(entitlement_state) -> [entitlement_id, status, last_applied_event_id, updated_at];
 fields(event_log) -> [log_id, name, description];
 fields(event_type) -> [type_name, attribute_names];
+fields(exception_authority) -> [exception_id, authority_id, decision];
+fields(funding_approval_chain) -> [opportunity_id, approval_chain_id, evidence_hash];
 fields(heuristic_arc) -> [source_activity, target_activity, dependency_measure];
+fields(implementation_fee_admission) -> [opportunity_id, fee_id, decision];
+fields(indemnity_scope_admission) -> [opportunity_id, indemnity_scope_id, decision];
+fields(insurance_requirement) -> [opportunity_id, coverage_id, evidence_hash];
+fields(integration_scope_admission) -> [opportunity_id, integration_scope_id, decision];
+fields(invoice_entity_identity) -> [opportunity_id, invoice_entity_id, identity_evidence_hash];
 fields(k8s_object_ref) -> [kind, name, namespace];
+fields(legal_blocker) -> [opportunity_id, blocker_id, refusal_code];
+fields(liability_cap_admission) -> [opportunity_id, liability_cap_id, decision];
 fields(log_trace) -> [case_id, activity_sequence];
+fields(master_service_agreement_state) -> [opportunity_id, agreement_id, agreement_state];
+fields(minimum_term_admission) -> [opportunity_id, minimum_term, decision];
 fields(object_attribute_change) -> [object_id, attribute_name, old_value, new_value, changed_at];
 fields(object_type) -> [type_name, attribute_names];
 fields(oc_declare_constraint) -> [constraint_id, source_activity, target_activity, constraint_type];
@@ -33,20 +57,46 @@ fields(ocel_attribute) -> [attribute_name, attribute_value, recorded_at];
 fields(ocel_event) -> [event_id, event_type, event_time, attributes];
 fields(ocel_object) -> [object_id, object_type, attributes];
 fields(ocel_relationship) -> [qualifier, object_id];
+fields(opportunity_currency_contract) -> [opportunity_id, currency_code, fx_basis_id];
+fields(opportunity_value_range) -> [opportunity_id, minimum_value, maximum_value];
+fields(order_form_admission) -> [opportunity_id, order_form_id, decision];
 fields(path_schema) -> [schema_id, source_type, target_type, support];
 fields(path_schema_query) -> [source_type, target_type, max_length];
+fields(payment_terms_admission) -> [opportunity_id, payment_terms, authority_evidence_hash];
 fields(petri_arc) -> [source_id, target_id, weight];
 fields(petri_place) -> [place_id, tokens];
 fields(petri_transition) -> [transition_id, label];
 fields(planning_action) -> [action_name, preconditions, effects];
 fields(planning_state) -> [state_id, facts];
 fields(policy_decision) -> [decision_id, verdict, reason];
+fields(pricing_basis_contract) -> [opportunity_id, pricing_basis_id, evidence_hash];
 fields(process_variant) -> [variant_id, activity_sequence, frequency];
+fields(procurement_blocker) -> [opportunity_id, blocker_id, refusal_code];
+fields(procurement_channel_selection) -> [opportunity_id, channel_id, selection_evidence_hash];
+fields(proof_of_value_budget) -> [opportunity_id, budget_id, decision];
+fields(proof_of_value_exit_gate) -> [pov_id, exit_gate_id, decision];
+fields(purchase_order_requirement) -> [opportunity_id, requirement_id, evidence_hash];
+fields(purchasing_entity_identity) -> [opportunity_id, purchasing_entity_id, identity_evidence_hash];
 fields(queue_snapshot) -> [queue_name, depth, observed_at];
+fields(renewal_term_admission) -> [opportunity_id, renewal_term, decision];
 fields(resource_allocation) -> [resource_id, activity, event_id];
+fields(revenue_contract_admission) -> [opportunity_id, contract_id, admission_receipt_hash];
+fields(revenue_schedule_assumption) -> [opportunity_id, schedule_id, assumption_evidence_hash];
+fields(sanctions_screening_result) -> [account_id, screening_id, screening_result];
+fields(security_addendum_state) -> [opportunity_id, addendum_id, addendum_state];
+fields(security_blocker) -> [opportunity_id, blocker_id, refusal_code];
+fields(service_credit_admission) -> [opportunity_id, service_credit_id, decision];
 fields(service_span) -> [span_id, service_name, duration_ms, parent_span_id];
+fields(sla_offer_admission) -> [opportunity_id, sla_offer_id, decision];
 fields(sojourn_time) -> [object_id, event_type, seconds];
+fields(support_tier_admission) -> [opportunity_id, support_tier_id, decision];
 fields(sync_time) -> [object_id, delaying_object_id, seconds];
+fields(tax_jurisdiction_evidence) -> [contracting_entity_id, tax_jurisdiction, evidence_hash];
+fields(technical_blocker) -> [opportunity_id, blocker_id, refusal_code];
+fields(termination_right_admission) -> [opportunity_id, termination_right_id, decision];
+fields(training_scope_admission) -> [opportunity_id, training_scope_id, decision];
 fields(type_edge) -> [source_type, target_type, qualifier, direction];
 fields(usage_event) -> [event_id, entitlement_id, quantity, metric_name, occurred_at];
+fields(vendor_registration_state) -> [account_id, registration_id, registration_state];
+fields(volume_tier_admission) -> [opportunity_id, volume_tier_id, decision];
 fields(_) -> [].
