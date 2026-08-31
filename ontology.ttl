@@ -2728,4 +2728,30 @@ b4pe:secret_boundary_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-009 — data-residency evidence.
+b4pe:residency_evidence_rt a bpm:RecordType ;
+    bpm:recordName "residency_evidence" ;
+    bpm:recordDoc "Executable residency evidence binding an exact subject to the region where its controlled data operation occurred." ;
+    bpm:hasField b4pe:residency_evidence_id_f,
+                 b4pe:residency_subject_sha_f,
+                 b4pe:residency_region_f,
+                 b4pe:residency_observed_result_f .
+
+b4pe:residency_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this data-residency observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:residency_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:residency_region_f a bpm:Field ;
+    bpm:fieldName "region" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed region for the controlled data operation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:residency_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
