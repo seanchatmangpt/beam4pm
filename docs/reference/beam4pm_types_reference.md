@@ -14,6 +14,26 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this outcome. |
 | `observed_at` | `datetime` | true | ISO8601 instant the customer-value consequence was observed. |
 
+## account_master_match
+
+> Admits a source account only when it is bound to one canonical Fortune-5 account by immutable matching evidence; prevents pipeline value from being booked against an ambiguous customer identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `source_account_id` | `string` | true | Required commercial-admission input for account master match. Missing input is a typed refusal. |
+| `canonical_account_id` | `string` | true | Required commercial-admission input for account master match. Missing input is a typed refusal. |
+| `match_evidence_hash` | `string` | true | Immutable evidence identity that makes this admission independently replayable. |
+
+## account_parent_scope
+
+> Qualifies an account only when its buying scope is bound to the correct global parent, preventing subsidiary demand from being double-counted as independent enterprise pipeline.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `account_id` | `string` | true | Required account parent scope input; omission is an executable typed refusal, never an inferred approval. |
+| `parent_account_id` | `string` | true | Required account parent scope input; omission is an executable typed refusal, never an inferred approval. |
+| `scope_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## activation_event
 
 > First verified activation event for an enterprise user cohort.
@@ -71,6 +91,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## beneficial_owner_evidence
+
+> Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `account_id` | `string` | true | Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval. |
+| `owner_id` | `string` | true | Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## billing_reconciliation
 
 > The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream.
@@ -83,6 +113,26 @@
 | `applied_event_ids` | `list_string` | true | The exact deduplicated evidence set behind total_quantity: every usage_event.event_id counted, sorted ascending, with no duplicates. This is the dedup contract made auditable -- \|applied_event_ids\| is the honest count of billed occurrences, and any event_id appearing at most once here is a mechanically checkable falsifier for MP6 double-billing. |
 | `period_start` | `datetime` | true | ISO8601 UTC INCLUSIVE lower bound of the billing period. An event is in-period when period_start <= occurred_at. Caller-supplied to reconcile_billing/4, never derived from the input events themselves -- see period_end's fieldDoc for why. |
 | `period_end` | `datetime` | true | ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real. |
+
+## booking_readiness
+
+> Produces an explicit booking-readiness decision after commercial, legal, security, and procurement evidence converge.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required booking readiness input; omission is an executable typed refusal, never an inferred approval. |
+| `readiness_id` | `string` | true | Required booking readiness input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## budget_period_alignment
+
+> Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required budget period alignment input; omission is an executable typed refusal, never an inferred approval. |
+| `budget_period` | `string` | true | Required budget period alignment input; omission is an executable typed refusal, never an inferred approval. |
+| `alignment_result` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## buying_committee
 
@@ -130,6 +180,26 @@
 | `event_count` | `integer` | true | Number of events observed for this case. |
 | `duration_seconds` | `float` | false | Optional case duration in seconds (end minus start). |
 
+## change_order_authority
+
+> Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required change order authority input; omission is an executable typed refusal, never an inferred approval. |
+| `authority_id` | `string` | true | Required change order authority input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## commercial_exception
+
+> Represents a nonstandard commercial request as an identified exception with explicit state.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required commercial exception input; omission is an executable typed refusal, never an inferred approval. |
+| `exception_id` | `string` | true | Required commercial exception input; omission is an executable typed refusal, never an inferred approval. |
+| `exception_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## commercial_outcome
 
 > Verified commercial outcome attributable to the admitted customer journey.
@@ -142,6 +212,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## committed_spend_admission
+
+> Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required committed spend admission input; omission is an executable typed refusal, never an inferred approval. |
+| `commitment_id` | `string` | true | Required committed spend admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## conformance_result
 
 > Conformance-checking metrics computed for one trace against a model.
@@ -151,6 +231,26 @@
 | `trace_id` | `string` | true | Identifier of the trace this result was computed for. |
 | `fitness` | `float` | true | Fitness score in [0.0, 1.0]. |
 | `precision` | `float` | false | Optional precision score in [0.0, 1.0]. |
+
+## contracting_entity_identity
+
+> Requires the counterparty that will sign the agreement, separating contractual authority from account interest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `contracting_entity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## credit_risk_admission
+
+> Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `account_id` | `string` | true | Required credit risk admission input; omission is an executable typed refusal, never an inferred approval. |
+| `risk_band` | `string` | true | Required credit risk admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## cross_sell_fit
 
@@ -176,6 +276,26 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## data_migration_scope_admission
+
+> Admits a bounded data-migration scope before margin and timeline promises are accepted.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `migration_scope_id` | `string` | true | Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## data_processing_addendum_state
+
+> Requires an identified data-processing addendum state for workloads involving regulated enterprise data.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval. |
+| `addendum_id` | `string` | true | Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval. |
+| `addendum_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## data_readiness
 
 > Measured source-data readiness for a production proof of value.
@@ -187,6 +307,16 @@
 | `data_quality_score` | `float` | true | Observed quality score of admitted customer data. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## deal_desk_packet
+
+> Binds cross-functional deal-desk approval evidence into one replayable packet identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required deal desk packet input; omission is an executable typed refusal, never an inferred approval. |
+| `packet_id` | `string` | true | Required deal desk packet input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## demo_run
 
@@ -288,6 +418,16 @@
 | `type_name` | `string` | true | The event type name. |
 | `attribute_names` | `list_string` | false | Optional declared attribute names for events of this type (name-only; per-attribute value types are not yet modeled). |
 
+## exception_authority
+
+> Admits a commercial exception only when the exact authority and decision are present.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `exception_id` | `string` | true | Required exception authority input; omission is an executable typed refusal, never an inferred approval. |
+| `authority_id` | `string` | true | Required exception authority input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## executive_business_review
 
 > Observed executive business-review outcome derived from receipts.
@@ -348,6 +488,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## funding_approval_chain
+
+> Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required funding approval chain input; omission is an executable typed refusal, never an inferred approval. |
+| `approval_chain_id` | `string` | true | Required funding approval chain input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## heuristic_arc
 
 > One dependency-scored candidate arc considered during heuristic-net discovery.
@@ -357,6 +507,36 @@
 | `source_activity` | `string` | true | The candidate arc source activity. |
 | `target_activity` | `string` | true | The candidate arc target activity. |
 | `dependency_measure` | `float` | true | The computed dependency/confidence score for this candidate arc. |
+
+## implementation_fee_admission
+
+> Qualifies implementation fees separately from recurring subscription value.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval. |
+| `fee_id` | `string` | true | Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## indemnity_scope_admission
+
+> Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `indemnity_scope_id` | `string` | true | Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## insurance_requirement
+
+> Admits contractual insurance coverage only with an exact coverage identity and supporting evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required insurance requirement input; omission is an executable typed refusal, never an inferred approval. |
+| `coverage_id` | `string` | true | Required insurance requirement input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## integration_readiness
 
@@ -370,6 +550,26 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## integration_scope_admission
+
+> Admits a bounded enterprise integration scope before solution fit becomes a commercial commitment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required integration scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `integration_scope_id` | `string` | true | Required integration scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## invoice_entity_identity
+
+> Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `invoice_entity_id` | `string` | true | Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## k8s_object_ref
 
 > A reference to one Kubernetes object observed in the runtime topology.
@@ -380,6 +580,26 @@
 | `name` | `string` | true | The object name. |
 | `namespace` | `string` | false | Optional object namespace (absent for cluster-scoped kinds such as Node, PersistentVolume, ClusterRole, or Namespace itself). |
 
+## legal_blocker
+
+> Encodes an unresolved legal blocker as a typed refusal with an actionable identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required legal blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `blocker_id` | `string` | true | Required legal blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## liability_cap_admission
+
+> Admits a specific liability-cap position before commercial approval.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required liability cap admission input; omission is an executable typed refusal, never an inferred approval. |
+| `liability_cap_id` | `string` | true | Required liability cap admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## log_trace
 
 > One case-centric trace: an ordered activity sequence for a single case.
@@ -388,6 +608,16 @@
 | --- | --- | --- | --- |
 | `case_id` | `string` | true | Identifier of the case this trace belongs to. |
 | `activity_sequence` | `list_string` | true | Ordered list of activity names observed for this case. |
+
+## master_service_agreement_state
+
+> Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
+| `agreement_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
+| `agreement_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## migration_readiness
 
@@ -400,6 +630,16 @@
 | `migration_effort_days` | `integer` | true | Estimated engineering days for the admitted migration. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## minimum_term_admission
+
+> Admits the minimum paid term as a decision input needed for durable contract value.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required minimum term admission input; omission is an executable typed refusal, never an inferred approval. |
+| `minimum_term` | `string` | true | Required minimum term admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## object_attribute_change
 
@@ -509,6 +749,36 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## opportunity_currency_contract
+
+> Admits opportunity value only with an explicit deal currency and immutable foreign-exchange basis, making forecast value comparable and replayable.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval. |
+| `currency_code` | `string` | true | Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval. |
+| `fx_basis_id` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## opportunity_value_range
+
+> Represents commercial value as an evidenced range rather than false point precision, enabling downside-aware qualification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required opportunity value range input; omission is an executable typed refusal, never an inferred approval. |
+| `minimum_value` | `string` | true | Required opportunity value range input; omission is an executable typed refusal, never an inferred approval. |
+| `maximum_value` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## order_form_admission
+
+> Admits the exact order form that expresses the buyer's priced scope and authorized terms.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required order form admission input; omission is an executable typed refusal, never an inferred approval. |
+| `order_form_id` | `string` | true | Required order form admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## path_schema
 
 > One reusable, scored connection pattern between two OCEL types.
@@ -529,6 +799,16 @@
 | `source_type` | `string` | true | The query source type name. |
 | `target_type` | `string` | true | The query target type name. |
 | `max_length` | `integer` | true | Maximum number of hops to search. |
+
+## payment_terms_admission
+
+> Admits payment terms only when authorized evidence supports the cash-conversion assumption.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required payment terms admission input; omission is an executable typed refusal, never an inferred approval. |
+| `payment_terms` | `string` | true | Required payment terms admission input; omission is an executable typed refusal, never an inferred approval. |
+| `authority_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## petri_arc
 
@@ -635,6 +915,16 @@
 | `verdict` | `atom` | true | One of: admitted \| refused \| blocked. |
 | `reason` | `string` | false | Optional human-readable reason for this verdict. |
 
+## pricing_basis_contract
+
+> Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval. |
+| `pricing_basis_id` | `string` | true | Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## process_variant
 
 > One distinct activity-sequence variant observed in a log, with its frequency.
@@ -644,6 +934,26 @@
 | `variant_id` | `string` | true | Unique variant identifier. |
 | `activity_sequence` | `list_string` | true | Ordered list of activity names making up this variant. |
 | `frequency` | `integer` | true | Number of traces observed with exactly this activity sequence. |
+
+## procurement_blocker
+
+> Encodes an unresolved procurement blocker as a typed refusal instead of allowing false booking readiness.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required procurement blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `blocker_id` | `string` | true | Required procurement blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## procurement_channel_selection
+
+> Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval. |
+| `channel_id` | `string` | true | Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval. |
+| `selection_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## procurement_readiness
 
@@ -668,6 +978,46 @@
 | `production_readiness_score` | `float` | true | Observed production-readiness score. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## proof_of_value_budget
+
+> Qualifies whether a proof-of-value has an actual budget and decision rather than free-pilot ambiguity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required proof of value budget input; omission is an executable typed refusal, never an inferred approval. |
+| `budget_id` | `string` | true | Required proof of value budget input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## proof_of_value_exit_gate
+
+> Defines the exact commercial exit gate that converts a proof-of-value into a paid deployment or refusal.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `pov_id` | `string` | true | Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval. |
+| `exit_gate_id` | `string` | true | Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## purchase_order_requirement
+
+> Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval. |
+| `requirement_id` | `string` | true | Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## purchasing_entity_identity
+
+> Requires the legal entity that will issue purchasing authority before commercial progression.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `purchasing_entity_id` | `string` | true | Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## queue_snapshot
 
@@ -727,6 +1077,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## renewal_term_admission
+
+> Makes renewal duration and its decision explicit for lifetime-value qualification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required renewal term admission input; omission is an executable typed refusal, never an inferred approval. |
+| `renewal_term` | `string` | true | Required renewal term admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## resource_allocation
 
 > One recorded assignment of a resource to an activity occurrence.
@@ -749,6 +1109,26 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## revenue_contract_admission
+
+> Produces the terminal immutable admission receipt binding a qualified opportunity to an executable paid revenue contract.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval. |
+| `contract_id` | `string` | true | Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval. |
+| `admission_receipt_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## revenue_schedule_assumption
+
+> Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval. |
+| `schedule_id` | `string` | true | Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval. |
+| `assumption_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## rollback_decision
 
 > Receipted rollback decision and recovered account consequence.
@@ -760,6 +1140,36 @@
 | `rollback_result` | `string` | true | Observed outcome of the rollback action. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## sanctions_screening_result
+
+> Requires a named sanctions screening result before accepting the commercial counterparty.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `account_id` | `string` | true | Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval. |
+| `screening_id` | `string` | true | Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval. |
+| `screening_result` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## security_addendum_state
+
+> Requires an identified security addendum state before promising a paid production deployment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required security addendum state input; omission is an executable typed refusal, never an inferred approval. |
+| `addendum_id` | `string` | true | Required security addendum state input; omission is an executable typed refusal, never an inferred approval. |
+| `addendum_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## security_blocker
+
+> Encodes an unresolved security blocker as a typed refusal before production commitment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required security blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `blocker_id` | `string` | true | Required security blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## security_readiness
 
@@ -773,6 +1183,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## service_credit_admission
+
+> Qualifies the exact service-credit obligation that prices runtime reliability risk.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required service credit admission input; omission is an executable typed refusal, never an inferred approval. |
+| `service_credit_id` | `string` | true | Required service credit admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## service_span
 
 > One OpenTelemetry-style tracing span observed for a service call.
@@ -783,6 +1203,16 @@
 | `service_name` | `string` | true | Name of the service that produced this span. |
 | `duration_ms` | `integer` | true | Span duration in milliseconds. |
 | `parent_span_id` | `string` | false | Optional identifier of the parent span. |
+
+## sla_offer_admission
+
+> Admits an exact service-level offer before it becomes a paid customer commitment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required sla offer admission input; omission is an executable typed refusal, never an inferred approval. |
+| `sla_offer_id` | `string` | true | Required sla offer admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## sojourn_time
 
@@ -842,6 +1272,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## support_tier_admission
+
+> Admits the paid support tier that determines service obligation and cost-to-serve.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required support tier admission input; omission is an executable typed refusal, never an inferred approval. |
+| `support_tier_id` | `string` | true | Required support tier admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## sync_time
 
 > The time one object waited to synchronize with another object at a shared event.
@@ -863,6 +1303,36 @@
 | `target_value` | `float` | true | Target value required for acceptance. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## tax_jurisdiction_evidence
+
+> Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `contracting_entity_id` | `string` | true | Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval. |
+| `tax_jurisdiction` | `string` | true | Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## technical_blocker
+
+> Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required technical blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `blocker_id` | `string` | true | Required technical blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## termination_right_admission
+
+> Qualifies termination rights that materially change collectible contract value and delivery exposure.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required termination right admission input; omission is an executable typed refusal, never an inferred approval. |
+| `termination_right_id` | `string` | true | Required termination right admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## time_to_value
 
@@ -887,6 +1357,16 @@
 | `training_completion_rate` | `float` | true | Fraction of assigned learners completing qualification. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## training_scope_admission
+
+> Qualifies training scope as an explicit paid delivery obligation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required training scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `training_scope_id` | `string` | true | Required training scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
 ## type_edge
 
@@ -958,4 +1438,24 @@
 | `realized_value` | `float` | true | Verified realized value in account currency. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## vendor_registration_state
+
+> Makes buyer vendor-registration completion an explicit revenue gate instead of an invisible procurement delay.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `account_id` | `string` | true | Required vendor registration state input; omission is an executable typed refusal, never an inferred approval. |
+| `registration_id` | `string` | true | Required vendor registration state input; omission is an executable typed refusal, never an inferred approval. |
+| `registration_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## volume_tier_admission
+
+> Admits a volume discount tier only through an explicit decision tied to the opportunity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required volume tier admission input; omission is an executable typed refusal, never an inferred approval. |
+| `volume_tier_id` | `string` | true | Required volume tier admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
