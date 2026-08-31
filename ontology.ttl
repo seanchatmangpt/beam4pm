@@ -2744,3 +2744,41 @@ bpm:value_driver_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-107 — baseline metric
+# ---------------------------------------------------------------------------
+
+bpm:baseline_metric_rt a bpm:RecordType ;
+    bpm:recordName "baseline_metric" ;
+    bpm:recordDoc "Pre-POC customer baseline used to falsify or confirm realized value." ;
+    bpm:hasField bpm:baseline_metric_baseline_metric_id_f ,
+                 bpm:baseline_metric_account_id_f ,
+                 bpm:baseline_metric_baseline_value_f ,
+                 bpm:baseline_metric_evidence_digest_f ,
+                 bpm:baseline_metric_observed_at_f .
+
+bpm:baseline_metric_baseline_metric_id_f a bpm:Field ;
+    bpm:fieldName "baseline_metric_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this baseline metric observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:baseline_metric_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose baseline metric state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:baseline_metric_baseline_value_f a bpm:Field ;
+    bpm:fieldName "baseline_value" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Measured value before the intervention." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:baseline_metric_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:baseline_metric_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
