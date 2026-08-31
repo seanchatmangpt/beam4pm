@@ -62,6 +62,27 @@ defmodule BeamPM.Ash.Resources.AccountParentScope do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ActionPinEvidence do
+  @moduledoc "Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :action_sha, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ActivationEvent do
   @moduledoc "First verified activation event for an enterprise user cohort."
   use Ash.Resource,
@@ -167,6 +188,27 @@ defmodule BeamPM.Ash.Resources.AnnualSubscription do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ApprovalSeparationEvidence do
+  @moduledoc "Executable segregation-of-duties evidence binding an exact subject to an approver distinct from its producer."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :approver_identity, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ArchitectureReadiness do
   @moduledoc "Measured architecture readiness for the customer's production environment."
   use Ash.Resource,
@@ -181,6 +223,132 @@ defmodule BeamPM.Ash.Resources.ArchitectureReadiness do
     attribute :architecture_score, :float, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ArchitectureReviewEvidence do
+  @moduledoc "Executable architecture-review evidence binding an exact subject to the decision produced by the admitted review."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :review_decision, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ArtifactDigestEvidence do
+  @moduledoc "Executable artifact-integrity evidence binding an exact commercial subject to the digest actually observed by the verifier."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :digest, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.AttestationVerificationEvidence do
+  @moduledoc "Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :predicate_type, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.AuditChainEvidence do
+  @moduledoc "Executable audit evidence binding an exact subject receipt to its immutable predecessor."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :previous_receipt_hash, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.AvailabilitySloEvidence do
+  @moduledoc "Executable availability evidence binding an exact subject to the service level actually observed over the admitted window."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :availability_percent, :float, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.BackupRestoreEvidence do
+  @moduledoc "Executable recovery evidence binding an exact subject to the backup artifact successfully restored."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :backup_digest, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -315,6 +483,27 @@ defmodule BeamPM.Ash.Resources.BudgetPeriodAlignment do
   end
 end
 
+defmodule BeamPM.Ash.Resources.BusinessContinuityEvidence do
+  @moduledoc "Executable continuity evidence binding an exact subject to the fallback operating mode actually entered."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :continuity_mode, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.BuyingCommittee do
   @moduledoc "Measured buying-committee coverage for an enterprise decision path."
   use Ash.Resource,
@@ -351,6 +540,27 @@ defmodule BeamPM.Ash.Resources.CanaryDecision do
     attribute :canary_result, :string, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CanaryEvidence do
+  @moduledoc "Executable canary evidence binding an exact subject to the traffic fraction actually admitted before promotion."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :canary_percentage, :float, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -443,6 +653,27 @@ defmodule BeamPM.Ash.Resources.CatalogRelease do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ChangeControlEvidence do
+  @moduledoc "Executable change-control evidence binding an exact subject to the approved request governing its mutation."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :change_request_id, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ChangeOrderAuthority do
   @moduledoc "Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin."
   use Ash.Resource,
@@ -518,6 +749,27 @@ defmodule BeamPM.Ash.Resources.CommercialApproval do
     attribute :quote_id, :string, public?: true, allow_nil?: false
     attribute :authority, :string, public?: true, allow_nil?: false
     attribute :status, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CommercialArtifactCrownEvidence do
+  @moduledoc "Executable commercial-release evidence binding the exact paid artifact to the cumulative trust evidence crown."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :artifact_digest, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -923,6 +1175,48 @@ defmodule BeamPM.Ash.Resources.CustomerHealth do
   end
 end
 
+defmodule BeamPM.Ash.Resources.CustomerManagedKeyEvidence do
+  @moduledoc "Executable encryption evidence binding an exact subject to the customer-managed key identity actually used."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :key_identifier, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.DataEgressEvidence do
+  @moduledoc "Executable egress evidence binding an exact subject to the bytes observed crossing its admitted data boundary."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :egress_bytes, :integer, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.DataMigrationScopeAdmission do
   @moduledoc "Admits a bounded data-migration scope before margin and timeline promises are accepted."
   use Ash.Resource,
@@ -1026,6 +1320,27 @@ defmodule BeamPM.Ash.Resources.DealDeskPacket do
   end
 end
 
+defmodule BeamPM.Ash.Resources.DeletionProofEvidence do
+  @moduledoc "Executable deletion evidence binding an exact subject to a verifiable deletion receipt."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :deletion_receipt_id, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.DemoRun do
   @moduledoc "Receipted execution result for a reproducible enterprise demo."
   use Ash.Resource,
@@ -1062,6 +1377,27 @@ defmodule BeamPM.Ash.Resources.DemoScenario do
     attribute :scenario_name, :string, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.DependencyInventoryEvidence do
+  @moduledoc "Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :dependency_count, :integer, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -1125,6 +1461,27 @@ defmodule BeamPM.Ash.Resources.DfgEdge do
     attribute :source_activity, :string, public?: true, allow_nil?: false
     attribute :target_activity, :string, public?: true, allow_nil?: false
     attribute :frequency, :integer, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.DisasterRecoveryEvidence do
+  @moduledoc "Executable disaster-recovery evidence binding an exact subject to the instant service recovery was observed."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :recovered_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -1261,6 +1618,27 @@ defmodule BeamPM.Ash.Resources.EntitlementEvent do
   end
 end
 
+defmodule BeamPM.Ash.Resources.EntitlementEvidence do
+  @moduledoc "Executable entitlement evidence binding an exact subject to the paid capability grant actually evaluated."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :entitlement_id, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.EntitlementGrant do
   @moduledoc "Receiptable grant of a capability to a tenant."
   use Ash.Resource,
@@ -1376,6 +1754,27 @@ defmodule BeamPM.Ash.Resources.EventType do
     uuid_primary_key :id
     attribute :type_name, :string, public?: true, allow_nil?: false
     attribute :attribute_names, {:array, :string}, public?: true
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.EvidenceFreshnessEvidence do
+  @moduledoc "Executable freshness evidence binding an exact subject to the observation instant used by policy."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -1595,6 +1994,27 @@ defmodule BeamPM.Ash.Resources.ImplementationFeeAdmission do
   end
 end
 
+defmodule BeamPM.Ash.Resources.IncidentResponseEvidence do
+  @moduledoc "Executable incident evidence binding an exact subject to the response case opened by a real detection."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :incident_id, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.IndemnityScopeAdmission do
   @moduledoc "Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal."
   use Ash.Resource,
@@ -1738,6 +2158,27 @@ defmodule BeamPM.Ash.Resources.K8sObjectRef do
   end
 end
 
+defmodule BeamPM.Ash.Resources.LeastAuthorityEvidence do
+  @moduledoc "Executable least-authority evidence binding an exact subject to the permissions actually granted during execution."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :granted_permissions, {:array, :string}, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.LegalBlocker do
   @moduledoc "Encodes an unresolved legal blocker as a typed refusal with an actionable identity."
   use Ash.Resource,
@@ -1770,6 +2211,27 @@ defmodule BeamPM.Ash.Resources.LiabilityCapAdmission do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :liability_cap_id, :string, public?: true, allow_nil?: false
     attribute :decision, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.LicenseEvidence do
+  @moduledoc "Executable licensing evidence binding an exact subject to its machine-verified SPDX expression."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :license_expression, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -1872,6 +2334,48 @@ defmodule BeamPM.Ash.Resources.MinimumTermAdmission do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :minimum_term, :string, public?: true, allow_nil?: false
     attribute :decision, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.MultiarchEvidence do
+  @moduledoc "Executable architecture evidence binding an exact subject to the platform set actually present in its OCI index."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :platforms, {:array, :string}, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.MutableIdentityRefusalEvidence do
+  @moduledoc "Executable refusal evidence recording the mutable artifact reference rejected by procurement policy."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :mutable_reference, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2066,6 +2570,48 @@ defmodule BeamPM.Ash.Resources.OcelRelationship do
   end
 end
 
+defmodule BeamPM.Ash.Resources.OciManifestEvidence do
+  @moduledoc "Executable OCI evidence binding an exact subject to its verified manifest-list identity."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :manifest_digest, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.OfflineBundleEvidence do
+  @moduledoc "Executable private-deployment evidence binding an exact subject to a verified offline installation bundle."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :bundle_digest, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.OperatorReadiness do
   @moduledoc "Measured operations-team readiness for governed production use."
   use Ash.Resource,
@@ -2243,6 +2789,27 @@ defmodule BeamPM.Ash.Resources.PaymentTermsAdmission do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :payment_terms, :string, public?: true, allow_nil?: false
     attribute :authority_evidence_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.PerformanceSloEvidence do
+  @moduledoc "Executable performance evidence binding an exact subject to the percentile latency actually measured."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :latency_p95_ms, :integer, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2476,6 +3043,27 @@ defmodule BeamPM.Ash.Resources.PricingBasisContract do
   end
 end
 
+defmodule BeamPM.Ash.Resources.PrivacyClassificationEvidence do
+  @moduledoc "Executable privacy evidence binding an exact subject to the classification enforced for its handled data."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :privacy_class, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.PrivateOffer do
   @moduledoc "Negotiated private offer with customer, price, and expiration."
   use Ash.Resource,
@@ -2497,6 +3085,27 @@ defmodule BeamPM.Ash.Resources.PrivateOffer do
   end
 end
 
+defmodule BeamPM.Ash.Resources.PrivateRegistryEvidence do
+  @moduledoc "Executable private-registry evidence binding an exact subject to the digest pulled from the authorized registry."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :registry_digest, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ProcessVariant do
   @moduledoc "One distinct activity-sequence variant observed in a log, with its frequency."
   use Ash.Resource,
@@ -2509,6 +3118,27 @@ defmodule BeamPM.Ash.Resources.ProcessVariant do
     attribute :variant_id, :string, public?: true, allow_nil?: false
     attribute :activity_sequence, {:array, :string}, public?: true, allow_nil?: false
     attribute :frequency, :integer, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ProcurementAcceptanceEvidence do
+  @moduledoc "Executable procurement evidence binding the exact commercial subject to the final decision derived from admitted controls."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :acceptance_decision, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2641,6 +3271,27 @@ defmodule BeamPM.Ash.Resources.ProofOfValueExitGate do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ProvenanceBindingEvidence do
+  @moduledoc "Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :builder_identity, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.PurchaseOrderBinding do
   @moduledoc "Customer purchase-order evidence bound to an enterprise order."
   use Ash.Resource,
@@ -2764,6 +3415,27 @@ defmodule BeamPM.Ash.Resources.RampCommitment do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ReceiptReplayEvidence do
+  @moduledoc "Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :replay_result_hash, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.RecoveryPlan do
   @moduledoc "Executable account recovery plan with a measured recovery interval."
   use Ash.Resource,
@@ -2778,6 +3450,27 @@ defmodule BeamPM.Ash.Resources.RecoveryPlan do
     attribute :recovery_time_hours, :float, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.RemediationSlaEvidence do
+  @moduledoc "Executable remediation evidence binding an exact subject and finding to its enforced due instant."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :remediation_due_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2893,6 +3586,27 @@ defmodule BeamPM.Ash.Resources.RenewalTermAdmission do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ReproducibleBuildEvidence do
+  @moduledoc "Executable reproducibility evidence binding an exact subject to the independently reproduced build digest."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :build_digest, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ResellerAuthorization do
   @moduledoc "SKU-scoped reseller authorization with standing."
   use Ash.Resource,
@@ -2914,6 +3628,27 @@ defmodule BeamPM.Ash.Resources.ResellerAuthorization do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ResidencyEvidence do
+  @moduledoc "Executable residency evidence binding an exact subject to the region where its controlled data operation occurred."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :region, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ResourceAllocation do
   @moduledoc "One recorded assignment of a resource to an activity occurrence."
   use Ash.Resource,
@@ -2926,6 +3661,27 @@ defmodule BeamPM.Ash.Resources.ResourceAllocation do
     attribute :resource_id, :string, public?: true, allow_nil?: false
     attribute :activity, :string, public?: true, allow_nil?: false
     attribute :event_id, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.RetentionPolicyEvidence do
+  @moduledoc "Executable retention evidence binding an exact subject to the duration enforced by the storage lifecycle."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :retention_days, :integer, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2996,6 +3752,27 @@ defmodule BeamPM.Ash.Resources.RevenueScheduleAssumption do
   end
 end
 
+defmodule BeamPM.Ash.Resources.RfpResponseEvidence do
+  @moduledoc "Executable procurement evidence binding an exact subject to a deterministic RFP answer set."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :answer_set_hash, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.RollbackDecision do
   @moduledoc "Receipted rollback decision and recovered account consequence."
   use Ash.Resource,
@@ -3018,6 +3795,27 @@ defmodule BeamPM.Ash.Resources.RollbackDecision do
   end
 end
 
+defmodule BeamPM.Ash.Resources.RollbackEvidence do
+  @moduledoc "Executable rollback evidence binding an exact subject to the artifact identity restored by a real rollback transition."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :rollback_digest, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.SanctionsScreeningResult do
   @moduledoc "Requires a named sanctions screening result before accepting the commercial counterparty."
   use Ash.Resource,
@@ -3030,6 +3828,48 @@ defmodule BeamPM.Ash.Resources.SanctionsScreeningResult do
     attribute :account_id, :string, public?: true, allow_nil?: false
     attribute :screening_id, :string, public?: true, allow_nil?: false
     attribute :screening_result, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.SbomInventoryEvidence do
+  @moduledoc "Executable SBOM evidence binding an exact commercial subject to the observed component inventory cardinality."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :component_count, :integer, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.SecretBoundaryEvidence do
+  @moduledoc "Executable secrets-boundary evidence proving the admitted subject used an authorized credential source."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :secret_source, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -3204,6 +4044,27 @@ defmodule BeamPM.Ash.Resources.ShowbackAllocation do
   end
 end
 
+defmodule BeamPM.Ash.Resources.SignatureEvidence do
+  @moduledoc "Executable signature evidence binding an exact subject to the workload identity accepted by cryptographic verification."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :signature_identity, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.SkuDefinition do
   @moduledoc "Catalog SKU binding edition, billing model, and lifecycle."
   use Ash.Resource,
@@ -3309,6 +4170,27 @@ defmodule BeamPM.Ash.Resources.StakeholderMap do
   end
 end
 
+defmodule BeamPM.Ash.Resources.StaleSubjectRefusalEvidence do
+  @moduledoc "Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :stale_sha, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.SuccessPlan do
   @moduledoc "Executable customer-success plan target with receipted account identity."
   use Ash.Resource,
@@ -3352,6 +4234,27 @@ defmodule BeamPM.Ash.Resources.SupportContract do
   end
 end
 
+defmodule BeamPM.Ash.Resources.SupportEscalationEvidence do
+  @moduledoc "Executable support evidence binding an exact subject to the accountable escalation owner."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :escalation_owner, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.SupportReadiness do
   @moduledoc "Measured support-team readiness for enterprise production."
   use Ash.Resource,
@@ -3374,6 +4277,27 @@ defmodule BeamPM.Ash.Resources.SupportReadiness do
   end
 end
 
+defmodule BeamPM.Ash.Resources.SupportSlaEvidence do
+  @moduledoc "Executable support evidence binding an exact subject to the response latency actually observed."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :response_minutes, :integer, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.SupportTierAdmission do
   @moduledoc "Admits the paid support tier that determines service obligation and cost-to-serve."
   use Ash.Resource,
@@ -3386,6 +4310,27 @@ defmodule BeamPM.Ash.Resources.SupportTierAdmission do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :support_tier_id, :string, public?: true, allow_nil?: false
     attribute :decision, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.SupportWindowEvidence do
+  @moduledoc "Executable support-window evidence binding an exact subject to the channel available during the observed coverage window."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :support_channel, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 
   actions do
@@ -3665,6 +4610,48 @@ defmodule BeamPM.Ash.Resources.TypeEdge do
   end
 end
 
+defmodule BeamPM.Ash.Resources.UnsupportedCapabilityEvidence do
+  @moduledoc "Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :capability_name, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.UpgradeEvidence do
+  @moduledoc "Executable upgrade evidence binding an exact subject to the source version accepted by the migration path."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :from_version, :string, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.UpsellReadiness do
   @moduledoc "Measured readiness to transition the account to greater product capacity."
   use Ash.Resource,
@@ -3837,6 +4824,48 @@ defmodule BeamPM.Ash.Resources.VendorRegistrationState do
   end
 end
 
+defmodule BeamPM.Ash.Resources.VendorRiskEvidence do
+  @moduledoc "Executable vendor-risk evidence binding an exact subject to the risk score emitted from verified controls."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :risk_score, :float, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.VersionLifecycleEvidence do
+  @moduledoc "Executable lifecycle evidence binding an exact subject version to its enforced support horizon."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :supported_until, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.VolumeTierAdmission do
   @moduledoc "Admits a volume discount tier only through an explicit decision tied to the opportunity."
   use Ash.Resource,
@@ -3857,6 +4886,27 @@ defmodule BeamPM.Ash.Resources.VolumeTierAdmission do
   end
 end
 
+defmodule BeamPM.Ash.Resources.VulnerabilityScanEvidence do
+  @moduledoc "Executable vulnerability evidence binding an exact subject to the findings actually emitted by a scanner."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :evidence_id, :string, public?: true, allow_nil?: false
+    attribute :subject_sha, :string, public?: true, allow_nil?: false
+    attribute :vulnerability_count, :integer, public?: true, allow_nil?: false
+    attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Domain do
   @moduledoc "GENERATED Ash domain over all admitted bpm:RecordType resources."
   use Ash.Domain, validate_config_inclusion?: false
@@ -3865,28 +4915,40 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.AccountDiscovery
     resource BeamPM.Ash.Resources.AccountMasterMatch
     resource BeamPM.Ash.Resources.AccountParentScope
+    resource BeamPM.Ash.Resources.ActionPinEvidence
     resource BeamPM.Ash.Resources.ActivationEvent
     resource BeamPM.Ash.Resources.AddOnBundle
     resource BeamPM.Ash.Resources.AdoptionMilestone
     resource BeamPM.Ash.Resources.AlignmentMove
     resource BeamPM.Ash.Resources.AnnualSubscription
+    resource BeamPM.Ash.Resources.ApprovalSeparationEvidence
     resource BeamPM.Ash.Resources.ArchitectureReadiness
+    resource BeamPM.Ash.Resources.ArchitectureReviewEvidence
+    resource BeamPM.Ash.Resources.ArtifactDigestEvidence
+    resource BeamPM.Ash.Resources.AttestationVerificationEvidence
+    resource BeamPM.Ash.Resources.AuditChainEvidence
+    resource BeamPM.Ash.Resources.AvailabilitySloEvidence
+    resource BeamPM.Ash.Resources.BackupRestoreEvidence
     resource BeamPM.Ash.Resources.BaselineMetric
     resource BeamPM.Ash.Resources.BeneficialOwnerEvidence
     resource BeamPM.Ash.Resources.BillingAccount
     resource BeamPM.Ash.Resources.BillingReconciliation
     resource BeamPM.Ash.Resources.BookingReadiness
     resource BeamPM.Ash.Resources.BudgetPeriodAlignment
+    resource BeamPM.Ash.Resources.BusinessContinuityEvidence
     resource BeamPM.Ash.Resources.BuyingCommittee
     resource BeamPM.Ash.Resources.CanaryDecision
+    resource BeamPM.Ash.Resources.CanaryEvidence
     resource BeamPM.Ash.Resources.CapabilityBundle
     resource BeamPM.Ash.Resources.CapabilityGap
     resource BeamPM.Ash.Resources.CaseStats
     resource BeamPM.Ash.Resources.CatalogRelease
+    resource BeamPM.Ash.Resources.ChangeControlEvidence
     resource BeamPM.Ash.Resources.ChangeOrderAuthority
     resource BeamPM.Ash.Resources.ChannelAgreement
     resource BeamPM.Ash.Resources.ChargebackRule
     resource BeamPM.Ash.Resources.CommercialApproval
+    resource BeamPM.Ash.Resources.CommercialArtifactCrownEvidence
     resource BeamPM.Ash.Resources.CommercialException
     resource BeamPM.Ash.Resources.CommercialExecutionReceipt
     resource BeamPM.Ash.Resources.CommercialForecast
@@ -3906,28 +4968,35 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.CreditRiskAdmission
     resource BeamPM.Ash.Resources.CrossSellFit
     resource BeamPM.Ash.Resources.CustomerHealth
+    resource BeamPM.Ash.Resources.CustomerManagedKeyEvidence
+    resource BeamPM.Ash.Resources.DataEgressEvidence
     resource BeamPM.Ash.Resources.DataMigrationScopeAdmission
     resource BeamPM.Ash.Resources.DataProcessingAddendumState
     resource BeamPM.Ash.Resources.DataReadiness
     resource BeamPM.Ash.Resources.DataResidencyPolicy
     resource BeamPM.Ash.Resources.DealDeskPacket
+    resource BeamPM.Ash.Resources.DeletionProofEvidence
     resource BeamPM.Ash.Resources.DemoRun
     resource BeamPM.Ash.Resources.DemoScenario
+    resource BeamPM.Ash.Resources.DependencyInventoryEvidence
     resource BeamPM.Ash.Resources.DeploymentEntitlement
     resource BeamPM.Ash.Resources.DeveloperReadiness
     resource BeamPM.Ash.Resources.DfgEdge
+    resource BeamPM.Ash.Resources.DisasterRecoveryEvidence
     resource BeamPM.Ash.Resources.DiscountSchedule
     resource BeamPM.Ash.Resources.DiscoveryHypothesis
     resource BeamPM.Ash.Resources.EditionDefinition
     resource BeamPM.Ash.Resources.EnterpriseOrder
     resource BeamPM.Ash.Resources.EnterpriseOrderLine
     resource BeamPM.Ash.Resources.EntitlementEvent
+    resource BeamPM.Ash.Resources.EntitlementEvidence
     resource BeamPM.Ash.Resources.EntitlementGrant
     resource BeamPM.Ash.Resources.EntitlementRevocation
     resource BeamPM.Ash.Resources.EntitlementState
     resource BeamPM.Ash.Resources.EnvironmentProfile
     resource BeamPM.Ash.Resources.EventLog
     resource BeamPM.Ash.Resources.EventType
+    resource BeamPM.Ash.Resources.EvidenceFreshnessEvidence
     resource BeamPM.Ash.Resources.ExceptionAuthority
     resource BeamPM.Ash.Resources.ExecutiveBusinessReview
     resource BeamPM.Ash.Resources.ExecutiveSponsor
@@ -3938,6 +5007,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.FundingApprovalChain
     resource BeamPM.Ash.Resources.HeuristicArc
     resource BeamPM.Ash.Resources.ImplementationFeeAdmission
+    resource BeamPM.Ash.Resources.IncidentResponseEvidence
     resource BeamPM.Ash.Resources.IndemnityScopeAdmission
     resource BeamPM.Ash.Resources.InsuranceRequirement
     resource BeamPM.Ash.Resources.IntegrationReadiness
@@ -3945,13 +5015,17 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.InvoiceEntityIdentity
     resource BeamPM.Ash.Resources.InvoiceSchedule
     resource BeamPM.Ash.Resources.K8sObjectRef
+    resource BeamPM.Ash.Resources.LeastAuthorityEvidence
     resource BeamPM.Ash.Resources.LegalBlocker
     resource BeamPM.Ash.Resources.LiabilityCapAdmission
+    resource BeamPM.Ash.Resources.LicenseEvidence
     resource BeamPM.Ash.Resources.LogTrace
     resource BeamPM.Ash.Resources.MasterServiceAgreementState
     resource BeamPM.Ash.Resources.MigrationContract
     resource BeamPM.Ash.Resources.MigrationReadiness
     resource BeamPM.Ash.Resources.MinimumTermAdmission
+    resource BeamPM.Ash.Resources.MultiarchEvidence
+    resource BeamPM.Ash.Resources.MutableIdentityRefusalEvidence
     resource BeamPM.Ash.Resources.ObjectAttributeChange
     resource BeamPM.Ash.Resources.ObjectType
     resource BeamPM.Ash.Resources.Objection
@@ -3961,6 +5035,8 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.OcelEvent
     resource BeamPM.Ash.Resources.OcelObject
     resource BeamPM.Ash.Resources.OcelRelationship
+    resource BeamPM.Ash.Resources.OciManifestEvidence
+    resource BeamPM.Ash.Resources.OfflineBundleEvidence
     resource BeamPM.Ash.Resources.OperatorReadiness
     resource BeamPM.Ash.Resources.OpportunityCurrencyContract
     resource BeamPM.Ash.Resources.OpportunityValueRange
@@ -3970,6 +5046,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.PathSchemaQuery
     resource BeamPM.Ash.Resources.PaymentTerms
     resource BeamPM.Ash.Resources.PaymentTermsAdmission
+    resource BeamPM.Ash.Resources.PerformanceSloEvidence
     resource BeamPM.Ash.Resources.PetriArc
     resource BeamPM.Ash.Resources.PetriPlace
     resource BeamPM.Ash.Resources.PetriTransition
@@ -3981,33 +5058,46 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.PocTimeline
     resource BeamPM.Ash.Resources.PolicyDecision
     resource BeamPM.Ash.Resources.PricingBasisContract
+    resource BeamPM.Ash.Resources.PrivacyClassificationEvidence
     resource BeamPM.Ash.Resources.PrivateOffer
+    resource BeamPM.Ash.Resources.PrivateRegistryEvidence
     resource BeamPM.Ash.Resources.ProcessVariant
+    resource BeamPM.Ash.Resources.ProcurementAcceptanceEvidence
     resource BeamPM.Ash.Resources.ProcurementBlocker
     resource BeamPM.Ash.Resources.ProcurementChannelSelection
     resource BeamPM.Ash.Resources.ProcurementReadiness
     resource BeamPM.Ash.Resources.ProductionReadiness
     resource BeamPM.Ash.Resources.ProofOfValueBudget
     resource BeamPM.Ash.Resources.ProofOfValueExitGate
+    resource BeamPM.Ash.Resources.ProvenanceBindingEvidence
     resource BeamPM.Ash.Resources.PurchaseOrderBinding
     resource BeamPM.Ash.Resources.PurchaseOrderRequirement
     resource BeamPM.Ash.Resources.PurchasingEntityIdentity
     resource BeamPM.Ash.Resources.QueueSnapshot
     resource BeamPM.Ash.Resources.QuotaPolicy
     resource BeamPM.Ash.Resources.RampCommitment
+    resource BeamPM.Ash.Resources.ReceiptReplayEvidence
     resource BeamPM.Ash.Resources.RecoveryPlan
+    resource BeamPM.Ash.Resources.RemediationSlaEvidence
     resource BeamPM.Ash.Resources.RenewalEvidence
     resource BeamPM.Ash.Resources.RenewalHealth
     resource BeamPM.Ash.Resources.RenewalOption
     resource BeamPM.Ash.Resources.RenewalRisk
     resource BeamPM.Ash.Resources.RenewalTermAdmission
+    resource BeamPM.Ash.Resources.ReproducibleBuildEvidence
     resource BeamPM.Ash.Resources.ResellerAuthorization
+    resource BeamPM.Ash.Resources.ResidencyEvidence
     resource BeamPM.Ash.Resources.ResourceAllocation
+    resource BeamPM.Ash.Resources.RetentionPolicyEvidence
     resource BeamPM.Ash.Resources.RevenueAttribution
     resource BeamPM.Ash.Resources.RevenueContractAdmission
     resource BeamPM.Ash.Resources.RevenueScheduleAssumption
+    resource BeamPM.Ash.Resources.RfpResponseEvidence
     resource BeamPM.Ash.Resources.RollbackDecision
+    resource BeamPM.Ash.Resources.RollbackEvidence
     resource BeamPM.Ash.Resources.SanctionsScreeningResult
+    resource BeamPM.Ash.Resources.SbomInventoryEvidence
+    resource BeamPM.Ash.Resources.SecretBoundaryEvidence
     resource BeamPM.Ash.Resources.SecurityAddendumState
     resource BeamPM.Ash.Resources.SecurityBlocker
     resource BeamPM.Ash.Resources.SecurityReadiness
@@ -4016,15 +5106,20 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ServiceLevelObjective
     resource BeamPM.Ash.Resources.ServiceSpan
     resource BeamPM.Ash.Resources.ShowbackAllocation
+    resource BeamPM.Ash.Resources.SignatureEvidence
     resource BeamPM.Ash.Resources.SkuDefinition
     resource BeamPM.Ash.Resources.SlaOfferAdmission
     resource BeamPM.Ash.Resources.SojournTime
     resource BeamPM.Ash.Resources.SolutionFit
     resource BeamPM.Ash.Resources.StakeholderMap
+    resource BeamPM.Ash.Resources.StaleSubjectRefusalEvidence
     resource BeamPM.Ash.Resources.SuccessPlan
     resource BeamPM.Ash.Resources.SupportContract
+    resource BeamPM.Ash.Resources.SupportEscalationEvidence
     resource BeamPM.Ash.Resources.SupportReadiness
+    resource BeamPM.Ash.Resources.SupportSlaEvidence
     resource BeamPM.Ash.Resources.SupportTierAdmission
+    resource BeamPM.Ash.Resources.SupportWindowEvidence
     resource BeamPM.Ash.Resources.SyncTime
     resource BeamPM.Ash.Resources.TargetMetric
     resource BeamPM.Ash.Resources.TaxJurisdictionEvidence
@@ -4038,6 +5133,8 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.TrainingScopeAdmission
     resource BeamPM.Ash.Resources.TrueUpPolicy
     resource BeamPM.Ash.Resources.TypeEdge
+    resource BeamPM.Ash.Resources.UnsupportedCapabilityEvidence
+    resource BeamPM.Ash.Resources.UpgradeEvidence
     resource BeamPM.Ash.Resources.UpsellReadiness
     resource BeamPM.Ash.Resources.UsageEvent
     resource BeamPM.Ash.Resources.UsagePlan
@@ -4046,7 +5143,10 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ValueDriver
     resource BeamPM.Ash.Resources.ValueRealization
     resource BeamPM.Ash.Resources.VendorRegistrationState
+    resource BeamPM.Ash.Resources.VendorRiskEvidence
+    resource BeamPM.Ash.Resources.VersionLifecycleEvidence
     resource BeamPM.Ash.Resources.VolumeTierAdmission
+    resource BeamPM.Ash.Resources.VulnerabilityScanEvidence
   end
 end
 

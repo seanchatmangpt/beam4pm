@@ -13,28 +13,40 @@
     beam4pm_types:account_discovery() |
     beam4pm_types:account_master_match() |
     beam4pm_types:account_parent_scope() |
+    beam4pm_types:action_pin_evidence() |
     beam4pm_types:activation_event() |
     beam4pm_types:add_on_bundle() |
     beam4pm_types:adoption_milestone() |
     beam4pm_types:alignment_move() |
     beam4pm_types:annual_subscription() |
+    beam4pm_types:approval_separation_evidence() |
     beam4pm_types:architecture_readiness() |
+    beam4pm_types:architecture_review_evidence() |
+    beam4pm_types:artifact_digest_evidence() |
+    beam4pm_types:attestation_verification_evidence() |
+    beam4pm_types:audit_chain_evidence() |
+    beam4pm_types:availability_slo_evidence() |
+    beam4pm_types:backup_restore_evidence() |
     beam4pm_types:baseline_metric() |
     beam4pm_types:beneficial_owner_evidence() |
     beam4pm_types:billing_account() |
     beam4pm_types:billing_reconciliation() |
     beam4pm_types:booking_readiness() |
     beam4pm_types:budget_period_alignment() |
+    beam4pm_types:business_continuity_evidence() |
     beam4pm_types:buying_committee() |
     beam4pm_types:canary_decision() |
+    beam4pm_types:canary_evidence() |
     beam4pm_types:capability_bundle() |
     beam4pm_types:capability_gap() |
     beam4pm_types:case_stats() |
     beam4pm_types:catalog_release() |
+    beam4pm_types:change_control_evidence() |
     beam4pm_types:change_order_authority() |
     beam4pm_types:channel_agreement() |
     beam4pm_types:chargeback_rule() |
     beam4pm_types:commercial_approval() |
+    beam4pm_types:commercial_artifact_crown_evidence() |
     beam4pm_types:commercial_exception() |
     beam4pm_types:commercial_execution_receipt() |
     beam4pm_types:commercial_forecast() |
@@ -54,28 +66,35 @@
     beam4pm_types:credit_risk_admission() |
     beam4pm_types:cross_sell_fit() |
     beam4pm_types:customer_health() |
+    beam4pm_types:customer_managed_key_evidence() |
+    beam4pm_types:data_egress_evidence() |
     beam4pm_types:data_migration_scope_admission() |
     beam4pm_types:data_processing_addendum_state() |
     beam4pm_types:data_readiness() |
     beam4pm_types:data_residency_policy() |
     beam4pm_types:deal_desk_packet() |
+    beam4pm_types:deletion_proof_evidence() |
     beam4pm_types:demo_run() |
     beam4pm_types:demo_scenario() |
+    beam4pm_types:dependency_inventory_evidence() |
     beam4pm_types:deployment_entitlement() |
     beam4pm_types:developer_readiness() |
     beam4pm_types:dfg_edge() |
+    beam4pm_types:disaster_recovery_evidence() |
     beam4pm_types:discount_schedule() |
     beam4pm_types:discovery_hypothesis() |
     beam4pm_types:edition_definition() |
     beam4pm_types:enterprise_order() |
     beam4pm_types:enterprise_order_line() |
     beam4pm_types:entitlement_event() |
+    beam4pm_types:entitlement_evidence() |
     beam4pm_types:entitlement_grant() |
     beam4pm_types:entitlement_revocation() |
     beam4pm_types:entitlement_state() |
     beam4pm_types:environment_profile() |
     beam4pm_types:event_log() |
     beam4pm_types:event_type() |
+    beam4pm_types:evidence_freshness_evidence() |
     beam4pm_types:exception_authority() |
     beam4pm_types:executive_business_review() |
     beam4pm_types:executive_sponsor() |
@@ -86,6 +105,7 @@
     beam4pm_types:funding_approval_chain() |
     beam4pm_types:heuristic_arc() |
     beam4pm_types:implementation_fee_admission() |
+    beam4pm_types:incident_response_evidence() |
     beam4pm_types:indemnity_scope_admission() |
     beam4pm_types:insurance_requirement() |
     beam4pm_types:integration_readiness() |
@@ -93,13 +113,17 @@
     beam4pm_types:invoice_entity_identity() |
     beam4pm_types:invoice_schedule() |
     beam4pm_types:k8s_object_ref() |
+    beam4pm_types:least_authority_evidence() |
     beam4pm_types:legal_blocker() |
     beam4pm_types:liability_cap_admission() |
+    beam4pm_types:license_evidence() |
     beam4pm_types:log_trace() |
     beam4pm_types:master_service_agreement_state() |
     beam4pm_types:migration_contract() |
     beam4pm_types:migration_readiness() |
     beam4pm_types:minimum_term_admission() |
+    beam4pm_types:multiarch_evidence() |
+    beam4pm_types:mutable_identity_refusal_evidence() |
     beam4pm_types:object_attribute_change() |
     beam4pm_types:object_type() |
     beam4pm_types:objection() |
@@ -109,6 +133,8 @@
     beam4pm_types:ocel_event() |
     beam4pm_types:ocel_object() |
     beam4pm_types:ocel_relationship() |
+    beam4pm_types:oci_manifest_evidence() |
+    beam4pm_types:offline_bundle_evidence() |
     beam4pm_types:operator_readiness() |
     beam4pm_types:opportunity_currency_contract() |
     beam4pm_types:opportunity_value_range() |
@@ -118,6 +144,7 @@
     beam4pm_types:path_schema_query() |
     beam4pm_types:payment_terms() |
     beam4pm_types:payment_terms_admission() |
+    beam4pm_types:performance_slo_evidence() |
     beam4pm_types:petri_arc() |
     beam4pm_types:petri_place() |
     beam4pm_types:petri_transition() |
@@ -129,33 +156,46 @@
     beam4pm_types:poc_timeline() |
     beam4pm_types:policy_decision() |
     beam4pm_types:pricing_basis_contract() |
+    beam4pm_types:privacy_classification_evidence() |
     beam4pm_types:private_offer() |
+    beam4pm_types:private_registry_evidence() |
     beam4pm_types:process_variant() |
+    beam4pm_types:procurement_acceptance_evidence() |
     beam4pm_types:procurement_blocker() |
     beam4pm_types:procurement_channel_selection() |
     beam4pm_types:procurement_readiness() |
     beam4pm_types:production_readiness() |
     beam4pm_types:proof_of_value_budget() |
     beam4pm_types:proof_of_value_exit_gate() |
+    beam4pm_types:provenance_binding_evidence() |
     beam4pm_types:purchase_order_binding() |
     beam4pm_types:purchase_order_requirement() |
     beam4pm_types:purchasing_entity_identity() |
     beam4pm_types:queue_snapshot() |
     beam4pm_types:quota_policy() |
     beam4pm_types:ramp_commitment() |
+    beam4pm_types:receipt_replay_evidence() |
     beam4pm_types:recovery_plan() |
+    beam4pm_types:remediation_sla_evidence() |
     beam4pm_types:renewal_evidence() |
     beam4pm_types:renewal_health() |
     beam4pm_types:renewal_option() |
     beam4pm_types:renewal_risk() |
     beam4pm_types:renewal_term_admission() |
+    beam4pm_types:reproducible_build_evidence() |
     beam4pm_types:reseller_authorization() |
+    beam4pm_types:residency_evidence() |
     beam4pm_types:resource_allocation() |
+    beam4pm_types:retention_policy_evidence() |
     beam4pm_types:revenue_attribution() |
     beam4pm_types:revenue_contract_admission() |
     beam4pm_types:revenue_schedule_assumption() |
+    beam4pm_types:rfp_response_evidence() |
     beam4pm_types:rollback_decision() |
+    beam4pm_types:rollback_evidence() |
     beam4pm_types:sanctions_screening_result() |
+    beam4pm_types:sbom_inventory_evidence() |
+    beam4pm_types:secret_boundary_evidence() |
     beam4pm_types:security_addendum_state() |
     beam4pm_types:security_blocker() |
     beam4pm_types:security_readiness() |
@@ -164,15 +204,20 @@
     beam4pm_types:service_level_objective() |
     beam4pm_types:service_span() |
     beam4pm_types:showback_allocation() |
+    beam4pm_types:signature_evidence() |
     beam4pm_types:sku_definition() |
     beam4pm_types:sla_offer_admission() |
     beam4pm_types:sojourn_time() |
     beam4pm_types:solution_fit() |
     beam4pm_types:stakeholder_map() |
+    beam4pm_types:stale_subject_refusal_evidence() |
     beam4pm_types:success_plan() |
     beam4pm_types:support_contract() |
+    beam4pm_types:support_escalation_evidence() |
     beam4pm_types:support_readiness() |
+    beam4pm_types:support_sla_evidence() |
     beam4pm_types:support_tier_admission() |
+    beam4pm_types:support_window_evidence() |
     beam4pm_types:sync_time() |
     beam4pm_types:target_metric() |
     beam4pm_types:tax_jurisdiction_evidence() |
@@ -186,6 +231,8 @@
     beam4pm_types:training_scope_admission() |
     beam4pm_types:true_up_policy() |
     beam4pm_types:type_edge() |
+    beam4pm_types:unsupported_capability_evidence() |
+    beam4pm_types:upgrade_evidence() |
     beam4pm_types:upsell_readiness() |
     beam4pm_types:usage_event() |
     beam4pm_types:usage_plan() |
@@ -194,7 +241,10 @@
     beam4pm_types:value_driver() |
     beam4pm_types:value_realization() |
     beam4pm_types:vendor_registration_state() |
-    beam4pm_types:volume_tier_admission().
+    beam4pm_types:vendor_risk_evidence() |
+    beam4pm_types:version_lifecycle_evidence() |
+    beam4pm_types:volume_tier_admission() |
+    beam4pm_types:vulnerability_scan_evidence().
 
 %% to_map/1: project a record onto a JSON-ready map with binary keys.
 %% Fields whose value is 'undefined' are omitted; atom-typed fields are
@@ -219,6 +269,13 @@ to_map(R) when element(1, R) =:= account_parent_scope ->
         {<<"account_id">>, plain, element(2, R)},
         {<<"parent_account_id">>, plain, element(3, R)},
         {<<"scope_evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= action_pin_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"action_sha">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= activation_event ->
     pairs_to_map([
@@ -255,6 +312,13 @@ to_map(R) when element(1, R) =:= annual_subscription ->
         {<<"seat_count">>, plain, element(4, R)},
         {<<"renews_at">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= approval_separation_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"approver_identity">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= architecture_readiness ->
     pairs_to_map([
         {<<"architecture_readiness_id">>, plain, element(2, R)},
@@ -262,6 +326,48 @@ to_map(R) when element(1, R) =:= architecture_readiness ->
         {<<"architecture_score">>, plain, element(4, R)},
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= architecture_review_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"review_decision">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= artifact_digest_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"digest">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= attestation_verification_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"predicate_type">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= audit_chain_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"previous_receipt_hash">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= availability_slo_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"availability_percent">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= backup_restore_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"backup_digest">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= baseline_metric ->
     pairs_to_map([
@@ -305,6 +411,13 @@ to_map(R) when element(1, R) =:= budget_period_alignment ->
         {<<"budget_period">>, plain, element(3, R)},
         {<<"alignment_result">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= business_continuity_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"continuity_mode">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= buying_committee ->
     pairs_to_map([
         {<<"buying_committee_id">>, plain, element(2, R)},
@@ -320,6 +433,13 @@ to_map(R) when element(1, R) =:= canary_decision ->
         {<<"canary_result">>, plain, element(4, R)},
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= canary_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"canary_percentage">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= capability_bundle ->
     pairs_to_map([
@@ -349,6 +469,13 @@ to_map(R) when element(1, R) =:= catalog_release ->
         {<<"sku_ids">>, plain, element(4, R)},
         {<<"effective_at">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= change_control_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"change_request_id">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= change_order_authority ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
@@ -375,6 +502,13 @@ to_map(R) when element(1, R) =:= commercial_approval ->
         {<<"quote_id">>, plain, element(3, R)},
         {<<"authority">>, plain, element(4, R)},
         {<<"status">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= commercial_artifact_crown_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"artifact_digest">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= commercial_exception ->
     pairs_to_map([
@@ -507,6 +641,20 @@ to_map(R) when element(1, R) =:= customer_health ->
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
     ]);
+to_map(R) when element(1, R) =:= customer_managed_key_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"key_identifier">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= data_egress_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"egress_bytes">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= data_migration_scope_admission ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
@@ -540,6 +688,13 @@ to_map(R) when element(1, R) =:= deal_desk_packet ->
         {<<"packet_id">>, plain, element(3, R)},
         {<<"evidence_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= deletion_proof_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"deletion_receipt_id">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= demo_run ->
     pairs_to_map([
         {<<"demo_run_id">>, plain, element(2, R)},
@@ -555,6 +710,13 @@ to_map(R) when element(1, R) =:= demo_scenario ->
         {<<"scenario_name">>, plain, element(4, R)},
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= dependency_inventory_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"dependency_count">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= deployment_entitlement ->
     pairs_to_map([
@@ -576,6 +738,13 @@ to_map(R) when element(1, R) =:= dfg_edge ->
         {<<"source_activity">>, plain, element(2, R)},
         {<<"target_activity">>, plain, element(3, R)},
         {<<"frequency">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= disaster_recovery_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"recovered_at">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= discount_schedule ->
     pairs_to_map([
@@ -621,6 +790,13 @@ to_map(R) when element(1, R) =:= entitlement_event ->
         {<<"effective_at">>, plain, element(5, R)},
         {<<"payload">>, plain, element(6, R)}
     ]);
+to_map(R) when element(1, R) =:= entitlement_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"entitlement_id">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= entitlement_grant ->
     pairs_to_map([
         {<<"grant_id">>, plain, element(2, R)},
@@ -659,6 +835,13 @@ to_map(R) when element(1, R) =:= event_type ->
     pairs_to_map([
         {<<"type_name">>, plain, element(2, R)},
         {<<"attribute_names">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= evidence_freshness_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"observed_at">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= exception_authority ->
     pairs_to_map([
@@ -731,6 +914,13 @@ to_map(R) when element(1, R) =:= implementation_fee_admission ->
         {<<"fee_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= incident_response_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"incident_id">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= indemnity_scope_admission ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
@@ -776,6 +966,13 @@ to_map(R) when element(1, R) =:= k8s_object_ref ->
         {<<"name">>, plain, element(3, R)},
         {<<"namespace">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= least_authority_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"granted_permissions">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= legal_blocker ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
@@ -787,6 +984,13 @@ to_map(R) when element(1, R) =:= liability_cap_admission ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"liability_cap_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= license_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"license_expression">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= log_trace ->
     pairs_to_map([
@@ -819,6 +1023,20 @@ to_map(R) when element(1, R) =:= minimum_term_admission ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"minimum_term">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= multiarch_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"platforms">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= mutable_identity_refusal_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"mutable_reference">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= object_attribute_change ->
     pairs_to_map([
@@ -880,6 +1098,20 @@ to_map(R) when element(1, R) =:= ocel_relationship ->
         {<<"qualifier">>, plain, element(2, R)},
         {<<"object_id">>, plain, element(3, R)}
     ]);
+to_map(R) when element(1, R) =:= oci_manifest_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"manifest_digest">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= offline_bundle_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"bundle_digest">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= operator_readiness ->
     pairs_to_map([
         {<<"operator_readiness_id">>, plain, element(2, R)},
@@ -938,6 +1170,13 @@ to_map(R) when element(1, R) =:= payment_terms_admission ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"payment_terms">>, plain, element(3, R)},
         {<<"authority_evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= performance_slo_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"latency_p95_ms">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= petri_arc ->
     pairs_to_map([
@@ -1010,6 +1249,13 @@ to_map(R) when element(1, R) =:= pricing_basis_contract ->
         {<<"pricing_basis_id">>, plain, element(3, R)},
         {<<"evidence_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= privacy_classification_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"privacy_class">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= private_offer ->
     pairs_to_map([
         {<<"offer_id">>, plain, element(2, R)},
@@ -1017,11 +1263,25 @@ to_map(R) when element(1, R) =:= private_offer ->
         {<<"total_price">>, plain, element(4, R)},
         {<<"expires_at">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= private_registry_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"registry_digest">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= process_variant ->
     pairs_to_map([
         {<<"variant_id">>, plain, element(2, R)},
         {<<"activity_sequence">>, plain, element(3, R)},
         {<<"frequency">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= procurement_acceptance_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"acceptance_decision">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= procurement_blocker ->
     pairs_to_map([
@@ -1063,6 +1323,13 @@ to_map(R) when element(1, R) =:= proof_of_value_exit_gate ->
         {<<"exit_gate_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= provenance_binding_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"builder_identity">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= purchase_order_binding ->
     pairs_to_map([
         {<<"binding_id">>, plain, element(2, R)},
@@ -1102,6 +1369,13 @@ to_map(R) when element(1, R) =:= ramp_commitment ->
         {<<"committed_amount">>, plain, element(4, R)},
         {<<"effective_at">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= receipt_replay_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"replay_result_hash">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= recovery_plan ->
     pairs_to_map([
         {<<"recovery_plan_id">>, plain, element(2, R)},
@@ -1109,6 +1383,13 @@ to_map(R) when element(1, R) =:= recovery_plan ->
         {<<"recovery_time_hours">>, plain, element(4, R)},
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= remediation_sla_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"remediation_due_at">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= renewal_evidence ->
     pairs_to_map([
@@ -1147,6 +1428,13 @@ to_map(R) when element(1, R) =:= renewal_term_admission ->
         {<<"renewal_term">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= reproducible_build_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"build_digest">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= reseller_authorization ->
     pairs_to_map([
         {<<"authorization_id">>, plain, element(2, R)},
@@ -1154,11 +1442,25 @@ to_map(R) when element(1, R) =:= reseller_authorization ->
         {<<"sku">>, plain, element(4, R)},
         {<<"status">>, atom, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= residency_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"region">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= resource_allocation ->
     pairs_to_map([
         {<<"resource_id">>, plain, element(2, R)},
         {<<"activity">>, plain, element(3, R)},
         {<<"event_id">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= retention_policy_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"retention_days">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= revenue_attribution ->
     pairs_to_map([
@@ -1180,6 +1482,13 @@ to_map(R) when element(1, R) =:= revenue_schedule_assumption ->
         {<<"schedule_id">>, plain, element(3, R)},
         {<<"assumption_evidence_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= rfp_response_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"answer_set_hash">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= rollback_decision ->
     pairs_to_map([
         {<<"rollback_decision_id">>, plain, element(2, R)},
@@ -1188,11 +1497,32 @@ to_map(R) when element(1, R) =:= rollback_decision ->
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
     ]);
+to_map(R) when element(1, R) =:= rollback_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"rollback_digest">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= sanctions_screening_result ->
     pairs_to_map([
         {<<"account_id">>, plain, element(2, R)},
         {<<"screening_id">>, plain, element(3, R)},
         {<<"screening_result">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= sbom_inventory_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"component_count">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= secret_boundary_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"secret_source">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= security_addendum_state ->
     pairs_to_map([
@@ -1248,6 +1578,13 @@ to_map(R) when element(1, R) =:= showback_allocation ->
         {<<"metric_name">>, plain, element(4, R)},
         {<<"quantity">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= signature_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"signature_identity">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= sku_definition ->
     pairs_to_map([
         {<<"sku">>, plain, element(2, R)},
@@ -1283,6 +1620,13 @@ to_map(R) when element(1, R) =:= stakeholder_map ->
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
     ]);
+to_map(R) when element(1, R) =:= stale_subject_refusal_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"stale_sha">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= success_plan ->
     pairs_to_map([
         {<<"success_plan_id">>, plain, element(2, R)},
@@ -1298,6 +1642,13 @@ to_map(R) when element(1, R) =:= support_contract ->
         {<<"tier">>, atom, element(4, R)},
         {<<"valid_until">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= support_escalation_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"escalation_owner">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= support_readiness ->
     pairs_to_map([
         {<<"support_readiness_id">>, plain, element(2, R)},
@@ -1306,11 +1657,25 @@ to_map(R) when element(1, R) =:= support_readiness ->
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
     ]);
+to_map(R) when element(1, R) =:= support_sla_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"response_minutes">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= support_tier_admission ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"support_tier_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= support_window_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"support_channel">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= sync_time ->
     pairs_to_map([
@@ -1401,6 +1766,20 @@ to_map(R) when element(1, R) =:= type_edge ->
         {<<"qualifier">>, plain, element(4, R)},
         {<<"direction">>, atom, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= unsupported_capability_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"capability_name">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= upgrade_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"from_version">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= upsell_readiness ->
     pairs_to_map([
         {<<"upsell_readiness_id">>, plain, element(2, R)},
@@ -1461,11 +1840,32 @@ to_map(R) when element(1, R) =:= vendor_registration_state ->
         {<<"registration_id">>, plain, element(3, R)},
         {<<"registration_state">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= vendor_risk_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"risk_score">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= version_lifecycle_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"supported_until">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= volume_tier_admission ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"volume_tier_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= vulnerability_scan_evidence ->
+    pairs_to_map([
+        {<<"evidence_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"vulnerability_count">>, plain, element(4, R)},
+        {<<"observed_result">>, atom, element(5, R)}
     ]).
 
 %% from_map/2: rebuild a record from a binary-keyed map. Only KNOWN
@@ -1497,6 +1897,13 @@ from_map(account_parent_scope, Map) when is_map(Map) ->
         {<<"account_id">>, account_id, plain},
         {<<"parent_account_id">>, parent_account_id, plain},
         {<<"scope_evidence_hash">>, scope_evidence_hash, plain}
+    ]));
+from_map(action_pin_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_action_pin_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"action_sha">>, action_sha, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(activation_event, Map) when is_map(Map) ->
     beam4pm_types:new_activation_event(take_known(Map, [
@@ -1533,6 +1940,13 @@ from_map(annual_subscription, Map) when is_map(Map) ->
         {<<"seat_count">>, seat_count, plain},
         {<<"renews_at">>, renews_at, plain}
     ]));
+from_map(approval_separation_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_approval_separation_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"approver_identity">>, approver_identity, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(architecture_readiness, Map) when is_map(Map) ->
     beam4pm_types:new_architecture_readiness(take_known(Map, [
         {<<"architecture_readiness_id">>, architecture_readiness_id, plain},
@@ -1540,6 +1954,48 @@ from_map(architecture_readiness, Map) when is_map(Map) ->
         {<<"architecture_score">>, architecture_score, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(architecture_review_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_architecture_review_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"review_decision">>, review_decision, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(artifact_digest_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_artifact_digest_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"digest">>, digest, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(attestation_verification_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_attestation_verification_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"predicate_type">>, predicate_type, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(audit_chain_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_audit_chain_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"previous_receipt_hash">>, previous_receipt_hash, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(availability_slo_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_availability_slo_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"availability_percent">>, availability_percent, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(backup_restore_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_backup_restore_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"backup_digest">>, backup_digest, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(baseline_metric, Map) when is_map(Map) ->
     beam4pm_types:new_baseline_metric(take_known(Map, [
@@ -1583,6 +2039,13 @@ from_map(budget_period_alignment, Map) when is_map(Map) ->
         {<<"budget_period">>, budget_period, plain},
         {<<"alignment_result">>, alignment_result, plain}
     ]));
+from_map(business_continuity_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_business_continuity_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"continuity_mode">>, continuity_mode, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(buying_committee, Map) when is_map(Map) ->
     beam4pm_types:new_buying_committee(take_known(Map, [
         {<<"buying_committee_id">>, buying_committee_id, plain},
@@ -1598,6 +2061,13 @@ from_map(canary_decision, Map) when is_map(Map) ->
         {<<"canary_result">>, canary_result, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(canary_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_canary_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"canary_percentage">>, canary_percentage, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(capability_bundle, Map) when is_map(Map) ->
     beam4pm_types:new_capability_bundle(take_known(Map, [
@@ -1627,6 +2097,13 @@ from_map(catalog_release, Map) when is_map(Map) ->
         {<<"sku_ids">>, sku_ids, plain},
         {<<"effective_at">>, effective_at, plain}
     ]));
+from_map(change_control_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_change_control_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"change_request_id">>, change_request_id, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(change_order_authority, Map) when is_map(Map) ->
     beam4pm_types:new_change_order_authority(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
@@ -1653,6 +2130,13 @@ from_map(commercial_approval, Map) when is_map(Map) ->
         {<<"quote_id">>, quote_id, plain},
         {<<"authority">>, authority, plain},
         {<<"status">>, status, atom}
+    ]));
+from_map(commercial_artifact_crown_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_commercial_artifact_crown_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"artifact_digest">>, artifact_digest, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(commercial_exception, Map) when is_map(Map) ->
     beam4pm_types:new_commercial_exception(take_known(Map, [
@@ -1785,6 +2269,20 @@ from_map(customer_health, Map) when is_map(Map) ->
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
     ]));
+from_map(customer_managed_key_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_customer_managed_key_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"key_identifier">>, key_identifier, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(data_egress_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_data_egress_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"egress_bytes">>, egress_bytes, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(data_migration_scope_admission, Map) when is_map(Map) ->
     beam4pm_types:new_data_migration_scope_admission(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
@@ -1818,6 +2316,13 @@ from_map(deal_desk_packet, Map) when is_map(Map) ->
         {<<"packet_id">>, packet_id, plain},
         {<<"evidence_hash">>, evidence_hash, plain}
     ]));
+from_map(deletion_proof_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_deletion_proof_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"deletion_receipt_id">>, deletion_receipt_id, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(demo_run, Map) when is_map(Map) ->
     beam4pm_types:new_demo_run(take_known(Map, [
         {<<"demo_run_id">>, demo_run_id, plain},
@@ -1833,6 +2338,13 @@ from_map(demo_scenario, Map) when is_map(Map) ->
         {<<"scenario_name">>, scenario_name, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(dependency_inventory_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_dependency_inventory_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"dependency_count">>, dependency_count, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(deployment_entitlement, Map) when is_map(Map) ->
     beam4pm_types:new_deployment_entitlement(take_known(Map, [
@@ -1854,6 +2366,13 @@ from_map(dfg_edge, Map) when is_map(Map) ->
         {<<"source_activity">>, source_activity, plain},
         {<<"target_activity">>, target_activity, plain},
         {<<"frequency">>, frequency, plain}
+    ]));
+from_map(disaster_recovery_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_disaster_recovery_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"recovered_at">>, recovered_at, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(discount_schedule, Map) when is_map(Map) ->
     beam4pm_types:new_discount_schedule(take_known(Map, [
@@ -1899,6 +2418,13 @@ from_map(entitlement_event, Map) when is_map(Map) ->
         {<<"effective_at">>, effective_at, plain},
         {<<"payload">>, payload, plain}
     ]));
+from_map(entitlement_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_entitlement_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"entitlement_id">>, entitlement_id, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(entitlement_grant, Map) when is_map(Map) ->
     beam4pm_types:new_entitlement_grant(take_known(Map, [
         {<<"grant_id">>, grant_id, plain},
@@ -1937,6 +2463,13 @@ from_map(event_type, Map) when is_map(Map) ->
     beam4pm_types:new_event_type(take_known(Map, [
         {<<"type_name">>, type_name, plain},
         {<<"attribute_names">>, attribute_names, plain}
+    ]));
+from_map(evidence_freshness_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_evidence_freshness_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"observed_at">>, observed_at, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(exception_authority, Map) when is_map(Map) ->
     beam4pm_types:new_exception_authority(take_known(Map, [
@@ -2009,6 +2542,13 @@ from_map(implementation_fee_admission, Map) when is_map(Map) ->
         {<<"fee_id">>, fee_id, plain},
         {<<"decision">>, decision, plain}
     ]));
+from_map(incident_response_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_incident_response_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"incident_id">>, incident_id, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(indemnity_scope_admission, Map) when is_map(Map) ->
     beam4pm_types:new_indemnity_scope_admission(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
@@ -2054,6 +2594,13 @@ from_map(k8s_object_ref, Map) when is_map(Map) ->
         {<<"name">>, name, plain},
         {<<"namespace">>, namespace, plain}
     ]));
+from_map(least_authority_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_least_authority_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"granted_permissions">>, granted_permissions, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(legal_blocker, Map) when is_map(Map) ->
     beam4pm_types:new_legal_blocker(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
@@ -2065,6 +2612,13 @@ from_map(liability_cap_admission, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"liability_cap_id">>, liability_cap_id, plain},
         {<<"decision">>, decision, plain}
+    ]));
+from_map(license_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_license_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"license_expression">>, license_expression, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(log_trace, Map) when is_map(Map) ->
     beam4pm_types:new_log_trace(take_known(Map, [
@@ -2097,6 +2651,20 @@ from_map(minimum_term_admission, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"minimum_term">>, minimum_term, plain},
         {<<"decision">>, decision, plain}
+    ]));
+from_map(multiarch_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_multiarch_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"platforms">>, platforms, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(mutable_identity_refusal_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_mutable_identity_refusal_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"mutable_reference">>, mutable_reference, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(object_attribute_change, Map) when is_map(Map) ->
     beam4pm_types:new_object_attribute_change(take_known(Map, [
@@ -2158,6 +2726,20 @@ from_map(ocel_relationship, Map) when is_map(Map) ->
         {<<"qualifier">>, qualifier, plain},
         {<<"object_id">>, object_id, plain}
     ]));
+from_map(oci_manifest_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_oci_manifest_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"manifest_digest">>, manifest_digest, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(offline_bundle_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_offline_bundle_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"bundle_digest">>, bundle_digest, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(operator_readiness, Map) when is_map(Map) ->
     beam4pm_types:new_operator_readiness(take_known(Map, [
         {<<"operator_readiness_id">>, operator_readiness_id, plain},
@@ -2216,6 +2798,13 @@ from_map(payment_terms_admission, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"payment_terms">>, payment_terms, plain},
         {<<"authority_evidence_hash">>, authority_evidence_hash, plain}
+    ]));
+from_map(performance_slo_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_performance_slo_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"latency_p95_ms">>, latency_p95_ms, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(petri_arc, Map) when is_map(Map) ->
     beam4pm_types:new_petri_arc(take_known(Map, [
@@ -2288,6 +2877,13 @@ from_map(pricing_basis_contract, Map) when is_map(Map) ->
         {<<"pricing_basis_id">>, pricing_basis_id, plain},
         {<<"evidence_hash">>, evidence_hash, plain}
     ]));
+from_map(privacy_classification_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_privacy_classification_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"privacy_class">>, privacy_class, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(private_offer, Map) when is_map(Map) ->
     beam4pm_types:new_private_offer(take_known(Map, [
         {<<"offer_id">>, offer_id, plain},
@@ -2295,11 +2891,25 @@ from_map(private_offer, Map) when is_map(Map) ->
         {<<"total_price">>, total_price, plain},
         {<<"expires_at">>, expires_at, plain}
     ]));
+from_map(private_registry_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_private_registry_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"registry_digest">>, registry_digest, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(process_variant, Map) when is_map(Map) ->
     beam4pm_types:new_process_variant(take_known(Map, [
         {<<"variant_id">>, variant_id, plain},
         {<<"activity_sequence">>, activity_sequence, plain},
         {<<"frequency">>, frequency, plain}
+    ]));
+from_map(procurement_acceptance_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_procurement_acceptance_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"acceptance_decision">>, acceptance_decision, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(procurement_blocker, Map) when is_map(Map) ->
     beam4pm_types:new_procurement_blocker(take_known(Map, [
@@ -2341,6 +2951,13 @@ from_map(proof_of_value_exit_gate, Map) when is_map(Map) ->
         {<<"exit_gate_id">>, exit_gate_id, plain},
         {<<"decision">>, decision, plain}
     ]));
+from_map(provenance_binding_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_provenance_binding_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"builder_identity">>, builder_identity, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(purchase_order_binding, Map) when is_map(Map) ->
     beam4pm_types:new_purchase_order_binding(take_known(Map, [
         {<<"binding_id">>, binding_id, plain},
@@ -2380,6 +2997,13 @@ from_map(ramp_commitment, Map) when is_map(Map) ->
         {<<"committed_amount">>, committed_amount, plain},
         {<<"effective_at">>, effective_at, plain}
     ]));
+from_map(receipt_replay_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_receipt_replay_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"replay_result_hash">>, replay_result_hash, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(recovery_plan, Map) when is_map(Map) ->
     beam4pm_types:new_recovery_plan(take_known(Map, [
         {<<"recovery_plan_id">>, recovery_plan_id, plain},
@@ -2387,6 +3011,13 @@ from_map(recovery_plan, Map) when is_map(Map) ->
         {<<"recovery_time_hours">>, recovery_time_hours, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(remediation_sla_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_remediation_sla_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"remediation_due_at">>, remediation_due_at, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(renewal_evidence, Map) when is_map(Map) ->
     beam4pm_types:new_renewal_evidence(take_known(Map, [
@@ -2425,6 +3056,13 @@ from_map(renewal_term_admission, Map) when is_map(Map) ->
         {<<"renewal_term">>, renewal_term, plain},
         {<<"decision">>, decision, plain}
     ]));
+from_map(reproducible_build_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_reproducible_build_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"build_digest">>, build_digest, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(reseller_authorization, Map) when is_map(Map) ->
     beam4pm_types:new_reseller_authorization(take_known(Map, [
         {<<"authorization_id">>, authorization_id, plain},
@@ -2432,11 +3070,25 @@ from_map(reseller_authorization, Map) when is_map(Map) ->
         {<<"sku">>, sku, plain},
         {<<"status">>, status, atom}
     ]));
+from_map(residency_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_residency_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"region">>, region, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(resource_allocation, Map) when is_map(Map) ->
     beam4pm_types:new_resource_allocation(take_known(Map, [
         {<<"resource_id">>, resource_id, plain},
         {<<"activity">>, activity, plain},
         {<<"event_id">>, event_id, plain}
+    ]));
+from_map(retention_policy_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_retention_policy_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"retention_days">>, retention_days, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(revenue_attribution, Map) when is_map(Map) ->
     beam4pm_types:new_revenue_attribution(take_known(Map, [
@@ -2458,6 +3110,13 @@ from_map(revenue_schedule_assumption, Map) when is_map(Map) ->
         {<<"schedule_id">>, schedule_id, plain},
         {<<"assumption_evidence_hash">>, assumption_evidence_hash, plain}
     ]));
+from_map(rfp_response_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_rfp_response_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"answer_set_hash">>, answer_set_hash, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(rollback_decision, Map) when is_map(Map) ->
     beam4pm_types:new_rollback_decision(take_known(Map, [
         {<<"rollback_decision_id">>, rollback_decision_id, plain},
@@ -2466,11 +3125,32 @@ from_map(rollback_decision, Map) when is_map(Map) ->
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
     ]));
+from_map(rollback_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_rollback_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"rollback_digest">>, rollback_digest, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(sanctions_screening_result, Map) when is_map(Map) ->
     beam4pm_types:new_sanctions_screening_result(take_known(Map, [
         {<<"account_id">>, account_id, plain},
         {<<"screening_id">>, screening_id, plain},
         {<<"screening_result">>, screening_result, plain}
+    ]));
+from_map(sbom_inventory_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_sbom_inventory_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"component_count">>, component_count, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(secret_boundary_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_secret_boundary_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"secret_source">>, secret_source, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(security_addendum_state, Map) when is_map(Map) ->
     beam4pm_types:new_security_addendum_state(take_known(Map, [
@@ -2526,6 +3206,13 @@ from_map(showback_allocation, Map) when is_map(Map) ->
         {<<"metric_name">>, metric_name, plain},
         {<<"quantity">>, quantity, plain}
     ]));
+from_map(signature_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_signature_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"signature_identity">>, signature_identity, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(sku_definition, Map) when is_map(Map) ->
     beam4pm_types:new_sku_definition(take_known(Map, [
         {<<"sku">>, sku, plain},
@@ -2561,6 +3248,13 @@ from_map(stakeholder_map, Map) when is_map(Map) ->
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
     ]));
+from_map(stale_subject_refusal_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_stale_subject_refusal_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"stale_sha">>, stale_sha, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(success_plan, Map) when is_map(Map) ->
     beam4pm_types:new_success_plan(take_known(Map, [
         {<<"success_plan_id">>, success_plan_id, plain},
@@ -2576,6 +3270,13 @@ from_map(support_contract, Map) when is_map(Map) ->
         {<<"tier">>, tier, atom},
         {<<"valid_until">>, valid_until, plain}
     ]));
+from_map(support_escalation_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_support_escalation_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"escalation_owner">>, escalation_owner, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(support_readiness, Map) when is_map(Map) ->
     beam4pm_types:new_support_readiness(take_known(Map, [
         {<<"support_readiness_id">>, support_readiness_id, plain},
@@ -2584,11 +3285,25 @@ from_map(support_readiness, Map) when is_map(Map) ->
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
     ]));
+from_map(support_sla_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_support_sla_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"response_minutes">>, response_minutes, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(support_tier_admission, Map) when is_map(Map) ->
     beam4pm_types:new_support_tier_admission(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"support_tier_id">>, support_tier_id, plain},
         {<<"decision">>, decision, plain}
+    ]));
+from_map(support_window_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_support_window_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"support_channel">>, support_channel, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(sync_time, Map) when is_map(Map) ->
     beam4pm_types:new_sync_time(take_known(Map, [
@@ -2679,6 +3394,20 @@ from_map(type_edge, Map) when is_map(Map) ->
         {<<"qualifier">>, qualifier, plain},
         {<<"direction">>, direction, atom}
     ]));
+from_map(unsupported_capability_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_unsupported_capability_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"capability_name">>, capability_name, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(upgrade_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_upgrade_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"from_version">>, from_version, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(upsell_readiness, Map) when is_map(Map) ->
     beam4pm_types:new_upsell_readiness(take_known(Map, [
         {<<"upsell_readiness_id">>, upsell_readiness_id, plain},
@@ -2739,11 +3468,32 @@ from_map(vendor_registration_state, Map) when is_map(Map) ->
         {<<"registration_id">>, registration_id, plain},
         {<<"registration_state">>, registration_state, plain}
     ]));
+from_map(vendor_risk_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_vendor_risk_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"risk_score">>, risk_score, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(version_lifecycle_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_version_lifecycle_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"supported_until">>, supported_until, plain},
+        {<<"observed_result">>, observed_result, atom}
+    ]));
 from_map(volume_tier_admission, Map) when is_map(Map) ->
     beam4pm_types:new_volume_tier_admission(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"volume_tier_id">>, volume_tier_id, plain},
         {<<"decision">>, decision, plain}
+    ]));
+from_map(vulnerability_scan_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_vulnerability_scan_evidence(take_known(Map, [
+        {<<"evidence_id">>, evidence_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"vulnerability_count">>, vulnerability_count, plain},
+        {<<"observed_result">>, observed_result, atom}
     ]));
 from_map(RecordName, Map) when is_atom(RecordName), is_map(Map) ->
     {error, {unknown_record, RecordName}}.

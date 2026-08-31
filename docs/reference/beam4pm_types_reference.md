@@ -34,6 +34,17 @@
 | `parent_account_id` | `string` | true | Required account parent scope input; omission is an executable typed refusal, never an inferred approval. |
 | `scope_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## action_pin_evidence
+
+> Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this immutable action pin observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `action_sha` | `string` | true | Immutable commit SHA resolved for the admitted workflow action. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## activation_event
 
 > First verified activation event for an enterprise user cohort.
@@ -89,6 +100,17 @@
 | `seat_count` | `integer` | true | Contracted seats. |
 | `renews_at` | `datetime` | true | Annual renewal instant. |
 
+## approval_separation_evidence
+
+> Executable segregation-of-duties evidence binding an exact subject to an approver distinct from its producer.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this approval-separation observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `approver_identity` | `string` | true | Identity of the independent approver observed by the control. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## architecture_readiness
 
 > Measured architecture readiness for the customer's production environment.
@@ -100,6 +122,72 @@
 | `architecture_score` | `float` | true | Observed architecture-readiness score. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## architecture_review_evidence
+
+> Executable architecture-review evidence binding an exact subject to the decision produced by the admitted review.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this architecture-review observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `review_decision` | `string` | true | Observed architecture review decision for the subject. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## artifact_digest_evidence
+
+> Executable artifact-integrity evidence binding an exact commercial subject to the digest actually observed by the verifier.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this artifact digest observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `digest` | `string` | true | Content digest observed for the admitted commercial artifact. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## attestation_verification_evidence
+
+> Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this attestation verification observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `predicate_type` | `string` | true | Verified in-toto predicate type carried by the attestation. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## audit_chain_evidence
+
+> Executable audit evidence binding an exact subject receipt to its immutable predecessor.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this audit-chain observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `previous_receipt_hash` | `string` | true | Hash of the preceding receipt in the observed audit chain. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## availability_slo_evidence
+
+> Executable availability evidence binding an exact subject to the service level actually observed over the admitted window.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this availability-SLO observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `availability_percent` | `float` | true | Observed availability ratio for the exact subject and measurement window. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## backup_restore_evidence
+
+> Executable recovery evidence binding an exact subject to the backup artifact successfully restored.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this backup-restore observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `backup_digest` | `string` | true | Digest of the backup artifact admitted by the restore operation. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## baseline_metric
 
@@ -167,6 +255,17 @@
 | `budget_period` | `string` | true | Required budget period alignment input; omission is an executable typed refusal, never an inferred approval. |
 | `alignment_result` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## business_continuity_evidence
+
+> Executable continuity evidence binding an exact subject to the fallback operating mode actually entered.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this business-continuity observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `continuity_mode` | `string` | true | Observed fallback mode used to preserve admitted operations. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## buying_committee
 
 > Measured buying-committee coverage for an enterprise decision path.
@@ -190,6 +289,17 @@
 | `canary_result` | `string` | true | Observed outcome of the canary qualification. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## canary_evidence
+
+> Executable canary evidence binding an exact subject to the traffic fraction actually admitted before promotion.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this canary-release observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `canary_percentage` | `float` | true | Observed fraction of production traffic routed to the canary subject. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## capability_bundle
 
@@ -235,6 +345,17 @@
 | `sku_ids` | `list_string` | true | Published SKU identities. |
 | `effective_at` | `datetime` | true | Catalog activation instant. |
 
+## change_control_evidence
+
+> Executable change-control evidence binding an exact subject to the approved request governing its mutation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this change-control observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `change_request_id` | `string` | true | Identity of the change request observed at the deployment boundary. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## change_order_authority
 
 > Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.
@@ -277,6 +398,17 @@
 | `quote_id` | `string` | true | Exact quote under approval. |
 | `authority` | `string` | true | Principal granting commercial authority. |
 | `status` | `atom` | true | Approval lifecycle standing. |
+
+## commercial_artifact_crown_evidence
+
+> Executable commercial-release evidence binding the exact paid artifact to the cumulative trust evidence crown.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this commercial-artifact crown observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `artifact_digest` | `string` | true | Digest of the exact commercial artifact evaluated by the cumulative crown. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## commercial_exception
 
@@ -485,6 +617,28 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## customer_managed_key_evidence
+
+> Executable encryption evidence binding an exact subject to the customer-managed key identity actually used.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this customer-managed-key observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `key_identifier` | `string` | true | Non-secret identifier of the customer-managed key observed at encryption. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## data_egress_evidence
+
+> Executable egress evidence binding an exact subject to the bytes observed crossing its admitted data boundary.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this data-egress observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `egress_bytes` | `integer` | true | Observed byte count crossing the controlled egress boundary. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## data_migration_scope_admission
 
 > Admits a bounded data-migration scope before margin and timeline promises are accepted.
@@ -538,6 +692,17 @@
 | `packet_id` | `string` | true | Required deal desk packet input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## deletion_proof_evidence
+
+> Executable deletion evidence binding an exact subject to a verifiable deletion receipt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this deletion-proof observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `deletion_receipt_id` | `string` | true | Identity of the receipt emitted by the completed deletion operation. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## demo_run
 
 > Receipted execution result for a reproducible enterprise demo.
@@ -561,6 +726,17 @@
 | `scenario_name` | `string` | true | Stable name of the selected customer scenario. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## dependency_inventory_evidence
+
+> Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this dependency inventory observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `dependency_count` | `integer` | true | Observed number of resolved direct and transitive dependencies. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## deployment_entitlement
 
@@ -594,6 +770,17 @@
 | `source_activity` | `string` | true | The preceding activity name. |
 | `target_activity` | `string` | true | The following activity name. |
 | `frequency` | `integer` | true | Observed occurrence count of this edge. |
+
+## disaster_recovery_evidence
+
+> Executable disaster-recovery evidence binding an exact subject to the instant service recovery was observed.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this disaster-recovery observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `recovered_at` | `datetime` | true | UTC instant at which the recovered subject passed its availability probe. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## discount_schedule
 
@@ -663,6 +850,17 @@
 | `effective_at` | `datetime` | true | ISO8601 UTC instant at which this event takes commercial effect (provider-assigned, not local receipt time). Primary component of the reconciliation watermark; ties are broken by event_id so that the fold is a total order and therefore order-independent. Local receipt time is deliberately not modeled: it would make the fold non-deterministic under replay. |
 | `payload` | `map` | false | Optional provider-specific extra fields carried verbatim (e.g. account id, product/plan id, offer id, newPlan, newOffer, scheduled start time). Retained for receipt/audit fidelity; the reconciliation fold reads NO field from this map -- everything the fold depends on is promoted to a typed top-level field above. |
 
+## entitlement_evidence
+
+> Executable entitlement evidence binding an exact subject to the paid capability grant actually evaluated.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this entitlement observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `entitlement_id` | `string` | true | Identity of the entitlement evaluated at the capability boundary. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## entitlement_grant
 
 > Receiptable grant of a capability to a tenant.
@@ -725,6 +923,17 @@
 | --- | --- | --- | --- |
 | `type_name` | `string` | true | The event type name. |
 | `attribute_names` | `list_string` | false | Optional declared attribute names for events of this type (name-only; per-attribute value types are not yet modeled). |
+
+## evidence_freshness_evidence
+
+> Executable freshness evidence binding an exact subject to the observation instant used by policy.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this evidence-freshness observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `observed_at` | `datetime` | true | UTC instant at which the subject evidence was observed. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## exception_authority
 
@@ -837,6 +1046,17 @@
 | `fee_id` | `string` | true | Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## incident_response_evidence
+
+> Executable incident evidence binding an exact subject to the response case opened by a real detection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this incident-response observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `incident_id` | `string` | true | Identity of the incident response case observed by the control. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## indemnity_scope_admission
 
 > Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.
@@ -910,6 +1130,17 @@
 | `name` | `string` | true | The object name. |
 | `namespace` | `string` | false | Optional object namespace (absent for cluster-scoped kinds such as Node, PersistentVolume, ClusterRole, or Namespace itself). |
 
+## least_authority_evidence
+
+> Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this least-authority permission observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `granted_permissions` | `list_string` | true | Canonical set of permissions observed at the execution boundary. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## legal_blocker
 
 > Encodes an unresolved legal blocker as a typed refusal with an actionable identity.
@@ -929,6 +1160,17 @@
 | `opportunity_id` | `string` | true | Required liability cap admission input; omission is an executable typed refusal, never an inferred approval. |
 | `liability_cap_id` | `string` | true | Required liability cap admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## license_evidence
+
+> Executable licensing evidence binding an exact subject to its machine-verified SPDX expression.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this license-expression observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `license_expression` | `string` | true | SPDX license expression observed for the commercial subject. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## log_trace
 
@@ -981,6 +1223,28 @@
 | `opportunity_id` | `string` | true | Required minimum term admission input; omission is an executable typed refusal, never an inferred approval. |
 | `minimum_term` | `string` | true | Required minimum term admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## multiarch_evidence
+
+> Executable architecture evidence binding an exact subject to the platform set actually present in its OCI index.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this multi-architecture observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `platforms` | `list_string` | true | Canonical set of platforms observed in the admitted OCI index. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## mutable_identity_refusal_evidence
+
+> Executable refusal evidence recording the mutable artifact reference rejected by procurement policy.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this mutable-identity refusal observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `mutable_reference` | `string` | true | Mutable reference observed and refused before artifact admission. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## object_attribute_change
 
@@ -1078,6 +1342,28 @@
 | `qualifier` | `string` | true | The relationship qualifier/role name. |
 | `object_id` | `string` | true | The related object's identifier. |
 
+## oci_manifest_evidence
+
+> Executable OCI evidence binding an exact subject to its verified manifest-list identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this OCI-manifest observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `manifest_digest` | `string` | true | Digest of the OCI manifest or index verified for the subject. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## offline_bundle_evidence
+
+> Executable private-deployment evidence binding an exact subject to a verified offline installation bundle.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this offline-bundle observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `bundle_digest` | `string` | true | Digest of the offline bundle admitted by the verifier. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## operator_readiness
 
 > Measured operations-team readiness for governed production use.
@@ -1172,6 +1458,17 @@
 | `opportunity_id` | `string` | true | Required payment terms admission input; omission is an executable typed refusal, never an inferred approval. |
 | `payment_terms` | `string` | true | Required payment terms admission input; omission is an executable typed refusal, never an inferred approval. |
 | `authority_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## performance_slo_evidence
+
+> Executable performance evidence binding an exact subject to the percentile latency actually measured.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this performance-SLO observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `latency_p95_ms` | `integer` | true | Observed p95 end-to-end latency in milliseconds for the admitted subject. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## petri_arc
 
@@ -1288,6 +1585,17 @@
 | `pricing_basis_id` | `string` | true | Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## privacy_classification_evidence
+
+> Executable privacy evidence binding an exact subject to the classification enforced for its handled data.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this privacy-classification observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `privacy_class` | `string` | true | Privacy classification observed at the enforcement boundary. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## private_offer
 
 > Negotiated private offer with customer, price, and expiration.
@@ -1299,6 +1607,17 @@
 | `total_price` | `float` | true | Negotiated total price. |
 | `expires_at` | `datetime` | true | Offer expiration instant. |
 
+## private_registry_evidence
+
+> Executable private-registry evidence binding an exact subject to the digest pulled from the authorized registry.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this private-registry observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `registry_digest` | `string` | true | Digest observed after resolving the subject from the private registry. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## process_variant
 
 > One distinct activity-sequence variant observed in a log, with its frequency.
@@ -1308,6 +1627,17 @@
 | `variant_id` | `string` | true | Unique variant identifier. |
 | `activity_sequence` | `list_string` | true | Ordered list of activity names making up this variant. |
 | `frequency` | `integer` | true | Number of traces observed with exactly this activity sequence. |
+
+## procurement_acceptance_evidence
+
+> Executable procurement evidence binding the exact commercial subject to the final decision derived from admitted controls.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this procurement-acceptance observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `acceptance_decision` | `string` | true | Observed procurement decision derived from the exact subject evidence set. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## procurement_blocker
 
@@ -1373,6 +1703,17 @@
 | `exit_gate_id` | `string` | true | Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## provenance_binding_evidence
+
+> Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this provenance observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `builder_identity` | `string` | true | Immutable identity of the builder that emitted the provenance. |
+| `observed_result` | `atom` | true | Observed verification consequence: verified or refused. |
+
 ## purchase_order_binding
 
 > Customer purchase-order evidence bound to an enterprise order.
@@ -1436,6 +1777,17 @@
 | `committed_amount` | `float` | true | Phase commitment amount. |
 | `effective_at` | `datetime` | true | Phase activation instant. |
 
+## receipt_replay_evidence
+
+> Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this receipt-replay observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `replay_result_hash` | `string` | true | Hash of the consequence reproduced by receipt replay. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## recovery_plan
 
 > Executable account recovery plan with a measured recovery interval.
@@ -1447,6 +1799,17 @@
 | `recovery_time_hours` | `float` | true | Verified hours from failure to recovered customer consequence. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## remediation_sla_evidence
+
+> Executable remediation evidence binding an exact subject and finding to its enforced due instant.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this remediation-SLA observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `remediation_due_at` | `datetime` | true | UTC deadline enforced for remediation of the admitted finding. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## renewal_evidence
 
@@ -1505,6 +1868,17 @@
 | `renewal_term` | `string` | true | Required renewal term admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## reproducible_build_evidence
+
+> Executable reproducibility evidence binding an exact subject to the independently reproduced build digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this reproducible-build observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `build_digest` | `string` | true | Digest observed from the independent reproduction build. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## reseller_authorization
 
 > SKU-scoped reseller authorization with standing.
@@ -1516,6 +1890,17 @@
 | `sku` | `string` | true | Authorized sellable SKU. |
 | `status` | `atom` | true | Authorization standing. |
 
+## residency_evidence
+
+> Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this data-residency observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `region` | `string` | true | Observed region for the controlled data operation. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## resource_allocation
 
 > One recorded assignment of a resource to an activity occurrence.
@@ -1525,6 +1910,17 @@
 | `resource_id` | `string` | true | Identifier of the assigned resource. |
 | `activity` | `string` | true | The activity the resource was assigned to. |
 | `event_id` | `string` | true | Identifier of the specific event occurrence. |
+
+## retention_policy_evidence
+
+> Executable retention evidence binding an exact subject to the duration enforced by the storage lifecycle.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this retention-policy observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `retention_days` | `integer` | true | Enforced number of days before lifecycle expiry. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## revenue_attribution
 
@@ -1558,6 +1954,17 @@
 | `schedule_id` | `string` | true | Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval. |
 | `assumption_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## rfp_response_evidence
+
+> Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this RFP-response observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `answer_set_hash` | `string` | true | Digest of the answer set derived from verified subject facts. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## rollback_decision
 
 > Receipted rollback decision and recovered account consequence.
@@ -1570,6 +1977,17 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## rollback_evidence
+
+> Executable rollback evidence binding an exact subject to the artifact identity restored by a real rollback transition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this rollback observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `rollback_digest` | `string` | true | Digest of the prior artifact restored by the rollback operation. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## sanctions_screening_result
 
 > Requires a named sanctions screening result before accepting the commercial counterparty.
@@ -1579,6 +1997,28 @@
 | `account_id` | `string` | true | Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval. |
 | `screening_id` | `string` | true | Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval. |
 | `screening_result` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## sbom_inventory_evidence
+
+> Executable SBOM evidence binding an exact commercial subject to the observed component inventory cardinality.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this SBOM inventory observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `component_count` | `integer` | true | Observed number of components in the parsed SBOM inventory. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## secret_boundary_evidence
+
+> Executable secrets-boundary evidence proving the admitted subject used an authorized credential source.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this secret-boundary observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `secret_source` | `string` | true | Observed source of credentials used by the execution. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## security_addendum_state
 
@@ -1666,6 +2106,17 @@
 | `metric_name` | `string` | true | Reported usage metric. |
 | `quantity` | `float` | true | Attributed usage quantity. |
 
+## signature_evidence
+
+> Executable signature evidence binding an exact subject to the workload identity accepted by cryptographic verification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this artifact-signature observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `signature_identity` | `string` | true | Workload identity observed in the verified artifact signature. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## sku_definition
 
 > Catalog SKU binding edition, billing model, and lifecycle.
@@ -1721,6 +2172,17 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## stale_subject_refusal_evidence
+
+> Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this stale-subject refusal observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `stale_sha` | `string` | true | Stale subject SHA observed and refused by exact-head policy. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## success_plan
 
 > Executable customer-success plan target with receipted account identity.
@@ -1744,6 +2206,17 @@
 | `tier` | `atom` | true | Purchased support tier. |
 | `valid_until` | `datetime` | true | Support term expiration. |
 
+## support_escalation_evidence
+
+> Executable support evidence binding an exact subject to the accountable escalation owner.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this support-escalation observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `escalation_owner` | `string` | true | Observed accountable owner of the admitted escalation. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## support_readiness
 
 > Measured support-team readiness for enterprise production.
@@ -1756,6 +2229,17 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## support_sla_evidence
+
+> Executable support evidence binding an exact subject to the response latency actually observed.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this support-SLA observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `response_minutes` | `integer` | true | Observed minutes from support intake to acknowledged response. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## support_tier_admission
 
 > Admits the paid support tier that determines service obligation and cost-to-serve.
@@ -1765,6 +2249,17 @@
 | `opportunity_id` | `string` | true | Required support tier admission input; omission is an executable typed refusal, never an inferred approval. |
 | `support_tier_id` | `string` | true | Required support tier admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## support_window_evidence
+
+> Executable support-window evidence binding an exact subject to the channel available during the observed coverage window.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this support-window observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `support_channel` | `string` | true | Observed support channel satisfying the admitted coverage window. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
 ## sync_time
 
@@ -1907,6 +2402,28 @@
 | `qualifier` | `string` | true | The relationship qualifier/role name for this edge. |
 | `direction` | `atom` | true | One of: e2o \| o2o. |
 
+## unsupported_capability_evidence
+
+> Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this unsupported-capability observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `capability_name` | `string` | true | Capability name observed at the unsupported routing boundary. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## upgrade_evidence
+
+> Executable upgrade evidence binding an exact subject to the source version accepted by the migration path.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this upgrade-assurance observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `from_version` | `string` | true | Version from which the observed upgrade execution began. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## upsell_readiness
 
 > Measured readiness to transition the account to greater product capacity.
@@ -1999,6 +2516,28 @@
 | `registration_id` | `string` | true | Required vendor registration state input; omission is an executable typed refusal, never an inferred approval. |
 | `registration_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## vendor_risk_evidence
+
+> Executable vendor-risk evidence binding an exact subject to the risk score emitted from verified controls.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this vendor-risk observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `risk_score` | `float` | true | Observed normalized vendor-risk score derived from executable evidence. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## version_lifecycle_evidence
+
+> Executable lifecycle evidence binding an exact subject version to its enforced support horizon.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this version-lifecycle observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `supported_until` | `datetime` | true | UTC instant through which the subject version is admitted for support. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
 ## volume_tier_admission
 
 > Admits a volume discount tier only through an explicit decision tied to the opportunity.
@@ -2008,4 +2547,15 @@
 | `opportunity_id` | `string` | true | Required volume tier admission input; omission is an executable typed refusal, never an inferred approval. |
 | `volume_tier_id` | `string` | true | Required volume tier admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## vulnerability_scan_evidence
+
+> Executable vulnerability evidence binding an exact subject to the findings actually emitted by a scanner.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `evidence_id` | `string` | true | Content-addressed identity of this vulnerability-scan observation. |
+| `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
+| `vulnerability_count` | `integer` | true | Observed count of admitted vulnerability findings. |
+| `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 

@@ -73,6 +73,31 @@
       ]
 
     },
+    "action_pin_evidence": {
+      "type": "object",
+      "description": "Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this immutable action pin observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "action_sha": {
+          "type": "string",
+          "description": "Immutable commit SHA resolved for the admitted workflow action."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "action_sha", "observed_result"
+      ]
+
+    },
     "activation_event": {
       "type": "object",
       "description": "First verified activation event for an enterprise user cohort.",
@@ -199,6 +224,31 @@
       ]
 
     },
+    "approval_separation_evidence": {
+      "type": "object",
+      "description": "Executable segregation-of-duties evidence binding an exact subject to an approver distinct from its producer.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this approval-separation observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "approver_identity": {
+          "type": "string",
+          "description": "Identity of the independent approver observed by the control."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "approver_identity", "observed_result"
+      ]
+
+    },
     "architecture_readiness": {
       "type": "object",
       "description": "Measured architecture readiness for the customer's production environment.",
@@ -225,6 +275,156 @@
         }
       },
       "required": ["architecture_readiness_id", "account_id", "architecture_score", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "architecture_review_evidence": {
+      "type": "object",
+      "description": "Executable architecture-review evidence binding an exact subject to the decision produced by the admitted review.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this architecture-review observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "review_decision": {
+          "type": "string",
+          "description": "Observed architecture review decision for the subject."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "review_decision", "observed_result"
+      ]
+
+    },
+    "artifact_digest_evidence": {
+      "type": "object",
+      "description": "Executable artifact-integrity evidence binding an exact commercial subject to the digest actually observed by the verifier.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this artifact digest observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "digest": {
+          "type": "string",
+          "description": "Content digest observed for the admitted commercial artifact."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "digest", "observed_result"
+      ]
+
+    },
+    "attestation_verification_evidence": {
+      "type": "object",
+      "description": "Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this attestation verification observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "predicate_type": {
+          "type": "string",
+          "description": "Verified in-toto predicate type carried by the attestation."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "predicate_type", "observed_result"
+      ]
+
+    },
+    "audit_chain_evidence": {
+      "type": "object",
+      "description": "Executable audit evidence binding an exact subject receipt to its immutable predecessor.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this audit-chain observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "previous_receipt_hash": {
+          "type": "string",
+          "description": "Hash of the preceding receipt in the observed audit chain."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "previous_receipt_hash", "observed_result"
+      ]
+
+    },
+    "availability_slo_evidence": {
+      "type": "object",
+      "description": "Executable availability evidence binding an exact subject to the service level actually observed over the admitted window.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this availability-SLO observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "availability_percent": {
+          "type": "number",
+          "description": "Observed availability ratio for the exact subject and measurement window."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "availability_percent", "observed_result"
+      ]
+
+    },
+    "backup_restore_evidence": {
+      "type": "object",
+      "description": "Executable recovery evidence binding an exact subject to the backup artifact successfully restored.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this backup-restore observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "backup_digest": {
+          "type": "string",
+          "description": "Digest of the backup artifact admitted by the restore operation."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "backup_digest", "observed_result"
       ]
 
     },
@@ -379,6 +579,31 @@
       ]
 
     },
+    "business_continuity_evidence": {
+      "type": "object",
+      "description": "Executable continuity evidence binding an exact subject to the fallback operating mode actually entered.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this business-continuity observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "continuity_mode": {
+          "type": "string",
+          "description": "Observed fallback mode used to preserve admitted operations."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "continuity_mode", "observed_result"
+      ]
+
+    },
     "buying_committee": {
       "type": "object",
       "description": "Measured buying-committee coverage for an enterprise decision path.",
@@ -434,6 +659,31 @@
         }
       },
       "required": ["canary_decision_id", "account_id", "canary_result", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "canary_evidence": {
+      "type": "object",
+      "description": "Executable canary evidence binding an exact subject to the traffic fraction actually admitted before promotion.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this canary-release observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "canary_percentage": {
+          "type": "number",
+          "description": "Observed fraction of production traffic routed to the canary subject."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "canary_percentage", "observed_result"
       ]
 
     },
@@ -539,6 +789,31 @@
       ]
 
     },
+    "change_control_evidence": {
+      "type": "object",
+      "description": "Executable change-control evidence binding an exact subject to the approved request governing its mutation.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this change-control observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "change_request_id": {
+          "type": "string",
+          "description": "Identity of the change request observed at the deployment boundary."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "change_request_id", "observed_result"
+      ]
+
+    },
     "change_order_authority": {
       "type": "object",
       "description": "Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.",
@@ -632,6 +907,31 @@
         }
       },
       "required": ["approval_id", "quote_id", "authority", "status"
+      ]
+
+    },
+    "commercial_artifact_crown_evidence": {
+      "type": "object",
+      "description": "Executable commercial-release evidence binding the exact paid artifact to the cumulative trust evidence crown.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this commercial-artifact crown observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "artifact_digest": {
+          "type": "string",
+          "description": "Digest of the exact commercial artifact evaluated by the cumulative crown."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "artifact_digest", "observed_result"
       ]
 
     },
@@ -1102,6 +1402,56 @@
       ]
 
     },
+    "customer_managed_key_evidence": {
+      "type": "object",
+      "description": "Executable encryption evidence binding an exact subject to the customer-managed key identity actually used.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this customer-managed-key observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "key_identifier": {
+          "type": "string",
+          "description": "Non-secret identifier of the customer-managed key observed at encryption."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "key_identifier", "observed_result"
+      ]
+
+    },
+    "data_egress_evidence": {
+      "type": "object",
+      "description": "Executable egress evidence binding an exact subject to the bytes observed crossing its admitted data boundary.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this data-egress observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "egress_bytes": {
+          "type": "integer",
+          "description": "Observed byte count crossing the controlled egress boundary."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "egress_bytes", "observed_result"
+      ]
+
+    },
     "data_migration_scope_admission": {
       "type": "object",
       "description": "Admits a bounded data-migration scope before margin and timeline promises are accepted.",
@@ -1220,6 +1570,31 @@
       ]
 
     },
+    "deletion_proof_evidence": {
+      "type": "object",
+      "description": "Executable deletion evidence binding an exact subject to a verifiable deletion receipt.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this deletion-proof observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "deletion_receipt_id": {
+          "type": "string",
+          "description": "Identity of the receipt emitted by the completed deletion operation."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "deletion_receipt_id", "observed_result"
+      ]
+
+    },
     "demo_run": {
       "type": "object",
       "description": "Receipted execution result for a reproducible enterprise demo.",
@@ -1275,6 +1650,31 @@
         }
       },
       "required": ["demo_scenario_id", "account_id", "scenario_name", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "dependency_inventory_evidence": {
+      "type": "object",
+      "description": "Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this dependency inventory observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "dependency_count": {
+          "type": "integer",
+          "description": "Observed number of resolved direct and transitive dependencies."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "dependency_count", "observed_result"
       ]
 
     },
@@ -1350,6 +1750,31 @@
         }
       },
       "required": ["source_activity", "target_activity", "frequency"
+      ]
+
+    },
+    "disaster_recovery_evidence": {
+      "type": "object",
+      "description": "Executable disaster-recovery evidence binding an exact subject to the instant service recovery was observed.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this disaster-recovery observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "recovered_at": {
+          "type": "string",
+          "description": "UTC instant at which the recovered subject passed its availability probe."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "recovered_at", "observed_result"
       ]
 
     },
@@ -1512,6 +1937,31 @@
       ]
 
     },
+    "entitlement_evidence": {
+      "type": "object",
+      "description": "Executable entitlement evidence binding an exact subject to the paid capability grant actually evaluated.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this entitlement observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "entitlement_id": {
+          "type": "string",
+          "description": "Identity of the entitlement evaluated at the capability boundary."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "entitlement_id", "observed_result"
+      ]
+
+    },
     "entitlement_grant": {
       "type": "object",
       "description": "Receiptable grant of a capability to a tenant.",
@@ -1648,6 +2098,31 @@
         }
       },
       "required": ["type_name"
+      ]
+
+    },
+    "evidence_freshness_evidence": {
+      "type": "object",
+      "description": "Executable freshness evidence binding an exact subject to the observation instant used by policy.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this evidence-freshness observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "UTC instant at which the subject evidence was observed."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "observed_at", "observed_result"
       ]
 
     },
@@ -1905,6 +2380,31 @@
       ]
 
     },
+    "incident_response_evidence": {
+      "type": "object",
+      "description": "Executable incident evidence binding an exact subject to the response case opened by a real detection.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this incident-response observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "incident_id": {
+          "type": "string",
+          "description": "Identity of the incident response case observed by the control."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "incident_id", "observed_result"
+      ]
+
+    },
     "indemnity_scope_admission": {
       "type": "object",
       "description": "Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.",
@@ -2064,6 +2564,32 @@
       ]
 
     },
+    "least_authority_evidence": {
+      "type": "object",
+      "description": "Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this least-authority permission observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "granted_permissions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Canonical set of permissions observed at the execution boundary."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "granted_permissions", "observed_result"
+      ]
+
+    },
     "legal_blocker": {
       "type": "object",
       "description": "Encodes an unresolved legal blocker as a typed refusal with an actionable identity.",
@@ -2103,6 +2629,31 @@
         }
       },
       "required": ["opportunity_id", "liability_cap_id", "decision"
+      ]
+
+    },
+    "license_evidence": {
+      "type": "object",
+      "description": "Executable licensing evidence binding an exact subject to its machine-verified SPDX expression.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this license-expression observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "license_expression": {
+          "type": "string",
+          "description": "SPDX license expression observed for the commercial subject."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "license_expression", "observed_result"
       ]
 
     },
@@ -2217,6 +2768,57 @@
         }
       },
       "required": ["opportunity_id", "minimum_term", "decision"
+      ]
+
+    },
+    "multiarch_evidence": {
+      "type": "object",
+      "description": "Executable architecture evidence binding an exact subject to the platform set actually present in its OCI index.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this multi-architecture observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "platforms": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Canonical set of platforms observed in the admitted OCI index."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "platforms", "observed_result"
+      ]
+
+    },
+    "mutable_identity_refusal_evidence": {
+      "type": "object",
+      "description": "Executable refusal evidence recording the mutable artifact reference rejected by procurement policy.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this mutable-identity refusal observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "mutable_reference": {
+          "type": "string",
+          "description": "Mutable reference observed and refused before artifact admission."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "mutable_reference", "observed_result"
       ]
 
     },
@@ -2434,6 +3036,56 @@
       ]
 
     },
+    "oci_manifest_evidence": {
+      "type": "object",
+      "description": "Executable OCI evidence binding an exact subject to its verified manifest-list identity.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this OCI-manifest observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "manifest_digest": {
+          "type": "string",
+          "description": "Digest of the OCI manifest or index verified for the subject."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "manifest_digest", "observed_result"
+      ]
+
+    },
+    "offline_bundle_evidence": {
+      "type": "object",
+      "description": "Executable private-deployment evidence binding an exact subject to a verified offline installation bundle.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this offline-bundle observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "bundle_digest": {
+          "type": "string",
+          "description": "Digest of the offline bundle admitted by the verifier."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "bundle_digest", "observed_result"
+      ]
+
+    },
     "operator_readiness": {
       "type": "object",
       "description": "Measured operations-team readiness for governed production use.",
@@ -2640,6 +3292,31 @@
         }
       },
       "required": ["opportunity_id", "payment_terms", "authority_evidence_hash"
+      ]
+
+    },
+    "performance_slo_evidence": {
+      "type": "object",
+      "description": "Executable performance evidence binding an exact subject to the percentile latency actually measured.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this performance-SLO observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "latency_p95_ms": {
+          "type": "integer",
+          "description": "Observed p95 end-to-end latency in milliseconds for the admitted subject."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "latency_p95_ms", "observed_result"
       ]
 
     },
@@ -2897,6 +3574,31 @@
       ]
 
     },
+    "privacy_classification_evidence": {
+      "type": "object",
+      "description": "Executable privacy evidence binding an exact subject to the classification enforced for its handled data.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this privacy-classification observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "privacy_class": {
+          "type": "string",
+          "description": "Privacy classification observed at the enforcement boundary."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "privacy_class", "observed_result"
+      ]
+
+    },
     "private_offer": {
       "type": "object",
       "description": "Negotiated private offer with customer, price, and expiration.",
@@ -2922,6 +3624,31 @@
       ]
 
     },
+    "private_registry_evidence": {
+      "type": "object",
+      "description": "Executable private-registry evidence binding an exact subject to the digest pulled from the authorized registry.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this private-registry observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "registry_digest": {
+          "type": "string",
+          "description": "Digest observed after resolving the subject from the private registry."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "registry_digest", "observed_result"
+      ]
+
+    },
     "process_variant": {
       "type": "object",
       "description": "One distinct activity-sequence variant observed in a log, with its frequency.",
@@ -2941,6 +3668,31 @@
         }
       },
       "required": ["variant_id", "activity_sequence", "frequency"
+      ]
+
+    },
+    "procurement_acceptance_evidence": {
+      "type": "object",
+      "description": "Executable procurement evidence binding the exact commercial subject to the final decision derived from admitted controls.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this procurement-acceptance observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "acceptance_decision": {
+          "type": "string",
+          "description": "Observed procurement decision derived from the exact subject evidence set."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "acceptance_decision", "observed_result"
       ]
 
     },
@@ -3086,6 +3838,31 @@
       ]
 
     },
+    "provenance_binding_evidence": {
+      "type": "object",
+      "description": "Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this provenance observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "builder_identity": {
+          "type": "string",
+          "description": "Immutable identity of the builder that emitted the provenance."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verification consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "builder_identity", "observed_result"
+      ]
+
+    },
     "purchase_order_binding": {
       "type": "object",
       "description": "Customer purchase-order evidence bound to an enterprise order.",
@@ -3224,6 +4001,31 @@
       ]
 
     },
+    "receipt_replay_evidence": {
+      "type": "object",
+      "description": "Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this receipt-replay observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "replay_result_hash": {
+          "type": "string",
+          "description": "Hash of the consequence reproduced by receipt replay."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "replay_result_hash", "observed_result"
+      ]
+
+    },
     "recovery_plan": {
       "type": "object",
       "description": "Executable account recovery plan with a measured recovery interval.",
@@ -3250,6 +4052,31 @@
         }
       },
       "required": ["recovery_plan_id", "account_id", "recovery_time_hours", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "remediation_sla_evidence": {
+      "type": "object",
+      "description": "Executable remediation evidence binding an exact subject and finding to its enforced due instant.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this remediation-SLA observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "remediation_due_at": {
+          "type": "string",
+          "description": "UTC deadline enforced for remediation of the admitted finding."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "remediation_due_at", "observed_result"
       ]
 
     },
@@ -3386,6 +4213,31 @@
       ]
 
     },
+    "reproducible_build_evidence": {
+      "type": "object",
+      "description": "Executable reproducibility evidence binding an exact subject to the independently reproduced build digest.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this reproducible-build observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "build_digest": {
+          "type": "string",
+          "description": "Digest observed from the independent reproduction build."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "build_digest", "observed_result"
+      ]
+
+    },
     "reseller_authorization": {
       "type": "object",
       "description": "SKU-scoped reseller authorization with standing.",
@@ -3411,6 +4263,31 @@
       ]
 
     },
+    "residency_evidence": {
+      "type": "object",
+      "description": "Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this data-residency observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "region": {
+          "type": "string",
+          "description": "Observed region for the controlled data operation."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "region", "observed_result"
+      ]
+
+    },
     "resource_allocation": {
       "type": "object",
       "description": "One recorded assignment of a resource to an activity occurrence.",
@@ -3429,6 +4306,31 @@
         }
       },
       "required": ["resource_id", "activity", "event_id"
+      ]
+
+    },
+    "retention_policy_evidence": {
+      "type": "object",
+      "description": "Executable retention evidence binding an exact subject to the duration enforced by the storage lifecycle.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this retention-policy observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "retention_days": {
+          "type": "integer",
+          "description": "Enforced number of days before lifecycle expiry."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "retention_days", "observed_result"
       ]
 
     },
@@ -3503,6 +4405,31 @@
       ]
 
     },
+    "rfp_response_evidence": {
+      "type": "object",
+      "description": "Executable procurement evidence binding an exact subject to a deterministic RFP answer set.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this RFP-response observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "answer_set_hash": {
+          "type": "string",
+          "description": "Digest of the answer set derived from verified subject facts."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "answer_set_hash", "observed_result"
+      ]
+
+    },
     "rollback_decision": {
       "type": "object",
       "description": "Receipted rollback decision and recovered account consequence.",
@@ -3532,6 +4459,31 @@
       ]
 
     },
+    "rollback_evidence": {
+      "type": "object",
+      "description": "Executable rollback evidence binding an exact subject to the artifact identity restored by a real rollback transition.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this rollback observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "rollback_digest": {
+          "type": "string",
+          "description": "Digest of the prior artifact restored by the rollback operation."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "rollback_digest", "observed_result"
+      ]
+
+    },
     "sanctions_screening_result": {
       "type": "object",
       "description": "Requires a named sanctions screening result before accepting the commercial counterparty.",
@@ -3550,6 +4502,56 @@
         }
       },
       "required": ["account_id", "screening_id", "screening_result"
+      ]
+
+    },
+    "sbom_inventory_evidence": {
+      "type": "object",
+      "description": "Executable SBOM evidence binding an exact commercial subject to the observed component inventory cardinality.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this SBOM inventory observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "component_count": {
+          "type": "integer",
+          "description": "Observed number of components in the parsed SBOM inventory."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "component_count", "observed_result"
+      ]
+
+    },
+    "secret_boundary_evidence": {
+      "type": "object",
+      "description": "Executable secrets-boundary evidence proving the admitted subject used an authorized credential source.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this secret-boundary observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "secret_source": {
+          "type": "string",
+          "description": "Observed source of credentials used by the execution."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "secret_source", "observed_result"
       ]
 
     },
@@ -3745,6 +4747,31 @@
       ]
 
     },
+    "signature_evidence": {
+      "type": "object",
+      "description": "Executable signature evidence binding an exact subject to the workload identity accepted by cryptographic verification.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this artifact-signature observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "signature_identity": {
+          "type": "string",
+          "description": "Workload identity observed in the verified artifact signature."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "signature_identity", "observed_result"
+      ]
+
+    },
     "sku_definition": {
       "type": "object",
       "description": "Catalog SKU binding edition, billing model, and lifecycle.",
@@ -3870,6 +4897,31 @@
       ]
 
     },
+    "stale_subject_refusal_evidence": {
+      "type": "object",
+      "description": "Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this stale-subject refusal observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "stale_sha": {
+          "type": "string",
+          "description": "Stale subject SHA observed and refused by exact-head policy."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "stale_sha", "observed_result"
+      ]
+
+    },
     "success_plan": {
       "type": "object",
       "description": "Executable customer-success plan target with receipted account identity.",
@@ -3924,6 +4976,31 @@
       ]
 
     },
+    "support_escalation_evidence": {
+      "type": "object",
+      "description": "Executable support evidence binding an exact subject to the accountable escalation owner.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this support-escalation observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "escalation_owner": {
+          "type": "string",
+          "description": "Observed accountable owner of the admitted escalation."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "escalation_owner", "observed_result"
+      ]
+
+    },
     "support_readiness": {
       "type": "object",
       "description": "Measured support-team readiness for enterprise production.",
@@ -3953,6 +5030,31 @@
       ]
 
     },
+    "support_sla_evidence": {
+      "type": "object",
+      "description": "Executable support evidence binding an exact subject to the response latency actually observed.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this support-SLA observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "response_minutes": {
+          "type": "integer",
+          "description": "Observed minutes from support intake to acknowledged response."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "response_minutes", "observed_result"
+      ]
+
+    },
     "support_tier_admission": {
       "type": "object",
       "description": "Admits the paid support tier that determines service obligation and cost-to-serve.",
@@ -3971,6 +5073,31 @@
         }
       },
       "required": ["opportunity_id", "support_tier_id", "decision"
+      ]
+
+    },
+    "support_window_evidence": {
+      "type": "object",
+      "description": "Executable support-window evidence binding an exact subject to the channel available during the observed coverage window.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this support-window observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "support_channel": {
+          "type": "string",
+          "description": "Observed support channel satisfying the admitted coverage window."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "support_channel", "observed_result"
       ]
 
     },
@@ -4291,6 +5418,56 @@
       ]
 
     },
+    "unsupported_capability_evidence": {
+      "type": "object",
+      "description": "Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this unsupported-capability observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "capability_name": {
+          "type": "string",
+          "description": "Capability name observed at the unsupported routing boundary."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "capability_name", "observed_result"
+      ]
+
+    },
+    "upgrade_evidence": {
+      "type": "object",
+      "description": "Executable upgrade evidence binding an exact subject to the source version accepted by the migration path.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this upgrade-assurance observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "from_version": {
+          "type": "string",
+          "description": "Version from which the observed upgrade execution began."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "from_version", "observed_result"
+      ]
+
+    },
     "upsell_readiness": {
       "type": "object",
       "description": "Measured readiness to transition the account to greater product capacity.",
@@ -4507,6 +5684,56 @@
       ]
 
     },
+    "vendor_risk_evidence": {
+      "type": "object",
+      "description": "Executable vendor-risk evidence binding an exact subject to the risk score emitted from verified controls.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this vendor-risk observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "risk_score": {
+          "type": "number",
+          "description": "Observed normalized vendor-risk score derived from executable evidence."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "risk_score", "observed_result"
+      ]
+
+    },
+    "version_lifecycle_evidence": {
+      "type": "object",
+      "description": "Executable lifecycle evidence binding an exact subject version to its enforced support horizon.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this version-lifecycle observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "supported_until": {
+          "type": "string",
+          "description": "UTC instant through which the subject version is admitted for support."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "supported_until", "observed_result"
+      ]
+
+    },
     "volume_tier_admission": {
       "type": "object",
       "description": "Admits a volume discount tier only through an explicit decision tied to the opportunity.",
@@ -4525,6 +5752,31 @@
         }
       },
       "required": ["opportunity_id", "volume_tier_id", "decision"
+      ]
+
+    },
+    "vulnerability_scan_evidence": {
+      "type": "object",
+      "description": "Executable vulnerability evidence binding an exact subject to the findings actually emitted by a scanner.",
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "description": "Content-addressed identity of this vulnerability-scan observation."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact immutable beam4pm commit verified by this observation."
+        },
+        "vulnerability_count": {
+          "type": "integer",
+          "description": "Observed count of admitted vulnerability findings."
+        },
+        "observed_result": {
+          "type": "string",
+          "description": "Observed verifier consequence: verified or refused."
+        }
+      },
+      "required": ["evidence_id", "subject_sha", "vulnerability_count", "observed_result"
       ]
 
     }
