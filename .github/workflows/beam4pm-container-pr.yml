@@ -15,6 +15,7 @@ on:
       - "qualification/**"
       - "scripts/env/**"
       - scripts/rust4pm_wasm_build.sh
+      - ".github/workflows/beam4pm-container.yml"
       - ".github/workflows/beam4pm-container-pr.yml"
 
 concurrency:
@@ -26,8 +27,18 @@ permissions:
 
 jobs:
   build:
-    name: Build full linux/amd64 image without publishing
-    runs-on: ubuntu-24.04
+    name: Build full ${{ matrix.platform }} image without publishing
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-24.04
+            cache_scope: beam4pm-pr-amd64
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+            cache_scope: beam4pm-pr-arm64
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 45
     permissions:
       contents: read
@@ -55,9 +66,9 @@ jobs:
         uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
         with:
           context: .
-          platforms: linux/amd64
+          platforms: ${{ matrix.platform }}
           push: false
           load: false
           provenance: false
-          cache-from: type=gha,scope=beam4pm-pr-amd64
-          cache-to: type=gha,mode=max,scope=beam4pm-pr-amd64
+          cache-from: type=gha,scope=${{ matrix.cache_scope }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.cache_scope }}
