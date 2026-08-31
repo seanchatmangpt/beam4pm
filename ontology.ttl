@@ -3300,4 +3300,30 @@ b4pe:signature_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-031 — canary-release evidence.
+b4pe:canary_evidence_rt a bpm:RecordType ;
+    bpm:recordName "canary_evidence" ;
+    bpm:recordDoc "Executable canary evidence binding an exact subject to the traffic fraction actually admitted before promotion." ;
+    bpm:hasField b4pe:canary_evidence_id_f,
+                 b4pe:canary_subject_sha_f,
+                 b4pe:canary_canary_percentage_f,
+                 b4pe:canary_observed_result_f .
+
+b4pe:canary_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this canary-release observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:canary_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:canary_canary_percentage_f a bpm:Field ;
+    bpm:fieldName "canary_percentage" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed fraction of production traffic routed to the canary subject." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:canary_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
