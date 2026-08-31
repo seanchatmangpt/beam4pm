@@ -2820,3 +2820,41 @@ bpm:target_metric_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-109 — poc scope
+# ---------------------------------------------------------------------------
+
+bpm:poc_scope_rt a bpm:RecordType ;
+    bpm:recordName "poc_scope" ;
+    bpm:recordDoc "Bounded proof-of-concept scope with an explicit number of customer use cases." ;
+    bpm:hasField bpm:poc_scope_poc_scope_id_f ,
+                 bpm:poc_scope_account_id_f ,
+                 bpm:poc_scope_use_case_count_f ,
+                 bpm:poc_scope_evidence_digest_f ,
+                 bpm:poc_scope_observed_at_f .
+
+bpm:poc_scope_poc_scope_id_f a bpm:Field ;
+    bpm:fieldName "poc_scope_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this poc scope observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:poc_scope_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose poc scope state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:poc_scope_use_case_count_f a bpm:Field ;
+    bpm:fieldName "use_case_count" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Count of admitted use cases in the POC." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:poc_scope_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:poc_scope_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
