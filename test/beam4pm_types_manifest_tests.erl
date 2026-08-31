@@ -15,7 +15,10 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(135, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(185, length(beam4pm_types_manifest:record_names())).
+
+account_discovery_fields_test() ->
+    ?assertEqual([account_discovery_id, account_id, discovery_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(account_discovery)).
 
 account_master_match_fields_test() ->
     ?assertEqual([source_account_id, canonical_account_id, match_evidence_hash], beam4pm_types_manifest:fields(account_master_match)).
@@ -23,14 +26,26 @@ account_master_match_fields_test() ->
 account_parent_scope_fields_test() ->
     ?assertEqual([account_id, parent_account_id, scope_evidence_hash], beam4pm_types_manifest:fields(account_parent_scope)).
 
+activation_event_fields_test() ->
+    ?assertEqual([activation_event_id, account_id, activation_type, evidence_digest, observed_at], beam4pm_types_manifest:fields(activation_event)).
+
 add_on_bundle_fields_test() ->
     ?assertEqual([add_on_id, name, capability_ids, status], beam4pm_types_manifest:fields(add_on_bundle)).
+
+adoption_milestone_fields_test() ->
+    ?assertEqual([adoption_milestone_id, account_id, milestone_name, evidence_digest, observed_at], beam4pm_types_manifest:fields(adoption_milestone)).
 
 alignment_move_fields_test() ->
     ?assertEqual([move_type, cost], beam4pm_types_manifest:fields(alignment_move)).
 
 annual_subscription_fields_test() ->
     ?assertEqual([subscription_id, sku, seat_count, renews_at], beam4pm_types_manifest:fields(annual_subscription)).
+
+architecture_readiness_fields_test() ->
+    ?assertEqual([architecture_readiness_id, account_id, architecture_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(architecture_readiness)).
+
+baseline_metric_fields_test() ->
+    ?assertEqual([baseline_metric_id, account_id, baseline_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(baseline_metric)).
 
 beneficial_owner_evidence_fields_test() ->
     ?assertEqual([account_id, owner_id, evidence_hash], beam4pm_types_manifest:fields(beneficial_owner_evidence)).
@@ -47,8 +62,17 @@ booking_readiness_fields_test() ->
 budget_period_alignment_fields_test() ->
     ?assertEqual([opportunity_id, budget_period, alignment_result], beam4pm_types_manifest:fields(budget_period_alignment)).
 
+buying_committee_fields_test() ->
+    ?assertEqual([buying_committee_id, account_id, committee_coverage, evidence_digest, observed_at], beam4pm_types_manifest:fields(buying_committee)).
+
+canary_decision_fields_test() ->
+    ?assertEqual([canary_decision_id, account_id, canary_result, evidence_digest, observed_at], beam4pm_types_manifest:fields(canary_decision)).
+
 capability_bundle_fields_test() ->
     ?assertEqual([bundle_id, name, capability_ids, version], beam4pm_types_manifest:fields(capability_bundle)).
+
+capability_gap_fields_test() ->
+    ?assertEqual([capability_gap_id, account_id, gap_severity, evidence_digest, observed_at], beam4pm_types_manifest:fields(capability_gap)).
 
 case_stats_fields_test() ->
     ?assertEqual([case_id, event_count, duration_seconds], beam4pm_types_manifest:fields(case_stats)).
@@ -77,11 +101,17 @@ commercial_execution_receipt_fields_test() ->
 commercial_forecast_fields_test() ->
     ?assertEqual([forecast_id, account_id, amount, confidence], beam4pm_types_manifest:fields(commercial_forecast)).
 
+commercial_outcome_fields_test() ->
+    ?assertEqual([commercial_outcome_id, account_id, outcome_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(commercial_outcome)).
+
 commercial_quote_fields_test() ->
     ?assertEqual([quote_id, account_id, currency, status], beam4pm_types_manifest:fields(commercial_quote)).
 
 commercial_quote_line_fields_test() ->
     ?assertEqual([quote_id, sku, quantity, unit_price], beam4pm_types_manifest:fields(commercial_quote_line)).
+
+commercial_value_realization_fields_test() ->
+    ?assertEqual([realization_id, baseline_id, realized_value, measured_at], beam4pm_types_manifest:fields(commercial_value_realization)).
 
 committed_spend_fields_test() ->
     ?assertEqual([commitment_id, amount, currency, expires_at], beam4pm_types_manifest:fields(committed_spend)).
@@ -113,11 +143,20 @@ contracting_entity_identity_fields_test() ->
 credit_risk_admission_fields_test() ->
     ?assertEqual([account_id, risk_band, decision], beam4pm_types_manifest:fields(credit_risk_admission)).
 
+cross_sell_fit_fields_test() ->
+    ?assertEqual([cross_sell_fit_id, account_id, cross_sell_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(cross_sell_fit)).
+
+customer_health_fields_test() ->
+    ?assertEqual([customer_health_id, account_id, health_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(customer_health)).
+
 data_migration_scope_admission_fields_test() ->
     ?assertEqual([opportunity_id, migration_scope_id, decision], beam4pm_types_manifest:fields(data_migration_scope_admission)).
 
 data_processing_addendum_state_fields_test() ->
     ?assertEqual([opportunity_id, addendum_id, addendum_state], beam4pm_types_manifest:fields(data_processing_addendum_state)).
+
+data_readiness_fields_test() ->
+    ?assertEqual([data_readiness_id, account_id, data_quality_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(data_readiness)).
 
 data_residency_policy_fields_test() ->
     ?assertEqual([policy_id, tenant_id, allowed_regions, status], beam4pm_types_manifest:fields(data_residency_policy)).
@@ -125,14 +164,26 @@ data_residency_policy_fields_test() ->
 deal_desk_packet_fields_test() ->
     ?assertEqual([opportunity_id, packet_id, evidence_hash], beam4pm_types_manifest:fields(deal_desk_packet)).
 
+demo_run_fields_test() ->
+    ?assertEqual([demo_run_id, account_id, demo_result, evidence_digest, observed_at], beam4pm_types_manifest:fields(demo_run)).
+
+demo_scenario_fields_test() ->
+    ?assertEqual([demo_scenario_id, account_id, scenario_name, evidence_digest, observed_at], beam4pm_types_manifest:fields(demo_scenario)).
+
 deployment_entitlement_fields_test() ->
     ?assertEqual([entitlement_id, tenant_id, profile_id, valid_until], beam4pm_types_manifest:fields(deployment_entitlement)).
+
+developer_readiness_fields_test() ->
+    ?assertEqual([developer_readiness_id, account_id, developer_readiness_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(developer_readiness)).
 
 dfg_edge_fields_test() ->
     ?assertEqual([source_activity, target_activity, frequency], beam4pm_types_manifest:fields(dfg_edge)).
 
 discount_schedule_fields_test() ->
     ?assertEqual([schedule_id, threshold, discount_percent, currency], beam4pm_types_manifest:fields(discount_schedule)).
+
+discovery_hypothesis_fields_test() ->
+    ?assertEqual([discovery_hypothesis_id, account_id, expected_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(discovery_hypothesis)).
 
 edition_definition_fields_test() ->
     ?assertEqual([edition_id, name, bundle_ids, support_tier], beam4pm_types_manifest:fields(edition_definition)).
@@ -167,8 +218,23 @@ event_type_fields_test() ->
 exception_authority_fields_test() ->
     ?assertEqual([exception_id, authority_id, decision], beam4pm_types_manifest:fields(exception_authority)).
 
+executive_business_review_fields_test() ->
+    ?assertEqual([executive_business_review_id, account_id, executive_outcome, evidence_digest, observed_at], beam4pm_types_manifest:fields(executive_business_review)).
+
+executive_sponsor_fields_test() ->
+    ?assertEqual([executive_sponsor_id, account_id, sponsor_commitment, evidence_digest, observed_at], beam4pm_types_manifest:fields(executive_sponsor)).
+
+expansion_opportunity_fields_test() ->
+    ?assertEqual([expansion_opportunity_id, account_id, expansion_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(expansion_opportunity)).
+
 expansion_option_fields_test() ->
     ?assertEqual([option_id, account_id, sku, max_quantity], beam4pm_types_manifest:fields(expansion_option)).
+
+expansion_receipt_fields_test() ->
+    ?assertEqual([expansion_receipt_id, account_id, receipt_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(expansion_receipt)).
+
+expansion_signal_fields_test() ->
+    ?assertEqual([expansion_signal_id, account_id, expansion_signal_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(expansion_signal)).
 
 funding_approval_chain_fields_test() ->
     ?assertEqual([opportunity_id, approval_chain_id, evidence_hash], beam4pm_types_manifest:fields(funding_approval_chain)).
@@ -184,6 +250,9 @@ indemnity_scope_admission_fields_test() ->
 
 insurance_requirement_fields_test() ->
     ?assertEqual([opportunity_id, coverage_id, evidence_hash], beam4pm_types_manifest:fields(insurance_requirement)).
+
+integration_readiness_fields_test() ->
+    ?assertEqual([integration_readiness_id, account_id, integration_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(integration_readiness)).
 
 integration_scope_admission_fields_test() ->
     ?assertEqual([opportunity_id, integration_scope_id, decision], beam4pm_types_manifest:fields(integration_scope_admission)).
@@ -212,6 +281,9 @@ master_service_agreement_state_fields_test() ->
 migration_contract_fields_test() ->
     ?assertEqual([migration_id, from_version, to_version, rollback_plan], beam4pm_types_manifest:fields(migration_contract)).
 
+migration_readiness_fields_test() ->
+    ?assertEqual([migration_readiness_id, account_id, migration_effort_days, evidence_digest, observed_at], beam4pm_types_manifest:fields(migration_readiness)).
+
 minimum_term_admission_fields_test() ->
     ?assertEqual([opportunity_id, minimum_term, decision], beam4pm_types_manifest:fields(minimum_term_admission)).
 
@@ -220,6 +292,12 @@ object_attribute_change_fields_test() ->
 
 object_type_fields_test() ->
     ?assertEqual([type_name, attribute_names], beam4pm_types_manifest:fields(object_type)).
+
+objection_fields_test() ->
+    ?assertEqual([objection_id, account_id, objection_type, evidence_digest, observed_at], beam4pm_types_manifest:fields(objection)).
+
+objection_resolution_fields_test() ->
+    ?assertEqual([objection_resolution_id, account_id, resolution_status, evidence_digest, observed_at], beam4pm_types_manifest:fields(objection_resolution)).
 
 oc_declare_constraint_fields_test() ->
     ?assertEqual([constraint_id, source_activity, target_activity, constraint_type], beam4pm_types_manifest:fields(oc_declare_constraint)).
@@ -235,6 +313,9 @@ ocel_object_fields_test() ->
 
 ocel_relationship_fields_test() ->
     ?assertEqual([qualifier, object_id], beam4pm_types_manifest:fields(ocel_relationship)).
+
+operator_readiness_fields_test() ->
+    ?assertEqual([operator_readiness_id, account_id, operator_readiness_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(operator_readiness)).
 
 opportunity_currency_contract_fields_test() ->
     ?assertEqual([opportunity_id, currency_code, fx_basis_id], beam4pm_types_manifest:fields(opportunity_currency_contract)).
@@ -275,6 +356,18 @@ planning_action_fields_test() ->
 planning_state_fields_test() ->
     ?assertEqual([state_id, facts], beam4pm_types_manifest:fields(planning_state)).
 
+poc_exit_criteria_fields_test() ->
+    ?assertEqual([poc_exit_criteria_id, account_id, criteria_pass_rate, evidence_digest, observed_at], beam4pm_types_manifest:fields(poc_exit_criteria)).
+
+poc_risk_fields_test() ->
+    ?assertEqual([poc_risk_id, account_id, risk_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(poc_risk)).
+
+poc_scope_fields_test() ->
+    ?assertEqual([poc_scope_id, account_id, use_case_count, evidence_digest, observed_at], beam4pm_types_manifest:fields(poc_scope)).
+
+poc_timeline_fields_test() ->
+    ?assertEqual([poc_timeline_id, account_id, days_to_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(poc_timeline)).
+
 policy_decision_fields_test() ->
     ?assertEqual([decision_id, verdict, reason], beam4pm_types_manifest:fields(policy_decision)).
 
@@ -292,6 +385,12 @@ procurement_blocker_fields_test() ->
 
 procurement_channel_selection_fields_test() ->
     ?assertEqual([opportunity_id, channel_id, selection_evidence_hash], beam4pm_types_manifest:fields(procurement_channel_selection)).
+
+procurement_readiness_fields_test() ->
+    ?assertEqual([procurement_readiness_id, account_id, procurement_stage, evidence_digest, observed_at], beam4pm_types_manifest:fields(procurement_readiness)).
+
+production_readiness_fields_test() ->
+    ?assertEqual([production_readiness_id, account_id, production_readiness_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(production_readiness)).
 
 proof_of_value_budget_fields_test() ->
     ?assertEqual([opportunity_id, budget_id, decision], beam4pm_types_manifest:fields(proof_of_value_budget)).
@@ -317,8 +416,20 @@ quota_policy_fields_test() ->
 ramp_commitment_fields_test() ->
     ?assertEqual([ramp_id, phase, committed_amount, effective_at], beam4pm_types_manifest:fields(ramp_commitment)).
 
+recovery_plan_fields_test() ->
+    ?assertEqual([recovery_plan_id, account_id, recovery_time_hours, evidence_digest, observed_at], beam4pm_types_manifest:fields(recovery_plan)).
+
+renewal_evidence_fields_test() ->
+    ?assertEqual([renewal_evidence_id, account_id, renewal_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(renewal_evidence)).
+
+renewal_health_fields_test() ->
+    ?assertEqual([renewal_health_id, account_id, renewal_health_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(renewal_health)).
+
 renewal_option_fields_test() ->
     ?assertEqual([option_id, subscription_id, term_months, notice_by], beam4pm_types_manifest:fields(renewal_option)).
+
+renewal_risk_fields_test() ->
+    ?assertEqual([renewal_risk_id, account_id, renewal_risk_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(renewal_risk)).
 
 renewal_term_admission_fields_test() ->
     ?assertEqual([opportunity_id, renewal_term, decision], beam4pm_types_manifest:fields(renewal_term_admission)).
@@ -329,11 +440,17 @@ reseller_authorization_fields_test() ->
 resource_allocation_fields_test() ->
     ?assertEqual([resource_id, activity, event_id], beam4pm_types_manifest:fields(resource_allocation)).
 
+revenue_attribution_fields_test() ->
+    ?assertEqual([revenue_attribution_id, account_id, attributed_revenue, evidence_digest, observed_at], beam4pm_types_manifest:fields(revenue_attribution)).
+
 revenue_contract_admission_fields_test() ->
     ?assertEqual([opportunity_id, contract_id, admission_receipt_hash], beam4pm_types_manifest:fields(revenue_contract_admission)).
 
 revenue_schedule_assumption_fields_test() ->
     ?assertEqual([opportunity_id, schedule_id, assumption_evidence_hash], beam4pm_types_manifest:fields(revenue_schedule_assumption)).
+
+rollback_decision_fields_test() ->
+    ?assertEqual([rollback_decision_id, account_id, rollback_result, evidence_digest, observed_at], beam4pm_types_manifest:fields(rollback_decision)).
 
 sanctions_screening_result_fields_test() ->
     ?assertEqual([account_id, screening_id, screening_result], beam4pm_types_manifest:fields(sanctions_screening_result)).
@@ -343,6 +460,9 @@ security_addendum_state_fields_test() ->
 
 security_blocker_fields_test() ->
     ?assertEqual([opportunity_id, blocker_id, refusal_code], beam4pm_types_manifest:fields(security_blocker)).
+
+security_readiness_fields_test() ->
+    ?assertEqual([security_readiness_id, account_id, control_coverage, evidence_digest, observed_at], beam4pm_types_manifest:fields(security_readiness)).
 
 service_credit_fields_test() ->
     ?assertEqual([credit_id, slo_id, amount, currency], beam4pm_types_manifest:fields(service_credit)).
@@ -368,14 +488,29 @@ sla_offer_admission_fields_test() ->
 sojourn_time_fields_test() ->
     ?assertEqual([object_id, event_type, seconds], beam4pm_types_manifest:fields(sojourn_time)).
 
+solution_fit_fields_test() ->
+    ?assertEqual([solution_fit_id, account_id, fit_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(solution_fit)).
+
+stakeholder_map_fields_test() ->
+    ?assertEqual([stakeholder_map_id, account_id, stakeholder_count, evidence_digest, observed_at], beam4pm_types_manifest:fields(stakeholder_map)).
+
+success_plan_fields_test() ->
+    ?assertEqual([success_plan_id, account_id, success_target, evidence_digest, observed_at], beam4pm_types_manifest:fields(success_plan)).
+
 support_contract_fields_test() ->
     ?assertEqual([contract_id, account_id, tier, valid_until], beam4pm_types_manifest:fields(support_contract)).
+
+support_readiness_fields_test() ->
+    ?assertEqual([support_readiness_id, account_id, support_readiness_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(support_readiness)).
 
 support_tier_admission_fields_test() ->
     ?assertEqual([opportunity_id, support_tier_id, decision], beam4pm_types_manifest:fields(support_tier_admission)).
 
 sync_time_fields_test() ->
     ?assertEqual([object_id, delaying_object_id, seconds], beam4pm_types_manifest:fields(sync_time)).
+
+target_metric_fields_test() ->
+    ?assertEqual([target_metric_id, account_id, target_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(target_metric)).
 
 tax_jurisdiction_evidence_fields_test() ->
     ?assertEqual([contracting_entity_id, tax_jurisdiction, evidence_hash], beam4pm_types_manifest:fields(tax_jurisdiction_evidence)).
@@ -395,6 +530,12 @@ term_subscription_fields_test() ->
 termination_right_admission_fields_test() ->
     ?assertEqual([opportunity_id, termination_right_id, decision], beam4pm_types_manifest:fields(termination_right_admission)).
 
+time_to_value_fields_test() ->
+    ?assertEqual([time_to_value_id, account_id, verified_days, evidence_digest, observed_at], beam4pm_types_manifest:fields(time_to_value)).
+
+training_readiness_fields_test() ->
+    ?assertEqual([training_readiness_id, account_id, training_completion_rate, evidence_digest, observed_at], beam4pm_types_manifest:fields(training_readiness)).
+
 training_scope_admission_fields_test() ->
     ?assertEqual([opportunity_id, training_scope_id, decision], beam4pm_types_manifest:fields(training_scope_admission)).
 
@@ -404,17 +545,26 @@ true_up_policy_fields_test() ->
 type_edge_fields_test() ->
     ?assertEqual([source_type, target_type, qualifier, direction], beam4pm_types_manifest:fields(type_edge)).
 
+upsell_readiness_fields_test() ->
+    ?assertEqual([upsell_readiness_id, account_id, upsell_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(upsell_readiness)).
+
 usage_event_fields_test() ->
     ?assertEqual([event_id, entitlement_id, quantity, metric_name, occurred_at], beam4pm_types_manifest:fields(usage_event)).
 
 usage_plan_fields_test() ->
     ?assertEqual([plan_id, metric_name, unit, billing_mode], beam4pm_types_manifest:fields(usage_plan)).
 
+usage_signal_fields_test() ->
+    ?assertEqual([usage_signal_id, account_id, active_user_count, evidence_digest, observed_at], beam4pm_types_manifest:fields(usage_signal)).
+
 value_baseline_fields_test() ->
     ?assertEqual([baseline_id, account_id, metric_name, baseline_value], beam4pm_types_manifest:fields(value_baseline)).
 
+value_driver_fields_test() ->
+    ?assertEqual([value_driver_id, account_id, annual_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(value_driver)).
+
 value_realization_fields_test() ->
-    ?assertEqual([realization_id, baseline_id, realized_value, measured_at], beam4pm_types_manifest:fields(value_realization)).
+    ?assertEqual([value_realization_id, account_id, realized_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(value_realization)).
 
 vendor_registration_state_fields_test() ->
     ?assertEqual([account_id, registration_id, registration_state], beam4pm_types_manifest:fields(vendor_registration_state)).

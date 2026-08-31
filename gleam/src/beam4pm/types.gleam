@@ -9,6 +9,22 @@
 import gleam/dict
 import gleam/option
 
+/// Receipted enterprise account-discovery outcome that binds qualification evidence to a measurable discovery score.
+pub type AccountDiscovery {
+  AccountDiscovery(
+    /// Stable identity of this discovery experiment.
+    account_discovery_id: String,
+    /// Enterprise account whose discovery state was observed.
+    account_id: String,
+    /// Observed bounded discovery qualification score.
+    discovery_score: Float,
+    /// Digest of the exact evidence supporting this outcome.
+    evidence_digest: String,
+    /// ISO8601 instant the customer-value consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Admits a source account only when it is bound to one canonical Fortune-5 account by immutable matching evidence; prevents pipeline value from being booked against an ambiguous customer identity.
 pub type AccountMasterMatch {
   AccountMasterMatch(
@@ -33,6 +49,22 @@ pub type AccountParentScope {
   )
 }
 
+/// First verified activation event for an enterprise user cohort.
+pub type ActivationEvent {
+  ActivationEvent(
+    /// Stable identity of this activation event observation.
+    activation_event_id: String,
+    /// Enterprise account whose activation event state was observed.
+    account_id: String,
+    /// Type of customer activation observed.
+    activation_type: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Optional paid add-on attachable to an edition.
 pub type AddOnBundle {
   AddOnBundle(
@@ -44,6 +76,22 @@ pub type AddOnBundle {
     capability_ids: List(String),
     /// Add-on lifecycle standing.
     status: String,
+  )
+}
+
+/// Receipted customer adoption milestone tied to observable use.
+pub type AdoptionMilestone {
+  AdoptionMilestone(
+    /// Stable identity of this adoption milestone observation.
+    adoption_milestone_id: String,
+    /// Enterprise account whose adoption milestone state was observed.
+    account_id: String,
+    /// Stable name of the achieved adoption milestone.
+    milestone_name: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -68,6 +116,38 @@ pub type AnnualSubscription {
     seat_count: Int,
     /// Annual renewal instant.
     renews_at: String,
+  )
+}
+
+/// Measured architecture readiness for the customer's production environment.
+pub type ArchitectureReadiness {
+  ArchitectureReadiness(
+    /// Stable identity of this architecture readiness observation.
+    architecture_readiness_id: String,
+    /// Enterprise account whose architecture readiness state was observed.
+    account_id: String,
+    /// Observed architecture-readiness score.
+    architecture_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Pre-POC customer baseline used to falsify or confirm realized value.
+pub type BaselineMetric {
+  BaselineMetric(
+    /// Stable identity of this baseline metric observation.
+    baseline_metric_id: String,
+    /// Enterprise account whose baseline metric state was observed.
+    account_id: String,
+    /// Measured value before the intervention.
+    baseline_value: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -139,6 +219,38 @@ pub type BudgetPeriodAlignment {
   )
 }
 
+/// Measured buying-committee coverage for an enterprise decision path.
+pub type BuyingCommittee {
+  BuyingCommittee(
+    /// Stable identity of this buying committee observation.
+    buying_committee_id: String,
+    /// Enterprise account whose buying committee state was observed.
+    account_id: String,
+    /// Fraction of required buying roles actively represented.
+    committee_coverage: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Receipted enterprise canary decision based on an observed rollout consequence.
+pub type CanaryDecision {
+  CanaryDecision(
+    /// Stable identity of this canary decision observation.
+    canary_decision_id: String,
+    /// Enterprise account whose canary decision state was observed.
+    account_id: String,
+    /// Observed outcome of the canary qualification.
+    canary_result: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Named capability bundle with constituent capability identities.
 pub type CapabilityBundle {
   CapabilityBundle(
@@ -150,6 +262,22 @@ pub type CapabilityBundle {
     capability_ids: List(String),
     /// Bundle semantic version.
     version: String,
+  )
+}
+
+/// Detected capability gap blocking enterprise value or expansion.
+pub type CapabilityGap {
+  CapabilityGap(
+    /// Stable identity of this capability gap observation.
+    capability_gap_id: String,
+    /// Enterprise account whose capability gap state was observed.
+    account_id: String,
+    /// Observed severity of the capability gap.
+    gap_severity: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -273,6 +401,22 @@ pub type CommercialForecast {
   )
 }
 
+/// Verified commercial outcome attributable to the admitted customer journey.
+pub type CommercialOutcome {
+  CommercialOutcome(
+    /// Stable identity of this commercial outcome observation.
+    commercial_outcome_id: String,
+    /// Enterprise account whose commercial outcome state was observed.
+    account_id: String,
+    /// Verified commercial value in account currency.
+    outcome_value: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// A versioned enterprise quote binding an account, currency, and lifecycle standing.
 pub type CommercialQuote {
   CommercialQuote(
@@ -298,6 +442,20 @@ pub type CommercialQuoteLine {
     quantity: Int,
     /// Price per unit in quote currency.
     unit_price: Float,
+  )
+}
+
+/// Measured post-adoption outcome linked to its baseline.
+pub type CommercialValueRealization {
+  CommercialValueRealization(
+    /// Stable realization identity.
+    realization_id: String,
+    /// Compared value baseline.
+    baseline_id: String,
+    /// Observed post-adoption value.
+    realized_value: Float,
+    /// Outcome measurement instant.
+    measured_at: String,
   )
 }
 
@@ -433,6 +591,38 @@ pub type CreditRiskAdmission {
   )
 }
 
+/// Evidence-backed fit for an adjacent enterprise capability.
+pub type CrossSellFit {
+  CrossSellFit(
+    /// Stable identity of this cross sell fit observation.
+    cross_sell_fit_id: String,
+    /// Enterprise account whose cross sell fit state was observed.
+    account_id: String,
+    /// Observed cross-sell fit score.
+    cross_sell_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Cumulative customer-health observation across usage, outcomes, and support.
+pub type CustomerHealth {
+  CustomerHealth(
+    /// Stable identity of this customer health observation.
+    customer_health_id: String,
+    /// Enterprise account whose customer health state was observed.
+    account_id: String,
+    /// Observed account health score.
+    health_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Admits a bounded data-migration scope before margin and timeline promises are accepted.
 pub type DataMigrationScopeAdmission {
   DataMigrationScopeAdmission(
@@ -454,6 +644,22 @@ pub type DataProcessingAddendumState {
     addendum_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     addendum_state: String,
+  )
+}
+
+/// Measured source-data readiness for a production proof of value.
+pub type DataReadiness {
+  DataReadiness(
+    /// Stable identity of this data readiness observation.
+    data_readiness_id: String,
+    /// Enterprise account whose data readiness state was observed.
+    account_id: String,
+    /// Observed quality score of admitted customer data.
+    data_quality_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -483,6 +689,38 @@ pub type DealDeskPacket {
   )
 }
 
+/// Receipted execution result for a reproducible enterprise demo.
+pub type DemoRun {
+  DemoRun(
+    /// Stable identity of this demo run observation.
+    demo_run_id: String,
+    /// Enterprise account whose demo run state was observed.
+    account_id: String,
+    /// Observed result of the exact demo execution.
+    demo_result: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Account-specific executable demonstration scenario for enterprise evaluation.
+pub type DemoScenario {
+  DemoScenario(
+    /// Stable identity of this demo scenario observation.
+    demo_scenario_id: String,
+    /// Enterprise account whose demo scenario state was observed.
+    account_id: String,
+    /// Stable name of the selected customer scenario.
+    scenario_name: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Paid right to deploy an edition into an environment.
 pub type DeploymentEntitlement {
   DeploymentEntitlement(
@@ -494,6 +732,22 @@ pub type DeploymentEntitlement {
     profile_id: String,
     /// Deployment right expiration.
     valid_until: String,
+  )
+}
+
+/// Measured developer enablement readiness for enterprise adoption.
+pub type DeveloperReadiness {
+  DeveloperReadiness(
+    /// Stable identity of this developer readiness observation.
+    developer_readiness_id: String,
+    /// Enterprise account whose developer readiness state was observed.
+    account_id: String,
+    /// Observed developer-readiness score.
+    developer_readiness_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -520,6 +774,22 @@ pub type DiscountSchedule {
     discount_percent: Float,
     /// Applicable settlement currency.
     currency: String,
+  )
+}
+
+/// Receipted enterprise discovery hypothesis linking an account to a falsifiable customer-value expectation.
+pub type DiscoveryHypothesis {
+  DiscoveryHypothesis(
+    /// Stable identity of this discovery hypothesis observation.
+    discovery_hypothesis_id: String,
+    /// Enterprise account whose discovery hypothesis state was observed.
+    account_id: String,
+    /// Falsifiable value expectation stated by the customer.
+    expected_value: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -671,6 +941,54 @@ pub type ExceptionAuthority {
   )
 }
 
+/// Observed executive business-review outcome derived from receipts.
+pub type ExecutiveBusinessReview {
+  ExecutiveBusinessReview(
+    /// Stable identity of this executive business review observation.
+    executive_business_review_id: String,
+    /// Enterprise account whose executive business review state was observed.
+    account_id: String,
+    /// Decision recorded by the executive review.
+    executive_outcome: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Receipted executive sponsorship commitment for an enterprise proof of value.
+pub type ExecutiveSponsor {
+  ExecutiveSponsor(
+    /// Stable identity of this executive sponsor observation.
+    executive_sponsor_id: String,
+    /// Enterprise account whose executive sponsor state was observed.
+    account_id: String,
+    /// Observed level of sponsor commitment.
+    sponsor_commitment: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Qualified account expansion opportunity backed by observed adoption evidence.
+pub type ExpansionOpportunity {
+  ExpansionOpportunity(
+    /// Stable identity of this expansion opportunity observation.
+    expansion_opportunity_id: String,
+    /// Enterprise account whose expansion opportunity state was observed.
+    account_id: String,
+    /// Qualified expansion value in account currency.
+    expansion_value: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Pre-negotiated expansion right for a SKU and unit ceiling.
 pub type ExpansionOption {
   ExpansionOption(
@@ -682,6 +1000,38 @@ pub type ExpansionOption {
     sku: String,
     /// Maximum expansion quantity.
     max_quantity: Int,
+  )
+}
+
+/// Final expansion receipt binding adoption evidence to realized expansion value.
+pub type ExpansionReceipt {
+  ExpansionReceipt(
+    /// Stable identity of this expansion receipt observation.
+    expansion_receipt_id: String,
+    /// Enterprise account whose expansion receipt state was observed.
+    account_id: String,
+    /// Verified expansion value named by this receipt.
+    receipt_value: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Observed usage-and-value signal indicating an expansion path.
+pub type ExpansionSignal {
+  ExpansionSignal(
+    /// Stable identity of this expansion signal observation.
+    expansion_signal_id: String,
+    /// Enterprise account whose expansion signal state was observed.
+    account_id: String,
+    /// Measured strength of the expansion signal.
+    expansion_signal_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -742,6 +1092,22 @@ pub type InsuranceRequirement {
     coverage_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     evidence_hash: String,
+  )
+}
+
+/// Executable readiness contract for required enterprise integrations.
+pub type IntegrationReadiness {
+  IntegrationReadiness(
+    /// Stable identity of this integration readiness observation.
+    integration_readiness_id: String,
+    /// Enterprise account whose integration readiness state was observed.
+    account_id: String,
+    /// Observed integration-readiness score.
+    integration_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -855,6 +1221,22 @@ pub type MigrationContract {
   )
 }
 
+/// Measured migration readiness and bounded effort for enterprise adoption.
+pub type MigrationReadiness {
+  MigrationReadiness(
+    /// Stable identity of this migration readiness observation.
+    migration_readiness_id: String,
+    /// Enterprise account whose migration readiness state was observed.
+    account_id: String,
+    /// Estimated engineering days for the admitted migration.
+    migration_effort_days: Int,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Admits the minimum paid term as a decision input needed for durable contract value.
 pub type MinimumTermAdmission {
   MinimumTermAdmission(
@@ -890,6 +1272,38 @@ pub type ObjectType {
     type_name: String,
     /// Optional declared attribute names for objects of this type (name-only; per-attribute value types are not yet modeled).
     attribute_names: option.Option(List(String)),
+  )
+}
+
+/// Typed enterprise objection linked to an exact account and evidence.
+pub type Objection {
+  Objection(
+    /// Stable identity of this objection observation.
+    objection_id: String,
+    /// Enterprise account whose objection state was observed.
+    account_id: String,
+    /// Category of the observed buying objection.
+    objection_type: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Receipted resolution of an enterprise buying objection.
+pub type ObjectionResolution {
+  ObjectionResolution(
+    /// Stable identity of this objection resolution observation.
+    objection_resolution_id: String,
+    /// Enterprise account whose objection resolution state was observed.
+    account_id: String,
+    /// Observed resolution status.
+    resolution_status: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -952,6 +1366,22 @@ pub type OcelRelationship {
     qualifier: String,
     /// The related object's identifier.
     object_id: String,
+  )
+}
+
+/// Measured operations-team readiness for governed production use.
+pub type OperatorReadiness {
+  OperatorReadiness(
+    /// Stable identity of this operator readiness observation.
+    operator_readiness_id: String,
+    /// Enterprise account whose operator readiness state was observed.
+    account_id: String,
+    /// Observed operator-readiness score.
+    operator_readiness_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -1111,6 +1541,70 @@ pub type PlanningState {
   )
 }
 
+/// Measured POC exit-criteria result that gates production readiness.
+pub type PocExitCriteria {
+  PocExitCriteria(
+    /// Stable identity of this poc exit criteria observation.
+    poc_exit_criteria_id: String,
+    /// Enterprise account whose poc exit criteria state was observed.
+    account_id: String,
+    /// Fraction of customer-approved exit criteria satisfied.
+    criteria_pass_rate: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Evidence-backed POC delivery risk visible to the solution architect.
+pub type PocRisk {
+  PocRisk(
+    /// Stable identity of this poc risk observation.
+    poc_risk_id: String,
+    /// Enterprise account whose poc risk state was observed.
+    account_id: String,
+    /// Observed delivery-risk score.
+    risk_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Bounded proof-of-concept scope with an explicit number of customer use cases.
+pub type PocScope {
+  PocScope(
+    /// Stable identity of this poc scope observation.
+    poc_scope_id: String,
+    /// Enterprise account whose poc scope state was observed.
+    account_id: String,
+    /// Count of admitted use cases in the POC.
+    use_case_count: Int,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Measured proof-of-concept timeline tied to verified customer value.
+pub type PocTimeline {
+  PocTimeline(
+    /// Stable identity of this poc timeline observation.
+    poc_timeline_id: String,
+    /// Enterprise account whose poc timeline state was observed.
+    account_id: String,
+    /// Calendar days from admitted POC start to verified value.
+    days_to_value: Int,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// One admission/authority policy decision recorded for an attempted action.
 pub type PolicyDecision {
   PolicyDecision(
@@ -1182,6 +1676,38 @@ pub type ProcurementChannelSelection {
     channel_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     selection_evidence_hash: String,
+  )
+}
+
+/// Observable procurement journey state for an enterprise commercial transition.
+pub type ProcurementReadiness {
+  ProcurementReadiness(
+    /// Stable identity of this procurement readiness observation.
+    procurement_readiness_id: String,
+    /// Enterprise account whose procurement readiness state was observed.
+    account_id: String,
+    /// Current admitted procurement stage.
+    procurement_stage: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Cumulative evidence-backed production readiness for the enterprise account.
+pub type ProductionReadiness {
+  ProductionReadiness(
+    /// Stable identity of this production readiness observation.
+    production_readiness_id: String,
+    /// Enterprise account whose production readiness state was observed.
+    account_id: String,
+    /// Observed production-readiness score.
+    production_readiness_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -1287,6 +1813,54 @@ pub type RampCommitment {
   )
 }
 
+/// Executable account recovery plan with a measured recovery interval.
+pub type RecoveryPlan {
+  RecoveryPlan(
+    /// Stable identity of this recovery plan observation.
+    recovery_plan_id: String,
+    /// Enterprise account whose recovery plan state was observed.
+    account_id: String,
+    /// Verified hours from failure to recovered customer consequence.
+    recovery_time_hours: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Receipted value evidence supporting a multi-year renewal decision.
+pub type RenewalEvidence {
+  RenewalEvidence(
+    /// Stable identity of this renewal evidence observation.
+    renewal_evidence_id: String,
+    /// Enterprise account whose renewal evidence state was observed.
+    account_id: String,
+    /// Verified value supporting renewal.
+    renewal_value: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Measured renewal health derived from adoption and realized-value evidence.
+pub type RenewalHealth {
+  RenewalHealth(
+    /// Stable identity of this renewal health observation.
+    renewal_health_id: String,
+    /// Enterprise account whose renewal health state was observed.
+    account_id: String,
+    /// Observed renewal-health score.
+    renewal_health_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Contractual renewal option with term and notice deadline.
 pub type RenewalOption {
   RenewalOption(
@@ -1298,6 +1872,22 @@ pub type RenewalOption {
     term_months: Int,
     /// Renewal notice deadline.
     notice_by: String,
+  )
+}
+
+/// Evidence-backed renewal risk requiring customer-success action.
+pub type RenewalRisk {
+  RenewalRisk(
+    /// Stable identity of this renewal risk observation.
+    renewal_risk_id: String,
+    /// Enterprise account whose renewal risk state was observed.
+    account_id: String,
+    /// Observed renewal-risk score.
+    renewal_risk_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -1339,6 +1929,22 @@ pub type ResourceAllocation {
   )
 }
 
+/// Receipted revenue attribution bound to exact enterprise evidence.
+pub type RevenueAttribution {
+  RevenueAttribution(
+    /// Stable identity of this revenue attribution observation.
+    revenue_attribution_id: String,
+    /// Enterprise account whose revenue attribution state was observed.
+    account_id: String,
+    /// Revenue attributed to the verified value path.
+    attributed_revenue: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Produces the terminal immutable admission receipt binding a qualified opportunity to an executable paid revenue contract.
 pub type RevenueContractAdmission {
   RevenueContractAdmission(
@@ -1360,6 +1966,22 @@ pub type RevenueScheduleAssumption {
     schedule_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     assumption_evidence_hash: String,
+  )
+}
+
+/// Receipted rollback decision and recovered account consequence.
+pub type RollbackDecision {
+  RollbackDecision(
+    /// Stable identity of this rollback decision observation.
+    rollback_decision_id: String,
+    /// Enterprise account whose rollback decision state was observed.
+    account_id: String,
+    /// Observed outcome of the rollback action.
+    rollback_result: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -1396,6 +2018,22 @@ pub type SecurityBlocker {
     blocker_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     refusal_code: String,
+  )
+}
+
+/// Evidence-backed security-control readiness for enterprise adoption.
+pub type SecurityReadiness {
+  SecurityReadiness(
+    /// Stable identity of this security readiness observation.
+    security_readiness_id: String,
+    /// Enterprise account whose security readiness state was observed.
+    account_id: String,
+    /// Fraction of required controls with accepted evidence.
+    control_coverage: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -1505,6 +2143,54 @@ pub type SojournTime {
   )
 }
 
+/// Measured solution-fit observation for the account's admitted requirements.
+pub type SolutionFit {
+  SolutionFit(
+    /// Stable identity of this solution fit observation.
+    solution_fit_id: String,
+    /// Enterprise account whose solution fit state was observed.
+    account_id: String,
+    /// Fraction of admitted requirements satisfied.
+    fit_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Executable stakeholder-coverage contract for a qualified enterprise evaluation.
+pub type StakeholderMap {
+  StakeholderMap(
+    /// Stable identity of this stakeholder map observation.
+    stakeholder_map_id: String,
+    /// Enterprise account whose stakeholder map state was observed.
+    account_id: String,
+    /// Number of distinct admitted stakeholder roles.
+    stakeholder_count: Int,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Executable customer-success plan target with receipted account identity.
+pub type SuccessPlan {
+  SuccessPlan(
+    /// Stable identity of this success plan observation.
+    success_plan_id: String,
+    /// Enterprise account whose success plan state was observed.
+    account_id: String,
+    /// Next verified customer-success target.
+    success_target: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Purchased support tier with response target and term.
 pub type SupportContract {
   SupportContract(
@@ -1516,6 +2202,22 @@ pub type SupportContract {
     tier: String,
     /// Support term expiration.
     valid_until: String,
+  )
+}
+
+/// Measured support-team readiness for enterprise production.
+pub type SupportReadiness {
+  SupportReadiness(
+    /// Stable identity of this support readiness observation.
+    support_readiness_id: String,
+    /// Enterprise account whose support readiness state was observed.
+    account_id: String,
+    /// Observed support-readiness score.
+    support_readiness_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -1540,6 +2242,22 @@ pub type SyncTime {
     delaying_object_id: option.Option(String),
     /// Synchronization wait duration in seconds.
     seconds: Float,
+  )
+}
+
+/// Customer-approved target metric for a qualified proof of value.
+pub type TargetMetric {
+  TargetMetric(
+    /// Stable identity of this target metric observation.
+    target_metric_id: String,
+    /// Enterprise account whose target metric state was observed.
+    account_id: String,
+    /// Target value required for acceptance.
+    target_value: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
@@ -1621,6 +2339,38 @@ pub type TerminationRightAdmission {
   )
 }
 
+/// Measured elapsed time to the customer's first verified business value.
+pub type TimeToValue {
+  TimeToValue(
+    /// Stable identity of this time to value observation.
+    time_to_value_id: String,
+    /// Enterprise account whose time to value state was observed.
+    account_id: String,
+    /// Days from admission to first verified value.
+    verified_days: Int,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Observed workforce training readiness for production adoption.
+pub type TrainingReadiness {
+  TrainingReadiness(
+    /// Stable identity of this training readiness observation.
+    training_readiness_id: String,
+    /// Enterprise account whose training readiness state was observed.
+    account_id: String,
+    /// Fraction of assigned learners completing qualification.
+    training_completion_rate: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Qualifies training scope as an explicit paid delivery obligation.
 pub type TrainingScopeAdmission {
   TrainingScopeAdmission(
@@ -1661,6 +2411,22 @@ pub type TypeEdge {
   )
 }
 
+/// Measured readiness to transition the account to greater product capacity.
+pub type UpsellReadiness {
+  UpsellReadiness(
+    /// Stable identity of this upsell readiness observation.
+    upsell_readiness_id: String,
+    /// Enterprise account whose upsell readiness state was observed.
+    account_id: String,
+    /// Observed upsell-readiness score.
+    upsell_score: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// One metered usage/consumption occurrence to be billed against an entitlement. event_id is the idempotency key that is ALSO the operationId reported to the provider's usage API, so local dedup and provider-side dedup are keyed identically and can never disagree.
 pub type UsageEvent {
   UsageEvent(
@@ -1691,6 +2457,22 @@ pub type UsagePlan {
   )
 }
 
+/// Measured product-usage signal for an admitted enterprise account.
+pub type UsageSignal {
+  UsageSignal(
+    /// Stable identity of this usage signal observation.
+    usage_signal_id: String,
+    /// Enterprise account whose usage signal state was observed.
+    account_id: String,
+    /// Distinct active users in the observation window.
+    active_user_count: Int,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
 /// Measured pre-adoption business baseline for ROI comparison.
 pub type ValueBaseline {
   ValueBaseline(
@@ -1705,17 +2487,35 @@ pub type ValueBaseline {
   )
 }
 
-/// Measured post-adoption outcome linked to its baseline.
+/// Account-specific value driver tied to an observed annualized business outcome.
+pub type ValueDriver {
+  ValueDriver(
+    /// Stable identity of this value driver observation.
+    value_driver_id: String,
+    /// Enterprise account whose value driver state was observed.
+    account_id: String,
+    /// Observed annualized value in account currency.
+    annual_value: Float,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Receipted realized customer value derived from observed consequences.
 pub type ValueRealization {
   ValueRealization(
-    /// Stable realization identity.
-    realization_id: String,
-    /// Compared value baseline.
-    baseline_id: String,
-    /// Observed post-adoption value.
+    /// Stable identity of this value realization observation.
+    value_realization_id: String,
+    /// Enterprise account whose value realization state was observed.
+    account_id: String,
+    /// Verified realized value in account currency.
     realized_value: Float,
-    /// Outcome measurement instant.
-    measured_at: String,
+    /// Digest of the exact evidence supporting this customer-value observation.
+    evidence_digest: String,
+    /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
   )
 }
 
