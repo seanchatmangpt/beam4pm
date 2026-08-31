@@ -3494,3 +3494,17 @@ bpm:capability_gap_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:f
 bpm:capability_gap_gap_severity_f a bpm:Field ; bpm:fieldName "gap_severity" ; bpm:fieldType "string" ; bpm:fieldDoc "Observed severity of the capability gap." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:capability_gap_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:capability_gap_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-143 — objection
+# ---------------------------------------------------------------------------
+
+bpm:objection_rt a bpm:RecordType ;
+    bpm:recordName "objection" ; bpm:recordDoc "Typed enterprise objection linked to an exact account and evidence." ;
+    bpm:hasField bpm:objection_objection_id_f , bpm:objection_account_id_f , bpm:objection_objection_type_f , bpm:objection_evidence_digest_f , bpm:objection_observed_at_f .
+
+bpm:objection_objection_id_f a bpm:Field ; bpm:fieldName "objection_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this objection observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:objection_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose objection state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:objection_objection_type_f a bpm:Field ; bpm:fieldName "objection_type" ; bpm:fieldType "string" ; bpm:fieldDoc "Category of the observed buying objection." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:objection_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:objection_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
