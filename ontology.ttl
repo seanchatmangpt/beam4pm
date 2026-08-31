@@ -3368,3 +3368,17 @@ bpm:expansion_opportunity_account_id_f a bpm:Field ; bpm:fieldName "account_id" 
 bpm:expansion_opportunity_expansion_value_f a bpm:Field ; bpm:fieldName "expansion_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Qualified expansion value in account currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:expansion_opportunity_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:expansion_opportunity_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-134 — cross sell fit
+# ---------------------------------------------------------------------------
+
+bpm:cross_sell_fit_rt a bpm:RecordType ;
+    bpm:recordName "cross_sell_fit" ; bpm:recordDoc "Evidence-backed fit for an adjacent enterprise capability." ;
+    bpm:hasField bpm:cross_sell_fit_cross_sell_fit_id_f , bpm:cross_sell_fit_account_id_f , bpm:cross_sell_fit_cross_sell_score_f , bpm:cross_sell_fit_evidence_digest_f , bpm:cross_sell_fit_observed_at_f .
+
+bpm:cross_sell_fit_cross_sell_fit_id_f a bpm:Field ; bpm:fieldName "cross_sell_fit_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this cross sell fit observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:cross_sell_fit_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose cross sell fit state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:cross_sell_fit_cross_sell_score_f a bpm:Field ; bpm:fieldName "cross_sell_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed cross-sell fit score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:cross_sell_fit_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:cross_sell_fit_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
