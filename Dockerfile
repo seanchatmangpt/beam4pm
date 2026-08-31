@@ -62,14 +62,16 @@ COPY test ./test
 COPY qualification ./qualification
 COPY native ./native
 COPY scripts/env ./scripts/env
+COPY scripts/rust4pm_wasm_build.sh ./scripts/rust4pm_wasm_build.sh
 
-# RF1/RF2/RF3's real Chicago tests spawn these compiled Rust oracle binaries
-# as subprocesses (rust4pm's own process_mining =0.6.2 function surface, no
-# algorithm re-implemented) -- built fresh here, same as ggen-ecosystem's own
-# Dockerfile builds oxrocksdb-sys against the rustup toolchain above.
+# RF1/RF2/RF3/RF4's real Chicago tests spawn these compiled Rust oracle
+# binaries as subprocesses (rust4pm's own process_mining =0.6.2 function
+# surface, no algorithm re-implemented). RF4 is required by the portable
+# object-centric WASM differential court added with the OC discovery surface.
 RUN cd native/rf1-dfg-oracle && cargo build --release \
     && cd ../rf2-conformance-oracle && cargo build --release \
-    && cd ../rf3-ocel-oracle && cargo build --release
+    && cd ../rf3-ocel-oracle && cargo build --release \
+    && cd ../rf4-oc-discovery-oracle && cargo build --release
 
 # Build gates: the real test suites, run against real collaborators (the
 # compiled projections themselves) -- a failing suite fails the image build.
@@ -78,6 +80,14 @@ RUN cd native/rf1-dfg-oracle && cargo build --release \
 RUN rebar3 compile && rebar3 eunit
 RUN mix local.hex --force && mix deps.get
 RUN . ./scripts/env/rust4pm_reactor_env.sh && mix test
+
+# The broad suite intentionally runs before the WASM artifact exists because
+# one canonical-scale Rust4PM test depends on a machine-local 29MB corpus.
+# Build the actual wasm32-wasip1 engine next, then execute a separate portable
+# checked-in-fixture court that proves the WASM OCEL/RF4 surface in every image
+# build instead of silently skipping the entire engine family.
+RUN bash scripts/rust4pm_wasm_build.sh
+RUN mix test test/beam4pm_rust4pm_ci_test.exs
 
 # Demo module: seeds the same known OCEL log shape the generated eunit court
 # uses (8 events, 3 cases keyed by attribute "case_id", two skip cases), then
