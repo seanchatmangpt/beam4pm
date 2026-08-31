@@ -526,3 +526,13 @@ usage_event_ok_test() ->
 usage_event_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_usage_event(#{})).
 
+vendor_registration_state_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_vendor_registration_state(#{
+        account_id => <<"x">>,
+        registration_id => <<"x">>,
+        registration_state => <<"x">>
+    })).
+
+vendor_registration_state_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_vendor_registration_state(#{})).
+

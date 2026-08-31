@@ -2123,4 +2123,41 @@ defmodule BeamPM.Codec.GeneratedTest do
              BeamPM.Codec.from_map(:usage_event, %{})
   end
 
+
+  test "vendor_registration_state to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      account_id: "sample_account_id",
+      registration_id: "sample_registration_id",
+      registration_state: "sample_registration_state"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.VendorRegistrationState.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["account_id"] == "sample_account_id"
+    assert m["registration_id"] == "sample_registration_id"
+    assert m["registration_state"] == "sample_registration_state"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:vendor_registration_state, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:vendor_registration_state, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "vendor_registration_state encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      account_id: "sample_account_id",
+      registration_id: "sample_registration_id",
+      registration_state: "sample_registration_state"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.VendorRegistrationState.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:vendor_registration_state, json)
+  end
+
+  test "vendor_registration_state from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :account_id}} =
+             BeamPM.Codec.from_map(:vendor_registration_state, %{})
+  end
+
 end

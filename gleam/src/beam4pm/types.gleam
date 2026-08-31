@@ -635,3 +635,15 @@ pub type UsageEvent {
   )
 }
 
+/// Makes buyer vendor-registration completion an explicit revenue gate instead of an invisible procurement delay.
+pub type VendorRegistrationState {
+  VendorRegistrationState(
+    /// Required vendor registration state input; omission is an executable typed refusal, never an inferred approval.
+    account_id: String,
+    /// Required vendor registration state input; omission is an executable typed refusal, never an inferred approval.
+    registration_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    registration_state: String,
+  )
+}
+

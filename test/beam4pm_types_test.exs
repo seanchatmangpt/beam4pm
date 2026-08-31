@@ -773,4 +773,19 @@ defmodule BeamPM.Types.GeneratedTest do
     assert {:error, {:missing_field, _}} = BeamPM.Types.UsageEvent.new(%{})
   end
 
+
+  test "vendor_registration_state new/1 succeeds when all fields are present" do
+    attrs = %{
+      account_id: "x",
+      registration_id: "x",
+      registration_state: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.VendorRegistrationState.new(attrs)
+  end
+
+  test "vendor_registration_state new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.VendorRegistrationState.new(%{})
+  end
+
 end

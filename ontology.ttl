@@ -2884,6 +2884,29 @@ b4p:insurance_requirement_coverage_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:insurance_requirement_evidence_hash_f a bpm:Field ;
-    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+   bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-017 — vendor_registration_state
+b4p:vendor_registration_state_rt a bpm:RecordType ;
+    bpm:recordName "vendor_registration_state" ;
+    bpm:recordDoc "Makes buyer vendor-registration completion an explicit revenue gate instead of an invisible procurement delay." ;
+    bpm:hasField b4p:vendor_registration_state_account_id_f ,
+                 b4p:vendor_registration_state_registration_id_f ,
+                 b4p:vendor_registration_state_registration_state_f .
+
+b4p:vendor_registration_state_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required vendor registration state input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:vendor_registration_state_registration_id_f a bpm:Field ;
+    bpm:fieldName "registration_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required vendor registration state input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:vendor_registration_state_registration_state_f a bpm:Field ;
+    bpm:fieldName "registration_state" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

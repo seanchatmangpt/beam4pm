@@ -53,7 +53,8 @@
     new_sync_time/1,
     new_tax_jurisdiction_evidence/1,
     new_type_edge/1,
-    new_usage_event/1
+    new_usage_event/1,
+    new_vendor_registration_state/1
 ]).
 
 -export_type([
@@ -107,7 +108,8 @@
     sync_time/0,
     tax_jurisdiction_evidence/0,
     type_edge/0,
-    usage_event/0
+    usage_event/0,
+    vendor_registration_state/0
 ]).
 
 %% Admits a source account only when it is bound to one canonical Fortune-5 account by immutable matching evidence; prevents pipeline value from being booked against an ambiguous customer identity.
@@ -1559,6 +1561,35 @@ new_usage_event(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Makes buyer vendor-registration completion an explicit revenue gate instead of an invisible procurement delay.
+-record(vendor_registration_state, {
+    account_id :: binary(), %% account_id: Required vendor registration state input; omission is an executable typed refusal, never an inferred approval.
+    registration_id :: binary(), %% registration_id: Required vendor registration state input; omission is an executable typed refusal, never an inferred approval.
+    registration_state :: binary() %% registration_state: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type vendor_registration_state() :: #vendor_registration_state{}.
+
+-spec new_vendor_registration_state(map()) -> {ok, vendor_registration_state()} | {error, {missing_field, atom()}}.
+new_vendor_registration_state(Map) ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(registration_id, Map) of
+        false -> {error, {missing_field, registration_id}};
+        true ->
+    case maps:is_key(registration_state, Map) of
+        false -> {error, {missing_field, registration_state}};
+        true ->
+    {ok, #vendor_registration_state{
+        account_id = maps:get(account_id, Map, undefined),
+        registration_id = maps:get(registration_id, Map, undefined),
+        registration_state = maps:get(registration_state, Map, undefined)
+    }}
     end
     end
     end.

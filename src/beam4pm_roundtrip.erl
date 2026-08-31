@@ -64,7 +64,8 @@ record_names() ->
         sync_time,
         tax_jurisdiction_evidence,
         type_edge,
-        usage_event
+        usage_event,
+        vendor_registration_state
     ].
 
 %% Deterministic sample values, keyed by bpm:fieldType:
@@ -681,6 +682,18 @@ sample(usage_event, minimal) ->
         quantity => 3.5,
         metric_name => <<"sample_metric_name">>,
         occurred_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(vendor_registration_state, full) ->
+    beam4pm_types:new_vendor_registration_state(#{
+        account_id => <<"sample_account_id">>,
+        registration_id => <<"sample_registration_id">>,
+        registration_state => <<"sample_registration_state">>
+    });
+sample(vendor_registration_state, minimal) ->
+    beam4pm_types:new_vendor_registration_state(#{
+        account_id => <<"sample_account_id">>,
+        registration_id => <<"sample_registration_id">>,
+        registration_state => <<"sample_registration_state">>
     });
 sample(Name, Variant) ->
     erlang:error({unknown_sample, Name, Variant}).

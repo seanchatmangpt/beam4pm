@@ -60,7 +60,8 @@
     beam4pm_types:sync_time() |
     beam4pm_types:tax_jurisdiction_evidence() |
     beam4pm_types:type_edge() |
-    beam4pm_types:usage_event().
+    beam4pm_types:usage_event() |
+    beam4pm_types:vendor_registration_state().
 
 %% to_map/1: project a record onto a JSON-ready map with binary keys.
 %% Fields whose value is 'undefined' are omitted; atom-typed fields are
@@ -378,6 +379,12 @@ to_map(R) when element(1, R) =:= usage_event ->
         {<<"quantity">>, plain, element(4, R)},
         {<<"metric_name">>, plain, element(5, R)},
         {<<"occurred_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= vendor_registration_state ->
+    pairs_to_map([
+        {<<"account_id">>, plain, element(2, R)},
+        {<<"registration_id">>, plain, element(3, R)},
+        {<<"registration_state">>, plain, element(4, R)}
     ]).
 
 %% from_map/2: rebuild a record from a binary-keyed map. Only KNOWN
@@ -702,6 +709,12 @@ from_map(usage_event, Map) when is_map(Map) ->
         {<<"quantity">>, quantity, plain},
         {<<"metric_name">>, metric_name, plain},
         {<<"occurred_at">>, occurred_at, plain}
+    ]));
+from_map(vendor_registration_state, Map) when is_map(Map) ->
+    beam4pm_types:new_vendor_registration_state(take_known(Map, [
+        {<<"account_id">>, account_id, plain},
+        {<<"registration_id">>, registration_id, plain},
+        {<<"registration_state">>, registration_state, plain}
     ]));
 from_map(RecordName, Map) when is_atom(RecordName), is_map(Map) ->
     {error, {unknown_record, RecordName}}.

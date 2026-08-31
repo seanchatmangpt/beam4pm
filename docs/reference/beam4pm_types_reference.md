@@ -519,3 +519,13 @@
 | `metric_name` | `string` | true | The fully qualified metered dimension this occurrence counts against. Reconciliation partitions by (entitlement_id, metric_name): quantities in different metrics are never summed together. |
 | `occurred_at` | `datetime` | true | ISO8601 UTC instant the usage actually occurred (not when it was observed, queued, or reported). |
 
+## vendor_registration_state
+
+> Makes buyer vendor-registration completion an explicit revenue gate instead of an invisible procurement delay.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `account_id` | `string` | true | Required vendor registration state input; omission is an executable typed refusal, never an inferred approval. |
+| `registration_id` | `string` | true | Required vendor registration state input; omission is an executable typed refusal, never an inferred approval. |
+| `registration_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+

@@ -1310,6 +1310,31 @@ usage_event_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(usage_event, Json),
     ?assertEqual(Rec, Rec2).
 
+vendor_registration_state_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_vendor_registration_state(#{
+        account_id => <<"sample_account_id">>,
+        registration_id => <<"sample_registration_id">>,
+        registration_state => <<"sample_registration_state">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_registration_id">>, maps:get(<<"registration_id">>, Map)),
+    ?assertEqual(<<"sample_registration_state">>, maps:get(<<"registration_state">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(vendor_registration_state,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+vendor_registration_state_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_vendor_registration_state(#{
+        account_id => <<"sample_account_id">>,
+        registration_id => <<"sample_registration_id">>,
+        registration_state => <<"sample_registration_state">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(vendor_registration_state, Json),
+    ?assertEqual(Rec, Rec2).
+
 unknown_record_test() ->
     ?assertEqual({error, {unknown_record, not_a_known_record}},
                  beam4pm_codec:from_map(not_a_known_record, #{})).

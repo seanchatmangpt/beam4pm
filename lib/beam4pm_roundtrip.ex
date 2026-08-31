@@ -59,7 +59,8 @@ defmodule BeamPM.Roundtrip do
     :sync_time,
     :tax_jurisdiction_evidence,
     :type_edge,
-    :usage_event
+    :usage_event,
+    :vendor_registration_state
   ]
 
   @variants [:full, :minimal]
@@ -884,6 +885,22 @@ defmodule BeamPM.Roundtrip do
       quantity: 3.5,
       metric_name: "sample_metric_name",
       occurred_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:vendor_registration_state, :full) do
+    BeamPM.Types.VendorRegistrationState.new(%{
+      account_id: "sample_account_id",
+      registration_id: "sample_registration_id",
+      registration_state: "sample_registration_state"
+    })
+  end
+
+  def sample(:vendor_registration_state, :minimal) do
+    BeamPM.Types.VendorRegistrationState.new(%{
+      account_id: "sample_account_id",
+      registration_id: "sample_registration_id",
+      registration_state: "sample_registration_state"
     })
   end
 

@@ -11,7 +11,7 @@
 -export([record_names/0, fields/1]).
 
 -spec record_names() -> [atom()].
-record_names() -> [account_master_match, account_parent_scope, alignment_move, billing_reconciliation, case_stats, conformance_result, contracting_entity_identity, data_processing_addendum_state, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, insurance_requirement, invoice_entity_identity, k8s_object_ref, log_trace, master_service_agreement_state, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, opportunity_currency_contract, opportunity_value_range, path_schema, path_schema_query, payment_terms_admission, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, procurement_channel_selection, purchase_order_requirement, purchasing_entity_identity, queue_snapshot, resource_allocation, revenue_schedule_assumption, security_addendum_state, service_span, sojourn_time, sync_time, tax_jurisdiction_evidence, type_edge, usage_event].
+record_names() -> [account_master_match, account_parent_scope, alignment_move, billing_reconciliation, case_stats, conformance_result, contracting_entity_identity, data_processing_addendum_state, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, insurance_requirement, invoice_entity_identity, k8s_object_ref, log_trace, master_service_agreement_state, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, opportunity_currency_contract, opportunity_value_range, path_schema, path_schema_query, payment_terms_admission, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, procurement_channel_selection, purchase_order_requirement, purchasing_entity_identity, queue_snapshot, resource_allocation, revenue_schedule_assumption, security_addendum_state, service_span, sojourn_time, sync_time, tax_jurisdiction_evidence, type_edge, usage_event, vendor_registration_state].
 
 -spec fields(atom()) -> [atom()].
 fields(account_master_match) -> [source_account_id, canonical_account_id, match_evidence_hash];
@@ -65,4 +65,5 @@ fields(sync_time) -> [object_id, delaying_object_id, seconds];
 fields(tax_jurisdiction_evidence) -> [contracting_entity_id, tax_jurisdiction, evidence_hash];
 fields(type_edge) -> [source_type, target_type, qualifier, direction];
 fields(usage_event) -> [event_id, entitlement_id, quantity, metric_name, occurred_at];
+fields(vendor_registration_state) -> [account_id, registration_id, registration_state];
 fields(_) -> [].

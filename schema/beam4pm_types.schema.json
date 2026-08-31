@@ -1108,6 +1108,27 @@
       "required": ["event_id", "entitlement_id", "quantity", "metric_name", "occurred_at"
       ]
 
+    },
+    "vendor_registration_state": {
+      "type": "object",
+      "description": "Makes buyer vendor-registration completion an explicit revenue gate instead of an invisible procurement delay.",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Required vendor registration state input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "registration_id": {
+          "type": "string",
+          "description": "Required vendor registration state input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "registration_state": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["account_id", "registration_id", "registration_state"
+      ]
+
     }
   }
 }

@@ -429,6 +429,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.VendorRegistrationState{} = r) do
+    to_known_map([
+      {"account_id", r.account_id, :passthrough},
+      {"registration_id", r.registration_id, :passthrough},
+      {"registration_state", r.registration_state, :passthrough}
+    ])
+  end
+
   @spec from_map(atom(), %{String.t() => term()}) ::
           {:ok, struct()}
           | {:error, {:missing_field, atom()}}
@@ -1049,6 +1057,18 @@ defmodule BeamPM.Codec do
         {"occurred_at", :occurred_at, :passthrough}
       ],
       &BeamPM.Types.UsageEvent.new/1
+    )
+  end
+
+  def from_map(:vendor_registration_state, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"account_id", :account_id, :passthrough},
+        {"registration_id", :registration_id, :passthrough},
+        {"registration_state", :registration_state, :passthrough}
+      ],
+      &BeamPM.Types.VendorRegistrationState.new/1
     )
   end
 

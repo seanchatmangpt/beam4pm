@@ -1381,3 +1381,30 @@ defmodule BeamPM.Types.UsageEvent do
   end
 end
 
+defmodule BeamPM.Types.VendorRegistrationState do
+  @moduledoc "Makes buyer vendor-registration completion an explicit revenue gate instead of an invisible procurement delay."
+
+  defstruct [:account_id, :registration_id, :registration_state]
+
+  @type t :: %__MODULE__{
+    account_id: String.t() | nil,
+    registration_id: String.t() | nil,
+    registration_state: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :registration_id) -> {:error, {:missing_field, :registration_id}}
+      not Map.has_key?(attrs, :registration_state) -> {:error, {:missing_field, :registration_state}}
+      true ->
+        {:ok, %__MODULE__{
+          account_id: Map.get(attrs, :account_id),
+          registration_id: Map.get(attrs, :registration_id),
+          registration_state: Map.get(attrs, :registration_state)
+        }}
+    end
+  end
+end
+
