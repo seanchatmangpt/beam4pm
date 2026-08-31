@@ -3248,4 +3248,30 @@ b4pe:oci_manifest_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-029 — multi-architecture evidence.
+b4pe:multiarch_evidence_rt a bpm:RecordType ;
+    bpm:recordName "multiarch_evidence" ;
+    bpm:recordDoc "Executable architecture evidence binding an exact subject to the platform set actually present in its OCI index." ;
+    bpm:hasField b4pe:multiarch_evidence_id_f,
+                 b4pe:multiarch_subject_sha_f,
+                 b4pe:multiarch_platforms_f,
+                 b4pe:multiarch_observed_result_f .
+
+b4pe:multiarch_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this multi-architecture observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:multiarch_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:multiarch_platforms_f a bpm:Field ;
+    bpm:fieldName "platforms" ; bpm:fieldType "list_string" ;
+    bpm:fieldDoc "Canonical set of platforms observed in the admitted OCI index." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:multiarch_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
