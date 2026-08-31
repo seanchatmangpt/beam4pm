@@ -395,6 +395,31 @@ data_processing_addendum_state_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(data_processing_addendum_state, Json),
     ?assertEqual(Rec, Rec2).
 
+deal_desk_packet_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_deal_desk_packet(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        packet_id => <<"sample_packet_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_packet_id">>, maps:get(<<"packet_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_hash">>, maps:get(<<"evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(deal_desk_packet,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+deal_desk_packet_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_deal_desk_packet(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        packet_id => <<"sample_packet_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(deal_desk_packet, Json),
+    ?assertEqual(Rec, Rec2).
+
 dfg_edge_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_dfg_edge(#{
         source_activity => <<"sample_source_activity">>,

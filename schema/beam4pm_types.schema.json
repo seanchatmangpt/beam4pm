@@ -326,6 +326,27 @@
       ]
 
     },
+    "deal_desk_packet": {
+      "type": "object",
+      "description": "Binds cross-functional deal-desk approval evidence into one replayable packet identity.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required deal desk packet input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "packet_id": {
+          "type": "string",
+          "description": "Required deal desk packet input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "packet_id", "evidence_hash"
+      ]
+
+    },
     "dfg_edge": {
       "type": "object",
       "description": "One frequency-annotated directly-follows edge between two activities.",

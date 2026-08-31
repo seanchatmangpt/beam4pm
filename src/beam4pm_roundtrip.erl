@@ -29,6 +29,7 @@ record_names() ->
         credit_risk_admission,
         data_migration_scope_admission,
         data_processing_addendum_state,
+        deal_desk_packet,
         dfg_edge,
         entitlement_event,
         entitlement_state,
@@ -284,6 +285,18 @@ sample(data_processing_addendum_state, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         addendum_id => <<"sample_addendum_id">>,
         addendum_state => <<"sample_addendum_state">>
+    });
+sample(deal_desk_packet, full) ->
+    beam4pm_types:new_deal_desk_packet(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        packet_id => <<"sample_packet_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(deal_desk_packet, minimal) ->
+    beam4pm_types:new_deal_desk_packet(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        packet_id => <<"sample_packet_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
     });
 sample(dfg_edge, full) ->
     beam4pm_types:new_dfg_edge(#{

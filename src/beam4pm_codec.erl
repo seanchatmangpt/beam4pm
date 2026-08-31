@@ -25,6 +25,7 @@
     beam4pm_types:credit_risk_admission() |
     beam4pm_types:data_migration_scope_admission() |
     beam4pm_types:data_processing_addendum_state() |
+    beam4pm_types:deal_desk_packet() |
     beam4pm_types:dfg_edge() |
     beam4pm_types:entitlement_event() |
     beam4pm_types:entitlement_state() |
@@ -187,6 +188,12 @@ to_map(R) when element(1, R) =:= data_processing_addendum_state ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"addendum_id">>, plain, element(3, R)},
         {<<"addendum_state">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= deal_desk_packet ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"packet_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= dfg_edge ->
     pairs_to_map([
@@ -691,6 +698,12 @@ from_map(data_processing_addendum_state, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"addendum_id">>, addendum_id, plain},
         {<<"addendum_state">>, addendum_state, plain}
+    ]));
+from_map(deal_desk_packet, Map) when is_map(Map) ->
+    beam4pm_types:new_deal_desk_packet(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"packet_id">>, packet_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
     ]));
 from_map(dfg_edge, Map) when is_map(Map) ->
     beam4pm_types:new_dfg_edge(take_known(Map, [

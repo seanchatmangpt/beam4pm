@@ -136,6 +136,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.DealDeskPacket{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"packet_id", r.packet_id, :passthrough},
+      {"evidence_hash", r.evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.DfgEdge{} = r) do
     to_known_map([
       {"source_activity", r.source_activity, :passthrough},
@@ -852,6 +860,18 @@ defmodule BeamPM.Codec do
         {"addendum_state", :addendum_state, :passthrough}
       ],
       &BeamPM.Types.DataProcessingAddendumState.new/1
+    )
+  end
+
+  def from_map(:deal_desk_packet, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"packet_id", :packet_id, :passthrough},
+        {"evidence_hash", :evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.DealDeskPacket.new/1
     )
   end
 

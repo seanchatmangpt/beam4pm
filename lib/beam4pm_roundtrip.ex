@@ -24,6 +24,7 @@ defmodule BeamPM.Roundtrip do
     :credit_risk_admission,
     :data_migration_scope_admission,
     :data_processing_addendum_state,
+    :deal_desk_packet,
     :dfg_edge,
     :entitlement_event,
     :entitlement_state,
@@ -343,6 +344,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       addendum_id: "sample_addendum_id",
       addendum_state: "sample_addendum_state"
+    })
+  end
+
+  def sample(:deal_desk_packet, :full) do
+    BeamPM.Types.DealDeskPacket.new(%{
+      opportunity_id: "sample_opportunity_id",
+      packet_id: "sample_packet_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:deal_desk_packet, :minimal) do
+    BeamPM.Types.DealDeskPacket.new(%{
+      opportunity_id: "sample_opportunity_id",
+      packet_id: "sample_packet_id",
+      evidence_hash: "sample_evidence_hash"
     })
   end
 

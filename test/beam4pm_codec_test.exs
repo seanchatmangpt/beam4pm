@@ -606,6 +606,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "deal_desk_packet to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      packet_id: "sample_packet_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.DealDeskPacket.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["packet_id"] == "sample_packet_id"
+    assert m["evidence_hash"] == "sample_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:deal_desk_packet, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:deal_desk_packet, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "deal_desk_packet encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      packet_id: "sample_packet_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.DealDeskPacket.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:deal_desk_packet, json)
+  end
+
+  test "deal_desk_packet from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:deal_desk_packet, %{})
+  end
+
+
   test "dfg_edge to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       source_activity: "sample_source_activity",

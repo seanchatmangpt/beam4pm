@@ -161,6 +161,16 @@ data_processing_addendum_state_ok_test() ->
 data_processing_addendum_state_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_data_processing_addendum_state(#{})).
 
+deal_desk_packet_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_deal_desk_packet(#{
+        opportunity_id => <<"x">>,
+        packet_id => <<"x">>,
+        evidence_hash => <<"x">>
+    })).
+
+deal_desk_packet_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_deal_desk_packet(#{})).
+
 dfg_edge_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_dfg_edge(#{
         source_activity => <<"x">>,

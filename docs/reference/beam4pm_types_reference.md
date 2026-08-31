@@ -154,6 +154,16 @@
 | `addendum_id` | `string` | true | Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval. |
 | `addendum_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## deal_desk_packet
+
+> Binds cross-functional deal-desk approval evidence into one replayable packet identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required deal desk packet input; omission is an executable typed refusal, never an inferred approval. |
+| `packet_id` | `string` | true | Required deal desk packet input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## dfg_edge
 
 > One frequency-annotated directly-follows edge between two activities.

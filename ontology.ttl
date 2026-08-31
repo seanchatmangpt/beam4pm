@@ -3574,6 +3574,29 @@ b4p:exception_authority_authority_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:exception_authority_decision_f a bpm:Field ;
-    bpm:fieldName "decision" ; bpm:fieldType "string" ;
+   bpm:fieldName "decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-047 — deal_desk_packet
+b4p:deal_desk_packet_rt a bpm:RecordType ;
+    bpm:recordName "deal_desk_packet" ;
+    bpm:recordDoc "Binds cross-functional deal-desk approval evidence into one replayable packet identity." ;
+    bpm:hasField b4p:deal_desk_packet_opportunity_id_f ,
+                 b4p:deal_desk_packet_packet_id_f ,
+                 b4p:deal_desk_packet_evidence_hash_f .
+
+b4p:deal_desk_packet_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required deal desk packet input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:deal_desk_packet_packet_id_f a bpm:Field ;
+    bpm:fieldName "packet_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required deal desk packet input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:deal_desk_packet_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

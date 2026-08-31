@@ -18,6 +18,7 @@
     new_credit_risk_admission/1,
     new_data_migration_scope_admission/1,
     new_data_processing_addendum_state/1,
+    new_deal_desk_packet/1,
     new_dfg_edge/1,
     new_entitlement_event/1,
     new_entitlement_state/1,
@@ -102,6 +103,7 @@
     credit_risk_admission/0,
     data_migration_scope_admission/0,
     data_processing_addendum_state/0,
+    deal_desk_packet/0,
     dfg_edge/0,
     entitlement_event/0,
     entitlement_state/0,
@@ -604,6 +606,35 @@ new_data_processing_addendum_state(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         addendum_id = maps:get(addendum_id, Map, undefined),
         addendum_state = maps:get(addendum_state, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds cross-functional deal-desk approval evidence into one replayable packet identity.
+-record(deal_desk_packet, {
+    opportunity_id :: binary(), %% opportunity_id: Required deal desk packet input; omission is an executable typed refusal, never an inferred approval.
+    packet_id :: binary(), %% packet_id: Required deal desk packet input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type deal_desk_packet() :: #deal_desk_packet{}.
+
+-spec new_deal_desk_packet(map()) -> {ok, deal_desk_packet()} | {error, {missing_field, atom()}}.
+new_deal_desk_packet(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(packet_id, Map) of
+        false -> {error, {missing_field, packet_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #deal_desk_packet{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        packet_id = maps:get(packet_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
     }}
     end
     end

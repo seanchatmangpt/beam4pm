@@ -193,6 +193,18 @@ pub type DataProcessingAddendumState {
   )
 }
 
+/// Binds cross-functional deal-desk approval evidence into one replayable packet identity.
+pub type DealDeskPacket {
+  DealDeskPacket(
+    /// Required deal desk packet input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required deal desk packet input; omission is an executable typed refusal, never an inferred approval.
+    packet_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
 /// One frequency-annotated directly-follows edge between two activities.
 pub type DfgEdge {
   DfgEdge(
