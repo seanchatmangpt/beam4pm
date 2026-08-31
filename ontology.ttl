@@ -3438,3 +3438,17 @@ bpm:renewal_evidence_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm
 bpm:renewal_evidence_renewal_value_f a bpm:Field ; bpm:fieldName "renewal_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified value supporting renewal." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:renewal_evidence_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:renewal_evidence_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-139 — customer health
+# ---------------------------------------------------------------------------
+
+bpm:customer_health_rt a bpm:RecordType ;
+    bpm:recordName "customer_health" ; bpm:recordDoc "Cumulative customer-health observation across usage, outcomes, and support." ;
+    bpm:hasField bpm:customer_health_customer_health_id_f , bpm:customer_health_account_id_f , bpm:customer_health_health_score_f , bpm:customer_health_evidence_digest_f , bpm:customer_health_observed_at_f .
+
+bpm:customer_health_customer_health_id_f a bpm:Field ; bpm:fieldName "customer_health_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this customer health observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:customer_health_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose customer health state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:customer_health_health_score_f a bpm:Field ; bpm:fieldName "health_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed account health score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:customer_health_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:customer_health_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
