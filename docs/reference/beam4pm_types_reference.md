@@ -31,6 +31,16 @@
 | `move_type` | `atom` | true | One of: sync \| model \| log \| silent. |
 | `cost` | `integer` | true | Non-negative cost assigned to this move. |
 
+## beneficial_owner_evidence
+
+> Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `account_id` | `string` | true | Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval. |
+| `owner_id` | `string` | true | Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## billing_reconciliation
 
 > The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream.

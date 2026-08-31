@@ -12,6 +12,7 @@ defmodule BeamPM.Roundtrip do
     :account_master_match,
     :account_parent_scope,
     :alignment_move,
+    :beneficial_owner_evidence,
     :billing_reconciliation,
     :case_stats,
     :conformance_result,
@@ -119,6 +120,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.AlignmentMove.new(%{
       move_type: :sample_atom,
       cost: 42
+    })
+  end
+
+  def sample(:beneficial_owner_evidence, :full) do
+    BeamPM.Types.BeneficialOwnerEvidence.new(%{
+      account_id: "sample_account_id",
+      owner_id: "sample_owner_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:beneficial_owner_evidence, :minimal) do
+    BeamPM.Types.BeneficialOwnerEvidence.new(%{
+      account_id: "sample_account_id",
+      owner_id: "sample_owner_id",
+      evidence_hash: "sample_evidence_hash"
     })
   end
 

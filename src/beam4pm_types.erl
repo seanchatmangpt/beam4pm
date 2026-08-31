@@ -6,6 +6,7 @@
     new_account_master_match/1,
     new_account_parent_scope/1,
     new_alignment_move/1,
+    new_beneficial_owner_evidence/1,
     new_billing_reconciliation/1,
     new_case_stats/1,
     new_conformance_result/1,
@@ -62,6 +63,7 @@
     account_master_match/0,
     account_parent_scope/0,
     alignment_move/0,
+    beneficial_owner_evidence/0,
     billing_reconciliation/0,
     case_stats/0,
     conformance_result/0,
@@ -192,6 +194,35 @@ new_alignment_move(Map) ->
         move_type = maps:get(move_type, Map, undefined),
         cost = maps:get(cost, Map, undefined)
     }}
+    end
+    end.
+
+%% Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence.
+-record(beneficial_owner_evidence, {
+    account_id :: binary(), %% account_id: Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval.
+    owner_id :: binary(), %% owner_id: Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type beneficial_owner_evidence() :: #beneficial_owner_evidence{}.
+
+-spec new_beneficial_owner_evidence(map()) -> {ok, beneficial_owner_evidence()} | {error, {missing_field, atom()}}.
+new_beneficial_owner_evidence(Map) ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(owner_id, Map) of
+        false -> {error, {missing_field, owner_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #beneficial_owner_evidence{
+        account_id = maps:get(account_id, Map, undefined),
+        owner_id = maps:get(owner_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
     end
     end.
 

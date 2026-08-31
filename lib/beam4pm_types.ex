@@ -78,6 +78,33 @@ defmodule BeamPM.Types.AlignmentMove do
   end
 end
 
+defmodule BeamPM.Types.BeneficialOwnerEvidence do
+  @moduledoc "Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence."
+
+  defstruct [:account_id, :owner_id, :evidence_hash]
+
+  @type t :: %__MODULE__{
+    account_id: String.t() | nil,
+    owner_id: String.t() | nil,
+    evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :owner_id) -> {:error, {:missing_field, :owner_id}}
+      not Map.has_key?(attrs, :evidence_hash) -> {:error, {:missing_field, :evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          account_id: Map.get(attrs, :account_id),
+          owner_id: Map.get(attrs, :owner_id),
+          evidence_hash: Map.get(attrs, :evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.BillingReconciliation do
   @moduledoc "The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream."
 

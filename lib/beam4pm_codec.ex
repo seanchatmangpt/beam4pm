@@ -37,6 +37,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.BeneficialOwnerEvidence{} = r) do
+    to_known_map([
+      {"account_id", r.account_id, :passthrough},
+      {"owner_id", r.owner_id, :passthrough},
+      {"evidence_hash", r.evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.BillingReconciliation{} = r) do
     to_known_map([
       {"entitlement_id", r.entitlement_id, :passthrough},
@@ -481,6 +489,18 @@ defmodule BeamPM.Codec do
         {"cost", :cost, :passthrough}
       ],
       &BeamPM.Types.AlignmentMove.new/1
+    )
+  end
+
+  def from_map(:beneficial_owner_evidence, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"account_id", :account_id, :passthrough},
+        {"owner_id", :owner_id, :passthrough},
+        {"evidence_hash", :evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.BeneficialOwnerEvidence.new/1
     )
   end
 

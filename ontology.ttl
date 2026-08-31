@@ -2930,6 +2930,29 @@ b4p:sanctions_screening_result_screening_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:sanctions_screening_result_screening_result_f a bpm:Field ;
-    bpm:fieldName "screening_result" ; bpm:fieldType "string" ;
+   bpm:fieldName "screening_result" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-019 — beneficial_owner_evidence
+b4p:beneficial_owner_evidence_rt a bpm:RecordType ;
+    bpm:recordName "beneficial_owner_evidence" ;
+    bpm:recordDoc "Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence." ;
+    bpm:hasField b4p:beneficial_owner_evidence_account_id_f ,
+                 b4p:beneficial_owner_evidence_owner_id_f ,
+                 b4p:beneficial_owner_evidence_evidence_hash_f .
+
+b4p:beneficial_owner_evidence_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:beneficial_owner_evidence_owner_id_f a bpm:Field ;
+    bpm:fieldName "owner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:beneficial_owner_evidence_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

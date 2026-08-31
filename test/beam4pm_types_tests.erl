@@ -38,6 +38,16 @@ alignment_move_ok_test() ->
 alignment_move_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_alignment_move(#{})).
 
+beneficial_owner_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_beneficial_owner_evidence(#{
+        account_id => <<"x">>,
+        owner_id => <<"x">>,
+        evidence_hash => <<"x">>
+    })).
+
+beneficial_owner_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_beneficial_owner_evidence(#{})).
+
 billing_reconciliation_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_billing_reconciliation(#{
         entitlement_id => <<"x">>,

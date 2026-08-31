@@ -86,6 +86,31 @@ alignment_move_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(alignment_move, Json),
     ?assertEqual(Rec, Rec2).
 
+beneficial_owner_evidence_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_beneficial_owner_evidence(#{
+        account_id => <<"sample_account_id">>,
+        owner_id => <<"sample_owner_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_owner_id">>, maps:get(<<"owner_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_hash">>, maps:get(<<"evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(beneficial_owner_evidence,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+beneficial_owner_evidence_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_beneficial_owner_evidence(#{
+        account_id => <<"sample_account_id">>,
+        owner_id => <<"sample_owner_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(beneficial_owner_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
 billing_reconciliation_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_billing_reconciliation(#{
         entitlement_id => <<"sample_entitlement_id">>,

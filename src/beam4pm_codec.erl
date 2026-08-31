@@ -13,6 +13,7 @@
     beam4pm_types:account_master_match() |
     beam4pm_types:account_parent_scope() |
     beam4pm_types:alignment_move() |
+    beam4pm_types:beneficial_owner_evidence() |
     beam4pm_types:billing_reconciliation() |
     beam4pm_types:case_stats() |
     beam4pm_types:conformance_result() |
@@ -84,6 +85,12 @@ to_map(R) when element(1, R) =:= alignment_move ->
     pairs_to_map([
         {<<"move_type">>, atom, element(2, R)},
         {<<"cost">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= beneficial_owner_evidence ->
+    pairs_to_map([
+        {<<"account_id">>, plain, element(2, R)},
+        {<<"owner_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= billing_reconciliation ->
     pairs_to_map([
@@ -420,6 +427,12 @@ from_map(alignment_move, Map) when is_map(Map) ->
     beam4pm_types:new_alignment_move(take_known(Map, [
         {<<"move_type">>, move_type, atom},
         {<<"cost">>, cost, plain}
+    ]));
+from_map(beneficial_owner_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_beneficial_owner_evidence(take_known(Map, [
+        {<<"account_id">>, account_id, plain},
+        {<<"owner_id">>, owner_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
     ]));
 from_map(billing_reconciliation, Map) when is_map(Map) ->
     beam4pm_types:new_billing_reconciliation(take_known(Map, [

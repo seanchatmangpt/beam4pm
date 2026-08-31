@@ -17,6 +17,7 @@ record_names() ->
         account_master_match,
         account_parent_scope,
         alignment_move,
+        beneficial_owner_evidence,
         billing_reconciliation,
         case_stats,
         conformance_result,
@@ -108,6 +109,18 @@ sample(alignment_move, minimal) ->
     beam4pm_types:new_alignment_move(#{
         move_type => sample_atom,
         cost => 42
+    });
+sample(beneficial_owner_evidence, full) ->
+    beam4pm_types:new_beneficial_owner_evidence(#{
+        account_id => <<"sample_account_id">>,
+        owner_id => <<"sample_owner_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(beneficial_owner_evidence, minimal) ->
+    beam4pm_types:new_beneficial_owner_evidence(#{
+        account_id => <<"sample_account_id">>,
+        owner_id => <<"sample_owner_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
     });
 sample(billing_reconciliation, full) ->
     beam4pm_types:new_billing_reconciliation(#{

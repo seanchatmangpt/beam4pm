@@ -46,6 +46,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "beneficial_owner_evidence new/1 succeeds when all fields are present" do
+    attrs = %{
+      account_id: "x",
+      owner_id: "x",
+      evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.BeneficialOwnerEvidence.new(attrs)
+  end
+
+  test "beneficial_owner_evidence new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.BeneficialOwnerEvidence.new(%{})
+  end
+
+
   test "billing_reconciliation new/1 succeeds when all fields are present" do
     attrs = %{
       entitlement_id: "x",

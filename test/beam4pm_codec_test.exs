@@ -129,6 +129,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "beneficial_owner_evidence to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      account_id: "sample_account_id",
+      owner_id: "sample_owner_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BeneficialOwnerEvidence.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["account_id"] == "sample_account_id"
+    assert m["owner_id"] == "sample_owner_id"
+    assert m["evidence_hash"] == "sample_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:beneficial_owner_evidence, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:beneficial_owner_evidence, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "beneficial_owner_evidence encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      account_id: "sample_account_id",
+      owner_id: "sample_owner_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BeneficialOwnerEvidence.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:beneficial_owner_evidence, json)
+  end
+
+  test "beneficial_owner_evidence from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :account_id}} =
+             BeamPM.Codec.from_map(:beneficial_owner_evidence, %{})
+  end
+
+
   test "billing_reconciliation to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       entitlement_id: "sample_entitlement_id",

@@ -43,6 +43,18 @@ pub type AlignmentMove {
   )
 }
 
+/// Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence.
+pub type BeneficialOwnerEvidence {
+  BeneficialOwnerEvidence(
+    /// Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval.
+    account_id: String,
+    /// Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval.
+    owner_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
 /// The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream.
 pub type BillingReconciliation {
   BillingReconciliation(
