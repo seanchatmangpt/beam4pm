@@ -520,6 +520,33 @@ defmodule BeamPM.Types.HeuristicArc do
   end
 end
 
+defmodule BeamPM.Types.IndemnityScopeAdmission do
+  @moduledoc "Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal."
+
+  defstruct [:opportunity_id, :indemnity_scope_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    indemnity_scope_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :indemnity_scope_id) -> {:error, {:missing_field, :indemnity_scope_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          indemnity_scope_id: Map.get(attrs, :indemnity_scope_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.InsuranceRequirement do
   @moduledoc "Admits contractual insurance coverage only with an exact coverage identity and supporting evidence."
 

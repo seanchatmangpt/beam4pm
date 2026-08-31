@@ -33,6 +33,7 @@ record_names() ->
         event_type,
         funding_approval_chain,
         heuristic_arc,
+        indemnity_scope_admission,
         insurance_requirement,
         invoice_entity_identity,
         k8s_object_ref,
@@ -316,6 +317,18 @@ sample(heuristic_arc, minimal) ->
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
         dependency_measure => 3.5
+    });
+sample(indemnity_scope_admission, full) ->
+    beam4pm_types:new_indemnity_scope_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        indemnity_scope_id => <<"sample_indemnity_scope_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(indemnity_scope_admission, minimal) ->
+    beam4pm_types:new_indemnity_scope_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        indemnity_scope_id => <<"sample_indemnity_scope_id">>,
+        decision => <<"sample_decision">>
     });
 sample(insurance_requirement, full) ->
     beam4pm_types:new_insurance_requirement(#{

@@ -203,6 +203,16 @@ heuristic_arc_ok_test() ->
 heuristic_arc_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_heuristic_arc(#{})).
 
+indemnity_scope_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_indemnity_scope_admission(#{
+        opportunity_id => <<"x">>,
+        indemnity_scope_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+indemnity_scope_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_indemnity_scope_admission(#{})).
+
 insurance_requirement_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_insurance_requirement(#{
         opportunity_id => <<"x">>,

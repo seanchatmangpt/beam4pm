@@ -22,6 +22,7 @@
     new_event_type/1,
     new_funding_approval_chain/1,
     new_heuristic_arc/1,
+    new_indemnity_scope_admission/1,
     new_insurance_requirement/1,
     new_invoice_entity_identity/1,
     new_k8s_object_ref/1,
@@ -89,6 +90,7 @@
     event_type/0,
     funding_approval_chain/0,
     heuristic_arc/0,
+    indemnity_scope_admission/0,
     insurance_requirement/0,
     invoice_entity_identity/0,
     k8s_object_ref/0,
@@ -686,6 +688,35 @@ new_heuristic_arc(Map) ->
         source_activity = maps:get(source_activity, Map, undefined),
         target_activity = maps:get(target_activity, Map, undefined),
         dependency_measure = maps:get(dependency_measure, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.
+-record(indemnity_scope_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval.
+    indemnity_scope_id :: binary(), %% indemnity_scope_id: Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type indemnity_scope_admission() :: #indemnity_scope_admission{}.
+
+-spec new_indemnity_scope_admission(map()) -> {ok, indemnity_scope_admission()} | {error, {missing_field, atom()}}.
+new_indemnity_scope_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(indemnity_scope_id, Map) of
+        false -> {error, {missing_field, indemnity_scope_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #indemnity_scope_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        indemnity_scope_id = maps:get(indemnity_scope_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

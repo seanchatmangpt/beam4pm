@@ -29,6 +29,7 @@
     beam4pm_types:event_type() |
     beam4pm_types:funding_approval_chain() |
     beam4pm_types:heuristic_arc() |
+    beam4pm_types:indemnity_scope_admission() |
     beam4pm_types:insurance_requirement() |
     beam4pm_types:invoice_entity_identity() |
     beam4pm_types:k8s_object_ref() |
@@ -196,6 +197,12 @@ to_map(R) when element(1, R) =:= heuristic_arc ->
         {<<"source_activity">>, plain, element(2, R)},
         {<<"target_activity">>, plain, element(3, R)},
         {<<"dependency_measure">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= indemnity_scope_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"indemnity_scope_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= insurance_requirement ->
     pairs_to_map([
@@ -598,6 +605,12 @@ from_map(heuristic_arc, Map) when is_map(Map) ->
         {<<"source_activity">>, source_activity, plain},
         {<<"target_activity">>, target_activity, plain},
         {<<"dependency_measure">>, dependency_measure, plain}
+    ]));
+from_map(indemnity_scope_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_indemnity_scope_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"indemnity_scope_id">>, indemnity_scope_id, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(insurance_requirement, Map) when is_map(Map) ->
     beam4pm_types:new_insurance_requirement(take_known(Map, [

@@ -291,6 +291,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "indemnity_scope_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      indemnity_scope_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.IndemnityScopeAdmission.new(attrs)
+  end
+
+  test "indemnity_scope_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.IndemnityScopeAdmission.new(%{})
+  end
+
+
   test "insurance_requirement new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

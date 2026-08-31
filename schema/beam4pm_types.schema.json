@@ -419,6 +419,27 @@
       ]
 
     },
+    "indemnity_scope_admission": {
+      "type": "object",
+      "description": "Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "indemnity_scope_id": {
+          "type": "string",
+          "description": "Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "indemnity_scope_id", "decision"
+      ]
+
+    },
     "insurance_requirement": {
       "type": "object",
       "description": "Admits contractual insurance coverage only with an exact coverage identity and supporting evidence.",

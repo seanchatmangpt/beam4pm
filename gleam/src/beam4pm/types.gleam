@@ -245,6 +245,18 @@ pub type HeuristicArc {
   )
 }
 
+/// Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.
+pub type IndemnityScopeAdmission {
+  IndemnityScopeAdmission(
+    /// Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval.
+    indemnity_scope_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// Admits contractual insurance coverage only with an exact coverage identity and supporting evidence.
 pub type InsuranceRequirement {
   InsuranceRequirement(

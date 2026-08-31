@@ -28,6 +28,7 @@ defmodule BeamPM.Roundtrip do
     :event_type,
     :funding_approval_chain,
     :heuristic_arc,
+    :indemnity_scope_admission,
     :insurance_requirement,
     :invoice_entity_identity,
     :k8s_object_ref,
@@ -391,6 +392,22 @@ defmodule BeamPM.Roundtrip do
       source_activity: "sample_source_activity",
       target_activity: "sample_target_activity",
       dependency_measure: 3.5
+    })
+  end
+
+  def sample(:indemnity_scope_admission, :full) do
+    BeamPM.Types.IndemnityScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      indemnity_scope_id: "sample_indemnity_scope_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:indemnity_scope_admission, :minimal) do
+    BeamPM.Types.IndemnityScopeAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      indemnity_scope_id: "sample_indemnity_scope_id",
+      decision: "sample_decision"
     })
   end
 

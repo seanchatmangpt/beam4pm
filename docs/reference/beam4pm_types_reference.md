@@ -196,6 +196,16 @@
 | `target_activity` | `string` | true | The candidate arc target activity. |
 | `dependency_measure` | `float` | true | The computed dependency/confidence score for this candidate arc. |
 
+## indemnity_scope_admission
+
+> Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `indemnity_scope_id` | `string` | true | Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## insurance_requirement
 
 > Admits contractual insurance coverage only with an exact coverage identity and supporting evidence.

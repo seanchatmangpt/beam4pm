@@ -170,6 +170,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.IndemnityScopeAdmission{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"indemnity_scope_id", r.indemnity_scope_id, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.InsuranceRequirement{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -766,6 +774,18 @@ defmodule BeamPM.Codec do
         {"dependency_measure", :dependency_measure, :passthrough}
       ],
       &BeamPM.Types.HeuristicArc.new/1
+    )
+  end
+
+  def from_map(:indemnity_scope_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"indemnity_scope_id", :indemnity_scope_id, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.IndemnityScopeAdmission.new/1
     )
   end
 
