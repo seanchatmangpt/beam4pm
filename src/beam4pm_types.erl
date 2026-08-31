@@ -45,6 +45,7 @@
     new_service_span/1,
     new_sojourn_time/1,
     new_sync_time/1,
+    new_tax_jurisdiction_evidence/1,
     new_type_edge/1,
     new_usage_event/1
 ]).
@@ -92,6 +93,7 @@
     service_span/0,
     sojourn_time/0,
     sync_time/0,
+    tax_jurisdiction_evidence/0,
     type_edge/0,
     usage_event/0
 ]).
@@ -1267,6 +1269,35 @@ new_sync_time(Map) ->
         delaying_object_id = maps:get(delaying_object_id, Map, undefined),
         seconds = maps:get(seconds, Map, undefined)
     }}
+    end
+    end.
+
+%% Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.
+-record(tax_jurisdiction_evidence, {
+    contracting_entity_id :: binary(), %% contracting_entity_id: Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval.
+    tax_jurisdiction :: binary(), %% tax_jurisdiction: Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type tax_jurisdiction_evidence() :: #tax_jurisdiction_evidence{}.
+
+-spec new_tax_jurisdiction_evidence(map()) -> {ok, tax_jurisdiction_evidence()} | {error, {missing_field, atom()}}.
+new_tax_jurisdiction_evidence(Map) ->
+    case maps:is_key(contracting_entity_id, Map) of
+        false -> {error, {missing_field, contracting_entity_id}};
+        true ->
+    case maps:is_key(tax_jurisdiction, Map) of
+        false -> {error, {missing_field, tax_jurisdiction}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #tax_jurisdiction_evidence{
+        contracting_entity_id = maps:get(contracting_entity_id, Map, undefined),
+        tax_jurisdiction = maps:get(tax_jurisdiction, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
     end
     end.
 

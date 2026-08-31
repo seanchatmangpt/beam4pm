@@ -636,6 +636,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "tax_jurisdiction_evidence new/1 succeeds when all fields are present" do
+    attrs = %{
+      contracting_entity_id: "x",
+      tax_jurisdiction: "x",
+      evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.TaxJurisdictionEvidence.new(attrs)
+  end
+
+  test "tax_jurisdiction_evidence new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TaxJurisdictionEvidence.new(%{})
+  end
+
+
   test "type_edge new/1 succeeds when all fields are present" do
     attrs = %{
       source_type: "x",

@@ -521,6 +521,18 @@ pub type SyncTime {
   )
 }
 
+/// Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.
+pub type TaxJurisdictionEvidence {
+  TaxJurisdictionEvidence(
+    /// Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval.
+    contracting_entity_id: String,
+    /// Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval.
+    tax_jurisdiction: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
 /// A directed, qualified edge in the OCEL type graph between two types.
 pub type TypeEdge {
   TypeEdge(

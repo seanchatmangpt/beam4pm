@@ -426,6 +426,16 @@
 | `delaying_object_id` | `string` | false | Optional identifier of the object that caused the delay. |
 | `seconds` | `float` | true | Synchronization wait duration in seconds. |
 
+## tax_jurisdiction_evidence
+
+> Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `contracting_entity_id` | `string` | true | Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval. |
+| `tax_jurisdiction` | `string` | true | Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## type_edge
 
 > A directed, qualified edge in the OCEL type graph between two types.

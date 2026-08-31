@@ -1076,6 +1076,31 @@ sync_time_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(sync_time, Json),
     ?assertEqual(Rec, Rec2).
 
+tax_jurisdiction_evidence_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_tax_jurisdiction_evidence(#{
+        contracting_entity_id => <<"sample_contracting_entity_id">>,
+        tax_jurisdiction => <<"sample_tax_jurisdiction">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_contracting_entity_id">>, maps:get(<<"contracting_entity_id">>, Map)),
+    ?assertEqual(<<"sample_tax_jurisdiction">>, maps:get(<<"tax_jurisdiction">>, Map)),
+    ?assertEqual(<<"sample_evidence_hash">>, maps:get(<<"evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(tax_jurisdiction_evidence,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+tax_jurisdiction_evidence_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_tax_jurisdiction_evidence(#{
+        contracting_entity_id => <<"sample_contracting_entity_id">>,
+        tax_jurisdiction => <<"sample_tax_jurisdiction">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(tax_jurisdiction_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
 type_edge_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_type_edge(#{
         source_type => <<"sample_source_type">>,

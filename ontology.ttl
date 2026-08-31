@@ -2723,6 +2723,29 @@ b4p:invoice_entity_identity_invoice_entity_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:invoice_entity_identity_identity_evidence_hash_f a bpm:Field ;
-    bpm:fieldName "identity_evidence_hash" ; bpm:fieldType "string" ;
+   bpm:fieldName "identity_evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-010 — tax_jurisdiction_evidence
+b4p:tax_jurisdiction_evidence_rt a bpm:RecordType ;
+    bpm:recordName "tax_jurisdiction_evidence" ;
+    bpm:recordDoc "Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission." ;
+    bpm:hasField b4p:tax_jurisdiction_evidence_contracting_entity_id_f ,
+                 b4p:tax_jurisdiction_evidence_tax_jurisdiction_f ,
+                 b4p:tax_jurisdiction_evidence_evidence_hash_f .
+
+b4p:tax_jurisdiction_evidence_contracting_entity_id_f a bpm:Field ;
+    bpm:fieldName "contracting_entity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:tax_jurisdiction_evidence_tax_jurisdiction_f a bpm:Field ;
+    bpm:fieldName "tax_jurisdiction" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:tax_jurisdiction_evidence_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

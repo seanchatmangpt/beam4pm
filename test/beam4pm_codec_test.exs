@@ -1782,6 +1782,43 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:sync_time, m)
   end
 
+  test "tax_jurisdiction_evidence to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      contracting_entity_id: "sample_contracting_entity_id",
+      tax_jurisdiction: "sample_tax_jurisdiction",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.TaxJurisdictionEvidence.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["contracting_entity_id"] == "sample_contracting_entity_id"
+    assert m["tax_jurisdiction"] == "sample_tax_jurisdiction"
+    assert m["evidence_hash"] == "sample_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:tax_jurisdiction_evidence, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:tax_jurisdiction_evidence, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "tax_jurisdiction_evidence encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      contracting_entity_id: "sample_contracting_entity_id",
+      tax_jurisdiction: "sample_tax_jurisdiction",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.TaxJurisdictionEvidence.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:tax_jurisdiction_evidence, json)
+  end
+
+  test "tax_jurisdiction_evidence from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :contracting_entity_id}} =
+             BeamPM.Codec.from_map(:tax_jurisdiction_evidence, %{})
+  end
+
+
   test "type_edge to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       source_type: "sample_source_type",

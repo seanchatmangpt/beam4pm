@@ -1129,6 +1129,33 @@ defmodule BeamPM.Types.SyncTime do
   end
 end
 
+defmodule BeamPM.Types.TaxJurisdictionEvidence do
+  @moduledoc "Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission."
+
+  defstruct [:contracting_entity_id, :tax_jurisdiction, :evidence_hash]
+
+  @type t :: %__MODULE__{
+    contracting_entity_id: String.t() | nil,
+    tax_jurisdiction: String.t() | nil,
+    evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :contracting_entity_id) -> {:error, {:missing_field, :contracting_entity_id}}
+      not Map.has_key?(attrs, :tax_jurisdiction) -> {:error, {:missing_field, :tax_jurisdiction}}
+      not Map.has_key?(attrs, :evidence_hash) -> {:error, {:missing_field, :evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          contracting_entity_id: Map.get(attrs, :contracting_entity_id),
+          tax_jurisdiction: Map.get(attrs, :tax_jurisdiction),
+          evidence_hash: Map.get(attrs, :evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.TypeEdge do
   @moduledoc "A directed, qualified edge in the OCEL type graph between two types."
 

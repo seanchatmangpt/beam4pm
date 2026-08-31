@@ -51,6 +51,7 @@ defmodule BeamPM.Roundtrip do
     :service_span,
     :sojourn_time,
     :sync_time,
+    :tax_jurisdiction_evidence,
     :type_edge,
     :usage_event
   ]
@@ -727,6 +728,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.SyncTime.new(%{
       object_id: "sample_object_id",
       seconds: 3.5
+    })
+  end
+
+  def sample(:tax_jurisdiction_evidence, :full) do
+    BeamPM.Types.TaxJurisdictionEvidence.new(%{
+      contracting_entity_id: "sample_contracting_entity_id",
+      tax_jurisdiction: "sample_tax_jurisdiction",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:tax_jurisdiction_evidence, :minimal) do
+    BeamPM.Types.TaxJurisdictionEvidence.new(%{
+      contracting_entity_id: "sample_contracting_entity_id",
+      tax_jurisdiction: "sample_tax_jurisdiction",
+      evidence_hash: "sample_evidence_hash"
     })
   end
 

@@ -354,6 +354,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.TaxJurisdictionEvidence{} = r) do
+    to_known_map([
+      {"contracting_entity_id", r.contracting_entity_id, :passthrough},
+      {"tax_jurisdiction", r.tax_jurisdiction, :passthrough},
+      {"evidence_hash", r.evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.TypeEdge{} = r) do
     to_known_map([
       {"source_type", r.source_type, :passthrough},
@@ -882,6 +890,18 @@ defmodule BeamPM.Codec do
         {"seconds", :seconds, :passthrough}
       ],
       &BeamPM.Types.SyncTime.new/1
+    )
+  end
+
+  def from_map(:tax_jurisdiction_evidence, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"contracting_entity_id", :contracting_entity_id, :passthrough},
+        {"tax_jurisdiction", :tax_jurisdiction, :passthrough},
+        {"evidence_hash", :evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.TaxJurisdictionEvidence.new/1
     )
   end
 

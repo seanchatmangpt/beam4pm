@@ -56,6 +56,7 @@ record_names() ->
         service_span,
         sojourn_time,
         sync_time,
+        tax_jurisdiction_evidence,
         type_edge,
         usage_event
     ].
@@ -560,6 +561,18 @@ sample(sync_time, minimal) ->
     beam4pm_types:new_sync_time(#{
         object_id => <<"sample_object_id">>,
         seconds => 3.5
+    });
+sample(tax_jurisdiction_evidence, full) ->
+    beam4pm_types:new_tax_jurisdiction_evidence(#{
+        contracting_entity_id => <<"sample_contracting_entity_id">>,
+        tax_jurisdiction => <<"sample_tax_jurisdiction">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(tax_jurisdiction_evidence, minimal) ->
+    beam4pm_types:new_tax_jurisdiction_evidence(#{
+        contracting_entity_id => <<"sample_contracting_entity_id">>,
+        tax_jurisdiction => <<"sample_tax_jurisdiction">>,
+        evidence_hash => <<"sample_evidence_hash">>
     });
 sample(type_edge, full) ->
     beam4pm_types:new_type_edge(#{

@@ -52,6 +52,7 @@
     beam4pm_types:service_span() |
     beam4pm_types:sojourn_time() |
     beam4pm_types:sync_time() |
+    beam4pm_types:tax_jurisdiction_evidence() |
     beam4pm_types:type_edge() |
     beam4pm_types:usage_event().
 
@@ -314,6 +315,12 @@ to_map(R) when element(1, R) =:= sync_time ->
         {<<"object_id">>, plain, element(2, R)},
         {<<"delaying_object_id">>, plain, element(3, R)},
         {<<"seconds">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= tax_jurisdiction_evidence ->
+    pairs_to_map([
+        {<<"contracting_entity_id">>, plain, element(2, R)},
+        {<<"tax_jurisdiction">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= type_edge ->
     pairs_to_map([
@@ -596,6 +603,12 @@ from_map(sync_time, Map) when is_map(Map) ->
         {<<"object_id">>, object_id, plain},
         {<<"delaying_object_id">>, delaying_object_id, plain},
         {<<"seconds">>, seconds, plain}
+    ]));
+from_map(tax_jurisdiction_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_tax_jurisdiction_evidence(take_known(Map, [
+        {<<"contracting_entity_id">>, contracting_entity_id, plain},
+        {<<"tax_jurisdiction">>, tax_jurisdiction, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
     ]));
 from_map(type_edge, Map) when is_map(Map) ->
     beam4pm_types:new_type_edge(take_known(Map, [

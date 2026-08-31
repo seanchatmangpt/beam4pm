@@ -433,6 +433,16 @@ sync_time_ok_test() ->
 sync_time_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_sync_time(#{})).
 
+tax_jurisdiction_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_tax_jurisdiction_evidence(#{
+        contracting_entity_id => <<"x">>,
+        tax_jurisdiction => <<"x">>,
+        evidence_hash => <<"x">>
+    })).
+
+tax_jurisdiction_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_tax_jurisdiction_evidence(#{})).
+
 type_edge_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_type_edge(#{
         source_type => <<"x">>,

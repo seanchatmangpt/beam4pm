@@ -908,6 +908,27 @@
       ]
 
     },
+    "tax_jurisdiction_evidence": {
+      "type": "object",
+      "description": "Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.",
+      "properties": {
+        "contracting_entity_id": {
+          "type": "string",
+          "description": "Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "tax_jurisdiction": {
+          "type": "string",
+          "description": "Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["contracting_entity_id", "tax_jurisdiction", "evidence_hash"
+      ]
+
+    },
     "type_edge": {
       "type": "object",
       "description": "A directed, qualified edge in the OCEL type graph between two types.",
