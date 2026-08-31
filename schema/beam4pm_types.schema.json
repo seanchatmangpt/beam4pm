@@ -293,6 +293,27 @@
       ]
 
     },
+    "invoice_entity_identity": {
+      "type": "object",
+      "description": "Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "invoice_entity_id": {
+          "type": "string",
+          "description": "Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "identity_evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "invoice_entity_id", "identity_evidence_hash"
+      ]
+
+    },
     "k8s_object_ref": {
       "type": "object",
       "description": "A reference to one Kubernetes object observed in the runtime topology.",

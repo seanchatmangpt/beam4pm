@@ -575,6 +575,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "invoice_entity_identity to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      invoice_entity_id: "sample_invoice_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.InvoiceEntityIdentity.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["invoice_entity_id"] == "sample_invoice_entity_id"
+    assert m["identity_evidence_hash"] == "sample_identity_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:invoice_entity_identity, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:invoice_entity_identity, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "invoice_entity_identity encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      invoice_entity_id: "sample_invoice_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.InvoiceEntityIdentity.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:invoice_entity_identity, json)
+  end
+
+  test "invoice_entity_identity from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:invoice_entity_identity, %{})
+  end
+
+
   test "k8s_object_ref to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       kind: "sample_kind",

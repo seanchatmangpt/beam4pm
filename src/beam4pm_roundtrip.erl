@@ -27,6 +27,7 @@ record_names() ->
         event_log,
         event_type,
         heuristic_arc,
+        invoice_entity_identity,
         k8s_object_ref,
         log_trace,
         object_attribute_change,
@@ -223,6 +224,18 @@ sample(heuristic_arc, minimal) ->
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
         dependency_measure => 3.5
+    });
+sample(invoice_entity_identity, full) ->
+    beam4pm_types:new_invoice_entity_identity(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        invoice_entity_id => <<"sample_invoice_entity_id">>,
+        identity_evidence_hash => <<"sample_identity_evidence_hash">>
+    });
+sample(invoice_entity_identity, minimal) ->
+    beam4pm_types:new_invoice_entity_identity(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        invoice_entity_id => <<"sample_invoice_entity_id">>,
+        identity_evidence_hash => <<"sample_identity_evidence_hash">>
     });
 sample(k8s_object_ref, full) ->
     beam4pm_types:new_k8s_object_ref(#{

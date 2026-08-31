@@ -23,6 +23,7 @@
     beam4pm_types:event_log() |
     beam4pm_types:event_type() |
     beam4pm_types:heuristic_arc() |
+    beam4pm_types:invoice_entity_identity() |
     beam4pm_types:k8s_object_ref() |
     beam4pm_types:log_trace() |
     beam4pm_types:object_attribute_change() |
@@ -139,6 +140,12 @@ to_map(R) when element(1, R) =:= heuristic_arc ->
         {<<"source_activity">>, plain, element(2, R)},
         {<<"target_activity">>, plain, element(3, R)},
         {<<"dependency_measure">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= invoice_entity_identity ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"invoice_entity_id">>, plain, element(3, R)},
+        {<<"identity_evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= k8s_object_ref ->
     pairs_to_map([
@@ -415,6 +422,12 @@ from_map(heuristic_arc, Map) when is_map(Map) ->
         {<<"source_activity">>, source_activity, plain},
         {<<"target_activity">>, target_activity, plain},
         {<<"dependency_measure">>, dependency_measure, plain}
+    ]));
+from_map(invoice_entity_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_invoice_entity_identity(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"invoice_entity_id">>, invoice_entity_id, plain},
+        {<<"identity_evidence_hash">>, identity_evidence_hash, plain}
     ]));
 from_map(k8s_object_ref, Map) when is_map(Map) ->
     beam4pm_types:new_k8s_object_ref(take_known(Map, [

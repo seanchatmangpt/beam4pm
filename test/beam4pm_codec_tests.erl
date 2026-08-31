@@ -351,6 +351,31 @@ heuristic_arc_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(heuristic_arc, Json),
     ?assertEqual(Rec, Rec2).
 
+invoice_entity_identity_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_invoice_entity_identity(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        invoice_entity_id => <<"sample_invoice_entity_id">>,
+        identity_evidence_hash => <<"sample_identity_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_invoice_entity_id">>, maps:get(<<"invoice_entity_id">>, Map)),
+    ?assertEqual(<<"sample_identity_evidence_hash">>, maps:get(<<"identity_evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(invoice_entity_identity,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+invoice_entity_identity_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_invoice_entity_identity(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        invoice_entity_id => <<"sample_invoice_entity_id">>,
+        identity_evidence_hash => <<"sample_identity_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(invoice_entity_identity, Json),
+    ?assertEqual(Rec, Rec2).
+
 k8s_object_ref_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_k8s_object_ref(#{
         kind => <<"sample_kind">>,

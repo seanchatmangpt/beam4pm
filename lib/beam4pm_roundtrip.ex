@@ -22,6 +22,7 @@ defmodule BeamPM.Roundtrip do
     :event_log,
     :event_type,
     :heuristic_arc,
+    :invoice_entity_identity,
     :k8s_object_ref,
     :log_trace,
     :object_attribute_change,
@@ -274,6 +275,22 @@ defmodule BeamPM.Roundtrip do
       source_activity: "sample_source_activity",
       target_activity: "sample_target_activity",
       dependency_measure: 3.5
+    })
+  end
+
+  def sample(:invoice_entity_identity, :full) do
+    BeamPM.Types.InvoiceEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      invoice_entity_id: "sample_invoice_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
+    })
+  end
+
+  def sample(:invoice_entity_identity, :minimal) do
+    BeamPM.Types.InvoiceEntityIdentity.new(%{
+      opportunity_id: "sample_opportunity_id",
+      invoice_entity_id: "sample_invoice_entity_id",
+      identity_evidence_hash: "sample_identity_evidence_hash"
     })
   end
 

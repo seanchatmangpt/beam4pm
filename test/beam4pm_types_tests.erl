@@ -143,6 +143,16 @@ heuristic_arc_ok_test() ->
 heuristic_arc_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_heuristic_arc(#{})).
 
+invoice_entity_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_invoice_entity_identity(#{
+        opportunity_id => <<"x">>,
+        invoice_entity_id => <<"x">>,
+        identity_evidence_hash => <<"x">>
+    })).
+
+invoice_entity_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_invoice_entity_identity(#{})).
+
 k8s_object_ref_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_k8s_object_ref(#{
         kind => <<"x">>,

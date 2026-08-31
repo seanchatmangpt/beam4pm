@@ -2700,6 +2700,29 @@ b4p:contracting_entity_identity_contracting_entity_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:contracting_entity_identity_identity_evidence_hash_f a bpm:Field ;
+   bpm:fieldName "identity_evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-009 — invoice_entity_identity
+b4p:invoice_entity_identity_rt a bpm:RecordType ;
+    bpm:recordName "invoice_entity_identity" ;
+    bpm:recordDoc "Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue." ;
+    bpm:hasField b4p:invoice_entity_identity_opportunity_id_f ,
+                 b4p:invoice_entity_identity_invoice_entity_id_f ,
+                 b4p:invoice_entity_identity_identity_evidence_hash_f .
+
+b4p:invoice_entity_identity_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:invoice_entity_identity_invoice_entity_id_f a bpm:Field ;
+    bpm:fieldName "invoice_entity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:invoice_entity_identity_identity_evidence_hash_f a bpm:Field ;
     bpm:fieldName "identity_evidence_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

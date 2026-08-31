@@ -16,6 +16,7 @@
     new_event_log/1,
     new_event_type/1,
     new_heuristic_arc/1,
+    new_invoice_entity_identity/1,
     new_k8s_object_ref/1,
     new_log_trace/1,
     new_object_attribute_change/1,
@@ -62,6 +63,7 @@
     event_log/0,
     event_type/0,
     heuristic_arc/0,
+    invoice_entity_identity/0,
     k8s_object_ref/0,
     log_trace/0,
     object_attribute_change/0,
@@ -470,6 +472,35 @@ new_heuristic_arc(Map) ->
         source_activity = maps:get(source_activity, Map, undefined),
         target_activity = maps:get(target_activity, Map, undefined),
         dependency_measure = maps:get(dependency_measure, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.
+-record(invoice_entity_identity, {
+    opportunity_id :: binary(), %% opportunity_id: Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval.
+    invoice_entity_id :: binary(), %% invoice_entity_id: Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval.
+    identity_evidence_hash :: binary() %% identity_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type invoice_entity_identity() :: #invoice_entity_identity{}.
+
+-spec new_invoice_entity_identity(map()) -> {ok, invoice_entity_identity()} | {error, {missing_field, atom()}}.
+new_invoice_entity_identity(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(invoice_entity_id, Map) of
+        false -> {error, {missing_field, invoice_entity_id}};
+        true ->
+    case maps:is_key(identity_evidence_hash, Map) of
+        false -> {error, {missing_field, identity_evidence_hash}};
+        true ->
+    {ok, #invoice_entity_identity{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        invoice_entity_id = maps:get(invoice_entity_id, Map, undefined),
+        identity_evidence_hash = maps:get(identity_evidence_hash, Map, undefined)
     }}
     end
     end

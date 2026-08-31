@@ -358,6 +358,33 @@ defmodule BeamPM.Types.HeuristicArc do
   end
 end
 
+defmodule BeamPM.Types.InvoiceEntityIdentity do
+  @moduledoc "Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue."
+
+  defstruct [:opportunity_id, :invoice_entity_id, :identity_evidence_hash]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    invoice_entity_id: String.t() | nil,
+    identity_evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :invoice_entity_id) -> {:error, {:missing_field, :invoice_entity_id}}
+      not Map.has_key?(attrs, :identity_evidence_hash) -> {:error, {:missing_field, :identity_evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          invoice_entity_id: Map.get(attrs, :invoice_entity_id),
+          identity_evidence_hash: Map.get(attrs, :identity_evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.K8SObjectRef do
   @moduledoc "A reference to one Kubernetes object observed in the runtime topology."
 

@@ -201,6 +201,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "invoice_entity_identity new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      invoice_entity_id: "x",
+      identity_evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.InvoiceEntityIdentity.new(attrs)
+  end
+
+  test "invoice_entity_identity new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.InvoiceEntityIdentity.new(%{})
+  end
+
+
   test "k8s_object_ref new/1 succeeds when all fields are present" do
     attrs = %{
       kind: "x",

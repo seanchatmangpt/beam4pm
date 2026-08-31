@@ -173,6 +173,18 @@ pub type HeuristicArc {
   )
 }
 
+/// Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.
+pub type InvoiceEntityIdentity {
+  InvoiceEntityIdentity(
+    /// Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval.
+    invoice_entity_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    identity_evidence_hash: String,
+  )
+}
+
 /// A reference to one Kubernetes object observed in the runtime topology.
 pub type K8SObjectRef {
   K8SObjectRef(

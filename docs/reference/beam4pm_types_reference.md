@@ -136,6 +136,16 @@
 | `target_activity` | `string` | true | The candidate arc target activity. |
 | `dependency_measure` | `float` | true | The computed dependency/confidence score for this candidate arc. |
 
+## invoice_entity_identity
+
+> Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `invoice_entity_id` | `string` | true | Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval. |
+| `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## k8s_object_ref
 
 > A reference to one Kubernetes object observed in the runtime topology.
