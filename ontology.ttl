@@ -3354,3 +3354,17 @@ bpm:expansion_signal_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm
 bpm:expansion_signal_expansion_signal_score_f a bpm:Field ; bpm:fieldName "expansion_signal_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Measured strength of the expansion signal." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:expansion_signal_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:expansion_signal_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-133 — expansion opportunity
+# ---------------------------------------------------------------------------
+
+bpm:expansion_opportunity_rt a bpm:RecordType ;
+    bpm:recordName "expansion_opportunity" ; bpm:recordDoc "Qualified account expansion opportunity backed by observed adoption evidence." ;
+    bpm:hasField bpm:expansion_opportunity_expansion_opportunity_id_f , bpm:expansion_opportunity_account_id_f , bpm:expansion_opportunity_expansion_value_f , bpm:expansion_opportunity_evidence_digest_f , bpm:expansion_opportunity_observed_at_f .
+
+bpm:expansion_opportunity_expansion_opportunity_id_f a bpm:Field ; bpm:fieldName "expansion_opportunity_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this expansion opportunity observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:expansion_opportunity_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose expansion opportunity state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:expansion_opportunity_expansion_value_f a bpm:Field ; bpm:fieldName "expansion_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Qualified expansion value in account currency." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:expansion_opportunity_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:expansion_opportunity_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
