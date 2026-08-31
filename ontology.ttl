@@ -3480,3 +3480,17 @@ bpm:executive_business_review_account_id_f a bpm:Field ; bpm:fieldName "account_
 bpm:executive_business_review_executive_outcome_f a bpm:Field ; bpm:fieldName "executive_outcome" ; bpm:fieldType "string" ; bpm:fieldDoc "Decision recorded by the executive review." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:executive_business_review_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:executive_business_review_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-142 — capability gap
+# ---------------------------------------------------------------------------
+
+bpm:capability_gap_rt a bpm:RecordType ;
+    bpm:recordName "capability_gap" ; bpm:recordDoc "Detected capability gap blocking enterprise value or expansion." ;
+    bpm:hasField bpm:capability_gap_capability_gap_id_f , bpm:capability_gap_account_id_f , bpm:capability_gap_gap_severity_f , bpm:capability_gap_evidence_digest_f , bpm:capability_gap_observed_at_f .
+
+bpm:capability_gap_capability_gap_id_f a bpm:Field ; bpm:fieldName "capability_gap_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this capability gap observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:capability_gap_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose capability gap state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:capability_gap_gap_severity_f a bpm:Field ; bpm:fieldName "gap_severity" ; bpm:fieldType "string" ; bpm:fieldDoc "Observed severity of the capability gap." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:capability_gap_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:capability_gap_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
