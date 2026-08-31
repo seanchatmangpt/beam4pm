@@ -48,6 +48,7 @@
     new_ocel_relationship/1,
     new_opportunity_currency_contract/1,
     new_opportunity_value_range/1,
+    new_order_form_admission/1,
     new_path_schema/1,
     new_path_schema_query/1,
     new_payment_terms_admission/1,
@@ -134,6 +135,7 @@
     ocel_relationship/0,
     opportunity_currency_contract/0,
     opportunity_value_range/0,
+    order_form_admission/0,
     path_schema/0,
     path_schema_query/0,
     payment_terms_admission/0,
@@ -1460,6 +1462,35 @@ new_opportunity_value_range(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         minimum_value = maps:get(minimum_value, Map, undefined),
         maximum_value = maps:get(maximum_value, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits the exact order form that expresses the buyer's priced scope and authorized terms.
+-record(order_form_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required order form admission input; omission is an executable typed refusal, never an inferred approval.
+    order_form_id :: binary(), %% order_form_id: Required order form admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type order_form_admission() :: #order_form_admission{}.
+
+-spec new_order_form_admission(map()) -> {ok, order_form_admission()} | {error, {missing_field, atom()}}.
+new_order_form_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(order_form_id, Map) of
+        false -> {error, {missing_field, order_form_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #order_form_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        order_form_id = maps:get(order_form_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

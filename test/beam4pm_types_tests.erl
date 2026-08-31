@@ -464,6 +464,16 @@ opportunity_value_range_ok_test() ->
 opportunity_value_range_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_opportunity_value_range(#{})).
 
+order_form_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_order_form_admission(#{
+        opportunity_id => <<"x">>,
+        order_form_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+order_form_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_order_form_admission(#{})).
+
 path_schema_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_path_schema(#{
         schema_id => <<"x">>,

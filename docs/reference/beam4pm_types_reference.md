@@ -457,6 +457,16 @@
 | `minimum_value` | `string` | true | Required opportunity value range input; omission is an executable typed refusal, never an inferred approval. |
 | `maximum_value` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## order_form_admission
+
+> Admits the exact order form that expresses the buyer's priced scope and authorized terms.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required order form admission input; omission is an executable typed refusal, never an inferred approval. |
+| `order_form_id` | `string` | true | Required order form admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## path_schema
 
 > One reusable, scored connection pattern between two OCEL types.

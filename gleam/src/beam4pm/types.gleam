@@ -559,6 +559,18 @@ pub type OpportunityValueRange {
   )
 }
 
+/// Admits the exact order form that expresses the buyer's priced scope and authorized terms.
+pub type OrderFormAdmission {
+  OrderFormAdmission(
+    /// Required order form admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required order form admission input; omission is an executable typed refusal, never an inferred approval.
+    order_form_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// One reusable, scored connection pattern between two OCEL types.
 pub type PathSchema {
   PathSchema(

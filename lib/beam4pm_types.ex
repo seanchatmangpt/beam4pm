@@ -1219,6 +1219,33 @@ defmodule BeamPM.Types.OpportunityValueRange do
   end
 end
 
+defmodule BeamPM.Types.OrderFormAdmission do
+  @moduledoc "Admits the exact order form that expresses the buyer's priced scope and authorized terms."
+
+  defstruct [:opportunity_id, :order_form_id, :decision]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    order_form_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :order_form_id) -> {:error, {:missing_field, :order_form_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          order_form_id: Map.get(attrs, :order_form_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PathSchema do
   @moduledoc "One reusable, scored connection pattern between two OCEL types."
 

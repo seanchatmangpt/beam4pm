@@ -59,6 +59,7 @@ record_names() ->
         ocel_relationship,
         opportunity_currency_contract,
         opportunity_value_range,
+        order_form_admission,
         path_schema,
         path_schema_query,
         payment_terms_admission,
@@ -643,6 +644,18 @@ sample(opportunity_value_range, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         minimum_value => <<"sample_minimum_value">>,
         maximum_value => <<"sample_maximum_value">>
+    });
+sample(order_form_admission, full) ->
+    beam4pm_types:new_order_form_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        order_form_id => <<"sample_order_form_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(order_form_admission, minimal) ->
+    beam4pm_types:new_order_form_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        order_form_id => <<"sample_order_form_id">>,
+        decision => <<"sample_decision">>
     });
 sample(path_schema, full) ->
     beam4pm_types:new_path_schema(#{

@@ -971,6 +971,27 @@
       ]
 
     },
+    "order_form_admission": {
+      "type": "object",
+      "description": "Admits the exact order form that expresses the buyer's priced scope and authorized terms.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required order form admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "order_form_id": {
+          "type": "string",
+          "description": "Required order form admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "order_form_id", "decision"
+      ]
+
+    },
     "path_schema": {
       "type": "object",
       "description": "One reusable, scored connection pattern between two OCEL types.",

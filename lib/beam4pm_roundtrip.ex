@@ -54,6 +54,7 @@ defmodule BeamPM.Roundtrip do
     :ocel_relationship,
     :opportunity_currency_contract,
     :opportunity_value_range,
+    :order_form_admission,
     :path_schema,
     :path_schema_query,
     :payment_terms_admission,
@@ -822,6 +823,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       minimum_value: "sample_minimum_value",
       maximum_value: "sample_maximum_value"
+    })
+  end
+
+  def sample(:order_form_admission, :full) do
+    BeamPM.Types.OrderFormAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      order_form_id: "sample_order_form_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:order_form_admission, :minimal) do
+    BeamPM.Types.OrderFormAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      order_form_id: "sample_order_form_id",
+      decision: "sample_decision"
     })
   end
 

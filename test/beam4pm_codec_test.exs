@@ -1836,6 +1836,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "order_form_admission to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      order_form_id: "sample_order_form_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OrderFormAdmission.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["order_form_id"] == "sample_order_form_id"
+    assert m["decision"] == "sample_decision"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:order_form_admission, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:order_form_admission, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "order_form_admission encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      order_form_id: "sample_order_form_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OrderFormAdmission.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:order_form_admission, json)
+  end
+
+  test "order_form_admission from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:order_form_admission, %{})
+  end
+
+
   test "path_schema to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       schema_id: "sample_schema_id",
