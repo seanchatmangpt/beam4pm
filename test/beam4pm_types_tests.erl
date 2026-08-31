@@ -733,6 +733,16 @@ tax_jurisdiction_evidence_ok_test() ->
 tax_jurisdiction_evidence_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_tax_jurisdiction_evidence(#{})).
 
+technical_blocker_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_technical_blocker(#{
+        opportunity_id => <<"x">>,
+        blocker_id => <<"x">>,
+        refusal_code => <<"x">>
+    })).
+
+technical_blocker_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_technical_blocker(#{})).
+
 termination_right_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_termination_right_admission(#{
         opportunity_id => <<"x">>,

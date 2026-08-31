@@ -726,6 +726,16 @@
 | `tax_jurisdiction` | `string` | true | Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## technical_blocker
+
+> Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required technical blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `blocker_id` | `string` | true | Required technical blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## termination_right_admission
 
 > Qualifies termination rights that materially change collectible contract value and delivery exposure.

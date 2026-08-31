@@ -81,6 +81,7 @@ defmodule BeamPM.Roundtrip do
     :support_tier_admission,
     :sync_time,
     :tax_jurisdiction_evidence,
+    :technical_blocker,
     :termination_right_admission,
     :training_scope_admission,
     :type_edge,
@@ -1241,6 +1242,22 @@ defmodule BeamPM.Roundtrip do
       contracting_entity_id: "sample_contracting_entity_id",
       tax_jurisdiction: "sample_tax_jurisdiction",
       evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:technical_blocker, :full) do
+    BeamPM.Types.TechnicalBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:technical_blocker, :minimal) do
+    BeamPM.Types.TechnicalBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
     })
   end
 

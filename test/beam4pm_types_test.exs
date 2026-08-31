@@ -1086,6 +1086,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "technical_blocker new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      blocker_id: "x",
+      refusal_code: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.TechnicalBlocker.new(attrs)
+  end
+
+  test "technical_blocker new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TechnicalBlocker.new(%{})
+  end
+
+
   test "termination_right_admission new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

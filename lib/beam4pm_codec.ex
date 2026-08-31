@@ -594,6 +594,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.TechnicalBlocker{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"blocker_id", r.blocker_id, :passthrough},
+      {"refusal_code", r.refusal_code, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.TerminationRightAdmission{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -1514,6 +1522,18 @@ defmodule BeamPM.Codec do
         {"evidence_hash", :evidence_hash, :passthrough}
       ],
       &BeamPM.Types.TaxJurisdictionEvidence.new/1
+    )
+  end
+
+  def from_map(:technical_blocker, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"blocker_id", :blocker_id, :passthrough},
+        {"refusal_code", :refusal_code, :passthrough}
+      ],
+      &BeamPM.Types.TechnicalBlocker.new/1
     )
   end
 

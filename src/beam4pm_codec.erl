@@ -82,6 +82,7 @@
     beam4pm_types:support_tier_admission() |
     beam4pm_types:sync_time() |
     beam4pm_types:tax_jurisdiction_evidence() |
+    beam4pm_types:technical_blocker() |
     beam4pm_types:termination_right_admission() |
     beam4pm_types:training_scope_admission() |
     beam4pm_types:type_edge() |
@@ -528,6 +529,12 @@ to_map(R) when element(1, R) =:= tax_jurisdiction_evidence ->
         {<<"contracting_entity_id">>, plain, element(2, R)},
         {<<"tax_jurisdiction">>, plain, element(3, R)},
         {<<"evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= technical_blocker ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"blocker_id">>, plain, element(3, R)},
+        {<<"refusal_code">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= termination_right_admission ->
     pairs_to_map([
@@ -1014,6 +1021,12 @@ from_map(tax_jurisdiction_evidence, Map) when is_map(Map) ->
         {<<"contracting_entity_id">>, contracting_entity_id, plain},
         {<<"tax_jurisdiction">>, tax_jurisdiction, plain},
         {<<"evidence_hash">>, evidence_hash, plain}
+    ]));
+from_map(technical_blocker, Map) when is_map(Map) ->
+    beam4pm_types:new_technical_blocker(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"blocker_id">>, blocker_id, plain},
+        {<<"refusal_code">>, refusal_code, plain}
     ]));
 from_map(termination_right_admission, Map) when is_map(Map) ->
     beam4pm_types:new_termination_right_admission(take_known(Map, [

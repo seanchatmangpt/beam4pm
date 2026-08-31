@@ -3505,6 +3505,29 @@ b4p:security_blocker_blocker_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:security_blocker_refusal_code_f a bpm:Field ;
+   bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-044 — technical_blocker
+b4p:technical_blocker_rt a bpm:RecordType ;
+    bpm:recordName "technical_blocker" ;
+    bpm:recordDoc "Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance." ;
+    bpm:hasField b4p:technical_blocker_opportunity_id_f ,
+                 b4p:technical_blocker_blocker_id_f ,
+                 b4p:technical_blocker_refusal_code_f .
+
+b4p:technical_blocker_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required technical blocker input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:technical_blocker_blocker_id_f a bpm:Field ;
+    bpm:fieldName "blocker_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required technical blocker input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:technical_blocker_refusal_code_f a bpm:Field ;
     bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

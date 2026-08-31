@@ -1538,6 +1538,27 @@
       ]
 
     },
+    "technical_blocker": {
+      "type": "object",
+      "description": "Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required technical blocker input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "blocker_id": {
+          "type": "string",
+          "description": "Required technical blocker input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "refusal_code": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "blocker_id", "refusal_code"
+      ]
+
+    },
     "termination_right_admission": {
       "type": "object",
       "description": "Qualifies termination rights that materially change collectible contract value and delivery exposure.",

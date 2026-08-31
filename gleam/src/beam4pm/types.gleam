@@ -881,6 +881,18 @@ pub type TaxJurisdictionEvidence {
   )
 }
 
+/// Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.
+pub type TechnicalBlocker {
+  TechnicalBlocker(
+    /// Required technical blocker input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required technical blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    refusal_code: String,
+  )
+}
+
 /// Qualifies termination rights that materially change collectible contract value and delivery exposure.
 pub type TerminationRightAdmission {
   TerminationRightAdmission(

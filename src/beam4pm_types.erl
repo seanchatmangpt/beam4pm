@@ -75,6 +75,7 @@
     new_support_tier_admission/1,
     new_sync_time/1,
     new_tax_jurisdiction_evidence/1,
+    new_technical_blocker/1,
     new_termination_right_admission/1,
     new_training_scope_admission/1,
     new_type_edge/1,
@@ -156,6 +157,7 @@
     support_tier_admission/0,
     sync_time/0,
     tax_jurisdiction_evidence/0,
+    technical_blocker/0,
     termination_right_admission/0,
     training_scope_admission/0,
     type_edge/0,
@@ -2203,6 +2205,35 @@ new_tax_jurisdiction_evidence(Map) ->
         contracting_entity_id = maps:get(contracting_entity_id, Map, undefined),
         tax_jurisdiction = maps:get(tax_jurisdiction, Map, undefined),
         evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.
+-record(technical_blocker, {
+    opportunity_id :: binary(), %% opportunity_id: Required technical blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id :: binary(), %% blocker_id: Required technical blocker input; omission is an executable typed refusal, never an inferred approval.
+    refusal_code :: binary() %% refusal_code: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type technical_blocker() :: #technical_blocker{}.
+
+-spec new_technical_blocker(map()) -> {ok, technical_blocker()} | {error, {missing_field, atom()}}.
+new_technical_blocker(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(blocker_id, Map) of
+        false -> {error, {missing_field, blocker_id}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #technical_blocker{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        blocker_id = maps:get(blocker_id, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
     }}
     end
     end

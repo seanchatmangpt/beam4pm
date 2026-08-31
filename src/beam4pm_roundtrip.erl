@@ -86,6 +86,7 @@ record_names() ->
         support_tier_admission,
         sync_time,
         tax_jurisdiction_evidence,
+        technical_blocker,
         termination_right_admission,
         training_scope_admission,
         type_edge,
@@ -954,6 +955,18 @@ sample(tax_jurisdiction_evidence, minimal) ->
         contracting_entity_id => <<"sample_contracting_entity_id">>,
         tax_jurisdiction => <<"sample_tax_jurisdiction">>,
         evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(technical_blocker, full) ->
+    beam4pm_types:new_technical_blocker(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        blocker_id => <<"sample_blocker_id">>,
+        refusal_code => <<"sample_refusal_code">>
+    });
+sample(technical_blocker, minimal) ->
+    beam4pm_types:new_technical_blocker(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        blocker_id => <<"sample_blocker_id">>,
+        refusal_code => <<"sample_refusal_code">>
     });
 sample(termination_right_admission, full) ->
     beam4pm_types:new_termination_right_admission(#{
