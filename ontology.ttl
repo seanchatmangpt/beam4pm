@@ -3118,4 +3118,30 @@ b4pe:version_lifecycle_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-024 — support-window evidence.
+b4pe:support_window_evidence_rt a bpm:RecordType ;
+    bpm:recordName "support_window_evidence" ;
+    bpm:recordDoc "Executable support-window evidence binding an exact subject to the channel available during the observed coverage window." ;
+    bpm:hasField b4pe:support_window_evidence_id_f,
+                 b4pe:support_window_subject_sha_f,
+                 b4pe:support_window_support_channel_f,
+                 b4pe:support_window_observed_result_f .
+
+b4pe:support_window_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this support-window observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:support_window_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:support_window_support_channel_f a bpm:Field ;
+    bpm:fieldName "support_channel" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed support channel satisfying the admitted coverage window." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:support_window_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
