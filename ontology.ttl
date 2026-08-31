@@ -3664,4 +3664,30 @@ b4pe:backup_restore_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-045 — disaster-recovery evidence.
+b4pe:disaster_recovery_evidence_rt a bpm:RecordType ;
+    bpm:recordName "disaster_recovery_evidence" ;
+    bpm:recordDoc "Executable disaster-recovery evidence binding an exact subject to the instant service recovery was observed." ;
+    bpm:hasField b4pe:disaster_recovery_evidence_id_f,
+                 b4pe:disaster_recovery_subject_sha_f,
+                 b4pe:disaster_recovery_recovered_at_f,
+                 b4pe:disaster_recovery_observed_result_f .
+
+b4pe:disaster_recovery_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this disaster-recovery observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:disaster_recovery_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:disaster_recovery_recovered_at_f a bpm:Field ;
+    bpm:fieldName "recovered_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "UTC instant at which the recovered subject passed its availability probe." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:disaster_recovery_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
