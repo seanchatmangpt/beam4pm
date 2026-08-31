@@ -2999,6 +2999,29 @@ b4p:budget_period_alignment_budget_period_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:budget_period_alignment_alignment_result_f a bpm:Field ;
-    bpm:fieldName "alignment_result" ; bpm:fieldType "string" ;
+   bpm:fieldName "alignment_result" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-022 — funding_approval_chain
+b4p:funding_approval_chain_rt a bpm:RecordType ;
+    bpm:recordName "funding_approval_chain" ;
+    bpm:recordDoc "Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim." ;
+    bpm:hasField b4p:funding_approval_chain_opportunity_id_f ,
+                 b4p:funding_approval_chain_approval_chain_id_f ,
+                 b4p:funding_approval_chain_evidence_hash_f .
+
+b4p:funding_approval_chain_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required funding approval chain input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:funding_approval_chain_approval_chain_id_f a bpm:Field ;
+    bpm:fieldName "approval_chain_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required funding approval chain input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:funding_approval_chain_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

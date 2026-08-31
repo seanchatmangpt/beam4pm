@@ -173,6 +173,16 @@ event_type_ok_test() ->
 event_type_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_event_type(#{})).
 
+funding_approval_chain_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_funding_approval_chain(#{
+        opportunity_id => <<"x">>,
+        approval_chain_id => <<"x">>,
+        evidence_hash => <<"x">>
+    })).
+
+funding_approval_chain_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_funding_approval_chain(#{})).
+
 heuristic_arc_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_heuristic_arc(#{
         source_activity => <<"x">>,

@@ -246,6 +246,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "funding_approval_chain new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      approval_chain_id: "x",
+      evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.FundingApprovalChain.new(attrs)
+  end
+
+  test "funding_approval_chain new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.FundingApprovalChain.new(%{})
+  end
+
+
   test "heuristic_arc new/1 succeeds when all fields are present" do
     attrs = %{
       source_activity: "x",

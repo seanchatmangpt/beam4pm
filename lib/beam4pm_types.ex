@@ -439,6 +439,33 @@ defmodule BeamPM.Types.EventType do
   end
 end
 
+defmodule BeamPM.Types.FundingApprovalChain do
+  @moduledoc "Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim."
+
+  defstruct [:opportunity_id, :approval_chain_id, :evidence_hash]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    approval_chain_id: String.t() | nil,
+    evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :approval_chain_id) -> {:error, {:missing_field, :approval_chain_id}}
+      not Map.has_key?(attrs, :evidence_hash) -> {:error, {:missing_field, :evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          approval_chain_id: Map.get(attrs, :approval_chain_id),
+          evidence_hash: Map.get(attrs, :evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.HeuristicArc do
   @moduledoc "One dependency-scored candidate arc considered during heuristic-net discovery."
 

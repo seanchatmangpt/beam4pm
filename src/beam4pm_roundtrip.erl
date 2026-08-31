@@ -30,6 +30,7 @@ record_names() ->
         entitlement_state,
         event_log,
         event_type,
+        funding_approval_chain,
         heuristic_arc,
         insurance_requirement,
         invoice_entity_identity,
@@ -272,6 +273,18 @@ sample(event_type, full) ->
 sample(event_type, minimal) ->
     beam4pm_types:new_event_type(#{
         type_name => <<"sample_type_name">>
+    });
+sample(funding_approval_chain, full) ->
+    beam4pm_types:new_funding_approval_chain(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        approval_chain_id => <<"sample_approval_chain_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(funding_approval_chain, minimal) ->
+    beam4pm_types:new_funding_approval_chain(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        approval_chain_id => <<"sample_approval_chain_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
     });
 sample(heuristic_arc, full) ->
     beam4pm_types:new_heuristic_arc(#{

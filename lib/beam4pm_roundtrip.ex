@@ -25,6 +25,7 @@ defmodule BeamPM.Roundtrip do
     :entitlement_state,
     :event_log,
     :event_type,
+    :funding_approval_chain,
     :heuristic_arc,
     :insurance_requirement,
     :invoice_entity_identity,
@@ -335,6 +336,22 @@ defmodule BeamPM.Roundtrip do
   def sample(:event_type, :minimal) do
     BeamPM.Types.EventType.new(%{
       type_name: "sample_type_name"
+    })
+  end
+
+  def sample(:funding_approval_chain, :full) do
+    BeamPM.Types.FundingApprovalChain.new(%{
+      opportunity_id: "sample_opportunity_id",
+      approval_chain_id: "sample_approval_chain_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:funding_approval_chain, :minimal) do
+    BeamPM.Types.FundingApprovalChain.new(%{
+      opportunity_id: "sample_opportunity_id",
+      approval_chain_id: "sample_approval_chain_id",
+      evidence_hash: "sample_evidence_hash"
     })
   end
 

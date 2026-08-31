@@ -686,6 +686,43 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:event_type, m)
   end
 
+  test "funding_approval_chain to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      approval_chain_id: "sample_approval_chain_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.FundingApprovalChain.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["approval_chain_id"] == "sample_approval_chain_id"
+    assert m["evidence_hash"] == "sample_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:funding_approval_chain, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:funding_approval_chain, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "funding_approval_chain encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      approval_chain_id: "sample_approval_chain_id",
+      evidence_hash: "sample_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.FundingApprovalChain.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:funding_approval_chain, json)
+  end
+
+  test "funding_approval_chain from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:funding_approval_chain, %{})
+  end
+
+
   test "heuristic_arc to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       source_activity: "sample_source_activity",

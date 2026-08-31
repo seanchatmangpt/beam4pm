@@ -209,6 +209,18 @@ pub type EventType {
   )
 }
 
+/// Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
+pub type FundingApprovalChain {
+  FundingApprovalChain(
+    /// Required funding approval chain input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required funding approval chain input; omission is an executable typed refusal, never an inferred approval.
+    approval_chain_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    evidence_hash: String,
+  )
+}
+
 /// One dependency-scored candidate arc considered during heuristic-net discovery.
 pub type HeuristicArc {
   HeuristicArc(

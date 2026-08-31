@@ -19,6 +19,7 @@
     new_entitlement_state/1,
     new_event_log/1,
     new_event_type/1,
+    new_funding_approval_chain/1,
     new_heuristic_arc/1,
     new_insurance_requirement/1,
     new_invoice_entity_identity/1,
@@ -78,6 +79,7 @@
     entitlement_state/0,
     event_log/0,
     event_type/0,
+    funding_approval_chain/0,
     heuristic_arc/0,
     insurance_requirement/0,
     invoice_entity_identity/0,
@@ -586,6 +588,35 @@ new_event_type(Map) ->
         type_name = maps:get(type_name, Map, undefined),
         attribute_names = maps:get(attribute_names, Map, undefined)
     }}
+    end.
+
+%% Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
+-record(funding_approval_chain, {
+    opportunity_id :: binary(), %% opportunity_id: Required funding approval chain input; omission is an executable typed refusal, never an inferred approval.
+    approval_chain_id :: binary(), %% approval_chain_id: Required funding approval chain input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type funding_approval_chain() :: #funding_approval_chain{}.
+
+-spec new_funding_approval_chain(map()) -> {ok, funding_approval_chain()} | {error, {missing_field, atom()}}.
+new_funding_approval_chain(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(approval_chain_id, Map) of
+        false -> {error, {missing_field, approval_chain_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #funding_approval_chain{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        approval_chain_id = maps:get(approval_chain_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
     end.
 
 %% One dependency-scored candidate arc considered during heuristic-net discovery.

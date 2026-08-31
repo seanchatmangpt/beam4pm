@@ -26,6 +26,7 @@
     beam4pm_types:entitlement_state() |
     beam4pm_types:event_log() |
     beam4pm_types:event_type() |
+    beam4pm_types:funding_approval_chain() |
     beam4pm_types:heuristic_arc() |
     beam4pm_types:insurance_requirement() |
     beam4pm_types:invoice_entity_identity() |
@@ -170,6 +171,12 @@ to_map(R) when element(1, R) =:= event_type ->
     pairs_to_map([
         {<<"type_name">>, plain, element(2, R)},
         {<<"attribute_names">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= funding_approval_chain ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"approval_chain_id">>, plain, element(3, R)},
+        {<<"evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= heuristic_arc ->
     pairs_to_map([
@@ -524,6 +531,12 @@ from_map(event_type, Map) when is_map(Map) ->
     beam4pm_types:new_event_type(take_known(Map, [
         {<<"type_name">>, type_name, plain},
         {<<"attribute_names">>, attribute_names, plain}
+    ]));
+from_map(funding_approval_chain, Map) when is_map(Map) ->
+    beam4pm_types:new_funding_approval_chain(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"approval_chain_id">>, approval_chain_id, plain},
+        {<<"evidence_hash">>, evidence_hash, plain}
     ]));
 from_map(heuristic_arc, Map) when is_map(Map) ->
     beam4pm_types:new_heuristic_arc(take_known(Map, [

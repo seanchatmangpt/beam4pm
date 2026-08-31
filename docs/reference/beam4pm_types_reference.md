@@ -166,6 +166,16 @@
 | `type_name` | `string` | true | The event type name. |
 | `attribute_names` | `list_string` | false | Optional declared attribute names for events of this type (name-only; per-attribute value types are not yet modeled). |
 
+## funding_approval_chain
+
+> Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required funding approval chain input; omission is an executable typed refusal, never an inferred approval. |
+| `approval_chain_id` | `string` | true | Required funding approval chain input; omission is an executable typed refusal, never an inferred approval. |
+| `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## heuristic_arc
 
 > One dependency-scored candidate arc considered during heuristic-net discovery.

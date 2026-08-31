@@ -146,6 +146,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.FundingApprovalChain{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"approval_chain_id", r.approval_chain_id, :passthrough},
+      {"evidence_hash", r.evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.HeuristicArc{} = r) do
     to_known_map([
       {"source_activity", r.source_activity, :passthrough},
@@ -666,6 +674,18 @@ defmodule BeamPM.Codec do
         {"attribute_names", :attribute_names, :passthrough}
       ],
       &BeamPM.Types.EventType.new/1
+    )
+  end
+
+  def from_map(:funding_approval_chain, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"approval_chain_id", :approval_chain_id, :passthrough},
+        {"evidence_hash", :evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.FundingApprovalChain.new/1
     )
   end
 

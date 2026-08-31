@@ -426,6 +426,31 @@ event_type_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(event_type, Json),
     ?assertEqual(Rec, Rec2).
 
+funding_approval_chain_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_funding_approval_chain(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        approval_chain_id => <<"sample_approval_chain_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_approval_chain_id">>, maps:get(<<"approval_chain_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_hash">>, maps:get(<<"evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(funding_approval_chain,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+funding_approval_chain_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_funding_approval_chain(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        approval_chain_id => <<"sample_approval_chain_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(funding_approval_chain, Json),
+    ?assertEqual(Rec, Rec2).
+
 heuristic_arc_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_heuristic_arc(#{
         source_activity => <<"sample_source_activity">>,

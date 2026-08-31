@@ -356,6 +356,27 @@
       ]
 
     },
+    "funding_approval_chain": {
+      "type": "object",
+      "description": "Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required funding approval chain input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "approval_chain_id": {
+          "type": "string",
+          "description": "Required funding approval chain input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "approval_chain_id", "evidence_hash"
+      ]
+
+    },
     "heuristic_arc": {
       "type": "object",
       "description": "One dependency-scored candidate arc considered during heuristic-net discovery.",
