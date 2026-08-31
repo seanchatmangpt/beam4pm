@@ -3170,4 +3170,30 @@ b4pe:reproducible_build_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-026 — offline-bundle evidence.
+b4pe:offline_bundle_evidence_rt a bpm:RecordType ;
+    bpm:recordName "offline_bundle_evidence" ;
+    bpm:recordDoc "Executable private-deployment evidence binding an exact subject to a verified offline installation bundle." ;
+    bpm:hasField b4pe:offline_bundle_evidence_id_f,
+                 b4pe:offline_bundle_subject_sha_f,
+                 b4pe:offline_bundle_bundle_digest_f,
+                 b4pe:offline_bundle_observed_result_f .
+
+b4pe:offline_bundle_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this offline-bundle observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:offline_bundle_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:offline_bundle_bundle_digest_f a bpm:Field ;
+    bpm:fieldName "bundle_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the offline bundle admitted by the verifier." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:offline_bundle_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
