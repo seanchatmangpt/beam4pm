@@ -3466,3 +3466,17 @@ bpm:success_plan_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fie
 bpm:success_plan_success_target_f a bpm:Field ; bpm:fieldName "success_target" ; bpm:fieldType "string" ; bpm:fieldDoc "Next verified customer-success target." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:success_plan_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:success_plan_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-141 — executive business review
+# ---------------------------------------------------------------------------
+
+bpm:executive_business_review_rt a bpm:RecordType ;
+    bpm:recordName "executive_business_review" ; bpm:recordDoc "Observed executive business-review outcome derived from receipts." ;
+    bpm:hasField bpm:executive_business_review_executive_business_review_id_f , bpm:executive_business_review_account_id_f , bpm:executive_business_review_executive_outcome_f , bpm:executive_business_review_evidence_digest_f , bpm:executive_business_review_observed_at_f .
+
+bpm:executive_business_review_executive_business_review_id_f a bpm:Field ; bpm:fieldName "executive_business_review_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this executive business review observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:executive_business_review_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose executive business review state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:executive_business_review_executive_outcome_f a bpm:Field ; bpm:fieldName "executive_outcome" ; bpm:fieldType "string" ; bpm:fieldDoc "Decision recorded by the executive review." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:executive_business_review_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:executive_business_review_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
