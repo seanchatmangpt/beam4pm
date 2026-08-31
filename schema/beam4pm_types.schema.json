@@ -736,6 +736,27 @@
       ]
 
     },
+    "revenue_schedule_assumption": {
+      "type": "object",
+      "description": "Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "schedule_id": {
+          "type": "string",
+          "description": "Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "assumption_evidence_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "schedule_id", "assumption_evidence_hash"
+      ]
+
+    },
     "service_span": {
       "type": "object",
       "description": "One OpenTelemetry-style tracing span observed for a service call.",

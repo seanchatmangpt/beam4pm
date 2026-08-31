@@ -43,6 +43,7 @@ defmodule BeamPM.Roundtrip do
     :process_variant,
     :queue_snapshot,
     :resource_allocation,
+    :revenue_schedule_assumption,
     :service_span,
     :sojourn_time,
     :sync_time,
@@ -594,6 +595,22 @@ defmodule BeamPM.Roundtrip do
       resource_id: "sample_resource_id",
       activity: "sample_activity",
       event_id: "sample_event_id"
+    })
+  end
+
+  def sample(:revenue_schedule_assumption, :full) do
+    BeamPM.Types.RevenueScheduleAssumption.new(%{
+      opportunity_id: "sample_opportunity_id",
+      schedule_id: "sample_schedule_id",
+      assumption_evidence_hash: "sample_assumption_evidence_hash"
+    })
+  end
+
+  def sample(:revenue_schedule_assumption, :minimal) do
+    BeamPM.Types.RevenueScheduleAssumption.new(%{
+      opportunity_id: "sample_opportunity_id",
+      schedule_id: "sample_schedule_id",
+      assumption_evidence_hash: "sample_assumption_evidence_hash"
     })
   end
 

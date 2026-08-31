@@ -48,6 +48,7 @@ record_names() ->
         process_variant,
         queue_snapshot,
         resource_allocation,
+        revenue_schedule_assumption,
         service_span,
         sojourn_time,
         sync_time,
@@ -459,6 +460,18 @@ sample(resource_allocation, minimal) ->
         resource_id => <<"sample_resource_id">>,
         activity => <<"sample_activity">>,
         event_id => <<"sample_event_id">>
+    });
+sample(revenue_schedule_assumption, full) ->
+    beam4pm_types:new_revenue_schedule_assumption(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        schedule_id => <<"sample_schedule_id">>,
+        assumption_evidence_hash => <<"sample_assumption_evidence_hash">>
+    });
+sample(revenue_schedule_assumption, minimal) ->
+    beam4pm_types:new_revenue_schedule_assumption(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        schedule_id => <<"sample_schedule_id">>,
+        assumption_evidence_hash => <<"sample_assumption_evidence_hash">>
     });
 sample(service_span, full) ->
     beam4pm_types:new_service_span(#{

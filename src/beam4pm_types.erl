@@ -37,6 +37,7 @@
     new_process_variant/1,
     new_queue_snapshot/1,
     new_resource_allocation/1,
+    new_revenue_schedule_assumption/1,
     new_service_span/1,
     new_sojourn_time/1,
     new_sync_time/1,
@@ -79,6 +80,7 @@
     process_variant/0,
     queue_snapshot/0,
     resource_allocation/0,
+    revenue_schedule_assumption/0,
     service_span/0,
     sojourn_time/0,
     sync_time/0,
@@ -1025,6 +1027,35 @@ new_resource_allocation(Map) ->
         resource_id = maps:get(resource_id, Map, undefined),
         activity = maps:get(activity, Map, undefined),
         event_id = maps:get(event_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged.
+-record(revenue_schedule_assumption, {
+    opportunity_id :: binary(), %% opportunity_id: Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval.
+    schedule_id :: binary(), %% schedule_id: Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval.
+    assumption_evidence_hash :: binary() %% assumption_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type revenue_schedule_assumption() :: #revenue_schedule_assumption{}.
+
+-spec new_revenue_schedule_assumption(map()) -> {ok, revenue_schedule_assumption()} | {error, {missing_field, atom()}}.
+new_revenue_schedule_assumption(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(schedule_id, Map) of
+        false -> {error, {missing_field, schedule_id}};
+        true ->
+    case maps:is_key(assumption_evidence_hash, Map) of
+        false -> {error, {missing_field, assumption_evidence_hash}};
+        true ->
+    {ok, #revenue_schedule_assumption{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        schedule_id = maps:get(schedule_id, Map, undefined),
+        assumption_evidence_hash = maps:get(assumption_evidence_hash, Map, undefined)
     }}
     end
     end

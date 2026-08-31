@@ -423,6 +423,18 @@ pub type ResourceAllocation {
   )
 }
 
+/// Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged.
+pub type RevenueScheduleAssumption {
+  RevenueScheduleAssumption(
+    /// Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval.
+    schedule_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    assumption_evidence_hash: String,
+  )
+}
+
 /// One OpenTelemetry-style tracing span observed for a service call.
 pub type ServiceSpan {
   ServiceSpan(

@@ -44,6 +44,7 @@
     beam4pm_types:process_variant() |
     beam4pm_types:queue_snapshot() |
     beam4pm_types:resource_allocation() |
+    beam4pm_types:revenue_schedule_assumption() |
     beam4pm_types:service_span() |
     beam4pm_types:sojourn_time() |
     beam4pm_types:sync_time() |
@@ -260,6 +261,12 @@ to_map(R) when element(1, R) =:= resource_allocation ->
         {<<"resource_id">>, plain, element(2, R)},
         {<<"activity">>, plain, element(3, R)},
         {<<"event_id">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= revenue_schedule_assumption ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"schedule_id">>, plain, element(3, R)},
+        {<<"assumption_evidence_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= service_span ->
     pairs_to_map([
@@ -512,6 +519,12 @@ from_map(resource_allocation, Map) when is_map(Map) ->
         {<<"resource_id">>, resource_id, plain},
         {<<"activity">>, activity, plain},
         {<<"event_id">>, event_id, plain}
+    ]));
+from_map(revenue_schedule_assumption, Map) when is_map(Map) ->
+    beam4pm_types:new_revenue_schedule_assumption(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"schedule_id">>, schedule_id, plain},
+        {<<"assumption_evidence_hash">>, assumption_evidence_hash, plain}
     ]));
 from_map(service_span, Map) when is_map(Map) ->
     beam4pm_types:new_service_span(take_known(Map, [

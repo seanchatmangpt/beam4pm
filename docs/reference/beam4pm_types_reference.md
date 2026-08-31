@@ -345,6 +345,16 @@
 | `activity` | `string` | true | The activity the resource was assigned to. |
 | `event_id` | `string` | true | Identifier of the specific event occurrence. |
 
+## revenue_schedule_assumption
+
+> Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval. |
+| `schedule_id` | `string` | true | Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval. |
+| `assumption_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## service_span
 
 > One OpenTelemetry-style tracing span observed for a service call.

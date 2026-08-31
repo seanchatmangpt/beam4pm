@@ -912,6 +912,33 @@ defmodule BeamPM.Types.ResourceAllocation do
   end
 end
 
+defmodule BeamPM.Types.RevenueScheduleAssumption do
+  @moduledoc "Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged."
+
+  defstruct [:opportunity_id, :schedule_id, :assumption_evidence_hash]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    schedule_id: String.t() | nil,
+    assumption_evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :schedule_id) -> {:error, {:missing_field, :schedule_id}}
+      not Map.has_key?(attrs, :assumption_evidence_hash) -> {:error, {:missing_field, :assumption_evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          schedule_id: Map.get(attrs, :schedule_id),
+          assumption_evidence_hash: Map.get(attrs, :assumption_evidence_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ServiceSpan do
   @moduledoc "One OpenTelemetry-style tracing span observed for a service call."
 

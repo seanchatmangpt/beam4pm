@@ -289,6 +289,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.RevenueScheduleAssumption{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"schedule_id", r.schedule_id, :passthrough},
+      {"assumption_evidence_hash", r.assumption_evidence_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ServiceSpan{} = r) do
     to_known_map([
       {"span_id", r.span_id, :passthrough},
@@ -745,6 +753,18 @@ defmodule BeamPM.Codec do
         {"event_id", :event_id, :passthrough}
       ],
       &BeamPM.Types.ResourceAllocation.new/1
+    )
+  end
+
+  def from_map(:revenue_schedule_assumption, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"schedule_id", :schedule_id, :passthrough},
+        {"assumption_evidence_hash", :assumption_evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.RevenueScheduleAssumption.new/1
     )
   end
 

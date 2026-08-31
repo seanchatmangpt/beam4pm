@@ -1458,6 +1458,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "revenue_schedule_assumption to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      schedule_id: "sample_schedule_id",
+      assumption_evidence_hash: "sample_assumption_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RevenueScheduleAssumption.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["schedule_id"] == "sample_schedule_id"
+    assert m["assumption_evidence_hash"] == "sample_assumption_evidence_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:revenue_schedule_assumption, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:revenue_schedule_assumption, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "revenue_schedule_assumption encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      schedule_id: "sample_schedule_id",
+      assumption_evidence_hash: "sample_assumption_evidence_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RevenueScheduleAssumption.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:revenue_schedule_assumption, json)
+  end
+
+  test "revenue_schedule_assumption from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:revenue_schedule_assumption, %{})
+  end
+
+
   test "service_span to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       span_id: "sample_span_id",

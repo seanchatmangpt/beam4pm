@@ -2608,6 +2608,29 @@ b4p:opportunity_value_range_minimum_value_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:opportunity_value_range_maximum_value_f a bpm:Field ;
-    bpm:fieldName "maximum_value" ; bpm:fieldType "string" ;
+   bpm:fieldName "maximum_value" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-005 — revenue_schedule_assumption
+b4p:revenue_schedule_assumption_rt a bpm:RecordType ;
+    bpm:recordName "revenue_schedule_assumption" ;
+    bpm:recordDoc "Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged." ;
+    bpm:hasField b4p:revenue_schedule_assumption_opportunity_id_f ,
+                 b4p:revenue_schedule_assumption_schedule_id_f ,
+                 b4p:revenue_schedule_assumption_assumption_evidence_hash_f .
+
+b4p:revenue_schedule_assumption_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:revenue_schedule_assumption_schedule_id_f a bpm:Field ;
+    bpm:fieldName "schedule_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:revenue_schedule_assumption_assumption_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "assumption_evidence_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

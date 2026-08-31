@@ -515,6 +515,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "revenue_schedule_assumption new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      schedule_id: "x",
+      assumption_evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.RevenueScheduleAssumption.new(attrs)
+  end
+
+  test "revenue_schedule_assumption new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.RevenueScheduleAssumption.new(%{})
+  end
+
+
   test "service_span new/1 succeeds when all fields are present" do
     attrs = %{
       span_id: "x",

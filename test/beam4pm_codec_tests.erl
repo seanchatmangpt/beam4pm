@@ -873,6 +873,31 @@ resource_allocation_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(resource_allocation, Json),
     ?assertEqual(Rec, Rec2).
 
+revenue_schedule_assumption_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_revenue_schedule_assumption(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        schedule_id => <<"sample_schedule_id">>,
+        assumption_evidence_hash => <<"sample_assumption_evidence_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_schedule_id">>, maps:get(<<"schedule_id">>, Map)),
+    ?assertEqual(<<"sample_assumption_evidence_hash">>, maps:get(<<"assumption_evidence_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(revenue_schedule_assumption,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+revenue_schedule_assumption_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_revenue_schedule_assumption(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        schedule_id => <<"sample_schedule_id">>,
+        assumption_evidence_hash => <<"sample_assumption_evidence_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(revenue_schedule_assumption, Json),
+    ?assertEqual(Rec, Rec2).
+
 service_span_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_service_span(#{
         span_id => <<"sample_span_id">>,
