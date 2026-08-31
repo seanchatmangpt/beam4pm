@@ -488,6 +488,27 @@
       ]
 
     },
+    "opportunity_value_range": {
+      "type": "object",
+      "description": "Represents commercial value as an evidenced range rather than false point precision, enabling downside-aware qualification.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required opportunity value range input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "minimum_value": {
+          "type": "string",
+          "description": "Required opportunity value range input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "maximum_value": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "minimum_value", "maximum_value"
+      ]
+
+    },
     "path_schema": {
       "type": "object",
       "description": "One reusable, scored connection pattern between two OCEL types.",

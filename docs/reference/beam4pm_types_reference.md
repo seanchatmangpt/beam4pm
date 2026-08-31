@@ -227,6 +227,16 @@
 | `currency_code` | `string` | true | Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval. |
 | `fx_basis_id` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## opportunity_value_range
+
+> Represents commercial value as an evidenced range rather than false point precision, enabling downside-aware qualification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required opportunity value range input; omission is an executable typed refusal, never an inferred approval. |
+| `minimum_value` | `string` | true | Required opportunity value range input; omission is an executable typed refusal, never an inferred approval. |
+| `maximum_value` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## path_schema
 
 > One reusable, scored connection pattern between two OCEL types.

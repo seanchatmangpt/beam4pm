@@ -579,6 +579,31 @@ opportunity_currency_contract_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(opportunity_currency_contract, Json),
     ?assertEqual(Rec, Rec2).
 
+opportunity_value_range_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_opportunity_value_range(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        minimum_value => <<"sample_minimum_value">>,
+        maximum_value => <<"sample_maximum_value">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_minimum_value">>, maps:get(<<"minimum_value">>, Map)),
+    ?assertEqual(<<"sample_maximum_value">>, maps:get(<<"maximum_value">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(opportunity_value_range,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+opportunity_value_range_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_opportunity_value_range(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        minimum_value => <<"sample_minimum_value">>,
+        maximum_value => <<"sample_maximum_value">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(opportunity_value_range, Json),
+    ?assertEqual(Rec, Rec2).
+
 path_schema_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_path_schema(#{
         schema_id => <<"sample_schema_id">>,

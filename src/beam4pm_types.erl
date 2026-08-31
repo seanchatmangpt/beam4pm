@@ -25,6 +25,7 @@
     new_ocel_object/1,
     new_ocel_relationship/1,
     new_opportunity_currency_contract/1,
+    new_opportunity_value_range/1,
     new_path_schema/1,
     new_path_schema_query/1,
     new_petri_arc/1,
@@ -66,6 +67,7 @@
     ocel_object/0,
     ocel_relationship/0,
     opportunity_currency_contract/0,
+    opportunity_value_range/0,
     path_schema/0,
     path_schema_query/0,
     petri_arc/0,
@@ -703,6 +705,35 @@ new_opportunity_currency_contract(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         currency_code = maps:get(currency_code, Map, undefined),
         fx_basis_id = maps:get(fx_basis_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Represents commercial value as an evidenced range rather than false point precision, enabling downside-aware qualification.
+-record(opportunity_value_range, {
+    opportunity_id :: binary(), %% opportunity_id: Required opportunity value range input; omission is an executable typed refusal, never an inferred approval.
+    minimum_value :: binary(), %% minimum_value: Required opportunity value range input; omission is an executable typed refusal, never an inferred approval.
+    maximum_value :: binary() %% maximum_value: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type opportunity_value_range() :: #opportunity_value_range{}.
+
+-spec new_opportunity_value_range(map()) -> {ok, opportunity_value_range()} | {error, {missing_field, atom()}}.
+new_opportunity_value_range(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(minimum_value, Map) of
+        false -> {error, {missing_field, minimum_value}};
+        true ->
+    case maps:is_key(maximum_value, Map) of
+        false -> {error, {missing_field, maximum_value}};
+        true ->
+    {ok, #opportunity_value_range{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        minimum_value = maps:get(minimum_value, Map, undefined),
+        maximum_value = maps:get(maximum_value, Map, undefined)
     }}
     end
     end

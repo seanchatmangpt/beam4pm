@@ -283,6 +283,18 @@ pub type OpportunityCurrencyContract {
   )
 }
 
+/// Represents commercial value as an evidenced range rather than false point precision, enabling downside-aware qualification.
+pub type OpportunityValueRange {
+  OpportunityValueRange(
+    /// Required opportunity value range input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required opportunity value range input; omission is an executable typed refusal, never an inferred approval.
+    minimum_value: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    maximum_value: String,
+  )
+}
+
 /// One reusable, scored connection pattern between two OCEL types.
 pub type PathSchema {
   PathSchema(

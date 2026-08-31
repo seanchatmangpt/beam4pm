@@ -337,6 +337,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "opportunity_value_range new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      minimum_value: "x",
+      maximum_value: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.OpportunityValueRange.new(attrs)
+  end
+
+  test "opportunity_value_range new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.OpportunityValueRange.new(%{})
+  end
+
+
   test "path_schema new/1 succeeds when all fields are present" do
     attrs = %{
       schema_id: "x",

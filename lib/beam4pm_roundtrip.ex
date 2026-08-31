@@ -31,6 +31,7 @@ defmodule BeamPM.Roundtrip do
     :ocel_object,
     :ocel_relationship,
     :opportunity_currency_contract,
+    :opportunity_value_range,
     :path_schema,
     :path_schema_query,
     :petri_arc,
@@ -409,6 +410,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       currency_code: "sample_currency_code",
       fx_basis_id: "sample_fx_basis_id"
+    })
+  end
+
+  def sample(:opportunity_value_range, :full) do
+    BeamPM.Types.OpportunityValueRange.new(%{
+      opportunity_id: "sample_opportunity_id",
+      minimum_value: "sample_minimum_value",
+      maximum_value: "sample_maximum_value"
+    })
+  end
+
+  def sample(:opportunity_value_range, :minimal) do
+    BeamPM.Types.OpportunityValueRange.new(%{
+      opportunity_id: "sample_opportunity_id",
+      minimum_value: "sample_minimum_value",
+      maximum_value: "sample_maximum_value"
     })
   end
 

@@ -598,6 +598,33 @@ defmodule BeamPM.Types.OpportunityCurrencyContract do
   end
 end
 
+defmodule BeamPM.Types.OpportunityValueRange do
+  @moduledoc "Represents commercial value as an evidenced range rather than false point precision, enabling downside-aware qualification."
+
+  defstruct [:opportunity_id, :minimum_value, :maximum_value]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    minimum_value: String.t() | nil,
+    maximum_value: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :minimum_value) -> {:error, {:missing_field, :minimum_value}}
+      not Map.has_key?(attrs, :maximum_value) -> {:error, {:missing_field, :maximum_value}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          minimum_value: Map.get(attrs, :minimum_value),
+          maximum_value: Map.get(attrs, :maximum_value)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PathSchema do
   @moduledoc "One reusable, scored connection pattern between two OCEL types."
 

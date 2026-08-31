@@ -2585,6 +2585,29 @@ b4p:opportunity_currency_contract_currency_code_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:opportunity_currency_contract_fx_basis_id_f a bpm:Field ;
-    bpm:fieldName "fx_basis_id" ; bpm:fieldType "string" ;
+   bpm:fieldName "fx_basis_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-004 — opportunity_value_range
+b4p:opportunity_value_range_rt a bpm:RecordType ;
+    bpm:recordName "opportunity_value_range" ;
+    bpm:recordDoc "Represents commercial value as an evidenced range rather than false point precision, enabling downside-aware qualification." ;
+    bpm:hasField b4p:opportunity_value_range_opportunity_id_f ,
+                 b4p:opportunity_value_range_minimum_value_f ,
+                 b4p:opportunity_value_range_maximum_value_f .
+
+b4p:opportunity_value_range_opportunity_id_f a bpm:Field ;
+    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required opportunity value range input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:opportunity_value_range_minimum_value_f a bpm:Field ;
+    bpm:fieldName "minimum_value" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required opportunity value range input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:opportunity_value_range_maximum_value_f a bpm:Field ;
+    bpm:fieldName "maximum_value" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

@@ -234,6 +234,16 @@ opportunity_currency_contract_ok_test() ->
 opportunity_currency_contract_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_opportunity_currency_contract(#{})).
 
+opportunity_value_range_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_opportunity_value_range(#{
+        opportunity_id => <<"x">>,
+        minimum_value => <<"x">>,
+        maximum_value => <<"x">>
+    })).
+
+opportunity_value_range_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_opportunity_value_range(#{})).
+
 path_schema_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_path_schema(#{
         schema_id => <<"x">>,

@@ -36,6 +36,7 @@ record_names() ->
         ocel_object,
         ocel_relationship,
         opportunity_currency_contract,
+        opportunity_value_range,
         path_schema,
         path_schema_query,
         petri_arc,
@@ -322,6 +323,18 @@ sample(opportunity_currency_contract, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         currency_code => <<"sample_currency_code">>,
         fx_basis_id => <<"sample_fx_basis_id">>
+    });
+sample(opportunity_value_range, full) ->
+    beam4pm_types:new_opportunity_value_range(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        minimum_value => <<"sample_minimum_value">>,
+        maximum_value => <<"sample_maximum_value">>
+    });
+sample(opportunity_value_range, minimal) ->
+    beam4pm_types:new_opportunity_value_range(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        minimum_value => <<"sample_minimum_value">>,
+        maximum_value => <<"sample_maximum_value">>
     });
 sample(path_schema, full) ->
     beam4pm_types:new_path_schema(#{
