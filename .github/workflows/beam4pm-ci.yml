@@ -115,8 +115,6 @@ jobs:
         with:
           retention-days: 7
           if-no-files-found: error
-          path: |
-  lib/beam4pm_ash.ex
-  test/beam4pm_ash_test.exs
+          path: "**/beam4pm_ash*.ex*"
           name: beam4pm-ash-determinism-${{ github.sha }}
         
