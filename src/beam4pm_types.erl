@@ -3,6 +3,8 @@
 -module(beam4pm_types).
 
 -export([
+    new_account_master_match/1,
+    new_account_parent_scope/1,
     new_action_pin_evidence/1,
     new_alignment_move/1,
     new_approval_separation_evidence/1,
@@ -12,15 +14,26 @@
     new_audit_chain_evidence/1,
     new_availability_slo_evidence/1,
     new_backup_restore_evidence/1,
+    new_beneficial_owner_evidence/1,
     new_billing_reconciliation/1,
+    new_booking_readiness/1,
+    new_budget_period_alignment/1,
     new_business_continuity_evidence/1,
     new_canary_evidence/1,
     new_case_stats/1,
     new_change_control_evidence/1,
+    new_change_order_authority/1,
     new_commercial_artifact_crown_evidence/1,
+    new_commercial_exception/1,
+    new_committed_spend_admission/1,
     new_conformance_result/1,
+    new_contracting_entity_identity/1,
+    new_credit_risk_admission/1,
     new_customer_managed_key_evidence/1,
     new_data_egress_evidence/1,
+    new_data_migration_scope_admission/1,
+    new_data_processing_addendum_state/1,
+    new_deal_desk_packet/1,
     new_deletion_proof_evidence/1,
     new_dependency_inventory_evidence/1,
     new_dfg_edge/1,
@@ -31,12 +44,23 @@
     new_event_log/1,
     new_event_type/1,
     new_evidence_freshness_evidence/1,
+    new_exception_authority/1,
+    new_funding_approval_chain/1,
     new_heuristic_arc/1,
+    new_implementation_fee_admission/1,
     new_incident_response_evidence/1,
+    new_indemnity_scope_admission/1,
+    new_insurance_requirement/1,
+    new_integration_scope_admission/1,
+    new_invoice_entity_identity/1,
     new_k8s_object_ref/1,
     new_least_authority_evidence/1,
+    new_legal_blocker/1,
+    new_liability_cap_admission/1,
     new_license_evidence/1,
     new_log_trace/1,
+    new_master_service_agreement_state/1,
+    new_minimum_term_admission/1,
     new_multiarch_evidence/1,
     new_mutable_identity_refusal_evidence/1,
     new_object_attribute_change/1,
@@ -48,8 +72,12 @@
     new_ocel_relationship/1,
     new_oci_manifest_evidence/1,
     new_offline_bundle_evidence/1,
+    new_opportunity_currency_contract/1,
+    new_opportunity_value_range/1,
+    new_order_form_admission/1,
     new_path_schema/1,
     new_path_schema_query/1,
+    new_payment_terms_admission/1,
     new_performance_slo_evidence/1,
     new_petri_arc/1,
     new_petri_place/1,
@@ -57,40 +85,64 @@
     new_planning_action/1,
     new_planning_state/1,
     new_policy_decision/1,
+    new_pricing_basis_contract/1,
     new_privacy_classification_evidence/1,
     new_private_registry_evidence/1,
     new_process_variant/1,
     new_procurement_acceptance_evidence/1,
+    new_procurement_blocker/1,
+    new_procurement_channel_selection/1,
+    new_proof_of_value_budget/1,
+    new_proof_of_value_exit_gate/1,
     new_provenance_binding_evidence/1,
+    new_purchase_order_requirement/1,
+    new_purchasing_entity_identity/1,
     new_queue_snapshot/1,
     new_receipt_replay_evidence/1,
     new_remediation_sla_evidence/1,
+    new_renewal_term_admission/1,
     new_reproducible_build_evidence/1,
     new_residency_evidence/1,
     new_resource_allocation/1,
     new_retention_policy_evidence/1,
+    new_revenue_contract_admission/1,
+    new_revenue_schedule_assumption/1,
     new_rfp_response_evidence/1,
     new_rollback_evidence/1,
+    new_sanctions_screening_result/1,
     new_sbom_inventory_evidence/1,
     new_secret_boundary_evidence/1,
+    new_security_addendum_state/1,
+    new_security_blocker/1,
+    new_service_credit_admission/1,
     new_service_span/1,
     new_signature_evidence/1,
+    new_sla_offer_admission/1,
     new_sojourn_time/1,
     new_stale_subject_refusal_evidence/1,
     new_support_escalation_evidence/1,
     new_support_sla_evidence/1,
+    new_support_tier_admission/1,
     new_support_window_evidence/1,
     new_sync_time/1,
+    new_tax_jurisdiction_evidence/1,
+    new_technical_blocker/1,
+    new_termination_right_admission/1,
+    new_training_scope_admission/1,
     new_type_edge/1,
     new_unsupported_capability_evidence/1,
     new_upgrade_evidence/1,
     new_usage_event/1,
+    new_vendor_registration_state/1,
     new_vendor_risk_evidence/1,
     new_version_lifecycle_evidence/1,
+    new_volume_tier_admission/1,
     new_vulnerability_scan_evidence/1
 ]).
 
 -export_type([
+    account_master_match/0,
+    account_parent_scope/0,
     action_pin_evidence/0,
     alignment_move/0,
     approval_separation_evidence/0,
@@ -100,15 +152,26 @@
     audit_chain_evidence/0,
     availability_slo_evidence/0,
     backup_restore_evidence/0,
+    beneficial_owner_evidence/0,
     billing_reconciliation/0,
+    booking_readiness/0,
+    budget_period_alignment/0,
     business_continuity_evidence/0,
     canary_evidence/0,
     case_stats/0,
     change_control_evidence/0,
+    change_order_authority/0,
     commercial_artifact_crown_evidence/0,
+    commercial_exception/0,
+    committed_spend_admission/0,
     conformance_result/0,
+    contracting_entity_identity/0,
+    credit_risk_admission/0,
     customer_managed_key_evidence/0,
     data_egress_evidence/0,
+    data_migration_scope_admission/0,
+    data_processing_addendum_state/0,
+    deal_desk_packet/0,
     deletion_proof_evidence/0,
     dependency_inventory_evidence/0,
     dfg_edge/0,
@@ -119,12 +182,23 @@
     event_log/0,
     event_type/0,
     evidence_freshness_evidence/0,
+    exception_authority/0,
+    funding_approval_chain/0,
     heuristic_arc/0,
+    implementation_fee_admission/0,
     incident_response_evidence/0,
+    indemnity_scope_admission/0,
+    insurance_requirement/0,
+    integration_scope_admission/0,
+    invoice_entity_identity/0,
     k8s_object_ref/0,
     least_authority_evidence/0,
+    legal_blocker/0,
+    liability_cap_admission/0,
     license_evidence/0,
     log_trace/0,
+    master_service_agreement_state/0,
+    minimum_term_admission/0,
     multiarch_evidence/0,
     mutable_identity_refusal_evidence/0,
     object_attribute_change/0,
@@ -136,8 +210,12 @@
     ocel_relationship/0,
     oci_manifest_evidence/0,
     offline_bundle_evidence/0,
+    opportunity_currency_contract/0,
+    opportunity_value_range/0,
+    order_form_admission/0,
     path_schema/0,
     path_schema_query/0,
+    payment_terms_admission/0,
     performance_slo_evidence/0,
     petri_arc/0,
     petri_place/0,
@@ -145,38 +223,118 @@
     planning_action/0,
     planning_state/0,
     policy_decision/0,
+    pricing_basis_contract/0,
     privacy_classification_evidence/0,
     private_registry_evidence/0,
     process_variant/0,
     procurement_acceptance_evidence/0,
+    procurement_blocker/0,
+    procurement_channel_selection/0,
+    proof_of_value_budget/0,
+    proof_of_value_exit_gate/0,
     provenance_binding_evidence/0,
+    purchase_order_requirement/0,
+    purchasing_entity_identity/0,
     queue_snapshot/0,
     receipt_replay_evidence/0,
     remediation_sla_evidence/0,
+    renewal_term_admission/0,
     reproducible_build_evidence/0,
     residency_evidence/0,
     resource_allocation/0,
     retention_policy_evidence/0,
+    revenue_contract_admission/0,
+    revenue_schedule_assumption/0,
     rfp_response_evidence/0,
     rollback_evidence/0,
+    sanctions_screening_result/0,
     sbom_inventory_evidence/0,
     secret_boundary_evidence/0,
+    security_addendum_state/0,
+    security_blocker/0,
+    service_credit_admission/0,
     service_span/0,
     signature_evidence/0,
+    sla_offer_admission/0,
     sojourn_time/0,
     stale_subject_refusal_evidence/0,
     support_escalation_evidence/0,
     support_sla_evidence/0,
+    support_tier_admission/0,
     support_window_evidence/0,
     sync_time/0,
+    tax_jurisdiction_evidence/0,
+    technical_blocker/0,
+    termination_right_admission/0,
+    training_scope_admission/0,
     type_edge/0,
     unsupported_capability_evidence/0,
     upgrade_evidence/0,
     usage_event/0,
+    vendor_registration_state/0,
     vendor_risk_evidence/0,
     version_lifecycle_evidence/0,
+    volume_tier_admission/0,
     vulnerability_scan_evidence/0
 ]).
+
+%% Admits a source account only when it is bound to one canonical Fortune-5 account by immutable matching evidence; prevents pipeline value from being booked against an ambiguous customer identity.
+-record(account_master_match, {
+    source_account_id :: binary(), %% source_account_id: Required commercial-admission input for account master match. Missing input is a typed refusal.
+    canonical_account_id :: binary(), %% canonical_account_id: Required commercial-admission input for account master match. Missing input is a typed refusal.
+    match_evidence_hash :: binary() %% match_evidence_hash: Immutable evidence identity that makes this admission independently replayable.
+}).
+
+-type account_master_match() :: #account_master_match{}.
+
+-spec new_account_master_match(map()) -> {ok, account_master_match()} | {error, {missing_field, atom()}}.
+new_account_master_match(Map) ->
+    case maps:is_key(source_account_id, Map) of
+        false -> {error, {missing_field, source_account_id}};
+        true ->
+    case maps:is_key(canonical_account_id, Map) of
+        false -> {error, {missing_field, canonical_account_id}};
+        true ->
+    case maps:is_key(match_evidence_hash, Map) of
+        false -> {error, {missing_field, match_evidence_hash}};
+        true ->
+    {ok, #account_master_match{
+        source_account_id = maps:get(source_account_id, Map, undefined),
+        canonical_account_id = maps:get(canonical_account_id, Map, undefined),
+        match_evidence_hash = maps:get(match_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies an account only when its buying scope is bound to the correct global parent, preventing subsidiary demand from being double-counted as independent enterprise pipeline.
+-record(account_parent_scope, {
+    account_id :: binary(), %% account_id: Required account parent scope input; omission is an executable typed refusal, never an inferred approval.
+    parent_account_id :: binary(), %% parent_account_id: Required account parent scope input; omission is an executable typed refusal, never an inferred approval.
+    scope_evidence_hash :: binary() %% scope_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type account_parent_scope() :: #account_parent_scope{}.
+
+-spec new_account_parent_scope(map()) -> {ok, account_parent_scope()} | {error, {missing_field, atom()}}.
+new_account_parent_scope(Map) ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(parent_account_id, Map) of
+        false -> {error, {missing_field, parent_account_id}};
+        true ->
+    case maps:is_key(scope_evidence_hash, Map) of
+        false -> {error, {missing_field, scope_evidence_hash}};
+        true ->
+    {ok, #account_parent_scope{
+        account_id = maps:get(account_id, Map, undefined),
+        parent_account_id = maps:get(parent_account_id, Map, undefined),
+        scope_evidence_hash = maps:get(scope_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
 
 %% Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.
 -record(action_pin_evidence, {
@@ -481,6 +639,35 @@ new_backup_restore_evidence(Map) ->
     end
     end.
 
+%% Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence.
+-record(beneficial_owner_evidence, {
+    account_id :: binary(), %% account_id: Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval.
+    owner_id :: binary(), %% owner_id: Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type beneficial_owner_evidence() :: #beneficial_owner_evidence{}.
+
+-spec new_beneficial_owner_evidence(map()) -> {ok, beneficial_owner_evidence()} | {error, {missing_field, atom()}}.
+new_beneficial_owner_evidence(Map) ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(owner_id, Map) of
+        false -> {error, {missing_field, owner_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #beneficial_owner_evidence{
+        account_id = maps:get(account_id, Map, undefined),
+        owner_id = maps:get(owner_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream.
 -record(billing_reconciliation, {
     entitlement_id :: binary(), %% entitlement_id: The entitlement this total is billed against. First component of the reconciliation partition key.
@@ -524,6 +711,64 @@ new_billing_reconciliation(Map) ->
     end
     end
     end
+    end
+    end
+    end.
+
+%% Produces an explicit booking-readiness decision after commercial, legal, security, and procurement evidence converge.
+-record(booking_readiness, {
+    opportunity_id :: binary(), %% opportunity_id: Required booking readiness input; omission is an executable typed refusal, never an inferred approval.
+    readiness_id :: binary(), %% readiness_id: Required booking readiness input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type booking_readiness() :: #booking_readiness{}.
+
+-spec new_booking_readiness(map()) -> {ok, booking_readiness()} | {error, {missing_field, atom()}}.
+new_booking_readiness(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(readiness_id, Map) of
+        false -> {error, {missing_field, readiness_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #booking_readiness{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        readiness_id = maps:get(readiness_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.
+-record(budget_period_alignment, {
+    opportunity_id :: binary(), %% opportunity_id: Required budget period alignment input; omission is an executable typed refusal, never an inferred approval.
+    budget_period :: binary(), %% budget_period: Required budget period alignment input; omission is an executable typed refusal, never an inferred approval.
+    alignment_result :: binary() %% alignment_result: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type budget_period_alignment() :: #budget_period_alignment{}.
+
+-spec new_budget_period_alignment(map()) -> {ok, budget_period_alignment()} | {error, {missing_field, atom()}}.
+new_budget_period_alignment(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(budget_period, Map) of
+        false -> {error, {missing_field, budget_period}};
+        true ->
+    case maps:is_key(alignment_result, Map) of
+        false -> {error, {missing_field, alignment_result}};
+        true ->
+    {ok, #budget_period_alignment{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        budget_period = maps:get(budget_period, Map, undefined),
+        alignment_result = maps:get(alignment_result, Map, undefined)
+    }}
     end
     end
     end.
@@ -658,6 +903,35 @@ new_change_control_evidence(Map) ->
     end
     end.
 
+%% Requires evidence of who can authorize paid scope changes, protecting expansion revenue and delivery margin.
+-record(change_order_authority, {
+    opportunity_id :: binary(), %% opportunity_id: Required change order authority input; omission is an executable typed refusal, never an inferred approval.
+    authority_id :: binary(), %% authority_id: Required change order authority input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type change_order_authority() :: #change_order_authority{}.
+
+-spec new_change_order_authority(map()) -> {ok, change_order_authority()} | {error, {missing_field, atom()}}.
+new_change_order_authority(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(authority_id, Map) of
+        false -> {error, {missing_field, authority_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #change_order_authority{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        authority_id = maps:get(authority_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable commercial-release evidence binding the exact paid artifact to the cumulative trust evidence crown.
 -record(commercial_artifact_crown_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this commercial-artifact crown observation.
@@ -693,6 +967,64 @@ new_commercial_artifact_crown_evidence(Map) ->
     end
     end.
 
+%% Represents a nonstandard commercial request as an identified exception with explicit state.
+-record(commercial_exception, {
+    opportunity_id :: binary(), %% opportunity_id: Required commercial exception input; omission is an executable typed refusal, never an inferred approval.
+    exception_id :: binary(), %% exception_id: Required commercial exception input; omission is an executable typed refusal, never an inferred approval.
+    exception_state :: binary() %% exception_state: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type commercial_exception() :: #commercial_exception{}.
+
+-spec new_commercial_exception(map()) -> {ok, commercial_exception()} | {error, {missing_field, atom()}}.
+new_commercial_exception(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(exception_id, Map) of
+        false -> {error, {missing_field, exception_id}};
+        true ->
+    case maps:is_key(exception_state, Map) of
+        false -> {error, {missing_field, exception_state}};
+        true ->
+    {ok, #commercial_exception{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        exception_id = maps:get(exception_id, Map, undefined),
+        exception_state = maps:get(exception_state, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies a committed-spend promise as a concrete commercial decision rather than aspirational usage.
+-record(committed_spend_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required committed spend admission input; omission is an executable typed refusal, never an inferred approval.
+    commitment_id :: binary(), %% commitment_id: Required committed spend admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type committed_spend_admission() :: #committed_spend_admission{}.
+
+-spec new_committed_spend_admission(map()) -> {ok, committed_spend_admission()} | {error, {missing_field, atom()}}.
+new_committed_spend_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(commitment_id, Map) of
+        false -> {error, {missing_field, commitment_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #committed_spend_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        commitment_id = maps:get(commitment_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Conformance-checking metrics computed for one trace against a model.
 -record(conformance_result, {
     trace_id :: binary(), %% trace_id: Identifier of the trace this result was computed for.
@@ -715,6 +1047,64 @@ new_conformance_result(Map) ->
         fitness = maps:get(fitness, Map, undefined),
         precision = maps:get(precision, Map, undefined)
     }}
+    end
+    end.
+
+%% Requires the counterparty that will sign the agreement, separating contractual authority from account interest.
+-record(contracting_entity_identity, {
+    opportunity_id :: binary(), %% opportunity_id: Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval.
+    contracting_entity_id :: binary(), %% contracting_entity_id: Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval.
+    identity_evidence_hash :: binary() %% identity_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type contracting_entity_identity() :: #contracting_entity_identity{}.
+
+-spec new_contracting_entity_identity(map()) -> {ok, contracting_entity_identity()} | {error, {missing_field, atom()}}.
+new_contracting_entity_identity(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(contracting_entity_id, Map) of
+        false -> {error, {missing_field, contracting_entity_id}};
+        true ->
+    case maps:is_key(identity_evidence_hash, Map) of
+        false -> {error, {missing_field, identity_evidence_hash}};
+        true ->
+    {ok, #contracting_entity_identity{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        contracting_entity_id = maps:get(contracting_entity_id, Map, undefined),
+        identity_evidence_hash = maps:get(identity_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure.
+-record(credit_risk_admission, {
+    account_id :: binary(), %% account_id: Required credit risk admission input; omission is an executable typed refusal, never an inferred approval.
+    risk_band :: binary(), %% risk_band: Required credit risk admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type credit_risk_admission() :: #credit_risk_admission{}.
+
+-spec new_credit_risk_admission(map()) -> {ok, credit_risk_admission()} | {error, {missing_field, atom()}}.
+new_credit_risk_admission(Map) ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(risk_band, Map) of
+        false -> {error, {missing_field, risk_band}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #credit_risk_admission{
+        account_id = maps:get(account_id, Map, undefined),
+        risk_band = maps:get(risk_band, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
     end
     end.
 
@@ -784,6 +1174,93 @@ new_data_egress_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Admits a bounded data-migration scope before margin and timeline promises are accepted.
+-record(data_migration_scope_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    migration_scope_id :: binary(), %% migration_scope_id: Required data migration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type data_migration_scope_admission() :: #data_migration_scope_admission{}.
+
+-spec new_data_migration_scope_admission(map()) -> {ok, data_migration_scope_admission()} | {error, {missing_field, atom()}}.
+new_data_migration_scope_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(migration_scope_id, Map) of
+        false -> {error, {missing_field, migration_scope_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #data_migration_scope_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        migration_scope_id = maps:get(migration_scope_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Requires an identified data-processing addendum state for workloads involving regulated enterprise data.
+-record(data_processing_addendum_state, {
+    opportunity_id :: binary(), %% opportunity_id: Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_id :: binary(), %% addendum_id: Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_state :: binary() %% addendum_state: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type data_processing_addendum_state() :: #data_processing_addendum_state{}.
+
+-spec new_data_processing_addendum_state(map()) -> {ok, data_processing_addendum_state()} | {error, {missing_field, atom()}}.
+new_data_processing_addendum_state(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(addendum_id, Map) of
+        false -> {error, {missing_field, addendum_id}};
+        true ->
+    case maps:is_key(addendum_state, Map) of
+        false -> {error, {missing_field, addendum_state}};
+        true ->
+    {ok, #data_processing_addendum_state{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        addendum_id = maps:get(addendum_id, Map, undefined),
+        addendum_state = maps:get(addendum_state, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds cross-functional deal-desk approval evidence into one replayable packet identity.
+-record(deal_desk_packet, {
+    opportunity_id :: binary(), %% opportunity_id: Required deal desk packet input; omission is an executable typed refusal, never an inferred approval.
+    packet_id :: binary(), %% packet_id: Required deal desk packet input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type deal_desk_packet() :: #deal_desk_packet{}.
+
+-spec new_deal_desk_packet(map()) -> {ok, deal_desk_packet()} | {error, {missing_field, atom()}}.
+new_deal_desk_packet(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(packet_id, Map) of
+        false -> {error, {missing_field, packet_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #deal_desk_packet{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        packet_id = maps:get(packet_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -1108,6 +1585,64 @@ new_evidence_freshness_evidence(Map) ->
     end
     end.
 
+%% Admits a commercial exception only when the exact authority and decision are present.
+-record(exception_authority, {
+    exception_id :: binary(), %% exception_id: Required exception authority input; omission is an executable typed refusal, never an inferred approval.
+    authority_id :: binary(), %% authority_id: Required exception authority input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type exception_authority() :: #exception_authority{}.
+
+-spec new_exception_authority(map()) -> {ok, exception_authority()} | {error, {missing_field, atom()}}.
+new_exception_authority(Map) ->
+    case maps:is_key(exception_id, Map) of
+        false -> {error, {missing_field, exception_id}};
+        true ->
+    case maps:is_key(authority_id, Map) of
+        false -> {error, {missing_field, authority_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #exception_authority{
+        exception_id = maps:get(exception_id, Map, undefined),
+        authority_id = maps:get(authority_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
+-record(funding_approval_chain, {
+    opportunity_id :: binary(), %% opportunity_id: Required funding approval chain input; omission is an executable typed refusal, never an inferred approval.
+    approval_chain_id :: binary(), %% approval_chain_id: Required funding approval chain input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type funding_approval_chain() :: #funding_approval_chain{}.
+
+-spec new_funding_approval_chain(map()) -> {ok, funding_approval_chain()} | {error, {missing_field, atom()}}.
+new_funding_approval_chain(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(approval_chain_id, Map) of
+        false -> {error, {missing_field, approval_chain_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #funding_approval_chain{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        approval_chain_id = maps:get(approval_chain_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% One dependency-scored candidate arc considered during heuristic-net discovery.
 -record(heuristic_arc, {
     source_activity :: binary(), %% source_activity: The candidate arc source activity.
@@ -1132,6 +1667,35 @@ new_heuristic_arc(Map) ->
         source_activity = maps:get(source_activity, Map, undefined),
         target_activity = maps:get(target_activity, Map, undefined),
         dependency_measure = maps:get(dependency_measure, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies implementation fees separately from recurring subscription value.
+-record(implementation_fee_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval.
+    fee_id :: binary(), %% fee_id: Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type implementation_fee_admission() :: #implementation_fee_admission{}.
+
+-spec new_implementation_fee_admission(map()) -> {ok, implementation_fee_admission()} | {error, {missing_field, atom()}}.
+new_implementation_fee_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(fee_id, Map) of
+        false -> {error, {missing_field, fee_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #implementation_fee_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        fee_id = maps:get(fee_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end
@@ -1168,6 +1732,122 @@ new_incident_response_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Admits an identified indemnity scope so exceptional legal exposure cannot hide inside a qualified deal.
+-record(indemnity_scope_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval.
+    indemnity_scope_id :: binary(), %% indemnity_scope_id: Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type indemnity_scope_admission() :: #indemnity_scope_admission{}.
+
+-spec new_indemnity_scope_admission(map()) -> {ok, indemnity_scope_admission()} | {error, {missing_field, atom()}}.
+new_indemnity_scope_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(indemnity_scope_id, Map) of
+        false -> {error, {missing_field, indemnity_scope_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #indemnity_scope_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        indemnity_scope_id = maps:get(indemnity_scope_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits contractual insurance coverage only with an exact coverage identity and supporting evidence.
+-record(insurance_requirement, {
+    opportunity_id :: binary(), %% opportunity_id: Required insurance requirement input; omission is an executable typed refusal, never an inferred approval.
+    coverage_id :: binary(), %% coverage_id: Required insurance requirement input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type insurance_requirement() :: #insurance_requirement{}.
+
+-spec new_insurance_requirement(map()) -> {ok, insurance_requirement()} | {error, {missing_field, atom()}}.
+new_insurance_requirement(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(coverage_id, Map) of
+        false -> {error, {missing_field, coverage_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #insurance_requirement{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        coverage_id = maps:get(coverage_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits a bounded enterprise integration scope before solution fit becomes a commercial commitment.
+-record(integration_scope_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required integration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    integration_scope_id :: binary(), %% integration_scope_id: Required integration scope admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type integration_scope_admission() :: #integration_scope_admission{}.
+
+-spec new_integration_scope_admission(map()) -> {ok, integration_scope_admission()} | {error, {missing_field, atom()}}.
+new_integration_scope_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(integration_scope_id, Map) of
+        false -> {error, {missing_field, integration_scope_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #integration_scope_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        integration_scope_id = maps:get(integration_scope_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue.
+-record(invoice_entity_identity, {
+    opportunity_id :: binary(), %% opportunity_id: Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval.
+    invoice_entity_id :: binary(), %% invoice_entity_id: Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval.
+    identity_evidence_hash :: binary() %% identity_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type invoice_entity_identity() :: #invoice_entity_identity{}.
+
+-spec new_invoice_entity_identity(map()) -> {ok, invoice_entity_identity()} | {error, {missing_field, atom()}}.
+new_invoice_entity_identity(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(invoice_entity_id, Map) of
+        false -> {error, {missing_field, invoice_entity_id}};
+        true ->
+    case maps:is_key(identity_evidence_hash, Map) of
+        false -> {error, {missing_field, identity_evidence_hash}};
+        true ->
+    {ok, #invoice_entity_identity{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        invoice_entity_id = maps:get(invoice_entity_id, Map, undefined),
+        identity_evidence_hash = maps:get(identity_evidence_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -1232,6 +1912,64 @@ new_least_authority_evidence(Map) ->
     end
     end.
 
+%% Encodes an unresolved legal blocker as a typed refusal with an actionable identity.
+-record(legal_blocker, {
+    opportunity_id :: binary(), %% opportunity_id: Required legal blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id :: binary(), %% blocker_id: Required legal blocker input; omission is an executable typed refusal, never an inferred approval.
+    refusal_code :: binary() %% refusal_code: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type legal_blocker() :: #legal_blocker{}.
+
+-spec new_legal_blocker(map()) -> {ok, legal_blocker()} | {error, {missing_field, atom()}}.
+new_legal_blocker(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(blocker_id, Map) of
+        false -> {error, {missing_field, blocker_id}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #legal_blocker{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        blocker_id = maps:get(blocker_id, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits a specific liability-cap position before commercial approval.
+-record(liability_cap_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required liability cap admission input; omission is an executable typed refusal, never an inferred approval.
+    liability_cap_id :: binary(), %% liability_cap_id: Required liability cap admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type liability_cap_admission() :: #liability_cap_admission{}.
+
+-spec new_liability_cap_admission(map()) -> {ok, liability_cap_admission()} | {error, {missing_field, atom()}}.
+new_liability_cap_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(liability_cap_id, Map) of
+        false -> {error, {missing_field, liability_cap_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #liability_cap_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        liability_cap_id = maps:get(liability_cap_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable licensing evidence binding an exact subject to its machine-verified SPDX expression.
 -record(license_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this license-expression observation.
@@ -1287,6 +2025,64 @@ new_log_trace(Map) ->
         case_id = maps:get(case_id, Map, undefined),
         activity_sequence = maps:get(activity_sequence, Map, undefined)
     }}
+    end
+    end.
+
+%% Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
+-record(master_service_agreement_state, {
+    opportunity_id :: binary(), %% opportunity_id: Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
+    agreement_id :: binary(), %% agreement_id: Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
+    agreement_state :: binary() %% agreement_state: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type master_service_agreement_state() :: #master_service_agreement_state{}.
+
+-spec new_master_service_agreement_state(map()) -> {ok, master_service_agreement_state()} | {error, {missing_field, atom()}}.
+new_master_service_agreement_state(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(agreement_id, Map) of
+        false -> {error, {missing_field, agreement_id}};
+        true ->
+    case maps:is_key(agreement_state, Map) of
+        false -> {error, {missing_field, agreement_state}};
+        true ->
+    {ok, #master_service_agreement_state{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        agreement_id = maps:get(agreement_id, Map, undefined),
+        agreement_state = maps:get(agreement_state, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits the minimum paid term as a decision input needed for durable contract value.
+-record(minimum_term_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required minimum term admission input; omission is an executable typed refusal, never an inferred approval.
+    minimum_term :: binary(), %% minimum_term: Required minimum term admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type minimum_term_admission() :: #minimum_term_admission{}.
+
+-spec new_minimum_term_admission(map()) -> {ok, minimum_term_admission()} | {error, {missing_field, atom()}}.
+new_minimum_term_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(minimum_term, Map) of
+        false -> {error, {missing_field, minimum_term}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #minimum_term_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        minimum_term = maps:get(minimum_term, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
     end
     end.
 
@@ -1625,6 +2421,93 @@ new_offline_bundle_evidence(Map) ->
     end
     end.
 
+%% Admits opportunity value only with an explicit deal currency and immutable foreign-exchange basis, making forecast value comparable and replayable.
+-record(opportunity_currency_contract, {
+    opportunity_id :: binary(), %% opportunity_id: Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval.
+    currency_code :: binary(), %% currency_code: Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval.
+    fx_basis_id :: binary() %% fx_basis_id: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type opportunity_currency_contract() :: #opportunity_currency_contract{}.
+
+-spec new_opportunity_currency_contract(map()) -> {ok, opportunity_currency_contract()} | {error, {missing_field, atom()}}.
+new_opportunity_currency_contract(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(currency_code, Map) of
+        false -> {error, {missing_field, currency_code}};
+        true ->
+    case maps:is_key(fx_basis_id, Map) of
+        false -> {error, {missing_field, fx_basis_id}};
+        true ->
+    {ok, #opportunity_currency_contract{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        currency_code = maps:get(currency_code, Map, undefined),
+        fx_basis_id = maps:get(fx_basis_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Represents commercial value as an evidenced range rather than false point precision, enabling downside-aware qualification.
+-record(opportunity_value_range, {
+    opportunity_id :: binary(), %% opportunity_id: Required opportunity value range input; omission is an executable typed refusal, never an inferred approval.
+    minimum_value :: binary(), %% minimum_value: Required opportunity value range input; omission is an executable typed refusal, never an inferred approval.
+    maximum_value :: binary() %% maximum_value: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type opportunity_value_range() :: #opportunity_value_range{}.
+
+-spec new_opportunity_value_range(map()) -> {ok, opportunity_value_range()} | {error, {missing_field, atom()}}.
+new_opportunity_value_range(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(minimum_value, Map) of
+        false -> {error, {missing_field, minimum_value}};
+        true ->
+    case maps:is_key(maximum_value, Map) of
+        false -> {error, {missing_field, maximum_value}};
+        true ->
+    {ok, #opportunity_value_range{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        minimum_value = maps:get(minimum_value, Map, undefined),
+        maximum_value = maps:get(maximum_value, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits the exact order form that expresses the buyer's priced scope and authorized terms.
+-record(order_form_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required order form admission input; omission is an executable typed refusal, never an inferred approval.
+    order_form_id :: binary(), %% order_form_id: Required order form admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type order_form_admission() :: #order_form_admission{}.
+
+-spec new_order_form_admission(map()) -> {ok, order_form_admission()} | {error, {missing_field, atom()}}.
+new_order_form_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(order_form_id, Map) of
+        false -> {error, {missing_field, order_form_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #order_form_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        order_form_id = maps:get(order_form_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% One reusable, scored connection pattern between two OCEL types.
 -record(path_schema, {
     schema_id :: binary(), %% schema_id: Unique path schema identifier.
@@ -1684,6 +2567,35 @@ new_path_schema_query(Map) ->
         source_type = maps:get(source_type, Map, undefined),
         target_type = maps:get(target_type, Map, undefined),
         max_length = maps:get(max_length, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits payment terms only when authorized evidence supports the cash-conversion assumption.
+-record(payment_terms_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required payment terms admission input; omission is an executable typed refusal, never an inferred approval.
+    payment_terms :: binary(), %% payment_terms: Required payment terms admission input; omission is an executable typed refusal, never an inferred approval.
+    authority_evidence_hash :: binary() %% authority_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type payment_terms_admission() :: #payment_terms_admission{}.
+
+-spec new_payment_terms_admission(map()) -> {ok, payment_terms_admission()} | {error, {missing_field, atom()}}.
+new_payment_terms_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(payment_terms, Map) of
+        false -> {error, {missing_field, payment_terms}};
+        true ->
+    case maps:is_key(authority_evidence_hash, Map) of
+        false -> {error, {missing_field, authority_evidence_hash}};
+        true ->
+    {ok, #payment_terms_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        payment_terms = maps:get(payment_terms, Map, undefined),
+        authority_evidence_hash = maps:get(authority_evidence_hash, Map, undefined)
     }}
     end
     end
@@ -1864,6 +2776,35 @@ new_policy_decision(Map) ->
     end
     end.
 
+%% Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
+-record(pricing_basis_contract, {
+    opportunity_id :: binary(), %% opportunity_id: Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval.
+    pricing_basis_id :: binary(), %% pricing_basis_id: Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type pricing_basis_contract() :: #pricing_basis_contract{}.
+
+-spec new_pricing_basis_contract(map()) -> {ok, pricing_basis_contract()} | {error, {missing_field, atom()}}.
+new_pricing_basis_contract(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(pricing_basis_id, Map) of
+        false -> {error, {missing_field, pricing_basis_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #pricing_basis_contract{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        pricing_basis_id = maps:get(pricing_basis_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable privacy evidence binding an exact subject to the classification enforced for its handled data.
 -record(privacy_classification_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this privacy-classification observation.
@@ -1998,6 +2939,122 @@ new_procurement_acceptance_evidence(Map) ->
     end
     end.
 
+%% Encodes an unresolved procurement blocker as a typed refusal instead of allowing false booking readiness.
+-record(procurement_blocker, {
+    opportunity_id :: binary(), %% opportunity_id: Required procurement blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id :: binary(), %% blocker_id: Required procurement blocker input; omission is an executable typed refusal, never an inferred approval.
+    refusal_code :: binary() %% refusal_code: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type procurement_blocker() :: #procurement_blocker{}.
+
+-spec new_procurement_blocker(map()) -> {ok, procurement_blocker()} | {error, {missing_field, atom()}}.
+new_procurement_blocker(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(blocker_id, Map) of
+        false -> {error, {missing_field, blocker_id}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #procurement_blocker{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        blocker_id = maps:get(blocker_id, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting.
+-record(procurement_channel_selection, {
+    opportunity_id :: binary(), %% opportunity_id: Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval.
+    channel_id :: binary(), %% channel_id: Required procurement channel selection input; omission is an executable typed refusal, never an inferred approval.
+    selection_evidence_hash :: binary() %% selection_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type procurement_channel_selection() :: #procurement_channel_selection{}.
+
+-spec new_procurement_channel_selection(map()) -> {ok, procurement_channel_selection()} | {error, {missing_field, atom()}}.
+new_procurement_channel_selection(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(channel_id, Map) of
+        false -> {error, {missing_field, channel_id}};
+        true ->
+    case maps:is_key(selection_evidence_hash, Map) of
+        false -> {error, {missing_field, selection_evidence_hash}};
+        true ->
+    {ok, #procurement_channel_selection{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        channel_id = maps:get(channel_id, Map, undefined),
+        selection_evidence_hash = maps:get(selection_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies whether a proof-of-value has an actual budget and decision rather than free-pilot ambiguity.
+-record(proof_of_value_budget, {
+    opportunity_id :: binary(), %% opportunity_id: Required proof of value budget input; omission is an executable typed refusal, never an inferred approval.
+    budget_id :: binary(), %% budget_id: Required proof of value budget input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type proof_of_value_budget() :: #proof_of_value_budget{}.
+
+-spec new_proof_of_value_budget(map()) -> {ok, proof_of_value_budget()} | {error, {missing_field, atom()}}.
+new_proof_of_value_budget(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(budget_id, Map) of
+        false -> {error, {missing_field, budget_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #proof_of_value_budget{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        budget_id = maps:get(budget_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Defines the exact commercial exit gate that converts a proof-of-value into a paid deployment or refusal.
+-record(proof_of_value_exit_gate, {
+    pov_id :: binary(), %% pov_id: Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval.
+    exit_gate_id :: binary(), %% exit_gate_id: Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type proof_of_value_exit_gate() :: #proof_of_value_exit_gate{}.
+
+-spec new_proof_of_value_exit_gate(map()) -> {ok, proof_of_value_exit_gate()} | {error, {missing_field, atom()}}.
+new_proof_of_value_exit_gate(Map) ->
+    case maps:is_key(pov_id, Map) of
+        false -> {error, {missing_field, pov_id}};
+        true ->
+    case maps:is_key(exit_gate_id, Map) of
+        false -> {error, {missing_field, exit_gate_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #proof_of_value_exit_gate{
+        pov_id = maps:get(pov_id, Map, undefined),
+        exit_gate_id = maps:get(exit_gate_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
 -record(provenance_binding_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this provenance observation.
@@ -2029,6 +3086,64 @@ new_provenance_binding_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness.
+-record(purchase_order_requirement, {
+    opportunity_id :: binary(), %% opportunity_id: Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval.
+    requirement_id :: binary(), %% requirement_id: Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type purchase_order_requirement() :: #purchase_order_requirement{}.
+
+-spec new_purchase_order_requirement(map()) -> {ok, purchase_order_requirement()} | {error, {missing_field, atom()}}.
+new_purchase_order_requirement(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(requirement_id, Map) of
+        false -> {error, {missing_field, requirement_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #purchase_order_requirement{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        requirement_id = maps:get(requirement_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Requires the legal entity that will issue purchasing authority before commercial progression.
+-record(purchasing_entity_identity, {
+    opportunity_id :: binary(), %% opportunity_id: Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval.
+    purchasing_entity_id :: binary(), %% purchasing_entity_id: Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval.
+    identity_evidence_hash :: binary() %% identity_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type purchasing_entity_identity() :: #purchasing_entity_identity{}.
+
+-spec new_purchasing_entity_identity(map()) -> {ok, purchasing_entity_identity()} | {error, {missing_field, atom()}}.
+new_purchasing_entity_identity(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(purchasing_entity_id, Map) of
+        false -> {error, {missing_field, purchasing_entity_id}};
+        true ->
+    case maps:is_key(identity_evidence_hash, Map) of
+        false -> {error, {missing_field, identity_evidence_hash}};
+        true ->
+    {ok, #purchasing_entity_identity{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        purchasing_entity_id = maps:get(purchasing_entity_id, Map, undefined),
+        identity_evidence_hash = maps:get(identity_evidence_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -2128,6 +3243,35 @@ new_remediation_sla_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Makes renewal duration and its decision explicit for lifetime-value qualification.
+-record(renewal_term_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required renewal term admission input; omission is an executable typed refusal, never an inferred approval.
+    renewal_term :: binary(), %% renewal_term: Required renewal term admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type renewal_term_admission() :: #renewal_term_admission{}.
+
+-spec new_renewal_term_admission(map()) -> {ok, renewal_term_admission()} | {error, {missing_field, atom()}}.
+new_renewal_term_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(renewal_term, Map) of
+        false -> {error, {missing_field, renewal_term}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #renewal_term_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        renewal_term = maps:get(renewal_term, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
     end
     end
     end.
@@ -2266,6 +3410,64 @@ new_retention_policy_evidence(Map) ->
     end
     end.
 
+%% Produces the terminal immutable admission receipt binding a qualified opportunity to an executable paid revenue contract.
+-record(revenue_contract_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval.
+    contract_id :: binary(), %% contract_id: Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval.
+    admission_receipt_hash :: binary() %% admission_receipt_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type revenue_contract_admission() :: #revenue_contract_admission{}.
+
+-spec new_revenue_contract_admission(map()) -> {ok, revenue_contract_admission()} | {error, {missing_field, atom()}}.
+new_revenue_contract_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(contract_id, Map) of
+        false -> {error, {missing_field, contract_id}};
+        true ->
+    case maps:is_key(admission_receipt_hash, Map) of
+        false -> {error, {missing_field, admission_receipt_hash}};
+        true ->
+    {ok, #revenue_contract_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        contract_id = maps:get(contract_id, Map, undefined),
+        admission_receipt_hash = maps:get(admission_receipt_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged.
+-record(revenue_schedule_assumption, {
+    opportunity_id :: binary(), %% opportunity_id: Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval.
+    schedule_id :: binary(), %% schedule_id: Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval.
+    assumption_evidence_hash :: binary() %% assumption_evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type revenue_schedule_assumption() :: #revenue_schedule_assumption{}.
+
+-spec new_revenue_schedule_assumption(map()) -> {ok, revenue_schedule_assumption()} | {error, {missing_field, atom()}}.
+new_revenue_schedule_assumption(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(schedule_id, Map) of
+        false -> {error, {missing_field, schedule_id}};
+        true ->
+    case maps:is_key(assumption_evidence_hash, Map) of
+        false -> {error, {missing_field, assumption_evidence_hash}};
+        true ->
+    {ok, #revenue_schedule_assumption{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        schedule_id = maps:get(schedule_id, Map, undefined),
+        assumption_evidence_hash = maps:get(assumption_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
 -record(rfp_response_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this RFP-response observation.
@@ -2332,6 +3534,35 @@ new_rollback_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Requires a named sanctions screening result before accepting the commercial counterparty.
+-record(sanctions_screening_result, {
+    account_id :: binary(), %% account_id: Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval.
+    screening_id :: binary(), %% screening_id: Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval.
+    screening_result :: binary() %% screening_result: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type sanctions_screening_result() :: #sanctions_screening_result{}.
+
+-spec new_sanctions_screening_result(map()) -> {ok, sanctions_screening_result()} | {error, {missing_field, atom()}}.
+new_sanctions_screening_result(Map) ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(screening_id, Map) of
+        false -> {error, {missing_field, screening_id}};
+        true ->
+    case maps:is_key(screening_result, Map) of
+        false -> {error, {missing_field, screening_result}};
+        true ->
+    {ok, #sanctions_screening_result{
+        account_id = maps:get(account_id, Map, undefined),
+        screening_id = maps:get(screening_id, Map, undefined),
+        screening_result = maps:get(screening_result, Map, undefined)
+    }}
     end
     end
     end.
@@ -2406,6 +3637,93 @@ new_secret_boundary_evidence(Map) ->
     end
     end.
 
+%% Requires an identified security addendum state before promising a paid production deployment.
+-record(security_addendum_state, {
+    opportunity_id :: binary(), %% opportunity_id: Required security addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_id :: binary(), %% addendum_id: Required security addendum state input; omission is an executable typed refusal, never an inferred approval.
+    addendum_state :: binary() %% addendum_state: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type security_addendum_state() :: #security_addendum_state{}.
+
+-spec new_security_addendum_state(map()) -> {ok, security_addendum_state()} | {error, {missing_field, atom()}}.
+new_security_addendum_state(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(addendum_id, Map) of
+        false -> {error, {missing_field, addendum_id}};
+        true ->
+    case maps:is_key(addendum_state, Map) of
+        false -> {error, {missing_field, addendum_state}};
+        true ->
+    {ok, #security_addendum_state{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        addendum_id = maps:get(addendum_id, Map, undefined),
+        addendum_state = maps:get(addendum_state, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Encodes an unresolved security blocker as a typed refusal before production commitment.
+-record(security_blocker, {
+    opportunity_id :: binary(), %% opportunity_id: Required security blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id :: binary(), %% blocker_id: Required security blocker input; omission is an executable typed refusal, never an inferred approval.
+    refusal_code :: binary() %% refusal_code: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type security_blocker() :: #security_blocker{}.
+
+-spec new_security_blocker(map()) -> {ok, security_blocker()} | {error, {missing_field, atom()}}.
+new_security_blocker(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(blocker_id, Map) of
+        false -> {error, {missing_field, blocker_id}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #security_blocker{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        blocker_id = maps:get(blocker_id, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies the exact service-credit obligation that prices runtime reliability risk.
+-record(service_credit_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required service credit admission input; omission is an executable typed refusal, never an inferred approval.
+    service_credit_id :: binary(), %% service_credit_id: Required service credit admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type service_credit_admission() :: #service_credit_admission{}.
+
+-spec new_service_credit_admission(map()) -> {ok, service_credit_admission()} | {error, {missing_field, atom()}}.
+new_service_credit_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(service_credit_id, Map) of
+        false -> {error, {missing_field, service_credit_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #service_credit_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        service_credit_id = maps:get(service_credit_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% One OpenTelemetry-style tracing span observed for a service call.
 -record(service_span, {
     span_id :: binary(), %% span_id: Unique span identifier.
@@ -2468,6 +3786,35 @@ new_signature_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Admits an exact service-level offer before it becomes a paid customer commitment.
+-record(sla_offer_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required sla offer admission input; omission is an executable typed refusal, never an inferred approval.
+    sla_offer_id :: binary(), %% sla_offer_id: Required sla offer admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type sla_offer_admission() :: #sla_offer_admission{}.
+
+-spec new_sla_offer_admission(map()) -> {ok, sla_offer_admission()} | {error, {missing_field, atom()}}.
+new_sla_offer_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(sla_offer_id, Map) of
+        false -> {error, {missing_field, sla_offer_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #sla_offer_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        sla_offer_id = maps:get(sla_offer_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
     end
     end
     end.
@@ -2606,6 +3953,35 @@ new_support_sla_evidence(Map) ->
     end
     end.
 
+%% Admits the paid support tier that determines service obligation and cost-to-serve.
+-record(support_tier_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required support tier admission input; omission is an executable typed refusal, never an inferred approval.
+    support_tier_id :: binary(), %% support_tier_id: Required support tier admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type support_tier_admission() :: #support_tier_admission{}.
+
+-spec new_support_tier_admission(map()) -> {ok, support_tier_admission()} | {error, {missing_field, atom()}}.
+new_support_tier_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(support_tier_id, Map) of
+        false -> {error, {missing_field, support_tier_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #support_tier_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        support_tier_id = maps:get(support_tier_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable support-window evidence binding an exact subject to the channel available during the observed coverage window.
 -record(support_window_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this support-window observation.
@@ -2663,6 +4039,122 @@ new_sync_time(Map) ->
         delaying_object_id = maps:get(delaying_object_id, Map, undefined),
         seconds = maps:get(seconds, Map, undefined)
     }}
+    end
+    end.
+
+%% Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.
+-record(tax_jurisdiction_evidence, {
+    contracting_entity_id :: binary(), %% contracting_entity_id: Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval.
+    tax_jurisdiction :: binary(), %% tax_jurisdiction: Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval.
+    evidence_hash :: binary() %% evidence_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type tax_jurisdiction_evidence() :: #tax_jurisdiction_evidence{}.
+
+-spec new_tax_jurisdiction_evidence(map()) -> {ok, tax_jurisdiction_evidence()} | {error, {missing_field, atom()}}.
+new_tax_jurisdiction_evidence(Map) ->
+    case maps:is_key(contracting_entity_id, Map) of
+        false -> {error, {missing_field, contracting_entity_id}};
+        true ->
+    case maps:is_key(tax_jurisdiction, Map) of
+        false -> {error, {missing_field, tax_jurisdiction}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #tax_jurisdiction_evidence{
+        contracting_entity_id = maps:get(contracting_entity_id, Map, undefined),
+        tax_jurisdiction = maps:get(tax_jurisdiction, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.
+-record(technical_blocker, {
+    opportunity_id :: binary(), %% opportunity_id: Required technical blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id :: binary(), %% blocker_id: Required technical blocker input; omission is an executable typed refusal, never an inferred approval.
+    refusal_code :: binary() %% refusal_code: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type technical_blocker() :: #technical_blocker{}.
+
+-spec new_technical_blocker(map()) -> {ok, technical_blocker()} | {error, {missing_field, atom()}}.
+new_technical_blocker(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(blocker_id, Map) of
+        false -> {error, {missing_field, blocker_id}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #technical_blocker{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        blocker_id = maps:get(blocker_id, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies termination rights that materially change collectible contract value and delivery exposure.
+-record(termination_right_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required termination right admission input; omission is an executable typed refusal, never an inferred approval.
+    termination_right_id :: binary(), %% termination_right_id: Required termination right admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type termination_right_admission() :: #termination_right_admission{}.
+
+-spec new_termination_right_admission(map()) -> {ok, termination_right_admission()} | {error, {missing_field, atom()}}.
+new_termination_right_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(termination_right_id, Map) of
+        false -> {error, {missing_field, termination_right_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #termination_right_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        termination_right_id = maps:get(termination_right_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Qualifies training scope as an explicit paid delivery obligation.
+-record(training_scope_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required training scope admission input; omission is an executable typed refusal, never an inferred approval.
+    training_scope_id :: binary(), %% training_scope_id: Required training scope admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type training_scope_admission() :: #training_scope_admission{}.
+
+-spec new_training_scope_admission(map()) -> {ok, training_scope_admission()} | {error, {missing_field, atom()}}.
+new_training_scope_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(training_scope_id, Map) of
+        false -> {error, {missing_field, training_scope_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #training_scope_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        training_scope_id = maps:get(training_scope_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
     end
     end.
 
@@ -2812,6 +4304,35 @@ new_usage_event(Map) ->
     end
     end.
 
+%% Makes buyer vendor-registration completion an explicit revenue gate instead of an invisible procurement delay.
+-record(vendor_registration_state, {
+    account_id :: binary(), %% account_id: Required vendor registration state input; omission is an executable typed refusal, never an inferred approval.
+    registration_id :: binary(), %% registration_id: Required vendor registration state input; omission is an executable typed refusal, never an inferred approval.
+    registration_state :: binary() %% registration_state: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type vendor_registration_state() :: #vendor_registration_state{}.
+
+-spec new_vendor_registration_state(map()) -> {ok, vendor_registration_state()} | {error, {missing_field, atom()}}.
+new_vendor_registration_state(Map) ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(registration_id, Map) of
+        false -> {error, {missing_field, registration_id}};
+        true ->
+    case maps:is_key(registration_state, Map) of
+        false -> {error, {missing_field, registration_state}};
+        true ->
+    {ok, #vendor_registration_state{
+        account_id = maps:get(account_id, Map, undefined),
+        registration_id = maps:get(registration_id, Map, undefined),
+        registration_state = maps:get(registration_state, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable vendor-risk evidence binding an exact subject to the risk score emitted from verified controls.
 -record(vendor_risk_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this vendor-risk observation.
@@ -2878,6 +4399,35 @@ new_version_lifecycle_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Admits a volume discount tier only through an explicit decision tied to the opportunity.
+-record(volume_tier_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required volume tier admission input; omission is an executable typed refusal, never an inferred approval.
+    volume_tier_id :: binary(), %% volume_tier_id: Required volume tier admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type volume_tier_admission() :: #volume_tier_admission{}.
+
+-spec new_volume_tier_admission(map()) -> {ok, volume_tier_admission()} | {error, {missing_field, atom()}}.
+new_volume_tier_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(volume_tier_id, Map) of
+        false -> {error, {missing_field, volume_tier_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #volume_tier_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        volume_tier_id = maps:get(volume_tier_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
     end
     end
     end.

@@ -149,7 +149,7 @@ DEMO_EOF
 RUN erlc -o /app/_build/default/lib/beam4pm/ebin /app/demo/beam4pm_demo.erl
 
 # --- final ---------------------------------------------------------------
-FROM hexpm/erlang:27.2.4-debian-bookworm-20260824-slim
+FROM hexpm/erlang:29.0-debian-bookworm-20260610-slim
 
 ENV LANG=C.UTF-8
 
