@@ -11,21 +11,45 @@
 -export([record_names/0, fields/1]).
 
 -spec record_names() -> [atom()].
-record_names() -> [alignment_move, billing_reconciliation, case_stats, conformance_result, dfg_edge, entitlement_event, entitlement_state, event_log, event_type, heuristic_arc, k8s_object_ref, log_trace, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, path_schema, path_schema_query, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, process_variant, queue_snapshot, resource_allocation, service_span, sojourn_time, sync_time, type_edge, usage_event].
+record_names() -> [action_pin_evidence, alignment_move, approval_separation_evidence, architecture_review_evidence, artifact_digest_evidence, attestation_verification_evidence, audit_chain_evidence, availability_slo_evidence, backup_restore_evidence, billing_reconciliation, business_continuity_evidence, canary_evidence, case_stats, change_control_evidence, commercial_artifact_crown_evidence, conformance_result, customer_managed_key_evidence, data_egress_evidence, deletion_proof_evidence, dependency_inventory_evidence, dfg_edge, disaster_recovery_evidence, entitlement_event, entitlement_evidence, entitlement_state, event_log, event_type, evidence_freshness_evidence, heuristic_arc, incident_response_evidence, k8s_object_ref, least_authority_evidence, license_evidence, log_trace, multiarch_evidence, mutable_identity_refusal_evidence, object_attribute_change, object_type, oc_declare_constraint, ocel_attribute, ocel_event, ocel_object, ocel_relationship, oci_manifest_evidence, offline_bundle_evidence, path_schema, path_schema_query, performance_slo_evidence, petri_arc, petri_place, petri_transition, planning_action, planning_state, policy_decision, privacy_classification_evidence, private_registry_evidence, process_variant, procurement_acceptance_evidence, provenance_binding_evidence, queue_snapshot, receipt_replay_evidence, remediation_sla_evidence, reproducible_build_evidence, residency_evidence, resource_allocation, retention_policy_evidence, rfp_response_evidence, rollback_evidence, sbom_inventory_evidence, secret_boundary_evidence, service_span, signature_evidence, sojourn_time, stale_subject_refusal_evidence, support_escalation_evidence, support_sla_evidence, support_window_evidence, sync_time, type_edge, unsupported_capability_evidence, upgrade_evidence, usage_event, vendor_risk_evidence, version_lifecycle_evidence, vulnerability_scan_evidence].
 
 -spec fields(atom()) -> [atom()].
+fields(action_pin_evidence) -> [evidence_id, subject_sha, action_sha, observed_result];
 fields(alignment_move) -> [move_type, cost];
+fields(approval_separation_evidence) -> [evidence_id, subject_sha, approver_identity, observed_result];
+fields(architecture_review_evidence) -> [evidence_id, subject_sha, review_decision, observed_result];
+fields(artifact_digest_evidence) -> [evidence_id, subject_sha, digest, observed_result];
+fields(attestation_verification_evidence) -> [evidence_id, subject_sha, predicate_type, observed_result];
+fields(audit_chain_evidence) -> [evidence_id, subject_sha, previous_receipt_hash, observed_result];
+fields(availability_slo_evidence) -> [evidence_id, subject_sha, availability_percent, observed_result];
+fields(backup_restore_evidence) -> [evidence_id, subject_sha, backup_digest, observed_result];
 fields(billing_reconciliation) -> [entitlement_id, metric_name, total_quantity, applied_event_ids, period_start, period_end];
+fields(business_continuity_evidence) -> [evidence_id, subject_sha, continuity_mode, observed_result];
+fields(canary_evidence) -> [evidence_id, subject_sha, canary_percentage, observed_result];
 fields(case_stats) -> [case_id, event_count, duration_seconds];
+fields(change_control_evidence) -> [evidence_id, subject_sha, change_request_id, observed_result];
+fields(commercial_artifact_crown_evidence) -> [evidence_id, subject_sha, artifact_digest, observed_result];
 fields(conformance_result) -> [trace_id, fitness, precision];
+fields(customer_managed_key_evidence) -> [evidence_id, subject_sha, key_identifier, observed_result];
+fields(data_egress_evidence) -> [evidence_id, subject_sha, egress_bytes, observed_result];
+fields(deletion_proof_evidence) -> [evidence_id, subject_sha, deletion_receipt_id, observed_result];
+fields(dependency_inventory_evidence) -> [evidence_id, subject_sha, dependency_count, observed_result];
 fields(dfg_edge) -> [source_activity, target_activity, frequency];
+fields(disaster_recovery_evidence) -> [evidence_id, subject_sha, recovered_at, observed_result];
 fields(entitlement_event) -> [event_id, entitlement_id, event_type, effective_at, payload];
+fields(entitlement_evidence) -> [evidence_id, subject_sha, entitlement_id, observed_result];
 fields(entitlement_state) -> [entitlement_id, status, last_applied_event_id, updated_at];
 fields(event_log) -> [log_id, name, description];
 fields(event_type) -> [type_name, attribute_names];
+fields(evidence_freshness_evidence) -> [evidence_id, subject_sha, observed_at, observed_result];
 fields(heuristic_arc) -> [source_activity, target_activity, dependency_measure];
+fields(incident_response_evidence) -> [evidence_id, subject_sha, incident_id, observed_result];
 fields(k8s_object_ref) -> [kind, name, namespace];
+fields(least_authority_evidence) -> [evidence_id, subject_sha, granted_permissions, observed_result];
+fields(license_evidence) -> [evidence_id, subject_sha, license_expression, observed_result];
 fields(log_trace) -> [case_id, activity_sequence];
+fields(multiarch_evidence) -> [evidence_id, subject_sha, platforms, observed_result];
+fields(mutable_identity_refusal_evidence) -> [evidence_id, subject_sha, mutable_reference, observed_result];
 fields(object_attribute_change) -> [object_id, attribute_name, old_value, new_value, changed_at];
 fields(object_type) -> [type_name, attribute_names];
 fields(oc_declare_constraint) -> [constraint_id, source_activity, target_activity, constraint_type];
@@ -33,20 +57,46 @@ fields(ocel_attribute) -> [attribute_name, attribute_value, recorded_at];
 fields(ocel_event) -> [event_id, event_type, event_time, attributes];
 fields(ocel_object) -> [object_id, object_type, attributes];
 fields(ocel_relationship) -> [qualifier, object_id];
+fields(oci_manifest_evidence) -> [evidence_id, subject_sha, manifest_digest, observed_result];
+fields(offline_bundle_evidence) -> [evidence_id, subject_sha, bundle_digest, observed_result];
 fields(path_schema) -> [schema_id, source_type, target_type, support];
 fields(path_schema_query) -> [source_type, target_type, max_length];
+fields(performance_slo_evidence) -> [evidence_id, subject_sha, latency_p95_ms, observed_result];
 fields(petri_arc) -> [source_id, target_id, weight];
 fields(petri_place) -> [place_id, tokens];
 fields(petri_transition) -> [transition_id, label];
 fields(planning_action) -> [action_name, preconditions, effects];
 fields(planning_state) -> [state_id, facts];
 fields(policy_decision) -> [decision_id, verdict, reason];
+fields(privacy_classification_evidence) -> [evidence_id, subject_sha, privacy_class, observed_result];
+fields(private_registry_evidence) -> [evidence_id, subject_sha, registry_digest, observed_result];
 fields(process_variant) -> [variant_id, activity_sequence, frequency];
+fields(procurement_acceptance_evidence) -> [evidence_id, subject_sha, acceptance_decision, observed_result];
+fields(provenance_binding_evidence) -> [evidence_id, subject_sha, builder_identity, observed_result];
 fields(queue_snapshot) -> [queue_name, depth, observed_at];
+fields(receipt_replay_evidence) -> [evidence_id, subject_sha, replay_result_hash, observed_result];
+fields(remediation_sla_evidence) -> [evidence_id, subject_sha, remediation_due_at, observed_result];
+fields(reproducible_build_evidence) -> [evidence_id, subject_sha, build_digest, observed_result];
+fields(residency_evidence) -> [evidence_id, subject_sha, region, observed_result];
 fields(resource_allocation) -> [resource_id, activity, event_id];
+fields(retention_policy_evidence) -> [evidence_id, subject_sha, retention_days, observed_result];
+fields(rfp_response_evidence) -> [evidence_id, subject_sha, answer_set_hash, observed_result];
+fields(rollback_evidence) -> [evidence_id, subject_sha, rollback_digest, observed_result];
+fields(sbom_inventory_evidence) -> [evidence_id, subject_sha, component_count, observed_result];
+fields(secret_boundary_evidence) -> [evidence_id, subject_sha, secret_source, observed_result];
 fields(service_span) -> [span_id, service_name, duration_ms, parent_span_id];
+fields(signature_evidence) -> [evidence_id, subject_sha, signature_identity, observed_result];
 fields(sojourn_time) -> [object_id, event_type, seconds];
+fields(stale_subject_refusal_evidence) -> [evidence_id, subject_sha, stale_sha, observed_result];
+fields(support_escalation_evidence) -> [evidence_id, subject_sha, escalation_owner, observed_result];
+fields(support_sla_evidence) -> [evidence_id, subject_sha, response_minutes, observed_result];
+fields(support_window_evidence) -> [evidence_id, subject_sha, support_channel, observed_result];
 fields(sync_time) -> [object_id, delaying_object_id, seconds];
 fields(type_edge) -> [source_type, target_type, qualifier, direction];
+fields(unsupported_capability_evidence) -> [evidence_id, subject_sha, capability_name, observed_result];
+fields(upgrade_evidence) -> [evidence_id, subject_sha, from_version, observed_result];
 fields(usage_event) -> [event_id, entitlement_id, quantity, metric_name, occurred_at];
+fields(vendor_risk_evidence) -> [evidence_id, subject_sha, risk_score, observed_result];
+fields(version_lifecycle_evidence) -> [evidence_id, subject_sha, supported_until, observed_result];
+fields(vulnerability_scan_evidence) -> [evidence_id, subject_sha, vulnerability_count, observed_result];
 fields(_) -> [].
