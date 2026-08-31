@@ -3136,3 +3136,27 @@ bpm:architecture_readiness_evidence_digest_f a bpm:Field ;
 
 bpm:architecture_readiness_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-121 — migration readiness
+# ---------------------------------------------------------------------------
+
+bpm:migration_readiness_rt a bpm:RecordType ;
+    bpm:recordName "migration_readiness" ;
+    bpm:recordDoc "Measured migration readiness and bounded effort for enterprise adoption." ;
+    bpm:hasField bpm:migration_readiness_migration_readiness_id_f , bpm:migration_readiness_account_id_f , bpm:migration_readiness_migration_effort_days_f , bpm:migration_readiness_evidence_digest_f , bpm:migration_readiness_observed_at_f .
+
+bpm:migration_readiness_migration_readiness_id_f a bpm:Field ;
+    bpm:fieldName "migration_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this migration readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:migration_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose migration readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:migration_readiness_migration_effort_days_f a bpm:Field ;
+    bpm:fieldName "migration_effort_days" ; bpm:fieldType "integer" ; bpm:fieldDoc "Estimated engineering days for the admitted migration." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:migration_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:migration_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
