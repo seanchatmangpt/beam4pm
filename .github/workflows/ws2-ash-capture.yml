@@ -1,21 +1,24 @@
 name: WS2 Ash Projection Capture
 on:
+  push:
+    branches: [automation/ws2-rev-commercial-contracts-20260830-1609]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: ws2-ash-capture-${{ github.event.pull_request.head.sha }}
+  group: ws2-ash-capture-${{ github.event.pull_request.head.sha || github.sha }}
   cancel-in-progress: true
 jobs:
   capture:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Checkout exact PR subject
+      - name: Checkout exact subject
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
           submodules: recursive
       - name: Set up production BEAM toolchain
@@ -33,7 +36,7 @@ jobs:
       - name: Preserve manufactured projections
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: ws2-ash-projections-${{ github.event.pull_request.head.sha }}
+          name: ws2-ash-projections-${{ github.event.pull_request.head.sha || github.sha }}
           path: |
             lib/beam4pm_ash.ex
             test/beam4pm_ash_test.exs
