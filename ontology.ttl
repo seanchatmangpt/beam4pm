@@ -3270,3 +3270,17 @@ bpm:production_readiness_account_id_f a bpm:Field ; bpm:fieldName "account_id" ;
 bpm:production_readiness_production_readiness_score_f a bpm:Field ; bpm:fieldName "production_readiness_score" ; bpm:fieldType "float" ; bpm:fieldDoc "Observed production-readiness score." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:production_readiness_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:production_readiness_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-127 — adoption milestone
+# ---------------------------------------------------------------------------
+
+bpm:adoption_milestone_rt a bpm:RecordType ;
+    bpm:recordName "adoption_milestone" ; bpm:recordDoc "Receipted customer adoption milestone tied to observable use." ;
+    bpm:hasField bpm:adoption_milestone_adoption_milestone_id_f , bpm:adoption_milestone_account_id_f , bpm:adoption_milestone_milestone_name_f , bpm:adoption_milestone_evidence_digest_f , bpm:adoption_milestone_observed_at_f .
+
+bpm:adoption_milestone_adoption_milestone_id_f a bpm:Field ; bpm:fieldName "adoption_milestone_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this adoption milestone observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+bpm:adoption_milestone_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose adoption milestone state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+bpm:adoption_milestone_milestone_name_f a bpm:Field ; bpm:fieldName "milestone_name" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable name of the achieved adoption milestone." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+bpm:adoption_milestone_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+bpm:adoption_milestone_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
