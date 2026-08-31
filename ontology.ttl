@@ -3690,4 +3690,30 @@ b4pe:disaster_recovery_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-046 — business-continuity evidence.
+b4pe:business_continuity_evidence_rt a bpm:RecordType ;
+    bpm:recordName "business_continuity_evidence" ;
+    bpm:recordDoc "Executable continuity evidence binding an exact subject to the fallback operating mode actually entered." ;
+    bpm:hasField b4pe:business_continuity_evidence_id_f,
+                 b4pe:business_continuity_subject_sha_f,
+                 b4pe:business_continuity_continuity_mode_f,
+                 b4pe:business_continuity_observed_result_f .
+
+b4pe:business_continuity_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this business-continuity observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:business_continuity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:business_continuity_continuity_mode_f a bpm:Field ;
+    bpm:fieldName "continuity_mode" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed fallback mode used to preserve admitted operations." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:business_continuity_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
