@@ -3064,3 +3064,27 @@ bpm:data_readiness_evidence_digest_f a bpm:Field ;
 
 bpm:data_readiness_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-118 — security readiness
+# ---------------------------------------------------------------------------
+
+bpm:security_readiness_rt a bpm:RecordType ;
+    bpm:recordName "security_readiness" ;
+    bpm:recordDoc "Evidence-backed security-control readiness for enterprise adoption." ;
+    bpm:hasField bpm:security_readiness_security_readiness_id_f , bpm:security_readiness_account_id_f , bpm:security_readiness_control_coverage_f , bpm:security_readiness_evidence_digest_f , bpm:security_readiness_observed_at_f .
+
+bpm:security_readiness_security_readiness_id_f a bpm:Field ;
+    bpm:fieldName "security_readiness_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Stable identity of this security readiness observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:security_readiness_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Enterprise account whose security readiness state was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:security_readiness_control_coverage_f a bpm:Field ;
+    bpm:fieldName "control_coverage" ; bpm:fieldType "float" ; bpm:fieldDoc "Fraction of required controls with accepted evidence." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:security_readiness_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:security_readiness_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
