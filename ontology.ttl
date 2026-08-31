@@ -2592,3 +2592,41 @@ bpm:discovery_hypothesis_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---------------------------------------------------------------------------
+# WS5-REV-103 — stakeholder map
+# ---------------------------------------------------------------------------
+
+bpm:stakeholder_map_rt a bpm:RecordType ;
+    bpm:recordName "stakeholder_map" ;
+    bpm:recordDoc "Executable stakeholder-coverage contract for a qualified enterprise evaluation." ;
+    bpm:hasField bpm:stakeholder_map_stakeholder_map_id_f ,
+                 bpm:stakeholder_map_account_id_f ,
+                 bpm:stakeholder_map_stakeholder_count_f ,
+                 bpm:stakeholder_map_evidence_digest_f ,
+                 bpm:stakeholder_map_observed_at_f .
+
+bpm:stakeholder_map_stakeholder_map_id_f a bpm:Field ;
+    bpm:fieldName "stakeholder_map_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this stakeholder map observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:stakeholder_map_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose stakeholder map state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:stakeholder_map_stakeholder_count_f a bpm:Field ;
+    bpm:fieldName "stakeholder_count" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Number of distinct admitted stakeholder roles." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:stakeholder_map_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:stakeholder_map_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
