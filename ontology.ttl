@@ -3669,3 +3669,26 @@ b4p:revenue_contract_admission_admission_receipt_hash_f a bpm:Field ;
     bpm:fieldName "admission_receipt_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-001 — tenant_runtime_boundary
+b4p:tenant_runtime_boundary_rt a bpm:RecordType ;
+    bpm:recordName "tenant_runtime_boundary" ;
+    bpm:recordDoc "Binds a paid tenant to one explicit runtime isolation boundary and replayable evidence identity." ;
+    bpm:hasField b4p:tenant_runtime_boundary_tenant_id_f,
+                 b4p:tenant_runtime_boundary_boundary_id_f,
+                 b4p:tenant_runtime_boundary_evidence_hash_f .
+
+b4p:tenant_runtime_boundary_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity whose workload is isolated." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:tenant_runtime_boundary_boundary_id_f a bpm:Field ;
+    bpm:fieldName "boundary_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable runtime isolation boundary identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:tenant_runtime_boundary_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest binding the observed tenant isolation consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
