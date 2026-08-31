@@ -3196,4 +3196,30 @@ b4pe:offline_bundle_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-027 — private-registry evidence.
+b4pe:private_registry_evidence_rt a bpm:RecordType ;
+    bpm:recordName "private_registry_evidence" ;
+    bpm:recordDoc "Executable private-registry evidence binding an exact subject to the digest pulled from the authorized registry." ;
+    bpm:hasField b4pe:private_registry_evidence_id_f,
+                 b4pe:private_registry_subject_sha_f,
+                 b4pe:private_registry_registry_digest_f,
+                 b4pe:private_registry_observed_result_f .
+
+b4pe:private_registry_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this private-registry observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:private_registry_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:private_registry_registry_digest_f a bpm:Field ;
+    bpm:fieldName "registry_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest observed after resolving the subject from the private registry." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:private_registry_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
