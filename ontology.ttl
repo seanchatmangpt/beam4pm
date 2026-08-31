@@ -2520,3 +2520,37 @@ b4pe:billing_reconciliation_period_end_f a bpm:Field ;
     bpm:fieldDoc "ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
 
+# WS5-REV-101 — account discovery
+bpm:ws5_account_discovery_rt a bpm:RecordType ;
+    bpm:recordName "account_discovery" ;
+    bpm:recordDoc "Receipted enterprise account-discovery outcome that binds qualification evidence to a measurable discovery score." ;
+    bpm:hasField bpm:ws5_account_discovery_account_discovery_id_f ,
+                 bpm:ws5_account_discovery_account_id_f ,
+                 bpm:ws5_account_discovery_discovery_score_f ,
+                 bpm:ws5_account_discovery_evidence_digest_f ,
+                 bpm:ws5_account_discovery_observed_at_f .
+
+bpm:ws5_account_discovery_account_discovery_id_f a bpm:Field ;
+    bpm:fieldName "account_discovery_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this discovery experiment." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:ws5_account_discovery_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account whose discovery state was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:ws5_account_discovery_discovery_score_f a bpm:Field ;
+    bpm:fieldName "discovery_score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed bounded discovery qualification score." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:ws5_account_discovery_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting this outcome." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:ws5_account_discovery_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the customer-value consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
