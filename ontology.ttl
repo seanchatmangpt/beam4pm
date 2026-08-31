@@ -3534,4 +3534,30 @@ b4pe:stale_subject_refusal_observed_result_f a bpm:Field ;
     bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS4-REV-040 — mutable-identity refusal evidence.
+b4pe:mutable_identity_refusal_evidence_rt a bpm:RecordType ;
+    bpm:recordName "mutable_identity_refusal_evidence" ;
+    bpm:recordDoc "Executable refusal evidence recording the mutable artifact reference rejected by procurement policy." ;
+    bpm:hasField b4pe:mutable_identity_refusal_evidence_id_f,
+                 b4pe:mutable_identity_refusal_subject_sha_f,
+                 b4pe:mutable_identity_refusal_mutable_reference_f,
+                 b4pe:mutable_identity_refusal_observed_result_f .
+
+b4pe:mutable_identity_refusal_evidence_id_f a bpm:Field ;
+    bpm:fieldName "evidence_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content-addressed identity of this mutable-identity refusal observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4pe:mutable_identity_refusal_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable beam4pm commit verified by this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4pe:mutable_identity_refusal_mutable_reference_f a bpm:Field ;
+    bpm:fieldName "mutable_reference" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Mutable reference observed and refused before artifact admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4pe:mutable_identity_refusal_observed_result_f a bpm:Field ;
+    bpm:fieldName "observed_result" ; bpm:fieldType "atom" ;
+    bpm:fieldDoc "Observed verifier consequence: verified or refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
 # WS4-REV-CROWN-ANCHOR
