@@ -17,6 +17,7 @@ defmodule BeamPM.Roundtrip do
     :case_stats,
     :conformance_result,
     :contracting_entity_identity,
+    :credit_risk_admission,
     :data_processing_addendum_state,
     :dfg_edge,
     :entitlement_event,
@@ -204,6 +205,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       contracting_entity_id: "sample_contracting_entity_id",
       identity_evidence_hash: "sample_identity_evidence_hash"
+    })
+  end
+
+  def sample(:credit_risk_admission, :full) do
+    BeamPM.Types.CreditRiskAdmission.new(%{
+      account_id: "sample_account_id",
+      risk_band: "sample_risk_band",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:credit_risk_admission, :minimal) do
+    BeamPM.Types.CreditRiskAdmission.new(%{
+      account_id: "sample_account_id",
+      risk_band: "sample_risk_band",
+      decision: "sample_decision"
     })
   end
 

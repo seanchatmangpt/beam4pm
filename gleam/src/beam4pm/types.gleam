@@ -109,6 +109,18 @@ pub type ContractingEntityIdentity {
   )
 }
 
+/// Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure.
+pub type CreditRiskAdmission {
+  CreditRiskAdmission(
+    /// Required credit risk admission input; omission is an executable typed refusal, never an inferred approval.
+    account_id: String,
+    /// Required credit risk admission input; omission is an executable typed refusal, never an inferred approval.
+    risk_band: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// Requires an identified data-processing addendum state for workloads involving regulated enterprise data.
 pub type DataProcessingAddendumState {
   DataProcessingAddendumState(

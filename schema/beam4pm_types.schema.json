@@ -179,6 +179,27 @@
       ]
 
     },
+    "credit_risk_admission": {
+      "type": "object",
+      "description": "Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure.",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Required credit risk admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "risk_band": {
+          "type": "string",
+          "description": "Required credit risk admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["account_id", "risk_band", "decision"
+      ]
+
+    },
     "data_processing_addendum_state": {
       "type": "object",
       "description": "Requires an identified data-processing addendum state for workloads involving regulated enterprise data.",

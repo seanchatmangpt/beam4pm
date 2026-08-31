@@ -11,6 +11,7 @@
     new_case_stats/1,
     new_conformance_result/1,
     new_contracting_entity_identity/1,
+    new_credit_risk_admission/1,
     new_data_processing_addendum_state/1,
     new_dfg_edge/1,
     new_entitlement_event/1,
@@ -68,6 +69,7 @@
     case_stats/0,
     conformance_result/0,
     contracting_entity_identity/0,
+    credit_risk_admission/0,
     data_processing_addendum_state/0,
     dfg_edge/0,
     entitlement_event/0,
@@ -347,6 +349,35 @@ new_contracting_entity_identity(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         contracting_entity_id = maps:get(contracting_entity_id, Map, undefined),
         identity_evidence_hash = maps:get(identity_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure.
+-record(credit_risk_admission, {
+    account_id :: binary(), %% account_id: Required credit risk admission input; omission is an executable typed refusal, never an inferred approval.
+    risk_band :: binary(), %% risk_band: Required credit risk admission input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type credit_risk_admission() :: #credit_risk_admission{}.
+
+-spec new_credit_risk_admission(map()) -> {ok, credit_risk_admission()} | {error, {missing_field, atom()}}.
+new_credit_risk_admission(Map) ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(risk_band, Map) of
+        false -> {error, {missing_field, risk_band}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #credit_risk_admission{
+        account_id = maps:get(account_id, Map, undefined),
+        risk_band = maps:get(risk_band, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
     }}
     end
     end

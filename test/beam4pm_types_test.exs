@@ -124,6 +124,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "credit_risk_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      account_id: "x",
+      risk_band: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CreditRiskAdmission.new(attrs)
+  end
+
+  test "credit_risk_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CreditRiskAdmission.new(%{})
+  end
+
+
   test "data_processing_addendum_state new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

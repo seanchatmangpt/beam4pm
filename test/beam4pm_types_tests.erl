@@ -91,6 +91,16 @@ contracting_entity_identity_ok_test() ->
 contracting_entity_identity_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_contracting_entity_identity(#{})).
 
+credit_risk_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_credit_risk_admission(#{
+        account_id => <<"x">>,
+        risk_band => <<"x">>,
+        decision => <<"x">>
+    })).
+
+credit_risk_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_credit_risk_admission(#{})).
+
 data_processing_addendum_state_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_data_processing_addendum_state(#{
         opportunity_id => <<"x">>,

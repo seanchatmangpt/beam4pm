@@ -18,6 +18,7 @@
     beam4pm_types:case_stats() |
     beam4pm_types:conformance_result() |
     beam4pm_types:contracting_entity_identity() |
+    beam4pm_types:credit_risk_admission() |
     beam4pm_types:data_processing_addendum_state() |
     beam4pm_types:dfg_edge() |
     beam4pm_types:entitlement_event() |
@@ -118,6 +119,12 @@ to_map(R) when element(1, R) =:= contracting_entity_identity ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"contracting_entity_id">>, plain, element(3, R)},
         {<<"identity_evidence_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= credit_risk_admission ->
+    pairs_to_map([
+        {<<"account_id">>, plain, element(2, R)},
+        {<<"risk_band">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= data_processing_addendum_state ->
     pairs_to_map([
@@ -460,6 +467,12 @@ from_map(contracting_entity_identity, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"contracting_entity_id">>, contracting_entity_id, plain},
         {<<"identity_evidence_hash">>, identity_evidence_hash, plain}
+    ]));
+from_map(credit_risk_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_credit_risk_admission(take_known(Map, [
+        {<<"account_id">>, account_id, plain},
+        {<<"risk_band">>, risk_band, plain},
+        {<<"decision">>, decision, plain}
     ]));
 from_map(data_processing_addendum_state, Map) when is_map(Map) ->
     beam4pm_types:new_data_processing_addendum_state(take_known(Map, [

@@ -2953,6 +2953,29 @@ b4p:beneficial_owner_evidence_owner_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:beneficial_owner_evidence_evidence_hash_f a bpm:Field ;
-    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+   bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-020 — credit_risk_admission
+b4p:credit_risk_admission_rt a bpm:RecordType ;
+    bpm:recordName "credit_risk_admission" ;
+    bpm:recordDoc "Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure." ;
+    bpm:hasField b4p:credit_risk_admission_account_id_f ,
+                 b4p:credit_risk_admission_risk_band_f ,
+                 b4p:credit_risk_admission_decision_f .
+
+b4p:credit_risk_admission_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required credit risk admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:credit_risk_admission_risk_band_f a bpm:Field ;
+    bpm:fieldName "risk_band" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required credit risk admission input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:credit_risk_admission_decision_f a bpm:Field ;
+    bpm:fieldName "decision" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

@@ -80,6 +80,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.CreditRiskAdmission{} = r) do
+    to_known_map([
+      {"account_id", r.account_id, :passthrough},
+      {"risk_band", r.risk_band, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.DataProcessingAddendumState{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -552,6 +560,18 @@ defmodule BeamPM.Codec do
         {"identity_evidence_hash", :identity_evidence_hash, :passthrough}
       ],
       &BeamPM.Types.ContractingEntityIdentity.new/1
+    )
+  end
+
+  def from_map(:credit_risk_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"account_id", :account_id, :passthrough},
+        {"risk_band", :risk_band, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.CreditRiskAdmission.new/1
     )
   end
 

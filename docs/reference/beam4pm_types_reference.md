@@ -84,6 +84,16 @@
 | `contracting_entity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
 | `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## credit_risk_admission
+
+> Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `account_id` | `string` | true | Required credit risk admission input; omission is an executable typed refusal, never an inferred approval. |
+| `risk_band` | `string` | true | Required credit risk admission input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## data_processing_addendum_state
 
 > Requires an identified data-processing addendum state for workloads involving regulated enterprise data.

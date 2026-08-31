@@ -220,6 +220,33 @@ defmodule BeamPM.Types.ContractingEntityIdentity do
   end
 end
 
+defmodule BeamPM.Types.CreditRiskAdmission do
+  @moduledoc "Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure."
+
+  defstruct [:account_id, :risk_band, :decision]
+
+  @type t :: %__MODULE__{
+    account_id: String.t() | nil,
+    risk_band: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :risk_band) -> {:error, {:missing_field, :risk_band}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          account_id: Map.get(attrs, :account_id),
+          risk_band: Map.get(attrs, :risk_band),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.DataProcessingAddendumState do
   @moduledoc "Requires an identified data-processing addendum state for workloads involving regulated enterprise data."
 

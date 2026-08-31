@@ -220,6 +220,31 @@ contracting_entity_identity_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(contracting_entity_identity, Json),
     ?assertEqual(Rec, Rec2).
 
+credit_risk_admission_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_credit_risk_admission(#{
+        account_id => <<"sample_account_id">>,
+        risk_band => <<"sample_risk_band">>,
+        decision => <<"sample_decision">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_risk_band">>, maps:get(<<"risk_band">>, Map)),
+    ?assertEqual(<<"sample_decision">>, maps:get(<<"decision">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(credit_risk_admission,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+credit_risk_admission_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_credit_risk_admission(#{
+        account_id => <<"sample_account_id">>,
+        risk_band => <<"sample_risk_band">>,
+        decision => <<"sample_decision">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(credit_risk_admission, Json),
+    ?assertEqual(Rec, Rec2).
+
 data_processing_addendum_state_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_data_processing_addendum_state(#{
         opportunity_id => <<"sample_opportunity_id">>,

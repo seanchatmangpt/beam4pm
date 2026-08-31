@@ -22,6 +22,7 @@ record_names() ->
         case_stats,
         conformance_result,
         contracting_entity_identity,
+        credit_risk_admission,
         data_processing_addendum_state,
         dfg_edge,
         entitlement_event,
@@ -173,6 +174,18 @@ sample(contracting_entity_identity, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         contracting_entity_id => <<"sample_contracting_entity_id">>,
         identity_evidence_hash => <<"sample_identity_evidence_hash">>
+    });
+sample(credit_risk_admission, full) ->
+    beam4pm_types:new_credit_risk_admission(#{
+        account_id => <<"sample_account_id">>,
+        risk_band => <<"sample_risk_band">>,
+        decision => <<"sample_decision">>
+    });
+sample(credit_risk_admission, minimal) ->
+    beam4pm_types:new_credit_risk_admission(#{
+        account_id => <<"sample_account_id">>,
+        risk_band => <<"sample_risk_band">>,
+        decision => <<"sample_decision">>
     });
 sample(data_processing_addendum_state, full) ->
     beam4pm_types:new_data_processing_addendum_state(#{
