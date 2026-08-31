@@ -76,6 +76,7 @@
     beam4pm_types:queue_snapshot() |
     beam4pm_types:renewal_term_admission() |
     beam4pm_types:resource_allocation() |
+    beam4pm_types:revenue_contract_admission() |
     beam4pm_types:revenue_schedule_assumption() |
     beam4pm_types:sanctions_screening_result() |
     beam4pm_types:security_addendum_state() |
@@ -497,6 +498,12 @@ to_map(R) when element(1, R) =:= resource_allocation ->
         {<<"resource_id">>, plain, element(2, R)},
         {<<"activity">>, plain, element(3, R)},
         {<<"event_id">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= revenue_contract_admission ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"contract_id">>, plain, element(3, R)},
+        {<<"admission_receipt_hash">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= revenue_schedule_assumption ->
     pairs_to_map([
@@ -1019,6 +1026,12 @@ from_map(resource_allocation, Map) when is_map(Map) ->
         {<<"resource_id">>, resource_id, plain},
         {<<"activity">>, activity, plain},
         {<<"event_id">>, event_id, plain}
+    ]));
+from_map(revenue_contract_admission, Map) when is_map(Map) ->
+    beam4pm_types:new_revenue_contract_admission(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"contract_id">>, contract_id, plain},
+        {<<"admission_receipt_hash">>, admission_receipt_hash, plain}
     ]));
 from_map(revenue_schedule_assumption, Map) when is_map(Map) ->
     beam4pm_types:new_revenue_schedule_assumption(take_known(Map, [

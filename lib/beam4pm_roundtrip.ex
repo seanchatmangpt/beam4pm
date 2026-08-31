@@ -75,6 +75,7 @@ defmodule BeamPM.Roundtrip do
     :queue_snapshot,
     :renewal_term_admission,
     :resource_allocation,
+    :revenue_contract_admission,
     :revenue_schedule_assumption,
     :sanctions_screening_result,
     :security_addendum_state,
@@ -1151,6 +1152,22 @@ defmodule BeamPM.Roundtrip do
       resource_id: "sample_resource_id",
       activity: "sample_activity",
       event_id: "sample_event_id"
+    })
+  end
+
+  def sample(:revenue_contract_admission, :full) do
+    BeamPM.Types.RevenueContractAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      contract_id: "sample_contract_id",
+      admission_receipt_hash: "sample_admission_receipt_hash"
+    })
+  end
+
+  def sample(:revenue_contract_admission, :minimal) do
+    BeamPM.Types.RevenueContractAdmission.new(%{
+      opportunity_id: "sample_opportunity_id",
+      contract_id: "sample_contract_id",
+      admission_receipt_hash: "sample_admission_receipt_hash"
     })
   end
 

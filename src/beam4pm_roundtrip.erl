@@ -80,6 +80,7 @@ record_names() ->
         queue_snapshot,
         renewal_term_admission,
         resource_allocation,
+        revenue_contract_admission,
         revenue_schedule_assumption,
         sanctions_screening_result,
         security_addendum_state,
@@ -888,6 +889,18 @@ sample(resource_allocation, minimal) ->
         resource_id => <<"sample_resource_id">>,
         activity => <<"sample_activity">>,
         event_id => <<"sample_event_id">>
+    });
+sample(revenue_contract_admission, full) ->
+    beam4pm_types:new_revenue_contract_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        contract_id => <<"sample_contract_id">>,
+        admission_receipt_hash => <<"sample_admission_receipt_hash">>
+    });
+sample(revenue_contract_admission, minimal) ->
+    beam4pm_types:new_revenue_contract_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        contract_id => <<"sample_contract_id">>,
+        admission_receipt_hash => <<"sample_admission_receipt_hash">>
     });
 sample(revenue_schedule_assumption, full) ->
     beam4pm_types:new_revenue_schedule_assumption(#{

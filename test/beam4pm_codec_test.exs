@@ -2642,6 +2642,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "revenue_contract_admission to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      contract_id: "sample_contract_id",
+      admission_receipt_hash: "sample_admission_receipt_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RevenueContractAdmission.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["contract_id"] == "sample_contract_id"
+    assert m["admission_receipt_hash"] == "sample_admission_receipt_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:revenue_contract_admission, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:revenue_contract_admission, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "revenue_contract_admission encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      contract_id: "sample_contract_id",
+      admission_receipt_hash: "sample_admission_receipt_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RevenueContractAdmission.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:revenue_contract_admission, json)
+  end
+
+  test "revenue_contract_admission from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:revenue_contract_admission, %{})
+  end
+
+
   test "revenue_schedule_assumption to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

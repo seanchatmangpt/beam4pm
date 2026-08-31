@@ -1776,6 +1776,33 @@ defmodule BeamPM.Types.ResourceAllocation do
   end
 end
 
+defmodule BeamPM.Types.RevenueContractAdmission do
+  @moduledoc "Produces the terminal immutable admission receipt binding a qualified opportunity to an executable paid revenue contract."
+
+  defstruct [:opportunity_id, :contract_id, :admission_receipt_hash]
+
+  @type t :: %__MODULE__{
+    opportunity_id: String.t() | nil,
+    contract_id: String.t() | nil,
+    admission_receipt_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :opportunity_id) -> {:error, {:missing_field, :opportunity_id}}
+      not Map.has_key?(attrs, :contract_id) -> {:error, {:missing_field, :contract_id}}
+      not Map.has_key?(attrs, :admission_receipt_hash) -> {:error, {:missing_field, :admission_receipt_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          opportunity_id: Map.get(attrs, :opportunity_id),
+          contract_id: Map.get(attrs, :contract_id),
+          admission_receipt_hash: Map.get(attrs, :admission_receipt_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.RevenueScheduleAssumption do
   @moduledoc "Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged."
 

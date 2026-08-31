@@ -1673,6 +1673,31 @@ resource_allocation_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(resource_allocation, Json),
     ?assertEqual(Rec, Rec2).
 
+revenue_contract_admission_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_revenue_contract_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        contract_id => <<"sample_contract_id">>,
+        admission_receipt_hash => <<"sample_admission_receipt_hash">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_opportunity_id">>, maps:get(<<"opportunity_id">>, Map)),
+    ?assertEqual(<<"sample_contract_id">>, maps:get(<<"contract_id">>, Map)),
+    ?assertEqual(<<"sample_admission_receipt_hash">>, maps:get(<<"admission_receipt_hash">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(revenue_contract_admission,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+revenue_contract_admission_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_revenue_contract_admission(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        contract_id => <<"sample_contract_id">>,
+        admission_receipt_hash => <<"sample_admission_receipt_hash">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(revenue_contract_admission, Json),
+    ?assertEqual(Rec, Rec2).
+
 revenue_schedule_assumption_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_revenue_schedule_assumption(#{
         opportunity_id => <<"sample_opportunity_id">>,

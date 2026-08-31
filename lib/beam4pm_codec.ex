@@ -545,6 +545,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.RevenueContractAdmission{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"contract_id", r.contract_id, :passthrough},
+      {"admission_receipt_hash", r.admission_receipt_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.RevenueScheduleAssumption{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -1489,6 +1497,18 @@ defmodule BeamPM.Codec do
         {"event_id", :event_id, :passthrough}
       ],
       &BeamPM.Types.ResourceAllocation.new/1
+    )
+  end
+
+  def from_map(:revenue_contract_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"contract_id", :contract_id, :passthrough},
+        {"admission_receipt_hash", :admission_receipt_hash, :passthrough}
+      ],
+      &BeamPM.Types.RevenueContractAdmission.new/1
     )
   end
 

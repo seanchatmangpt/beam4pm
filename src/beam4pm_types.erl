@@ -69,6 +69,7 @@
     new_queue_snapshot/1,
     new_renewal_term_admission/1,
     new_resource_allocation/1,
+    new_revenue_contract_admission/1,
     new_revenue_schedule_assumption/1,
     new_sanctions_screening_result/1,
     new_security_addendum_state/1,
@@ -156,6 +157,7 @@
     queue_snapshot/0,
     renewal_term_admission/0,
     resource_allocation/0,
+    revenue_contract_admission/0,
     revenue_schedule_assumption/0,
     sanctions_screening_result/0,
     security_addendum_state/0,
@@ -2043,6 +2045,35 @@ new_resource_allocation(Map) ->
         resource_id = maps:get(resource_id, Map, undefined),
         activity = maps:get(activity, Map, undefined),
         event_id = maps:get(event_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Produces the terminal immutable admission receipt binding a qualified opportunity to an executable paid revenue contract.
+-record(revenue_contract_admission, {
+    opportunity_id :: binary(), %% opportunity_id: Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval.
+    contract_id :: binary(), %% contract_id: Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval.
+    admission_receipt_hash :: binary() %% admission_receipt_hash: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type revenue_contract_admission() :: #revenue_contract_admission{}.
+
+-spec new_revenue_contract_admission(map()) -> {ok, revenue_contract_admission()} | {error, {missing_field, atom()}}.
+new_revenue_contract_admission(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(contract_id, Map) of
+        false -> {error, {missing_field, contract_id}};
+        true ->
+    case maps:is_key(admission_receipt_hash, Map) of
+        false -> {error, {missing_field, admission_receipt_hash}};
+        true ->
+    {ok, #revenue_contract_admission{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        contract_id = maps:get(contract_id, Map, undefined),
+        admission_receipt_hash = maps:get(admission_receipt_hash, Map, undefined)
     }}
     end
     end

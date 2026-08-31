@@ -807,6 +807,18 @@ pub type ResourceAllocation {
   )
 }
 
+/// Produces the terminal immutable admission receipt binding a qualified opportunity to an executable paid revenue contract.
+pub type RevenueContractAdmission {
+  RevenueContractAdmission(
+    /// Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval.
+    contract_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    admission_receipt_hash: String,
+  )
+}
+
 /// Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged.
 pub type RevenueScheduleAssumption {
   RevenueScheduleAssumption(

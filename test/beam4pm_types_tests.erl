@@ -672,6 +672,16 @@ resource_allocation_ok_test() ->
 resource_allocation_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_resource_allocation(#{})).
 
+revenue_contract_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_revenue_contract_admission(#{
+        opportunity_id => <<"x">>,
+        contract_id => <<"x">>,
+        admission_receipt_hash => <<"x">>
+    })).
+
+revenue_contract_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_revenue_contract_admission(#{})).
+
 revenue_schedule_assumption_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_revenue_schedule_assumption(#{
         opportunity_id => <<"x">>,

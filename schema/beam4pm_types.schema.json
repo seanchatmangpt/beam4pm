@@ -1408,6 +1408,27 @@
       ]
 
     },
+    "revenue_contract_admission": {
+      "type": "object",
+      "description": "Produces the terminal immutable admission receipt binding a qualified opportunity to an executable paid revenue contract.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "contract_id": {
+          "type": "string",
+          "description": "Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "admission_receipt_hash": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "contract_id", "admission_receipt_hash"
+      ]
+
+    },
     "revenue_schedule_assumption": {
       "type": "object",
       "description": "Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged.",

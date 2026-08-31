@@ -665,6 +665,16 @@
 | `activity` | `string` | true | The activity the resource was assigned to. |
 | `event_id` | `string` | true | Identifier of the specific event occurrence. |
 
+## revenue_contract_admission
+
+> Produces the terminal immutable admission receipt binding a qualified opportunity to an executable paid revenue contract.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval. |
+| `contract_id` | `string` | true | Required revenue contract admission input; omission is an executable typed refusal, never an inferred approval. |
+| `admission_receipt_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## revenue_schedule_assumption
 
 > Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged.

@@ -995,6 +995,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "revenue_contract_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      contract_id: "x",
+      admission_receipt_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.RevenueContractAdmission.new(attrs)
+  end
+
+  test "revenue_contract_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.RevenueContractAdmission.new(%{})
+  end
+
+
   test "revenue_schedule_assumption new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",
