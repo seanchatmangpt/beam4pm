@@ -54,6 +54,7 @@
     new_policy_decision/1,
     new_pricing_basis_contract/1,
     new_process_variant/1,
+    new_procurement_blocker/1,
     new_procurement_channel_selection/1,
     new_proof_of_value_budget/1,
     new_proof_of_value_exit_gate/1,
@@ -132,6 +133,7 @@
     policy_decision/0,
     pricing_basis_contract/0,
     process_variant/0,
+    procurement_blocker/0,
     procurement_channel_selection/0,
     proof_of_value_budget/0,
     proof_of_value_exit_gate/0,
@@ -1590,6 +1592,35 @@ new_process_variant(Map) ->
         variant_id = maps:get(variant_id, Map, undefined),
         activity_sequence = maps:get(activity_sequence, Map, undefined),
         frequency = maps:get(frequency, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Encodes an unresolved procurement blocker as a typed refusal instead of allowing false booking readiness.
+-record(procurement_blocker, {
+    opportunity_id :: binary(), %% opportunity_id: Required procurement blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id :: binary(), %% blocker_id: Required procurement blocker input; omission is an executable typed refusal, never an inferred approval.
+    refusal_code :: binary() %% refusal_code: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type procurement_blocker() :: #procurement_blocker{}.
+
+-spec new_procurement_blocker(map()) -> {ok, procurement_blocker()} | {error, {missing_field, atom()}}.
+new_procurement_blocker(Map) ->
+    case maps:is_key(opportunity_id, Map) of
+        false -> {error, {missing_field, opportunity_id}};
+        true ->
+    case maps:is_key(blocker_id, Map) of
+        false -> {error, {missing_field, blocker_id}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #procurement_blocker{
+        opportunity_id = maps:get(opportunity_id, Map, undefined),
+        blocker_id = maps:get(blocker_id, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
     }}
     end
     end

@@ -15,7 +15,7 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(75, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(76, length(beam4pm_types_manifest:record_names())).
 
 account_master_match_fields_test() ->
     ?assertEqual([source_account_id, canonical_account_id, match_evidence_hash], beam4pm_types_manifest:fields(account_master_match)).
@@ -169,6 +169,9 @@ pricing_basis_contract_fields_test() ->
 
 process_variant_fields_test() ->
     ?assertEqual([variant_id, activity_sequence, frequency], beam4pm_types_manifest:fields(process_variant)).
+
+procurement_blocker_fields_test() ->
+    ?assertEqual([opportunity_id, blocker_id, refusal_code], beam4pm_types_manifest:fields(procurement_blocker)).
 
 procurement_channel_selection_fields_test() ->
     ?assertEqual([opportunity_id, channel_id, selection_evidence_hash], beam4pm_types_manifest:fields(procurement_channel_selection)).

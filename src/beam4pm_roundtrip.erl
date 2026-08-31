@@ -65,6 +65,7 @@ record_names() ->
         policy_decision,
         pricing_basis_contract,
         process_variant,
+        procurement_blocker,
         procurement_channel_selection,
         proof_of_value_budget,
         proof_of_value_exit_gate,
@@ -699,6 +700,18 @@ sample(process_variant, minimal) ->
         variant_id => <<"sample_variant_id">>,
         activity_sequence => [<<"alpha">>, <<"beta">>],
         frequency => 42
+    });
+sample(procurement_blocker, full) ->
+    beam4pm_types:new_procurement_blocker(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        blocker_id => <<"sample_blocker_id">>,
+        refusal_code => <<"sample_refusal_code">>
+    });
+sample(procurement_blocker, minimal) ->
+    beam4pm_types:new_procurement_blocker(#{
+        opportunity_id => <<"sample_opportunity_id">>,
+        blocker_id => <<"sample_blocker_id">>,
+        refusal_code => <<"sample_refusal_code">>
     });
 sample(procurement_channel_selection, full) ->
     beam4pm_types:new_procurement_channel_selection(#{

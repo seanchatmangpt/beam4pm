@@ -515,6 +515,16 @@
 | `activity_sequence` | `list_string` | true | Ordered list of activity names making up this variant. |
 | `frequency` | `integer` | true | Number of traces observed with exactly this activity sequence. |
 
+## procurement_blocker
+
+> Encodes an unresolved procurement blocker as a typed refusal instead of allowing false booking readiness.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `opportunity_id` | `string` | true | Required procurement blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `blocker_id` | `string` | true | Required procurement blocker input; omission is an executable typed refusal, never an inferred approval. |
+| `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## procurement_channel_selection
 
 > Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting.

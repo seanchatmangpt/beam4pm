@@ -627,6 +627,18 @@ pub type ProcessVariant {
   )
 }
 
+/// Encodes an unresolved procurement blocker as a typed refusal instead of allowing false booking readiness.
+pub type ProcurementBlocker {
+  ProcurementBlocker(
+    /// Required procurement blocker input; omission is an executable typed refusal, never an inferred approval.
+    opportunity_id: String,
+    /// Required procurement blocker input; omission is an executable typed refusal, never an inferred approval.
+    blocker_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    refusal_code: String,
+  )
+}
+
 /// Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting.
 pub type ProcurementChannelSelection {
   ProcurementChannelSelection(

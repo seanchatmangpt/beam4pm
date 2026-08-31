@@ -770,6 +770,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "procurement_blocker new/1 succeeds when all fields are present" do
+    attrs = %{
+      opportunity_id: "x",
+      blocker_id: "x",
+      refusal_code: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ProcurementBlocker.new(attrs)
+  end
+
+  test "procurement_blocker new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ProcurementBlocker.new(%{})
+  end
+
+
   test "procurement_channel_selection new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

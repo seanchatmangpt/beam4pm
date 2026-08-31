@@ -1093,6 +1093,27 @@
       ]
 
     },
+    "procurement_blocker": {
+      "type": "object",
+      "description": "Encodes an unresolved procurement blocker as a typed refusal instead of allowing false booking readiness.",
+      "properties": {
+        "opportunity_id": {
+          "type": "string",
+          "description": "Required procurement blocker input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "blocker_id": {
+          "type": "string",
+          "description": "Required procurement blocker input; omission is an executable typed refusal, never an inferred approval."
+        },
+        "refusal_code": {
+          "type": "string",
+          "description": "Immutable decision or evidence identity used to verify and replay this bounded commercial admission."
+        }
+      },
+      "required": ["opportunity_id", "blocker_id", "refusal_code"
+      ]
+
+    },
     "procurement_channel_selection": {
       "type": "object",
       "description": "Admits exactly one purchasing channel with evidence, preventing direct, marketplace, reseller, and distributor routes from conflicting.",

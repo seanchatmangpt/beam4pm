@@ -2087,6 +2087,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "procurement_blocker to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProcurementBlocker.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["opportunity_id"] == "sample_opportunity_id"
+    assert m["blocker_id"] == "sample_blocker_id"
+    assert m["refusal_code"] == "sample_refusal_code"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:procurement_blocker, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:procurement_blocker, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "procurement_blocker encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProcurementBlocker.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:procurement_blocker, json)
+  end
+
+  test "procurement_blocker from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :opportunity_id}} =
+             BeamPM.Codec.from_map(:procurement_blocker, %{})
+  end
+
+
   test "procurement_channel_selection to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

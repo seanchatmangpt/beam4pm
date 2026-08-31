@@ -60,6 +60,7 @@ defmodule BeamPM.Roundtrip do
     :policy_decision,
     :pricing_basis_contract,
     :process_variant,
+    :procurement_blocker,
     :procurement_channel_selection,
     :proof_of_value_budget,
     :proof_of_value_exit_gate,
@@ -902,6 +903,22 @@ defmodule BeamPM.Roundtrip do
       variant_id: "sample_variant_id",
       activity_sequence: ["alpha", "beta"],
       frequency: 42
+    })
+  end
+
+  def sample(:procurement_blocker, :full) do
+    BeamPM.Types.ProcurementBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
+    })
+  end
+
+  def sample(:procurement_blocker, :minimal) do
+    BeamPM.Types.ProcurementBlocker.new(%{
+      opportunity_id: "sample_opportunity_id",
+      blocker_id: "sample_blocker_id",
+      refusal_code: "sample_refusal_code"
     })
   end
 

@@ -425,6 +425,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ProcurementBlocker{} = r) do
+    to_known_map([
+      {"opportunity_id", r.opportunity_id, :passthrough},
+      {"blocker_id", r.blocker_id, :passthrough},
+      {"refusal_code", r.refusal_code, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ProcurementChannelSelection{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -1237,6 +1245,18 @@ defmodule BeamPM.Codec do
         {"frequency", :frequency, :passthrough}
       ],
       &BeamPM.Types.ProcessVariant.new/1
+    )
+  end
+
+  def from_map(:procurement_blocker, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"opportunity_id", :opportunity_id, :passthrough},
+        {"blocker_id", :blocker_id, :passthrough},
+        {"refusal_code", :refusal_code, :passthrough}
+      ],
+      &BeamPM.Types.ProcurementBlocker.new/1
     )
   end
 

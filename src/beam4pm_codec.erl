@@ -61,6 +61,7 @@
     beam4pm_types:policy_decision() |
     beam4pm_types:pricing_basis_contract() |
     beam4pm_types:process_variant() |
+    beam4pm_types:procurement_blocker() |
     beam4pm_types:procurement_channel_selection() |
     beam4pm_types:proof_of_value_budget() |
     beam4pm_types:proof_of_value_exit_gate() |
@@ -398,6 +399,12 @@ to_map(R) when element(1, R) =:= process_variant ->
         {<<"variant_id">>, plain, element(2, R)},
         {<<"activity_sequence">>, plain, element(3, R)},
         {<<"frequency">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= procurement_blocker ->
+    pairs_to_map([
+        {<<"opportunity_id">>, plain, element(2, R)},
+        {<<"blocker_id">>, plain, element(3, R)},
+        {<<"refusal_code">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= procurement_channel_selection ->
     pairs_to_map([
@@ -866,6 +873,12 @@ from_map(process_variant, Map) when is_map(Map) ->
         {<<"variant_id">>, variant_id, plain},
         {<<"activity_sequence">>, activity_sequence, plain},
         {<<"frequency">>, frequency, plain}
+    ]));
+from_map(procurement_blocker, Map) when is_map(Map) ->
+    beam4pm_types:new_procurement_blocker(take_known(Map, [
+        {<<"opportunity_id">>, opportunity_id, plain},
+        {<<"blocker_id">>, blocker_id, plain},
+        {<<"refusal_code">>, refusal_code, plain}
     ]));
 from_map(procurement_channel_selection, Map) when is_map(Map) ->
     beam4pm_types:new_procurement_channel_selection(take_known(Map, [

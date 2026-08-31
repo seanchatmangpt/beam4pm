@@ -522,6 +522,16 @@ process_variant_ok_test() ->
 process_variant_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_process_variant(#{})).
 
+procurement_blocker_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_procurement_blocker(#{
+        opportunity_id => <<"x">>,
+        blocker_id => <<"x">>,
+        refusal_code => <<"x">>
+    })).
+
+procurement_blocker_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_procurement_blocker(#{})).
+
 procurement_channel_selection_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_procurement_channel_selection(#{
         opportunity_id => <<"x">>,
