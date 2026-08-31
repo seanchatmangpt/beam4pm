@@ -3413,6 +3413,29 @@ b4p:proof_of_value_budget_budget_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:proof_of_value_budget_decision_f a bpm:Field ;
+   bpm:fieldName "decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS1-REV-040 — proof_of_value_exit_gate
+b4p:proof_of_value_exit_gate_rt a bpm:RecordType ;
+    bpm:recordName "proof_of_value_exit_gate" ;
+    bpm:recordDoc "Defines the exact commercial exit gate that converts a proof-of-value into a paid deployment or refusal." ;
+    bpm:hasField b4p:proof_of_value_exit_gate_pov_id_f ,
+                 b4p:proof_of_value_exit_gate_exit_gate_id_f ,
+                 b4p:proof_of_value_exit_gate_decision_f .
+
+b4p:proof_of_value_exit_gate_pov_id_f a bpm:Field ;
+    bpm:fieldName "pov_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:proof_of_value_exit_gate_exit_gate_id_f a bpm:Field ;
+    bpm:fieldName "exit_gate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:proof_of_value_exit_gate_decision_f a bpm:Field ;
     bpm:fieldName "decision" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

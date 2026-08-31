@@ -441,6 +441,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ProofOfValueExitGate{} = r) do
+    to_known_map([
+      {"pov_id", r.pov_id, :passthrough},
+      {"exit_gate_id", r.exit_gate_id, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.PurchaseOrderRequirement{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -1253,6 +1261,18 @@ defmodule BeamPM.Codec do
         {"decision", :decision, :passthrough}
       ],
       &BeamPM.Types.ProofOfValueBudget.new/1
+    )
+  end
+
+  def from_map(:proof_of_value_exit_gate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"pov_id", :pov_id, :passthrough},
+        {"exit_gate_id", :exit_gate_id, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.ProofOfValueExitGate.new/1
     )
   end
 

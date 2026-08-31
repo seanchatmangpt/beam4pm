@@ -542,6 +542,16 @@ proof_of_value_budget_ok_test() ->
 proof_of_value_budget_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_proof_of_value_budget(#{})).
 
+proof_of_value_exit_gate_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_proof_of_value_exit_gate(#{
+        pov_id => <<"x">>,
+        exit_gate_id => <<"x">>,
+        decision => <<"x">>
+    })).
+
+proof_of_value_exit_gate_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_proof_of_value_exit_gate(#{})).
+
 purchase_order_requirement_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_purchase_order_requirement(#{
         opportunity_id => <<"x">>,

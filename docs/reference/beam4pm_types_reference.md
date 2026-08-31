@@ -535,6 +535,16 @@
 | `budget_id` | `string` | true | Required proof of value budget input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## proof_of_value_exit_gate
+
+> Defines the exact commercial exit gate that converts a proof-of-value into a paid deployment or refusal.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `pov_id` | `string` | true | Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval. |
+| `exit_gate_id` | `string` | true | Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval. |
+| `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
 ## purchase_order_requirement
 
 > Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness.

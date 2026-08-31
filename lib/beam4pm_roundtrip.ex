@@ -62,6 +62,7 @@ defmodule BeamPM.Roundtrip do
     :process_variant,
     :procurement_channel_selection,
     :proof_of_value_budget,
+    :proof_of_value_exit_gate,
     :purchase_order_requirement,
     :purchasing_entity_identity,
     :queue_snapshot,
@@ -932,6 +933,22 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.ProofOfValueBudget.new(%{
       opportunity_id: "sample_opportunity_id",
       budget_id: "sample_budget_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:proof_of_value_exit_gate, :full) do
+    BeamPM.Types.ProofOfValueExitGate.new(%{
+      pov_id: "sample_pov_id",
+      exit_gate_id: "sample_exit_gate_id",
+      decision: "sample_decision"
+    })
+  end
+
+  def sample(:proof_of_value_exit_gate, :minimal) do
+    BeamPM.Types.ProofOfValueExitGate.new(%{
+      pov_id: "sample_pov_id",
+      exit_gate_id: "sample_exit_gate_id",
       decision: "sample_decision"
     })
   end

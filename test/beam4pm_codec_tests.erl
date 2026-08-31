@@ -1348,6 +1348,31 @@ proof_of_value_budget_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(proof_of_value_budget, Json),
     ?assertEqual(Rec, Rec2).
 
+proof_of_value_exit_gate_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_proof_of_value_exit_gate(#{
+        pov_id => <<"sample_pov_id">>,
+        exit_gate_id => <<"sample_exit_gate_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_pov_id">>, maps:get(<<"pov_id">>, Map)),
+    ?assertEqual(<<"sample_exit_gate_id">>, maps:get(<<"exit_gate_id">>, Map)),
+    ?assertEqual(<<"sample_decision">>, maps:get(<<"decision">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(proof_of_value_exit_gate,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+proof_of_value_exit_gate_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_proof_of_value_exit_gate(#{
+        pov_id => <<"sample_pov_id">>,
+        exit_gate_id => <<"sample_exit_gate_id">>,
+        decision => <<"sample_decision">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(proof_of_value_exit_gate, Json),
+    ?assertEqual(Rec, Rec2).
+
 purchase_order_requirement_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_purchase_order_requirement(#{
         opportunity_id => <<"sample_opportunity_id">>,

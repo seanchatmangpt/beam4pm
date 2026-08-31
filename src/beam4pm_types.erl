@@ -56,6 +56,7 @@
     new_process_variant/1,
     new_procurement_channel_selection/1,
     new_proof_of_value_budget/1,
+    new_proof_of_value_exit_gate/1,
     new_purchase_order_requirement/1,
     new_purchasing_entity_identity/1,
     new_queue_snapshot/1,
@@ -133,6 +134,7 @@
     process_variant/0,
     procurement_channel_selection/0,
     proof_of_value_budget/0,
+    proof_of_value_exit_gate/0,
     purchase_order_requirement/0,
     purchasing_entity_identity/0,
     queue_snapshot/0,
@@ -1645,6 +1647,35 @@ new_proof_of_value_budget(Map) ->
     {ok, #proof_of_value_budget{
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         budget_id = maps:get(budget_id, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Defines the exact commercial exit gate that converts a proof-of-value into a paid deployment or refusal.
+-record(proof_of_value_exit_gate, {
+    pov_id :: binary(), %% pov_id: Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval.
+    exit_gate_id :: binary(), %% exit_gate_id: Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval.
+    decision :: binary() %% decision: Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+}).
+
+-type proof_of_value_exit_gate() :: #proof_of_value_exit_gate{}.
+
+-spec new_proof_of_value_exit_gate(map()) -> {ok, proof_of_value_exit_gate()} | {error, {missing_field, atom()}}.
+new_proof_of_value_exit_gate(Map) ->
+    case maps:is_key(pov_id, Map) of
+        false -> {error, {missing_field, pov_id}};
+        true ->
+    case maps:is_key(exit_gate_id, Map) of
+        false -> {error, {missing_field, exit_gate_id}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #proof_of_value_exit_gate{
+        pov_id = maps:get(pov_id, Map, undefined),
+        exit_gate_id = maps:get(exit_gate_id, Map, undefined),
         decision = maps:get(decision, Map, undefined)
     }}
     end

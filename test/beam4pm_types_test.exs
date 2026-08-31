@@ -800,6 +800,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "proof_of_value_exit_gate new/1 succeeds when all fields are present" do
+    attrs = %{
+      pov_id: "x",
+      exit_gate_id: "x",
+      decision: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ProofOfValueExitGate.new(attrs)
+  end
+
+  test "proof_of_value_exit_gate new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ProofOfValueExitGate.new(%{})
+  end
+
+
   test "purchase_order_requirement new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

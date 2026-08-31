@@ -67,6 +67,7 @@ record_names() ->
         process_variant,
         procurement_channel_selection,
         proof_of_value_budget,
+        proof_of_value_exit_gate,
         purchase_order_requirement,
         purchasing_entity_identity,
         queue_snapshot,
@@ -721,6 +722,18 @@ sample(proof_of_value_budget, minimal) ->
     beam4pm_types:new_proof_of_value_budget(#{
         opportunity_id => <<"sample_opportunity_id">>,
         budget_id => <<"sample_budget_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(proof_of_value_exit_gate, full) ->
+    beam4pm_types:new_proof_of_value_exit_gate(#{
+        pov_id => <<"sample_pov_id">>,
+        exit_gate_id => <<"sample_exit_gate_id">>,
+        decision => <<"sample_decision">>
+    });
+sample(proof_of_value_exit_gate, minimal) ->
+    beam4pm_types:new_proof_of_value_exit_gate(#{
+        pov_id => <<"sample_pov_id">>,
+        exit_gate_id => <<"sample_exit_gate_id">>,
         decision => <<"sample_decision">>
     });
 sample(purchase_order_requirement, full) ->

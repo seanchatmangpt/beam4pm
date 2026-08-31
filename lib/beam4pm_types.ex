@@ -1425,6 +1425,33 @@ defmodule BeamPM.Types.ProofOfValueBudget do
   end
 end
 
+defmodule BeamPM.Types.ProofOfValueExitGate do
+  @moduledoc "Defines the exact commercial exit gate that converts a proof-of-value into a paid deployment or refusal."
+
+  defstruct [:pov_id, :exit_gate_id, :decision]
+
+  @type t :: %__MODULE__{
+    pov_id: String.t() | nil,
+    exit_gate_id: String.t() | nil,
+    decision: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :pov_id) -> {:error, {:missing_field, :pov_id}}
+      not Map.has_key?(attrs, :exit_gate_id) -> {:error, {:missing_field, :exit_gate_id}}
+      not Map.has_key?(attrs, :decision) -> {:error, {:missing_field, :decision}}
+      true ->
+        {:ok, %__MODULE__{
+          pov_id: Map.get(attrs, :pov_id),
+          exit_gate_id: Map.get(attrs, :exit_gate_id),
+          decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PurchaseOrderRequirement do
   @moduledoc "Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness."
 

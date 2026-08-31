@@ -651,6 +651,18 @@ pub type ProofOfValueBudget {
   )
 }
 
+/// Defines the exact commercial exit gate that converts a proof-of-value into a paid deployment or refusal.
+pub type ProofOfValueExitGate {
+  ProofOfValueExitGate(
+    /// Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval.
+    pov_id: String,
+    /// Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval.
+    exit_gate_id: String,
+    /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
+    decision: String,
+  )
+}
+
 /// Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness.
 pub type PurchaseOrderRequirement {
   PurchaseOrderRequirement(

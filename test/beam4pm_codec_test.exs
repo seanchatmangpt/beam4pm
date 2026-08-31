@@ -2161,6 +2161,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "proof_of_value_exit_gate to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      pov_id: "sample_pov_id",
+      exit_gate_id: "sample_exit_gate_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProofOfValueExitGate.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["pov_id"] == "sample_pov_id"
+    assert m["exit_gate_id"] == "sample_exit_gate_id"
+    assert m["decision"] == "sample_decision"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:proof_of_value_exit_gate, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:proof_of_value_exit_gate, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "proof_of_value_exit_gate encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      pov_id: "sample_pov_id",
+      exit_gate_id: "sample_exit_gate_id",
+      decision: "sample_decision"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProofOfValueExitGate.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:proof_of_value_exit_gate, json)
+  end
+
+  test "proof_of_value_exit_gate from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :pov_id}} =
+             BeamPM.Codec.from_map(:proof_of_value_exit_gate, %{})
+  end
+
+
   test "purchase_order_requirement to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

@@ -63,6 +63,7 @@
     beam4pm_types:process_variant() |
     beam4pm_types:procurement_channel_selection() |
     beam4pm_types:proof_of_value_budget() |
+    beam4pm_types:proof_of_value_exit_gate() |
     beam4pm_types:purchase_order_requirement() |
     beam4pm_types:purchasing_entity_identity() |
     beam4pm_types:queue_snapshot() |
@@ -408,6 +409,12 @@ to_map(R) when element(1, R) =:= proof_of_value_budget ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"budget_id">>, plain, element(3, R)},
+        {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= proof_of_value_exit_gate ->
+    pairs_to_map([
+        {<<"pov_id">>, plain, element(2, R)},
+        {<<"exit_gate_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= purchase_order_requirement ->
@@ -870,6 +877,12 @@ from_map(proof_of_value_budget, Map) when is_map(Map) ->
     beam4pm_types:new_proof_of_value_budget(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"budget_id">>, budget_id, plain},
+        {<<"decision">>, decision, plain}
+    ]));
+from_map(proof_of_value_exit_gate, Map) when is_map(Map) ->
+    beam4pm_types:new_proof_of_value_exit_gate(take_known(Map, [
+        {<<"pov_id">>, pov_id, plain},
+        {<<"exit_gate_id">>, exit_gate_id, plain},
         {<<"decision">>, decision, plain}
     ]));
 from_map(purchase_order_requirement, Map) when is_map(Map) ->
