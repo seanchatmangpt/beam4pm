@@ -14,3 +14,21 @@ deps/
 docs/
 playground/
 generated/gleam/build/
+
+# Real bug caught 2026-08-31: a locally pre-built rust4pm-wasm engine (from
+# running scripts/rust4pm_wasm_build.sh on the host before `docker build`,
+# exactly what any contributor following CLAUDE.md's own build instructions
+# would have done) leaks into the image via `COPY native ./native`, making
+# BeamPM.Rust4PM.wasm_built?/0 return true DURING the Dockerfile's early
+# `mix test` step -- which runs deliberately BEFORE its own
+# `RUN bash scripts/rust4pm_wasm_build.sh` step, per that step's own
+# comment. That flips test/beam4pm_rust4pm_test.exs's setup_all into its
+# real-engine branch, which then raises on the canonical
+# ~/wasm4pm/data/InternationalDeclarations.xes fixture path -- genuinely
+# absent inside the container -- invalidating all 13 of that file's tests
+# (`13 invalid`, not a clean skip). CI never hit this: GitHub Actions
+# runners start from a clean checkout with no pre-built native/*/target/.
+# Excluding every native oracle/engine crate's Rust build output keeps the
+# image's own two-stage wasm-build ordering authoritative regardless of
+# what the host machine has already compiled.
+native/*/target/
