@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-060 — price_book_version
+bpm:price_book_version_rt a bpm:RecordType ;
+    bpm:recordName "price_book_version" ;
+    bpm:recordDoc "Immutable enterprise price-book release." ;
+    bpm:hasField bpm:price_book_version_price_book_version_id_f,
+                 bpm:price_book_version_account_id_f,
+                 bpm:price_book_version_version_f,
+                 bpm:price_book_version_evidence_digest_f,
+                 bpm:price_book_version_effective_at_f .
+
+bpm:price_book_version_price_book_version_id_f a bpm:Field ;
+    bpm:fieldName "price_book_version_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this price book version contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:price_book_version_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:price_book_version_version_f a bpm:Field ;
+    bpm:fieldName "version" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Buyer-visible semantic version of the admitted price book." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:price_book_version_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:price_book_version_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
