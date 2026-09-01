@@ -2285,27 +2285,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 # reinforced field-by-field: bpm:ocel_event_event_type_f and
 # bpm:ocel_event_event_time_f (both domain bpm:ocel_event_rt's field set)
 # correspond to ex4pm:activity and ex4pm:timestamp (both rdfs:domain
-# ex4pm:Event in e…9945 tokens truncated…opportunity_id_f a bpm:Field ;
-    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
-
-b4p:data_processing_addendum_state_addendum_id_f a bpm:Field ;
-    bpm:fieldName "addendum_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required data processing addendum state input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4p:data_processing_addendum_state_addendum_state_f a bpm:Field ;
-   bpm:fieldName "addendum_state" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-# WS1-REV-015 — security_addendum_state
-b4p:security_addendum_state_rt a bpm:RecordType ;
-    bpm:recordName "security_addendum_state" ;
-    bpm:recordDoc "Requires an identified security addendum state before promising a paid production deployment." ;
-    bpm:hasField b4p:security_addendum_state_opportunity_id_f ,
-                 b4p:security_addendum_state_addendum_id_f ,
+# ex4pm:Event i…10254 tokens truncated…ecurity_addendum_state_addendum_id_f ,
                  b4p:security_addendum_state_addendum_state_f .
 
 b4p:security_addendum_state_opportunity_id_f a bpm:Field ;
@@ -4137,5 +4117,29 @@ b4p:metered_usage_sample_usage_sample_id_f a bpm:Field ;
 
 b4p:metered_usage_sample_sample_hash_f a bpm:Field ;
     bpm:fieldName "sample_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-044 — billable_usage_identity
+b4p:billable_usage_identity_rt a bpm:RecordType ;
+    bpm:recordName "billable_usage_identity" ;
+    bpm:recordDoc "Binds accepted usage to one immutable billable identity that prevents duplicate charging." ;
+    bpm:hasField b4p:billable_usage_identity_tenant_id_f,
+                 b4p:billable_usage_identity_billable_usage_id_f,
+                 b4p:billable_usage_identity_identity_hash_f .
+
+b4p:billable_usage_identity_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:billable_usage_identity_billable_usage_id_f a bpm:Field ;
+    bpm:fieldName "billable_usage_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:billable_usage_identity_identity_hash_f a bpm:Field ;
+    bpm:fieldName "identity_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
