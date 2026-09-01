@@ -12,6 +12,7 @@ defmodule BeamPM.Roundtrip do
     :account_discovery,
     :account_master_match,
     :account_parent_scope,
+    :account_value_realization,
     :action_pin_evidence,
     :activation_event,
     :add_on_bundle,
@@ -24,26 +25,33 @@ defmodule BeamPM.Roundtrip do
     :artifact_digest_evidence,
     :attestation_verification_evidence,
     :audit_chain_evidence,
+    :availability_observation,
     :availability_slo_evidence,
     :backup_restore_evidence,
     :baseline_metric,
     :beneficial_owner_evidence,
+    :billable_usage_identity,
     :billing_account,
     :billing_reconciliation,
     :booking_readiness,
+    :brce_actuation_receipt,
+    :brce_actuation_request,
     :budget_period_alignment,
     :business_continuity_evidence,
+    :business_outcome_measurement,
     :buying_committee,
     :canary_decision,
     :canary_evidence,
     :capability_bundle,
     :capability_gap,
+    :capsule_identity,
     :case_stats,
     :catalog_release,
     :change_control_evidence,
     :change_order_authority,
     :channel_agreement,
     :chargeback_rule,
+    :cluster_quorum_state,
     :commercial_approval,
     :commercial_artifact_crown_evidence,
     :commercial_exception,
@@ -62,6 +70,8 @@ defmodule BeamPM.Roundtrip do
     :consumption_pool,
     :consumption_subscription,
     :contracting_entity_identity,
+    :cost_to_serve_measurement,
+    :crash_recovery_receipt,
     :credit_risk_admission,
     :cross_sell_fit,
     :customer_health,
@@ -85,12 +95,16 @@ defmodule BeamPM.Roundtrip do
     :edition_definition,
     :enterprise_order,
     :enterprise_order_line,
+    :entitlement_denial_receipt,
     :entitlement_event,
     :entitlement_evidence,
     :entitlement_grant,
     :entitlement_revocation,
+    :entitlement_runtime_check,
     :entitlement_state,
+    :environment_identity,
     :environment_profile,
+    :error_budget_state,
     :event_log,
     :event_type,
     :evidence_freshness_evidence,
@@ -101,9 +115,12 @@ defmodule BeamPM.Roundtrip do
     :expansion_option,
     :expansion_receipt,
     :expansion_signal,
+    :forged_receipt_refusal,
     :funding_approval_chain,
     :heuristic_arc,
     :implementation_fee_admission,
+    :incident_acknowledgement,
+    :incident_detection_event,
     :incident_response_evidence,
     :indemnity_scope_admission,
     :insurance_requirement,
@@ -112,17 +129,20 @@ defmodule BeamPM.Roundtrip do
     :invoice_entity_identity,
     :invoice_schedule,
     :k8s_object_ref,
+    :latency_budget_observation,
     :least_authority_evidence,
     :legal_blocker,
     :liability_cap_admission,
     :license_evidence,
     :log_trace,
     :master_service_agreement_state,
+    :metered_usage_sample,
     :migration_contract,
     :migration_readiness,
     :minimum_term_admission,
     :multiarch_evidence,
     :mutable_identity_refusal_evidence,
+    :node_failover_event,
     :object_attribute_change,
     :object_type,
     :objection,
@@ -139,6 +159,7 @@ defmodule BeamPM.Roundtrip do
     :opportunity_value_range,
     :order_form_admission,
     :overage_policy,
+    :paid_workload_outcome_receipt,
     :path_schema,
     :path_schema_query,
     :payment_terms,
@@ -174,13 +195,20 @@ defmodule BeamPM.Roundtrip do
     :quota_policy,
     :ramp_commitment,
     :receipt_replay_evidence,
+    :receipt_replay_request,
+    :receipt_signature,
+    :receipt_subject_binding,
+    :receipt_verification,
     :recovery_plan,
+    :recovery_point_receipt,
+    :recovery_time_receipt,
     :remediation_sla_evidence,
     :renewal_evidence,
     :renewal_health,
     :renewal_option,
     :renewal_risk,
     :renewal_term_admission,
+    :replay_environment_identity,
     :reproducible_build_evidence,
     :reseller_authorization,
     :residency_evidence,
@@ -190,8 +218,11 @@ defmodule BeamPM.Roundtrip do
     :revenue_contract_admission,
     :revenue_schedule_assumption,
     :rfp_response_evidence,
+    :rollback_checkpoint,
     :rollback_decision,
     :rollback_evidence,
+    :rolling_upgrade_plan,
+    :runtime_policy_decision,
     :sanctions_screening_result,
     :sbom_inventory_evidence,
     :secret_boundary_evidence,
@@ -200,7 +231,9 @@ defmodule BeamPM.Roundtrip do
     :security_readiness,
     :service_credit,
     :service_credit_admission,
+    :service_health_snapshot,
     :service_level_objective,
+    :service_slo_contract,
     :service_span,
     :showback_allocation,
     :signature_evidence,
@@ -209,9 +242,12 @@ defmodule BeamPM.Roundtrip do
     :sojourn_time,
     :solution_fit,
     :stakeholder_map,
+    :stale_receipt_refusal,
     :stale_subject_refusal_evidence,
     :success_plan,
+    :supervisor_restart_policy,
     :support_contract,
+    :support_diagnostic_bundle,
     :support_escalation_evidence,
     :support_readiness,
     :support_sla_evidence,
@@ -222,10 +258,15 @@ defmodule BeamPM.Roundtrip do
     :tax_jurisdiction_evidence,
     :technical_blocker,
     :tenant_account,
+    :tenant_data_partition,
+    :tenant_key_scope,
     :tenant_project,
+    :tenant_resource_quota,
+    :tenant_runtime_boundary,
     :term_subscription,
     :termination_right_admission,
     :time_to_value,
+    :toolchain_identity,
     :training_readiness,
     :training_scope_admission,
     :true_up_policy,
@@ -235,15 +276,24 @@ defmodule BeamPM.Roundtrip do
     :upsell_readiness,
     :usage_event,
     :usage_plan,
+    :usage_reconciliation_receipt,
     :usage_signal,
     :value_baseline,
     :value_driver,
     :value_realization,
+    :value_telemetry_sample,
     :vendor_registration_state,
     :vendor_risk_evidence,
     :version_lifecycle_evidence,
     :volume_tier_admission,
-    :vulnerability_scan_evidence
+    :vulnerability_scan_evidence,
+    :workload_backpressure_signal,
+    :workload_cancellation_receipt,
+    :workload_execution_identity,
+    :workload_idempotency_key,
+    :workload_queue_depth,
+    :workload_retry_policy,
+    :workload_timeout_budget
   ]
 
   @variants [:full, :minimal]
@@ -307,6 +357,22 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       parent_account_id: "sample_parent_account_id",
       scope_evidence_hash: "sample_scope_evidence_hash"
+    })
+  end
+
+  def sample(:account_value_realization, :full) do
+    BeamPM.Types.AccountValueRealization.new(%{
+      tenant_id: "sample_tenant_id",
+      account_id: "sample_account_id",
+      realization_hash: "sample_realization_hash"
+    })
+  end
+
+  def sample(:account_value_realization, :minimal) do
+    BeamPM.Types.AccountValueRealization.new(%{
+      tenant_id: "sample_tenant_id",
+      account_id: "sample_account_id",
+      realization_hash: "sample_realization_hash"
     })
   end
 
@@ -528,6 +594,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:availability_observation, :full) do
+    BeamPM.Types.AvailabilityObservation.new(%{
+      tenant_id: "sample_tenant_id",
+      slo_id: "sample_slo_id",
+      observation_hash: "sample_observation_hash"
+    })
+  end
+
+  def sample(:availability_observation, :minimal) do
+    BeamPM.Types.AvailabilityObservation.new(%{
+      tenant_id: "sample_tenant_id",
+      slo_id: "sample_slo_id",
+      observation_hash: "sample_observation_hash"
+    })
+  end
+
   def sample(:availability_slo_evidence, :full) do
     BeamPM.Types.AvailabilitySloEvidence.new(%{
       evidence_id: "sample_evidence_id",
@@ -600,6 +682,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:billable_usage_identity, :full) do
+    BeamPM.Types.BillableUsageIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      billable_usage_id: "sample_billable_usage_id",
+      identity_hash: "sample_identity_hash"
+    })
+  end
+
+  def sample(:billable_usage_identity, :minimal) do
+    BeamPM.Types.BillableUsageIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      billable_usage_id: "sample_billable_usage_id",
+      identity_hash: "sample_identity_hash"
+    })
+  end
+
   def sample(:billing_account, :full) do
     BeamPM.Types.BillingAccount.new(%{
       billing_account_id: "sample_billing_account_id",
@@ -656,6 +754,38 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:brce_actuation_receipt, :full) do
+    BeamPM.Types.BrceActuationReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      request_id: "sample_request_id",
+      receipt_hash: "sample_receipt_hash"
+    })
+  end
+
+  def sample(:brce_actuation_receipt, :minimal) do
+    BeamPM.Types.BrceActuationReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      request_id: "sample_request_id",
+      receipt_hash: "sample_receipt_hash"
+    })
+  end
+
+  def sample(:brce_actuation_request, :full) do
+    BeamPM.Types.BrceActuationRequest.new(%{
+      tenant_id: "sample_tenant_id",
+      request_id: "sample_request_id",
+      authority_hash: "sample_authority_hash"
+    })
+  end
+
+  def sample(:brce_actuation_request, :minimal) do
+    BeamPM.Types.BrceActuationRequest.new(%{
+      tenant_id: "sample_tenant_id",
+      request_id: "sample_request_id",
+      authority_hash: "sample_authority_hash"
+    })
+  end
+
   def sample(:budget_period_alignment, :full) do
     BeamPM.Types.BudgetPeriodAlignment.new(%{
       opportunity_id: "sample_opportunity_id",
@@ -687,6 +817,22 @@ defmodule BeamPM.Roundtrip do
       subject_sha: "sample_subject_sha",
       continuity_mode: "sample_continuity_mode",
       observed_result: :sample_atom
+    })
+  end
+
+  def sample(:business_outcome_measurement, :full) do
+    BeamPM.Types.BusinessOutcomeMeasurement.new(%{
+      tenant_id: "sample_tenant_id",
+      outcome_id: "sample_outcome_id",
+      measurement_hash: "sample_measurement_hash"
+    })
+  end
+
+  def sample(:business_outcome_measurement, :minimal) do
+    BeamPM.Types.BusinessOutcomeMeasurement.new(%{
+      tenant_id: "sample_tenant_id",
+      outcome_id: "sample_outcome_id",
+      measurement_hash: "sample_measurement_hash"
     })
   end
 
@@ -783,6 +929,22 @@ defmodule BeamPM.Roundtrip do
       gap_severity: "sample_gap_severity",
       evidence_digest: "sample_evidence_digest",
       observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:capsule_identity, :full) do
+    BeamPM.Types.CapsuleIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      capsule_id: "sample_capsule_id",
+      identity_hash: "sample_identity_hash"
+    })
+  end
+
+  def sample(:capsule_identity, :minimal) do
+    BeamPM.Types.CapsuleIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      capsule_id: "sample_capsule_id",
+      identity_hash: "sample_identity_hash"
     })
   end
 
@@ -886,6 +1048,22 @@ defmodule BeamPM.Roundtrip do
       cost_center: "sample_cost_center",
       metric_name: "sample_metric_name",
       rate: 3.5
+    })
+  end
+
+  def sample(:cluster_quorum_state, :full) do
+    BeamPM.Types.ClusterQuorumState.new(%{
+      tenant_id: "sample_tenant_id",
+      cluster_id: "sample_cluster_id",
+      quorum_hash: "sample_quorum_hash"
+    })
+  end
+
+  def sample(:cluster_quorum_state, :minimal) do
+    BeamPM.Types.ClusterQuorumState.new(%{
+      tenant_id: "sample_tenant_id",
+      cluster_id: "sample_cluster_id",
+      quorum_hash: "sample_quorum_hash"
     })
   end
 
@@ -1203,6 +1381,38 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       contracting_entity_id: "sample_contracting_entity_id",
       identity_evidence_hash: "sample_identity_evidence_hash"
+    })
+  end
+
+  def sample(:cost_to_serve_measurement, :full) do
+    BeamPM.Types.CostToServeMeasurement.new(%{
+      tenant_id: "sample_tenant_id",
+      billing_period_id: "sample_billing_period_id",
+      measurement_hash: "sample_measurement_hash"
+    })
+  end
+
+  def sample(:cost_to_serve_measurement, :minimal) do
+    BeamPM.Types.CostToServeMeasurement.new(%{
+      tenant_id: "sample_tenant_id",
+      billing_period_id: "sample_billing_period_id",
+      measurement_hash: "sample_measurement_hash"
+    })
+  end
+
+  def sample(:crash_recovery_receipt, :full) do
+    BeamPM.Types.CrashRecoveryReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      crash_id: "sample_crash_id",
+      receipt_hash: "sample_receipt_hash"
+    })
+  end
+
+  def sample(:crash_recovery_receipt, :minimal) do
+    BeamPM.Types.CrashRecoveryReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      crash_id: "sample_crash_id",
+      receipt_hash: "sample_receipt_hash"
     })
   end
 
@@ -1624,6 +1834,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:entitlement_denial_receipt, :full) do
+    BeamPM.Types.EntitlementDenialReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      entitlement_id: "sample_entitlement_id",
+      denial_hash: "sample_denial_hash"
+    })
+  end
+
+  def sample(:entitlement_denial_receipt, :minimal) do
+    BeamPM.Types.EntitlementDenialReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      entitlement_id: "sample_entitlement_id",
+      denial_hash: "sample_denial_hash"
+    })
+  end
+
   def sample(:entitlement_event, :full) do
     BeamPM.Types.EntitlementEvent.new(%{
       event_id: "sample_event_id",
@@ -1697,6 +1923,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:entitlement_runtime_check, :full) do
+    BeamPM.Types.EntitlementRuntimeCheck.new(%{
+      tenant_id: "sample_tenant_id",
+      entitlement_id: "sample_entitlement_id",
+      check_hash: "sample_check_hash"
+    })
+  end
+
+  def sample(:entitlement_runtime_check, :minimal) do
+    BeamPM.Types.EntitlementRuntimeCheck.new(%{
+      tenant_id: "sample_tenant_id",
+      entitlement_id: "sample_entitlement_id",
+      check_hash: "sample_check_hash"
+    })
+  end
+
   def sample(:entitlement_state, :full) do
     BeamPM.Types.EntitlementState.new(%{
       entitlement_id: "sample_entitlement_id",
@@ -1715,6 +1957,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:environment_identity, :full) do
+    BeamPM.Types.EnvironmentIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      environment_id: "sample_environment_id",
+      identity_hash: "sample_identity_hash"
+    })
+  end
+
+  def sample(:environment_identity, :minimal) do
+    BeamPM.Types.EnvironmentIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      environment_id: "sample_environment_id",
+      identity_hash: "sample_identity_hash"
+    })
+  end
+
   def sample(:environment_profile, :full) do
     BeamPM.Types.EnvironmentProfile.new(%{
       profile_id: "sample_profile_id",
@@ -1730,6 +1988,22 @@ defmodule BeamPM.Roundtrip do
       environment: :sample_atom,
       region: "sample_region",
       configuration_hash: "sample_configuration_hash"
+    })
+  end
+
+  def sample(:error_budget_state, :full) do
+    BeamPM.Types.ErrorBudgetState.new(%{
+      tenant_id: "sample_tenant_id",
+      slo_id: "sample_slo_id",
+      state_hash: "sample_state_hash"
+    })
+  end
+
+  def sample(:error_budget_state, :minimal) do
+    BeamPM.Types.ErrorBudgetState.new(%{
+      tenant_id: "sample_tenant_id",
+      slo_id: "sample_slo_id",
+      state_hash: "sample_state_hash"
     })
   end
 
@@ -1913,6 +2187,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:forged_receipt_refusal, :full) do
+    BeamPM.Types.ForgedReceiptRefusal.new(%{
+      tenant_id: "sample_tenant_id",
+      receipt_id: "sample_receipt_id",
+      refusal_hash: "sample_refusal_hash"
+    })
+  end
+
+  def sample(:forged_receipt_refusal, :minimal) do
+    BeamPM.Types.ForgedReceiptRefusal.new(%{
+      tenant_id: "sample_tenant_id",
+      receipt_id: "sample_receipt_id",
+      refusal_hash: "sample_refusal_hash"
+    })
+  end
+
   def sample(:funding_approval_chain, :full) do
     BeamPM.Types.FundingApprovalChain.new(%{
       opportunity_id: "sample_opportunity_id",
@@ -1958,6 +2248,38 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       fee_id: "sample_fee_id",
       decision: "sample_decision"
+    })
+  end
+
+  def sample(:incident_acknowledgement, :full) do
+    BeamPM.Types.IncidentAcknowledgement.new(%{
+      tenant_id: "sample_tenant_id",
+      incident_id: "sample_incident_id",
+      acknowledgement_hash: "sample_acknowledgement_hash"
+    })
+  end
+
+  def sample(:incident_acknowledgement, :minimal) do
+    BeamPM.Types.IncidentAcknowledgement.new(%{
+      tenant_id: "sample_tenant_id",
+      incident_id: "sample_incident_id",
+      acknowledgement_hash: "sample_acknowledgement_hash"
+    })
+  end
+
+  def sample(:incident_detection_event, :full) do
+    BeamPM.Types.IncidentDetectionEvent.new(%{
+      tenant_id: "sample_tenant_id",
+      incident_id: "sample_incident_id",
+      detection_hash: "sample_detection_hash"
+    })
+  end
+
+  def sample(:incident_detection_event, :minimal) do
+    BeamPM.Types.IncidentDetectionEvent.new(%{
+      tenant_id: "sample_tenant_id",
+      incident_id: "sample_incident_id",
+      detection_hash: "sample_detection_hash"
     })
   end
 
@@ -2096,6 +2418,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:latency_budget_observation, :full) do
+    BeamPM.Types.LatencyBudgetObservation.new(%{
+      tenant_id: "sample_tenant_id",
+      workload_id: "sample_workload_id",
+      observation_hash: "sample_observation_hash"
+    })
+  end
+
+  def sample(:latency_budget_observation, :minimal) do
+    BeamPM.Types.LatencyBudgetObservation.new(%{
+      tenant_id: "sample_tenant_id",
+      workload_id: "sample_workload_id",
+      observation_hash: "sample_observation_hash"
+    })
+  end
+
   def sample(:least_authority_evidence, :full) do
     BeamPM.Types.LeastAuthorityEvidence.new(%{
       evidence_id: "sample_evidence_id",
@@ -2194,6 +2532,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:metered_usage_sample, :full) do
+    BeamPM.Types.MeteredUsageSample.new(%{
+      tenant_id: "sample_tenant_id",
+      usage_sample_id: "sample_usage_sample_id",
+      sample_hash: "sample_sample_hash"
+    })
+  end
+
+  def sample(:metered_usage_sample, :minimal) do
+    BeamPM.Types.MeteredUsageSample.new(%{
+      tenant_id: "sample_tenant_id",
+      usage_sample_id: "sample_usage_sample_id",
+      sample_hash: "sample_sample_hash"
+    })
+  end
+
   def sample(:migration_contract, :full) do
     BeamPM.Types.MigrationContract.new(%{
       migration_id: "sample_migration_id",
@@ -2281,6 +2635,22 @@ defmodule BeamPM.Roundtrip do
       subject_sha: "sample_subject_sha",
       mutable_reference: "sample_mutable_reference",
       observed_result: :sample_atom
+    })
+  end
+
+  def sample(:node_failover_event, :full) do
+    BeamPM.Types.NodeFailoverEvent.new(%{
+      tenant_id: "sample_tenant_id",
+      node_id: "sample_node_id",
+      failover_hash: "sample_failover_hash"
+    })
+  end
+
+  def sample(:node_failover_event, :minimal) do
+    BeamPM.Types.NodeFailoverEvent.new(%{
+      tenant_id: "sample_tenant_id",
+      node_id: "sample_node_id",
+      failover_hash: "sample_failover_hash"
     })
   end
 
@@ -2554,6 +2924,22 @@ defmodule BeamPM.Roundtrip do
       quota_id: "sample_quota_id",
       unit_price: 3.5,
       behavior: :sample_atom
+    })
+  end
+
+  def sample(:paid_workload_outcome_receipt, :full) do
+    BeamPM.Types.PaidWorkloadOutcomeReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      workload_id: "sample_workload_id",
+      outcome_receipt_hash: "sample_outcome_receipt_hash"
+    })
+  end
+
+  def sample(:paid_workload_outcome_receipt, :minimal) do
+    BeamPM.Types.PaidWorkloadOutcomeReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      workload_id: "sample_workload_id",
+      outcome_receipt_hash: "sample_outcome_receipt_hash"
     })
   end
 
@@ -3155,6 +3541,70 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:receipt_replay_request, :full) do
+    BeamPM.Types.ReceiptReplayRequest.new(%{
+      tenant_id: "sample_tenant_id",
+      receipt_id: "sample_receipt_id",
+      replay_request_hash: "sample_replay_request_hash"
+    })
+  end
+
+  def sample(:receipt_replay_request, :minimal) do
+    BeamPM.Types.ReceiptReplayRequest.new(%{
+      tenant_id: "sample_tenant_id",
+      receipt_id: "sample_receipt_id",
+      replay_request_hash: "sample_replay_request_hash"
+    })
+  end
+
+  def sample(:receipt_signature, :full) do
+    BeamPM.Types.ReceiptSignature.new(%{
+      tenant_id: "sample_tenant_id",
+      receipt_id: "sample_receipt_id",
+      signature_hash: "sample_signature_hash"
+    })
+  end
+
+  def sample(:receipt_signature, :minimal) do
+    BeamPM.Types.ReceiptSignature.new(%{
+      tenant_id: "sample_tenant_id",
+      receipt_id: "sample_receipt_id",
+      signature_hash: "sample_signature_hash"
+    })
+  end
+
+  def sample(:receipt_subject_binding, :full) do
+    BeamPM.Types.ReceiptSubjectBinding.new(%{
+      tenant_id: "sample_tenant_id",
+      workload_id: "sample_workload_id",
+      binding_hash: "sample_binding_hash"
+    })
+  end
+
+  def sample(:receipt_subject_binding, :minimal) do
+    BeamPM.Types.ReceiptSubjectBinding.new(%{
+      tenant_id: "sample_tenant_id",
+      workload_id: "sample_workload_id",
+      binding_hash: "sample_binding_hash"
+    })
+  end
+
+  def sample(:receipt_verification, :full) do
+    BeamPM.Types.ReceiptVerification.new(%{
+      tenant_id: "sample_tenant_id",
+      receipt_id: "sample_receipt_id",
+      verification_hash: "sample_verification_hash"
+    })
+  end
+
+  def sample(:receipt_verification, :minimal) do
+    BeamPM.Types.ReceiptVerification.new(%{
+      tenant_id: "sample_tenant_id",
+      receipt_id: "sample_receipt_id",
+      verification_hash: "sample_verification_hash"
+    })
+  end
+
   def sample(:recovery_plan, :full) do
     BeamPM.Types.RecoveryPlan.new(%{
       recovery_plan_id: "sample_recovery_plan_id",
@@ -3172,6 +3622,38 @@ defmodule BeamPM.Roundtrip do
       recovery_time_hours: 3.5,
       evidence_digest: "sample_evidence_digest",
       observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:recovery_point_receipt, :full) do
+    BeamPM.Types.RecoveryPointReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      incident_id: "sample_incident_id",
+      recovery_hash: "sample_recovery_hash"
+    })
+  end
+
+  def sample(:recovery_point_receipt, :minimal) do
+    BeamPM.Types.RecoveryPointReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      incident_id: "sample_incident_id",
+      recovery_hash: "sample_recovery_hash"
+    })
+  end
+
+  def sample(:recovery_time_receipt, :full) do
+    BeamPM.Types.RecoveryTimeReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      incident_id: "sample_incident_id",
+      recovery_hash: "sample_recovery_hash"
+    })
+  end
+
+  def sample(:recovery_time_receipt, :minimal) do
+    BeamPM.Types.RecoveryTimeReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      incident_id: "sample_incident_id",
+      recovery_hash: "sample_recovery_hash"
     })
   end
 
@@ -3284,6 +3766,22 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       renewal_term: "sample_renewal_term",
       decision: "sample_decision"
+    })
+  end
+
+  def sample(:replay_environment_identity, :full) do
+    BeamPM.Types.ReplayEnvironmentIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      environment_id: "sample_environment_id",
+      identity_hash: "sample_identity_hash"
+    })
+  end
+
+  def sample(:replay_environment_identity, :minimal) do
+    BeamPM.Types.ReplayEnvironmentIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      environment_id: "sample_environment_id",
+      identity_hash: "sample_identity_hash"
     })
   end
 
@@ -3445,6 +3943,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:rollback_checkpoint, :full) do
+    BeamPM.Types.RollbackCheckpoint.new(%{
+      tenant_id: "sample_tenant_id",
+      checkpoint_id: "sample_checkpoint_id",
+      state_hash: "sample_state_hash"
+    })
+  end
+
+  def sample(:rollback_checkpoint, :minimal) do
+    BeamPM.Types.RollbackCheckpoint.new(%{
+      tenant_id: "sample_tenant_id",
+      checkpoint_id: "sample_checkpoint_id",
+      state_hash: "sample_state_hash"
+    })
+  end
+
   def sample(:rollback_decision, :full) do
     BeamPM.Types.RollbackDecision.new(%{
       rollback_decision_id: "sample_rollback_decision_id",
@@ -3480,6 +3994,38 @@ defmodule BeamPM.Roundtrip do
       subject_sha: "sample_subject_sha",
       rollback_digest: "sample_rollback_digest",
       observed_result: :sample_atom
+    })
+  end
+
+  def sample(:rolling_upgrade_plan, :full) do
+    BeamPM.Types.RollingUpgradePlan.new(%{
+      tenant_id: "sample_tenant_id",
+      upgrade_id: "sample_upgrade_id",
+      plan_hash: "sample_plan_hash"
+    })
+  end
+
+  def sample(:rolling_upgrade_plan, :minimal) do
+    BeamPM.Types.RollingUpgradePlan.new(%{
+      tenant_id: "sample_tenant_id",
+      upgrade_id: "sample_upgrade_id",
+      plan_hash: "sample_plan_hash"
+    })
+  end
+
+  def sample(:runtime_policy_decision, :full) do
+    BeamPM.Types.RuntimePolicyDecision.new(%{
+      tenant_id: "sample_tenant_id",
+      decision_id: "sample_decision_id",
+      policy_hash: "sample_policy_hash"
+    })
+  end
+
+  def sample(:runtime_policy_decision, :minimal) do
+    BeamPM.Types.RuntimePolicyDecision.new(%{
+      tenant_id: "sample_tenant_id",
+      decision_id: "sample_decision_id",
+      policy_hash: "sample_policy_hash"
     })
   end
 
@@ -3621,6 +4167,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:service_health_snapshot, :full) do
+    BeamPM.Types.ServiceHealthSnapshot.new(%{
+      tenant_id: "sample_tenant_id",
+      service_id: "sample_service_id",
+      snapshot_hash: "sample_snapshot_hash"
+    })
+  end
+
+  def sample(:service_health_snapshot, :minimal) do
+    BeamPM.Types.ServiceHealthSnapshot.new(%{
+      tenant_id: "sample_tenant_id",
+      service_id: "sample_service_id",
+      snapshot_hash: "sample_snapshot_hash"
+    })
+  end
+
   def sample(:service_level_objective, :full) do
     BeamPM.Types.ServiceLevelObjective.new(%{
       slo_id: "sample_slo_id",
@@ -3636,6 +4198,22 @@ defmodule BeamPM.Roundtrip do
       contract_id: "sample_contract_id",
       target_percent: 3.5,
       measurement_window: :sample_atom
+    })
+  end
+
+  def sample(:service_slo_contract, :full) do
+    BeamPM.Types.ServiceSloContract.new(%{
+      tenant_id: "sample_tenant_id",
+      slo_id: "sample_slo_id",
+      contract_hash: "sample_contract_hash"
+    })
+  end
+
+  def sample(:service_slo_contract, :minimal) do
+    BeamPM.Types.ServiceSloContract.new(%{
+      tenant_id: "sample_tenant_id",
+      slo_id: "sample_slo_id",
+      contract_hash: "sample_contract_hash"
     })
   end
 
@@ -3782,6 +4360,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:stale_receipt_refusal, :full) do
+    BeamPM.Types.StaleReceiptRefusal.new(%{
+      tenant_id: "sample_tenant_id",
+      receipt_id: "sample_receipt_id",
+      refusal_hash: "sample_refusal_hash"
+    })
+  end
+
+  def sample(:stale_receipt_refusal, :minimal) do
+    BeamPM.Types.StaleReceiptRefusal.new(%{
+      tenant_id: "sample_tenant_id",
+      receipt_id: "sample_receipt_id",
+      refusal_hash: "sample_refusal_hash"
+    })
+  end
+
   def sample(:stale_subject_refusal_evidence, :full) do
     BeamPM.Types.StaleSubjectRefusalEvidence.new(%{
       evidence_id: "sample_evidence_id",
@@ -3820,6 +4414,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:supervisor_restart_policy, :full) do
+    BeamPM.Types.SupervisorRestartPolicy.new(%{
+      tenant_id: "sample_tenant_id",
+      supervisor_id: "sample_supervisor_id",
+      policy_hash: "sample_policy_hash"
+    })
+  end
+
+  def sample(:supervisor_restart_policy, :minimal) do
+    BeamPM.Types.SupervisorRestartPolicy.new(%{
+      tenant_id: "sample_tenant_id",
+      supervisor_id: "sample_supervisor_id",
+      policy_hash: "sample_policy_hash"
+    })
+  end
+
   def sample(:support_contract, :full) do
     BeamPM.Types.SupportContract.new(%{
       contract_id: "sample_contract_id",
@@ -3835,6 +4445,22 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       tier: :sample_atom,
       valid_until: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:support_diagnostic_bundle, :full) do
+    BeamPM.Types.SupportDiagnosticBundle.new(%{
+      tenant_id: "sample_tenant_id",
+      incident_id: "sample_incident_id",
+      bundle_hash: "sample_bundle_hash"
+    })
+  end
+
+  def sample(:support_diagnostic_bundle, :minimal) do
+    BeamPM.Types.SupportDiagnosticBundle.new(%{
+      tenant_id: "sample_tenant_id",
+      incident_id: "sample_incident_id",
+      bundle_hash: "sample_bundle_hash"
     })
   end
 
@@ -4013,6 +4639,38 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:tenant_data_partition, :full) do
+    BeamPM.Types.TenantDataPartition.new(%{
+      tenant_id: "sample_tenant_id",
+      partition_id: "sample_partition_id",
+      isolation_hash: "sample_isolation_hash"
+    })
+  end
+
+  def sample(:tenant_data_partition, :minimal) do
+    BeamPM.Types.TenantDataPartition.new(%{
+      tenant_id: "sample_tenant_id",
+      partition_id: "sample_partition_id",
+      isolation_hash: "sample_isolation_hash"
+    })
+  end
+
+  def sample(:tenant_key_scope, :full) do
+    BeamPM.Types.TenantKeyScope.new(%{
+      tenant_id: "sample_tenant_id",
+      key_scope_id: "sample_key_scope_id",
+      key_attestation_hash: "sample_key_attestation_hash"
+    })
+  end
+
+  def sample(:tenant_key_scope, :minimal) do
+    BeamPM.Types.TenantKeyScope.new(%{
+      tenant_id: "sample_tenant_id",
+      key_scope_id: "sample_key_scope_id",
+      key_attestation_hash: "sample_key_attestation_hash"
+    })
+  end
+
   def sample(:tenant_project, :full) do
     BeamPM.Types.TenantProject.new(%{
       project_id: "sample_project_id",
@@ -4028,6 +4686,38 @@ defmodule BeamPM.Roundtrip do
       tenant_id: "sample_tenant_id",
       cost_center: "sample_cost_center",
       status: :sample_atom
+    })
+  end
+
+  def sample(:tenant_resource_quota, :full) do
+    BeamPM.Types.TenantResourceQuota.new(%{
+      tenant_id: "sample_tenant_id",
+      quota_id: "sample_quota_id",
+      utilization_hash: "sample_utilization_hash"
+    })
+  end
+
+  def sample(:tenant_resource_quota, :minimal) do
+    BeamPM.Types.TenantResourceQuota.new(%{
+      tenant_id: "sample_tenant_id",
+      quota_id: "sample_quota_id",
+      utilization_hash: "sample_utilization_hash"
+    })
+  end
+
+  def sample(:tenant_runtime_boundary, :full) do
+    BeamPM.Types.TenantRuntimeBoundary.new(%{
+      tenant_id: "sample_tenant_id",
+      boundary_id: "sample_boundary_id",
+      evidence_hash: "sample_evidence_hash"
+    })
+  end
+
+  def sample(:tenant_runtime_boundary, :minimal) do
+    BeamPM.Types.TenantRuntimeBoundary.new(%{
+      tenant_id: "sample_tenant_id",
+      boundary_id: "sample_boundary_id",
+      evidence_hash: "sample_evidence_hash"
     })
   end
 
@@ -4082,6 +4772,22 @@ defmodule BeamPM.Roundtrip do
       verified_days: 42,
       evidence_digest: "sample_evidence_digest",
       observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:toolchain_identity, :full) do
+    BeamPM.Types.ToolchainIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      toolchain_id: "sample_toolchain_id",
+      identity_hash: "sample_identity_hash"
+    })
+  end
+
+  def sample(:toolchain_identity, :minimal) do
+    BeamPM.Types.ToolchainIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      toolchain_id: "sample_toolchain_id",
+      identity_hash: "sample_identity_hash"
     })
   end
 
@@ -4251,6 +4957,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:usage_reconciliation_receipt, :full) do
+    BeamPM.Types.UsageReconciliationReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      billing_period_id: "sample_billing_period_id",
+      reconciliation_hash: "sample_reconciliation_hash"
+    })
+  end
+
+  def sample(:usage_reconciliation_receipt, :minimal) do
+    BeamPM.Types.UsageReconciliationReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      billing_period_id: "sample_billing_period_id",
+      reconciliation_hash: "sample_reconciliation_hash"
+    })
+  end
+
   def sample(:usage_signal, :full) do
     BeamPM.Types.UsageSignal.new(%{
       usage_signal_id: "sample_usage_signal_id",
@@ -4326,6 +5048,22 @@ defmodule BeamPM.Roundtrip do
       realized_value: 3.5,
       evidence_digest: "sample_evidence_digest",
       observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:value_telemetry_sample, :full) do
+    BeamPM.Types.ValueTelemetrySample.new(%{
+      tenant_id: "sample_tenant_id",
+      outcome_id: "sample_outcome_id",
+      telemetry_hash: "sample_telemetry_hash"
+    })
+  end
+
+  def sample(:value_telemetry_sample, :minimal) do
+    BeamPM.Types.ValueTelemetrySample.new(%{
+      tenant_id: "sample_tenant_id",
+      outcome_id: "sample_outcome_id",
+      telemetry_hash: "sample_telemetry_hash"
     })
   end
 
@@ -4412,6 +5150,118 @@ defmodule BeamPM.Roundtrip do
       subject_sha: "sample_subject_sha",
       vulnerability_count: 42,
       observed_result: :sample_atom
+    })
+  end
+
+  def sample(:workload_backpressure_signal, :full) do
+    BeamPM.Types.WorkloadBackpressureSignal.new(%{
+      tenant_id: "sample_tenant_id",
+      signal_id: "sample_signal_id",
+      measurement_hash: "sample_measurement_hash"
+    })
+  end
+
+  def sample(:workload_backpressure_signal, :minimal) do
+    BeamPM.Types.WorkloadBackpressureSignal.new(%{
+      tenant_id: "sample_tenant_id",
+      signal_id: "sample_signal_id",
+      measurement_hash: "sample_measurement_hash"
+    })
+  end
+
+  def sample(:workload_cancellation_receipt, :full) do
+    BeamPM.Types.WorkloadCancellationReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      execution_id: "sample_execution_id",
+      receipt_hash: "sample_receipt_hash"
+    })
+  end
+
+  def sample(:workload_cancellation_receipt, :minimal) do
+    BeamPM.Types.WorkloadCancellationReceipt.new(%{
+      tenant_id: "sample_tenant_id",
+      execution_id: "sample_execution_id",
+      receipt_hash: "sample_receipt_hash"
+    })
+  end
+
+  def sample(:workload_execution_identity, :full) do
+    BeamPM.Types.WorkloadExecutionIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      execution_id: "sample_execution_id",
+      subject_digest: "sample_subject_digest"
+    })
+  end
+
+  def sample(:workload_execution_identity, :minimal) do
+    BeamPM.Types.WorkloadExecutionIdentity.new(%{
+      tenant_id: "sample_tenant_id",
+      execution_id: "sample_execution_id",
+      subject_digest: "sample_subject_digest"
+    })
+  end
+
+  def sample(:workload_idempotency_key, :full) do
+    BeamPM.Types.WorkloadIdempotencyKey.new(%{
+      tenant_id: "sample_tenant_id",
+      execution_id: "sample_execution_id",
+      idempotency_key: "sample_idempotency_key"
+    })
+  end
+
+  def sample(:workload_idempotency_key, :minimal) do
+    BeamPM.Types.WorkloadIdempotencyKey.new(%{
+      tenant_id: "sample_tenant_id",
+      execution_id: "sample_execution_id",
+      idempotency_key: "sample_idempotency_key"
+    })
+  end
+
+  def sample(:workload_queue_depth, :full) do
+    BeamPM.Types.WorkloadQueueDepth.new(%{
+      tenant_id: "sample_tenant_id",
+      queue_id: "sample_queue_id",
+      measurement_hash: "sample_measurement_hash"
+    })
+  end
+
+  def sample(:workload_queue_depth, :minimal) do
+    BeamPM.Types.WorkloadQueueDepth.new(%{
+      tenant_id: "sample_tenant_id",
+      queue_id: "sample_queue_id",
+      measurement_hash: "sample_measurement_hash"
+    })
+  end
+
+  def sample(:workload_retry_policy, :full) do
+    BeamPM.Types.WorkloadRetryPolicy.new(%{
+      tenant_id: "sample_tenant_id",
+      policy_id: "sample_policy_id",
+      policy_hash: "sample_policy_hash"
+    })
+  end
+
+  def sample(:workload_retry_policy, :minimal) do
+    BeamPM.Types.WorkloadRetryPolicy.new(%{
+      tenant_id: "sample_tenant_id",
+      policy_id: "sample_policy_id",
+      policy_hash: "sample_policy_hash"
+    })
+  end
+
+  def sample(:workload_timeout_budget, :full) do
+    BeamPM.Types.WorkloadTimeoutBudget.new(%{
+      tenant_id: "sample_tenant_id",
+      budget_id: "sample_budget_id",
+      budget_hash: "sample_budget_hash"
+    })
+  end
+
+  def sample(:workload_timeout_budget, :minimal) do
+    BeamPM.Types.WorkloadTimeoutBudget.new(%{
+      tenant_id: "sample_tenant_id",
+      budget_id: "sample_budget_id",
+      budget_hash: "sample_budget_hash"
     })
   end
 

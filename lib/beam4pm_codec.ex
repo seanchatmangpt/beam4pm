@@ -40,6 +40,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.AccountValueRealization{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"realization_hash", r.realization_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ActionPinEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -149,6 +157,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.AvailabilityObservation{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"slo_id", r.slo_id, :passthrough},
+      {"observation_hash", r.observation_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.AvailabilitySloEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -185,6 +201,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.BillableUsageIdentity{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"billable_usage_id", r.billable_usage_id, :passthrough},
+      {"identity_hash", r.identity_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.BillingAccount{} = r) do
     to_known_map([
       {"billing_account_id", r.billing_account_id, :passthrough},
@@ -213,6 +237,22 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.BrceActuationReceipt{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"request_id", r.request_id, :passthrough},
+      {"receipt_hash", r.receipt_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.BrceActuationRequest{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"request_id", r.request_id, :passthrough},
+      {"authority_hash", r.authority_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.BudgetPeriodAlignment{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -227,6 +267,14 @@ defmodule BeamPM.Codec do
       {"subject_sha", r.subject_sha, :passthrough},
       {"continuity_mode", r.continuity_mode, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.BusinessOutcomeMeasurement{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"outcome_id", r.outcome_id, :passthrough},
+      {"measurement_hash", r.measurement_hash, :passthrough}
     ])
   end
 
@@ -275,6 +323,14 @@ defmodule BeamPM.Codec do
       {"gap_severity", r.gap_severity, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CapsuleIdentity{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"capsule_id", r.capsule_id, :passthrough},
+      {"identity_hash", r.identity_hash, :passthrough}
     ])
   end
 
@@ -327,6 +383,14 @@ defmodule BeamPM.Codec do
       {"cost_center", r.cost_center, :passthrough},
       {"metric_name", r.metric_name, :passthrough},
       {"rate", r.rate, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ClusterQuorumState{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"cluster_id", r.cluster_id, :passthrough},
+      {"quorum_hash", r.quorum_hash, :passthrough}
     ])
   end
 
@@ -486,6 +550,22 @@ defmodule BeamPM.Codec do
       {"opportunity_id", r.opportunity_id, :passthrough},
       {"contracting_entity_id", r.contracting_entity_id, :passthrough},
       {"identity_evidence_hash", r.identity_evidence_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CostToServeMeasurement{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"billing_period_id", r.billing_period_id, :passthrough},
+      {"measurement_hash", r.measurement_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrashRecoveryReceipt{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"crash_id", r.crash_id, :passthrough},
+      {"receipt_hash", r.receipt_hash, :passthrough}
     ])
   end
 
@@ -698,6 +778,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.EntitlementDenialReceipt{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"entitlement_id", r.entitlement_id, :passthrough},
+      {"denial_hash", r.denial_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.EntitlementEvent{} = r) do
     to_known_map([
       {"event_id", r.event_id, :passthrough},
@@ -735,6 +823,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.EntitlementRuntimeCheck{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"entitlement_id", r.entitlement_id, :passthrough},
+      {"check_hash", r.check_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.EntitlementState{} = r) do
     to_known_map([
       {"entitlement_id", r.entitlement_id, :passthrough},
@@ -744,12 +840,28 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.EnvironmentIdentity{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"environment_id", r.environment_id, :passthrough},
+      {"identity_hash", r.identity_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.EnvironmentProfile{} = r) do
     to_known_map([
       {"profile_id", r.profile_id, :passthrough},
       {"environment", r.environment, :atom},
       {"region", r.region, :passthrough},
       {"configuration_hash", r.configuration_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ErrorBudgetState{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"slo_id", r.slo_id, :passthrough},
+      {"state_hash", r.state_hash, :passthrough}
     ])
   end
 
@@ -844,6 +956,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ForgedReceiptRefusal{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"receipt_id", r.receipt_id, :passthrough},
+      {"refusal_hash", r.refusal_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.FundingApprovalChain{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -865,6 +985,22 @@ defmodule BeamPM.Codec do
       {"opportunity_id", r.opportunity_id, :passthrough},
       {"fee_id", r.fee_id, :passthrough},
       {"decision", r.decision, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.IncidentAcknowledgement{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"incident_id", r.incident_id, :passthrough},
+      {"acknowledgement_hash", r.acknowledgement_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.IncidentDetectionEvent{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"incident_id", r.incident_id, :passthrough},
+      {"detection_hash", r.detection_hash, :passthrough}
     ])
   end
 
@@ -936,6 +1072,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.LatencyBudgetObservation{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"workload_id", r.workload_id, :passthrough},
+      {"observation_hash", r.observation_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.LeastAuthorityEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -985,6 +1129,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.MeteredUsageSample{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"usage_sample_id", r.usage_sample_id, :passthrough},
+      {"sample_hash", r.sample_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.MigrationContract{} = r) do
     to_known_map([
       {"migration_id", r.migration_id, :passthrough},
@@ -1027,6 +1179,14 @@ defmodule BeamPM.Codec do
       {"subject_sha", r.subject_sha, :passthrough},
       {"mutable_reference", r.mutable_reference, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.NodeFailoverEvent{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"node_id", r.node_id, :passthrough},
+      {"failover_hash", r.failover_hash, :passthrough}
     ])
   end
 
@@ -1166,6 +1326,14 @@ defmodule BeamPM.Codec do
       {"quota_id", r.quota_id, :passthrough},
       {"unit_price", r.unit_price, :passthrough},
       {"behavior", r.behavior, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PaidWorkloadOutcomeReceipt{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"workload_id", r.workload_id, :passthrough},
+      {"outcome_receipt_hash", r.outcome_receipt_hash, :passthrough}
     ])
   end
 
@@ -1470,6 +1638,38 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ReceiptReplayRequest{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"receipt_id", r.receipt_id, :passthrough},
+      {"replay_request_hash", r.replay_request_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ReceiptSignature{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"receipt_id", r.receipt_id, :passthrough},
+      {"signature_hash", r.signature_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ReceiptSubjectBinding{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"workload_id", r.workload_id, :passthrough},
+      {"binding_hash", r.binding_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ReceiptVerification{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"receipt_id", r.receipt_id, :passthrough},
+      {"verification_hash", r.verification_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.RecoveryPlan{} = r) do
     to_known_map([
       {"recovery_plan_id", r.recovery_plan_id, :passthrough},
@@ -1477,6 +1677,22 @@ defmodule BeamPM.Codec do
       {"recovery_time_hours", r.recovery_time_hours, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RecoveryPointReceipt{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"incident_id", r.incident_id, :passthrough},
+      {"recovery_hash", r.recovery_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RecoveryTimeReceipt{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"incident_id", r.incident_id, :passthrough},
+      {"recovery_hash", r.recovery_hash, :passthrough}
     ])
   end
 
@@ -1533,6 +1749,14 @@ defmodule BeamPM.Codec do
       {"opportunity_id", r.opportunity_id, :passthrough},
       {"renewal_term", r.renewal_term, :passthrough},
       {"decision", r.decision, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ReplayEnvironmentIdentity{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"environment_id", r.environment_id, :passthrough},
+      {"identity_hash", r.identity_hash, :passthrough}
     ])
   end
 
@@ -1615,6 +1839,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.RollbackCheckpoint{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"checkpoint_id", r.checkpoint_id, :passthrough},
+      {"state_hash", r.state_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.RollbackDecision{} = r) do
     to_known_map([
       {"rollback_decision_id", r.rollback_decision_id, :passthrough},
@@ -1631,6 +1863,22 @@ defmodule BeamPM.Codec do
       {"subject_sha", r.subject_sha, :passthrough},
       {"rollback_digest", r.rollback_digest, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RollingUpgradePlan{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"upgrade_id", r.upgrade_id, :passthrough},
+      {"plan_hash", r.plan_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RuntimePolicyDecision{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"decision_id", r.decision_id, :passthrough},
+      {"policy_hash", r.policy_hash, :passthrough}
     ])
   end
 
@@ -1703,12 +1951,28 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ServiceHealthSnapshot{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"service_id", r.service_id, :passthrough},
+      {"snapshot_hash", r.snapshot_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ServiceLevelObjective{} = r) do
     to_known_map([
       {"slo_id", r.slo_id, :passthrough},
       {"contract_id", r.contract_id, :passthrough},
       {"target_percent", r.target_percent, :passthrough},
       {"measurement_window", r.measurement_window, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ServiceSloContract{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"slo_id", r.slo_id, :passthrough},
+      {"contract_hash", r.contract_hash, :passthrough}
     ])
   end
 
@@ -1784,6 +2048,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.StaleReceiptRefusal{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"receipt_id", r.receipt_id, :passthrough},
+      {"refusal_hash", r.refusal_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.StaleSubjectRefusalEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -1803,12 +2075,28 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.SupervisorRestartPolicy{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"supervisor_id", r.supervisor_id, :passthrough},
+      {"policy_hash", r.policy_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.SupportContract{} = r) do
     to_known_map([
       {"contract_id", r.contract_id, :passthrough},
       {"account_id", r.account_id, :passthrough},
       {"tier", r.tier, :atom},
       {"valid_until", r.valid_until, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.SupportDiagnosticBundle{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"incident_id", r.incident_id, :passthrough},
+      {"bundle_hash", r.bundle_hash, :passthrough}
     ])
   end
 
@@ -1900,12 +2188,44 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.TenantDataPartition{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"partition_id", r.partition_id, :passthrough},
+      {"isolation_hash", r.isolation_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.TenantKeyScope{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"key_scope_id", r.key_scope_id, :passthrough},
+      {"key_attestation_hash", r.key_attestation_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.TenantProject{} = r) do
     to_known_map([
       {"project_id", r.project_id, :passthrough},
       {"tenant_id", r.tenant_id, :passthrough},
       {"cost_center", r.cost_center, :passthrough},
       {"status", r.status, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.TenantResourceQuota{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"quota_id", r.quota_id, :passthrough},
+      {"utilization_hash", r.utilization_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.TenantRuntimeBoundary{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"boundary_id", r.boundary_id, :passthrough},
+      {"evidence_hash", r.evidence_hash, :passthrough}
     ])
   end
 
@@ -1933,6 +2253,14 @@ defmodule BeamPM.Codec do
       {"verified_days", r.verified_days, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ToolchainIdentity{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"toolchain_id", r.toolchain_id, :passthrough},
+      {"identity_hash", r.identity_hash, :passthrough}
     ])
   end
 
@@ -2019,6 +2347,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.UsageReconciliationReceipt{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"billing_period_id", r.billing_period_id, :passthrough},
+      {"reconciliation_hash", r.reconciliation_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.UsageSignal{} = r) do
     to_known_map([
       {"usage_signal_id", r.usage_signal_id, :passthrough},
@@ -2055,6 +2391,14 @@ defmodule BeamPM.Codec do
       {"realized_value", r.realized_value, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ValueTelemetrySample{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"outcome_id", r.outcome_id, :passthrough},
+      {"telemetry_hash", r.telemetry_hash, :passthrough}
     ])
   end
 
@@ -2101,6 +2445,62 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.WorkloadBackpressureSignal{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"signal_id", r.signal_id, :passthrough},
+      {"measurement_hash", r.measurement_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.WorkloadCancellationReceipt{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"execution_id", r.execution_id, :passthrough},
+      {"receipt_hash", r.receipt_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.WorkloadExecutionIdentity{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"execution_id", r.execution_id, :passthrough},
+      {"subject_digest", r.subject_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.WorkloadIdempotencyKey{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"execution_id", r.execution_id, :passthrough},
+      {"idempotency_key", r.idempotency_key, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.WorkloadQueueDepth{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"queue_id", r.queue_id, :passthrough},
+      {"measurement_hash", r.measurement_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.WorkloadRetryPolicy{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"policy_id", r.policy_id, :passthrough},
+      {"policy_hash", r.policy_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.WorkloadTimeoutBudget{} = r) do
+    to_known_map([
+      {"tenant_id", r.tenant_id, :passthrough},
+      {"budget_id", r.budget_id, :passthrough},
+      {"budget_hash", r.budget_hash, :passthrough}
+    ])
+  end
+
   @spec from_map(atom(), %{String.t() => term()}) ::
           {:ok, struct()}
           | {:error, {:missing_field, atom()}}
@@ -2140,6 +2540,18 @@ defmodule BeamPM.Codec do
         {"scope_evidence_hash", :scope_evidence_hash, :passthrough}
       ],
       &BeamPM.Types.AccountParentScope.new/1
+    )
+  end
+
+  def from_map(:account_value_realization, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"realization_hash", :realization_hash, :passthrough}
+      ],
+      &BeamPM.Types.AccountValueRealization.new/1
     )
   end
 
@@ -2300,6 +2712,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:availability_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"slo_id", :slo_id, :passthrough},
+        {"observation_hash", :observation_hash, :passthrough}
+      ],
+      &BeamPM.Types.AvailabilityObservation.new/1
+    )
+  end
+
   def from_map(:availability_slo_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -2352,6 +2776,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:billable_usage_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"billable_usage_id", :billable_usage_id, :passthrough},
+        {"identity_hash", :identity_hash, :passthrough}
+      ],
+      &BeamPM.Types.BillableUsageIdentity.new/1
+    )
+  end
+
   def from_map(:billing_account, m) when is_map(m) do
     from_known_fields(
       m,
@@ -2392,6 +2828,30 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:brce_actuation_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"request_id", :request_id, :passthrough},
+        {"receipt_hash", :receipt_hash, :passthrough}
+      ],
+      &BeamPM.Types.BrceActuationReceipt.new/1
+    )
+  end
+
+  def from_map(:brce_actuation_request, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"request_id", :request_id, :passthrough},
+        {"authority_hash", :authority_hash, :passthrough}
+      ],
+      &BeamPM.Types.BrceActuationRequest.new/1
+    )
+  end
+
   def from_map(:budget_period_alignment, m) when is_map(m) do
     from_known_fields(
       m,
@@ -2414,6 +2874,18 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.BusinessContinuityEvidence.new/1
+    )
+  end
+
+  def from_map(:business_outcome_measurement, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"outcome_id", :outcome_id, :passthrough},
+        {"measurement_hash", :measurement_hash, :passthrough}
+      ],
+      &BeamPM.Types.BusinessOutcomeMeasurement.new/1
     )
   end
 
@@ -2482,6 +2954,18 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.CapabilityGap.new/1
+    )
+  end
+
+  def from_map(:capsule_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"capsule_id", :capsule_id, :passthrough},
+        {"identity_hash", :identity_hash, :passthrough}
+      ],
+      &BeamPM.Types.CapsuleIdentity.new/1
     )
   end
 
@@ -2558,6 +3042,18 @@ defmodule BeamPM.Codec do
         {"rate", :rate, :passthrough}
       ],
       &BeamPM.Types.ChargebackRule.new/1
+    )
+  end
+
+  def from_map(:cluster_quorum_state, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"cluster_id", :cluster_id, :passthrough},
+        {"quorum_hash", :quorum_hash, :passthrough}
+      ],
+      &BeamPM.Types.ClusterQuorumState.new/1
     )
   end
 
@@ -2789,6 +3285,30 @@ defmodule BeamPM.Codec do
         {"identity_evidence_hash", :identity_evidence_hash, :passthrough}
       ],
       &BeamPM.Types.ContractingEntityIdentity.new/1
+    )
+  end
+
+  def from_map(:cost_to_serve_measurement, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"billing_period_id", :billing_period_id, :passthrough},
+        {"measurement_hash", :measurement_hash, :passthrough}
+      ],
+      &BeamPM.Types.CostToServeMeasurement.new/1
+    )
+  end
+
+  def from_map(:crash_recovery_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"crash_id", :crash_id, :passthrough},
+        {"receipt_hash", :receipt_hash, :passthrough}
+      ],
+      &BeamPM.Types.CrashRecoveryReceipt.new/1
     )
   end
 
@@ -3093,6 +3613,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:entitlement_denial_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"entitlement_id", :entitlement_id, :passthrough},
+        {"denial_hash", :denial_hash, :passthrough}
+      ],
+      &BeamPM.Types.EntitlementDenialReceipt.new/1
+    )
+  end
+
   def from_map(:entitlement_event, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3146,6 +3678,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:entitlement_runtime_check, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"entitlement_id", :entitlement_id, :passthrough},
+        {"check_hash", :check_hash, :passthrough}
+      ],
+      &BeamPM.Types.EntitlementRuntimeCheck.new/1
+    )
+  end
+
   def from_map(:entitlement_state, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3159,6 +3703,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:environment_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"environment_id", :environment_id, :passthrough},
+        {"identity_hash", :identity_hash, :passthrough}
+      ],
+      &BeamPM.Types.EnvironmentIdentity.new/1
+    )
+  end
+
   def from_map(:environment_profile, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3169,6 +3725,18 @@ defmodule BeamPM.Codec do
         {"configuration_hash", :configuration_hash, :passthrough}
       ],
       &BeamPM.Types.EnvironmentProfile.new/1
+    )
+  end
+
+  def from_map(:error_budget_state, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"slo_id", :slo_id, :passthrough},
+        {"state_hash", :state_hash, :passthrough}
+      ],
+      &BeamPM.Types.ErrorBudgetState.new/1
     )
   end
 
@@ -3303,6 +3871,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:forged_receipt_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"receipt_id", :receipt_id, :passthrough},
+        {"refusal_hash", :refusal_hash, :passthrough}
+      ],
+      &BeamPM.Types.ForgedReceiptRefusal.new/1
+    )
+  end
+
   def from_map(:funding_approval_chain, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3336,6 +3916,30 @@ defmodule BeamPM.Codec do
         {"decision", :decision, :passthrough}
       ],
       &BeamPM.Types.ImplementationFeeAdmission.new/1
+    )
+  end
+
+  def from_map(:incident_acknowledgement, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"incident_id", :incident_id, :passthrough},
+        {"acknowledgement_hash", :acknowledgement_hash, :passthrough}
+      ],
+      &BeamPM.Types.IncidentAcknowledgement.new/1
+    )
+  end
+
+  def from_map(:incident_detection_event, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"incident_id", :incident_id, :passthrough},
+        {"detection_hash", :detection_hash, :passthrough}
+      ],
+      &BeamPM.Types.IncidentDetectionEvent.new/1
     )
   end
 
@@ -3439,6 +4043,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:latency_budget_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"workload_id", :workload_id, :passthrough},
+        {"observation_hash", :observation_hash, :passthrough}
+      ],
+      &BeamPM.Types.LatencyBudgetObservation.new/1
+    )
+  end
+
   def from_map(:least_authority_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3512,6 +4128,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:metered_usage_sample, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"usage_sample_id", :usage_sample_id, :passthrough},
+        {"sample_hash", :sample_hash, :passthrough}
+      ],
+      &BeamPM.Types.MeteredUsageSample.new/1
+    )
+  end
+
   def from_map(:migration_contract, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3574,6 +4202,18 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.MutableIdentityRefusalEvidence.new/1
+    )
+  end
+
+  def from_map(:node_failover_event, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"node_id", :node_id, :passthrough},
+        {"failover_hash", :failover_hash, :passthrough}
+      ],
+      &BeamPM.Types.NodeFailoverEvent.new/1
     )
   end
 
@@ -3777,6 +4417,18 @@ defmodule BeamPM.Codec do
         {"behavior", :behavior, :atom}
       ],
       &BeamPM.Types.OveragePolicy.new/1
+    )
+  end
+
+  def from_map(:paid_workload_outcome_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"workload_id", :workload_id, :passthrough},
+        {"outcome_receipt_hash", :outcome_receipt_hash, :passthrough}
+      ],
+      &BeamPM.Types.PaidWorkloadOutcomeReceipt.new/1
     )
   end
 
@@ -4221,6 +4873,54 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:receipt_replay_request, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"receipt_id", :receipt_id, :passthrough},
+        {"replay_request_hash", :replay_request_hash, :passthrough}
+      ],
+      &BeamPM.Types.ReceiptReplayRequest.new/1
+    )
+  end
+
+  def from_map(:receipt_signature, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"receipt_id", :receipt_id, :passthrough},
+        {"signature_hash", :signature_hash, :passthrough}
+      ],
+      &BeamPM.Types.ReceiptSignature.new/1
+    )
+  end
+
+  def from_map(:receipt_subject_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"workload_id", :workload_id, :passthrough},
+        {"binding_hash", :binding_hash, :passthrough}
+      ],
+      &BeamPM.Types.ReceiptSubjectBinding.new/1
+    )
+  end
+
+  def from_map(:receipt_verification, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"receipt_id", :receipt_id, :passthrough},
+        {"verification_hash", :verification_hash, :passthrough}
+      ],
+      &BeamPM.Types.ReceiptVerification.new/1
+    )
+  end
+
   def from_map(:recovery_plan, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4232,6 +4932,30 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.RecoveryPlan.new/1
+    )
+  end
+
+  def from_map(:recovery_point_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"incident_id", :incident_id, :passthrough},
+        {"recovery_hash", :recovery_hash, :passthrough}
+      ],
+      &BeamPM.Types.RecoveryPointReceipt.new/1
+    )
+  end
+
+  def from_map(:recovery_time_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"incident_id", :incident_id, :passthrough},
+        {"recovery_hash", :recovery_hash, :passthrough}
+      ],
+      &BeamPM.Types.RecoveryTimeReceipt.new/1
     )
   end
 
@@ -4312,6 +5036,18 @@ defmodule BeamPM.Codec do
         {"decision", :decision, :passthrough}
       ],
       &BeamPM.Types.RenewalTermAdmission.new/1
+    )
+  end
+
+  def from_map(:replay_environment_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"environment_id", :environment_id, :passthrough},
+        {"identity_hash", :identity_hash, :passthrough}
+      ],
+      &BeamPM.Types.ReplayEnvironmentIdentity.new/1
     )
   end
 
@@ -4430,6 +5166,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:rollback_checkpoint, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"checkpoint_id", :checkpoint_id, :passthrough},
+        {"state_hash", :state_hash, :passthrough}
+      ],
+      &BeamPM.Types.RollbackCheckpoint.new/1
+    )
+  end
+
   def from_map(:rollback_decision, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4454,6 +5202,30 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.RollbackEvidence.new/1
+    )
+  end
+
+  def from_map(:rolling_upgrade_plan, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"upgrade_id", :upgrade_id, :passthrough},
+        {"plan_hash", :plan_hash, :passthrough}
+      ],
+      &BeamPM.Types.RollingUpgradePlan.new/1
+    )
+  end
+
+  def from_map(:runtime_policy_decision, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"decision_id", :decision_id, :passthrough},
+        {"policy_hash", :policy_hash, :passthrough}
+      ],
+      &BeamPM.Types.RuntimePolicyDecision.new/1
     )
   end
 
@@ -4558,6 +5330,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:service_health_snapshot, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"service_id", :service_id, :passthrough},
+        {"snapshot_hash", :snapshot_hash, :passthrough}
+      ],
+      &BeamPM.Types.ServiceHealthSnapshot.new/1
+    )
+  end
+
   def from_map(:service_level_objective, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4568,6 +5352,18 @@ defmodule BeamPM.Codec do
         {"measurement_window", :measurement_window, :atom}
       ],
       &BeamPM.Types.ServiceLevelObjective.new/1
+    )
+  end
+
+  def from_map(:service_slo_contract, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"slo_id", :slo_id, :passthrough},
+        {"contract_hash", :contract_hash, :passthrough}
+      ],
+      &BeamPM.Types.ServiceSloContract.new/1
     )
   end
 
@@ -4675,6 +5471,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:stale_receipt_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"receipt_id", :receipt_id, :passthrough},
+        {"refusal_hash", :refusal_hash, :passthrough}
+      ],
+      &BeamPM.Types.StaleReceiptRefusal.new/1
+    )
+  end
+
   def from_map(:stale_subject_refusal_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4702,6 +5510,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:supervisor_restart_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"supervisor_id", :supervisor_id, :passthrough},
+        {"policy_hash", :policy_hash, :passthrough}
+      ],
+      &BeamPM.Types.SupervisorRestartPolicy.new/1
+    )
+  end
+
   def from_map(:support_contract, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4712,6 +5532,18 @@ defmodule BeamPM.Codec do
         {"valid_until", :valid_until, :passthrough}
       ],
       &BeamPM.Types.SupportContract.new/1
+    )
+  end
+
+  def from_map(:support_diagnostic_bundle, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"incident_id", :incident_id, :passthrough},
+        {"bundle_hash", :bundle_hash, :passthrough}
+      ],
+      &BeamPM.Types.SupportDiagnosticBundle.new/1
     )
   end
 
@@ -4843,6 +5675,30 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:tenant_data_partition, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"partition_id", :partition_id, :passthrough},
+        {"isolation_hash", :isolation_hash, :passthrough}
+      ],
+      &BeamPM.Types.TenantDataPartition.new/1
+    )
+  end
+
+  def from_map(:tenant_key_scope, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"key_scope_id", :key_scope_id, :passthrough},
+        {"key_attestation_hash", :key_attestation_hash, :passthrough}
+      ],
+      &BeamPM.Types.TenantKeyScope.new/1
+    )
+  end
+
   def from_map(:tenant_project, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4853,6 +5709,30 @@ defmodule BeamPM.Codec do
         {"status", :status, :atom}
       ],
       &BeamPM.Types.TenantProject.new/1
+    )
+  end
+
+  def from_map(:tenant_resource_quota, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"quota_id", :quota_id, :passthrough},
+        {"utilization_hash", :utilization_hash, :passthrough}
+      ],
+      &BeamPM.Types.TenantResourceQuota.new/1
+    )
+  end
+
+  def from_map(:tenant_runtime_boundary, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"boundary_id", :boundary_id, :passthrough},
+        {"evidence_hash", :evidence_hash, :passthrough}
+      ],
+      &BeamPM.Types.TenantRuntimeBoundary.new/1
     )
   end
 
@@ -4892,6 +5772,18 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.TimeToValue.new/1
+    )
+  end
+
+  def from_map(:toolchain_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"toolchain_id", :toolchain_id, :passthrough},
+        {"identity_hash", :identity_hash, :passthrough}
+      ],
+      &BeamPM.Types.ToolchainIdentity.new/1
     )
   end
 
@@ -5014,6 +5906,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:usage_reconciliation_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"billing_period_id", :billing_period_id, :passthrough},
+        {"reconciliation_hash", :reconciliation_hash, :passthrough}
+      ],
+      &BeamPM.Types.UsageReconciliationReceipt.new/1
+    )
+  end
+
   def from_map(:usage_signal, m) when is_map(m) do
     from_known_fields(
       m,
@@ -5066,6 +5970,18 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.ValueRealization.new/1
+    )
+  end
+
+  def from_map(:value_telemetry_sample, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"outcome_id", :outcome_id, :passthrough},
+        {"telemetry_hash", :telemetry_hash, :passthrough}
+      ],
+      &BeamPM.Types.ValueTelemetrySample.new/1
     )
   end
 
@@ -5129,6 +6045,90 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.VulnerabilityScanEvidence.new/1
+    )
+  end
+
+  def from_map(:workload_backpressure_signal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"signal_id", :signal_id, :passthrough},
+        {"measurement_hash", :measurement_hash, :passthrough}
+      ],
+      &BeamPM.Types.WorkloadBackpressureSignal.new/1
+    )
+  end
+
+  def from_map(:workload_cancellation_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"execution_id", :execution_id, :passthrough},
+        {"receipt_hash", :receipt_hash, :passthrough}
+      ],
+      &BeamPM.Types.WorkloadCancellationReceipt.new/1
+    )
+  end
+
+  def from_map(:workload_execution_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"execution_id", :execution_id, :passthrough},
+        {"subject_digest", :subject_digest, :passthrough}
+      ],
+      &BeamPM.Types.WorkloadExecutionIdentity.new/1
+    )
+  end
+
+  def from_map(:workload_idempotency_key, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"execution_id", :execution_id, :passthrough},
+        {"idempotency_key", :idempotency_key, :passthrough}
+      ],
+      &BeamPM.Types.WorkloadIdempotencyKey.new/1
+    )
+  end
+
+  def from_map(:workload_queue_depth, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"queue_id", :queue_id, :passthrough},
+        {"measurement_hash", :measurement_hash, :passthrough}
+      ],
+      &BeamPM.Types.WorkloadQueueDepth.new/1
+    )
+  end
+
+  def from_map(:workload_retry_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"policy_id", :policy_id, :passthrough},
+        {"policy_hash", :policy_hash, :passthrough}
+      ],
+      &BeamPM.Types.WorkloadRetryPolicy.new/1
+    )
+  end
+
+  def from_map(:workload_timeout_budget, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tenant_id", :tenant_id, :passthrough},
+        {"budget_id", :budget_id, :passthrough},
+        {"budget_hash", :budget_hash, :passthrough}
+      ],
+      &BeamPM.Types.WorkloadTimeoutBudget.new/1
     )
   end
 

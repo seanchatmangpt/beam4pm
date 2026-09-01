@@ -62,6 +62,26 @@ defmodule BeamPM.Ash.Resources.AccountParentScope do
   end
 end
 
+defmodule BeamPM.Ash.Resources.AccountValueRealization do
+  @moduledoc "Aggregates verified outcome evidence into an account-level realized-value observation."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :account_id, :string, public?: true, allow_nil?: false
+    attribute :realization_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ActionPinEvidence do
   @moduledoc "Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity."
   use Ash.Resource,
@@ -315,6 +335,26 @@ defmodule BeamPM.Ash.Resources.AuditChainEvidence do
   end
 end
 
+defmodule BeamPM.Ash.Resources.AvailabilityObservation do
+  @moduledoc "Records a bounded availability observation against the paid tenant SLO."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :slo_id, :string, public?: true, allow_nil?: false
+    attribute :observation_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.AvailabilitySloEvidence do
   @moduledoc "Executable availability evidence binding an exact subject to the service level actually observed over the admitted window."
   use Ash.Resource,
@@ -399,6 +439,26 @@ defmodule BeamPM.Ash.Resources.BeneficialOwnerEvidence do
   end
 end
 
+defmodule BeamPM.Ash.Resources.BillableUsageIdentity do
+  @moduledoc "Binds accepted usage to one immutable billable identity that prevents duplicate charging."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :billable_usage_id, :string, public?: true, allow_nil?: false
+    attribute :identity_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.BillingAccount do
   @moduledoc "Bill-to account with currency and invoice delivery profile."
   use Ash.Resource,
@@ -463,6 +523,46 @@ defmodule BeamPM.Ash.Resources.BookingReadiness do
   end
 end
 
+defmodule BeamPM.Ash.Resources.BrceActuationReceipt do
+  @moduledoc "Binds an actuated runtime consequence to its authorized BRCE request and receipt."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :request_id, :string, public?: true, allow_nil?: false
+    attribute :receipt_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.BrceActuationRequest do
+  @moduledoc "Admits a runtime actuation request only with exact BRCE authority evidence."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :request_id, :string, public?: true, allow_nil?: false
+    attribute :authority_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.BudgetPeriodAlignment do
   @moduledoc "Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk."
   use Ash.Resource,
@@ -496,6 +596,26 @@ defmodule BeamPM.Ash.Resources.BusinessContinuityEvidence do
     attribute :subject_sha, :string, public?: true, allow_nil?: false
     attribute :continuity_mode, :string, public?: true, allow_nil?: false
     attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.BusinessOutcomeMeasurement do
+  @moduledoc "Records the observed business outcome against its admitted baseline and target."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :outcome_id, :string, public?: true, allow_nil?: false
+    attribute :measurement_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -604,6 +724,26 @@ defmodule BeamPM.Ash.Resources.CapabilityGap do
     attribute :gap_severity, :string, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CapsuleIdentity do
+  @moduledoc "Binds paid workload execution to the exact immutable runtime capsule digest."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :capsule_id, :string, public?: true, allow_nil?: false
+    attribute :identity_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -728,6 +868,26 @@ defmodule BeamPM.Ash.Resources.ChargebackRule do
     attribute :cost_center, :string, public?: true, allow_nil?: false
     attribute :metric_name, :string, public?: true, allow_nil?: false
     attribute :rate, :float, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ClusterQuorumState do
+  @moduledoc "Binds an execution decision to observed cluster quorum rather than inferred availability."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :cluster_id, :string, public?: true, allow_nil?: false
+    attribute :quorum_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -1103,6 +1263,46 @@ defmodule BeamPM.Ash.Resources.ContractingEntityIdentity do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :contracting_entity_id, :string, public?: true, allow_nil?: false
     attribute :identity_evidence_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CostToServeMeasurement do
+  @moduledoc "Records attributable runtime cost-to-serve for a paid tenant and billing period."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :billing_period_id, :string, public?: true, allow_nil?: false
+    attribute :measurement_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.CrashRecoveryReceipt do
+  @moduledoc "Produces replayable evidence that a runtime crash reached a verified recovery consequence."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :crash_id, :string, public?: true, allow_nil?: false
+    attribute :receipt_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -1596,6 +1796,26 @@ defmodule BeamPM.Ash.Resources.EnterpriseOrderLine do
   end
 end
 
+defmodule BeamPM.Ash.Resources.EntitlementDenialReceipt do
+  @moduledoc "Receipts a runtime denial when the paid tenant lacks the required product entitlement."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :entitlement_id, :string, public?: true, allow_nil?: false
+    attribute :denial_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.EntitlementEvent do
   @moduledoc "One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id."
   use Ash.Resource,
@@ -1681,6 +1901,26 @@ defmodule BeamPM.Ash.Resources.EntitlementRevocation do
   end
 end
 
+defmodule BeamPM.Ash.Resources.EntitlementRuntimeCheck do
+  @moduledoc "Records the exact paid entitlement evaluated before workload execution."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :entitlement_id, :string, public?: true, allow_nil?: false
+    attribute :check_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.EntitlementState do
   @moduledoc "The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark."
   use Ash.Resource,
@@ -1702,6 +1942,26 @@ defmodule BeamPM.Ash.Resources.EntitlementState do
   end
 end
 
+defmodule BeamPM.Ash.Resources.EnvironmentIdentity do
+  @moduledoc "Binds paid workload execution to an immutable production environment identity."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :environment_id, :string, public?: true, allow_nil?: false
+    attribute :identity_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.EnvironmentProfile do
   @moduledoc "Deterministic environment profile for demo, POC, or production."
   use Ash.Resource,
@@ -1715,6 +1975,26 @@ defmodule BeamPM.Ash.Resources.EnvironmentProfile do
     attribute :environment, :atom, public?: true, allow_nil?: false
     attribute :region, :string, public?: true, allow_nil?: false
     attribute :configuration_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ErrorBudgetState do
+  @moduledoc "Captures the exact remaining error budget that governs paid-service release policy."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :slo_id, :string, public?: true, allow_nil?: false
+    attribute :state_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -1934,6 +2214,26 @@ defmodule BeamPM.Ash.Resources.ExpansionSignal do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ForgedReceiptRefusal do
+  @moduledoc "Produces typed refusal evidence when a runtime receipt signature or subject binding is forged."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :receipt_id, :string, public?: true, allow_nil?: false
+    attribute :refusal_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.FundingApprovalChain do
   @moduledoc "Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim."
   use Ash.Resource,
@@ -1986,6 +2286,46 @@ defmodule BeamPM.Ash.Resources.ImplementationFeeAdmission do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :fee_id, :string, public?: true, allow_nil?: false
     attribute :decision, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.IncidentAcknowledgement do
+  @moduledoc "Records accountable acknowledgement of a production incident for a paid tenant."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :incident_id, :string, public?: true, allow_nil?: false
+    attribute :acknowledgement_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.IncidentDetectionEvent do
+  @moduledoc "Records the detected production incident and exact affected paid service."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :incident_id, :string, public?: true, allow_nil?: false
+    attribute :detection_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2158,6 +2498,26 @@ defmodule BeamPM.Ash.Resources.K8sObjectRef do
   end
 end
 
+defmodule BeamPM.Ash.Resources.LatencyBudgetObservation do
+  @moduledoc "Records an observed runtime latency against the admitted paid-service latency budget."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :workload_id, :string, public?: true, allow_nil?: false
+    attribute :observation_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.LeastAuthorityEvidence do
   @moduledoc "Executable least-authority evidence binding an exact subject to the permissions actually granted during execution."
   use Ash.Resource,
@@ -2279,6 +2639,26 @@ defmodule BeamPM.Ash.Resources.MasterServiceAgreementState do
   end
 end
 
+defmodule BeamPM.Ash.Resources.MeteredUsageSample do
+  @moduledoc "Records a bounded production usage sample eligible for tenant-level metering."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :usage_sample_id, :string, public?: true, allow_nil?: false
+    attribute :sample_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.MigrationContract do
   @moduledoc "Versioned migration path with source, target, and rollback identity."
   use Ash.Resource,
@@ -2376,6 +2756,26 @@ defmodule BeamPM.Ash.Resources.MutableIdentityRefusalEvidence do
     attribute :subject_sha, :string, public?: true, allow_nil?: false
     attribute :mutable_reference, :string, public?: true, allow_nil?: false
     attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.NodeFailoverEvent do
+  @moduledoc "Records the exact node failure and observed failover consequence for a paid service."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :node_id, :string, public?: true, allow_nil?: false
+    attribute :failover_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -2707,6 +3107,26 @@ defmodule BeamPM.Ash.Resources.OveragePolicy do
     attribute :quota_id, :string, public?: true, allow_nil?: false
     attribute :unit_price, :float, public?: true, allow_nil?: false
     attribute :behavior, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.PaidWorkloadOutcomeReceipt do
+  @moduledoc "Produces the terminal receipt proving a paid workload delivered its admitted business outcome."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :workload_id, :string, public?: true, allow_nil?: false
+    attribute :outcome_receipt_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -3436,6 +3856,86 @@ defmodule BeamPM.Ash.Resources.ReceiptReplayEvidence do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ReceiptReplayRequest do
+  @moduledoc "Admits an exact receipt replay request for independent consumer verification."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :receipt_id, :string, public?: true, allow_nil?: false
+    attribute :replay_request_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ReceiptSignature do
+  @moduledoc "Admits a cryptographic receipt signature bound to an exact paid runtime consequence."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :receipt_id, :string, public?: true, allow_nil?: false
+    attribute :signature_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ReceiptSubjectBinding do
+  @moduledoc "Binds a runtime receipt to the exact workload subject it claims to evidence."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :workload_id, :string, public?: true, allow_nil?: false
+    attribute :binding_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ReceiptVerification do
+  @moduledoc "Records independent verification of a production receipt before value is recognized."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :receipt_id, :string, public?: true, allow_nil?: false
+    attribute :verification_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.RecoveryPlan do
   @moduledoc "Executable account recovery plan with a measured recovery interval."
   use Ash.Resource,
@@ -3450,6 +3950,46 @@ defmodule BeamPM.Ash.Resources.RecoveryPlan do
     attribute :recovery_time_hours, :float, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.RecoveryPointReceipt do
+  @moduledoc "Receipts the observed recovery point and protected data boundary after failure."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :incident_id, :string, public?: true, allow_nil?: false
+    attribute :recovery_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.RecoveryTimeReceipt do
+  @moduledoc "Receipts the observed recovery-time consequence against the paid-service objective."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :incident_id, :string, public?: true, allow_nil?: false
+    attribute :recovery_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -3578,6 +4118,26 @@ defmodule BeamPM.Ash.Resources.RenewalTermAdmission do
     attribute :opportunity_id, :string, public?: true, allow_nil?: false
     attribute :renewal_term, :string, public?: true, allow_nil?: false
     attribute :decision, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ReplayEnvironmentIdentity do
+  @moduledoc "Binds receipt replay to an exact environment identity so mismatched replay is refused."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :environment_id, :string, public?: true, allow_nil?: false
+    attribute :identity_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -3773,6 +4333,26 @@ defmodule BeamPM.Ash.Resources.RfpResponseEvidence do
   end
 end
 
+defmodule BeamPM.Ash.Resources.RollbackCheckpoint do
+  @moduledoc "Binds rollback authority to an immutable runtime checkpoint and verified state digest."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :checkpoint_id, :string, public?: true, allow_nil?: false
+    attribute :state_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.RollbackDecision do
   @moduledoc "Receipted rollback decision and recovered account consequence."
   use Ash.Resource,
@@ -3808,6 +4388,46 @@ defmodule BeamPM.Ash.Resources.RollbackEvidence do
     attribute :subject_sha, :string, public?: true, allow_nil?: false
     attribute :rollback_digest, :string, public?: true, allow_nil?: false
     attribute :observed_result, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.RollingUpgradePlan do
+  @moduledoc "Admits an identified rolling upgrade plan with deterministic production evidence."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :upgrade_id, :string, public?: true, allow_nil?: false
+    attribute :plan_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.RuntimePolicyDecision do
+  @moduledoc "Records an explicit runtime policy decision before paid workload actuation."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :decision_id, :string, public?: true, allow_nil?: false
+    attribute :policy_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -3981,6 +4601,26 @@ defmodule BeamPM.Ash.Resources.ServiceCreditAdmission do
   end
 end
 
+defmodule BeamPM.Ash.Resources.ServiceHealthSnapshot do
+  @moduledoc "Captures machine-readable paid-service health for support and escalation decisions."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :service_id, :string, public?: true, allow_nil?: false
+    attribute :snapshot_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.ServiceLevelObjective do
   @moduledoc "Measurable service target bound to a support contract."
   use Ash.Resource,
@@ -3994,6 +4634,26 @@ defmodule BeamPM.Ash.Resources.ServiceLevelObjective do
     attribute :contract_id, :string, public?: true, allow_nil?: false
     attribute :target_percent, :float, public?: true, allow_nil?: false
     attribute :measurement_window, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ServiceSloContract do
+  @moduledoc "Admits the exact service-level objective contract governing a paid workload."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :slo_id, :string, public?: true, allow_nil?: false
+    attribute :contract_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -4170,6 +4830,26 @@ defmodule BeamPM.Ash.Resources.StakeholderMap do
   end
 end
 
+defmodule BeamPM.Ash.Resources.StaleReceiptRefusal do
+  @moduledoc "Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :receipt_id, :string, public?: true, allow_nil?: false
+    attribute :refusal_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.StaleSubjectRefusalEvidence do
   @moduledoc "Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial."
   use Ash.Resource,
@@ -4213,6 +4893,26 @@ defmodule BeamPM.Ash.Resources.SuccessPlan do
   end
 end
 
+defmodule BeamPM.Ash.Resources.SupervisorRestartPolicy do
+  @moduledoc "Binds an OTP supervisor to an explicit restart policy governing paid workload resilience."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :supervisor_id, :string, public?: true, allow_nil?: false
+    attribute :policy_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.SupportContract do
   @moduledoc "Purchased support tier with response target and term."
   use Ash.Resource,
@@ -4226,6 +4926,26 @@ defmodule BeamPM.Ash.Resources.SupportContract do
     attribute :account_id, :string, public?: true, allow_nil?: false
     attribute :tier, :atom, public?: true, allow_nil?: false
     attribute :valid_until, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.SupportDiagnosticBundle do
+  @moduledoc "Binds machine-readable support diagnostics to the exact tenant and incident subject."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :incident_id, :string, public?: true, allow_nil?: false
+    attribute :bundle_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -4442,6 +5162,46 @@ defmodule BeamPM.Ash.Resources.TenantAccount do
   end
 end
 
+defmodule BeamPM.Ash.Resources.TenantDataPartition do
+  @moduledoc "Binds tenant data to an explicit storage partition whose isolation consequence is independently verifiable."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :partition_id, :string, public?: true, allow_nil?: false
+    attribute :isolation_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.TenantKeyScope do
+  @moduledoc "Binds tenant cryptographic material to one runtime key scope and attested key identity."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :key_scope_id, :string, public?: true, allow_nil?: false
+    attribute :key_attestation_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.TenantProject do
   @moduledoc "Billable tenant project with cost-center attribution."
   use Ash.Resource,
@@ -4455,6 +5215,46 @@ defmodule BeamPM.Ash.Resources.TenantProject do
     attribute :tenant_id, :string, public?: true, allow_nil?: false
     attribute :cost_center, :string, public?: true, allow_nil?: false
     attribute :status, :atom, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.TenantResourceQuota do
+  @moduledoc "Binds a paid tenant to an enforceable CPU and memory quota with observed utilization evidence."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :quota_id, :string, public?: true, allow_nil?: false
+    attribute :utilization_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.TenantRuntimeBoundary do
+  @moduledoc "Binds a paid tenant to one explicit runtime isolation boundary and replayable evidence identity."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :boundary_id, :string, public?: true, allow_nil?: false
+    attribute :evidence_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -4518,6 +5318,26 @@ defmodule BeamPM.Ash.Resources.TimeToValue do
     attribute :verified_days, :integer, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ToolchainIdentity do
+  @moduledoc "Binds a production consequence to the exact BEAM and manufacturing toolchain identity."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :toolchain_id, :string, public?: true, allow_nil?: false
+    attribute :identity_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -4717,6 +5537,26 @@ defmodule BeamPM.Ash.Resources.UsagePlan do
   end
 end
 
+defmodule BeamPM.Ash.Resources.UsageReconciliationReceipt do
+  @moduledoc "Receipts deduplicated usage reconciliation before an invoiceable quantity is recognized."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :billing_period_id, :string, public?: true, allow_nil?: false
+    attribute :reconciliation_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.UsageSignal do
   @moduledoc "Measured product-usage signal for an admitted enterprise account."
   use Ash.Resource,
@@ -4796,6 +5636,26 @@ defmodule BeamPM.Ash.Resources.ValueRealization do
     attribute :realized_value, :float, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
     attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.ValueTelemetrySample do
+  @moduledoc "Records a production telemetry sample tied to the paid business-value measurement contract."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :outcome_id, :string, public?: true, allow_nil?: false
+    attribute :telemetry_hash, :string, public?: true, allow_nil?: false
   end
 
   actions do
@@ -4907,6 +5767,146 @@ defmodule BeamPM.Ash.Resources.VulnerabilityScanEvidence do
   end
 end
 
+defmodule BeamPM.Ash.Resources.WorkloadBackpressureSignal do
+  @moduledoc "Records runtime backpressure as measured evidence before additional paid work is accepted."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :signal_id, :string, public?: true, allow_nil?: false
+    attribute :measurement_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.WorkloadCancellationReceipt do
+  @moduledoc "Records deterministic cancellation consequence for a paid workload execution."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :execution_id, :string, public?: true, allow_nil?: false
+    attribute :receipt_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.WorkloadExecutionIdentity do
+  @moduledoc "Assigns every paid workload execution an immutable subject identity before runtime consequence."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :execution_id, :string, public?: true, allow_nil?: false
+    attribute :subject_digest, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.WorkloadIdempotencyKey do
+  @moduledoc "Binds a paid execution to an idempotency key so retried delivery cannot be billed or actuated twice."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :execution_id, :string, public?: true, allow_nil?: false
+    attribute :idempotency_key, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.WorkloadQueueDepth do
+  @moduledoc "Records paid workload queue depth as an exact capacity and backpressure observation."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :queue_id, :string, public?: true, allow_nil?: false
+    attribute :measurement_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.WorkloadRetryPolicy do
+  @moduledoc "Admits a bounded retry policy with explicit identity and replayable configuration evidence."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :policy_id, :string, public?: true, allow_nil?: false
+    attribute :policy_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.WorkloadTimeoutBudget do
+  @moduledoc "Admits an execution timeout budget that prevents unbounded paid runtime consumption."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :tenant_id, :string, public?: true, allow_nil?: false
+    attribute :budget_id, :string, public?: true, allow_nil?: false
+    attribute :budget_hash, :string, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Domain do
   @moduledoc "GENERATED Ash domain over all admitted bpm:RecordType resources."
   use Ash.Domain, validate_config_inclusion?: false, extensions: [AshAi]
@@ -4929,6 +5929,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.AccountDiscovery
     resource BeamPM.Ash.Resources.AccountMasterMatch
     resource BeamPM.Ash.Resources.AccountParentScope
+    resource BeamPM.Ash.Resources.AccountValueRealization
     resource BeamPM.Ash.Resources.ActionPinEvidence
     resource BeamPM.Ash.Resources.ActivationEvent
     resource BeamPM.Ash.Resources.AddOnBundle
@@ -4941,26 +5942,33 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ArtifactDigestEvidence
     resource BeamPM.Ash.Resources.AttestationVerificationEvidence
     resource BeamPM.Ash.Resources.AuditChainEvidence
+    resource BeamPM.Ash.Resources.AvailabilityObservation
     resource BeamPM.Ash.Resources.AvailabilitySloEvidence
     resource BeamPM.Ash.Resources.BackupRestoreEvidence
     resource BeamPM.Ash.Resources.BaselineMetric
     resource BeamPM.Ash.Resources.BeneficialOwnerEvidence
+    resource BeamPM.Ash.Resources.BillableUsageIdentity
     resource BeamPM.Ash.Resources.BillingAccount
     resource BeamPM.Ash.Resources.BillingReconciliation
     resource BeamPM.Ash.Resources.BookingReadiness
+    resource BeamPM.Ash.Resources.BrceActuationReceipt
+    resource BeamPM.Ash.Resources.BrceActuationRequest
     resource BeamPM.Ash.Resources.BudgetPeriodAlignment
     resource BeamPM.Ash.Resources.BusinessContinuityEvidence
+    resource BeamPM.Ash.Resources.BusinessOutcomeMeasurement
     resource BeamPM.Ash.Resources.BuyingCommittee
     resource BeamPM.Ash.Resources.CanaryDecision
     resource BeamPM.Ash.Resources.CanaryEvidence
     resource BeamPM.Ash.Resources.CapabilityBundle
     resource BeamPM.Ash.Resources.CapabilityGap
+    resource BeamPM.Ash.Resources.CapsuleIdentity
     resource BeamPM.Ash.Resources.CaseStats
     resource BeamPM.Ash.Resources.CatalogRelease
     resource BeamPM.Ash.Resources.ChangeControlEvidence
     resource BeamPM.Ash.Resources.ChangeOrderAuthority
     resource BeamPM.Ash.Resources.ChannelAgreement
     resource BeamPM.Ash.Resources.ChargebackRule
+    resource BeamPM.Ash.Resources.ClusterQuorumState
     resource BeamPM.Ash.Resources.CommercialApproval
     resource BeamPM.Ash.Resources.CommercialArtifactCrownEvidence
     resource BeamPM.Ash.Resources.CommercialException
@@ -4979,6 +5987,8 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ConsumptionPool
     resource BeamPM.Ash.Resources.ConsumptionSubscription
     resource BeamPM.Ash.Resources.ContractingEntityIdentity
+    resource BeamPM.Ash.Resources.CostToServeMeasurement
+    resource BeamPM.Ash.Resources.CrashRecoveryReceipt
     resource BeamPM.Ash.Resources.CreditRiskAdmission
     resource BeamPM.Ash.Resources.CrossSellFit
     resource BeamPM.Ash.Resources.CustomerHealth
@@ -5002,12 +6012,16 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.EditionDefinition
     resource BeamPM.Ash.Resources.EnterpriseOrder
     resource BeamPM.Ash.Resources.EnterpriseOrderLine
+    resource BeamPM.Ash.Resources.EntitlementDenialReceipt
     resource BeamPM.Ash.Resources.EntitlementEvent
     resource BeamPM.Ash.Resources.EntitlementEvidence
     resource BeamPM.Ash.Resources.EntitlementGrant
     resource BeamPM.Ash.Resources.EntitlementRevocation
+    resource BeamPM.Ash.Resources.EntitlementRuntimeCheck
     resource BeamPM.Ash.Resources.EntitlementState
+    resource BeamPM.Ash.Resources.EnvironmentIdentity
     resource BeamPM.Ash.Resources.EnvironmentProfile
+    resource BeamPM.Ash.Resources.ErrorBudgetState
     resource BeamPM.Ash.Resources.EventLog
     resource BeamPM.Ash.Resources.EventType
     resource BeamPM.Ash.Resources.EvidenceFreshnessEvidence
@@ -5018,9 +6032,12 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ExpansionOption
     resource BeamPM.Ash.Resources.ExpansionReceipt
     resource BeamPM.Ash.Resources.ExpansionSignal
+    resource BeamPM.Ash.Resources.ForgedReceiptRefusal
     resource BeamPM.Ash.Resources.FundingApprovalChain
     resource BeamPM.Ash.Resources.HeuristicArc
     resource BeamPM.Ash.Resources.ImplementationFeeAdmission
+    resource BeamPM.Ash.Resources.IncidentAcknowledgement
+    resource BeamPM.Ash.Resources.IncidentDetectionEvent
     resource BeamPM.Ash.Resources.IncidentResponseEvidence
     resource BeamPM.Ash.Resources.IndemnityScopeAdmission
     resource BeamPM.Ash.Resources.InsuranceRequirement
@@ -5029,17 +6046,20 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.InvoiceEntityIdentity
     resource BeamPM.Ash.Resources.InvoiceSchedule
     resource BeamPM.Ash.Resources.K8sObjectRef
+    resource BeamPM.Ash.Resources.LatencyBudgetObservation
     resource BeamPM.Ash.Resources.LeastAuthorityEvidence
     resource BeamPM.Ash.Resources.LegalBlocker
     resource BeamPM.Ash.Resources.LiabilityCapAdmission
     resource BeamPM.Ash.Resources.LicenseEvidence
     resource BeamPM.Ash.Resources.LogTrace
     resource BeamPM.Ash.Resources.MasterServiceAgreementState
+    resource BeamPM.Ash.Resources.MeteredUsageSample
     resource BeamPM.Ash.Resources.MigrationContract
     resource BeamPM.Ash.Resources.MigrationReadiness
     resource BeamPM.Ash.Resources.MinimumTermAdmission
     resource BeamPM.Ash.Resources.MultiarchEvidence
     resource BeamPM.Ash.Resources.MutableIdentityRefusalEvidence
+    resource BeamPM.Ash.Resources.NodeFailoverEvent
     resource BeamPM.Ash.Resources.ObjectAttributeChange
     resource BeamPM.Ash.Resources.ObjectType
     resource BeamPM.Ash.Resources.Objection
@@ -5056,6 +6076,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.OpportunityValueRange
     resource BeamPM.Ash.Resources.OrderFormAdmission
     resource BeamPM.Ash.Resources.OveragePolicy
+    resource BeamPM.Ash.Resources.PaidWorkloadOutcomeReceipt
     resource BeamPM.Ash.Resources.PathSchema
     resource BeamPM.Ash.Resources.PathSchemaQuery
     resource BeamPM.Ash.Resources.PaymentTerms
@@ -5091,13 +6112,20 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.QuotaPolicy
     resource BeamPM.Ash.Resources.RampCommitment
     resource BeamPM.Ash.Resources.ReceiptReplayEvidence
+    resource BeamPM.Ash.Resources.ReceiptReplayRequest
+    resource BeamPM.Ash.Resources.ReceiptSignature
+    resource BeamPM.Ash.Resources.ReceiptSubjectBinding
+    resource BeamPM.Ash.Resources.ReceiptVerification
     resource BeamPM.Ash.Resources.RecoveryPlan
+    resource BeamPM.Ash.Resources.RecoveryPointReceipt
+    resource BeamPM.Ash.Resources.RecoveryTimeReceipt
     resource BeamPM.Ash.Resources.RemediationSlaEvidence
     resource BeamPM.Ash.Resources.RenewalEvidence
     resource BeamPM.Ash.Resources.RenewalHealth
     resource BeamPM.Ash.Resources.RenewalOption
     resource BeamPM.Ash.Resources.RenewalRisk
     resource BeamPM.Ash.Resources.RenewalTermAdmission
+    resource BeamPM.Ash.Resources.ReplayEnvironmentIdentity
     resource BeamPM.Ash.Resources.ReproducibleBuildEvidence
     resource BeamPM.Ash.Resources.ResellerAuthorization
     resource BeamPM.Ash.Resources.ResidencyEvidence
@@ -5107,8 +6135,11 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.RevenueContractAdmission
     resource BeamPM.Ash.Resources.RevenueScheduleAssumption
     resource BeamPM.Ash.Resources.RfpResponseEvidence
+    resource BeamPM.Ash.Resources.RollbackCheckpoint
     resource BeamPM.Ash.Resources.RollbackDecision
     resource BeamPM.Ash.Resources.RollbackEvidence
+    resource BeamPM.Ash.Resources.RollingUpgradePlan
+    resource BeamPM.Ash.Resources.RuntimePolicyDecision
     resource BeamPM.Ash.Resources.SanctionsScreeningResult
     resource BeamPM.Ash.Resources.SbomInventoryEvidence
     resource BeamPM.Ash.Resources.SecretBoundaryEvidence
@@ -5117,7 +6148,9 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.SecurityReadiness
     resource BeamPM.Ash.Resources.ServiceCredit
     resource BeamPM.Ash.Resources.ServiceCreditAdmission
+    resource BeamPM.Ash.Resources.ServiceHealthSnapshot
     resource BeamPM.Ash.Resources.ServiceLevelObjective
+    resource BeamPM.Ash.Resources.ServiceSloContract
     resource BeamPM.Ash.Resources.ServiceSpan
     resource BeamPM.Ash.Resources.ShowbackAllocation
     resource BeamPM.Ash.Resources.SignatureEvidence
@@ -5126,9 +6159,12 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.SojournTime
     resource BeamPM.Ash.Resources.SolutionFit
     resource BeamPM.Ash.Resources.StakeholderMap
+    resource BeamPM.Ash.Resources.StaleReceiptRefusal
     resource BeamPM.Ash.Resources.StaleSubjectRefusalEvidence
     resource BeamPM.Ash.Resources.SuccessPlan
+    resource BeamPM.Ash.Resources.SupervisorRestartPolicy
     resource BeamPM.Ash.Resources.SupportContract
+    resource BeamPM.Ash.Resources.SupportDiagnosticBundle
     resource BeamPM.Ash.Resources.SupportEscalationEvidence
     resource BeamPM.Ash.Resources.SupportReadiness
     resource BeamPM.Ash.Resources.SupportSlaEvidence
@@ -5139,10 +6175,15 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.TaxJurisdictionEvidence
     resource BeamPM.Ash.Resources.TechnicalBlocker
     resource BeamPM.Ash.Resources.TenantAccount
+    resource BeamPM.Ash.Resources.TenantDataPartition
+    resource BeamPM.Ash.Resources.TenantKeyScope
     resource BeamPM.Ash.Resources.TenantProject
+    resource BeamPM.Ash.Resources.TenantResourceQuota
+    resource BeamPM.Ash.Resources.TenantRuntimeBoundary
     resource BeamPM.Ash.Resources.TermSubscription
     resource BeamPM.Ash.Resources.TerminationRightAdmission
     resource BeamPM.Ash.Resources.TimeToValue
+    resource BeamPM.Ash.Resources.ToolchainIdentity
     resource BeamPM.Ash.Resources.TrainingReadiness
     resource BeamPM.Ash.Resources.TrainingScopeAdmission
     resource BeamPM.Ash.Resources.TrueUpPolicy
@@ -5152,15 +6193,24 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.UpsellReadiness
     resource BeamPM.Ash.Resources.UsageEvent
     resource BeamPM.Ash.Resources.UsagePlan
+    resource BeamPM.Ash.Resources.UsageReconciliationReceipt
     resource BeamPM.Ash.Resources.UsageSignal
     resource BeamPM.Ash.Resources.ValueBaseline
     resource BeamPM.Ash.Resources.ValueDriver
     resource BeamPM.Ash.Resources.ValueRealization
+    resource BeamPM.Ash.Resources.ValueTelemetrySample
     resource BeamPM.Ash.Resources.VendorRegistrationState
     resource BeamPM.Ash.Resources.VendorRiskEvidence
     resource BeamPM.Ash.Resources.VersionLifecycleEvidence
     resource BeamPM.Ash.Resources.VolumeTierAdmission
     resource BeamPM.Ash.Resources.VulnerabilityScanEvidence
+    resource BeamPM.Ash.Resources.WorkloadBackpressureSignal
+    resource BeamPM.Ash.Resources.WorkloadCancellationReceipt
+    resource BeamPM.Ash.Resources.WorkloadExecutionIdentity
+    resource BeamPM.Ash.Resources.WorkloadIdempotencyKey
+    resource BeamPM.Ash.Resources.WorkloadQueueDepth
+    resource BeamPM.Ash.Resources.WorkloadRetryPolicy
+    resource BeamPM.Ash.Resources.WorkloadTimeoutBudget
   end
 end
 

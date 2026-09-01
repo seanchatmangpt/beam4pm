@@ -17,6 +17,7 @@ record_names() ->
         account_discovery,
         account_master_match,
         account_parent_scope,
+        account_value_realization,
         action_pin_evidence,
         activation_event,
         add_on_bundle,
@@ -29,26 +30,33 @@ record_names() ->
         artifact_digest_evidence,
         attestation_verification_evidence,
         audit_chain_evidence,
+        availability_observation,
         availability_slo_evidence,
         backup_restore_evidence,
         baseline_metric,
         beneficial_owner_evidence,
+        billable_usage_identity,
         billing_account,
         billing_reconciliation,
         booking_readiness,
+        brce_actuation_receipt,
+        brce_actuation_request,
         budget_period_alignment,
         business_continuity_evidence,
+        business_outcome_measurement,
         buying_committee,
         canary_decision,
         canary_evidence,
         capability_bundle,
         capability_gap,
+        capsule_identity,
         case_stats,
         catalog_release,
         change_control_evidence,
         change_order_authority,
         channel_agreement,
         chargeback_rule,
+        cluster_quorum_state,
         commercial_approval,
         commercial_artifact_crown_evidence,
         commercial_exception,
@@ -67,6 +75,8 @@ record_names() ->
         consumption_pool,
         consumption_subscription,
         contracting_entity_identity,
+        cost_to_serve_measurement,
+        crash_recovery_receipt,
         credit_risk_admission,
         cross_sell_fit,
         customer_health,
@@ -90,12 +100,16 @@ record_names() ->
         edition_definition,
         enterprise_order,
         enterprise_order_line,
+        entitlement_denial_receipt,
         entitlement_event,
         entitlement_evidence,
         entitlement_grant,
         entitlement_revocation,
+        entitlement_runtime_check,
         entitlement_state,
+        environment_identity,
         environment_profile,
+        error_budget_state,
         event_log,
         event_type,
         evidence_freshness_evidence,
@@ -106,9 +120,12 @@ record_names() ->
         expansion_option,
         expansion_receipt,
         expansion_signal,
+        forged_receipt_refusal,
         funding_approval_chain,
         heuristic_arc,
         implementation_fee_admission,
+        incident_acknowledgement,
+        incident_detection_event,
         incident_response_evidence,
         indemnity_scope_admission,
         insurance_requirement,
@@ -117,17 +134,20 @@ record_names() ->
         invoice_entity_identity,
         invoice_schedule,
         k8s_object_ref,
+        latency_budget_observation,
         least_authority_evidence,
         legal_blocker,
         liability_cap_admission,
         license_evidence,
         log_trace,
         master_service_agreement_state,
+        metered_usage_sample,
         migration_contract,
         migration_readiness,
         minimum_term_admission,
         multiarch_evidence,
         mutable_identity_refusal_evidence,
+        node_failover_event,
         object_attribute_change,
         object_type,
         objection,
@@ -144,6 +164,7 @@ record_names() ->
         opportunity_value_range,
         order_form_admission,
         overage_policy,
+        paid_workload_outcome_receipt,
         path_schema,
         path_schema_query,
         payment_terms,
@@ -179,13 +200,20 @@ record_names() ->
         quota_policy,
         ramp_commitment,
         receipt_replay_evidence,
+        receipt_replay_request,
+        receipt_signature,
+        receipt_subject_binding,
+        receipt_verification,
         recovery_plan,
+        recovery_point_receipt,
+        recovery_time_receipt,
         remediation_sla_evidence,
         renewal_evidence,
         renewal_health,
         renewal_option,
         renewal_risk,
         renewal_term_admission,
+        replay_environment_identity,
         reproducible_build_evidence,
         reseller_authorization,
         residency_evidence,
@@ -195,8 +223,11 @@ record_names() ->
         revenue_contract_admission,
         revenue_schedule_assumption,
         rfp_response_evidence,
+        rollback_checkpoint,
         rollback_decision,
         rollback_evidence,
+        rolling_upgrade_plan,
+        runtime_policy_decision,
         sanctions_screening_result,
         sbom_inventory_evidence,
         secret_boundary_evidence,
@@ -205,7 +236,9 @@ record_names() ->
         security_readiness,
         service_credit,
         service_credit_admission,
+        service_health_snapshot,
         service_level_objective,
+        service_slo_contract,
         service_span,
         showback_allocation,
         signature_evidence,
@@ -214,9 +247,12 @@ record_names() ->
         sojourn_time,
         solution_fit,
         stakeholder_map,
+        stale_receipt_refusal,
         stale_subject_refusal_evidence,
         success_plan,
+        supervisor_restart_policy,
         support_contract,
+        support_diagnostic_bundle,
         support_escalation_evidence,
         support_readiness,
         support_sla_evidence,
@@ -227,10 +263,15 @@ record_names() ->
         tax_jurisdiction_evidence,
         technical_blocker,
         tenant_account,
+        tenant_data_partition,
+        tenant_key_scope,
         tenant_project,
+        tenant_resource_quota,
+        tenant_runtime_boundary,
         term_subscription,
         termination_right_admission,
         time_to_value,
+        toolchain_identity,
         training_readiness,
         training_scope_admission,
         true_up_policy,
@@ -240,15 +281,24 @@ record_names() ->
         upsell_readiness,
         usage_event,
         usage_plan,
+        usage_reconciliation_receipt,
         usage_signal,
         value_baseline,
         value_driver,
         value_realization,
+        value_telemetry_sample,
         vendor_registration_state,
         vendor_risk_evidence,
         version_lifecycle_evidence,
         volume_tier_admission,
-        vulnerability_scan_evidence
+        vulnerability_scan_evidence,
+        workload_backpressure_signal,
+        workload_cancellation_receipt,
+        workload_execution_identity,
+        workload_idempotency_key,
+        workload_queue_depth,
+        workload_retry_policy,
+        workload_timeout_budget
     ].
 
 %% Deterministic sample values, keyed by bpm:fieldType:
@@ -296,6 +346,18 @@ sample(account_parent_scope, minimal) ->
         account_id => <<"sample_account_id">>,
         parent_account_id => <<"sample_parent_account_id">>,
         scope_evidence_hash => <<"sample_scope_evidence_hash">>
+    });
+sample(account_value_realization, full) ->
+    beam4pm_types:new_account_value_realization(#{
+        tenant_id => <<"sample_tenant_id">>,
+        account_id => <<"sample_account_id">>,
+        realization_hash => <<"sample_realization_hash">>
+    });
+sample(account_value_realization, minimal) ->
+    beam4pm_types:new_account_value_realization(#{
+        tenant_id => <<"sample_tenant_id">>,
+        account_id => <<"sample_account_id">>,
+        realization_hash => <<"sample_realization_hash">>
     });
 sample(action_pin_evidence, full) ->
     beam4pm_types:new_action_pin_evidence(#{
@@ -467,6 +529,18 @@ sample(audit_chain_evidence, minimal) ->
         previous_receipt_hash => <<"sample_previous_receipt_hash">>,
         observed_result => sample_atom
     });
+sample(availability_observation, full) ->
+    beam4pm_types:new_availability_observation(#{
+        tenant_id => <<"sample_tenant_id">>,
+        slo_id => <<"sample_slo_id">>,
+        observation_hash => <<"sample_observation_hash">>
+    });
+sample(availability_observation, minimal) ->
+    beam4pm_types:new_availability_observation(#{
+        tenant_id => <<"sample_tenant_id">>,
+        slo_id => <<"sample_slo_id">>,
+        observation_hash => <<"sample_observation_hash">>
+    });
 sample(availability_slo_evidence, full) ->
     beam4pm_types:new_availability_slo_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -523,6 +597,18 @@ sample(beneficial_owner_evidence, minimal) ->
         owner_id => <<"sample_owner_id">>,
         evidence_hash => <<"sample_evidence_hash">>
     });
+sample(billable_usage_identity, full) ->
+    beam4pm_types:new_billable_usage_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        billable_usage_id => <<"sample_billable_usage_id">>,
+        identity_hash => <<"sample_identity_hash">>
+    });
+sample(billable_usage_identity, minimal) ->
+    beam4pm_types:new_billable_usage_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        billable_usage_id => <<"sample_billable_usage_id">>,
+        identity_hash => <<"sample_identity_hash">>
+    });
 sample(billing_account, full) ->
     beam4pm_types:new_billing_account(#{
         billing_account_id => <<"sample_billing_account_id">>,
@@ -567,6 +653,30 @@ sample(booking_readiness, minimal) ->
         readiness_id => <<"sample_readiness_id">>,
         decision => <<"sample_decision">>
     });
+sample(brce_actuation_receipt, full) ->
+    beam4pm_types:new_brce_actuation_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        request_id => <<"sample_request_id">>,
+        receipt_hash => <<"sample_receipt_hash">>
+    });
+sample(brce_actuation_receipt, minimal) ->
+    beam4pm_types:new_brce_actuation_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        request_id => <<"sample_request_id">>,
+        receipt_hash => <<"sample_receipt_hash">>
+    });
+sample(brce_actuation_request, full) ->
+    beam4pm_types:new_brce_actuation_request(#{
+        tenant_id => <<"sample_tenant_id">>,
+        request_id => <<"sample_request_id">>,
+        authority_hash => <<"sample_authority_hash">>
+    });
+sample(brce_actuation_request, minimal) ->
+    beam4pm_types:new_brce_actuation_request(#{
+        tenant_id => <<"sample_tenant_id">>,
+        request_id => <<"sample_request_id">>,
+        authority_hash => <<"sample_authority_hash">>
+    });
 sample(budget_period_alignment, full) ->
     beam4pm_types:new_budget_period_alignment(#{
         opportunity_id => <<"sample_opportunity_id">>,
@@ -592,6 +702,18 @@ sample(business_continuity_evidence, minimal) ->
         subject_sha => <<"sample_subject_sha">>,
         continuity_mode => <<"sample_continuity_mode">>,
         observed_result => sample_atom
+    });
+sample(business_outcome_measurement, full) ->
+    beam4pm_types:new_business_outcome_measurement(#{
+        tenant_id => <<"sample_tenant_id">>,
+        outcome_id => <<"sample_outcome_id">>,
+        measurement_hash => <<"sample_measurement_hash">>
+    });
+sample(business_outcome_measurement, minimal) ->
+    beam4pm_types:new_business_outcome_measurement(#{
+        tenant_id => <<"sample_tenant_id">>,
+        outcome_id => <<"sample_outcome_id">>,
+        measurement_hash => <<"sample_measurement_hash">>
     });
 sample(buying_committee, full) ->
     beam4pm_types:new_buying_committee(#{
@@ -668,6 +790,18 @@ sample(capability_gap, minimal) ->
         gap_severity => <<"sample_gap_severity">>,
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(capsule_identity, full) ->
+    beam4pm_types:new_capsule_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        capsule_id => <<"sample_capsule_id">>,
+        identity_hash => <<"sample_identity_hash">>
+    });
+sample(capsule_identity, minimal) ->
+    beam4pm_types:new_capsule_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        capsule_id => <<"sample_capsule_id">>,
+        identity_hash => <<"sample_identity_hash">>
     });
 sample(case_stats, full) ->
     beam4pm_types:new_case_stats(#{
@@ -747,6 +881,18 @@ sample(chargeback_rule, minimal) ->
         cost_center => <<"sample_cost_center">>,
         metric_name => <<"sample_metric_name">>,
         rate => 3.5
+    });
+sample(cluster_quorum_state, full) ->
+    beam4pm_types:new_cluster_quorum_state(#{
+        tenant_id => <<"sample_tenant_id">>,
+        cluster_id => <<"sample_cluster_id">>,
+        quorum_hash => <<"sample_quorum_hash">>
+    });
+sample(cluster_quorum_state, minimal) ->
+    beam4pm_types:new_cluster_quorum_state(#{
+        tenant_id => <<"sample_tenant_id">>,
+        cluster_id => <<"sample_cluster_id">>,
+        quorum_hash => <<"sample_quorum_hash">>
     });
 sample(commercial_approval, full) ->
     beam4pm_types:new_commercial_approval(#{
@@ -992,6 +1138,30 @@ sample(contracting_entity_identity, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         contracting_entity_id => <<"sample_contracting_entity_id">>,
         identity_evidence_hash => <<"sample_identity_evidence_hash">>
+    });
+sample(cost_to_serve_measurement, full) ->
+    beam4pm_types:new_cost_to_serve_measurement(#{
+        tenant_id => <<"sample_tenant_id">>,
+        billing_period_id => <<"sample_billing_period_id">>,
+        measurement_hash => <<"sample_measurement_hash">>
+    });
+sample(cost_to_serve_measurement, minimal) ->
+    beam4pm_types:new_cost_to_serve_measurement(#{
+        tenant_id => <<"sample_tenant_id">>,
+        billing_period_id => <<"sample_billing_period_id">>,
+        measurement_hash => <<"sample_measurement_hash">>
+    });
+sample(crash_recovery_receipt, full) ->
+    beam4pm_types:new_crash_recovery_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        crash_id => <<"sample_crash_id">>,
+        receipt_hash => <<"sample_receipt_hash">>
+    });
+sample(crash_recovery_receipt, minimal) ->
+    beam4pm_types:new_crash_recovery_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        crash_id => <<"sample_crash_id">>,
+        receipt_hash => <<"sample_receipt_hash">>
     });
 sample(credit_risk_admission, full) ->
     beam4pm_types:new_credit_risk_admission(#{
@@ -1319,6 +1489,18 @@ sample(enterprise_order_line, minimal) ->
         quantity => 42,
         unit_price => 3.5
     });
+sample(entitlement_denial_receipt, full) ->
+    beam4pm_types:new_entitlement_denial_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        denial_hash => <<"sample_denial_hash">>
+    });
+sample(entitlement_denial_receipt, minimal) ->
+    beam4pm_types:new_entitlement_denial_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        denial_hash => <<"sample_denial_hash">>
+    });
 sample(entitlement_event, full) ->
     beam4pm_types:new_entitlement_event(#{
         event_id => <<"sample_event_id">>,
@@ -1376,6 +1558,18 @@ sample(entitlement_revocation, minimal) ->
         reason => <<"sample_reason">>,
         revoked_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(entitlement_runtime_check, full) ->
+    beam4pm_types:new_entitlement_runtime_check(#{
+        tenant_id => <<"sample_tenant_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        check_hash => <<"sample_check_hash">>
+    });
+sample(entitlement_runtime_check, minimal) ->
+    beam4pm_types:new_entitlement_runtime_check(#{
+        tenant_id => <<"sample_tenant_id">>,
+        entitlement_id => <<"sample_entitlement_id">>,
+        check_hash => <<"sample_check_hash">>
+    });
 sample(entitlement_state, full) ->
     beam4pm_types:new_entitlement_state(#{
         entitlement_id => <<"sample_entitlement_id">>,
@@ -1390,6 +1584,18 @@ sample(entitlement_state, minimal) ->
         last_applied_event_id => <<"sample_last_applied_event_id">>,
         updated_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(environment_identity, full) ->
+    beam4pm_types:new_environment_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        environment_id => <<"sample_environment_id">>,
+        identity_hash => <<"sample_identity_hash">>
+    });
+sample(environment_identity, minimal) ->
+    beam4pm_types:new_environment_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        environment_id => <<"sample_environment_id">>,
+        identity_hash => <<"sample_identity_hash">>
+    });
 sample(environment_profile, full) ->
     beam4pm_types:new_environment_profile(#{
         profile_id => <<"sample_profile_id">>,
@@ -1403,6 +1609,18 @@ sample(environment_profile, minimal) ->
         environment => sample_atom,
         region => <<"sample_region">>,
         configuration_hash => <<"sample_configuration_hash">>
+    });
+sample(error_budget_state, full) ->
+    beam4pm_types:new_error_budget_state(#{
+        tenant_id => <<"sample_tenant_id">>,
+        slo_id => <<"sample_slo_id">>,
+        state_hash => <<"sample_state_hash">>
+    });
+sample(error_budget_state, minimal) ->
+    beam4pm_types:new_error_budget_state(#{
+        tenant_id => <<"sample_tenant_id">>,
+        slo_id => <<"sample_slo_id">>,
+        state_hash => <<"sample_state_hash">>
     });
 sample(event_log, full) ->
     beam4pm_types:new_event_log(#{
@@ -1544,6 +1762,18 @@ sample(expansion_signal, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(forged_receipt_refusal, full) ->
+    beam4pm_types:new_forged_receipt_refusal(#{
+        tenant_id => <<"sample_tenant_id">>,
+        receipt_id => <<"sample_receipt_id">>,
+        refusal_hash => <<"sample_refusal_hash">>
+    });
+sample(forged_receipt_refusal, minimal) ->
+    beam4pm_types:new_forged_receipt_refusal(#{
+        tenant_id => <<"sample_tenant_id">>,
+        receipt_id => <<"sample_receipt_id">>,
+        refusal_hash => <<"sample_refusal_hash">>
+    });
 sample(funding_approval_chain, full) ->
     beam4pm_types:new_funding_approval_chain(#{
         opportunity_id => <<"sample_opportunity_id">>,
@@ -1579,6 +1809,30 @@ sample(implementation_fee_admission, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         fee_id => <<"sample_fee_id">>,
         decision => <<"sample_decision">>
+    });
+sample(incident_acknowledgement, full) ->
+    beam4pm_types:new_incident_acknowledgement(#{
+        tenant_id => <<"sample_tenant_id">>,
+        incident_id => <<"sample_incident_id">>,
+        acknowledgement_hash => <<"sample_acknowledgement_hash">>
+    });
+sample(incident_acknowledgement, minimal) ->
+    beam4pm_types:new_incident_acknowledgement(#{
+        tenant_id => <<"sample_tenant_id">>,
+        incident_id => <<"sample_incident_id">>,
+        acknowledgement_hash => <<"sample_acknowledgement_hash">>
+    });
+sample(incident_detection_event, full) ->
+    beam4pm_types:new_incident_detection_event(#{
+        tenant_id => <<"sample_tenant_id">>,
+        incident_id => <<"sample_incident_id">>,
+        detection_hash => <<"sample_detection_hash">>
+    });
+sample(incident_detection_event, minimal) ->
+    beam4pm_types:new_incident_detection_event(#{
+        tenant_id => <<"sample_tenant_id">>,
+        incident_id => <<"sample_incident_id">>,
+        detection_hash => <<"sample_detection_hash">>
     });
 sample(incident_response_evidence, full) ->
     beam4pm_types:new_incident_response_evidence(#{
@@ -1683,6 +1937,18 @@ sample(k8s_object_ref, minimal) ->
         kind => <<"sample_kind">>,
         name => <<"sample_name">>
     });
+sample(latency_budget_observation, full) ->
+    beam4pm_types:new_latency_budget_observation(#{
+        tenant_id => <<"sample_tenant_id">>,
+        workload_id => <<"sample_workload_id">>,
+        observation_hash => <<"sample_observation_hash">>
+    });
+sample(latency_budget_observation, minimal) ->
+    beam4pm_types:new_latency_budget_observation(#{
+        tenant_id => <<"sample_tenant_id">>,
+        workload_id => <<"sample_workload_id">>,
+        observation_hash => <<"sample_observation_hash">>
+    });
 sample(least_authority_evidence, full) ->
     beam4pm_types:new_least_authority_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -1757,6 +2023,18 @@ sample(master_service_agreement_state, minimal) ->
         agreement_id => <<"sample_agreement_id">>,
         agreement_state => <<"sample_agreement_state">>
     });
+sample(metered_usage_sample, full) ->
+    beam4pm_types:new_metered_usage_sample(#{
+        tenant_id => <<"sample_tenant_id">>,
+        usage_sample_id => <<"sample_usage_sample_id">>,
+        sample_hash => <<"sample_sample_hash">>
+    });
+sample(metered_usage_sample, minimal) ->
+    beam4pm_types:new_metered_usage_sample(#{
+        tenant_id => <<"sample_tenant_id">>,
+        usage_sample_id => <<"sample_usage_sample_id">>,
+        sample_hash => <<"sample_sample_hash">>
+    });
 sample(migration_contract, full) ->
     beam4pm_types:new_migration_contract(#{
         migration_id => <<"sample_migration_id">>,
@@ -1826,6 +2104,18 @@ sample(mutable_identity_refusal_evidence, minimal) ->
         subject_sha => <<"sample_subject_sha">>,
         mutable_reference => <<"sample_mutable_reference">>,
         observed_result => sample_atom
+    });
+sample(node_failover_event, full) ->
+    beam4pm_types:new_node_failover_event(#{
+        tenant_id => <<"sample_tenant_id">>,
+        node_id => <<"sample_node_id">>,
+        failover_hash => <<"sample_failover_hash">>
+    });
+sample(node_failover_event, minimal) ->
+    beam4pm_types:new_node_failover_event(#{
+        tenant_id => <<"sample_tenant_id">>,
+        node_id => <<"sample_node_id">>,
+        failover_hash => <<"sample_failover_hash">>
     });
 sample(object_attribute_change, full) ->
     beam4pm_types:new_object_attribute_change(#{
@@ -2035,6 +2325,18 @@ sample(overage_policy, minimal) ->
         quota_id => <<"sample_quota_id">>,
         unit_price => 3.5,
         behavior => sample_atom
+    });
+sample(paid_workload_outcome_receipt, full) ->
+    beam4pm_types:new_paid_workload_outcome_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        workload_id => <<"sample_workload_id">>,
+        outcome_receipt_hash => <<"sample_outcome_receipt_hash">>
+    });
+sample(paid_workload_outcome_receipt, minimal) ->
+    beam4pm_types:new_paid_workload_outcome_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        workload_id => <<"sample_workload_id">>,
+        outcome_receipt_hash => <<"sample_outcome_receipt_hash">>
     });
 sample(path_schema, full) ->
     beam4pm_types:new_path_schema(#{
@@ -2494,6 +2796,54 @@ sample(receipt_replay_evidence, minimal) ->
         replay_result_hash => <<"sample_replay_result_hash">>,
         observed_result => sample_atom
     });
+sample(receipt_replay_request, full) ->
+    beam4pm_types:new_receipt_replay_request(#{
+        tenant_id => <<"sample_tenant_id">>,
+        receipt_id => <<"sample_receipt_id">>,
+        replay_request_hash => <<"sample_replay_request_hash">>
+    });
+sample(receipt_replay_request, minimal) ->
+    beam4pm_types:new_receipt_replay_request(#{
+        tenant_id => <<"sample_tenant_id">>,
+        receipt_id => <<"sample_receipt_id">>,
+        replay_request_hash => <<"sample_replay_request_hash">>
+    });
+sample(receipt_signature, full) ->
+    beam4pm_types:new_receipt_signature(#{
+        tenant_id => <<"sample_tenant_id">>,
+        receipt_id => <<"sample_receipt_id">>,
+        signature_hash => <<"sample_signature_hash">>
+    });
+sample(receipt_signature, minimal) ->
+    beam4pm_types:new_receipt_signature(#{
+        tenant_id => <<"sample_tenant_id">>,
+        receipt_id => <<"sample_receipt_id">>,
+        signature_hash => <<"sample_signature_hash">>
+    });
+sample(receipt_subject_binding, full) ->
+    beam4pm_types:new_receipt_subject_binding(#{
+        tenant_id => <<"sample_tenant_id">>,
+        workload_id => <<"sample_workload_id">>,
+        binding_hash => <<"sample_binding_hash">>
+    });
+sample(receipt_subject_binding, minimal) ->
+    beam4pm_types:new_receipt_subject_binding(#{
+        tenant_id => <<"sample_tenant_id">>,
+        workload_id => <<"sample_workload_id">>,
+        binding_hash => <<"sample_binding_hash">>
+    });
+sample(receipt_verification, full) ->
+    beam4pm_types:new_receipt_verification(#{
+        tenant_id => <<"sample_tenant_id">>,
+        receipt_id => <<"sample_receipt_id">>,
+        verification_hash => <<"sample_verification_hash">>
+    });
+sample(receipt_verification, minimal) ->
+    beam4pm_types:new_receipt_verification(#{
+        tenant_id => <<"sample_tenant_id">>,
+        receipt_id => <<"sample_receipt_id">>,
+        verification_hash => <<"sample_verification_hash">>
+    });
 sample(recovery_plan, full) ->
     beam4pm_types:new_recovery_plan(#{
         recovery_plan_id => <<"sample_recovery_plan_id">>,
@@ -2509,6 +2859,30 @@ sample(recovery_plan, minimal) ->
         recovery_time_hours => 3.5,
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(recovery_point_receipt, full) ->
+    beam4pm_types:new_recovery_point_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        incident_id => <<"sample_incident_id">>,
+        recovery_hash => <<"sample_recovery_hash">>
+    });
+sample(recovery_point_receipt, minimal) ->
+    beam4pm_types:new_recovery_point_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        incident_id => <<"sample_incident_id">>,
+        recovery_hash => <<"sample_recovery_hash">>
+    });
+sample(recovery_time_receipt, full) ->
+    beam4pm_types:new_recovery_time_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        incident_id => <<"sample_incident_id">>,
+        recovery_hash => <<"sample_recovery_hash">>
+    });
+sample(recovery_time_receipt, minimal) ->
+    beam4pm_types:new_recovery_time_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        incident_id => <<"sample_incident_id">>,
+        recovery_hash => <<"sample_recovery_hash">>
     });
 sample(remediation_sla_evidence, full) ->
     beam4pm_types:new_remediation_sla_evidence(#{
@@ -2597,6 +2971,18 @@ sample(renewal_term_admission, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         renewal_term => <<"sample_renewal_term">>,
         decision => <<"sample_decision">>
+    });
+sample(replay_environment_identity, full) ->
+    beam4pm_types:new_replay_environment_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        environment_id => <<"sample_environment_id">>,
+        identity_hash => <<"sample_identity_hash">>
+    });
+sample(replay_environment_identity, minimal) ->
+    beam4pm_types:new_replay_environment_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        environment_id => <<"sample_environment_id">>,
+        identity_hash => <<"sample_identity_hash">>
     });
 sample(reproducible_build_evidence, full) ->
     beam4pm_types:new_reproducible_build_evidence(#{
@@ -2720,6 +3106,18 @@ sample(rfp_response_evidence, minimal) ->
         answer_set_hash => <<"sample_answer_set_hash">>,
         observed_result => sample_atom
     });
+sample(rollback_checkpoint, full) ->
+    beam4pm_types:new_rollback_checkpoint(#{
+        tenant_id => <<"sample_tenant_id">>,
+        checkpoint_id => <<"sample_checkpoint_id">>,
+        state_hash => <<"sample_state_hash">>
+    });
+sample(rollback_checkpoint, minimal) ->
+    beam4pm_types:new_rollback_checkpoint(#{
+        tenant_id => <<"sample_tenant_id">>,
+        checkpoint_id => <<"sample_checkpoint_id">>,
+        state_hash => <<"sample_state_hash">>
+    });
 sample(rollback_decision, full) ->
     beam4pm_types:new_rollback_decision(#{
         rollback_decision_id => <<"sample_rollback_decision_id">>,
@@ -2749,6 +3147,30 @@ sample(rollback_evidence, minimal) ->
         subject_sha => <<"sample_subject_sha">>,
         rollback_digest => <<"sample_rollback_digest">>,
         observed_result => sample_atom
+    });
+sample(rolling_upgrade_plan, full) ->
+    beam4pm_types:new_rolling_upgrade_plan(#{
+        tenant_id => <<"sample_tenant_id">>,
+        upgrade_id => <<"sample_upgrade_id">>,
+        plan_hash => <<"sample_plan_hash">>
+    });
+sample(rolling_upgrade_plan, minimal) ->
+    beam4pm_types:new_rolling_upgrade_plan(#{
+        tenant_id => <<"sample_tenant_id">>,
+        upgrade_id => <<"sample_upgrade_id">>,
+        plan_hash => <<"sample_plan_hash">>
+    });
+sample(runtime_policy_decision, full) ->
+    beam4pm_types:new_runtime_policy_decision(#{
+        tenant_id => <<"sample_tenant_id">>,
+        decision_id => <<"sample_decision_id">>,
+        policy_hash => <<"sample_policy_hash">>
+    });
+sample(runtime_policy_decision, minimal) ->
+    beam4pm_types:new_runtime_policy_decision(#{
+        tenant_id => <<"sample_tenant_id">>,
+        decision_id => <<"sample_decision_id">>,
+        policy_hash => <<"sample_policy_hash">>
     });
 sample(sanctions_screening_result, full) ->
     beam4pm_types:new_sanctions_screening_result(#{
@@ -2856,6 +3278,18 @@ sample(service_credit_admission, minimal) ->
         service_credit_id => <<"sample_service_credit_id">>,
         decision => <<"sample_decision">>
     });
+sample(service_health_snapshot, full) ->
+    beam4pm_types:new_service_health_snapshot(#{
+        tenant_id => <<"sample_tenant_id">>,
+        service_id => <<"sample_service_id">>,
+        snapshot_hash => <<"sample_snapshot_hash">>
+    });
+sample(service_health_snapshot, minimal) ->
+    beam4pm_types:new_service_health_snapshot(#{
+        tenant_id => <<"sample_tenant_id">>,
+        service_id => <<"sample_service_id">>,
+        snapshot_hash => <<"sample_snapshot_hash">>
+    });
 sample(service_level_objective, full) ->
     beam4pm_types:new_service_level_objective(#{
         slo_id => <<"sample_slo_id">>,
@@ -2869,6 +3303,18 @@ sample(service_level_objective, minimal) ->
         contract_id => <<"sample_contract_id">>,
         target_percent => 3.5,
         measurement_window => sample_atom
+    });
+sample(service_slo_contract, full) ->
+    beam4pm_types:new_service_slo_contract(#{
+        tenant_id => <<"sample_tenant_id">>,
+        slo_id => <<"sample_slo_id">>,
+        contract_hash => <<"sample_contract_hash">>
+    });
+sample(service_slo_contract, minimal) ->
+    beam4pm_types:new_service_slo_contract(#{
+        tenant_id => <<"sample_tenant_id">>,
+        slo_id => <<"sample_slo_id">>,
+        contract_hash => <<"sample_contract_hash">>
     });
 sample(service_span, full) ->
     beam4pm_types:new_service_span(#{
@@ -2981,6 +3427,18 @@ sample(stakeholder_map, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(stale_receipt_refusal, full) ->
+    beam4pm_types:new_stale_receipt_refusal(#{
+        tenant_id => <<"sample_tenant_id">>,
+        receipt_id => <<"sample_receipt_id">>,
+        refusal_hash => <<"sample_refusal_hash">>
+    });
+sample(stale_receipt_refusal, minimal) ->
+    beam4pm_types:new_stale_receipt_refusal(#{
+        tenant_id => <<"sample_tenant_id">>,
+        receipt_id => <<"sample_receipt_id">>,
+        refusal_hash => <<"sample_refusal_hash">>
+    });
 sample(stale_subject_refusal_evidence, full) ->
     beam4pm_types:new_stale_subject_refusal_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -3011,6 +3469,18 @@ sample(success_plan, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(supervisor_restart_policy, full) ->
+    beam4pm_types:new_supervisor_restart_policy(#{
+        tenant_id => <<"sample_tenant_id">>,
+        supervisor_id => <<"sample_supervisor_id">>,
+        policy_hash => <<"sample_policy_hash">>
+    });
+sample(supervisor_restart_policy, minimal) ->
+    beam4pm_types:new_supervisor_restart_policy(#{
+        tenant_id => <<"sample_tenant_id">>,
+        supervisor_id => <<"sample_supervisor_id">>,
+        policy_hash => <<"sample_policy_hash">>
+    });
 sample(support_contract, full) ->
     beam4pm_types:new_support_contract(#{
         contract_id => <<"sample_contract_id">>,
@@ -3024,6 +3494,18 @@ sample(support_contract, minimal) ->
         account_id => <<"sample_account_id">>,
         tier => sample_atom,
         valid_until => <<"2026-08-29T12:00:00Z">>
+    });
+sample(support_diagnostic_bundle, full) ->
+    beam4pm_types:new_support_diagnostic_bundle(#{
+        tenant_id => <<"sample_tenant_id">>,
+        incident_id => <<"sample_incident_id">>,
+        bundle_hash => <<"sample_bundle_hash">>
+    });
+sample(support_diagnostic_bundle, minimal) ->
+    beam4pm_types:new_support_diagnostic_bundle(#{
+        tenant_id => <<"sample_tenant_id">>,
+        incident_id => <<"sample_incident_id">>,
+        bundle_hash => <<"sample_bundle_hash">>
     });
 sample(support_escalation_evidence, full) ->
     beam4pm_types:new_support_escalation_evidence(#{
@@ -3160,6 +3642,30 @@ sample(tenant_account, minimal) ->
         home_region => <<"sample_home_region">>,
         edition_id => <<"sample_edition_id">>
     });
+sample(tenant_data_partition, full) ->
+    beam4pm_types:new_tenant_data_partition(#{
+        tenant_id => <<"sample_tenant_id">>,
+        partition_id => <<"sample_partition_id">>,
+        isolation_hash => <<"sample_isolation_hash">>
+    });
+sample(tenant_data_partition, minimal) ->
+    beam4pm_types:new_tenant_data_partition(#{
+        tenant_id => <<"sample_tenant_id">>,
+        partition_id => <<"sample_partition_id">>,
+        isolation_hash => <<"sample_isolation_hash">>
+    });
+sample(tenant_key_scope, full) ->
+    beam4pm_types:new_tenant_key_scope(#{
+        tenant_id => <<"sample_tenant_id">>,
+        key_scope_id => <<"sample_key_scope_id">>,
+        key_attestation_hash => <<"sample_key_attestation_hash">>
+    });
+sample(tenant_key_scope, minimal) ->
+    beam4pm_types:new_tenant_key_scope(#{
+        tenant_id => <<"sample_tenant_id">>,
+        key_scope_id => <<"sample_key_scope_id">>,
+        key_attestation_hash => <<"sample_key_attestation_hash">>
+    });
 sample(tenant_project, full) ->
     beam4pm_types:new_tenant_project(#{
         project_id => <<"sample_project_id">>,
@@ -3173,6 +3679,30 @@ sample(tenant_project, minimal) ->
         tenant_id => <<"sample_tenant_id">>,
         cost_center => <<"sample_cost_center">>,
         status => sample_atom
+    });
+sample(tenant_resource_quota, full) ->
+    beam4pm_types:new_tenant_resource_quota(#{
+        tenant_id => <<"sample_tenant_id">>,
+        quota_id => <<"sample_quota_id">>,
+        utilization_hash => <<"sample_utilization_hash">>
+    });
+sample(tenant_resource_quota, minimal) ->
+    beam4pm_types:new_tenant_resource_quota(#{
+        tenant_id => <<"sample_tenant_id">>,
+        quota_id => <<"sample_quota_id">>,
+        utilization_hash => <<"sample_utilization_hash">>
+    });
+sample(tenant_runtime_boundary, full) ->
+    beam4pm_types:new_tenant_runtime_boundary(#{
+        tenant_id => <<"sample_tenant_id">>,
+        boundary_id => <<"sample_boundary_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
+    });
+sample(tenant_runtime_boundary, minimal) ->
+    beam4pm_types:new_tenant_runtime_boundary(#{
+        tenant_id => <<"sample_tenant_id">>,
+        boundary_id => <<"sample_boundary_id">>,
+        evidence_hash => <<"sample_evidence_hash">>
     });
 sample(term_subscription, full) ->
     beam4pm_types:new_term_subscription(#{
@@ -3215,6 +3745,18 @@ sample(time_to_value, minimal) ->
         verified_days => 42,
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(toolchain_identity, full) ->
+    beam4pm_types:new_toolchain_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        toolchain_id => <<"sample_toolchain_id">>,
+        identity_hash => <<"sample_identity_hash">>
+    });
+sample(toolchain_identity, minimal) ->
+    beam4pm_types:new_toolchain_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        toolchain_id => <<"sample_toolchain_id">>,
+        identity_hash => <<"sample_identity_hash">>
     });
 sample(training_readiness, full) ->
     beam4pm_types:new_training_readiness(#{
@@ -3346,6 +3888,18 @@ sample(usage_plan, minimal) ->
         unit => <<"sample_unit">>,
         billing_mode => sample_atom
     });
+sample(usage_reconciliation_receipt, full) ->
+    beam4pm_types:new_usage_reconciliation_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        billing_period_id => <<"sample_billing_period_id">>,
+        reconciliation_hash => <<"sample_reconciliation_hash">>
+    });
+sample(usage_reconciliation_receipt, minimal) ->
+    beam4pm_types:new_usage_reconciliation_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        billing_period_id => <<"sample_billing_period_id">>,
+        reconciliation_hash => <<"sample_reconciliation_hash">>
+    });
 sample(usage_signal, full) ->
     beam4pm_types:new_usage_signal(#{
         usage_signal_id => <<"sample_usage_signal_id">>,
@@ -3407,6 +3961,18 @@ sample(value_realization, minimal) ->
         realized_value => 3.5,
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(value_telemetry_sample, full) ->
+    beam4pm_types:new_value_telemetry_sample(#{
+        tenant_id => <<"sample_tenant_id">>,
+        outcome_id => <<"sample_outcome_id">>,
+        telemetry_hash => <<"sample_telemetry_hash">>
+    });
+sample(value_telemetry_sample, minimal) ->
+    beam4pm_types:new_value_telemetry_sample(#{
+        tenant_id => <<"sample_tenant_id">>,
+        outcome_id => <<"sample_outcome_id">>,
+        telemetry_hash => <<"sample_telemetry_hash">>
     });
 sample(vendor_registration_state, full) ->
     beam4pm_types:new_vendor_registration_state(#{
@@ -3473,6 +4039,90 @@ sample(vulnerability_scan_evidence, minimal) ->
         subject_sha => <<"sample_subject_sha">>,
         vulnerability_count => 42,
         observed_result => sample_atom
+    });
+sample(workload_backpressure_signal, full) ->
+    beam4pm_types:new_workload_backpressure_signal(#{
+        tenant_id => <<"sample_tenant_id">>,
+        signal_id => <<"sample_signal_id">>,
+        measurement_hash => <<"sample_measurement_hash">>
+    });
+sample(workload_backpressure_signal, minimal) ->
+    beam4pm_types:new_workload_backpressure_signal(#{
+        tenant_id => <<"sample_tenant_id">>,
+        signal_id => <<"sample_signal_id">>,
+        measurement_hash => <<"sample_measurement_hash">>
+    });
+sample(workload_cancellation_receipt, full) ->
+    beam4pm_types:new_workload_cancellation_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        execution_id => <<"sample_execution_id">>,
+        receipt_hash => <<"sample_receipt_hash">>
+    });
+sample(workload_cancellation_receipt, minimal) ->
+    beam4pm_types:new_workload_cancellation_receipt(#{
+        tenant_id => <<"sample_tenant_id">>,
+        execution_id => <<"sample_execution_id">>,
+        receipt_hash => <<"sample_receipt_hash">>
+    });
+sample(workload_execution_identity, full) ->
+    beam4pm_types:new_workload_execution_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        execution_id => <<"sample_execution_id">>,
+        subject_digest => <<"sample_subject_digest">>
+    });
+sample(workload_execution_identity, minimal) ->
+    beam4pm_types:new_workload_execution_identity(#{
+        tenant_id => <<"sample_tenant_id">>,
+        execution_id => <<"sample_execution_id">>,
+        subject_digest => <<"sample_subject_digest">>
+    });
+sample(workload_idempotency_key, full) ->
+    beam4pm_types:new_workload_idempotency_key(#{
+        tenant_id => <<"sample_tenant_id">>,
+        execution_id => <<"sample_execution_id">>,
+        idempotency_key => <<"sample_idempotency_key">>
+    });
+sample(workload_idempotency_key, minimal) ->
+    beam4pm_types:new_workload_idempotency_key(#{
+        tenant_id => <<"sample_tenant_id">>,
+        execution_id => <<"sample_execution_id">>,
+        idempotency_key => <<"sample_idempotency_key">>
+    });
+sample(workload_queue_depth, full) ->
+    beam4pm_types:new_workload_queue_depth(#{
+        tenant_id => <<"sample_tenant_id">>,
+        queue_id => <<"sample_queue_id">>,
+        measurement_hash => <<"sample_measurement_hash">>
+    });
+sample(workload_queue_depth, minimal) ->
+    beam4pm_types:new_workload_queue_depth(#{
+        tenant_id => <<"sample_tenant_id">>,
+        queue_id => <<"sample_queue_id">>,
+        measurement_hash => <<"sample_measurement_hash">>
+    });
+sample(workload_retry_policy, full) ->
+    beam4pm_types:new_workload_retry_policy(#{
+        tenant_id => <<"sample_tenant_id">>,
+        policy_id => <<"sample_policy_id">>,
+        policy_hash => <<"sample_policy_hash">>
+    });
+sample(workload_retry_policy, minimal) ->
+    beam4pm_types:new_workload_retry_policy(#{
+        tenant_id => <<"sample_tenant_id">>,
+        policy_id => <<"sample_policy_id">>,
+        policy_hash => <<"sample_policy_hash">>
+    });
+sample(workload_timeout_budget, full) ->
+    beam4pm_types:new_workload_timeout_budget(#{
+        tenant_id => <<"sample_tenant_id">>,
+        budget_id => <<"sample_budget_id">>,
+        budget_hash => <<"sample_budget_hash">>
+    });
+sample(workload_timeout_budget, minimal) ->
+    beam4pm_types:new_workload_timeout_budget(#{
+        tenant_id => <<"sample_tenant_id">>,
+        budget_id => <<"sample_budget_id">>,
+        budget_hash => <<"sample_budget_hash">>
     });
 sample(Name, Variant) ->
     erlang:error({unknown_sample, Name, Variant}).

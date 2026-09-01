@@ -34,6 +34,16 @@
 | `parent_account_id` | `string` | true | Required account parent scope input; omission is an executable typed refusal, never an inferred approval. |
 | `scope_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## account_value_realization
+
+> Aggregates verified outcome evidence into an account-level realized-value observation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `account_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `realization_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## action_pin_evidence
 
 > Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.
@@ -167,6 +177,16 @@
 | `previous_receipt_hash` | `string` | true | Hash of the preceding receipt in the observed audit chain. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## availability_observation
+
+> Records a bounded availability observation against the paid tenant SLO.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `slo_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `observation_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## availability_slo_evidence
 
 > Executable availability evidence binding an exact subject to the service level actually observed over the admitted window.
@@ -211,6 +231,16 @@
 | `owner_id` | `string` | true | Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## billable_usage_identity
+
+> Binds accepted usage to one immutable billable identity that prevents duplicate charging.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `billable_usage_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## billing_account
 
 > Bill-to account with currency and invoice delivery profile.
@@ -245,6 +275,26 @@
 | `readiness_id` | `string` | true | Required booking readiness input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## brce_actuation_receipt
+
+> Binds an actuated runtime consequence to its authorized BRCE request and receipt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `request_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `receipt_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## brce_actuation_request
+
+> Admits a runtime actuation request only with exact BRCE authority evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `request_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `authority_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## budget_period_alignment
 
 > Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.
@@ -265,6 +315,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `continuity_mode` | `string` | true | Observed fallback mode used to preserve admitted operations. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## business_outcome_measurement
+
+> Records the observed business outcome against its admitted baseline and target.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `outcome_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `measurement_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## buying_committee
 
@@ -323,6 +383,16 @@
 | `gap_severity` | `string` | true | Observed severity of the capability gap. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## capsule_identity
+
+> Binds paid workload execution to the exact immutable runtime capsule digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `capsule_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## case_stats
 
@@ -387,6 +457,16 @@
 | `cost_center` | `string` | true | Charged cost center. |
 | `metric_name` | `string` | true | Allocated usage metric. |
 | `rate` | `float` | true | Internal chargeback rate. |
+
+## cluster_quorum_state
+
+> Binds an execution decision to observed cluster quorum rather than inferred availability.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `cluster_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `quorum_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## commercial_approval
 
@@ -582,6 +662,26 @@
 | `opportunity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
 | `contracting_entity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
 | `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## cost_to_serve_measurement
+
+> Records attributable runtime cost-to-serve for a paid tenant and billing period.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `billing_period_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `measurement_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## crash_recovery_receipt
+
+> Produces replayable evidence that a runtime crash reached a verified recovery consequence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `crash_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `receipt_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## credit_risk_admission
 
@@ -838,6 +938,16 @@
 | `quantity` | `integer` | true | Contracted unit count. |
 | `unit_price` | `float` | true | Contracted price per unit. |
 
+## entitlement_denial_receipt
+
+> Receipts a runtime denial when the paid tenant lacks the required product entitlement.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `entitlement_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `denial_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## entitlement_event
 
 > One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id.
@@ -883,6 +993,16 @@
 | `reason` | `string` | true | Typed revocation reason. |
 | `revoked_at` | `datetime` | true | Revocation effective instant. |
 
+## entitlement_runtime_check
+
+> Records the exact paid entitlement evaluated before workload execution.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `entitlement_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `check_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## entitlement_state
 
 > The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark.
@@ -894,6 +1014,16 @@
 | `last_applied_event_id` | `string` | true | The event_id of the single entitlement_event that produced this state. Second (tiebreak) component of the reconciliation watermark, and the audit link from a commercial state back to the exact provider notification that caused it. Required, never undefined: an entitlement_state may only be constructed by applying a real event, so there is no lawful state without a causing event id. |
 | `updated_at` | `datetime` | true | The effective_at of the last applied event -- NOT wall-clock ingestion time. First component of the reconciliation watermark. Defining it as provider effective time (a) makes the state a pure function of the event set, so the same events replayed in any order at any later date rebuild a byte-identical state, and (b) makes the strictly-greater-than admission test well-founded. A wall-clock updated_at would silently admit an out-of-order older event, because it always advances. |
 
+## environment_identity
+
+> Binds paid workload execution to an immutable production environment identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `environment_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## environment_profile
 
 > Deterministic environment profile for demo, POC, or production.
@@ -904,6 +1034,16 @@
 | `environment` | `atom` | true | Deployment environment class. |
 | `region` | `string` | true | Target deployment region. |
 | `configuration_hash` | `string` | true | Canonical configuration digest. |
+
+## error_budget_state
+
+> Captures the exact remaining error budget that governs paid-service release policy.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `slo_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `state_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## event_log
 
@@ -1016,6 +1156,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## forged_receipt_refusal
+
+> Produces typed refusal evidence when a runtime receipt signature or subject binding is forged.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `receipt_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `refusal_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## funding_approval_chain
 
 > Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
@@ -1045,6 +1195,26 @@
 | `opportunity_id` | `string` | true | Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval. |
 | `fee_id` | `string` | true | Required implementation fee admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## incident_acknowledgement
+
+> Records accountable acknowledgement of a production incident for a paid tenant.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `incident_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `acknowledgement_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## incident_detection_event
+
+> Records the detected production incident and exact affected paid service.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `incident_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `detection_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## incident_response_evidence
 
@@ -1130,6 +1300,16 @@
 | `name` | `string` | true | The object name. |
 | `namespace` | `string` | false | Optional object namespace (absent for cluster-scoped kinds such as Node, PersistentVolume, ClusterRole, or Namespace itself). |
 
+## latency_budget_observation
+
+> Records an observed runtime latency against the admitted paid-service latency budget.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `workload_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `observation_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## least_authority_evidence
 
 > Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
@@ -1191,6 +1371,16 @@
 | `agreement_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
 | `agreement_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## metered_usage_sample
+
+> Records a bounded production usage sample eligible for tenant-level metering.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `usage_sample_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `sample_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## migration_contract
 
 > Versioned migration path with source, target, and rollback identity.
@@ -1245,6 +1435,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `mutable_reference` | `string` | true | Mutable reference observed and refused before artifact admission. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## node_failover_event
+
+> Records the exact node failure and observed failover consequence for a paid service.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `node_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `failover_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## object_attribute_change
 
@@ -1416,6 +1616,16 @@
 | `quota_id` | `string` | true | Governed quota. |
 | `unit_price` | `float` | true | Price per overage unit. |
 | `behavior` | `atom` | true | Overage enforcement behavior. |
+
+## paid_workload_outcome_receipt
+
+> Produces the terminal receipt proving a paid workload delivered its admitted business outcome.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `workload_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `outcome_receipt_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## path_schema
 
@@ -1788,6 +1998,46 @@
 | `replay_result_hash` | `string` | true | Hash of the consequence reproduced by receipt replay. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## receipt_replay_request
+
+> Admits an exact receipt replay request for independent consumer verification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `receipt_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `replay_request_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## receipt_signature
+
+> Admits a cryptographic receipt signature bound to an exact paid runtime consequence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `receipt_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `signature_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## receipt_subject_binding
+
+> Binds a runtime receipt to the exact workload subject it claims to evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `workload_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `binding_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## receipt_verification
+
+> Records independent verification of a production receipt before value is recognized.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `receipt_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `verification_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## recovery_plan
 
 > Executable account recovery plan with a measured recovery interval.
@@ -1799,6 +2049,26 @@
 | `recovery_time_hours` | `float` | true | Verified hours from failure to recovered customer consequence. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## recovery_point_receipt
+
+> Receipts the observed recovery point and protected data boundary after failure.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `incident_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `recovery_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## recovery_time_receipt
+
+> Receipts the observed recovery-time consequence against the paid-service objective.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `incident_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `recovery_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## remediation_sla_evidence
 
@@ -1867,6 +2137,16 @@
 | `opportunity_id` | `string` | true | Required renewal term admission input; omission is an executable typed refusal, never an inferred approval. |
 | `renewal_term` | `string` | true | Required renewal term admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## replay_environment_identity
+
+> Binds receipt replay to an exact environment identity so mismatched replay is refused.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `environment_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## reproducible_build_evidence
 
@@ -1965,6 +2245,16 @@
 | `answer_set_hash` | `string` | true | Digest of the answer set derived from verified subject facts. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## rollback_checkpoint
+
+> Binds rollback authority to an immutable runtime checkpoint and verified state digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `checkpoint_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `state_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## rollback_decision
 
 > Receipted rollback decision and recovered account consequence.
@@ -1987,6 +2277,26 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `rollback_digest` | `string` | true | Digest of the prior artifact restored by the rollback operation. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## rolling_upgrade_plan
+
+> Admits an identified rolling upgrade plan with deterministic production evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `upgrade_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `plan_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## runtime_policy_decision
+
+> Records an explicit runtime policy decision before paid workload actuation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `decision_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `policy_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## sanctions_screening_result
 
@@ -2073,6 +2383,16 @@
 | `service_credit_id` | `string` | true | Required service credit admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## service_health_snapshot
+
+> Captures machine-readable paid-service health for support and escalation decisions.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `service_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `snapshot_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## service_level_objective
 
 > Measurable service target bound to a support contract.
@@ -2083,6 +2403,16 @@
 | `contract_id` | `string` | true | Governing support contract. |
 | `target_percent` | `float` | true | Contracted target percentage. |
 | `measurement_window` | `atom` | true | SLO measurement window. |
+
+## service_slo_contract
+
+> Admits the exact service-level objective contract governing a paid workload.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `slo_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `contract_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## service_span
 
@@ -2172,6 +2502,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## stale_receipt_refusal
+
+> Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `receipt_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `refusal_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## stale_subject_refusal_evidence
 
 > Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial.
@@ -2195,6 +2535,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## supervisor_restart_policy
+
+> Binds an OTP supervisor to an explicit restart policy governing paid workload resilience.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `supervisor_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `policy_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## support_contract
 
 > Purchased support tier with response target and term.
@@ -2205,6 +2555,16 @@
 | `account_id` | `string` | true | Covered enterprise account. |
 | `tier` | `atom` | true | Purchased support tier. |
 | `valid_until` | `datetime` | true | Support term expiration. |
+
+## support_diagnostic_bundle
+
+> Binds machine-readable support diagnostics to the exact tenant and incident subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `incident_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `bundle_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## support_escalation_evidence
 
@@ -2314,6 +2674,26 @@
 | `home_region` | `string` | true | Tenant home region. |
 | `edition_id` | `string` | true | Provisioned product edition. |
 
+## tenant_data_partition
+
+> Binds tenant data to an explicit storage partition whose isolation consequence is independently verifiable.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `partition_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `isolation_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## tenant_key_scope
+
+> Binds tenant cryptographic material to one runtime key scope and attested key identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `key_scope_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `key_attestation_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## tenant_project
 
 > Billable tenant project with cost-center attribution.
@@ -2324,6 +2704,26 @@
 | `tenant_id` | `string` | true | Owning tenant. |
 | `cost_center` | `string` | true | Enterprise cost-center code. |
 | `status` | `atom` | true | Project lifecycle standing. |
+
+## tenant_resource_quota
+
+> Binds a paid tenant to an enforceable CPU and memory quota with observed utilization evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `quota_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `utilization_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## tenant_runtime_boundary
+
+> Binds a paid tenant to one explicit runtime isolation boundary and replayable evidence identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity whose workload is isolated. |
+| `boundary_id` | `string` | true | Immutable runtime isolation boundary identity. |
+| `evidence_hash` | `string` | true | Digest binding the observed tenant isolation consequence. |
 
 ## term_subscription
 
@@ -2357,6 +2757,16 @@
 | `verified_days` | `integer` | true | Days from admission to first verified value. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## toolchain_identity
+
+> Binds a production consequence to the exact BEAM and manufacturing toolchain identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `toolchain_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## training_readiness
 
@@ -2459,6 +2869,16 @@
 | `unit` | `string` | true | Commercial measurement unit. |
 | `billing_mode` | `atom` | true | Billing calculation mode. |
 
+## usage_reconciliation_receipt
+
+> Receipts deduplicated usage reconciliation before an invoiceable quantity is recognized.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `billing_period_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `reconciliation_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
 ## usage_signal
 
 > Measured product-usage signal for an admitted enterprise account.
@@ -2505,6 +2925,16 @@
 | `realized_value` | `float` | true | Verified realized value in account currency. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## value_telemetry_sample
+
+> Records a production telemetry sample tied to the paid business-value measurement contract.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `outcome_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `telemetry_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
 ## vendor_registration_state
 
@@ -2558,4 +2988,74 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `vulnerability_count` | `integer` | true | Observed count of admitted vulnerability findings. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## workload_backpressure_signal
+
+> Records runtime backpressure as measured evidence before additional paid work is accepted.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `signal_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `measurement_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## workload_cancellation_receipt
+
+> Records deterministic cancellation consequence for a paid workload execution.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `execution_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `receipt_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## workload_execution_identity
+
+> Assigns every paid workload execution an immutable subject identity before runtime consequence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `execution_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `subject_digest` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## workload_idempotency_key
+
+> Binds a paid execution to an idempotency key so retried delivery cannot be billed or actuated twice.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `execution_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `idempotency_key` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## workload_queue_depth
+
+> Records paid workload queue depth as an exact capacity and backpressure observation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `queue_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `measurement_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## workload_retry_policy
+
+> Admits a bounded retry policy with explicit identity and replayable configuration evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `policy_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `policy_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## workload_timeout_budget
+
+> Admits an execution timeout budget that prevents unbounded paid runtime consumption.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
+| `budget_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
+| `budget_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
