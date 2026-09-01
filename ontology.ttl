@@ -2261,26 +2261,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 #
 # bpm:RecordType (beam4pm-process-model-pack/ontology.ttl:13-15) is a
 # META-CLASS describing record SHAPES ("One admitted BEAM record/struct type
-# projected into ge…11563 tokens truncated…s_screening_result_rt a bpm:RecordType ;
-    bpm:recordName "sanctions_screening_result" ;
-    bpm:recordDoc "Requires a named sanctions screening result before accepting the commercial counterparty." ;
-    bpm:hasField b4p:sanctions_screening_result_account_id_f ,
-                 b4p:sanctions_screening_result_screening_id_f ,
-                 b4p:sanctions_screening_result_screening_result_f .
-
-b4p:sanctions_screening_result_account_id_f a bpm:Field ;
-    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
-
-b4p:sanctions_screening_result_screening_id_f a bpm:Field ;
-    bpm:fieldName "screening_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4p:sanctions_screening_result_screening_result_f a bpm:Field ;
-   bpm:fieldName "screening_result" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+# projected into gener…11871 tokens truncated…cial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 
 # WS1-REV-019 — beneficial_owner_evidence
@@ -4124,5 +4105,29 @@ b4p:business_outcome_measurement_outcome_id_f a bpm:Field ;
 
 b4p:business_outcome_measurement_measurement_hash_f a bpm:Field ;
     bpm:fieldName "measurement_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-048 — account_value_realization
+b4p:account_value_realization_rt a bpm:RecordType ;
+    bpm:recordName "account_value_realization" ;
+    bpm:recordDoc "Aggregates verified outcome evidence into an account-level realized-value observation." ;
+    bpm:hasField b4p:account_value_realization_tenant_id_f,
+                 b4p:account_value_realization_account_id_f,
+                 b4p:account_value_realization_realization_hash_f .
+
+b4p:account_value_realization_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:account_value_realization_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:account_value_realization_realization_hash_f a bpm:Field ;
+    bpm:fieldName "realization_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
