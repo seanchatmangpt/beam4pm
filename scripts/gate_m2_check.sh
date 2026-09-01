@@ -208,6 +208,19 @@ bash scripts/ocel_ingest_sync.sh
 # "function BeamPM.ReceiptChain.hash_file!/1 is undefined". Real ordering bug
 # GATE M2 caught for real once beam4pm_contracts.ex started depending on
 # ReceiptChain across the module boundary.
+
+# B4PM-1708 -- standing regression guard: the audit found real
+# Igniter.Refactors.Rename-hazard shapes already present in
+# lib/beam4pm_process_governor.ex (a chained target of receipt_chain_sync.sh
+# below), but confirmed no rename step exists in this pipeline today. This
+# guard re-confirms that for real, every GATE M2 run, before
+# receipt_chain_sync.sh executes -- if a future change ever wires
+# Igniter.Refactors.Rename into receipt_chain_sync.sh, actuation_sync.sh, or
+# process_governor_sync.sh without also invoking the B4PM-1704 pre-flight
+# guard (scripts/rename_function_preflight_guard.exs) in the same file,
+# this check refuses (non-zero exit) before the chained pipeline runs.
+bash scripts/rename_hazard_pipeline_guard.sh
+
 bash scripts/receipt_chain_sync.sh
 
 bash scripts/igniter_sync.sh
