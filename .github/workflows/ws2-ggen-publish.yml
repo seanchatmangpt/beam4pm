@@ -129,13 +129,26 @@ jobs:
           cp "$RUNNER_TEMP/ontology.ttl.original" ontology.ttl
           rm -rf .ggen-v2
 
-      - name: Verify full tree and exact patch receipt
+      - name: Verify deterministic content tree and exact patch receipt
         shell: bash
         run: |
           set -euo pipefail
-          tar --ignore-failed-read -cf "$RUNNER_TEMP/primary-ggen-tree.tar" -T "$RUNNER_TEMP/primary-ggen-targets.txt"
-          tree_sha="$(sha256sum "$RUNNER_TEMP/primary-ggen-tree.tar" | awk '{print $1}')"
-          [[ "$tree_sha" = "e6e435eea4faff584c42ea1b8306f3c7dd01a7ea4cc93981d2eb3b9e568f0f00" ]] || { echo "REFUSED[PRIMARY_TREE_DRIFT]:$tree_sha" >&2; exit 2; }
+          python3 - <<'PY'
+          import hashlib, os
+          from pathlib import Path
+          paths = Path(os.environ['RUNNER_TEMP'], 'primary-ggen-targets.txt').read_text().splitlines()
+          rows = []
+          for p in sorted(paths):
+              f = Path(p)
+              if not f.is_file():
+                  raise SystemExit(f'REFUSED[PRIMARY_TARGET_MISSING]:{p}')
+              rows.append(p.encode() + b'\0' + hashlib.sha256(f.read_bytes()).hexdigest().encode() + b'\n')
+          manifest = b''.join(rows)
+          Path(os.environ['RUNNER_TEMP'], 'primary-content-manifest.txt').write_bytes(manifest)
+          print(hashlib.sha256(manifest).hexdigest())
+          PY
+          content_tree_sha="$(sha256sum "$RUNNER_TEMP/primary-content-manifest.txt" | awk '{print $1}')"
+          [[ "$content_tree_sha" = "b4c944b750e101eeb85302e22e2f25f1ba907837b14d4a07407ce04df2326f56" ]] || { echo "REFUSED[PRIMARY_CONTENT_TREE_DRIFT]:$content_tree_sha" >&2; exit 2; }
           git add -A
           git diff --cached --check
           git diff --cached --binary --no-ext-diff > "$RUNNER_TEMP/publish.patch"
@@ -179,10 +192,10 @@ jobs:
           git commit -m 'chore(ws2): publish receipted ggen projections'
           published_sha="$(git rev-parse HEAD)"
           git push origin "HEAD:${HEAD_REF}"
-          printf '{"source_sha":"%s","published_sha":"%s","patch_sha256":"%s","primary_tree_sha256":"%s","authority":"PR_BODY_MARKER:ggen-publish-authorized"}\n' \
+          printf '{"source_sha":"%s","published_sha":"%s","patch_sha256":"%s","primary_content_tree_sha256":"%s","authority":"PR_BODY_MARKER:ggen-publish-authorized"}\n' \
             "${{ github.event.pull_request.head.sha }}" "$published_sha" \
             '2c82e0cb9fb52be3dfa21f71f1839d2d44b3266329dbfa92b3fc61a5105f451e' \
-            'e6e435eea4faff584c42ea1b8306f3c7dd01a7ea4cc93981d2eb3b9e568f0f00' \
+            'b4c944b750e101eeb85302e22e2f25f1ba907837b14d4a07407ce04df2326f56' \
             > "$RUNNER_TEMP/ws2-publish-receipt.json"
 
       - name: Upload publication receipt
