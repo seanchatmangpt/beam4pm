@@ -2285,28 +2285,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 # reinforced field-by-field: bpm:ocel_event_event_type_f and
 # bpm:ocel_event_event_time_f (both domain bpm:ocel_event_rt's field set)
 # correspond to ex4pm:activity and ex4pm:timestamp (both rdfs:domain
-# ex4pm:Event in…8473 tokens truncated…ore price and invoice admission." ;
-    bpm:hasField b4p:tax_jurisdiction_evidence_contracting_entity_id_f ,
-                 b4p:tax_jurisdiction_evidence_tax_jurisdiction_f ,
-                 b4p:tax_jurisdiction_evidence_evidence_hash_f .
-
-b4p:tax_jurisdiction_evidence_contracting_entity_id_f a bpm:Field ;
-    bpm:fieldName "contracting_entity_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
-
-b4p:tax_jurisdiction_evidence_tax_jurisdiction_f a bpm:Field ;
-    bpm:fieldName "tax_jurisdiction" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4p:tax_jurisdiction_evidence_evidence_hash_f a bpm:Field ;
-   bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-# WS1-REV-011 — purchase_order_requirement
-b4p:purchase_order_requirement_rt a bpm:RecordType ;
+# ex4pm:Event…8779 tokens truncated…se_order_requirement_rt a bpm:RecordType ;
     bpm:recordName "purchase_order_requirement" ;
     bpm:recordDoc "Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness." ;
     bpm:hasField b4p:purchase_order_requirement_opportunity_id_f ,
@@ -4114,5 +4093,29 @@ b4p:recovery_point_receipt_incident_id_f a bpm:Field ;
 
 b4p:recovery_point_receipt_recovery_hash_f a bpm:Field ;
     bpm:fieldName "recovery_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-039 — support_diagnostic_bundle
+b4p:support_diagnostic_bundle_rt a bpm:RecordType ;
+    bpm:recordName "support_diagnostic_bundle" ;
+    bpm:recordDoc "Binds machine-readable support diagnostics to the exact tenant and incident subject." ;
+    bpm:hasField b4p:support_diagnostic_bundle_tenant_id_f,
+                 b4p:support_diagnostic_bundle_incident_id_f,
+                 b4p:support_diagnostic_bundle_bundle_hash_f .
+
+b4p:support_diagnostic_bundle_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:support_diagnostic_bundle_incident_id_f a bpm:Field ;
+    bpm:fieldName "incident_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:support_diagnostic_bundle_bundle_hash_f a bpm:Field ;
+    bpm:fieldName "bundle_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
