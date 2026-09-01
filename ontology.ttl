@@ -2261,17 +2261,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 #
 # bpm:RecordType (beam4pm-process-model-pack/ontology.ttl:13-15) is a
 # META-CLASS describing record SHAPES ("One admitted BEAM record/struct type
-# projected into generate…5235 tokens truncated…p contract made auditable -- |applied_event_ids| is the honest count of billed occurrences, and any event_id appearing at most once here is a mechanically checkable falsifier for MP6 double-billing." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
-
-b4pe:billing_reconciliation_period_start_f a bpm:Field ;
-    bpm:fieldName "period_start" ; bpm:fieldType "datetime" ;
-    bpm:fieldDoc "ISO8601 UTC INCLUSIVE lower bound of the billing period. An event is in-period when period_start <= occurred_at. Caller-supplied to reconcile_billing/4, never derived from the input events themselves -- see period_end's fieldDoc for why." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
-
-b4pe:billing_reconciliation_period_end_f a bpm:Field ;
-    bpm:fieldName "period_end" ; bpm:fieldType "datetime" ;
-    bpm:fieldDoc "ISO8601 UTC EXCLUSIVE upper bound of the billing period. An event is in-period when occurred_at < period_end. The exclusive bound is what prevents an event landing exactly on a period boundary from being counted by both the closing and the opening period -- a boundary double-bill that per-period dedup alone would not catch. reconcile_billing/4 takes {PeriodStart, PeriodEnd} as an explicit argument and filters events by it before dedup, which is what makes this guarantee real." ;
+# projected into generated…5534 tokens truncated… explicit argument and filters events by it before dedup, which is what makes this guarantee real." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
 
 # WS1-REV-001 — account_master_match
@@ -4024,6 +4014,30 @@ b4p:forged_receipt_refusal_receipt_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:forged_receipt_refusal_refusal_hash_f a bpm:Field ;
+    bpm:fieldName "refusal_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-027 — stale_receipt_refusal
+b4p:stale_receipt_refusal_rt a bpm:RecordType ;
+    bpm:recordName "stale_receipt_refusal" ;
+    bpm:recordDoc "Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window." ;
+    bpm:hasField b4p:stale_receipt_refusal_tenant_id_f,
+                 b4p:stale_receipt_refusal_receipt_id_f,
+                 b4p:stale_receipt_refusal_refusal_hash_f .
+
+b4p:stale_receipt_refusal_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:stale_receipt_refusal_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:stale_receipt_refusal_refusal_hash_f a bpm:Field ;
     bpm:fieldName "refusal_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
