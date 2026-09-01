@@ -21,6 +21,7 @@ on:
     branches: [main]
     paths:
       - "ontology.ttl"
+      - "ontology/**"
       - "ggen.toml"
       - "contracts/beam4pm-pro/**"
       - "vendor/ggen-marketplace"
@@ -29,6 +30,7 @@ on:
     branches: [main]
     paths:
       - "ontology.ttl"
+      - "ontology/**"
       - "ggen.toml"
       - "contracts/beam4pm-pro/**"
       - "vendor/ggen-marketplace"
