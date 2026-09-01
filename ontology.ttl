@@ -2285,25 +2285,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 # reinforced field-by-field: bpm:ocel_event_event_type_f and
 # bpm:ocel_event_event_time_f (both domain bpm:ocel_event_rt's field set)
 # correspond to ex4pm:activity and ex4pm:timestamp (both rdfs:domain
-# ex4pm:Even…5780 tokens truncated…nt_account_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required account parent scope input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4p:account_parent_scope_scope_evidence_hash_f a bpm:Field ;
-   bpm:fieldName "scope_evidence_hash" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-# WS1-REV-003 — opportunity_currency_contract
-b4p:opportunity_currency_contract_rt a bpm:RecordType ;
-    bpm:recordName "opportunity_currency_contract" ;
-    bpm:recordDoc "Admits opportunity value only with an explicit deal currency and immutable foreign-exchange basis, making forecast value comparable and replayable." ;
-    bpm:hasField b4p:opportunity_currency_contract_opportunity_id_f ,
-                 b4p:opportunity_currency_contract_currency_code_f ,
-                 b4p:opportunity_currency_contract_fx_basis_id_f .
-
-b4p:opportunity_currency_contract_opportunity_id_f a bpm:Field ;
-    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
+# ex4pm:Event in e…6068 tokens truncated…:fieldType "string" ;
     bpm:fieldDoc "Required opportunity currency contract input; omission is an executable typed refusal, never an inferred approval." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
 
@@ -4071,5 +4053,29 @@ b4p:entitlement_denial_receipt_entitlement_id_f a bpm:Field ;
 
 b4p:entitlement_denial_receipt_denial_hash_f a bpm:Field ;
     bpm:fieldName "denial_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-030 — service_slo_contract
+b4p:service_slo_contract_rt a bpm:RecordType ;
+    bpm:recordName "service_slo_contract" ;
+    bpm:recordDoc "Admits the exact service-level objective contract governing a paid workload." ;
+    bpm:hasField b4p:service_slo_contract_tenant_id_f,
+                 b4p:service_slo_contract_slo_id_f,
+                 b4p:service_slo_contract_contract_hash_f .
+
+b4p:service_slo_contract_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:service_slo_contract_slo_id_f a bpm:Field ;
+    bpm:fieldName "slo_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:service_slo_contract_contract_hash_f a bpm:Field ;
+    bpm:fieldName "contract_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
