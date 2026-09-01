@@ -1,0 +1,12 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:DeploymentArtifactManifest a pro:CapabilityContract ;
+ dct:identifier "WS2-REV-056" ; dct:title "Paid deployment artifact manifest" ;
+ pro:requiredEvidence "a sellable deployment profile binds exact release identity to OCI manifest digest, architecture set, signature evidence, private-registry target, offline bundle identity when applicable, compatibility contract and rollback evidence" ;
+ pro:acceptanceCrown "artifact identity is digest-pinned and replayable; mutable tags alone never establish standing; incompatible edition, environment or architecture combinations refuse before deployment intent is admitted" ;
+ pro:digestPinRequired true ; pro:mutableTagStandingAllowed false ;
+ pro:authorityCeiling "CONSTRUCT" ;
+ pro:refusalCode "REFUSED[DEPLOYMENT_ARTIFACT_UNQUALIFIED]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .
