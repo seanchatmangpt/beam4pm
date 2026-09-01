@@ -122,7 +122,8 @@ bpm:dfg_edge_rt a bpm:RecordType ;
     bpm:recordDoc "One frequency-annotated directly-follows edge between two activities." ;
     bpm:hasField bpm:dfg_edge_source_activity_f ,
                  bpm:dfg_edge_target_activity_f ,
-                 bpm:dfg_edge_frequency_f .
+                 bpm:dfg_edge_frequency_f ,
+                 bpm:dfg_edge_edge_weight_f .
 
 bpm:dfg_edge_source_activity_f a bpm:Field ;
     bpm:fieldName "source_activity" ;
@@ -144,6 +145,13 @@ bpm:dfg_edge_frequency_f a bpm:Field ;
     bpm:fieldDoc "Observed occurrence count of this edge." ;
     bpm:fieldRequired "true" ;
     bpm:fieldOrder 3 .
+
+bpm:dfg_edge_edge_weight_f a bpm:Field ;
+    bpm:fieldName "edge_weight" ;
+    bpm:fieldType "float" ;
+    bpm:fieldDoc "Structural weight of this edge for what-if simulation (B4PM-1702)." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 4 .
 
 # ---------------------------------------------------------------------------
 # 5. petri_place

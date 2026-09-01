@@ -6892,12 +6892,13 @@ end
 defmodule BeamPM.Types.DfgEdge do
   @moduledoc "One frequency-annotated directly-follows edge between two activities."
 
-  defstruct [:source_activity, :target_activity, :frequency]
+  defstruct [:source_activity, :target_activity, :frequency, :edge_weight]
 
   @type t :: %__MODULE__{
     source_activity: String.t() | nil,
     target_activity: String.t() | nil,
-    frequency: integer() | nil
+    frequency: integer() | nil,
+    edge_weight: float() | nil
   }
 
   @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
@@ -6906,11 +6907,13 @@ defmodule BeamPM.Types.DfgEdge do
       not Map.has_key?(attrs, :source_activity) -> {:error, {:missing_field, :source_activity}}
       not Map.has_key?(attrs, :target_activity) -> {:error, {:missing_field, :target_activity}}
       not Map.has_key?(attrs, :frequency) -> {:error, {:missing_field, :frequency}}
+      not Map.has_key?(attrs, :edge_weight) -> {:error, {:missing_field, :edge_weight}}
       true ->
         {:ok, %__MODULE__{
           source_activity: Map.get(attrs, :source_activity),
           target_activity: Map.get(attrs, :target_activity),
-          frequency: Map.get(attrs, :frequency)
+          frequency: Map.get(attrs, :frequency),
+          edge_weight: Map.get(attrs, :edge_weight)
         }}
     end
   end
