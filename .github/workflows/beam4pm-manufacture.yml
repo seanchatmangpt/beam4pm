@@ -223,6 +223,7 @@ jobs:
           if [[ -f .ggen-v2/receipt.json ]]; then cp .ggen-v2/receipt.json "$evidence/ggen-receipt.json"; fi
           if [[ -f ggen.lock ]]; then cp ggen.lock "$evidence/ggen.lock"; fi
           rm -rf .ggen-v2
+          tar --ignore-failed-read -cf "$evidence/primary-ggen-tree.tar" -T "$evidence/primary-ggen-targets.txt"
           git add -A
           git diff --cached --check
           git diff --cached --binary --no-ext-diff > "$evidence/ggen-sync.patch"
@@ -250,13 +251,14 @@ jobs:
               'sync_exit_code': os.environ.get('SYNC_EXIT_CODE'),
               'ontology_inputs_sha256': (root / 'ontology-inputs.sha256').read_text().splitlines(),
               'primary_target_census_sha256': digest(root / 'primary-ggen-targets.txt'),
+              'primary_tree_sha256': digest(root / 'primary-ggen-tree.tar'),
               'deleted_primary_target_count': int((root / 'deleted-primary-target-count.txt').read_text()),
               'patch_sha256': digest(root / 'ggen-sync.patch'),
               'packs': json.loads((root / 'packs.json').read_text()),
           }
           (root / 'beam4pm-manufacture-receipt.json').write_text(json.dumps(receipt, indent=2, sort_keys=True) + '\n')
           PY
-          sha256sum "$evidence/ggen-sync.patch" "$evidence/beam4pm-manufacture-receipt.json" "$evidence/packs.json" "$evidence/ontology-inputs.sha256" "$evidence/primary-ggen-targets.txt" > "$evidence/SHA256SUMS"
+          sha256sum "$evidence/ggen-sync.patch" "$evidence/primary-ggen-tree.tar" "$evidence/beam4pm-manufacture-receipt.json" "$evidence/packs.json" "$evidence/ontology-inputs.sha256" "$evidence/primary-ggen-targets.txt" > "$evidence/SHA256SUMS"
 
       - name: Upload deterministic replay evidence
         if: always()
