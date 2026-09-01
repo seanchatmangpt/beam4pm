@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-099 — usage_correction
+bpm:usage_correction_rt a bpm:RecordType ;
+    bpm:recordName "usage_correction" ;
+    bpm:recordDoc "Receipted correction to previously reported usage." ;
+    bpm:hasField bpm:usage_correction_usage_correction_id_f,
+                 bpm:usage_correction_account_id_f,
+                 bpm:usage_correction_corrected_quantity_f,
+                 bpm:usage_correction_evidence_digest_f,
+                 bpm:usage_correction_effective_at_f .
+
+bpm:usage_correction_usage_correction_id_f a bpm:Field ;
+    bpm:fieldName "usage_correction_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this usage correction contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:usage_correction_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:usage_correction_corrected_quantity_f a bpm:Field ;
+    bpm:fieldName "corrected_quantity" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Replacement usage quantity bound to correction evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:usage_correction_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:usage_correction_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
