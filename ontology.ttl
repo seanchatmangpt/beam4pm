@@ -2285,26 +2285,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 # reinforced field-by-field: bpm:ocel_event_event_type_f and
 # bpm:ocel_event_event_time_f (both domain bpm:ocel_event_rt's field set)
 # correspond to ex4pm:activity and ex4pm:timestamp (both rdfs:domain
-# ex4pm:Event…8779 tokens truncated…se_order_requirement_rt a bpm:RecordType ;
-    bpm:recordName "purchase_order_requirement" ;
-    bpm:recordDoc "Makes the buyer's purchase-order requirement explicit and evidenced before booking readiness." ;
-    bpm:hasField b4p:purchase_order_requirement_opportunity_id_f ,
-                 b4p:purchase_order_requirement_requirement_id_f ,
-                 b4p:purchase_order_requirement_evidence_hash_f .
-
-b4p:purchase_order_requirement_opportunity_id_f a bpm:Field ;
-    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
-
-b4p:purchase_order_requirement_requirement_id_f a bpm:Field ;
-    bpm:fieldName "requirement_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required purchase order requirement input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4p:purchase_order_requirement_evidence_hash_f a bpm:Field ;
-   bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+# ex4pm:Event in e…9074 tokens truncated…r evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 
 # WS1-REV-012 — payment_terms_admission
@@ -4117,5 +4098,29 @@ b4p:support_diagnostic_bundle_incident_id_f a bpm:Field ;
 
 b4p:support_diagnostic_bundle_bundle_hash_f a bpm:Field ;
     bpm:fieldName "bundle_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-040 — environment_identity
+b4p:environment_identity_rt a bpm:RecordType ;
+    bpm:recordName "environment_identity" ;
+    bpm:recordDoc "Binds paid workload execution to an immutable production environment identity." ;
+    bpm:hasField b4p:environment_identity_tenant_id_f,
+                 b4p:environment_identity_environment_id_f,
+                 b4p:environment_identity_identity_hash_f .
+
+b4p:environment_identity_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:environment_identity_environment_id_f a bpm:Field ;
+    bpm:fieldName "environment_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:environment_identity_identity_hash_f a bpm:Field ;
+    bpm:fieldName "identity_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
