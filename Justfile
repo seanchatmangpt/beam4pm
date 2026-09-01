@@ -24,5 +24,13 @@ test:
 lint_truth:
     bash scripts/gate_lint_truth.sh
 
-# Full operator chain: submodules -> sync -> lint_truth -> test
-verify: submodules sync lint_truth test
+# Audit every real mix.exs against the two known Igniter defect trigger
+# shapes (B4PM-1701): inline deps: [...] vs defp deps do ... end, and any
+# parenless zero-arity / guarded def inside mix.exs itself. Emits a
+# machine-readable JSON report and self-tests its own detector against a
+# real positive fixture before auditing.
+mixexs_defect_audit:
+    bash scripts/mixexs_defect_audit.sh
+
+# Full operator chain: submodules -> sync -> lint_truth -> mixexs_defect_audit -> test
+verify: submodules sync lint_truth mixexs_defect_audit test
