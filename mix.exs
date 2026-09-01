@@ -4,6 +4,10 @@ defmodule Beam4pm.MixProject do
   def project do
     [
       app: :beam4pm,
+      # Must match src/beam4pm.app.src's {vsn, ...} tuple -- bump both
+      # together via `mix beam4pm.version_bump <version>`
+      # (lib/mix/tasks/beam4pm.version_bump.ex), never by hand-editing one
+      # without the other.
       version: "26.9.9",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,

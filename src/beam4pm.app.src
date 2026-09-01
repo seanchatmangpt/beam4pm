@@ -5,6 +5,8 @@
 %% generated/erlang/src (see rebar.config's src_dirs).
 {application, beam4pm,
  [{description, "beam4pm: BEAM-first process-mining substrate (ggen-manufactured types)."},
+  %% Must match mix.exs's version: key -- bump both together via
+  %% `mix beam4pm.version_bump <version>` (lib/mix/tasks/beam4pm.version_bump.ex).
   {vsn, "26.9.9"},
   {registered, []},
   {applications, [kernel, stdlib]},
