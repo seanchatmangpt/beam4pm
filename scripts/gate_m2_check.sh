@@ -126,6 +126,15 @@ bash scripts/revenue_economics_sync.sh
 bash scripts/revenue_metering_sync.sh
 bash scripts/claude_workflow_reactor_sync.sh
 
+# beam4pm_pro P0 gap-closure capabilities (PRO-001/003/007/008/010),
+# igniter-rendered, fully static, mutually independent of each other and of
+# every family above.
+bash scripts/pro_capability_manifest_sync.sh
+bash scripts/pro_compatibility_sync.sh
+bash scripts/pro_license_sync.sh
+bash scripts/pro_doctor_sync.sh
+bash scripts/pro_tenancy_sync.sh
+
 # Restore the stashed hand-authored tests now that every manufactured
 # module they depend on is real again (also happens automatically via the
 # EXIT trap on any earlier failure -- calling it explicitly here too just

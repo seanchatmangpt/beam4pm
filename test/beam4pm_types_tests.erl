@@ -9,6 +9,18 @@
 %% functions produces a real "already exported" compiler warning (which
 %% would become a hard failure under warnings_as_errors).
 
+account_discovery_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_account_discovery(#{
+        account_discovery_id => <<"x">>,
+        account_id => <<"x">>,
+        discovery_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+account_discovery_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_account_discovery(#{})).
+
 account_master_match_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_account_master_match(#{
         source_account_id => <<"x">>,
@@ -29,6 +41,62 @@ account_parent_scope_ok_test() ->
 account_parent_scope_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_account_parent_scope(#{})).
 
+account_value_realization_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_account_value_realization(#{
+        tenant_id => <<"x">>,
+        account_id => <<"x">>,
+        realization_hash => <<"x">>
+    })).
+
+account_value_realization_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_account_value_realization(#{})).
+
+action_pin_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_action_pin_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        action_sha => <<"x">>,
+        observed_result => some_atom
+    })).
+
+action_pin_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_action_pin_evidence(#{})).
+
+activation_event_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_activation_event(#{
+        activation_event_id => <<"x">>,
+        account_id => <<"x">>,
+        activation_type => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+activation_event_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_activation_event(#{})).
+
+add_on_bundle_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_add_on_bundle(#{
+        add_on_id => <<"x">>,
+        name => <<"x">>,
+        capability_ids => [<<"a">>],
+        status => some_atom
+    })).
+
+add_on_bundle_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_add_on_bundle(#{})).
+
+adoption_milestone_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_adoption_milestone(#{
+        adoption_milestone_id => <<"x">>,
+        account_id => <<"x">>,
+        milestone_name => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+adoption_milestone_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_adoption_milestone(#{})).
+
 alignment_move_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_alignment_move(#{
         move_type => some_atom,
@@ -37,6 +105,128 @@ alignment_move_ok_test() ->
 
 alignment_move_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_alignment_move(#{})).
+
+annual_subscription_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_annual_subscription(#{
+        subscription_id => <<"x">>,
+        sku => <<"x">>,
+        seat_count => 1,
+        renews_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+annual_subscription_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_annual_subscription(#{})).
+
+approval_separation_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_approval_separation_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        approver_identity => <<"x">>,
+        observed_result => some_atom
+    })).
+
+approval_separation_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_approval_separation_evidence(#{})).
+
+architecture_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_architecture_readiness(#{
+        architecture_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        architecture_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+architecture_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_architecture_readiness(#{})).
+
+architecture_review_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_architecture_review_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        review_decision => <<"x">>,
+        observed_result => some_atom
+    })).
+
+architecture_review_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_architecture_review_evidence(#{})).
+
+artifact_digest_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_artifact_digest_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        digest => <<"x">>,
+        observed_result => some_atom
+    })).
+
+artifact_digest_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_artifact_digest_evidence(#{})).
+
+attestation_verification_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_attestation_verification_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        predicate_type => <<"x">>,
+        observed_result => some_atom
+    })).
+
+attestation_verification_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_attestation_verification_evidence(#{})).
+
+audit_chain_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_audit_chain_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        previous_receipt_hash => <<"x">>,
+        observed_result => some_atom
+    })).
+
+audit_chain_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_audit_chain_evidence(#{})).
+
+availability_observation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_availability_observation(#{
+        tenant_id => <<"x">>,
+        slo_id => <<"x">>,
+        observation_hash => <<"x">>
+    })).
+
+availability_observation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_availability_observation(#{})).
+
+availability_slo_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_availability_slo_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        availability_percent => 1.0,
+        observed_result => some_atom
+    })).
+
+availability_slo_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_availability_slo_evidence(#{})).
+
+backup_restore_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_backup_restore_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        backup_digest => <<"x">>,
+        observed_result => some_atom
+    })).
+
+backup_restore_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_backup_restore_evidence(#{})).
+
+baseline_metric_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_baseline_metric(#{
+        baseline_metric_id => <<"x">>,
+        account_id => <<"x">>,
+        baseline_value => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+baseline_metric_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_baseline_metric(#{})).
 
 beneficial_owner_evidence_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_beneficial_owner_evidence(#{
@@ -47,6 +237,27 @@ beneficial_owner_evidence_ok_test() ->
 
 beneficial_owner_evidence_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_beneficial_owner_evidence(#{})).
+
+billable_usage_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_billable_usage_identity(#{
+        tenant_id => <<"x">>,
+        billable_usage_id => <<"x">>,
+        identity_hash => <<"x">>
+    })).
+
+billable_usage_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_billable_usage_identity(#{})).
+
+billing_account_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_billing_account(#{
+        billing_account_id => <<"x">>,
+        account_id => <<"x">>,
+        currency => <<"x">>,
+        invoice_profile => <<"x">>
+    })).
+
+billing_account_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_billing_account(#{})).
 
 billing_reconciliation_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_billing_reconciliation(#{
@@ -71,6 +282,26 @@ booking_readiness_ok_test() ->
 booking_readiness_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_booking_readiness(#{})).
 
+brce_actuation_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_brce_actuation_receipt(#{
+        tenant_id => <<"x">>,
+        request_id => <<"x">>,
+        receipt_hash => <<"x">>
+    })).
+
+brce_actuation_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_brce_actuation_receipt(#{})).
+
+brce_actuation_request_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_brce_actuation_request(#{
+        tenant_id => <<"x">>,
+        request_id => <<"x">>,
+        authority_hash => <<"x">>
+    })).
+
+brce_actuation_request_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_brce_actuation_request(#{})).
+
 budget_period_alignment_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_budget_period_alignment(#{
         opportunity_id => <<"x">>,
@@ -80,6 +311,95 @@ budget_period_alignment_ok_test() ->
 
 budget_period_alignment_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_budget_period_alignment(#{})).
+
+business_continuity_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_business_continuity_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        continuity_mode => <<"x">>,
+        observed_result => some_atom
+    })).
+
+business_continuity_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_business_continuity_evidence(#{})).
+
+business_outcome_measurement_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_business_outcome_measurement(#{
+        tenant_id => <<"x">>,
+        outcome_id => <<"x">>,
+        measurement_hash => <<"x">>
+    })).
+
+business_outcome_measurement_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_business_outcome_measurement(#{})).
+
+buying_committee_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_buying_committee(#{
+        buying_committee_id => <<"x">>,
+        account_id => <<"x">>,
+        committee_coverage => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+buying_committee_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_buying_committee(#{})).
+
+canary_decision_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_canary_decision(#{
+        canary_decision_id => <<"x">>,
+        account_id => <<"x">>,
+        canary_result => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+canary_decision_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_canary_decision(#{})).
+
+canary_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_canary_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        canary_percentage => 1.0,
+        observed_result => some_atom
+    })).
+
+canary_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_canary_evidence(#{})).
+
+capability_bundle_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_capability_bundle(#{
+        bundle_id => <<"x">>,
+        name => <<"x">>,
+        capability_ids => [<<"a">>],
+        version => <<"x">>
+    })).
+
+capability_bundle_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_capability_bundle(#{})).
+
+capability_gap_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_capability_gap(#{
+        capability_gap_id => <<"x">>,
+        account_id => <<"x">>,
+        gap_severity => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+capability_gap_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_capability_gap(#{})).
+
+capsule_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_capsule_identity(#{
+        tenant_id => <<"x">>,
+        capsule_id => <<"x">>,
+        identity_hash => <<"x">>
+    })).
+
+capsule_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_capsule_identity(#{})).
 
 case_stats_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_case_stats(#{
@@ -91,6 +411,28 @@ case_stats_ok_test() ->
 case_stats_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_case_stats(#{})).
 
+catalog_release_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_catalog_release(#{
+        release_id => <<"x">>,
+        version => <<"x">>,
+        sku_ids => [<<"a">>],
+        effective_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+catalog_release_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_catalog_release(#{})).
+
+change_control_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_change_control_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        change_request_id => <<"x">>,
+        observed_result => some_atom
+    })).
+
+change_control_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_change_control_evidence(#{})).
+
 change_order_authority_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_change_order_authority(#{
         opportunity_id => <<"x">>,
@@ -100,6 +442,60 @@ change_order_authority_ok_test() ->
 
 change_order_authority_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_change_order_authority(#{})).
+
+channel_agreement_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_channel_agreement(#{
+        agreement_id => <<"x">>,
+        partner_id => <<"x">>,
+        territory => <<"x">>,
+        valid_until => <<"2026-01-01T00:00:00Z">>
+    })).
+
+channel_agreement_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_channel_agreement(#{})).
+
+chargeback_rule_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_chargeback_rule(#{
+        rule_id => <<"x">>,
+        cost_center => <<"x">>,
+        metric_name => <<"x">>,
+        rate => 1.0
+    })).
+
+chargeback_rule_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_chargeback_rule(#{})).
+
+cluster_quorum_state_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_cluster_quorum_state(#{
+        tenant_id => <<"x">>,
+        cluster_id => <<"x">>,
+        quorum_hash => <<"x">>
+    })).
+
+cluster_quorum_state_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_cluster_quorum_state(#{})).
+
+commercial_approval_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_commercial_approval(#{
+        approval_id => <<"x">>,
+        quote_id => <<"x">>,
+        authority => <<"x">>,
+        status => some_atom
+    })).
+
+commercial_approval_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_commercial_approval(#{})).
+
+commercial_artifact_crown_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_commercial_artifact_crown_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        artifact_digest => <<"x">>,
+        observed_result => some_atom
+    })).
+
+commercial_artifact_crown_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_commercial_artifact_crown_evidence(#{})).
 
 commercial_exception_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_commercial_exception(#{
@@ -111,6 +507,84 @@ commercial_exception_ok_test() ->
 commercial_exception_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_commercial_exception(#{})).
 
+commercial_execution_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_commercial_execution_receipt(#{
+        receipt_id => <<"x">>,
+        subject_id => <<"x">>,
+        operation => <<"x">>,
+        evidence_hash => <<"x">>
+    })).
+
+commercial_execution_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_commercial_execution_receipt(#{})).
+
+commercial_forecast_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_commercial_forecast(#{
+        forecast_id => <<"x">>,
+        account_id => <<"x">>,
+        amount => 1.0,
+        confidence => 1.0
+    })).
+
+commercial_forecast_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_commercial_forecast(#{})).
+
+commercial_outcome_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_commercial_outcome(#{
+        commercial_outcome_id => <<"x">>,
+        account_id => <<"x">>,
+        outcome_value => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+commercial_outcome_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_commercial_outcome(#{})).
+
+commercial_quote_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_commercial_quote(#{
+        quote_id => <<"x">>,
+        account_id => <<"x">>,
+        currency => <<"x">>,
+        status => some_atom
+    })).
+
+commercial_quote_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_commercial_quote(#{})).
+
+commercial_quote_line_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_commercial_quote_line(#{
+        quote_id => <<"x">>,
+        sku => <<"x">>,
+        quantity => 1,
+        unit_price => 1.0
+    })).
+
+commercial_quote_line_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_commercial_quote_line(#{})).
+
+commercial_value_realization_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_commercial_value_realization(#{
+        realization_id => <<"x">>,
+        baseline_id => <<"x">>,
+        realized_value => 1.0,
+        measured_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+commercial_value_realization_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_commercial_value_realization(#{})).
+
+committed_spend_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_committed_spend(#{
+        commitment_id => <<"x">>,
+        amount => 1.0,
+        currency => <<"x">>,
+        expires_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+committed_spend_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_committed_spend(#{})).
+
 committed_spend_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_committed_spend_admission(#{
         opportunity_id => <<"x">>,
@@ -120,6 +594,39 @@ committed_spend_admission_ok_test() ->
 
 committed_spend_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_committed_spend_admission(#{})).
+
+compatibility_contract_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_compatibility_contract(#{
+        contract_id => <<"x">>,
+        product_version => <<"x">>,
+        schema_version => <<"x">>,
+        api_version => <<"x">>
+    })).
+
+compatibility_contract_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_compatibility_contract(#{})).
+
+configuration_export_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_configuration_export(#{
+        export_id => <<"x">>,
+        tenant_id => <<"x">>,
+        configuration_hash => <<"x">>,
+        exported_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+configuration_export_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_configuration_export(#{})).
+
+configuration_import_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_configuration_import(#{
+        import_id => <<"x">>,
+        tenant_id => <<"x">>,
+        configuration_hash => <<"x">>,
+        status => some_atom
+    })).
+
+configuration_import_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_configuration_import(#{})).
 
 conformance_result_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_conformance_result(#{
@@ -131,6 +638,28 @@ conformance_result_ok_test() ->
 conformance_result_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_conformance_result(#{})).
 
+consumption_pool_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_consumption_pool(#{
+        pool_id => <<"x">>,
+        account_id => <<"x">>,
+        unit => <<"x">>,
+        remaining_quantity => 1.0
+    })).
+
+consumption_pool_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_consumption_pool(#{})).
+
+consumption_subscription_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_consumption_subscription(#{
+        subscription_id => <<"x">>,
+        account_id => <<"x">>,
+        plan_id => <<"x">>,
+        status => some_atom
+    })).
+
+consumption_subscription_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_consumption_subscription(#{})).
+
 contracting_entity_identity_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_contracting_entity_identity(#{
         opportunity_id => <<"x">>,
@@ -141,6 +670,26 @@ contracting_entity_identity_ok_test() ->
 contracting_entity_identity_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_contracting_entity_identity(#{})).
 
+cost_to_serve_measurement_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_cost_to_serve_measurement(#{
+        tenant_id => <<"x">>,
+        billing_period_id => <<"x">>,
+        measurement_hash => <<"x">>
+    })).
+
+cost_to_serve_measurement_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_cost_to_serve_measurement(#{})).
+
+crash_recovery_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crash_recovery_receipt(#{
+        tenant_id => <<"x">>,
+        crash_id => <<"x">>,
+        receipt_hash => <<"x">>
+    })).
+
+crash_recovery_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crash_recovery_receipt(#{})).
+
 credit_risk_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_credit_risk_admission(#{
         account_id => <<"x">>,
@@ -150,6 +699,52 @@ credit_risk_admission_ok_test() ->
 
 credit_risk_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_credit_risk_admission(#{})).
+
+cross_sell_fit_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_cross_sell_fit(#{
+        cross_sell_fit_id => <<"x">>,
+        account_id => <<"x">>,
+        cross_sell_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+cross_sell_fit_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_cross_sell_fit(#{})).
+
+customer_health_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_customer_health(#{
+        customer_health_id => <<"x">>,
+        account_id => <<"x">>,
+        health_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+customer_health_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_customer_health(#{})).
+
+customer_managed_key_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_customer_managed_key_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        key_identifier => <<"x">>,
+        observed_result => some_atom
+    })).
+
+customer_managed_key_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_customer_managed_key_evidence(#{})).
+
+data_egress_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_data_egress_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        egress_bytes => 1,
+        observed_result => some_atom
+    })).
+
+data_egress_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_data_egress_evidence(#{})).
 
 data_migration_scope_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_data_migration_scope_admission(#{
@@ -171,6 +766,29 @@ data_processing_addendum_state_ok_test() ->
 data_processing_addendum_state_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_data_processing_addendum_state(#{})).
 
+data_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_data_readiness(#{
+        data_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        data_quality_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+data_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_data_readiness(#{})).
+
+data_residency_policy_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_data_residency_policy(#{
+        policy_id => <<"x">>,
+        tenant_id => <<"x">>,
+        allowed_regions => [<<"a">>],
+        status => some_atom
+    })).
+
+data_residency_policy_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_data_residency_policy(#{})).
+
 deal_desk_packet_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_deal_desk_packet(#{
         opportunity_id => <<"x">>,
@@ -181,6 +799,75 @@ deal_desk_packet_ok_test() ->
 deal_desk_packet_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_deal_desk_packet(#{})).
 
+deletion_proof_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_deletion_proof_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        deletion_receipt_id => <<"x">>,
+        observed_result => some_atom
+    })).
+
+deletion_proof_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_deletion_proof_evidence(#{})).
+
+demo_run_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_demo_run(#{
+        demo_run_id => <<"x">>,
+        account_id => <<"x">>,
+        demo_result => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+demo_run_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_demo_run(#{})).
+
+demo_scenario_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_demo_scenario(#{
+        demo_scenario_id => <<"x">>,
+        account_id => <<"x">>,
+        scenario_name => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+demo_scenario_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_demo_scenario(#{})).
+
+dependency_inventory_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_dependency_inventory_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        dependency_count => 1,
+        observed_result => some_atom
+    })).
+
+dependency_inventory_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_dependency_inventory_evidence(#{})).
+
+deployment_entitlement_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_deployment_entitlement(#{
+        entitlement_id => <<"x">>,
+        tenant_id => <<"x">>,
+        profile_id => <<"x">>,
+        valid_until => <<"2026-01-01T00:00:00Z">>
+    })).
+
+deployment_entitlement_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_deployment_entitlement(#{})).
+
+developer_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_developer_readiness(#{
+        developer_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        developer_readiness_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+developer_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_developer_readiness(#{})).
+
 dfg_edge_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_dfg_edge(#{
         source_activity => <<"x">>,
@@ -190,6 +877,83 @@ dfg_edge_ok_test() ->
 
 dfg_edge_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_dfg_edge(#{})).
+
+disaster_recovery_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_disaster_recovery_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        recovered_at => <<"2026-01-01T00:00:00Z">>,
+        observed_result => some_atom
+    })).
+
+disaster_recovery_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_disaster_recovery_evidence(#{})).
+
+discount_schedule_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_discount_schedule(#{
+        schedule_id => <<"x">>,
+        threshold => 1.0,
+        discount_percent => 1.0,
+        currency => <<"x">>
+    })).
+
+discount_schedule_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_discount_schedule(#{})).
+
+discovery_hypothesis_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_discovery_hypothesis(#{
+        discovery_hypothesis_id => <<"x">>,
+        account_id => <<"x">>,
+        expected_value => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+discovery_hypothesis_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_discovery_hypothesis(#{})).
+
+edition_definition_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_edition_definition(#{
+        edition_id => <<"x">>,
+        name => <<"x">>,
+        bundle_ids => [<<"a">>],
+        support_tier => <<"x">>
+    })).
+
+edition_definition_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_edition_definition(#{})).
+
+enterprise_order_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_enterprise_order(#{
+        order_id => <<"x">>,
+        account_id => <<"x">>,
+        quote_id => <<"x">>,
+        status => some_atom
+    })).
+
+enterprise_order_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_enterprise_order(#{})).
+
+enterprise_order_line_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_enterprise_order_line(#{
+        order_id => <<"x">>,
+        sku => <<"x">>,
+        quantity => 1,
+        unit_price => 1.0
+    })).
+
+enterprise_order_line_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_enterprise_order_line(#{})).
+
+entitlement_denial_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_entitlement_denial_receipt(#{
+        tenant_id => <<"x">>,
+        entitlement_id => <<"x">>,
+        denial_hash => <<"x">>
+    })).
+
+entitlement_denial_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_entitlement_denial_receipt(#{})).
 
 entitlement_event_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_entitlement_event(#{
@@ -203,6 +967,49 @@ entitlement_event_ok_test() ->
 entitlement_event_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_entitlement_event(#{})).
 
+entitlement_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_entitlement_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        entitlement_id => <<"x">>,
+        observed_result => some_atom
+    })).
+
+entitlement_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_entitlement_evidence(#{})).
+
+entitlement_grant_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_entitlement_grant(#{
+        grant_id => <<"x">>,
+        tenant_id => <<"x">>,
+        capability_id => <<"x">>,
+        valid_until => <<"2026-01-01T00:00:00Z">>
+    })).
+
+entitlement_grant_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_entitlement_grant(#{})).
+
+entitlement_revocation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_entitlement_revocation(#{
+        revocation_id => <<"x">>,
+        grant_id => <<"x">>,
+        reason => <<"x">>,
+        revoked_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+entitlement_revocation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_entitlement_revocation(#{})).
+
+entitlement_runtime_check_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_entitlement_runtime_check(#{
+        tenant_id => <<"x">>,
+        entitlement_id => <<"x">>,
+        check_hash => <<"x">>
+    })).
+
+entitlement_runtime_check_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_entitlement_runtime_check(#{})).
+
 entitlement_state_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_entitlement_state(#{
         entitlement_id => <<"x">>,
@@ -213,6 +1020,37 @@ entitlement_state_ok_test() ->
 
 entitlement_state_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_entitlement_state(#{})).
+
+environment_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_environment_identity(#{
+        tenant_id => <<"x">>,
+        environment_id => <<"x">>,
+        identity_hash => <<"x">>
+    })).
+
+environment_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_environment_identity(#{})).
+
+environment_profile_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_environment_profile(#{
+        profile_id => <<"x">>,
+        environment => some_atom,
+        region => <<"x">>,
+        configuration_hash => <<"x">>
+    })).
+
+environment_profile_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_environment_profile(#{})).
+
+error_budget_state_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_error_budget_state(#{
+        tenant_id => <<"x">>,
+        slo_id => <<"x">>,
+        state_hash => <<"x">>
+    })).
+
+error_budget_state_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_error_budget_state(#{})).
 
 event_log_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_event_log(#{
@@ -233,6 +1071,17 @@ event_type_ok_test() ->
 event_type_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_event_type(#{})).
 
+evidence_freshness_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_evidence_freshness_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>,
+        observed_result => some_atom
+    })).
+
+evidence_freshness_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_evidence_freshness_evidence(#{})).
+
 exception_authority_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_exception_authority(#{
         exception_id => <<"x">>,
@@ -242,6 +1091,87 @@ exception_authority_ok_test() ->
 
 exception_authority_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_exception_authority(#{})).
+
+executive_business_review_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_executive_business_review(#{
+        executive_business_review_id => <<"x">>,
+        account_id => <<"x">>,
+        executive_outcome => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+executive_business_review_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_executive_business_review(#{})).
+
+executive_sponsor_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_executive_sponsor(#{
+        executive_sponsor_id => <<"x">>,
+        account_id => <<"x">>,
+        sponsor_commitment => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+executive_sponsor_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_executive_sponsor(#{})).
+
+expansion_opportunity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_expansion_opportunity(#{
+        expansion_opportunity_id => <<"x">>,
+        account_id => <<"x">>,
+        expansion_value => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+expansion_opportunity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_expansion_opportunity(#{})).
+
+expansion_option_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_expansion_option(#{
+        option_id => <<"x">>,
+        account_id => <<"x">>,
+        sku => <<"x">>,
+        max_quantity => 1
+    })).
+
+expansion_option_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_expansion_option(#{})).
+
+expansion_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_expansion_receipt(#{
+        expansion_receipt_id => <<"x">>,
+        account_id => <<"x">>,
+        receipt_value => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+expansion_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_expansion_receipt(#{})).
+
+expansion_signal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_expansion_signal(#{
+        expansion_signal_id => <<"x">>,
+        account_id => <<"x">>,
+        expansion_signal_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+expansion_signal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_expansion_signal(#{})).
+
+forged_receipt_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_forged_receipt_refusal(#{
+        tenant_id => <<"x">>,
+        receipt_id => <<"x">>,
+        refusal_hash => <<"x">>
+    })).
+
+forged_receipt_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_forged_receipt_refusal(#{})).
 
 funding_approval_chain_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_funding_approval_chain(#{
@@ -273,6 +1203,37 @@ implementation_fee_admission_ok_test() ->
 implementation_fee_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_implementation_fee_admission(#{})).
 
+incident_acknowledgement_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_incident_acknowledgement(#{
+        tenant_id => <<"x">>,
+        incident_id => <<"x">>,
+        acknowledgement_hash => <<"x">>
+    })).
+
+incident_acknowledgement_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_incident_acknowledgement(#{})).
+
+incident_detection_event_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_incident_detection_event(#{
+        tenant_id => <<"x">>,
+        incident_id => <<"x">>,
+        detection_hash => <<"x">>
+    })).
+
+incident_detection_event_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_incident_detection_event(#{})).
+
+incident_response_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_incident_response_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        incident_id => <<"x">>,
+        observed_result => some_atom
+    })).
+
+incident_response_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_incident_response_evidence(#{})).
+
 indemnity_scope_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_indemnity_scope_admission(#{
         opportunity_id => <<"x">>,
@@ -292,6 +1253,18 @@ insurance_requirement_ok_test() ->
 
 insurance_requirement_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_insurance_requirement(#{})).
+
+integration_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_integration_readiness(#{
+        integration_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        integration_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+integration_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_integration_readiness(#{})).
 
 integration_scope_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_integration_scope_admission(#{
@@ -313,6 +1286,17 @@ invoice_entity_identity_ok_test() ->
 invoice_entity_identity_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_invoice_entity_identity(#{})).
 
+invoice_schedule_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_invoice_schedule(#{
+        schedule_id => <<"x">>,
+        billing_account_id => <<"x">>,
+        cadence => some_atom,
+        next_invoice_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+invoice_schedule_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_invoice_schedule(#{})).
+
 k8s_object_ref_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_k8s_object_ref(#{
         kind => <<"x">>,
@@ -322,6 +1306,27 @@ k8s_object_ref_ok_test() ->
 
 k8s_object_ref_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_k8s_object_ref(#{})).
+
+latency_budget_observation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_latency_budget_observation(#{
+        tenant_id => <<"x">>,
+        workload_id => <<"x">>,
+        observation_hash => <<"x">>
+    })).
+
+latency_budget_observation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_latency_budget_observation(#{})).
+
+least_authority_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_least_authority_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        granted_permissions => [<<"a">>],
+        observed_result => some_atom
+    })).
+
+least_authority_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_least_authority_evidence(#{})).
 
 legal_blocker_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_legal_blocker(#{
@@ -343,6 +1348,17 @@ liability_cap_admission_ok_test() ->
 liability_cap_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_liability_cap_admission(#{})).
 
+license_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_license_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        license_expression => <<"x">>,
+        observed_result => some_atom
+    })).
+
+license_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_license_evidence(#{})).
+
 log_trace_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_log_trace(#{
         case_id => <<"x">>,
@@ -362,6 +1378,39 @@ master_service_agreement_state_ok_test() ->
 master_service_agreement_state_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_master_service_agreement_state(#{})).
 
+metered_usage_sample_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_metered_usage_sample(#{
+        tenant_id => <<"x">>,
+        usage_sample_id => <<"x">>,
+        sample_hash => <<"x">>
+    })).
+
+metered_usage_sample_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_metered_usage_sample(#{})).
+
+migration_contract_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_migration_contract(#{
+        migration_id => <<"x">>,
+        from_version => <<"x">>,
+        to_version => <<"x">>,
+        rollback_plan => <<"x">>
+    })).
+
+migration_contract_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_migration_contract(#{})).
+
+migration_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_migration_readiness(#{
+        migration_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        migration_effort_days => 1,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+migration_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_migration_readiness(#{})).
+
 minimum_term_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_minimum_term_admission(#{
         opportunity_id => <<"x">>,
@@ -371,6 +1420,38 @@ minimum_term_admission_ok_test() ->
 
 minimum_term_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_minimum_term_admission(#{})).
+
+multiarch_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_multiarch_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        platforms => [<<"a">>],
+        observed_result => some_atom
+    })).
+
+multiarch_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_multiarch_evidence(#{})).
+
+mutable_identity_refusal_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_mutable_identity_refusal_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        mutable_reference => <<"x">>,
+        observed_result => some_atom
+    })).
+
+mutable_identity_refusal_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_mutable_identity_refusal_evidence(#{})).
+
+node_failover_event_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_node_failover_event(#{
+        tenant_id => <<"x">>,
+        node_id => <<"x">>,
+        failover_hash => <<"x">>
+    })).
+
+node_failover_event_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_node_failover_event(#{})).
 
 object_attribute_change_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_object_attribute_change(#{
@@ -392,6 +1473,30 @@ object_type_ok_test() ->
 
 object_type_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_object_type(#{})).
+
+objection_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_objection(#{
+        objection_id => <<"x">>,
+        account_id => <<"x">>,
+        objection_type => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+objection_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_objection(#{})).
+
+objection_resolution_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_objection_resolution(#{
+        objection_resolution_id => <<"x">>,
+        account_id => <<"x">>,
+        resolution_status => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+objection_resolution_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_objection_resolution(#{})).
 
 oc_declare_constraint_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_oc_declare_constraint(#{
@@ -444,6 +1549,40 @@ ocel_relationship_ok_test() ->
 ocel_relationship_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_ocel_relationship(#{})).
 
+oci_manifest_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_oci_manifest_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        manifest_digest => <<"x">>,
+        observed_result => some_atom
+    })).
+
+oci_manifest_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_oci_manifest_evidence(#{})).
+
+offline_bundle_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_offline_bundle_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        bundle_digest => <<"x">>,
+        observed_result => some_atom
+    })).
+
+offline_bundle_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_offline_bundle_evidence(#{})).
+
+operator_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_operator_readiness(#{
+        operator_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        operator_readiness_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+operator_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_operator_readiness(#{})).
+
 opportunity_currency_contract_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_opportunity_currency_contract(#{
         opportunity_id => <<"x">>,
@@ -474,6 +1613,27 @@ order_form_admission_ok_test() ->
 order_form_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_order_form_admission(#{})).
 
+overage_policy_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_overage_policy(#{
+        policy_id => <<"x">>,
+        quota_id => <<"x">>,
+        unit_price => 1.0,
+        behavior => some_atom
+    })).
+
+overage_policy_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_overage_policy(#{})).
+
+paid_workload_outcome_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_paid_workload_outcome_receipt(#{
+        tenant_id => <<"x">>,
+        workload_id => <<"x">>,
+        outcome_receipt_hash => <<"x">>
+    })).
+
+paid_workload_outcome_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_paid_workload_outcome_receipt(#{})).
+
 path_schema_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_path_schema(#{
         schema_id => <<"x">>,
@@ -495,6 +1655,17 @@ path_schema_query_ok_test() ->
 path_schema_query_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_path_schema_query(#{})).
 
+payment_terms_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_payment_terms(#{
+        terms_id => <<"x">>,
+        net_days => 1,
+        late_policy => <<"x">>,
+        status => some_atom
+    })).
+
+payment_terms_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_payment_terms(#{})).
+
 payment_terms_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_payment_terms_admission(#{
         opportunity_id => <<"x">>,
@@ -504,6 +1675,17 @@ payment_terms_admission_ok_test() ->
 
 payment_terms_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_payment_terms_admission(#{})).
+
+performance_slo_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_performance_slo_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        latency_p95_ms => 1,
+        observed_result => some_atom
+    })).
+
+performance_slo_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_performance_slo_evidence(#{})).
 
 petri_arc_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_petri_arc(#{
@@ -552,6 +1734,54 @@ planning_state_ok_test() ->
 planning_state_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_planning_state(#{})).
 
+poc_exit_criteria_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_poc_exit_criteria(#{
+        poc_exit_criteria_id => <<"x">>,
+        account_id => <<"x">>,
+        criteria_pass_rate => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+poc_exit_criteria_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_poc_exit_criteria(#{})).
+
+poc_risk_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_poc_risk(#{
+        poc_risk_id => <<"x">>,
+        account_id => <<"x">>,
+        risk_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+poc_risk_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_poc_risk(#{})).
+
+poc_scope_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_poc_scope(#{
+        poc_scope_id => <<"x">>,
+        account_id => <<"x">>,
+        use_case_count => 1,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+poc_scope_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_poc_scope(#{})).
+
+poc_timeline_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_poc_timeline(#{
+        poc_timeline_id => <<"x">>,
+        account_id => <<"x">>,
+        days_to_value => 1,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+poc_timeline_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_poc_timeline(#{})).
+
 policy_decision_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_policy_decision(#{
         decision_id => <<"x">>,
@@ -572,6 +1802,39 @@ pricing_basis_contract_ok_test() ->
 pricing_basis_contract_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_pricing_basis_contract(#{})).
 
+privacy_classification_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_privacy_classification_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        privacy_class => <<"x">>,
+        observed_result => some_atom
+    })).
+
+privacy_classification_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_privacy_classification_evidence(#{})).
+
+private_offer_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_private_offer(#{
+        offer_id => <<"x">>,
+        account_id => <<"x">>,
+        total_price => 1.0,
+        expires_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+private_offer_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_private_offer(#{})).
+
+private_registry_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_private_registry_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        registry_digest => <<"x">>,
+        observed_result => some_atom
+    })).
+
+private_registry_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_private_registry_evidence(#{})).
+
 process_variant_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_process_variant(#{
         variant_id => <<"x">>,
@@ -581,6 +1844,17 @@ process_variant_ok_test() ->
 
 process_variant_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_process_variant(#{})).
+
+procurement_acceptance_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_procurement_acceptance_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        acceptance_decision => <<"x">>,
+        observed_result => some_atom
+    })).
+
+procurement_acceptance_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_procurement_acceptance_evidence(#{})).
 
 procurement_blocker_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_procurement_blocker(#{
@@ -602,6 +1876,30 @@ procurement_channel_selection_ok_test() ->
 procurement_channel_selection_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_procurement_channel_selection(#{})).
 
+procurement_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_procurement_readiness(#{
+        procurement_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        procurement_stage => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+procurement_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_procurement_readiness(#{})).
+
+production_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_production_readiness(#{
+        production_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        production_readiness_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+production_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_production_readiness(#{})).
+
 proof_of_value_budget_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_proof_of_value_budget(#{
         opportunity_id => <<"x">>,
@@ -621,6 +1919,28 @@ proof_of_value_exit_gate_ok_test() ->
 
 proof_of_value_exit_gate_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_proof_of_value_exit_gate(#{})).
+
+provenance_binding_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_provenance_binding_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        builder_identity => <<"x">>,
+        observed_result => some_atom
+    })).
+
+provenance_binding_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_provenance_binding_evidence(#{})).
+
+purchase_order_binding_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_purchase_order_binding(#{
+        binding_id => <<"x">>,
+        order_id => <<"x">>,
+        purchase_order_number => <<"x">>,
+        status => some_atom
+    })).
+
+purchase_order_binding_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_purchase_order_binding(#{})).
 
 purchase_order_requirement_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_purchase_order_requirement(#{
@@ -652,6 +1972,169 @@ queue_snapshot_ok_test() ->
 queue_snapshot_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_queue_snapshot(#{})).
 
+quota_policy_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_quota_policy(#{
+        quota_id => <<"x">>,
+        metric_name => <<"x">>,
+        limit => 1.0,
+        window => some_atom
+    })).
+
+quota_policy_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_quota_policy(#{})).
+
+ramp_commitment_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_ramp_commitment(#{
+        ramp_id => <<"x">>,
+        phase => 1,
+        committed_amount => 1.0,
+        effective_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+ramp_commitment_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_ramp_commitment(#{})).
+
+receipt_replay_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_receipt_replay_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        replay_result_hash => <<"x">>,
+        observed_result => some_atom
+    })).
+
+receipt_replay_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_receipt_replay_evidence(#{})).
+
+receipt_replay_request_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_receipt_replay_request(#{
+        tenant_id => <<"x">>,
+        receipt_id => <<"x">>,
+        replay_request_hash => <<"x">>
+    })).
+
+receipt_replay_request_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_receipt_replay_request(#{})).
+
+receipt_signature_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_receipt_signature(#{
+        tenant_id => <<"x">>,
+        receipt_id => <<"x">>,
+        signature_hash => <<"x">>
+    })).
+
+receipt_signature_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_receipt_signature(#{})).
+
+receipt_subject_binding_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_receipt_subject_binding(#{
+        tenant_id => <<"x">>,
+        workload_id => <<"x">>,
+        binding_hash => <<"x">>
+    })).
+
+receipt_subject_binding_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_receipt_subject_binding(#{})).
+
+receipt_verification_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_receipt_verification(#{
+        tenant_id => <<"x">>,
+        receipt_id => <<"x">>,
+        verification_hash => <<"x">>
+    })).
+
+receipt_verification_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_receipt_verification(#{})).
+
+recovery_plan_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_recovery_plan(#{
+        recovery_plan_id => <<"x">>,
+        account_id => <<"x">>,
+        recovery_time_hours => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+recovery_plan_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_recovery_plan(#{})).
+
+recovery_point_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_recovery_point_receipt(#{
+        tenant_id => <<"x">>,
+        incident_id => <<"x">>,
+        recovery_hash => <<"x">>
+    })).
+
+recovery_point_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_recovery_point_receipt(#{})).
+
+recovery_time_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_recovery_time_receipt(#{
+        tenant_id => <<"x">>,
+        incident_id => <<"x">>,
+        recovery_hash => <<"x">>
+    })).
+
+recovery_time_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_recovery_time_receipt(#{})).
+
+remediation_sla_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_remediation_sla_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        remediation_due_at => <<"2026-01-01T00:00:00Z">>,
+        observed_result => some_atom
+    })).
+
+remediation_sla_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_remediation_sla_evidence(#{})).
+
+renewal_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_renewal_evidence(#{
+        renewal_evidence_id => <<"x">>,
+        account_id => <<"x">>,
+        renewal_value => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+renewal_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_renewal_evidence(#{})).
+
+renewal_health_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_renewal_health(#{
+        renewal_health_id => <<"x">>,
+        account_id => <<"x">>,
+        renewal_health_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+renewal_health_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_renewal_health(#{})).
+
+renewal_option_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_renewal_option(#{
+        option_id => <<"x">>,
+        subscription_id => <<"x">>,
+        term_months => 1,
+        notice_by => <<"2026-01-01T00:00:00Z">>
+    })).
+
+renewal_option_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_renewal_option(#{})).
+
+renewal_risk_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_renewal_risk(#{
+        renewal_risk_id => <<"x">>,
+        account_id => <<"x">>,
+        renewal_risk_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+renewal_risk_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_renewal_risk(#{})).
+
 renewal_term_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_renewal_term_admission(#{
         opportunity_id => <<"x">>,
@@ -662,6 +2145,49 @@ renewal_term_admission_ok_test() ->
 renewal_term_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_renewal_term_admission(#{})).
 
+replay_environment_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_replay_environment_identity(#{
+        tenant_id => <<"x">>,
+        environment_id => <<"x">>,
+        identity_hash => <<"x">>
+    })).
+
+replay_environment_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_replay_environment_identity(#{})).
+
+reproducible_build_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_reproducible_build_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        build_digest => <<"x">>,
+        observed_result => some_atom
+    })).
+
+reproducible_build_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_reproducible_build_evidence(#{})).
+
+reseller_authorization_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_reseller_authorization(#{
+        authorization_id => <<"x">>,
+        reseller_id => <<"x">>,
+        sku => <<"x">>,
+        status => some_atom
+    })).
+
+reseller_authorization_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_reseller_authorization(#{})).
+
+residency_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_residency_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        region => <<"x">>,
+        observed_result => some_atom
+    })).
+
+residency_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_residency_evidence(#{})).
+
 resource_allocation_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_resource_allocation(#{
         resource_id => <<"x">>,
@@ -671,6 +2197,29 @@ resource_allocation_ok_test() ->
 
 resource_allocation_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_resource_allocation(#{})).
+
+retention_policy_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_retention_policy_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        retention_days => 1,
+        observed_result => some_atom
+    })).
+
+retention_policy_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_retention_policy_evidence(#{})).
+
+revenue_attribution_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_revenue_attribution(#{
+        revenue_attribution_id => <<"x">>,
+        account_id => <<"x">>,
+        attributed_revenue => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+revenue_attribution_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_revenue_attribution(#{})).
 
 revenue_contract_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_revenue_contract_admission(#{
@@ -692,6 +2241,70 @@ revenue_schedule_assumption_ok_test() ->
 revenue_schedule_assumption_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_revenue_schedule_assumption(#{})).
 
+rfp_response_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_rfp_response_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        answer_set_hash => <<"x">>,
+        observed_result => some_atom
+    })).
+
+rfp_response_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_rfp_response_evidence(#{})).
+
+rollback_checkpoint_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_rollback_checkpoint(#{
+        tenant_id => <<"x">>,
+        checkpoint_id => <<"x">>,
+        state_hash => <<"x">>
+    })).
+
+rollback_checkpoint_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_rollback_checkpoint(#{})).
+
+rollback_decision_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_rollback_decision(#{
+        rollback_decision_id => <<"x">>,
+        account_id => <<"x">>,
+        rollback_result => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+rollback_decision_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_rollback_decision(#{})).
+
+rollback_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_rollback_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        rollback_digest => <<"x">>,
+        observed_result => some_atom
+    })).
+
+rollback_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_rollback_evidence(#{})).
+
+rolling_upgrade_plan_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_rolling_upgrade_plan(#{
+        tenant_id => <<"x">>,
+        upgrade_id => <<"x">>,
+        plan_hash => <<"x">>
+    })).
+
+rolling_upgrade_plan_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_rolling_upgrade_plan(#{})).
+
+runtime_policy_decision_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_runtime_policy_decision(#{
+        tenant_id => <<"x">>,
+        decision_id => <<"x">>,
+        policy_hash => <<"x">>
+    })).
+
+runtime_policy_decision_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_runtime_policy_decision(#{})).
+
 sanctions_screening_result_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_sanctions_screening_result(#{
         account_id => <<"x">>,
@@ -701,6 +2314,28 @@ sanctions_screening_result_ok_test() ->
 
 sanctions_screening_result_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_sanctions_screening_result(#{})).
+
+sbom_inventory_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_sbom_inventory_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        component_count => 1,
+        observed_result => some_atom
+    })).
+
+sbom_inventory_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_sbom_inventory_evidence(#{})).
+
+secret_boundary_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_secret_boundary_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        secret_source => <<"x">>,
+        observed_result => some_atom
+    })).
+
+secret_boundary_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_secret_boundary_evidence(#{})).
 
 security_addendum_state_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_security_addendum_state(#{
@@ -722,6 +2357,29 @@ security_blocker_ok_test() ->
 security_blocker_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_security_blocker(#{})).
 
+security_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_security_readiness(#{
+        security_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        control_coverage => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+security_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_security_readiness(#{})).
+
+service_credit_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_service_credit(#{
+        credit_id => <<"x">>,
+        slo_id => <<"x">>,
+        amount => 1.0,
+        currency => <<"x">>
+    })).
+
+service_credit_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_service_credit(#{})).
+
 service_credit_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_service_credit_admission(#{
         opportunity_id => <<"x">>,
@@ -731,6 +2389,37 @@ service_credit_admission_ok_test() ->
 
 service_credit_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_service_credit_admission(#{})).
+
+service_health_snapshot_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_service_health_snapshot(#{
+        tenant_id => <<"x">>,
+        service_id => <<"x">>,
+        snapshot_hash => <<"x">>
+    })).
+
+service_health_snapshot_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_service_health_snapshot(#{})).
+
+service_level_objective_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_service_level_objective(#{
+        slo_id => <<"x">>,
+        contract_id => <<"x">>,
+        target_percent => 1.0,
+        measurement_window => some_atom
+    })).
+
+service_level_objective_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_service_level_objective(#{})).
+
+service_slo_contract_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_service_slo_contract(#{
+        tenant_id => <<"x">>,
+        slo_id => <<"x">>,
+        contract_hash => <<"x">>
+    })).
+
+service_slo_contract_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_service_slo_contract(#{})).
 
 service_span_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_service_span(#{
@@ -742,6 +2431,39 @@ service_span_ok_test() ->
 
 service_span_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_service_span(#{})).
+
+showback_allocation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_showback_allocation(#{
+        allocation_id => <<"x">>,
+        project_id => <<"x">>,
+        metric_name => <<"x">>,
+        quantity => 1.0
+    })).
+
+showback_allocation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_showback_allocation(#{})).
+
+signature_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_signature_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        signature_identity => <<"x">>,
+        observed_result => some_atom
+    })).
+
+signature_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_signature_evidence(#{})).
+
+sku_definition_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_sku_definition(#{
+        sku => <<"x">>,
+        edition_id => <<"x">>,
+        billing_model => some_atom,
+        status => some_atom
+    })).
+
+sku_definition_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_sku_definition(#{})).
 
 sla_offer_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_sla_offer_admission(#{
@@ -763,6 +2485,128 @@ sojourn_time_ok_test() ->
 sojourn_time_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_sojourn_time(#{})).
 
+solution_fit_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_solution_fit(#{
+        solution_fit_id => <<"x">>,
+        account_id => <<"x">>,
+        fit_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+solution_fit_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_solution_fit(#{})).
+
+stakeholder_map_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_stakeholder_map(#{
+        stakeholder_map_id => <<"x">>,
+        account_id => <<"x">>,
+        stakeholder_count => 1,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+stakeholder_map_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_stakeholder_map(#{})).
+
+stale_receipt_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_stale_receipt_refusal(#{
+        tenant_id => <<"x">>,
+        receipt_id => <<"x">>,
+        refusal_hash => <<"x">>
+    })).
+
+stale_receipt_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_stale_receipt_refusal(#{})).
+
+stale_subject_refusal_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_stale_subject_refusal_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        stale_sha => <<"x">>,
+        observed_result => some_atom
+    })).
+
+stale_subject_refusal_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_stale_subject_refusal_evidence(#{})).
+
+success_plan_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_success_plan(#{
+        success_plan_id => <<"x">>,
+        account_id => <<"x">>,
+        success_target => <<"x">>,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+success_plan_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_success_plan(#{})).
+
+supervisor_restart_policy_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_supervisor_restart_policy(#{
+        tenant_id => <<"x">>,
+        supervisor_id => <<"x">>,
+        policy_hash => <<"x">>
+    })).
+
+supervisor_restart_policy_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_supervisor_restart_policy(#{})).
+
+support_contract_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_support_contract(#{
+        contract_id => <<"x">>,
+        account_id => <<"x">>,
+        tier => some_atom,
+        valid_until => <<"2026-01-01T00:00:00Z">>
+    })).
+
+support_contract_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_support_contract(#{})).
+
+support_diagnostic_bundle_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_support_diagnostic_bundle(#{
+        tenant_id => <<"x">>,
+        incident_id => <<"x">>,
+        bundle_hash => <<"x">>
+    })).
+
+support_diagnostic_bundle_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_support_diagnostic_bundle(#{})).
+
+support_escalation_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_support_escalation_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        escalation_owner => <<"x">>,
+        observed_result => some_atom
+    })).
+
+support_escalation_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_support_escalation_evidence(#{})).
+
+support_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_support_readiness(#{
+        support_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        support_readiness_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+support_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_support_readiness(#{})).
+
+support_sla_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_support_sla_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        response_minutes => 1,
+        observed_result => some_atom
+    })).
+
+support_sla_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_support_sla_evidence(#{})).
+
 support_tier_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_support_tier_admission(#{
         opportunity_id => <<"x">>,
@@ -773,6 +2617,17 @@ support_tier_admission_ok_test() ->
 support_tier_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_support_tier_admission(#{})).
 
+support_window_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_support_window_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        support_channel => <<"x">>,
+        observed_result => some_atom
+    })).
+
+support_window_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_support_window_evidence(#{})).
+
 sync_time_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_sync_time(#{
         object_id => <<"x">>,
@@ -782,6 +2637,18 @@ sync_time_ok_test() ->
 
 sync_time_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_sync_time(#{})).
+
+target_metric_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_target_metric(#{
+        target_metric_id => <<"x">>,
+        account_id => <<"x">>,
+        target_value => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+target_metric_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_target_metric(#{})).
 
 tax_jurisdiction_evidence_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_tax_jurisdiction_evidence(#{
@@ -803,6 +2670,79 @@ technical_blocker_ok_test() ->
 technical_blocker_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_technical_blocker(#{})).
 
+tenant_account_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_tenant_account(#{
+        tenant_id => <<"x">>,
+        account_id => <<"x">>,
+        home_region => <<"x">>,
+        edition_id => <<"x">>
+    })).
+
+tenant_account_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_tenant_account(#{})).
+
+tenant_data_partition_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_tenant_data_partition(#{
+        tenant_id => <<"x">>,
+        partition_id => <<"x">>,
+        isolation_hash => <<"x">>
+    })).
+
+tenant_data_partition_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_tenant_data_partition(#{})).
+
+tenant_key_scope_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_tenant_key_scope(#{
+        tenant_id => <<"x">>,
+        key_scope_id => <<"x">>,
+        key_attestation_hash => <<"x">>
+    })).
+
+tenant_key_scope_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_tenant_key_scope(#{})).
+
+tenant_project_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_tenant_project(#{
+        project_id => <<"x">>,
+        tenant_id => <<"x">>,
+        cost_center => <<"x">>,
+        status => some_atom
+    })).
+
+tenant_project_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_tenant_project(#{})).
+
+tenant_resource_quota_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_tenant_resource_quota(#{
+        tenant_id => <<"x">>,
+        quota_id => <<"x">>,
+        utilization_hash => <<"x">>
+    })).
+
+tenant_resource_quota_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_tenant_resource_quota(#{})).
+
+tenant_runtime_boundary_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_tenant_runtime_boundary(#{
+        tenant_id => <<"x">>,
+        boundary_id => <<"x">>,
+        evidence_hash => <<"x">>
+    })).
+
+tenant_runtime_boundary_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_tenant_runtime_boundary(#{})).
+
+term_subscription_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_term_subscription(#{
+        subscription_id => <<"x">>,
+        sku => <<"x">>,
+        starts_at => <<"2026-01-01T00:00:00Z">>,
+        ends_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+term_subscription_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_term_subscription(#{})).
+
 termination_right_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_termination_right_admission(#{
         opportunity_id => <<"x">>,
@@ -812,6 +2752,40 @@ termination_right_admission_ok_test() ->
 
 termination_right_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_termination_right_admission(#{})).
+
+time_to_value_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_time_to_value(#{
+        time_to_value_id => <<"x">>,
+        account_id => <<"x">>,
+        verified_days => 1,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+time_to_value_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_time_to_value(#{})).
+
+toolchain_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_toolchain_identity(#{
+        tenant_id => <<"x">>,
+        toolchain_id => <<"x">>,
+        identity_hash => <<"x">>
+    })).
+
+toolchain_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_toolchain_identity(#{})).
+
+training_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_training_readiness(#{
+        training_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        training_completion_rate => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+training_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_training_readiness(#{})).
 
 training_scope_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_training_scope_admission(#{
@@ -823,6 +2797,17 @@ training_scope_admission_ok_test() ->
 training_scope_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_training_scope_admission(#{})).
 
+true_up_policy_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_true_up_policy(#{
+        policy_id => <<"x">>,
+        commitment_id => <<"x">>,
+        cadence => some_atom,
+        shortfall_behavior => some_atom
+    })).
+
+true_up_policy_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_true_up_policy(#{})).
+
 type_edge_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_type_edge(#{
         source_type => <<"x">>,
@@ -833,6 +2818,40 @@ type_edge_ok_test() ->
 
 type_edge_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_type_edge(#{})).
+
+unsupported_capability_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_unsupported_capability_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        capability_name => <<"x">>,
+        observed_result => some_atom
+    })).
+
+unsupported_capability_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_unsupported_capability_evidence(#{})).
+
+upgrade_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_upgrade_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        from_version => <<"x">>,
+        observed_result => some_atom
+    })).
+
+upgrade_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_upgrade_evidence(#{})).
+
+upsell_readiness_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_upsell_readiness(#{
+        upsell_readiness_id => <<"x">>,
+        account_id => <<"x">>,
+        upsell_score => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+upsell_readiness_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_upsell_readiness(#{})).
 
 usage_event_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_usage_event(#{
@@ -846,6 +2865,84 @@ usage_event_ok_test() ->
 usage_event_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_usage_event(#{})).
 
+usage_plan_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_usage_plan(#{
+        plan_id => <<"x">>,
+        metric_name => <<"x">>,
+        unit => <<"x">>,
+        billing_mode => some_atom
+    })).
+
+usage_plan_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_usage_plan(#{})).
+
+usage_reconciliation_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_usage_reconciliation_receipt(#{
+        tenant_id => <<"x">>,
+        billing_period_id => <<"x">>,
+        reconciliation_hash => <<"x">>
+    })).
+
+usage_reconciliation_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_usage_reconciliation_receipt(#{})).
+
+usage_signal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_usage_signal(#{
+        usage_signal_id => <<"x">>,
+        account_id => <<"x">>,
+        active_user_count => 1,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+usage_signal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_usage_signal(#{})).
+
+value_baseline_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_value_baseline(#{
+        baseline_id => <<"x">>,
+        account_id => <<"x">>,
+        metric_name => <<"x">>,
+        baseline_value => 1.0
+    })).
+
+value_baseline_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_value_baseline(#{})).
+
+value_driver_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_value_driver(#{
+        value_driver_id => <<"x">>,
+        account_id => <<"x">>,
+        annual_value => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+value_driver_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_value_driver(#{})).
+
+value_realization_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_value_realization(#{
+        value_realization_id => <<"x">>,
+        account_id => <<"x">>,
+        realized_value => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+value_realization_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_value_realization(#{})).
+
+value_telemetry_sample_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_value_telemetry_sample(#{
+        tenant_id => <<"x">>,
+        outcome_id => <<"x">>,
+        telemetry_hash => <<"x">>
+    })).
+
+value_telemetry_sample_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_value_telemetry_sample(#{})).
+
 vendor_registration_state_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_vendor_registration_state(#{
         account_id => <<"x">>,
@@ -856,6 +2953,28 @@ vendor_registration_state_ok_test() ->
 vendor_registration_state_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_vendor_registration_state(#{})).
 
+vendor_risk_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_vendor_risk_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        risk_score => 1.0,
+        observed_result => some_atom
+    })).
+
+vendor_risk_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_vendor_risk_evidence(#{})).
+
+version_lifecycle_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_version_lifecycle_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        supported_until => <<"2026-01-01T00:00:00Z">>,
+        observed_result => some_atom
+    })).
+
+version_lifecycle_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_version_lifecycle_evidence(#{})).
+
 volume_tier_admission_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_volume_tier_admission(#{
         opportunity_id => <<"x">>,
@@ -865,4 +2984,85 @@ volume_tier_admission_ok_test() ->
 
 volume_tier_admission_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_volume_tier_admission(#{})).
+
+vulnerability_scan_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_vulnerability_scan_evidence(#{
+        evidence_id => <<"x">>,
+        subject_sha => <<"x">>,
+        vulnerability_count => 1,
+        observed_result => some_atom
+    })).
+
+vulnerability_scan_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_vulnerability_scan_evidence(#{})).
+
+workload_backpressure_signal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_workload_backpressure_signal(#{
+        tenant_id => <<"x">>,
+        signal_id => <<"x">>,
+        measurement_hash => <<"x">>
+    })).
+
+workload_backpressure_signal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_workload_backpressure_signal(#{})).
+
+workload_cancellation_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_workload_cancellation_receipt(#{
+        tenant_id => <<"x">>,
+        execution_id => <<"x">>,
+        receipt_hash => <<"x">>
+    })).
+
+workload_cancellation_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_workload_cancellation_receipt(#{})).
+
+workload_execution_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_workload_execution_identity(#{
+        tenant_id => <<"x">>,
+        execution_id => <<"x">>,
+        subject_digest => <<"x">>
+    })).
+
+workload_execution_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_workload_execution_identity(#{})).
+
+workload_idempotency_key_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_workload_idempotency_key(#{
+        tenant_id => <<"x">>,
+        execution_id => <<"x">>,
+        idempotency_key => <<"x">>
+    })).
+
+workload_idempotency_key_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_workload_idempotency_key(#{})).
+
+workload_queue_depth_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_workload_queue_depth(#{
+        tenant_id => <<"x">>,
+        queue_id => <<"x">>,
+        measurement_hash => <<"x">>
+    })).
+
+workload_queue_depth_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_workload_queue_depth(#{})).
+
+workload_retry_policy_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_workload_retry_policy(#{
+        tenant_id => <<"x">>,
+        policy_id => <<"x">>,
+        policy_hash => <<"x">>
+    })).
+
+workload_retry_policy_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_workload_retry_policy(#{})).
+
+workload_timeout_budget_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_workload_timeout_budget(#{
+        tenant_id => <<"x">>,
+        budget_id => <<"x">>,
+        budget_hash => <<"x">>
+    })).
+
+workload_timeout_budget_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_workload_timeout_budget(#{})).
 
