@@ -1,0 +1,194 @@
+# TEMPORARY PRIVILEGED GGEN PUBLICATION COURT.
+# Authorized only while PR #43 carries <!-- ggen-publish-authorized -->.
+# Must be deleted immediately after one receipted projection commit.
+name: WS2 receipted ggen publication
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, '<!-- ggen-publish-authorized -->')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    container:
+      image: ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28
+    steps:
+      - name: Checkout exact authorized candidate
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          submodules: recursive
+          fetch-depth: 0
+          persist-credentials: true
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Admit exact subject and manufacture inputs
+        env:
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE/vendor/ggen-marketplace"
+          [[ "$(git rev-parse HEAD)" = "$CANDIDATE_SHA" ]] || { echo 'REFUSED[EXACT_HEAD_MISMATCH]' >&2; exit 2; }
+          [[ "$(git rev-parse HEAD:vendor/ggen-marketplace)" = "880b6621ec18c4fcdbedc53ec82585f021cfc578" ]] || { echo 'REFUSED[MARKETPLACE_GITLINK_DRIFT]' >&2; exit 2; }
+          [[ "$(git -C vendor/ggen-marketplace rev-parse HEAD)" = "880b6621ec18c4fcdbedc53ec82585f021cfc578" ]] || { echo 'REFUSED[MARKETPLACE_SUBMODULE_DRIFT]' >&2; exit 2; }
+          root_sha="$(sha256sum ontology.ttl | awk '{print $1}')"
+          fragment_sha="$(sha256sum ontology/ws2-revenue-economics.ttl | awk '{print $1}')"
+          [[ "$root_sha" = "19ec4ad845a39f5e4ad87104961c77c49c1de41e7608f9ac0a1bb92d771a2146" ]] || { echo "REFUSED[ROOT_ONTOLOGY_DRIFT]:$root_sha" >&2; exit 2; }
+          [[ "$fragment_sha" = "73a648d5c0804e44636d5e6b021e9da00ffd2fabc49c4953b2235146fdf05318" ]] || { echo "REFUSED[WS2_FRAGMENT_DRIFT]:$fragment_sha" >&2; exit 2; }
+
+      - name: Compose ontology and delete exact prior-receipted primary targets
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp ontology.ttl "$RUNNER_TEMP/ontology.ttl.original"
+          printf '\n\n# ---- composed canonical fragment: ontology/ws2-revenue-economics.ttl ----\n' >> ontology.ttl
+          cat ontology/ws2-revenue-economics.ttl >> ontology.ttl
+          cat > "$RUNNER_TEMP/primary-ggen-targets.txt" <<'TARGETS'
+          .github/workflows/beam4pm-ci.yml
+          .github/workflows/beam4pm-container.yml
+          .github/workflows/beam4pm-infra-validate.yml
+          docs/reference/beam4pm_types_reference.md
+          gleam/gleam.toml
+          gleam/src/beam4pm.gleam
+          gleam/src/beam4pm/discovery.gleam
+          gleam/src/beam4pm/precision.gleam
+          gleam/src/beam4pm/types.gleam
+          gleam/test/beam4pm_precision_test.gleam
+          gleam/test/beam4pm_test.gleam
+          infra/gcp/cloudrun/README.md
+          infra/gcp/cloudrun/main.tf
+          infra/gcp/cloudrun/outputs.tf
+          infra/gcp/cloudrun/variables.tf
+          infra/gcp/packer/README.md
+          infra/gcp/packer/beam4pm-image.pkr.hcl
+          infra/gcp/packer/setup.sh
+          infra/gcp/packer/variables.pkr.hcl
+          lib/beam4pm_ai_contracts.ex
+          lib/beam4pm_ai_contracts_codec.ex
+          lib/beam4pm_billing.ex
+          lib/beam4pm_codec.ex
+          lib/beam4pm_discovery.ex
+          lib/beam4pm_entitlement.ex
+          lib/beam4pm_precision.ex
+          lib/beam4pm_roundtrip.ex
+          lib/beam4pm_types.ex
+          lib/beam4pm_types_manifest.ex
+          schema/beam4pm_ai_contracts.schema.json
+          schema/beam4pm_types.schema.json
+          src/beam4pm_ai_contracts.erl
+          src/beam4pm_ai_contracts_codec.erl
+          src/beam4pm_billing.erl
+          src/beam4pm_codec.erl
+          src/beam4pm_discovery.erl
+          src/beam4pm_entitlement.erl
+          src/beam4pm_precision.erl
+          src/beam4pm_roundtrip.erl
+          src/beam4pm_types.erl
+          src/beam4pm_types_manifest.erl
+          test/beam4pm_ai_contracts_codec_test.exs
+          test/beam4pm_ai_contracts_codec_tests.erl
+          test/beam4pm_ai_contracts_test.exs
+          test/beam4pm_ai_contracts_tests.erl
+          test/beam4pm_billing_test.exs
+          test/beam4pm_billing_tests.erl
+          test/beam4pm_codec_test.exs
+          test/beam4pm_codec_tests.erl
+          test/beam4pm_discovery_test.exs
+          test/beam4pm_discovery_tests.erl
+          test/beam4pm_entitlement_test.exs
+          test/beam4pm_entitlement_tests.erl
+          test/beam4pm_pi3_falsifier_test.exs
+          test/beam4pm_pi3_falsifier_tests.erl
+          test/beam4pm_precision_test.exs
+          test/beam4pm_precision_tests.erl
+          test/beam4pm_types_manifest_test.exs
+          test/beam4pm_types_manifest_tests.erl
+          test/beam4pm_types_test.exs
+          test/beam4pm_types_tests.erl
+          test/test_helper.exs
+          TARGETS
+          census_sha="$(sha256sum "$RUNNER_TEMP/primary-ggen-targets.txt" | awk '{print $1}')"
+          [[ "$census_sha" = "6fc7e7bb77c93c7bd669edbbf0941afa8d2046860596c6942e3f359104f64712" ]] || { echo "REFUSED[TARGET_CENSUS_DRIFT]:$census_sha" >&2; exit 2; }
+          while IFS= read -r path; do
+            [[ -f "$path" ]] || continue
+            head -3 "$path" 2>/dev/null | grep -qi 'GENERATED by ggen' && rm -f "$path" || true
+          done < "$RUNNER_TEMP/primary-ggen-targets.txt"
+          rm -f ggen.lock
+
+      - name: Manufacture exact projection
+        shell: bash
+        run: |
+          set -euo pipefail
+          ggen sync run
+          cp "$RUNNER_TEMP/ontology.ttl.original" ontology.ttl
+          rm -rf .ggen-v2
+
+      - name: Verify full tree and exact patch receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar --ignore-failed-read -cf "$RUNNER_TEMP/primary-ggen-tree.tar" -T "$RUNNER_TEMP/primary-ggen-targets.txt"
+          tree_sha="$(sha256sum "$RUNNER_TEMP/primary-ggen-tree.tar" | awk '{print $1}')"
+          [[ "$tree_sha" = "e6e435eea4faff584c42ea1b8306f3c7dd01a7ea4cc93981d2eb3b9e568f0f00" ]] || { echo "REFUSED[PRIMARY_TREE_DRIFT]:$tree_sha" >&2; exit 2; }
+          git add -A
+          git diff --cached --check
+          git diff --cached --binary --no-ext-diff > "$RUNNER_TEMP/publish.patch"
+          patch_sha="$(sha256sum "$RUNNER_TEMP/publish.patch" | awk '{print $1}')"
+          [[ "$patch_sha" = "2c82e0cb9fb52be3dfa21f71f1839d2d44b3266329dbfa92b3fc61a5105f451e" ]] || { echo "REFUSED[PATCH_RECEIPT_MISMATCH]:$patch_sha" >&2; exit 2; }
+          git diff --cached --name-only | sort > "$RUNNER_TEMP/actual-paths.txt"
+          cat > "$RUNNER_TEMP/expected-paths.txt" <<'PATHS'
+          docs/reference/beam4pm_types_reference.md
+          gleam/gleam.toml
+          gleam/src/beam4pm.gleam
+          gleam/src/beam4pm/types.gleam
+          lib/beam4pm_codec.ex
+          lib/beam4pm_roundtrip.ex
+          lib/beam4pm_types.ex
+          lib/beam4pm_types_manifest.ex
+          schema/beam4pm_types.schema.json
+          src/beam4pm_codec.erl
+          src/beam4pm_discovery.erl
+          src/beam4pm_roundtrip.erl
+          src/beam4pm_types.erl
+          src/beam4pm_types_manifest.erl
+          test/beam4pm_codec_test.exs
+          test/beam4pm_codec_tests.erl
+          test/beam4pm_types_manifest_test.exs
+          test/beam4pm_types_manifest_tests.erl
+          test/beam4pm_types_test.exs
+          test/beam4pm_types_tests.erl
+          test/test_helper.exs
+          PATHS
+          sort -o "$RUNNER_TEMP/expected-paths.txt" "$RUNNER_TEMP/expected-paths.txt"
+          diff -u "$RUNNER_TEMP/expected-paths.txt" "$RUNNER_TEMP/actual-paths.txt"
+
+      - name: BRCE publish exact ggen consequence
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore(ws2): publish receipted ggen projections'
+          published_sha="$(git rev-parse HEAD)"
+          git push origin "HEAD:${HEAD_REF}"
+          printf '{"source_sha":"%s","published_sha":"%s","patch_sha256":"%s","primary_tree_sha256":"%s","authority":"PR_BODY_MARKER:ggen-publish-authorized"}\n' \
+            "${{ github.event.pull_request.head.sha }}" "$published_sha" \
+            '2c82e0cb9fb52be3dfa21f71f1839d2d44b3266329dbfa92b3fc61a5105f451e' \
+            'e6e435eea4faff584c42ea1b8306f3c7dd01a7ea4cc93981d2eb3b9e568f0f00' \
+            > "$RUNNER_TEMP/ws2-publish-receipt.json"
+
+      - name: Upload publication receipt
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          retention-days: 7
+          if-no-files-found: error
+          path: ${{ runner.temp }}/ws2-publish-receipt.json
+          name: ws2-ggen-publication-${{ github.run_id }}-${{ github.run_attempt }}
