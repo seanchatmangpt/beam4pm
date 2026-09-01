@@ -1,34 +1,28 @@
-# Hand-authored (no GENERATED marker), same tier as post-llm-runtime.yml:
-# workflows that CALL reusable workflows are not expressible as
-# github-actions-pack gha:Job facts (a `uses:` job has no runner/steps, and
-# gate 010 requires gha:runner per job), so this file is a legitimate
-# manufacturing input, not ggen output.
+# Hand-authored manufacturing court for beam4pm.
 #
-# Calls ggen-ecosystem's canonical manufacture rail (the same reusable
-# workflow ggen-ecosystem runs on itself): `ggen sync run` inside the pinned
-# composed container, against THIS repo's exact candidate SHA and THIS
-# repo's own vendor/ggen-marketplace submodule pin, producing a deterministic
-# replay receipt artifact (patch + pack identities + sync exit code, all
-# sha256-bound). The marketplace_sha input is resolved from the actual
-# submodule pointer at the exact candidate SHA -- never hardcoded -- so the
-# rail's MARKETPLACE_SUBMODULE_DRIFT refusal can only fire on real drift.
-#
-# Reusable-workflow ref pinned to an exact ggen-ecosystem commit (not a
-# branch), same discipline as every action pin in this repo.
+# ggen v26.8.28 accepts one ontology source only. beam4pm keeps the large
+# historical root ontology stable and composes bounded canonical fragments
+# into that source only inside the ephemeral Actions workspace. The root file
+# is restored before the generated consequence is diffed.
 name: beam4pm Manufacture (ggen-ecosystem rail)
+
 on:
   push:
     branches: [main]
     paths:
       - "ontology.ttl"
+      - "ontology/**"
       - "ggen.toml"
+      - "contracts/beam4pm-pro/**"
       - "vendor/ggen-marketplace"
       - ".github/workflows/beam4pm-manufacture.yml"
   pull_request:
     branches: [main]
     paths:
       - "ontology.ttl"
+      - "ontology/**"
       - "ggen.toml"
+      - "contracts/beam4pm-pro/**"
       - "vendor/ggen-marketplace"
       - ".github/workflows/beam4pm-manufacture.yml"
   workflow_dispatch:
@@ -48,13 +42,12 @@ jobs:
     outputs:
       marketplace_sha: ${{ steps.pin.outputs.sha }}
     steps:
-      - name: Checkout exact candidate (submodule pointer only, no recursion needed)
+      - name: Checkout exact candidate (submodule pointer only)
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-
-      - name: Read vendor/ggen-marketplace gitlink at this exact commit
+      - name: Read vendor/ggen-marketplace gitlink
         id: pin
         shell: bash
         run: |
@@ -62,15 +55,222 @@ jobs:
           sha="$(git rev-parse HEAD:vendor/ggen-marketplace)"
           [[ "$sha" =~ ^[0-9a-f]{40}$ ]] || { echo "REFUSED[NOT_A_GITLINK]:$sha" >&2; exit 2; }
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
-          echo "marketplace submodule pin: $sha"
 
   manufacture:
-    name: GGen ecosystem manufacture
     needs: resolve
-    uses: seanchatmangpt/ggen-ecosystem/.github/workflows/ggen-ecosystem-sync.yml@cef697e03922c107722bb6ef5ab3e5085e8ccd1e
-    with:
-      ggen_container_tag: v26.8.28
-      marketplace_sha: ${{ needs.resolve.outputs.marketplace_sha }}
-      working_directory: .
-      dry_run: false
-      artifact_retention_days: 7
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    name: Deterministic price-to-cash manufacture
+    container:
+      image: ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          submodules: recursive
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Admit exact subject, producer and pack identities
+        env:
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          MARKETPLACE_SHA: ${{ needs.resolve.outputs.marketplace_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE/vendor/ggen-marketplace"
+          [[ "$(git rev-parse HEAD)" = "$CANDIDATE_SHA" ]] || { echo 'REFUSED[EXACT_HEAD_MISMATCH]' >&2; exit 2; }
+          [[ "$(git -C vendor/ggen-marketplace rev-parse HEAD)" = "$MARKETPLACE_SHA" ]] || { echo 'REFUSED[MARKETPLACE_SUBMODULE_DRIFT]' >&2; exit 2; }
+          mkdir -p "$RUNNER_TEMP/beam4pm-manufacture"
+          python3 - <<'PY'
+          import json, os, tomllib
+          from pathlib import Path, PurePosixPath
+          doc = tomllib.loads(Path('ggen.toml').read_text())
+          packs = doc.get('packs')
+          if not isinstance(packs, dict) or not packs:
+              raise SystemExit('REFUSED[MARKETPLACE_PACKS_REQUIRED]')
+          admitted = []
+          for alias, ref in sorted(packs.items()):
+              if not isinstance(ref, dict):
+                  raise SystemExit(f'REFUSED[PACK_REF_NOT_TABLE]:{alias}')
+              path = str(ref.get('path', ''))
+              sub = PurePosixPath(path)
+              if sub.is_absolute() or '..' in sub.parts or sub.parts[:2] != ('vendor', 'ggen-marketplace'):
+                  raise SystemExit(f'REFUSED[INVALID_MARKETPLACE_SUBMODULE_PATH]:{alias}:{path}')
+              admitted.append({'alias': alias, 'path': path})
+          Path(os.environ['RUNNER_TEMP'], 'beam4pm-manufacture', 'packs.json').write_text(json.dumps(admitted, indent=2, sort_keys=True) + '\n')
+          PY
+
+      - name: Bind authoritative ontology input
+        shell: bash
+        run: |
+          set -euo pipefail
+          evidence="$RUNNER_TEMP/beam4pm-manufacture"
+          sha256sum ontology.ttl > "$evidence/ontology-inputs.sha256"
+
+      - name: Delete only prior-receipted primary ggen outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          evidence="$RUNNER_TEMP/beam4pm-manufacture"
+          cat > "$evidence/primary-ggen-targets.txt" <<'TARGETS'
+          .github/workflows/beam4pm-ci.yml
+          .github/workflows/beam4pm-container.yml
+          .github/workflows/beam4pm-infra-validate.yml
+          docs/reference/beam4pm_types_reference.md
+          gleam/gleam.toml
+          gleam/src/beam4pm.gleam
+          gleam/src/beam4pm/discovery.gleam
+          gleam/src/beam4pm/precision.gleam
+          gleam/src/beam4pm/types.gleam
+          gleam/test/beam4pm_precision_test.gleam
+          gleam/test/beam4pm_test.gleam
+          infra/gcp/cloudrun/README.md
+          infra/gcp/cloudrun/main.tf
+          infra/gcp/cloudrun/outputs.tf
+          infra/gcp/cloudrun/variables.tf
+          infra/gcp/packer/README.md
+          infra/gcp/packer/beam4pm-image.pkr.hcl
+          infra/gcp/packer/setup.sh
+          infra/gcp/packer/variables.pkr.hcl
+          lib/beam4pm_ai_contracts.ex
+          lib/beam4pm_ai_contracts_codec.ex
+          lib/beam4pm_billing.ex
+          lib/beam4pm_codec.ex
+          lib/beam4pm_discovery.ex
+          lib/beam4pm_entitlement.ex
+          lib/beam4pm_precision.ex
+          lib/beam4pm_roundtrip.ex
+          lib/beam4pm_types.ex
+          lib/beam4pm_types_manifest.ex
+          schema/beam4pm_ai_contracts.schema.json
+          schema/beam4pm_types.schema.json
+          src/beam4pm_ai_contracts.erl
+          src/beam4pm_ai_contracts_codec.erl
+          src/beam4pm_billing.erl
+          src/beam4pm_codec.erl
+          src/beam4pm_discovery.erl
+          src/beam4pm_entitlement.erl
+          src/beam4pm_precision.erl
+          src/beam4pm_roundtrip.erl
+          src/beam4pm_types.erl
+          src/beam4pm_types_manifest.erl
+          test/beam4pm_ai_contracts_codec_test.exs
+          test/beam4pm_ai_contracts_codec_tests.erl
+          test/beam4pm_ai_contracts_test.exs
+          test/beam4pm_ai_contracts_tests.erl
+          test/beam4pm_billing_test.exs
+          test/beam4pm_billing_tests.erl
+          test/beam4pm_codec_test.exs
+          test/beam4pm_codec_tests.erl
+          test/beam4pm_discovery_test.exs
+          test/beam4pm_discovery_tests.erl
+          test/beam4pm_entitlement_test.exs
+          test/beam4pm_entitlement_tests.erl
+          test/beam4pm_pi3_falsifier_test.exs
+          test/beam4pm_pi3_falsifier_tests.erl
+          test/beam4pm_precision_test.exs
+          test/beam4pm_precision_tests.erl
+          test/beam4pm_types_manifest_test.exs
+          test/beam4pm_types_manifest_tests.erl
+          test/beam4pm_types_test.exs
+          test/beam4pm_types_tests.erl
+          test/test_helper.exs
+          TARGETS
+          deleted=0
+          while IFS= read -r path; do
+            [[ -f "$path" ]] || continue
+            if head -3 "$path" 2>/dev/null | grep -qi 'GENERATED by ggen'; then
+              rm -f "$path"
+              deleted=$((deleted + 1))
+            fi
+          done < "$evidence/primary-ggen-targets.txt"
+          echo "$deleted" > "$evidence/deleted-primary-target-count.txt"
+          rm -f ggen.lock
+          echo "ALIVE: deleted $deleted prior-receipted primary ggen outputs"
+
+      - name: Manufacture with pinned ggen
+        id: sync
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -uo pipefail
+          evidence="$RUNNER_TEMP/beam4pm-manufacture"
+          set +e
+          ggen sync run > >(tee "$evidence/stdout.log") 2> >(tee "$evidence/stderr.log" >&2)
+          exit_code=$?
+          set -e
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
+          echo "$exit_code" > "$evidence/sync-exit-code.txt"
+
+      - name: Restore canonical source and bind generated consequence
+        if: always()
+        env:
+          SYNC_EXIT_CODE: ${{ steps.sync.outputs.exit_code }}
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          MARKETPLACE_SHA: ${{ needs.resolve.outputs.marketplace_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          evidence="$RUNNER_TEMP/beam4pm-manufacture"
+          if [[ -f .ggen-v2/receipt.json ]]; then cp .ggen-v2/receipt.json "$evidence/ggen-receipt.json"; fi
+          if [[ -f ggen.lock ]]; then cp ggen.lock "$evidence/ggen.lock"; fi
+          rm -rf .ggen-v2
+          tar --ignore-failed-read -cf "$evidence/primary-ggen-tree.tar" -T "$evidence/primary-ggen-targets.txt"
+          git add -A
+          git diff --cached --check
+          git diff --cached --binary --no-ext-diff > "$evidence/ggen-sync.patch"
+          git reset --quiet
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          root = Path(os.environ['RUNNER_TEMP']) / 'beam4pm-manufacture'
+          def digest(path):
+              h = hashlib.sha256()
+              with path.open('rb') as fh:
+                  for chunk in iter(lambda: fh.read(1048576), b''):
+                      h.update(chunk)
+              return h.hexdigest()
+          receipt = {
+              'schema': 'https://beam4pm.dev/receipts/price-to-cash-ggen-sync/v1',
+              'repository': os.environ['GITHUB_REPOSITORY'],
+              'source_sha': os.environ['CANDIDATE_SHA'],
+              'run_id': os.environ['GITHUB_RUN_ID'],
+              'run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+              'ggen_container_image': 'ghcr.io/seanchatmangpt/ggen-ecosystem',
+              'ggen_container_tag': 'v26.8.28',
+              'marketplace_sha': os.environ['MARKETPLACE_SHA'],
+              'sync_command': 'ggen sync run',
+              'sync_exit_code': os.environ.get('SYNC_EXIT_CODE'),
+              'ontology_inputs_sha256': (root / 'ontology-inputs.sha256').read_text().splitlines(),
+              'primary_target_census_sha256': digest(root / 'primary-ggen-targets.txt'),
+              'primary_tree_sha256': digest(root / 'primary-ggen-tree.tar'),
+              'deleted_primary_target_count': int((root / 'deleted-primary-target-count.txt').read_text()),
+              'patch_sha256': digest(root / 'ggen-sync.patch'),
+              'packs': json.loads((root / 'packs.json').read_text()),
+          }
+          (root / 'beam4pm-manufacture-receipt.json').write_text(json.dumps(receipt, indent=2, sort_keys=True) + '\n')
+          PY
+          sha256sum "$evidence/ggen-sync.patch" "$evidence/primary-ggen-tree.tar" "$evidence/beam4pm-manufacture-receipt.json" "$evidence/packs.json" "$evidence/ontology-inputs.sha256" "$evidence/primary-ggen-targets.txt" > "$evidence/SHA256SUMS"
+
+      - name: Upload deterministic replay evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          retention-days: 7
+          if-no-files-found: error
+          path: ${{ runner.temp }}/beam4pm-manufacture/
+          name: beam4pm-ggen-sync-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Enforce GGen sync standing
+        if: always()
+        env:
+          SYNC_EXIT_CODE: ${{ steps.sync.outputs.exit_code }}
+        shell: bash
+        run: |
+          if [[ "${SYNC_EXIT_CODE:-not-run}" != 0 ]]; then
+            echo "BUILD_BROKEN[GGEN_SYNC_RUN_FAILED]:${SYNC_EXIT_CODE:-not-run}" >&2
+            exit 1
+          fi
