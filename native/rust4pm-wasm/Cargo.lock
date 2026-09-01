@@ -516,7 +516,7 @@ checksum = "f9f8bd3e56ce4dfc153cf470fffbfa98c7620958b312ca5c3a4b8d5181fd13c6"
 [[package]]
 name = "macros_process_mining"
 version = "0.6.2"
-source = "git+https://github.com/seanchatmangpt/rust4pm.git?rev=67d0f7e#67d0f7e81078f127ff7777736a64f36e1ba26b13"
+source = "git+https://github.com/seanchatmangpt/rust4pm.git?rev=89a6a30#89a6a3011fc068f1e3a6fcab86eb5bec4d0af143"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -620,7 +620,7 @@ dependencies = [
 [[package]]
 name = "process_mining"
 version = "0.6.2"
-source = "git+https://github.com/seanchatmangpt/rust4pm.git?rev=67d0f7e#67d0f7e81078f127ff7777736a64f36e1ba26b13"
+source = "git+https://github.com/seanchatmangpt/rust4pm.git?rev=89a6a30#89a6a3011fc068f1e3a6fcab86eb5bec4d0af143"
 dependencies = [
  "chrono",
  "csv",

@@ -22,7 +22,7 @@ crate-type = ["cdylib"]
 # hand-authored dependency for POWL specifically).
 # default-features = false because several default features would not
 # compile for wasm32-wasip1.
-process_mining = { git = "https://github.com/seanchatmangpt/rust4pm.git", rev = "67d0f7e", default-features = false }
+process_mining = { git = "https://github.com/seanchatmangpt/rust4pm.git", rev = "89a6a30", default-features = false }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 # timestamp parsing for ocel_add_event (same chrono the crate itself uses)

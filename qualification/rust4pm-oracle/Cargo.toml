@@ -10,7 +10,7 @@ license = "MIT"
 # with a POWL discovery module added) -- pinned to the exact commit
 # native/rust4pm-wasm/Cargo.toml uses, so this oracle and the wasm engine run
 # literally the same algorithm code.
-process_mining = { git = "https://github.com/seanchatmangpt/rust4pm.git", rev = "67d0f7e", default-features = false }
+process_mining = { git = "https://github.com/seanchatmangpt/rust4pm.git", rev = "89a6a30", default-features = false }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
