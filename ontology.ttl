@@ -2261,53 +2261,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 #
 # bpm:RecordType (beam4pm-process-model-pack/ontology.ttl:13-15) is a
 # META-CLASS describing record SHAPES ("One admitted BEAM record/struct type
-# projected into generated code"). Its instances (bpm:ocel_event_rt,
-# bpm:petri_place_rt, ... 31 total in beam4pm's ontology.ttl) are themselves
-# individuals, not classes: `bpm:ocel_event_rt a bpm:RecordType`, never
-# `bpm:ocel_event_rt a rdfs:Class`. Two candidate alignments were considered
-# and rejected before choosing the one below:
-#
-#   - `bpm:RecordType rdfs:subClassOf ex4pm:Event` -- WRONG. This would claim
-#     every one of the 31 admitted record shapes (petri_place, dfg_edge,
-#     alignment_move, k8s_object_ref, service_span, ...) is an ex4pm:Event,
-#     which is false for 30 of the 31.
-#   - `bpm:ocel_event_rt rdfs:subClassOf ex4pm:Event` -- WRONG. RDFS
-#     subClassOf relates two classes; bpm:ocel_event_rt is an individual (a
-#     record-shape descriptor), not a class. RDF does not mechanically forbid
-#     the triple, but it would be a category error identical in kind to
-#     saying an instance of Dog "is a subclass of" Animal instead of "is a"
-#     Animal.
-#
-# The genuine correspondence sits one level down: real runtime values SHAPED
-# like bpm:ocel_event_rt (an OCEL 2.0 event: event_id / event_type /
-# event_time / attributes) are semantically ex4pm:Event instances
-# (ex4pm:Event rdfs:subClassOf ex4pm:Observation in ex4pm.ttl). This is
-# reinforced field-by-field: bpm:ocel_event_event_type_f and
-# bpm:ocel_event_event_time_f (both domain bpm:ocel_event_rt's field set)
-# correspond to ex4pm:activity and ex4pm:timestamp (both rdfs:domain
-# ex4pm:Event i…10254 tokens truncated…ecurity_addendum_state_addendum_id_f ,
-                 b4p:security_addendum_state_addendum_state_f .
-
-b4p:security_addendum_state_opportunity_id_f a bpm:Field ;
-    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required security addendum state input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
-
-b4p:security_addendum_state_addendum_id_f a bpm:Field ;
-    bpm:fieldName "addendum_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required security addendum state input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4p:security_addendum_state_addendum_state_f a bpm:Field ;
-   bpm:fieldName "addendum_state" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-# WS1-REV-016 — insurance_requirement
-b4p:insurance_requirement_rt a bpm:RecordType ;
-    bpm:recordName "insurance_requirement" ;
-    bpm:recordDoc "Admits contractual insurance coverage only with an exact coverage identity and supporting evidence." ;
-    bpm:hasField b4p:insurance_requirement_opportunity_id_f ,
+# projected into ge…10948 tokens truncated…pportunity_id_f ,
                  b4p:insurance_requirement_coverage_id_f ,
                  b4p:insurance_requirement_evidence_hash_f .
 
@@ -4141,5 +4095,29 @@ b4p:billable_usage_identity_billable_usage_id_f a bpm:Field ;
 
 b4p:billable_usage_identity_identity_hash_f a bpm:Field ;
     bpm:fieldName "identity_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-045 — usage_reconciliation_receipt
+b4p:usage_reconciliation_receipt_rt a bpm:RecordType ;
+    bpm:recordName "usage_reconciliation_receipt" ;
+    bpm:recordDoc "Receipts deduplicated usage reconciliation before an invoiceable quantity is recognized." ;
+    bpm:hasField b4p:usage_reconciliation_receipt_tenant_id_f,
+                 b4p:usage_reconciliation_receipt_billing_period_id_f,
+                 b4p:usage_reconciliation_receipt_reconciliation_hash_f .
+
+b4p:usage_reconciliation_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:usage_reconciliation_receipt_billing_period_id_f a bpm:Field ;
+    bpm:fieldName "billing_period_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:usage_reconciliation_receipt_reconciliation_hash_f a bpm:Field ;
+    bpm:fieldName "reconciliation_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
