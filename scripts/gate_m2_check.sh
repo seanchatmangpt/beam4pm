@@ -126,14 +126,19 @@ bash scripts/revenue_economics_sync.sh
 bash scripts/revenue_metering_sync.sh
 bash scripts/claude_workflow_reactor_sync.sh
 
-# beam4pm_pro P0 gap-closure capabilities (PRO-001/003/007/008/010),
+# beam4pm_pro P0 gap-closure capabilities (PRO-001/003/007/008/010/011/012),
 # igniter-rendered, fully static, mutually independent of each other and of
-# every family above.
+# every family above. PRO-011/012 (ocpm_discovery, simulation) were added
+# 2026-08-31 from the deep-research synthesis on beam4pm_pro capabilities
+# (OCPM flagship differentiator + what-if simulation, both verified real
+# commercial-tier gaps).
 bash scripts/pro_capability_manifest_sync.sh
 bash scripts/pro_compatibility_sync.sh
 bash scripts/pro_license_sync.sh
 bash scripts/pro_doctor_sync.sh
 bash scripts/pro_tenancy_sync.sh
+bash scripts/pro_ocpm_discovery_sync.sh
+bash scripts/pro_simulation_sync.sh
 
 # Transplants from ex4pm/xaas: per-record-type doc fan-out (--for-each,
 # xaas precedent). AshAi tools and the anti-overclaiming lint gate live in
