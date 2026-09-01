@@ -151,6 +151,7 @@ use process_mining::discovery::case_centric::alphappp::full::{
     alphappp_discover_petri_net, AlphaPPPConfig,
 };
 use process_mining::discovery::case_centric::dfg::discover_dfg;
+use process_mining::discovery::case_centric::powl::discover_powl;
 use process_mining::discovery::object_centric::dfg::get_dfg_of_object_type;
 use process_mining::discovery::object_centric::variants::get_variants_of_object_type;
 use process_mining::{EventLog, PetriNet};
@@ -686,6 +687,16 @@ fn dispatch(input: &[u8]) -> Result<Vec<u8>, String> {
                     })
                     .collect();
                 Ok(serde_json::json!({ "edges": edges }))
+            })?;
+            ok_json(&value)
+        }
+        "discover_powl" => {
+            let id = req_u64(&v, "handle")?;
+            let value = with_log(id, |log| {
+                let powl = discover_powl(log);
+                serde_json::to_value(&powl)
+                    .map(|model| serde_json::json!({ "powl": model }))
+                    .map_err(|e| format!("internal: powl serialization failed: {e}"))
             })?;
             ok_json(&value)
         }

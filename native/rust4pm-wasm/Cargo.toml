@@ -11,11 +11,18 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-# Pinned to the exact rust4pm version the rf1/rf2 native oracles use, so the
-# wasm engine and the differential-anchor oracles run literally the same
-# algorithm code. default-features = false because several default features
-# would not compile for wasm32-wasip1.
-process_mining = { version = "=0.6.2", default-features = false }
+# Pinned to the exact rust4pm-powl fork commit the rf1/rf2 native oracles and
+# qualification/rust4pm-oracle use, so the wasm engine and the
+# differential-anchor oracles run literally the same algorithm code. This is
+# seanchatmangpt/rust4pm (a fork of aarkue/rust4pm@0.6.2) with a POWL
+# (Partially Ordered Workflow Language) discovery module added --
+# process_mining upstream has strong OCEL 2.0 support but no POWL. See
+# docs/jira/v26.8.29/14-rust4pm-reference-boundary.md for the doctrine change
+# this represents (rust4pm moved from reference-only to a forked,
+# hand-authored dependency for POWL specifically).
+# default-features = false because several default features would not
+# compile for wasm32-wasip1.
+process_mining = { git = "https://github.com/seanchatmangpt/rust4pm.git", rev = "67d0f7e", default-features = false }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 # timestamp parsing for ocel_add_event (same chrono the crate itself uses)
