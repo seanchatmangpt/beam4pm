@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-070 — concurrency_pricing_policy
+bpm:concurrency_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "concurrency_pricing_policy" ;
+    bpm:recordDoc "Concurrent-workload packaging dimension." ;
+    bpm:hasField bpm:concurrency_pricing_policy_concurrency_pricing_policy_id_f,
+                 bpm:concurrency_pricing_policy_account_id_f,
+                 bpm:concurrency_pricing_policy_included_concurrency_f,
+                 bpm:concurrency_pricing_policy_evidence_digest_f,
+                 bpm:concurrency_pricing_policy_effective_at_f .
+
+bpm:concurrency_pricing_policy_concurrency_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "concurrency_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this concurrency pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:concurrency_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:concurrency_pricing_policy_included_concurrency_f a bpm:Field ;
+    bpm:fieldName "included_concurrency" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Concurrent workload units included in the purchased package." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:concurrency_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:concurrency_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
