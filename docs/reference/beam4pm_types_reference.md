@@ -1130,6 +1130,17 @@
 | `name` | `string` | true | The object name. |
 | `namespace` | `string` | false | Optional object namespace (absent for cluster-scoped kinds such as Node, PersistentVolume, ClusterRole, or Namespace itself). |
 
+## leakage_finding
+
+> One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `case_id` | `string` | true | Exact process-case identity that deviated from the admitted reference model. |
+| `fitness` | `float` | true | Observed conformance fitness for this case. |
+| `precision` | `float` | true | Observed conformance precision for this case against the admitted model. |
+| `amount_at_risk` | `float` | false | Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero. |
+
 ## least_authority_evidence
 
 > Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
@@ -1954,6 +1965,16 @@
 | `schedule_id` | `string` | true | Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval. |
 | `assumption_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## rework_cost
+
+> One observed process case with quantified retry/rework loop count and weighted cost evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `case_id` | `string` | true | Exact process-case identity carrying the observed rework. |
+| `loop_count` | `integer` | true | Observed count of retry/rework loop markers for this case. |
+| `weighted_cost` | `float` | true | Observed case amount weighted by the admitted rework-loop rule; units are inherited from the admitted source evidence. |
+
 ## rfp_response_evidence
 
 > Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
@@ -2505,6 +2526,20 @@
 | `realized_value` | `float` | true | Verified realized value in account currency. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## value_receipt
+
+> Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `value_receipt_id` | `string` | true | Stable identity of this before/after value receipt. |
+| `account_id` | `string` | true | Customer or enterprise account whose measured value is receipted. |
+| `metric_name` | `string` | true | Canonical metric identity used for both baseline and observed values. |
+| `baseline_value` | `float` | true | Admitted baseline value before the measured change or observation window. |
+| `observed_value` | `float` | true | Observed value after the measured change or observation window. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence supporting the baseline and observed consequence. |
+| `observed_at` | `datetime` | true | ISO8601 instant the receipted value consequence was observed. |
 
 ## vendor_registration_state
 

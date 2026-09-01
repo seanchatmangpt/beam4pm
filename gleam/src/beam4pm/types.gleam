@@ -1441,6 +1441,20 @@ pub type K8SObjectRef {
   )
 }
 
+/// One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk.
+pub type LeakageFinding {
+  LeakageFinding(
+    /// Exact process-case identity that deviated from the admitted reference model.
+    case_id: String,
+    /// Observed conformance fitness for this case.
+    fitness: Float,
+    /// Observed conformance precision for this case against the admitted model.
+    precision: Float,
+    /// Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero.
+    amount_at_risk: option.Option(Float),
+  )
+}
+
 /// Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
 pub type LeastAuthorityEvidence {
   LeastAuthorityEvidence(
@@ -2473,6 +2487,18 @@ pub type RevenueScheduleAssumption {
   )
 }
 
+/// One observed process case with quantified retry/rework loop count and weighted cost evidence.
+pub type ReworkCost {
+  ReworkCost(
+    /// Exact process-case identity carrying the observed rework.
+    case_id: String,
+    /// Observed count of retry/rework loop markers for this case.
+    loop_count: Int,
+    /// Observed case amount weighted by the admitted rework-loop rule; units are inherited from the admitted source evidence.
+    weighted_cost: Float,
+  )
+}
+
 /// Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
 pub type RfpResponseEvidence {
   RfpResponseEvidence(
@@ -3173,6 +3199,26 @@ pub type ValueRealization {
     /// Digest of the exact evidence supporting this customer-value observation.
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.
+pub type ValueReceipt {
+  ValueReceipt(
+    /// Stable identity of this before/after value receipt.
+    value_receipt_id: String,
+    /// Customer or enterprise account whose measured value is receipted.
+    account_id: String,
+    /// Canonical metric identity used for both baseline and observed values.
+    metric_name: String,
+    /// Admitted baseline value before the measured change or observation window.
+    baseline_value: Float,
+    /// Observed value after the measured change or observation window.
+    observed_value: Float,
+    /// Digest of the exact evidence supporting the baseline and observed consequence.
+    evidence_digest: String,
+    /// ISO8601 instant the receipted value consequence was observed.
     observed_at: String,
   )
 }

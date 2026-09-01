@@ -3069,6 +3069,35 @@ defmodule BeamPM.Types.K8SObjectRef do
   end
 end
 
+defmodule BeamPM.Types.LeakageFinding do
+  @moduledoc "One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk."
+
+  defstruct [:case_id, :fitness, :precision, :amount_at_risk]
+
+  @type t :: %__MODULE__{
+    case_id: String.t() | nil,
+    fitness: float() | nil,
+    precision: float() | nil,
+    amount_at_risk: float() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :case_id) -> {:error, {:missing_field, :case_id}}
+      not Map.has_key?(attrs, :fitness) -> {:error, {:missing_field, :fitness}}
+      not Map.has_key?(attrs, :precision) -> {:error, {:missing_field, :precision}}
+      true ->
+        {:ok, %__MODULE__{
+          case_id: Map.get(attrs, :case_id),
+          fitness: Map.get(attrs, :fitness),
+          precision: Map.get(attrs, :precision),
+          amount_at_risk: Map.get(attrs, :amount_at_risk)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.LeastAuthorityEvidence do
   @moduledoc "Executable least-authority evidence binding an exact subject to the permissions actually granted during execution."
 
@@ -5301,6 +5330,33 @@ defmodule BeamPM.Types.RevenueScheduleAssumption do
   end
 end
 
+defmodule BeamPM.Types.ReworkCost do
+  @moduledoc "One observed process case with quantified retry/rework loop count and weighted cost evidence."
+
+  defstruct [:case_id, :loop_count, :weighted_cost]
+
+  @type t :: %__MODULE__{
+    case_id: String.t() | nil,
+    loop_count: integer() | nil,
+    weighted_cost: float() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :case_id) -> {:error, {:missing_field, :case_id}}
+      not Map.has_key?(attrs, :loop_count) -> {:error, {:missing_field, :loop_count}}
+      not Map.has_key?(attrs, :weighted_cost) -> {:error, {:missing_field, :weighted_cost}}
+      true ->
+        {:ok, %__MODULE__{
+          case_id: Map.get(attrs, :case_id),
+          loop_count: Map.get(attrs, :loop_count),
+          weighted_cost: Map.get(attrs, :weighted_cost)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.RfpResponseEvidence do
   @moduledoc "Executable procurement evidence binding an exact subject to a deterministic RFP answer set."
 
@@ -6798,6 +6854,45 @@ defmodule BeamPM.Types.ValueRealization do
           value_realization_id: Map.get(attrs, :value_realization_id),
           account_id: Map.get(attrs, :account_id),
           realized_value: Map.get(attrs, :realized_value),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ValueReceipt do
+  @moduledoc "Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence."
+
+  defstruct [:value_receipt_id, :account_id, :metric_name, :baseline_value, :observed_value, :evidence_digest, :observed_at]
+
+  @type t :: %__MODULE__{
+    value_receipt_id: String.t() | nil,
+    account_id: String.t() | nil,
+    metric_name: String.t() | nil,
+    baseline_value: float() | nil,
+    observed_value: float() | nil,
+    evidence_digest: String.t() | nil,
+    observed_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :value_receipt_id) -> {:error, {:missing_field, :value_receipt_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :metric_name) -> {:error, {:missing_field, :metric_name}}
+      not Map.has_key?(attrs, :baseline_value) -> {:error, {:missing_field, :baseline_value}}
+      not Map.has_key?(attrs, :observed_value) -> {:error, {:missing_field, :observed_value}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :observed_at) -> {:error, {:missing_field, :observed_at}}
+      true ->
+        {:ok, %__MODULE__{
+          value_receipt_id: Map.get(attrs, :value_receipt_id),
+          account_id: Map.get(attrs, :account_id),
+          metric_name: Map.get(attrs, :metric_name),
+          baseline_value: Map.get(attrs, :baseline_value),
+          observed_value: Map.get(attrs, :observed_value),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
         }}

@@ -2564,6 +2564,31 @@
       ]
 
     },
+    "leakage_finding": {
+      "type": "object",
+      "description": "One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk.",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "description": "Exact process-case identity that deviated from the admitted reference model."
+        },
+        "fitness": {
+          "type": "number",
+          "description": "Observed conformance fitness for this case."
+        },
+        "precision": {
+          "type": "number",
+          "description": "Observed conformance precision for this case against the admitted model."
+        },
+        "amount_at_risk": {
+          "type": "number",
+          "description": "Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero."
+        }
+      },
+      "required": ["case_id", "fitness", "precision"
+      ]
+
+    },
     "least_authority_evidence": {
       "type": "object",
       "description": "Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.",
@@ -4405,6 +4430,27 @@
       ]
 
     },
+    "rework_cost": {
+      "type": "object",
+      "description": "One observed process case with quantified retry/rework loop count and weighted cost evidence.",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "description": "Exact process-case identity carrying the observed rework."
+        },
+        "loop_count": {
+          "type": "integer",
+          "description": "Observed count of retry/rework loop markers for this case."
+        },
+        "weighted_cost": {
+          "type": "number",
+          "description": "Observed case amount weighted by the admitted rework-loop rule; units are inherited from the admitted source evidence."
+        }
+      },
+      "required": ["case_id", "loop_count", "weighted_cost"
+      ]
+
+    },
     "rfp_response_evidence": {
       "type": "object",
       "description": "Executable procurement evidence binding an exact subject to a deterministic RFP answer set.",
@@ -5660,6 +5706,43 @@
         }
       },
       "required": ["value_realization_id", "account_id", "realized_value", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "value_receipt": {
+      "type": "object",
+      "description": "Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.",
+      "properties": {
+        "value_receipt_id": {
+          "type": "string",
+          "description": "Stable identity of this before/after value receipt."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Customer or enterprise account whose measured value is receipted."
+        },
+        "metric_name": {
+          "type": "string",
+          "description": "Canonical metric identity used for both baseline and observed values."
+        },
+        "baseline_value": {
+          "type": "number",
+          "description": "Admitted baseline value before the measured change or observation window."
+        },
+        "observed_value": {
+          "type": "number",
+          "description": "Observed value after the measured change or observation window."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence supporting the baseline and observed consequence."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "ISO8601 instant the receipted value consequence was observed."
+        }
+      },
+      "required": ["value_receipt_id", "account_id", "metric_name", "baseline_value", "observed_value", "evidence_digest", "observed_at"
       ]
 
     },
