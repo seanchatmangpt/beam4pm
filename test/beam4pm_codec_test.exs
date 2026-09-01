@@ -261,6 +261,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "addon_activation to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      addon_activation_id: "sample_addon_activation_id",
+      account_id: "sample_account_id",
+      addon_id: "sample_addon_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AddonActivation.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["addon_activation_id"] == "sample_addon_activation_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["addon_id"] == "sample_addon_id"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:addon_activation, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:addon_activation, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "addon_activation encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      addon_activation_id: "sample_addon_activation_id",
+      account_id: "sample_account_id",
+      addon_id: "sample_addon_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AddonActivation.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:addon_activation, json)
+  end
+
+  test "addon_activation from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :addon_activation_id}} =
+             BeamPM.Codec.from_map(:addon_activation, %{})
+  end
+
+
   test "adoption_milestone to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       adoption_milestone_id: "sample_adoption_milestone_id",
@@ -941,6 +984,135 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "bundle_conflict to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      bundle_conflict_id: "sample_bundle_conflict_id",
+      account_id: "sample_account_id",
+      conflicting_bundle_id: "sample_conflicting_bundle_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BundleConflict.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["bundle_conflict_id"] == "sample_bundle_conflict_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["conflicting_bundle_id"] == "sample_conflicting_bundle_id"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:bundle_conflict, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:bundle_conflict, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "bundle_conflict encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      bundle_conflict_id: "sample_bundle_conflict_id",
+      account_id: "sample_account_id",
+      conflicting_bundle_id: "sample_conflicting_bundle_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BundleConflict.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:bundle_conflict, json)
+  end
+
+  test "bundle_conflict from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :bundle_conflict_id}} =
+             BeamPM.Codec.from_map(:bundle_conflict, %{})
+  end
+
+
+  test "bundle_dependency to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      bundle_dependency_id: "sample_bundle_dependency_id",
+      account_id: "sample_account_id",
+      required_bundle_id: "sample_required_bundle_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BundleDependency.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["bundle_dependency_id"] == "sample_bundle_dependency_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["required_bundle_id"] == "sample_required_bundle_id"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:bundle_dependency, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:bundle_dependency, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "bundle_dependency encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      bundle_dependency_id: "sample_bundle_dependency_id",
+      account_id: "sample_account_id",
+      required_bundle_id: "sample_required_bundle_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BundleDependency.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:bundle_dependency, json)
+  end
+
+  test "bundle_dependency from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :bundle_dependency_id}} =
+             BeamPM.Codec.from_map(:bundle_dependency, %{})
+  end
+
+
+  test "burst_pricing_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      burst_pricing_policy_id: "sample_burst_pricing_policy_id",
+      account_id: "sample_account_id",
+      burst_multiplier: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BurstPricingPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["burst_pricing_policy_id"] == "sample_burst_pricing_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["burst_multiplier"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:burst_pricing_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:burst_pricing_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "burst_pricing_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      burst_pricing_policy_id: "sample_burst_pricing_policy_id",
+      account_id: "sample_account_id",
+      burst_multiplier: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BurstPricingPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:burst_pricing_policy, json)
+  end
+
+  test "burst_pricing_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :burst_pricing_policy_id}} =
+             BeamPM.Codec.from_map(:burst_pricing_policy, %{})
+  end
+
+
   test "business_continuity_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -978,6 +1150,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "business_continuity_evidence from_map reports the first missing required field" do
     assert {:error, {:missing_field, :evidence_id}} =
              BeamPM.Codec.from_map(:business_continuity_evidence, %{})
+  end
+
+
+  test "business_unit_allocation to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      business_unit_allocation_id: "sample_business_unit_allocation_id",
+      account_id: "sample_account_id",
+      business_unit_id: "sample_business_unit_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BusinessUnitAllocation.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["business_unit_allocation_id"] == "sample_business_unit_allocation_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["business_unit_id"] == "sample_business_unit_id"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:business_unit_allocation, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:business_unit_allocation, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "business_unit_allocation encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      business_unit_allocation_id: "sample_business_unit_allocation_id",
+      account_id: "sample_account_id",
+      business_unit_id: "sample_business_unit_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BusinessUnitAllocation.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:business_unit_allocation, json)
+  end
+
+  test "business_unit_allocation from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :business_unit_allocation_id}} =
+             BeamPM.Codec.from_map(:business_unit_allocation, %{})
   end
 
 
@@ -1104,6 +1319,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "canary_evidence from_map reports the first missing required field" do
     assert {:error, {:missing_field, :evidence_id}} =
              BeamPM.Codec.from_map(:canary_evidence, %{})
+  end
+
+
+  test "cancellation_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      cancellation_policy_id: "sample_cancellation_policy_id",
+      account_id: "sample_account_id",
+      notice_days: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CancellationPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["cancellation_policy_id"] == "sample_cancellation_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["notice_days"] == 42
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:cancellation_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:cancellation_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "cancellation_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      cancellation_policy_id: "sample_cancellation_policy_id",
+      account_id: "sample_account_id",
+      notice_days: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CancellationPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:cancellation_policy, json)
+  end
+
+  test "cancellation_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :cancellation_policy_id}} =
+             BeamPM.Codec.from_map(:cancellation_policy, %{})
   end
 
 
@@ -1433,6 +1691,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "chargeback_rule from_map reports the first missing required field" do
     assert {:error, {:missing_field, :rule_id}} =
              BeamPM.Codec.from_map(:chargeback_rule, %{})
+  end
+
+
+  test "co_term_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      co_term_policy_id: "sample_co_term_policy_id",
+      account_id: "sample_account_id",
+      coterm_date: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CoTermPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["co_term_policy_id"] == "sample_co_term_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["coterm_date"] == "2026-08-29T12:00:00Z"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:co_term_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:co_term_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "co_term_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      co_term_policy_id: "sample_co_term_policy_id",
+      account_id: "sample_account_id",
+      coterm_date: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CoTermPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:co_term_policy, json)
+  end
+
+  test "co_term_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :co_term_policy_id}} =
+             BeamPM.Codec.from_map(:co_term_policy, %{})
   end
 
 
@@ -1913,6 +2214,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "concurrency_pricing_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      concurrency_pricing_policy_id: "sample_concurrency_pricing_policy_id",
+      account_id: "sample_account_id",
+      included_concurrency: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ConcurrencyPricingPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["concurrency_pricing_policy_id"] == "sample_concurrency_pricing_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["included_concurrency"] == 42
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:concurrency_pricing_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:concurrency_pricing_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "concurrency_pricing_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      concurrency_pricing_policy_id: "sample_concurrency_pricing_policy_id",
+      account_id: "sample_account_id",
+      included_concurrency: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ConcurrencyPricingPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:concurrency_pricing_policy, json)
+  end
+
+  test "concurrency_pricing_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :concurrency_pricing_policy_id}} =
+             BeamPM.Codec.from_map(:concurrency_pricing_policy, %{})
+  end
+
+
   test "configuration_export to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       export_id: "sample_export_id",
@@ -2159,6 +2503,92 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "cost_center_allocation to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      cost_center_allocation_id: "sample_cost_center_allocation_id",
+      account_id: "sample_account_id",
+      cost_center_id: "sample_cost_center_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CostCenterAllocation.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["cost_center_allocation_id"] == "sample_cost_center_allocation_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["cost_center_id"] == "sample_cost_center_id"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:cost_center_allocation, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:cost_center_allocation, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "cost_center_allocation encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      cost_center_allocation_id: "sample_cost_center_allocation_id",
+      account_id: "sample_account_id",
+      cost_center_id: "sample_cost_center_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CostCenterAllocation.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:cost_center_allocation, json)
+  end
+
+  test "cost_center_allocation from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :cost_center_allocation_id}} =
+             BeamPM.Codec.from_map(:cost_center_allocation, %{})
+  end
+
+
+  test "credit_expiry_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      credit_expiry_policy_id: "sample_credit_expiry_policy_id",
+      account_id: "sample_account_id",
+      expires_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CreditExpiryPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["credit_expiry_policy_id"] == "sample_credit_expiry_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["expires_at"] == "2026-08-29T12:00:00Z"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:credit_expiry_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:credit_expiry_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "credit_expiry_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      credit_expiry_policy_id: "sample_credit_expiry_policy_id",
+      account_id: "sample_account_id",
+      expires_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CreditExpiryPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:credit_expiry_policy, json)
+  end
+
+  test "credit_expiry_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :credit_expiry_policy_id}} =
+             BeamPM.Codec.from_map(:credit_expiry_policy, %{})
+  end
+
+
   test "credit_risk_admission to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       account_id: "sample_account_id",
@@ -2236,6 +2666,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "cross_sell_fit from_map reports the first missing required field" do
     assert {:error, {:missing_field, :cross_sell_fit_id}} =
              BeamPM.Codec.from_map(:cross_sell_fit, %{})
+  end
+
+
+  test "currency_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      currency_policy_id: "sample_currency_policy_id",
+      account_id: "sample_account_id",
+      currency_code: "sample_currency_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CurrencyPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["currency_policy_id"] == "sample_currency_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["currency_code"] == "sample_currency_code"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:currency_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:currency_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "currency_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      currency_policy_id: "sample_currency_policy_id",
+      account_id: "sample_account_id",
+      currency_code: "sample_currency_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CurrencyPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:currency_policy, json)
+  end
+
+  test "currency_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :currency_policy_id}} =
+             BeamPM.Codec.from_map(:currency_policy, %{})
   end
 
 
@@ -2516,6 +2989,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "data_residency_policy from_map reports the first missing required field" do
     assert {:error, {:missing_field, :policy_id}} =
              BeamPM.Codec.from_map(:data_residency_policy, %{})
+  end
+
+
+  test "data_volume_pricing_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      data_volume_pricing_policy_id: "sample_data_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_gb_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.DataVolumePricingPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["data_volume_pricing_policy_id"] == "sample_data_volume_pricing_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["unit_gb_price"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:data_volume_pricing_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:data_volume_pricing_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "data_volume_pricing_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      data_volume_pricing_policy_id: "sample_data_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_gb_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.DataVolumePricingPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:data_volume_pricing_policy, json)
+  end
+
+  test "data_volume_pricing_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :data_volume_pricing_policy_id}} =
+             BeamPM.Codec.from_map(:data_volume_pricing_policy, %{})
   end
 
 
@@ -3005,6 +3521,135 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "edition_downgrade_path to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      edition_downgrade_path_id: "sample_edition_downgrade_path_id",
+      account_id: "sample_account_id",
+      target_edition_id: "sample_target_edition_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EditionDowngradePath.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["edition_downgrade_path_id"] == "sample_edition_downgrade_path_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["target_edition_id"] == "sample_target_edition_id"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:edition_downgrade_path, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:edition_downgrade_path, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "edition_downgrade_path encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      edition_downgrade_path_id: "sample_edition_downgrade_path_id",
+      account_id: "sample_account_id",
+      target_edition_id: "sample_target_edition_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EditionDowngradePath.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:edition_downgrade_path, json)
+  end
+
+  test "edition_downgrade_path from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :edition_downgrade_path_id}} =
+             BeamPM.Codec.from_map(:edition_downgrade_path, %{})
+  end
+
+
+  test "edition_upgrade_path to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      edition_upgrade_path_id: "sample_edition_upgrade_path_id",
+      account_id: "sample_account_id",
+      target_edition_id: "sample_target_edition_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EditionUpgradePath.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["edition_upgrade_path_id"] == "sample_edition_upgrade_path_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["target_edition_id"] == "sample_target_edition_id"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:edition_upgrade_path, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:edition_upgrade_path, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "edition_upgrade_path encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      edition_upgrade_path_id: "sample_edition_upgrade_path_id",
+      account_id: "sample_account_id",
+      target_edition_id: "sample_target_edition_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EditionUpgradePath.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:edition_upgrade_path, json)
+  end
+
+  test "edition_upgrade_path from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :edition_upgrade_path_id}} =
+             BeamPM.Codec.from_map(:edition_upgrade_path, %{})
+  end
+
+
+  test "enterprise_agreement to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      enterprise_agreement_id: "sample_enterprise_agreement_id",
+      account_id: "sample_account_id",
+      agreement_version: "sample_agreement_version",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EnterpriseAgreement.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["enterprise_agreement_id"] == "sample_enterprise_agreement_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["agreement_version"] == "sample_agreement_version"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:enterprise_agreement, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:enterprise_agreement, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "enterprise_agreement encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      enterprise_agreement_id: "sample_enterprise_agreement_id",
+      account_id: "sample_account_id",
+      agreement_version: "sample_agreement_version",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EnterpriseAgreement.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:enterprise_agreement, json)
+  end
+
+  test "enterprise_agreement from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :enterprise_agreement_id}} =
+             BeamPM.Codec.from_map(:enterprise_agreement, %{})
+  end
+
+
   test "enterprise_order to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       order_id: "sample_order_id",
@@ -3302,6 +3947,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "environment_pricing_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      environment_pricing_policy_id: "sample_environment_pricing_policy_id",
+      account_id: "sample_account_id",
+      environment_tier: "sample_environment_tier",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EnvironmentPricingPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["environment_pricing_policy_id"] == "sample_environment_pricing_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["environment_tier"] == "sample_environment_tier"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:environment_pricing_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:environment_pricing_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "environment_pricing_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      environment_pricing_policy_id: "sample_environment_pricing_policy_id",
+      account_id: "sample_account_id",
+      environment_tier: "sample_environment_tier",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EnvironmentPricingPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:environment_pricing_policy, json)
+  end
+
+  test "environment_pricing_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :environment_pricing_policy_id}} =
+             BeamPM.Codec.from_map(:environment_pricing_policy, %{})
+  end
+
+
   test "environment_profile to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       profile_id: "sample_profile_id",
@@ -3435,6 +4123,49 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert map_size(m) == 1
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:event_type, m)
   end
+
+  test "event_volume_pricing_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      event_volume_pricing_policy_id: "sample_event_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_event_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EventVolumePricingPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["event_volume_pricing_policy_id"] == "sample_event_volume_pricing_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["unit_event_price"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:event_volume_pricing_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:event_volume_pricing_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "event_volume_pricing_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      event_volume_pricing_policy_id: "sample_event_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_event_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EventVolumePricingPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:event_volume_pricing_policy, json)
+  end
+
+  test "event_volume_pricing_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :event_volume_pricing_policy_id}} =
+             BeamPM.Codec.from_map(:event_volume_pricing_policy, %{})
+  end
+
 
   test "evidence_freshness_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
@@ -3805,6 +4536,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "fx_conversion_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      fx_conversion_policy_id: "sample_fx_conversion_policy_id",
+      account_id: "sample_account_id",
+      rate_source: "sample_rate_source",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.FxConversionPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["fx_conversion_policy_id"] == "sample_fx_conversion_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["rate_source"] == "sample_rate_source"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:fx_conversion_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:fx_conversion_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "fx_conversion_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      fx_conversion_policy_id: "sample_fx_conversion_policy_id",
+      account_id: "sample_account_id",
+      rate_source: "sample_rate_source",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.FxConversionPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:fx_conversion_policy, json)
+  end
+
+  test "fx_conversion_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :fx_conversion_policy_id}} =
+             BeamPM.Codec.from_map(:fx_conversion_policy, %{})
+  end
+
+
   test "heuristic_arc to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       source_activity: "sample_source_activity",
@@ -4110,6 +4884,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "invoice_line_item to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      invoice_line_item_id: "sample_invoice_line_item_id",
+      account_id: "sample_account_id",
+      line_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.InvoiceLineItem.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["invoice_line_item_id"] == "sample_invoice_line_item_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["line_amount"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:invoice_line_item, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:invoice_line_item, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "invoice_line_item encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      invoice_line_item_id: "sample_invoice_line_item_id",
+      account_id: "sample_account_id",
+      line_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.InvoiceLineItem.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:invoice_line_item, json)
+  end
+
+  test "invoice_line_item from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :invoice_line_item_id}} =
+             BeamPM.Codec.from_map(:invoice_line_item, %{})
+  end
+
+
   test "invoice_schedule to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       schedule_id: "sample_schedule_id",
@@ -4198,6 +5015,49 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert map_size(m) == 2
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:k8s_object_ref, m)
   end
+
+  test "late_arriving_usage to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      late_arriving_usage_id: "sample_late_arriving_usage_id",
+      account_id: "sample_account_id",
+      occurred_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.LateArrivingUsage.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["late_arriving_usage_id"] == "sample_late_arriving_usage_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["occurred_at"] == "2026-08-29T12:00:00Z"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:late_arriving_usage, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:late_arriving_usage, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "late_arriving_usage encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      late_arriving_usage_id: "sample_late_arriving_usage_id",
+      account_id: "sample_account_id",
+      occurred_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.LateArrivingUsage.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:late_arriving_usage, json)
+  end
+
+  test "late_arriving_usage from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :late_arriving_usage_id}} =
+             BeamPM.Codec.from_map(:late_arriving_usage, %{})
+  end
+
 
   test "least_authority_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
@@ -4387,6 +5247,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "master_service_agreement_binding to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      master_service_agreement_binding_id: "sample_master_service_agreement_binding_id",
+      account_id: "sample_account_id",
+      msa_digest: "sample_msa_digest",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MasterServiceAgreementBinding.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["master_service_agreement_binding_id"] == "sample_master_service_agreement_binding_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["msa_digest"] == "sample_msa_digest"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:master_service_agreement_binding, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:master_service_agreement_binding, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "master_service_agreement_binding encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      master_service_agreement_binding_id: "sample_master_service_agreement_binding_id",
+      account_id: "sample_account_id",
+      msa_digest: "sample_msa_digest",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MasterServiceAgreementBinding.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:master_service_agreement_binding, json)
+  end
+
+  test "master_service_agreement_binding from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :master_service_agreement_binding_id}} =
+             BeamPM.Codec.from_map(:master_service_agreement_binding, %{})
+  end
+
+
   test "master_service_agreement_state to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",
@@ -4421,6 +5324,135 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "master_service_agreement_state from_map reports the first missing required field" do
     assert {:error, {:missing_field, :opportunity_id}} =
              BeamPM.Codec.from_map(:master_service_agreement_state, %{})
+  end
+
+
+  test "meter_definition to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      meter_definition_id: "sample_meter_definition_id",
+      account_id: "sample_account_id",
+      meter_name: "sample_meter_name",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MeterDefinition.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["meter_definition_id"] == "sample_meter_definition_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["meter_name"] == "sample_meter_name"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:meter_definition, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:meter_definition, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "meter_definition encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      meter_definition_id: "sample_meter_definition_id",
+      account_id: "sample_account_id",
+      meter_name: "sample_meter_name",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MeterDefinition.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:meter_definition, json)
+  end
+
+  test "meter_definition from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :meter_definition_id}} =
+             BeamPM.Codec.from_map(:meter_definition, %{})
+  end
+
+
+  test "meter_dimension to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      meter_dimension_id: "sample_meter_dimension_id",
+      account_id: "sample_account_id",
+      dimension_name: "sample_dimension_name",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MeterDimension.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["meter_dimension_id"] == "sample_meter_dimension_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["dimension_name"] == "sample_dimension_name"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:meter_dimension, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:meter_dimension, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "meter_dimension encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      meter_dimension_id: "sample_meter_dimension_id",
+      account_id: "sample_account_id",
+      dimension_name: "sample_dimension_name",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MeterDimension.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:meter_dimension, json)
+  end
+
+  test "meter_dimension from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :meter_dimension_id}} =
+             BeamPM.Codec.from_map(:meter_dimension, %{})
+  end
+
+
+  test "meter_rollup to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      meter_rollup_id: "sample_meter_rollup_id",
+      account_id: "sample_account_id",
+      rollup_function: "sample_rollup_function",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MeterRollup.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["meter_rollup_id"] == "sample_meter_rollup_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["rollup_function"] == "sample_rollup_function"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:meter_rollup, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:meter_rollup, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "meter_rollup encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      meter_rollup_id: "sample_meter_rollup_id",
+      account_id: "sample_account_id",
+      rollup_function: "sample_rollup_function",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MeterRollup.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:meter_rollup, json)
+  end
+
+  test "meter_rollup from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :meter_rollup_id}} =
+             BeamPM.Codec.from_map(:meter_rollup, %{})
   end
 
 
@@ -4504,6 +5536,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "migration_readiness from_map reports the first missing required field" do
     assert {:error, {:missing_field, :migration_readiness_id}} =
              BeamPM.Codec.from_map(:migration_readiness, %{})
+  end
+
+
+  test "minimum_commitment_schedule to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      minimum_commitment_schedule_id: "sample_minimum_commitment_schedule_id",
+      account_id: "sample_account_id",
+      committed_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MinimumCommitmentSchedule.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["minimum_commitment_schedule_id"] == "sample_minimum_commitment_schedule_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["committed_amount"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:minimum_commitment_schedule, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:minimum_commitment_schedule, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "minimum_commitment_schedule encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      minimum_commitment_schedule_id: "sample_minimum_commitment_schedule_id",
+      account_id: "sample_account_id",
+      committed_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MinimumCommitmentSchedule.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:minimum_commitment_schedule, json)
+  end
+
+  test "minimum_commitment_schedule from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :minimum_commitment_schedule_id}} =
+             BeamPM.Codec.from_map(:minimum_commitment_schedule, %{})
   end
 
 
@@ -4624,6 +5699,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "nonproduction_discount_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      nonproduction_discount_policy_id: "sample_nonproduction_discount_policy_id",
+      account_id: "sample_account_id",
+      discount_percent: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.NonproductionDiscountPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["nonproduction_discount_policy_id"] == "sample_nonproduction_discount_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["discount_percent"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:nonproduction_discount_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:nonproduction_discount_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "nonproduction_discount_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      nonproduction_discount_policy_id: "sample_nonproduction_discount_policy_id",
+      account_id: "sample_account_id",
+      discount_percent: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.NonproductionDiscountPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:nonproduction_discount_policy, json)
+  end
+
+  test "nonproduction_discount_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :nonproduction_discount_policy_id}} =
+             BeamPM.Codec.from_map(:nonproduction_discount_policy, %{})
+  end
+
+
   test "object_attribute_change to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       object_id: "sample_object_id",
@@ -4725,6 +5843,49 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert map_size(m) == 1
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:object_type, m)
   end
+
+  test "object_volume_pricing_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      object_volume_pricing_policy_id: "sample_object_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_object_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ObjectVolumePricingPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["object_volume_pricing_policy_id"] == "sample_object_volume_pricing_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["unit_object_price"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:object_volume_pricing_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:object_volume_pricing_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "object_volume_pricing_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      object_volume_pricing_policy_id: "sample_object_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_object_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ObjectVolumePricingPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:object_volume_pricing_policy, json)
+  end
+
+  test "object_volume_pricing_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :object_volume_pricing_policy_id}} =
+             BeamPM.Codec.from_map(:object_volume_pricing_policy, %{})
+  end
+
 
   test "objection to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
@@ -5268,6 +6429,92 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "order_form_admission from_map reports the first missing required field" do
     assert {:error, {:missing_field, :opportunity_id}} =
              BeamPM.Codec.from_map(:order_form_admission, %{})
+  end
+
+
+  test "order_form_version to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      order_form_version_id: "sample_order_form_version_id",
+      account_id: "sample_account_id",
+      order_form_digest: "sample_order_form_digest",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OrderFormVersion.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["order_form_version_id"] == "sample_order_form_version_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["order_form_digest"] == "sample_order_form_digest"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:order_form_version, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:order_form_version, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "order_form_version encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      order_form_version_id: "sample_order_form_version_id",
+      account_id: "sample_account_id",
+      order_form_digest: "sample_order_form_digest",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OrderFormVersion.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:order_form_version, json)
+  end
+
+  test "order_form_version from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :order_form_version_id}} =
+             BeamPM.Codec.from_map(:order_form_version, %{})
+  end
+
+
+  test "overage_invoice to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      overage_invoice_id: "sample_overage_invoice_id",
+      account_id: "sample_account_id",
+      overage_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OverageInvoice.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["overage_invoice_id"] == "sample_overage_invoice_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["overage_amount"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:overage_invoice, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:overage_invoice, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "overage_invoice encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      overage_invoice_id: "sample_overage_invoice_id",
+      account_id: "sample_account_id",
+      overage_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OverageInvoice.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:overage_invoice, json)
+  end
+
+  test "overage_invoice from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :overage_invoice_id}} =
+             BeamPM.Codec.from_map(:overage_invoice, %{})
   end
 
 
@@ -5925,6 +7172,135 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:policy_decision, m)
   end
 
+  test "premium_connector_pricing to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      premium_connector_pricing_id: "sample_premium_connector_pricing_id",
+      account_id: "sample_account_id",
+      connector_id: "sample_connector_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PremiumConnectorPricing.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["premium_connector_pricing_id"] == "sample_premium_connector_pricing_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["connector_id"] == "sample_connector_id"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:premium_connector_pricing, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:premium_connector_pricing, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "premium_connector_pricing encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      premium_connector_pricing_id: "sample_premium_connector_pricing_id",
+      account_id: "sample_account_id",
+      connector_id: "sample_connector_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PremiumConnectorPricing.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:premium_connector_pricing, json)
+  end
+
+  test "premium_connector_pricing from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :premium_connector_pricing_id}} =
+             BeamPM.Codec.from_map(:premium_connector_pricing, %{})
+  end
+
+
+  test "prepaid_credit_balance to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      prepaid_credit_balance_id: "sample_prepaid_credit_balance_id",
+      account_id: "sample_account_id",
+      remaining_credit: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PrepaidCreditBalance.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["prepaid_credit_balance_id"] == "sample_prepaid_credit_balance_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["remaining_credit"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:prepaid_credit_balance, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:prepaid_credit_balance, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "prepaid_credit_balance encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      prepaid_credit_balance_id: "sample_prepaid_credit_balance_id",
+      account_id: "sample_account_id",
+      remaining_credit: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PrepaidCreditBalance.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:prepaid_credit_balance, json)
+  end
+
+  test "prepaid_credit_balance from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :prepaid_credit_balance_id}} =
+             BeamPM.Codec.from_map(:prepaid_credit_balance, %{})
+  end
+
+
+  test "price_book_version to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      price_book_version_id: "sample_price_book_version_id",
+      account_id: "sample_account_id",
+      version: "sample_version",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PriceBookVersion.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["price_book_version_id"] == "sample_price_book_version_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["version"] == "sample_version"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:price_book_version, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:price_book_version, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "price_book_version encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      price_book_version_id: "sample_price_book_version_id",
+      account_id: "sample_account_id",
+      version: "sample_version",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PriceBookVersion.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:price_book_version, json)
+  end
+
+  test "price_book_version from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :price_book_version_id}} =
+             BeamPM.Codec.from_map(:price_book_version, %{})
+  end
+
+
   test "pricing_basis_contract to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",
@@ -6116,6 +7492,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "process_variant from_map reports the first missing required field" do
     assert {:error, {:missing_field, :variant_id}} =
              BeamPM.Codec.from_map(:process_variant, %{})
+  end
+
+
+  test "process_volume_pricing_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      process_volume_pricing_policy_id: "sample_process_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_process_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProcessVolumePricingPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["process_volume_pricing_policy_id"] == "sample_process_volume_pricing_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["unit_process_price"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:process_volume_pricing_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:process_volume_pricing_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "process_volume_pricing_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      process_volume_pricing_policy_id: "sample_process_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_process_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProcessVolumePricingPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:process_volume_pricing_policy, json)
+  end
+
+  test "process_volume_pricing_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :process_volume_pricing_policy_id}} =
+             BeamPM.Codec.from_map(:process_volume_pricing_policy, %{})
   end
 
 
@@ -6393,6 +7812,92 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "proof_of_value_package to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      proof_of_value_package_id: "sample_proof_of_value_package_id",
+      account_id: "sample_account_id",
+      success_metric: "sample_success_metric",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProofOfValuePackage.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["proof_of_value_package_id"] == "sample_proof_of_value_package_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["success_metric"] == "sample_success_metric"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:proof_of_value_package, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:proof_of_value_package, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "proof_of_value_package encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      proof_of_value_package_id: "sample_proof_of_value_package_id",
+      account_id: "sample_account_id",
+      success_metric: "sample_success_metric",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProofOfValuePackage.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:proof_of_value_package, json)
+  end
+
+  test "proof_of_value_package from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :proof_of_value_package_id}} =
+             BeamPM.Codec.from_map(:proof_of_value_package, %{})
+  end
+
+
+  test "proration_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      proration_policy_id: "sample_proration_policy_id",
+      account_id: "sample_account_id",
+      proration_method: "sample_proration_method",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProrationPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["proration_policy_id"] == "sample_proration_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["proration_method"] == "sample_proration_method"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:proration_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:proration_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "proration_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      proration_policy_id: "sample_proration_policy_id",
+      account_id: "sample_account_id",
+      proration_method: "sample_proration_method",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ProrationPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:proration_policy, json)
+  end
+
+  test "proration_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :proration_policy_id}} =
+             BeamPM.Codec.from_map(:proration_policy, %{})
+  end
+
+
   test "provenance_binding_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -6584,6 +8089,92 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "quota_burst_allowance to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      quota_burst_allowance_id: "sample_quota_burst_allowance_id",
+      account_id: "sample_account_id",
+      burst_units: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.QuotaBurstAllowance.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["quota_burst_allowance_id"] == "sample_quota_burst_allowance_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["burst_units"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:quota_burst_allowance, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:quota_burst_allowance, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "quota_burst_allowance encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      quota_burst_allowance_id: "sample_quota_burst_allowance_id",
+      account_id: "sample_account_id",
+      burst_units: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.QuotaBurstAllowance.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:quota_burst_allowance, json)
+  end
+
+  test "quota_burst_allowance from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :quota_burst_allowance_id}} =
+             BeamPM.Codec.from_map(:quota_burst_allowance, %{})
+  end
+
+
+  test "quota_override to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      quota_override_id: "sample_quota_override_id",
+      account_id: "sample_account_id",
+      override_units: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.QuotaOverride.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["quota_override_id"] == "sample_quota_override_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["override_units"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:quota_override, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:quota_override, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "quota_override encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      quota_override_id: "sample_quota_override_id",
+      account_id: "sample_account_id",
+      override_units: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.QuotaOverride.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:quota_override, json)
+  end
+
+  test "quota_override from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :quota_override_id}} =
+             BeamPM.Codec.from_map(:quota_override, %{})
+  end
+
+
   test "quota_policy to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       quota_id: "sample_quota_id",
@@ -6661,6 +8252,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "ramp_commitment from_map reports the first missing required field" do
     assert {:error, {:missing_field, :ramp_id}} =
              BeamPM.Codec.from_map(:ramp_commitment, %{})
+  end
+
+
+  test "rate_card_entry to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      rate_card_entry_id: "sample_rate_card_entry_id",
+      account_id: "sample_account_id",
+      unit_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RateCardEntry.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["rate_card_entry_id"] == "sample_rate_card_entry_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["unit_price"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:rate_card_entry, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:rate_card_entry, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "rate_card_entry encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      rate_card_entry_id: "sample_rate_card_entry_id",
+      account_id: "sample_account_id",
+      unit_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RateCardEntry.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:rate_card_entry, json)
+  end
+
+  test "rate_card_entry from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :rate_card_entry_id}} =
+             BeamPM.Codec.from_map(:rate_card_entry, %{})
   end
 
 
@@ -6744,6 +8378,92 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "recovery_plan from_map reports the first missing required field" do
     assert {:error, {:missing_field, :recovery_plan_id}} =
              BeamPM.Codec.from_map(:recovery_plan, %{})
+  end
+
+
+  test "refund_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      refund_policy_id: "sample_refund_policy_id",
+      account_id: "sample_account_id",
+      refund_method: "sample_refund_method",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RefundPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["refund_policy_id"] == "sample_refund_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["refund_method"] == "sample_refund_method"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:refund_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:refund_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "refund_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      refund_policy_id: "sample_refund_policy_id",
+      account_id: "sample_account_id",
+      refund_method: "sample_refund_method",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RefundPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:refund_policy, json)
+  end
+
+  test "refund_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :refund_policy_id}} =
+             BeamPM.Codec.from_map(:refund_policy, %{})
+  end
+
+
+  test "region_pricing_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      region_pricing_policy_id: "sample_region_pricing_policy_id",
+      account_id: "sample_account_id",
+      region_code: "sample_region_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RegionPricingPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["region_pricing_policy_id"] == "sample_region_pricing_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["region_code"] == "sample_region_code"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:region_pricing_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:region_pricing_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "region_pricing_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      region_pricing_policy_id: "sample_region_pricing_policy_id",
+      account_id: "sample_account_id",
+      region_code: "sample_region_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RegionPricingPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:region_pricing_policy, json)
+  end
+
+  test "region_pricing_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :region_pricing_policy_id}} =
+             BeamPM.Codec.from_map(:region_pricing_policy, %{})
   end
 
 
@@ -7190,6 +8910,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "retention_pricing_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      retention_pricing_policy_id: "sample_retention_pricing_policy_id",
+      account_id: "sample_account_id",
+      retention_days: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RetentionPricingPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["retention_pricing_policy_id"] == "sample_retention_pricing_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["retention_days"] == 42
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:retention_pricing_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:retention_pricing_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "retention_pricing_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      retention_pricing_policy_id: "sample_retention_pricing_policy_id",
+      account_id: "sample_account_id",
+      retention_days: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RetentionPricingPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:retention_pricing_policy, json)
+  end
+
+  test "retention_pricing_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :retention_pricing_policy_id}} =
+             BeamPM.Codec.from_map(:retention_pricing_policy, %{})
+  end
+
+
   test "revenue_attribution to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       revenue_attribution_id: "sample_revenue_attribution_id",
@@ -7467,6 +9230,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "sandbox_entitlement to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      sandbox_entitlement_id: "sample_sandbox_entitlement_id",
+      account_id: "sample_account_id",
+      sandbox_limit: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SandboxEntitlement.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["sandbox_entitlement_id"] == "sample_sandbox_entitlement_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["sandbox_limit"] == 42
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:sandbox_entitlement, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:sandbox_entitlement, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "sandbox_entitlement encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      sandbox_entitlement_id: "sample_sandbox_entitlement_id",
+      account_id: "sample_account_id",
+      sandbox_limit: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SandboxEntitlement.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:sandbox_entitlement, json)
+  end
+
+  test "sandbox_entitlement from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :sandbox_entitlement_id}} =
+             BeamPM.Codec.from_map(:sandbox_entitlement, %{})
+  end
+
+
   test "sbom_inventory_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -7504,6 +9310,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "sbom_inventory_evidence from_map reports the first missing required field" do
     assert {:error, {:missing_field, :evidence_id}} =
              BeamPM.Codec.from_map(:sbom_inventory_evidence, %{})
+  end
+
+
+  test "seat_pricing_policy to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      seat_pricing_policy_id: "sample_seat_pricing_policy_id",
+      account_id: "sample_account_id",
+      seat_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SeatPricingPolicy.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["seat_pricing_policy_id"] == "sample_seat_pricing_policy_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["seat_price"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:seat_pricing_policy, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:seat_pricing_policy, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "seat_pricing_policy encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      seat_pricing_policy_id: "sample_seat_pricing_policy_id",
+      account_id: "sample_account_id",
+      seat_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SeatPricingPolicy.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:seat_pricing_policy, json)
+  end
+
+  test "seat_pricing_policy from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :seat_pricing_policy_id}} =
+             BeamPM.Codec.from_map(:seat_pricing_policy, %{})
   end
 
 
@@ -7738,6 +9587,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "service_credit_admission from_map reports the first missing required field" do
     assert {:error, {:missing_field, :opportunity_id}} =
              BeamPM.Codec.from_map(:service_credit_admission, %{})
+  end
+
+
+  test "service_credit_ledger to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      service_credit_ledger_id: "sample_service_credit_ledger_id",
+      account_id: "sample_account_id",
+      credit_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ServiceCreditLedger.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["service_credit_ledger_id"] == "sample_service_credit_ledger_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["credit_amount"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:service_credit_ledger, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:service_credit_ledger, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "service_credit_ledger encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      service_credit_ledger_id: "sample_service_credit_ledger_id",
+      account_id: "sample_account_id",
+      credit_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ServiceCreditLedger.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:service_credit_ledger, json)
+  end
+
+  test "service_credit_ledger from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :service_credit_ledger_id}} =
+             BeamPM.Codec.from_map(:service_credit_ledger, %{})
   end
 
 
@@ -8068,6 +9960,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "solution_fit from_map reports the first missing required field" do
     assert {:error, {:missing_field, :solution_fit_id}} =
              BeamPM.Codec.from_map(:solution_fit, %{})
+  end
+
+
+  test "spend_drawdown to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      spend_drawdown_id: "sample_spend_drawdown_id",
+      account_id: "sample_account_id",
+      consumed_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SpendDrawdown.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["spend_drawdown_id"] == "sample_spend_drawdown_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["consumed_amount"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:spend_drawdown, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:spend_drawdown, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "spend_drawdown encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      spend_drawdown_id: "sample_spend_drawdown_id",
+      account_id: "sample_account_id",
+      consumed_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SpendDrawdown.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:spend_drawdown, json)
+  end
+
+  test "spend_drawdown from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :spend_drawdown_id}} =
+             BeamPM.Codec.from_map(:spend_drawdown, %{})
   end
 
 
@@ -8566,6 +10501,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "tax_jurisdiction_rule to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      tax_jurisdiction_rule_id: "sample_tax_jurisdiction_rule_id",
+      account_id: "sample_account_id",
+      jurisdiction_code: "sample_jurisdiction_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.TaxJurisdictionRule.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["tax_jurisdiction_rule_id"] == "sample_tax_jurisdiction_rule_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["jurisdiction_code"] == "sample_jurisdiction_code"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:tax_jurisdiction_rule, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:tax_jurisdiction_rule, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "tax_jurisdiction_rule encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      tax_jurisdiction_rule_id: "sample_tax_jurisdiction_rule_id",
+      account_id: "sample_account_id",
+      jurisdiction_code: "sample_jurisdiction_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.TaxJurisdictionRule.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:tax_jurisdiction_rule, json)
+  end
+
+  test "tax_jurisdiction_rule from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :tax_jurisdiction_rule_id}} =
+             BeamPM.Codec.from_map(:tax_jurisdiction_rule, %{})
+  end
+
+
   test "technical_blocker to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",
@@ -8883,6 +10861,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "trial_entitlement to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      trial_entitlement_id: "sample_trial_entitlement_id",
+      account_id: "sample_account_id",
+      trial_expires_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.TrialEntitlement.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["trial_entitlement_id"] == "sample_trial_entitlement_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["trial_expires_at"] == "2026-08-29T12:00:00Z"
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:trial_entitlement, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:trial_entitlement, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "trial_entitlement encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      trial_entitlement_id: "sample_trial_entitlement_id",
+      account_id: "sample_account_id",
+      trial_expires_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.TrialEntitlement.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:trial_entitlement, json)
+  end
+
+  test "trial_entitlement from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :trial_entitlement_id}} =
+             BeamPM.Codec.from_map(:trial_entitlement, %{})
+  end
+
+
   test "true_up_policy to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       policy_id: "sample_policy_id",
@@ -8960,6 +10981,49 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "type_edge from_map reports the first missing required field" do
     assert {:error, {:missing_field, :source_type}} =
              BeamPM.Codec.from_map(:type_edge, %{})
+  end
+
+
+  test "unit_economics_snapshot to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      unit_economics_snapshot_id: "sample_unit_economics_snapshot_id",
+      account_id: "sample_account_id",
+      gross_margin: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.UnitEconomicsSnapshot.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["unit_economics_snapshot_id"] == "sample_unit_economics_snapshot_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["gross_margin"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:unit_economics_snapshot, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:unit_economics_snapshot, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "unit_economics_snapshot encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      unit_economics_snapshot_id: "sample_unit_economics_snapshot_id",
+      account_id: "sample_account_id",
+      gross_margin: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.UnitEconomicsSnapshot.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:unit_economics_snapshot, json)
+  end
+
+  test "unit_economics_snapshot from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :unit_economics_snapshot_id}} =
+             BeamPM.Codec.from_map(:unit_economics_snapshot, %{})
   end
 
 
@@ -9083,6 +11147,92 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "upsell_readiness from_map reports the first missing required field" do
     assert {:error, {:missing_field, :upsell_readiness_id}} =
              BeamPM.Codec.from_map(:upsell_readiness, %{})
+  end
+
+
+  test "usage_aggregation_window to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      usage_aggregation_window_id: "sample_usage_aggregation_window_id",
+      account_id: "sample_account_id",
+      window_seconds: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.UsageAggregationWindow.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["usage_aggregation_window_id"] == "sample_usage_aggregation_window_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["window_seconds"] == 42
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:usage_aggregation_window, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:usage_aggregation_window, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "usage_aggregation_window encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      usage_aggregation_window_id: "sample_usage_aggregation_window_id",
+      account_id: "sample_account_id",
+      window_seconds: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.UsageAggregationWindow.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:usage_aggregation_window, json)
+  end
+
+  test "usage_aggregation_window from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :usage_aggregation_window_id}} =
+             BeamPM.Codec.from_map(:usage_aggregation_window, %{})
+  end
+
+
+  test "usage_correction to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      usage_correction_id: "sample_usage_correction_id",
+      account_id: "sample_account_id",
+      corrected_quantity: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.UsageCorrection.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["usage_correction_id"] == "sample_usage_correction_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["corrected_quantity"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 5
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:usage_correction, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:usage_correction, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "usage_correction encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      usage_correction_id: "sample_usage_correction_id",
+      account_id: "sample_account_id",
+      corrected_quantity: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.UsageCorrection.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:usage_correction, json)
+  end
+
+  test "usage_correction from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :usage_correction_id}} =
+             BeamPM.Codec.from_map(:usage_correction, %{})
   end
 
 

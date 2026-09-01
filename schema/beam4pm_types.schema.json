@@ -153,6 +153,35 @@
       ]
 
     },
+    "addon_activation": {
+      "type": "object",
+      "description": "Receipted activation of a paid add-on.",
+      "properties": {
+        "addon_activation_id": {
+          "type": "string",
+          "description": "Stable identity of this addon activation contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "addon_id": {
+          "type": "string",
+          "description": "Stable identity of the activated commercial add-on."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["addon_activation_id", "account_id", "addon_id", "evidence_digest", "effective_at"
+      ]
+
+    },
     "adoption_milestone": {
       "type": "object",
       "description": "Receipted customer adoption milestone tied to observable use.",
@@ -579,6 +608,93 @@
       ]
 
     },
+    "bundle_conflict": {
+      "type": "object",
+      "description": "Mutual exclusion between incompatible bundles.",
+      "properties": {
+        "bundle_conflict_id": {
+          "type": "string",
+          "description": "Stable identity of this bundle conflict contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "conflicting_bundle_id": {
+          "type": "string",
+          "description": "Bundle whose simultaneous activation must be refused."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["bundle_conflict_id", "account_id", "conflicting_bundle_id", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "bundle_dependency": {
+      "type": "object",
+      "description": "Required dependency between sellable bundles.",
+      "properties": {
+        "bundle_dependency_id": {
+          "type": "string",
+          "description": "Stable identity of this bundle dependency contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "required_bundle_id": {
+          "type": "string",
+          "description": "Bundle that must be entitled before this bundle can activate."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["bundle_dependency_id", "account_id", "required_bundle_id", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "burst_pricing_policy": {
+      "type": "object",
+      "description": "Bounded burst-capacity premium.",
+      "properties": {
+        "burst_pricing_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this burst pricing policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "burst_multiplier": {
+          "type": "number",
+          "description": "Approved multiplier applied only above the included capacity."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["burst_pricing_policy_id", "account_id", "burst_multiplier", "evidence_digest", "effective_at"
+      ]
+
+    },
     "business_continuity_evidence": {
       "type": "object",
       "description": "Executable continuity evidence binding an exact subject to the fallback operating mode actually entered.",
@@ -601,6 +717,35 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "continuity_mode", "observed_result"
+      ]
+
+    },
+    "business_unit_allocation": {
+      "type": "object",
+      "description": "Showback allocation to an enterprise business unit.",
+      "properties": {
+        "business_unit_allocation_id": {
+          "type": "string",
+          "description": "Stable identity of this business unit allocation contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "business_unit_id": {
+          "type": "string",
+          "description": "Stable identity of the receiving business unit."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["business_unit_allocation_id", "account_id", "business_unit_id", "evidence_digest", "effective_at"
       ]
 
     },
@@ -684,6 +829,35 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "canary_percentage", "observed_result"
+      ]
+
+    },
+    "cancellation_policy": {
+      "type": "object",
+      "description": "Contractual cancellation and notice policy.",
+      "properties": {
+        "cancellation_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this cancellation policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "notice_days": {
+          "type": "integer",
+          "description": "Required cancellation notice period in days."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["cancellation_policy_id", "account_id", "notice_days", "evidence_digest", "effective_at"
       ]
 
     },
@@ -882,6 +1056,35 @@
         }
       },
       "required": ["rule_id", "cost_center", "metric_name", "rate"
+      ]
+
+    },
+    "co_term_policy": {
+      "type": "object",
+      "description": "Co-termination policy for expansion purchases.",
+      "properties": {
+        "co_term_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this co term policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "coterm_date": {
+          "type": "string",
+          "description": "Contract end instant to which the expansion is aligned."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["co_term_policy_id", "account_id", "coterm_date", "evidence_digest", "effective_at"
       ]
 
     },
@@ -1181,6 +1384,35 @@
       ]
 
     },
+    "concurrency_pricing_policy": {
+      "type": "object",
+      "description": "Concurrent-workload packaging dimension.",
+      "properties": {
+        "concurrency_pricing_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this concurrency pricing policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "included_concurrency": {
+          "type": "integer",
+          "description": "Concurrent workload units included in the purchased package."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["concurrency_pricing_policy_id", "account_id", "included_concurrency", "evidence_digest", "effective_at"
+      ]
+
+    },
     "configuration_export": {
       "type": "object",
       "description": "Receiptable export of deterministic enterprise configuration.",
@@ -1323,6 +1555,64 @@
       ]
 
     },
+    "cost_center_allocation": {
+      "type": "object",
+      "description": "Chargeback allocation to an enterprise cost center.",
+      "properties": {
+        "cost_center_allocation_id": {
+          "type": "string",
+          "description": "Stable identity of this cost center allocation contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "cost_center_id": {
+          "type": "string",
+          "description": "Stable identity of the charged cost center."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["cost_center_allocation_id", "account_id", "cost_center_id", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "credit_expiry_policy": {
+      "type": "object",
+      "description": "Deterministic expiration of prepaid commercial credits.",
+      "properties": {
+        "credit_expiry_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this credit expiry policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "expires_at": {
+          "type": "string",
+          "description": "Exact expiration instant for the admitted credit pool."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["credit_expiry_policy_id", "account_id", "expires_at", "evidence_digest", "effective_at"
+      ]
+
+    },
     "credit_risk_admission": {
       "type": "object",
       "description": "Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure.",
@@ -1370,6 +1660,35 @@
         }
       },
       "required": ["cross_sell_fit_id", "account_id", "cross_sell_score", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "currency_policy": {
+      "type": "object",
+      "description": "Allowed billing currency for an enterprise agreement.",
+      "properties": {
+        "currency_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this currency policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "currency_code": {
+          "type": "string",
+          "description": "ISO billing currency admitted for this account."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["currency_policy_id", "account_id", "currency_code", "evidence_digest", "effective_at"
       ]
 
     },
@@ -1546,6 +1865,35 @@
         }
       },
       "required": ["policy_id", "tenant_id", "allowed_regions", "status"
+      ]
+
+    },
+    "data_volume_pricing_policy": {
+      "type": "object",
+      "description": "Data-volume commercial packaging dimension.",
+      "properties": {
+        "data_volume_pricing_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this data volume pricing policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "unit_gb_price": {
+          "type": "number",
+          "description": "Admitted unit price per processed gigabyte."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["data_volume_pricing_policy_id", "account_id", "unit_gb_price", "evidence_digest", "effective_at"
       ]
 
     },
@@ -1858,6 +2206,93 @@
       ]
 
     },
+    "edition_downgrade_path": {
+      "type": "object",
+      "description": "Controlled commercial edition downgrade path.",
+      "properties": {
+        "edition_downgrade_path_id": {
+          "type": "string",
+          "description": "Stable identity of this edition downgrade path contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "target_edition_id": {
+          "type": "string",
+          "description": "Edition that may be reached after capability-loss admission."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["edition_downgrade_path_id", "account_id", "target_edition_id", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "edition_upgrade_path": {
+      "type": "object",
+      "description": "Admitted commercial edition upgrade path.",
+      "properties": {
+        "edition_upgrade_path_id": {
+          "type": "string",
+          "description": "Stable identity of this edition upgrade path contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "target_edition_id": {
+          "type": "string",
+          "description": "Edition that may be reached without breaking contract compatibility."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["edition_upgrade_path_id", "account_id", "target_edition_id", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "enterprise_agreement": {
+      "type": "object",
+      "description": "Enterprise commercial umbrella agreement.",
+      "properties": {
+        "enterprise_agreement_id": {
+          "type": "string",
+          "description": "Stable identity of this enterprise agreement contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "agreement_version": {
+          "type": "string",
+          "description": "Immutable semantic version of the governing agreement."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["enterprise_agreement_id", "account_id", "agreement_version", "evidence_digest", "effective_at"
+      ]
+
+    },
     "enterprise_order": {
       "type": "object",
       "description": "Accepted enterprise order binding account, quote, and standing.",
@@ -2037,6 +2472,35 @@
       ]
 
     },
+    "environment_pricing_policy": {
+      "type": "object",
+      "description": "Environment-count commercial packaging.",
+      "properties": {
+        "environment_pricing_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this environment pricing policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "environment_tier": {
+          "type": "string",
+          "description": "Purchased environment tier such as sandbox, nonproduction, or production."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["environment_pricing_policy_id", "account_id", "environment_tier", "evidence_digest", "effective_at"
+      ]
+
+    },
     "environment_profile": {
       "type": "object",
       "description": "Deterministic environment profile for demo, POC, or production.",
@@ -2098,6 +2562,35 @@
         }
       },
       "required": ["type_name"
+      ]
+
+    },
+    "event_volume_pricing_policy": {
+      "type": "object",
+      "description": "Event-volume commercial packaging dimension.",
+      "properties": {
+        "event_volume_pricing_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this event volume pricing policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "unit_event_price": {
+          "type": "number",
+          "description": "Admitted unit price per event billing unit."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["event_volume_pricing_policy_id", "account_id", "unit_event_price", "evidence_digest", "effective_at"
       ]
 
     },
@@ -2338,6 +2831,35 @@
       ]
 
     },
+    "fx_conversion_policy": {
+      "type": "object",
+      "description": "Evidence-bound foreign-exchange conversion policy.",
+      "properties": {
+        "fx_conversion_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this fx conversion policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "rate_source": {
+          "type": "string",
+          "description": "Immutable identity of the admitted FX rate source."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["fx_conversion_policy_id", "account_id", "rate_source", "evidence_digest", "effective_at"
+      ]
+
+    },
     "heuristic_arc": {
       "type": "object",
       "description": "One dependency-scored candidate arc considered during heuristic-net discovery.",
@@ -2518,6 +3040,35 @@
       ]
 
     },
+    "invoice_line_item": {
+      "type": "object",
+      "description": "Auditable commercial invoice line.",
+      "properties": {
+        "invoice_line_item_id": {
+          "type": "string",
+          "description": "Stable identity of this invoice line item contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "line_amount": {
+          "type": "number",
+          "description": "Observed amount for this exact invoice line."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["invoice_line_item_id", "account_id", "line_amount", "evidence_digest", "effective_at"
+      ]
+
+    },
     "invoice_schedule": {
       "type": "object",
       "description": "Deterministic invoicing cadence for a billing account.",
@@ -2561,6 +3112,35 @@
         }
       },
       "required": ["kind", "name"
+      ]
+
+    },
+    "late_arriving_usage": {
+      "type": "object",
+      "description": "Admission of usage received after its billing window.",
+      "properties": {
+        "late_arriving_usage_id": {
+          "type": "string",
+          "description": "Stable identity of this late arriving usage contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "occurred_at": {
+          "type": "string",
+          "description": "Original occurrence instant for the delayed usage."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["late_arriving_usage_id", "account_id", "occurred_at", "evidence_digest", "effective_at"
       ]
 
     },
@@ -2675,6 +3255,35 @@
       ]
 
     },
+    "master_service_agreement_binding": {
+      "type": "object",
+      "description": "Exact MSA binding for an order.",
+      "properties": {
+        "master_service_agreement_binding_id": {
+          "type": "string",
+          "description": "Stable identity of this master service agreement binding contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "msa_digest": {
+          "type": "string",
+          "description": "Content digest of the governing master service agreement."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["master_service_agreement_binding_id", "account_id", "msa_digest", "evidence_digest", "effective_at"
+      ]
+
+    },
     "master_service_agreement_state": {
       "type": "object",
       "description": "Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.",
@@ -2693,6 +3302,93 @@
         }
       },
       "required": ["opportunity_id", "agreement_id", "agreement_state"
+      ]
+
+    },
+    "meter_definition": {
+      "type": "object",
+      "description": "Immutable billable-meter definition.",
+      "properties": {
+        "meter_definition_id": {
+          "type": "string",
+          "description": "Stable identity of this meter definition contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "meter_name": {
+          "type": "string",
+          "description": "Stable buyer-visible identity of the commercial meter."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["meter_definition_id", "account_id", "meter_name", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "meter_dimension": {
+      "type": "object",
+      "description": "Typed dimension attached to a commercial meter.",
+      "properties": {
+        "meter_dimension_id": {
+          "type": "string",
+          "description": "Stable identity of this meter dimension contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "dimension_name": {
+          "type": "string",
+          "description": "Stable dimension identity used for pricing and reporting."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["meter_dimension_id", "account_id", "dimension_name", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "meter_rollup": {
+      "type": "object",
+      "description": "Deterministic rollup policy for metered observations.",
+      "properties": {
+        "meter_rollup_id": {
+          "type": "string",
+          "description": "Stable identity of this meter rollup contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "rollup_function": {
+          "type": "string",
+          "description": "Admitted aggregation function identity."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["meter_rollup_id", "account_id", "rollup_function", "evidence_digest", "effective_at"
       ]
 
     },
@@ -2747,6 +3443,35 @@
         }
       },
       "required": ["migration_readiness_id", "account_id", "migration_effort_days", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "minimum_commitment_schedule": {
+      "type": "object",
+      "description": "Time-phased minimum-spend commitment.",
+      "properties": {
+        "minimum_commitment_schedule_id": {
+          "type": "string",
+          "description": "Stable identity of this minimum commitment schedule contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "committed_amount": {
+          "type": "number",
+          "description": "Commercially admitted minimum amount for the schedule window."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["minimum_commitment_schedule_id", "account_id", "committed_amount", "evidence_digest", "effective_at"
       ]
 
     },
@@ -2822,6 +3547,35 @@
       ]
 
     },
+    "nonproduction_discount_policy": {
+      "type": "object",
+      "description": "Explicit discount for nonproduction capacity.",
+      "properties": {
+        "nonproduction_discount_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this nonproduction discount policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "discount_percent": {
+          "type": "number",
+          "description": "Approved nonproduction discount percentage."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["nonproduction_discount_policy_id", "account_id", "discount_percent", "evidence_digest", "effective_at"
+      ]
+
+    },
     "object_attribute_change": {
       "type": "object",
       "description": "One recorded change to a time-indexed object attribute.",
@@ -2866,6 +3620,35 @@
         }
       },
       "required": ["type_name"
+      ]
+
+    },
+    "object_volume_pricing_policy": {
+      "type": "object",
+      "description": "Object-volume commercial packaging dimension.",
+      "properties": {
+        "object_volume_pricing_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this object volume pricing policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "unit_object_price": {
+          "type": "number",
+          "description": "Admitted unit price per object billing unit."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["object_volume_pricing_policy_id", "account_id", "unit_object_price", "evidence_digest", "effective_at"
       ]
 
     },
@@ -3175,6 +3958,64 @@
         }
       },
       "required": ["opportunity_id", "order_form_id", "decision"
+      ]
+
+    },
+    "order_form_version": {
+      "type": "object",
+      "description": "Immutable commercial order-form version.",
+      "properties": {
+        "order_form_version_id": {
+          "type": "string",
+          "description": "Stable identity of this order form version contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "order_form_digest": {
+          "type": "string",
+          "description": "Content digest of the accepted order form."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["order_form_version_id", "account_id", "order_form_digest", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "overage_invoice": {
+      "type": "object",
+      "description": "Invoice consequence for measured overage.",
+      "properties": {
+        "overage_invoice_id": {
+          "type": "string",
+          "description": "Stable identity of this overage invoice contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "overage_amount": {
+          "type": "number",
+          "description": "Observed overage amount after admitted aggregation."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["overage_invoice_id", "account_id", "overage_amount", "evidence_digest", "effective_at"
       ]
 
     },
@@ -3553,6 +4394,93 @@
       ]
 
     },
+    "premium_connector_pricing": {
+      "type": "object",
+      "description": "Paid integration-connector add-on.",
+      "properties": {
+        "premium_connector_pricing_id": {
+          "type": "string",
+          "description": "Stable identity of this premium connector pricing contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "connector_id": {
+          "type": "string",
+          "description": "Stable identity of the separately priced connector."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["premium_connector_pricing_id", "account_id", "connector_id", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "prepaid_credit_balance": {
+      "type": "object",
+      "description": "Receipted prepaid-credit balance.",
+      "properties": {
+        "prepaid_credit_balance_id": {
+          "type": "string",
+          "description": "Stable identity of this prepaid credit balance contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "remaining_credit": {
+          "type": "number",
+          "description": "Observed remaining prepaid credit after admitted usage."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["prepaid_credit_balance_id", "account_id", "remaining_credit", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "price_book_version": {
+      "type": "object",
+      "description": "Immutable enterprise price-book release.",
+      "properties": {
+        "price_book_version_id": {
+          "type": "string",
+          "description": "Stable identity of this price book version contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "version": {
+          "type": "string",
+          "description": "Buyer-visible semantic version of the admitted price book."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["price_book_version_id", "account_id", "version", "evidence_digest", "effective_at"
+      ]
+
+    },
     "pricing_basis_contract": {
       "type": "object",
       "description": "Binds the opportunity to an exact pricing basis and evidence identity before quote construction.",
@@ -3668,6 +4596,35 @@
         }
       },
       "required": ["variant_id", "activity_sequence", "frequency"
+      ]
+
+    },
+    "process_volume_pricing_policy": {
+      "type": "object",
+      "description": "Process-model commercial packaging dimension.",
+      "properties": {
+        "process_volume_pricing_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this process volume pricing policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "unit_process_price": {
+          "type": "number",
+          "description": "Admitted unit price per managed process."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["process_volume_pricing_policy_id", "account_id", "unit_process_price", "evidence_digest", "effective_at"
       ]
 
     },
@@ -3838,6 +4795,64 @@
       ]
 
     },
+    "proof_of_value_package": {
+      "type": "object",
+      "description": "Paid proof-of-value package with measurable exit criterion.",
+      "properties": {
+        "proof_of_value_package_id": {
+          "type": "string",
+          "description": "Stable identity of this proof of value package contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "success_metric": {
+          "type": "string",
+          "description": "Canonical metric that determines proof-of-value acceptance."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["proof_of_value_package_id", "account_id", "success_metric", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "proration_policy": {
+      "type": "object",
+      "description": "Deterministic mid-term proration policy.",
+      "properties": {
+        "proration_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this proration policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "proration_method": {
+          "type": "string",
+          "description": "Admitted algorithm identity for partial-period charges."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["proration_policy_id", "account_id", "proration_method", "evidence_digest", "effective_at"
+      ]
+
+    },
     "provenance_binding_evidence": {
       "type": "object",
       "description": "Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.",
@@ -3951,6 +4966,64 @@
       ]
 
     },
+    "quota_burst_allowance": {
+      "type": "object",
+      "description": "Purchased temporary quota burst allowance.",
+      "properties": {
+        "quota_burst_allowance_id": {
+          "type": "string",
+          "description": "Stable identity of this quota burst allowance contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "burst_units": {
+          "type": "number",
+          "description": "Additional units admitted above the contracted quota."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["quota_burst_allowance_id", "account_id", "burst_units", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "quota_override": {
+      "type": "object",
+      "description": "Explicitly authorized quota override.",
+      "properties": {
+        "quota_override_id": {
+          "type": "string",
+          "description": "Stable identity of this quota override contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "override_units": {
+          "type": "number",
+          "description": "Authorized replacement quota for the bounded window."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["quota_override_id", "account_id", "override_units", "evidence_digest", "effective_at"
+      ]
+
+    },
     "quota_policy": {
       "type": "object",
       "description": "Enforceable quota limit over a named measurement window.",
@@ -3998,6 +5071,35 @@
         }
       },
       "required": ["ramp_id", "phase", "committed_amount", "effective_at"
+      ]
+
+    },
+    "rate_card_entry": {
+      "type": "object",
+      "description": "Sellable unit price bound to an immutable price book.",
+      "properties": {
+        "rate_card_entry_id": {
+          "type": "string",
+          "description": "Stable identity of this rate card entry contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "unit_price": {
+          "type": "number",
+          "description": "Admitted unit price; currency is supplied by the linked currency policy."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["rate_card_entry_id", "account_id", "unit_price", "evidence_digest", "effective_at"
       ]
 
     },
@@ -4052,6 +5154,64 @@
         }
       },
       "required": ["recovery_plan_id", "account_id", "recovery_time_hours", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "refund_policy": {
+      "type": "object",
+      "description": "Deterministic refund eligibility policy.",
+      "properties": {
+        "refund_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this refund policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "refund_method": {
+          "type": "string",
+          "description": "Admitted method used to calculate a refund."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["refund_policy_id", "account_id", "refund_method", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "region_pricing_policy": {
+      "type": "object",
+      "description": "Deployment-region commercial adjustment.",
+      "properties": {
+        "region_pricing_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this region pricing policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "region_code": {
+          "type": "string",
+          "description": "Exact cloud or sovereign region governed by this price policy."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["region_pricing_policy_id", "account_id", "region_code", "evidence_digest", "effective_at"
       ]
 
     },
@@ -4334,6 +5494,35 @@
       ]
 
     },
+    "retention_pricing_policy": {
+      "type": "object",
+      "description": "Retention-duration commercial packaging.",
+      "properties": {
+        "retention_pricing_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this retention pricing policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "retention_days": {
+          "type": "integer",
+          "description": "Purchased evidence and event-data retention period in days."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["retention_pricing_policy_id", "account_id", "retention_days", "evidence_digest", "effective_at"
+      ]
+
+    },
     "revenue_attribution": {
       "type": "object",
       "description": "Receipted revenue attribution bound to exact enterprise evidence.",
@@ -4505,6 +5694,35 @@
       ]
 
     },
+    "sandbox_entitlement": {
+      "type": "object",
+      "description": "Nonproduction sandbox entitlement with a hard ceiling.",
+      "properties": {
+        "sandbox_entitlement_id": {
+          "type": "string",
+          "description": "Stable identity of this sandbox entitlement contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "sandbox_limit": {
+          "type": "integer",
+          "description": "Maximum purchased sandbox environments."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["sandbox_entitlement_id", "account_id", "sandbox_limit", "evidence_digest", "effective_at"
+      ]
+
+    },
     "sbom_inventory_evidence": {
       "type": "object",
       "description": "Executable SBOM evidence binding an exact commercial subject to the observed component inventory cardinality.",
@@ -4527,6 +5745,35 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "component_count", "observed_result"
+      ]
+
+    },
+    "seat_pricing_policy": {
+      "type": "object",
+      "description": "Named-seat enterprise packaging dimension.",
+      "properties": {
+        "seat_pricing_policy_id": {
+          "type": "string",
+          "description": "Stable identity of this seat pricing policy contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "seat_price": {
+          "type": "number",
+          "description": "Admitted unit price for one named enterprise seat."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["seat_pricing_policy_id", "account_id", "seat_price", "evidence_digest", "effective_at"
       ]
 
     },
@@ -4669,6 +5916,35 @@
         }
       },
       "required": ["opportunity_id", "service_credit_id", "decision"
+      ]
+
+    },
+    "service_credit_ledger": {
+      "type": "object",
+      "description": "Auditable customer service-credit balance.",
+      "properties": {
+        "service_credit_ledger_id": {
+          "type": "string",
+          "description": "Stable identity of this service credit ledger contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "credit_amount": {
+          "type": "number",
+          "description": "Observed service-credit amount after an admitted SLO consequence."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["service_credit_ledger_id", "account_id", "credit_amount", "evidence_digest", "effective_at"
       ]
 
     },
@@ -4865,6 +6141,35 @@
         }
       },
       "required": ["solution_fit_id", "account_id", "fit_score", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "spend_drawdown": {
+      "type": "object",
+      "description": "Observed consumption against committed spend.",
+      "properties": {
+        "spend_drawdown_id": {
+          "type": "string",
+          "description": "Stable identity of this spend drawdown contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "consumed_amount": {
+          "type": "number",
+          "description": "Amount actually drawn from the committed-spend balance."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["spend_drawdown_id", "account_id", "consumed_amount", "evidence_digest", "effective_at"
       ]
 
     },
@@ -5172,6 +6477,35 @@
       ]
 
     },
+    "tax_jurisdiction_rule": {
+      "type": "object",
+      "description": "Tax jurisdiction routing for a contracting entity.",
+      "properties": {
+        "tax_jurisdiction_rule_id": {
+          "type": "string",
+          "description": "Stable identity of this tax jurisdiction rule contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "jurisdiction_code": {
+          "type": "string",
+          "description": "Admitted tax jurisdiction code for invoice treatment."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["tax_jurisdiction_rule_id", "account_id", "jurisdiction_code", "evidence_digest", "effective_at"
+      ]
+
+    },
     "technical_blocker": {
       "type": "object",
       "description": "Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.",
@@ -5368,6 +6702,35 @@
       ]
 
     },
+    "trial_entitlement": {
+      "type": "object",
+      "description": "Time-bounded enterprise trial entitlement.",
+      "properties": {
+        "trial_entitlement_id": {
+          "type": "string",
+          "description": "Stable identity of this trial entitlement contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "trial_expires_at": {
+          "type": "string",
+          "description": "Exact instant at which trial capability must be refused."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["trial_entitlement_id", "account_id", "trial_expires_at", "evidence_digest", "effective_at"
+      ]
+
+    },
     "true_up_policy": {
       "type": "object",
       "description": "End-of-period reconciliation policy for committed consumption.",
@@ -5415,6 +6778,35 @@
         }
       },
       "required": ["source_type", "target_type", "qualifier", "direction"
+      ]
+
+    },
+    "unit_economics_snapshot": {
+      "type": "object",
+      "description": "Evidence-bound gross-margin snapshot.",
+      "properties": {
+        "unit_economics_snapshot_id": {
+          "type": "string",
+          "description": "Stable identity of this unit economics snapshot contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "gross_margin": {
+          "type": "number",
+          "description": "Observed gross margin derived from admitted revenue and cost evidence."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["unit_economics_snapshot_id", "account_id", "gross_margin", "evidence_digest", "effective_at"
       ]
 
     },
@@ -5494,6 +6886,64 @@
         }
       },
       "required": ["upsell_readiness_id", "account_id", "upsell_score", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "usage_aggregation_window": {
+      "type": "object",
+      "description": "Deterministic usage aggregation window.",
+      "properties": {
+        "usage_aggregation_window_id": {
+          "type": "string",
+          "description": "Stable identity of this usage aggregation window contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "window_seconds": {
+          "type": "integer",
+          "description": "Exact billing aggregation window in seconds."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["usage_aggregation_window_id", "account_id", "window_seconds", "evidence_digest", "effective_at"
+      ]
+
+    },
+    "usage_correction": {
+      "type": "object",
+      "description": "Receipted correction to previously reported usage.",
+      "properties": {
+        "usage_correction_id": {
+          "type": "string",
+          "description": "Stable identity of this usage correction contract."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Enterprise account governed by this commercial contract."
+        },
+        "corrected_quantity": {
+          "type": "number",
+          "description": "Replacement usage quantity bound to correction evidence."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the exact evidence admitting this commercial consequence."
+        },
+        "effective_at": {
+          "type": "string",
+          "description": "ISO8601 instant at which this contract becomes effective."
+        }
+      },
+      "required": ["usage_correction_id", "account_id", "corrected_quantity", "evidence_digest", "effective_at"
       ]
 
     },

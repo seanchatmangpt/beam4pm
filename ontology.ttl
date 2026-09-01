@@ -6978,3 +6978,1905 @@ bpm:expansion_receipt_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bp
 bpm:expansion_receipt_receipt_value_f a bpm:Field ; bpm:fieldName "receipt_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified expansion value named by this receipt." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:expansion_receipt_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:expansion_receipt_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ---- WS2 price-to-cash expansion crown: WS2-REV-060..109 ----
+
+# source-fragment: ontology/ws2-revenue-expansion/060-price_book_version.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-060 — price_book_version
+bpm:price_book_version_rt a bpm:RecordType ;
+    bpm:recordName "price_book_version" ;
+    bpm:recordDoc "Immutable enterprise price-book release." ;
+    bpm:hasField bpm:price_book_version_price_book_version_id_f,
+                 bpm:price_book_version_account_id_f,
+                 bpm:price_book_version_version_f,
+                 bpm:price_book_version_evidence_digest_f,
+                 bpm:price_book_version_effective_at_f .
+
+bpm:price_book_version_price_book_version_id_f a bpm:Field ;
+    bpm:fieldName "price_book_version_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this price book version contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:price_book_version_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:price_book_version_version_f a bpm:Field ;
+    bpm:fieldName "version" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Buyer-visible semantic version of the admitted price book." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:price_book_version_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:price_book_version_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/061-rate_card_entry.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-061 — rate_card_entry
+bpm:rate_card_entry_rt a bpm:RecordType ;
+    bpm:recordName "rate_card_entry" ;
+    bpm:recordDoc "Sellable unit price bound to an immutable price book." ;
+    bpm:hasField bpm:rate_card_entry_rate_card_entry_id_f,
+                 bpm:rate_card_entry_account_id_f,
+                 bpm:rate_card_entry_unit_price_f,
+                 bpm:rate_card_entry_evidence_digest_f,
+                 bpm:rate_card_entry_effective_at_f .
+
+bpm:rate_card_entry_rate_card_entry_id_f a bpm:Field ;
+    bpm:fieldName "rate_card_entry_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this rate card entry contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:rate_card_entry_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:rate_card_entry_unit_price_f a bpm:Field ;
+    bpm:fieldName "unit_price" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Admitted unit price; currency is supplied by the linked currency policy." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:rate_card_entry_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:rate_card_entry_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/062-currency_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-062 — currency_policy
+bpm:currency_policy_rt a bpm:RecordType ;
+    bpm:recordName "currency_policy" ;
+    bpm:recordDoc "Allowed billing currency for an enterprise agreement." ;
+    bpm:hasField bpm:currency_policy_currency_policy_id_f,
+                 bpm:currency_policy_account_id_f,
+                 bpm:currency_policy_currency_code_f,
+                 bpm:currency_policy_evidence_digest_f,
+                 bpm:currency_policy_effective_at_f .
+
+bpm:currency_policy_currency_policy_id_f a bpm:Field ;
+    bpm:fieldName "currency_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this currency policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:currency_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:currency_policy_currency_code_f a bpm:Field ;
+    bpm:fieldName "currency_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "ISO billing currency admitted for this account." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:currency_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:currency_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/063-fx_conversion_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-063 — fx_conversion_policy
+bpm:fx_conversion_policy_rt a bpm:RecordType ;
+    bpm:recordName "fx_conversion_policy" ;
+    bpm:recordDoc "Evidence-bound foreign-exchange conversion policy." ;
+    bpm:hasField bpm:fx_conversion_policy_fx_conversion_policy_id_f,
+                 bpm:fx_conversion_policy_account_id_f,
+                 bpm:fx_conversion_policy_rate_source_f,
+                 bpm:fx_conversion_policy_evidence_digest_f,
+                 bpm:fx_conversion_policy_effective_at_f .
+
+bpm:fx_conversion_policy_fx_conversion_policy_id_f a bpm:Field ;
+    bpm:fieldName "fx_conversion_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this fx conversion policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:fx_conversion_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:fx_conversion_policy_rate_source_f a bpm:Field ;
+    bpm:fieldName "rate_source" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable identity of the admitted FX rate source." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:fx_conversion_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:fx_conversion_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/064-tax_jurisdiction_rule.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-064 — tax_jurisdiction_rule
+bpm:tax_jurisdiction_rule_rt a bpm:RecordType ;
+    bpm:recordName "tax_jurisdiction_rule" ;
+    bpm:recordDoc "Tax jurisdiction routing for a contracting entity." ;
+    bpm:hasField bpm:tax_jurisdiction_rule_tax_jurisdiction_rule_id_f,
+                 bpm:tax_jurisdiction_rule_account_id_f,
+                 bpm:tax_jurisdiction_rule_jurisdiction_code_f,
+                 bpm:tax_jurisdiction_rule_evidence_digest_f,
+                 bpm:tax_jurisdiction_rule_effective_at_f .
+
+bpm:tax_jurisdiction_rule_tax_jurisdiction_rule_id_f a bpm:Field ;
+    bpm:fieldName "tax_jurisdiction_rule_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this tax jurisdiction rule contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:tax_jurisdiction_rule_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:tax_jurisdiction_rule_jurisdiction_code_f a bpm:Field ;
+    bpm:fieldName "jurisdiction_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Admitted tax jurisdiction code for invoice treatment." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:tax_jurisdiction_rule_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:tax_jurisdiction_rule_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/065-minimum_commitment_schedule.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-065 — minimum_commitment_schedule
+bpm:minimum_commitment_schedule_rt a bpm:RecordType ;
+    bpm:recordName "minimum_commitment_schedule" ;
+    bpm:recordDoc "Time-phased minimum-spend commitment." ;
+    bpm:hasField bpm:minimum_commitment_schedule_minimum_commitment_schedule_id_f,
+                 bpm:minimum_commitment_schedule_account_id_f,
+                 bpm:minimum_commitment_schedule_committed_amount_f,
+                 bpm:minimum_commitment_schedule_evidence_digest_f,
+                 bpm:minimum_commitment_schedule_effective_at_f .
+
+bpm:minimum_commitment_schedule_minimum_commitment_schedule_id_f a bpm:Field ;
+    bpm:fieldName "minimum_commitment_schedule_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this minimum commitment schedule contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:minimum_commitment_schedule_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:minimum_commitment_schedule_committed_amount_f a bpm:Field ;
+    bpm:fieldName "committed_amount" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Commercially admitted minimum amount for the schedule window." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:minimum_commitment_schedule_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:minimum_commitment_schedule_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/066-spend_drawdown.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-066 — spend_drawdown
+bpm:spend_drawdown_rt a bpm:RecordType ;
+    bpm:recordName "spend_drawdown" ;
+    bpm:recordDoc "Observed consumption against committed spend." ;
+    bpm:hasField bpm:spend_drawdown_spend_drawdown_id_f,
+                 bpm:spend_drawdown_account_id_f,
+                 bpm:spend_drawdown_consumed_amount_f,
+                 bpm:spend_drawdown_evidence_digest_f,
+                 bpm:spend_drawdown_effective_at_f .
+
+bpm:spend_drawdown_spend_drawdown_id_f a bpm:Field ;
+    bpm:fieldName "spend_drawdown_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this spend drawdown contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:spend_drawdown_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:spend_drawdown_consumed_amount_f a bpm:Field ;
+    bpm:fieldName "consumed_amount" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Amount actually drawn from the committed-spend balance." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:spend_drawdown_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:spend_drawdown_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/067-prepaid_credit_balance.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-067 — prepaid_credit_balance
+bpm:prepaid_credit_balance_rt a bpm:RecordType ;
+    bpm:recordName "prepaid_credit_balance" ;
+    bpm:recordDoc "Receipted prepaid-credit balance." ;
+    bpm:hasField bpm:prepaid_credit_balance_prepaid_credit_balance_id_f,
+                 bpm:prepaid_credit_balance_account_id_f,
+                 bpm:prepaid_credit_balance_remaining_credit_f,
+                 bpm:prepaid_credit_balance_evidence_digest_f,
+                 bpm:prepaid_credit_balance_effective_at_f .
+
+bpm:prepaid_credit_balance_prepaid_credit_balance_id_f a bpm:Field ;
+    bpm:fieldName "prepaid_credit_balance_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this prepaid credit balance contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:prepaid_credit_balance_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:prepaid_credit_balance_remaining_credit_f a bpm:Field ;
+    bpm:fieldName "remaining_credit" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed remaining prepaid credit after admitted usage." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:prepaid_credit_balance_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:prepaid_credit_balance_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/068-credit_expiry_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-068 — credit_expiry_policy
+bpm:credit_expiry_policy_rt a bpm:RecordType ;
+    bpm:recordName "credit_expiry_policy" ;
+    bpm:recordDoc "Deterministic expiration of prepaid commercial credits." ;
+    bpm:hasField bpm:credit_expiry_policy_credit_expiry_policy_id_f,
+                 bpm:credit_expiry_policy_account_id_f,
+                 bpm:credit_expiry_policy_expires_at_f,
+                 bpm:credit_expiry_policy_evidence_digest_f,
+                 bpm:credit_expiry_policy_effective_at_f .
+
+bpm:credit_expiry_policy_credit_expiry_policy_id_f a bpm:Field ;
+    bpm:fieldName "credit_expiry_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this credit expiry policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:credit_expiry_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:credit_expiry_policy_expires_at_f a bpm:Field ;
+    bpm:fieldName "expires_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Exact expiration instant for the admitted credit pool." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:credit_expiry_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:credit_expiry_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/069-burst_pricing_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-069 — burst_pricing_policy
+bpm:burst_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "burst_pricing_policy" ;
+    bpm:recordDoc "Bounded burst-capacity premium." ;
+    bpm:hasField bpm:burst_pricing_policy_burst_pricing_policy_id_f,
+                 bpm:burst_pricing_policy_account_id_f,
+                 bpm:burst_pricing_policy_burst_multiplier_f,
+                 bpm:burst_pricing_policy_evidence_digest_f,
+                 bpm:burst_pricing_policy_effective_at_f .
+
+bpm:burst_pricing_policy_burst_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "burst_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this burst pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:burst_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:burst_pricing_policy_burst_multiplier_f a bpm:Field ;
+    bpm:fieldName "burst_multiplier" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Approved multiplier applied only above the included capacity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:burst_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:burst_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/070-concurrency_pricing_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-070 — concurrency_pricing_policy
+bpm:concurrency_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "concurrency_pricing_policy" ;
+    bpm:recordDoc "Concurrent-workload packaging dimension." ;
+    bpm:hasField bpm:concurrency_pricing_policy_concurrency_pricing_policy_id_f,
+                 bpm:concurrency_pricing_policy_account_id_f,
+                 bpm:concurrency_pricing_policy_included_concurrency_f,
+                 bpm:concurrency_pricing_policy_evidence_digest_f,
+                 bpm:concurrency_pricing_policy_effective_at_f .
+
+bpm:concurrency_pricing_policy_concurrency_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "concurrency_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this concurrency pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:concurrency_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:concurrency_pricing_policy_included_concurrency_f a bpm:Field ;
+    bpm:fieldName "included_concurrency" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Concurrent workload units included in the purchased package." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:concurrency_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:concurrency_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/071-seat_pricing_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-071 — seat_pricing_policy
+bpm:seat_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "seat_pricing_policy" ;
+    bpm:recordDoc "Named-seat enterprise packaging dimension." ;
+    bpm:hasField bpm:seat_pricing_policy_seat_pricing_policy_id_f,
+                 bpm:seat_pricing_policy_account_id_f,
+                 bpm:seat_pricing_policy_seat_price_f,
+                 bpm:seat_pricing_policy_evidence_digest_f,
+                 bpm:seat_pricing_policy_effective_at_f .
+
+bpm:seat_pricing_policy_seat_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "seat_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this seat pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:seat_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:seat_pricing_policy_seat_price_f a bpm:Field ;
+    bpm:fieldName "seat_price" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Admitted unit price for one named enterprise seat." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:seat_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:seat_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/072-data_volume_pricing_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-072 — data_volume_pricing_policy
+bpm:data_volume_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "data_volume_pricing_policy" ;
+    bpm:recordDoc "Data-volume commercial packaging dimension." ;
+    bpm:hasField bpm:data_volume_pricing_policy_data_volume_pricing_policy_id_f,
+                 bpm:data_volume_pricing_policy_account_id_f,
+                 bpm:data_volume_pricing_policy_unit_gb_price_f,
+                 bpm:data_volume_pricing_policy_evidence_digest_f,
+                 bpm:data_volume_pricing_policy_effective_at_f .
+
+bpm:data_volume_pricing_policy_data_volume_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "data_volume_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this data volume pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:data_volume_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:data_volume_pricing_policy_unit_gb_price_f a bpm:Field ;
+    bpm:fieldName "unit_gb_price" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Admitted unit price per processed gigabyte." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:data_volume_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:data_volume_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/073-event_volume_pricing_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-073 — event_volume_pricing_policy
+bpm:event_volume_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "event_volume_pricing_policy" ;
+    bpm:recordDoc "Event-volume commercial packaging dimension." ;
+    bpm:hasField bpm:event_volume_pricing_policy_event_volume_pricing_policy_id_f,
+                 bpm:event_volume_pricing_policy_account_id_f,
+                 bpm:event_volume_pricing_policy_unit_event_price_f,
+                 bpm:event_volume_pricing_policy_evidence_digest_f,
+                 bpm:event_volume_pricing_policy_effective_at_f .
+
+bpm:event_volume_pricing_policy_event_volume_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "event_volume_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this event volume pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:event_volume_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:event_volume_pricing_policy_unit_event_price_f a bpm:Field ;
+    bpm:fieldName "unit_event_price" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Admitted unit price per event billing unit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:event_volume_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:event_volume_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/074-object_volume_pricing_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-074 — object_volume_pricing_policy
+bpm:object_volume_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "object_volume_pricing_policy" ;
+    bpm:recordDoc "Object-volume commercial packaging dimension." ;
+    bpm:hasField bpm:object_volume_pricing_policy_object_volume_pricing_policy_id_f,
+                 bpm:object_volume_pricing_policy_account_id_f,
+                 bpm:object_volume_pricing_policy_unit_object_price_f,
+                 bpm:object_volume_pricing_policy_evidence_digest_f,
+                 bpm:object_volume_pricing_policy_effective_at_f .
+
+bpm:object_volume_pricing_policy_object_volume_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "object_volume_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this object volume pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:object_volume_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:object_volume_pricing_policy_unit_object_price_f a bpm:Field ;
+    bpm:fieldName "unit_object_price" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Admitted unit price per object billing unit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:object_volume_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:object_volume_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/075-process_volume_pricing_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-075 — process_volume_pricing_policy
+bpm:process_volume_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "process_volume_pricing_policy" ;
+    bpm:recordDoc "Process-model commercial packaging dimension." ;
+    bpm:hasField bpm:process_volume_pricing_policy_process_volume_pricing_policy_id_f,
+                 bpm:process_volume_pricing_policy_account_id_f,
+                 bpm:process_volume_pricing_policy_unit_process_price_f,
+                 bpm:process_volume_pricing_policy_evidence_digest_f,
+                 bpm:process_volume_pricing_policy_effective_at_f .
+
+bpm:process_volume_pricing_policy_process_volume_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "process_volume_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this process volume pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:process_volume_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:process_volume_pricing_policy_unit_process_price_f a bpm:Field ;
+    bpm:fieldName "unit_process_price" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Admitted unit price per managed process." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:process_volume_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:process_volume_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/076-environment_pricing_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-076 — environment_pricing_policy
+bpm:environment_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "environment_pricing_policy" ;
+    bpm:recordDoc "Environment-count commercial packaging." ;
+    bpm:hasField bpm:environment_pricing_policy_environment_pricing_policy_id_f,
+                 bpm:environment_pricing_policy_account_id_f,
+                 bpm:environment_pricing_policy_environment_tier_f,
+                 bpm:environment_pricing_policy_evidence_digest_f,
+                 bpm:environment_pricing_policy_effective_at_f .
+
+bpm:environment_pricing_policy_environment_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "environment_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this environment pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:environment_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:environment_pricing_policy_environment_tier_f a bpm:Field ;
+    bpm:fieldName "environment_tier" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Purchased environment tier such as sandbox, nonproduction, or production." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:environment_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:environment_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/077-region_pricing_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-077 — region_pricing_policy
+bpm:region_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "region_pricing_policy" ;
+    bpm:recordDoc "Deployment-region commercial adjustment." ;
+    bpm:hasField bpm:region_pricing_policy_region_pricing_policy_id_f,
+                 bpm:region_pricing_policy_account_id_f,
+                 bpm:region_pricing_policy_region_code_f,
+                 bpm:region_pricing_policy_evidence_digest_f,
+                 bpm:region_pricing_policy_effective_at_f .
+
+bpm:region_pricing_policy_region_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "region_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this region pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:region_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:region_pricing_policy_region_code_f a bpm:Field ;
+    bpm:fieldName "region_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact cloud or sovereign region governed by this price policy." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:region_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:region_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/078-retention_pricing_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-078 — retention_pricing_policy
+bpm:retention_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "retention_pricing_policy" ;
+    bpm:recordDoc "Retention-duration commercial packaging." ;
+    bpm:hasField bpm:retention_pricing_policy_retention_pricing_policy_id_f,
+                 bpm:retention_pricing_policy_account_id_f,
+                 bpm:retention_pricing_policy_retention_days_f,
+                 bpm:retention_pricing_policy_evidence_digest_f,
+                 bpm:retention_pricing_policy_effective_at_f .
+
+bpm:retention_pricing_policy_retention_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "retention_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this retention pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:retention_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:retention_pricing_policy_retention_days_f a bpm:Field ;
+    bpm:fieldName "retention_days" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Purchased evidence and event-data retention period in days." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:retention_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:retention_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/079-premium_connector_pricing.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-079 — premium_connector_pricing
+bpm:premium_connector_pricing_rt a bpm:RecordType ;
+    bpm:recordName "premium_connector_pricing" ;
+    bpm:recordDoc "Paid integration-connector add-on." ;
+    bpm:hasField bpm:premium_connector_pricing_premium_connector_pricing_id_f,
+                 bpm:premium_connector_pricing_account_id_f,
+                 bpm:premium_connector_pricing_connector_id_f,
+                 bpm:premium_connector_pricing_evidence_digest_f,
+                 bpm:premium_connector_pricing_effective_at_f .
+
+bpm:premium_connector_pricing_premium_connector_pricing_id_f a bpm:Field ;
+    bpm:fieldName "premium_connector_pricing_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this premium connector pricing contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:premium_connector_pricing_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:premium_connector_pricing_connector_id_f a bpm:Field ;
+    bpm:fieldName "connector_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of the separately priced connector." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:premium_connector_pricing_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:premium_connector_pricing_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/080-addon_activation.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-080 — addon_activation
+bpm:addon_activation_rt a bpm:RecordType ;
+    bpm:recordName "addon_activation" ;
+    bpm:recordDoc "Receipted activation of a paid add-on." ;
+    bpm:hasField bpm:addon_activation_addon_activation_id_f,
+                 bpm:addon_activation_account_id_f,
+                 bpm:addon_activation_addon_id_f,
+                 bpm:addon_activation_evidence_digest_f,
+                 bpm:addon_activation_effective_at_f .
+
+bpm:addon_activation_addon_activation_id_f a bpm:Field ;
+    bpm:fieldName "addon_activation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this addon activation contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:addon_activation_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:addon_activation_addon_id_f a bpm:Field ;
+    bpm:fieldName "addon_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of the activated commercial add-on." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:addon_activation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:addon_activation_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/081-bundle_dependency.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-081 — bundle_dependency
+bpm:bundle_dependency_rt a bpm:RecordType ;
+    bpm:recordName "bundle_dependency" ;
+    bpm:recordDoc "Required dependency between sellable bundles." ;
+    bpm:hasField bpm:bundle_dependency_bundle_dependency_id_f,
+                 bpm:bundle_dependency_account_id_f,
+                 bpm:bundle_dependency_required_bundle_id_f,
+                 bpm:bundle_dependency_evidence_digest_f,
+                 bpm:bundle_dependency_effective_at_f .
+
+bpm:bundle_dependency_bundle_dependency_id_f a bpm:Field ;
+    bpm:fieldName "bundle_dependency_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this bundle dependency contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:bundle_dependency_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:bundle_dependency_required_bundle_id_f a bpm:Field ;
+    bpm:fieldName "required_bundle_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Bundle that must be entitled before this bundle can activate." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:bundle_dependency_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:bundle_dependency_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/082-bundle_conflict.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-082 — bundle_conflict
+bpm:bundle_conflict_rt a bpm:RecordType ;
+    bpm:recordName "bundle_conflict" ;
+    bpm:recordDoc "Mutual exclusion between incompatible bundles." ;
+    bpm:hasField bpm:bundle_conflict_bundle_conflict_id_f,
+                 bpm:bundle_conflict_account_id_f,
+                 bpm:bundle_conflict_conflicting_bundle_id_f,
+                 bpm:bundle_conflict_evidence_digest_f,
+                 bpm:bundle_conflict_effective_at_f .
+
+bpm:bundle_conflict_bundle_conflict_id_f a bpm:Field ;
+    bpm:fieldName "bundle_conflict_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this bundle conflict contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:bundle_conflict_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:bundle_conflict_conflicting_bundle_id_f a bpm:Field ;
+    bpm:fieldName "conflicting_bundle_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Bundle whose simultaneous activation must be refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:bundle_conflict_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:bundle_conflict_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/083-edition_upgrade_path.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-083 — edition_upgrade_path
+bpm:edition_upgrade_path_rt a bpm:RecordType ;
+    bpm:recordName "edition_upgrade_path" ;
+    bpm:recordDoc "Admitted commercial edition upgrade path." ;
+    bpm:hasField bpm:edition_upgrade_path_edition_upgrade_path_id_f,
+                 bpm:edition_upgrade_path_account_id_f,
+                 bpm:edition_upgrade_path_target_edition_id_f,
+                 bpm:edition_upgrade_path_evidence_digest_f,
+                 bpm:edition_upgrade_path_effective_at_f .
+
+bpm:edition_upgrade_path_edition_upgrade_path_id_f a bpm:Field ;
+    bpm:fieldName "edition_upgrade_path_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this edition upgrade path contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:edition_upgrade_path_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:edition_upgrade_path_target_edition_id_f a bpm:Field ;
+    bpm:fieldName "target_edition_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Edition that may be reached without breaking contract compatibility." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:edition_upgrade_path_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:edition_upgrade_path_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/084-edition_downgrade_path.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-084 — edition_downgrade_path
+bpm:edition_downgrade_path_rt a bpm:RecordType ;
+    bpm:recordName "edition_downgrade_path" ;
+    bpm:recordDoc "Controlled commercial edition downgrade path." ;
+    bpm:hasField bpm:edition_downgrade_path_edition_downgrade_path_id_f,
+                 bpm:edition_downgrade_path_account_id_f,
+                 bpm:edition_downgrade_path_target_edition_id_f,
+                 bpm:edition_downgrade_path_evidence_digest_f,
+                 bpm:edition_downgrade_path_effective_at_f .
+
+bpm:edition_downgrade_path_edition_downgrade_path_id_f a bpm:Field ;
+    bpm:fieldName "edition_downgrade_path_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this edition downgrade path contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:edition_downgrade_path_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:edition_downgrade_path_target_edition_id_f a bpm:Field ;
+    bpm:fieldName "target_edition_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Edition that may be reached after capability-loss admission." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:edition_downgrade_path_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:edition_downgrade_path_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/085-trial_entitlement.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-085 — trial_entitlement
+bpm:trial_entitlement_rt a bpm:RecordType ;
+    bpm:recordName "trial_entitlement" ;
+    bpm:recordDoc "Time-bounded enterprise trial entitlement." ;
+    bpm:hasField bpm:trial_entitlement_trial_entitlement_id_f,
+                 bpm:trial_entitlement_account_id_f,
+                 bpm:trial_entitlement_trial_expires_at_f,
+                 bpm:trial_entitlement_evidence_digest_f,
+                 bpm:trial_entitlement_effective_at_f .
+
+bpm:trial_entitlement_trial_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "trial_entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this trial entitlement contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:trial_entitlement_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:trial_entitlement_trial_expires_at_f a bpm:Field ;
+    bpm:fieldName "trial_expires_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Exact instant at which trial capability must be refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:trial_entitlement_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:trial_entitlement_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/086-proof_of_value_package.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-086 — proof_of_value_package
+bpm:proof_of_value_package_rt a bpm:RecordType ;
+    bpm:recordName "proof_of_value_package" ;
+    bpm:recordDoc "Paid proof-of-value package with measurable exit criterion." ;
+    bpm:hasField bpm:proof_of_value_package_proof_of_value_package_id_f,
+                 bpm:proof_of_value_package_account_id_f,
+                 bpm:proof_of_value_package_success_metric_f,
+                 bpm:proof_of_value_package_evidence_digest_f,
+                 bpm:proof_of_value_package_effective_at_f .
+
+bpm:proof_of_value_package_proof_of_value_package_id_f a bpm:Field ;
+    bpm:fieldName "proof_of_value_package_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this proof of value package contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:proof_of_value_package_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:proof_of_value_package_success_metric_f a bpm:Field ;
+    bpm:fieldName "success_metric" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Canonical metric that determines proof-of-value acceptance." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:proof_of_value_package_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:proof_of_value_package_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/087-sandbox_entitlement.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-087 — sandbox_entitlement
+bpm:sandbox_entitlement_rt a bpm:RecordType ;
+    bpm:recordName "sandbox_entitlement" ;
+    bpm:recordDoc "Nonproduction sandbox entitlement with a hard ceiling." ;
+    bpm:hasField bpm:sandbox_entitlement_sandbox_entitlement_id_f,
+                 bpm:sandbox_entitlement_account_id_f,
+                 bpm:sandbox_entitlement_sandbox_limit_f,
+                 bpm:sandbox_entitlement_evidence_digest_f,
+                 bpm:sandbox_entitlement_effective_at_f .
+
+bpm:sandbox_entitlement_sandbox_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "sandbox_entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this sandbox entitlement contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:sandbox_entitlement_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:sandbox_entitlement_sandbox_limit_f a bpm:Field ;
+    bpm:fieldName "sandbox_limit" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Maximum purchased sandbox environments." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:sandbox_entitlement_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:sandbox_entitlement_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/088-nonproduction_discount_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-088 — nonproduction_discount_policy
+bpm:nonproduction_discount_policy_rt a bpm:RecordType ;
+    bpm:recordName "nonproduction_discount_policy" ;
+    bpm:recordDoc "Explicit discount for nonproduction capacity." ;
+    bpm:hasField bpm:nonproduction_discount_policy_nonproduction_discount_policy_id_f,
+                 bpm:nonproduction_discount_policy_account_id_f,
+                 bpm:nonproduction_discount_policy_discount_percent_f,
+                 bpm:nonproduction_discount_policy_evidence_digest_f,
+                 bpm:nonproduction_discount_policy_effective_at_f .
+
+bpm:nonproduction_discount_policy_nonproduction_discount_policy_id_f a bpm:Field ;
+    bpm:fieldName "nonproduction_discount_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this nonproduction discount policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:nonproduction_discount_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:nonproduction_discount_policy_discount_percent_f a bpm:Field ;
+    bpm:fieldName "discount_percent" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Approved nonproduction discount percentage." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:nonproduction_discount_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:nonproduction_discount_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/089-enterprise_agreement.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-089 — enterprise_agreement
+bpm:enterprise_agreement_rt a bpm:RecordType ;
+    bpm:recordName "enterprise_agreement" ;
+    bpm:recordDoc "Enterprise commercial umbrella agreement." ;
+    bpm:hasField bpm:enterprise_agreement_enterprise_agreement_id_f,
+                 bpm:enterprise_agreement_account_id_f,
+                 bpm:enterprise_agreement_agreement_version_f,
+                 bpm:enterprise_agreement_evidence_digest_f,
+                 bpm:enterprise_agreement_effective_at_f .
+
+bpm:enterprise_agreement_enterprise_agreement_id_f a bpm:Field ;
+    bpm:fieldName "enterprise_agreement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this enterprise agreement contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:enterprise_agreement_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:enterprise_agreement_agreement_version_f a bpm:Field ;
+    bpm:fieldName "agreement_version" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable semantic version of the governing agreement." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:enterprise_agreement_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:enterprise_agreement_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/090-master_service_agreement_binding.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-090 — master_service_agreement_binding
+bpm:master_service_agreement_binding_rt a bpm:RecordType ;
+    bpm:recordName "master_service_agreement_binding" ;
+    bpm:recordDoc "Exact MSA binding for an order." ;
+    bpm:hasField bpm:master_service_agreement_binding_master_service_agreement_binding_id_f,
+                 bpm:master_service_agreement_binding_account_id_f,
+                 bpm:master_service_agreement_binding_msa_digest_f,
+                 bpm:master_service_agreement_binding_evidence_digest_f,
+                 bpm:master_service_agreement_binding_effective_at_f .
+
+bpm:master_service_agreement_binding_master_service_agreement_binding_id_f a bpm:Field ;
+    bpm:fieldName "master_service_agreement_binding_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this master service agreement binding contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:master_service_agreement_binding_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:master_service_agreement_binding_msa_digest_f a bpm:Field ;
+    bpm:fieldName "msa_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content digest of the governing master service agreement." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:master_service_agreement_binding_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:master_service_agreement_binding_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/091-order_form_version.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-091 — order_form_version
+bpm:order_form_version_rt a bpm:RecordType ;
+    bpm:recordName "order_form_version" ;
+    bpm:recordDoc "Immutable commercial order-form version." ;
+    bpm:hasField bpm:order_form_version_order_form_version_id_f,
+                 bpm:order_form_version_account_id_f,
+                 bpm:order_form_version_order_form_digest_f,
+                 bpm:order_form_version_evidence_digest_f,
+                 bpm:order_form_version_effective_at_f .
+
+bpm:order_form_version_order_form_version_id_f a bpm:Field ;
+    bpm:fieldName "order_form_version_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this order form version contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:order_form_version_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:order_form_version_order_form_digest_f a bpm:Field ;
+    bpm:fieldName "order_form_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Content digest of the accepted order form." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:order_form_version_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:order_form_version_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/092-co_term_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-092 — co_term_policy
+bpm:co_term_policy_rt a bpm:RecordType ;
+    bpm:recordName "co_term_policy" ;
+    bpm:recordDoc "Co-termination policy for expansion purchases." ;
+    bpm:hasField bpm:co_term_policy_co_term_policy_id_f,
+                 bpm:co_term_policy_account_id_f,
+                 bpm:co_term_policy_coterm_date_f,
+                 bpm:co_term_policy_evidence_digest_f,
+                 bpm:co_term_policy_effective_at_f .
+
+bpm:co_term_policy_co_term_policy_id_f a bpm:Field ;
+    bpm:fieldName "co_term_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this co term policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:co_term_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:co_term_policy_coterm_date_f a bpm:Field ;
+    bpm:fieldName "coterm_date" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Contract end instant to which the expansion is aligned." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:co_term_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:co_term_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/093-proration_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-093 — proration_policy
+bpm:proration_policy_rt a bpm:RecordType ;
+    bpm:recordName "proration_policy" ;
+    bpm:recordDoc "Deterministic mid-term proration policy." ;
+    bpm:hasField bpm:proration_policy_proration_policy_id_f,
+                 bpm:proration_policy_account_id_f,
+                 bpm:proration_policy_proration_method_f,
+                 bpm:proration_policy_evidence_digest_f,
+                 bpm:proration_policy_effective_at_f .
+
+bpm:proration_policy_proration_policy_id_f a bpm:Field ;
+    bpm:fieldName "proration_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this proration policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:proration_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:proration_policy_proration_method_f a bpm:Field ;
+    bpm:fieldName "proration_method" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Admitted algorithm identity for partial-period charges." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:proration_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:proration_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/094-cancellation_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-094 — cancellation_policy
+bpm:cancellation_policy_rt a bpm:RecordType ;
+    bpm:recordName "cancellation_policy" ;
+    bpm:recordDoc "Contractual cancellation and notice policy." ;
+    bpm:hasField bpm:cancellation_policy_cancellation_policy_id_f,
+                 bpm:cancellation_policy_account_id_f,
+                 bpm:cancellation_policy_notice_days_f,
+                 bpm:cancellation_policy_evidence_digest_f,
+                 bpm:cancellation_policy_effective_at_f .
+
+bpm:cancellation_policy_cancellation_policy_id_f a bpm:Field ;
+    bpm:fieldName "cancellation_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this cancellation policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:cancellation_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:cancellation_policy_notice_days_f a bpm:Field ;
+    bpm:fieldName "notice_days" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Required cancellation notice period in days." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:cancellation_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:cancellation_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/095-refund_policy.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-095 — refund_policy
+bpm:refund_policy_rt a bpm:RecordType ;
+    bpm:recordName "refund_policy" ;
+    bpm:recordDoc "Deterministic refund eligibility policy." ;
+    bpm:hasField bpm:refund_policy_refund_policy_id_f,
+                 bpm:refund_policy_account_id_f,
+                 bpm:refund_policy_refund_method_f,
+                 bpm:refund_policy_evidence_digest_f,
+                 bpm:refund_policy_effective_at_f .
+
+bpm:refund_policy_refund_policy_id_f a bpm:Field ;
+    bpm:fieldName "refund_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this refund policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:refund_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:refund_policy_refund_method_f a bpm:Field ;
+    bpm:fieldName "refund_method" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Admitted method used to calculate a refund." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:refund_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:refund_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/096-service_credit_ledger.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-096 — service_credit_ledger
+bpm:service_credit_ledger_rt a bpm:RecordType ;
+    bpm:recordName "service_credit_ledger" ;
+    bpm:recordDoc "Auditable customer service-credit balance." ;
+    bpm:hasField bpm:service_credit_ledger_service_credit_ledger_id_f,
+                 bpm:service_credit_ledger_account_id_f,
+                 bpm:service_credit_ledger_credit_amount_f,
+                 bpm:service_credit_ledger_evidence_digest_f,
+                 bpm:service_credit_ledger_effective_at_f .
+
+bpm:service_credit_ledger_service_credit_ledger_id_f a bpm:Field ;
+    bpm:fieldName "service_credit_ledger_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this service credit ledger contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:service_credit_ledger_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:service_credit_ledger_credit_amount_f a bpm:Field ;
+    bpm:fieldName "credit_amount" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed service-credit amount after an admitted SLO consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:service_credit_ledger_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:service_credit_ledger_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/097-invoice_line_item.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-097 — invoice_line_item
+bpm:invoice_line_item_rt a bpm:RecordType ;
+    bpm:recordName "invoice_line_item" ;
+    bpm:recordDoc "Auditable commercial invoice line." ;
+    bpm:hasField bpm:invoice_line_item_invoice_line_item_id_f,
+                 bpm:invoice_line_item_account_id_f,
+                 bpm:invoice_line_item_line_amount_f,
+                 bpm:invoice_line_item_evidence_digest_f,
+                 bpm:invoice_line_item_effective_at_f .
+
+bpm:invoice_line_item_invoice_line_item_id_f a bpm:Field ;
+    bpm:fieldName "invoice_line_item_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this invoice line item contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:invoice_line_item_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:invoice_line_item_line_amount_f a bpm:Field ;
+    bpm:fieldName "line_amount" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed amount for this exact invoice line." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:invoice_line_item_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:invoice_line_item_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/098-usage_aggregation_window.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-098 — usage_aggregation_window
+bpm:usage_aggregation_window_rt a bpm:RecordType ;
+    bpm:recordName "usage_aggregation_window" ;
+    bpm:recordDoc "Deterministic usage aggregation window." ;
+    bpm:hasField bpm:usage_aggregation_window_usage_aggregation_window_id_f,
+                 bpm:usage_aggregation_window_account_id_f,
+                 bpm:usage_aggregation_window_window_seconds_f,
+                 bpm:usage_aggregation_window_evidence_digest_f,
+                 bpm:usage_aggregation_window_effective_at_f .
+
+bpm:usage_aggregation_window_usage_aggregation_window_id_f a bpm:Field ;
+    bpm:fieldName "usage_aggregation_window_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this usage aggregation window contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:usage_aggregation_window_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:usage_aggregation_window_window_seconds_f a bpm:Field ;
+    bpm:fieldName "window_seconds" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Exact billing aggregation window in seconds." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:usage_aggregation_window_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:usage_aggregation_window_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/099-usage_correction.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-099 — usage_correction
+bpm:usage_correction_rt a bpm:RecordType ;
+    bpm:recordName "usage_correction" ;
+    bpm:recordDoc "Receipted correction to previously reported usage." ;
+    bpm:hasField bpm:usage_correction_usage_correction_id_f,
+                 bpm:usage_correction_account_id_f,
+                 bpm:usage_correction_corrected_quantity_f,
+                 bpm:usage_correction_evidence_digest_f,
+                 bpm:usage_correction_effective_at_f .
+
+bpm:usage_correction_usage_correction_id_f a bpm:Field ;
+    bpm:fieldName "usage_correction_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this usage correction contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:usage_correction_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:usage_correction_corrected_quantity_f a bpm:Field ;
+    bpm:fieldName "corrected_quantity" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Replacement usage quantity bound to correction evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:usage_correction_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:usage_correction_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/100-late_arriving_usage.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-100 — late_arriving_usage
+bpm:late_arriving_usage_rt a bpm:RecordType ;
+    bpm:recordName "late_arriving_usage" ;
+    bpm:recordDoc "Admission of usage received after its billing window." ;
+    bpm:hasField bpm:late_arriving_usage_late_arriving_usage_id_f,
+                 bpm:late_arriving_usage_account_id_f,
+                 bpm:late_arriving_usage_occurred_at_f,
+                 bpm:late_arriving_usage_evidence_digest_f,
+                 bpm:late_arriving_usage_effective_at_f .
+
+bpm:late_arriving_usage_late_arriving_usage_id_f a bpm:Field ;
+    bpm:fieldName "late_arriving_usage_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this late arriving usage contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:late_arriving_usage_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:late_arriving_usage_occurred_at_f a bpm:Field ;
+    bpm:fieldName "occurred_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Original occurrence instant for the delayed usage." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:late_arriving_usage_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:late_arriving_usage_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/101-meter_definition.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-101 — meter_definition
+bpm:meter_definition_rt a bpm:RecordType ;
+    bpm:recordName "meter_definition" ;
+    bpm:recordDoc "Immutable billable-meter definition." ;
+    bpm:hasField bpm:meter_definition_meter_definition_id_f,
+                 bpm:meter_definition_account_id_f,
+                 bpm:meter_definition_meter_name_f,
+                 bpm:meter_definition_evidence_digest_f,
+                 bpm:meter_definition_effective_at_f .
+
+bpm:meter_definition_meter_definition_id_f a bpm:Field ;
+    bpm:fieldName "meter_definition_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this meter definition contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:meter_definition_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:meter_definition_meter_name_f a bpm:Field ;
+    bpm:fieldName "meter_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable buyer-visible identity of the commercial meter." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:meter_definition_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:meter_definition_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/102-meter_dimension.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-102 — meter_dimension
+bpm:meter_dimension_rt a bpm:RecordType ;
+    bpm:recordName "meter_dimension" ;
+    bpm:recordDoc "Typed dimension attached to a commercial meter." ;
+    bpm:hasField bpm:meter_dimension_meter_dimension_id_f,
+                 bpm:meter_dimension_account_id_f,
+                 bpm:meter_dimension_dimension_name_f,
+                 bpm:meter_dimension_evidence_digest_f,
+                 bpm:meter_dimension_effective_at_f .
+
+bpm:meter_dimension_meter_dimension_id_f a bpm:Field ;
+    bpm:fieldName "meter_dimension_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this meter dimension contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:meter_dimension_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:meter_dimension_dimension_name_f a bpm:Field ;
+    bpm:fieldName "dimension_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable dimension identity used for pricing and reporting." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:meter_dimension_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:meter_dimension_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/103-meter_rollup.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-103 — meter_rollup
+bpm:meter_rollup_rt a bpm:RecordType ;
+    bpm:recordName "meter_rollup" ;
+    bpm:recordDoc "Deterministic rollup policy for metered observations." ;
+    bpm:hasField bpm:meter_rollup_meter_rollup_id_f,
+                 bpm:meter_rollup_account_id_f,
+                 bpm:meter_rollup_rollup_function_f,
+                 bpm:meter_rollup_evidence_digest_f,
+                 bpm:meter_rollup_effective_at_f .
+
+bpm:meter_rollup_meter_rollup_id_f a bpm:Field ;
+    bpm:fieldName "meter_rollup_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this meter rollup contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:meter_rollup_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:meter_rollup_rollup_function_f a bpm:Field ;
+    bpm:fieldName "rollup_function" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Admitted aggregation function identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:meter_rollup_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:meter_rollup_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/104-quota_burst_allowance.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-104 — quota_burst_allowance
+bpm:quota_burst_allowance_rt a bpm:RecordType ;
+    bpm:recordName "quota_burst_allowance" ;
+    bpm:recordDoc "Purchased temporary quota burst allowance." ;
+    bpm:hasField bpm:quota_burst_allowance_quota_burst_allowance_id_f,
+                 bpm:quota_burst_allowance_account_id_f,
+                 bpm:quota_burst_allowance_burst_units_f,
+                 bpm:quota_burst_allowance_evidence_digest_f,
+                 bpm:quota_burst_allowance_effective_at_f .
+
+bpm:quota_burst_allowance_quota_burst_allowance_id_f a bpm:Field ;
+    bpm:fieldName "quota_burst_allowance_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this quota burst allowance contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:quota_burst_allowance_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:quota_burst_allowance_burst_units_f a bpm:Field ;
+    bpm:fieldName "burst_units" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Additional units admitted above the contracted quota." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:quota_burst_allowance_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:quota_burst_allowance_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/105-quota_override.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-105 — quota_override
+bpm:quota_override_rt a bpm:RecordType ;
+    bpm:recordName "quota_override" ;
+    bpm:recordDoc "Explicitly authorized quota override." ;
+    bpm:hasField bpm:quota_override_quota_override_id_f,
+                 bpm:quota_override_account_id_f,
+                 bpm:quota_override_override_units_f,
+                 bpm:quota_override_evidence_digest_f,
+                 bpm:quota_override_effective_at_f .
+
+bpm:quota_override_quota_override_id_f a bpm:Field ;
+    bpm:fieldName "quota_override_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this quota override contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:quota_override_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:quota_override_override_units_f a bpm:Field ;
+    bpm:fieldName "override_units" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Authorized replacement quota for the bounded window." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:quota_override_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:quota_override_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/106-overage_invoice.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-106 — overage_invoice
+bpm:overage_invoice_rt a bpm:RecordType ;
+    bpm:recordName "overage_invoice" ;
+    bpm:recordDoc "Invoice consequence for measured overage." ;
+    bpm:hasField bpm:overage_invoice_overage_invoice_id_f,
+                 bpm:overage_invoice_account_id_f,
+                 bpm:overage_invoice_overage_amount_f,
+                 bpm:overage_invoice_evidence_digest_f,
+                 bpm:overage_invoice_effective_at_f .
+
+bpm:overage_invoice_overage_invoice_id_f a bpm:Field ;
+    bpm:fieldName "overage_invoice_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this overage invoice contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:overage_invoice_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:overage_invoice_overage_amount_f a bpm:Field ;
+    bpm:fieldName "overage_amount" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed overage amount after admitted aggregation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:overage_invoice_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:overage_invoice_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/107-cost_center_allocation.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-107 — cost_center_allocation
+bpm:cost_center_allocation_rt a bpm:RecordType ;
+    bpm:recordName "cost_center_allocation" ;
+    bpm:recordDoc "Chargeback allocation to an enterprise cost center." ;
+    bpm:hasField bpm:cost_center_allocation_cost_center_allocation_id_f,
+                 bpm:cost_center_allocation_account_id_f,
+                 bpm:cost_center_allocation_cost_center_id_f,
+                 bpm:cost_center_allocation_evidence_digest_f,
+                 bpm:cost_center_allocation_effective_at_f .
+
+bpm:cost_center_allocation_cost_center_allocation_id_f a bpm:Field ;
+    bpm:fieldName "cost_center_allocation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this cost center allocation contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:cost_center_allocation_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:cost_center_allocation_cost_center_id_f a bpm:Field ;
+    bpm:fieldName "cost_center_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of the charged cost center." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:cost_center_allocation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:cost_center_allocation_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/108-business_unit_allocation.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-108 — business_unit_allocation
+bpm:business_unit_allocation_rt a bpm:RecordType ;
+    bpm:recordName "business_unit_allocation" ;
+    bpm:recordDoc "Showback allocation to an enterprise business unit." ;
+    bpm:hasField bpm:business_unit_allocation_business_unit_allocation_id_f,
+                 bpm:business_unit_allocation_account_id_f,
+                 bpm:business_unit_allocation_business_unit_id_f,
+                 bpm:business_unit_allocation_evidence_digest_f,
+                 bpm:business_unit_allocation_effective_at_f .
+
+bpm:business_unit_allocation_business_unit_allocation_id_f a bpm:Field ;
+    bpm:fieldName "business_unit_allocation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this business unit allocation contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:business_unit_allocation_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:business_unit_allocation_business_unit_id_f a bpm:Field ;
+    bpm:fieldName "business_unit_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of the receiving business unit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:business_unit_allocation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:business_unit_allocation_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# source-fragment: ontology/ws2-revenue-expansion/109-unit_economics_snapshot.ttl
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-109 — unit_economics_snapshot
+bpm:unit_economics_snapshot_rt a bpm:RecordType ;
+    bpm:recordName "unit_economics_snapshot" ;
+    bpm:recordDoc "Evidence-bound gross-margin snapshot." ;
+    bpm:hasField bpm:unit_economics_snapshot_unit_economics_snapshot_id_f,
+                 bpm:unit_economics_snapshot_account_id_f,
+                 bpm:unit_economics_snapshot_gross_margin_f,
+                 bpm:unit_economics_snapshot_evidence_digest_f,
+                 bpm:unit_economics_snapshot_effective_at_f .
+
+bpm:unit_economics_snapshot_unit_economics_snapshot_id_f a bpm:Field ;
+    bpm:fieldName "unit_economics_snapshot_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this unit economics snapshot contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:unit_economics_snapshot_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:unit_economics_snapshot_gross_margin_f a bpm:Field ;
+    bpm:fieldName "gross_margin" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed gross margin derived from admitted revenue and cost evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:unit_economics_snapshot_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:unit_economics_snapshot_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .

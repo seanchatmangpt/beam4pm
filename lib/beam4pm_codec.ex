@@ -68,6 +68,16 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.AddonActivation{} = r) do
+    to_known_map([
+      {"addon_activation_id", r.addon_activation_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"addon_id", r.addon_id, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.AdoptionMilestone{} = r) do
     to_known_map([
       {"adoption_milestone_id", r.adoption_milestone_id, :passthrough},
@@ -221,12 +231,52 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.BundleConflict{} = r) do
+    to_known_map([
+      {"bundle_conflict_id", r.bundle_conflict_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"conflicting_bundle_id", r.conflicting_bundle_id, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.BundleDependency{} = r) do
+    to_known_map([
+      {"bundle_dependency_id", r.bundle_dependency_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"required_bundle_id", r.required_bundle_id, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.BurstPricingPolicy{} = r) do
+    to_known_map([
+      {"burst_pricing_policy_id", r.burst_pricing_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"burst_multiplier", r.burst_multiplier, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.BusinessContinuityEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
       {"subject_sha", r.subject_sha, :passthrough},
       {"continuity_mode", r.continuity_mode, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.BusinessUnitAllocation{} = r) do
+    to_known_map([
+      {"business_unit_allocation_id", r.business_unit_allocation_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"business_unit_id", r.business_unit_id, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -256,6 +306,16 @@ defmodule BeamPM.Codec do
       {"subject_sha", r.subject_sha, :passthrough},
       {"canary_percentage", r.canary_percentage, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CancellationPolicy{} = r) do
+    to_known_map([
+      {"cancellation_policy_id", r.cancellation_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"notice_days", r.notice_days, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -327,6 +387,16 @@ defmodule BeamPM.Codec do
       {"cost_center", r.cost_center, :passthrough},
       {"metric_name", r.metric_name, :passthrough},
       {"rate", r.rate, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CoTermPolicy{} = r) do
+    to_known_map([
+      {"co_term_policy_id", r.co_term_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"coterm_date", r.coterm_date, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -437,6 +507,16 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ConcurrencyPricingPolicy{} = r) do
+    to_known_map([
+      {"concurrency_pricing_policy_id", r.concurrency_pricing_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"included_concurrency", r.included_concurrency, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ConfigurationExport{} = r) do
     to_known_map([
       {"export_id", r.export_id, :passthrough},
@@ -489,6 +569,26 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.CostCenterAllocation{} = r) do
+    to_known_map([
+      {"cost_center_allocation_id", r.cost_center_allocation_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"cost_center_id", r.cost_center_id, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CreditExpiryPolicy{} = r) do
+    to_known_map([
+      {"credit_expiry_policy_id", r.credit_expiry_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"expires_at", r.expires_at, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.CreditRiskAdmission{} = r) do
     to_known_map([
       {"account_id", r.account_id, :passthrough},
@@ -504,6 +604,16 @@ defmodule BeamPM.Codec do
       {"cross_sell_score", r.cross_sell_score, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CurrencyPolicy{} = r) do
+    to_known_map([
+      {"currency_policy_id", r.currency_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"currency_code", r.currency_code, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -567,6 +677,16 @@ defmodule BeamPM.Codec do
       {"tenant_id", r.tenant_id, :passthrough},
       {"allowed_regions", r.allowed_regions, :passthrough},
       {"status", r.status, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.DataVolumePricingPolicy{} = r) do
+    to_known_map([
+      {"data_volume_pricing_policy_id", r.data_volume_pricing_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"unit_gb_price", r.unit_gb_price, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -680,6 +800,36 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.EditionDowngradePath{} = r) do
+    to_known_map([
+      {"edition_downgrade_path_id", r.edition_downgrade_path_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"target_edition_id", r.target_edition_id, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.EditionUpgradePath{} = r) do
+    to_known_map([
+      {"edition_upgrade_path_id", r.edition_upgrade_path_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"target_edition_id", r.target_edition_id, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.EnterpriseAgreement{} = r) do
+    to_known_map([
+      {"enterprise_agreement_id", r.enterprise_agreement_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"agreement_version", r.agreement_version, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.EnterpriseOrder{} = r) do
     to_known_map([
       {"order_id", r.order_id, :passthrough},
@@ -744,6 +894,16 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.EnvironmentPricingPolicy{} = r) do
+    to_known_map([
+      {"environment_pricing_policy_id", r.environment_pricing_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"environment_tier", r.environment_tier, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.EnvironmentProfile{} = r) do
     to_known_map([
       {"profile_id", r.profile_id, :passthrough},
@@ -765,6 +925,16 @@ defmodule BeamPM.Codec do
     to_known_map([
       {"type_name", r.type_name, :passthrough},
       {"attribute_names", r.attribute_names, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.EventVolumePricingPolicy{} = r) do
+    to_known_map([
+      {"event_volume_pricing_policy_id", r.event_volume_pricing_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"unit_event_price", r.unit_event_price, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -852,6 +1022,16 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.FxConversionPolicy{} = r) do
+    to_known_map([
+      {"fx_conversion_policy_id", r.fx_conversion_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"rate_source", r.rate_source, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.HeuristicArc{} = r) do
     to_known_map([
       {"source_activity", r.source_activity, :passthrough},
@@ -919,6 +1099,16 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.InvoiceLineItem{} = r) do
+    to_known_map([
+      {"invoice_line_item_id", r.invoice_line_item_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"line_amount", r.line_amount, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.InvoiceSchedule{} = r) do
     to_known_map([
       {"schedule_id", r.schedule_id, :passthrough},
@@ -933,6 +1123,16 @@ defmodule BeamPM.Codec do
       {"kind", r.kind, :passthrough},
       {"name", r.name, :passthrough},
       {"namespace", r.namespace, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.LateArrivingUsage{} = r) do
+    to_known_map([
+      {"late_arriving_usage_id", r.late_arriving_usage_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"occurred_at", r.occurred_at, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -977,11 +1177,51 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.MasterServiceAgreementBinding{} = r) do
+    to_known_map([
+      {"master_service_agreement_binding_id", r.master_service_agreement_binding_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"msa_digest", r.msa_digest, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.MasterServiceAgreementState{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
       {"agreement_id", r.agreement_id, :passthrough},
       {"agreement_state", r.agreement_state, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.MeterDefinition{} = r) do
+    to_known_map([
+      {"meter_definition_id", r.meter_definition_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"meter_name", r.meter_name, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.MeterDimension{} = r) do
+    to_known_map([
+      {"meter_dimension_id", r.meter_dimension_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"dimension_name", r.dimension_name, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.MeterRollup{} = r) do
+    to_known_map([
+      {"meter_rollup_id", r.meter_rollup_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"rollup_function", r.rollup_function, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -1001,6 +1241,16 @@ defmodule BeamPM.Codec do
       {"migration_effort_days", r.migration_effort_days, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.MinimumCommitmentSchedule{} = r) do
+    to_known_map([
+      {"minimum_commitment_schedule_id", r.minimum_commitment_schedule_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"committed_amount", r.committed_amount, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -1030,6 +1280,16 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.NonproductionDiscountPolicy{} = r) do
+    to_known_map([
+      {"nonproduction_discount_policy_id", r.nonproduction_discount_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"discount_percent", r.discount_percent, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ObjectAttributeChange{} = r) do
     to_known_map([
       {"object_id", r.object_id, :passthrough},
@@ -1044,6 +1304,16 @@ defmodule BeamPM.Codec do
     to_known_map([
       {"type_name", r.type_name, :passthrough},
       {"attribute_names", r.attribute_names, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ObjectVolumePricingPolicy{} = r) do
+    to_known_map([
+      {"object_volume_pricing_policy_id", r.object_volume_pricing_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"unit_object_price", r.unit_object_price, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -1157,6 +1427,26 @@ defmodule BeamPM.Codec do
       {"opportunity_id", r.opportunity_id, :passthrough},
       {"order_form_id", r.order_form_id, :passthrough},
       {"decision", r.decision, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.OrderFormVersion{} = r) do
+    to_known_map([
+      {"order_form_version_id", r.order_form_version_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"order_form_digest", r.order_form_digest, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.OverageInvoice{} = r) do
+    to_known_map([
+      {"overage_invoice_id", r.overage_invoice_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"overage_amount", r.overage_amount, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -1297,6 +1587,36 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.PremiumConnectorPricing{} = r) do
+    to_known_map([
+      {"premium_connector_pricing_id", r.premium_connector_pricing_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"connector_id", r.connector_id, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PrepaidCreditBalance{} = r) do
+    to_known_map([
+      {"prepaid_credit_balance_id", r.prepaid_credit_balance_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"remaining_credit", r.remaining_credit, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PriceBookVersion{} = r) do
+    to_known_map([
+      {"price_book_version_id", r.price_book_version_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"version", r.version, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.PricingBasisContract{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -1337,6 +1657,16 @@ defmodule BeamPM.Codec do
       {"variant_id", r.variant_id, :passthrough},
       {"activity_sequence", r.activity_sequence, :passthrough},
       {"frequency", r.frequency, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ProcessVolumePricingPolicy{} = r) do
+    to_known_map([
+      {"process_volume_pricing_policy_id", r.process_volume_pricing_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"unit_process_price", r.unit_process_price, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -1401,6 +1731,26 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ProofOfValuePackage{} = r) do
+    to_known_map([
+      {"proof_of_value_package_id", r.proof_of_value_package_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"success_metric", r.success_metric, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ProrationPolicy{} = r) do
+    to_known_map([
+      {"proration_policy_id", r.proration_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"proration_method", r.proration_method, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ProvenanceBindingEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -1443,6 +1793,26 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.QuotaBurstAllowance{} = r) do
+    to_known_map([
+      {"quota_burst_allowance_id", r.quota_burst_allowance_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"burst_units", r.burst_units, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.QuotaOverride{} = r) do
+    to_known_map([
+      {"quota_override_id", r.quota_override_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"override_units", r.override_units, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.QuotaPolicy{} = r) do
     to_known_map([
       {"quota_id", r.quota_id, :passthrough},
@@ -1457,6 +1827,16 @@ defmodule BeamPM.Codec do
       {"ramp_id", r.ramp_id, :passthrough},
       {"phase", r.phase, :passthrough},
       {"committed_amount", r.committed_amount, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RateCardEntry{} = r) do
+    to_known_map([
+      {"rate_card_entry_id", r.rate_card_entry_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"unit_price", r.unit_price, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
       {"effective_at", r.effective_at, :passthrough}
     ])
   end
@@ -1477,6 +1857,26 @@ defmodule BeamPM.Codec do
       {"recovery_time_hours", r.recovery_time_hours, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RefundPolicy{} = r) do
+    to_known_map([
+      {"refund_policy_id", r.refund_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"refund_method", r.refund_method, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RegionPricingPolicy{} = r) do
+    to_known_map([
+      {"region_pricing_policy_id", r.region_pricing_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"region_code", r.region_code, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -1580,6 +1980,16 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.RetentionPricingPolicy{} = r) do
+    to_known_map([
+      {"retention_pricing_policy_id", r.retention_pricing_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"retention_days", r.retention_days, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.RevenueAttribution{} = r) do
     to_known_map([
       {"revenue_attribution_id", r.revenue_attribution_id, :passthrough},
@@ -1642,12 +2052,32 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.SandboxEntitlement{} = r) do
+    to_known_map([
+      {"sandbox_entitlement_id", r.sandbox_entitlement_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"sandbox_limit", r.sandbox_limit, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.SbomInventoryEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
       {"subject_sha", r.subject_sha, :passthrough},
       {"component_count", r.component_count, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.SeatPricingPolicy{} = r) do
+    to_known_map([
+      {"seat_pricing_policy_id", r.seat_pricing_policy_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"seat_price", r.seat_price, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -1700,6 +2130,16 @@ defmodule BeamPM.Codec do
       {"opportunity_id", r.opportunity_id, :passthrough},
       {"service_credit_id", r.service_credit_id, :passthrough},
       {"decision", r.decision, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ServiceCreditLedger{} = r) do
+    to_known_map([
+      {"service_credit_ledger_id", r.service_credit_ledger_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"credit_amount", r.credit_amount, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -1771,6 +2211,16 @@ defmodule BeamPM.Codec do
       {"fit_score", r.fit_score, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.SpendDrawdown{} = r) do
+    to_known_map([
+      {"spend_drawdown_id", r.spend_drawdown_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"consumed_amount", r.consumed_amount, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -1883,6 +2333,16 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.TaxJurisdictionRule{} = r) do
+    to_known_map([
+      {"tax_jurisdiction_rule_id", r.tax_jurisdiction_rule_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"jurisdiction_code", r.jurisdiction_code, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.TechnicalBlocker{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -1954,6 +2414,16 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.TrialEntitlement{} = r) do
+    to_known_map([
+      {"trial_entitlement_id", r.trial_entitlement_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"trial_expires_at", r.trial_expires_at, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.TrueUpPolicy{} = r) do
     to_known_map([
       {"policy_id", r.policy_id, :passthrough},
@@ -1969,6 +2439,16 @@ defmodule BeamPM.Codec do
       {"target_type", r.target_type, :passthrough},
       {"qualifier", r.qualifier, :passthrough},
       {"direction", r.direction, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.UnitEconomicsSnapshot{} = r) do
+    to_known_map([
+      {"unit_economics_snapshot_id", r.unit_economics_snapshot_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"gross_margin", r.gross_margin, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -1997,6 +2477,26 @@ defmodule BeamPM.Codec do
       {"upsell_score", r.upsell_score, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.UsageAggregationWindow{} = r) do
+    to_known_map([
+      {"usage_aggregation_window_id", r.usage_aggregation_window_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"window_seconds", r.window_seconds, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.UsageCorrection{} = r) do
+    to_known_map([
+      {"usage_correction_id", r.usage_correction_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"corrected_quantity", r.corrected_quantity, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"effective_at", r.effective_at, :passthrough}
     ])
   end
 
@@ -2180,6 +2680,20 @@ defmodule BeamPM.Codec do
         {"status", :status, :atom}
       ],
       &BeamPM.Types.AddOnBundle.new/1
+    )
+  end
+
+  def from_map(:addon_activation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"addon_activation_id", :addon_activation_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"addon_id", :addon_id, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.AddonActivation.new/1
     )
   end
 
@@ -2404,6 +2918,48 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:bundle_conflict, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"bundle_conflict_id", :bundle_conflict_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"conflicting_bundle_id", :conflicting_bundle_id, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.BundleConflict.new/1
+    )
+  end
+
+  def from_map(:bundle_dependency, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"bundle_dependency_id", :bundle_dependency_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"required_bundle_id", :required_bundle_id, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.BundleDependency.new/1
+    )
+  end
+
+  def from_map(:burst_pricing_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"burst_pricing_policy_id", :burst_pricing_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"burst_multiplier", :burst_multiplier, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.BurstPricingPolicy.new/1
+    )
+  end
+
   def from_map(:business_continuity_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -2414,6 +2970,20 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.BusinessContinuityEvidence.new/1
+    )
+  end
+
+  def from_map(:business_unit_allocation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"business_unit_allocation_id", :business_unit_allocation_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"business_unit_id", :business_unit_id, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.BusinessUnitAllocation.new/1
     )
   end
 
@@ -2455,6 +3025,20 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.CanaryEvidence.new/1
+    )
+  end
+
+  def from_map(:cancellation_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"cancellation_policy_id", :cancellation_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"notice_days", :notice_days, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.CancellationPolicy.new/1
     )
   end
 
@@ -2558,6 +3142,20 @@ defmodule BeamPM.Codec do
         {"rate", :rate, :passthrough}
       ],
       &BeamPM.Types.ChargebackRule.new/1
+    )
+  end
+
+  def from_map(:co_term_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"co_term_policy_id", :co_term_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"coterm_date", :coterm_date, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.CoTermPolicy.new/1
     )
   end
 
@@ -2716,6 +3314,20 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:concurrency_pricing_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"concurrency_pricing_policy_id", :concurrency_pricing_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"included_concurrency", :included_concurrency, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.ConcurrencyPricingPolicy.new/1
+    )
+  end
+
   def from_map(:configuration_export, m) when is_map(m) do
     from_known_fields(
       m,
@@ -2792,6 +3404,34 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:cost_center_allocation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"cost_center_allocation_id", :cost_center_allocation_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"cost_center_id", :cost_center_id, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.CostCenterAllocation.new/1
+    )
+  end
+
+  def from_map(:credit_expiry_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"credit_expiry_policy_id", :credit_expiry_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"expires_at", :expires_at, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.CreditExpiryPolicy.new/1
+    )
+  end
+
   def from_map(:credit_risk_admission, m) when is_map(m) do
     from_known_fields(
       m,
@@ -2815,6 +3455,20 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.CrossSellFit.new/1
+    )
+  end
+
+  def from_map(:currency_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"currency_policy_id", :currency_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"currency_code", :currency_code, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.CurrencyPolicy.new/1
     )
   end
 
@@ -2906,6 +3560,20 @@ defmodule BeamPM.Codec do
         {"status", :status, :atom}
       ],
       &BeamPM.Types.DataResidencyPolicy.new/1
+    )
+  end
+
+  def from_map(:data_volume_pricing_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"data_volume_pricing_policy_id", :data_volume_pricing_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"unit_gb_price", :unit_gb_price, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.DataVolumePricingPolicy.new/1
     )
   end
 
@@ -3067,6 +3735,48 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:edition_downgrade_path, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"edition_downgrade_path_id", :edition_downgrade_path_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"target_edition_id", :target_edition_id, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.EditionDowngradePath.new/1
+    )
+  end
+
+  def from_map(:edition_upgrade_path, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"edition_upgrade_path_id", :edition_upgrade_path_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"target_edition_id", :target_edition_id, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.EditionUpgradePath.new/1
+    )
+  end
+
+  def from_map(:enterprise_agreement, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"enterprise_agreement_id", :enterprise_agreement_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"agreement_version", :agreement_version, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.EnterpriseAgreement.new/1
+    )
+  end
+
   def from_map(:enterprise_order, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3159,6 +3869,20 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:environment_pricing_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"environment_pricing_policy_id", :environment_pricing_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"environment_tier", :environment_tier, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.EnvironmentPricingPolicy.new/1
+    )
+  end
+
   def from_map(:environment_profile, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3192,6 +3916,20 @@ defmodule BeamPM.Codec do
         {"attribute_names", :attribute_names, :passthrough}
       ],
       &BeamPM.Types.EventType.new/1
+    )
+  end
+
+  def from_map(:event_volume_pricing_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_volume_pricing_policy_id", :event_volume_pricing_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"unit_event_price", :unit_event_price, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.EventVolumePricingPolicy.new/1
     )
   end
 
@@ -3315,6 +4053,20 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:fx_conversion_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"fx_conversion_policy_id", :fx_conversion_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"rate_source", :rate_source, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.FxConversionPolicy.new/1
+    )
+  end
+
   def from_map(:heuristic_arc, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3414,6 +4166,20 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:invoice_line_item, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"invoice_line_item_id", :invoice_line_item_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"line_amount", :line_amount, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.InvoiceLineItem.new/1
+    )
+  end
+
   def from_map(:invoice_schedule, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3436,6 +4202,20 @@ defmodule BeamPM.Codec do
         {"namespace", :namespace, :passthrough}
       ],
       &BeamPM.Types.K8SObjectRef.new/1
+    )
+  end
+
+  def from_map(:late_arriving_usage, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"late_arriving_usage_id", :late_arriving_usage_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"occurred_at", :occurred_at, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.LateArrivingUsage.new/1
     )
   end
 
@@ -3500,6 +4280,20 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:master_service_agreement_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"master_service_agreement_binding_id", :master_service_agreement_binding_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"msa_digest", :msa_digest, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.MasterServiceAgreementBinding.new/1
+    )
+  end
+
   def from_map(:master_service_agreement_state, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3509,6 +4303,48 @@ defmodule BeamPM.Codec do
         {"agreement_state", :agreement_state, :passthrough}
       ],
       &BeamPM.Types.MasterServiceAgreementState.new/1
+    )
+  end
+
+  def from_map(:meter_definition, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"meter_definition_id", :meter_definition_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"meter_name", :meter_name, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.MeterDefinition.new/1
+    )
+  end
+
+  def from_map(:meter_dimension, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"meter_dimension_id", :meter_dimension_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"dimension_name", :dimension_name, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.MeterDimension.new/1
+    )
+  end
+
+  def from_map(:meter_rollup, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"meter_rollup_id", :meter_rollup_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"rollup_function", :rollup_function, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.MeterRollup.new/1
     )
   end
 
@@ -3536,6 +4372,20 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.MigrationReadiness.new/1
+    )
+  end
+
+  def from_map(:minimum_commitment_schedule, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"minimum_commitment_schedule_id", :minimum_commitment_schedule_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"committed_amount", :committed_amount, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.MinimumCommitmentSchedule.new/1
     )
   end
 
@@ -3577,6 +4427,20 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:nonproduction_discount_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"nonproduction_discount_policy_id", :nonproduction_discount_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"discount_percent", :discount_percent, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.NonproductionDiscountPolicy.new/1
+    )
+  end
+
   def from_map(:object_attribute_change, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3599,6 +4463,20 @@ defmodule BeamPM.Codec do
         {"attribute_names", :attribute_names, :passthrough}
       ],
       &BeamPM.Types.ObjectType.new/1
+    )
+  end
+
+  def from_map(:object_volume_pricing_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"object_volume_pricing_policy_id", :object_volume_pricing_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"unit_object_price", :unit_object_price, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.ObjectVolumePricingPolicy.new/1
     )
   end
 
@@ -3764,6 +4642,34 @@ defmodule BeamPM.Codec do
         {"decision", :decision, :passthrough}
       ],
       &BeamPM.Types.OrderFormAdmission.new/1
+    )
+  end
+
+  def from_map(:order_form_version, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"order_form_version_id", :order_form_version_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"order_form_digest", :order_form_digest, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.OrderFormVersion.new/1
+    )
+  end
+
+  def from_map(:overage_invoice, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"overage_invoice_id", :overage_invoice_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"overage_amount", :overage_amount, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.OverageInvoice.new/1
     )
   end
 
@@ -3968,6 +4874,48 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:premium_connector_pricing, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"premium_connector_pricing_id", :premium_connector_pricing_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"connector_id", :connector_id, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.PremiumConnectorPricing.new/1
+    )
+  end
+
+  def from_map(:prepaid_credit_balance, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"prepaid_credit_balance_id", :prepaid_credit_balance_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"remaining_credit", :remaining_credit, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.PrepaidCreditBalance.new/1
+    )
+  end
+
+  def from_map(:price_book_version, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"price_book_version_id", :price_book_version_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"version", :version, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.PriceBookVersion.new/1
+    )
+  end
+
   def from_map(:pricing_basis_contract, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4028,6 +4976,20 @@ defmodule BeamPM.Codec do
         {"frequency", :frequency, :passthrough}
       ],
       &BeamPM.Types.ProcessVariant.new/1
+    )
+  end
+
+  def from_map(:process_volume_pricing_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"process_volume_pricing_policy_id", :process_volume_pricing_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"unit_process_price", :unit_process_price, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.ProcessVolumePricingPolicy.new/1
     )
   end
 
@@ -4120,6 +5082,34 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:proof_of_value_package, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"proof_of_value_package_id", :proof_of_value_package_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"success_metric", :success_metric, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.ProofOfValuePackage.new/1
+    )
+  end
+
+  def from_map(:proration_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"proration_policy_id", :proration_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"proration_method", :proration_method, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.ProrationPolicy.new/1
+    )
+  end
+
   def from_map(:provenance_binding_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4182,6 +5172,34 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:quota_burst_allowance, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"quota_burst_allowance_id", :quota_burst_allowance_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"burst_units", :burst_units, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.QuotaBurstAllowance.new/1
+    )
+  end
+
+  def from_map(:quota_override, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"quota_override_id", :quota_override_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"override_units", :override_units, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.QuotaOverride.new/1
+    )
+  end
+
   def from_map(:quota_policy, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4205,6 +5223,20 @@ defmodule BeamPM.Codec do
         {"effective_at", :effective_at, :passthrough}
       ],
       &BeamPM.Types.RampCommitment.new/1
+    )
+  end
+
+  def from_map(:rate_card_entry, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"rate_card_entry_id", :rate_card_entry_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"unit_price", :unit_price, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.RateCardEntry.new/1
     )
   end
 
@@ -4232,6 +5264,34 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.RecoveryPlan.new/1
+    )
+  end
+
+  def from_map(:refund_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"refund_policy_id", :refund_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"refund_method", :refund_method, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.RefundPolicy.new/1
+    )
+  end
+
+  def from_map(:region_pricing_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"region_pricing_policy_id", :region_pricing_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"region_code", :region_code, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.RegionPricingPolicy.new/1
     )
   end
 
@@ -4379,6 +5439,20 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:retention_pricing_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"retention_pricing_policy_id", :retention_pricing_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"retention_days", :retention_days, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.RetentionPricingPolicy.new/1
+    )
+  end
+
   def from_map(:revenue_attribution, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4469,6 +5543,20 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:sandbox_entitlement, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"sandbox_entitlement_id", :sandbox_entitlement_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"sandbox_limit", :sandbox_limit, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.SandboxEntitlement.new/1
+    )
+  end
+
   def from_map(:sbom_inventory_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4479,6 +5567,20 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.SbomInventoryEvidence.new/1
+    )
+  end
+
+  def from_map(:seat_pricing_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"seat_pricing_policy_id", :seat_pricing_policy_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"seat_price", :seat_price, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.SeatPricingPolicy.new/1
     )
   end
 
@@ -4555,6 +5657,20 @@ defmodule BeamPM.Codec do
         {"decision", :decision, :passthrough}
       ],
       &BeamPM.Types.ServiceCreditAdmission.new/1
+    )
+  end
+
+  def from_map(:service_credit_ledger, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"service_credit_ledger_id", :service_credit_ledger_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"credit_amount", :credit_amount, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.ServiceCreditLedger.new/1
     )
   end
 
@@ -4658,6 +5774,20 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.SolutionFit.new/1
+    )
+  end
+
+  def from_map(:spend_drawdown, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"spend_drawdown_id", :spend_drawdown_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"consumed_amount", :consumed_amount, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.SpendDrawdown.new/1
     )
   end
 
@@ -4818,6 +5948,20 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:tax_jurisdiction_rule, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tax_jurisdiction_rule_id", :tax_jurisdiction_rule_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"jurisdiction_code", :jurisdiction_code, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.TaxJurisdictionRule.new/1
+    )
+  end
+
   def from_map(:technical_blocker, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4921,6 +6065,20 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:trial_entitlement, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"trial_entitlement_id", :trial_entitlement_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"trial_expires_at", :trial_expires_at, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.TrialEntitlement.new/1
+    )
+  end
+
   def from_map(:true_up_policy, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4944,6 +6102,20 @@ defmodule BeamPM.Codec do
         {"direction", :direction, :atom}
       ],
       &BeamPM.Types.TypeEdge.new/1
+    )
+  end
+
+  def from_map(:unit_economics_snapshot, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"unit_economics_snapshot_id", :unit_economics_snapshot_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"gross_margin", :gross_margin, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.UnitEconomicsSnapshot.new/1
     )
   end
 
@@ -4984,6 +6156,34 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.UpsellReadiness.new/1
+    )
+  end
+
+  def from_map(:usage_aggregation_window, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"usage_aggregation_window_id", :usage_aggregation_window_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"window_seconds", :window_seconds, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.UsageAggregationWindow.new/1
+    )
+  end
+
+  def from_map(:usage_correction, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"usage_correction_id", :usage_correction_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"corrected_quantity", :corrected_quantity, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"effective_at", :effective_at, :passthrough}
+      ],
+      &BeamPM.Types.UsageCorrection.new/1
     )
   end
 

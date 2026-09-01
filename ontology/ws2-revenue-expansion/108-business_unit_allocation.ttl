@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-108 — business_unit_allocation
+bpm:business_unit_allocation_rt a bpm:RecordType ;
+    bpm:recordName "business_unit_allocation" ;
+    bpm:recordDoc "Showback allocation to an enterprise business unit." ;
+    bpm:hasField bpm:business_unit_allocation_business_unit_allocation_id_f,
+                 bpm:business_unit_allocation_account_id_f,
+                 bpm:business_unit_allocation_business_unit_id_f,
+                 bpm:business_unit_allocation_evidence_digest_f,
+                 bpm:business_unit_allocation_effective_at_f .
+
+bpm:business_unit_allocation_business_unit_allocation_id_f a bpm:Field ;
+    bpm:fieldName "business_unit_allocation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this business unit allocation contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:business_unit_allocation_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:business_unit_allocation_business_unit_id_f a bpm:Field ;
+    bpm:fieldName "business_unit_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of the receiving business unit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:business_unit_allocation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:business_unit_allocation_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
