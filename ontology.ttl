@@ -2285,28 +2285,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 # reinforced field-by-field: bpm:ocel_event_event_type_f and
 # bpm:ocel_event_event_time_f (both domain bpm:ocel_event_rt's field set)
 # correspond to ex4pm:activity and ex4pm:timestamp (both rdfs:domain
-# ex4pm:Event …6369 tokens truncated…ue_range_minimum_value_f ,
-                 b4p:opportunity_value_range_maximum_value_f .
-
-b4p:opportunity_value_range_opportunity_id_f a bpm:Field ;
-    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required opportunity value range input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
-
-b4p:opportunity_value_range_minimum_value_f a bpm:Field ;
-    bpm:fieldName "minimum_value" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required opportunity value range input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4p:opportunity_value_range_maximum_value_f a bpm:Field ;
-   bpm:fieldName "maximum_value" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-# WS1-REV-005 — revenue_schedule_assumption
-b4p:revenue_schedule_assumption_rt a bpm:RecordType ;
-    bpm:recordName "revenue_schedule_assumption" ;
-    bpm:recordDoc "Binds forecast revenue timing to a named schedule and evidence identity so bookings and realization assumptions can be independently challenged." ;
+# ex4pm:Even…6681 tokens truncated…ization assumptions can be independently challenged." ;
     bpm:hasField b4p:revenue_schedule_assumption_opportunity_id_f ,
                  b4p:revenue_schedule_assumption_schedule_id_f ,
                  b4p:revenue_schedule_assumption_assumption_evidence_hash_f .
@@ -4081,6 +4060,30 @@ b4p:availability_observation_slo_id_f a bpm:Field ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 
 b4p:availability_observation_observation_hash_f a bpm:Field ;
+    bpm:fieldName "observation_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-032 — latency_budget_observation
+b4p:latency_budget_observation_rt a bpm:RecordType ;
+    bpm:recordName "latency_budget_observation" ;
+    bpm:recordDoc "Records an observed runtime latency against the admitted paid-service latency budget." ;
+    bpm:hasField b4p:latency_budget_observation_tenant_id_f,
+                 b4p:latency_budget_observation_workload_id_f,
+                 b4p:latency_budget_observation_observation_hash_f .
+
+b4p:latency_budget_observation_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:latency_budget_observation_workload_id_f a bpm:Field ;
+    bpm:fieldName "workload_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:latency_budget_observation_observation_hash_f a bpm:Field ;
     bpm:fieldName "observation_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
