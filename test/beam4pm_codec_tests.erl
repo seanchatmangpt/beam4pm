@@ -182,6 +182,37 @@ add_on_bundle_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(add_on_bundle, Json),
     ?assertEqual(Rec, Rec2).
 
+addon_activation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_addon_activation(#{
+        addon_activation_id => <<"sample_addon_activation_id">>,
+        account_id => <<"sample_account_id">>,
+        addon_id => <<"sample_addon_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_addon_activation_id">>, maps:get(<<"addon_activation_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_addon_id">>, maps:get(<<"addon_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(addon_activation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+addon_activation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_addon_activation(#{
+        addon_activation_id => <<"sample_addon_activation_id">>,
+        account_id => <<"sample_account_id">>,
+        addon_id => <<"sample_addon_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(addon_activation, Json),
+    ?assertEqual(Rec, Rec2).
+
 adoption_milestone_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_adoption_milestone(#{
         adoption_milestone_id => <<"sample_adoption_milestone_id">>,
@@ -658,6 +689,99 @@ budget_period_alignment_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(budget_period_alignment, Json),
     ?assertEqual(Rec, Rec2).
 
+bundle_conflict_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_bundle_conflict(#{
+        bundle_conflict_id => <<"sample_bundle_conflict_id">>,
+        account_id => <<"sample_account_id">>,
+        conflicting_bundle_id => <<"sample_conflicting_bundle_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_bundle_conflict_id">>, maps:get(<<"bundle_conflict_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_conflicting_bundle_id">>, maps:get(<<"conflicting_bundle_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(bundle_conflict,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+bundle_conflict_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_bundle_conflict(#{
+        bundle_conflict_id => <<"sample_bundle_conflict_id">>,
+        account_id => <<"sample_account_id">>,
+        conflicting_bundle_id => <<"sample_conflicting_bundle_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(bundle_conflict, Json),
+    ?assertEqual(Rec, Rec2).
+
+bundle_dependency_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_bundle_dependency(#{
+        bundle_dependency_id => <<"sample_bundle_dependency_id">>,
+        account_id => <<"sample_account_id">>,
+        required_bundle_id => <<"sample_required_bundle_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_bundle_dependency_id">>, maps:get(<<"bundle_dependency_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_required_bundle_id">>, maps:get(<<"required_bundle_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(bundle_dependency,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+bundle_dependency_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_bundle_dependency(#{
+        bundle_dependency_id => <<"sample_bundle_dependency_id">>,
+        account_id => <<"sample_account_id">>,
+        required_bundle_id => <<"sample_required_bundle_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(bundle_dependency, Json),
+    ?assertEqual(Rec, Rec2).
+
+burst_pricing_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_burst_pricing_policy(#{
+        burst_pricing_policy_id => <<"sample_burst_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        burst_multiplier => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_burst_pricing_policy_id">>, maps:get(<<"burst_pricing_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"burst_multiplier">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(burst_pricing_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+burst_pricing_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_burst_pricing_policy(#{
+        burst_pricing_policy_id => <<"sample_burst_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        burst_multiplier => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(burst_pricing_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
 business_continuity_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_business_continuity_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -684,6 +808,37 @@ business_continuity_evidence_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(business_continuity_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
+business_unit_allocation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_business_unit_allocation(#{
+        business_unit_allocation_id => <<"sample_business_unit_allocation_id">>,
+        account_id => <<"sample_account_id">>,
+        business_unit_id => <<"sample_business_unit_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_business_unit_allocation_id">>, maps:get(<<"business_unit_allocation_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_business_unit_id">>, maps:get(<<"business_unit_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(business_unit_allocation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+business_unit_allocation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_business_unit_allocation(#{
+        business_unit_allocation_id => <<"sample_business_unit_allocation_id">>,
+        account_id => <<"sample_account_id">>,
+        business_unit_id => <<"sample_business_unit_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(business_unit_allocation, Json),
     ?assertEqual(Rec, Rec2).
 
 buying_committee_map_roundtrip_test() ->
@@ -774,6 +929,37 @@ canary_evidence_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(canary_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
+cancellation_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_cancellation_policy(#{
+        cancellation_policy_id => <<"sample_cancellation_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        notice_days => 42,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_cancellation_policy_id">>, maps:get(<<"cancellation_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(42, maps:get(<<"notice_days">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(cancellation_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+cancellation_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_cancellation_policy(#{
+        cancellation_policy_id => <<"sample_cancellation_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        notice_days => 42,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(cancellation_policy, Json),
     ?assertEqual(Rec, Rec2).
 
 capability_bundle_map_roundtrip_test() ->
@@ -995,6 +1181,37 @@ chargeback_rule_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(chargeback_rule, Json),
+    ?assertEqual(Rec, Rec2).
+
+co_term_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_co_term_policy(#{
+        co_term_policy_id => <<"sample_co_term_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        coterm_date => <<"2026-08-29T12:00:00Z">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_co_term_policy_id">>, maps:get(<<"co_term_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"coterm_date">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(co_term_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+co_term_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_co_term_policy(#{
+        co_term_policy_id => <<"sample_co_term_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        coterm_date => <<"2026-08-29T12:00:00Z">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(co_term_policy, Json),
     ?assertEqual(Rec, Rec2).
 
 commercial_approval_map_roundtrip_test() ->
@@ -1330,6 +1547,37 @@ compatibility_contract_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(compatibility_contract, Json),
     ?assertEqual(Rec, Rec2).
 
+concurrency_pricing_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_concurrency_pricing_policy(#{
+        concurrency_pricing_policy_id => <<"sample_concurrency_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        included_concurrency => 42,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_concurrency_pricing_policy_id">>, maps:get(<<"concurrency_pricing_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(42, maps:get(<<"included_concurrency">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(concurrency_pricing_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+concurrency_pricing_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_concurrency_pricing_policy(#{
+        concurrency_pricing_policy_id => <<"sample_concurrency_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        included_concurrency => 42,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(concurrency_pricing_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
 configuration_export_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_configuration_export(#{
         export_id => <<"sample_export_id">>,
@@ -1492,6 +1740,68 @@ contracting_entity_identity_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(contracting_entity_identity, Json),
     ?assertEqual(Rec, Rec2).
 
+cost_center_allocation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_cost_center_allocation(#{
+        cost_center_allocation_id => <<"sample_cost_center_allocation_id">>,
+        account_id => <<"sample_account_id">>,
+        cost_center_id => <<"sample_cost_center_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_cost_center_allocation_id">>, maps:get(<<"cost_center_allocation_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_cost_center_id">>, maps:get(<<"cost_center_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(cost_center_allocation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+cost_center_allocation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_cost_center_allocation(#{
+        cost_center_allocation_id => <<"sample_cost_center_allocation_id">>,
+        account_id => <<"sample_account_id">>,
+        cost_center_id => <<"sample_cost_center_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(cost_center_allocation, Json),
+    ?assertEqual(Rec, Rec2).
+
+credit_expiry_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_credit_expiry_policy(#{
+        credit_expiry_policy_id => <<"sample_credit_expiry_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        expires_at => <<"2026-08-29T12:00:00Z">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_credit_expiry_policy_id">>, maps:get(<<"credit_expiry_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"expires_at">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(credit_expiry_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+credit_expiry_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_credit_expiry_policy(#{
+        credit_expiry_policy_id => <<"sample_credit_expiry_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        expires_at => <<"2026-08-29T12:00:00Z">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(credit_expiry_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
 credit_risk_admission_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_credit_risk_admission(#{
         account_id => <<"sample_account_id">>,
@@ -1546,6 +1856,37 @@ cross_sell_fit_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(cross_sell_fit, Json),
+    ?assertEqual(Rec, Rec2).
+
+currency_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_currency_policy(#{
+        currency_policy_id => <<"sample_currency_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        currency_code => <<"sample_currency_code">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_currency_policy_id">>, maps:get(<<"currency_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_currency_code">>, maps:get(<<"currency_code">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(currency_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+currency_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_currency_policy(#{
+        currency_policy_id => <<"sample_currency_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        currency_code => <<"sample_currency_code">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(currency_policy, Json),
     ?assertEqual(Rec, Rec2).
 
 customer_health_map_roundtrip_test() ->
@@ -1742,6 +2083,37 @@ data_residency_policy_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(data_residency_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
+data_volume_pricing_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_data_volume_pricing_policy(#{
+        data_volume_pricing_policy_id => <<"sample_data_volume_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        unit_gb_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_data_volume_pricing_policy_id">>, maps:get(<<"data_volume_pricing_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"unit_gb_price">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(data_volume_pricing_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+data_volume_pricing_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_data_volume_pricing_policy(#{
+        data_volume_pricing_policy_id => <<"sample_data_volume_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        unit_gb_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(data_volume_pricing_policy, Json),
     ?assertEqual(Rec, Rec2).
 
 deal_desk_packet_map_roundtrip_test() ->
@@ -2086,6 +2458,99 @@ edition_definition_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(edition_definition, Json),
     ?assertEqual(Rec, Rec2).
 
+edition_downgrade_path_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_edition_downgrade_path(#{
+        edition_downgrade_path_id => <<"sample_edition_downgrade_path_id">>,
+        account_id => <<"sample_account_id">>,
+        target_edition_id => <<"sample_target_edition_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_edition_downgrade_path_id">>, maps:get(<<"edition_downgrade_path_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_target_edition_id">>, maps:get(<<"target_edition_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(edition_downgrade_path,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+edition_downgrade_path_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_edition_downgrade_path(#{
+        edition_downgrade_path_id => <<"sample_edition_downgrade_path_id">>,
+        account_id => <<"sample_account_id">>,
+        target_edition_id => <<"sample_target_edition_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(edition_downgrade_path, Json),
+    ?assertEqual(Rec, Rec2).
+
+edition_upgrade_path_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_edition_upgrade_path(#{
+        edition_upgrade_path_id => <<"sample_edition_upgrade_path_id">>,
+        account_id => <<"sample_account_id">>,
+        target_edition_id => <<"sample_target_edition_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_edition_upgrade_path_id">>, maps:get(<<"edition_upgrade_path_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_target_edition_id">>, maps:get(<<"target_edition_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(edition_upgrade_path,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+edition_upgrade_path_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_edition_upgrade_path(#{
+        edition_upgrade_path_id => <<"sample_edition_upgrade_path_id">>,
+        account_id => <<"sample_account_id">>,
+        target_edition_id => <<"sample_target_edition_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(edition_upgrade_path, Json),
+    ?assertEqual(Rec, Rec2).
+
+enterprise_agreement_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_enterprise_agreement(#{
+        enterprise_agreement_id => <<"sample_enterprise_agreement_id">>,
+        account_id => <<"sample_account_id">>,
+        agreement_version => <<"sample_agreement_version">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_enterprise_agreement_id">>, maps:get(<<"enterprise_agreement_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_agreement_version">>, maps:get(<<"agreement_version">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(enterprise_agreement,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+enterprise_agreement_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_enterprise_agreement(#{
+        enterprise_agreement_id => <<"sample_enterprise_agreement_id">>,
+        account_id => <<"sample_account_id">>,
+        agreement_version => <<"sample_agreement_version">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(enterprise_agreement, Json),
+    ?assertEqual(Rec, Rec2).
+
 enterprise_order_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_enterprise_order(#{
         order_id => <<"sample_order_id">>,
@@ -2285,6 +2750,37 @@ entitlement_state_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(entitlement_state, Json),
     ?assertEqual(Rec, Rec2).
 
+environment_pricing_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_environment_pricing_policy(#{
+        environment_pricing_policy_id => <<"sample_environment_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        environment_tier => <<"sample_environment_tier">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_environment_pricing_policy_id">>, maps:get(<<"environment_pricing_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_environment_tier">>, maps:get(<<"environment_tier">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(environment_pricing_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+environment_pricing_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_environment_pricing_policy(#{
+        environment_pricing_policy_id => <<"sample_environment_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        environment_tier => <<"sample_environment_tier">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(environment_pricing_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
 environment_profile_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_environment_profile(#{
         profile_id => <<"sample_profile_id">>,
@@ -2358,6 +2854,37 @@ event_type_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(event_type, Json),
+    ?assertEqual(Rec, Rec2).
+
+event_volume_pricing_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_event_volume_pricing_policy(#{
+        event_volume_pricing_policy_id => <<"sample_event_volume_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        unit_event_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_volume_pricing_policy_id">>, maps:get(<<"event_volume_pricing_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"unit_event_price">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(event_volume_pricing_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+event_volume_pricing_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_event_volume_pricing_policy(#{
+        event_volume_pricing_policy_id => <<"sample_event_volume_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        unit_event_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(event_volume_pricing_policy, Json),
     ?assertEqual(Rec, Rec2).
 
 evidence_freshness_evidence_map_roundtrip_test() ->
@@ -2621,6 +3148,37 @@ funding_approval_chain_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(funding_approval_chain, Json),
     ?assertEqual(Rec, Rec2).
 
+fx_conversion_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_fx_conversion_policy(#{
+        fx_conversion_policy_id => <<"sample_fx_conversion_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        rate_source => <<"sample_rate_source">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_fx_conversion_policy_id">>, maps:get(<<"fx_conversion_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_rate_source">>, maps:get(<<"rate_source">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(fx_conversion_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+fx_conversion_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_fx_conversion_policy(#{
+        fx_conversion_policy_id => <<"sample_fx_conversion_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        rate_source => <<"sample_rate_source">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(fx_conversion_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
 heuristic_arc_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_heuristic_arc(#{
         source_activity => <<"sample_source_activity">>,
@@ -2830,6 +3388,37 @@ invoice_entity_identity_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(invoice_entity_identity, Json),
     ?assertEqual(Rec, Rec2).
 
+invoice_line_item_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_invoice_line_item(#{
+        invoice_line_item_id => <<"sample_invoice_line_item_id">>,
+        account_id => <<"sample_account_id">>,
+        line_amount => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_invoice_line_item_id">>, maps:get(<<"invoice_line_item_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"line_amount">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(invoice_line_item,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+invoice_line_item_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_invoice_line_item(#{
+        invoice_line_item_id => <<"sample_invoice_line_item_id">>,
+        account_id => <<"sample_account_id">>,
+        line_amount => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(invoice_line_item, Json),
+    ?assertEqual(Rec, Rec2).
+
 invoice_schedule_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_invoice_schedule(#{
         schedule_id => <<"sample_schedule_id">>,
@@ -2881,6 +3470,37 @@ k8s_object_ref_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(k8s_object_ref, Json),
+    ?assertEqual(Rec, Rec2).
+
+late_arriving_usage_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_late_arriving_usage(#{
+        late_arriving_usage_id => <<"sample_late_arriving_usage_id">>,
+        account_id => <<"sample_account_id">>,
+        occurred_at => <<"2026-08-29T12:00:00Z">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_late_arriving_usage_id">>, maps:get(<<"late_arriving_usage_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"occurred_at">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(late_arriving_usage,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+late_arriving_usage_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_late_arriving_usage(#{
+        late_arriving_usage_id => <<"sample_late_arriving_usage_id">>,
+        account_id => <<"sample_account_id">>,
+        occurred_at => <<"2026-08-29T12:00:00Z">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(late_arriving_usage, Json),
     ?assertEqual(Rec, Rec2).
 
 least_authority_evidence_map_roundtrip_test() ->
@@ -3011,6 +3631,37 @@ log_trace_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(log_trace, Json),
     ?assertEqual(Rec, Rec2).
 
+master_service_agreement_binding_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_master_service_agreement_binding(#{
+        master_service_agreement_binding_id => <<"sample_master_service_agreement_binding_id">>,
+        account_id => <<"sample_account_id">>,
+        msa_digest => <<"sample_msa_digest">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_master_service_agreement_binding_id">>, maps:get(<<"master_service_agreement_binding_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_msa_digest">>, maps:get(<<"msa_digest">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(master_service_agreement_binding,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+master_service_agreement_binding_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_master_service_agreement_binding(#{
+        master_service_agreement_binding_id => <<"sample_master_service_agreement_binding_id">>,
+        account_id => <<"sample_account_id">>,
+        msa_digest => <<"sample_msa_digest">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(master_service_agreement_binding, Json),
+    ?assertEqual(Rec, Rec2).
+
 master_service_agreement_state_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_master_service_agreement_state(#{
         opportunity_id => <<"sample_opportunity_id">>,
@@ -3034,6 +3685,99 @@ master_service_agreement_state_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(master_service_agreement_state, Json),
+    ?assertEqual(Rec, Rec2).
+
+meter_definition_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_meter_definition(#{
+        meter_definition_id => <<"sample_meter_definition_id">>,
+        account_id => <<"sample_account_id">>,
+        meter_name => <<"sample_meter_name">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_meter_definition_id">>, maps:get(<<"meter_definition_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_meter_name">>, maps:get(<<"meter_name">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(meter_definition,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+meter_definition_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_meter_definition(#{
+        meter_definition_id => <<"sample_meter_definition_id">>,
+        account_id => <<"sample_account_id">>,
+        meter_name => <<"sample_meter_name">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(meter_definition, Json),
+    ?assertEqual(Rec, Rec2).
+
+meter_dimension_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_meter_dimension(#{
+        meter_dimension_id => <<"sample_meter_dimension_id">>,
+        account_id => <<"sample_account_id">>,
+        dimension_name => <<"sample_dimension_name">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_meter_dimension_id">>, maps:get(<<"meter_dimension_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_dimension_name">>, maps:get(<<"dimension_name">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(meter_dimension,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+meter_dimension_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_meter_dimension(#{
+        meter_dimension_id => <<"sample_meter_dimension_id">>,
+        account_id => <<"sample_account_id">>,
+        dimension_name => <<"sample_dimension_name">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(meter_dimension, Json),
+    ?assertEqual(Rec, Rec2).
+
+meter_rollup_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_meter_rollup(#{
+        meter_rollup_id => <<"sample_meter_rollup_id">>,
+        account_id => <<"sample_account_id">>,
+        rollup_function => <<"sample_rollup_function">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_meter_rollup_id">>, maps:get(<<"meter_rollup_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_rollup_function">>, maps:get(<<"rollup_function">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(meter_rollup,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+meter_rollup_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_meter_rollup(#{
+        meter_rollup_id => <<"sample_meter_rollup_id">>,
+        account_id => <<"sample_account_id">>,
+        rollup_function => <<"sample_rollup_function">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(meter_rollup, Json),
     ?assertEqual(Rec, Rec2).
 
 migration_contract_map_roundtrip_test() ->
@@ -3093,6 +3837,37 @@ migration_readiness_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(migration_readiness, Json),
+    ?assertEqual(Rec, Rec2).
+
+minimum_commitment_schedule_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_minimum_commitment_schedule(#{
+        minimum_commitment_schedule_id => <<"sample_minimum_commitment_schedule_id">>,
+        account_id => <<"sample_account_id">>,
+        committed_amount => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_minimum_commitment_schedule_id">>, maps:get(<<"minimum_commitment_schedule_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"committed_amount">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(minimum_commitment_schedule,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+minimum_commitment_schedule_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_minimum_commitment_schedule(#{
+        minimum_commitment_schedule_id => <<"sample_minimum_commitment_schedule_id">>,
+        account_id => <<"sample_account_id">>,
+        committed_amount => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(minimum_commitment_schedule, Json),
     ?assertEqual(Rec, Rec2).
 
 minimum_term_admission_map_roundtrip_test() ->
@@ -3176,6 +3951,37 @@ mutable_identity_refusal_evidence_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(mutable_identity_refusal_evidence, Json),
     ?assertEqual(Rec, Rec2).
 
+nonproduction_discount_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_nonproduction_discount_policy(#{
+        nonproduction_discount_policy_id => <<"sample_nonproduction_discount_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        discount_percent => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_nonproduction_discount_policy_id">>, maps:get(<<"nonproduction_discount_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"discount_percent">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(nonproduction_discount_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+nonproduction_discount_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_nonproduction_discount_policy(#{
+        nonproduction_discount_policy_id => <<"sample_nonproduction_discount_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        discount_percent => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(nonproduction_discount_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
 object_attribute_change_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_object_attribute_change(#{
         object_id => <<"sample_object_id">>,
@@ -3227,6 +4033,37 @@ object_type_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(object_type, Json),
+    ?assertEqual(Rec, Rec2).
+
+object_volume_pricing_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_object_volume_pricing_policy(#{
+        object_volume_pricing_policy_id => <<"sample_object_volume_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        unit_object_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_object_volume_pricing_policy_id">>, maps:get(<<"object_volume_pricing_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"unit_object_price">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(object_volume_pricing_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+object_volume_pricing_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_object_volume_pricing_policy(#{
+        object_volume_pricing_policy_id => <<"sample_object_volume_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        unit_object_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(object_volume_pricing_policy, Json),
     ?assertEqual(Rec, Rec2).
 
 objection_map_roundtrip_test() ->
@@ -3579,6 +4416,68 @@ order_form_admission_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(order_form_admission, Json),
+    ?assertEqual(Rec, Rec2).
+
+order_form_version_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_order_form_version(#{
+        order_form_version_id => <<"sample_order_form_version_id">>,
+        account_id => <<"sample_account_id">>,
+        order_form_digest => <<"sample_order_form_digest">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_order_form_version_id">>, maps:get(<<"order_form_version_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_order_form_digest">>, maps:get(<<"order_form_digest">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(order_form_version,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+order_form_version_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_order_form_version(#{
+        order_form_version_id => <<"sample_order_form_version_id">>,
+        account_id => <<"sample_account_id">>,
+        order_form_digest => <<"sample_order_form_digest">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(order_form_version, Json),
+    ?assertEqual(Rec, Rec2).
+
+overage_invoice_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_overage_invoice(#{
+        overage_invoice_id => <<"sample_overage_invoice_id">>,
+        account_id => <<"sample_account_id">>,
+        overage_amount => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_overage_invoice_id">>, maps:get(<<"overage_invoice_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"overage_amount">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(overage_invoice,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+overage_invoice_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_overage_invoice(#{
+        overage_invoice_id => <<"sample_overage_invoice_id">>,
+        account_id => <<"sample_account_id">>,
+        overage_amount => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(overage_invoice, Json),
     ?assertEqual(Rec, Rec2).
 
 overage_policy_map_roundtrip_test() ->
@@ -4008,6 +4907,99 @@ policy_decision_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(policy_decision, Json),
     ?assertEqual(Rec, Rec2).
 
+premium_connector_pricing_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_premium_connector_pricing(#{
+        premium_connector_pricing_id => <<"sample_premium_connector_pricing_id">>,
+        account_id => <<"sample_account_id">>,
+        connector_id => <<"sample_connector_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_premium_connector_pricing_id">>, maps:get(<<"premium_connector_pricing_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_connector_id">>, maps:get(<<"connector_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(premium_connector_pricing,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+premium_connector_pricing_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_premium_connector_pricing(#{
+        premium_connector_pricing_id => <<"sample_premium_connector_pricing_id">>,
+        account_id => <<"sample_account_id">>,
+        connector_id => <<"sample_connector_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(premium_connector_pricing, Json),
+    ?assertEqual(Rec, Rec2).
+
+prepaid_credit_balance_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_prepaid_credit_balance(#{
+        prepaid_credit_balance_id => <<"sample_prepaid_credit_balance_id">>,
+        account_id => <<"sample_account_id">>,
+        remaining_credit => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_prepaid_credit_balance_id">>, maps:get(<<"prepaid_credit_balance_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"remaining_credit">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(prepaid_credit_balance,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+prepaid_credit_balance_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_prepaid_credit_balance(#{
+        prepaid_credit_balance_id => <<"sample_prepaid_credit_balance_id">>,
+        account_id => <<"sample_account_id">>,
+        remaining_credit => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(prepaid_credit_balance, Json),
+    ?assertEqual(Rec, Rec2).
+
+price_book_version_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_price_book_version(#{
+        price_book_version_id => <<"sample_price_book_version_id">>,
+        account_id => <<"sample_account_id">>,
+        version => <<"sample_version">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_price_book_version_id">>, maps:get(<<"price_book_version_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_version">>, maps:get(<<"version">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(price_book_version,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+price_book_version_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_price_book_version(#{
+        price_book_version_id => <<"sample_price_book_version_id">>,
+        account_id => <<"sample_account_id">>,
+        version => <<"sample_version">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(price_book_version, Json),
+    ?assertEqual(Rec, Rec2).
+
 pricing_basis_contract_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_pricing_basis_contract(#{
         opportunity_id => <<"sample_opportunity_id">>,
@@ -4140,6 +5132,37 @@ process_variant_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(process_variant, Json),
+    ?assertEqual(Rec, Rec2).
+
+process_volume_pricing_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_process_volume_pricing_policy(#{
+        process_volume_pricing_policy_id => <<"sample_process_volume_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        unit_process_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_process_volume_pricing_policy_id">>, maps:get(<<"process_volume_pricing_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"unit_process_price">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(process_volume_pricing_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+process_volume_pricing_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_process_volume_pricing_policy(#{
+        process_volume_pricing_policy_id => <<"sample_process_volume_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        unit_process_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(process_volume_pricing_policy, Json),
     ?assertEqual(Rec, Rec2).
 
 procurement_acceptance_evidence_map_roundtrip_test() ->
@@ -4332,6 +5355,68 @@ proof_of_value_exit_gate_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(proof_of_value_exit_gate, Json),
     ?assertEqual(Rec, Rec2).
 
+proof_of_value_package_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_proof_of_value_package(#{
+        proof_of_value_package_id => <<"sample_proof_of_value_package_id">>,
+        account_id => <<"sample_account_id">>,
+        success_metric => <<"sample_success_metric">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_proof_of_value_package_id">>, maps:get(<<"proof_of_value_package_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_success_metric">>, maps:get(<<"success_metric">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(proof_of_value_package,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+proof_of_value_package_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_proof_of_value_package(#{
+        proof_of_value_package_id => <<"sample_proof_of_value_package_id">>,
+        account_id => <<"sample_account_id">>,
+        success_metric => <<"sample_success_metric">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(proof_of_value_package, Json),
+    ?assertEqual(Rec, Rec2).
+
+proration_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_proration_policy(#{
+        proration_policy_id => <<"sample_proration_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        proration_method => <<"sample_proration_method">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_proration_policy_id">>, maps:get(<<"proration_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_proration_method">>, maps:get(<<"proration_method">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(proration_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+proration_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_proration_policy(#{
+        proration_policy_id => <<"sample_proration_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        proration_method => <<"sample_proration_method">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(proration_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
 provenance_binding_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_provenance_binding_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -4463,6 +5548,68 @@ queue_snapshot_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(queue_snapshot, Json),
     ?assertEqual(Rec, Rec2).
 
+quota_burst_allowance_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_quota_burst_allowance(#{
+        quota_burst_allowance_id => <<"sample_quota_burst_allowance_id">>,
+        account_id => <<"sample_account_id">>,
+        burst_units => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_quota_burst_allowance_id">>, maps:get(<<"quota_burst_allowance_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"burst_units">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(quota_burst_allowance,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+quota_burst_allowance_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_quota_burst_allowance(#{
+        quota_burst_allowance_id => <<"sample_quota_burst_allowance_id">>,
+        account_id => <<"sample_account_id">>,
+        burst_units => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(quota_burst_allowance, Json),
+    ?assertEqual(Rec, Rec2).
+
+quota_override_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_quota_override(#{
+        quota_override_id => <<"sample_quota_override_id">>,
+        account_id => <<"sample_account_id">>,
+        override_units => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_quota_override_id">>, maps:get(<<"quota_override_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"override_units">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(quota_override,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+quota_override_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_quota_override(#{
+        quota_override_id => <<"sample_quota_override_id">>,
+        account_id => <<"sample_account_id">>,
+        override_units => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(quota_override, Json),
+    ?assertEqual(Rec, Rec2).
+
 quota_policy_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_quota_policy(#{
         quota_id => <<"sample_quota_id">>,
@@ -4517,6 +5664,37 @@ ramp_commitment_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(ramp_commitment, Json),
+    ?assertEqual(Rec, Rec2).
+
+rate_card_entry_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_rate_card_entry(#{
+        rate_card_entry_id => <<"sample_rate_card_entry_id">>,
+        account_id => <<"sample_account_id">>,
+        unit_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_rate_card_entry_id">>, maps:get(<<"rate_card_entry_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"unit_price">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(rate_card_entry,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+rate_card_entry_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_rate_card_entry(#{
+        rate_card_entry_id => <<"sample_rate_card_entry_id">>,
+        account_id => <<"sample_account_id">>,
+        unit_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(rate_card_entry, Json),
     ?assertEqual(Rec, Rec2).
 
 receipt_replay_evidence_map_roundtrip_test() ->
@@ -4576,6 +5754,68 @@ recovery_plan_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(recovery_plan, Json),
+    ?assertEqual(Rec, Rec2).
+
+refund_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_refund_policy(#{
+        refund_policy_id => <<"sample_refund_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        refund_method => <<"sample_refund_method">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_refund_policy_id">>, maps:get(<<"refund_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_refund_method">>, maps:get(<<"refund_method">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(refund_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+refund_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_refund_policy(#{
+        refund_policy_id => <<"sample_refund_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        refund_method => <<"sample_refund_method">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(refund_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
+region_pricing_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_region_pricing_policy(#{
+        region_pricing_policy_id => <<"sample_region_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        region_code => <<"sample_region_code">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_region_pricing_policy_id">>, maps:get(<<"region_pricing_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_region_code">>, maps:get(<<"region_code">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(region_pricing_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+region_pricing_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_region_pricing_policy(#{
+        region_pricing_policy_id => <<"sample_region_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        region_code => <<"sample_region_code">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(region_pricing_policy, Json),
     ?assertEqual(Rec, Rec2).
 
 remediation_sla_evidence_map_roundtrip_test() ->
@@ -4889,6 +6129,37 @@ retention_policy_evidence_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(retention_policy_evidence, Json),
     ?assertEqual(Rec, Rec2).
 
+retention_pricing_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_retention_pricing_policy(#{
+        retention_pricing_policy_id => <<"sample_retention_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        retention_days => 42,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_retention_pricing_policy_id">>, maps:get(<<"retention_pricing_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(42, maps:get(<<"retention_days">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(retention_pricing_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+retention_pricing_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_retention_pricing_policy(#{
+        retention_pricing_policy_id => <<"sample_retention_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        retention_days => 42,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(retention_pricing_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
 revenue_attribution_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_revenue_attribution(#{
         revenue_attribution_id => <<"sample_revenue_attribution_id">>,
@@ -5082,6 +6353,37 @@ sanctions_screening_result_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(sanctions_screening_result, Json),
     ?assertEqual(Rec, Rec2).
 
+sandbox_entitlement_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_sandbox_entitlement(#{
+        sandbox_entitlement_id => <<"sample_sandbox_entitlement_id">>,
+        account_id => <<"sample_account_id">>,
+        sandbox_limit => 42,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_sandbox_entitlement_id">>, maps:get(<<"sandbox_entitlement_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(42, maps:get(<<"sandbox_limit">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(sandbox_entitlement,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+sandbox_entitlement_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_sandbox_entitlement(#{
+        sandbox_entitlement_id => <<"sample_sandbox_entitlement_id">>,
+        account_id => <<"sample_account_id">>,
+        sandbox_limit => 42,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(sandbox_entitlement, Json),
+    ?assertEqual(Rec, Rec2).
+
 sbom_inventory_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_sbom_inventory_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -5108,6 +6410,37 @@ sbom_inventory_evidence_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(sbom_inventory_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
+seat_pricing_policy_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_seat_pricing_policy(#{
+        seat_pricing_policy_id => <<"sample_seat_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        seat_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_seat_pricing_policy_id">>, maps:get(<<"seat_pricing_policy_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"seat_price">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(seat_pricing_policy,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+seat_pricing_policy_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_seat_pricing_policy(#{
+        seat_pricing_policy_id => <<"sample_seat_pricing_policy_id">>,
+        account_id => <<"sample_account_id">>,
+        seat_price => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(seat_pricing_policy, Json),
     ?assertEqual(Rec, Rec2).
 
 secret_boundary_evidence_map_roundtrip_test() ->
@@ -5270,6 +6603,37 @@ service_credit_admission_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(service_credit_admission, Json),
+    ?assertEqual(Rec, Rec2).
+
+service_credit_ledger_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_service_credit_ledger(#{
+        service_credit_ledger_id => <<"sample_service_credit_ledger_id">>,
+        account_id => <<"sample_account_id">>,
+        credit_amount => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_service_credit_ledger_id">>, maps:get(<<"service_credit_ledger_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"credit_amount">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(service_credit_ledger,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+service_credit_ledger_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_service_credit_ledger(#{
+        service_credit_ledger_id => <<"sample_service_credit_ledger_id">>,
+        account_id => <<"sample_account_id">>,
+        credit_amount => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(service_credit_ledger, Json),
     ?assertEqual(Rec, Rec2).
 
 service_level_objective_map_roundtrip_test() ->
@@ -5491,6 +6855,37 @@ solution_fit_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(solution_fit, Json),
+    ?assertEqual(Rec, Rec2).
+
+spend_drawdown_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_spend_drawdown(#{
+        spend_drawdown_id => <<"sample_spend_drawdown_id">>,
+        account_id => <<"sample_account_id">>,
+        consumed_amount => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_spend_drawdown_id">>, maps:get(<<"spend_drawdown_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"consumed_amount">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(spend_drawdown,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+spend_drawdown_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_spend_drawdown(#{
+        spend_drawdown_id => <<"sample_spend_drawdown_id">>,
+        account_id => <<"sample_account_id">>,
+        consumed_amount => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(spend_drawdown, Json),
     ?assertEqual(Rec, Rec2).
 
 stakeholder_map_map_roundtrip_test() ->
@@ -5832,6 +7227,37 @@ tax_jurisdiction_evidence_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(tax_jurisdiction_evidence, Json),
     ?assertEqual(Rec, Rec2).
 
+tax_jurisdiction_rule_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_tax_jurisdiction_rule(#{
+        tax_jurisdiction_rule_id => <<"sample_tax_jurisdiction_rule_id">>,
+        account_id => <<"sample_account_id">>,
+        jurisdiction_code => <<"sample_jurisdiction_code">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_tax_jurisdiction_rule_id">>, maps:get(<<"tax_jurisdiction_rule_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_jurisdiction_code">>, maps:get(<<"jurisdiction_code">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(tax_jurisdiction_rule,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+tax_jurisdiction_rule_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_tax_jurisdiction_rule(#{
+        tax_jurisdiction_rule_id => <<"sample_tax_jurisdiction_rule_id">>,
+        account_id => <<"sample_account_id">>,
+        jurisdiction_code => <<"sample_jurisdiction_code">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(tax_jurisdiction_rule, Json),
+    ?assertEqual(Rec, Rec2).
+
 technical_blocker_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_technical_blocker(#{
         opportunity_id => <<"sample_opportunity_id">>,
@@ -6053,6 +7479,37 @@ training_scope_admission_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(training_scope_admission, Json),
     ?assertEqual(Rec, Rec2).
 
+trial_entitlement_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_trial_entitlement(#{
+        trial_entitlement_id => <<"sample_trial_entitlement_id">>,
+        account_id => <<"sample_account_id">>,
+        trial_expires_at => <<"2026-08-29T12:00:00Z">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_trial_entitlement_id">>, maps:get(<<"trial_entitlement_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"trial_expires_at">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(trial_entitlement,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+trial_entitlement_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_trial_entitlement(#{
+        trial_entitlement_id => <<"sample_trial_entitlement_id">>,
+        account_id => <<"sample_account_id">>,
+        trial_expires_at => <<"2026-08-29T12:00:00Z">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(trial_entitlement, Json),
+    ?assertEqual(Rec, Rec2).
+
 true_up_policy_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_true_up_policy(#{
         policy_id => <<"sample_policy_id">>,
@@ -6107,6 +7564,37 @@ type_edge_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(type_edge, Json),
+    ?assertEqual(Rec, Rec2).
+
+unit_economics_snapshot_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_unit_economics_snapshot(#{
+        unit_economics_snapshot_id => <<"sample_unit_economics_snapshot_id">>,
+        account_id => <<"sample_account_id">>,
+        gross_margin => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_unit_economics_snapshot_id">>, maps:get(<<"unit_economics_snapshot_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"gross_margin">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(unit_economics_snapshot,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+unit_economics_snapshot_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_unit_economics_snapshot(#{
+        unit_economics_snapshot_id => <<"sample_unit_economics_snapshot_id">>,
+        account_id => <<"sample_account_id">>,
+        gross_margin => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(unit_economics_snapshot, Json),
     ?assertEqual(Rec, Rec2).
 
 unsupported_capability_evidence_map_roundtrip_test() ->
@@ -6194,6 +7682,68 @@ upsell_readiness_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(upsell_readiness, Json),
+    ?assertEqual(Rec, Rec2).
+
+usage_aggregation_window_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_usage_aggregation_window(#{
+        usage_aggregation_window_id => <<"sample_usage_aggregation_window_id">>,
+        account_id => <<"sample_account_id">>,
+        window_seconds => 42,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_usage_aggregation_window_id">>, maps:get(<<"usage_aggregation_window_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(42, maps:get(<<"window_seconds">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(usage_aggregation_window,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+usage_aggregation_window_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_usage_aggregation_window(#{
+        usage_aggregation_window_id => <<"sample_usage_aggregation_window_id">>,
+        account_id => <<"sample_account_id">>,
+        window_seconds => 42,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(usage_aggregation_window, Json),
+    ?assertEqual(Rec, Rec2).
+
+usage_correction_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_usage_correction(#{
+        usage_correction_id => <<"sample_usage_correction_id">>,
+        account_id => <<"sample_account_id">>,
+        corrected_quantity => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_usage_correction_id">>, maps:get(<<"usage_correction_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"corrected_quantity">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"effective_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(usage_correction,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+usage_correction_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_usage_correction(#{
+        usage_correction_id => <<"sample_usage_correction_id">>,
+        account_id => <<"sample_account_id">>,
+        corrected_quantity => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        effective_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(usage_correction, Json),
     ?assertEqual(Rec, Rec2).
 
 usage_event_map_roundtrip_test() ->

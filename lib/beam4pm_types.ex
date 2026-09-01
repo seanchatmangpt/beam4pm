@@ -180,6 +180,39 @@ defmodule BeamPM.Types.AddOnBundle do
   end
 end
 
+defmodule BeamPM.Types.AddonActivation do
+  @moduledoc "Receipted activation of a paid add-on."
+
+  defstruct [:addon_activation_id, :account_id, :addon_id, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    addon_activation_id: String.t() | nil,
+    account_id: String.t() | nil,
+    addon_id: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :addon_activation_id) -> {:error, {:missing_field, :addon_activation_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :addon_id) -> {:error, {:missing_field, :addon_id}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          addon_activation_id: Map.get(attrs, :addon_activation_id),
+          account_id: Map.get(attrs, :account_id),
+          addon_id: Map.get(attrs, :addon_id),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.AdoptionMilestone do
   @moduledoc "Receipted customer adoption milestone tied to observable use."
 
@@ -690,6 +723,105 @@ defmodule BeamPM.Types.BudgetPeriodAlignment do
   end
 end
 
+defmodule BeamPM.Types.BundleConflict do
+  @moduledoc "Mutual exclusion between incompatible bundles."
+
+  defstruct [:bundle_conflict_id, :account_id, :conflicting_bundle_id, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    bundle_conflict_id: String.t() | nil,
+    account_id: String.t() | nil,
+    conflicting_bundle_id: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :bundle_conflict_id) -> {:error, {:missing_field, :bundle_conflict_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :conflicting_bundle_id) -> {:error, {:missing_field, :conflicting_bundle_id}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          bundle_conflict_id: Map.get(attrs, :bundle_conflict_id),
+          account_id: Map.get(attrs, :account_id),
+          conflicting_bundle_id: Map.get(attrs, :conflicting_bundle_id),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.BundleDependency do
+  @moduledoc "Required dependency between sellable bundles."
+
+  defstruct [:bundle_dependency_id, :account_id, :required_bundle_id, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    bundle_dependency_id: String.t() | nil,
+    account_id: String.t() | nil,
+    required_bundle_id: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :bundle_dependency_id) -> {:error, {:missing_field, :bundle_dependency_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :required_bundle_id) -> {:error, {:missing_field, :required_bundle_id}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          bundle_dependency_id: Map.get(attrs, :bundle_dependency_id),
+          account_id: Map.get(attrs, :account_id),
+          required_bundle_id: Map.get(attrs, :required_bundle_id),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.BurstPricingPolicy do
+  @moduledoc "Bounded burst-capacity premium."
+
+  defstruct [:burst_pricing_policy_id, :account_id, :burst_multiplier, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    burst_pricing_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    burst_multiplier: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :burst_pricing_policy_id) -> {:error, {:missing_field, :burst_pricing_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :burst_multiplier) -> {:error, {:missing_field, :burst_multiplier}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          burst_pricing_policy_id: Map.get(attrs, :burst_pricing_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          burst_multiplier: Map.get(attrs, :burst_multiplier),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.BusinessContinuityEvidence do
   @moduledoc "Executable continuity evidence binding an exact subject to the fallback operating mode actually entered."
 
@@ -715,6 +847,39 @@ defmodule BeamPM.Types.BusinessContinuityEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           continuity_mode: Map.get(attrs, :continuity_mode),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.BusinessUnitAllocation do
+  @moduledoc "Showback allocation to an enterprise business unit."
+
+  defstruct [:business_unit_allocation_id, :account_id, :business_unit_id, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    business_unit_allocation_id: String.t() | nil,
+    account_id: String.t() | nil,
+    business_unit_id: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :business_unit_allocation_id) -> {:error, {:missing_field, :business_unit_allocation_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :business_unit_id) -> {:error, {:missing_field, :business_unit_id}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          business_unit_allocation_id: Map.get(attrs, :business_unit_allocation_id),
+          account_id: Map.get(attrs, :account_id),
+          business_unit_id: Map.get(attrs, :business_unit_id),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -811,6 +976,39 @@ defmodule BeamPM.Types.CanaryEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           canary_percentage: Map.get(attrs, :canary_percentage),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CancellationPolicy do
+  @moduledoc "Contractual cancellation and notice policy."
+
+  defstruct [:cancellation_policy_id, :account_id, :notice_days, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    cancellation_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    notice_days: integer() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :cancellation_policy_id) -> {:error, {:missing_field, :cancellation_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :notice_days) -> {:error, {:missing_field, :notice_days}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          cancellation_policy_id: Map.get(attrs, :cancellation_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          notice_days: Map.get(attrs, :notice_days),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -1047,6 +1245,39 @@ defmodule BeamPM.Types.ChargebackRule do
           cost_center: Map.get(attrs, :cost_center),
           metric_name: Map.get(attrs, :metric_name),
           rate: Map.get(attrs, :rate)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CoTermPolicy do
+  @moduledoc "Co-termination policy for expansion purchases."
+
+  defstruct [:co_term_policy_id, :account_id, :coterm_date, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    co_term_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    coterm_date: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :co_term_policy_id) -> {:error, {:missing_field, :co_term_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :coterm_date) -> {:error, {:missing_field, :coterm_date}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          co_term_policy_id: Map.get(attrs, :co_term_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          coterm_date: Map.get(attrs, :coterm_date),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -1409,6 +1640,39 @@ defmodule BeamPM.Types.CompatibilityContract do
   end
 end
 
+defmodule BeamPM.Types.ConcurrencyPricingPolicy do
+  @moduledoc "Concurrent-workload packaging dimension."
+
+  defstruct [:concurrency_pricing_policy_id, :account_id, :included_concurrency, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    concurrency_pricing_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    included_concurrency: integer() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :concurrency_pricing_policy_id) -> {:error, {:missing_field, :concurrency_pricing_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :included_concurrency) -> {:error, {:missing_field, :included_concurrency}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          concurrency_pricing_policy_id: Map.get(attrs, :concurrency_pricing_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          included_concurrency: Map.get(attrs, :included_concurrency),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ConfigurationExport do
   @moduledoc "Receiptable export of deterministic enterprise configuration."
 
@@ -1582,6 +1846,72 @@ defmodule BeamPM.Types.ContractingEntityIdentity do
   end
 end
 
+defmodule BeamPM.Types.CostCenterAllocation do
+  @moduledoc "Chargeback allocation to an enterprise cost center."
+
+  defstruct [:cost_center_allocation_id, :account_id, :cost_center_id, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    cost_center_allocation_id: String.t() | nil,
+    account_id: String.t() | nil,
+    cost_center_id: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :cost_center_allocation_id) -> {:error, {:missing_field, :cost_center_allocation_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :cost_center_id) -> {:error, {:missing_field, :cost_center_id}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          cost_center_allocation_id: Map.get(attrs, :cost_center_allocation_id),
+          account_id: Map.get(attrs, :account_id),
+          cost_center_id: Map.get(attrs, :cost_center_id),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CreditExpiryPolicy do
+  @moduledoc "Deterministic expiration of prepaid commercial credits."
+
+  defstruct [:credit_expiry_policy_id, :account_id, :expires_at, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    credit_expiry_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    expires_at: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :credit_expiry_policy_id) -> {:error, {:missing_field, :credit_expiry_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :expires_at) -> {:error, {:missing_field, :expires_at}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          credit_expiry_policy_id: Map.get(attrs, :credit_expiry_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          expires_at: Map.get(attrs, :expires_at),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.CreditRiskAdmission do
   @moduledoc "Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure."
 
@@ -1637,6 +1967,39 @@ defmodule BeamPM.Types.CrossSellFit do
           cross_sell_score: Map.get(attrs, :cross_sell_score),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CurrencyPolicy do
+  @moduledoc "Allowed billing currency for an enterprise agreement."
+
+  defstruct [:currency_policy_id, :account_id, :currency_code, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    currency_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    currency_code: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :currency_policy_id) -> {:error, {:missing_field, :currency_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :currency_code) -> {:error, {:missing_field, :currency_code}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          currency_policy_id: Map.get(attrs, :currency_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          currency_code: Map.get(attrs, :currency_code),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -1847,6 +2210,39 @@ defmodule BeamPM.Types.DataResidencyPolicy do
           tenant_id: Map.get(attrs, :tenant_id),
           allowed_regions: Map.get(attrs, :allowed_regions),
           status: Map.get(attrs, :status)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.DataVolumePricingPolicy do
+  @moduledoc "Data-volume commercial packaging dimension."
+
+  defstruct [:data_volume_pricing_policy_id, :account_id, :unit_gb_price, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    data_volume_pricing_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    unit_gb_price: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :data_volume_pricing_policy_id) -> {:error, {:missing_field, :data_volume_pricing_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :unit_gb_price) -> {:error, {:missing_field, :unit_gb_price}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          data_volume_pricing_policy_id: Map.get(attrs, :data_volume_pricing_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          unit_gb_price: Map.get(attrs, :unit_gb_price),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -2218,6 +2614,105 @@ defmodule BeamPM.Types.EditionDefinition do
   end
 end
 
+defmodule BeamPM.Types.EditionDowngradePath do
+  @moduledoc "Controlled commercial edition downgrade path."
+
+  defstruct [:edition_downgrade_path_id, :account_id, :target_edition_id, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    edition_downgrade_path_id: String.t() | nil,
+    account_id: String.t() | nil,
+    target_edition_id: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :edition_downgrade_path_id) -> {:error, {:missing_field, :edition_downgrade_path_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :target_edition_id) -> {:error, {:missing_field, :target_edition_id}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          edition_downgrade_path_id: Map.get(attrs, :edition_downgrade_path_id),
+          account_id: Map.get(attrs, :account_id),
+          target_edition_id: Map.get(attrs, :target_edition_id),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.EditionUpgradePath do
+  @moduledoc "Admitted commercial edition upgrade path."
+
+  defstruct [:edition_upgrade_path_id, :account_id, :target_edition_id, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    edition_upgrade_path_id: String.t() | nil,
+    account_id: String.t() | nil,
+    target_edition_id: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :edition_upgrade_path_id) -> {:error, {:missing_field, :edition_upgrade_path_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :target_edition_id) -> {:error, {:missing_field, :target_edition_id}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          edition_upgrade_path_id: Map.get(attrs, :edition_upgrade_path_id),
+          account_id: Map.get(attrs, :account_id),
+          target_edition_id: Map.get(attrs, :target_edition_id),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.EnterpriseAgreement do
+  @moduledoc "Enterprise commercial umbrella agreement."
+
+  defstruct [:enterprise_agreement_id, :account_id, :agreement_version, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    enterprise_agreement_id: String.t() | nil,
+    account_id: String.t() | nil,
+    agreement_version: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :enterprise_agreement_id) -> {:error, {:missing_field, :enterprise_agreement_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :agreement_version) -> {:error, {:missing_field, :agreement_version}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          enterprise_agreement_id: Map.get(attrs, :enterprise_agreement_id),
+          account_id: Map.get(attrs, :account_id),
+          agreement_version: Map.get(attrs, :agreement_version),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.EnterpriseOrder do
   @moduledoc "Accepted enterprise order binding account, quote, and standing."
 
@@ -2430,6 +2925,39 @@ defmodule BeamPM.Types.EntitlementState do
   end
 end
 
+defmodule BeamPM.Types.EnvironmentPricingPolicy do
+  @moduledoc "Environment-count commercial packaging."
+
+  defstruct [:environment_pricing_policy_id, :account_id, :environment_tier, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    environment_pricing_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    environment_tier: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :environment_pricing_policy_id) -> {:error, {:missing_field, :environment_pricing_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :environment_tier) -> {:error, {:missing_field, :environment_tier}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          environment_pricing_policy_id: Map.get(attrs, :environment_pricing_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          environment_tier: Map.get(attrs, :environment_tier),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.EnvironmentProfile do
   @moduledoc "Deterministic environment profile for demo, POC, or production."
 
@@ -2504,6 +3032,39 @@ defmodule BeamPM.Types.EventType do
         {:ok, %__MODULE__{
           type_name: Map.get(attrs, :type_name),
           attribute_names: Map.get(attrs, :attribute_names)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.EventVolumePricingPolicy do
+  @moduledoc "Event-volume commercial packaging dimension."
+
+  defstruct [:event_volume_pricing_policy_id, :account_id, :unit_event_price, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    event_volume_pricing_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    unit_event_price: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_volume_pricing_policy_id) -> {:error, {:missing_field, :event_volume_pricing_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :unit_event_price) -> {:error, {:missing_field, :unit_event_price}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          event_volume_pricing_policy_id: Map.get(attrs, :event_volume_pricing_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          unit_event_price: Map.get(attrs, :unit_event_price),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -2788,6 +3349,39 @@ defmodule BeamPM.Types.FundingApprovalChain do
   end
 end
 
+defmodule BeamPM.Types.FxConversionPolicy do
+  @moduledoc "Evidence-bound foreign-exchange conversion policy."
+
+  defstruct [:fx_conversion_policy_id, :account_id, :rate_source, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    fx_conversion_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    rate_source: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :fx_conversion_policy_id) -> {:error, {:missing_field, :fx_conversion_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :rate_source) -> {:error, {:missing_field, :rate_source}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          fx_conversion_policy_id: Map.get(attrs, :fx_conversion_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          rate_source: Map.get(attrs, :rate_source),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.HeuristicArc do
   @moduledoc "One dependency-scored candidate arc considered during heuristic-net discovery."
 
@@ -3013,6 +3607,39 @@ defmodule BeamPM.Types.InvoiceEntityIdentity do
   end
 end
 
+defmodule BeamPM.Types.InvoiceLineItem do
+  @moduledoc "Auditable commercial invoice line."
+
+  defstruct [:invoice_line_item_id, :account_id, :line_amount, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    invoice_line_item_id: String.t() | nil,
+    account_id: String.t() | nil,
+    line_amount: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :invoice_line_item_id) -> {:error, {:missing_field, :invoice_line_item_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :line_amount) -> {:error, {:missing_field, :line_amount}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          invoice_line_item_id: Map.get(attrs, :invoice_line_item_id),
+          account_id: Map.get(attrs, :account_id),
+          line_amount: Map.get(attrs, :line_amount),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.InvoiceSchedule do
   @moduledoc "Deterministic invoicing cadence for a billing account."
 
@@ -3064,6 +3691,39 @@ defmodule BeamPM.Types.K8SObjectRef do
           kind: Map.get(attrs, :kind),
           name: Map.get(attrs, :name),
           namespace: Map.get(attrs, :namespace)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.LateArrivingUsage do
+  @moduledoc "Admission of usage received after its billing window."
+
+  defstruct [:late_arriving_usage_id, :account_id, :occurred_at, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    late_arriving_usage_id: String.t() | nil,
+    account_id: String.t() | nil,
+    occurred_at: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :late_arriving_usage_id) -> {:error, {:missing_field, :late_arriving_usage_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :occurred_at) -> {:error, {:missing_field, :occurred_at}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          late_arriving_usage_id: Map.get(attrs, :late_arriving_usage_id),
+          account_id: Map.get(attrs, :account_id),
+          occurred_at: Map.get(attrs, :occurred_at),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -3207,6 +3867,39 @@ defmodule BeamPM.Types.LogTrace do
   end
 end
 
+defmodule BeamPM.Types.MasterServiceAgreementBinding do
+  @moduledoc "Exact MSA binding for an order."
+
+  defstruct [:master_service_agreement_binding_id, :account_id, :msa_digest, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    master_service_agreement_binding_id: String.t() | nil,
+    account_id: String.t() | nil,
+    msa_digest: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :master_service_agreement_binding_id) -> {:error, {:missing_field, :master_service_agreement_binding_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :msa_digest) -> {:error, {:missing_field, :msa_digest}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          master_service_agreement_binding_id: Map.get(attrs, :master_service_agreement_binding_id),
+          account_id: Map.get(attrs, :account_id),
+          msa_digest: Map.get(attrs, :msa_digest),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.MasterServiceAgreementState do
   @moduledoc "Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean."
 
@@ -3229,6 +3922,105 @@ defmodule BeamPM.Types.MasterServiceAgreementState do
           opportunity_id: Map.get(attrs, :opportunity_id),
           agreement_id: Map.get(attrs, :agreement_id),
           agreement_state: Map.get(attrs, :agreement_state)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.MeterDefinition do
+  @moduledoc "Immutable billable-meter definition."
+
+  defstruct [:meter_definition_id, :account_id, :meter_name, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    meter_definition_id: String.t() | nil,
+    account_id: String.t() | nil,
+    meter_name: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :meter_definition_id) -> {:error, {:missing_field, :meter_definition_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :meter_name) -> {:error, {:missing_field, :meter_name}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          meter_definition_id: Map.get(attrs, :meter_definition_id),
+          account_id: Map.get(attrs, :account_id),
+          meter_name: Map.get(attrs, :meter_name),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.MeterDimension do
+  @moduledoc "Typed dimension attached to a commercial meter."
+
+  defstruct [:meter_dimension_id, :account_id, :dimension_name, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    meter_dimension_id: String.t() | nil,
+    account_id: String.t() | nil,
+    dimension_name: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :meter_dimension_id) -> {:error, {:missing_field, :meter_dimension_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :dimension_name) -> {:error, {:missing_field, :dimension_name}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          meter_dimension_id: Map.get(attrs, :meter_dimension_id),
+          account_id: Map.get(attrs, :account_id),
+          dimension_name: Map.get(attrs, :dimension_name),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.MeterRollup do
+  @moduledoc "Deterministic rollup policy for metered observations."
+
+  defstruct [:meter_rollup_id, :account_id, :rollup_function, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    meter_rollup_id: String.t() | nil,
+    account_id: String.t() | nil,
+    rollup_function: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :meter_rollup_id) -> {:error, {:missing_field, :meter_rollup_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :rollup_function) -> {:error, {:missing_field, :rollup_function}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          meter_rollup_id: Map.get(attrs, :meter_rollup_id),
+          account_id: Map.get(attrs, :account_id),
+          rollup_function: Map.get(attrs, :rollup_function),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -3292,6 +4084,39 @@ defmodule BeamPM.Types.MigrationReadiness do
           migration_effort_days: Map.get(attrs, :migration_effort_days),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.MinimumCommitmentSchedule do
+  @moduledoc "Time-phased minimum-spend commitment."
+
+  defstruct [:minimum_commitment_schedule_id, :account_id, :committed_amount, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    minimum_commitment_schedule_id: String.t() | nil,
+    account_id: String.t() | nil,
+    committed_amount: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :minimum_commitment_schedule_id) -> {:error, {:missing_field, :minimum_commitment_schedule_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :committed_amount) -> {:error, {:missing_field, :committed_amount}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          minimum_commitment_schedule_id: Map.get(attrs, :minimum_commitment_schedule_id),
+          account_id: Map.get(attrs, :account_id),
+          committed_amount: Map.get(attrs, :committed_amount),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -3384,6 +4209,39 @@ defmodule BeamPM.Types.MutableIdentityRefusalEvidence do
   end
 end
 
+defmodule BeamPM.Types.NonproductionDiscountPolicy do
+  @moduledoc "Explicit discount for nonproduction capacity."
+
+  defstruct [:nonproduction_discount_policy_id, :account_id, :discount_percent, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    nonproduction_discount_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    discount_percent: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :nonproduction_discount_policy_id) -> {:error, {:missing_field, :nonproduction_discount_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :discount_percent) -> {:error, {:missing_field, :discount_percent}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          nonproduction_discount_policy_id: Map.get(attrs, :nonproduction_discount_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          discount_percent: Map.get(attrs, :discount_percent),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ObjectAttributeChange do
   @moduledoc "One recorded change to a time-indexed object attribute."
 
@@ -3434,6 +4292,39 @@ defmodule BeamPM.Types.ObjectType do
         {:ok, %__MODULE__{
           type_name: Map.get(attrs, :type_name),
           attribute_names: Map.get(attrs, :attribute_names)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ObjectVolumePricingPolicy do
+  @moduledoc "Object-volume commercial packaging dimension."
+
+  defstruct [:object_volume_pricing_policy_id, :account_id, :unit_object_price, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    object_volume_pricing_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    unit_object_price: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :object_volume_pricing_policy_id) -> {:error, {:missing_field, :object_volume_pricing_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :unit_object_price) -> {:error, {:missing_field, :unit_object_price}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          object_volume_pricing_policy_id: Map.get(attrs, :object_volume_pricing_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          unit_object_price: Map.get(attrs, :unit_object_price),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -3809,6 +4700,72 @@ defmodule BeamPM.Types.OrderFormAdmission do
           opportunity_id: Map.get(attrs, :opportunity_id),
           order_form_id: Map.get(attrs, :order_form_id),
           decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.OrderFormVersion do
+  @moduledoc "Immutable commercial order-form version."
+
+  defstruct [:order_form_version_id, :account_id, :order_form_digest, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    order_form_version_id: String.t() | nil,
+    account_id: String.t() | nil,
+    order_form_digest: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :order_form_version_id) -> {:error, {:missing_field, :order_form_version_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :order_form_digest) -> {:error, {:missing_field, :order_form_digest}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          order_form_version_id: Map.get(attrs, :order_form_version_id),
+          account_id: Map.get(attrs, :account_id),
+          order_form_digest: Map.get(attrs, :order_form_digest),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.OverageInvoice do
+  @moduledoc "Invoice consequence for measured overage."
+
+  defstruct [:overage_invoice_id, :account_id, :overage_amount, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    overage_invoice_id: String.t() | nil,
+    account_id: String.t() | nil,
+    overage_amount: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :overage_invoice_id) -> {:error, {:missing_field, :overage_invoice_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :overage_amount) -> {:error, {:missing_field, :overage_amount}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          overage_invoice_id: Map.get(attrs, :overage_invoice_id),
+          account_id: Map.get(attrs, :account_id),
+          overage_amount: Map.get(attrs, :overage_amount),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -4269,6 +5226,105 @@ defmodule BeamPM.Types.PolicyDecision do
   end
 end
 
+defmodule BeamPM.Types.PremiumConnectorPricing do
+  @moduledoc "Paid integration-connector add-on."
+
+  defstruct [:premium_connector_pricing_id, :account_id, :connector_id, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    premium_connector_pricing_id: String.t() | nil,
+    account_id: String.t() | nil,
+    connector_id: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :premium_connector_pricing_id) -> {:error, {:missing_field, :premium_connector_pricing_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :connector_id) -> {:error, {:missing_field, :connector_id}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          premium_connector_pricing_id: Map.get(attrs, :premium_connector_pricing_id),
+          account_id: Map.get(attrs, :account_id),
+          connector_id: Map.get(attrs, :connector_id),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PrepaidCreditBalance do
+  @moduledoc "Receipted prepaid-credit balance."
+
+  defstruct [:prepaid_credit_balance_id, :account_id, :remaining_credit, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    prepaid_credit_balance_id: String.t() | nil,
+    account_id: String.t() | nil,
+    remaining_credit: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :prepaid_credit_balance_id) -> {:error, {:missing_field, :prepaid_credit_balance_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :remaining_credit) -> {:error, {:missing_field, :remaining_credit}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          prepaid_credit_balance_id: Map.get(attrs, :prepaid_credit_balance_id),
+          account_id: Map.get(attrs, :account_id),
+          remaining_credit: Map.get(attrs, :remaining_credit),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PriceBookVersion do
+  @moduledoc "Immutable enterprise price-book release."
+
+  defstruct [:price_book_version_id, :account_id, :version, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    price_book_version_id: String.t() | nil,
+    account_id: String.t() | nil,
+    version: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :price_book_version_id) -> {:error, {:missing_field, :price_book_version_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :version) -> {:error, {:missing_field, :version}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          price_book_version_id: Map.get(attrs, :price_book_version_id),
+          account_id: Map.get(attrs, :account_id),
+          version: Map.get(attrs, :version),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PricingBasisContract do
   @moduledoc "Binds the opportunity to an exact pricing basis and evidence identity before quote construction."
 
@@ -4408,6 +5464,39 @@ defmodule BeamPM.Types.ProcessVariant do
           variant_id: Map.get(attrs, :variant_id),
           activity_sequence: Map.get(attrs, :activity_sequence),
           frequency: Map.get(attrs, :frequency)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ProcessVolumePricingPolicy do
+  @moduledoc "Process-model commercial packaging dimension."
+
+  defstruct [:process_volume_pricing_policy_id, :account_id, :unit_process_price, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    process_volume_pricing_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    unit_process_price: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :process_volume_pricing_policy_id) -> {:error, {:missing_field, :process_volume_pricing_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :unit_process_price) -> {:error, {:missing_field, :unit_process_price}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          process_volume_pricing_policy_id: Map.get(attrs, :process_volume_pricing_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          unit_process_price: Map.get(attrs, :unit_process_price),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -4617,6 +5706,72 @@ defmodule BeamPM.Types.ProofOfValueExitGate do
   end
 end
 
+defmodule BeamPM.Types.ProofOfValuePackage do
+  @moduledoc "Paid proof-of-value package with measurable exit criterion."
+
+  defstruct [:proof_of_value_package_id, :account_id, :success_metric, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    proof_of_value_package_id: String.t() | nil,
+    account_id: String.t() | nil,
+    success_metric: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :proof_of_value_package_id) -> {:error, {:missing_field, :proof_of_value_package_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :success_metric) -> {:error, {:missing_field, :success_metric}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          proof_of_value_package_id: Map.get(attrs, :proof_of_value_package_id),
+          account_id: Map.get(attrs, :account_id),
+          success_metric: Map.get(attrs, :success_metric),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ProrationPolicy do
+  @moduledoc "Deterministic mid-term proration policy."
+
+  defstruct [:proration_policy_id, :account_id, :proration_method, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    proration_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    proration_method: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :proration_policy_id) -> {:error, {:missing_field, :proration_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :proration_method) -> {:error, {:missing_field, :proration_method}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          proration_policy_id: Map.get(attrs, :proration_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          proration_method: Map.get(attrs, :proration_method),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ProvenanceBindingEvidence do
   @moduledoc "Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result."
 
@@ -4758,6 +5913,72 @@ defmodule BeamPM.Types.QueueSnapshot do
   end
 end
 
+defmodule BeamPM.Types.QuotaBurstAllowance do
+  @moduledoc "Purchased temporary quota burst allowance."
+
+  defstruct [:quota_burst_allowance_id, :account_id, :burst_units, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    quota_burst_allowance_id: String.t() | nil,
+    account_id: String.t() | nil,
+    burst_units: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :quota_burst_allowance_id) -> {:error, {:missing_field, :quota_burst_allowance_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :burst_units) -> {:error, {:missing_field, :burst_units}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          quota_burst_allowance_id: Map.get(attrs, :quota_burst_allowance_id),
+          account_id: Map.get(attrs, :account_id),
+          burst_units: Map.get(attrs, :burst_units),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.QuotaOverride do
+  @moduledoc "Explicitly authorized quota override."
+
+  defstruct [:quota_override_id, :account_id, :override_units, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    quota_override_id: String.t() | nil,
+    account_id: String.t() | nil,
+    override_units: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :quota_override_id) -> {:error, {:missing_field, :quota_override_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :override_units) -> {:error, {:missing_field, :override_units}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          quota_override_id: Map.get(attrs, :quota_override_id),
+          account_id: Map.get(attrs, :account_id),
+          override_units: Map.get(attrs, :override_units),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.QuotaPolicy do
   @moduledoc "Enforceable quota limit over a named measurement window."
 
@@ -4812,6 +6033,39 @@ defmodule BeamPM.Types.RampCommitment do
           ramp_id: Map.get(attrs, :ramp_id),
           phase: Map.get(attrs, :phase),
           committed_amount: Map.get(attrs, :committed_amount),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.RateCardEntry do
+  @moduledoc "Sellable unit price bound to an immutable price book."
+
+  defstruct [:rate_card_entry_id, :account_id, :unit_price, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    rate_card_entry_id: String.t() | nil,
+    account_id: String.t() | nil,
+    unit_price: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :rate_card_entry_id) -> {:error, {:missing_field, :rate_card_entry_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :unit_price) -> {:error, {:missing_field, :unit_price}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          rate_card_entry_id: Map.get(attrs, :rate_card_entry_id),
+          account_id: Map.get(attrs, :account_id),
+          unit_price: Map.get(attrs, :unit_price),
+          evidence_digest: Map.get(attrs, :evidence_digest),
           effective_at: Map.get(attrs, :effective_at)
         }}
     end
@@ -4876,6 +6130,72 @@ defmodule BeamPM.Types.RecoveryPlan do
           recovery_time_hours: Map.get(attrs, :recovery_time_hours),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.RefundPolicy do
+  @moduledoc "Deterministic refund eligibility policy."
+
+  defstruct [:refund_policy_id, :account_id, :refund_method, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    refund_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    refund_method: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :refund_policy_id) -> {:error, {:missing_field, :refund_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :refund_method) -> {:error, {:missing_field, :refund_method}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          refund_policy_id: Map.get(attrs, :refund_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          refund_method: Map.get(attrs, :refund_method),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.RegionPricingPolicy do
+  @moduledoc "Deployment-region commercial adjustment."
+
+  defstruct [:region_pricing_policy_id, :account_id, :region_code, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    region_pricing_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    region_code: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :region_pricing_policy_id) -> {:error, {:missing_field, :region_pricing_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :region_code) -> {:error, {:missing_field, :region_code}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          region_pricing_policy_id: Map.get(attrs, :region_pricing_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          region_code: Map.get(attrs, :region_code),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -5214,6 +6534,39 @@ defmodule BeamPM.Types.RetentionPolicyEvidence do
   end
 end
 
+defmodule BeamPM.Types.RetentionPricingPolicy do
+  @moduledoc "Retention-duration commercial packaging."
+
+  defstruct [:retention_pricing_policy_id, :account_id, :retention_days, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    retention_pricing_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    retention_days: integer() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :retention_pricing_policy_id) -> {:error, {:missing_field, :retention_pricing_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :retention_days) -> {:error, {:missing_field, :retention_days}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          retention_pricing_policy_id: Map.get(attrs, :retention_pricing_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          retention_days: Map.get(attrs, :retention_days),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.RevenueAttribution do
   @moduledoc "Receipted revenue attribution bound to exact enterprise evidence."
 
@@ -5421,6 +6774,39 @@ defmodule BeamPM.Types.SanctionsScreeningResult do
   end
 end
 
+defmodule BeamPM.Types.SandboxEntitlement do
+  @moduledoc "Nonproduction sandbox entitlement with a hard ceiling."
+
+  defstruct [:sandbox_entitlement_id, :account_id, :sandbox_limit, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    sandbox_entitlement_id: String.t() | nil,
+    account_id: String.t() | nil,
+    sandbox_limit: integer() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :sandbox_entitlement_id) -> {:error, {:missing_field, :sandbox_entitlement_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :sandbox_limit) -> {:error, {:missing_field, :sandbox_limit}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          sandbox_entitlement_id: Map.get(attrs, :sandbox_entitlement_id),
+          account_id: Map.get(attrs, :account_id),
+          sandbox_limit: Map.get(attrs, :sandbox_limit),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.SbomInventoryEvidence do
   @moduledoc "Executable SBOM evidence binding an exact commercial subject to the observed component inventory cardinality."
 
@@ -5446,6 +6832,39 @@ defmodule BeamPM.Types.SbomInventoryEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           component_count: Map.get(attrs, :component_count),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.SeatPricingPolicy do
+  @moduledoc "Named-seat enterprise packaging dimension."
+
+  defstruct [:seat_pricing_policy_id, :account_id, :seat_price, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    seat_pricing_policy_id: String.t() | nil,
+    account_id: String.t() | nil,
+    seat_price: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :seat_pricing_policy_id) -> {:error, {:missing_field, :seat_pricing_policy_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :seat_price) -> {:error, {:missing_field, :seat_price}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          seat_pricing_policy_id: Map.get(attrs, :seat_pricing_policy_id),
+          account_id: Map.get(attrs, :account_id),
+          seat_price: Map.get(attrs, :seat_price),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -5620,6 +7039,39 @@ defmodule BeamPM.Types.ServiceCreditAdmission do
           opportunity_id: Map.get(attrs, :opportunity_id),
           service_credit_id: Map.get(attrs, :service_credit_id),
           decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ServiceCreditLedger do
+  @moduledoc "Auditable customer service-credit balance."
+
+  defstruct [:service_credit_ledger_id, :account_id, :credit_amount, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    service_credit_ledger_id: String.t() | nil,
+    account_id: String.t() | nil,
+    credit_amount: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :service_credit_ledger_id) -> {:error, {:missing_field, :service_credit_ledger_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :credit_amount) -> {:error, {:missing_field, :credit_amount}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          service_credit_ledger_id: Map.get(attrs, :service_credit_ledger_id),
+          account_id: Map.get(attrs, :account_id),
+          credit_amount: Map.get(attrs, :credit_amount),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -5856,6 +7308,39 @@ defmodule BeamPM.Types.SolutionFit do
           fit_score: Map.get(attrs, :fit_score),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.SpendDrawdown do
+  @moduledoc "Observed consumption against committed spend."
+
+  defstruct [:spend_drawdown_id, :account_id, :consumed_amount, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    spend_drawdown_id: String.t() | nil,
+    account_id: String.t() | nil,
+    consumed_amount: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :spend_drawdown_id) -> {:error, {:missing_field, :spend_drawdown_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :consumed_amount) -> {:error, {:missing_field, :consumed_amount}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          spend_drawdown_id: Map.get(attrs, :spend_drawdown_id),
+          account_id: Map.get(attrs, :account_id),
+          consumed_amount: Map.get(attrs, :consumed_amount),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -6223,6 +7708,39 @@ defmodule BeamPM.Types.TaxJurisdictionEvidence do
   end
 end
 
+defmodule BeamPM.Types.TaxJurisdictionRule do
+  @moduledoc "Tax jurisdiction routing for a contracting entity."
+
+  defstruct [:tax_jurisdiction_rule_id, :account_id, :jurisdiction_code, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    tax_jurisdiction_rule_id: String.t() | nil,
+    account_id: String.t() | nil,
+    jurisdiction_code: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tax_jurisdiction_rule_id) -> {:error, {:missing_field, :tax_jurisdiction_rule_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :jurisdiction_code) -> {:error, {:missing_field, :jurisdiction_code}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          tax_jurisdiction_rule_id: Map.get(attrs, :tax_jurisdiction_rule_id),
+          account_id: Map.get(attrs, :account_id),
+          jurisdiction_code: Map.get(attrs, :jurisdiction_code),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.TechnicalBlocker do
   @moduledoc "Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance."
 
@@ -6460,6 +7978,39 @@ defmodule BeamPM.Types.TrainingScopeAdmission do
   end
 end
 
+defmodule BeamPM.Types.TrialEntitlement do
+  @moduledoc "Time-bounded enterprise trial entitlement."
+
+  defstruct [:trial_entitlement_id, :account_id, :trial_expires_at, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    trial_entitlement_id: String.t() | nil,
+    account_id: String.t() | nil,
+    trial_expires_at: String.t() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :trial_entitlement_id) -> {:error, {:missing_field, :trial_entitlement_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :trial_expires_at) -> {:error, {:missing_field, :trial_expires_at}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          trial_entitlement_id: Map.get(attrs, :trial_entitlement_id),
+          account_id: Map.get(attrs, :account_id),
+          trial_expires_at: Map.get(attrs, :trial_expires_at),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.TrueUpPolicy do
   @moduledoc "End-of-period reconciliation policy for committed consumption."
 
@@ -6515,6 +8066,39 @@ defmodule BeamPM.Types.TypeEdge do
           target_type: Map.get(attrs, :target_type),
           qualifier: Map.get(attrs, :qualifier),
           direction: Map.get(attrs, :direction)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.UnitEconomicsSnapshot do
+  @moduledoc "Evidence-bound gross-margin snapshot."
+
+  defstruct [:unit_economics_snapshot_id, :account_id, :gross_margin, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    unit_economics_snapshot_id: String.t() | nil,
+    account_id: String.t() | nil,
+    gross_margin: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :unit_economics_snapshot_id) -> {:error, {:missing_field, :unit_economics_snapshot_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :gross_margin) -> {:error, {:missing_field, :gross_margin}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          unit_economics_snapshot_id: Map.get(attrs, :unit_economics_snapshot_id),
+          account_id: Map.get(attrs, :account_id),
+          gross_margin: Map.get(attrs, :gross_margin),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end
@@ -6608,6 +8192,72 @@ defmodule BeamPM.Types.UpsellReadiness do
           upsell_score: Map.get(attrs, :upsell_score),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.UsageAggregationWindow do
+  @moduledoc "Deterministic usage aggregation window."
+
+  defstruct [:usage_aggregation_window_id, :account_id, :window_seconds, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    usage_aggregation_window_id: String.t() | nil,
+    account_id: String.t() | nil,
+    window_seconds: integer() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :usage_aggregation_window_id) -> {:error, {:missing_field, :usage_aggregation_window_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :window_seconds) -> {:error, {:missing_field, :window_seconds}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          usage_aggregation_window_id: Map.get(attrs, :usage_aggregation_window_id),
+          account_id: Map.get(attrs, :account_id),
+          window_seconds: Map.get(attrs, :window_seconds),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.UsageCorrection do
+  @moduledoc "Receipted correction to previously reported usage."
+
+  defstruct [:usage_correction_id, :account_id, :corrected_quantity, :evidence_digest, :effective_at]
+
+  @type t :: %__MODULE__{
+    usage_correction_id: String.t() | nil,
+    account_id: String.t() | nil,
+    corrected_quantity: float() | nil,
+    evidence_digest: String.t() | nil,
+    effective_at: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :usage_correction_id) -> {:error, {:missing_field, :usage_correction_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :corrected_quantity) -> {:error, {:missing_field, :corrected_quantity}}
+      not Map.has_key?(attrs, :evidence_digest) -> {:error, {:missing_field, :evidence_digest}}
+      not Map.has_key?(attrs, :effective_at) -> {:error, {:missing_field, :effective_at}}
+      true ->
+        {:ok, %__MODULE__{
+          usage_correction_id: Map.get(attrs, :usage_correction_id),
+          account_id: Map.get(attrs, :account_id),
+          corrected_quantity: Map.get(attrs, :corrected_quantity),
+          evidence_digest: Map.get(attrs, :evidence_digest),
+          effective_at: Map.get(attrs, :effective_at)
         }}
     end
   end

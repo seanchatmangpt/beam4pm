@@ -9,6 +9,7 @@
     new_action_pin_evidence/1,
     new_activation_event/1,
     new_add_on_bundle/1,
+    new_addon_activation/1,
     new_adoption_milestone/1,
     new_alignment_move/1,
     new_annual_subscription/1,
@@ -26,10 +27,15 @@
     new_billing_reconciliation/1,
     new_booking_readiness/1,
     new_budget_period_alignment/1,
+    new_bundle_conflict/1,
+    new_bundle_dependency/1,
+    new_burst_pricing_policy/1,
     new_business_continuity_evidence/1,
+    new_business_unit_allocation/1,
     new_buying_committee/1,
     new_canary_decision/1,
     new_canary_evidence/1,
+    new_cancellation_policy/1,
     new_capability_bundle/1,
     new_capability_gap/1,
     new_case_stats/1,
@@ -38,6 +44,7 @@
     new_change_order_authority/1,
     new_channel_agreement/1,
     new_chargeback_rule/1,
+    new_co_term_policy/1,
     new_commercial_approval/1,
     new_commercial_artifact_crown_evidence/1,
     new_commercial_exception/1,
@@ -50,14 +57,18 @@
     new_committed_spend/1,
     new_committed_spend_admission/1,
     new_compatibility_contract/1,
+    new_concurrency_pricing_policy/1,
     new_configuration_export/1,
     new_configuration_import/1,
     new_conformance_result/1,
     new_consumption_pool/1,
     new_consumption_subscription/1,
     new_contracting_entity_identity/1,
+    new_cost_center_allocation/1,
+    new_credit_expiry_policy/1,
     new_credit_risk_admission/1,
     new_cross_sell_fit/1,
+    new_currency_policy/1,
     new_customer_health/1,
     new_customer_managed_key_evidence/1,
     new_data_egress_evidence/1,
@@ -65,6 +76,7 @@
     new_data_processing_addendum_state/1,
     new_data_readiness/1,
     new_data_residency_policy/1,
+    new_data_volume_pricing_policy/1,
     new_deal_desk_packet/1,
     new_deletion_proof_evidence/1,
     new_demo_run/1,
@@ -77,6 +89,9 @@
     new_discount_schedule/1,
     new_discovery_hypothesis/1,
     new_edition_definition/1,
+    new_edition_downgrade_path/1,
+    new_edition_upgrade_path/1,
+    new_enterprise_agreement/1,
     new_enterprise_order/1,
     new_enterprise_order_line/1,
     new_entitlement_event/1,
@@ -84,9 +99,11 @@
     new_entitlement_grant/1,
     new_entitlement_revocation/1,
     new_entitlement_state/1,
+    new_environment_pricing_policy/1,
     new_environment_profile/1,
     new_event_log/1,
     new_event_type/1,
+    new_event_volume_pricing_policy/1,
     new_evidence_freshness_evidence/1,
     new_exception_authority/1,
     new_executive_business_review/1,
@@ -96,6 +113,7 @@
     new_expansion_receipt/1,
     new_expansion_signal/1,
     new_funding_approval_chain/1,
+    new_fx_conversion_policy/1,
     new_heuristic_arc/1,
     new_implementation_fee_admission/1,
     new_incident_response_evidence/1,
@@ -104,21 +122,30 @@
     new_integration_readiness/1,
     new_integration_scope_admission/1,
     new_invoice_entity_identity/1,
+    new_invoice_line_item/1,
     new_invoice_schedule/1,
     new_k8s_object_ref/1,
+    new_late_arriving_usage/1,
     new_least_authority_evidence/1,
     new_legal_blocker/1,
     new_liability_cap_admission/1,
     new_license_evidence/1,
     new_log_trace/1,
+    new_master_service_agreement_binding/1,
     new_master_service_agreement_state/1,
+    new_meter_definition/1,
+    new_meter_dimension/1,
+    new_meter_rollup/1,
     new_migration_contract/1,
     new_migration_readiness/1,
+    new_minimum_commitment_schedule/1,
     new_minimum_term_admission/1,
     new_multiarch_evidence/1,
     new_mutable_identity_refusal_evidence/1,
+    new_nonproduction_discount_policy/1,
     new_object_attribute_change/1,
     new_object_type/1,
+    new_object_volume_pricing_policy/1,
     new_objection/1,
     new_objection_resolution/1,
     new_oc_declare_constraint/1,
@@ -132,6 +159,8 @@
     new_opportunity_currency_contract/1,
     new_opportunity_value_range/1,
     new_order_form_admission/1,
+    new_order_form_version/1,
+    new_overage_invoice/1,
     new_overage_policy/1,
     new_path_schema/1,
     new_path_schema_query/1,
@@ -148,11 +177,15 @@
     new_poc_scope/1,
     new_poc_timeline/1,
     new_policy_decision/1,
+    new_premium_connector_pricing/1,
+    new_prepaid_credit_balance/1,
+    new_price_book_version/1,
     new_pricing_basis_contract/1,
     new_privacy_classification_evidence/1,
     new_private_offer/1,
     new_private_registry_evidence/1,
     new_process_variant/1,
+    new_process_volume_pricing_policy/1,
     new_procurement_acceptance_evidence/1,
     new_procurement_blocker/1,
     new_procurement_channel_selection/1,
@@ -160,15 +193,22 @@
     new_production_readiness/1,
     new_proof_of_value_budget/1,
     new_proof_of_value_exit_gate/1,
+    new_proof_of_value_package/1,
+    new_proration_policy/1,
     new_provenance_binding_evidence/1,
     new_purchase_order_binding/1,
     new_purchase_order_requirement/1,
     new_purchasing_entity_identity/1,
     new_queue_snapshot/1,
+    new_quota_burst_allowance/1,
+    new_quota_override/1,
     new_quota_policy/1,
     new_ramp_commitment/1,
+    new_rate_card_entry/1,
     new_receipt_replay_evidence/1,
     new_recovery_plan/1,
+    new_refund_policy/1,
+    new_region_pricing_policy/1,
     new_remediation_sla_evidence/1,
     new_renewal_evidence/1,
     new_renewal_health/1,
@@ -180,6 +220,7 @@
     new_residency_evidence/1,
     new_resource_allocation/1,
     new_retention_policy_evidence/1,
+    new_retention_pricing_policy/1,
     new_revenue_attribution/1,
     new_revenue_contract_admission/1,
     new_revenue_schedule_assumption/1,
@@ -187,13 +228,16 @@
     new_rollback_decision/1,
     new_rollback_evidence/1,
     new_sanctions_screening_result/1,
+    new_sandbox_entitlement/1,
     new_sbom_inventory_evidence/1,
+    new_seat_pricing_policy/1,
     new_secret_boundary_evidence/1,
     new_security_addendum_state/1,
     new_security_blocker/1,
     new_security_readiness/1,
     new_service_credit/1,
     new_service_credit_admission/1,
+    new_service_credit_ledger/1,
     new_service_level_objective/1,
     new_service_span/1,
     new_showback_allocation/1,
@@ -202,6 +246,7 @@
     new_sla_offer_admission/1,
     new_sojourn_time/1,
     new_solution_fit/1,
+    new_spend_drawdown/1,
     new_stakeholder_map/1,
     new_stale_subject_refusal_evidence/1,
     new_success_plan/1,
@@ -214,6 +259,7 @@
     new_sync_time/1,
     new_target_metric/1,
     new_tax_jurisdiction_evidence/1,
+    new_tax_jurisdiction_rule/1,
     new_technical_blocker/1,
     new_tenant_account/1,
     new_tenant_project/1,
@@ -222,11 +268,15 @@
     new_time_to_value/1,
     new_training_readiness/1,
     new_training_scope_admission/1,
+    new_trial_entitlement/1,
     new_true_up_policy/1,
     new_type_edge/1,
+    new_unit_economics_snapshot/1,
     new_unsupported_capability_evidence/1,
     new_upgrade_evidence/1,
     new_upsell_readiness/1,
+    new_usage_aggregation_window/1,
+    new_usage_correction/1,
     new_usage_event/1,
     new_usage_plan/1,
     new_usage_signal/1,
@@ -247,6 +297,7 @@
     action_pin_evidence/0,
     activation_event/0,
     add_on_bundle/0,
+    addon_activation/0,
     adoption_milestone/0,
     alignment_move/0,
     annual_subscription/0,
@@ -264,10 +315,15 @@
     billing_reconciliation/0,
     booking_readiness/0,
     budget_period_alignment/0,
+    bundle_conflict/0,
+    bundle_dependency/0,
+    burst_pricing_policy/0,
     business_continuity_evidence/0,
+    business_unit_allocation/0,
     buying_committee/0,
     canary_decision/0,
     canary_evidence/0,
+    cancellation_policy/0,
     capability_bundle/0,
     capability_gap/0,
     case_stats/0,
@@ -276,6 +332,7 @@
     change_order_authority/0,
     channel_agreement/0,
     chargeback_rule/0,
+    co_term_policy/0,
     commercial_approval/0,
     commercial_artifact_crown_evidence/0,
     commercial_exception/0,
@@ -288,14 +345,18 @@
     committed_spend/0,
     committed_spend_admission/0,
     compatibility_contract/0,
+    concurrency_pricing_policy/0,
     configuration_export/0,
     configuration_import/0,
     conformance_result/0,
     consumption_pool/0,
     consumption_subscription/0,
     contracting_entity_identity/0,
+    cost_center_allocation/0,
+    credit_expiry_policy/0,
     credit_risk_admission/0,
     cross_sell_fit/0,
+    currency_policy/0,
     customer_health/0,
     customer_managed_key_evidence/0,
     data_egress_evidence/0,
@@ -303,6 +364,7 @@
     data_processing_addendum_state/0,
     data_readiness/0,
     data_residency_policy/0,
+    data_volume_pricing_policy/0,
     deal_desk_packet/0,
     deletion_proof_evidence/0,
     demo_run/0,
@@ -315,6 +377,9 @@
     discount_schedule/0,
     discovery_hypothesis/0,
     edition_definition/0,
+    edition_downgrade_path/0,
+    edition_upgrade_path/0,
+    enterprise_agreement/0,
     enterprise_order/0,
     enterprise_order_line/0,
     entitlement_event/0,
@@ -322,9 +387,11 @@
     entitlement_grant/0,
     entitlement_revocation/0,
     entitlement_state/0,
+    environment_pricing_policy/0,
     environment_profile/0,
     event_log/0,
     event_type/0,
+    event_volume_pricing_policy/0,
     evidence_freshness_evidence/0,
     exception_authority/0,
     executive_business_review/0,
@@ -334,6 +401,7 @@
     expansion_receipt/0,
     expansion_signal/0,
     funding_approval_chain/0,
+    fx_conversion_policy/0,
     heuristic_arc/0,
     implementation_fee_admission/0,
     incident_response_evidence/0,
@@ -342,21 +410,30 @@
     integration_readiness/0,
     integration_scope_admission/0,
     invoice_entity_identity/0,
+    invoice_line_item/0,
     invoice_schedule/0,
     k8s_object_ref/0,
+    late_arriving_usage/0,
     least_authority_evidence/0,
     legal_blocker/0,
     liability_cap_admission/0,
     license_evidence/0,
     log_trace/0,
+    master_service_agreement_binding/0,
     master_service_agreement_state/0,
+    meter_definition/0,
+    meter_dimension/0,
+    meter_rollup/0,
     migration_contract/0,
     migration_readiness/0,
+    minimum_commitment_schedule/0,
     minimum_term_admission/0,
     multiarch_evidence/0,
     mutable_identity_refusal_evidence/0,
+    nonproduction_discount_policy/0,
     object_attribute_change/0,
     object_type/0,
+    object_volume_pricing_policy/0,
     objection/0,
     objection_resolution/0,
     oc_declare_constraint/0,
@@ -370,6 +447,8 @@
     opportunity_currency_contract/0,
     opportunity_value_range/0,
     order_form_admission/0,
+    order_form_version/0,
+    overage_invoice/0,
     overage_policy/0,
     path_schema/0,
     path_schema_query/0,
@@ -386,11 +465,15 @@
     poc_scope/0,
     poc_timeline/0,
     policy_decision/0,
+    premium_connector_pricing/0,
+    prepaid_credit_balance/0,
+    price_book_version/0,
     pricing_basis_contract/0,
     privacy_classification_evidence/0,
     private_offer/0,
     private_registry_evidence/0,
     process_variant/0,
+    process_volume_pricing_policy/0,
     procurement_acceptance_evidence/0,
     procurement_blocker/0,
     procurement_channel_selection/0,
@@ -398,15 +481,22 @@
     production_readiness/0,
     proof_of_value_budget/0,
     proof_of_value_exit_gate/0,
+    proof_of_value_package/0,
+    proration_policy/0,
     provenance_binding_evidence/0,
     purchase_order_binding/0,
     purchase_order_requirement/0,
     purchasing_entity_identity/0,
     queue_snapshot/0,
+    quota_burst_allowance/0,
+    quota_override/0,
     quota_policy/0,
     ramp_commitment/0,
+    rate_card_entry/0,
     receipt_replay_evidence/0,
     recovery_plan/0,
+    refund_policy/0,
+    region_pricing_policy/0,
     remediation_sla_evidence/0,
     renewal_evidence/0,
     renewal_health/0,
@@ -418,6 +508,7 @@
     residency_evidence/0,
     resource_allocation/0,
     retention_policy_evidence/0,
+    retention_pricing_policy/0,
     revenue_attribution/0,
     revenue_contract_admission/0,
     revenue_schedule_assumption/0,
@@ -425,13 +516,16 @@
     rollback_decision/0,
     rollback_evidence/0,
     sanctions_screening_result/0,
+    sandbox_entitlement/0,
     sbom_inventory_evidence/0,
+    seat_pricing_policy/0,
     secret_boundary_evidence/0,
     security_addendum_state/0,
     security_blocker/0,
     security_readiness/0,
     service_credit/0,
     service_credit_admission/0,
+    service_credit_ledger/0,
     service_level_objective/0,
     service_span/0,
     showback_allocation/0,
@@ -440,6 +534,7 @@
     sla_offer_admission/0,
     sojourn_time/0,
     solution_fit/0,
+    spend_drawdown/0,
     stakeholder_map/0,
     stale_subject_refusal_evidence/0,
     success_plan/0,
@@ -452,6 +547,7 @@
     sync_time/0,
     target_metric/0,
     tax_jurisdiction_evidence/0,
+    tax_jurisdiction_rule/0,
     technical_blocker/0,
     tenant_account/0,
     tenant_project/0,
@@ -460,11 +556,15 @@
     time_to_value/0,
     training_readiness/0,
     training_scope_admission/0,
+    trial_entitlement/0,
     true_up_policy/0,
     type_edge/0,
+    unit_economics_snapshot/0,
     unsupported_capability_evidence/0,
     upgrade_evidence/0,
     upsell_readiness/0,
+    usage_aggregation_window/0,
+    usage_correction/0,
     usage_event/0,
     usage_plan/0,
     usage_signal/0,
@@ -683,6 +783,47 @@ new_add_on_bundle(Map) ->
         capability_ids = maps:get(capability_ids, Map, undefined),
         status = maps:get(status, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Receipted activation of a paid add-on.
+-record(addon_activation, {
+    addon_activation_id :: binary(), %% addon_activation_id: Stable identity of this addon activation contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    addon_id :: binary(), %% addon_id: Stable identity of the activated commercial add-on.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type addon_activation() :: #addon_activation{}.
+
+-spec new_addon_activation(map()) -> {ok, addon_activation()} | {error, {missing_field, atom()}}.
+new_addon_activation(Map) ->
+    case maps:is_key(addon_activation_id, Map) of
+        false -> {error, {missing_field, addon_activation_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(addon_id, Map) of
+        false -> {error, {missing_field, addon_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #addon_activation{
+        addon_activation_id = maps:get(addon_activation_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        addon_id = maps:get(addon_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -1283,6 +1424,129 @@ new_budget_period_alignment(Map) ->
     end
     end.
 
+%% Mutual exclusion between incompatible bundles.
+-record(bundle_conflict, {
+    bundle_conflict_id :: binary(), %% bundle_conflict_id: Stable identity of this bundle conflict contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    conflicting_bundle_id :: binary(), %% conflicting_bundle_id: Bundle whose simultaneous activation must be refused.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type bundle_conflict() :: #bundle_conflict{}.
+
+-spec new_bundle_conflict(map()) -> {ok, bundle_conflict()} | {error, {missing_field, atom()}}.
+new_bundle_conflict(Map) ->
+    case maps:is_key(bundle_conflict_id, Map) of
+        false -> {error, {missing_field, bundle_conflict_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(conflicting_bundle_id, Map) of
+        false -> {error, {missing_field, conflicting_bundle_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #bundle_conflict{
+        bundle_conflict_id = maps:get(bundle_conflict_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        conflicting_bundle_id = maps:get(conflicting_bundle_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Required dependency between sellable bundles.
+-record(bundle_dependency, {
+    bundle_dependency_id :: binary(), %% bundle_dependency_id: Stable identity of this bundle dependency contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    required_bundle_id :: binary(), %% required_bundle_id: Bundle that must be entitled before this bundle can activate.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type bundle_dependency() :: #bundle_dependency{}.
+
+-spec new_bundle_dependency(map()) -> {ok, bundle_dependency()} | {error, {missing_field, atom()}}.
+new_bundle_dependency(Map) ->
+    case maps:is_key(bundle_dependency_id, Map) of
+        false -> {error, {missing_field, bundle_dependency_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(required_bundle_id, Map) of
+        false -> {error, {missing_field, required_bundle_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #bundle_dependency{
+        bundle_dependency_id = maps:get(bundle_dependency_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        required_bundle_id = maps:get(required_bundle_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Bounded burst-capacity premium.
+-record(burst_pricing_policy, {
+    burst_pricing_policy_id :: binary(), %% burst_pricing_policy_id: Stable identity of this burst pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    burst_multiplier :: float(), %% burst_multiplier: Approved multiplier applied only above the included capacity.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type burst_pricing_policy() :: #burst_pricing_policy{}.
+
+-spec new_burst_pricing_policy(map()) -> {ok, burst_pricing_policy()} | {error, {missing_field, atom()}}.
+new_burst_pricing_policy(Map) ->
+    case maps:is_key(burst_pricing_policy_id, Map) of
+        false -> {error, {missing_field, burst_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(burst_multiplier, Map) of
+        false -> {error, {missing_field, burst_multiplier}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #burst_pricing_policy{
+        burst_pricing_policy_id = maps:get(burst_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        burst_multiplier = maps:get(burst_multiplier, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Executable continuity evidence binding an exact subject to the fallback operating mode actually entered.
 -record(business_continuity_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this business-continuity observation.
@@ -1313,6 +1577,47 @@ new_business_continuity_evidence(Map) ->
         continuity_mode = maps:get(continuity_mode, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Showback allocation to an enterprise business unit.
+-record(business_unit_allocation, {
+    business_unit_allocation_id :: binary(), %% business_unit_allocation_id: Stable identity of this business unit allocation contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    business_unit_id :: binary(), %% business_unit_id: Stable identity of the receiving business unit.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type business_unit_allocation() :: #business_unit_allocation{}.
+
+-spec new_business_unit_allocation(map()) -> {ok, business_unit_allocation()} | {error, {missing_field, atom()}}.
+new_business_unit_allocation(Map) ->
+    case maps:is_key(business_unit_allocation_id, Map) of
+        false -> {error, {missing_field, business_unit_allocation_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(business_unit_id, Map) of
+        false -> {error, {missing_field, business_unit_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #business_unit_allocation{
+        business_unit_allocation_id = maps:get(business_unit_allocation_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        business_unit_id = maps:get(business_unit_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -1430,6 +1735,47 @@ new_canary_evidence(Map) ->
         canary_percentage = maps:get(canary_percentage, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Contractual cancellation and notice policy.
+-record(cancellation_policy, {
+    cancellation_policy_id :: binary(), %% cancellation_policy_id: Stable identity of this cancellation policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    notice_days :: integer(), %% notice_days: Required cancellation notice period in days.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type cancellation_policy() :: #cancellation_policy{}.
+
+-spec new_cancellation_policy(map()) -> {ok, cancellation_policy()} | {error, {missing_field, atom()}}.
+new_cancellation_policy(Map) ->
+    case maps:is_key(cancellation_policy_id, Map) of
+        false -> {error, {missing_field, cancellation_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(notice_days, Map) of
+        false -> {error, {missing_field, notice_days}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #cancellation_policy{
+        cancellation_policy_id = maps:get(cancellation_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        notice_days = maps:get(notice_days, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -1700,6 +2046,47 @@ new_chargeback_rule(Map) ->
         metric_name = maps:get(metric_name, Map, undefined),
         rate = maps:get(rate, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Co-termination policy for expansion purchases.
+-record(co_term_policy, {
+    co_term_policy_id :: binary(), %% co_term_policy_id: Stable identity of this co term policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    coterm_date :: binary(), %% coterm_date: Contract end instant to which the expansion is aligned.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type co_term_policy() :: #co_term_policy{}.
+
+-spec new_co_term_policy(map()) -> {ok, co_term_policy()} | {error, {missing_field, atom()}}.
+new_co_term_policy(Map) ->
+    case maps:is_key(co_term_policy_id, Map) of
+        false -> {error, {missing_field, co_term_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(coterm_date, Map) of
+        false -> {error, {missing_field, coterm_date}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #co_term_policy{
+        co_term_policy_id = maps:get(co_term_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        coterm_date = maps:get(coterm_date, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -2119,6 +2506,47 @@ new_compatibility_contract(Map) ->
     end
     end.
 
+%% Concurrent-workload packaging dimension.
+-record(concurrency_pricing_policy, {
+    concurrency_pricing_policy_id :: binary(), %% concurrency_pricing_policy_id: Stable identity of this concurrency pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    included_concurrency :: integer(), %% included_concurrency: Concurrent workload units included in the purchased package.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type concurrency_pricing_policy() :: #concurrency_pricing_policy{}.
+
+-spec new_concurrency_pricing_policy(map()) -> {ok, concurrency_pricing_policy()} | {error, {missing_field, atom()}}.
+new_concurrency_pricing_policy(Map) ->
+    case maps:is_key(concurrency_pricing_policy_id, Map) of
+        false -> {error, {missing_field, concurrency_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(included_concurrency, Map) of
+        false -> {error, {missing_field, included_concurrency}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #concurrency_pricing_policy{
+        concurrency_pricing_policy_id = maps:get(concurrency_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        included_concurrency = maps:get(included_concurrency, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Receiptable export of deterministic enterprise configuration.
 -record(configuration_export, {
     export_id :: binary(), %% export_id: Stable export identity.
@@ -2313,6 +2741,88 @@ new_contracting_entity_identity(Map) ->
     end
     end.
 
+%% Chargeback allocation to an enterprise cost center.
+-record(cost_center_allocation, {
+    cost_center_allocation_id :: binary(), %% cost_center_allocation_id: Stable identity of this cost center allocation contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    cost_center_id :: binary(), %% cost_center_id: Stable identity of the charged cost center.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type cost_center_allocation() :: #cost_center_allocation{}.
+
+-spec new_cost_center_allocation(map()) -> {ok, cost_center_allocation()} | {error, {missing_field, atom()}}.
+new_cost_center_allocation(Map) ->
+    case maps:is_key(cost_center_allocation_id, Map) of
+        false -> {error, {missing_field, cost_center_allocation_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(cost_center_id, Map) of
+        false -> {error, {missing_field, cost_center_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #cost_center_allocation{
+        cost_center_allocation_id = maps:get(cost_center_allocation_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        cost_center_id = maps:get(cost_center_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Deterministic expiration of prepaid commercial credits.
+-record(credit_expiry_policy, {
+    credit_expiry_policy_id :: binary(), %% credit_expiry_policy_id: Stable identity of this credit expiry policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    expires_at :: binary(), %% expires_at: Exact expiration instant for the admitted credit pool.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type credit_expiry_policy() :: #credit_expiry_policy{}.
+
+-spec new_credit_expiry_policy(map()) -> {ok, credit_expiry_policy()} | {error, {missing_field, atom()}}.
+new_credit_expiry_policy(Map) ->
+    case maps:is_key(credit_expiry_policy_id, Map) of
+        false -> {error, {missing_field, credit_expiry_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(expires_at, Map) of
+        false -> {error, {missing_field, expires_at}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #credit_expiry_policy{
+        credit_expiry_policy_id = maps:get(credit_expiry_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        expires_at = maps:get(expires_at, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure.
 -record(credit_risk_admission, {
     account_id :: binary(), %% account_id: Required credit risk admission input; omission is an executable typed refusal, never an inferred approval.
@@ -2376,6 +2886,47 @@ new_cross_sell_fit(Map) ->
         cross_sell_score = maps:get(cross_sell_score, Map, undefined),
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Allowed billing currency for an enterprise agreement.
+-record(currency_policy, {
+    currency_policy_id :: binary(), %% currency_policy_id: Stable identity of this currency policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    currency_code :: binary(), %% currency_code: ISO billing currency admitted for this account.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type currency_policy() :: #currency_policy{}.
+
+-spec new_currency_policy(map()) -> {ok, currency_policy()} | {error, {missing_field, atom()}}.
+new_currency_policy(Map) ->
+    case maps:is_key(currency_policy_id, Map) of
+        false -> {error, {missing_field, currency_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(currency_code, Map) of
+        false -> {error, {missing_field, currency_code}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #currency_policy{
+        currency_policy_id = maps:get(currency_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        currency_code = maps:get(currency_code, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
     }}
     end
     end
@@ -2623,6 +3174,47 @@ new_data_residency_policy(Map) ->
         allowed_regions = maps:get(allowed_regions, Map, undefined),
         status = maps:get(status, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Data-volume commercial packaging dimension.
+-record(data_volume_pricing_policy, {
+    data_volume_pricing_policy_id :: binary(), %% data_volume_pricing_policy_id: Stable identity of this data volume pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    unit_gb_price :: float(), %% unit_gb_price: Admitted unit price per processed gigabyte.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type data_volume_pricing_policy() :: #data_volume_pricing_policy{}.
+
+-spec new_data_volume_pricing_policy(map()) -> {ok, data_volume_pricing_policy()} | {error, {missing_field, atom()}}.
+new_data_volume_pricing_policy(Map) ->
+    case maps:is_key(data_volume_pricing_policy_id, Map) of
+        false -> {error, {missing_field, data_volume_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit_gb_price, Map) of
+        false -> {error, {missing_field, unit_gb_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #data_volume_pricing_policy{
+        data_volume_pricing_policy_id = maps:get(data_volume_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit_gb_price = maps:get(unit_gb_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -3060,6 +3652,129 @@ new_edition_definition(Map) ->
     end
     end.
 
+%% Controlled commercial edition downgrade path.
+-record(edition_downgrade_path, {
+    edition_downgrade_path_id :: binary(), %% edition_downgrade_path_id: Stable identity of this edition downgrade path contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    target_edition_id :: binary(), %% target_edition_id: Edition that may be reached after capability-loss admission.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type edition_downgrade_path() :: #edition_downgrade_path{}.
+
+-spec new_edition_downgrade_path(map()) -> {ok, edition_downgrade_path()} | {error, {missing_field, atom()}}.
+new_edition_downgrade_path(Map) ->
+    case maps:is_key(edition_downgrade_path_id, Map) of
+        false -> {error, {missing_field, edition_downgrade_path_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(target_edition_id, Map) of
+        false -> {error, {missing_field, target_edition_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #edition_downgrade_path{
+        edition_downgrade_path_id = maps:get(edition_downgrade_path_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        target_edition_id = maps:get(target_edition_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Admitted commercial edition upgrade path.
+-record(edition_upgrade_path, {
+    edition_upgrade_path_id :: binary(), %% edition_upgrade_path_id: Stable identity of this edition upgrade path contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    target_edition_id :: binary(), %% target_edition_id: Edition that may be reached without breaking contract compatibility.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type edition_upgrade_path() :: #edition_upgrade_path{}.
+
+-spec new_edition_upgrade_path(map()) -> {ok, edition_upgrade_path()} | {error, {missing_field, atom()}}.
+new_edition_upgrade_path(Map) ->
+    case maps:is_key(edition_upgrade_path_id, Map) of
+        false -> {error, {missing_field, edition_upgrade_path_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(target_edition_id, Map) of
+        false -> {error, {missing_field, target_edition_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #edition_upgrade_path{
+        edition_upgrade_path_id = maps:get(edition_upgrade_path_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        target_edition_id = maps:get(target_edition_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Enterprise commercial umbrella agreement.
+-record(enterprise_agreement, {
+    enterprise_agreement_id :: binary(), %% enterprise_agreement_id: Stable identity of this enterprise agreement contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    agreement_version :: binary(), %% agreement_version: Immutable semantic version of the governing agreement.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type enterprise_agreement() :: #enterprise_agreement{}.
+
+-spec new_enterprise_agreement(map()) -> {ok, enterprise_agreement()} | {error, {missing_field, atom()}}.
+new_enterprise_agreement(Map) ->
+    case maps:is_key(enterprise_agreement_id, Map) of
+        false -> {error, {missing_field, enterprise_agreement_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(agreement_version, Map) of
+        false -> {error, {missing_field, agreement_version}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #enterprise_agreement{
+        enterprise_agreement_id = maps:get(enterprise_agreement_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        agreement_version = maps:get(agreement_version, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Accepted enterprise order binding account, quote, and standing.
 -record(enterprise_order, {
     order_id :: binary(), %% order_id: Stable enterprise order identity.
@@ -3307,6 +4022,47 @@ new_entitlement_state(Map) ->
     end
     end.
 
+%% Environment-count commercial packaging.
+-record(environment_pricing_policy, {
+    environment_pricing_policy_id :: binary(), %% environment_pricing_policy_id: Stable identity of this environment pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    environment_tier :: binary(), %% environment_tier: Purchased environment tier such as sandbox, nonproduction, or production.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type environment_pricing_policy() :: #environment_pricing_policy{}.
+
+-spec new_environment_pricing_policy(map()) -> {ok, environment_pricing_policy()} | {error, {missing_field, atom()}}.
+new_environment_pricing_policy(Map) ->
+    case maps:is_key(environment_pricing_policy_id, Map) of
+        false -> {error, {missing_field, environment_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(environment_tier, Map) of
+        false -> {error, {missing_field, environment_tier}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #environment_pricing_policy{
+        environment_pricing_policy_id = maps:get(environment_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        environment_tier = maps:get(environment_tier, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Deterministic environment profile for demo, POC, or production.
 -record(environment_profile, {
     profile_id :: binary(), %% profile_id: Stable environment profile.
@@ -3384,6 +4140,47 @@ new_event_type(Map) ->
         type_name = maps:get(type_name, Map, undefined),
         attribute_names = maps:get(attribute_names, Map, undefined)
     }}
+    end.
+
+%% Event-volume commercial packaging dimension.
+-record(event_volume_pricing_policy, {
+    event_volume_pricing_policy_id :: binary(), %% event_volume_pricing_policy_id: Stable identity of this event volume pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    unit_event_price :: float(), %% unit_event_price: Admitted unit price per event billing unit.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type event_volume_pricing_policy() :: #event_volume_pricing_policy{}.
+
+-spec new_event_volume_pricing_policy(map()) -> {ok, event_volume_pricing_policy()} | {error, {missing_field, atom()}}.
+new_event_volume_pricing_policy(Map) ->
+    case maps:is_key(event_volume_pricing_policy_id, Map) of
+        false -> {error, {missing_field, event_volume_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit_event_price, Map) of
+        false -> {error, {missing_field, unit_event_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #event_volume_pricing_policy{
+        event_volume_pricing_policy_id = maps:get(event_volume_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit_event_price = maps:get(unit_event_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
     end.
 
 %% Executable freshness evidence binding an exact subject to the observation instant used by policy.
@@ -3719,6 +4516,47 @@ new_funding_approval_chain(Map) ->
     end
     end.
 
+%% Evidence-bound foreign-exchange conversion policy.
+-record(fx_conversion_policy, {
+    fx_conversion_policy_id :: binary(), %% fx_conversion_policy_id: Stable identity of this fx conversion policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    rate_source :: binary(), %% rate_source: Immutable identity of the admitted FX rate source.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type fx_conversion_policy() :: #fx_conversion_policy{}.
+
+-spec new_fx_conversion_policy(map()) -> {ok, fx_conversion_policy()} | {error, {missing_field, atom()}}.
+new_fx_conversion_policy(Map) ->
+    case maps:is_key(fx_conversion_policy_id, Map) of
+        false -> {error, {missing_field, fx_conversion_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(rate_source, Map) of
+        false -> {error, {missing_field, rate_source}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #fx_conversion_policy{
+        fx_conversion_policy_id = maps:get(fx_conversion_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        rate_source = maps:get(rate_source, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% One dependency-scored candidate arc considered during heuristic-net discovery.
 -record(heuristic_arc, {
     source_activity :: binary(), %% source_activity: The candidate arc source activity.
@@ -3969,6 +4807,47 @@ new_invoice_entity_identity(Map) ->
     end
     end.
 
+%% Auditable commercial invoice line.
+-record(invoice_line_item, {
+    invoice_line_item_id :: binary(), %% invoice_line_item_id: Stable identity of this invoice line item contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    line_amount :: float(), %% line_amount: Observed amount for this exact invoice line.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type invoice_line_item() :: #invoice_line_item{}.
+
+-spec new_invoice_line_item(map()) -> {ok, invoice_line_item()} | {error, {missing_field, atom()}}.
+new_invoice_line_item(Map) ->
+    case maps:is_key(invoice_line_item_id, Map) of
+        false -> {error, {missing_field, invoice_line_item_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(line_amount, Map) of
+        false -> {error, {missing_field, line_amount}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #invoice_line_item{
+        invoice_line_item_id = maps:get(invoice_line_item_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        line_amount = maps:get(line_amount, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Deterministic invoicing cadence for a billing account.
 -record(invoice_schedule, {
     schedule_id :: binary(), %% schedule_id: Stable schedule identity.
@@ -4026,6 +4905,47 @@ new_k8s_object_ref(Map) ->
         name = maps:get(name, Map, undefined),
         namespace = maps:get(namespace, Map, undefined)
     }}
+    end
+    end.
+
+%% Admission of usage received after its billing window.
+-record(late_arriving_usage, {
+    late_arriving_usage_id :: binary(), %% late_arriving_usage_id: Stable identity of this late arriving usage contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    occurred_at :: binary(), %% occurred_at: Original occurrence instant for the delayed usage.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type late_arriving_usage() :: #late_arriving_usage{}.
+
+-spec new_late_arriving_usage(map()) -> {ok, late_arriving_usage()} | {error, {missing_field, atom()}}.
+new_late_arriving_usage(Map) ->
+    case maps:is_key(late_arriving_usage_id, Map) of
+        false -> {error, {missing_field, late_arriving_usage_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(occurred_at, Map) of
+        false -> {error, {missing_field, occurred_at}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #late_arriving_usage{
+        late_arriving_usage_id = maps:get(late_arriving_usage_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        occurred_at = maps:get(occurred_at, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
     end
     end.
 
@@ -4180,6 +5100,47 @@ new_log_trace(Map) ->
     end
     end.
 
+%% Exact MSA binding for an order.
+-record(master_service_agreement_binding, {
+    master_service_agreement_binding_id :: binary(), %% master_service_agreement_binding_id: Stable identity of this master service agreement binding contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    msa_digest :: binary(), %% msa_digest: Content digest of the governing master service agreement.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type master_service_agreement_binding() :: #master_service_agreement_binding{}.
+
+-spec new_master_service_agreement_binding(map()) -> {ok, master_service_agreement_binding()} | {error, {missing_field, atom()}}.
+new_master_service_agreement_binding(Map) ->
+    case maps:is_key(master_service_agreement_binding_id, Map) of
+        false -> {error, {missing_field, master_service_agreement_binding_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(msa_digest, Map) of
+        false -> {error, {missing_field, msa_digest}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #master_service_agreement_binding{
+        master_service_agreement_binding_id = maps:get(master_service_agreement_binding_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        msa_digest = maps:get(msa_digest, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
 -record(master_service_agreement_state, {
     opportunity_id :: binary(), %% opportunity_id: Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
@@ -4205,6 +5166,129 @@ new_master_service_agreement_state(Map) ->
         agreement_id = maps:get(agreement_id, Map, undefined),
         agreement_state = maps:get(agreement_state, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Immutable billable-meter definition.
+-record(meter_definition, {
+    meter_definition_id :: binary(), %% meter_definition_id: Stable identity of this meter definition contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    meter_name :: binary(), %% meter_name: Stable buyer-visible identity of the commercial meter.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type meter_definition() :: #meter_definition{}.
+
+-spec new_meter_definition(map()) -> {ok, meter_definition()} | {error, {missing_field, atom()}}.
+new_meter_definition(Map) ->
+    case maps:is_key(meter_definition_id, Map) of
+        false -> {error, {missing_field, meter_definition_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(meter_name, Map) of
+        false -> {error, {missing_field, meter_name}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #meter_definition{
+        meter_definition_id = maps:get(meter_definition_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        meter_name = maps:get(meter_name, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Typed dimension attached to a commercial meter.
+-record(meter_dimension, {
+    meter_dimension_id :: binary(), %% meter_dimension_id: Stable identity of this meter dimension contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    dimension_name :: binary(), %% dimension_name: Stable dimension identity used for pricing and reporting.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type meter_dimension() :: #meter_dimension{}.
+
+-spec new_meter_dimension(map()) -> {ok, meter_dimension()} | {error, {missing_field, atom()}}.
+new_meter_dimension(Map) ->
+    case maps:is_key(meter_dimension_id, Map) of
+        false -> {error, {missing_field, meter_dimension_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(dimension_name, Map) of
+        false -> {error, {missing_field, dimension_name}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #meter_dimension{
+        meter_dimension_id = maps:get(meter_dimension_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        dimension_name = maps:get(dimension_name, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Deterministic rollup policy for metered observations.
+-record(meter_rollup, {
+    meter_rollup_id :: binary(), %% meter_rollup_id: Stable identity of this meter rollup contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    rollup_function :: binary(), %% rollup_function: Admitted aggregation function identity.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type meter_rollup() :: #meter_rollup{}.
+
+-spec new_meter_rollup(map()) -> {ok, meter_rollup()} | {error, {missing_field, atom()}}.
+new_meter_rollup(Map) ->
+    case maps:is_key(meter_rollup_id, Map) of
+        false -> {error, {missing_field, meter_rollup_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(rollup_function, Map) of
+        false -> {error, {missing_field, rollup_function}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #meter_rollup{
+        meter_rollup_id = maps:get(meter_rollup_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        rollup_function = maps:get(rollup_function, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -4278,6 +5362,47 @@ new_migration_readiness(Map) ->
         migration_effort_days = maps:get(migration_effort_days, Map, undefined),
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Time-phased minimum-spend commitment.
+-record(minimum_commitment_schedule, {
+    minimum_commitment_schedule_id :: binary(), %% minimum_commitment_schedule_id: Stable identity of this minimum commitment schedule contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    committed_amount :: float(), %% committed_amount: Commercially admitted minimum amount for the schedule window.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type minimum_commitment_schedule() :: #minimum_commitment_schedule{}.
+
+-spec new_minimum_commitment_schedule(map()) -> {ok, minimum_commitment_schedule()} | {error, {missing_field, atom()}}.
+new_minimum_commitment_schedule(Map) ->
+    case maps:is_key(minimum_commitment_schedule_id, Map) of
+        false -> {error, {missing_field, minimum_commitment_schedule_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(committed_amount, Map) of
+        false -> {error, {missing_field, committed_amount}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #minimum_commitment_schedule{
+        minimum_commitment_schedule_id = maps:get(minimum_commitment_schedule_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        committed_amount = maps:get(committed_amount, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
     }}
     end
     end
@@ -4384,6 +5509,47 @@ new_mutable_identity_refusal_evidence(Map) ->
     end
     end.
 
+%% Explicit discount for nonproduction capacity.
+-record(nonproduction_discount_policy, {
+    nonproduction_discount_policy_id :: binary(), %% nonproduction_discount_policy_id: Stable identity of this nonproduction discount policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    discount_percent :: float(), %% discount_percent: Approved nonproduction discount percentage.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type nonproduction_discount_policy() :: #nonproduction_discount_policy{}.
+
+-spec new_nonproduction_discount_policy(map()) -> {ok, nonproduction_discount_policy()} | {error, {missing_field, atom()}}.
+new_nonproduction_discount_policy(Map) ->
+    case maps:is_key(nonproduction_discount_policy_id, Map) of
+        false -> {error, {missing_field, nonproduction_discount_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(discount_percent, Map) of
+        false -> {error, {missing_field, discount_percent}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #nonproduction_discount_policy{
+        nonproduction_discount_policy_id = maps:get(nonproduction_discount_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        discount_percent = maps:get(discount_percent, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% One recorded change to a time-indexed object attribute.
 -record(object_attribute_change, {
     object_id :: binary(), %% object_id: Identifier of the object whose attribute changed.
@@ -4438,6 +5604,47 @@ new_object_type(Map) ->
         type_name = maps:get(type_name, Map, undefined),
         attribute_names = maps:get(attribute_names, Map, undefined)
     }}
+    end.
+
+%% Object-volume commercial packaging dimension.
+-record(object_volume_pricing_policy, {
+    object_volume_pricing_policy_id :: binary(), %% object_volume_pricing_policy_id: Stable identity of this object volume pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    unit_object_price :: float(), %% unit_object_price: Admitted unit price per object billing unit.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type object_volume_pricing_policy() :: #object_volume_pricing_policy{}.
+
+-spec new_object_volume_pricing_policy(map()) -> {ok, object_volume_pricing_policy()} | {error, {missing_field, atom()}}.
+new_object_volume_pricing_policy(Map) ->
+    case maps:is_key(object_volume_pricing_policy_id, Map) of
+        false -> {error, {missing_field, object_volume_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit_object_price, Map) of
+        false -> {error, {missing_field, unit_object_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #object_volume_pricing_policy{
+        object_volume_pricing_policy_id = maps:get(object_volume_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit_object_price = maps:get(unit_object_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
     end.
 
 %% Typed enterprise objection linked to an exact account and evidence.
@@ -4855,6 +6062,88 @@ new_order_form_admission(Map) ->
         order_form_id = maps:get(order_form_id, Map, undefined),
         decision = maps:get(decision, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Immutable commercial order-form version.
+-record(order_form_version, {
+    order_form_version_id :: binary(), %% order_form_version_id: Stable identity of this order form version contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    order_form_digest :: binary(), %% order_form_digest: Content digest of the accepted order form.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type order_form_version() :: #order_form_version{}.
+
+-spec new_order_form_version(map()) -> {ok, order_form_version()} | {error, {missing_field, atom()}}.
+new_order_form_version(Map) ->
+    case maps:is_key(order_form_version_id, Map) of
+        false -> {error, {missing_field, order_form_version_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(order_form_digest, Map) of
+        false -> {error, {missing_field, order_form_digest}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #order_form_version{
+        order_form_version_id = maps:get(order_form_version_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        order_form_digest = maps:get(order_form_digest, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Invoice consequence for measured overage.
+-record(overage_invoice, {
+    overage_invoice_id :: binary(), %% overage_invoice_id: Stable identity of this overage invoice contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    overage_amount :: float(), %% overage_amount: Observed overage amount after admitted aggregation.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type overage_invoice() :: #overage_invoice{}.
+
+-spec new_overage_invoice(map()) -> {ok, overage_invoice()} | {error, {missing_field, atom()}}.
+new_overage_invoice(Map) ->
+    case maps:is_key(overage_invoice_id, Map) of
+        false -> {error, {missing_field, overage_invoice_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(overage_amount, Map) of
+        false -> {error, {missing_field, overage_amount}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #overage_invoice{
+        overage_invoice_id = maps:get(overage_invoice_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        overage_amount = maps:get(overage_amount, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -5361,6 +6650,129 @@ new_policy_decision(Map) ->
     end
     end.
 
+%% Paid integration-connector add-on.
+-record(premium_connector_pricing, {
+    premium_connector_pricing_id :: binary(), %% premium_connector_pricing_id: Stable identity of this premium connector pricing contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    connector_id :: binary(), %% connector_id: Stable identity of the separately priced connector.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type premium_connector_pricing() :: #premium_connector_pricing{}.
+
+-spec new_premium_connector_pricing(map()) -> {ok, premium_connector_pricing()} | {error, {missing_field, atom()}}.
+new_premium_connector_pricing(Map) ->
+    case maps:is_key(premium_connector_pricing_id, Map) of
+        false -> {error, {missing_field, premium_connector_pricing_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(connector_id, Map) of
+        false -> {error, {missing_field, connector_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #premium_connector_pricing{
+        premium_connector_pricing_id = maps:get(premium_connector_pricing_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        connector_id = maps:get(connector_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipted prepaid-credit balance.
+-record(prepaid_credit_balance, {
+    prepaid_credit_balance_id :: binary(), %% prepaid_credit_balance_id: Stable identity of this prepaid credit balance contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    remaining_credit :: float(), %% remaining_credit: Observed remaining prepaid credit after admitted usage.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type prepaid_credit_balance() :: #prepaid_credit_balance{}.
+
+-spec new_prepaid_credit_balance(map()) -> {ok, prepaid_credit_balance()} | {error, {missing_field, atom()}}.
+new_prepaid_credit_balance(Map) ->
+    case maps:is_key(prepaid_credit_balance_id, Map) of
+        false -> {error, {missing_field, prepaid_credit_balance_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(remaining_credit, Map) of
+        false -> {error, {missing_field, remaining_credit}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #prepaid_credit_balance{
+        prepaid_credit_balance_id = maps:get(prepaid_credit_balance_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        remaining_credit = maps:get(remaining_credit, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Immutable enterprise price-book release.
+-record(price_book_version, {
+    price_book_version_id :: binary(), %% price_book_version_id: Stable identity of this price book version contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    version :: binary(), %% version: Buyer-visible semantic version of the admitted price book.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type price_book_version() :: #price_book_version{}.
+
+-spec new_price_book_version(map()) -> {ok, price_book_version()} | {error, {missing_field, atom()}}.
+new_price_book_version(Map) ->
+    case maps:is_key(price_book_version_id, Map) of
+        false -> {error, {missing_field, price_book_version_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(version, Map) of
+        false -> {error, {missing_field, version}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #price_book_version{
+        price_book_version_id = maps:get(price_book_version_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        version = maps:get(version, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
 -record(pricing_basis_contract, {
     opportunity_id :: binary(), %% opportunity_id: Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval.
@@ -5520,6 +6932,47 @@ new_process_variant(Map) ->
         activity_sequence = maps:get(activity_sequence, Map, undefined),
         frequency = maps:get(frequency, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Process-model commercial packaging dimension.
+-record(process_volume_pricing_policy, {
+    process_volume_pricing_policy_id :: binary(), %% process_volume_pricing_policy_id: Stable identity of this process volume pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    unit_process_price :: float(), %% unit_process_price: Admitted unit price per managed process.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type process_volume_pricing_policy() :: #process_volume_pricing_policy{}.
+
+-spec new_process_volume_pricing_policy(map()) -> {ok, process_volume_pricing_policy()} | {error, {missing_field, atom()}}.
+new_process_volume_pricing_policy(Map) ->
+    case maps:is_key(process_volume_pricing_policy_id, Map) of
+        false -> {error, {missing_field, process_volume_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit_process_price, Map) of
+        false -> {error, {missing_field, unit_process_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #process_volume_pricing_policy{
+        process_volume_pricing_policy_id = maps:get(process_volume_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit_process_price = maps:get(unit_process_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -5757,6 +7210,88 @@ new_proof_of_value_exit_gate(Map) ->
     end
     end.
 
+%% Paid proof-of-value package with measurable exit criterion.
+-record(proof_of_value_package, {
+    proof_of_value_package_id :: binary(), %% proof_of_value_package_id: Stable identity of this proof of value package contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    success_metric :: binary(), %% success_metric: Canonical metric that determines proof-of-value acceptance.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type proof_of_value_package() :: #proof_of_value_package{}.
+
+-spec new_proof_of_value_package(map()) -> {ok, proof_of_value_package()} | {error, {missing_field, atom()}}.
+new_proof_of_value_package(Map) ->
+    case maps:is_key(proof_of_value_package_id, Map) of
+        false -> {error, {missing_field, proof_of_value_package_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(success_metric, Map) of
+        false -> {error, {missing_field, success_metric}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #proof_of_value_package{
+        proof_of_value_package_id = maps:get(proof_of_value_package_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        success_metric = maps:get(success_metric, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Deterministic mid-term proration policy.
+-record(proration_policy, {
+    proration_policy_id :: binary(), %% proration_policy_id: Stable identity of this proration policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    proration_method :: binary(), %% proration_method: Admitted algorithm identity for partial-period charges.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type proration_policy() :: #proration_policy{}.
+
+-spec new_proration_policy(map()) -> {ok, proration_policy()} | {error, {missing_field, atom()}}.
+new_proration_policy(Map) ->
+    case maps:is_key(proration_policy_id, Map) of
+        false -> {error, {missing_field, proration_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(proration_method, Map) of
+        false -> {error, {missing_field, proration_method}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #proration_policy{
+        proration_policy_id = maps:get(proration_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        proration_method = maps:get(proration_method, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
 -record(provenance_binding_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this provenance observation.
@@ -5914,6 +7449,88 @@ new_queue_snapshot(Map) ->
     end
     end.
 
+%% Purchased temporary quota burst allowance.
+-record(quota_burst_allowance, {
+    quota_burst_allowance_id :: binary(), %% quota_burst_allowance_id: Stable identity of this quota burst allowance contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    burst_units :: float(), %% burst_units: Additional units admitted above the contracted quota.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type quota_burst_allowance() :: #quota_burst_allowance{}.
+
+-spec new_quota_burst_allowance(map()) -> {ok, quota_burst_allowance()} | {error, {missing_field, atom()}}.
+new_quota_burst_allowance(Map) ->
+    case maps:is_key(quota_burst_allowance_id, Map) of
+        false -> {error, {missing_field, quota_burst_allowance_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(burst_units, Map) of
+        false -> {error, {missing_field, burst_units}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #quota_burst_allowance{
+        quota_burst_allowance_id = maps:get(quota_burst_allowance_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        burst_units = maps:get(burst_units, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Explicitly authorized quota override.
+-record(quota_override, {
+    quota_override_id :: binary(), %% quota_override_id: Stable identity of this quota override contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    override_units :: float(), %% override_units: Authorized replacement quota for the bounded window.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type quota_override() :: #quota_override{}.
+
+-spec new_quota_override(map()) -> {ok, quota_override()} | {error, {missing_field, atom()}}.
+new_quota_override(Map) ->
+    case maps:is_key(quota_override_id, Map) of
+        false -> {error, {missing_field, quota_override_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(override_units, Map) of
+        false -> {error, {missing_field, override_units}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #quota_override{
+        quota_override_id = maps:get(quota_override_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        override_units = maps:get(override_units, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Enforceable quota limit over a named measurement window.
 -record(quota_policy, {
     quota_id :: binary(), %% quota_id: Stable quota identity.
@@ -5979,6 +7596,47 @@ new_ramp_commitment(Map) ->
         committed_amount = maps:get(committed_amount, Map, undefined),
         effective_at = maps:get(effective_at, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Sellable unit price bound to an immutable price book.
+-record(rate_card_entry, {
+    rate_card_entry_id :: binary(), %% rate_card_entry_id: Stable identity of this rate card entry contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    unit_price :: float(), %% unit_price: Admitted unit price; currency is supplied by the linked currency policy.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type rate_card_entry() :: #rate_card_entry{}.
+
+-spec new_rate_card_entry(map()) -> {ok, rate_card_entry()} | {error, {missing_field, atom()}}.
+new_rate_card_entry(Map) ->
+    case maps:is_key(rate_card_entry_id, Map) of
+        false -> {error, {missing_field, rate_card_entry_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit_price, Map) of
+        false -> {error, {missing_field, unit_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #rate_card_entry{
+        rate_card_entry_id = maps:get(rate_card_entry_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit_price = maps:get(unit_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -6053,6 +7711,88 @@ new_recovery_plan(Map) ->
         recovery_time_hours = maps:get(recovery_time_hours, Map, undefined),
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Deterministic refund eligibility policy.
+-record(refund_policy, {
+    refund_policy_id :: binary(), %% refund_policy_id: Stable identity of this refund policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    refund_method :: binary(), %% refund_method: Admitted method used to calculate a refund.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type refund_policy() :: #refund_policy{}.
+
+-spec new_refund_policy(map()) -> {ok, refund_policy()} | {error, {missing_field, atom()}}.
+new_refund_policy(Map) ->
+    case maps:is_key(refund_policy_id, Map) of
+        false -> {error, {missing_field, refund_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(refund_method, Map) of
+        false -> {error, {missing_field, refund_method}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #refund_policy{
+        refund_policy_id = maps:get(refund_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        refund_method = maps:get(refund_method, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Deployment-region commercial adjustment.
+-record(region_pricing_policy, {
+    region_pricing_policy_id :: binary(), %% region_pricing_policy_id: Stable identity of this region pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    region_code :: binary(), %% region_code: Exact cloud or sovereign region governed by this price policy.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type region_pricing_policy() :: #region_pricing_policy{}.
+
+-spec new_region_pricing_policy(map()) -> {ok, region_pricing_policy()} | {error, {missing_field, atom()}}.
+new_region_pricing_policy(Map) ->
+    case maps:is_key(region_pricing_policy_id, Map) of
+        false -> {error, {missing_field, region_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(region_code, Map) of
+        false -> {error, {missing_field, region_code}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #region_pricing_policy{
+        region_pricing_policy_id = maps:get(region_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        region_code = maps:get(region_code, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
     }}
     end
     end
@@ -6451,6 +8191,47 @@ new_retention_policy_evidence(Map) ->
     end
     end.
 
+%% Retention-duration commercial packaging.
+-record(retention_pricing_policy, {
+    retention_pricing_policy_id :: binary(), %% retention_pricing_policy_id: Stable identity of this retention pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    retention_days :: integer(), %% retention_days: Purchased evidence and event-data retention period in days.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type retention_pricing_policy() :: #retention_pricing_policy{}.
+
+-spec new_retention_pricing_policy(map()) -> {ok, retention_pricing_policy()} | {error, {missing_field, atom()}}.
+new_retention_pricing_policy(Map) ->
+    case maps:is_key(retention_pricing_policy_id, Map) of
+        false -> {error, {missing_field, retention_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(retention_days, Map) of
+        false -> {error, {missing_field, retention_days}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #retention_pricing_policy{
+        retention_pricing_policy_id = maps:get(retention_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        retention_days = maps:get(retention_days, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Receipted revenue attribution bound to exact enterprise evidence.
 -record(revenue_attribution, {
     revenue_attribution_id :: binary(), %% revenue_attribution_id: Stable identity of this revenue attribution observation.
@@ -6690,6 +8471,47 @@ new_sanctions_screening_result(Map) ->
     end
     end.
 
+%% Nonproduction sandbox entitlement with a hard ceiling.
+-record(sandbox_entitlement, {
+    sandbox_entitlement_id :: binary(), %% sandbox_entitlement_id: Stable identity of this sandbox entitlement contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    sandbox_limit :: integer(), %% sandbox_limit: Maximum purchased sandbox environments.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type sandbox_entitlement() :: #sandbox_entitlement{}.
+
+-spec new_sandbox_entitlement(map()) -> {ok, sandbox_entitlement()} | {error, {missing_field, atom()}}.
+new_sandbox_entitlement(Map) ->
+    case maps:is_key(sandbox_entitlement_id, Map) of
+        false -> {error, {missing_field, sandbox_entitlement_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(sandbox_limit, Map) of
+        false -> {error, {missing_field, sandbox_limit}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #sandbox_entitlement{
+        sandbox_entitlement_id = maps:get(sandbox_entitlement_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        sandbox_limit = maps:get(sandbox_limit, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Executable SBOM evidence binding an exact commercial subject to the observed component inventory cardinality.
 -record(sbom_inventory_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this SBOM inventory observation.
@@ -6720,6 +8542,47 @@ new_sbom_inventory_evidence(Map) ->
         component_count = maps:get(component_count, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Named-seat enterprise packaging dimension.
+-record(seat_pricing_policy, {
+    seat_pricing_policy_id :: binary(), %% seat_pricing_policy_id: Stable identity of this seat pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    seat_price :: float(), %% seat_price: Admitted unit price for one named enterprise seat.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type seat_pricing_policy() :: #seat_pricing_policy{}.
+
+-spec new_seat_pricing_policy(map()) -> {ok, seat_pricing_policy()} | {error, {missing_field, atom()}}.
+new_seat_pricing_policy(Map) ->
+    case maps:is_key(seat_pricing_policy_id, Map) of
+        false -> {error, {missing_field, seat_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(seat_price, Map) of
+        false -> {error, {missing_field, seat_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #seat_pricing_policy{
+        seat_pricing_policy_id = maps:get(seat_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        seat_price = maps:get(seat_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -6919,6 +8782,47 @@ new_service_credit_admission(Map) ->
         service_credit_id = maps:get(service_credit_id, Map, undefined),
         decision = maps:get(decision, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Auditable customer service-credit balance.
+-record(service_credit_ledger, {
+    service_credit_ledger_id :: binary(), %% service_credit_ledger_id: Stable identity of this service credit ledger contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    credit_amount :: float(), %% credit_amount: Observed service-credit amount after an admitted SLO consequence.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type service_credit_ledger() :: #service_credit_ledger{}.
+
+-spec new_service_credit_ledger(map()) -> {ok, service_credit_ledger()} | {error, {missing_field, atom()}}.
+new_service_credit_ledger(Map) ->
+    case maps:is_key(service_credit_ledger_id, Map) of
+        false -> {error, {missing_field, service_credit_ledger_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(credit_amount, Map) of
+        false -> {error, {missing_field, credit_amount}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #service_credit_ledger{
+        service_credit_ledger_id = maps:get(service_credit_ledger_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        credit_amount = maps:get(credit_amount, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -7186,6 +9090,47 @@ new_solution_fit(Map) ->
         fit_score = maps:get(fit_score, Map, undefined),
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Observed consumption against committed spend.
+-record(spend_drawdown, {
+    spend_drawdown_id :: binary(), %% spend_drawdown_id: Stable identity of this spend drawdown contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    consumed_amount :: float(), %% consumed_amount: Amount actually drawn from the committed-spend balance.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type spend_drawdown() :: #spend_drawdown{}.
+
+-spec new_spend_drawdown(map()) -> {ok, spend_drawdown()} | {error, {missing_field, atom()}}.
+new_spend_drawdown(Map) ->
+    case maps:is_key(spend_drawdown_id, Map) of
+        false -> {error, {missing_field, spend_drawdown_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(consumed_amount, Map) of
+        false -> {error, {missing_field, consumed_amount}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #spend_drawdown{
+        spend_drawdown_id = maps:get(spend_drawdown_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        consumed_amount = maps:get(consumed_amount, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
     }}
     end
     end
@@ -7615,6 +9560,47 @@ new_tax_jurisdiction_evidence(Map) ->
     end
     end.
 
+%% Tax jurisdiction routing for a contracting entity.
+-record(tax_jurisdiction_rule, {
+    tax_jurisdiction_rule_id :: binary(), %% tax_jurisdiction_rule_id: Stable identity of this tax jurisdiction rule contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    jurisdiction_code :: binary(), %% jurisdiction_code: Admitted tax jurisdiction code for invoice treatment.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type tax_jurisdiction_rule() :: #tax_jurisdiction_rule{}.
+
+-spec new_tax_jurisdiction_rule(map()) -> {ok, tax_jurisdiction_rule()} | {error, {missing_field, atom()}}.
+new_tax_jurisdiction_rule(Map) ->
+    case maps:is_key(tax_jurisdiction_rule_id, Map) of
+        false -> {error, {missing_field, tax_jurisdiction_rule_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(jurisdiction_code, Map) of
+        false -> {error, {missing_field, jurisdiction_code}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #tax_jurisdiction_rule{
+        tax_jurisdiction_rule_id = maps:get(tax_jurisdiction_rule_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        jurisdiction_code = maps:get(jurisdiction_code, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.
 -record(technical_blocker, {
     opportunity_id :: binary(), %% opportunity_id: Required technical blocker input; omission is an executable typed refusal, never an inferred approval.
@@ -7889,6 +9875,47 @@ new_training_scope_admission(Map) ->
     end
     end.
 
+%% Time-bounded enterprise trial entitlement.
+-record(trial_entitlement, {
+    trial_entitlement_id :: binary(), %% trial_entitlement_id: Stable identity of this trial entitlement contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    trial_expires_at :: binary(), %% trial_expires_at: Exact instant at which trial capability must be refused.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type trial_entitlement() :: #trial_entitlement{}.
+
+-spec new_trial_entitlement(map()) -> {ok, trial_entitlement()} | {error, {missing_field, atom()}}.
+new_trial_entitlement(Map) ->
+    case maps:is_key(trial_entitlement_id, Map) of
+        false -> {error, {missing_field, trial_entitlement_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(trial_expires_at, Map) of
+        false -> {error, {missing_field, trial_expires_at}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #trial_entitlement{
+        trial_entitlement_id = maps:get(trial_entitlement_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        trial_expires_at = maps:get(trial_expires_at, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% End-of-period reconciliation policy for committed consumption.
 -record(true_up_policy, {
     policy_id :: binary(), %% policy_id: Stable true-up identity.
@@ -7954,6 +9981,47 @@ new_type_edge(Map) ->
         qualifier = maps:get(qualifier, Map, undefined),
         direction = maps:get(direction, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Evidence-bound gross-margin snapshot.
+-record(unit_economics_snapshot, {
+    unit_economics_snapshot_id :: binary(), %% unit_economics_snapshot_id: Stable identity of this unit economics snapshot contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    gross_margin :: float(), %% gross_margin: Observed gross margin derived from admitted revenue and cost evidence.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type unit_economics_snapshot() :: #unit_economics_snapshot{}.
+
+-spec new_unit_economics_snapshot(map()) -> {ok, unit_economics_snapshot()} | {error, {missing_field, atom()}}.
+new_unit_economics_snapshot(Map) ->
+    case maps:is_key(unit_economics_snapshot_id, Map) of
+        false -> {error, {missing_field, unit_economics_snapshot_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(gross_margin, Map) of
+        false -> {error, {missing_field, gross_margin}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #unit_economics_snapshot{
+        unit_economics_snapshot_id = maps:get(unit_economics_snapshot_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        gross_margin = maps:get(gross_margin, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -8063,6 +10131,88 @@ new_upsell_readiness(Map) ->
         upsell_score = maps:get(upsell_score, Map, undefined),
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Deterministic usage aggregation window.
+-record(usage_aggregation_window, {
+    usage_aggregation_window_id :: binary(), %% usage_aggregation_window_id: Stable identity of this usage aggregation window contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    window_seconds :: integer(), %% window_seconds: Exact billing aggregation window in seconds.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type usage_aggregation_window() :: #usage_aggregation_window{}.
+
+-spec new_usage_aggregation_window(map()) -> {ok, usage_aggregation_window()} | {error, {missing_field, atom()}}.
+new_usage_aggregation_window(Map) ->
+    case maps:is_key(usage_aggregation_window_id, Map) of
+        false -> {error, {missing_field, usage_aggregation_window_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(window_seconds, Map) of
+        false -> {error, {missing_field, window_seconds}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #usage_aggregation_window{
+        usage_aggregation_window_id = maps:get(usage_aggregation_window_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        window_seconds = maps:get(window_seconds, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipted correction to previously reported usage.
+-record(usage_correction, {
+    usage_correction_id :: binary(), %% usage_correction_id: Stable identity of this usage correction contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    corrected_quantity :: float(), %% corrected_quantity: Replacement usage quantity bound to correction evidence.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type usage_correction() :: #usage_correction{}.
+
+-spec new_usage_correction(map()) -> {ok, usage_correction()} | {error, {missing_field, atom()}}.
+new_usage_correction(Map) ->
+    case maps:is_key(usage_correction_id, Map) of
+        false -> {error, {missing_field, usage_correction_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(corrected_quantity, Map) of
+        false -> {error, {missing_field, corrected_quantity}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #usage_correction{
+        usage_correction_id = maps:get(usage_correction_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        corrected_quantity = maps:get(corrected_quantity, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
     }}
     end
     end
