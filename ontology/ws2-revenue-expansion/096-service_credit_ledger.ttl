@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-096 — service_credit_ledger
+bpm:service_credit_ledger_rt a bpm:RecordType ;
+    bpm:recordName "service_credit_ledger" ;
+    bpm:recordDoc "Auditable customer service-credit balance." ;
+    bpm:hasField bpm:service_credit_ledger_service_credit_ledger_id_f,
+                 bpm:service_credit_ledger_account_id_f,
+                 bpm:service_credit_ledger_credit_amount_f,
+                 bpm:service_credit_ledger_evidence_digest_f,
+                 bpm:service_credit_ledger_effective_at_f .
+
+bpm:service_credit_ledger_service_credit_ledger_id_f a bpm:Field ;
+    bpm:fieldName "service_credit_ledger_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this service credit ledger contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:service_credit_ledger_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:service_credit_ledger_credit_amount_f a bpm:Field ;
+    bpm:fieldName "credit_amount" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed service-credit amount after an admitted SLO consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:service_credit_ledger_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:service_credit_ledger_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
