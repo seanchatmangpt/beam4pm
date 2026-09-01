@@ -49,6 +49,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "account_value_realization new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      account_id: "x",
+      realization_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AccountValueRealization.new(attrs)
+  end
+
+  test "account_value_realization new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AccountValueRealization.new(%{})
+  end
+
+
   test "action_pin_evidence new/1 succeeds when all fields are present" do
     attrs = %{
       evidence_id: "x",
@@ -242,6 +257,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "availability_observation new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      slo_id: "x",
+      observation_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AvailabilityObservation.new(attrs)
+  end
+
+  test "availability_observation new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AvailabilityObservation.new(%{})
+  end
+
+
   test "availability_slo_evidence new/1 succeeds when all fields are present" do
     attrs = %{
       evidence_id: "x",
@@ -306,6 +336,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "billable_usage_identity new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      billable_usage_id: "x",
+      identity_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.BillableUsageIdentity.new(attrs)
+  end
+
+  test "billable_usage_identity new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.BillableUsageIdentity.new(%{})
+  end
+
+
   test "billing_account new/1 succeeds when all fields are present" do
     attrs = %{
       billing_account_id: "x",
@@ -355,6 +400,36 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "brce_actuation_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      request_id: "x",
+      receipt_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.BrceActuationReceipt.new(attrs)
+  end
+
+  test "brce_actuation_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.BrceActuationReceipt.new(%{})
+  end
+
+
+  test "brce_actuation_request new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      request_id: "x",
+      authority_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.BrceActuationRequest.new(attrs)
+  end
+
+  test "brce_actuation_request new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.BrceActuationRequest.new(%{})
+  end
+
+
   test "budget_period_alignment new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",
@@ -383,6 +458,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "business_continuity_evidence new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.BusinessContinuityEvidence.new(%{})
+  end
+
+
+  test "business_outcome_measurement new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      outcome_id: "x",
+      measurement_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.BusinessOutcomeMeasurement.new(attrs)
+  end
+
+  test "business_outcome_measurement new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.BusinessOutcomeMeasurement.new(%{})
   end
 
 
@@ -466,6 +556,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "capability_gap new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.CapabilityGap.new(%{})
+  end
+
+
+  test "capsule_identity new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      capsule_id: "x",
+      identity_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CapsuleIdentity.new(attrs)
+  end
+
+  test "capsule_identity new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CapsuleIdentity.new(%{})
   end
 
 
@@ -560,6 +665,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "chargeback_rule new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.ChargebackRule.new(%{})
+  end
+
+
+  test "cluster_quorum_state new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      cluster_id: "x",
+      quorum_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ClusterQuorumState.new(attrs)
+  end
+
+  test "cluster_quorum_state new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ClusterQuorumState.new(%{})
   end
 
 
@@ -845,6 +965,36 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "contracting_entity_identity new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.ContractingEntityIdentity.new(%{})
+  end
+
+
+  test "cost_to_serve_measurement new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      billing_period_id: "x",
+      measurement_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CostToServeMeasurement.new(attrs)
+  end
+
+  test "cost_to_serve_measurement new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CostToServeMeasurement.new(%{})
+  end
+
+
+  test "crash_recovery_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      crash_id: "x",
+      receipt_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.CrashRecoveryReceipt.new(attrs)
+  end
+
+  test "crash_recovery_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.CrashRecoveryReceipt.new(%{})
   end
 
 
@@ -1218,6 +1368,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "entitlement_denial_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      entitlement_id: "x",
+      denial_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.EntitlementDenialReceipt.new(attrs)
+  end
+
+  test "entitlement_denial_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementDenialReceipt.new(%{})
+  end
+
+
   test "entitlement_event new/1 succeeds when all fields are present" do
     attrs = %{
       event_id: "x",
@@ -1283,6 +1448,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "entitlement_runtime_check new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      entitlement_id: "x",
+      check_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.EntitlementRuntimeCheck.new(attrs)
+  end
+
+  test "entitlement_runtime_check new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementRuntimeCheck.new(%{})
+  end
+
+
   test "entitlement_state new/1 succeeds when all fields are present" do
     attrs = %{
       entitlement_id: "x",
@@ -1299,6 +1479,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "environment_identity new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      environment_id: "x",
+      identity_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.EnvironmentIdentity.new(attrs)
+  end
+
+  test "environment_identity new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.EnvironmentIdentity.new(%{})
+  end
+
+
   test "environment_profile new/1 succeeds when all fields are present" do
     attrs = %{
       profile_id: "x",
@@ -1312,6 +1507,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "environment_profile new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.EnvironmentProfile.new(%{})
+  end
+
+
+  test "error_budget_state new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      slo_id: "x",
+      state_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ErrorBudgetState.new(attrs)
+  end
+
+  test "error_budget_state new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ErrorBudgetState.new(%{})
   end
 
 
@@ -1476,6 +1686,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "forged_receipt_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      receipt_id: "x",
+      refusal_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ForgedReceiptRefusal.new(attrs)
+  end
+
+  test "forged_receipt_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ForgedReceiptRefusal.new(%{})
+  end
+
+
   test "funding_approval_chain new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",
@@ -1518,6 +1743,36 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "implementation_fee_admission new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.ImplementationFeeAdmission.new(%{})
+  end
+
+
+  test "incident_acknowledgement new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      incident_id: "x",
+      acknowledgement_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.IncidentAcknowledgement.new(attrs)
+  end
+
+  test "incident_acknowledgement new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.IncidentAcknowledgement.new(%{})
+  end
+
+
+  test "incident_detection_event new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      incident_id: "x",
+      detection_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.IncidentDetectionEvent.new(attrs)
+  end
+
+  test "incident_detection_event new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.IncidentDetectionEvent.new(%{})
   end
 
 
@@ -1645,6 +1900,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "latency_budget_observation new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      workload_id: "x",
+      observation_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.LatencyBudgetObservation.new(attrs)
+  end
+
+  test "latency_budget_observation new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.LatencyBudgetObservation.new(%{})
+  end
+
+
   test "least_authority_evidence new/1 succeeds when all fields are present" do
     attrs = %{
       evidence_id: "x",
@@ -1736,6 +2006,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "metered_usage_sample new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      usage_sample_id: "x",
+      sample_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.MeteredUsageSample.new(attrs)
+  end
+
+  test "metered_usage_sample new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.MeteredUsageSample.new(%{})
+  end
+
+
   test "migration_contract new/1 succeeds when all fields are present" do
     attrs = %{
       migration_id: "x",
@@ -1813,6 +2098,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "mutable_identity_refusal_evidence new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.MutableIdentityRefusalEvidence.new(%{})
+  end
+
+
+  test "node_failover_event new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      node_id: "x",
+      failover_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.NodeFailoverEvent.new(attrs)
+  end
+
+  test "node_failover_event new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.NodeFailoverEvent.new(%{})
   end
 
 
@@ -2064,6 +2364,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "overage_policy new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.OveragePolicy.new(%{})
+  end
+
+
+  test "paid_workload_outcome_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      workload_id: "x",
+      outcome_receipt_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.PaidWorkloadOutcomeReceipt.new(attrs)
+  end
+
+  test "paid_workload_outcome_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PaidWorkloadOutcomeReceipt.new(%{})
   end
 
 
@@ -2613,6 +2928,66 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "receipt_replay_request new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      receipt_id: "x",
+      replay_request_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ReceiptReplayRequest.new(attrs)
+  end
+
+  test "receipt_replay_request new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptReplayRequest.new(%{})
+  end
+
+
+  test "receipt_signature new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      receipt_id: "x",
+      signature_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ReceiptSignature.new(attrs)
+  end
+
+  test "receipt_signature new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptSignature.new(%{})
+  end
+
+
+  test "receipt_subject_binding new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      workload_id: "x",
+      binding_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ReceiptSubjectBinding.new(attrs)
+  end
+
+  test "receipt_subject_binding new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptSubjectBinding.new(%{})
+  end
+
+
+  test "receipt_verification new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      receipt_id: "x",
+      verification_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ReceiptVerification.new(attrs)
+  end
+
+  test "receipt_verification new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptVerification.new(%{})
+  end
+
+
   test "recovery_plan new/1 succeeds when all fields are present" do
     attrs = %{
       recovery_plan_id: "x",
@@ -2627,6 +3002,36 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "recovery_plan new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.RecoveryPlan.new(%{})
+  end
+
+
+  test "recovery_point_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      incident_id: "x",
+      recovery_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.RecoveryPointReceipt.new(attrs)
+  end
+
+  test "recovery_point_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.RecoveryPointReceipt.new(%{})
+  end
+
+
+  test "recovery_time_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      incident_id: "x",
+      recovery_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.RecoveryTimeReceipt.new(attrs)
+  end
+
+  test "recovery_time_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.RecoveryTimeReceipt.new(%{})
   end
 
 
@@ -2725,6 +3130,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "renewal_term_admission new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.RenewalTermAdmission.new(%{})
+  end
+
+
+  test "replay_environment_identity new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      environment_id: "x",
+      identity_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ReplayEnvironmentIdentity.new(attrs)
+  end
+
+  test "replay_environment_identity new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ReplayEnvironmentIdentity.new(%{})
   end
 
 
@@ -2870,6 +3290,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "rollback_checkpoint new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      checkpoint_id: "x",
+      state_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.RollbackCheckpoint.new(attrs)
+  end
+
+  test "rollback_checkpoint new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.RollbackCheckpoint.new(%{})
+  end
+
+
   test "rollback_decision new/1 succeeds when all fields are present" do
     attrs = %{
       rollback_decision_id: "x",
@@ -2900,6 +3335,36 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "rollback_evidence new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.RollbackEvidence.new(%{})
+  end
+
+
+  test "rolling_upgrade_plan new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      upgrade_id: "x",
+      plan_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.RollingUpgradePlan.new(attrs)
+  end
+
+  test "rolling_upgrade_plan new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.RollingUpgradePlan.new(%{})
+  end
+
+
+  test "runtime_policy_decision new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      decision_id: "x",
+      policy_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.RuntimePolicyDecision.new(attrs)
+  end
+
+  test "runtime_policy_decision new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.RuntimePolicyDecision.new(%{})
   end
 
 
@@ -3028,6 +3493,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "service_health_snapshot new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      service_id: "x",
+      snapshot_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ServiceHealthSnapshot.new(attrs)
+  end
+
+  test "service_health_snapshot new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceHealthSnapshot.new(%{})
+  end
+
+
   test "service_level_objective new/1 succeeds when all fields are present" do
     attrs = %{
       slo_id: "x",
@@ -3041,6 +3521,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "service_level_objective new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceLevelObjective.new(%{})
+  end
+
+
+  test "service_slo_contract new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      slo_id: "x",
+      contract_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ServiceSloContract.new(attrs)
+  end
+
+  test "service_slo_contract new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceSloContract.new(%{})
   end
 
 
@@ -3172,6 +3667,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "stale_receipt_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      receipt_id: "x",
+      refusal_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.StaleReceiptRefusal.new(attrs)
+  end
+
+  test "stale_receipt_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.StaleReceiptRefusal.new(%{})
+  end
+
+
   test "stale_subject_refusal_evidence new/1 succeeds when all fields are present" do
     attrs = %{
       evidence_id: "x",
@@ -3205,6 +3715,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "supervisor_restart_policy new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      supervisor_id: "x",
+      policy_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.SupervisorRestartPolicy.new(attrs)
+  end
+
+  test "supervisor_restart_policy new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.SupervisorRestartPolicy.new(%{})
+  end
+
+
   test "support_contract new/1 succeeds when all fields are present" do
     attrs = %{
       contract_id: "x",
@@ -3218,6 +3743,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "support_contract new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.SupportContract.new(%{})
+  end
+
+
+  test "support_diagnostic_bundle new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      incident_id: "x",
+      bundle_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.SupportDiagnosticBundle.new(attrs)
+  end
+
+  test "support_diagnostic_bundle new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.SupportDiagnosticBundle.new(%{})
   end
 
 
@@ -3379,6 +3919,36 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "tenant_data_partition new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      partition_id: "x",
+      isolation_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.TenantDataPartition.new(attrs)
+  end
+
+  test "tenant_data_partition new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantDataPartition.new(%{})
+  end
+
+
+  test "tenant_key_scope new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      key_scope_id: "x",
+      key_attestation_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.TenantKeyScope.new(attrs)
+  end
+
+  test "tenant_key_scope new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantKeyScope.new(%{})
+  end
+
+
   test "tenant_project new/1 succeeds when all fields are present" do
     attrs = %{
       project_id: "x",
@@ -3392,6 +3962,36 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "tenant_project new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.TenantProject.new(%{})
+  end
+
+
+  test "tenant_resource_quota new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      quota_id: "x",
+      utilization_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.TenantResourceQuota.new(attrs)
+  end
+
+  test "tenant_resource_quota new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantResourceQuota.new(%{})
+  end
+
+
+  test "tenant_runtime_boundary new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      boundary_id: "x",
+      evidence_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.TenantRuntimeBoundary.new(attrs)
+  end
+
+  test "tenant_runtime_boundary new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantRuntimeBoundary.new(%{})
   end
 
 
@@ -3440,6 +4040,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "time_to_value new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.TimeToValue.new(%{})
+  end
+
+
+  test "toolchain_identity new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      toolchain_id: "x",
+      identity_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ToolchainIdentity.new(attrs)
+  end
+
+  test "toolchain_identity new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ToolchainIdentity.new(%{})
   end
 
 
@@ -3589,6 +4204,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "usage_reconciliation_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      billing_period_id: "x",
+      reconciliation_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.UsageReconciliationReceipt.new(attrs)
+  end
+
+  test "usage_reconciliation_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.UsageReconciliationReceipt.new(%{})
+  end
+
+
   test "usage_signal new/1 succeeds when all fields are present" do
     attrs = %{
       usage_signal_id: "x",
@@ -3653,6 +4283,21 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "value_realization new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.ValueRealization.new(%{})
+  end
+
+
+  test "value_telemetry_sample new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      outcome_id: "x",
+      telemetry_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ValueTelemetrySample.new(attrs)
+  end
+
+  test "value_telemetry_sample new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueTelemetrySample.new(%{})
   end
 
 
@@ -3731,6 +4376,111 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "vulnerability_scan_evidence new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.VulnerabilityScanEvidence.new(%{})
+  end
+
+
+  test "workload_backpressure_signal new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      signal_id: "x",
+      measurement_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.WorkloadBackpressureSignal.new(attrs)
+  end
+
+  test "workload_backpressure_signal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadBackpressureSignal.new(%{})
+  end
+
+
+  test "workload_cancellation_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      execution_id: "x",
+      receipt_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.WorkloadCancellationReceipt.new(attrs)
+  end
+
+  test "workload_cancellation_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadCancellationReceipt.new(%{})
+  end
+
+
+  test "workload_execution_identity new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      execution_id: "x",
+      subject_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.WorkloadExecutionIdentity.new(attrs)
+  end
+
+  test "workload_execution_identity new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadExecutionIdentity.new(%{})
+  end
+
+
+  test "workload_idempotency_key new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      execution_id: "x",
+      idempotency_key: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.WorkloadIdempotencyKey.new(attrs)
+  end
+
+  test "workload_idempotency_key new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadIdempotencyKey.new(%{})
+  end
+
+
+  test "workload_queue_depth new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      queue_id: "x",
+      measurement_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.WorkloadQueueDepth.new(attrs)
+  end
+
+  test "workload_queue_depth new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadQueueDepth.new(%{})
+  end
+
+
+  test "workload_retry_policy new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      policy_id: "x",
+      policy_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.WorkloadRetryPolicy.new(attrs)
+  end
+
+  test "workload_retry_policy new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadRetryPolicy.new(%{})
+  end
+
+
+  test "workload_timeout_budget new/1 succeeds when all fields are present" do
+    attrs = %{
+      tenant_id: "x",
+      budget_id: "x",
+      budget_hash: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.WorkloadTimeoutBudget.new(attrs)
+  end
+
+  test "workload_timeout_budget new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadTimeoutBudget.new(%{})
   end
 
 end

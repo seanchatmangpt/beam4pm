@@ -87,6 +87,33 @@ defmodule BeamPM.Types.AccountParentScope do
   end
 end
 
+defmodule BeamPM.Types.AccountValueRealization do
+  @moduledoc "Aggregates verified outcome evidence into an account-level realized-value observation."
+
+  defstruct [:tenant_id, :account_id, :realization_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    account_id: String.t() | nil,
+    realization_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :account_id) -> {:error, {:missing_field, :account_id}}
+      not Map.has_key?(attrs, :realization_hash) -> {:error, {:missing_field, :realization_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          account_id: Map.get(attrs, :account_id),
+          realization_hash: Map.get(attrs, :realization_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ActionPinEvidence do
   @moduledoc "Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity."
 
@@ -450,6 +477,33 @@ defmodule BeamPM.Types.AuditChainEvidence do
   end
 end
 
+defmodule BeamPM.Types.AvailabilityObservation do
+  @moduledoc "Records a bounded availability observation against the paid tenant SLO."
+
+  defstruct [:tenant_id, :slo_id, :observation_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    slo_id: String.t() | nil,
+    observation_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :slo_id) -> {:error, {:missing_field, :slo_id}}
+      not Map.has_key?(attrs, :observation_hash) -> {:error, {:missing_field, :observation_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          slo_id: Map.get(attrs, :slo_id),
+          observation_hash: Map.get(attrs, :observation_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.AvailabilitySloEvidence do
   @moduledoc "Executable availability evidence binding an exact subject to the service level actually observed over the admitted window."
 
@@ -570,6 +624,33 @@ defmodule BeamPM.Types.BeneficialOwnerEvidence do
   end
 end
 
+defmodule BeamPM.Types.BillableUsageIdentity do
+  @moduledoc "Binds accepted usage to one immutable billable identity that prevents duplicate charging."
+
+  defstruct [:tenant_id, :billable_usage_id, :identity_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    billable_usage_id: String.t() | nil,
+    identity_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :billable_usage_id) -> {:error, {:missing_field, :billable_usage_id}}
+      not Map.has_key?(attrs, :identity_hash) -> {:error, {:missing_field, :identity_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          billable_usage_id: Map.get(attrs, :billable_usage_id),
+          identity_hash: Map.get(attrs, :identity_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.BillingAccount do
   @moduledoc "Bill-to account with currency and invoice delivery profile."
 
@@ -663,6 +744,60 @@ defmodule BeamPM.Types.BookingReadiness do
   end
 end
 
+defmodule BeamPM.Types.BrceActuationReceipt do
+  @moduledoc "Binds an actuated runtime consequence to its authorized BRCE request and receipt."
+
+  defstruct [:tenant_id, :request_id, :receipt_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    request_id: String.t() | nil,
+    receipt_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :request_id) -> {:error, {:missing_field, :request_id}}
+      not Map.has_key?(attrs, :receipt_hash) -> {:error, {:missing_field, :receipt_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          request_id: Map.get(attrs, :request_id),
+          receipt_hash: Map.get(attrs, :receipt_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.BrceActuationRequest do
+  @moduledoc "Admits a runtime actuation request only with exact BRCE authority evidence."
+
+  defstruct [:tenant_id, :request_id, :authority_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    request_id: String.t() | nil,
+    authority_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :request_id) -> {:error, {:missing_field, :request_id}}
+      not Map.has_key?(attrs, :authority_hash) -> {:error, {:missing_field, :authority_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          request_id: Map.get(attrs, :request_id),
+          authority_hash: Map.get(attrs, :authority_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.BudgetPeriodAlignment do
   @moduledoc "Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk."
 
@@ -715,6 +850,33 @@ defmodule BeamPM.Types.BusinessContinuityEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           continuity_mode: Map.get(attrs, :continuity_mode),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.BusinessOutcomeMeasurement do
+  @moduledoc "Records the observed business outcome against its admitted baseline and target."
+
+  defstruct [:tenant_id, :outcome_id, :measurement_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    outcome_id: String.t() | nil,
+    measurement_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :outcome_id) -> {:error, {:missing_field, :outcome_id}}
+      not Map.has_key?(attrs, :measurement_hash) -> {:error, {:missing_field, :measurement_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          outcome_id: Map.get(attrs, :outcome_id),
+          measurement_hash: Map.get(attrs, :measurement_hash)
         }}
     end
   end
@@ -874,6 +1036,33 @@ defmodule BeamPM.Types.CapabilityGap do
           gap_severity: Map.get(attrs, :gap_severity),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CapsuleIdentity do
+  @moduledoc "Binds paid workload execution to the exact immutable runtime capsule digest."
+
+  defstruct [:tenant_id, :capsule_id, :identity_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    capsule_id: String.t() | nil,
+    identity_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :capsule_id) -> {:error, {:missing_field, :capsule_id}}
+      not Map.has_key?(attrs, :identity_hash) -> {:error, {:missing_field, :identity_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          capsule_id: Map.get(attrs, :capsule_id),
+          identity_hash: Map.get(attrs, :identity_hash)
         }}
     end
   end
@@ -1047,6 +1236,33 @@ defmodule BeamPM.Types.ChargebackRule do
           cost_center: Map.get(attrs, :cost_center),
           metric_name: Map.get(attrs, :metric_name),
           rate: Map.get(attrs, :rate)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ClusterQuorumState do
+  @moduledoc "Binds an execution decision to observed cluster quorum rather than inferred availability."
+
+  defstruct [:tenant_id, :cluster_id, :quorum_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    cluster_id: String.t() | nil,
+    quorum_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :cluster_id) -> {:error, {:missing_field, :cluster_id}}
+      not Map.has_key?(attrs, :quorum_hash) -> {:error, {:missing_field, :quorum_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          cluster_id: Map.get(attrs, :cluster_id),
+          quorum_hash: Map.get(attrs, :quorum_hash)
         }}
     end
   end
@@ -1577,6 +1793,60 @@ defmodule BeamPM.Types.ContractingEntityIdentity do
           opportunity_id: Map.get(attrs, :opportunity_id),
           contracting_entity_id: Map.get(attrs, :contracting_entity_id),
           identity_evidence_hash: Map.get(attrs, :identity_evidence_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CostToServeMeasurement do
+  @moduledoc "Records attributable runtime cost-to-serve for a paid tenant and billing period."
+
+  defstruct [:tenant_id, :billing_period_id, :measurement_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    billing_period_id: String.t() | nil,
+    measurement_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :billing_period_id) -> {:error, {:missing_field, :billing_period_id}}
+      not Map.has_key?(attrs, :measurement_hash) -> {:error, {:missing_field, :measurement_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          billing_period_id: Map.get(attrs, :billing_period_id),
+          measurement_hash: Map.get(attrs, :measurement_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrashRecoveryReceipt do
+  @moduledoc "Produces replayable evidence that a runtime crash reached a verified recovery consequence."
+
+  defstruct [:tenant_id, :crash_id, :receipt_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    crash_id: String.t() | nil,
+    receipt_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :crash_id) -> {:error, {:missing_field, :crash_id}}
+      not Map.has_key?(attrs, :receipt_hash) -> {:error, {:missing_field, :receipt_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          crash_id: Map.get(attrs, :crash_id),
+          receipt_hash: Map.get(attrs, :receipt_hash)
         }}
     end
   end
@@ -2278,6 +2548,33 @@ defmodule BeamPM.Types.EnterpriseOrderLine do
   end
 end
 
+defmodule BeamPM.Types.EntitlementDenialReceipt do
+  @moduledoc "Receipts a runtime denial when the paid tenant lacks the required product entitlement."
+
+  defstruct [:tenant_id, :entitlement_id, :denial_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    entitlement_id: String.t() | nil,
+    denial_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :entitlement_id) -> {:error, {:missing_field, :entitlement_id}}
+      not Map.has_key?(attrs, :denial_hash) -> {:error, {:missing_field, :denial_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          entitlement_id: Map.get(attrs, :entitlement_id),
+          denial_hash: Map.get(attrs, :denial_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.EntitlementEvent do
   @moduledoc "One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id."
 
@@ -2400,6 +2697,33 @@ defmodule BeamPM.Types.EntitlementRevocation do
   end
 end
 
+defmodule BeamPM.Types.EntitlementRuntimeCheck do
+  @moduledoc "Records the exact paid entitlement evaluated before workload execution."
+
+  defstruct [:tenant_id, :entitlement_id, :check_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    entitlement_id: String.t() | nil,
+    check_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :entitlement_id) -> {:error, {:missing_field, :entitlement_id}}
+      not Map.has_key?(attrs, :check_hash) -> {:error, {:missing_field, :check_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          entitlement_id: Map.get(attrs, :entitlement_id),
+          check_hash: Map.get(attrs, :check_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.EntitlementState do
   @moduledoc "The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark."
 
@@ -2430,6 +2754,33 @@ defmodule BeamPM.Types.EntitlementState do
   end
 end
 
+defmodule BeamPM.Types.EnvironmentIdentity do
+  @moduledoc "Binds paid workload execution to an immutable production environment identity."
+
+  defstruct [:tenant_id, :environment_id, :identity_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    environment_id: String.t() | nil,
+    identity_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :environment_id) -> {:error, {:missing_field, :environment_id}}
+      not Map.has_key?(attrs, :identity_hash) -> {:error, {:missing_field, :identity_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          environment_id: Map.get(attrs, :environment_id),
+          identity_hash: Map.get(attrs, :identity_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.EnvironmentProfile do
   @moduledoc "Deterministic environment profile for demo, POC, or production."
 
@@ -2455,6 +2806,33 @@ defmodule BeamPM.Types.EnvironmentProfile do
           environment: Map.get(attrs, :environment),
           region: Map.get(attrs, :region),
           configuration_hash: Map.get(attrs, :configuration_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ErrorBudgetState do
+  @moduledoc "Captures the exact remaining error budget that governs paid-service release policy."
+
+  defstruct [:tenant_id, :slo_id, :state_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    slo_id: String.t() | nil,
+    state_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :slo_id) -> {:error, {:missing_field, :slo_id}}
+      not Map.has_key?(attrs, :state_hash) -> {:error, {:missing_field, :state_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          slo_id: Map.get(attrs, :slo_id),
+          state_hash: Map.get(attrs, :state_hash)
         }}
     end
   end
@@ -2761,6 +3139,33 @@ defmodule BeamPM.Types.ExpansionSignal do
   end
 end
 
+defmodule BeamPM.Types.ForgedReceiptRefusal do
+  @moduledoc "Produces typed refusal evidence when a runtime receipt signature or subject binding is forged."
+
+  defstruct [:tenant_id, :receipt_id, :refusal_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    receipt_id: String.t() | nil,
+    refusal_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :receipt_id) -> {:error, {:missing_field, :receipt_id}}
+      not Map.has_key?(attrs, :refusal_hash) -> {:error, {:missing_field, :refusal_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          receipt_id: Map.get(attrs, :receipt_id),
+          refusal_hash: Map.get(attrs, :refusal_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.FundingApprovalChain do
   @moduledoc "Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim."
 
@@ -2837,6 +3242,60 @@ defmodule BeamPM.Types.ImplementationFeeAdmission do
           opportunity_id: Map.get(attrs, :opportunity_id),
           fee_id: Map.get(attrs, :fee_id),
           decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.IncidentAcknowledgement do
+  @moduledoc "Records accountable acknowledgement of a production incident for a paid tenant."
+
+  defstruct [:tenant_id, :incident_id, :acknowledgement_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    incident_id: String.t() | nil,
+    acknowledgement_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :incident_id) -> {:error, {:missing_field, :incident_id}}
+      not Map.has_key?(attrs, :acknowledgement_hash) -> {:error, {:missing_field, :acknowledgement_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          incident_id: Map.get(attrs, :incident_id),
+          acknowledgement_hash: Map.get(attrs, :acknowledgement_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.IncidentDetectionEvent do
+  @moduledoc "Records the detected production incident and exact affected paid service."
+
+  defstruct [:tenant_id, :incident_id, :detection_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    incident_id: String.t() | nil,
+    detection_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :incident_id) -> {:error, {:missing_field, :incident_id}}
+      not Map.has_key?(attrs, :detection_hash) -> {:error, {:missing_field, :detection_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          incident_id: Map.get(attrs, :incident_id),
+          detection_hash: Map.get(attrs, :detection_hash)
         }}
     end
   end
@@ -3069,6 +3528,33 @@ defmodule BeamPM.Types.K8SObjectRef do
   end
 end
 
+defmodule BeamPM.Types.LatencyBudgetObservation do
+  @moduledoc "Records an observed runtime latency against the admitted paid-service latency budget."
+
+  defstruct [:tenant_id, :workload_id, :observation_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    workload_id: String.t() | nil,
+    observation_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :workload_id) -> {:error, {:missing_field, :workload_id}}
+      not Map.has_key?(attrs, :observation_hash) -> {:error, {:missing_field, :observation_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          workload_id: Map.get(attrs, :workload_id),
+          observation_hash: Map.get(attrs, :observation_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.LeastAuthorityEvidence do
   @moduledoc "Executable least-authority evidence binding an exact subject to the permissions actually granted during execution."
 
@@ -3234,6 +3720,33 @@ defmodule BeamPM.Types.MasterServiceAgreementState do
   end
 end
 
+defmodule BeamPM.Types.MeteredUsageSample do
+  @moduledoc "Records a bounded production usage sample eligible for tenant-level metering."
+
+  defstruct [:tenant_id, :usage_sample_id, :sample_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    usage_sample_id: String.t() | nil,
+    sample_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :usage_sample_id) -> {:error, {:missing_field, :usage_sample_id}}
+      not Map.has_key?(attrs, :sample_hash) -> {:error, {:missing_field, :sample_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          usage_sample_id: Map.get(attrs, :usage_sample_id),
+          sample_hash: Map.get(attrs, :sample_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.MigrationContract do
   @moduledoc "Versioned migration path with source, target, and rollback identity."
 
@@ -3379,6 +3892,33 @@ defmodule BeamPM.Types.MutableIdentityRefusalEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           mutable_reference: Map.get(attrs, :mutable_reference),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.NodeFailoverEvent do
+  @moduledoc "Records the exact node failure and observed failover consequence for a paid service."
+
+  defstruct [:tenant_id, :node_id, :failover_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    node_id: String.t() | nil,
+    failover_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :node_id) -> {:error, {:missing_field, :node_id}}
+      not Map.has_key?(attrs, :failover_hash) -> {:error, {:missing_field, :failover_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          node_id: Map.get(attrs, :node_id),
+          failover_hash: Map.get(attrs, :failover_hash)
         }}
     end
   end
@@ -3839,6 +4379,33 @@ defmodule BeamPM.Types.OveragePolicy do
           quota_id: Map.get(attrs, :quota_id),
           unit_price: Map.get(attrs, :unit_price),
           behavior: Map.get(attrs, :behavior)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PaidWorkloadOutcomeReceipt do
+  @moduledoc "Produces the terminal receipt proving a paid workload delivered its admitted business outcome."
+
+  defstruct [:tenant_id, :workload_id, :outcome_receipt_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    workload_id: String.t() | nil,
+    outcome_receipt_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :workload_id) -> {:error, {:missing_field, :workload_id}}
+      not Map.has_key?(attrs, :outcome_receipt_hash) -> {:error, {:missing_field, :outcome_receipt_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          workload_id: Map.get(attrs, :workload_id),
+          outcome_receipt_hash: Map.get(attrs, :outcome_receipt_hash)
         }}
     end
   end
@@ -4848,6 +5415,114 @@ defmodule BeamPM.Types.ReceiptReplayEvidence do
   end
 end
 
+defmodule BeamPM.Types.ReceiptReplayRequest do
+  @moduledoc "Admits an exact receipt replay request for independent consumer verification."
+
+  defstruct [:tenant_id, :receipt_id, :replay_request_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    receipt_id: String.t() | nil,
+    replay_request_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :receipt_id) -> {:error, {:missing_field, :receipt_id}}
+      not Map.has_key?(attrs, :replay_request_hash) -> {:error, {:missing_field, :replay_request_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          receipt_id: Map.get(attrs, :receipt_id),
+          replay_request_hash: Map.get(attrs, :replay_request_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ReceiptSignature do
+  @moduledoc "Admits a cryptographic receipt signature bound to an exact paid runtime consequence."
+
+  defstruct [:tenant_id, :receipt_id, :signature_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    receipt_id: String.t() | nil,
+    signature_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :receipt_id) -> {:error, {:missing_field, :receipt_id}}
+      not Map.has_key?(attrs, :signature_hash) -> {:error, {:missing_field, :signature_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          receipt_id: Map.get(attrs, :receipt_id),
+          signature_hash: Map.get(attrs, :signature_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ReceiptSubjectBinding do
+  @moduledoc "Binds a runtime receipt to the exact workload subject it claims to evidence."
+
+  defstruct [:tenant_id, :workload_id, :binding_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    workload_id: String.t() | nil,
+    binding_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :workload_id) -> {:error, {:missing_field, :workload_id}}
+      not Map.has_key?(attrs, :binding_hash) -> {:error, {:missing_field, :binding_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          workload_id: Map.get(attrs, :workload_id),
+          binding_hash: Map.get(attrs, :binding_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ReceiptVerification do
+  @moduledoc "Records independent verification of a production receipt before value is recognized."
+
+  defstruct [:tenant_id, :receipt_id, :verification_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    receipt_id: String.t() | nil,
+    verification_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :receipt_id) -> {:error, {:missing_field, :receipt_id}}
+      not Map.has_key?(attrs, :verification_hash) -> {:error, {:missing_field, :verification_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          receipt_id: Map.get(attrs, :receipt_id),
+          verification_hash: Map.get(attrs, :verification_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.RecoveryPlan do
   @moduledoc "Executable account recovery plan with a measured recovery interval."
 
@@ -4876,6 +5551,60 @@ defmodule BeamPM.Types.RecoveryPlan do
           recovery_time_hours: Map.get(attrs, :recovery_time_hours),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.RecoveryPointReceipt do
+  @moduledoc "Receipts the observed recovery point and protected data boundary after failure."
+
+  defstruct [:tenant_id, :incident_id, :recovery_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    incident_id: String.t() | nil,
+    recovery_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :incident_id) -> {:error, {:missing_field, :incident_id}}
+      not Map.has_key?(attrs, :recovery_hash) -> {:error, {:missing_field, :recovery_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          incident_id: Map.get(attrs, :incident_id),
+          recovery_hash: Map.get(attrs, :recovery_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.RecoveryTimeReceipt do
+  @moduledoc "Receipts the observed recovery-time consequence against the paid-service objective."
+
+  defstruct [:tenant_id, :incident_id, :recovery_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    incident_id: String.t() | nil,
+    recovery_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :incident_id) -> {:error, {:missing_field, :incident_id}}
+      not Map.has_key?(attrs, :recovery_hash) -> {:error, {:missing_field, :recovery_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          incident_id: Map.get(attrs, :incident_id),
+          recovery_hash: Map.get(attrs, :recovery_hash)
         }}
     end
   end
@@ -5062,6 +5791,33 @@ defmodule BeamPM.Types.RenewalTermAdmission do
           opportunity_id: Map.get(attrs, :opportunity_id),
           renewal_term: Map.get(attrs, :renewal_term),
           decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ReplayEnvironmentIdentity do
+  @moduledoc "Binds receipt replay to an exact environment identity so mismatched replay is refused."
+
+  defstruct [:tenant_id, :environment_id, :identity_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    environment_id: String.t() | nil,
+    identity_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :environment_id) -> {:error, {:missing_field, :environment_id}}
+      not Map.has_key?(attrs, :identity_hash) -> {:error, {:missing_field, :identity_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          environment_id: Map.get(attrs, :environment_id),
+          identity_hash: Map.get(attrs, :identity_hash)
         }}
     end
   end
@@ -5331,6 +6087,33 @@ defmodule BeamPM.Types.RfpResponseEvidence do
   end
 end
 
+defmodule BeamPM.Types.RollbackCheckpoint do
+  @moduledoc "Binds rollback authority to an immutable runtime checkpoint and verified state digest."
+
+  defstruct [:tenant_id, :checkpoint_id, :state_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    checkpoint_id: String.t() | nil,
+    state_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :checkpoint_id) -> {:error, {:missing_field, :checkpoint_id}}
+      not Map.has_key?(attrs, :state_hash) -> {:error, {:missing_field, :state_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          checkpoint_id: Map.get(attrs, :checkpoint_id),
+          state_hash: Map.get(attrs, :state_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.RollbackDecision do
   @moduledoc "Receipted rollback decision and recovered account consequence."
 
@@ -5389,6 +6172,60 @@ defmodule BeamPM.Types.RollbackEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           rollback_digest: Map.get(attrs, :rollback_digest),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.RollingUpgradePlan do
+  @moduledoc "Admits an identified rolling upgrade plan with deterministic production evidence."
+
+  defstruct [:tenant_id, :upgrade_id, :plan_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    upgrade_id: String.t() | nil,
+    plan_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :upgrade_id) -> {:error, {:missing_field, :upgrade_id}}
+      not Map.has_key?(attrs, :plan_hash) -> {:error, {:missing_field, :plan_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          upgrade_id: Map.get(attrs, :upgrade_id),
+          plan_hash: Map.get(attrs, :plan_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.RuntimePolicyDecision do
+  @moduledoc "Records an explicit runtime policy decision before paid workload actuation."
+
+  defstruct [:tenant_id, :decision_id, :policy_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    decision_id: String.t() | nil,
+    policy_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :decision_id) -> {:error, {:missing_field, :decision_id}}
+      not Map.has_key?(attrs, :policy_hash) -> {:error, {:missing_field, :policy_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          decision_id: Map.get(attrs, :decision_id),
+          policy_hash: Map.get(attrs, :policy_hash)
         }}
     end
   end
@@ -5625,6 +6462,33 @@ defmodule BeamPM.Types.ServiceCreditAdmission do
   end
 end
 
+defmodule BeamPM.Types.ServiceHealthSnapshot do
+  @moduledoc "Captures machine-readable paid-service health for support and escalation decisions."
+
+  defstruct [:tenant_id, :service_id, :snapshot_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    service_id: String.t() | nil,
+    snapshot_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :service_id) -> {:error, {:missing_field, :service_id}}
+      not Map.has_key?(attrs, :snapshot_hash) -> {:error, {:missing_field, :snapshot_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          service_id: Map.get(attrs, :service_id),
+          snapshot_hash: Map.get(attrs, :snapshot_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ServiceLevelObjective do
   @moduledoc "Measurable service target bound to a support contract."
 
@@ -5650,6 +6514,33 @@ defmodule BeamPM.Types.ServiceLevelObjective do
           contract_id: Map.get(attrs, :contract_id),
           target_percent: Map.get(attrs, :target_percent),
           measurement_window: Map.get(attrs, :measurement_window)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ServiceSloContract do
+  @moduledoc "Admits the exact service-level objective contract governing a paid workload."
+
+  defstruct [:tenant_id, :slo_id, :contract_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    slo_id: String.t() | nil,
+    contract_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :slo_id) -> {:error, {:missing_field, :slo_id}}
+      not Map.has_key?(attrs, :contract_hash) -> {:error, {:missing_field, :contract_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          slo_id: Map.get(attrs, :slo_id),
+          contract_hash: Map.get(attrs, :contract_hash)
         }}
     end
   end
@@ -5894,6 +6785,33 @@ defmodule BeamPM.Types.StakeholderMap do
   end
 end
 
+defmodule BeamPM.Types.StaleReceiptRefusal do
+  @moduledoc "Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window."
+
+  defstruct [:tenant_id, :receipt_id, :refusal_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    receipt_id: String.t() | nil,
+    refusal_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :receipt_id) -> {:error, {:missing_field, :receipt_id}}
+      not Map.has_key?(attrs, :refusal_hash) -> {:error, {:missing_field, :refusal_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          receipt_id: Map.get(attrs, :receipt_id),
+          refusal_hash: Map.get(attrs, :refusal_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.StaleSubjectRefusalEvidence do
   @moduledoc "Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial."
 
@@ -5957,6 +6875,33 @@ defmodule BeamPM.Types.SuccessPlan do
   end
 end
 
+defmodule BeamPM.Types.SupervisorRestartPolicy do
+  @moduledoc "Binds an OTP supervisor to an explicit restart policy governing paid workload resilience."
+
+  defstruct [:tenant_id, :supervisor_id, :policy_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    supervisor_id: String.t() | nil,
+    policy_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :supervisor_id) -> {:error, {:missing_field, :supervisor_id}}
+      not Map.has_key?(attrs, :policy_hash) -> {:error, {:missing_field, :policy_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          supervisor_id: Map.get(attrs, :supervisor_id),
+          policy_hash: Map.get(attrs, :policy_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.SupportContract do
   @moduledoc "Purchased support tier with response target and term."
 
@@ -5982,6 +6927,33 @@ defmodule BeamPM.Types.SupportContract do
           account_id: Map.get(attrs, :account_id),
           tier: Map.get(attrs, :tier),
           valid_until: Map.get(attrs, :valid_until)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.SupportDiagnosticBundle do
+  @moduledoc "Binds machine-readable support diagnostics to the exact tenant and incident subject."
+
+  defstruct [:tenant_id, :incident_id, :bundle_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    incident_id: String.t() | nil,
+    bundle_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :incident_id) -> {:error, {:missing_field, :incident_id}}
+      not Map.has_key?(attrs, :bundle_hash) -> {:error, {:missing_field, :bundle_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          incident_id: Map.get(attrs, :incident_id),
+          bundle_hash: Map.get(attrs, :bundle_hash)
         }}
     end
   end
@@ -6280,6 +7252,60 @@ defmodule BeamPM.Types.TenantAccount do
   end
 end
 
+defmodule BeamPM.Types.TenantDataPartition do
+  @moduledoc "Binds tenant data to an explicit storage partition whose isolation consequence is independently verifiable."
+
+  defstruct [:tenant_id, :partition_id, :isolation_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    partition_id: String.t() | nil,
+    isolation_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :partition_id) -> {:error, {:missing_field, :partition_id}}
+      not Map.has_key?(attrs, :isolation_hash) -> {:error, {:missing_field, :isolation_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          partition_id: Map.get(attrs, :partition_id),
+          isolation_hash: Map.get(attrs, :isolation_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.TenantKeyScope do
+  @moduledoc "Binds tenant cryptographic material to one runtime key scope and attested key identity."
+
+  defstruct [:tenant_id, :key_scope_id, :key_attestation_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    key_scope_id: String.t() | nil,
+    key_attestation_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :key_scope_id) -> {:error, {:missing_field, :key_scope_id}}
+      not Map.has_key?(attrs, :key_attestation_hash) -> {:error, {:missing_field, :key_attestation_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          key_scope_id: Map.get(attrs, :key_scope_id),
+          key_attestation_hash: Map.get(attrs, :key_attestation_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.TenantProject do
   @moduledoc "Billable tenant project with cost-center attribution."
 
@@ -6305,6 +7331,60 @@ defmodule BeamPM.Types.TenantProject do
           tenant_id: Map.get(attrs, :tenant_id),
           cost_center: Map.get(attrs, :cost_center),
           status: Map.get(attrs, :status)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.TenantResourceQuota do
+  @moduledoc "Binds a paid tenant to an enforceable CPU and memory quota with observed utilization evidence."
+
+  defstruct [:tenant_id, :quota_id, :utilization_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    quota_id: String.t() | nil,
+    utilization_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :quota_id) -> {:error, {:missing_field, :quota_id}}
+      not Map.has_key?(attrs, :utilization_hash) -> {:error, {:missing_field, :utilization_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          quota_id: Map.get(attrs, :quota_id),
+          utilization_hash: Map.get(attrs, :utilization_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.TenantRuntimeBoundary do
+  @moduledoc "Binds a paid tenant to one explicit runtime isolation boundary and replayable evidence identity."
+
+  defstruct [:tenant_id, :boundary_id, :evidence_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    boundary_id: String.t() | nil,
+    evidence_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :boundary_id) -> {:error, {:missing_field, :boundary_id}}
+      not Map.has_key?(attrs, :evidence_hash) -> {:error, {:missing_field, :evidence_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          boundary_id: Map.get(attrs, :boundary_id),
+          evidence_hash: Map.get(attrs, :evidence_hash)
         }}
     end
   end
@@ -6395,6 +7475,33 @@ defmodule BeamPM.Types.TimeToValue do
           verified_days: Map.get(attrs, :verified_days),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ToolchainIdentity do
+  @moduledoc "Binds a production consequence to the exact BEAM and manufacturing toolchain identity."
+
+  defstruct [:tenant_id, :toolchain_id, :identity_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    toolchain_id: String.t() | nil,
+    identity_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :toolchain_id) -> {:error, {:missing_field, :toolchain_id}}
+      not Map.has_key?(attrs, :identity_hash) -> {:error, {:missing_field, :identity_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          toolchain_id: Map.get(attrs, :toolchain_id),
+          identity_hash: Map.get(attrs, :identity_hash)
         }}
     end
   end
@@ -6676,6 +7783,33 @@ defmodule BeamPM.Types.UsagePlan do
   end
 end
 
+defmodule BeamPM.Types.UsageReconciliationReceipt do
+  @moduledoc "Receipts deduplicated usage reconciliation before an invoiceable quantity is recognized."
+
+  defstruct [:tenant_id, :billing_period_id, :reconciliation_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    billing_period_id: String.t() | nil,
+    reconciliation_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :billing_period_id) -> {:error, {:missing_field, :billing_period_id}}
+      not Map.has_key?(attrs, :reconciliation_hash) -> {:error, {:missing_field, :reconciliation_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          billing_period_id: Map.get(attrs, :billing_period_id),
+          reconciliation_hash: Map.get(attrs, :reconciliation_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.UsageSignal do
   @moduledoc "Measured product-usage signal for an admitted enterprise account."
 
@@ -6800,6 +7934,33 @@ defmodule BeamPM.Types.ValueRealization do
           realized_value: Map.get(attrs, :realized_value),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ValueTelemetrySample do
+  @moduledoc "Records a production telemetry sample tied to the paid business-value measurement contract."
+
+  defstruct [:tenant_id, :outcome_id, :telemetry_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    outcome_id: String.t() | nil,
+    telemetry_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :outcome_id) -> {:error, {:missing_field, :outcome_id}}
+      not Map.has_key?(attrs, :telemetry_hash) -> {:error, {:missing_field, :telemetry_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          outcome_id: Map.get(attrs, :outcome_id),
+          telemetry_hash: Map.get(attrs, :telemetry_hash)
         }}
     end
   end
@@ -6944,6 +8105,195 @@ defmodule BeamPM.Types.VulnerabilityScanEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           vulnerability_count: Map.get(attrs, :vulnerability_count),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.WorkloadBackpressureSignal do
+  @moduledoc "Records runtime backpressure as measured evidence before additional paid work is accepted."
+
+  defstruct [:tenant_id, :signal_id, :measurement_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    signal_id: String.t() | nil,
+    measurement_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :signal_id) -> {:error, {:missing_field, :signal_id}}
+      not Map.has_key?(attrs, :measurement_hash) -> {:error, {:missing_field, :measurement_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          signal_id: Map.get(attrs, :signal_id),
+          measurement_hash: Map.get(attrs, :measurement_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.WorkloadCancellationReceipt do
+  @moduledoc "Records deterministic cancellation consequence for a paid workload execution."
+
+  defstruct [:tenant_id, :execution_id, :receipt_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    execution_id: String.t() | nil,
+    receipt_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :execution_id) -> {:error, {:missing_field, :execution_id}}
+      not Map.has_key?(attrs, :receipt_hash) -> {:error, {:missing_field, :receipt_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          execution_id: Map.get(attrs, :execution_id),
+          receipt_hash: Map.get(attrs, :receipt_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.WorkloadExecutionIdentity do
+  @moduledoc "Assigns every paid workload execution an immutable subject identity before runtime consequence."
+
+  defstruct [:tenant_id, :execution_id, :subject_digest]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    execution_id: String.t() | nil,
+    subject_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :execution_id) -> {:error, {:missing_field, :execution_id}}
+      not Map.has_key?(attrs, :subject_digest) -> {:error, {:missing_field, :subject_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          execution_id: Map.get(attrs, :execution_id),
+          subject_digest: Map.get(attrs, :subject_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.WorkloadIdempotencyKey do
+  @moduledoc "Binds a paid execution to an idempotency key so retried delivery cannot be billed or actuated twice."
+
+  defstruct [:tenant_id, :execution_id, :idempotency_key]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    execution_id: String.t() | nil,
+    idempotency_key: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :execution_id) -> {:error, {:missing_field, :execution_id}}
+      not Map.has_key?(attrs, :idempotency_key) -> {:error, {:missing_field, :idempotency_key}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          execution_id: Map.get(attrs, :execution_id),
+          idempotency_key: Map.get(attrs, :idempotency_key)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.WorkloadQueueDepth do
+  @moduledoc "Records paid workload queue depth as an exact capacity and backpressure observation."
+
+  defstruct [:tenant_id, :queue_id, :measurement_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    queue_id: String.t() | nil,
+    measurement_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :queue_id) -> {:error, {:missing_field, :queue_id}}
+      not Map.has_key?(attrs, :measurement_hash) -> {:error, {:missing_field, :measurement_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          queue_id: Map.get(attrs, :queue_id),
+          measurement_hash: Map.get(attrs, :measurement_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.WorkloadRetryPolicy do
+  @moduledoc "Admits a bounded retry policy with explicit identity and replayable configuration evidence."
+
+  defstruct [:tenant_id, :policy_id, :policy_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    policy_id: String.t() | nil,
+    policy_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :policy_id) -> {:error, {:missing_field, :policy_id}}
+      not Map.has_key?(attrs, :policy_hash) -> {:error, {:missing_field, :policy_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          policy_id: Map.get(attrs, :policy_id),
+          policy_hash: Map.get(attrs, :policy_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.WorkloadTimeoutBudget do
+  @moduledoc "Admits an execution timeout budget that prevents unbounded paid runtime consumption."
+
+  defstruct [:tenant_id, :budget_id, :budget_hash]
+
+  @type t :: %__MODULE__{
+    tenant_id: String.t() | nil,
+    budget_id: String.t() | nil,
+    budget_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :tenant_id) -> {:error, {:missing_field, :tenant_id}}
+      not Map.has_key?(attrs, :budget_id) -> {:error, {:missing_field, :budget_id}}
+      not Map.has_key?(attrs, :budget_hash) -> {:error, {:missing_field, :budget_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          tenant_id: Map.get(attrs, :tenant_id),
+          budget_id: Map.get(attrs, :budget_id),
+          budget_hash: Map.get(attrs, :budget_hash)
         }}
     end
   end

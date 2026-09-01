@@ -6,6 +6,7 @@
     new_account_discovery/1,
     new_account_master_match/1,
     new_account_parent_scope/1,
+    new_account_value_realization/1,
     new_action_pin_evidence/1,
     new_activation_event/1,
     new_add_on_bundle/1,
@@ -18,26 +19,33 @@
     new_artifact_digest_evidence/1,
     new_attestation_verification_evidence/1,
     new_audit_chain_evidence/1,
+    new_availability_observation/1,
     new_availability_slo_evidence/1,
     new_backup_restore_evidence/1,
     new_baseline_metric/1,
     new_beneficial_owner_evidence/1,
+    new_billable_usage_identity/1,
     new_billing_account/1,
     new_billing_reconciliation/1,
     new_booking_readiness/1,
+    new_brce_actuation_receipt/1,
+    new_brce_actuation_request/1,
     new_budget_period_alignment/1,
     new_business_continuity_evidence/1,
+    new_business_outcome_measurement/1,
     new_buying_committee/1,
     new_canary_decision/1,
     new_canary_evidence/1,
     new_capability_bundle/1,
     new_capability_gap/1,
+    new_capsule_identity/1,
     new_case_stats/1,
     new_catalog_release/1,
     new_change_control_evidence/1,
     new_change_order_authority/1,
     new_channel_agreement/1,
     new_chargeback_rule/1,
+    new_cluster_quorum_state/1,
     new_commercial_approval/1,
     new_commercial_artifact_crown_evidence/1,
     new_commercial_exception/1,
@@ -56,6 +64,8 @@
     new_consumption_pool/1,
     new_consumption_subscription/1,
     new_contracting_entity_identity/1,
+    new_cost_to_serve_measurement/1,
+    new_crash_recovery_receipt/1,
     new_credit_risk_admission/1,
     new_cross_sell_fit/1,
     new_customer_health/1,
@@ -79,12 +89,16 @@
     new_edition_definition/1,
     new_enterprise_order/1,
     new_enterprise_order_line/1,
+    new_entitlement_denial_receipt/1,
     new_entitlement_event/1,
     new_entitlement_evidence/1,
     new_entitlement_grant/1,
     new_entitlement_revocation/1,
+    new_entitlement_runtime_check/1,
     new_entitlement_state/1,
+    new_environment_identity/1,
     new_environment_profile/1,
+    new_error_budget_state/1,
     new_event_log/1,
     new_event_type/1,
     new_evidence_freshness_evidence/1,
@@ -95,9 +109,12 @@
     new_expansion_option/1,
     new_expansion_receipt/1,
     new_expansion_signal/1,
+    new_forged_receipt_refusal/1,
     new_funding_approval_chain/1,
     new_heuristic_arc/1,
     new_implementation_fee_admission/1,
+    new_incident_acknowledgement/1,
+    new_incident_detection_event/1,
     new_incident_response_evidence/1,
     new_indemnity_scope_admission/1,
     new_insurance_requirement/1,
@@ -106,17 +123,20 @@
     new_invoice_entity_identity/1,
     new_invoice_schedule/1,
     new_k8s_object_ref/1,
+    new_latency_budget_observation/1,
     new_least_authority_evidence/1,
     new_legal_blocker/1,
     new_liability_cap_admission/1,
     new_license_evidence/1,
     new_log_trace/1,
     new_master_service_agreement_state/1,
+    new_metered_usage_sample/1,
     new_migration_contract/1,
     new_migration_readiness/1,
     new_minimum_term_admission/1,
     new_multiarch_evidence/1,
     new_mutable_identity_refusal_evidence/1,
+    new_node_failover_event/1,
     new_object_attribute_change/1,
     new_object_type/1,
     new_objection/1,
@@ -133,6 +153,7 @@
     new_opportunity_value_range/1,
     new_order_form_admission/1,
     new_overage_policy/1,
+    new_paid_workload_outcome_receipt/1,
     new_path_schema/1,
     new_path_schema_query/1,
     new_payment_terms/1,
@@ -168,13 +189,20 @@
     new_quota_policy/1,
     new_ramp_commitment/1,
     new_receipt_replay_evidence/1,
+    new_receipt_replay_request/1,
+    new_receipt_signature/1,
+    new_receipt_subject_binding/1,
+    new_receipt_verification/1,
     new_recovery_plan/1,
+    new_recovery_point_receipt/1,
+    new_recovery_time_receipt/1,
     new_remediation_sla_evidence/1,
     new_renewal_evidence/1,
     new_renewal_health/1,
     new_renewal_option/1,
     new_renewal_risk/1,
     new_renewal_term_admission/1,
+    new_replay_environment_identity/1,
     new_reproducible_build_evidence/1,
     new_reseller_authorization/1,
     new_residency_evidence/1,
@@ -184,8 +212,11 @@
     new_revenue_contract_admission/1,
     new_revenue_schedule_assumption/1,
     new_rfp_response_evidence/1,
+    new_rollback_checkpoint/1,
     new_rollback_decision/1,
     new_rollback_evidence/1,
+    new_rolling_upgrade_plan/1,
+    new_runtime_policy_decision/1,
     new_sanctions_screening_result/1,
     new_sbom_inventory_evidence/1,
     new_secret_boundary_evidence/1,
@@ -194,7 +225,9 @@
     new_security_readiness/1,
     new_service_credit/1,
     new_service_credit_admission/1,
+    new_service_health_snapshot/1,
     new_service_level_objective/1,
+    new_service_slo_contract/1,
     new_service_span/1,
     new_showback_allocation/1,
     new_signature_evidence/1,
@@ -203,9 +236,12 @@
     new_sojourn_time/1,
     new_solution_fit/1,
     new_stakeholder_map/1,
+    new_stale_receipt_refusal/1,
     new_stale_subject_refusal_evidence/1,
     new_success_plan/1,
+    new_supervisor_restart_policy/1,
     new_support_contract/1,
+    new_support_diagnostic_bundle/1,
     new_support_escalation_evidence/1,
     new_support_readiness/1,
     new_support_sla_evidence/1,
@@ -216,10 +252,15 @@
     new_tax_jurisdiction_evidence/1,
     new_technical_blocker/1,
     new_tenant_account/1,
+    new_tenant_data_partition/1,
+    new_tenant_key_scope/1,
     new_tenant_project/1,
+    new_tenant_resource_quota/1,
+    new_tenant_runtime_boundary/1,
     new_term_subscription/1,
     new_termination_right_admission/1,
     new_time_to_value/1,
+    new_toolchain_identity/1,
     new_training_readiness/1,
     new_training_scope_admission/1,
     new_true_up_policy/1,
@@ -229,21 +270,31 @@
     new_upsell_readiness/1,
     new_usage_event/1,
     new_usage_plan/1,
+    new_usage_reconciliation_receipt/1,
     new_usage_signal/1,
     new_value_baseline/1,
     new_value_driver/1,
     new_value_realization/1,
+    new_value_telemetry_sample/1,
     new_vendor_registration_state/1,
     new_vendor_risk_evidence/1,
     new_version_lifecycle_evidence/1,
     new_volume_tier_admission/1,
-    new_vulnerability_scan_evidence/1
+    new_vulnerability_scan_evidence/1,
+    new_workload_backpressure_signal/1,
+    new_workload_cancellation_receipt/1,
+    new_workload_execution_identity/1,
+    new_workload_idempotency_key/1,
+    new_workload_queue_depth/1,
+    new_workload_retry_policy/1,
+    new_workload_timeout_budget/1
 ]).
 
 -export_type([
     account_discovery/0,
     account_master_match/0,
     account_parent_scope/0,
+    account_value_realization/0,
     action_pin_evidence/0,
     activation_event/0,
     add_on_bundle/0,
@@ -256,26 +307,33 @@
     artifact_digest_evidence/0,
     attestation_verification_evidence/0,
     audit_chain_evidence/0,
+    availability_observation/0,
     availability_slo_evidence/0,
     backup_restore_evidence/0,
     baseline_metric/0,
     beneficial_owner_evidence/0,
+    billable_usage_identity/0,
     billing_account/0,
     billing_reconciliation/0,
     booking_readiness/0,
+    brce_actuation_receipt/0,
+    brce_actuation_request/0,
     budget_period_alignment/0,
     business_continuity_evidence/0,
+    business_outcome_measurement/0,
     buying_committee/0,
     canary_decision/0,
     canary_evidence/0,
     capability_bundle/0,
     capability_gap/0,
+    capsule_identity/0,
     case_stats/0,
     catalog_release/0,
     change_control_evidence/0,
     change_order_authority/0,
     channel_agreement/0,
     chargeback_rule/0,
+    cluster_quorum_state/0,
     commercial_approval/0,
     commercial_artifact_crown_evidence/0,
     commercial_exception/0,
@@ -294,6 +352,8 @@
     consumption_pool/0,
     consumption_subscription/0,
     contracting_entity_identity/0,
+    cost_to_serve_measurement/0,
+    crash_recovery_receipt/0,
     credit_risk_admission/0,
     cross_sell_fit/0,
     customer_health/0,
@@ -317,12 +377,16 @@
     edition_definition/0,
     enterprise_order/0,
     enterprise_order_line/0,
+    entitlement_denial_receipt/0,
     entitlement_event/0,
     entitlement_evidence/0,
     entitlement_grant/0,
     entitlement_revocation/0,
+    entitlement_runtime_check/0,
     entitlement_state/0,
+    environment_identity/0,
     environment_profile/0,
+    error_budget_state/0,
     event_log/0,
     event_type/0,
     evidence_freshness_evidence/0,
@@ -333,9 +397,12 @@
     expansion_option/0,
     expansion_receipt/0,
     expansion_signal/0,
+    forged_receipt_refusal/0,
     funding_approval_chain/0,
     heuristic_arc/0,
     implementation_fee_admission/0,
+    incident_acknowledgement/0,
+    incident_detection_event/0,
     incident_response_evidence/0,
     indemnity_scope_admission/0,
     insurance_requirement/0,
@@ -344,17 +411,20 @@
     invoice_entity_identity/0,
     invoice_schedule/0,
     k8s_object_ref/0,
+    latency_budget_observation/0,
     least_authority_evidence/0,
     legal_blocker/0,
     liability_cap_admission/0,
     license_evidence/0,
     log_trace/0,
     master_service_agreement_state/0,
+    metered_usage_sample/0,
     migration_contract/0,
     migration_readiness/0,
     minimum_term_admission/0,
     multiarch_evidence/0,
     mutable_identity_refusal_evidence/0,
+    node_failover_event/0,
     object_attribute_change/0,
     object_type/0,
     objection/0,
@@ -371,6 +441,7 @@
     opportunity_value_range/0,
     order_form_admission/0,
     overage_policy/0,
+    paid_workload_outcome_receipt/0,
     path_schema/0,
     path_schema_query/0,
     payment_terms/0,
@@ -406,13 +477,20 @@
     quota_policy/0,
     ramp_commitment/0,
     receipt_replay_evidence/0,
+    receipt_replay_request/0,
+    receipt_signature/0,
+    receipt_subject_binding/0,
+    receipt_verification/0,
     recovery_plan/0,
+    recovery_point_receipt/0,
+    recovery_time_receipt/0,
     remediation_sla_evidence/0,
     renewal_evidence/0,
     renewal_health/0,
     renewal_option/0,
     renewal_risk/0,
     renewal_term_admission/0,
+    replay_environment_identity/0,
     reproducible_build_evidence/0,
     reseller_authorization/0,
     residency_evidence/0,
@@ -422,8 +500,11 @@
     revenue_contract_admission/0,
     revenue_schedule_assumption/0,
     rfp_response_evidence/0,
+    rollback_checkpoint/0,
     rollback_decision/0,
     rollback_evidence/0,
+    rolling_upgrade_plan/0,
+    runtime_policy_decision/0,
     sanctions_screening_result/0,
     sbom_inventory_evidence/0,
     secret_boundary_evidence/0,
@@ -432,7 +513,9 @@
     security_readiness/0,
     service_credit/0,
     service_credit_admission/0,
+    service_health_snapshot/0,
     service_level_objective/0,
+    service_slo_contract/0,
     service_span/0,
     showback_allocation/0,
     signature_evidence/0,
@@ -441,9 +524,12 @@
     sojourn_time/0,
     solution_fit/0,
     stakeholder_map/0,
+    stale_receipt_refusal/0,
     stale_subject_refusal_evidence/0,
     success_plan/0,
+    supervisor_restart_policy/0,
     support_contract/0,
+    support_diagnostic_bundle/0,
     support_escalation_evidence/0,
     support_readiness/0,
     support_sla_evidence/0,
@@ -454,10 +540,15 @@
     tax_jurisdiction_evidence/0,
     technical_blocker/0,
     tenant_account/0,
+    tenant_data_partition/0,
+    tenant_key_scope/0,
     tenant_project/0,
+    tenant_resource_quota/0,
+    tenant_runtime_boundary/0,
     term_subscription/0,
     termination_right_admission/0,
     time_to_value/0,
+    toolchain_identity/0,
     training_readiness/0,
     training_scope_admission/0,
     true_up_policy/0,
@@ -467,15 +558,24 @@
     upsell_readiness/0,
     usage_event/0,
     usage_plan/0,
+    usage_reconciliation_receipt/0,
     usage_signal/0,
     value_baseline/0,
     value_driver/0,
     value_realization/0,
+    value_telemetry_sample/0,
     vendor_registration_state/0,
     vendor_risk_evidence/0,
     version_lifecycle_evidence/0,
     volume_tier_admission/0,
-    vulnerability_scan_evidence/0
+    vulnerability_scan_evidence/0,
+    workload_backpressure_signal/0,
+    workload_cancellation_receipt/0,
+    workload_execution_identity/0,
+    workload_idempotency_key/0,
+    workload_queue_depth/0,
+    workload_retry_policy/0,
+    workload_timeout_budget/0
 ]).
 
 %% Receipted enterprise account-discovery outcome that binds qualification evidence to a measurable discovery score.
@@ -572,6 +672,35 @@ new_account_parent_scope(Map) ->
         account_id = maps:get(account_id, Map, undefined),
         parent_account_id = maps:get(parent_account_id, Map, undefined),
         scope_evidence_hash = maps:get(scope_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Aggregates verified outcome evidence into an account-level realized-value observation.
+-record(account_value_realization, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    account_id :: binary(), %% account_id: Exact runtime subject identity required for independent verification and replay.
+    realization_hash :: binary() %% realization_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type account_value_realization() :: #account_value_realization{}.
+
+-spec new_account_value_realization(map()) -> {ok, account_value_realization()} | {error, {missing_field, atom()}}.
+new_account_value_realization(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(realization_hash, Map) of
+        false -> {error, {missing_field, realization_hash}};
+        true ->
+    {ok, #account_value_realization{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        realization_hash = maps:get(realization_hash, Map, undefined)
     }}
     end
     end
@@ -1003,6 +1132,35 @@ new_audit_chain_evidence(Map) ->
     end
     end.
 
+%% Records a bounded availability observation against the paid tenant SLO.
+-record(availability_observation, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    slo_id :: binary(), %% slo_id: Exact runtime subject identity required for independent verification and replay.
+    observation_hash :: binary() %% observation_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type availability_observation() :: #availability_observation{}.
+
+-spec new_availability_observation(map()) -> {ok, availability_observation()} | {error, {missing_field, atom()}}.
+new_availability_observation(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(slo_id, Map) of
+        false -> {error, {missing_field, slo_id}};
+        true ->
+    case maps:is_key(observation_hash, Map) of
+        false -> {error, {missing_field, observation_hash}};
+        true ->
+    {ok, #availability_observation{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        slo_id = maps:get(slo_id, Map, undefined),
+        observation_hash = maps:get(observation_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable availability evidence binding an exact subject to the service level actually observed over the admitted window.
 -record(availability_slo_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this availability-SLO observation.
@@ -1143,6 +1301,35 @@ new_beneficial_owner_evidence(Map) ->
     end
     end.
 
+%% Binds accepted usage to one immutable billable identity that prevents duplicate charging.
+-record(billable_usage_identity, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    billable_usage_id :: binary(), %% billable_usage_id: Exact runtime subject identity required for independent verification and replay.
+    identity_hash :: binary() %% identity_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type billable_usage_identity() :: #billable_usage_identity{}.
+
+-spec new_billable_usage_identity(map()) -> {ok, billable_usage_identity()} | {error, {missing_field, atom()}}.
+new_billable_usage_identity(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(billable_usage_id, Map) of
+        false -> {error, {missing_field, billable_usage_id}};
+        true ->
+    case maps:is_key(identity_hash, Map) of
+        false -> {error, {missing_field, identity_hash}};
+        true ->
+    {ok, #billable_usage_identity{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        billable_usage_id = maps:get(billable_usage_id, Map, undefined),
+        identity_hash = maps:get(identity_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Bill-to account with currency and invoice delivery profile.
 -record(billing_account, {
     billing_account_id :: binary(), %% billing_account_id: Stable bill-to account identity.
@@ -1254,6 +1441,64 @@ new_booking_readiness(Map) ->
     end
     end.
 
+%% Binds an actuated runtime consequence to its authorized BRCE request and receipt.
+-record(brce_actuation_receipt, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    request_id :: binary(), %% request_id: Exact runtime subject identity required for independent verification and replay.
+    receipt_hash :: binary() %% receipt_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type brce_actuation_receipt() :: #brce_actuation_receipt{}.
+
+-spec new_brce_actuation_receipt(map()) -> {ok, brce_actuation_receipt()} | {error, {missing_field, atom()}}.
+new_brce_actuation_receipt(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(request_id, Map) of
+        false -> {error, {missing_field, request_id}};
+        true ->
+    case maps:is_key(receipt_hash, Map) of
+        false -> {error, {missing_field, receipt_hash}};
+        true ->
+    {ok, #brce_actuation_receipt{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        request_id = maps:get(request_id, Map, undefined),
+        receipt_hash = maps:get(receipt_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits a runtime actuation request only with exact BRCE authority evidence.
+-record(brce_actuation_request, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    request_id :: binary(), %% request_id: Exact runtime subject identity required for independent verification and replay.
+    authority_hash :: binary() %% authority_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type brce_actuation_request() :: #brce_actuation_request{}.
+
+-spec new_brce_actuation_request(map()) -> {ok, brce_actuation_request()} | {error, {missing_field, atom()}}.
+new_brce_actuation_request(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(request_id, Map) of
+        false -> {error, {missing_field, request_id}};
+        true ->
+    case maps:is_key(authority_hash, Map) of
+        false -> {error, {missing_field, authority_hash}};
+        true ->
+    {ok, #brce_actuation_request{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        request_id = maps:get(request_id, Map, undefined),
+        authority_hash = maps:get(authority_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.
 -record(budget_period_alignment, {
     opportunity_id :: binary(), %% opportunity_id: Required budget period alignment input; omission is an executable typed refusal, never an inferred approval.
@@ -1314,6 +1559,35 @@ new_business_continuity_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Records the observed business outcome against its admitted baseline and target.
+-record(business_outcome_measurement, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    outcome_id :: binary(), %% outcome_id: Exact runtime subject identity required for independent verification and replay.
+    measurement_hash :: binary() %% measurement_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type business_outcome_measurement() :: #business_outcome_measurement{}.
+
+-spec new_business_outcome_measurement(map()) -> {ok, business_outcome_measurement()} | {error, {missing_field, atom()}}.
+new_business_outcome_measurement(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(outcome_id, Map) of
+        false -> {error, {missing_field, outcome_id}};
+        true ->
+    case maps:is_key(measurement_hash, Map) of
+        false -> {error, {missing_field, measurement_hash}};
+        true ->
+    {ok, #business_outcome_measurement{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        outcome_id = maps:get(outcome_id, Map, undefined),
+        measurement_hash = maps:get(measurement_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -1511,6 +1785,35 @@ new_capability_gap(Map) ->
     end
     end.
 
+%% Binds paid workload execution to the exact immutable runtime capsule digest.
+-record(capsule_identity, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    capsule_id :: binary(), %% capsule_id: Exact runtime subject identity required for independent verification and replay.
+    identity_hash :: binary() %% identity_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type capsule_identity() :: #capsule_identity{}.
+
+-spec new_capsule_identity(map()) -> {ok, capsule_identity()} | {error, {missing_field, atom()}}.
+new_capsule_identity(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(capsule_id, Map) of
+        false -> {error, {missing_field, capsule_id}};
+        true ->
+    case maps:is_key(identity_hash, Map) of
+        false -> {error, {missing_field, identity_hash}};
+        true ->
+    {ok, #capsule_identity{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        capsule_id = maps:get(capsule_id, Map, undefined),
+        identity_hash = maps:get(identity_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Aggregate statistics computed for one process instance (case).
 -record(case_stats, {
     case_id :: binary(), %% case_id: Unique case identifier.
@@ -1701,6 +2004,35 @@ new_chargeback_rule(Map) ->
         rate = maps:get(rate, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Binds an execution decision to observed cluster quorum rather than inferred availability.
+-record(cluster_quorum_state, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    cluster_id :: binary(), %% cluster_id: Exact runtime subject identity required for independent verification and replay.
+    quorum_hash :: binary() %% quorum_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type cluster_quorum_state() :: #cluster_quorum_state{}.
+
+-spec new_cluster_quorum_state(map()) -> {ok, cluster_quorum_state()} | {error, {missing_field, atom()}}.
+new_cluster_quorum_state(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(cluster_id, Map) of
+        false -> {error, {missing_field, cluster_id}};
+        true ->
+    case maps:is_key(quorum_hash, Map) of
+        false -> {error, {missing_field, quorum_hash}};
+        true ->
+    {ok, #cluster_quorum_state{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        cluster_id = maps:get(cluster_id, Map, undefined),
+        quorum_hash = maps:get(quorum_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -2308,6 +2640,64 @@ new_contracting_entity_identity(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         contracting_entity_id = maps:get(contracting_entity_id, Map, undefined),
         identity_evidence_hash = maps:get(identity_evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Records attributable runtime cost-to-serve for a paid tenant and billing period.
+-record(cost_to_serve_measurement, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    billing_period_id :: binary(), %% billing_period_id: Exact runtime subject identity required for independent verification and replay.
+    measurement_hash :: binary() %% measurement_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type cost_to_serve_measurement() :: #cost_to_serve_measurement{}.
+
+-spec new_cost_to_serve_measurement(map()) -> {ok, cost_to_serve_measurement()} | {error, {missing_field, atom()}}.
+new_cost_to_serve_measurement(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(billing_period_id, Map) of
+        false -> {error, {missing_field, billing_period_id}};
+        true ->
+    case maps:is_key(measurement_hash, Map) of
+        false -> {error, {missing_field, measurement_hash}};
+        true ->
+    {ok, #cost_to_serve_measurement{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        billing_period_id = maps:get(billing_period_id, Map, undefined),
+        measurement_hash = maps:get(measurement_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Produces replayable evidence that a runtime crash reached a verified recovery consequence.
+-record(crash_recovery_receipt, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    crash_id :: binary(), %% crash_id: Exact runtime subject identity required for independent verification and replay.
+    receipt_hash :: binary() %% receipt_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type crash_recovery_receipt() :: #crash_recovery_receipt{}.
+
+-spec new_crash_recovery_receipt(map()) -> {ok, crash_recovery_receipt()} | {error, {missing_field, atom()}}.
+new_crash_recovery_receipt(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(crash_id, Map) of
+        false -> {error, {missing_field, crash_id}};
+        true ->
+    case maps:is_key(receipt_hash, Map) of
+        false -> {error, {missing_field, receipt_hash}};
+        true ->
+    {ok, #crash_recovery_receipt{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        crash_id = maps:get(crash_id, Map, undefined),
+        receipt_hash = maps:get(receipt_hash, Map, undefined)
     }}
     end
     end
@@ -3130,6 +3520,35 @@ new_enterprise_order_line(Map) ->
     end
     end.
 
+%% Receipts a runtime denial when the paid tenant lacks the required product entitlement.
+-record(entitlement_denial_receipt, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    entitlement_id :: binary(), %% entitlement_id: Exact runtime subject identity required for independent verification and replay.
+    denial_hash :: binary() %% denial_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type entitlement_denial_receipt() :: #entitlement_denial_receipt{}.
+
+-spec new_entitlement_denial_receipt(map()) -> {ok, entitlement_denial_receipt()} | {error, {missing_field, atom()}}.
+new_entitlement_denial_receipt(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(entitlement_id, Map) of
+        false -> {error, {missing_field, entitlement_id}};
+        true ->
+    case maps:is_key(denial_hash, Map) of
+        false -> {error, {missing_field, denial_hash}};
+        true ->
+    {ok, #entitlement_denial_receipt{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        entitlement_id = maps:get(entitlement_id, Map, undefined),
+        denial_hash = maps:get(denial_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id.
 -record(entitlement_event, {
     event_id :: binary(), %% event_id: DEDUP KEY. The provider's own globally unique notification identifier (the eventId field of the Partner Procurement Pub/Sub message). Two deliveries carrying the same event_id are the same event and must fold to the same entitlement_state exactly once. This is provider-assigned, never locally minted -- a locally generated id would make redelivery indistinguishable from a genuine new event.
@@ -3272,6 +3691,35 @@ new_entitlement_revocation(Map) ->
     end
     end.
 
+%% Records the exact paid entitlement evaluated before workload execution.
+-record(entitlement_runtime_check, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    entitlement_id :: binary(), %% entitlement_id: Exact runtime subject identity required for independent verification and replay.
+    check_hash :: binary() %% check_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type entitlement_runtime_check() :: #entitlement_runtime_check{}.
+
+-spec new_entitlement_runtime_check(map()) -> {ok, entitlement_runtime_check()} | {error, {missing_field, atom()}}.
+new_entitlement_runtime_check(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(entitlement_id, Map) of
+        false -> {error, {missing_field, entitlement_id}};
+        true ->
+    case maps:is_key(check_hash, Map) of
+        false -> {error, {missing_field, check_hash}};
+        true ->
+    {ok, #entitlement_runtime_check{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        entitlement_id = maps:get(entitlement_id, Map, undefined),
+        check_hash = maps:get(check_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark.
 -record(entitlement_state, {
     entitlement_id :: binary(), %% entitlement_id: The commercial identity this state describes (Partner Procurement ENTITLEMENT_ID). Unique key: at most one entitlement_state exists per entitlement_id.
@@ -3307,6 +3755,35 @@ new_entitlement_state(Map) ->
     end
     end.
 
+%% Binds paid workload execution to an immutable production environment identity.
+-record(environment_identity, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    environment_id :: binary(), %% environment_id: Exact runtime subject identity required for independent verification and replay.
+    identity_hash :: binary() %% identity_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type environment_identity() :: #environment_identity{}.
+
+-spec new_environment_identity(map()) -> {ok, environment_identity()} | {error, {missing_field, atom()}}.
+new_environment_identity(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(environment_id, Map) of
+        false -> {error, {missing_field, environment_id}};
+        true ->
+    case maps:is_key(identity_hash, Map) of
+        false -> {error, {missing_field, identity_hash}};
+        true ->
+    {ok, #environment_identity{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        environment_id = maps:get(environment_id, Map, undefined),
+        identity_hash = maps:get(identity_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Deterministic environment profile for demo, POC, or production.
 -record(environment_profile, {
     profile_id :: binary(), %% profile_id: Stable environment profile.
@@ -3338,6 +3815,35 @@ new_environment_profile(Map) ->
         configuration_hash = maps:get(configuration_hash, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Captures the exact remaining error budget that governs paid-service release policy.
+-record(error_budget_state, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    slo_id :: binary(), %% slo_id: Exact runtime subject identity required for independent verification and replay.
+    state_hash :: binary() %% state_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type error_budget_state() :: #error_budget_state{}.
+
+-spec new_error_budget_state(map()) -> {ok, error_budget_state()} | {error, {missing_field, atom()}}.
+new_error_budget_state(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(slo_id, Map) of
+        false -> {error, {missing_field, slo_id}};
+        true ->
+    case maps:is_key(state_hash, Map) of
+        false -> {error, {missing_field, state_hash}};
+        true ->
+    {ok, #error_budget_state{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        slo_id = maps:get(slo_id, Map, undefined),
+        state_hash = maps:get(state_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -3690,6 +4196,35 @@ new_expansion_signal(Map) ->
     end
     end.
 
+%% Produces typed refusal evidence when a runtime receipt signature or subject binding is forged.
+-record(forged_receipt_refusal, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    receipt_id :: binary(), %% receipt_id: Exact runtime subject identity required for independent verification and replay.
+    refusal_hash :: binary() %% refusal_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type forged_receipt_refusal() :: #forged_receipt_refusal{}.
+
+-spec new_forged_receipt_refusal(map()) -> {ok, forged_receipt_refusal()} | {error, {missing_field, atom()}}.
+new_forged_receipt_refusal(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(receipt_id, Map) of
+        false -> {error, {missing_field, receipt_id}};
+        true ->
+    case maps:is_key(refusal_hash, Map) of
+        false -> {error, {missing_field, refusal_hash}};
+        true ->
+    {ok, #forged_receipt_refusal{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        receipt_id = maps:get(receipt_id, Map, undefined),
+        refusal_hash = maps:get(refusal_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
 -record(funding_approval_chain, {
     opportunity_id :: binary(), %% opportunity_id: Required funding approval chain input; omission is an executable typed refusal, never an inferred approval.
@@ -3772,6 +4307,64 @@ new_implementation_fee_admission(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         fee_id = maps:get(fee_id, Map, undefined),
         decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Records accountable acknowledgement of a production incident for a paid tenant.
+-record(incident_acknowledgement, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    incident_id :: binary(), %% incident_id: Exact runtime subject identity required for independent verification and replay.
+    acknowledgement_hash :: binary() %% acknowledgement_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type incident_acknowledgement() :: #incident_acknowledgement{}.
+
+-spec new_incident_acknowledgement(map()) -> {ok, incident_acknowledgement()} | {error, {missing_field, atom()}}.
+new_incident_acknowledgement(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(incident_id, Map) of
+        false -> {error, {missing_field, incident_id}};
+        true ->
+    case maps:is_key(acknowledgement_hash, Map) of
+        false -> {error, {missing_field, acknowledgement_hash}};
+        true ->
+    {ok, #incident_acknowledgement{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        incident_id = maps:get(incident_id, Map, undefined),
+        acknowledgement_hash = maps:get(acknowledgement_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Records the detected production incident and exact affected paid service.
+-record(incident_detection_event, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    incident_id :: binary(), %% incident_id: Exact runtime subject identity required for independent verification and replay.
+    detection_hash :: binary() %% detection_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type incident_detection_event() :: #incident_detection_event{}.
+
+-spec new_incident_detection_event(map()) -> {ok, incident_detection_event()} | {error, {missing_field, atom()}}.
+new_incident_detection_event(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(incident_id, Map) of
+        false -> {error, {missing_field, incident_id}};
+        true ->
+    case maps:is_key(detection_hash, Map) of
+        false -> {error, {missing_field, detection_hash}};
+        true ->
+    {ok, #incident_detection_event{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        incident_id = maps:get(incident_id, Map, undefined),
+        detection_hash = maps:get(detection_hash, Map, undefined)
     }}
     end
     end
@@ -4029,6 +4622,35 @@ new_k8s_object_ref(Map) ->
     end
     end.
 
+%% Records an observed runtime latency against the admitted paid-service latency budget.
+-record(latency_budget_observation, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    workload_id :: binary(), %% workload_id: Exact runtime subject identity required for independent verification and replay.
+    observation_hash :: binary() %% observation_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type latency_budget_observation() :: #latency_budget_observation{}.
+
+-spec new_latency_budget_observation(map()) -> {ok, latency_budget_observation()} | {error, {missing_field, atom()}}.
+new_latency_budget_observation(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(workload_id, Map) of
+        false -> {error, {missing_field, workload_id}};
+        true ->
+    case maps:is_key(observation_hash, Map) of
+        false -> {error, {missing_field, observation_hash}};
+        true ->
+    {ok, #latency_budget_observation{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        workload_id = maps:get(workload_id, Map, undefined),
+        observation_hash = maps:get(observation_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
 -record(least_authority_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this least-authority permission observation.
@@ -4209,6 +4831,35 @@ new_master_service_agreement_state(Map) ->
     end
     end.
 
+%% Records a bounded production usage sample eligible for tenant-level metering.
+-record(metered_usage_sample, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    usage_sample_id :: binary(), %% usage_sample_id: Exact runtime subject identity required for independent verification and replay.
+    sample_hash :: binary() %% sample_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type metered_usage_sample() :: #metered_usage_sample{}.
+
+-spec new_metered_usage_sample(map()) -> {ok, metered_usage_sample()} | {error, {missing_field, atom()}}.
+new_metered_usage_sample(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(usage_sample_id, Map) of
+        false -> {error, {missing_field, usage_sample_id}};
+        true ->
+    case maps:is_key(sample_hash, Map) of
+        false -> {error, {missing_field, sample_hash}};
+        true ->
+    {ok, #metered_usage_sample{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        usage_sample_id = maps:get(usage_sample_id, Map, undefined),
+        sample_hash = maps:get(sample_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Versioned migration path with source, target, and rollback identity.
 -record(migration_contract, {
     migration_id :: binary(), %% migration_id: Stable migration identity.
@@ -4380,6 +5031,35 @@ new_mutable_identity_refusal_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Records the exact node failure and observed failover consequence for a paid service.
+-record(node_failover_event, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    node_id :: binary(), %% node_id: Exact runtime subject identity required for independent verification and replay.
+    failover_hash :: binary() %% failover_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type node_failover_event() :: #node_failover_event{}.
+
+-spec new_node_failover_event(map()) -> {ok, node_failover_event()} | {error, {missing_field, atom()}}.
+new_node_failover_event(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(node_id, Map) of
+        false -> {error, {missing_field, node_id}};
+        true ->
+    case maps:is_key(failover_hash, Map) of
+        false -> {error, {missing_field, failover_hash}};
+        true ->
+    {ok, #node_failover_event{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        node_id = maps:get(node_id, Map, undefined),
+        failover_hash = maps:get(failover_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -4890,6 +5570,35 @@ new_overage_policy(Map) ->
         behavior = maps:get(behavior, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Produces the terminal receipt proving a paid workload delivered its admitted business outcome.
+-record(paid_workload_outcome_receipt, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    workload_id :: binary(), %% workload_id: Exact runtime subject identity required for independent verification and replay.
+    outcome_receipt_hash :: binary() %% outcome_receipt_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type paid_workload_outcome_receipt() :: #paid_workload_outcome_receipt{}.
+
+-spec new_paid_workload_outcome_receipt(map()) -> {ok, paid_workload_outcome_receipt()} | {error, {missing_field, atom()}}.
+new_paid_workload_outcome_receipt(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(workload_id, Map) of
+        false -> {error, {missing_field, workload_id}};
+        true ->
+    case maps:is_key(outcome_receipt_hash, Map) of
+        false -> {error, {missing_field, outcome_receipt_hash}};
+        true ->
+    {ok, #paid_workload_outcome_receipt{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        workload_id = maps:get(workload_id, Map, undefined),
+        outcome_receipt_hash = maps:get(outcome_receipt_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -6019,6 +6728,122 @@ new_receipt_replay_evidence(Map) ->
     end
     end.
 
+%% Admits an exact receipt replay request for independent consumer verification.
+-record(receipt_replay_request, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    receipt_id :: binary(), %% receipt_id: Exact runtime subject identity required for independent verification and replay.
+    replay_request_hash :: binary() %% replay_request_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type receipt_replay_request() :: #receipt_replay_request{}.
+
+-spec new_receipt_replay_request(map()) -> {ok, receipt_replay_request()} | {error, {missing_field, atom()}}.
+new_receipt_replay_request(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(receipt_id, Map) of
+        false -> {error, {missing_field, receipt_id}};
+        true ->
+    case maps:is_key(replay_request_hash, Map) of
+        false -> {error, {missing_field, replay_request_hash}};
+        true ->
+    {ok, #receipt_replay_request{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        receipt_id = maps:get(receipt_id, Map, undefined),
+        replay_request_hash = maps:get(replay_request_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits a cryptographic receipt signature bound to an exact paid runtime consequence.
+-record(receipt_signature, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    receipt_id :: binary(), %% receipt_id: Exact runtime subject identity required for independent verification and replay.
+    signature_hash :: binary() %% signature_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type receipt_signature() :: #receipt_signature{}.
+
+-spec new_receipt_signature(map()) -> {ok, receipt_signature()} | {error, {missing_field, atom()}}.
+new_receipt_signature(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(receipt_id, Map) of
+        false -> {error, {missing_field, receipt_id}};
+        true ->
+    case maps:is_key(signature_hash, Map) of
+        false -> {error, {missing_field, signature_hash}};
+        true ->
+    {ok, #receipt_signature{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        receipt_id = maps:get(receipt_id, Map, undefined),
+        signature_hash = maps:get(signature_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds a runtime receipt to the exact workload subject it claims to evidence.
+-record(receipt_subject_binding, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    workload_id :: binary(), %% workload_id: Exact runtime subject identity required for independent verification and replay.
+    binding_hash :: binary() %% binding_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type receipt_subject_binding() :: #receipt_subject_binding{}.
+
+-spec new_receipt_subject_binding(map()) -> {ok, receipt_subject_binding()} | {error, {missing_field, atom()}}.
+new_receipt_subject_binding(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(workload_id, Map) of
+        false -> {error, {missing_field, workload_id}};
+        true ->
+    case maps:is_key(binding_hash, Map) of
+        false -> {error, {missing_field, binding_hash}};
+        true ->
+    {ok, #receipt_subject_binding{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        workload_id = maps:get(workload_id, Map, undefined),
+        binding_hash = maps:get(binding_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Records independent verification of a production receipt before value is recognized.
+-record(receipt_verification, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    receipt_id :: binary(), %% receipt_id: Exact runtime subject identity required for independent verification and replay.
+    verification_hash :: binary() %% verification_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type receipt_verification() :: #receipt_verification{}.
+
+-spec new_receipt_verification(map()) -> {ok, receipt_verification()} | {error, {missing_field, atom()}}.
+new_receipt_verification(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(receipt_id, Map) of
+        false -> {error, {missing_field, receipt_id}};
+        true ->
+    case maps:is_key(verification_hash, Map) of
+        false -> {error, {missing_field, verification_hash}};
+        true ->
+    {ok, #receipt_verification{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        receipt_id = maps:get(receipt_id, Map, undefined),
+        verification_hash = maps:get(verification_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable account recovery plan with a measured recovery interval.
 -record(recovery_plan, {
     recovery_plan_id :: binary(), %% recovery_plan_id: Stable identity of this recovery plan observation.
@@ -6056,6 +6881,64 @@ new_recovery_plan(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Receipts the observed recovery point and protected data boundary after failure.
+-record(recovery_point_receipt, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    incident_id :: binary(), %% incident_id: Exact runtime subject identity required for independent verification and replay.
+    recovery_hash :: binary() %% recovery_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type recovery_point_receipt() :: #recovery_point_receipt{}.
+
+-spec new_recovery_point_receipt(map()) -> {ok, recovery_point_receipt()} | {error, {missing_field, atom()}}.
+new_recovery_point_receipt(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(incident_id, Map) of
+        false -> {error, {missing_field, incident_id}};
+        true ->
+    case maps:is_key(recovery_hash, Map) of
+        false -> {error, {missing_field, recovery_hash}};
+        true ->
+    {ok, #recovery_point_receipt{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        incident_id = maps:get(incident_id, Map, undefined),
+        recovery_hash = maps:get(recovery_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Receipts the observed recovery-time consequence against the paid-service objective.
+-record(recovery_time_receipt, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    incident_id :: binary(), %% incident_id: Exact runtime subject identity required for independent verification and replay.
+    recovery_hash :: binary() %% recovery_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type recovery_time_receipt() :: #recovery_time_receipt{}.
+
+-spec new_recovery_time_receipt(map()) -> {ok, recovery_time_receipt()} | {error, {missing_field, atom()}}.
+new_recovery_time_receipt(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(incident_id, Map) of
+        false -> {error, {missing_field, incident_id}};
+        true ->
+    case maps:is_key(recovery_hash, Map) of
+        false -> {error, {missing_field, recovery_hash}};
+        true ->
+    {ok, #recovery_time_receipt{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        incident_id = maps:get(incident_id, Map, undefined),
+        recovery_hash = maps:get(recovery_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -6277,6 +7160,35 @@ new_renewal_term_admission(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         renewal_term = maps:get(renewal_term, Map, undefined),
         decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds receipt replay to an exact environment identity so mismatched replay is refused.
+-record(replay_environment_identity, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    environment_id :: binary(), %% environment_id: Exact runtime subject identity required for independent verification and replay.
+    identity_hash :: binary() %% identity_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type replay_environment_identity() :: #replay_environment_identity{}.
+
+-spec new_replay_environment_identity(map()) -> {ok, replay_environment_identity()} | {error, {missing_field, atom()}}.
+new_replay_environment_identity(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(environment_id, Map) of
+        false -> {error, {missing_field, environment_id}};
+        true ->
+    case maps:is_key(identity_hash, Map) of
+        false -> {error, {missing_field, identity_hash}};
+        true ->
+    {ok, #replay_environment_identity{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        environment_id = maps:get(environment_id, Map, undefined),
+        identity_hash = maps:get(identity_hash, Map, undefined)
     }}
     end
     end
@@ -6585,6 +7497,35 @@ new_rfp_response_evidence(Map) ->
     end
     end.
 
+%% Binds rollback authority to an immutable runtime checkpoint and verified state digest.
+-record(rollback_checkpoint, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    checkpoint_id :: binary(), %% checkpoint_id: Exact runtime subject identity required for independent verification and replay.
+    state_hash :: binary() %% state_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type rollback_checkpoint() :: #rollback_checkpoint{}.
+
+-spec new_rollback_checkpoint(map()) -> {ok, rollback_checkpoint()} | {error, {missing_field, atom()}}.
+new_rollback_checkpoint(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(checkpoint_id, Map) of
+        false -> {error, {missing_field, checkpoint_id}};
+        true ->
+    case maps:is_key(state_hash, Map) of
+        false -> {error, {missing_field, state_hash}};
+        true ->
+    {ok, #rollback_checkpoint{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        checkpoint_id = maps:get(checkpoint_id, Map, undefined),
+        state_hash = maps:get(state_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Receipted rollback decision and recovered account consequence.
 -record(rollback_decision, {
     rollback_decision_id :: binary(), %% rollback_decision_id: Stable identity of this rollback decision observation.
@@ -6657,6 +7598,64 @@ new_rollback_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Admits an identified rolling upgrade plan with deterministic production evidence.
+-record(rolling_upgrade_plan, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    upgrade_id :: binary(), %% upgrade_id: Exact runtime subject identity required for independent verification and replay.
+    plan_hash :: binary() %% plan_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type rolling_upgrade_plan() :: #rolling_upgrade_plan{}.
+
+-spec new_rolling_upgrade_plan(map()) -> {ok, rolling_upgrade_plan()} | {error, {missing_field, atom()}}.
+new_rolling_upgrade_plan(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(upgrade_id, Map) of
+        false -> {error, {missing_field, upgrade_id}};
+        true ->
+    case maps:is_key(plan_hash, Map) of
+        false -> {error, {missing_field, plan_hash}};
+        true ->
+    {ok, #rolling_upgrade_plan{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        upgrade_id = maps:get(upgrade_id, Map, undefined),
+        plan_hash = maps:get(plan_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Records an explicit runtime policy decision before paid workload actuation.
+-record(runtime_policy_decision, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    decision_id :: binary(), %% decision_id: Exact runtime subject identity required for independent verification and replay.
+    policy_hash :: binary() %% policy_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type runtime_policy_decision() :: #runtime_policy_decision{}.
+
+-spec new_runtime_policy_decision(map()) -> {ok, runtime_policy_decision()} | {error, {missing_field, atom()}}.
+new_runtime_policy_decision(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(decision_id, Map) of
+        false -> {error, {missing_field, decision_id}};
+        true ->
+    case maps:is_key(policy_hash, Map) of
+        false -> {error, {missing_field, policy_hash}};
+        true ->
+    {ok, #runtime_policy_decision{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        decision_id = maps:get(decision_id, Map, undefined),
+        policy_hash = maps:get(policy_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -6923,6 +7922,35 @@ new_service_credit_admission(Map) ->
     end
     end.
 
+%% Captures machine-readable paid-service health for support and escalation decisions.
+-record(service_health_snapshot, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    service_id :: binary(), %% service_id: Exact runtime subject identity required for independent verification and replay.
+    snapshot_hash :: binary() %% snapshot_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type service_health_snapshot() :: #service_health_snapshot{}.
+
+-spec new_service_health_snapshot(map()) -> {ok, service_health_snapshot()} | {error, {missing_field, atom()}}.
+new_service_health_snapshot(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(service_id, Map) of
+        false -> {error, {missing_field, service_id}};
+        true ->
+    case maps:is_key(snapshot_hash, Map) of
+        false -> {error, {missing_field, snapshot_hash}};
+        true ->
+    {ok, #service_health_snapshot{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        service_id = maps:get(service_id, Map, undefined),
+        snapshot_hash = maps:get(snapshot_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Measurable service target bound to a support contract.
 -record(service_level_objective, {
     slo_id :: binary(), %% slo_id: Stable SLO identity.
@@ -6954,6 +7982,35 @@ new_service_level_objective(Map) ->
         measurement_window = maps:get(measurement_window, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Admits the exact service-level objective contract governing a paid workload.
+-record(service_slo_contract, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    slo_id :: binary(), %% slo_id: Exact runtime subject identity required for independent verification and replay.
+    contract_hash :: binary() %% contract_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type service_slo_contract() :: #service_slo_contract{}.
+
+-spec new_service_slo_contract(map()) -> {ok, service_slo_contract()} | {error, {missing_field, atom()}}.
+new_service_slo_contract(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(slo_id, Map) of
+        false -> {error, {missing_field, slo_id}};
+        true ->
+    case maps:is_key(contract_hash, Map) of
+        false -> {error, {missing_field, contract_hash}};
+        true ->
+    {ok, #service_slo_contract{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        slo_id = maps:get(slo_id, Map, undefined),
+        contract_hash = maps:get(contract_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -7234,6 +8291,35 @@ new_stakeholder_map(Map) ->
     end
     end.
 
+%% Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window.
+-record(stale_receipt_refusal, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    receipt_id :: binary(), %% receipt_id: Exact runtime subject identity required for independent verification and replay.
+    refusal_hash :: binary() %% refusal_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type stale_receipt_refusal() :: #stale_receipt_refusal{}.
+
+-spec new_stale_receipt_refusal(map()) -> {ok, stale_receipt_refusal()} | {error, {missing_field, atom()}}.
+new_stale_receipt_refusal(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(receipt_id, Map) of
+        false -> {error, {missing_field, receipt_id}};
+        true ->
+    case maps:is_key(refusal_hash, Map) of
+        false -> {error, {missing_field, refusal_hash}};
+        true ->
+    {ok, #stale_receipt_refusal{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        receipt_id = maps:get(receipt_id, Map, undefined),
+        refusal_hash = maps:get(refusal_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial.
 -record(stale_subject_refusal_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this stale-subject refusal observation.
@@ -7310,6 +8396,35 @@ new_success_plan(Map) ->
     end
     end.
 
+%% Binds an OTP supervisor to an explicit restart policy governing paid workload resilience.
+-record(supervisor_restart_policy, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    supervisor_id :: binary(), %% supervisor_id: Exact runtime subject identity required for independent verification and replay.
+    policy_hash :: binary() %% policy_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type supervisor_restart_policy() :: #supervisor_restart_policy{}.
+
+-spec new_supervisor_restart_policy(map()) -> {ok, supervisor_restart_policy()} | {error, {missing_field, atom()}}.
+new_supervisor_restart_policy(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(supervisor_id, Map) of
+        false -> {error, {missing_field, supervisor_id}};
+        true ->
+    case maps:is_key(policy_hash, Map) of
+        false -> {error, {missing_field, policy_hash}};
+        true ->
+    {ok, #supervisor_restart_policy{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        supervisor_id = maps:get(supervisor_id, Map, undefined),
+        policy_hash = maps:get(policy_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Purchased support tier with response target and term.
 -record(support_contract, {
     contract_id :: binary(), %% contract_id: Stable support contract.
@@ -7341,6 +8456,35 @@ new_support_contract(Map) ->
         valid_until = maps:get(valid_until, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Binds machine-readable support diagnostics to the exact tenant and incident subject.
+-record(support_diagnostic_bundle, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    incident_id :: binary(), %% incident_id: Exact runtime subject identity required for independent verification and replay.
+    bundle_hash :: binary() %% bundle_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type support_diagnostic_bundle() :: #support_diagnostic_bundle{}.
+
+-spec new_support_diagnostic_bundle(map()) -> {ok, support_diagnostic_bundle()} | {error, {missing_field, atom()}}.
+new_support_diagnostic_bundle(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(incident_id, Map) of
+        false -> {error, {missing_field, incident_id}};
+        true ->
+    case maps:is_key(bundle_hash, Map) of
+        false -> {error, {missing_field, bundle_hash}};
+        true ->
+    {ok, #support_diagnostic_bundle{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        incident_id = maps:get(incident_id, Map, undefined),
+        bundle_hash = maps:get(bundle_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -7679,6 +8823,64 @@ new_tenant_account(Map) ->
     end
     end.
 
+%% Binds tenant data to an explicit storage partition whose isolation consequence is independently verifiable.
+-record(tenant_data_partition, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    partition_id :: binary(), %% partition_id: Exact runtime subject identity required for independent verification and replay.
+    isolation_hash :: binary() %% isolation_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type tenant_data_partition() :: #tenant_data_partition{}.
+
+-spec new_tenant_data_partition(map()) -> {ok, tenant_data_partition()} | {error, {missing_field, atom()}}.
+new_tenant_data_partition(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(partition_id, Map) of
+        false -> {error, {missing_field, partition_id}};
+        true ->
+    case maps:is_key(isolation_hash, Map) of
+        false -> {error, {missing_field, isolation_hash}};
+        true ->
+    {ok, #tenant_data_partition{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        partition_id = maps:get(partition_id, Map, undefined),
+        isolation_hash = maps:get(isolation_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds tenant cryptographic material to one runtime key scope and attested key identity.
+-record(tenant_key_scope, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    key_scope_id :: binary(), %% key_scope_id: Exact runtime subject identity required for independent verification and replay.
+    key_attestation_hash :: binary() %% key_attestation_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type tenant_key_scope() :: #tenant_key_scope{}.
+
+-spec new_tenant_key_scope(map()) -> {ok, tenant_key_scope()} | {error, {missing_field, atom()}}.
+new_tenant_key_scope(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(key_scope_id, Map) of
+        false -> {error, {missing_field, key_scope_id}};
+        true ->
+    case maps:is_key(key_attestation_hash, Map) of
+        false -> {error, {missing_field, key_attestation_hash}};
+        true ->
+    {ok, #tenant_key_scope{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        key_scope_id = maps:get(key_scope_id, Map, undefined),
+        key_attestation_hash = maps:get(key_attestation_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Billable tenant project with cost-center attribution.
 -record(tenant_project, {
     project_id :: binary(), %% project_id: Stable tenant project.
@@ -7710,6 +8912,64 @@ new_tenant_project(Map) ->
         status = maps:get(status, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Binds a paid tenant to an enforceable CPU and memory quota with observed utilization evidence.
+-record(tenant_resource_quota, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    quota_id :: binary(), %% quota_id: Exact runtime subject identity required for independent verification and replay.
+    utilization_hash :: binary() %% utilization_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type tenant_resource_quota() :: #tenant_resource_quota{}.
+
+-spec new_tenant_resource_quota(map()) -> {ok, tenant_resource_quota()} | {error, {missing_field, atom()}}.
+new_tenant_resource_quota(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(quota_id, Map) of
+        false -> {error, {missing_field, quota_id}};
+        true ->
+    case maps:is_key(utilization_hash, Map) of
+        false -> {error, {missing_field, utilization_hash}};
+        true ->
+    {ok, #tenant_resource_quota{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        quota_id = maps:get(quota_id, Map, undefined),
+        utilization_hash = maps:get(utilization_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds a paid tenant to one explicit runtime isolation boundary and replayable evidence identity.
+-record(tenant_runtime_boundary, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity whose workload is isolated.
+    boundary_id :: binary(), %% boundary_id: Immutable runtime isolation boundary identity.
+    evidence_hash :: binary() %% evidence_hash: Digest binding the observed tenant isolation consequence.
+}).
+
+-type tenant_runtime_boundary() :: #tenant_runtime_boundary{}.
+
+-spec new_tenant_runtime_boundary(map()) -> {ok, tenant_runtime_boundary()} | {error, {missing_field, atom()}}.
+new_tenant_runtime_boundary(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(boundary_id, Map) of
+        false -> {error, {missing_field, boundary_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    {ok, #tenant_runtime_boundary{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        boundary_id = maps:get(boundary_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -7815,6 +9075,35 @@ new_time_to_value(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Binds a production consequence to the exact BEAM and manufacturing toolchain identity.
+-record(toolchain_identity, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    toolchain_id :: binary(), %% toolchain_id: Exact runtime subject identity required for independent verification and replay.
+    identity_hash :: binary() %% identity_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type toolchain_identity() :: #toolchain_identity{}.
+
+-spec new_toolchain_identity(map()) -> {ok, toolchain_identity()} | {error, {missing_field, atom()}}.
+new_toolchain_identity(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(toolchain_id, Map) of
+        false -> {error, {missing_field, toolchain_id}};
+        true ->
+    case maps:is_key(identity_hash, Map) of
+        false -> {error, {missing_field, identity_hash}};
+        true ->
+    {ok, #toolchain_identity{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        toolchain_id = maps:get(toolchain_id, Map, undefined),
+        identity_hash = maps:get(identity_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -8146,6 +9435,35 @@ new_usage_plan(Map) ->
     end
     end.
 
+%% Receipts deduplicated usage reconciliation before an invoiceable quantity is recognized.
+-record(usage_reconciliation_receipt, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    billing_period_id :: binary(), %% billing_period_id: Exact runtime subject identity required for independent verification and replay.
+    reconciliation_hash :: binary() %% reconciliation_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type usage_reconciliation_receipt() :: #usage_reconciliation_receipt{}.
+
+-spec new_usage_reconciliation_receipt(map()) -> {ok, usage_reconciliation_receipt()} | {error, {missing_field, atom()}}.
+new_usage_reconciliation_receipt(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(billing_period_id, Map) of
+        false -> {error, {missing_field, billing_period_id}};
+        true ->
+    case maps:is_key(reconciliation_hash, Map) of
+        false -> {error, {missing_field, reconciliation_hash}};
+        true ->
+    {ok, #usage_reconciliation_receipt{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        billing_period_id = maps:get(billing_period_id, Map, undefined),
+        reconciliation_hash = maps:get(reconciliation_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Measured product-usage signal for an admitted enterprise account.
 -record(usage_signal, {
     usage_signal_id :: binary(), %% usage_signal_id: Stable identity of this usage signal observation.
@@ -8300,6 +9618,35 @@ new_value_realization(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Records a production telemetry sample tied to the paid business-value measurement contract.
+-record(value_telemetry_sample, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    outcome_id :: binary(), %% outcome_id: Exact runtime subject identity required for independent verification and replay.
+    telemetry_hash :: binary() %% telemetry_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type value_telemetry_sample() :: #value_telemetry_sample{}.
+
+-spec new_value_telemetry_sample(map()) -> {ok, value_telemetry_sample()} | {error, {missing_field, atom()}}.
+new_value_telemetry_sample(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(outcome_id, Map) of
+        false -> {error, {missing_field, outcome_id}};
+        true ->
+    case maps:is_key(telemetry_hash, Map) of
+        false -> {error, {missing_field, telemetry_hash}};
+        true ->
+    {ok, #value_telemetry_sample{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        outcome_id = maps:get(outcome_id, Map, undefined),
+        telemetry_hash = maps:get(telemetry_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -8463,6 +9810,209 @@ new_vulnerability_scan_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Records runtime backpressure as measured evidence before additional paid work is accepted.
+-record(workload_backpressure_signal, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    signal_id :: binary(), %% signal_id: Exact runtime subject identity required for independent verification and replay.
+    measurement_hash :: binary() %% measurement_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type workload_backpressure_signal() :: #workload_backpressure_signal{}.
+
+-spec new_workload_backpressure_signal(map()) -> {ok, workload_backpressure_signal()} | {error, {missing_field, atom()}}.
+new_workload_backpressure_signal(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(signal_id, Map) of
+        false -> {error, {missing_field, signal_id}};
+        true ->
+    case maps:is_key(measurement_hash, Map) of
+        false -> {error, {missing_field, measurement_hash}};
+        true ->
+    {ok, #workload_backpressure_signal{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        signal_id = maps:get(signal_id, Map, undefined),
+        measurement_hash = maps:get(measurement_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Records deterministic cancellation consequence for a paid workload execution.
+-record(workload_cancellation_receipt, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    execution_id :: binary(), %% execution_id: Exact runtime subject identity required for independent verification and replay.
+    receipt_hash :: binary() %% receipt_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type workload_cancellation_receipt() :: #workload_cancellation_receipt{}.
+
+-spec new_workload_cancellation_receipt(map()) -> {ok, workload_cancellation_receipt()} | {error, {missing_field, atom()}}.
+new_workload_cancellation_receipt(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(execution_id, Map) of
+        false -> {error, {missing_field, execution_id}};
+        true ->
+    case maps:is_key(receipt_hash, Map) of
+        false -> {error, {missing_field, receipt_hash}};
+        true ->
+    {ok, #workload_cancellation_receipt{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        execution_id = maps:get(execution_id, Map, undefined),
+        receipt_hash = maps:get(receipt_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Assigns every paid workload execution an immutable subject identity before runtime consequence.
+-record(workload_execution_identity, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    execution_id :: binary(), %% execution_id: Exact runtime subject identity required for independent verification and replay.
+    subject_digest :: binary() %% subject_digest: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type workload_execution_identity() :: #workload_execution_identity{}.
+
+-spec new_workload_execution_identity(map()) -> {ok, workload_execution_identity()} | {error, {missing_field, atom()}}.
+new_workload_execution_identity(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(execution_id, Map) of
+        false -> {error, {missing_field, execution_id}};
+        true ->
+    case maps:is_key(subject_digest, Map) of
+        false -> {error, {missing_field, subject_digest}};
+        true ->
+    {ok, #workload_execution_identity{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        execution_id = maps:get(execution_id, Map, undefined),
+        subject_digest = maps:get(subject_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds a paid execution to an idempotency key so retried delivery cannot be billed or actuated twice.
+-record(workload_idempotency_key, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    execution_id :: binary(), %% execution_id: Exact runtime subject identity required for independent verification and replay.
+    idempotency_key :: binary() %% idempotency_key: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type workload_idempotency_key() :: #workload_idempotency_key{}.
+
+-spec new_workload_idempotency_key(map()) -> {ok, workload_idempotency_key()} | {error, {missing_field, atom()}}.
+new_workload_idempotency_key(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(execution_id, Map) of
+        false -> {error, {missing_field, execution_id}};
+        true ->
+    case maps:is_key(idempotency_key, Map) of
+        false -> {error, {missing_field, idempotency_key}};
+        true ->
+    {ok, #workload_idempotency_key{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        execution_id = maps:get(execution_id, Map, undefined),
+        idempotency_key = maps:get(idempotency_key, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Records paid workload queue depth as an exact capacity and backpressure observation.
+-record(workload_queue_depth, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    queue_id :: binary(), %% queue_id: Exact runtime subject identity required for independent verification and replay.
+    measurement_hash :: binary() %% measurement_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type workload_queue_depth() :: #workload_queue_depth{}.
+
+-spec new_workload_queue_depth(map()) -> {ok, workload_queue_depth()} | {error, {missing_field, atom()}}.
+new_workload_queue_depth(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(queue_id, Map) of
+        false -> {error, {missing_field, queue_id}};
+        true ->
+    case maps:is_key(measurement_hash, Map) of
+        false -> {error, {missing_field, measurement_hash}};
+        true ->
+    {ok, #workload_queue_depth{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        queue_id = maps:get(queue_id, Map, undefined),
+        measurement_hash = maps:get(measurement_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits a bounded retry policy with explicit identity and replayable configuration evidence.
+-record(workload_retry_policy, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    policy_id :: binary(), %% policy_id: Exact runtime subject identity required for independent verification and replay.
+    policy_hash :: binary() %% policy_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type workload_retry_policy() :: #workload_retry_policy{}.
+
+-spec new_workload_retry_policy(map()) -> {ok, workload_retry_policy()} | {error, {missing_field, atom()}}.
+new_workload_retry_policy(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(policy_id, Map) of
+        false -> {error, {missing_field, policy_id}};
+        true ->
+    case maps:is_key(policy_hash, Map) of
+        false -> {error, {missing_field, policy_hash}};
+        true ->
+    {ok, #workload_retry_policy{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        policy_id = maps:get(policy_id, Map, undefined),
+        policy_hash = maps:get(policy_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Admits an execution timeout budget that prevents unbounded paid runtime consumption.
+-record(workload_timeout_budget, {
+    tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
+    budget_id :: binary(), %% budget_id: Exact runtime subject identity required for independent verification and replay.
+    budget_hash :: binary() %% budget_hash: Immutable evidence identity binding the observed production consequence.
+}).
+
+-type workload_timeout_budget() :: #workload_timeout_budget{}.
+
+-spec new_workload_timeout_budget(map()) -> {ok, workload_timeout_budget()} | {error, {missing_field, atom()}}.
+new_workload_timeout_budget(Map) ->
+    case maps:is_key(tenant_id, Map) of
+        false -> {error, {missing_field, tenant_id}};
+        true ->
+    case maps:is_key(budget_id, Map) of
+        false -> {error, {missing_field, budget_id}};
+        true ->
+    case maps:is_key(budget_hash, Map) of
+        false -> {error, {missing_field, budget_hash}};
+        true ->
+    {ok, #workload_timeout_budget{
+        tenant_id = maps:get(tenant_id, Map, undefined),
+        budget_id = maps:get(budget_id, Map, undefined),
+        budget_hash = maps:get(budget_hash, Map, undefined)
+    }}
     end
     end
     end.

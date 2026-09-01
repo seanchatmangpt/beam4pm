@@ -49,6 +49,18 @@ pub type AccountParentScope {
   )
 }
 
+/// Aggregates verified outcome evidence into an account-level realized-value observation.
+pub type AccountValueRealization {
+  AccountValueRealization(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    account_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    realization_hash: String,
+  )
+}
+
 /// Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.
 pub type ActionPinEvidence {
   ActionPinEvidence(
@@ -219,6 +231,18 @@ pub type AuditChainEvidence {
   )
 }
 
+/// Records a bounded availability observation against the paid tenant SLO.
+pub type AvailabilityObservation {
+  AvailabilityObservation(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    slo_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    observation_hash: String,
+  )
+}
+
 /// Executable availability evidence binding an exact subject to the service level actually observed over the admitted window.
 pub type AvailabilitySloEvidence {
   AvailabilitySloEvidence(
@@ -275,6 +299,18 @@ pub type BeneficialOwnerEvidence {
   )
 }
 
+/// Binds accepted usage to one immutable billable identity that prevents duplicate charging.
+pub type BillableUsageIdentity {
+  BillableUsageIdentity(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    billable_usage_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    identity_hash: String,
+  )
+}
+
 /// Bill-to account with currency and invoice delivery profile.
 pub type BillingAccount {
   BillingAccount(
@@ -319,6 +355,30 @@ pub type BookingReadiness {
   )
 }
 
+/// Binds an actuated runtime consequence to its authorized BRCE request and receipt.
+pub type BrceActuationReceipt {
+  BrceActuationReceipt(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    request_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    receipt_hash: String,
+  )
+}
+
+/// Admits a runtime actuation request only with exact BRCE authority evidence.
+pub type BrceActuationRequest {
+  BrceActuationRequest(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    request_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    authority_hash: String,
+  )
+}
+
 /// Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.
 pub type BudgetPeriodAlignment {
   BudgetPeriodAlignment(
@@ -342,6 +402,18 @@ pub type BusinessContinuityEvidence {
     continuity_mode: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Records the observed business outcome against its admitted baseline and target.
+pub type BusinessOutcomeMeasurement {
+  BusinessOutcomeMeasurement(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    outcome_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    measurement_hash: String,
   )
 }
 
@@ -418,6 +490,18 @@ pub type CapabilityGap {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Binds paid workload execution to the exact immutable runtime capsule digest.
+pub type CapsuleIdentity {
+  CapsuleIdentity(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    capsule_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    identity_hash: String,
   )
 }
 
@@ -498,6 +582,18 @@ pub type ChargebackRule {
     metric_name: String,
     /// Internal chargeback rate.
     rate: Float,
+  )
+}
+
+/// Binds an execution decision to observed cluster quorum rather than inferred availability.
+pub type ClusterQuorumState {
+  ClusterQuorumState(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    cluster_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    quorum_hash: String,
   )
 }
 
@@ -744,6 +840,30 @@ pub type ContractingEntityIdentity {
     contracting_entity_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     identity_evidence_hash: String,
+  )
+}
+
+/// Records attributable runtime cost-to-serve for a paid tenant and billing period.
+pub type CostToServeMeasurement {
+  CostToServeMeasurement(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    billing_period_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    measurement_hash: String,
+  )
+}
+
+/// Produces replayable evidence that a runtime crash reached a verified recovery consequence.
+pub type CrashRecoveryReceipt {
+  CrashRecoveryReceipt(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    crash_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    receipt_hash: String,
   )
 }
 
@@ -1073,6 +1193,18 @@ pub type EnterpriseOrderLine {
   )
 }
 
+/// Receipts a runtime denial when the paid tenant lacks the required product entitlement.
+pub type EntitlementDenialReceipt {
+  EntitlementDenialReceipt(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    entitlement_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    denial_hash: String,
+  )
+}
+
 /// One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id.
 pub type EntitlementEvent {
   EntitlementEvent(
@@ -1131,6 +1263,18 @@ pub type EntitlementRevocation {
   )
 }
 
+/// Records the exact paid entitlement evaluated before workload execution.
+pub type EntitlementRuntimeCheck {
+  EntitlementRuntimeCheck(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    entitlement_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    check_hash: String,
+  )
+}
+
 /// The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark.
 pub type EntitlementState {
   EntitlementState(
@@ -1145,6 +1289,18 @@ pub type EntitlementState {
   )
 }
 
+/// Binds paid workload execution to an immutable production environment identity.
+pub type EnvironmentIdentity {
+  EnvironmentIdentity(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    environment_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    identity_hash: String,
+  )
+}
+
 /// Deterministic environment profile for demo, POC, or production.
 pub type EnvironmentProfile {
   EnvironmentProfile(
@@ -1156,6 +1312,18 @@ pub type EnvironmentProfile {
     region: String,
     /// Canonical configuration digest.
     configuration_hash: String,
+  )
+}
+
+/// Captures the exact remaining error budget that governs paid-service release policy.
+pub type ErrorBudgetState {
+  ErrorBudgetState(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    slo_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    state_hash: String,
   )
 }
 
@@ -1301,6 +1469,18 @@ pub type ExpansionSignal {
   )
 }
 
+/// Produces typed refusal evidence when a runtime receipt signature or subject binding is forged.
+pub type ForgedReceiptRefusal {
+  ForgedReceiptRefusal(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    receipt_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    refusal_hash: String,
+  )
+}
+
 /// Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
 pub type FundingApprovalChain {
   FundingApprovalChain(
@@ -1334,6 +1514,30 @@ pub type ImplementationFeeAdmission {
     fee_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Records accountable acknowledgement of a production incident for a paid tenant.
+pub type IncidentAcknowledgement {
+  IncidentAcknowledgement(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    incident_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    acknowledgement_hash: String,
+  )
+}
+
+/// Records the detected production incident and exact affected paid service.
+pub type IncidentDetectionEvent {
+  IncidentDetectionEvent(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    incident_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    detection_hash: String,
   )
 }
 
@@ -1441,6 +1645,18 @@ pub type K8SObjectRef {
   )
 }
 
+/// Records an observed runtime latency against the admitted paid-service latency budget.
+pub type LatencyBudgetObservation {
+  LatencyBudgetObservation(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    workload_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    observation_hash: String,
+  )
+}
+
 /// Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
 pub type LeastAuthorityEvidence {
   LeastAuthorityEvidence(
@@ -1515,6 +1731,18 @@ pub type MasterServiceAgreementState {
   )
 }
 
+/// Records a bounded production usage sample eligible for tenant-level metering.
+pub type MeteredUsageSample {
+  MeteredUsageSample(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    usage_sample_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    sample_hash: String,
+  )
+}
+
 /// Versioned migration path with source, target, and rollback identity.
 pub type MigrationContract {
   MigrationContract(
@@ -1582,6 +1810,18 @@ pub type MutableIdentityRefusalEvidence {
     mutable_reference: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Records the exact node failure and observed failover consequence for a paid service.
+pub type NodeFailoverEvent {
+  NodeFailoverEvent(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    node_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    failover_hash: String,
   )
 }
 
@@ -1796,6 +2036,18 @@ pub type OveragePolicy {
     unit_price: Float,
     /// Overage enforcement behavior.
     behavior: String,
+  )
+}
+
+/// Produces the terminal receipt proving a paid workload delivered its admitted business outcome.
+pub type PaidWorkloadOutcomeReceipt {
+  PaidWorkloadOutcomeReceipt(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    workload_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    outcome_receipt_hash: String,
   )
 }
 
@@ -2261,6 +2513,54 @@ pub type ReceiptReplayEvidence {
   )
 }
 
+/// Admits an exact receipt replay request for independent consumer verification.
+pub type ReceiptReplayRequest {
+  ReceiptReplayRequest(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    receipt_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    replay_request_hash: String,
+  )
+}
+
+/// Admits a cryptographic receipt signature bound to an exact paid runtime consequence.
+pub type ReceiptSignature {
+  ReceiptSignature(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    receipt_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    signature_hash: String,
+  )
+}
+
+/// Binds a runtime receipt to the exact workload subject it claims to evidence.
+pub type ReceiptSubjectBinding {
+  ReceiptSubjectBinding(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    workload_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    binding_hash: String,
+  )
+}
+
+/// Records independent verification of a production receipt before value is recognized.
+pub type ReceiptVerification {
+  ReceiptVerification(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    receipt_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    verification_hash: String,
+  )
+}
+
 /// Executable account recovery plan with a measured recovery interval.
 pub type RecoveryPlan {
   RecoveryPlan(
@@ -2274,6 +2574,30 @@ pub type RecoveryPlan {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Receipts the observed recovery point and protected data boundary after failure.
+pub type RecoveryPointReceipt {
+  RecoveryPointReceipt(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    incident_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    recovery_hash: String,
+  )
+}
+
+/// Receipts the observed recovery-time consequence against the paid-service objective.
+pub type RecoveryTimeReceipt {
+  RecoveryTimeReceipt(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    incident_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    recovery_hash: String,
   )
 }
 
@@ -2362,6 +2686,18 @@ pub type RenewalTermAdmission {
     renewal_term: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Binds receipt replay to an exact environment identity so mismatched replay is refused.
+pub type ReplayEnvironmentIdentity {
+  ReplayEnvironmentIdentity(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    environment_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    identity_hash: String,
   )
 }
 
@@ -2487,6 +2823,18 @@ pub type RfpResponseEvidence {
   )
 }
 
+/// Binds rollback authority to an immutable runtime checkpoint and verified state digest.
+pub type RollbackCheckpoint {
+  RollbackCheckpoint(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    checkpoint_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    state_hash: String,
+  )
+}
+
 /// Receipted rollback decision and recovered account consequence.
 pub type RollbackDecision {
   RollbackDecision(
@@ -2514,6 +2862,30 @@ pub type RollbackEvidence {
     rollback_digest: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Admits an identified rolling upgrade plan with deterministic production evidence.
+pub type RollingUpgradePlan {
+  RollingUpgradePlan(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    upgrade_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    plan_hash: String,
+  )
+}
+
+/// Records an explicit runtime policy decision before paid workload actuation.
+pub type RuntimePolicyDecision {
+  RuntimePolicyDecision(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    decision_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    policy_hash: String,
   )
 }
 
@@ -2623,6 +2995,18 @@ pub type ServiceCreditAdmission {
   )
 }
 
+/// Captures machine-readable paid-service health for support and escalation decisions.
+pub type ServiceHealthSnapshot {
+  ServiceHealthSnapshot(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    service_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    snapshot_hash: String,
+  )
+}
+
 /// Measurable service target bound to a support contract.
 pub type ServiceLevelObjective {
   ServiceLevelObjective(
@@ -2634,6 +3018,18 @@ pub type ServiceLevelObjective {
     target_percent: Float,
     /// SLO measurement window.
     measurement_window: String,
+  )
+}
+
+/// Admits the exact service-level objective contract governing a paid workload.
+pub type ServiceSloContract {
+  ServiceSloContract(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    slo_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    contract_hash: String,
   )
 }
 
@@ -2749,6 +3145,18 @@ pub type StakeholderMap {
   )
 }
 
+/// Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window.
+pub type StaleReceiptRefusal {
+  StaleReceiptRefusal(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    receipt_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    refusal_hash: String,
+  )
+}
+
 /// Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial.
 pub type StaleSubjectRefusalEvidence {
   StaleSubjectRefusalEvidence(
@@ -2779,6 +3187,18 @@ pub type SuccessPlan {
   )
 }
 
+/// Binds an OTP supervisor to an explicit restart policy governing paid workload resilience.
+pub type SupervisorRestartPolicy {
+  SupervisorRestartPolicy(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    supervisor_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    policy_hash: String,
+  )
+}
+
 /// Purchased support tier with response target and term.
 pub type SupportContract {
   SupportContract(
@@ -2790,6 +3210,18 @@ pub type SupportContract {
     tier: String,
     /// Support term expiration.
     valid_until: String,
+  )
+}
+
+/// Binds machine-readable support diagnostics to the exact tenant and incident subject.
+pub type SupportDiagnosticBundle {
+  SupportDiagnosticBundle(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    incident_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    bundle_hash: String,
   )
 }
 
@@ -2929,6 +3361,30 @@ pub type TenantAccount {
   )
 }
 
+/// Binds tenant data to an explicit storage partition whose isolation consequence is independently verifiable.
+pub type TenantDataPartition {
+  TenantDataPartition(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    partition_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    isolation_hash: String,
+  )
+}
+
+/// Binds tenant cryptographic material to one runtime key scope and attested key identity.
+pub type TenantKeyScope {
+  TenantKeyScope(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    key_scope_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    key_attestation_hash: String,
+  )
+}
+
 /// Billable tenant project with cost-center attribution.
 pub type TenantProject {
   TenantProject(
@@ -2940,6 +3396,30 @@ pub type TenantProject {
     cost_center: String,
     /// Project lifecycle standing.
     status: String,
+  )
+}
+
+/// Binds a paid tenant to an enforceable CPU and memory quota with observed utilization evidence.
+pub type TenantResourceQuota {
+  TenantResourceQuota(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    quota_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    utilization_hash: String,
+  )
+}
+
+/// Binds a paid tenant to one explicit runtime isolation boundary and replayable evidence identity.
+pub type TenantRuntimeBoundary {
+  TenantRuntimeBoundary(
+    /// Exact paid tenant identity whose workload is isolated.
+    tenant_id: String,
+    /// Immutable runtime isolation boundary identity.
+    boundary_id: String,
+    /// Digest binding the observed tenant isolation consequence.
+    evidence_hash: String,
   )
 }
 
@@ -2982,6 +3462,18 @@ pub type TimeToValue {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Binds a production consequence to the exact BEAM and manufacturing toolchain identity.
+pub type ToolchainIdentity {
+  ToolchainIdentity(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    toolchain_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    identity_hash: String,
   )
 }
 
@@ -3115,6 +3607,18 @@ pub type UsagePlan {
   )
 }
 
+/// Receipts deduplicated usage reconciliation before an invoiceable quantity is recognized.
+pub type UsageReconciliationReceipt {
+  UsageReconciliationReceipt(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    billing_period_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    reconciliation_hash: String,
+  )
+}
+
 /// Measured product-usage signal for an admitted enterprise account.
 pub type UsageSignal {
   UsageSignal(
@@ -3174,6 +3678,18 @@ pub type ValueRealization {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Records a production telemetry sample tied to the paid business-value measurement contract.
+pub type ValueTelemetrySample {
+  ValueTelemetrySample(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    outcome_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    telemetry_hash: String,
   )
 }
 
@@ -3240,6 +3756,90 @@ pub type VulnerabilityScanEvidence {
     vulnerability_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Records runtime backpressure as measured evidence before additional paid work is accepted.
+pub type WorkloadBackpressureSignal {
+  WorkloadBackpressureSignal(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    signal_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    measurement_hash: String,
+  )
+}
+
+/// Records deterministic cancellation consequence for a paid workload execution.
+pub type WorkloadCancellationReceipt {
+  WorkloadCancellationReceipt(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    execution_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    receipt_hash: String,
+  )
+}
+
+/// Assigns every paid workload execution an immutable subject identity before runtime consequence.
+pub type WorkloadExecutionIdentity {
+  WorkloadExecutionIdentity(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    execution_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    subject_digest: String,
+  )
+}
+
+/// Binds a paid execution to an idempotency key so retried delivery cannot be billed or actuated twice.
+pub type WorkloadIdempotencyKey {
+  WorkloadIdempotencyKey(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    execution_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    idempotency_key: String,
+  )
+}
+
+/// Records paid workload queue depth as an exact capacity and backpressure observation.
+pub type WorkloadQueueDepth {
+  WorkloadQueueDepth(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    queue_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    measurement_hash: String,
+  )
+}
+
+/// Admits a bounded retry policy with explicit identity and replayable configuration evidence.
+pub type WorkloadRetryPolicy {
+  WorkloadRetryPolicy(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    policy_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    policy_hash: String,
+  )
+}
+
+/// Admits an execution timeout budget that prevents unbounded paid runtime consumption.
+pub type WorkloadTimeoutBudget {
+  WorkloadTimeoutBudget(
+    /// Exact paid tenant identity for this bounded runtime observation.
+    tenant_id: String,
+    /// Exact runtime subject identity required for independent verification and replay.
+    budget_id: String,
+    /// Immutable evidence identity binding the observed production consequence.
+    budget_hash: String,
   )
 }
 

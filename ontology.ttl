@@ -6978,3 +6978,1183 @@ bpm:expansion_receipt_account_id_f a bpm:Field ; bpm:fieldName "account_id" ; bp
 bpm:expansion_receipt_receipt_value_f a bpm:Field ; bpm:fieldName "receipt_value" ; bpm:fieldType "float" ; bpm:fieldDoc "Verified expansion value named by this receipt." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 bpm:expansion_receipt_evidence_digest_f a bpm:Field ; bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Digest of the exact evidence supporting this customer-value observation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 bpm:expansion_receipt_observed_at_f a bpm:Field ; bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ; bpm:fieldDoc "ISO8601 instant the enterprise consequence was observed." ; bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS3-REV-001 — tenant_runtime_boundary
+b4p:tenant_runtime_boundary_rt a bpm:RecordType ;
+    bpm:recordName "tenant_runtime_boundary" ;
+    bpm:recordDoc "Binds a paid tenant to one explicit runtime isolation boundary and replayable evidence identity." ;
+    bpm:hasField b4p:tenant_runtime_boundary_tenant_id_f,
+                 b4p:tenant_runtime_boundary_boundary_id_f,
+                 b4p:tenant_runtime_boundary_evidence_hash_f .
+
+b4p:tenant_runtime_boundary_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity whose workload is isolated." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:tenant_runtime_boundary_boundary_id_f a bpm:Field ;
+    bpm:fieldName "boundary_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable runtime isolation boundary identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:tenant_runtime_boundary_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest binding the observed tenant isolation consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-002 — tenant_resource_quota
+b4p:tenant_resource_quota_rt a bpm:RecordType ;
+    bpm:recordName "tenant_resource_quota" ;
+    bpm:recordDoc "Binds a paid tenant to an enforceable CPU and memory quota with observed utilization evidence." ;
+    bpm:hasField b4p:tenant_resource_quota_tenant_id_f,
+                 b4p:tenant_resource_quota_quota_id_f,
+                 b4p:tenant_resource_quota_utilization_hash_f .
+
+b4p:tenant_resource_quota_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:tenant_resource_quota_quota_id_f a bpm:Field ;
+    bpm:fieldName "quota_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:tenant_resource_quota_utilization_hash_f a bpm:Field ;
+    bpm:fieldName "utilization_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-003 — tenant_data_partition
+b4p:tenant_data_partition_rt a bpm:RecordType ;
+    bpm:recordName "tenant_data_partition" ;
+    bpm:recordDoc "Binds tenant data to an explicit storage partition whose isolation consequence is independently verifiable." ;
+    bpm:hasField b4p:tenant_data_partition_tenant_id_f,
+                 b4p:tenant_data_partition_partition_id_f,
+                 b4p:tenant_data_partition_isolation_hash_f .
+
+b4p:tenant_data_partition_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:tenant_data_partition_partition_id_f a bpm:Field ;
+    bpm:fieldName "partition_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:tenant_data_partition_isolation_hash_f a bpm:Field ;
+    bpm:fieldName "isolation_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-004 — tenant_key_scope
+b4p:tenant_key_scope_rt a bpm:RecordType ;
+    bpm:recordName "tenant_key_scope" ;
+    bpm:recordDoc "Binds tenant cryptographic material to one runtime key scope and attested key identity." ;
+    bpm:hasField b4p:tenant_key_scope_tenant_id_f,
+                 b4p:tenant_key_scope_key_scope_id_f,
+                 b4p:tenant_key_scope_key_attestation_hash_f .
+
+b4p:tenant_key_scope_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:tenant_key_scope_key_scope_id_f a bpm:Field ;
+    bpm:fieldName "key_scope_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:tenant_key_scope_key_attestation_hash_f a bpm:Field ;
+    bpm:fieldName "key_attestation_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-005 — workload_execution_identity
+b4p:workload_execution_identity_rt a bpm:RecordType ;
+    bpm:recordName "workload_execution_identity" ;
+    bpm:recordDoc "Assigns every paid workload execution an immutable subject identity before runtime consequence." ;
+    bpm:hasField b4p:workload_execution_identity_tenant_id_f,
+                 b4p:workload_execution_identity_execution_id_f,
+                 b4p:workload_execution_identity_subject_digest_f .
+
+b4p:workload_execution_identity_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:workload_execution_identity_execution_id_f a bpm:Field ;
+    bpm:fieldName "execution_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:workload_execution_identity_subject_digest_f a bpm:Field ;
+    bpm:fieldName "subject_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-006 — workload_idempotency_key
+b4p:workload_idempotency_key_rt a bpm:RecordType ;
+    bpm:recordName "workload_idempotency_key" ;
+    bpm:recordDoc "Binds a paid execution to an idempotency key so retried delivery cannot be billed or actuated twice." ;
+    bpm:hasField b4p:workload_idempotency_key_tenant_id_f,
+                 b4p:workload_idempotency_key_execution_id_f,
+                 b4p:workload_idempotency_key_idempotency_key_f .
+
+b4p:workload_idempotency_key_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:workload_idempotency_key_execution_id_f a bpm:Field ;
+    bpm:fieldName "execution_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:workload_idempotency_key_idempotency_key_f a bpm:Field ;
+    bpm:fieldName "idempotency_key" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-007 — workload_retry_policy
+b4p:workload_retry_policy_rt a bpm:RecordType ;
+    bpm:recordName "workload_retry_policy" ;
+    bpm:recordDoc "Admits a bounded retry policy with explicit identity and replayable configuration evidence." ;
+    bpm:hasField b4p:workload_retry_policy_tenant_id_f,
+                 b4p:workload_retry_policy_policy_id_f,
+                 b4p:workload_retry_policy_policy_hash_f .
+
+b4p:workload_retry_policy_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:workload_retry_policy_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:workload_retry_policy_policy_hash_f a bpm:Field ;
+    bpm:fieldName "policy_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-008 — workload_timeout_budget
+b4p:workload_timeout_budget_rt a bpm:RecordType ;
+    bpm:recordName "workload_timeout_budget" ;
+    bpm:recordDoc "Admits an execution timeout budget that prevents unbounded paid runtime consumption." ;
+    bpm:hasField b4p:workload_timeout_budget_tenant_id_f,
+                 b4p:workload_timeout_budget_budget_id_f,
+                 b4p:workload_timeout_budget_budget_hash_f .
+
+b4p:workload_timeout_budget_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:workload_timeout_budget_budget_id_f a bpm:Field ;
+    bpm:fieldName "budget_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:workload_timeout_budget_budget_hash_f a bpm:Field ;
+    bpm:fieldName "budget_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-009 — workload_cancellation_receipt
+b4p:workload_cancellation_receipt_rt a bpm:RecordType ;
+    bpm:recordName "workload_cancellation_receipt" ;
+    bpm:recordDoc "Records deterministic cancellation consequence for a paid workload execution." ;
+    bpm:hasField b4p:workload_cancellation_receipt_tenant_id_f,
+                 b4p:workload_cancellation_receipt_execution_id_f,
+                 b4p:workload_cancellation_receipt_receipt_hash_f .
+
+b4p:workload_cancellation_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:workload_cancellation_receipt_execution_id_f a bpm:Field ;
+    bpm:fieldName "execution_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:workload_cancellation_receipt_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-010 — workload_backpressure_signal
+b4p:workload_backpressure_signal_rt a bpm:RecordType ;
+    bpm:recordName "workload_backpressure_signal" ;
+    bpm:recordDoc "Records runtime backpressure as measured evidence before additional paid work is accepted." ;
+    bpm:hasField b4p:workload_backpressure_signal_tenant_id_f,
+                 b4p:workload_backpressure_signal_signal_id_f,
+                 b4p:workload_backpressure_signal_measurement_hash_f .
+
+b4p:workload_backpressure_signal_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:workload_backpressure_signal_signal_id_f a bpm:Field ;
+    bpm:fieldName "signal_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:workload_backpressure_signal_measurement_hash_f a bpm:Field ;
+    bpm:fieldName "measurement_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-011 — workload_queue_depth
+b4p:workload_queue_depth_rt a bpm:RecordType ;
+    bpm:recordName "workload_queue_depth" ;
+    bpm:recordDoc "Records paid workload queue depth as an exact capacity and backpressure observation." ;
+    bpm:hasField b4p:workload_queue_depth_tenant_id_f,
+                 b4p:workload_queue_depth_queue_id_f,
+                 b4p:workload_queue_depth_measurement_hash_f .
+
+b4p:workload_queue_depth_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:workload_queue_depth_queue_id_f a bpm:Field ;
+    bpm:fieldName "queue_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:workload_queue_depth_measurement_hash_f a bpm:Field ;
+    bpm:fieldName "measurement_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-012 — supervisor_restart_policy
+b4p:supervisor_restart_policy_rt a bpm:RecordType ;
+    bpm:recordName "supervisor_restart_policy" ;
+    bpm:recordDoc "Binds an OTP supervisor to an explicit restart policy governing paid workload resilience." ;
+    bpm:hasField b4p:supervisor_restart_policy_tenant_id_f,
+                 b4p:supervisor_restart_policy_supervisor_id_f,
+                 b4p:supervisor_restart_policy_policy_hash_f .
+
+b4p:supervisor_restart_policy_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:supervisor_restart_policy_supervisor_id_f a bpm:Field ;
+    bpm:fieldName "supervisor_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:supervisor_restart_policy_policy_hash_f a bpm:Field ;
+    bpm:fieldName "policy_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-013 — crash_recovery_receipt
+b4p:crash_recovery_receipt_rt a bpm:RecordType ;
+    bpm:recordName "crash_recovery_receipt" ;
+    bpm:recordDoc "Produces replayable evidence that a runtime crash reached a verified recovery consequence." ;
+    bpm:hasField b4p:crash_recovery_receipt_tenant_id_f,
+                 b4p:crash_recovery_receipt_crash_id_f,
+                 b4p:crash_recovery_receipt_receipt_hash_f .
+
+b4p:crash_recovery_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crash_recovery_receipt_crash_id_f a bpm:Field ;
+    bpm:fieldName "crash_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crash_recovery_receipt_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-014 — node_failover_event
+b4p:node_failover_event_rt a bpm:RecordType ;
+    bpm:recordName "node_failover_event" ;
+    bpm:recordDoc "Records the exact node failure and observed failover consequence for a paid service." ;
+    bpm:hasField b4p:node_failover_event_tenant_id_f,
+                 b4p:node_failover_event_node_id_f,
+                 b4p:node_failover_event_failover_hash_f .
+
+b4p:node_failover_event_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:node_failover_event_node_id_f a bpm:Field ;
+    bpm:fieldName "node_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:node_failover_event_failover_hash_f a bpm:Field ;
+    bpm:fieldName "failover_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-015 — cluster_quorum_state
+b4p:cluster_quorum_state_rt a bpm:RecordType ;
+    bpm:recordName "cluster_quorum_state" ;
+    bpm:recordDoc "Binds an execution decision to observed cluster quorum rather than inferred availability." ;
+    bpm:hasField b4p:cluster_quorum_state_tenant_id_f,
+                 b4p:cluster_quorum_state_cluster_id_f,
+                 b4p:cluster_quorum_state_quorum_hash_f .
+
+b4p:cluster_quorum_state_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:cluster_quorum_state_cluster_id_f a bpm:Field ;
+    bpm:fieldName "cluster_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:cluster_quorum_state_quorum_hash_f a bpm:Field ;
+    bpm:fieldName "quorum_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-016 — rolling_upgrade_plan
+b4p:rolling_upgrade_plan_rt a bpm:RecordType ;
+    bpm:recordName "rolling_upgrade_plan" ;
+    bpm:recordDoc "Admits an identified rolling upgrade plan with deterministic production evidence." ;
+    bpm:hasField b4p:rolling_upgrade_plan_tenant_id_f,
+                 b4p:rolling_upgrade_plan_upgrade_id_f,
+                 b4p:rolling_upgrade_plan_plan_hash_f .
+
+b4p:rolling_upgrade_plan_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:rolling_upgrade_plan_upgrade_id_f a bpm:Field ;
+    bpm:fieldName "upgrade_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:rolling_upgrade_plan_plan_hash_f a bpm:Field ;
+    bpm:fieldName "plan_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-017 — rollback_checkpoint
+b4p:rollback_checkpoint_rt a bpm:RecordType ;
+    bpm:recordName "rollback_checkpoint" ;
+    bpm:recordDoc "Binds rollback authority to an immutable runtime checkpoint and verified state digest." ;
+    bpm:hasField b4p:rollback_checkpoint_tenant_id_f,
+                 b4p:rollback_checkpoint_checkpoint_id_f,
+                 b4p:rollback_checkpoint_state_hash_f .
+
+b4p:rollback_checkpoint_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:rollback_checkpoint_checkpoint_id_f a bpm:Field ;
+    bpm:fieldName "checkpoint_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:rollback_checkpoint_state_hash_f a bpm:Field ;
+    bpm:fieldName "state_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-018 — runtime_policy_decision
+b4p:runtime_policy_decision_rt a bpm:RecordType ;
+    bpm:recordName "runtime_policy_decision" ;
+    bpm:recordDoc "Records an explicit runtime policy decision before paid workload actuation." ;
+    bpm:hasField b4p:runtime_policy_decision_tenant_id_f,
+                 b4p:runtime_policy_decision_decision_id_f,
+                 b4p:runtime_policy_decision_policy_hash_f .
+
+b4p:runtime_policy_decision_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:runtime_policy_decision_decision_id_f a bpm:Field ;
+    bpm:fieldName "decision_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:runtime_policy_decision_policy_hash_f a bpm:Field ;
+    bpm:fieldName "policy_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-019 — brce_actuation_request
+b4p:brce_actuation_request_rt a bpm:RecordType ;
+    bpm:recordName "brce_actuation_request" ;
+    bpm:recordDoc "Admits a runtime actuation request only with exact BRCE authority evidence." ;
+    bpm:hasField b4p:brce_actuation_request_tenant_id_f,
+                 b4p:brce_actuation_request_request_id_f,
+                 b4p:brce_actuation_request_authority_hash_f .
+
+b4p:brce_actuation_request_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:brce_actuation_request_request_id_f a bpm:Field ;
+    bpm:fieldName "request_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:brce_actuation_request_authority_hash_f a bpm:Field ;
+    bpm:fieldName "authority_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS3-REV-020 — brce_actuation_receipt
+b4p:brce_actuation_receipt_rt a bpm:RecordType ;
+    bpm:recordName "brce_actuation_receipt" ;
+    bpm:recordDoc "Binds an actuated runtime consequence to its authorized BRCE request and receipt." ;
+    bpm:hasField b4p:brce_actuation_receipt_tenant_id_f,
+                 b4p:brce_actuation_receipt_request_id_f,
+                 b4p:brce_actuation_receipt_receipt_hash_f .
+
+b4p:brce_actuation_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:brce_actuation_receipt_request_id_f a bpm:Field ;
+    bpm:fieldName "request_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:brce_actuation_receipt_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-021 — receipt_signature
+b4p:receipt_signature_rt a bpm:RecordType ;
+    bpm:recordName "receipt_signature" ;
+    bpm:recordDoc "Admits a cryptographic receipt signature bound to an exact paid runtime consequence." ;
+    bpm:hasField b4p:receipt_signature_tenant_id_f,
+                 b4p:receipt_signature_receipt_id_f,
+                 b4p:receipt_signature_signature_hash_f .
+
+b4p:receipt_signature_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:receipt_signature_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:receipt_signature_signature_hash_f a bpm:Field ;
+    bpm:fieldName "signature_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-022 — receipt_subject_binding
+b4p:receipt_subject_binding_rt a bpm:RecordType ;
+    bpm:recordName "receipt_subject_binding" ;
+    bpm:recordDoc "Binds a runtime receipt to the exact workload subject it claims to evidence." ;
+    bpm:hasField b4p:receipt_subject_binding_tenant_id_f,
+                 b4p:receipt_subject_binding_workload_id_f,
+                 b4p:receipt_subject_binding_binding_hash_f .
+
+b4p:receipt_subject_binding_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:receipt_subject_binding_workload_id_f a bpm:Field ;
+    bpm:fieldName "workload_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:receipt_subject_binding_binding_hash_f a bpm:Field ;
+    bpm:fieldName "binding_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-023 — receipt_verification
+b4p:receipt_verification_rt a bpm:RecordType ;
+    bpm:recordName "receipt_verification" ;
+    bpm:recordDoc "Records independent verification of a production receipt before value is recognized." ;
+    bpm:hasField b4p:receipt_verification_tenant_id_f,
+                 b4p:receipt_verification_receipt_id_f,
+                 b4p:receipt_verification_verification_hash_f .
+
+b4p:receipt_verification_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:receipt_verification_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:receipt_verification_verification_hash_f a bpm:Field ;
+    bpm:fieldName "verification_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-024 — receipt_replay_request
+b4p:receipt_replay_request_rt a bpm:RecordType ;
+    bpm:recordName "receipt_replay_request" ;
+    bpm:recordDoc "Admits an exact receipt replay request for independent consumer verification." ;
+    bpm:hasField b4p:receipt_replay_request_tenant_id_f,
+                 b4p:receipt_replay_request_receipt_id_f,
+                 b4p:receipt_replay_request_replay_request_hash_f .
+
+b4p:receipt_replay_request_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:receipt_replay_request_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:receipt_replay_request_replay_request_hash_f a bpm:Field ;
+    bpm:fieldName "replay_request_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-025 — replay_environment_identity
+b4p:replay_environment_identity_rt a bpm:RecordType ;
+    bpm:recordName "replay_environment_identity" ;
+    bpm:recordDoc "Binds receipt replay to an exact environment identity so mismatched replay is refused." ;
+    bpm:hasField b4p:replay_environment_identity_tenant_id_f,
+                 b4p:replay_environment_identity_environment_id_f,
+                 b4p:replay_environment_identity_identity_hash_f .
+
+b4p:replay_environment_identity_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:replay_environment_identity_environment_id_f a bpm:Field ;
+    bpm:fieldName "environment_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:replay_environment_identity_identity_hash_f a bpm:Field ;
+    bpm:fieldName "identity_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-026 — forged_receipt_refusal
+b4p:forged_receipt_refusal_rt a bpm:RecordType ;
+    bpm:recordName "forged_receipt_refusal" ;
+    bpm:recordDoc "Produces typed refusal evidence when a runtime receipt signature or subject binding is forged." ;
+    bpm:hasField b4p:forged_receipt_refusal_tenant_id_f,
+                 b4p:forged_receipt_refusal_receipt_id_f,
+                 b4p:forged_receipt_refusal_refusal_hash_f .
+
+b4p:forged_receipt_refusal_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:forged_receipt_refusal_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:forged_receipt_refusal_refusal_hash_f a bpm:Field ;
+    bpm:fieldName "refusal_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-027 — stale_receipt_refusal
+b4p:stale_receipt_refusal_rt a bpm:RecordType ;
+    bpm:recordName "stale_receipt_refusal" ;
+    bpm:recordDoc "Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window." ;
+    bpm:hasField b4p:stale_receipt_refusal_tenant_id_f,
+                 b4p:stale_receipt_refusal_receipt_id_f,
+                 b4p:stale_receipt_refusal_refusal_hash_f .
+
+b4p:stale_receipt_refusal_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:stale_receipt_refusal_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:stale_receipt_refusal_refusal_hash_f a bpm:Field ;
+    bpm:fieldName "refusal_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-028 — entitlement_runtime_check
+b4p:entitlement_runtime_check_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_runtime_check" ;
+    bpm:recordDoc "Records the exact paid entitlement evaluated before workload execution." ;
+    bpm:hasField b4p:entitlement_runtime_check_tenant_id_f,
+                 b4p:entitlement_runtime_check_entitlement_id_f,
+                 b4p:entitlement_runtime_check_check_hash_f .
+
+b4p:entitlement_runtime_check_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:entitlement_runtime_check_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:entitlement_runtime_check_check_hash_f a bpm:Field ;
+    bpm:fieldName "check_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-029 — entitlement_denial_receipt
+b4p:entitlement_denial_receipt_rt a bpm:RecordType ;
+    bpm:recordName "entitlement_denial_receipt" ;
+    bpm:recordDoc "Receipts a runtime denial when the paid tenant lacks the required product entitlement." ;
+    bpm:hasField b4p:entitlement_denial_receipt_tenant_id_f,
+                 b4p:entitlement_denial_receipt_entitlement_id_f,
+                 b4p:entitlement_denial_receipt_denial_hash_f .
+
+b4p:entitlement_denial_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:entitlement_denial_receipt_entitlement_id_f a bpm:Field ;
+    bpm:fieldName "entitlement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:entitlement_denial_receipt_denial_hash_f a bpm:Field ;
+    bpm:fieldName "denial_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-030 — service_slo_contract
+b4p:service_slo_contract_rt a bpm:RecordType ;
+    bpm:recordName "service_slo_contract" ;
+    bpm:recordDoc "Admits the exact service-level objective contract governing a paid workload." ;
+    bpm:hasField b4p:service_slo_contract_tenant_id_f,
+                 b4p:service_slo_contract_slo_id_f,
+                 b4p:service_slo_contract_contract_hash_f .
+
+b4p:service_slo_contract_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:service_slo_contract_slo_id_f a bpm:Field ;
+    bpm:fieldName "slo_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:service_slo_contract_contract_hash_f a bpm:Field ;
+    bpm:fieldName "contract_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-031 — availability_observation
+b4p:availability_observation_rt a bpm:RecordType ;
+    bpm:recordName "availability_observation" ;
+    bpm:recordDoc "Records a bounded availability observation against the paid tenant SLO." ;
+    bpm:hasField b4p:availability_observation_tenant_id_f,
+                 b4p:availability_observation_slo_id_f,
+                 b4p:availability_observation_observation_hash_f .
+
+b4p:availability_observation_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:availability_observation_slo_id_f a bpm:Field ;
+    bpm:fieldName "slo_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:availability_observation_observation_hash_f a bpm:Field ;
+    bpm:fieldName "observation_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-032 — latency_budget_observation
+b4p:latency_budget_observation_rt a bpm:RecordType ;
+    bpm:recordName "latency_budget_observation" ;
+    bpm:recordDoc "Records an observed runtime latency against the admitted paid-service latency budget." ;
+    bpm:hasField b4p:latency_budget_observation_tenant_id_f,
+                 b4p:latency_budget_observation_workload_id_f,
+                 b4p:latency_budget_observation_observation_hash_f .
+
+b4p:latency_budget_observation_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:latency_budget_observation_workload_id_f a bpm:Field ;
+    bpm:fieldName "workload_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:latency_budget_observation_observation_hash_f a bpm:Field ;
+    bpm:fieldName "observation_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-033 — error_budget_state
+b4p:error_budget_state_rt a bpm:RecordType ;
+    bpm:recordName "error_budget_state" ;
+    bpm:recordDoc "Captures the exact remaining error budget that governs paid-service release policy." ;
+    bpm:hasField b4p:error_budget_state_tenant_id_f,
+                 b4p:error_budget_state_slo_id_f,
+                 b4p:error_budget_state_state_hash_f .
+
+b4p:error_budget_state_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:error_budget_state_slo_id_f a bpm:Field ;
+    bpm:fieldName "slo_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:error_budget_state_state_hash_f a bpm:Field ;
+    bpm:fieldName "state_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-034 — service_health_snapshot
+b4p:service_health_snapshot_rt a bpm:RecordType ;
+    bpm:recordName "service_health_snapshot" ;
+    bpm:recordDoc "Captures machine-readable paid-service health for support and escalation decisions." ;
+    bpm:hasField b4p:service_health_snapshot_tenant_id_f,
+                 b4p:service_health_snapshot_service_id_f,
+                 b4p:service_health_snapshot_snapshot_hash_f .
+
+b4p:service_health_snapshot_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:service_health_snapshot_service_id_f a bpm:Field ;
+    bpm:fieldName "service_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:service_health_snapshot_snapshot_hash_f a bpm:Field ;
+    bpm:fieldName "snapshot_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-035 — incident_detection_event
+b4p:incident_detection_event_rt a bpm:RecordType ;
+    bpm:recordName "incident_detection_event" ;
+    bpm:recordDoc "Records the detected production incident and exact affected paid service." ;
+    bpm:hasField b4p:incident_detection_event_tenant_id_f,
+                 b4p:incident_detection_event_incident_id_f,
+                 b4p:incident_detection_event_detection_hash_f .
+
+b4p:incident_detection_event_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:incident_detection_event_incident_id_f a bpm:Field ;
+    bpm:fieldName "incident_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:incident_detection_event_detection_hash_f a bpm:Field ;
+    bpm:fieldName "detection_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-036 — incident_acknowledgement
+b4p:incident_acknowledgement_rt a bpm:RecordType ;
+    bpm:recordName "incident_acknowledgement" ;
+    bpm:recordDoc "Records accountable acknowledgement of a production incident for a paid tenant." ;
+    bpm:hasField b4p:incident_acknowledgement_tenant_id_f,
+                 b4p:incident_acknowledgement_incident_id_f,
+                 b4p:incident_acknowledgement_acknowledgement_hash_f .
+
+b4p:incident_acknowledgement_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:incident_acknowledgement_incident_id_f a bpm:Field ;
+    bpm:fieldName "incident_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:incident_acknowledgement_acknowledgement_hash_f a bpm:Field ;
+    bpm:fieldName "acknowledgement_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-037 — recovery_time_receipt
+b4p:recovery_time_receipt_rt a bpm:RecordType ;
+    bpm:recordName "recovery_time_receipt" ;
+    bpm:recordDoc "Receipts the observed recovery-time consequence against the paid-service objective." ;
+    bpm:hasField b4p:recovery_time_receipt_tenant_id_f,
+                 b4p:recovery_time_receipt_incident_id_f,
+                 b4p:recovery_time_receipt_recovery_hash_f .
+
+b4p:recovery_time_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:recovery_time_receipt_incident_id_f a bpm:Field ;
+    bpm:fieldName "incident_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:recovery_time_receipt_recovery_hash_f a bpm:Field ;
+    bpm:fieldName "recovery_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-038 — recovery_point_receipt
+b4p:recovery_point_receipt_rt a bpm:RecordType ;
+    bpm:recordName "recovery_point_receipt" ;
+    bpm:recordDoc "Receipts the observed recovery point and protected data boundary after failure." ;
+    bpm:hasField b4p:recovery_point_receipt_tenant_id_f,
+                 b4p:recovery_point_receipt_incident_id_f,
+                 b4p:recovery_point_receipt_recovery_hash_f .
+
+b4p:recovery_point_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:recovery_point_receipt_incident_id_f a bpm:Field ;
+    bpm:fieldName "incident_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:recovery_point_receipt_recovery_hash_f a bpm:Field ;
+    bpm:fieldName "recovery_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-039 — support_diagnostic_bundle
+b4p:support_diagnostic_bundle_rt a bpm:RecordType ;
+    bpm:recordName "support_diagnostic_bundle" ;
+    bpm:recordDoc "Binds machine-readable support diagnostics to the exact tenant and incident subject." ;
+    bpm:hasField b4p:support_diagnostic_bundle_tenant_id_f,
+                 b4p:support_diagnostic_bundle_incident_id_f,
+                 b4p:support_diagnostic_bundle_bundle_hash_f .
+
+b4p:support_diagnostic_bundle_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:support_diagnostic_bundle_incident_id_f a bpm:Field ;
+    bpm:fieldName "incident_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:support_diagnostic_bundle_bundle_hash_f a bpm:Field ;
+    bpm:fieldName "bundle_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-040 — environment_identity
+b4p:environment_identity_rt a bpm:RecordType ;
+    bpm:recordName "environment_identity" ;
+    bpm:recordDoc "Binds paid workload execution to an immutable production environment identity." ;
+    bpm:hasField b4p:environment_identity_tenant_id_f,
+                 b4p:environment_identity_environment_id_f,
+                 b4p:environment_identity_identity_hash_f .
+
+b4p:environment_identity_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:environment_identity_environment_id_f a bpm:Field ;
+    bpm:fieldName "environment_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:environment_identity_identity_hash_f a bpm:Field ;
+    bpm:fieldName "identity_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-041 — capsule_identity
+b4p:capsule_identity_rt a bpm:RecordType ;
+    bpm:recordName "capsule_identity" ;
+    bpm:recordDoc "Binds paid workload execution to the exact immutable runtime capsule digest." ;
+    bpm:hasField b4p:capsule_identity_tenant_id_f,
+                 b4p:capsule_identity_capsule_id_f,
+                 b4p:capsule_identity_identity_hash_f .
+
+b4p:capsule_identity_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:capsule_identity_capsule_id_f a bpm:Field ;
+    bpm:fieldName "capsule_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:capsule_identity_identity_hash_f a bpm:Field ;
+    bpm:fieldName "identity_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-042 — toolchain_identity
+b4p:toolchain_identity_rt a bpm:RecordType ;
+    bpm:recordName "toolchain_identity" ;
+    bpm:recordDoc "Binds a production consequence to the exact BEAM and manufacturing toolchain identity." ;
+    bpm:hasField b4p:toolchain_identity_tenant_id_f,
+                 b4p:toolchain_identity_toolchain_id_f,
+                 b4p:toolchain_identity_identity_hash_f .
+
+b4p:toolchain_identity_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:toolchain_identity_toolchain_id_f a bpm:Field ;
+    bpm:fieldName "toolchain_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:toolchain_identity_identity_hash_f a bpm:Field ;
+    bpm:fieldName "identity_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-043 — metered_usage_sample
+b4p:metered_usage_sample_rt a bpm:RecordType ;
+    bpm:recordName "metered_usage_sample" ;
+    bpm:recordDoc "Records a bounded production usage sample eligible for tenant-level metering." ;
+    bpm:hasField b4p:metered_usage_sample_tenant_id_f,
+                 b4p:metered_usage_sample_usage_sample_id_f,
+                 b4p:metered_usage_sample_sample_hash_f .
+
+b4p:metered_usage_sample_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:metered_usage_sample_usage_sample_id_f a bpm:Field ;
+    bpm:fieldName "usage_sample_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:metered_usage_sample_sample_hash_f a bpm:Field ;
+    bpm:fieldName "sample_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-044 — billable_usage_identity
+b4p:billable_usage_identity_rt a bpm:RecordType ;
+    bpm:recordName "billable_usage_identity" ;
+    bpm:recordDoc "Binds accepted usage to one immutable billable identity that prevents duplicate charging." ;
+    bpm:hasField b4p:billable_usage_identity_tenant_id_f,
+                 b4p:billable_usage_identity_billable_usage_id_f,
+                 b4p:billable_usage_identity_identity_hash_f .
+
+b4p:billable_usage_identity_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:billable_usage_identity_billable_usage_id_f a bpm:Field ;
+    bpm:fieldName "billable_usage_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:billable_usage_identity_identity_hash_f a bpm:Field ;
+    bpm:fieldName "identity_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-045 — usage_reconciliation_receipt
+b4p:usage_reconciliation_receipt_rt a bpm:RecordType ;
+    bpm:recordName "usage_reconciliation_receipt" ;
+    bpm:recordDoc "Receipts deduplicated usage reconciliation before an invoiceable quantity is recognized." ;
+    bpm:hasField b4p:usage_reconciliation_receipt_tenant_id_f,
+                 b4p:usage_reconciliation_receipt_billing_period_id_f,
+                 b4p:usage_reconciliation_receipt_reconciliation_hash_f .
+
+b4p:usage_reconciliation_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:usage_reconciliation_receipt_billing_period_id_f a bpm:Field ;
+    bpm:fieldName "billing_period_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:usage_reconciliation_receipt_reconciliation_hash_f a bpm:Field ;
+    bpm:fieldName "reconciliation_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-046 — value_telemetry_sample
+b4p:value_telemetry_sample_rt a bpm:RecordType ;
+    bpm:recordName "value_telemetry_sample" ;
+    bpm:recordDoc "Records a production telemetry sample tied to the paid business-value measurement contract." ;
+    bpm:hasField b4p:value_telemetry_sample_tenant_id_f,
+                 b4p:value_telemetry_sample_outcome_id_f,
+                 b4p:value_telemetry_sample_telemetry_hash_f .
+
+b4p:value_telemetry_sample_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:value_telemetry_sample_outcome_id_f a bpm:Field ;
+    bpm:fieldName "outcome_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:value_telemetry_sample_telemetry_hash_f a bpm:Field ;
+    bpm:fieldName "telemetry_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-047 — business_outcome_measurement
+b4p:business_outcome_measurement_rt a bpm:RecordType ;
+    bpm:recordName "business_outcome_measurement" ;
+    bpm:recordDoc "Records the observed business outcome against its admitted baseline and target." ;
+    bpm:hasField b4p:business_outcome_measurement_tenant_id_f,
+                 b4p:business_outcome_measurement_outcome_id_f,
+                 b4p:business_outcome_measurement_measurement_hash_f .
+
+b4p:business_outcome_measurement_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:business_outcome_measurement_outcome_id_f a bpm:Field ;
+    bpm:fieldName "outcome_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:business_outcome_measurement_measurement_hash_f a bpm:Field ;
+    bpm:fieldName "measurement_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-048 — account_value_realization
+b4p:account_value_realization_rt a bpm:RecordType ;
+    bpm:recordName "account_value_realization" ;
+    bpm:recordDoc "Aggregates verified outcome evidence into an account-level realized-value observation." ;
+    bpm:hasField b4p:account_value_realization_tenant_id_f,
+                 b4p:account_value_realization_account_id_f,
+                 b4p:account_value_realization_realization_hash_f .
+
+b4p:account_value_realization_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:account_value_realization_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:account_value_realization_realization_hash_f a bpm:Field ;
+    bpm:fieldName "realization_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-049 — cost_to_serve_measurement
+b4p:cost_to_serve_measurement_rt a bpm:RecordType ;
+    bpm:recordName "cost_to_serve_measurement" ;
+    bpm:recordDoc "Records attributable runtime cost-to-serve for a paid tenant and billing period." ;
+    bpm:hasField b4p:cost_to_serve_measurement_tenant_id_f,
+                 b4p:cost_to_serve_measurement_billing_period_id_f,
+                 b4p:cost_to_serve_measurement_measurement_hash_f .
+
+b4p:cost_to_serve_measurement_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:cost_to_serve_measurement_billing_period_id_f a bpm:Field ;
+    bpm:fieldName "billing_period_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:cost_to_serve_measurement_measurement_hash_f a bpm:Field ;
+    bpm:fieldName "measurement_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-050 — paid_workload_outcome_receipt
+b4p:paid_workload_outcome_receipt_rt a bpm:RecordType ;
+    bpm:recordName "paid_workload_outcome_receipt" ;
+    bpm:recordDoc "Produces the terminal receipt proving a paid workload delivered its admitted business outcome." ;
+    bpm:hasField b4p:paid_workload_outcome_receipt_tenant_id_f,
+                 b4p:paid_workload_outcome_receipt_workload_id_f,
+                 b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f .
+
+b4p:paid_workload_outcome_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:paid_workload_outcome_receipt_workload_id_f a bpm:Field ;
+    bpm:fieldName "workload_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "outcome_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

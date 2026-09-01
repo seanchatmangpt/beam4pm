@@ -73,6 +73,27 @@
       ]
 
     },
+    "account_value_realization": {
+      "type": "object",
+      "description": "Aggregates verified outcome evidence into an account-level realized-value observation.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "account_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "realization_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "account_id", "realization_hash"
+      ]
+
+    },
     "action_pin_evidence": {
       "type": "object",
       "description": "Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.",
@@ -378,6 +399,27 @@
       ]
 
     },
+    "availability_observation": {
+      "type": "object",
+      "description": "Records a bounded availability observation against the paid tenant SLO.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "slo_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "observation_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "slo_id", "observation_hash"
+      ]
+
+    },
     "availability_slo_evidence": {
       "type": "object",
       "description": "Executable availability evidence binding an exact subject to the service level actually observed over the admitted window.",
@@ -478,6 +520,27 @@
       ]
 
     },
+    "billable_usage_identity": {
+      "type": "object",
+      "description": "Binds accepted usage to one immutable billable identity that prevents duplicate charging.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "billable_usage_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "identity_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "billable_usage_id", "identity_hash"
+      ]
+
+    },
     "billing_account": {
       "type": "object",
       "description": "Bill-to account with currency and invoice delivery profile.",
@@ -558,6 +621,48 @@
       ]
 
     },
+    "brce_actuation_receipt": {
+      "type": "object",
+      "description": "Binds an actuated runtime consequence to its authorized BRCE request and receipt.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "request_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "receipt_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "request_id", "receipt_hash"
+      ]
+
+    },
+    "brce_actuation_request": {
+      "type": "object",
+      "description": "Admits a runtime actuation request only with exact BRCE authority evidence.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "request_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "authority_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "request_id", "authority_hash"
+      ]
+
+    },
     "budget_period_alignment": {
       "type": "object",
       "description": "Qualifies whether the buying timeline lands inside an approved budget period, exposing unfunded timing risk.",
@@ -601,6 +706,27 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "continuity_mode", "observed_result"
+      ]
+
+    },
+    "business_outcome_measurement": {
+      "type": "object",
+      "description": "Records the observed business outcome against its admitted baseline and target.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "outcome_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "measurement_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "outcome_id", "measurement_hash"
       ]
 
     },
@@ -739,6 +865,27 @@
         }
       },
       "required": ["capability_gap_id", "account_id", "gap_severity", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "capsule_identity": {
+      "type": "object",
+      "description": "Binds paid workload execution to the exact immutable runtime capsule digest.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "capsule_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "identity_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "capsule_id", "identity_hash"
       ]
 
     },
@@ -882,6 +1029,27 @@
         }
       },
       "required": ["rule_id", "cost_center", "metric_name", "rate"
+      ]
+
+    },
+    "cluster_quorum_state": {
+      "type": "object",
+      "description": "Binds an execution decision to observed cluster quorum rather than inferred availability.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "cluster_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "quorum_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "cluster_id", "quorum_hash"
       ]
 
     },
@@ -1320,6 +1488,48 @@
         }
       },
       "required": ["opportunity_id", "contracting_entity_id", "identity_evidence_hash"
+      ]
+
+    },
+    "cost_to_serve_measurement": {
+      "type": "object",
+      "description": "Records attributable runtime cost-to-serve for a paid tenant and billing period.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "billing_period_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "measurement_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "billing_period_id", "measurement_hash"
+      ]
+
+    },
+    "crash_recovery_receipt": {
+      "type": "object",
+      "description": "Produces replayable evidence that a runtime crash reached a verified recovery consequence.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "crash_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "receipt_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "crash_id", "receipt_hash"
       ]
 
     },
@@ -1908,6 +2118,27 @@
       ]
 
     },
+    "entitlement_denial_receipt": {
+      "type": "object",
+      "description": "Receipts a runtime denial when the paid tenant lacks the required product entitlement.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "entitlement_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "denial_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "entitlement_id", "denial_hash"
+      ]
+
+    },
     "entitlement_event": {
       "type": "object",
       "description": "One inbound marketplace entitlement/order/agreement lifecycle event, as delivered by the provider's notification topic. Append-only and at-least-once: the same event_id may be delivered any number of times, in any order relative to other events. Modeled on the Google Cloud Commerce Partner Procurement API Pub/Sub notification message, whose payload carries both an eventId and an entitlement id.",
@@ -2012,6 +2243,27 @@
       ]
 
     },
+    "entitlement_runtime_check": {
+      "type": "object",
+      "description": "Records the exact paid entitlement evaluated before workload execution.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "entitlement_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "check_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "entitlement_id", "check_hash"
+      ]
+
+    },
     "entitlement_state": {
       "type": "object",
       "description": "The reconciled current state of one entitlement, derived purely by folding its entitlement_event set. The fold is idempotent (replaying an already-applied event is a no-op) and commutative in arrival order (an older event arriving after a newer one is a no-op), because an event is applied if and only if its (effective_at, event_id) pair is strictly greater than the state's (updated_at, last_applied_event_id) watermark.",
@@ -2037,6 +2289,27 @@
       ]
 
     },
+    "environment_identity": {
+      "type": "object",
+      "description": "Binds paid workload execution to an immutable production environment identity.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "environment_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "identity_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "environment_id", "identity_hash"
+      ]
+
+    },
     "environment_profile": {
       "type": "object",
       "description": "Deterministic environment profile for demo, POC, or production.",
@@ -2059,6 +2332,27 @@
         }
       },
       "required": ["profile_id", "environment", "region", "configuration_hash"
+      ]
+
+    },
+    "error_budget_state": {
+      "type": "object",
+      "description": "Captures the exact remaining error budget that governs paid-service release policy.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "slo_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "state_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "slo_id", "state_hash"
       ]
 
     },
@@ -2317,6 +2611,27 @@
       ]
 
     },
+    "forged_receipt_refusal": {
+      "type": "object",
+      "description": "Produces typed refusal evidence when a runtime receipt signature or subject binding is forged.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "receipt_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "refusal_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "receipt_id", "refusal_hash"
+      ]
+
+    },
     "funding_approval_chain": {
       "type": "object",
       "description": "Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.",
@@ -2377,6 +2692,48 @@
         }
       },
       "required": ["opportunity_id", "fee_id", "decision"
+      ]
+
+    },
+    "incident_acknowledgement": {
+      "type": "object",
+      "description": "Records accountable acknowledgement of a production incident for a paid tenant.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "incident_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "acknowledgement_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "incident_id", "acknowledgement_hash"
+      ]
+
+    },
+    "incident_detection_event": {
+      "type": "object",
+      "description": "Records the detected production incident and exact affected paid service.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "incident_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "detection_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "incident_id", "detection_hash"
       ]
 
     },
@@ -2564,6 +2921,27 @@
       ]
 
     },
+    "latency_budget_observation": {
+      "type": "object",
+      "description": "Records an observed runtime latency against the admitted paid-service latency budget.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "workload_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "observation_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "workload_id", "observation_hash"
+      ]
+
+    },
     "least_authority_evidence": {
       "type": "object",
       "description": "Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.",
@@ -2696,6 +3074,27 @@
       ]
 
     },
+    "metered_usage_sample": {
+      "type": "object",
+      "description": "Records a bounded production usage sample eligible for tenant-level metering.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "usage_sample_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "sample_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "usage_sample_id", "sample_hash"
+      ]
+
+    },
     "migration_contract": {
       "type": "object",
       "description": "Versioned migration path with source, target, and rollback identity.",
@@ -2819,6 +3218,27 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "mutable_reference", "observed_result"
+      ]
+
+    },
+    "node_failover_event": {
+      "type": "object",
+      "description": "Records the exact node failure and observed failover consequence for a paid service.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "node_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "failover_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "node_id", "failover_hash"
       ]
 
     },
@@ -3200,6 +3620,27 @@
         }
       },
       "required": ["policy_id", "quota_id", "unit_price", "behavior"
+      ]
+
+    },
+    "paid_workload_outcome_receipt": {
+      "type": "object",
+      "description": "Produces the terminal receipt proving a paid workload delivered its admitted business outcome.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "workload_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "outcome_receipt_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "workload_id", "outcome_receipt_hash"
       ]
 
     },
@@ -4026,6 +4467,90 @@
       ]
 
     },
+    "receipt_replay_request": {
+      "type": "object",
+      "description": "Admits an exact receipt replay request for independent consumer verification.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "receipt_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "replay_request_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "receipt_id", "replay_request_hash"
+      ]
+
+    },
+    "receipt_signature": {
+      "type": "object",
+      "description": "Admits a cryptographic receipt signature bound to an exact paid runtime consequence.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "receipt_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "signature_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "receipt_id", "signature_hash"
+      ]
+
+    },
+    "receipt_subject_binding": {
+      "type": "object",
+      "description": "Binds a runtime receipt to the exact workload subject it claims to evidence.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "workload_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "binding_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "workload_id", "binding_hash"
+      ]
+
+    },
+    "receipt_verification": {
+      "type": "object",
+      "description": "Records independent verification of a production receipt before value is recognized.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "receipt_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "verification_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "receipt_id", "verification_hash"
+      ]
+
+    },
     "recovery_plan": {
       "type": "object",
       "description": "Executable account recovery plan with a measured recovery interval.",
@@ -4052,6 +4577,48 @@
         }
       },
       "required": ["recovery_plan_id", "account_id", "recovery_time_hours", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "recovery_point_receipt": {
+      "type": "object",
+      "description": "Receipts the observed recovery point and protected data boundary after failure.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "incident_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "recovery_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "incident_id", "recovery_hash"
+      ]
+
+    },
+    "recovery_time_receipt": {
+      "type": "object",
+      "description": "Receipts the observed recovery-time consequence against the paid-service objective.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "incident_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "recovery_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "incident_id", "recovery_hash"
       ]
 
     },
@@ -4210,6 +4777,27 @@
         }
       },
       "required": ["opportunity_id", "renewal_term", "decision"
+      ]
+
+    },
+    "replay_environment_identity": {
+      "type": "object",
+      "description": "Binds receipt replay to an exact environment identity so mismatched replay is refused.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "environment_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "identity_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "environment_id", "identity_hash"
       ]
 
     },
@@ -4430,6 +5018,27 @@
       ]
 
     },
+    "rollback_checkpoint": {
+      "type": "object",
+      "description": "Binds rollback authority to an immutable runtime checkpoint and verified state digest.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "checkpoint_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "state_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "checkpoint_id", "state_hash"
+      ]
+
+    },
     "rollback_decision": {
       "type": "object",
       "description": "Receipted rollback decision and recovered account consequence.",
@@ -4481,6 +5090,48 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "rollback_digest", "observed_result"
+      ]
+
+    },
+    "rolling_upgrade_plan": {
+      "type": "object",
+      "description": "Admits an identified rolling upgrade plan with deterministic production evidence.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "upgrade_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "plan_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "upgrade_id", "plan_hash"
+      ]
+
+    },
+    "runtime_policy_decision": {
+      "type": "object",
+      "description": "Records an explicit runtime policy decision before paid workload actuation.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "decision_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "policy_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "decision_id", "policy_hash"
       ]
 
     },
@@ -4672,6 +5323,27 @@
       ]
 
     },
+    "service_health_snapshot": {
+      "type": "object",
+      "description": "Captures machine-readable paid-service health for support and escalation decisions.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "service_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "snapshot_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "service_id", "snapshot_hash"
+      ]
+
+    },
     "service_level_objective": {
       "type": "object",
       "description": "Measurable service target bound to a support contract.",
@@ -4694,6 +5366,27 @@
         }
       },
       "required": ["slo_id", "contract_id", "target_percent", "measurement_window"
+      ]
+
+    },
+    "service_slo_contract": {
+      "type": "object",
+      "description": "Admits the exact service-level objective contract governing a paid workload.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "slo_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "contract_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "slo_id", "contract_hash"
       ]
 
     },
@@ -4897,6 +5590,27 @@
       ]
 
     },
+    "stale_receipt_refusal": {
+      "type": "object",
+      "description": "Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "receipt_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "refusal_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "receipt_id", "refusal_hash"
+      ]
+
+    },
     "stale_subject_refusal_evidence": {
       "type": "object",
       "description": "Executable refusal evidence binding a rejected observation to the stale subject identity that caused denial.",
@@ -4951,6 +5665,27 @@
       ]
 
     },
+    "supervisor_restart_policy": {
+      "type": "object",
+      "description": "Binds an OTP supervisor to an explicit restart policy governing paid workload resilience.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "supervisor_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "policy_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "supervisor_id", "policy_hash"
+      ]
+
+    },
     "support_contract": {
       "type": "object",
       "description": "Purchased support tier with response target and term.",
@@ -4973,6 +5708,27 @@
         }
       },
       "required": ["contract_id", "account_id", "tier", "valid_until"
+      ]
+
+    },
+    "support_diagnostic_bundle": {
+      "type": "object",
+      "description": "Binds machine-readable support diagnostics to the exact tenant and incident subject.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "incident_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "bundle_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "incident_id", "bundle_hash"
       ]
 
     },
@@ -5218,6 +5974,48 @@
       ]
 
     },
+    "tenant_data_partition": {
+      "type": "object",
+      "description": "Binds tenant data to an explicit storage partition whose isolation consequence is independently verifiable.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "partition_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "isolation_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "partition_id", "isolation_hash"
+      ]
+
+    },
+    "tenant_key_scope": {
+      "type": "object",
+      "description": "Binds tenant cryptographic material to one runtime key scope and attested key identity.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "key_scope_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "key_attestation_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "key_scope_id", "key_attestation_hash"
+      ]
+
+    },
     "tenant_project": {
       "type": "object",
       "description": "Billable tenant project with cost-center attribution.",
@@ -5240,6 +6038,48 @@
         }
       },
       "required": ["project_id", "tenant_id", "cost_center", "status"
+      ]
+
+    },
+    "tenant_resource_quota": {
+      "type": "object",
+      "description": "Binds a paid tenant to an enforceable CPU and memory quota with observed utilization evidence.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "quota_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "utilization_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "quota_id", "utilization_hash"
+      ]
+
+    },
+    "tenant_runtime_boundary": {
+      "type": "object",
+      "description": "Binds a paid tenant to one explicit runtime isolation boundary and replayable evidence identity.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity whose workload is isolated."
+        },
+        "boundary_id": {
+          "type": "string",
+          "description": "Immutable runtime isolation boundary identity."
+        },
+        "evidence_hash": {
+          "type": "string",
+          "description": "Digest binding the observed tenant isolation consequence."
+        }
+      },
+      "required": ["tenant_id", "boundary_id", "evidence_hash"
       ]
 
     },
@@ -5315,6 +6155,27 @@
         }
       },
       "required": ["time_to_value_id", "account_id", "verified_days", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "toolchain_identity": {
+      "type": "object",
+      "description": "Binds a production consequence to the exact BEAM and manufacturing toolchain identity.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "toolchain_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "identity_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "toolchain_id", "identity_hash"
       ]
 
     },
@@ -5551,6 +6412,27 @@
       ]
 
     },
+    "usage_reconciliation_receipt": {
+      "type": "object",
+      "description": "Receipts deduplicated usage reconciliation before an invoiceable quantity is recognized.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "billing_period_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "reconciliation_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "billing_period_id", "reconciliation_hash"
+      ]
+
+    },
     "usage_signal": {
       "type": "object",
       "description": "Measured product-usage signal for an admitted enterprise account.",
@@ -5660,6 +6542,27 @@
         }
       },
       "required": ["value_realization_id", "account_id", "realized_value", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "value_telemetry_sample": {
+      "type": "object",
+      "description": "Records a production telemetry sample tied to the paid business-value measurement contract.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "outcome_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "telemetry_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "outcome_id", "telemetry_hash"
       ]
 
     },
@@ -5777,6 +6680,153 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "vulnerability_count", "observed_result"
+      ]
+
+    },
+    "workload_backpressure_signal": {
+      "type": "object",
+      "description": "Records runtime backpressure as measured evidence before additional paid work is accepted.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "signal_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "measurement_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "signal_id", "measurement_hash"
+      ]
+
+    },
+    "workload_cancellation_receipt": {
+      "type": "object",
+      "description": "Records deterministic cancellation consequence for a paid workload execution.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "execution_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "receipt_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "execution_id", "receipt_hash"
+      ]
+
+    },
+    "workload_execution_identity": {
+      "type": "object",
+      "description": "Assigns every paid workload execution an immutable subject identity before runtime consequence.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "execution_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "subject_digest": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "execution_id", "subject_digest"
+      ]
+
+    },
+    "workload_idempotency_key": {
+      "type": "object",
+      "description": "Binds a paid execution to an idempotency key so retried delivery cannot be billed or actuated twice.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "execution_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "idempotency_key": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "execution_id", "idempotency_key"
+      ]
+
+    },
+    "workload_queue_depth": {
+      "type": "object",
+      "description": "Records paid workload queue depth as an exact capacity and backpressure observation.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "queue_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "measurement_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "queue_id", "measurement_hash"
+      ]
+
+    },
+    "workload_retry_policy": {
+      "type": "object",
+      "description": "Admits a bounded retry policy with explicit identity and replayable configuration evidence.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "policy_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "policy_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "policy_id", "policy_hash"
+      ]
+
+    },
+    "workload_timeout_budget": {
+      "type": "object",
+      "description": "Admits an execution timeout budget that prevents unbounded paid runtime consumption.",
+      "properties": {
+        "tenant_id": {
+          "type": "string",
+          "description": "Exact paid tenant identity for this bounded runtime observation."
+        },
+        "budget_id": {
+          "type": "string",
+          "description": "Exact runtime subject identity required for independent verification and replay."
+        },
+        "budget_hash": {
+          "type": "string",
+          "description": "Immutable evidence identity binding the observed production consequence."
+        }
+      },
+      "required": ["tenant_id", "budget_id", "budget_hash"
       ]
 
     }
