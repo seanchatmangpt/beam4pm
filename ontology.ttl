@@ -2261,26 +2261,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 #
 # bpm:RecordType (beam4pm-process-model-pack/ontology.ttl:13-15) is a
 # META-CLASS describing record SHAPES ("One admitted BEAM record/struct type
-# projected into generated …4317 tokens truncated…the dedup-set sum order-sensitive at the boundaries and make a double-counted event cancellable rather than detectable." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-b4pe:usage_event_metric_name_f a bpm:Field ;
-    bpm:fieldName "metric_name" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "The fully qualified metered dimension this occurrence counts against. Reconciliation partitions by (entitlement_id, metric_name): quantities in different metrics are never summed together." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
-
-b4pe:usage_event_occurred_at_f a bpm:Field ;
-    bpm:fieldName "occurred_at" ; bpm:fieldType "datetime" ;
-    bpm:fieldDoc "ISO8601 UTC instant the usage actually occurred (not when it was observed, queued, or reported)." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
-
-# ---------------------------------------------------------------------------
-# billing_reconciliation -- the reconciled total for one (entitlement_id,
-# metric_name) over one caller-supplied half-open period.
-# ---------------------------------------------------------------------------
-b4pe:billing_reconciliation_rt a bpm:RecordType ;
-    bpm:recordName "billing_reconciliation" ;
-    bpm:recordDoc "The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream." ;
+# projected into generate…4620 tokens truncated…cordDoc "The reconciled billable total for one (entitlement_id, metric_name) pair over one half-open period [period_start, period_end). INVARIANT: total_quantity is exactly the sum of usage_event.quantity over the distinct event_ids listed in applied_event_ids, summed in that list's ascending order; applied_event_ids is sorted and duplicate-free. Consequently the same usage_event.event_id can never contribute twice, no matter how many times or in what order it appears in the input stream." ;
     bpm:hasField b4pe:billing_reconciliation_entitlement_id_f ,
                  b4pe:billing_reconciliation_metric_name_f ,
                  b4pe:billing_reconciliation_total_quantity_f ,
@@ -3997,5 +3978,29 @@ b4p:receipt_verification_receipt_id_f a bpm:Field ;
 
 b4p:receipt_verification_verification_hash_f a bpm:Field ;
     bpm:fieldName "verification_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-024 — receipt_replay_request
+b4p:receipt_replay_request_rt a bpm:RecordType ;
+    bpm:recordName "receipt_replay_request" ;
+    bpm:recordDoc "Admits an exact receipt replay request for independent consumer verification." ;
+    bpm:hasField b4p:receipt_replay_request_tenant_id_f,
+                 b4p:receipt_replay_request_receipt_id_f,
+                 b4p:receipt_replay_request_replay_request_hash_f .
+
+b4p:receipt_replay_request_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:receipt_replay_request_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:receipt_replay_request_replay_request_hash_f a bpm:Field ;
+    bpm:fieldName "replay_request_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
