@@ -2285,26 +2285,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 # reinforced field-by-field: bpm:ocel_event_event_type_f and
 # bpm:ocel_event_event_time_f (both domain bpm:ocel_event_rt's field set)
 # correspond to ex4pm:activity and ex4pm:timestamp (both rdfs:domain
-# ex4pm:Event …7569 tokens truncated…ntity_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required purchasing entity identity input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4p:purchasing_entity_identity_identity_evidence_hash_f a bpm:Field ;
-   bpm:fieldName "identity_evidence_hash" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-# WS1-REV-008 — contracting_entity_identity
-b4p:contracting_entity_identity_rt a bpm:RecordType ;
-    bpm:recordName "contracting_entity_identity" ;
-    bpm:recordDoc "Requires the counterparty that will sign the agreement, separating contractual authority from account interest." ;
-    bpm:hasField b4p:contracting_entity_identity_opportunity_id_f ,
-                 b4p:contracting_entity_identity_contracting_entity_id_f ,
-                 b4p:contracting_entity_identity_identity_evidence_hash_f .
-
-b4p:contracting_entity_identity_opportunity_id_f a bpm:Field ;
-    bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval." ;
+# ex4pm:Event …7877 tokens truncated…is an executable typed refusal, never an inferred approval." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
 
 b4p:contracting_entity_identity_contracting_entity_id_f a bpm:Field ;
@@ -4100,5 +4081,29 @@ b4p:incident_detection_event_incident_id_f a bpm:Field ;
 
 b4p:incident_detection_event_detection_hash_f a bpm:Field ;
     bpm:fieldName "detection_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-036 — incident_acknowledgement
+b4p:incident_acknowledgement_rt a bpm:RecordType ;
+    bpm:recordName "incident_acknowledgement" ;
+    bpm:recordDoc "Records accountable acknowledgement of a production incident for a paid tenant." ;
+    bpm:hasField b4p:incident_acknowledgement_tenant_id_f,
+                 b4p:incident_acknowledgement_incident_id_f,
+                 b4p:incident_acknowledgement_acknowledgement_hash_f .
+
+b4p:incident_acknowledgement_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:incident_acknowledgement_incident_id_f a bpm:Field ;
+    bpm:fieldName "incident_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:incident_acknowledgement_acknowledgement_hash_f a bpm:Field ;
+    bpm:fieldName "acknowledgement_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
