@@ -1,0 +1,94 @@
+name: WS3 Ash deterministic regeneration repair
+
+on:
+  push:
+    branches:
+      - automation/ws3-rev-20260831-runtime-value-50
+
+permissions:
+  contents: write
+
+jobs:
+  persist-exact-manufactured-ash:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact WS3 branch with manufacturing inputs
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          submodules: recursive
+          persist-credentials: true
+
+      - name: Set up repository-pinned BEAM toolchain
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          gleam-version: '1.18.1'
+          rebar3-version: '3.24.0'
+          elixir-version: '1.18.5'
+          otp-version: '27.2'
+
+      - name: Resolve Elixir dependencies
+        shell: bash
+        run: mix deps.get
+
+      - name: Build the three real rust4pm validation oracles required by GATE M2
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo build --release --manifest-path native/rf1-dfg-oracle/Cargo.toml
+          cargo build --release --manifest-path native/rf2-conformance-oracle/Cargo.toml
+          cargo build --release --manifest-path native/rf3-ocel-oracle/Cargo.toml
+
+      - name: Install the exact identity-verified GGen release used by the hard court
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.local/bin"
+          archive="$RUNNER_TEMP/ggen-x86_64-unknown-linux-gnu.tar.gz"
+          curl --fail --location --silent --show-error --retry 3 \
+            --proto '=https' --tlsv1.2 \
+            -o "$archive" \
+            https://github.com/seanchatmangpt/ggen/releases/download/v26.8.28/ggen-x86_64-unknown-linux-gnu.tar.gz
+          echo 'ccb9fe78ef0c84d8b240b45beb6e73f47e2c930d5db3efcf9a0e58dfe071d313  '"$archive" | sha256sum --check --strict
+          tar -xzf "$archive" -C "$HOME/.local/bin" ggen
+          chmod +x "$HOME/.local/bin/ggen"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Manufacture and persist only the exact stale Ash projections
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/.local/bin:$PATH"
+
+          set +e
+          bash scripts/gate_m2_check.sh
+          gate_rc=$?
+          set -e
+
+          mapfile -t changed < <(git diff --name-only | sort)
+          printf 'GATE_M2_EXIT=%s\n' "$gate_rc"
+          printf 'CHANGED=%s\n' "${changed[*]:-<none>}"
+
+          if [ "$gate_rc" -eq 0 ]; then
+            if [ "${#changed[@]}" -ne 0 ]; then
+              echo 'REFUSED: GATE M2 passed but left an uncommitted diff' >&2
+              exit 1
+            fi
+            echo 'No repair required; exact manufactured bytes are already committed.'
+            exit 0
+          fi
+
+          expected=$'lib/beam4pm_ash.ex\ntest/beam4pm_ash_test.exs'
+          actual="$(printf '%s\n' "${changed[@]}")"
+          if [ "$actual" != "$expected" ]; then
+            echo 'REFUSED: regeneration changed paths outside the two CI-captured Ash projections' >&2
+            git status --short
+            exit 1
+          fi
+
+          git diff --check
+          git config user.name 'beam4pm manufacturing repair'
+          git config user.email '136349053+seanchatmangpt@users.noreply.github.com'
+          git add -- lib/beam4pm_ash.ex test/beam4pm_ash_test.exs
+          git commit -m 'fix(ash): persist exact WS3 deterministic regeneration'
+          git push origin HEAD:automation/ws3-rev-20260831-runtime-value-50
