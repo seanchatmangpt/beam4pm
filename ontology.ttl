@@ -2261,30 +2261,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 #
 # bpm:RecordType (beam4pm-process-model-pack/ontology.ttl:13-15) is a
 # META-CLASS describing record SHAPES ("One admitted BEAM record/struct type
-# projected into gener…12184 tokens truncated…:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-# WS1-REV-020 — credit_risk_admission
-b4p:credit_risk_admission_rt a bpm:RecordType ;
-    bpm:recordName "credit_risk_admission" ;
-    bpm:recordDoc "Turns counterparty credit risk into an explicit admission decision that can refuse unsafe payment exposure." ;
-    bpm:hasField b4p:credit_risk_admission_account_id_f ,
-                 b4p:credit_risk_admission_risk_band_f ,
-                 b4p:credit_risk_admission_decision_f .
-
-b4p:credit_risk_admission_account_id_f a bpm:Field ;
-    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required credit risk admission input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
-
-b4p:credit_risk_admission_risk_band_f a bpm:Field ;
-    bpm:fieldName "risk_band" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required credit risk admission input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4p:credit_risk_admission_decision_f a bpm:Field ;
-   bpm:fieldName "decision" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
+# projected into g…12508 tokens truncated…ieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 
 # WS1-REV-021 — budget_period_alignment
@@ -4130,5 +4107,29 @@ b4p:cost_to_serve_measurement_billing_period_id_f a bpm:Field ;
 
 b4p:cost_to_serve_measurement_measurement_hash_f a bpm:Field ;
     bpm:fieldName "measurement_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-050 — paid_workload_outcome_receipt
+b4p:paid_workload_outcome_receipt_rt a bpm:RecordType ;
+    bpm:recordName "paid_workload_outcome_receipt" ;
+    bpm:recordDoc "Produces the terminal receipt proving a paid workload delivered its admitted business outcome." ;
+    bpm:hasField b4p:paid_workload_outcome_receipt_tenant_id_f,
+                 b4p:paid_workload_outcome_receipt_workload_id_f,
+                 b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f .
+
+b4p:paid_workload_outcome_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:paid_workload_outcome_receipt_workload_id_f a bpm:Field ;
+    bpm:fieldName "workload_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "outcome_receipt_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
