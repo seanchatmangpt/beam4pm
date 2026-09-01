@@ -2261,14 +2261,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 #
 # bpm:RecordType (beam4pm-process-model-pack/ontology.ttl:13-15) is a
 # META-CLASS describing record SHAPES ("One admitted BEAM record/struct type
-# projected into gener…3432 tokens truncated…event_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "The event_id of the single entitlement_event that produced this state. Second (tiebreak) component of the reconciliation watermark, and the audit link from a commercial state back to the exact provider notification that caused it. Required, never undefined: an entitlement_state may only be constructed by applying a real event, so there is no lawful state without a causing event id." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-b4pe:entitlement_state_updated_at_f a bpm:Field ;
-    bpm:fieldName "updated_at" ; bpm:fieldType "datetime" ;
-    bpm:fieldDoc "The effective_at of the last applied event -- NOT wall-clock ingestion time. First component of the reconciliation watermark. Defining it as provider effective time (a) makes the state a pure function of the event set, so the same events replayed in any order at any later date rebuild a byte-identical state, and (b) makes the strictly-greater-than admission test well-founded. A wall-clock updated_at would silently admit an out-of-order older event, because it always advances." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+# projected into generated cod…3719 tokens truncated…
 
 # ---------------------------------------------------------------------------
 # usage_event -- one metered consumption event to be billed. At-least-once
@@ -3959,5 +3952,29 @@ b4p:brce_actuation_receipt_request_id_f a bpm:Field ;
 
 b4p:brce_actuation_receipt_receipt_hash_f a bpm:Field ;
     bpm:fieldName "receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-021 — receipt_signature
+b4p:receipt_signature_rt a bpm:RecordType ;
+    bpm:recordName "receipt_signature" ;
+    bpm:recordDoc "Admits a cryptographic receipt signature bound to an exact paid runtime consequence." ;
+    bpm:hasField b4p:receipt_signature_tenant_id_f,
+                 b4p:receipt_signature_receipt_id_f,
+                 b4p:receipt_signature_signature_hash_f .
+
+b4p:receipt_signature_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:receipt_signature_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:receipt_signature_signature_hash_f a bpm:Field ;
+    bpm:fieldName "signature_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
