@@ -6,82 +6,69 @@ on:
       - automation/ws3-rev-20260831-runtime-value-50
 
 permissions:
+  actions: read
   contents: write
 
 jobs:
   persist-exact-manufactured-ash:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
-      - name: Checkout exact WS3 branch with manufacturing inputs
+      - name: Checkout exact WS3 branch
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          submodules: recursive
           persist-credentials: true
 
-      - name: Set up repository-pinned BEAM toolchain
-        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
-        with:
-          gleam-version: '1.18.1'
-          rebar3-version: '3.24.0'
-          elixir-version: '1.18.5'
-          otp-version: '27.2'
-
-      - name: Resolve Elixir dependencies
-        shell: bash
-        run: mix deps.get
-
-      - name: Build the three real rust4pm validation oracles required by GATE M2
+      - name: Verify artifact identity, persist exact manufactured bytes, and push repair
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          ARTIFACT_ID: '9781691695'
+          SOURCE_RUN_ID: '33456057068'
+          SOURCE_HEAD_SHA: '00f05d96febdc70ccdc4590ab526097563d00fda'
+          ARTIFACT_DIGEST: 'sha256:2f39a8769bf50c5534082cdeee84ececc77c30542f229e93c7d64776895307b6'
         shell: bash
         run: |
           set -euo pipefail
-          cargo build --release --manifest-path native/rf1-dfg-oracle/Cargo.toml
-          cargo build --release --manifest-path native/rf2-conformance-oracle/Cargo.toml
-          cargo build --release --manifest-path native/rf3-ocel-oracle/Cargo.toml
+          repair="$RUNNER_TEMP/ws3-ash-repair"
+          mkdir -p "$repair"
 
-      - name: Install the exact identity-verified GGen release used by the hard court
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$HOME/.local/bin"
-          archive="$RUNNER_TEMP/ggen-x86_64-unknown-linux-gnu.tar.gz"
-          curl --fail --location --silent --show-error --retry 3 \
-            --proto '=https' --tlsv1.2 \
-            -o "$archive" \
-            https://github.com/seanchatmangpt/ggen/releases/download/v26.8.28/ggen-x86_64-unknown-linux-gnu.tar.gz
-          echo 'ccb9fe78ef0c84d8b240b45beb6e73f47e2c930d5db3efcf9a0e58dfe071d313  '"$archive" | sha256sum --check --strict
-          tar -xzf "$archive" -C "$HOME/.local/bin" ggen
-          chmod +x "$HOME/.local/bin/ggen"
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          curl --fail --location --silent --show-error \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/$REPO/actions/artifacts/$ARTIFACT_ID" \
+            -o "$RUNNER_TEMP/artifact.json"
 
-      - name: Manufacture and persist only the exact stale Ash projections
-        shell: bash
-        run: |
-          set -euo pipefail
-          export PATH="$HOME/.local/bin:$PATH"
+          python - "$RUNNER_TEMP/artifact.json" <<'PY'
+          import json, os, sys
+          meta = json.load(open(sys.argv[1]))
+          assert str(meta['id']) == os.environ['ARTIFACT_ID'], meta
+          assert str(meta['workflow_run']['id']) == os.environ['SOURCE_RUN_ID'], meta
+          assert meta['workflow_run']['head_sha'] == os.environ['SOURCE_HEAD_SHA'], meta
+          assert meta['digest'] == os.environ['ARTIFACT_DIGEST'], meta
+          print('ARTIFACT_IDENTITY_OK')
+          PY
 
-          set +e
-          bash scripts/gate_m2_check.sh
-          gate_rc=$?
-          set -e
+          curl --fail --location --silent --show-error \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/$REPO/actions/artifacts/$ARTIFACT_ID/zip" \
+            -o "$RUNNER_TEMP/ws3-ash-repair.zip"
+          unzip -q "$RUNNER_TEMP/ws3-ash-repair.zip" -d "$repair"
+
+          echo '69fda453b3b1d06d6598fc26a81586efdc86cd714b887a0d12889f61c62401a1  '"$repair/lib/beam4pm_ash.ex" | sha256sum --check --strict
+          echo '0bd31a35a560b250017fd0db0ba5bd5f14cbb14e73fb785b067e0931add6c997  '"$repair/test/beam4pm_ash_test.exs" | sha256sum --check --strict
+
+          cp "$repair/lib/beam4pm_ash.ex" lib/beam4pm_ash.ex
+          cp "$repair/test/beam4pm_ash_test.exs" test/beam4pm_ash_test.exs
 
           mapfile -t changed < <(git diff --name-only | sort)
-          printf 'GATE_M2_EXIT=%s\n' "$gate_rc"
-          printf 'CHANGED=%s\n' "${changed[*]:-<none>}"
-
-          if [ "$gate_rc" -eq 0 ]; then
-            if [ "${#changed[@]}" -ne 0 ]; then
-              echo 'REFUSED: GATE M2 passed but left an uncommitted diff' >&2
-              exit 1
-            fi
-            echo 'No repair required; exact manufactured bytes are already committed.'
-            exit 0
-          fi
-
           expected=$'lib/beam4pm_ash.ex\ntest/beam4pm_ash_test.exs'
           actual="$(printf '%s\n' "${changed[@]}")"
           if [ "$actual" != "$expected" ]; then
-            echo 'REFUSED: regeneration changed paths outside the two CI-captured Ash projections' >&2
+            echo 'REFUSED: exact artifact application changed a path outside the two court-captured projections' >&2
             git status --short
             exit 1
           fi
