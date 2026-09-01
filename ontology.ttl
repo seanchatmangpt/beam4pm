@@ -2285,26 +2285,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 # reinforced field-by-field: bpm:ocel_event_event_type_f and
 # bpm:ocel_event_event_time_f (both domain bpm:ocel_event_rt's field set)
 # correspond to ex4pm:activity and ex4pm:timestamp (both rdfs:domain
-# ex4pm:Event …7877 tokens truncated…is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
-
-b4p:contracting_entity_identity_contracting_entity_id_f a bpm:Field ;
-    bpm:fieldName "contracting_entity_id" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4p:contracting_entity_identity_identity_evidence_hash_f a bpm:Field ;
-   bpm:fieldName "identity_evidence_hash" ; bpm:fieldType "string" ;
-    bpm:fieldDoc "Immutable decision or evidence identity used to verify and replay this bounded commercial admission." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-# WS1-REV-009 — invoice_entity_identity
-b4p:invoice_entity_identity_rt a bpm:RecordType ;
-    bpm:recordName "invoice_entity_identity" ;
-    bpm:recordDoc "Requires the entity responsible for invoice acceptance, preventing qualified demand from becoming uncollectable revenue." ;
-    bpm:hasField b4p:invoice_entity_identity_opportunity_id_f ,
-                 b4p:invoice_entity_identity_invoice_entity_id_f ,
-                 b4p:invoice_entity_identity_identity_evidence_hash_f .
+# ex4pm:Event in …8174 tokens truncated…ce_entity_identity_identity_evidence_hash_f .
 
 b4p:invoice_entity_identity_opportunity_id_f a bpm:Field ;
     bpm:fieldName "opportunity_id" ; bpm:fieldType "string" ;
@@ -4105,5 +4086,29 @@ b4p:incident_acknowledgement_incident_id_f a bpm:Field ;
 
 b4p:incident_acknowledgement_acknowledgement_hash_f a bpm:Field ;
     bpm:fieldName "acknowledgement_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-037 — recovery_time_receipt
+b4p:recovery_time_receipt_rt a bpm:RecordType ;
+    bpm:recordName "recovery_time_receipt" ;
+    bpm:recordDoc "Receipts the observed recovery-time consequence against the paid-service objective." ;
+    bpm:hasField b4p:recovery_time_receipt_tenant_id_f,
+                 b4p:recovery_time_receipt_incident_id_f,
+                 b4p:recovery_time_receipt_recovery_hash_f .
+
+b4p:recovery_time_receipt_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:recovery_time_receipt_incident_id_f a bpm:Field ;
+    bpm:fieldName "incident_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:recovery_time_receipt_recovery_hash_f a bpm:Field ;
+    bpm:fieldName "recovery_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
