@@ -1079,23 +1079,33 @@ bex:ciMixDepsGet
     gha:stepName "mix deps.get" ;
     gha:runCommand "mix deps.get" .
 
-bex:ciMixTest
+# Static overclaiming-phrase lint, transplanted architecture from ex4pm's
+# `mix ex4pm.lint.truth` (a standalone scanner wired as an early verify
+# step, exiting nonzero on any finding). scripts/gate_lint_truth.sh scans
+# hand-authored docs/source only, never a GENERATED file.
+bex:ciLintTruth
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 8 ;
+    gha:stepName "Static overclaiming-phrase lint (GATE LINT-TRUTH)" ;
+    gha:runCommand "bash scripts/gate_lint_truth.sh" .
+
+bex:ciMixTest
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 9 ;
     gha:stepName "mix test" ;
     gha:runCommand """source scripts/env/rust4pm_reactor_env.sh
 mix test""" .
 
 bex:ciGleamTest
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 9 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 10 ;
     gha:stepName "gleam test (gleam/ projection)" ;
     gha:runCommand """cd gleam
 gleam test""" .
 
 bex:ciRoundtrip
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 10 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 11 ;
     gha:stepName "Cross-language wire identity (Erlang<->Elixir roundtrip)" ;
     gha:runCommand "bash scripts/roundtrip_check.sh" .
 
@@ -1119,7 +1129,7 @@ bex:ciRoundtrip
 # vendor/ggen-marketplace submodule checkout.
 bex:ciDeterminism
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 11 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 12 ;
     gha:stepName "Determinism check -- regenerate via identity-verified GGen release and diff" ;
     gha:runCommand """set -euo pipefail
 mkdir -p "$HOME/.local/bin"
@@ -1140,7 +1150,7 @@ bash scripts/gate_m2_check.sh""" .
 # the workflow any write authority over the repository.
 bex:ciDeterminismEvidence
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 12 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 13 ;
     gha:stepName "Preserve deterministic Ash repair evidence" ;
     gha:condition "always()" ;
     gha:usesAction "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1" ;

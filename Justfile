@@ -19,5 +19,10 @@ test:
     rebar3 eunit
     mix test
 
-# Full operator chain: submodules -> sync -> test
-verify: submodules sync test
+# Static scan of hand-authored docs/source for banned overclaiming phrases
+# (transplanted architecture from ex4pm's `mix ex4pm.lint.truth`).
+lint_truth:
+    bash scripts/gate_lint_truth.sh
+
+# Full operator chain: submodules -> sync -> lint_truth -> test
+verify: submodules sync lint_truth test

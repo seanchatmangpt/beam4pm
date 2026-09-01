@@ -135,6 +135,12 @@ bash scripts/pro_license_sync.sh
 bash scripts/pro_doctor_sync.sh
 bash scripts/pro_tenancy_sync.sh
 
+# Transplants from ex4pm/xaas: per-record-type doc fan-out (--for-each,
+# xaas precedent). AshAi tools and the anti-overclaiming lint gate live in
+# hand-authorable surfaces (mix.exs, scripts/, .github/) with no
+# manufactured-file component, so they need no sync-script entry here.
+bash scripts/pro_type_pages_sync.sh
+
 # Restore the stashed hand-authored tests now that every manufactured
 # module they depend on is real again (also happens automatically via the
 # EXIT trap on any earlier failure -- calling it explicitly here too just
