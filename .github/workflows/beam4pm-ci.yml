@@ -75,6 +75,11 @@ jobs:
         run: |
           mix deps.get
 
+      - name: Static overclaiming-phrase lint (GATE LINT-TRUTH)
+        shell: bash
+        run: |
+          bash scripts/gate_lint_truth.sh
+
       - name: mix test
         shell: bash
         run: |

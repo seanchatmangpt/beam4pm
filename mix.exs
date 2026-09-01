@@ -36,6 +36,7 @@ defmodule Beam4pm.MixProject do
     [
       {:ggen_igniter, "~> 26.8", only: [:dev, :test], runtime: false},
       {:ash, "~> 3.0"},
+      {:ash_ai, "~> 0.8"},
       {:wasmex, "~> 0.15"}
     ]
   end

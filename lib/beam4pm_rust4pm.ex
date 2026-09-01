@@ -661,3 +661,82 @@ defmodule BeamPM.Rust4PM do
 
   defp timeout(opts, default), do: Keyword.get(opts, :timeout, default)
 end
+
+defmodule BeamPM.Rust4PM.Health do
+  @moduledoc """
+  A single-candidate engine-health status probe, the shape of
+  `Ex4pm.Engine.Registry.candidates/2` (ex4pm's multi-candidate `%Capability{}`
+  list) collapsed to beam4pm's real situation: exactly one engine
+  (`BeamPM.Rust4PM`, rust4pm compiled to wasm32-wasip1), never more.
+
+  Deliberately NOT a `select/2` with a `preference/1` fallback ranking --
+  that machinery presupposes more than one real candidate to choose
+  between, which the standing "rust4pm WASM only" directive rules out for
+  this project. What transplants from ex4pm is only the narrower idea: a
+  typed, structured answer to "is the one engine we have actually alive
+  right now," checked for real (artifact on disk AND the engine process
+  can actually start), not discovered only at the first real call.
+  """
+
+  @type standing :: :alive | :blocked
+  @type status :: %{
+          id: :rust4pm_wasm,
+          kind: :engine,
+          standing: standing(),
+          reason: String.t() | nil,
+          evidence: %{wasm_path: String.t(), artifact_present: boolean(), engine_started: boolean() | nil}
+        }
+
+  @doc """
+  Real health check: confirms the wasm artifact exists on disk AND that
+  the engine can actually start (or is already started) -- an artifact
+  existing on disk with a broken/corrupt binary would otherwise silently
+  read as healthy until the first real call.
+  """
+  @spec status() :: status()
+  def status do
+    artifact_present = BeamPM.Rust4PM.wasm_built?()
+
+    if artifact_present do
+      case BeamPM.Rust4PM.start() do
+        {:ok, _pid} ->
+          %{
+            id: :rust4pm_wasm,
+            kind: :engine,
+            standing: :alive,
+            reason: nil,
+            evidence: %{
+              wasm_path: BeamPM.Rust4PM.wasm_path(),
+              artifact_present: true,
+              engine_started: true
+            }
+          }
+
+        {:error, reason} ->
+          %{
+            id: :rust4pm_wasm,
+            kind: :engine,
+            standing: :blocked,
+            reason: "artifact present but engine failed to start: #{inspect(reason)}",
+            evidence: %{
+              wasm_path: BeamPM.Rust4PM.wasm_path(),
+              artifact_present: true,
+              engine_started: false
+            }
+          }
+      end
+    else
+      %{
+        id: :rust4pm_wasm,
+        kind: :engine,
+        standing: :blocked,
+        reason: BeamPM.Rust4PM.wasm_missing_reason(),
+        evidence: %{
+          wasm_path: BeamPM.Rust4PM.wasm_path(),
+          artifact_present: false,
+          engine_started: nil
+        }
+      }
+    end
+  end
+end
