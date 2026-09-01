@@ -2261,18 +2261,7 @@ bpma:AdmittedActuation a rdfs:Class ;
 #
 # bpm:RecordType (beam4pm-process-model-pack/ontology.ttl:13-15) is a
 # META-CLASS describing record SHAPES ("One admitted BEAM record/struct type
-# projected into gen…4935 tokens truncated…; bpm:fieldType "string" ;
-    bpm:fieldDoc "The metered dimension this total is for. Second component of the reconciliation partition key; totals are never summed across metrics." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
-
-b4pe:billing_reconciliation_total_quantity_f a bpm:Field ;
-    bpm:fieldName "total_quantity" ; bpm:fieldType "float" ;
-    bpm:fieldDoc "The billable total: the sum of quantity over the distinct events named in applied_event_ids, accumulated in that list's ascending event_id order. The fixed summation order is load-bearing, not incidental -- float addition is non-associative, so only a canonical order makes the total bit-identical across arrival orders and across replays. Recomputable by any third party from applied_event_ids plus the usage_event store, which is what makes this a receipt rather than a claim." ;
-    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
-
-b4pe:billing_reconciliation_applied_event_ids_f a bpm:Field ;
-    bpm:fieldName "applied_event_ids" ; bpm:fieldType "list_string" ;
-    bpm:fieldDoc "The exact deduplicated evidence set behind total_quantity: every usage_event.event_id counted, sorted ascending, with no duplicates. This is the dedup contract made auditable -- |applied_event_ids| is the honest count of billed occurrences, and any event_id appearing at most once here is a mechanically checkable falsifier for MP6 double-billing." ;
+# projected into generate…5235 tokens truncated…p contract made auditable -- |applied_event_ids| is the honest count of billed occurrences, and any event_id appearing at most once here is a mechanically checkable falsifier for MP6 double-billing." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
 b4pe:billing_reconciliation_period_start_f a bpm:Field ;
@@ -4012,5 +4001,29 @@ b4p:replay_environment_identity_environment_id_f a bpm:Field ;
 
 b4p:replay_environment_identity_identity_hash_f a bpm:Field ;
     bpm:fieldName "identity_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-REV-026 — forged_receipt_refusal
+b4p:forged_receipt_refusal_rt a bpm:RecordType ;
+    bpm:recordName "forged_receipt_refusal" ;
+    bpm:recordDoc "Produces typed refusal evidence when a runtime receipt signature or subject binding is forged." ;
+    bpm:hasField b4p:forged_receipt_refusal_tenant_id_f,
+                 b4p:forged_receipt_refusal_receipt_id_f,
+                 b4p:forged_receipt_refusal_refusal_hash_f .
+
+b4p:forged_receipt_refusal_tenant_id_f a bpm:Field ;
+    bpm:fieldName "tenant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact paid tenant identity for this bounded runtime observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:forged_receipt_refusal_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact runtime subject identity required for independent verification and replay." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:forged_receipt_refusal_refusal_hash_f a bpm:Field ;
+    bpm:fieldName "refusal_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
