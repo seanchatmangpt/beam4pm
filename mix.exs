@@ -34,7 +34,11 @@ defmodule Beam4pm.MixProject do
   # manufacturing-time dep like :ggen_igniter.
   defp deps do
     [
-      {:ggen_igniter, "~> 26.8", only: [:dev, :test], runtime: false},
+      # TEMPORARY override for GI-06 trial: exercise the unmerged
+      # story/GI-05-fortune5-ready-mix-task branch's fortune5_ready task
+      # against this isolated worktree only. Never committed to beam4pm's
+      # real mix.exs -- this file lives only in this GI-06 worktree.
+      {:ggen_igniter, path: "/private/tmp/GI-04-worktree", only: [:dev, :test], runtime: false, override: true},
       {:ash, "~> 3.0"},
       {:ash_ai, "~> 0.8"},
       {:wasmex, "~> 0.15"}
