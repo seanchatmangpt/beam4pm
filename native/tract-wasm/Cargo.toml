@@ -1,0 +1,23 @@
+# tract-wasm: a real ONNX-inference engine (sonos/tract, the crate
+# Wasmtime's own WASI-NN implementation itself uses for exactly this
+# target) compiled to wasm32-wasip1 and hosted inside BEAM via wasmex --
+# a third BEAM-hosted engine alongside rust4pm-wasm (process mining) and
+# petgraph-wasm (graph algorithms). Hand-authored manufacturing input, not
+# ggen pack-template output.
+[package]
+name = "tract-wasm"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+tract-onnx = "0.21"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+base64 = "0.22"
+
+[profile.release]
+opt-level = "s"
+lto = true
