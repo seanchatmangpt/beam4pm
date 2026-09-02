@@ -84,11 +84,62 @@ restore_stash() {
   done
   rmdir "$STASH_DIR" 2>/dev/null || true
 }
+
+# BACKUP_DIR holds a real copy of every manufactured file (before_files),
+# PLUS ggen.lock (deleted unconditionally by pass 3 below but not itself
+# marker-tagged, so it is not part of before_files), taken BEFORE deletion
+# -- so a delete-then-regenerate that fails partway through (either engine)
+# can be rolled back to a byte-identical working tree instead of leaving
+# files deleted-and-never-regenerated. This is the real root-cause fix for
+# the GATE M2 destructive-deletion defect: the ggen_igniter leg
+# (scripts/igniter_sync.sh) writes lib/beam4pm_ash.ex via
+# `mix ggen_igniter.sync --out lib/beam4pm_ash.ex`, then immediately runs
+# `mix compile --warnings-as-errors` / `mix test` as its OWN internal
+# verification step. If `mix ggen_igniter.sync` itself fails (oxigraph
+# Rustler NIF build failure, a bad ontology/query/template combination, a
+# transient toolchain/docker issue on the primary ggen leg) the affected
+# file is never (re)written -- but pass 3 above had already deleted the
+# pre-existing copy. Under `set -e` that failure propagates straight to
+# this script's exit with 320+ manufactured files (lib/beam4pm_ash.ex among
+# them) missing from the working tree and no automatic recovery.
+# BACKUP_DIR + restore_manufactured below close that gap: ANY non-zero exit
+# restores every before_files entry (and ggen.lock) from BACKUP_DIR,
+# verified by `git status --short` being identical before/after a FAILING
+# run, not just a successful one.
+BACKUP_DIR="$(mktemp -d)"
+for f in "${before_files[@]}"; do
+  mkdir -p "$BACKUP_DIR/$(dirname "$f")"
+  cp -p "$f" "$BACKUP_DIR/$f"
+done
+[ -f ggen.lock ] && cp -p ggen.lock "$BACKUP_DIR/ggen.lock"
+
+restore_manufactured() {
+  # Only fires on a non-zero exit (see the trap below) -- a successful run
+  # regenerates every before_files entry for real via the sync scripts and
+  # pass 4 proves byte-identity, so restoring from backup on success would
+  # just silently discard the sync scripts' real regenerated output.
+  echo "GATE M2: regenerate step failed -- restoring ${#before_files[@]} manufactured files (+ggen.lock) from pre-delete backup" >&2
+  for f in "${before_files[@]}"; do
+    mkdir -p "$(dirname "$f")"
+    cp -p "$BACKUP_DIR/$f" "$f"
+  done
+  [ -f "$BACKUP_DIR/ggen.lock" ] && cp -p "$BACKUP_DIR/ggen.lock" ggen.lock
+}
+
+on_exit() {
+  status=$?
+  if [ "$status" -ne 0 ]; then
+    restore_manufactured
+  fi
+  restore_stash
+  rm -rf "$BACKUP_DIR"
+  exit "$status"
+}
 # Restore on ANY exit, not just the happy path -- an earlier round of
 # debugging this exact script left manufactured files deleted-and-never-
 # regenerated when a sync script aborted mid-sequence; a bare stash without
 # this trap would reproduce the same class of self-inflicted damage here.
-trap restore_stash EXIT
+trap on_exit EXIT
 for f in "${HAND_AUTHORED_DEPENDENT_TESTS[@]}"; do
   [ -f "$f" ] && mv "$f" "$STASH_DIR/$(basename "$f")"
 done
@@ -151,7 +202,13 @@ bash scripts/pro_type_pages_sync.sh
 # EXIT trap on any earlier failure -- calling it explicitly here too just
 # means it runs before pass 4 rather than after this script exits).
 restore_stash
+# Every sync script above completed with exit 0 -- the working tree now
+# holds real regenerated output, not a partial delete. Disarm the failure
+# trap (from this point on, a pass-4 hash mismatch is a real determinism
+# bug to report, never a destructive-deletion event to roll back) and drop
+# the now-unneeded pre-delete backup.
 trap - EXIT
+rm -rf "$BACKUP_DIR"
 
 echo "== pass 4: sha256 after regeneration =="
 mapfile -t after_files < <(find_manufactured)
