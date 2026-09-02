@@ -3443,6 +3443,86 @@ defmodule BeamPM.Ash.Resources.PolicyDecision do
   end
 end
 
+defmodule BeamPM.Ash.Resources.PowlChoiceGraphEdge do
+  @moduledoc "One directed edge of a ChoiceGraphNode.edges set over ChoiceGraphEndpoint (Start | Child(usize) | End); may be cyclic (a self-loop Child(i)->Child(i) is a POWL 1.0-style loop over a single child, generalized)."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :from_kind, :atom, public?: true, allow_nil?: false
+    attribute :from_child_index, :integer, public?: true
+    attribute :to_kind, :atom, public?: true, allow_nil?: false
+    attribute :to_child_index, :integer, public?: true
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.PowlFreq do
+  @moduledoc "A POWL node's multiplicity/frequency tag (Freq): how many times it may occur."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :min_freq, :integer, public?: true, allow_nil?: false
+    attribute :max_freq, :integer, public?: true
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.PowlLeaf do
+  @moduledoc "A POWL leaf activity (PowlLeaf): a silent or non-silent activity carrying its own frequency tag, flattened for wire transport."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :activity_label, :string, public?: true
+    attribute :is_tau, :boolean, public?: true, allow_nil?: false
+    attribute :min_freq, :integer, public?: true, allow_nil?: false
+    attribute :max_freq, :integer, public?: true
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
+defmodule BeamPM.Ash.Resources.PowlPartialOrderEdge do
+  @moduledoc "One strict order edge of a PartialOrderNode.order set: from_index must happen before to_index among the parent node's children."
+  use Ash.Resource,
+    domain: BeamPM.Ash.Domain,
+    data_layer: Ash.DataLayer.Ets,
+    validate_domain_inclusion?: false
+
+  attributes do
+    uuid_primary_key :id
+    attribute :from_index, :integer, public?: true, allow_nil?: false
+    attribute :to_index, :integer, public?: true, allow_nil?: false
+  end
+
+  actions do
+    default_accept :*
+    defaults [:create, :read]
+  end
+end
+
 defmodule BeamPM.Ash.Resources.PricingBasisContract do
   @moduledoc "Binds the opportunity to an exact pricing basis and evidence identity before quote construction."
   use Ash.Resource,
@@ -6092,6 +6172,10 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.PocScope
     resource BeamPM.Ash.Resources.PocTimeline
     resource BeamPM.Ash.Resources.PolicyDecision
+    resource BeamPM.Ash.Resources.PowlChoiceGraphEdge
+    resource BeamPM.Ash.Resources.PowlFreq
+    resource BeamPM.Ash.Resources.PowlLeaf
+    resource BeamPM.Ash.Resources.PowlPartialOrderEdge
     resource BeamPM.Ash.Resources.PricingBasisContract
     resource BeamPM.Ash.Resources.PrivacyClassificationEvidence
     resource BeamPM.Ash.Resources.PrivateOffer

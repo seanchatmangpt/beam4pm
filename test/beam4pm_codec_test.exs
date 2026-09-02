@@ -6702,6 +6702,191 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:policy_decision, m)
   end
 
+  test "powl_choice_graph_edge to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      from_kind: :sample_atom,
+      from_child_index: 42,
+      to_kind: :sample_atom,
+      to_child_index: 42
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlChoiceGraphEdge.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["from_kind"] == "sample_atom"
+    assert m["from_child_index"] == 42
+    assert m["to_kind"] == "sample_atom"
+    assert m["to_child_index"] == 42
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:powl_choice_graph_edge, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:powl_choice_graph_edge, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "powl_choice_graph_edge encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      from_kind: :sample_atom,
+      from_child_index: 42,
+      to_kind: :sample_atom,
+      to_child_index: 42
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlChoiceGraphEdge.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:powl_choice_graph_edge, json)
+  end
+
+  test "powl_choice_graph_edge from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :from_kind}} =
+             BeamPM.Codec.from_map(:powl_choice_graph_edge, %{})
+  end
+
+  test "powl_choice_graph_edge to_map omits nil optional fields (minimal variant roundtrip)" do
+    attrs = %{
+      from_kind: :sample_atom,
+      to_kind: :sample_atom
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlChoiceGraphEdge.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    refute Map.has_key?(m, "from_child_index")
+    refute Map.has_key?(m, "to_child_index")
+    assert map_size(m) == 2
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:powl_choice_graph_edge, m)
+  end
+
+  test "powl_freq to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      min_freq: 42,
+      max_freq: 42
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlFreq.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["min_freq"] == 42
+    assert m["max_freq"] == 42
+    assert map_size(m) == 2
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:powl_freq, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:powl_freq, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "powl_freq encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      min_freq: 42,
+      max_freq: 42
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlFreq.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:powl_freq, json)
+  end
+
+  test "powl_freq from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :min_freq}} =
+             BeamPM.Codec.from_map(:powl_freq, %{})
+  end
+
+  test "powl_freq to_map omits nil optional fields (minimal variant roundtrip)" do
+    attrs = %{
+      min_freq: 42
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlFreq.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    refute Map.has_key?(m, "max_freq")
+    assert map_size(m) == 1
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:powl_freq, m)
+  end
+
+  test "powl_leaf to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      activity_label: "sample_activity_label",
+      is_tau: true,
+      min_freq: 42,
+      max_freq: 42
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlLeaf.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["activity_label"] == "sample_activity_label"
+    assert m["is_tau"] == true
+    assert m["min_freq"] == 42
+    assert m["max_freq"] == 42
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:powl_leaf, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:powl_leaf, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "powl_leaf encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      activity_label: "sample_activity_label",
+      is_tau: true,
+      min_freq: 42,
+      max_freq: 42
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlLeaf.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:powl_leaf, json)
+  end
+
+  test "powl_leaf from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :is_tau}} =
+             BeamPM.Codec.from_map(:powl_leaf, %{})
+  end
+
+  test "powl_leaf to_map omits nil optional fields (minimal variant roundtrip)" do
+    attrs = %{
+      is_tau: true,
+      min_freq: 42
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlLeaf.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    refute Map.has_key?(m, "activity_label")
+    refute Map.has_key?(m, "max_freq")
+    assert map_size(m) == 2
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:powl_leaf, m)
+  end
+
+  test "powl_partial_order_edge to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      from_index: 42,
+      to_index: 42
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlPartialOrderEdge.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["from_index"] == 42
+    assert m["to_index"] == 42
+    assert map_size(m) == 2
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:powl_partial_order_edge, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:powl_partial_order_edge, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "powl_partial_order_edge encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      from_index: 42,
+      to_index: 42
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlPartialOrderEdge.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:powl_partial_order_edge, json)
+  end
+
+  test "powl_partial_order_edge from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :from_index}} =
+             BeamPM.Codec.from_map(:powl_partial_order_edge, %{})
+  end
+
+
   test "pricing_basis_contract to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",

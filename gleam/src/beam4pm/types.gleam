@@ -2247,6 +2247,54 @@ pub type PolicyDecision {
   )
 }
 
+/// One directed edge of a ChoiceGraphNode.edges set over ChoiceGraphEndpoint (Start | Child(usize) | End); may be cyclic (a self-loop Child(i)->Child(i) is a POWL 1.0-style loop over a single child, generalized).
+pub type PowlChoiceGraphEdge {
+  PowlChoiceGraphEdge(
+    /// The edge source endpoint kind: start | child | end (ChoiceGraphEndpoint variant tag; start has no incoming edges, end has no outgoing edges per Def. 3.6).
+    from_kind: String,
+    /// Index into the parent ChoiceGraphNode's children when from_kind is child; absent otherwise.
+    from_child_index: option.Option(Int),
+    /// The edge target endpoint kind: start | child | end.
+    to_kind: String,
+    /// Index into the parent ChoiceGraphNode's children when to_kind is child; absent otherwise.
+    to_child_index: option.Option(Int),
+  )
+}
+
+/// A POWL node's multiplicity/frequency tag (Freq): how many times it may occur.
+pub type PowlFreq {
+  PowlFreq(
+    /// Minimum occurrence count; 0 means the node is skippable.
+    min_freq: Int,
+    /// Maximum occurrence count; absent means unbounded.
+    max_freq: option.Option(Int),
+  )
+}
+
+/// A POWL leaf activity (PowlLeaf): a silent or non-silent activity carrying its own frequency tag, flattened for wire transport.
+pub type PowlLeaf {
+  PowlLeaf(
+    /// The activity name; absent when is_tau is true (a silent leaf).
+    activity_label: option.Option(String),
+    /// True iff this leaf is a silent (tau) activity, i.e. Leaf::activity_label was LeafLabel::Tau rather than LeafLabel::Activity.
+    is_tau: Bool,
+    /// This leaf's Freq.min_freq, flattened onto the leaf record.
+    min_freq: Int,
+    /// This leaf's Freq.max_freq, flattened onto the leaf record; absent means unbounded.
+    max_freq: option.Option(Int),
+  )
+}
+
+/// One strict order edge of a PartialOrderNode.order set: from_index must happen before to_index among the parent node's children.
+pub type PowlPartialOrderEdge {
+  PowlPartialOrderEdge(
+    /// Index into the parent PartialOrderNode's children that must happen first.
+    from_index: Int,
+    /// Index into the parent PartialOrderNode's children that must happen after from_index.
+    to_index: Int,
+  )
+}
+
 /// Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
 pub type PricingBasisContract {
   PricingBasisContract(

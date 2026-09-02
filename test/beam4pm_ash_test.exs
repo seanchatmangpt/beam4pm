@@ -3568,6 +3568,86 @@ defmodule BeamPM.AshGeneratedTest do
     assert read_back.reason == "sample_reason"
   end
 
+  test "powl_choice_graph_edge: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        from_kind: :sample_atom,
+        from_child_index: 42,
+        to_kind: :sample_atom,
+        to_child_index: 42
+      }
+
+    created =
+      BeamPM.Ash.Resources.PowlChoiceGraphEdge
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.PowlChoiceGraphEdge)
+    assert read_back.id == created.id
+    assert read_back.from_kind == :sample_atom
+    assert read_back.from_child_index == 42
+    assert read_back.to_kind == :sample_atom
+    assert read_back.to_child_index == 42
+  end
+
+  test "powl_freq: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        min_freq: 42,
+        max_freq: 42
+      }
+
+    created =
+      BeamPM.Ash.Resources.PowlFreq
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.PowlFreq)
+    assert read_back.id == created.id
+    assert read_back.min_freq == 42
+    assert read_back.max_freq == 42
+  end
+
+  test "powl_leaf: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        activity_label: "sample_activity_label",
+        is_tau: true,
+        min_freq: 42,
+        max_freq: 42
+      }
+
+    created =
+      BeamPM.Ash.Resources.PowlLeaf
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.PowlLeaf)
+    assert read_back.id == created.id
+    assert read_back.activity_label == "sample_activity_label"
+    assert read_back.is_tau == true
+    assert read_back.min_freq == 42
+    assert read_back.max_freq == 42
+  end
+
+  test "powl_partial_order_edge: real Ash ETS create/read round-trips every field" do
+    params =
+      %{
+        from_index: 42,
+        to_index: 42
+      }
+
+    created =
+      BeamPM.Ash.Resources.PowlPartialOrderEdge
+      |> Ash.Changeset.for_create(:create, params)
+      |> Ash.create!()
+
+    [read_back] = Ash.read!(BeamPM.Ash.Resources.PowlPartialOrderEdge)
+    assert read_back.id == created.id
+    assert read_back.from_index == 42
+    assert read_back.to_index == 42
+  end
+
   test "pricing_basis_contract: real Ash ETS create/read round-trips every field" do
     params =
       %{

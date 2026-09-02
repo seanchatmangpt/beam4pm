@@ -4836,6 +4836,109 @@ defmodule BeamPM.Types.PolicyDecision do
   end
 end
 
+defmodule BeamPM.Types.PowlChoiceGraphEdge do
+  @moduledoc "One directed edge of a ChoiceGraphNode.edges set over ChoiceGraphEndpoint (Start | Child(usize) | End); may be cyclic (a self-loop Child(i)->Child(i) is a POWL 1.0-style loop over a single child, generalized)."
+
+  defstruct [:from_kind, :from_child_index, :to_kind, :to_child_index]
+
+  @type t :: %__MODULE__{
+    from_kind: atom() | nil,
+    from_child_index: integer() | nil,
+    to_kind: atom() | nil,
+    to_child_index: integer() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :from_kind) -> {:error, {:missing_field, :from_kind}}
+      not Map.has_key?(attrs, :to_kind) -> {:error, {:missing_field, :to_kind}}
+      true ->
+        {:ok, %__MODULE__{
+          from_kind: Map.get(attrs, :from_kind),
+          from_child_index: Map.get(attrs, :from_child_index),
+          to_kind: Map.get(attrs, :to_kind),
+          to_child_index: Map.get(attrs, :to_child_index)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PowlFreq do
+  @moduledoc "A POWL node's multiplicity/frequency tag (Freq): how many times it may occur."
+
+  defstruct [:min_freq, :max_freq]
+
+  @type t :: %__MODULE__{
+    min_freq: integer() | nil,
+    max_freq: integer() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :min_freq) -> {:error, {:missing_field, :min_freq}}
+      true ->
+        {:ok, %__MODULE__{
+          min_freq: Map.get(attrs, :min_freq),
+          max_freq: Map.get(attrs, :max_freq)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PowlLeaf do
+  @moduledoc "A POWL leaf activity (PowlLeaf): a silent or non-silent activity carrying its own frequency tag, flattened for wire transport."
+
+  defstruct [:activity_label, :is_tau, :min_freq, :max_freq]
+
+  @type t :: %__MODULE__{
+    activity_label: String.t() | nil,
+    is_tau: boolean() | nil,
+    min_freq: integer() | nil,
+    max_freq: integer() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :is_tau) -> {:error, {:missing_field, :is_tau}}
+      not Map.has_key?(attrs, :min_freq) -> {:error, {:missing_field, :min_freq}}
+      true ->
+        {:ok, %__MODULE__{
+          activity_label: Map.get(attrs, :activity_label),
+          is_tau: Map.get(attrs, :is_tau),
+          min_freq: Map.get(attrs, :min_freq),
+          max_freq: Map.get(attrs, :max_freq)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PowlPartialOrderEdge do
+  @moduledoc "One strict order edge of a PartialOrderNode.order set: from_index must happen before to_index among the parent node's children."
+
+  defstruct [:from_index, :to_index]
+
+  @type t :: %__MODULE__{
+    from_index: integer() | nil,
+    to_index: integer() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :from_index) -> {:error, {:missing_field, :from_index}}
+      not Map.has_key?(attrs, :to_index) -> {:error, {:missing_field, :to_index}}
+      true ->
+        {:ok, %__MODULE__{
+          from_index: Map.get(attrs, :from_index),
+          to_index: Map.get(attrs, :to_index)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PricingBasisContract do
   @moduledoc "Binds the opportunity to an exact pricing basis and evidence identity before quote construction."
 

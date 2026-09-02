@@ -176,6 +176,10 @@
     beam4pm_types:poc_scope() |
     beam4pm_types:poc_timeline() |
     beam4pm_types:policy_decision() |
+    beam4pm_types:powl_choice_graph_edge() |
+    beam4pm_types:powl_freq() |
+    beam4pm_types:powl_leaf() |
+    beam4pm_types:powl_partial_order_edge() |
     beam4pm_types:pricing_basis_contract() |
     beam4pm_types:privacy_classification_evidence() |
     beam4pm_types:private_offer() |
@@ -1418,6 +1422,30 @@ to_map(R) when element(1, R) =:= policy_decision ->
         {<<"decision_id">>, plain, element(2, R)},
         {<<"verdict">>, atom, element(3, R)},
         {<<"reason">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= powl_choice_graph_edge ->
+    pairs_to_map([
+        {<<"from_kind">>, atom, element(2, R)},
+        {<<"from_child_index">>, plain, element(3, R)},
+        {<<"to_kind">>, atom, element(4, R)},
+        {<<"to_child_index">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= powl_freq ->
+    pairs_to_map([
+        {<<"min_freq">>, plain, element(2, R)},
+        {<<"max_freq">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= powl_leaf ->
+    pairs_to_map([
+        {<<"activity_label">>, plain, element(2, R)},
+        {<<"is_tau">>, plain, element(3, R)},
+        {<<"min_freq">>, plain, element(4, R)},
+        {<<"max_freq">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= powl_partial_order_edge ->
+    pairs_to_map([
+        {<<"from_index">>, plain, element(2, R)},
+        {<<"to_index">>, plain, element(3, R)}
     ]);
 to_map(R) when element(1, R) =:= pricing_basis_contract ->
     pairs_to_map([
@@ -3346,6 +3374,30 @@ from_map(policy_decision, Map) when is_map(Map) ->
         {<<"decision_id">>, decision_id, plain},
         {<<"verdict">>, verdict, atom},
         {<<"reason">>, reason, plain}
+    ]));
+from_map(powl_choice_graph_edge, Map) when is_map(Map) ->
+    beam4pm_types:new_powl_choice_graph_edge(take_known(Map, [
+        {<<"from_kind">>, from_kind, atom},
+        {<<"from_child_index">>, from_child_index, plain},
+        {<<"to_kind">>, to_kind, atom},
+        {<<"to_child_index">>, to_child_index, plain}
+    ]));
+from_map(powl_freq, Map) when is_map(Map) ->
+    beam4pm_types:new_powl_freq(take_known(Map, [
+        {<<"min_freq">>, min_freq, plain},
+        {<<"max_freq">>, max_freq, plain}
+    ]));
+from_map(powl_leaf, Map) when is_map(Map) ->
+    beam4pm_types:new_powl_leaf(take_known(Map, [
+        {<<"activity_label">>, activity_label, plain},
+        {<<"is_tau">>, is_tau, plain},
+        {<<"min_freq">>, min_freq, plain},
+        {<<"max_freq">>, max_freq, plain}
+    ]));
+from_map(powl_partial_order_edge, Map) when is_map(Map) ->
+    beam4pm_types:new_powl_partial_order_edge(take_known(Map, [
+        {<<"from_index">>, from_index, plain},
+        {<<"to_index">>, to_index, plain}
     ]));
 from_map(pricing_basis_contract, Map) when is_map(Map) ->
     beam4pm_types:new_pricing_basis_contract(take_known(Map, [

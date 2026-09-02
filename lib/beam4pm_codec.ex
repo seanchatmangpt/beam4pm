@@ -1465,6 +1465,38 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.PowlChoiceGraphEdge{} = r) do
+    to_known_map([
+      {"from_kind", r.from_kind, :atom},
+      {"from_child_index", r.from_child_index, :passthrough},
+      {"to_kind", r.to_kind, :atom},
+      {"to_child_index", r.to_child_index, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PowlFreq{} = r) do
+    to_known_map([
+      {"min_freq", r.min_freq, :passthrough},
+      {"max_freq", r.max_freq, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PowlLeaf{} = r) do
+    to_known_map([
+      {"activity_label", r.activity_label, :passthrough},
+      {"is_tau", r.is_tau, :passthrough},
+      {"min_freq", r.min_freq, :passthrough},
+      {"max_freq", r.max_freq, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PowlPartialOrderEdge{} = r) do
+    to_known_map([
+      {"from_index", r.from_index, :passthrough},
+      {"to_index", r.to_index, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.PricingBasisContract{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -4617,6 +4649,54 @@ defmodule BeamPM.Codec do
         {"reason", :reason, :passthrough}
       ],
       &BeamPM.Types.PolicyDecision.new/1
+    )
+  end
+
+  def from_map(:powl_choice_graph_edge, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"from_kind", :from_kind, :atom},
+        {"from_child_index", :from_child_index, :passthrough},
+        {"to_kind", :to_kind, :atom},
+        {"to_child_index", :to_child_index, :passthrough}
+      ],
+      &BeamPM.Types.PowlChoiceGraphEdge.new/1
+    )
+  end
+
+  def from_map(:powl_freq, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"min_freq", :min_freq, :passthrough},
+        {"max_freq", :max_freq, :passthrough}
+      ],
+      &BeamPM.Types.PowlFreq.new/1
+    )
+  end
+
+  def from_map(:powl_leaf, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"activity_label", :activity_label, :passthrough},
+        {"is_tau", :is_tau, :passthrough},
+        {"min_freq", :min_freq, :passthrough},
+        {"max_freq", :max_freq, :passthrough}
+      ],
+      &BeamPM.Types.PowlLeaf.new/1
+    )
+  end
+
+  def from_map(:powl_partial_order_edge, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"from_index", :from_index, :passthrough},
+        {"to_index", :to_index, :passthrough}
+      ],
+      &BeamPM.Types.PowlPartialOrderEdge.new/1
     )
   end
 

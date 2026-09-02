@@ -15,7 +15,7 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(285, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(289, length(beam4pm_types_manifest:record_names())).
 
 account_discovery_fields_test() ->
     ?assertEqual([account_discovery_id, account_id, discovery_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(account_discovery)).
@@ -514,6 +514,18 @@ poc_timeline_fields_test() ->
 
 policy_decision_fields_test() ->
     ?assertEqual([decision_id, verdict, reason], beam4pm_types_manifest:fields(policy_decision)).
+
+powl_choice_graph_edge_fields_test() ->
+    ?assertEqual([from_kind, from_child_index, to_kind, to_child_index], beam4pm_types_manifest:fields(powl_choice_graph_edge)).
+
+powl_freq_fields_test() ->
+    ?assertEqual([min_freq, max_freq], beam4pm_types_manifest:fields(powl_freq)).
+
+powl_leaf_fields_test() ->
+    ?assertEqual([activity_label, is_tau, min_freq, max_freq], beam4pm_types_manifest:fields(powl_leaf)).
+
+powl_partial_order_edge_fields_test() ->
+    ?assertEqual([from_index, to_index], beam4pm_types_manifest:fields(powl_partial_order_edge)).
 
 pricing_basis_contract_fields_test() ->
     ?assertEqual([opportunity_id, pricing_basis_id, evidence_hash], beam4pm_types_manifest:fields(pricing_basis_contract)).

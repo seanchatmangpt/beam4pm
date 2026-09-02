@@ -180,6 +180,10 @@ record_names() ->
         poc_scope,
         poc_timeline,
         policy_decision,
+        powl_choice_graph_edge,
+        powl_freq,
+        powl_leaf,
+        powl_partial_order_edge,
         pricing_basis_contract,
         privacy_classification_evidence,
         private_offer,
@@ -2529,6 +2533,49 @@ sample(policy_decision, minimal) ->
     beam4pm_types:new_policy_decision(#{
         decision_id => <<"sample_decision_id">>,
         verdict => sample_atom
+    });
+sample(powl_choice_graph_edge, full) ->
+    beam4pm_types:new_powl_choice_graph_edge(#{
+        from_kind => sample_atom,
+        from_child_index => 42,
+        to_kind => sample_atom,
+        to_child_index => 42
+    });
+sample(powl_choice_graph_edge, minimal) ->
+    beam4pm_types:new_powl_choice_graph_edge(#{
+        from_kind => sample_atom,
+        to_kind => sample_atom
+    });
+sample(powl_freq, full) ->
+    beam4pm_types:new_powl_freq(#{
+        min_freq => 42,
+        max_freq => 42
+    });
+sample(powl_freq, minimal) ->
+    beam4pm_types:new_powl_freq(#{
+        min_freq => 42
+    });
+sample(powl_leaf, full) ->
+    beam4pm_types:new_powl_leaf(#{
+        activity_label => <<"sample_activity_label">>,
+        is_tau => true,
+        min_freq => 42,
+        max_freq => 42
+    });
+sample(powl_leaf, minimal) ->
+    beam4pm_types:new_powl_leaf(#{
+        is_tau => true,
+        min_freq => 42
+    });
+sample(powl_partial_order_edge, full) ->
+    beam4pm_types:new_powl_partial_order_edge(#{
+        from_index => 42,
+        to_index => 42
+    });
+sample(powl_partial_order_edge, minimal) ->
+    beam4pm_types:new_powl_partial_order_edge(#{
+        from_index => 42,
+        to_index => 42
     });
 sample(pricing_basis_contract, full) ->
     beam4pm_types:new_pricing_basis_contract(#{

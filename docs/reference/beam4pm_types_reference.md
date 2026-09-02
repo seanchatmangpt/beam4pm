@@ -1785,6 +1785,46 @@
 | `verdict` | `atom` | true | One of: admitted \| refused \| blocked. |
 | `reason` | `string` | false | Optional human-readable reason for this verdict. |
 
+## powl_choice_graph_edge
+
+> One directed edge of a ChoiceGraphNode.edges set over ChoiceGraphEndpoint (Start \| Child(usize) \| End); may be cyclic (a self-loop Child(i)->Child(i) is a POWL 1.0-style loop over a single child, generalized).
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `from_kind` | `atom` | true | The edge source endpoint kind: start \| child \| end (ChoiceGraphEndpoint variant tag; start has no incoming edges, end has no outgoing edges per Def. 3.6). |
+| `from_child_index` | `integer` | false | Index into the parent ChoiceGraphNode's children when from_kind is child; absent otherwise. |
+| `to_kind` | `atom` | true | The edge target endpoint kind: start \| child \| end. |
+| `to_child_index` | `integer` | false | Index into the parent ChoiceGraphNode's children when to_kind is child; absent otherwise. |
+
+## powl_freq
+
+> A POWL node's multiplicity/frequency tag (Freq): how many times it may occur.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `min_freq` | `integer` | true | Minimum occurrence count; 0 means the node is skippable. |
+| `max_freq` | `integer` | false | Maximum occurrence count; absent means unbounded. |
+
+## powl_leaf
+
+> A POWL leaf activity (PowlLeaf): a silent or non-silent activity carrying its own frequency tag, flattened for wire transport.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `activity_label` | `string` | false | The activity name; absent when is_tau is true (a silent leaf). |
+| `is_tau` | `boolean` | true | True iff this leaf is a silent (tau) activity, i.e. Leaf::activity_label was LeafLabel::Tau rather than LeafLabel::Activity. |
+| `min_freq` | `integer` | true | This leaf's Freq.min_freq, flattened onto the leaf record. |
+| `max_freq` | `integer` | false | This leaf's Freq.max_freq, flattened onto the leaf record; absent means unbounded. |
+
+## powl_partial_order_edge
+
+> One strict order edge of a PartialOrderNode.order set: from_index must happen before to_index among the parent node's children.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `from_index` | `integer` | true | Index into the parent PartialOrderNode's children that must happen first. |
+| `to_index` | `integer` | true | Index into the parent PartialOrderNode's children that must happen after from_index. |
+
 ## pricing_basis_contract
 
 > Binds the opportunity to an exact pricing basis and evidence identity before quote construction.

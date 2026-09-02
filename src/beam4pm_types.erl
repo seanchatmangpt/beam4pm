@@ -169,6 +169,10 @@
     new_poc_scope/1,
     new_poc_timeline/1,
     new_policy_decision/1,
+    new_powl_choice_graph_edge/1,
+    new_powl_freq/1,
+    new_powl_leaf/1,
+    new_powl_partial_order_edge/1,
     new_pricing_basis_contract/1,
     new_privacy_classification_evidence/1,
     new_private_offer/1,
@@ -457,6 +461,10 @@
     poc_scope/0,
     poc_timeline/0,
     policy_decision/0,
+    powl_choice_graph_edge/0,
+    powl_freq/0,
+    powl_leaf/0,
+    powl_partial_order_edge/0,
     pricing_basis_contract/0,
     privacy_classification_evidence/0,
     private_offer/0,
@@ -6066,6 +6074,102 @@ new_policy_decision(Map) ->
         decision_id = maps:get(decision_id, Map, undefined),
         verdict = maps:get(verdict, Map, undefined),
         reason = maps:get(reason, Map, undefined)
+    }}
+    end
+    end.
+
+%% One directed edge of a ChoiceGraphNode.edges set over ChoiceGraphEndpoint (Start | Child(usize) | End); may be cyclic (a self-loop Child(i)->Child(i) is a POWL 1.0-style loop over a single child, generalized).
+-record(powl_choice_graph_edge, {
+    from_kind :: atom(), %% from_kind: The edge source endpoint kind: start | child | end (ChoiceGraphEndpoint variant tag; start has no incoming edges, end has no outgoing edges per Def. 3.6).
+    from_child_index :: integer() | undefined, %% from_child_index: Index into the parent ChoiceGraphNode's children when from_kind is child; absent otherwise.
+    to_kind :: atom(), %% to_kind: The edge target endpoint kind: start | child | end.
+    to_child_index :: integer() | undefined %% to_child_index: Index into the parent ChoiceGraphNode's children when to_kind is child; absent otherwise.
+}).
+
+-type powl_choice_graph_edge() :: #powl_choice_graph_edge{}.
+
+-spec new_powl_choice_graph_edge(map()) -> {ok, powl_choice_graph_edge()} | {error, {missing_field, atom()}}.
+new_powl_choice_graph_edge(Map) ->
+    case maps:is_key(from_kind, Map) of
+        false -> {error, {missing_field, from_kind}};
+        true ->
+    case maps:is_key(to_kind, Map) of
+        false -> {error, {missing_field, to_kind}};
+        true ->
+    {ok, #powl_choice_graph_edge{
+        from_kind = maps:get(from_kind, Map, undefined),
+        from_child_index = maps:get(from_child_index, Map, undefined),
+        to_kind = maps:get(to_kind, Map, undefined),
+        to_child_index = maps:get(to_child_index, Map, undefined)
+    }}
+    end
+    end.
+
+%% A POWL node's multiplicity/frequency tag (Freq): how many times it may occur.
+-record(powl_freq, {
+    min_freq :: integer(), %% min_freq: Minimum occurrence count; 0 means the node is skippable.
+    max_freq :: integer() | undefined %% max_freq: Maximum occurrence count; absent means unbounded.
+}).
+
+-type powl_freq() :: #powl_freq{}.
+
+-spec new_powl_freq(map()) -> {ok, powl_freq()} | {error, {missing_field, atom()}}.
+new_powl_freq(Map) ->
+    case maps:is_key(min_freq, Map) of
+        false -> {error, {missing_field, min_freq}};
+        true ->
+    {ok, #powl_freq{
+        min_freq = maps:get(min_freq, Map, undefined),
+        max_freq = maps:get(max_freq, Map, undefined)
+    }}
+    end.
+
+%% A POWL leaf activity (PowlLeaf): a silent or non-silent activity carrying its own frequency tag, flattened for wire transport.
+-record(powl_leaf, {
+    activity_label :: binary() | undefined, %% activity_label: The activity name; absent when is_tau is true (a silent leaf).
+    is_tau :: boolean(), %% is_tau: True iff this leaf is a silent (tau) activity, i.e. Leaf::activity_label was LeafLabel::Tau rather than LeafLabel::Activity.
+    min_freq :: integer(), %% min_freq: This leaf's Freq.min_freq, flattened onto the leaf record.
+    max_freq :: integer() | undefined %% max_freq: This leaf's Freq.max_freq, flattened onto the leaf record; absent means unbounded.
+}).
+
+-type powl_leaf() :: #powl_leaf{}.
+
+-spec new_powl_leaf(map()) -> {ok, powl_leaf()} | {error, {missing_field, atom()}}.
+new_powl_leaf(Map) ->
+    case maps:is_key(is_tau, Map) of
+        false -> {error, {missing_field, is_tau}};
+        true ->
+    case maps:is_key(min_freq, Map) of
+        false -> {error, {missing_field, min_freq}};
+        true ->
+    {ok, #powl_leaf{
+        activity_label = maps:get(activity_label, Map, undefined),
+        is_tau = maps:get(is_tau, Map, undefined),
+        min_freq = maps:get(min_freq, Map, undefined),
+        max_freq = maps:get(max_freq, Map, undefined)
+    }}
+    end
+    end.
+
+%% One strict order edge of a PartialOrderNode.order set: from_index must happen before to_index among the parent node's children.
+-record(powl_partial_order_edge, {
+    from_index :: integer(), %% from_index: Index into the parent PartialOrderNode's children that must happen first.
+    to_index :: integer() %% to_index: Index into the parent PartialOrderNode's children that must happen after from_index.
+}).
+
+-type powl_partial_order_edge() :: #powl_partial_order_edge{}.
+
+-spec new_powl_partial_order_edge(map()) -> {ok, powl_partial_order_edge()} | {error, {missing_field, atom()}}.
+new_powl_partial_order_edge(Map) ->
+    case maps:is_key(from_index, Map) of
+        false -> {error, {missing_field, from_index}};
+        true ->
+    case maps:is_key(to_index, Map) of
+        false -> {error, {missing_field, to_index}};
+        true ->
+    {ok, #powl_partial_order_edge{
+        from_index = maps:get(from_index, Map, undefined),
+        to_index = maps:get(to_index, Map, undefined)
     }}
     end
     end.

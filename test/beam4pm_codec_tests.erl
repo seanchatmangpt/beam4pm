@@ -4533,6 +4533,106 @@ policy_decision_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(policy_decision, Json),
     ?assertEqual(Rec, Rec2).
 
+powl_choice_graph_edge_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_powl_choice_graph_edge(#{
+        from_kind => sample_atom,
+        from_child_index => 42,
+        to_kind => sample_atom,
+        to_child_index => 42
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_atom">>, maps:get(<<"from_kind">>, Map)),
+    ?assertEqual(42, maps:get(<<"from_child_index">>, Map)),
+    ?assertEqual(<<"sample_atom">>, maps:get(<<"to_kind">>, Map)),
+    ?assertEqual(42, maps:get(<<"to_child_index">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(powl_choice_graph_edge,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+powl_choice_graph_edge_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_powl_choice_graph_edge(#{
+        from_kind => sample_atom,
+        from_child_index => 42,
+        to_kind => sample_atom,
+        to_child_index => 42
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(powl_choice_graph_edge, Json),
+    ?assertEqual(Rec, Rec2).
+
+powl_freq_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_powl_freq(#{
+        min_freq => 42,
+        max_freq => 42
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(42, maps:get(<<"min_freq">>, Map)),
+    ?assertEqual(42, maps:get(<<"max_freq">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(powl_freq,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+powl_freq_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_powl_freq(#{
+        min_freq => 42,
+        max_freq => 42
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(powl_freq, Json),
+    ?assertEqual(Rec, Rec2).
+
+powl_leaf_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_powl_leaf(#{
+        activity_label => <<"sample_activity_label">>,
+        is_tau => true,
+        min_freq => 42,
+        max_freq => 42
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_activity_label">>, maps:get(<<"activity_label">>, Map)),
+    ?assertEqual(true, maps:get(<<"is_tau">>, Map)),
+    ?assertEqual(42, maps:get(<<"min_freq">>, Map)),
+    ?assertEqual(42, maps:get(<<"max_freq">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(powl_leaf,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+powl_leaf_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_powl_leaf(#{
+        activity_label => <<"sample_activity_label">>,
+        is_tau => true,
+        min_freq => 42,
+        max_freq => 42
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(powl_leaf, Json),
+    ?assertEqual(Rec, Rec2).
+
+powl_partial_order_edge_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_powl_partial_order_edge(#{
+        from_index => 42,
+        to_index => 42
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(42, maps:get(<<"from_index">>, Map)),
+    ?assertEqual(42, maps:get(<<"to_index">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(powl_partial_order_edge,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+powl_partial_order_edge_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_powl_partial_order_edge(#{
+        from_index => 42,
+        to_index => 42
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(powl_partial_order_edge, Json),
+    ?assertEqual(Rec, Rec2).
+
 pricing_basis_contract_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_pricing_basis_contract(#{
         opportunity_id => <<"sample_opportunity_id">>,

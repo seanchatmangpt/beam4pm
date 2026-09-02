@@ -868,6 +868,135 @@ bpm:service_span_parent_span_id_f a bpm:Field ;
     bpm:fieldRequired "false" ;
     bpm:fieldOrder 4 .
 
+# ---------------------------------------------------------------------------
+# POWL 2.0 wire records (Phase E of the POWL full-parity plan). Flat,
+# ggen-projectable wire pieces of the recursive Powl/PowlNode model
+# discover_powl (native/rust4pm-wasm/src/lib.rs, delegating to
+# vendor/rust4pm-powl process_mining::core::process_models::case_centric::
+# powl::mod) actually serializes -- not an attempt to model the recursive
+# PowlNode/PowlOperator/PartialOrderNode/ChoiceGraphNode containers
+# themselves, which ggen's flat record generator cannot express. Field names
+# and semantics are taken directly from that Rust source (Freq.min_freq/
+# max_freq; PowlLeaf.leaf/freq with Leaf::activity_label's Activity(String)/
+# Tau variants; PartialOrderNode.order as (from_index, to_index) pairs into
+# children; ChoiceGraphNode.edges as (ChoiceGraphEndpoint, ChoiceGraphEndpoint)
+# pairs where ChoiceGraphEndpoint is Start | Child(usize) | End), verified
+# against vendor/rust4pm-powl/process_mining/src/core/process_models/
+# case_centric/powl/mod.rs this session.
+# ---------------------------------------------------------------------------
+
+bpm:powl_freq_rt a bpm:RecordType ;
+    bpm:recordName "powl_freq" ;
+    bpm:recordDoc "A POWL node's multiplicity/frequency tag (Freq): how many times it may occur." ;
+    bpm:hasField bpm:powl_freq_min_freq_f ,
+                 bpm:powl_freq_max_freq_f .
+
+bpm:powl_freq_min_freq_f a bpm:Field ;
+    bpm:fieldName "min_freq" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Minimum occurrence count; 0 means the node is skippable." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_freq_max_freq_f a bpm:Field ;
+    bpm:fieldName "max_freq" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Maximum occurrence count; absent means unbounded." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_leaf_rt a bpm:RecordType ;
+    bpm:recordName "powl_leaf" ;
+    bpm:recordDoc "A POWL leaf activity (PowlLeaf): a silent or non-silent activity carrying its own frequency tag, flattened for wire transport." ;
+    bpm:hasField bpm:powl_leaf_activity_label_f ,
+                 bpm:powl_leaf_is_tau_f ,
+                 bpm:powl_leaf_min_freq_f ,
+                 bpm:powl_leaf_max_freq_f .
+
+bpm:powl_leaf_activity_label_f a bpm:Field ;
+    bpm:fieldName "activity_label" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "The activity name; absent when is_tau is true (a silent leaf)." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_leaf_is_tau_f a bpm:Field ;
+    bpm:fieldName "is_tau" ;
+    bpm:fieldType "boolean" ;
+    bpm:fieldDoc "True iff this leaf is a silent (tau) activity, i.e. Leaf::activity_label was LeafLabel::Tau rather than LeafLabel::Activity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_leaf_min_freq_f a bpm:Field ;
+    bpm:fieldName "min_freq" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "This leaf's Freq.min_freq, flattened onto the leaf record." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:powl_leaf_max_freq_f a bpm:Field ;
+    bpm:fieldName "max_freq" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "This leaf's Freq.max_freq, flattened onto the leaf record; absent means unbounded." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 4 .
+
+bpm:powl_partial_order_edge_rt a bpm:RecordType ;
+    bpm:recordName "powl_partial_order_edge" ;
+    bpm:recordDoc "One strict order edge of a PartialOrderNode.order set: from_index must happen before to_index among the parent node's children." ;
+    bpm:hasField bpm:powl_partial_order_edge_from_index_f ,
+                 bpm:powl_partial_order_edge_to_index_f .
+
+bpm:powl_partial_order_edge_from_index_f a bpm:Field ;
+    bpm:fieldName "from_index" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Index into the parent PartialOrderNode's children that must happen first." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_partial_order_edge_to_index_f a bpm:Field ;
+    bpm:fieldName "to_index" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Index into the parent PartialOrderNode's children that must happen after from_index." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_choice_graph_edge_rt a bpm:RecordType ;
+    bpm:recordName "powl_choice_graph_edge" ;
+    bpm:recordDoc "One directed edge of a ChoiceGraphNode.edges set over ChoiceGraphEndpoint (Start | Child(usize) | End); may be cyclic (a self-loop Child(i)->Child(i) is a POWL 1.0-style loop over a single child, generalized)." ;
+    bpm:hasField bpm:powl_choice_graph_edge_from_kind_f ,
+                 bpm:powl_choice_graph_edge_from_child_index_f ,
+                 bpm:powl_choice_graph_edge_to_kind_f ,
+                 bpm:powl_choice_graph_edge_to_child_index_f .
+
+bpm:powl_choice_graph_edge_from_kind_f a bpm:Field ;
+    bpm:fieldName "from_kind" ;
+    bpm:fieldType "atom" ;
+    bpm:fieldDoc "The edge source endpoint kind: start | child | end (ChoiceGraphEndpoint variant tag; start has no incoming edges, end has no outgoing edges per Def. 3.6)." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_choice_graph_edge_from_child_index_f a bpm:Field ;
+    bpm:fieldName "from_child_index" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Index into the parent ChoiceGraphNode's children when from_kind is child; absent otherwise." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_choice_graph_edge_to_kind_f a bpm:Field ;
+    bpm:fieldName "to_kind" ;
+    bpm:fieldType "atom" ;
+    bpm:fieldDoc "The edge target endpoint kind: start | child | end." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:powl_choice_graph_edge_to_child_index_f a bpm:Field ;
+    bpm:fieldName "to_child_index" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "Index into the parent ChoiceGraphNode's children when to_kind is child; absent otherwise." ;
+    bpm:fieldRequired "false" ;
+    bpm:fieldOrder 4 .
+
 # =============================================================================
 # beam4pm_pro infrastructure instance data (beam4pm-pro-infra-pack)
 # =============================================================================

@@ -175,6 +175,10 @@ defmodule BeamPM.Roundtrip do
     :poc_scope,
     :poc_timeline,
     :policy_decision,
+    :powl_choice_graph_edge,
+    :powl_freq,
+    :powl_leaf,
+    :powl_partial_order_edge,
     :pricing_basis_contract,
     :privacy_classification_evidence,
     :private_offer,
@@ -3192,6 +3196,65 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.PolicyDecision.new(%{
       decision_id: "sample_decision_id",
       verdict: :sample_atom
+    })
+  end
+
+  def sample(:powl_choice_graph_edge, :full) do
+    BeamPM.Types.PowlChoiceGraphEdge.new(%{
+      from_kind: :sample_atom,
+      from_child_index: 42,
+      to_kind: :sample_atom,
+      to_child_index: 42
+    })
+  end
+
+  def sample(:powl_choice_graph_edge, :minimal) do
+    BeamPM.Types.PowlChoiceGraphEdge.new(%{
+      from_kind: :sample_atom,
+      to_kind: :sample_atom
+    })
+  end
+
+  def sample(:powl_freq, :full) do
+    BeamPM.Types.PowlFreq.new(%{
+      min_freq: 42,
+      max_freq: 42
+    })
+  end
+
+  def sample(:powl_freq, :minimal) do
+    BeamPM.Types.PowlFreq.new(%{
+      min_freq: 42
+    })
+  end
+
+  def sample(:powl_leaf, :full) do
+    BeamPM.Types.PowlLeaf.new(%{
+      activity_label: "sample_activity_label",
+      is_tau: true,
+      min_freq: 42,
+      max_freq: 42
+    })
+  end
+
+  def sample(:powl_leaf, :minimal) do
+    BeamPM.Types.PowlLeaf.new(%{
+      is_tau: true,
+      min_freq: 42
+    })
+  end
+
+  def sample(:powl_partial_order_edge, :full) do
+    BeamPM.Types.PowlPartialOrderEdge.new(%{
+      from_index: 42,
+      to_index: 42
+    })
+  end
+
+  def sample(:powl_partial_order_edge, :minimal) do
+    BeamPM.Types.PowlPartialOrderEdge.new(%{
+      from_index: 42,
+      to_index: 42
     })
   end
 

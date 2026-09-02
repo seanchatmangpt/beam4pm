@@ -3,7 +3,7 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 285
+    assert length(BeamPM.Types.Manifest.record_names()) == 289
   end
 
   test "fields/1 returns the ordered field-name list for account_discovery" do
@@ -668,6 +668,22 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for policy_decision" do
     assert BeamPM.Types.Manifest.fields(:policy_decision) == [:decision_id, :verdict, :reason]
+  end
+
+  test "fields/1 returns the ordered field-name list for powl_choice_graph_edge" do
+    assert BeamPM.Types.Manifest.fields(:powl_choice_graph_edge) == [:from_kind, :from_child_index, :to_kind, :to_child_index]
+  end
+
+  test "fields/1 returns the ordered field-name list for powl_freq" do
+    assert BeamPM.Types.Manifest.fields(:powl_freq) == [:min_freq, :max_freq]
+  end
+
+  test "fields/1 returns the ordered field-name list for powl_leaf" do
+    assert BeamPM.Types.Manifest.fields(:powl_leaf) == [:activity_label, :is_tau, :min_freq, :max_freq]
+  end
+
+  test "fields/1 returns the ordered field-name list for powl_partial_order_edge" do
+    assert BeamPM.Types.Manifest.fields(:powl_partial_order_edge) == [:from_index, :to_index]
   end
 
   test "fields/1 returns the ordered field-name list for pricing_basis_contract" do

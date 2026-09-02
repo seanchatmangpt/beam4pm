@@ -2615,6 +2615,66 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "powl_choice_graph_edge new/1 succeeds when all fields are present" do
+    attrs = %{
+      from_kind: :some_atom,
+      from_child_index: 1,
+      to_kind: :some_atom,
+      to_child_index: 1
+    }
+
+    assert {:ok, _} = BeamPM.Types.PowlChoiceGraphEdge.new(attrs)
+  end
+
+  test "powl_choice_graph_edge new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PowlChoiceGraphEdge.new(%{})
+  end
+
+
+  test "powl_freq new/1 succeeds when all fields are present" do
+    attrs = %{
+      min_freq: 1,
+      max_freq: 1
+    }
+
+    assert {:ok, _} = BeamPM.Types.PowlFreq.new(attrs)
+  end
+
+  test "powl_freq new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PowlFreq.new(%{})
+  end
+
+
+  test "powl_leaf new/1 succeeds when all fields are present" do
+    attrs = %{
+      activity_label: "x",
+      is_tau: true,
+      min_freq: 1,
+      max_freq: 1
+    }
+
+    assert {:ok, _} = BeamPM.Types.PowlLeaf.new(attrs)
+  end
+
+  test "powl_leaf new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PowlLeaf.new(%{})
+  end
+
+
+  test "powl_partial_order_edge new/1 succeeds when all fields are present" do
+    attrs = %{
+      from_index: 1,
+      to_index: 1
+    }
+
+    assert {:ok, _} = BeamPM.Types.PowlPartialOrderEdge.new(attrs)
+  end
+
+  test "powl_partial_order_edge new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.PowlPartialOrderEdge.new(%{})
+  end
+
+
   test "pricing_basis_contract new/1 succeeds when all fields are present" do
     attrs = %{
       opportunity_id: "x",

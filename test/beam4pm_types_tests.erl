@@ -1792,6 +1792,46 @@ policy_decision_ok_test() ->
 policy_decision_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_policy_decision(#{})).
 
+powl_choice_graph_edge_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_powl_choice_graph_edge(#{
+        from_kind => some_atom,
+        from_child_index => 1,
+        to_kind => some_atom,
+        to_child_index => 1
+    })).
+
+powl_choice_graph_edge_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_powl_choice_graph_edge(#{})).
+
+powl_freq_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_powl_freq(#{
+        min_freq => 1,
+        max_freq => 1
+    })).
+
+powl_freq_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_powl_freq(#{})).
+
+powl_leaf_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_powl_leaf(#{
+        activity_label => <<"x">>,
+        is_tau => true,
+        min_freq => 1,
+        max_freq => 1
+    })).
+
+powl_leaf_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_powl_leaf(#{})).
+
+powl_partial_order_edge_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_powl_partial_order_edge(#{
+        from_index => 1,
+        to_index => 1
+    })).
+
+powl_partial_order_edge_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_powl_partial_order_edge(#{})).
+
 pricing_basis_contract_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_pricing_basis_contract(#{
         opportunity_id => <<"x">>,
