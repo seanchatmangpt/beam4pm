@@ -138,17 +138,18 @@ defmodule BeamPM.FerroplanTest do
 
   describe "handle discipline" do
     test "an unknown session handle is a named engine error, not a crash" do
+      # Case 1: a handle number that was never allocated.
       assert {:error, {:engine, msg}} = Ferroplan.session_step(999_999)
       assert msg =~ "unknown session handle"
-    end
 
-    test "an unknown op is a named engine error" do
-      # Exercised indirectly: session_free on a handle that was already
-      # freed reports the same "unknown session handle" shape, proving the
-      # registry actually removes freed handles rather than leaking them.
+      # Case 2: a handle that WAS allocated, then freed -- proves the
+      # registry actually removes freed handles rather than leaking them,
+      # hitting the same "unknown session handle" error shape via a
+      # different call path (session_free instead of session_step).
       {:ok, %{"handle" => handle}} = Ferroplan.session_new(@domain, @problem)
       assert {:ok, %{"freed" => true}} = Ferroplan.session_free(handle)
-      assert {:error, {:engine, _msg}} = Ferroplan.session_free(handle)
+      assert {:error, {:engine, msg2}} = Ferroplan.session_free(handle)
+      assert msg2 =~ "unknown session handle"
     end
   end
 end
