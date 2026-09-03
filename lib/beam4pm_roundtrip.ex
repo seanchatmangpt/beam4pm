@@ -130,6 +130,7 @@ defmodule BeamPM.Roundtrip do
     :invoice_schedule,
     :k8s_object_ref,
     :latency_budget_observation,
+    :leakage_finding,
     :least_authority_evidence,
     :legal_blocker,
     :liability_cap_admission,
@@ -217,6 +218,7 @@ defmodule BeamPM.Roundtrip do
     :revenue_attribution,
     :revenue_contract_admission,
     :revenue_schedule_assumption,
+    :rework_cost,
     :rfp_response_evidence,
     :rollback_checkpoint,
     :rollback_decision,
@@ -281,6 +283,7 @@ defmodule BeamPM.Roundtrip do
     :value_baseline,
     :value_driver,
     :value_realization,
+    :value_receipt,
     :value_telemetry_sample,
     :vendor_registration_state,
     :vendor_risk_evidence,
@@ -2434,6 +2437,23 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:leakage_finding, :full) do
+    BeamPM.Types.LeakageFinding.new(%{
+      case_id: "sample_case_id",
+      fitness: 3.5,
+      precision: 3.5,
+      amount_at_risk: 3.5
+    })
+  end
+
+  def sample(:leakage_finding, :minimal) do
+    BeamPM.Types.LeakageFinding.new(%{
+      case_id: "sample_case_id",
+      fitness: 3.5,
+      precision: 3.5
+    })
+  end
+
   def sample(:least_authority_evidence, :full) do
     BeamPM.Types.LeastAuthorityEvidence.new(%{
       evidence_id: "sample_evidence_id",
@@ -3925,6 +3945,22 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:rework_cost, :full) do
+    BeamPM.Types.ReworkCost.new(%{
+      case_id: "sample_case_id",
+      loop_count: 42,
+      weighted_cost: 3.5
+    })
+  end
+
+  def sample(:rework_cost, :minimal) do
+    BeamPM.Types.ReworkCost.new(%{
+      case_id: "sample_case_id",
+      loop_count: 42,
+      weighted_cost: 3.5
+    })
+  end
+
   def sample(:rfp_response_evidence, :full) do
     BeamPM.Types.RfpResponseEvidence.new(%{
       evidence_id: "sample_evidence_id",
@@ -5046,6 +5082,30 @@ defmodule BeamPM.Roundtrip do
       value_realization_id: "sample_value_realization_id",
       account_id: "sample_account_id",
       realized_value: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:value_receipt, :full) do
+    BeamPM.Types.ValueReceipt.new(%{
+      value_receipt_id: "sample_value_receipt_id",
+      account_id: "sample_account_id",
+      metric_name: "sample_metric_name",
+      baseline_value: 3.5,
+      observed_value: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:value_receipt, :minimal) do
+    BeamPM.Types.ValueReceipt.new(%{
+      value_receipt_id: "sample_value_receipt_id",
+      account_id: "sample_account_id",
+      metric_name: "sample_metric_name",
+      baseline_value: 3.5,
+      observed_value: 3.5,
       evidence_digest: "sample_evidence_digest",
       observed_at: "2026-08-29T12:00:00Z"
     })
