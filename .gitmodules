@@ -4,3 +4,6 @@
 [submodule "vendor/rust4pm-powl"]
 	path = vendor/rust4pm-powl
 	url = https://github.com/seanchatmangpt/rust4pm.git
+[submodule "native/ferroplan"]
+	path = native/ferroplan
+	url = https://github.com/seanchatmangpt/ferroplan.git
