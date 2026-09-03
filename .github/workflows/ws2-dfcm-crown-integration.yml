@@ -1,0 +1,205 @@
+name: WS2 DfCM crown integration
+
+on:
+  push:
+    branches:
+      - automation/ws2-rev-20260831-2212-price-to-cash-50
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ws2-dfcm-crown-integration
+  cancel-in-progress: false
+
+jobs:
+  integrate-manufacture-prove:
+    if: "!contains(github.event.head_commit.message, 'ci(ws2): revoke DfCM crown integration transport')"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout WS2 crown with write authority
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: automation/ws2-rev-20260831-2212-price-to-cash-50
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: true
+
+      - name: Set up BEAM manufacturer runtime
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          rebar3-version: '3.24.0'
+          elixir-version: '1.18.5'
+          otp-version: '27.2'
+
+      - name: DfCM integrate current main and provider-neutral crown
+        shell: bash
+        env:
+          MAIN_SHA: 96d6e10338de2538e93dc27350379b38447216f4
+          WS45_SHA: 491f5d29906a9e4b6c3a9a0c3dee763806f3234c
+          WS43_SHA: 15b50779f02ff674824698509491342f2500f0d7
+          OLD_BASE_SHA: 0824b3413d37ab115e44e04e500d750695c7f1df
+        run: |
+          set -euo pipefail
+          git config user.name 'beam4pm DfCM manufacturer'
+          git config user.email '136349053+seanchatmangpt@users.noreply.github.com'
+          git fetch origin "$MAIN_SHA" "$WS43_SHA" "$WS45_SHA"
+
+          # Preserve only the semantic WS45 root-ontology addition. The 50
+          # experiment fragments/history remain in ancestry, not as a second
+          # production ownership surface.
+          git show "$WS45_SHA:ontology.ttl" | awk '
+            /^# ---- WS2 price-to-cash expansion crown: WS2-REV-060\.\.109 ----$/ {emit=1}
+            emit {print}
+          ' > /tmp/ws45-crown.ttl
+          grep -q 'WS2-REV-060' /tmp/ws45-crown.ttl
+          grep -q 'WS2-REV-109' /tmp/ws45-crown.ttl
+
+          merge_rc=0
+          git merge --no-ff --no-commit "$MAIN_SHA" || merge_rc=$?
+          if [ "$merge_rc" -ne 0 ] && [ -z "$(git diff --name-only --diff-filter=U)" ]; then
+            echo "REFUSED[MAIN_MERGE_FAILED_WITHOUT_CONFLICTS]:$merge_rc" >&2
+            exit "$merge_rc"
+          fi
+
+          # Reset every stale WS45 non-canonical consequence to current main.
+          while IFS= read -r path; do
+            [ -n "$path" ] || continue
+            case "$path" in
+              ontology.ttl|ontology/ws2-revenue-expansion/*) continue ;;
+            esac
+            if git cat-file -e "$MAIN_SHA:$path" 2>/dev/null; then
+              git checkout "$MAIN_SHA" -- "$path"
+            else
+              git rm -f --ignore-unmatch -- "$path" >/dev/null 2>&1 || true
+            fi
+          done < <(git diff --name-only "$OLD_BASE_SHA...$WS45_SHA")
+
+          git checkout "$MAIN_SHA" -- ontology.ttl
+          printf '\n\n' >> ontology.ttl
+          cat /tmp/ws45-crown.ttl >> ontology.ttl
+          git rm -r -f --ignore-unmatch ontology/ws2-revenue-expansion >/dev/null 2>&1 || true
+          test -z "$(git diff --name-only --diff-filter=U)" || {
+            echo 'REFUSED[UNRESOLVED_MAIN_CONFLICTS]' >&2
+            git diff --name-only --diff-filter=U >&2
+            exit 2
+          }
+          git add -A
+          git diff --cached --check
+          git commit -m 'merge(main): integrate current main into WS2 DfCM crown'
+
+          # Merge WS43 as history, retaining only its six marketplace contract
+          # TTLs plus the three economics RecordType semantics folded into the
+          # single admitted root ontology.
+          git show "$WS43_SHA:ontology/ws2-revenue-economics.ttl" > /tmp/ws43-economics.ttl
+          grep -q 'bpm:rework_cost_rt' /tmp/ws43-economics.ttl
+          grep -q 'bpm:value_receipt_rt' /tmp/ws43-economics.ttl
+
+          merge_rc=0
+          git merge --no-ff --no-commit "$WS43_SHA" || merge_rc=$?
+          if [ "$merge_rc" -ne 0 ] && [ -z "$(git diff --name-only --diff-filter=U)" ]; then
+            echo "REFUSED[WS43_MERGE_FAILED_WITHOUT_CONFLICTS]:$merge_rc" >&2
+            exit "$merge_rc"
+          fi
+
+          while IFS= read -r path; do
+            [ -n "$path" ] || continue
+            case "$path" in
+              contracts/beam4pm-pro/*)
+                git checkout "$WS43_SHA" -- "$path"
+                ;;
+              ontology/ws2-revenue-economics.ttl)
+                git rm -f --ignore-unmatch -- "$path" >/dev/null 2>&1 || true
+                ;;
+              *)
+                if git cat-file -e "HEAD:$path" 2>/dev/null; then
+                  git checkout HEAD -- "$path"
+                else
+                  git rm -f --ignore-unmatch -- "$path" >/dev/null 2>&1 || true
+                fi
+                ;;
+            esac
+          done < <(git diff --name-only "$OLD_BASE_SHA...$WS43_SHA")
+
+          for record in rework_cost leakage_finding value_receipt; do
+            if grep -q "bpm:${record}_rt" ontology.ttl; then
+              echo "REFUSED[DUPLICATE_WS43_RECORD]:$record" >&2
+              exit 2
+            fi
+          done
+          printf '\n\n# ---- WS2 provider-neutral revenue economics: WS2-REV-057..059 ----\n' >> ontology.ttl
+          cat /tmp/ws43-economics.ttl >> ontology.ttl
+          test -z "$(git diff --name-only --diff-filter=U)" || {
+            echo 'REFUSED[UNRESOLVED_WS43_CONFLICTS]' >&2
+            git diff --name-only --diff-filter=U >&2
+            exit 2
+          }
+          git add -A
+          git diff --cached --check
+          git commit -m 'merge(ws2): integrate provider-neutral productization crown'
+
+          grep -q 'bpm:price_book_version_rt' ontology.ttl
+          grep -q 'bpm:unit_economics_snapshot_rt' ontology.ttl
+          grep -q 'bpm:value_receipt_rt' ontology.ttl
+          test "$(find contracts/beam4pm-pro -maxdepth 1 -type f -name '*.ttl' | wc -l)" -ge 6
+
+      - name: Build deterministic manufacturer prerequisites
+        shell: bash
+        run: |
+          set -euo pipefail
+          mix deps.get
+          for crate in rf1-dfg-oracle rf2-conformance-oracle rf3-ocel-oracle rf4-oc-discovery-oracle; do
+            (cd "native/$crate" && cargo build --release)
+          done
+          mkdir -p "$HOME/.local/bin"
+          printf '%s\n' \
+            '#!/usr/bin/env bash' \
+            'exec docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28 ggen "$@"' \
+            > "$HOME/.local/bin/ggen"
+          chmod +x "$HOME/.local/bin/ggen"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Manufacture combined WS2 projections from canonical root
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$HOME/.local/bin:$PATH"
+          source scripts/env/rust4pm_reactor_env.sh
+          set +e
+          bash scripts/gate_m2_check.sh
+          first_rc=$?
+          set -e
+          echo "FIRST_M2_RC=$first_rc"
+
+          # The first run is allowed to report byte drift: its purpose here is
+          # to manufacture the new admitted ontology consequence. Reject any
+          # drift outside known manufactured surfaces.
+          bad=0
+          while IFS= read -r path; do
+            [ -n "$path" ] || continue
+            [ "$path" = 'ggen.lock' ] && continue
+            if [ -f "$path" ] && head -3 "$path" 2>/dev/null | grep -qi 'generated by ggen'; then
+              continue
+            fi
+            echo "REFUSED[NON_MANUFACTURED_DRIFT]:$path" >&2
+            bad=1
+          done < <(git status --porcelain=v1 | sed -E 's/^.. //; s/.* -> //')
+          [ "$bad" -eq 0 ] || exit 2
+
+          if ! git diff --quiet || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+            git add -A
+            git diff --cached --check
+            git commit -m 'fix(ws2): persist deterministic combined crown projections'
+          fi
+
+          # Exact identity proof after persistence. This must be green.
+          bash scripts/gate_m2_check.sh
+
+      - name: Revoke temporary publication authority and push
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/ws2-dfcm-crown-integration.yml
+          git commit -m 'ci(ws2): revoke DfCM crown integration transport'
+          git push origin HEAD:automation/ws2-rev-20260831-2212-price-to-cash-50
