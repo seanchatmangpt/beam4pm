@@ -15,7 +15,7 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(285, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(288, length(beam4pm_types_manifest:record_names())).
 
 account_discovery_fields_test() ->
     ?assertEqual([account_discovery_id, account_id, discovery_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(account_discovery)).
@@ -380,6 +380,9 @@ k8s_object_ref_fields_test() ->
 latency_budget_observation_fields_test() ->
     ?assertEqual([tenant_id, workload_id, observation_hash], beam4pm_types_manifest:fields(latency_budget_observation)).
 
+leakage_finding_fields_test() ->
+    ?assertEqual([case_id, fitness, precision, amount_at_risk], beam4pm_types_manifest:fields(leakage_finding)).
+
 least_authority_evidence_fields_test() ->
     ?assertEqual([evidence_id, subject_sha, granted_permissions, observed_result], beam4pm_types_manifest:fields(least_authority_evidence)).
 
@@ -641,6 +644,9 @@ revenue_contract_admission_fields_test() ->
 revenue_schedule_assumption_fields_test() ->
     ?assertEqual([opportunity_id, schedule_id, assumption_evidence_hash], beam4pm_types_manifest:fields(revenue_schedule_assumption)).
 
+rework_cost_fields_test() ->
+    ?assertEqual([case_id, loop_count, weighted_cost], beam4pm_types_manifest:fields(rework_cost)).
+
 rfp_response_evidence_fields_test() ->
     ?assertEqual([evidence_id, subject_sha, answer_set_hash, observed_result], beam4pm_types_manifest:fields(rfp_response_evidence)).
 
@@ -832,6 +838,9 @@ value_driver_fields_test() ->
 
 value_realization_fields_test() ->
     ?assertEqual([value_realization_id, account_id, realized_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(value_realization)).
+
+value_receipt_fields_test() ->
+    ?assertEqual([value_receipt_id, account_id, metric_name, baseline_value, observed_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(value_receipt)).
 
 value_telemetry_sample_fields_test() ->
     ?assertEqual([tenant_id, outcome_id, telemetry_hash], beam4pm_types_manifest:fields(value_telemetry_sample)).

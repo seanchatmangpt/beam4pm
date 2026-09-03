@@ -135,6 +135,7 @@ record_names() ->
         invoice_schedule,
         k8s_object_ref,
         latency_budget_observation,
+        leakage_finding,
         least_authority_evidence,
         legal_blocker,
         liability_cap_admission,
@@ -222,6 +223,7 @@ record_names() ->
         revenue_attribution,
         revenue_contract_admission,
         revenue_schedule_assumption,
+        rework_cost,
         rfp_response_evidence,
         rollback_checkpoint,
         rollback_decision,
@@ -286,6 +288,7 @@ record_names() ->
         value_baseline,
         value_driver,
         value_realization,
+        value_receipt,
         value_telemetry_sample,
         vendor_registration_state,
         vendor_risk_evidence,
@@ -1949,6 +1952,19 @@ sample(latency_budget_observation, minimal) ->
         workload_id => <<"sample_workload_id">>,
         observation_hash => <<"sample_observation_hash">>
     });
+sample(leakage_finding, full) ->
+    beam4pm_types:new_leakage_finding(#{
+        case_id => <<"sample_case_id">>,
+        fitness => 3.5,
+        precision => 3.5,
+        amount_at_risk => 3.5
+    });
+sample(leakage_finding, minimal) ->
+    beam4pm_types:new_leakage_finding(#{
+        case_id => <<"sample_case_id">>,
+        fitness => 3.5,
+        precision => 3.5
+    });
 sample(least_authority_evidence, full) ->
     beam4pm_types:new_least_authority_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -3092,6 +3108,18 @@ sample(revenue_schedule_assumption, minimal) ->
         schedule_id => <<"sample_schedule_id">>,
         assumption_evidence_hash => <<"sample_assumption_evidence_hash">>
     });
+sample(rework_cost, full) ->
+    beam4pm_types:new_rework_cost(#{
+        case_id => <<"sample_case_id">>,
+        loop_count => 42,
+        weighted_cost => 3.5
+    });
+sample(rework_cost, minimal) ->
+    beam4pm_types:new_rework_cost(#{
+        case_id => <<"sample_case_id">>,
+        loop_count => 42,
+        weighted_cost => 3.5
+    });
 sample(rfp_response_evidence, full) ->
     beam4pm_types:new_rfp_response_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -3959,6 +3987,26 @@ sample(value_realization, minimal) ->
         value_realization_id => <<"sample_value_realization_id">>,
         account_id => <<"sample_account_id">>,
         realized_value => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(value_receipt, full) ->
+    beam4pm_types:new_value_receipt(#{
+        value_receipt_id => <<"sample_value_receipt_id">>,
+        account_id => <<"sample_account_id">>,
+        metric_name => <<"sample_metric_name">>,
+        baseline_value => 3.5,
+        observed_value => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(value_receipt, minimal) ->
+    beam4pm_types:new_value_receipt(#{
+        value_receipt_id => <<"sample_value_receipt_id">>,
+        account_id => <<"sample_account_id">>,
+        metric_name => <<"sample_metric_name">>,
+        baseline_value => 3.5,
+        observed_value => 3.5,
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
     });

@@ -1317,6 +1317,17 @@ latency_budget_observation_ok_test() ->
 latency_budget_observation_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_latency_budget_observation(#{})).
 
+leakage_finding_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_leakage_finding(#{
+        case_id => <<"x">>,
+        fitness => 1.0,
+        precision => 1.0,
+        amount_at_risk => 1.0
+    })).
+
+leakage_finding_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_leakage_finding(#{})).
+
 least_authority_evidence_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_least_authority_evidence(#{
         evidence_id => <<"x">>,
@@ -2241,6 +2252,16 @@ revenue_schedule_assumption_ok_test() ->
 revenue_schedule_assumption_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_revenue_schedule_assumption(#{})).
 
+rework_cost_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_rework_cost(#{
+        case_id => <<"x">>,
+        loop_count => 1,
+        weighted_cost => 1.0
+    })).
+
+rework_cost_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_rework_cost(#{})).
+
 rfp_response_evidence_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_rfp_response_evidence(#{
         evidence_id => <<"x">>,
@@ -2932,6 +2953,20 @@ value_realization_ok_test() ->
 
 value_realization_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_value_realization(#{})).
+
+value_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_value_receipt(#{
+        value_receipt_id => <<"x">>,
+        account_id => <<"x">>,
+        metric_name => <<"x">>,
+        baseline_value => 1.0,
+        observed_value => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+value_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_value_receipt(#{})).
 
 value_telemetry_sample_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_value_telemetry_sample(#{

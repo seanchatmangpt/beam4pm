@@ -124,6 +124,7 @@
     new_invoice_schedule/1,
     new_k8s_object_ref/1,
     new_latency_budget_observation/1,
+    new_leakage_finding/1,
     new_least_authority_evidence/1,
     new_legal_blocker/1,
     new_liability_cap_admission/1,
@@ -211,6 +212,7 @@
     new_revenue_attribution/1,
     new_revenue_contract_admission/1,
     new_revenue_schedule_assumption/1,
+    new_rework_cost/1,
     new_rfp_response_evidence/1,
     new_rollback_checkpoint/1,
     new_rollback_decision/1,
@@ -275,6 +277,7 @@
     new_value_baseline/1,
     new_value_driver/1,
     new_value_realization/1,
+    new_value_receipt/1,
     new_value_telemetry_sample/1,
     new_vendor_registration_state/1,
     new_vendor_risk_evidence/1,
@@ -412,6 +415,7 @@
     invoice_schedule/0,
     k8s_object_ref/0,
     latency_budget_observation/0,
+    leakage_finding/0,
     least_authority_evidence/0,
     legal_blocker/0,
     liability_cap_admission/0,
@@ -499,6 +503,7 @@
     revenue_attribution/0,
     revenue_contract_admission/0,
     revenue_schedule_assumption/0,
+    rework_cost/0,
     rfp_response_evidence/0,
     rollback_checkpoint/0,
     rollback_decision/0,
@@ -563,6 +568,7 @@
     value_baseline/0,
     value_driver/0,
     value_realization/0,
+    value_receipt/0,
     value_telemetry_sample/0,
     vendor_registration_state/0,
     vendor_risk_evidence/0,
@@ -4651,6 +4657,37 @@ new_latency_budget_observation(Map) ->
     end
     end.
 
+%% One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk.
+-record(leakage_finding, {
+    case_id :: binary(), %% case_id: Exact process-case identity that deviated from the admitted reference model.
+    fitness :: float(), %% fitness: Observed conformance fitness for this case.
+    precision :: float(), %% precision: Observed conformance precision for this case against the admitted model.
+    amount_at_risk :: float() | undefined %% amount_at_risk: Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero.
+}).
+
+-type leakage_finding() :: #leakage_finding{}.
+
+-spec new_leakage_finding(map()) -> {ok, leakage_finding()} | {error, {missing_field, atom()}}.
+new_leakage_finding(Map) ->
+    case maps:is_key(case_id, Map) of
+        false -> {error, {missing_field, case_id}};
+        true ->
+    case maps:is_key(fitness, Map) of
+        false -> {error, {missing_field, fitness}};
+        true ->
+    case maps:is_key(precision, Map) of
+        false -> {error, {missing_field, precision}};
+        true ->
+    {ok, #leakage_finding{
+        case_id = maps:get(case_id, Map, undefined),
+        fitness = maps:get(fitness, Map, undefined),
+        precision = maps:get(precision, Map, undefined),
+        amount_at_risk = maps:get(amount_at_risk, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
 -record(least_authority_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this least-authority permission observation.
@@ -7462,6 +7499,35 @@ new_revenue_schedule_assumption(Map) ->
     end
     end.
 
+%% One observed process case with quantified retry/rework loop count and weighted cost evidence.
+-record(rework_cost, {
+    case_id :: binary(), %% case_id: Exact process-case identity carrying the observed rework.
+    loop_count :: integer(), %% loop_count: Observed count of retry/rework loop markers for this case.
+    weighted_cost :: float() %% weighted_cost: Observed case amount weighted by the admitted rework-loop rule; units are inherited from the admitted source evidence.
+}).
+
+-type rework_cost() :: #rework_cost{}.
+
+-spec new_rework_cost(map()) -> {ok, rework_cost()} | {error, {missing_field, atom()}}.
+new_rework_cost(Map) ->
+    case maps:is_key(case_id, Map) of
+        false -> {error, {missing_field, case_id}};
+        true ->
+    case maps:is_key(loop_count, Map) of
+        false -> {error, {missing_field, loop_count}};
+        true ->
+    case maps:is_key(weighted_cost, Map) of
+        false -> {error, {missing_field, weighted_cost}};
+        true ->
+    {ok, #rework_cost{
+        case_id = maps:get(case_id, Map, undefined),
+        loop_count = maps:get(loop_count, Map, undefined),
+        weighted_cost = maps:get(weighted_cost, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
 -record(rfp_response_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this RFP-response observation.
@@ -9616,6 +9682,59 @@ new_value_realization(Map) ->
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
     }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.
+-record(value_receipt, {
+    value_receipt_id :: binary(), %% value_receipt_id: Stable identity of this before/after value receipt.
+    account_id :: binary(), %% account_id: Customer or enterprise account whose measured value is receipted.
+    metric_name :: binary(), %% metric_name: Canonical metric identity used for both baseline and observed values.
+    baseline_value :: float(), %% baseline_value: Admitted baseline value before the measured change or observation window.
+    observed_value :: float(), %% observed_value: Observed value after the measured change or observation window.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting the baseline and observed consequence.
+    observed_at :: binary() %% observed_at: ISO8601 instant the receipted value consequence was observed.
+}).
+
+-type value_receipt() :: #value_receipt{}.
+
+-spec new_value_receipt(map()) -> {ok, value_receipt()} | {error, {missing_field, atom()}}.
+new_value_receipt(Map) ->
+    case maps:is_key(value_receipt_id, Map) of
+        false -> {error, {missing_field, value_receipt_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(metric_name, Map) of
+        false -> {error, {missing_field, metric_name}};
+        true ->
+    case maps:is_key(baseline_value, Map) of
+        false -> {error, {missing_field, baseline_value}};
+        true ->
+    case maps:is_key(observed_value, Map) of
+        false -> {error, {missing_field, observed_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #value_receipt{
+        value_receipt_id = maps:get(value_receipt_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        metric_name = maps:get(metric_name, Map, undefined),
+        baseline_value = maps:get(baseline_value, Map, undefined),
+        observed_value = maps:get(observed_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end

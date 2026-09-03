@@ -1915,6 +1915,22 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "leakage_finding new/1 succeeds when all fields are present" do
+    attrs = %{
+      case_id: "x",
+      fitness: 1.0,
+      precision: 1.0,
+      amount_at_risk: 1.0
+    }
+
+    assert {:ok, _} = BeamPM.Types.LeakageFinding.new(attrs)
+  end
+
+  test "leakage_finding new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.LeakageFinding.new(%{})
+  end
+
+
   test "least_authority_evidence new/1 succeeds when all fields are present" do
     attrs = %{
       evidence_id: "x",
@@ -3274,6 +3290,21 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "rework_cost new/1 succeeds when all fields are present" do
+    attrs = %{
+      case_id: "x",
+      loop_count: 1,
+      weighted_cost: 1.0
+    }
+
+    assert {:ok, _} = BeamPM.Types.ReworkCost.new(attrs)
+  end
+
+  test "rework_cost new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ReworkCost.new(%{})
+  end
+
+
   test "rfp_response_evidence new/1 succeeds when all fields are present" do
     attrs = %{
       evidence_id: "x",
@@ -4283,6 +4314,25 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "value_realization new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.ValueRealization.new(%{})
+  end
+
+
+  test "value_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      value_receipt_id: "x",
+      account_id: "x",
+      metric_name: "x",
+      baseline_value: 1.0,
+      observed_value: 1.0,
+      evidence_digest: "x",
+      observed_at: "2026-01-01T00:00:00Z"
+    }
+
+    assert {:ok, _} = BeamPM.Types.ValueReceipt.new(attrs)
+  end
+
+  test "value_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueReceipt.new(%{})
   end
 
 

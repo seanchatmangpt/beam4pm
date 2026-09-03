@@ -3333,6 +3333,34 @@ latency_budget_observation_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(latency_budget_observation, Json),
     ?assertEqual(Rec, Rec2).
 
+leakage_finding_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_leakage_finding(#{
+        case_id => <<"sample_case_id">>,
+        fitness => 3.5,
+        precision => 3.5,
+        amount_at_risk => 3.5
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_case_id">>, maps:get(<<"case_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"fitness">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"precision">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"amount_at_risk">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(leakage_finding,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+leakage_finding_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_leakage_finding(#{
+        case_id => <<"sample_case_id">>,
+        fitness => 3.5,
+        precision => 3.5,
+        amount_at_risk => 3.5
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(leakage_finding, Json),
+    ?assertEqual(Rec, Rec2).
+
 least_authority_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_least_authority_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -5670,6 +5698,31 @@ revenue_schedule_assumption_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(revenue_schedule_assumption, Json),
     ?assertEqual(Rec, Rec2).
 
+rework_cost_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_rework_cost(#{
+        case_id => <<"sample_case_id">>,
+        loop_count => 42,
+        weighted_cost => 3.5
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_case_id">>, maps:get(<<"case_id">>, Map)),
+    ?assertEqual(42, maps:get(<<"loop_count">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"weighted_cost">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(rework_cost,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+rework_cost_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_rework_cost(#{
+        case_id => <<"sample_case_id">>,
+        loop_count => 42,
+        weighted_cost => 3.5
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(rework_cost, Json),
+    ?assertEqual(Rec, Rec2).
+
 rfp_response_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_rfp_response_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -7424,6 +7477,43 @@ value_realization_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(value_realization, Json),
+    ?assertEqual(Rec, Rec2).
+
+value_receipt_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_value_receipt(#{
+        value_receipt_id => <<"sample_value_receipt_id">>,
+        account_id => <<"sample_account_id">>,
+        metric_name => <<"sample_metric_name">>,
+        baseline_value => 3.5,
+        observed_value => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_value_receipt_id">>, maps:get(<<"value_receipt_id">>, Map)),
+    ?assertEqual(<<"sample_account_id">>, maps:get(<<"account_id">>, Map)),
+    ?assertEqual(<<"sample_metric_name">>, maps:get(<<"metric_name">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"baseline_value">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"observed_value">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(value_receipt,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+value_receipt_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_value_receipt(#{
+        value_receipt_id => <<"sample_value_receipt_id">>,
+        account_id => <<"sample_account_id">>,
+        metric_name => <<"sample_metric_name">>,
+        baseline_value => 3.5,
+        observed_value => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(value_receipt, Json),
     ?assertEqual(Rec, Rec2).
 
 value_telemetry_sample_map_roundtrip_test() ->
