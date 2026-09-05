@@ -1264,7 +1264,7 @@ bex:ciAuthorshipExercise
 bex:ciRoundtrip
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 13 ;
-    gha:stepName "Cross-language wire identity (Erlang<->Elixir roundtrip)" ;
+    gha:stepName "Cross-language wire identity (Erlang<->Elixir roundtrip + Ash verifies the wire)" ;
     gha:runCommand "bash scripts/roundtrip_check.sh" .
 
 # Determinism check: a real, HARD gate now -- no continue-on-error. History

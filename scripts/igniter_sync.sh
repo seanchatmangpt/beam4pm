@@ -100,6 +100,24 @@ mix ggen_igniter.sync \
   --template "$IGN/templates/beam4pm_ash_domain.ex.eex" \
   --out lib/beam4pm_ash_domain.ex
 
+# 1c. BeamPM.AshRoundtrip -- the Ash leg of GATE M5 (scripts/roundtrip_check.sh,
+#     third direction "ash-verifies-wire"). Single output: for every admitted
+#     record x {full, minimal} it decodes the SAME wire fixture the Erlang and
+#     Elixir legs exchange through BeamPM.Codec, creates the Ash resource on
+#     the real ETS data layer, reads it back by primary key and compares field
+#     by field against BeamPM.Roundtrip's independent sample (datetime
+#     attributes via DateTime.compare/2 == :eq, everything else via ==; the
+#     synthetic uuid_primary_key :id disclosed as the only Ash-only attribute
+#     and asserted so). Needs ash_fields.rq on the merged graph (0b) to know
+#     which attributes are in the :utc_datetime family; refuses by record and
+#     field name on an unbound ?ash_type_expr like its two siblings.
+mix ggen_igniter.sync \
+  --ontology "$MERGED_TTL" \
+  --query records="$IGN/queries/records.rq" \
+  --query ash_fields="$IGN/queries/ash_fields.rq" \
+  --template "$IGN/templates/beam4pm_ash_roundtrip.ex.eex" \
+  --out lib/beam4pm_ash_roundtrip.ex
+
 # 2a. Chicago ExUnit CRUD suite: one real Ash.create!/Ash.read! round-trip
 #     per admitted record type, deterministic sample values, no mocks -- one
 #     test file per resource under test/beam4pm_ash/resources/, split for
@@ -121,6 +139,20 @@ mix ggen_igniter.sync \
   --on-stale prune \
   --template "$IGN/templates/beam4pm_ash_resource_test.exs.eex" \
   --out "test/beam4pm_ash/resources/<%= record_name %>_test.exs"
+
+# 2c. BeamPM.AshRoundtripTest: the same-language ("ex" fixtures) exercise of
+#     1c's module plus two named falsifiers (a no-fraction datetime and a
+#     mutated string on the wire must each be refused naming record, variant
+#     and field). Cleans its own ETS rows up (Ash.DataLayer.Ets.stop/1 per
+#     resource, waiting for the table to be gone) because the 2a suite reads
+#     back with a one-row read-all. The cross-language "erl" direction stays
+#     in scripts/roundtrip_check.sh, which has erlc/erl.
+mix ggen_igniter.sync \
+  --ontology "$MERGED_TTL" \
+  --query records="$IGN/queries/records.rq" \
+  --query ash_fields="$IGN/queries/ash_fields.rq" \
+  --template "$IGN/templates/beam4pm_ash_roundtrip_test.exs.eex" \
+  --out test/beam4pm_ash_roundtrip_test.exs
 
 # 2b. BeamPM.AutonomyKernelGeneratedTest: static, no per-record shape, so it
 #     stays a single output file like the pre-split monolith test.

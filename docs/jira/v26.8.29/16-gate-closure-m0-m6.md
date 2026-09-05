@@ -67,12 +67,57 @@ model — with hard in-demo assertions (3 traces; deviant-trace fitness < 1.0):
 - `mix run examples/elixir/dfg_discovery_demo.exs` → PASS
 - `cd gleam && gleam run` → same edges/fitness printed
 
-### GATE M5 — cross-language identity: `ALIVE`
-`bash scripts/roundtrip_check.sh`: 31 records × full/minimal variants over the
-JSON wire — Elixir verified all 62 Erlang-written fixtures (62 pass, 0 fail)
-and Erlang verified all 62 Elixir-written fixtures (62 pass, 0 fail).
-Identity asserted at the wire-semantic level (`to_map(decode(other)) ==
-to_map(sample)`).
+### GATE M5 — cross-language identity: `ALIVE` (Erlang, Elixir, Ash)
+As scored 2026-08-29: `bash scripts/roundtrip_check.sh` over 31 records ×
+full/minimal variants over the JSON wire — Elixir verified all 62
+Erlang-written fixtures (62 pass, 0 fail) and Erlang verified all 62
+Elixir-written fixtures (62 pass, 0 fail). Identity asserted at the
+wire-semantic level (`to_map(decode(other)) == to_map(sample)`).
+
+Updated 2026-09-05 — Ash joins the proof. Counts below are re-measured on
+the tree, not carried forward from the paragraph above (which was already
+stale: the admitted set has been 289 record types since well before this
+change).
+
+- **Before** (`e69d9e3`): 289 admitted record types × 2 variants = 578
+  fixtures per direction; `elixir-verifies-erlang: 578 pass, 0 fail`,
+  `erlang-verifies-elixir: 578 pass, 0 fail`, gate line `PASS (both
+  directions)`. Ash was absent from the script: its identity with the other
+  legs was asserted only per resource by the generated ExUnit tests
+  (`test/beam4pm_ash/resources/*_test.exs`), which render one *full* params
+  map straight from `bpm:sampleElixir` — never the minimal variant (19 of the
+  289 records have a minimal fixture that differs from the full one) and never
+  through the codec. Section-23 (Polyglot BEAM) standing: `PARTIAL_ALIVE`.
+- **After**: a third direction, `ash-verifies-wire: 578 pass, 0 fail`, and
+  the gate line reads `PASS (all three directions)`; a failure in any of the
+  three exits non-zero, so M5 `PASS` now requires the fourth projection. The
+  manufactured `BeamPM.AshRoundtrip` (`lib/beam4pm_ash_roundtrip.ex`,
+  rendered by `ggen_igniter` from the pack's `beam4pm_ash_roundtrip.ex.eex`,
+  pack 0.1.15, step 1c of `scripts/igniter_sync.sh`) takes the *same*
+  Erlang-written `<record>.<variant>.erl.json` fixtures step 1 of the script
+  writes, decodes each through `BeamPM.Codec.decode/2` (the cross-engine
+  path), creates the generated `Ash.Resource` on the real `Ash.DataLayer.Ets`,
+  reads it back by primary key (never read-all — both variants of a record
+  share one table per VM) and compares field by field against
+  `BeamPM.Roundtrip.sample/2`, the independent construction the other two
+  legs compare against. The relation is stated per field class because
+  `to_map/1` does not apply to an Ash struct (`to_known_map` stringifies
+  atoms; Ash reads atoms back): attributes whose `bpm:ashTypeExpr` is in the
+  `:utc_datetime` family via `DateTime.compare(ash_read,
+  DateTime.from_iso8601(wire)) == :eq` (`nil == nil` for an optional datetime
+  absent from the minimal wire); every other attribute via `==` against both
+  the sample and the decoded struct; the synthetic `uuid_primary_key :id`
+  disclosed as the *only* Ash-only public attribute and asserted so per
+  record. Measured coverage on this tree: 77 of 289 resources carry 79
+  `:utc_datetime_usec` attributes → 157 `DateTime.compare/2` comparisons plus
+  1 `nil == nil` optional-datetime identity per sweep (full + minimal);
+  Ash-only attributes beyond `:id`: none. `test/beam4pm_ash_roundtrip_test.exs`
+  (manufactured, step 2c) is the same-language sweep over Elixir-written
+  fixtures plus two falsifiers run for real: a fixture with one datetime
+  rewritten to the no-fraction form and one with a string mutated are each
+  refused naming record, variant and field. Section-23 standing after: still
+  `PARTIAL_ALIVE` — Ash is now *in* the M5 wire proof, but the field-type set
+  stays closed at 8, `:id` remains Ash-only, and Gleam still has no codec leg.
 
 ### GATE M6 — playground: `ALIVE`
 From a genuine `git clone --recurse-submodules
@@ -107,14 +152,15 @@ ambiguity), plus new ones:
   object-centric (OCEL relationship-based) trace derivation yet.
 - The Gleam projection diverges on `atom` and `map` field types (disclosed in
   generated comments); Gleam has no codec/roundtrip leg, so M5 covers
-  Erlang↔Elixir only.
+  Erlang↔Elixir plus the Ash direction — Gleam is still outside it.
 - The Ash projection adds a synthetic `uuid_primary_key :id` not present in
-  the wire schema; Ash resources are not exercised by the roundtrip
-  (`scripts/roundtrip_check.sh` stays Erlang↔Elixir). Updated 2026-09-05: the
-  Ash leg's semantic identity with the other legs is instead proven per
-  resource by its generated ExUnit test against the *same* `bpm:sampleElixir`
-  fixture the codec/roundtrip tests render. Ash attribute types are now the
-  vocabulary's `bpm:ashTypeExpr` (`datetime` → `:utc_datetime_usec`; the
+  the wire schema — disclosed as the *only* Ash-only public attribute and
+  asserted so per record by `BeamPM.AshRoundtrip`. Updated 2026-09-05 (later
+  the same day): Ash *is* now exercised by the roundtrip as its third
+  direction (`ash-verifies-wire`, see GATE M5 above), on top of the
+  per-resource ExUnit tests against the *same* `bpm:sampleElixir` fixture the
+  codec/roundtrip tests render. Ash attribute types are the vocabulary's
+  `bpm:ashTypeExpr` (`datetime` → `:utc_datetime_usec`; the
   former in-template `:utc_datetime` truncated microseconds — measured
   `12:00:00.123456Z` → `~U[… 12:00:00Z]`, `DateTime.compare` `:lt`). Because
   Ash normalizes the wire string into a UTC `%DateTime{}` with microsecond
@@ -123,6 +169,13 @@ ambiguity), plus new ones:
   explicitly **not** byte or struct identity (a no-fraction wire value parses
   `{0, 0}` but reads back `{0, 6}`). The shared fixture carries six
   microsecond digits so a truncating attribute type fails with `:lt`.
+- Scope of the Ash leg's identity claim: the fixture class only. Ash's
+  `:string` type defaults to `trim?: true` / `allow_empty?: false`
+  (`deps/ash/lib/ash/type/string.ex`), so a whitespace-padded or empty string
+  would **not** round-trip identically through Ash. No fixture on any leg
+  (`"sample_<field>"`) exercises that class, so M5 proves identity for the
+  fixture class in all three directions — the same scope the Erlang↔Elixir
+  directions have always had, now stated rather than implied.
 - Compiling `:ggen_igniter` requires a Rust/cargo toolchain (Rustler NIF) —
   a real contributor-environment constraint, fail-closed in the playground.
 

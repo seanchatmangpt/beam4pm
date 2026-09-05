@@ -104,7 +104,7 @@ jobs:
         run: |
           bash scripts/gate_authorship_check.sh --exercise
 
-      - name: Cross-language wire identity (Erlang<->Elixir roundtrip)
+      - name: Cross-language wire identity (Erlang<->Elixir roundtrip + Ash verifies the wire)
         shell: bash
         run: |
           bash scripts/roundtrip_check.sh
