@@ -1310,16 +1310,32 @@ bex:ciAuthorship
     gha:stepName "Hand-authored source admission (GATE AUTHORSHIP)" ;
     gha:runCommand "bash scripts/gate_authorship_check.sh" .
 
-bex:ciMixTest
+# GATE ENGINE DISPATCH: every manufactured native-engine facade op (rendered
+# from the bpm:Engine / bpm:EngineOp facts at the end of this file by the
+# vendored pack's beam4pm_engine.*.tmpl) must be an op the engine's crate
+# actually dispatches. Reads the MANUFACTURED manifest
+# schema/beam4pm_engine_ops.tsv and greps each engine's bpm:dispatchSource
+# for its string-literal "<op>" => match arms; refuses REFUSED_OP_NOT_DISPATCHED
+# / REFUSED_ENGINE_NOT_DISPATCHED, reports (never silently exposes) a crate arm
+# no fact names, and reports an absent submodule source as BLOCKED. Runs before
+# mix test so a refusal is named here, not buried in the ExUnit run that also
+# executes it (test/beam4pm_engine_dispatch_gate_test.exs).
+bex:ciEngineDispatch
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 10 ;
+    gha:stepName "Manufactured engine ops are crate-dispatched (GATE ENGINE DISPATCH)" ;
+    gha:runCommand "bash scripts/gate_engine_dispatch_check.sh" .
+
+bex:ciMixTest
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 11 ;
     gha:stepName "mix test" ;
     gha:runCommand """source scripts/env/rust4pm_reactor_env.sh
 mix test""" .
 
 bex:ciGleamTest
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 11 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 12 ;
     gha:stepName "gleam test (gleam/ projection)" ;
     gha:runCommand """cd gleam
 gleam test""" .
@@ -1333,13 +1349,13 @@ gleam test""" .
 # gleam/build output.
 bex:ciAuthorshipExercise
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 12 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 13 ;
     gha:stepName "Exercise admitted hand-authored acceptance commands (GATE AUTHORSHIP --exercise)" ;
     gha:runCommand "bash scripts/gate_authorship_check.sh --exercise" .
 
 bex:ciRoundtrip
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 13 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 14 ;
     gha:stepName "Cross-language wire identity (Erlang<->Elixir roundtrip + Ash verifies the wire)" ;
     gha:runCommand "bash scripts/roundtrip_check.sh" .
 
@@ -1363,7 +1379,7 @@ bex:ciRoundtrip
 # vendor/ggen-marketplace submodule checkout.
 bex:ciDeterminism
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 14 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 15 ;
     gha:stepName "Determinism check -- regenerate via identity-verified GGen release and diff" ;
     gha:runCommand """set -euo pipefail
 mkdir -p "$HOME/.local/bin"
@@ -1384,7 +1400,7 @@ bash scripts/gate_m2_check.sh""" .
 # the workflow any write authority over the repository.
 bex:ciDeterminismEvidence
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 15 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 16 ;
     gha:stepName "Preserve deterministic Ash repair evidence" ;
     gha:condition "always()" ;
     gha:usesAction "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1" ;
@@ -8409,6 +8425,12 @@ b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f a bpm:Field ;
 # 0; receipts/: 0 privileged; CONTRIBUTING.md section 4 only covered edits to
 # files that already CARRY the marker).
 #
+# Sunset progress: 2026-09-05 the petgraph and tract facade triples (6 files)
+# became manufactured output of the bpm:Engine facts declared at the end of
+# this file, so the admitted set is now 27 (20 counted as debt: 6 facades +
+# 14 qualification files); the count printed by scripts/gate_authorship_check.sh
+# and rendered into test/beam4pm_authorship_gate_test.exs is the ground truth.
+#
 # One bpm:HandAuthoredSource individual per file (vocabulary: the vendored
 # beam4pm-process-model-pack's ontology.ttl, bpm:HandAuthoredSource /
 # bpm:AuthorshipKind). Rendered by ggen into
@@ -8431,7 +8453,11 @@ b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f a bpm:Field ;
 @prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
 @prefix bap: <https://ggen.dev/projects/beam4pm#> .
 
-# -- native_engine_facade (12; counted as debt) ------------------------------
+# -- native_engine_facade (6 remaining; counted as debt) ----------------------
+# petgraph and tract are NO LONGER admitted here: their facades are
+# manufactured from the bpm:Engine facts at the end of this file (their six
+# admissions were removed 2026-09-05, dropping the counted line 33/26 -> 27/20).
+# ferroplan and rust4pm stay admitted until their facts land.
 
 bap:hand_authored_src_beam4pm_rust4pm_erl a bpm:HandAuthoredSource ;
     bpm:sourcePath "src/beam4pm_rust4pm.erl" ;
@@ -8469,42 +8495,6 @@ bap:hand_authored_gleam_beam4pm_rust4pm_gleam a bpm:HandAuthoredSource ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the rust4pm engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission." .
 
-bap:hand_authored_src_beam4pm_petgraph_erl a bpm:HandAuthoredSource ;
-    bpm:sourcePath "src/beam4pm_petgraph.erl" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Delegation-only Erlang facade over the ONE petgraph wasm32-wasip1 engine (shortest path, SCC, toposort, cycle detection) hosted by Elixir/wasmex; engine surface, not a bpm:RecordType projection." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_petgraph_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm" ;
-    bpm:contentSha256 "1537ee6f89440f9cb3ca07968928095500633ff3ddfda1df08890732dd5ec04c" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the petgraph engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission." .
-
-bap:hand_authored_lib_beam4pm_petgraph_ex a bpm:HandAuthoredSource ;
-    bpm:sourcePath "lib/beam4pm_petgraph.ex" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Elixir host wrapper (BeamPM.Petgraph) loading the ONE petgraph wasm32-wasip1 engine via wasmex; engine surface, not a bpm:RecordType projection." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_petgraph_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm" ;
-    bpm:contentSha256 "1115fe3c2bbc8de203ae93a3c0efafad60924becc49d4c88d9331c712ab3a0c7" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the petgraph engine's function surface as ontology facts and render the wrapper plus both facades from one pack template family; then delete this admission." .
-
-bap:hand_authored_gleam_beam4pm_petgraph_gleam a bpm:HandAuthoredSource ;
-    bpm:sourcePath "gleam/src/beam4pm/petgraph.gleam" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Typed Gleam @external facade delegating to Elixir.BeamPM.Petgraph; engine surface, not a bpm:RecordType projection." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_petgraph_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm" ;
-    bpm:contentSha256 "291a8318f1601612d322e858a0140d3bf0badea96cd6747d3d7ff374064e1652" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the petgraph engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission." .
-
 bap:hand_authored_src_beam4pm_ferroplan_erl a bpm:HandAuthoredSource ;
     bpm:sourcePath "src/beam4pm_ferroplan.erl" ;
     bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
@@ -8540,42 +8530,6 @@ bap:hand_authored_gleam_beam4pm_ferroplan_gleam a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "f44dcd0" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the ferroplan engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission." .
-
-bap:hand_authored_src_beam4pm_tract_erl a bpm:HandAuthoredSource ;
-    bpm:sourcePath "src/beam4pm_tract.erl" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Delegation-only Erlang facade over the ONE tract ONNX-inference wasm32-wasip1 engine hosted by Elixir/wasmex; engine surface, not a bpm:RecordType projection." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_tract_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm" ;
-    bpm:contentSha256 "ea813276324b0ab17fba89f3bd082bd23ef14a3432c05fd0bdce6252f31f58f5" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the tract engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission." .
-
-bap:hand_authored_lib_beam4pm_tract_ex a bpm:HandAuthoredSource ;
-    bpm:sourcePath "lib/beam4pm_tract.ex" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Elixir host wrapper (BeamPM.Tract) loading the ONE tract wasm32-wasip1 ONNX engine via wasmex; engine surface, not a bpm:RecordType projection." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_tract_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm" ;
-    bpm:contentSha256 "68b0e67d997a603273487002cd85e3cdbba4b4721d859d415d528d2a29f9a10b" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the tract engine's function surface as ontology facts and render the wrapper plus both facades from one pack template family; then delete this admission." .
-
-bap:hand_authored_gleam_beam4pm_tract_gleam a bpm:HandAuthoredSource ;
-    bpm:sourcePath "gleam/src/beam4pm/tract.gleam" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Typed Gleam @external facade delegating to Elixir.BeamPM.Tract; engine surface, not a bpm:RecordType projection." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_tract_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm" ;
-    bpm:contentSha256 "fe76490a8a93a8cfa386465e8e0895c47b350e91542fff39d712dad6a9ba734c" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the tract engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission." .
 
 # -- hand_authored_qualification (14; counted as debt) -----------------------
 
@@ -8805,3 +8759,193 @@ bap:hand_authored_doc_scripts a bpm:HandAuthoredSource ;
     bpm:admissionReason "Hand-authored index of every scripts/*.sh entry point (including this gate); reference evidence scanned by GATE LINT-TRUTH." ;
     bpm:acceptanceCommand "bash scripts/gate_lint_truth.sh" ;
     bpm:admittedAtCommit "f44dcd0" .
+
+# ===========================================================================
+# Native engine surfaces -- ADMITTED as facts, facades MANUFACTURED
+# (2026-09-05; VISION-2030 section 2 / section 24 falsifier "ggen-only
+# manufacture requires routine privileged handwritten source commits").
+#
+# The bpm:HandAuthoredSource admissions above counted the four native-engine
+# facade triples (src/beam4pm_<engine>.erl, lib/beam4pm_<engine>.ex,
+# gleam/src/beam4pm/<engine>.gleam) as 12 of the 26 debt files, each with the
+# sunset plan "admit the engine's function surface as ontology facts and
+# render all three facades from one pack template family". This block IS
+# that sunset, engine by engine: every op, its wire name, its args (closed
+# bpm:EngineArgType / bpm:ArgEncoding / bpm:ArgMode members), its timeout
+# class and its per-leg exposure are declared here; the vendored pack's
+# templates/beam4pm_engine.{ex,erl,gleam}.tmpl render the three facades and
+# templates/beam4pm_engine_ops.tsv.tmpl renders schema/beam4pm_engine_ops.tsv,
+# which scripts/gate_engine_dispatch_check.sh diffs against the crate's own
+# string-literal `"<op>" =>` dispatch arms (bpm:dispatchSource) -- an
+# EngineOp the crate does not dispatch is a refusal, and a crate arm this
+# block does not expose is reported (never silently exposed: scope control).
+#
+# Derivation: the initial facts below were transcribed from the hand-authored
+# facades they replace (deleted in the same commit, their three admissions
+# removed above so GATE AUTHORSHIP's counted debt drops by 3 per engine) and
+# checked against the crate dispatch sets; from here on THIS block is the
+# source of truth and the facades are consequences. Behavioral identity is
+# proven by the unchanged, sha-pinned facades parity suites
+# (test/beam4pm_<engine>_facades_test.exs) against the real wasm engines.
+#
+# Converted so far: petgraph, tract. Still hand-authored (admitted debt
+# above): ferroplan, rust4pm -- their facts are the next increment.
+# ===========================================================================
+
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix bap: <https://ggen.dev/projects/beam4pm#> .
+
+# -- petgraph (native/petgraph-wasm): graph algorithms -----------------------
+
+bap:engine_petgraph a bpm:Engine ;
+    bpm:engineName "petgraph" ;
+    bpm:engineModule "Petgraph" ;
+    bpm:engineDoc "A real graph-algorithms engine (the petgraph crate, native/petgraph-wasm): Dijkstra via A*, Tarjan strongly-connected components, topological sort and cycle detection over the DFGs and Petri nets `BeamPM.Rust4PM` discovers, without reimplementing any graph algorithm on the BEAM side." ;
+    bpm:engineOrdinal 3 ;
+    bpm:wasmExportPrefix "pg" ;
+    bpm:wasmArtifactPath "native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm" ;
+    bpm:wasmBuildScript "scripts/petgraph_wasm_build.sh" ;
+    bpm:dispatchSource "native/petgraph-wasm/src/lib.rs" ;
+    bpm:healthId "petgraph_wasm" ;
+    bpm:handleNoun "graph" ;
+    bpm:cheapTimeoutMs 30000 ;
+    bpm:errorCollapse bpm:ErrorCollapse_single_key_inspect .
+
+bap:engine_petgraph_op_graph_new a bpm:EngineOp ;
+    bpm:opEngine bap:engine_petgraph ; bpm:opName "graph_new" ; bpm:opOrder 1 ;
+    bpm:opDoc "`{\"op\":\"graph_new\"}` -- a new, empty directed graph. `{:ok, %{\"handle\" => n}}`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+
+bap:engine_petgraph_op_add_node a bpm:EngineOp ;
+    bpm:opEngine bap:engine_petgraph ; bpm:opName "add_node" ; bpm:opOrder 2 ;
+    bpm:opDoc "`{\"op\":\"add_node\",\"handle\":h,\"name\":n}` -- idempotent." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_petgraph_op_add_node_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_add_node ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_petgraph_op_add_node_name a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_add_node ; bpm:argName "name" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_petgraph_op_add_edge a bpm:EngineOp ;
+    bpm:opEngine bap:engine_petgraph ; bpm:opName "add_edge" ; bpm:opOrder 3 ;
+    bpm:opDoc "`{\"op\":\"add_edge\",\"handle\":h,\"from\":f,\"to\":t,\"weight\":w}` -- auto-adds `from`/`to` as nodes if absent. `weight` is the `:weight` keyword option, default 1.0 (Erlang: add_edge/4 takes it explicitly; Gleam binds the default-weight head only)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_petgraph_op_add_edge_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_add_edge ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_petgraph_op_add_edge_from a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_add_edge ; bpm:argName "from" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_petgraph_op_add_edge_to a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_add_edge ; bpm:argName "to" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_petgraph_op_add_edge_weight a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_add_edge ; bpm:argName "weight" ; bpm:argOrder 4 ;
+    bpm:argType bpm:EngineArgType_number ; bpm:argMode bpm:ArgMode_keyword ; bpm:argDefault "1.0" .
+
+bap:engine_petgraph_op_shortest_path a bpm:EngineOp ;
+    bpm:opEngine bap:engine_petgraph ; bpm:opName "shortest_path" ; bpm:opOrder 4 ;
+    bpm:opDoc "`{\"op\":\"shortest_path\",\"handle\":h,\"from\":f,\"to\":t}` -- real A*-as-Dijkstra. `{:ok, %{\"path\" => [names], \"cost\" => f64}}` on a real path, or `{:ok, %{\"path\" => nil, \"cost\" => nil}}` when unreachable or a name is unknown -- \"no path\" is an answer, not an error. Negative edge weights are refused with a real `{:error, {:engine, _}}`, never silently mishandled." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_petgraph_op_shortest_path_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_shortest_path ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_petgraph_op_shortest_path_from a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_shortest_path ; bpm:argName "from" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_petgraph_op_shortest_path_to a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_shortest_path ; bpm:argName "to" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_petgraph_op_scc a bpm:EngineOp ;
+    bpm:opEngine bap:engine_petgraph ; bpm:opName "scc" ; bpm:opOrder 5 ;
+    bpm:opDoc "`{\"op\":\"scc\",\"handle\":h}` -- Tarjan strongly-connected-components, deterministically sorted (each component's node list sorted, components sorted by their sorted list)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_petgraph_op_scc_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_scc ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_petgraph_op_toposort a bpm:EngineOp ;
+    bpm:opEngine bap:engine_petgraph ; bpm:opName "toposort" ; bpm:opOrder 6 ;
+    bpm:opDoc "`{\"op\":\"toposort\",\"handle\":h}` -- `{:ok, %{\"acyclic\" => true, \"order\" => [names]}}` or `{:ok, %{\"acyclic\" => false, \"order\" => nil}}`. A cycle is a real, named answer, never an error." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_petgraph_op_toposort_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_toposort ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_petgraph_op_is_cyclic a bpm:EngineOp ;
+    bpm:opEngine bap:engine_petgraph ; bpm:opName "is_cyclic" ; bpm:opOrder 7 ;
+    bpm:opDoc "`{\"op\":\"is_cyclic\",\"handle\":h}` -- `{:ok, %{\"cyclic\" => bool}}`. Elixir names it `is_cyclic?`; Erlang and Gleam keep `is_cyclic`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ;
+    bpm:opElixirPredicate "true" .
+bap:engine_petgraph_op_is_cyclic_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_is_cyclic ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_petgraph_op_node_count a bpm:EngineOp ;
+    bpm:opEngine bap:engine_petgraph ; bpm:opName "node_count" ; bpm:opOrder 8 ;
+    bpm:opDoc "`{\"op\":\"node_count\",\"handle\":h}` -- node count of the graph." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_petgraph_op_node_count_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_node_count ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_petgraph_op_edge_count a bpm:EngineOp ;
+    bpm:opEngine bap:engine_petgraph ; bpm:opName "edge_count" ; bpm:opOrder 9 ;
+    bpm:opDoc "`{\"op\":\"edge_count\",\"handle\":h}` -- edge count of the graph." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_petgraph_op_edge_count_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_edge_count ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_petgraph_op_free_graph a bpm:EngineOp ;
+    bpm:opEngine bap:engine_petgraph ; bpm:opName "free_graph" ; bpm:opOrder 10 ;
+    bpm:opDoc "`{\"op\":\"free_graph\",\"handle\":h}` -- releases the graph handle; subsequent use errors with an unknown-handle message." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_petgraph_op_free_graph_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_petgraph_op_free_graph ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+# -- tract (native/tract-wasm): ONNX inference --------------------------------
+
+bap:engine_tract a bpm:Engine ;
+    bpm:engineName "tract" ;
+    bpm:engineModule "Tract" ;
+    bpm:engineDoc "A real ONNX-inference engine (sonos/tract -- the same crate Wasmtime's own WASI-NN implementation uses for this exact target, native/tract-wasm): graph optimization, the compiled runnable plan and the actual tensor ops all happen inside the wasm module; this side only frames base64 ONNX bytes and JSON tensor descriptors. A model is compiled to a runnable plan at load time, so a malformed or unsupported-op ONNX file fails loudly at load, never on first inference; only f32 tensors are supported and anything else is refused explicitly, never coerced." ;
+    bpm:engineOrdinal 4 ;
+    bpm:wasmExportPrefix "tr" ;
+    bpm:wasmArtifactPath "native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm" ;
+    bpm:wasmBuildScript "scripts/tract_wasm_build.sh" ;
+    bpm:dispatchSource "native/tract-wasm/src/lib.rs" ;
+    bpm:healthId "tract_wasm" ;
+    bpm:handleNoun "model" ;
+    bpm:cheapTimeoutMs 30000 ;
+    bpm:heavyTimeoutMs 60000 ;
+    bpm:errorCollapse bpm:ErrorCollapse_single_key_inspect .
+
+bap:engine_tract_op_load_model a bpm:EngineOp ;
+    bpm:opEngine bap:engine_tract ; bpm:opName "load_model" ; bpm:opOrder 1 ;
+    bpm:opDoc "`{\"op\":\"load_model\",\"model_b64\":...}` -- `model_bytes` is the raw ONNX protobuf (base64-encoded host-side; JSON strings cannot carry raw protobuf). Optimizes and compiles to a runnable plan immediately. `{:ok, %{\"handle\" => n, \"inputs\" => [%{\"name\" => s, \"shape\" => [dims|nil]}], \"outputs\" => [...]}}` -- a `nil` dim is a symbolic/dynamic axis tract could not fully resolve at load time, reported honestly rather than guessed." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_tract_op_load_model_bytes a bpm:EngineArg ;
+    bpm:argOp bap:engine_tract_op_load_model ; bpm:argName "model_bytes" ; bpm:argOrder 1 ;
+    bpm:argWireKey "model_b64" ; bpm:argType bpm:EngineArgType_binary ; bpm:argEncoding bpm:ArgEncoding_base64 .
+
+bap:engine_tract_op_load_model_path a bpm:EngineOp ;
+    bpm:opEngine bap:engine_tract ; bpm:opName "load_model_path" ; bpm:opOrder 2 ;
+    bpm:opDoc "`File.read!/1` host-side, then `load_model/2` (raises if the path is absent)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_host_helper ;
+    bpm:opDelegatesTo bap:engine_tract_op_load_model .
+bap:engine_tract_op_load_model_path_path a bpm:EngineArg ;
+    bpm:argOp bap:engine_tract_op_load_model_path ; bpm:argName "path" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_path .
+
+bap:engine_tract_op_run a bpm:EngineOp ;
+    bpm:opEngine bap:engine_tract ; bpm:opName "run" ; bpm:opOrder 3 ;
+    bpm:opDoc "`{\"op\":\"run\",\"handle\":h,\"inputs\":[{\"shape\":[dims],\"data\":[f32,...]}]}` -- one f32 tensor per declared model input, in order (`inputs` a list of `%{shape: [dims], data: [floats]}`, converted to the wire's string-keyed shape here). `{:ok, %{\"outputs\" => [%{\"shape\" => [dims], \"data\" => [floats]}]}}`, one per declared model output, in order. Real tensor inference, even on a tiny model, draws the heavy timeout budget." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_tract_op_run_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_tract_op_run ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_tract_op_run_inputs a bpm:EngineArg ;
+    bpm:argOp bap:engine_tract_op_run ; bpm:argName "inputs" ; bpm:argOrder 2 ;
+    bpm:argType bpm:EngineArgType_tensor_list ; bpm:argEncoding bpm:ArgEncoding_tensor_list .
+
+bap:engine_tract_op_model_info a bpm:EngineOp ;
+    bpm:opEngine bap:engine_tract ; bpm:opName "model_info" ; bpm:opOrder 4 ;
+    bpm:opDoc "`{\"op\":\"model_info\",\"handle\":h}` -- same input/output fact shape as `load_model/2`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_tract_op_model_info_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_tract_op_model_info ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_tract_op_free_model a bpm:EngineOp ;
+    bpm:opEngine bap:engine_tract ; bpm:opName "free_model" ; bpm:opOrder 5 ;
+    bpm:opDoc "`{\"op\":\"free_model\",\"handle\":h}` -- releases the model handle; subsequent use errors with an unknown-handle message." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_tract_op_free_model_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_tract_op_free_model ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .

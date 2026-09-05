@@ -87,6 +87,11 @@ jobs:
         run: |
           bash scripts/gate_authorship_check.sh
 
+      - name: Manufactured engine ops are crate-dispatched (GATE ENGINE DISPATCH)
+        shell: bash
+        run: |
+          bash scripts/gate_engine_dispatch_check.sh
+
       - name: mix test
         shell: bash
         run: |

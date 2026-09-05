@@ -16,8 +16,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 ## Count
 
-- Admitted unmarked files: **33**
-- Counted as manufacturing debt: **26**
+- Admitted unmarked files: **27**
+- Counted as manufacturing debt: **20**
 - Lawful inputs / reference evidence (not debt): **7**
 
 ## Authorship kinds (closed vocabulary, pack `ontology.ttl`)
@@ -26,7 +26,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | --- | --- | --- | --- | --- |
 | `hand_authored_qualification` | true | 14 | 16 | A hand-authored ExUnit qualification file under test/ (VISION-2030 section 2 lists tests-as-specification among lawful inputs, but this pack's convention manufactures every test from a template, so an unmanufactured test is counted as debt). Sunset: migrate its fixture bindings into ontology facts and render it from a .tmpl/.eex like the beam4pm_types_test.exs family. |
 | `manufacturing_input` | false | 1 | 4 | Project scaffolding that happens to live under a manufactured root but is a lawful manufacturing input in the same class as ggen.toml / rebar.config / mix.exs (e.g. src/beam4pm.app.src). Not counted as debt; still admitted so the tree has zero unexplained unmarked files. |
-| `native_engine_facade` | true | 12 | 12 | A thin, delegation-only BEAM facade (Erlang / Elixir / Gleam) over ONE native engine hosted via wasm (rust4pm, petgraph, ferroplan, tract). Its function surface is the engine's, not a bpm:RecordType projection, so no template currently derives it -- counted as debt until the engine surface is admitted as ontology facts and the facades are rendered from them. |
+| `native_engine_facade` | true | 6 | 6 | A thin, delegation-only BEAM facade (Erlang / Elixir / Gleam) over ONE native engine hosted via wasm whose surface has NOT yet been admitted as bpm:Engine / bpm:EngineOp facts. Since pack 0.1.17 templates/beam4pm_engine.{ex,erl,gleam}.tmpl render every admitted engine's three facades, so this kind is the shrinking remainder (ferroplan, rust4pm in the reference consumer; petgraph and tract are manufactured). Ceiling lowered 12 -> 6 when those two converted: a converted engine cannot quietly return to hand-authoring. |
 | `reference_evidence` | false | 6 | 8 | A hand-authored reference document under docs/reference/ sitting beside the manufactured ones (VISION-2030 section 2: reference evidence is a lawful input). Not counted as debt; admitted so a doc that only LOOKS manufactured cannot hide there unexplained. |
 
 ## Admitted files
@@ -163,22 +163,16 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `-`
 - Sunset plan: -
 
-### `native_engine_facade` (12 file(s), counts as debt: true)
+### `native_engine_facade` (6 file(s), counts as debt: true)
 
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
 | `gleam/src/beam4pm/ferroplan.gleam` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
-| `gleam/src/beam4pm/petgraph.gleam` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_facades_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `gleam/src/beam4pm/rust4pm.gleam` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_facades_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
-| `gleam/src/beam4pm/tract.gleam` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_tract_facades_test.exs` | native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm |
 | `lib/beam4pm_ferroplan.ex` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
-| `lib/beam4pm_petgraph.ex` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_facades_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `lib/beam4pm_rust4pm.ex` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_facades_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
-| `lib/beam4pm_tract.ex` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_tract_facades_test.exs` | native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm |
 | `src/beam4pm_ferroplan.erl` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
-| `src/beam4pm_petgraph.erl` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_facades_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `src/beam4pm_rust4pm.erl` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_facades_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
-| `src/beam4pm_tract.erl` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_tract_facades_test.exs` | native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm |
 
 
 #### `gleam/src/beam4pm/ferroplan.gleam`
@@ -188,26 +182,12 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `32bc2445945a881afbf72416599f94c64a1260ed12eb8624daed4c174bad8a2d`
 - Sunset plan: Admit the ferroplan engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission.
 
-#### `gleam/src/beam4pm/petgraph.gleam`
-
-- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Typed Gleam @external facade delegating to Elixir.BeamPM.Petgraph; engine surface, not a bpm:RecordType projection.
-- Content sha256 at admission: `291a8318f1601612d322e858a0140d3bf0badea96cd6747d3d7ff374064e1652`
-- Sunset plan: Admit the petgraph engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission.
-
 #### `gleam/src/beam4pm/rust4pm.gleam`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
 - Reason: Typed Gleam @external facade delegating every function to Elixir.BeamPM.Rust4PM; compile-checked by gleam build, runtime-exercised only from the Mix context. Engine surface, not a bpm:RecordType projection.
 - Content sha256 at admission: `e2e57ec9d5988122a1d1d5b33a35663fb0fe7cc43df03627dda5ddedea23a41a`
 - Sunset plan: Admit the rust4pm engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission.
-
-#### `gleam/src/beam4pm/tract.gleam`
-
-- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Typed Gleam @external facade delegating to Elixir.BeamPM.Tract; engine surface, not a bpm:RecordType projection.
-- Content sha256 at admission: `fe76490a8a93a8cfa386465e8e0895c47b350e91542fff39d712dad6a9ba734c`
-- Sunset plan: Admit the tract engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission.
 
 #### `lib/beam4pm_ferroplan.ex`
 
@@ -216,26 +196,12 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `61b6b5d9d690433c2d3cfb6ab13bd52be26f4bdce35a66fcdddb9fcc5d072310`
 - Sunset plan: Admit the ferroplan engine's function surface as ontology facts and render the wrapper plus both facades from one pack template family; then delete this admission.
 
-#### `lib/beam4pm_petgraph.ex`
-
-- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Elixir host wrapper (BeamPM.Petgraph) loading the ONE petgraph wasm32-wasip1 engine via wasmex; engine surface, not a bpm:RecordType projection.
-- Content sha256 at admission: `1115fe3c2bbc8de203ae93a3c0efafad60924becc49d4c88d9331c712ab3a0c7`
-- Sunset plan: Admit the petgraph engine's function surface as ontology facts and render the wrapper plus both facades from one pack template family; then delete this admission.
-
 #### `lib/beam4pm_rust4pm.ex`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
 - Reason: Elixir host wrapper (BeamPM.Rust4PM) that loads the ONE rust4pm wasm32-wasip1 engine via wasmex and frames JSON requests/responses; the engine surface, not a bpm:RecordType projection, so no template derives it.
 - Content sha256 at admission: `cf54f4f304f069b6f73e1bfd6a0c8597aaf0702101747768a2c097332764d6e9`
 - Sunset plan: Admit the rust4pm engine's function surface as ontology facts and render the wrapper plus both facades from one pack template family; then delete this admission.
-
-#### `lib/beam4pm_tract.ex`
-
-- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Elixir host wrapper (BeamPM.Tract) loading the ONE tract wasm32-wasip1 ONNX engine via wasmex; engine surface, not a bpm:RecordType projection.
-- Content sha256 at admission: `68b0e67d997a603273487002cd85e3cdbba4b4721d859d415d528d2a29f9a10b`
-- Sunset plan: Admit the tract engine's function surface as ontology facts and render the wrapper plus both facades from one pack template family; then delete this admission.
 
 #### `src/beam4pm_ferroplan.erl`
 
@@ -244,26 +210,12 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `51cfee702cd3b8931fa705374ea093f1409bb9a3a2f9e92b75d8fa09b93b43a5`
 - Sunset plan: Admit the ferroplan engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission.
 
-#### `src/beam4pm_petgraph.erl`
-
-- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Delegation-only Erlang facade over the ONE petgraph wasm32-wasip1 engine (shortest path, SCC, toposort, cycle detection) hosted by Elixir/wasmex; engine surface, not a bpm:RecordType projection.
-- Content sha256 at admission: `1537ee6f89440f9cb3ca07968928095500633ff3ddfda1df08890732dd5ec04c`
-- Sunset plan: Admit the petgraph engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission.
-
 #### `src/beam4pm_rust4pm.erl`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
 - Reason: Delegation-only Erlang facade over the ONE rust4pm (process_mining =0.6.2) wasm32-wasip1 engine hosted by Elixir/wasmex; its function surface is the engine's, not a bpm:RecordType projection, so no template derives it. Header self-declares hand-authored infrastructure with no ggen provenance.
 - Content sha256 at admission: `300479d838b6f701b86d10042da1b147b1e00d56cfb82014c8ba2c1881fadcc7`
 - Sunset plan: Admit the rust4pm engine's function surface (names, arities, wire shapes) as ontology facts and render all three facades from one pack template family (the rf1-rf3 ggen_igniter precedent); then delete this admission.
-
-#### `src/beam4pm_tract.erl`
-
-- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Delegation-only Erlang facade over the ONE tract ONNX-inference wasm32-wasip1 engine hosted by Elixir/wasmex; engine surface, not a bpm:RecordType projection.
-- Content sha256 at admission: `ea813276324b0ab17fba89f3bd082bd23ef14a3432c05fd0bdce6252f31f58f5`
-- Sunset plan: Admit the tract engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission.
 
 ### `reference_evidence` (6 file(s), counts as debt: false)
 
