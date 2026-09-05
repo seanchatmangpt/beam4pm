@@ -123,6 +123,19 @@ def _load_cube_counter():
     return CubeCounterProvider()
 
 
+def _load_gymnasium():
+    # GymnasiumProvider (/Users/sac/gymact/src/gymact/gyms/gymnasium_env.py)
+    # wraps ANY already-registered `gymnasium.Env` -- no gym-specific bridge
+    # code needed per environment; `config["env_id"]` selects which one at
+    # runtime (default CartPole-v1). Requires the optional 'gyms' extra (the
+    # `gymnasium` package itself); raises ImportError on a machine without
+    # it -- probed for real by --list and reported runnable:false in that
+    # case, never silently hidden, matching _load_cube_counter's convention.
+    from gymact.gyms.gymnasium_env import GymnasiumProvider
+
+    return GymnasiumProvider()
+
+
 def _lock_reward(before: dict[str, Any], after: dict[str, Any]) -> float:
     return float(after.get("locks_open", 0) - before.get("locks_open", 0))
 
@@ -150,6 +163,25 @@ def _cube_reward(before: dict[str, Any], after: dict[str, Any]) -> float:
 
 def _cube_done(state: dict[str, Any]) -> bool:
     return bool(state.get("solved"))
+
+
+def _gymnasium_reward(before: dict[str, Any], after: dict[str, Any]) -> float:
+    # gymnasium's own env.step() reward IS the real per-step reward (unlike
+    # lock-and-key's locks_open or CUBE's running score, it is not a
+    # cumulative counter needing a before/after delta), surfaced verbatim in
+    # the gym's observed state
+    # (/Users/sac/gymact/src/gymact/gyms/gymnasium_env.py:118-123) -- report
+    # it directly, never a bridge-invented delta. `reward` is None
+    # immediately after reset/before any step; report that as 0.0.
+    del before
+    return float(after.get("reward") or 0.0)
+
+
+def _gymnasium_done(state: dict[str, Any]) -> bool:
+    # gymnasium's own terminated/truncated flags -- the real, authoritative
+    # episode-end signal for ANY Gymnasium-API-compliant environment, not a
+    # bridge-specific interpretation.
+    return bool(state.get("terminated")) or bool(state.get("truncated"))
 
 
 GYMS: dict[str, dict[str, Any]] = {
@@ -182,6 +214,23 @@ GYMS: dict[str, dict[str, Any]] = {
         "forbidden_bindings": {},
         "reward": _cube_reward,
         "done": _cube_done,
+    },
+    "gymnasium": {
+        "provider": "gymnasium",
+        "load": _load_gymnasium,
+        # requires_authority=False: matches cube-counter's convention -- this
+        # bridge already admits DO through gymact's own
+        # AllowListAuthorityResolver; stepping a real gymnasium env (an
+        # in-process simulation) has no external consequence to additionally
+        # gate. env_id is a genuine runtime parameter (via --config), not a
+        # code-time dispatch key: any already-registered `gymnasium.Env`
+        # (CartPole-v1 default, or any other id in `gymnasium.registry`) is
+        # drivable through this ONE entry with zero gym-specific code added
+        # here or in gymact.
+        "default_config": {"env_id": "CartPole-v1", "requires_authority": False},
+        "forbidden_bindings": {},
+        "reward": _gymnasium_reward,
+        "done": _gymnasium_done,
     },
 }
 
