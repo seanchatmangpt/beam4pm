@@ -1,0 +1,13 @@
+[package]
+name = "oracle-io"
+version = "0.1.0"
+edition = "2021"
+description = "Shared stdin-read + JSON-parse preamble for the rf1-rf4 (native/) and rust4pm-oracle (qualification/) differential-testing oracle binaries. Deliberately narrow: see src/lib.rs for what this does and does not cover."
+license = "MIT"
+
+[dependencies]
+serde = "1"
+serde_json = "1"
+
+[dev-dependencies]
+serde = { version = "1", features = ["derive"] }

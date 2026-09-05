@@ -59,7 +59,6 @@
 //! ```
 
 use std::collections::{BTreeMap, BTreeSet};
-use std::io::Read;
 use std::path::Path;
 use std::process::ExitCode;
 
@@ -84,18 +83,9 @@ enum WireInput {
 }
 
 fn main() -> ExitCode {
-    let mut raw = String::new();
-    if let Err(e) = std::io::stdin().read_to_string(&mut raw) {
-        eprintln!("rf3-ocel-oracle: failed to read stdin: {e}");
-        return ExitCode::from(1);
-    }
-
-    let input: WireInput = match serde_json::from_str(&raw) {
+    let input: WireInput = match oracle_io::read_stdin_json("rf3-ocel-oracle") {
         Ok(v) => v,
-        Err(e) => {
-            eprintln!("rf3-ocel-oracle: malformed wire input JSON: {e}");
-            return ExitCode::from(1);
-        }
+        Err(code) => return code,
     };
 
     match input {

@@ -26,7 +26,6 @@
 //! `get_projection_activities`, `get_top_n_variants`) -- no algorithm is
 //! re-implemented here.
 
-use std::io::Read;
 use std::process::ExitCode;
 
 use serde::Deserialize;
@@ -46,18 +45,9 @@ struct WireInput {
 }
 
 fn main() -> ExitCode {
-    let mut raw = String::new();
-    if let Err(e) = std::io::stdin().read_to_string(&mut raw) {
-        eprintln!("rf1-dfg-oracle: failed to read stdin: {e}");
-        return ExitCode::from(1);
-    }
-
-    let input: WireInput = match serde_json::from_str(&raw) {
+    let input: WireInput = match oracle_io::read_stdin_json("rf1-dfg-oracle") {
         Ok(v) => v,
-        Err(e) => {
-            eprintln!("rf1-dfg-oracle: malformed input JSON: {e}");
-            return ExitCode::from(1);
-        }
+        Err(code) => return code,
     };
 
     match input.op.as_str() {
