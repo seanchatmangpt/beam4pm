@@ -1,9 +1,11 @@
 # beam4pm-pro Revenue Suite
 
 *Hand-authored reference for the `beam4pm-pro-revenue-suite` manufacturing run.
-Updated 2026-08-30, against the v26.8.29 doc package. Overall standing: UNVERIFIED
-until each family's sync script has run and produced real passing `mix test`
-output — see the Honesty Ledger section for the full standing vocabulary.*
+Updated 2026-09-04 (economics activity vocabulary externalized to a per-call
+runtime argument, `beam4pm-process-model-pack` v0.1.7), against the v26.8.29
+doc package. Overall standing: UNVERIFIED until each family's sync script has
+run and produced real passing `mix test` output — see the Honesty Ledger
+section for the full standing vocabulary.*
 
 This document specifies the five revenue capabilities and one practice capability
 the suite manufactures, the exact function contracts they expose, how the code is
@@ -14,8 +16,8 @@ that bounds every claim the suite is allowed to make.
 
 | Capability | Function | Family |
 | --- | --- | --- |
-| quantify-rework-cost | `BeamPM.Revenue.Economics.rework_cost/2` | economics |
-| measure-cycle-to-cash | `BeamPM.Revenue.Economics.cycle_to_cash/2` | economics |
+| quantify-rework-cost | `BeamPM.Revenue.Economics.rework_cost/2,3` | economics |
+| measure-cycle-to-cash | `BeamPM.Revenue.Economics.cycle_to_cash/2,3` | economics |
 | detect-conformance-leakage | `BeamPM.Revenue.Economics.conformance_leakage/3` | economics |
 | meter-governed-process-estate | `BeamPM.Revenue.Metering.emit_usage_events/4` | metering |
 | admit-entitled-usage | `BeamPM.Revenue.Metering.admit_entitled_usage/2` | metering |
@@ -46,19 +48,32 @@ family so any failure surfaces before anything depends on it.
 ## Capability 1: quantify-rework-cost
 
 ```elixir
-@spec rework_cost([BeamPM.Types.LogTrace.t()], %{String.t() => map()}) ::
+@spec rework_cost([BeamPM.Types.LogTrace.t()], %{String.t() => map()},
+                  BeamPM.Revenue.Economics.vocabulary()) ::
         %{per_case: [map()], loop_case_ids: [String.t()], total_weighted_cost: float()}
         | {:error, {:missing_amount, String.t()}}
+        | {:error, {:invalid_vocabulary, term()}}
 ```
 
-A rework loop is any activity containing `" REJECTED by "` followed later in the
-same `activity_sequence` by a `"SUBMITTED"`-bearing activity. Each flagged case
-yields `%{case_id, loop_count, weighted_cost}` where `weighted_cost` is the
-case's `"Amount"` trace attribute (fallback `"RequestedAmount"`). A loop-bearing
-case with neither attribute is the typed refusal `{:error, {:missing_amount,
-case_id}}`, never a silent `0.0`. `total_weighted_cost` is summed in sorted
-ascending order — the same canonical-summation float-determinism discipline as
-`BeamPM.Billing.reconcile/4`.
+A rework loop is any activity containing the vocabulary's `rejected_marker`
+followed later in the same `activity_sequence` by an activity containing its
+`submitted_marker`. Each flagged case yields `%{case_id, loop_count,
+weighted_cost}` where `weighted_cost` is the case's `"Amount"` trace attribute
+(fallback `"RequestedAmount"`). A loop-bearing case with neither attribute is
+the typed refusal `{:error, {:missing_amount, case_id}}`, never a silent
+`0.0`. `total_weighted_cost` is summed in sorted ascending order — the same
+canonical-summation float-determinism discipline as `BeamPM.Billing.
+reconcile/4`.
+
+**Vocabulary is a runtime argument, not a compile-time constant.** The third
+argument (default `Economics.default_vocabulary/0`, the BPI-2020 markers
+`" REJECTED by "` / `"SUBMITTED"` / `"Payment Handled"`) is a per-call map
+`%{rejected_marker, submitted_marker, payment_activity}`. This is what lets
+ONE compiled beam4pm_pro release score multiple tenants' differently-worded
+processes correctly — the vocabulary a call is scored against is chosen by
+the caller, per request, never baked into the node at compile time. A
+malformed vocabulary (missing key, non-string marker) is the typed refusal
+`{:error, {:invalid_vocabulary, vocabulary}}`.
 
 Spec citations: roadmap 08:146 ("retry/rework/recovery loops"), 08:184
 ("minimize WIP/rework"); PRD 02:176 (REV-003 rework and failure/retry loops).
@@ -66,22 +81,28 @@ Spec citations: roadmap 08:146 ("retry/rework/recovery loops"), 08:184
 ## Capability 2: measure-cycle-to-cash
 
 ```elixir
-@spec cycle_to_cash([BeamPM.Types.LogTrace.t()], [BeamPM.Types.OcelEvent.t()]) ::
+@spec cycle_to_cash([BeamPM.Types.LogTrace.t()], [BeamPM.Types.OcelEvent.t()],
+                    BeamPM.Revenue.Economics.vocabulary()) ::
         %{case_stats: [BeamPM.Types.CaseStats.t()],
           sojourns: [BeamPM.Types.SojournTime.t()],
           cycle_to_cash: %{String.t() => number()},
           open_obligations: [String.t()]}
         | {:error, {:malformed_event_time, String.t()}}
+        | {:error, {:invalid_vocabulary, term()}}
 ```
 
 The first real producer for the previously zero-producer Phase-7 records: emits
 `BeamPM.Types.CaseStats` per case and `BeamPM.Types.SojournTime` per (case,
 activity) dwell, every one constructed through the generated validating `new/1`,
 never as a raw struct literal. Per-case cycle-to-cash is the seconds from the
-first `"SUBMITTED"`-bearing event to `"Payment Handled"`; cases with no payment
-event land in `open_obligations` with no fabricated duration. A non-ISO8601
+first activity containing the vocabulary's `submitted_marker` to the last
+activity exactly matching its `payment_activity`; cases with no payment event
+land in `open_obligations` with no fabricated duration. A non-ISO8601
 `event_time` is the typed refusal `{:error, {:malformed_event_time, event_id}}` —
-importing the entitlement pack's timestamp discipline that billing lacks.
+importing the entitlement pack's timestamp discipline that billing lacks. The
+third argument is the same per-call `vocabulary()` map `rework_cost/2,3` takes
+(default `Economics.default_vocabulary/0`); see Capability 1 for the
+multi-tenant rationale and the `invalid_vocabulary` refusal.
 
 Spec citations: roadmap 08:141-143 (cycle/wait time, WIP/throughput,
 bottlenecks); PRD 02:176 (REV-003 baseline cycle time, waiting time, WIP,
