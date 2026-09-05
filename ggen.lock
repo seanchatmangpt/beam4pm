@@ -2,7 +2,7 @@
 
 [packs.beam4pm-ai-contracts]
 source = "path:vendor/ggen-marketplace/packs/beam4pm-ai-contracts-pack"
-content_hash = "blake3:93acc68a56ba5d95b2cf5c3806cb8cf078ff628350b8c3f5a0095d00f6fb1571"
+content_hash = "blake3:8eddc37be43812a06b684460dd62075066f0616d2e49f57a0665ed6683b394bc"
 
 [packs.beam4pm-pro-entitlement]
 source = "path:vendor/ggen-marketplace/packs/beam4pm-pro-entitlement-pack"
