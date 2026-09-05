@@ -418,5 +418,56 @@ class TestProtocolConformance(unittest.TestCase):
                 self.assertIn("error", row)  # a real probed failure, named
 
 
+class TestBridgeSessionKernelReuse(unittest.TestCase):
+    """Direct in-process check (no subprocess) that `BridgeSession` builds and
+    registers its real `GymAct` kernel ONCE and reuses it across repeated
+    resets, instead of rebuilding it (and re-paying GymAct's real SHACL
+    profile validation -- see BridgeSession.__init__'s comment in
+    gym_bridge.py, and gymact/kernel.py:83-110) on every reset call. Real
+    object, real kernel, real state assertions (object identity, distinct
+    episode ids) -- no mock/patch/monkeypatch anywhere in this class."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        try:
+            import gym_bridge as gym_bridge_module  # real in-process import probe
+        except BaseException as exc:  # gym_bridge.py itself raises SystemExit(2)
+            raise unittest.SkipTest(  # when gymact isn't importable here
+                f"BLOCKED: gym_bridge not importable in-process ({exc!r}); "
+                "run this suite under an interpreter with gymact installed "
+                "(see README.md)"
+            ) from None
+        cls.gym_bridge_module = gym_bridge_module
+
+    def test_gym_kernel_identity_is_stable_across_repeated_resets(self) -> None:
+        session = self.gym_bridge_module.BridgeSession(
+            "lock-and-key", {"seed": 7, "depth": 3}
+        )
+        try:
+            first = session.reset()
+            self.assertIs(first["ok"], True)
+            kernel_after_first_reset = session.gym
+            episode_after_first_reset = session.episode_id
+
+            second = session.reset()
+            self.assertIs(second["ok"], True)
+            # The SAME kernel object serves the second episode -- no
+            # reconstruction, no re-registration. `register_provider` raises
+            # ValueError on a duplicate provider name (kernel.py:188-194), so
+            # a regression back to per-reset reconstruction would surface
+            # here as a real crash, not a silently-passing behavior change.
+            self.assertIs(session.gym, kernel_after_first_reset)
+            self.assertIsNotNone(session.episode_id)
+            self.assertNotEqual(session.episode_id, episode_after_first_reset)
+
+            third = session.reset()
+            self.assertIs(third["ok"], True)
+            self.assertIs(session.gym, kernel_after_first_reset)
+        finally:
+            session.close()
+            session.loop.close()
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
