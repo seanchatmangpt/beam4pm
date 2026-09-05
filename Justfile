@@ -19,6 +19,13 @@ test:
     rebar3 eunit
     mix test
 
+# VISION-2030 section 5: zero-configuration discovery. Point at an arbitrary
+# XES or OCEL 2.0 JSON file and get a real discovery report (traces, DFG,
+# variants, conformance) -- no bespoke modeling engagement in between.
+# Usage: just discover qualification/fixtures/small-example.xes
+discover path:
+    mix run scripts/discover_report.exs {{path}}
+
 # Static scan of hand-authored docs/source for banned overclaiming phrases
 # (transplanted architecture from ex4pm's `mix ex4pm.lint.truth`).
 lint_truth:
