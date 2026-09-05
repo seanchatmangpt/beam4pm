@@ -8453,83 +8453,15 @@ b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f a bpm:Field ;
 @prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
 @prefix bap: <https://ggen.dev/projects/beam4pm#> .
 
-# -- native_engine_facade (6 remaining; counted as debt) ----------------------
-# petgraph and tract are NO LONGER admitted here: their facades are
-# manufactured from the bpm:Engine facts at the end of this file (their six
-# admissions were removed 2026-09-05, dropping the counted line 33/26 -> 27/20).
-# ferroplan and rust4pm stay admitted until their facts land.
-
-bap:hand_authored_src_beam4pm_rust4pm_erl a bpm:HandAuthoredSource ;
-    bpm:sourcePath "src/beam4pm_rust4pm.erl" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Delegation-only Erlang facade over the ONE rust4pm (process_mining =0.6.2) wasm32-wasip1 engine hosted by Elixir/wasmex; its function surface is the engine's, not a bpm:RecordType projection, so no template derives it. Header self-declares hand-authored infrastructure with no ggen provenance." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_rust4pm_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
-    bpm:contentSha256 "300479d838b6f701b86d10042da1b147b1e00d56cfb82014c8ba2c1881fadcc7" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the rust4pm engine's function surface (names, arities, wire shapes) as ontology facts and render all three facades from one pack template family (the rf1-rf3 ggen_igniter precedent); then delete this admission." .
-
-bap:hand_authored_lib_beam4pm_rust4pm_ex a bpm:HandAuthoredSource ;
-    bpm:sourcePath "lib/beam4pm_rust4pm.ex" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Elixir host wrapper (BeamPM.Rust4PM) that loads the ONE rust4pm wasm32-wasip1 engine via wasmex and frames JSON requests/responses; the engine surface, not a bpm:RecordType projection, so no template derives it." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_rust4pm_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
-    bpm:contentSha256 "cf54f4f304f069b6f73e1bfd6a0c8597aaf0702101747768a2c097332764d6e9" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the rust4pm engine's function surface as ontology facts and render the wrapper plus both facades from one pack template family; then delete this admission." .
-
-bap:hand_authored_gleam_beam4pm_rust4pm_gleam a bpm:HandAuthoredSource ;
-    bpm:sourcePath "gleam/src/beam4pm/rust4pm.gleam" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Typed Gleam @external facade delegating every function to Elixir.BeamPM.Rust4PM; compile-checked by gleam build, runtime-exercised only from the Mix context. Engine surface, not a bpm:RecordType projection." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_rust4pm_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
-    bpm:contentSha256 "e2e57ec9d5988122a1d1d5b33a35663fb0fe7cc43df03627dda5ddedea23a41a" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the rust4pm engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission." .
-
-bap:hand_authored_src_beam4pm_ferroplan_erl a bpm:HandAuthoredSource ;
-    bpm:sourcePath "src/beam4pm_ferroplan.erl" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Delegation-only Erlang facade over the ONE ferroplan PDDL-planner wasm32-wasip1 engine (native/ferroplan submodule) hosted by Elixir/wasmex; engine surface, not a bpm:RecordType projection." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "51cfee702cd3b8931fa705374ea093f1409bb9a3a2f9e92b75d8fa09b93b43a5" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the ferroplan engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission." .
-
-bap:hand_authored_lib_beam4pm_ferroplan_ex a bpm:HandAuthoredSource ;
-    bpm:sourcePath "lib/beam4pm_ferroplan.ex" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Elixir host wrapper (BeamPM.Ferroplan) loading the ONE ferroplan wasm32-wasip1 planner engine via wasmex; engine surface, not a bpm:RecordType projection." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "61b6b5d9d690433c2d3cfb6ab13bd52be26f4bdce35a66fcdddb9fcc5d072310" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the ferroplan engine's function surface as ontology facts and render the wrapper plus both facades from one pack template family; then delete this admission." .
-
-bap:hand_authored_gleam_beam4pm_ferroplan_gleam a bpm:HandAuthoredSource ;
-    bpm:sourcePath "gleam/src/beam4pm/ferroplan.gleam" ;
-    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
-    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Typed Gleam @external facade delegating to Elixir.BeamPM.Ferroplan; engine surface, not a bpm:RecordType projection." ;
-    bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_facades_test.exs" ;
-    bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "32bc2445945a881afbf72416599f94c64a1260ed12eb8624daed4c174bad8a2d" ;
-    bpm:admittedAtCommit "f44dcd0" ;
-    bpm:admissionExpires "2026-12-31" ;
-    bpm:sunsetPlan "Admit the ferroplan engine's function surface as ontology facts and render all three facades from one pack template family; then delete this admission." .
+# -- native_engine_facade (0 remaining; declared ceiling still 6) ------------
+# petgraph, tract, ferroplan and rust4pm are ALL NO LONGER admitted here: all
+# four facades are manufactured from the bpm:Engine facts at the end of this
+# file. petgraph/tract's admissions were removed 2026-09-05 (33/26 -> 27/20);
+# ferroplan/rust4pm's six admissions removed the same day, same commit family
+# per their own sunsetPlan text above, dropping the counted line 27/20 ->
+# 21/14. bpm:debtCeiling for native_engine_facade stays 6 in the vendored
+# pack (not lowered to 0 in this bounded change) -- lowering it is a separate,
+# reviewable vendor-pack edit, not bundled into this consumer-side sunset.
 
 # -- hand_authored_qualification (14; counted as debt) -----------------------
 
@@ -8788,8 +8720,9 @@ bap:hand_authored_doc_scripts a bpm:HandAuthoredSource ;
 # proven by the unchanged, sha-pinned facades parity suites
 # (test/beam4pm_<engine>_facades_test.exs) against the real wasm engines.
 #
-# Converted so far: petgraph, tract. Still hand-authored (admitted debt
-# above): ferroplan, rust4pm -- their facts are the next increment.
+# Converted: petgraph, tract, ferroplan, rust4pm -- all four native engines.
+# native_engine_facade debt is now 0 admitted (declared ceiling unchanged at
+# 6 in the vendored pack; see the debt-admissions section above for why).
 # ===========================================================================
 
 @prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
@@ -8949,3 +8882,594 @@ bap:engine_tract_op_free_model a bpm:EngineOp ;
     bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_tract_op_free_model_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_tract_op_free_model ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+@prefix bap: <https://ggen.dev/projects/beam4pm#> .
+
+# -- rust4pm (native/rust4pm-wasm): process mining ----------------------------
+
+bap:engine_rust4pm a bpm:Engine ;
+    bpm:engineName "rust4pm" ;
+    bpm:engineModule "Rust4PM" ;
+    bpm:engineDoc "The ONE process-mining engine: rust4pm (`process_mining = \"=0.6.2\"`, native/rust4pm-wasm) -- XES import, variant projection, DFG discovery, alpha+++ and POWL discovery, PNML import, alignments, fitness, pm4py-ported stats ops and the documented OCEL 2.0 construction/discovery set, all computed inside the wasm module. `config`/`options` maps are passed to the engine VERBATIM (serde `AlphaPPPConfig` / `AlignmentOptions`); defaulting, validation and the UNSUPPORTED refusal of pm4py's discounted-A* cost keys all live engine-side, never emulated here." ;
+    bpm:engineOrdinal 1 ;
+    bpm:wasmExportPrefix "r4pm" ;
+    bpm:wasmArtifactPath "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
+    bpm:wasmBuildScript "scripts/rust4pm_wasm_build.sh" ;
+    bpm:dispatchSource "native/rust4pm-wasm/src/lib.rs" ;
+    bpm:healthId "rust4pm_wasm" ;
+    bpm:handleNoun "log/net/ocel" ;
+    bpm:cheapTimeoutMs 30000 ;
+    bpm:heavyTimeoutMs 120000 ;
+    bpm:errorCollapse bpm:ErrorCollapse_any_key_raw .
+
+bap:engine_rust4pm_op_import_xes a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_xes" ; bpm:opOrder 1 ;
+    bpm:opDoc "`{\"op\":\"import_xes\",\"content\":...}` -- imports an entire XES document (UTF-8, passed by value) and returns `{:ok, %{\"handle\" => n}}`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_import_xes_content a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_import_xes ; bpm:argName "xes_content" ; bpm:argOrder 1 ;
+    bpm:argWireKey "content" ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_rust4pm_op_import_xes_path a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_xes_path" ; bpm:opOrder 2 ;
+    bpm:opDoc "`File.read!/1` host-side, then `import_xes/2` (raises if the path is absent)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_host_helper ;
+    bpm:opDelegatesTo bap:engine_rust4pm_op_import_xes .
+bap:engine_rust4pm_op_import_xes_path_path a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_import_xes_path ; bpm:argName "path" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_path .
+
+bap:engine_rust4pm_op_import_xes_gz a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_xes_gz" ; bpm:opOrder 3 ;
+    bpm:opDoc "`{\"op\":\"import_xes_gz\",\"content_b64\":...}` -- gzip'd XES bytes, base64-encoded host-side (JSON strings cannot carry raw gzip bytes)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_import_xes_gz_bytes a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_import_xes_gz ; bpm:argName "gz_bytes" ; bpm:argOrder 1 ;
+    bpm:argWireKey "content_b64" ; bpm:argType bpm:EngineArgType_binary ; bpm:argEncoding bpm:ArgEncoding_base64 .
+
+bap:engine_rust4pm_op_import_pnml a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_pnml" ; bpm:opOrder 4 ;
+    bpm:opDoc "`{\"op\":\"import_pnml\",\"content\":...}` -- imports a PNML document (UTF-8, by value) and returns `{:ok, %{\"net_handle\" => n, \"summary\" => %{...}}}`. A PNML without markings imports but later fails alignment with the engine's verbatim `NoInitialMarking`/`NoFinalMarking` error -- reported honestly in `summary[\"has_initial_marking\"]`/`summary[\"num_final_markings\"]`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_import_pnml_content a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_import_pnml ; bpm:argName "pnml_content" ; bpm:argOrder 1 ;
+    bpm:argWireKey "content" ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_rust4pm_op_import_pnml_path a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_pnml_path" ; bpm:opOrder 5 ;
+    bpm:opDoc "`File.read!/1` host-side, then `import_pnml/2` (raises if the path is absent)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_host_helper ;
+    bpm:opDelegatesTo bap:engine_rust4pm_op_import_pnml .
+bap:engine_rust4pm_op_import_pnml_path_path a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_import_pnml_path ; bpm:argName "path" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_path .
+
+bap:engine_rust4pm_op_log_stats a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "log_stats" ; bpm:opOrder 6 ;
+    bpm:opDoc "`{\"op\":\"log_stats\",\"handle\":n}` -- `num_cases`/`num_variants`/`num_activities`/`activities` (sorted)/`top_variant`/`top_variant_count`. Field superset of the rf1 oracle wire (differential anchor)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_log_stats_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_log_stats ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_rust4pm_op_top_n_variants a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "top_n_variants" ; bpm:opOrder 7 ;
+    bpm:opDoc "`{\"op\":\"top_n_variants\",\"handle\":n,\"n\":n}` -- descending-count variant list." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_top_n_variants_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_top_n_variants ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_top_n_variants_n a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_top_n_variants ; bpm:argName "n" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_integer .
+
+bap:engine_rust4pm_op_discover_dfg a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "discover_dfg" ; bpm:opOrder 8 ;
+    bpm:opDoc "`{\"op\":\"discover_dfg\",\"handle\":n}` -- edges sorted by `(source, target)`, the identical sort to the rf1 oracle (element-for-element comparable)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_discover_dfg_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_discover_dfg ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_rust4pm_op_activities_to_alphabet a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "activities_to_alphabet" ; bpm:opOrder 9 ;
+    bpm:opDoc "`{\"op\":\"activities_to_alphabet\",\"handle\":n}` -- pm4py `activities_to_alphabet` port: activities ranked by descending total event count (ties pinned to first-occurrence order in the log), mapped to bijective base-26 letters (`A..Z, AA, AB, ...`)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_activities_to_alphabet_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_activities_to_alphabet ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_rust4pm_op_activity_position a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "activity_position" ; bpm:opOrder 10 ;
+    bpm:opDoc "`{\"op\":\"activity_position\",\"handle\":n,\"activity\":a}` -- pm4py `get_activity_position_summary` port: histogram of the activity's 0-based within-trace indexes as ascending `[index, count]` pairs. Unknown activity returns empty positions, not an error." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_activity_position_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_activity_position ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_activity_position_activity a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_activity_position ; bpm:argName "activity" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_rust4pm_op_discover_alphappp a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "discover_alphappp" ; bpm:opOrder 11 ;
+    bpm:opDoc "`{\"op\":\"discover_alphappp\",\"handle\":n[,\"config\":...]}` -- alpha+++ discovery. `config == nil` omits the key (engine uses `AlphaPPPConfig::default()`); a map is passed verbatim and must carry all 7 serde fields. Returns `{:ok, %{\"net_handle\" => n, \"summary\" => %{...}}}`; the discovered net always carries initial+final markings." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_discover_alphappp_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_discover_alphappp ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_discover_alphappp_config a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_discover_alphappp ; bpm:argName "config" ; bpm:argOrder 2 ;
+    bpm:argType bpm:EngineArgType_optional_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "nil" ;
+    bpm:argEncoding bpm:ArgEncoding_omit_when_nil .
+
+bap:engine_rust4pm_op_discover_powl a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "discover_powl" ; bpm:opOrder 12 ;
+    bpm:opDoc "`{\"op\":\"discover_powl\",\"handle\":n}` -- POWL discovery over an imported log (the crate's `discover_powl`, vendor/rust4pm-powl). Returns `{:ok, %{\"powl\" => model}}`, the crate's own serde shape. Previously a crate dispatch arm no facade exposed (UNEXPOSED_DISPATCH_ARM)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_discover_powl_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_discover_powl ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_rust4pm_op_align_variants a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "align_variants" ; bpm:opOrder 13 ;
+    bpm:opDoc "`{\"op\":\"align_variants\",\"log_handle\":l,\"net_handle\":n[,\"options\":...]}` -- per-variant optimal alignments (pm4py-style move pairs, computed engine-side). `options == nil` omits the key (engine default `max_states: 5_000_000`); a map passes verbatim, including any discounted-cost keys the engine refuses as UNSUPPORTED." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_align_variants_log_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_align_variants ; bpm:argName "log_handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_align_variants_net_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_align_variants ; bpm:argName "net_handle" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_align_variants_options a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_align_variants ; bpm:argName "options" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_optional_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "nil" ;
+    bpm:argEncoding bpm:ArgEncoding_omit_when_nil .
+
+bap:engine_rust4pm_op_align_trace a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "align_trace" ; bpm:opOrder 14 ;
+    bpm:opDoc "`{\"op\":\"align_trace\",\"net_handle\":n,\"trace\":[...][,\"options\":...]}` -- aligns ONE plain activity-name trace against an imported/discovered net (standard optimal alignments; the discount exponent is UNSUPPORTED and refused engine-side, never faked)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_align_trace_net_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_align_trace ; bpm:argName "net_handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_align_trace_trace a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_align_trace ; bpm:argName "trace" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_list_string .
+bap:engine_rust4pm_op_align_trace_options a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_align_trace ; bpm:argName "options" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_optional_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "nil" ;
+    bpm:argEncoding bpm:ArgEncoding_omit_when_nil .
+
+bap:engine_rust4pm_op_compute_fitness a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "compute_fitness" ; bpm:opOrder 15 ;
+    bpm:opDoc "`{\"op\":\"compute_fitness\",\"log_handle\":l,\"net_handle\":n[,\"options\":...]}` -- alignment-based fitness aggregates, field-compatible with the rf2 oracle wire. Crate behavior surfaced verbatim: one failed variant fails the whole op with the serde-serialized error." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_compute_fitness_log_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_compute_fitness ; bpm:argName "log_handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_compute_fitness_net_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_compute_fitness ; bpm:argName "net_handle" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_compute_fitness_options a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_compute_fitness ; bpm:argName "options" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_optional_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "nil" ;
+    bpm:argEncoding bpm:ArgEncoding_omit_when_nil .
+
+bap:engine_rust4pm_op_free_log a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "free_log" ; bpm:opOrder 16 ;
+    bpm:opDoc "`{\"op\":\"free_log\",\"handle\":n}` -- drops the log engine-side (the Rust value returns to the wasm allocator; linear memory itself never shrinks)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_free_log_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_free_log ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_rust4pm_op_free_net a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "free_net" ; bpm:opOrder 17 ;
+    bpm:opDoc "`{\"op\":\"free_net\",\"handle\":n}` -- drops the Petri net engine-side." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_free_net_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_free_net ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_rust4pm_op_ocel_new a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_new" ; bpm:opOrder 18 ;
+    bpm:opDoc "`{\"op\":\"ocel_new\"}` -- a new empty OCEL; returns `{:ok, %{\"ocel_handle\" => h}}` (the rust4pm docs site's \"Building a Linked OCEL\" examples start here)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+
+bap:engine_rust4pm_op_ocel_add_event_type a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_add_event_type" ; bpm:opOrder 19 ;
+    bpm:opDoc "`{\"op\":\"ocel_add_event_type\",\"ocel_handle\":h,\"name\":n,\"attributes\":[...]}` -- declares an event type. `attributes`: list of `%{\"name\" => _, \"type\" => _}`, default `[]`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_add_event_type_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_event_type ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_ocel_add_event_type_name a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_event_type ; bpm:argName "name" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_rust4pm_op_ocel_add_event_type_attributes a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_event_type ; bpm:argName "attributes" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_list ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "[]" .
+
+bap:engine_rust4pm_op_ocel_add_object_type a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_add_object_type" ; bpm:opOrder 20 ;
+    bpm:opDoc "`{\"op\":\"ocel_add_object_type\",\"ocel_handle\":h,\"name\":n,\"attributes\":[...]}` -- declares an object type; same attribute shape as `ocel_add_event_type`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_add_object_type_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_object_type ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_ocel_add_object_type_name a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_object_type ; bpm:argName "name" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_rust4pm_op_ocel_add_object_type_attributes a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_object_type ; bpm:argName "attributes" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_list ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "[]" .
+
+bap:engine_rust4pm_op_ocel_add_object a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_add_object" ; bpm:opOrder 21 ;
+    bpm:opDoc "`{\"op\":\"ocel_add_object\",\"ocel_handle\":h,\"id\":i,\"type\":t,\"o2o\":[...]}` -- adds an object. `o2o`: list of `[target_object_id, qualifier]` pairs, default `[]`. (The type argument is named `object_type` on every facade because `type` is a Gleam keyword; the wire key stays `type`.)" ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_add_object_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_object ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_ocel_add_object_id a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_object ; bpm:argName "id" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_rust4pm_op_ocel_add_object_type a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_object ; bpm:argName "object_type" ; bpm:argOrder 3 ; bpm:argWireKey "type" ; bpm:argType bpm:EngineArgType_string .
+bap:engine_rust4pm_op_ocel_add_object_o2o a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_object ; bpm:argName "o2o" ; bpm:argOrder 4 ;
+    bpm:argType bpm:EngineArgType_list ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "[]" .
+
+bap:engine_rust4pm_op_ocel_add_event a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_add_event" ; bpm:opOrder 22 ;
+    bpm:opDoc "`{\"op\":\"ocel_add_event\",\"ocel_handle\":h,\"id\":i,\"type\":t,\"time\":rfc3339,\"e2o\":[...]}` -- adds an event. `e2o`: `[object_id, qualifier]` pairs, default `[]`. (`event_type` on every facade; wire key `type`.)" ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_add_event_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_event ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_ocel_add_event_id a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_event ; bpm:argName "id" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_rust4pm_op_ocel_add_event_type_arg a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_event ; bpm:argName "event_type" ; bpm:argOrder 3 ; bpm:argWireKey "type" ; bpm:argType bpm:EngineArgType_string .
+bap:engine_rust4pm_op_ocel_add_event_time a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_event ; bpm:argName "time" ; bpm:argOrder 4 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_rust4pm_op_ocel_add_event_e2o a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_add_event ; bpm:argName "e2o" ; bpm:argOrder 5 ;
+    bpm:argType bpm:EngineArgType_list ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "[]" .
+
+bap:engine_rust4pm_op_ocel_stats a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_stats" ; bpm:opOrder 23 ;
+    bpm:opDoc "`{\"op\":\"ocel_stats\",\"ocel_handle\":h}` -- counts per event/object type plus totals." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_stats_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_stats ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_rust4pm_op_ocel_to_json a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_to_json" ; bpm:opOrder 24 ;
+    bpm:opDoc "`{\"op\":\"ocel_to_json\",\"ocel_handle\":h}` -- exports the OCEL 2.0 JSON document (the crate's own serde shape)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_to_json_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_to_json ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_rust4pm_op_xes_to_ocel a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "xes_to_ocel" ; bpm:opOrder 25 ;
+    bpm:opDoc "`{\"op\":\"xes_to_ocel\",\"handle\":l,\"case_object_type\":t,\"qualifier\":q}` -- builds an OCEL from an imported XES log: object type `case_object_type` gets one object per case; every XES event becomes an OCEL event with one E2O (qualifier `qualifier`) to its case object." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_xes_to_ocel_log_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_xes_to_ocel ; bpm:argName "log_handle" ; bpm:argOrder 1 ; bpm:argWireKey "handle" ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_xes_to_ocel_case_object_type a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_xes_to_ocel ; bpm:argName "case_object_type" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_rust4pm_op_xes_to_ocel_qualifier a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_xes_to_ocel ; bpm:argName "qualifier" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_rust4pm_op_import_ocel_json a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_ocel_json" ; bpm:opOrder 26 ;
+    bpm:opDoc "`{\"op\":\"import_ocel_json\",\"content\":...}` -- imports an OCEL 2.0 JSON document (the crate's `import_ocel_json_slice`)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_import_ocel_json_content a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_import_ocel_json ; bpm:argName "json_content" ; bpm:argOrder 1 ; bpm:argWireKey "content" ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_rust4pm_op_ocel_to_xml a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_to_xml" ; bpm:opOrder 27 ;
+    bpm:opDoc "`{\"op\":\"ocel_to_xml\",\"ocel_handle\":h}` -- exports the OCEL as OCEL 2.0 XML (the crate's `export_ocel_xml`). Returns `{:ok, %{\"content_b64\" => ...}}`; decode with `Base.decode64!/1`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_to_xml_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_to_xml ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_rust4pm_op_import_ocel_xml a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "import_ocel_xml" ; bpm:opOrder 28 ;
+    bpm:opDoc "`{\"op\":\"import_ocel_xml\",\"content_b64\":...}` -- imports an OCEL 2.0 XML document (the crate's `import_ocel_xml_slice`); raw bytes base64-encoded host-side." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_import_ocel_xml_bytes a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_import_ocel_xml ; bpm:argName "xml_bytes" ; bpm:argOrder 1 ;
+    bpm:argWireKey "content_b64" ; bpm:argType bpm:EngineArgType_binary ; bpm:argEncoding bpm:ArgEncoding_base64 .
+
+bap:engine_rust4pm_op_ocel_dfg_of_object_type a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_dfg_of_object_type" ; bpm:opOrder 29 ;
+    bpm:opDoc "`{\"op\":\"ocel_dfg_of_object_type\",\"ocel_handle\":h,\"object_type\":t}` -- object-centric DFG for one object type (`get_dfg_of_object_type` over `SlimLinkedOCEL`), sorted by count desc then (from, to) -- the crate's own ordering." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_dfg_of_object_type_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_dfg_of_object_type ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_ocel_dfg_of_object_type_object_type a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_dfg_of_object_type ; bpm:argName "object_type" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_rust4pm_op_ocel_variants_of_object_type a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_variants_of_object_type" ; bpm:opOrder 30 ;
+    bpm:opDoc "`{\"op\":\"ocel_variants_of_object_type\",\"ocel_handle\":h,\"object_type\":t[,\"n\":n]}` -- object-centric variants for one object type (`get_variants_of_object_type` over `SlimLinkedOCEL`), count desc then trace. `n` is the `:n` keyword option (default nil = no truncation; the engine reads a JSON null as absent); `num_variants` is always the full count." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_variants_of_object_type_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_variants_of_object_type ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_ocel_variants_of_object_type_object_type a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_variants_of_object_type ; bpm:argName "object_type" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_rust4pm_op_ocel_variants_of_object_type_n a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_variants_of_object_type ; bpm:argName "n" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_integer ; bpm:argMode bpm:ArgMode_keyword ; bpm:argDefault "nil" .
+
+bap:engine_rust4pm_op_free_ocel a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "free_ocel" ; bpm:opOrder 31 ;
+    bpm:opDoc "`{\"op\":\"free_ocel\",\"ocel_handle\":h}` -- frees an OCEL handle." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_free_ocel_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_free_ocel ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+
+# -- ferroplan (native/ferroplan submodule): PDDL planning --------------------
+
+bap:engine_ferroplan a bpm:Engine ;
+    bpm:engineName "ferroplan" ;
+    bpm:engineModule "Ferroplan" ;
+    bpm:engineDoc "The ferroplan PDDL planning engine (`seanchatmangpt/ferroplan`, the native/ferroplan submodule): grounding, search, temporal/PDDL3 solving and session-based replanning all happen inside the wasm module (`crates/ferroplan-wasm/src/wasi_abi.rs` upstream). The session ops mirror the native `ferroplan::Session` surface one-for-one through an integer session handle." ;
+    bpm:engineOrdinal 2 ;
+    bpm:wasmExportPrefix "fp" ;
+    bpm:wasmArtifactPath "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
+    bpm:wasmBuildScript "scripts/ferroplan_wasm_build.sh" ;
+    bpm:wasmBuildHint "(after `git submodule update --init --recursive` if native/ferroplan is empty)" ;
+    bpm:dispatchSource "native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs" ;
+    bpm:healthId "ferroplan_wasm" ;
+    bpm:handleNoun "session" ;
+    bpm:cheapTimeoutMs 30000 ;
+    bpm:heavyTimeoutMs 120000 ;
+    bpm:errorCollapse bpm:ErrorCollapse_single_key_inspect .
+
+bap:engine_ferroplan_op_plan a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "plan" ; bpm:opOrder 1 ;
+    bpm:opDoc "`{\"op\":\"plan\",\"domain\":d,\"problem\":p[,\"mode\":m,\"flags\":f,\"search\":s]}` -- the compatibility solve surface (lenient mode/search parsing, single threaded). `extra` (default `%{}`) is merged into the request. Returns `{:ok, <Solution map>}`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_plan_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_plan ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_plan_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_plan ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_plan_extra a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_plan ; bpm:argName "extra" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "%{}" ;
+    bpm:argEncoding bpm:ArgEncoding_merge_map .
+
+bap:engine_ferroplan_op_plan_production a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "plan_production" ; bpm:opOrder 2 ;
+    bpm:opDoc "`{\"op\":\"plan_production\",\"domain\":d,\"problem\":p[,\"mode\":m,\"search\":s,\"max_evaluated\":n,\"max_plan_steps\":n,\"max_output_bytes\":n,\"request_id\":id]}` -- bounded production solve: strict mode/search parsing, a versioned `OperationEnvelope` response, always candidate-only. A strict-mode refusal arrives as `{:ok, envelope}` with its own `outcome`, never a bare `{:error, _}` (bpm:ErrorCollapse_single_key_inspect)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_plan_production_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_plan_production ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_plan_production_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_plan_production ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_plan_production_extra a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_plan_production ; bpm:argName "extra" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "%{}" ;
+    bpm:argEncoding bpm:ArgEncoding_merge_map .
+
+bap:engine_ferroplan_op_readiness a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "readiness" ; bpm:opOrder 3 ;
+    bpm:opDoc "`{\"op\":\"readiness\"}` -- capability manifest + deterministic fingerprint." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+
+bap:engine_ferroplan_op_version a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "version" ; bpm:opOrder 4 ;
+    bpm:opDoc "`{\"op\":\"version\"}` -- `{:ok, %{\"version\" => semver}}`, the crate's own version." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+
+bap:engine_ferroplan_op_explain a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "explain" ; bpm:opOrder 5 ;
+    bpm:opDoc "`{\"op\":\"explain\",\"domain\":d,\"problem\":p,\"plan\":plan}` -- `plan` is a decoded Plan map (not a JSON string). Returns the explanation JSON." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_explain_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_explain ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_explain_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_explain ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_explain_plan a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_explain ; bpm:argName "plan" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_map .
+
+bap:engine_ferroplan_op_session_new a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_new" ; bpm:opOrder 6 ;
+    bpm:opDoc "`{\"op\":\"session_new\",\"domain\":d,\"problem\":p}` -- grounds a new session. Returns `{:ok, %{\"handle\" => n}}`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_new_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_new ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_session_new_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_new ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_ferroplan_op_session_fork a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_fork" ; bpm:opOrder 7 ;
+    bpm:opDoc "`{\"op\":\"session_fork\",\"handle\":h}` -- a cheap fork sharing the grounded world, with independent mutable state (fresh plan/cursor)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_fork_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_fork ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_session_free a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_free" ; bpm:opOrder 8 ;
+    bpm:opDoc "`{\"op\":\"session_free\",\"handle\":h}` -- releases the session handle." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_free_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_free ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_session_set_goal a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_set_goal" ; bpm:opOrder 9 ;
+    bpm:opDoc "`{\"op\":\"session_set_goal\",\"handle\":h,\"goal\":g}`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_set_goal_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_goal ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_set_goal_goal a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_goal ; bpm:argName "goal" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_ferroplan_op_session_restrict_prefix_claims a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_restrict_prefix_claims" ; bpm:opOrder 10 ;
+    bpm:opDoc "`{\"op\":\"session_restrict_prefix_claims\",\"handle\":h,\"prefix\":pre,\"claimed\":csv}` -- the bazaar's op-display-prefix-plus-claims-blackout scoping (`claimed` is a comma-separated string, as the wasm ABI expects)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_restrict_prefix_claims_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_restrict_prefix_claims ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_restrict_prefix_claims_prefix a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_restrict_prefix_claims ; bpm:argName "prefix" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_session_restrict_prefix_claims_claimed a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_restrict_prefix_claims ; bpm:argName "claimed" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_ferroplan_op_session_restrict_contains a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_restrict_contains" ; bpm:opOrder 11 ;
+    bpm:opDoc "`{\"op\":\"session_restrict_contains\",\"handle\":h,\"filter\":f}`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_restrict_contains_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_restrict_contains ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_restrict_contains_filter a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_restrict_contains ; bpm:argName "filter" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_ferroplan_op_session_think a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_think" ; bpm:opOrder 12 ;
+    bpm:opDoc "`{\"op\":\"session_think\",\"handle\":h,\"evals\":n,\"mem_mb\":n}` -- a bounded replan (bounded by evals/memory, not wall clock); stashes the resulting plan (if solved) and resets the cursor. Returns the Solution map." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_think_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_think ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_think_evals a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_think ; bpm:argName "evals" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_integer .
+bap:engine_ferroplan_op_session_think_mem_mb a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_think ; bpm:argName "mem_mb" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_integer .
+
+bap:engine_ferroplan_op_session_valid a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_valid" ; bpm:opOrder 13 ;
+    bpm:opDoc "`{\"op\":\"session_valid\",\"handle\":h}` -- free replay check of the stashed plan's suffix from the cursor, no search spent. `{:ok, %{\"valid\" => bool}}`. Elixir names it `session_valid?`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ;
+    bpm:opElixirPredicate "true" .
+bap:engine_ferroplan_op_session_valid_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_valid ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_session_step a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_step" ; bpm:opOrder 14 ;
+    bpm:opDoc "`{\"op\":\"session_step\",\"handle\":h}` -- the step under the cursor, or `null`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_step_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_step ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_session_suffix a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_suffix" ; bpm:opOrder 15 ;
+    bpm:opDoc "`{\"op\":\"session_suffix\",\"handle\":h}` -- the remaining plan steps from the cursor onward." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_suffix_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_suffix ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_session_advance a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_advance" ; bpm:opOrder 16 ;
+    bpm:opDoc "`{\"op\":\"session_advance\",\"handle\":h}` -- advances the cursor by one step." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_advance_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_advance ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_session_drop_plan a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_drop_plan" ; bpm:opOrder 17 ;
+    bpm:opDoc "`{\"op\":\"session_drop_plan\",\"handle\":h}` -- clears the stashed plan and cursor." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_drop_plan_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_drop_plan ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_session_has_plan a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_has_plan" ; bpm:opOrder 18 ;
+    bpm:opDoc "`{\"op\":\"session_has_plan\",\"handle\":h}` -- `{:ok, %{\"has_plan\" => bool}}`. Elixir names it `session_has_plan?`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ;
+    bpm:opElixirPredicate "true" .
+bap:engine_ferroplan_op_session_has_plan_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_has_plan ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_session_set_fact a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_set_fact" ; bpm:opOrder 19 ;
+    bpm:opDoc "`{\"op\":\"session_set_fact\",\"handle\":h,\"name\":n,\"value\":bool}` -- sets a boolean fact in the session's world." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_set_fact_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_fact ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_set_fact_name a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_fact ; bpm:argName "name" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_session_set_fact_value a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_fact ; bpm:argName "value" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_boolean .
+
+bap:engine_ferroplan_op_session_set_timed_fact a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_set_timed_fact" ; bpm:opOrder 20 ;
+    bpm:opDoc "`{\"op\":\"session_set_timed_fact\",\"handle\":h,\"dt\":f,\"name\":n,\"value\":bool}` -- a fact scheduled at time offset `dt`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_set_timed_fact_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_timed_fact ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_set_timed_fact_dt a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_timed_fact ; bpm:argName "dt" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_number .
+bap:engine_ferroplan_op_session_set_timed_fact_name a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_timed_fact ; bpm:argName "name" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_session_set_timed_fact_value a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_timed_fact ; bpm:argName "value" ; bpm:argOrder 4 ; bpm:argType bpm:EngineArgType_boolean .
+
+bap:engine_ferroplan_op_session_observe a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_observe" ; bpm:opOrder 21 ;
+    bpm:opDoc "`{\"op\":\"session_observe\",\"handle\":h,\"sight\":[[name,value],...]}` -- a batch of observed (fact, value) pairs (`[{name, bool}]` tuples host-side, rendered as 2-element lists). Returns the resulting news/deltas." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_observe_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_observe ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_observe_sight a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_observe ; bpm:argName "sight" ; bpm:argOrder 2 ;
+    bpm:argType bpm:EngineArgType_fact_pairs ; bpm:argEncoding bpm:ArgEncoding_pair_list .
+
+bap:engine_ferroplan_op_session_goal_met a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_goal_met" ; bpm:opOrder 22 ;
+    bpm:opDoc "`{\"op\":\"session_goal_met\",\"handle\":h}` -- `{:ok, %{\"goal_met\" => bool}}`. Elixir names it `session_goal_met?`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ;
+    bpm:opElixirPredicate "true" .
+bap:engine_ferroplan_op_session_goal_met_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_goal_met ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_session_fact a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_fact" ; bpm:opOrder 23 ;
+    bpm:opDoc "`{\"op\":\"session_fact\",\"handle\":h,\"name\":n}` -- `{:ok, %{\"value\" => bool | nil}}`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_fact_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_fact ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_fact_name a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_fact ; bpm:argName "name" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_ferroplan_op_session_apply_start a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_apply_start" ; bpm:opOrder 24 ;
+    bpm:opDoc "`{\"op\":\"session_apply_start\",\"handle\":h,\"name\":n}` -- applies the start of a (possibly durative) action by name." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_apply_start_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_apply_start ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_apply_start_name a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_apply_start ; bpm:argName "name" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_ferroplan_op_session_elapse a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_elapse" ; bpm:opOrder 25 ;
+    bpm:opDoc "`{\"op\":\"session_elapse\",\"handle\":h,\"dt\":f}` -- advances simulated time; returns the effects/events that fired." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_elapse_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_elapse ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_elapse_dt a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_elapse ; bpm:argName "dt" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_number .
+
+bap:engine_ferroplan_op_session_set_fluent a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_set_fluent" ; bpm:opOrder 26 ;
+    bpm:opDoc "`{\"op\":\"session_set_fluent\",\"handle\":h,\"name\":n,\"value\":f}` -- sets a numeric fluent." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_set_fluent_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_fluent ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_set_fluent_name a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_fluent ; bpm:argName "name" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_session_set_fluent_value a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_set_fluent ; bpm:argName "value" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_number .
+
+bap:engine_ferroplan_op_session_fluent a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_fluent" ; bpm:opOrder 27 ;
+    bpm:opDoc "`{\"op\":\"session_fluent\",\"handle\":h,\"name\":n}` -- `{:ok, %{\"value\" => f64 | nil}}`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_fluent_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_fluent ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_fluent_name a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_fluent ; bpm:argName "name" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_ferroplan_op_session_plan_valid a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_plan_valid" ; bpm:opOrder 28 ;
+    bpm:opDoc "`{\"op\":\"session_plan_valid\",\"handle\":h,\"plan\":plan,\"from\":n}` -- checks an externally-supplied plan is still valid from step index `from`, without mutating session state. Elixir names it `session_plan_valid?`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire ;
+    bpm:opElixirPredicate "true" .
+bap:engine_ferroplan_op_session_plan_valid_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_plan_valid ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_ferroplan_op_session_plan_valid_plan a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_plan_valid ; bpm:argName "plan" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_map .
+bap:engine_ferroplan_op_session_plan_valid_from a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_plan_valid ; bpm:argName "from" ; bpm:argOrder 3 ; bpm:argType bpm:EngineArgType_integer .
+
+bap:engine_ferroplan_op_session_world_bytes a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_world_bytes" ; bpm:opOrder 29 ;
+    bpm:opDoc "`{\"op\":\"session_world_bytes\",\"handle\":h}` -- byte size of the shared/grounded world state." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_world_bytes_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_world_bytes ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_session_mind_bytes a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "session_mind_bytes" ; bpm:opOrder 30 ;
+    bpm:opDoc "`{\"op\":\"session_mind_bytes\",\"handle\":h}` -- byte size of this session's private mutable state." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_session_mind_bytes_handle a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_session_mind_bytes ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .

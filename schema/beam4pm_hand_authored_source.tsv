@@ -8,13 +8,7 @@ docs/reference/discovery-and-conformance-api.md	reference_evidence	false	-	-	bas
 docs/reference/infra-beamops-first-principles.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/rust4pm-wasm-beam.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/scripts.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
-gleam/src/beam4pm/ferroplan.gleam	native_engine_facade	true	32bc2445945a881afbf72416599f94c64a1260ed12eb8624daed4c174bad8a2d	2026-12-31	mix test test/beam4pm_ferroplan_facades_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
-gleam/src/beam4pm/rust4pm.gleam	native_engine_facade	true	e2e57ec9d5988122a1d1d5b33a35663fb0fe7cc43df03627dda5ddedea23a41a	2026-12-31	mix test test/beam4pm_rust4pm_facades_test.exs	native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm
-lib/beam4pm_ferroplan.ex	native_engine_facade	true	61b6b5d9d690433c2d3cfb6ab13bd52be26f4bdce35a66fcdddb9fcc5d072310	2026-12-31	mix test test/beam4pm_ferroplan_facades_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
-lib/beam4pm_rust4pm.ex	native_engine_facade	true	cf54f4f304f069b6f73e1bfd6a0c8597aaf0702101747768a2c097332764d6e9	2026-12-31	mix test test/beam4pm_rust4pm_facades_test.exs	native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm
 src/beam4pm.app.src	manufacturing_input	false	-	-	rebar3 compile	-
-src/beam4pm_ferroplan.erl	native_engine_facade	true	51cfee702cd3b8931fa705374ea093f1409bb9a3a2f9e92b75d8fa09b93b43a5	2026-12-31	mix test test/beam4pm_ferroplan_facades_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
-src/beam4pm_rust4pm.erl	native_engine_facade	true	300479d838b6f701b86d10042da1b147b1e00d56cfb82014c8ba2c1881fadcc7	2026-12-31	mix test test/beam4pm_rust4pm_facades_test.exs	native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm
 test/beam4pm_actuation_k8s_test.exs	hand_authored_qualification	true	97ba6c240362e5b5ff7fe5f9ccca23132504ece34a38d075cf10e85a6051723e	2026-12-31	mix test test/beam4pm_actuation_k8s_test.exs	cmd:kubectl --context kind-ex4pm cluster-info
 test/beam4pm_ash_ai_tools_test.exs	hand_authored_qualification	true	b658dbbdcaa4c5585ee1d7b4b1dc80c059a40535157960386363e383b924dfd3	2026-12-31	mix test test/beam4pm_ash_ai_tools_test.exs	-
 test/beam4pm_ferroplan_facades_test.exs	hand_authored_qualification	true	9ad4f8658075e3804384a02b6c2ee550a235fd7e75615acf9838b285c9533e34	2026-12-31	mix test test/beam4pm_ferroplan_facades_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
