@@ -68,6 +68,12 @@ defmodule BeamPM.Rust4PMTest do
   @running_example_xes Path.expand("qualification/fixtures/pm4py/running-example.xes")
   @running_example_pnml Path.expand("qualification/fixtures/pm4py/running-example.pnml")
 
+  # Same fixture RF1's own oracle-backed :check_small_example test uses
+  # (test/beam4pm_rf1_dfg_test.exs) -- 2 cases, one of which has a "weird"
+  # trace whose events carry no <concept:name/>; RF1's oracle labels those
+  # "No Activity", the crate itself (below) labels them "".
+  @small_example_xes Path.expand("qualification/fixtures/small-example.xes")
+
   # The first <trace> in running-example.xes is case "3" -- verified by
   # parsing the real file, not assumed.
   @first_trace [
@@ -672,5 +678,83 @@ defmodule BeamPM.Rust4PMTest do
       assert {:ok, %{"freed" => true}} = Rust4PM.free_ocel(oh)
       assert {:ok, %{"freed" => true}} = Rust4PM.free_ocel(oh2)
     end
+  end
+
+  test "T13: discover_powl over a real imported small-example.xes -- exact structural " <>
+         "equality against the real, hand-verified engine output, cross-checked against " <>
+         "log_stats' activity ground truth" do
+    small_path = real_fixture!(@small_example_xes)
+    assert {:ok, %{"handle" => h}} = Rust4PM.import_xes_path(small_path)
+
+    # Ground truth for this fixture, established independently by RF1's own
+    # oracle-backed :check_small_example test (test/beam4pm_rf1_dfg_test.exs,
+    # a GENERATED file, read not edited): 2 cases, 3 activities, where
+    # "No Activity" is RF1 oracle's substituted label for the second (weird)
+    # trace's events -- those events carry no <concept:name/> at all.
+    assert {:ok, stats} = Rust4PM.log_stats(h)
+    assert stats["num_cases"] == 2
+    assert stats["num_activities"] == 3
+    assert stats["activities"] == ["Mail rejection", "No Activity", "Register client"]
+
+    assert {:ok, %{"powl" => model}} = Rust4PM.discover_powl(h)
+
+    # Exact structural equality against the real engine output (captured
+    # live via `mix run -e` against this same fixture, then independently
+    # re-run 3x with byte-identical `:erlang.term_to_binary` results --
+    # discover_powl is deterministic on this input, not merely "shaped
+    # right once"). No import shape wrangling was needed: the plain
+    # import_xes_path handle feeds discover_powl directly, same as every
+    # other read-only op in this module.
+    #
+    # Shape: a top-level PartialOrder of 3 children -- a ChoiceGraph
+    # collapsing the crate-native empty-label leaf (its own label for the
+    # no-concept:name events, distinct from RF1's "No Activity" oracle
+    # substitution above) into a self-loop, plus the two named leaves,
+    # ordered [child 2, child 1] i.e. "Register client" before
+    # "Mail rejection".
+    assert model == %{
+             "root" => %{
+               "PartialOrder" => %{
+                 "children" => [
+                   %{
+                     "ChoiceGraph" => %{
+                       "children" => [
+                         %{"Leaf" => %{"activity_label" => %{"Activity" => ""}}}
+                       ],
+                       "edges" => [
+                         ["Start", %{"Child" => 0}],
+                         [%{"Child" => 0}, %{"Child" => 0}],
+                         [%{"Child" => 0}, "End"]
+                       ]
+                     }
+                   },
+                   %{"Leaf" => %{"activity_label" => %{"Activity" => "Mail rejection"}}},
+                   %{"Leaf" => %{"activity_label" => %{"Activity" => "Register client"}}}
+                 ],
+                 "order" => [[2, 1]]
+               }
+             }
+           }
+
+    # Root-node presence + node-count sanity, stated independently of the
+    # exact-equality assertion above (would survive a future crate-internal
+    # relabeling of the same shape): a real root, exactly one PartialOrder
+    # at the top, and its 3 children partition into exactly 2 real leaf
+    # activities (matching the 2 non-empty entries of stats["activities"])
+    # plus exactly 1 ChoiceGraph collapsing the empty-label repeats.
+    assert %{"root" => %{"PartialOrder" => %{"children" => children}}} = model
+    assert length(children) == 3
+
+    leaf_labels =
+      for %{"Leaf" => %{"activity_label" => %{"Activity" => label}}} <- children, label != "" do
+        label
+      end
+
+    choice_graphs = for %{"ChoiceGraph" => cg} <- children, do: cg
+
+    assert Enum.sort(leaf_labels) == ["Mail rejection", "Register client"]
+    assert length(choice_graphs) == 1
+
+    assert {:ok, %{"freed" => true}} = Rust4PM.free_log(h)
   end
 end

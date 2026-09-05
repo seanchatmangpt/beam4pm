@@ -131,8 +131,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `test/beam4pm_rust4pm_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Chicago qualification of BeamPM.Rust4PM against real canonical fixtures and differentially against the two native oracle binaries built from the same crate version; fixture and oracle bindings are hand-written.
-- Content sha256 at admission: `9ae20463d02b362ec5e7ae38c76c95bd361e15e77adfe9f8339a24417ba152a7`
+- Reason: Chicago qualification of BeamPM.Rust4PM against real canonical fixtures and differentially against the two native oracle binaries built from the same crate version; fixture and oracle bindings are hand-written. Re-pinned for T13: a real Chicago proof of discover_powl (previously an exposed-but-unproven facade, Section 24 falsifier gap) against a real imported small-example.xes, asserting exact structural equality on the engine's real POWL model output plus a log_stats cross-check.
+- Content sha256 at admission: `5451fb4cc70eecd4c5633fa71f9c285d1567967f06cbb5f90d406fa1622bc1fe`
 - Sunset plan: Admit the fixture/oracle bindings as ontology facts and render this qualification from them (rf1/rf2 igniter recipes are the precedent); then delete this admission.
 
 #### `test/beam4pm_tract_facades_test.exs`
