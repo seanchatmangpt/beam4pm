@@ -37,7 +37,7 @@ direct intervention on generated files:
 
 ```sh
 git clone --recurse-submodules <this-repo-url>   # vendor/ggen-marketplace is a submodule
-just verify        # submodules -> sync -> test (or: make verify)
+just verify        # submodules -> sync -> authorship -> lint_truth -> test (or: make verify)
 just sync           # rm ggen.lock; ggen sync run --dry-run; ggen sync run
 just test           # rebar3 eunit && mix test
 ```
@@ -65,6 +65,19 @@ mix test             # Elixir test suite over generated lib/*.ex
   function of `(ontology.ttl, pack templates)` with no dependency on prior
   disk state. Never sweeps `gleam/build/` (compiled artifacts, not manufactured
   source).
+- `bash scripts/gate_authorship_check.sh` — GATE AUTHORSHIP: every file under a
+  manufactured root that carries no `GENERATED` marker must be one admitted
+  `bpm:HandAuthoredSource` individual in `ontology.ttl` (path, closed kind,
+  principal, reason, acceptance command, sha256, expiry, sunset plan), rendered
+  by ggen into `schema/beam4pm_hand_authored_source.tsv` (what the gate reads)
+  and the counted ledger `docs/reference/beam4pm_hand_authored_source.md`.
+  Refuses `REFUSED_UNADMITTED` / `_STALE_ADMISSION` / `_CONTRADICTION` /
+  `_SHA_DRIFT` / `_EXPIRED`; `--exercise` also runs every acceptance command.
+  Runs in `just verify`, CI, and the manufactured
+  `test/beam4pm_authorship_gate_test.exs`. Adding or editing a hand-authored
+  file under `src/ lib/ test/ gleam/src gleam/test schema/ docs/reference
+  infra/gcp/{cloudrun,packer}` therefore means editing `ontology.ttl` (new or
+  re-digested individual) and regenerating in the same commit.
 - `bash scripts/igniter_sync.sh` — the second, Elixir-native manufacturing
   engine (`ggen_igniter` hex package) that produces `lib/beam4pm_ash.ex`
   (31 `Ash.Resource` modules); its manifest probe must render byte-identical

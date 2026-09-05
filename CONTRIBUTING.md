@@ -203,9 +203,46 @@ manual edit. If in doubt whether your case qualifies, open an issue describing w
 tried to model in `ontology.ttl` or the pack's templates and why it didn't work, rather
 than opening a PR that hand-edits a GENERATED-marked file directly.
 
+### Unmarked hand-authored files under manufactured roots (admitted, counted debt)
+
+The path above covers edits to files that already carry the GENERATED marker. The
+other shape of the same exception is a file under a manufactured root (`src/`, `lib/`,
+`test/`, `gleam/src`, `gleam/test`, `schema/`, `docs/reference/`, `infra/gcp/cloudrun`,
+`infra/gcp/packer`) that carries no marker at all — a native-engine facade, a
+hand-written qualification file. Until 2026-09-05 nothing tracked these (33 existed
+with zero admission records). They are now governed mechanically by GATE AUTHORSHIP
+(`scripts/gate_authorship_check.sh`, run by `just verify`, by CI, and as a subprocess by
+the manufactured `test/beam4pm_authorship_gate_test.exs`):
+
+- every such file must have one `bpm:HandAuthoredSource` individual in `ontology.ttl`
+  (vocabulary: the vendored `beam4pm-process-model-pack`'s `ontology.ttl`) carrying the
+  same capability-object fields as above — `bpm:sourcePath`, a closed
+  `bpm:authorshipKind`, `bpm:authorizingPrincipal`, `bpm:admissionReason`,
+  `bpm:acceptanceCommand` (a command `just verify`/CI really runs; `--exercise` refuses
+  a failing or all-skipped one), `bpm:admittedAtCommit`, and for debt kinds
+  `bpm:contentSha256`, `bpm:admissionExpires`, `bpm:sunsetPlan`;
+- the admitted set is rendered by ggen into `schema/beam4pm_hand_authored_source.tsv`
+  (what the gate reads — never a hand-maintained list) and the counted ledger
+  `docs/reference/beam4pm_hand_authored_source.md`;
+- the gate refuses an unmarked file with no admission (`REFUSED_UNADMITTED`), an
+  admission whose file is gone (`REFUSED_STALE_ADMISSION`) or now carries the marker
+  (`REFUSED_CONTRADICTION`), an edit to an admitted debt file that was not re-admitted
+  with its new sha256 (`REFUSED_SHA_DRIFT` — an edit to admitted hand-authored source
+  is new debt, not a free ride), and an admission past its expiry (`REFUSED_EXPIRED`);
+- pack gates refuse an individual missing a field, naming an unknown kind, duplicating
+  a path, or pushing a kind past its `bpm:debtCeiling`.
+
+So adding or editing a hand-authored file under a manufactured root means editing
+`ontology.ttl` in the same commit (new/updated individual, new sha256) and regenerating
+(`rm -f ggen.lock && ggen sync run`); the diff to the manifest and the ledger IS the
+visible, counted debt. The preferred move is still to eliminate the file by rendering
+it from a template — every admission carries its own `bpm:sunsetPlan` saying how.
+
 ## See also
 
 - [`README.md`](README.md) — project overview, current manufacturing status
 - [`scripts/gate_m2_check.sh`](scripts/gate_m2_check.sh) — the authoritative, marker-driven definition of "generated" in this repo
+- [`scripts/gate_authorship_check.sh`](scripts/gate_authorship_check.sh) — GATE AUTHORSHIP: every unmarked file under a manufactured root must be an admitted, counted `bpm:HandAuthoredSource`
+- [`docs/reference/beam4pm_hand_authored_source.md`](docs/reference/beam4pm_hand_authored_source.md) — the generated, counted ledger of admitted hand-authored files
 - [`docs/jira/v26.8.29/03-architecture-and-ggen-manufacturing.md`](docs/jira/v26.8.29/03-architecture-and-ggen-manufacturing.md) — full architectural doctrine and the privileged-exception section
 - [`vendor/ggen-marketplace/packs/beam4pm-process-model-pack/README.md`](vendor/ggen-marketplace/packs/beam4pm-process-model-pack/README.md) — what the pack's templates generate, file by file

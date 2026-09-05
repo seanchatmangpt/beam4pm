@@ -143,6 +143,26 @@ Direct source intervention is permitted only with a scoped capability object con
 
 The commit must contain only the admitted manual intervention. A Chicago execution must exercise the exact changed subject. Receipt and replay evidence are mandatory. Privilege terminates immediately after the intervention.
 
+The exception has two shapes, and both are governed:
+
+1. A hand-edit to a file that already carries the `GENERATED` marker -- the path above.
+2. A file under a manufactured root that carries no marker at all (a native-engine
+   facade, a hand-written qualification file). Since 2026-09-05 each such file must be
+   one `bpm:HandAuthoredSource` individual in `ontology.ttl` (vocabulary in the
+   `beam4pm-process-model-pack`), carrying the same capability object as a graph fact:
+   `bpm:sourcePath`, a closed `bpm:authorshipKind` (with a pack-enforced per-kind count
+   ceiling), `bpm:authorizingPrincipal`, `bpm:admissionReason`, `bpm:acceptanceCommand`,
+   `bpm:admittedAtCommit`, and for debt kinds `bpm:contentSha256`,
+   `bpm:admissionExpires`, `bpm:sunsetPlan`. ggen renders the admitted set into
+   `schema/beam4pm_hand_authored_source.tsv` and the counted ledger
+   `docs/reference/beam4pm_hand_authored_source.md`; `scripts/gate_authorship_check.sh`
+   (GATE AUTHORSHIP, in `just verify`, CI, and `test/beam4pm_authorship_gate_test.exs`)
+   refuses an unadmitted, stale, contradictory, sha-drifted or expired entry, and with
+   `--exercise` a failing or vacuous acceptance command. This is the mechanical form of
+   VISION-2030 section 2 ("visible, bounded, and counted as manufacturing debt") and of
+   section 24's falsifier ("routine privileged handwritten source commits"): the debt
+   count is a generated number, not a claim.
+
 ## Cross-language identity proof
 
 Representative semantic objects must support cross-language identity tests, e.g.:

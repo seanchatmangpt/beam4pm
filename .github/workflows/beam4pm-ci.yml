@@ -80,6 +80,11 @@ jobs:
         run: |
           bash scripts/gate_lint_truth.sh
 
+      - name: Hand-authored source admission (GATE AUTHORSHIP)
+        shell: bash
+        run: |
+          bash scripts/gate_authorship_check.sh
+
       - name: mix test
         shell: bash
         run: |
@@ -91,6 +96,11 @@ jobs:
         run: |
           cd gleam
           gleam test
+
+      - name: Exercise admitted hand-authored acceptance commands (GATE AUTHORSHIP --exercise)
+        shell: bash
+        run: |
+          bash scripts/gate_authorship_check.sh --exercise
 
       - name: Cross-language wire identity (Erlang<->Elixir roundtrip)
         shell: bash
