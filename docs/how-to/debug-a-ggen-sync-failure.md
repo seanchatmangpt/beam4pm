@@ -51,8 +51,9 @@ the expected shape: a `bpm:RecordType` with `bpm:recordName`, `bpm:recordDoc`, a
 
 This is the second engine (`ggen_igniter` / EEx), invoked separately from the Rust ggen
 pipeline (CLAUDE.md:56-59, gate_m2_check.sh:100-102, 116). If it fails mid-compile it is
-usually because a downstream module referencing `lib/beam4pm_ash.ex` hasn't been regenerated
-yet, or a dependent sync ran out of order.
+usually because a downstream module referencing one of the `lib/beam4pm_ash/resources/*.ex`
+files (or `lib/beam4pm_ash_domain.ex`) hasn't been regenerated yet, or a dependent sync ran
+out of order.
 
 **Ordering matters.** `scripts/gate_m2_check.sh:100-109` documents the real constraint:
 `receipt_chain_sync.sh` renders `beam4pm_receipt_chain.ex` first and then internally re-runs
@@ -105,8 +106,9 @@ rather than just the one you were looking at.
 It can also fail mid-run, non-gracefully, if any `scripts/*_sync.sh` invocation exits
 nonzero (e.g. an `igniter_sync.sh` compile failure) — the script runs under `set -euo
 pipefail` (gate_m2_check.sh:13), so the whole gate aborts immediately. An `EXIT` trap still
-restores the two hand-authored test files it stashes
-(`test/beam4pm_actuation_k8s_test.exs`, `test/beam4pm_process_governor_k8s_test.exs`) even on
+restores the three hand-authored test files it stashes
+(`test/beam4pm_actuation_k8s_test.exs`, `test/beam4pm_process_governor_k8s_test.exs`,
+`test/beam4pm_pddl_projection_test.exs`) even on
 an abort (gate_m2_check.sh:80-91), so a failed gate run never leaves those test files
 missing.
 

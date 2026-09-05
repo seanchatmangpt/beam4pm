@@ -26,17 +26,17 @@ the second, Elixir-native `ggen_igniter`/EEx engine (see CLAUDE.md's
 
 Erlang, Elixir, Gleam, and Ash are all real today, each a full language
 projection of the same admitted `bpm:RecordType` graph: Erlang in `src/`,
-Elixir in `lib/`, Gleam in `gleam/src/beam4pm/`, and Ash (31
-`Ash.Resource` modules, `lib/beam4pm_ash.ex`) via the `ggen_igniter`
-engine specifically. None of the four are future work — see CLAUDE.md's
-"Four language projections" for what's disclosed as still partial in
-each (e.g. Gleam has no wire-codec leg yet).
+Elixir in `lib/`, Gleam in `gleam/src/beam4pm/`, and Ash (290
+`Ash.Resource` modules, one per record type, under `lib/beam4pm_ash/resources/`)
+via the `ggen_igniter` engine specifically. None of the four are future work —
+see CLAUDE.md's "Four language projections" for what's disclosed as still partial
+in each (e.g. Gleam has no wire-codec leg yet).
 
 ## What does "ggen-only" actually guarantee today?
 
 Only that the admitted record types' Erlang and Elixir type/struct
 definitions and their constructors are manufactured, not hand-authored. As of
-this slice that's 31 record types (`alignment_move`, `dfg_edge`, `ocel_event`,
+this slice that's 290 record types (including `alignment_move`, `dfg_edge`, `ocel_event`,
 `ocel_object`, `ocel_relationship`, `petri_arc`, `petri_place`,
 `petri_transition`) admitted into the `bpm:RecordType` graph in `ontology.ttl`,
 each projected into a `-record(...)` / `-type ...() :: #...{}` pair with a

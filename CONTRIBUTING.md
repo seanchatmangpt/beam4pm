@@ -160,14 +160,19 @@ bash scripts/gate_m2_check.sh
 ```
 
 If step 3 fails, the pack (or ggen/ggen_igniter itself) is not deterministic for
-your change — that is a bug to fix before merging, not a diff to accept. `make verify` /
-`just verify` run submodule init + the sync step (dry-run then real) + both test suites
-in one shot, but always run the determinism check (step 3) by hand for anything that
-touches `ontology.ttl` or the pack's templates, since neither wrapper runs it.
+your change — that is a bug to fix before merging, not a diff to accept. `just verify`
+(and its lighter, legacy `make verify` alias) run submodule init + the sync step
+(dry-run then real) + both test suites in one shot; `just verify` additionally runs
+GATE AUTHORSHIP, GATE ENGINE DISPATCH, and GATE LINT-TRUTH (`make verify` predates all
+three and does not run them). CI (`.github/workflows/beam4pm-ci.yml`) runs those same
+three gates as explicit steps, plus GATE M5 (`roundtrip_check.sh`) and, separately,
+GATE M2 (`gate_m2_check.sh`) — but neither `make verify` nor `just verify` runs the
+determinism check itself, so always run step 3 by hand for anything that touches
+`ontology.ttl` or the pack's templates.
 
-Toolchain this was last verified against locally: `ggen 26.8.18`, `rebar3` on OTP
-28.3.1, `mix`/Elixir 1.19.5. CI (`.github/workflows/ci.yml`) pins a different but
-also-compatible combination (OTP 27.2 / Elixir 1.17.3 / rebar3 3.24.0) via
+Toolchain this was last verified against locally: `ggen 26.8.28`, `rebar3 3.27.0` on
+OTP 28 (erts-16.2), `mix`/Elixir 1.19.5. CI (`.github/workflows/beam4pm-ci.yml`) pins a
+different but also-compatible combination (OTP 27.2 / Elixir 1.18.5 / rebar3 3.24.0) via
 `erlef/setup-beam` — either combination should pass `rebar3 eunit`/`mix test`
 identically, since nothing here depends on OTP/Elixir version-specific behavior;
 if you find a real discrepancy between the two, that itself is worth reporting.
@@ -236,7 +241,10 @@ So adding or editing a hand-authored file under a manufactured root means editin
 `ontology.ttl` in the same commit (new/updated individual, new sha256) and regenerating
 (`rm -f ggen.lock && ggen sync run`); the diff to the manifest and the ledger IS the
 visible, counted debt. The preferred move is still to eliminate the file by rendering
-it from a template — every admission carries its own `bpm:sunsetPlan` saying how.
+it from a template — every admission carries its own `bpm:sunsetPlan` saying how. Two
+of the four native-engine facades (`petgraph`, `tract`) have already taken that path —
+see `docs/reference/beam4pm_hand_authored_source.md` for the current admitted/debt
+counts and which two remain (`rust4pm`, `ferroplan`).
 
 ## See also
 
