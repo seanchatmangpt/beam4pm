@@ -12,8 +12,14 @@
 #      REAL BeamPM.Actuation.run/2 against the real toy-counter gym bridge
 #      (qualification/fixtures/toy_gym_bridge.py) -- every action is drawn
 #      from BeamPM.Actuation.admitted_actuations/0's own graph-derived
-#      allowlist (never hardcoded outside it), except the deliberately
-#      out-of-allowlist refused action.
+#      allowlist (never hardcoded outside it), restricted to the entries
+#      whose released gym op the chosen bridge actually speaks (the
+#      allowlist also admits actions for OTHER bridges, e.g. the k8s scale
+#      ops, which toy-counter answers with {"ok":false,"error":
+#      "unknown_action: ..."} -- an admitted-but-unperformable action would
+#      exercise the bridge-error path, not the PI8 admitted -> performed ->
+#      receipted proof this script exists to produce). The one deliberately
+#      refused action is drawn from OUTSIDE the allowlist.
 #   2. Re-reads all 4 consequence receipt FILES from disk (the file is the
 #      artifact, not the in-memory return value), decodes every events[]
 #      entry back through BeamPM.Codec.from_map(:ocel_event, ...).
@@ -30,6 +36,12 @@
 #   BEAM4PM_BRIDGE       path to the gym bridge python script
 #                        (default: qualification/fixtures/toy_gym_bridge.py)
 #   BEAM4PM_GYM          gym name passed as --gym (default: toy-counter)
+#   BEAM4PM_GYM_OPS      comma-separated gym ops the chosen bridge speaks;
+#                        only admitted actuations whose gym_op is in this
+#                        set are eligible for the 3 admitted runs (default:
+#                        derived from BEAM4PM_GYM -- toy-counter: inc,noop;
+#                        k8s-deployment-scaler: scale_up,scale_down; any
+#                        other gym must set this explicitly)
 #   BEAM4PM_RECEIPTS_DIR consequence receipt output dir
 #                        (default: receipts/actuation-selfmine)
 
@@ -41,6 +53,17 @@ defmodule Beam4PM.Script.ActuationSelfmine do
 
   @admitted_chain ["plan", "admit", "execute", "observe"]
   @refused_chain ["plan", "admit"]
+
+  # The gym ops a bridge speaks are a property of that bridge's FIXED wire
+  # protocol (documented in each bridge's own module docstring), not of the
+  # admission graph: toy_gym_bridge.py --gym toy-counter steps {"op":"inc"}
+  # and {"op":"noop"}; k8s_gym_bridge.py --gym k8s-deployment-scaler steps
+  # scale_up / scale_down. BEAM4PM_GYM_OPS overrides this table for any
+  # other bridge/gym.
+  @default_gym_ops %{
+    "toy-counter" => ["inc", "noop"],
+    "k8s-deployment-scaler" => ["scale_up", "scale_down"]
+  }
 
   def main do
     bridge = System.get_env("BEAM4PM_BRIDGE", "qualification/fixtures/toy_gym_bridge.py")
@@ -62,10 +85,33 @@ defmodule Beam4PM.Script.ActuationSelfmine do
     allow = BeamPM.Actuation.admitted_actuations()
 
     unless map_size(allow) >= 2 do
-      fail("BeamPM.Actuation.admitted_actuations/0 returned fewer than 2 names: #{inspect(allow)}")
+      fail(
+        "BeamPM.Actuation.admitted_actuations/0 returned fewer than 2 names: #{inspect(allow)}"
+      )
     end
 
-    [a1, a2 | _] = Map.keys(allow) |> Enum.sort()
+    # Only an admitted actuation whose released gym op the chosen bridge
+    # speaks can actually be PERFORMED by it. Selecting by sorted position
+    # alone broke the moment the graph admitted the k8s scale ops (sorted
+    # 2nd entry became "k8s_scale_down" -> gym op "scale_down", which
+    # toy-counter cannot perform), so select from the performable subset.
+    gym_ops = supported_gym_ops(gym)
+
+    performable =
+      allow
+      |> Enum.filter(fn {_name, %{gym_op: gym_op}} -> gym_op in gym_ops end)
+      |> Enum.map(fn {name, _spec} -> name end)
+      |> Enum.sort()
+
+    unless length(performable) >= 2 do
+      fail(
+        "fewer than 2 admitted actuations are performable by gym #{inspect(gym)} " <>
+          "(bridge speaks #{inspect(gym_ops)}; allowlist: #{inspect(allow)}) " <>
+          "-- set BEAM4PM_GYM_OPS to the ops this bridge speaks"
+      )
+    end
+
+    [a1, a2 | _] = performable
     refused_name = "erase_world"
 
     if Map.has_key?(allow, refused_name) do
@@ -216,6 +262,35 @@ defmodule Beam4PM.Script.ActuationSelfmine do
           the refusal is visible as process structure
     receipts: #{receipts_dir}
     """)
+  end
+
+  # The set of gym ops the chosen bridge speaks: BEAM4PM_GYM_OPS if set,
+  # else the documented default for this gym name, else a hard failure
+  # (never a guess -- an unknown bridge would otherwise silently reproduce
+  # the "admitted but not performed" failure this selection exists to avoid).
+  defp supported_gym_ops(gym) do
+    case System.get_env("BEAM4PM_GYM_OPS") do
+      nil ->
+        case Map.fetch(@default_gym_ops, gym) do
+          {:ok, ops} ->
+            ops
+
+          :error ->
+            fail(
+              "no default gym-op set for gym #{inspect(gym)} " <>
+                "(known: #{inspect(Map.keys(@default_gym_ops))}); set BEAM4PM_GYM_OPS=op1,op2"
+            )
+        end
+
+      csv ->
+        ops = csv |> String.split(",", trim: true) |> Enum.map(&String.trim/1)
+
+        if ops == [] do
+          fail("BEAM4PM_GYM_OPS is set but names no gym ops: #{inspect(csv)}")
+        end
+
+        ops
+    end
   end
 
   # True when `chain` occurs as a consecutive subsequence of `sequence`.
