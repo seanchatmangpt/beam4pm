@@ -224,14 +224,23 @@ BeamPM.ProcessGovernor.run("toy_counter_governed", gym: "toy_counter",
 Additive, opt-in hash-chaining extension for `beam4pm-brce/v1` receipts (adapted from ex4pm's
 `Replay.Chain`), file-based, hashing raw on-disk bytes.
 
-| Function | Signature | Line |
-|---|---|---|
-| `link_fields/2` | `(receipts_dir :: String.t(), chain_id :: String.t()) :: link()` | :114 |
-| `hash_file!/1` | `(path :: String.t()) :: String.t()` | :132 |
-| `verify/2` | `(receipts_dir :: String.t(), chain_id :: String.t()) :: {:ok, %{chain_id: ..., length: non_neg_integer(), receipt_paths: [String.t()]}} \| {:error, {:chain_broken, seq, reason}}` | :172 |
+| Function | Signature |
+|---|---|
+| `link_fields/3` | `(receipts_dir, chain_id, next_receipt_path :: String.t()) :: link()` |
+| `link_fields/2` | `(receipts_dir :: String.t(), chain_id :: String.t()) :: link()` (legacy; scan + index invalidation) |
+| `link_fields_by_scan/2` | `(receipts_dir :: String.t(), chain_id :: String.t()) :: link()` (read-only reference oracle) |
+| `tip_index_path/2` | `(receipts_dir :: String.t(), chain_id :: String.t()) :: String.t()` |
+| `hash_file!/1` | `(path :: String.t()) :: String.t()` |
+| `verify/2` | `(receipts_dir :: String.t(), chain_id :: String.t()) :: {:ok, %{chain_id: ..., length: non_neg_integer(), receipt_paths: [String.t()]}} \| {:error, {:chain_broken, seq, reason}}` |
 
-`link_fields/2` returns `%{chain_id, chain_seq, prev_receipt_path, prev_receipt_hash}`.
-`hash_file!/1` computes a sha256 hex digest of raw bytes.
+Every `link_fields*` variant returns `%{chain_id, chain_seq, prev_receipt_path, prev_receipt_hash}`.
+`link_fields/3` is the write path `BeamPM.Actuation` uses: it reads a per-chain tip index at
+`<receipts_dir>/.chain-tips/<sha256(chain_id)>.json` plus the one tip receipt it names (O(1) in the
+directory's lifetime receipt count) and records `next_receipt_path` as the new tip before returning
+(index-first, so a crash before the caller's own write is repaired by the next call's scan
+fallback). `link_fields_by_scan/2` is the original Theta(N) directory scan, retained byte-for-byte
+as the oracle every indexed answer is checked against in `test/beam4pm_receipt_chain_test.exs`.
+`verify/2` never consults the index. `hash_file!/1` computes a sha256 hex digest of raw bytes.
 
 ```elixir
 BeamPM.ReceiptChain.verify("receipts/actuations", "toy_counter_governed")
