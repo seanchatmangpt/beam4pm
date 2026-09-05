@@ -11,8 +11,8 @@ defmodule BeamPM.Ash.Resources.TermSubscription do
     uuid_primary_key :id
     attribute :subscription_id, :string, public?: true, allow_nil?: false
     attribute :sku, :string, public?: true, allow_nil?: false
-    attribute :starts_at, :utc_datetime, public?: true, allow_nil?: false
-    attribute :ends_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :starts_at, :utc_datetime_usec, public?: true, allow_nil?: false
+    attribute :ends_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

@@ -27,7 +27,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       discovery_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.AccountDiscovery.new(attrs)
@@ -36,7 +36,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["discovery_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:account_discovery, m)
     assert {:ok, ^rec} =
@@ -49,7 +49,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       discovery_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.AccountDiscovery.new(attrs)
@@ -221,7 +221,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       activation_type: "sample_activation_type",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ActivationEvent.new(attrs)
@@ -230,7 +230,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["activation_type"] == "sample_activation_type"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:activation_event, m)
     assert {:ok, ^rec} =
@@ -243,7 +243,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       activation_type: "sample_activation_type",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ActivationEvent.new(attrs)
@@ -304,7 +304,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       milestone_name: "sample_milestone_name",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.AdoptionMilestone.new(attrs)
@@ -313,7 +313,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["milestone_name"] == "sample_milestone_name"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:adoption_milestone, m)
     assert {:ok, ^rec} =
@@ -326,7 +326,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       milestone_name: "sample_milestone_name",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.AdoptionMilestone.new(attrs)
@@ -380,7 +380,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       subscription_id: "sample_subscription_id",
       sku: "sample_sku",
       seat_count: 42,
-      renews_at: "2026-08-29T12:00:00Z"
+      renews_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.AnnualSubscription.new(attrs)
@@ -388,7 +388,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["subscription_id"] == "sample_subscription_id"
     assert m["sku"] == "sample_sku"
     assert m["seat_count"] == 42
-    assert m["renews_at"] == "2026-08-29T12:00:00Z"
+    assert m["renews_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:annual_subscription, m)
     assert {:ok, ^rec} =
@@ -400,7 +400,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       subscription_id: "sample_subscription_id",
       sku: "sample_sku",
       seat_count: 42,
-      renews_at: "2026-08-29T12:00:00Z"
+      renews_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.AnnualSubscription.new(attrs)
@@ -461,7 +461,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       architecture_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ArchitectureReadiness.new(attrs)
@@ -470,7 +470,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["architecture_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:architecture_readiness, m)
     assert {:ok, ^rec} =
@@ -483,7 +483,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       architecture_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ArchitectureReadiness.new(attrs)
@@ -781,7 +781,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       baseline_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.BaselineMetric.new(attrs)
@@ -790,7 +790,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["baseline_value"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:baseline_metric, m)
     assert {:ok, ^rec} =
@@ -803,7 +803,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       baseline_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.BaselineMetric.new(attrs)
@@ -938,8 +938,8 @@ defmodule BeamPM.Codec.GeneratedTest do
       metric_name: "sample_metric_name",
       total_quantity: 3.5,
       applied_event_ids: ["alpha", "beta"],
-      period_start: "2026-08-29T12:00:00Z",
-      period_end: "2026-08-29T12:00:00Z"
+      period_start: "2026-08-29T12:00:00.123456Z",
+      period_end: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.BillingReconciliation.new(attrs)
@@ -948,8 +948,8 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["metric_name"] == "sample_metric_name"
     assert m["total_quantity"] == 3.5
     assert m["applied_event_ids"] == ["alpha", "beta"]
-    assert m["period_start"] == "2026-08-29T12:00:00Z"
-    assert m["period_end"] == "2026-08-29T12:00:00Z"
+    assert m["period_start"] == "2026-08-29T12:00:00.123456Z"
+    assert m["period_end"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 6
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:billing_reconciliation, m)
     assert {:ok, ^rec} =
@@ -962,8 +962,8 @@ defmodule BeamPM.Codec.GeneratedTest do
       metric_name: "sample_metric_name",
       total_quantity: 3.5,
       applied_event_ids: ["alpha", "beta"],
-      period_start: "2026-08-29T12:00:00Z",
-      period_end: "2026-08-29T12:00:00Z"
+      period_start: "2026-08-29T12:00:00.123456Z",
+      period_end: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.BillingReconciliation.new(attrs)
@@ -1209,7 +1209,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       committee_coverage: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.BuyingCommittee.new(attrs)
@@ -1218,7 +1218,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["committee_coverage"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:buying_committee, m)
     assert {:ok, ^rec} =
@@ -1231,7 +1231,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       committee_coverage: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.BuyingCommittee.new(attrs)
@@ -1252,7 +1252,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       canary_result: "sample_canary_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CanaryDecision.new(attrs)
@@ -1261,7 +1261,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["canary_result"] == "sample_canary_result"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:canary_decision, m)
     assert {:ok, ^rec} =
@@ -1274,7 +1274,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       canary_result: "sample_canary_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CanaryDecision.new(attrs)
@@ -1375,7 +1375,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       gap_severity: "sample_gap_severity",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CapabilityGap.new(attrs)
@@ -1384,7 +1384,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["gap_severity"] == "sample_gap_severity"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:capability_gap, m)
     assert {:ok, ^rec} =
@@ -1397,7 +1397,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       gap_severity: "sample_gap_severity",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CapabilityGap.new(attrs)
@@ -1503,7 +1503,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       release_id: "sample_release_id",
       version: "sample_version",
       sku_ids: ["alpha", "beta"],
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CatalogRelease.new(attrs)
@@ -1511,7 +1511,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["release_id"] == "sample_release_id"
     assert m["version"] == "sample_version"
     assert m["sku_ids"] == ["alpha", "beta"]
-    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert m["effective_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:catalog_release, m)
     assert {:ok, ^rec} =
@@ -1523,7 +1523,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       release_id: "sample_release_id",
       version: "sample_version",
       sku_ids: ["alpha", "beta"],
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CatalogRelease.new(attrs)
@@ -1620,7 +1620,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       agreement_id: "sample_agreement_id",
       partner_id: "sample_partner_id",
       territory: "sample_territory",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ChannelAgreement.new(attrs)
@@ -1628,7 +1628,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["agreement_id"] == "sample_agreement_id"
     assert m["partner_id"] == "sample_partner_id"
     assert m["territory"] == "sample_territory"
-    assert m["valid_until"] == "2026-08-29T12:00:00Z"
+    assert m["valid_until"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:channel_agreement, m)
     assert {:ok, ^rec} =
@@ -1640,7 +1640,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       agreement_id: "sample_agreement_id",
       partner_id: "sample_partner_id",
       territory: "sample_territory",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ChannelAgreement.new(attrs)
@@ -1935,7 +1935,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       outcome_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CommercialOutcome.new(attrs)
@@ -1944,7 +1944,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["outcome_value"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:commercial_outcome, m)
     assert {:ok, ^rec} =
@@ -1957,7 +1957,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       outcome_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CommercialOutcome.new(attrs)
@@ -2057,7 +2057,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       realization_id: "sample_realization_id",
       baseline_id: "sample_baseline_id",
       realized_value: 3.5,
-      measured_at: "2026-08-29T12:00:00Z"
+      measured_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CommercialValueRealization.new(attrs)
@@ -2065,7 +2065,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["realization_id"] == "sample_realization_id"
     assert m["baseline_id"] == "sample_baseline_id"
     assert m["realized_value"] == 3.5
-    assert m["measured_at"] == "2026-08-29T12:00:00Z"
+    assert m["measured_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:commercial_value_realization, m)
     assert {:ok, ^rec} =
@@ -2077,7 +2077,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       realization_id: "sample_realization_id",
       baseline_id: "sample_baseline_id",
       realized_value: 3.5,
-      measured_at: "2026-08-29T12:00:00Z"
+      measured_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CommercialValueRealization.new(attrs)
@@ -2097,7 +2097,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       commitment_id: "sample_commitment_id",
       amount: 3.5,
       currency: "sample_currency",
-      expires_at: "2026-08-29T12:00:00Z"
+      expires_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CommittedSpend.new(attrs)
@@ -2105,7 +2105,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["commitment_id"] == "sample_commitment_id"
     assert m["amount"] == 3.5
     assert m["currency"] == "sample_currency"
-    assert m["expires_at"] == "2026-08-29T12:00:00Z"
+    assert m["expires_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:committed_spend, m)
     assert {:ok, ^rec} =
@@ -2117,7 +2117,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       commitment_id: "sample_commitment_id",
       amount: 3.5,
       currency: "sample_currency",
-      expires_at: "2026-08-29T12:00:00Z"
+      expires_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CommittedSpend.new(attrs)
@@ -2214,7 +2214,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       export_id: "sample_export_id",
       tenant_id: "sample_tenant_id",
       configuration_hash: "sample_configuration_hash",
-      exported_at: "2026-08-29T12:00:00Z"
+      exported_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ConfigurationExport.new(attrs)
@@ -2222,7 +2222,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["export_id"] == "sample_export_id"
     assert m["tenant_id"] == "sample_tenant_id"
     assert m["configuration_hash"] == "sample_configuration_hash"
-    assert m["exported_at"] == "2026-08-29T12:00:00Z"
+    assert m["exported_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:configuration_export, m)
     assert {:ok, ^rec} =
@@ -2234,7 +2234,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       export_id: "sample_export_id",
       tenant_id: "sample_tenant_id",
       configuration_hash: "sample_configuration_hash",
-      exported_at: "2026-08-29T12:00:00Z"
+      exported_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ConfigurationExport.new(attrs)
@@ -2572,7 +2572,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       cross_sell_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CrossSellFit.new(attrs)
@@ -2581,7 +2581,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["cross_sell_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:cross_sell_fit, m)
     assert {:ok, ^rec} =
@@ -2594,7 +2594,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       cross_sell_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CrossSellFit.new(attrs)
@@ -2615,7 +2615,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       health_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CustomerHealth.new(attrs)
@@ -2624,7 +2624,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["health_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:customer_health, m)
     assert {:ok, ^rec} =
@@ -2637,7 +2637,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       health_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.CustomerHealth.new(attrs)
@@ -2812,7 +2812,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       data_quality_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DataReadiness.new(attrs)
@@ -2821,7 +2821,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["data_quality_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:data_readiness, m)
     assert {:ok, ^rec} =
@@ -2834,7 +2834,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       data_quality_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DataReadiness.new(attrs)
@@ -2972,7 +2972,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       demo_result: "sample_demo_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DemoRun.new(attrs)
@@ -2981,7 +2981,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["demo_result"] == "sample_demo_result"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:demo_run, m)
     assert {:ok, ^rec} =
@@ -2994,7 +2994,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       demo_result: "sample_demo_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DemoRun.new(attrs)
@@ -3015,7 +3015,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       scenario_name: "sample_scenario_name",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DemoScenario.new(attrs)
@@ -3024,7 +3024,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["scenario_name"] == "sample_scenario_name"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:demo_scenario, m)
     assert {:ok, ^rec} =
@@ -3037,7 +3037,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       scenario_name: "sample_scenario_name",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DemoScenario.new(attrs)
@@ -3097,7 +3097,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       entitlement_id: "sample_entitlement_id",
       tenant_id: "sample_tenant_id",
       profile_id: "sample_profile_id",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DeploymentEntitlement.new(attrs)
@@ -3105,7 +3105,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["entitlement_id"] == "sample_entitlement_id"
     assert m["tenant_id"] == "sample_tenant_id"
     assert m["profile_id"] == "sample_profile_id"
-    assert m["valid_until"] == "2026-08-29T12:00:00Z"
+    assert m["valid_until"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:deployment_entitlement, m)
     assert {:ok, ^rec} =
@@ -3117,7 +3117,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       entitlement_id: "sample_entitlement_id",
       tenant_id: "sample_tenant_id",
       profile_id: "sample_profile_id",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DeploymentEntitlement.new(attrs)
@@ -3138,7 +3138,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       developer_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DeveloperReadiness.new(attrs)
@@ -3147,7 +3147,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["developer_readiness_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:developer_readiness, m)
     assert {:ok, ^rec} =
@@ -3160,7 +3160,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       developer_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DeveloperReadiness.new(attrs)
@@ -3216,7 +3216,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      recovered_at: "2026-08-29T12:00:00Z",
+      recovered_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     }
 
@@ -3224,7 +3224,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     m = BeamPM.Codec.to_map(rec)
     assert m["evidence_id"] == "sample_evidence_id"
     assert m["subject_sha"] == "sample_subject_sha"
-    assert m["recovered_at"] == "2026-08-29T12:00:00Z"
+    assert m["recovered_at"] == "2026-08-29T12:00:00.123456Z"
     assert m["observed_result"] == "sample_atom"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:disaster_recovery_evidence, m)
@@ -3236,7 +3236,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      recovered_at: "2026-08-29T12:00:00Z",
+      recovered_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     }
 
@@ -3298,7 +3298,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       expected_value: "sample_expected_value",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DiscoveryHypothesis.new(attrs)
@@ -3307,7 +3307,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["expected_value"] == "sample_expected_value"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:discovery_hypothesis, m)
     assert {:ok, ^rec} =
@@ -3320,7 +3320,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       expected_value: "sample_expected_value",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.DiscoveryHypothesis.new(attrs)
@@ -3497,7 +3497,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       event_id: "sample_event_id",
       entitlement_id: "sample_entitlement_id",
       event_type: "sample_event_type",
-      effective_at: "2026-08-29T12:00:00Z",
+      effective_at: "2026-08-29T12:00:00.123456Z",
       payload: %{"k" => "v"}
     }
 
@@ -3506,7 +3506,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["event_id"] == "sample_event_id"
     assert m["entitlement_id"] == "sample_entitlement_id"
     assert m["event_type"] == "sample_event_type"
-    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert m["effective_at"] == "2026-08-29T12:00:00.123456Z"
     assert m["payload"] == %{"k" => "v"}
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:entitlement_event, m)
@@ -3519,7 +3519,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       event_id: "sample_event_id",
       entitlement_id: "sample_entitlement_id",
       event_type: "sample_event_type",
-      effective_at: "2026-08-29T12:00:00Z",
+      effective_at: "2026-08-29T12:00:00.123456Z",
       payload: %{"k" => "v"}
     }
 
@@ -3539,7 +3539,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       event_id: "sample_event_id",
       entitlement_id: "sample_entitlement_id",
       event_type: "sample_event_type",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.EntitlementEvent.new(attrs)
@@ -3594,7 +3594,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       grant_id: "sample_grant_id",
       tenant_id: "sample_tenant_id",
       capability_id: "sample_capability_id",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.EntitlementGrant.new(attrs)
@@ -3602,7 +3602,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["grant_id"] == "sample_grant_id"
     assert m["tenant_id"] == "sample_tenant_id"
     assert m["capability_id"] == "sample_capability_id"
-    assert m["valid_until"] == "2026-08-29T12:00:00Z"
+    assert m["valid_until"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:entitlement_grant, m)
     assert {:ok, ^rec} =
@@ -3614,7 +3614,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       grant_id: "sample_grant_id",
       tenant_id: "sample_tenant_id",
       capability_id: "sample_capability_id",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.EntitlementGrant.new(attrs)
@@ -3634,7 +3634,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       revocation_id: "sample_revocation_id",
       grant_id: "sample_grant_id",
       reason: "sample_reason",
-      revoked_at: "2026-08-29T12:00:00Z"
+      revoked_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.EntitlementRevocation.new(attrs)
@@ -3642,7 +3642,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["revocation_id"] == "sample_revocation_id"
     assert m["grant_id"] == "sample_grant_id"
     assert m["reason"] == "sample_reason"
-    assert m["revoked_at"] == "2026-08-29T12:00:00Z"
+    assert m["revoked_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:entitlement_revocation, m)
     assert {:ok, ^rec} =
@@ -3654,7 +3654,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       revocation_id: "sample_revocation_id",
       grant_id: "sample_grant_id",
       reason: "sample_reason",
-      revoked_at: "2026-08-29T12:00:00Z"
+      revoked_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.EntitlementRevocation.new(attrs)
@@ -3711,7 +3711,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       entitlement_id: "sample_entitlement_id",
       status: "sample_status",
       last_applied_event_id: "sample_last_applied_event_id",
-      updated_at: "2026-08-29T12:00:00Z"
+      updated_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.EntitlementState.new(attrs)
@@ -3719,7 +3719,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["entitlement_id"] == "sample_entitlement_id"
     assert m["status"] == "sample_status"
     assert m["last_applied_event_id"] == "sample_last_applied_event_id"
-    assert m["updated_at"] == "2026-08-29T12:00:00Z"
+    assert m["updated_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:entitlement_state, m)
     assert {:ok, ^rec} =
@@ -3731,7 +3731,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       entitlement_id: "sample_entitlement_id",
       status: "sample_status",
       last_applied_event_id: "sample_last_applied_event_id",
-      updated_at: "2026-08-29T12:00:00Z"
+      updated_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.EntitlementState.new(attrs)
@@ -3958,7 +3958,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      observed_at: "2026-08-29T12:00:00Z",
+      observed_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     }
 
@@ -3966,7 +3966,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     m = BeamPM.Codec.to_map(rec)
     assert m["evidence_id"] == "sample_evidence_id"
     assert m["subject_sha"] == "sample_subject_sha"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert m["observed_result"] == "sample_atom"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:evidence_freshness_evidence, m)
@@ -3978,7 +3978,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      observed_at: "2026-08-29T12:00:00Z",
+      observed_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     }
 
@@ -4037,7 +4037,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       executive_outcome: "sample_executive_outcome",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ExecutiveBusinessReview.new(attrs)
@@ -4046,7 +4046,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["executive_outcome"] == "sample_executive_outcome"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:executive_business_review, m)
     assert {:ok, ^rec} =
@@ -4059,7 +4059,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       executive_outcome: "sample_executive_outcome",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ExecutiveBusinessReview.new(attrs)
@@ -4080,7 +4080,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       sponsor_commitment: "sample_sponsor_commitment",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ExecutiveSponsor.new(attrs)
@@ -4089,7 +4089,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["sponsor_commitment"] == "sample_sponsor_commitment"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:executive_sponsor, m)
     assert {:ok, ^rec} =
@@ -4102,7 +4102,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       sponsor_commitment: "sample_sponsor_commitment",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ExecutiveSponsor.new(attrs)
@@ -4123,7 +4123,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       expansion_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ExpansionOpportunity.new(attrs)
@@ -4132,7 +4132,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["expansion_value"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:expansion_opportunity, m)
     assert {:ok, ^rec} =
@@ -4145,7 +4145,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       expansion_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ExpansionOpportunity.new(attrs)
@@ -4206,7 +4206,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       receipt_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ExpansionReceipt.new(attrs)
@@ -4215,7 +4215,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["receipt_value"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:expansion_receipt, m)
     assert {:ok, ^rec} =
@@ -4228,7 +4228,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       receipt_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ExpansionReceipt.new(attrs)
@@ -4249,7 +4249,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       expansion_signal_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ExpansionSignal.new(attrs)
@@ -4258,7 +4258,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["expansion_signal_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:expansion_signal, m)
     assert {:ok, ^rec} =
@@ -4271,7 +4271,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       expansion_signal_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ExpansionSignal.new(attrs)
@@ -4628,7 +4628,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       integration_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.IntegrationReadiness.new(attrs)
@@ -4637,7 +4637,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["integration_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:integration_readiness, m)
     assert {:ok, ^rec} =
@@ -4650,7 +4650,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       integration_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.IntegrationReadiness.new(attrs)
@@ -4744,7 +4744,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       schedule_id: "sample_schedule_id",
       billing_account_id: "sample_billing_account_id",
       cadence: :sample_atom,
-      next_invoice_at: "2026-08-29T12:00:00Z"
+      next_invoice_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.InvoiceSchedule.new(attrs)
@@ -4752,7 +4752,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["schedule_id"] == "sample_schedule_id"
     assert m["billing_account_id"] == "sample_billing_account_id"
     assert m["cadence"] == "sample_atom"
-    assert m["next_invoice_at"] == "2026-08-29T12:00:00Z"
+    assert m["next_invoice_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:invoice_schedule, m)
     assert {:ok, ^rec} =
@@ -4764,7 +4764,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       schedule_id: "sample_schedule_id",
       billing_account_id: "sample_billing_account_id",
       cadence: :sample_atom,
-      next_invoice_at: "2026-08-29T12:00:00Z"
+      next_invoice_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.InvoiceSchedule.new(attrs)
@@ -5173,7 +5173,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       migration_effort_days: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.MigrationReadiness.new(attrs)
@@ -5182,7 +5182,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["migration_effort_days"] == 42
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:migration_readiness, m)
     assert {:ok, ^rec} =
@@ -5195,7 +5195,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       migration_effort_days: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.MigrationReadiness.new(attrs)
@@ -5370,7 +5370,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       attribute_name: "sample_attribute_name",
       old_value: "sample_old_value",
       new_value: "sample_new_value",
-      changed_at: "2026-08-29T12:00:00Z"
+      changed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ObjectAttributeChange.new(attrs)
@@ -5379,7 +5379,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["attribute_name"] == "sample_attribute_name"
     assert m["old_value"] == "sample_old_value"
     assert m["new_value"] == "sample_new_value"
-    assert m["changed_at"] == "2026-08-29T12:00:00Z"
+    assert m["changed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:object_attribute_change, m)
     assert {:ok, ^rec} =
@@ -5392,7 +5392,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       attribute_name: "sample_attribute_name",
       old_value: "sample_old_value",
       new_value: "sample_new_value",
-      changed_at: "2026-08-29T12:00:00Z"
+      changed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ObjectAttributeChange.new(attrs)
@@ -5411,7 +5411,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       object_id: "sample_object_id",
       attribute_name: "sample_attribute_name",
       new_value: "sample_new_value",
-      changed_at: "2026-08-29T12:00:00Z"
+      changed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ObjectAttributeChange.new(attrs)
@@ -5472,7 +5472,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       objection_type: "sample_objection_type",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.Objection.new(attrs)
@@ -5481,7 +5481,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["objection_type"] == "sample_objection_type"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:objection, m)
     assert {:ok, ^rec} =
@@ -5494,7 +5494,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       objection_type: "sample_objection_type",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.Objection.new(attrs)
@@ -5515,7 +5515,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       resolution_status: "sample_resolution_status",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ObjectionResolution.new(attrs)
@@ -5524,7 +5524,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["resolution_status"] == "sample_resolution_status"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:objection_resolution, m)
     assert {:ok, ^rec} =
@@ -5537,7 +5537,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       resolution_status: "sample_resolution_status",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ObjectionResolution.new(attrs)
@@ -5596,14 +5596,14 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       attribute_name: "sample_attribute_name",
       attribute_value: "sample_attribute_value",
-      recorded_at: "2026-08-29T12:00:00Z"
+      recorded_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.OcelAttribute.new(attrs)
     m = BeamPM.Codec.to_map(rec)
     assert m["attribute_name"] == "sample_attribute_name"
     assert m["attribute_value"] == "sample_attribute_value"
-    assert m["recorded_at"] == "2026-08-29T12:00:00Z"
+    assert m["recorded_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 3
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:ocel_attribute, m)
     assert {:ok, ^rec} =
@@ -5614,7 +5614,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       attribute_name: "sample_attribute_name",
       attribute_value: "sample_attribute_value",
-      recorded_at: "2026-08-29T12:00:00Z"
+      recorded_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.OcelAttribute.new(attrs)
@@ -5645,7 +5645,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       event_id: "sample_event_id",
       event_type: "sample_event_type",
-      event_time: "2026-08-29T12:00:00Z",
+      event_time: "2026-08-29T12:00:00.123456Z",
       attributes: %{"k" => "v"}
     }
 
@@ -5653,7 +5653,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     m = BeamPM.Codec.to_map(rec)
     assert m["event_id"] == "sample_event_id"
     assert m["event_type"] == "sample_event_type"
-    assert m["event_time"] == "2026-08-29T12:00:00Z"
+    assert m["event_time"] == "2026-08-29T12:00:00.123456Z"
     assert m["attributes"] == %{"k" => "v"}
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:ocel_event, m)
@@ -5665,7 +5665,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       event_id: "sample_event_id",
       event_type: "sample_event_type",
-      event_time: "2026-08-29T12:00:00Z",
+      event_time: "2026-08-29T12:00:00.123456Z",
       attributes: %{"k" => "v"}
     }
 
@@ -5684,7 +5684,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       event_id: "sample_event_id",
       event_type: "sample_event_type",
-      event_time: "2026-08-29T12:00:00Z"
+      event_time: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.OcelEvent.new(attrs)
@@ -5863,7 +5863,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       operator_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.OperatorReadiness.new(attrs)
@@ -5872,7 +5872,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["operator_readiness_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:operator_readiness, m)
     assert {:ok, ^rec} =
@@ -5885,7 +5885,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       operator_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.OperatorReadiness.new(attrs)
@@ -6487,7 +6487,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       criteria_pass_rate: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.PocExitCriteria.new(attrs)
@@ -6496,7 +6496,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["criteria_pass_rate"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:poc_exit_criteria, m)
     assert {:ok, ^rec} =
@@ -6509,7 +6509,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       criteria_pass_rate: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.PocExitCriteria.new(attrs)
@@ -6530,7 +6530,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       risk_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.PocRisk.new(attrs)
@@ -6539,7 +6539,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["risk_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:poc_risk, m)
     assert {:ok, ^rec} =
@@ -6552,7 +6552,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       risk_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.PocRisk.new(attrs)
@@ -6573,7 +6573,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       use_case_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.PocScope.new(attrs)
@@ -6582,7 +6582,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["use_case_count"] == 42
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:poc_scope, m)
     assert {:ok, ^rec} =
@@ -6595,7 +6595,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       use_case_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.PocScope.new(attrs)
@@ -6616,7 +6616,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       days_to_value: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.PocTimeline.new(attrs)
@@ -6625,7 +6625,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["days_to_value"] == 42
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:poc_timeline, m)
     assert {:ok, ^rec} =
@@ -6638,7 +6638,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       days_to_value: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.PocTimeline.new(attrs)
@@ -6969,7 +6969,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       offer_id: "sample_offer_id",
       account_id: "sample_account_id",
       total_price: 3.5,
-      expires_at: "2026-08-29T12:00:00Z"
+      expires_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.PrivateOffer.new(attrs)
@@ -6977,7 +6977,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["offer_id"] == "sample_offer_id"
     assert m["account_id"] == "sample_account_id"
     assert m["total_price"] == 3.5
-    assert m["expires_at"] == "2026-08-29T12:00:00Z"
+    assert m["expires_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:private_offer, m)
     assert {:ok, ^rec} =
@@ -6989,7 +6989,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       offer_id: "sample_offer_id",
       account_id: "sample_account_id",
       total_price: 3.5,
-      expires_at: "2026-08-29T12:00:00Z"
+      expires_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.PrivateOffer.new(attrs)
@@ -7201,7 +7201,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       procurement_stage: "sample_procurement_stage",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ProcurementReadiness.new(attrs)
@@ -7210,7 +7210,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["procurement_stage"] == "sample_procurement_stage"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:procurement_readiness, m)
     assert {:ok, ^rec} =
@@ -7223,7 +7223,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       procurement_stage: "sample_procurement_stage",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ProcurementReadiness.new(attrs)
@@ -7244,7 +7244,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       production_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ProductionReadiness.new(attrs)
@@ -7253,7 +7253,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["production_readiness_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:production_readiness, m)
     assert {:ok, ^rec} =
@@ -7266,7 +7266,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       production_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ProductionReadiness.new(attrs)
@@ -7513,14 +7513,14 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       queue_name: "sample_queue_name",
       depth: 42,
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.QueueSnapshot.new(attrs)
     m = BeamPM.Codec.to_map(rec)
     assert m["queue_name"] == "sample_queue_name"
     assert m["depth"] == 42
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 3
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:queue_snapshot, m)
     assert {:ok, ^rec} =
@@ -7531,7 +7531,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       queue_name: "sample_queue_name",
       depth: 42,
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.QueueSnapshot.new(attrs)
@@ -7591,7 +7591,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       ramp_id: "sample_ramp_id",
       phase: 42,
       committed_amount: 3.5,
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RampCommitment.new(attrs)
@@ -7599,7 +7599,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["ramp_id"] == "sample_ramp_id"
     assert m["phase"] == 42
     assert m["committed_amount"] == 3.5
-    assert m["effective_at"] == "2026-08-29T12:00:00Z"
+    assert m["effective_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:ramp_commitment, m)
     assert {:ok, ^rec} =
@@ -7611,7 +7611,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       ramp_id: "sample_ramp_id",
       phase: 42,
       committed_amount: 3.5,
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RampCommitment.new(attrs)
@@ -7820,7 +7820,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       recovery_time_hours: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RecoveryPlan.new(attrs)
@@ -7829,7 +7829,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["recovery_time_hours"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:recovery_plan, m)
     assert {:ok, ^rec} =
@@ -7842,7 +7842,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       recovery_time_hours: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RecoveryPlan.new(attrs)
@@ -7935,7 +7935,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      remediation_due_at: "2026-08-29T12:00:00Z",
+      remediation_due_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     }
 
@@ -7943,7 +7943,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     m = BeamPM.Codec.to_map(rec)
     assert m["evidence_id"] == "sample_evidence_id"
     assert m["subject_sha"] == "sample_subject_sha"
-    assert m["remediation_due_at"] == "2026-08-29T12:00:00Z"
+    assert m["remediation_due_at"] == "2026-08-29T12:00:00.123456Z"
     assert m["observed_result"] == "sample_atom"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:remediation_sla_evidence, m)
@@ -7955,7 +7955,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      remediation_due_at: "2026-08-29T12:00:00Z",
+      remediation_due_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     }
 
@@ -7977,7 +7977,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       renewal_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RenewalEvidence.new(attrs)
@@ -7986,7 +7986,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["renewal_value"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:renewal_evidence, m)
     assert {:ok, ^rec} =
@@ -7999,7 +7999,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       renewal_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RenewalEvidence.new(attrs)
@@ -8020,7 +8020,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       renewal_health_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RenewalHealth.new(attrs)
@@ -8029,7 +8029,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["renewal_health_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:renewal_health, m)
     assert {:ok, ^rec} =
@@ -8042,7 +8042,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       renewal_health_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RenewalHealth.new(attrs)
@@ -8062,7 +8062,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       option_id: "sample_option_id",
       subscription_id: "sample_subscription_id",
       term_months: 42,
-      notice_by: "2026-08-29T12:00:00Z"
+      notice_by: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RenewalOption.new(attrs)
@@ -8070,7 +8070,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["option_id"] == "sample_option_id"
     assert m["subscription_id"] == "sample_subscription_id"
     assert m["term_months"] == 42
-    assert m["notice_by"] == "2026-08-29T12:00:00Z"
+    assert m["notice_by"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:renewal_option, m)
     assert {:ok, ^rec} =
@@ -8082,7 +8082,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       option_id: "sample_option_id",
       subscription_id: "sample_subscription_id",
       term_months: 42,
-      notice_by: "2026-08-29T12:00:00Z"
+      notice_by: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RenewalOption.new(attrs)
@@ -8103,7 +8103,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       renewal_risk_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RenewalRisk.new(attrs)
@@ -8112,7 +8112,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["renewal_risk_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:renewal_risk, m)
     assert {:ok, ^rec} =
@@ -8125,7 +8125,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       renewal_risk_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RenewalRisk.new(attrs)
@@ -8417,7 +8417,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       attributed_revenue: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RevenueAttribution.new(attrs)
@@ -8426,7 +8426,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["attributed_revenue"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:revenue_attribution, m)
     assert {:ok, ^rec} =
@@ -8439,7 +8439,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       attributed_revenue: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RevenueAttribution.new(attrs)
@@ -8611,7 +8611,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       rollback_result: "sample_rollback_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RollbackDecision.new(attrs)
@@ -8620,7 +8620,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["rollback_result"] == "sample_rollback_result"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:rollback_decision, m)
     assert {:ok, ^rec} =
@@ -8633,7 +8633,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       rollback_result: "sample_rollback_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.RollbackDecision.new(attrs)
@@ -8959,7 +8959,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       control_coverage: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.SecurityReadiness.new(attrs)
@@ -8968,7 +8968,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["control_coverage"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:security_readiness, m)
     assert {:ok, ^rec} =
@@ -8981,7 +8981,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       control_coverage: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.SecurityReadiness.new(attrs)
@@ -9440,7 +9440,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       fit_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.SolutionFit.new(attrs)
@@ -9449,7 +9449,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["fit_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:solution_fit, m)
     assert {:ok, ^rec} =
@@ -9462,7 +9462,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       fit_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.SolutionFit.new(attrs)
@@ -9483,7 +9483,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       stakeholder_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.StakeholderMap.new(attrs)
@@ -9492,7 +9492,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["stakeholder_count"] == 42
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:stakeholder_map, m)
     assert {:ok, ^rec} =
@@ -9505,7 +9505,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       stakeholder_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.StakeholderMap.new(attrs)
@@ -9603,7 +9603,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       success_target: "sample_success_target",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.SuccessPlan.new(attrs)
@@ -9612,7 +9612,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["success_target"] == "sample_success_target"
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:success_plan, m)
     assert {:ok, ^rec} =
@@ -9625,7 +9625,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       success_target: "sample_success_target",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.SuccessPlan.new(attrs)
@@ -9682,7 +9682,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       contract_id: "sample_contract_id",
       account_id: "sample_account_id",
       tier: :sample_atom,
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.SupportContract.new(attrs)
@@ -9690,7 +9690,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["contract_id"] == "sample_contract_id"
     assert m["account_id"] == "sample_account_id"
     assert m["tier"] == "sample_atom"
-    assert m["valid_until"] == "2026-08-29T12:00:00Z"
+    assert m["valid_until"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:support_contract, m)
     assert {:ok, ^rec} =
@@ -9702,7 +9702,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       contract_id: "sample_contract_id",
       account_id: "sample_account_id",
       tier: :sample_atom,
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.SupportContract.new(attrs)
@@ -9800,7 +9800,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       support_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.SupportReadiness.new(attrs)
@@ -9809,7 +9809,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["support_readiness_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:support_readiness, m)
     assert {:ok, ^rec} =
@@ -9822,7 +9822,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       support_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.SupportReadiness.new(attrs)
@@ -10009,7 +10009,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       target_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.TargetMetric.new(attrs)
@@ -10018,7 +10018,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["target_value"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:target_metric, m)
     assert {:ok, ^rec} =
@@ -10031,7 +10031,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       target_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.TargetMetric.new(attrs)
@@ -10352,16 +10352,16 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       subscription_id: "sample_subscription_id",
       sku: "sample_sku",
-      starts_at: "2026-08-29T12:00:00Z",
-      ends_at: "2026-08-29T12:00:00Z"
+      starts_at: "2026-08-29T12:00:00.123456Z",
+      ends_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.TermSubscription.new(attrs)
     m = BeamPM.Codec.to_map(rec)
     assert m["subscription_id"] == "sample_subscription_id"
     assert m["sku"] == "sample_sku"
-    assert m["starts_at"] == "2026-08-29T12:00:00Z"
-    assert m["ends_at"] == "2026-08-29T12:00:00Z"
+    assert m["starts_at"] == "2026-08-29T12:00:00.123456Z"
+    assert m["ends_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:term_subscription, m)
     assert {:ok, ^rec} =
@@ -10372,8 +10372,8 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       subscription_id: "sample_subscription_id",
       sku: "sample_sku",
-      starts_at: "2026-08-29T12:00:00Z",
-      ends_at: "2026-08-29T12:00:00Z"
+      starts_at: "2026-08-29T12:00:00.123456Z",
+      ends_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.TermSubscription.new(attrs)
@@ -10431,7 +10431,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       verified_days: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.TimeToValue.new(attrs)
@@ -10440,7 +10440,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["verified_days"] == 42
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:time_to_value, m)
     assert {:ok, ^rec} =
@@ -10453,7 +10453,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       verified_days: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.TimeToValue.new(attrs)
@@ -10511,7 +10511,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       training_completion_rate: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.TrainingReadiness.new(attrs)
@@ -10520,7 +10520,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["training_completion_rate"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:training_readiness, m)
     assert {:ok, ^rec} =
@@ -10533,7 +10533,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       training_completion_rate: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.TrainingReadiness.new(attrs)
@@ -10751,7 +10751,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       upsell_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.UpsellReadiness.new(attrs)
@@ -10760,7 +10760,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["upsell_score"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:upsell_readiness, m)
     assert {:ok, ^rec} =
@@ -10773,7 +10773,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       upsell_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.UpsellReadiness.new(attrs)
@@ -10794,7 +10794,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       entitlement_id: "sample_entitlement_id",
       quantity: 3.5,
       metric_name: "sample_metric_name",
-      occurred_at: "2026-08-29T12:00:00Z"
+      occurred_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.UsageEvent.new(attrs)
@@ -10803,7 +10803,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["entitlement_id"] == "sample_entitlement_id"
     assert m["quantity"] == 3.5
     assert m["metric_name"] == "sample_metric_name"
-    assert m["occurred_at"] == "2026-08-29T12:00:00Z"
+    assert m["occurred_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:usage_event, m)
     assert {:ok, ^rec} =
@@ -10816,7 +10816,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       entitlement_id: "sample_entitlement_id",
       quantity: 3.5,
       metric_name: "sample_metric_name",
-      occurred_at: "2026-08-29T12:00:00Z"
+      occurred_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.UsageEvent.new(attrs)
@@ -10914,7 +10914,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       active_user_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.UsageSignal.new(attrs)
@@ -10923,7 +10923,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["active_user_count"] == 42
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:usage_signal, m)
     assert {:ok, ^rec} =
@@ -10936,7 +10936,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       active_user_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.UsageSignal.new(attrs)
@@ -10997,7 +10997,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       annual_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ValueDriver.new(attrs)
@@ -11006,7 +11006,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["annual_value"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:value_driver, m)
     assert {:ok, ^rec} =
@@ -11019,7 +11019,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       annual_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ValueDriver.new(attrs)
@@ -11040,7 +11040,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       realized_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ValueRealization.new(attrs)
@@ -11049,7 +11049,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["account_id"] == "sample_account_id"
     assert m["realized_value"] == 3.5
     assert m["evidence_digest"] == "sample_evidence_digest"
-    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert m["observed_at"] == "2026-08-29T12:00:00.123456Z"
     assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:value_realization, m)
     assert {:ok, ^rec} =
@@ -11062,7 +11062,7 @@ defmodule BeamPM.Codec.GeneratedTest do
       account_id: "sample_account_id",
       realized_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ValueRealization.new(attrs)
@@ -11195,7 +11195,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      supported_until: "2026-08-29T12:00:00Z",
+      supported_until: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     }
 
@@ -11203,7 +11203,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     m = BeamPM.Codec.to_map(rec)
     assert m["evidence_id"] == "sample_evidence_id"
     assert m["subject_sha"] == "sample_subject_sha"
-    assert m["supported_until"] == "2026-08-29T12:00:00Z"
+    assert m["supported_until"] == "2026-08-29T12:00:00.123456Z"
     assert m["observed_result"] == "sample_atom"
     assert map_size(m) == 4
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:version_lifecycle_evidence, m)
@@ -11215,7 +11215,7 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      supported_until: "2026-08-29T12:00:00Z",
+      supported_until: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     }
 

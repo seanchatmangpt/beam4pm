@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.DeploymentEntitlement do
     attribute :entitlement_id, :string, public?: true, allow_nil?: false
     attribute :tenant_id, :string, public?: true, allow_nil?: false
     attribute :profile_id, :string, public?: true, allow_nil?: false
-    attribute :valid_until, :utc_datetime, public?: true, allow_nil?: false
+    attribute :valid_until, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

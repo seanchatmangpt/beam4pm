@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.RampCommitment do
     attribute :ramp_id, :string, public?: true, allow_nil?: false
     attribute :phase, :integer, public?: true, allow_nil?: false
     attribute :committed_amount, :float, public?: true, allow_nil?: false
-    attribute :effective_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :effective_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

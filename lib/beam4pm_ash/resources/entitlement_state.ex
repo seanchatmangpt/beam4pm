@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.EntitlementState do
     attribute :entitlement_id, :string, public?: true, allow_nil?: false
     attribute :status, :string, public?: true, allow_nil?: false
     attribute :last_applied_event_id, :string, public?: true, allow_nil?: false
-    attribute :updated_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :updated_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

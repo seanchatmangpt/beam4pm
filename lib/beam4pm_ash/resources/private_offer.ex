@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.PrivateOffer do
     attribute :offer_id, :string, public?: true, allow_nil?: false
     attribute :account_id, :string, public?: true, allow_nil?: false
     attribute :total_price, :float, public?: true, allow_nil?: false
-    attribute :expires_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :expires_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

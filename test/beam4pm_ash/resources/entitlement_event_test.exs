@@ -8,7 +8,7 @@ defmodule BeamPM.Ash.Resources.EntitlementEventTest do
       event_id: "sample_event_id",
       entitlement_id: "sample_entitlement_id",
       event_type: "sample_event_type",
-      effective_at: "2026-08-29T12:00:00Z",
+      effective_at: "2026-08-29T12:00:00.123456Z",
       payload: %{"k" => "v"}
       }
 
@@ -19,10 +19,17 @@ defmodule BeamPM.Ash.Resources.EntitlementEventTest do
 
     [read_back] = Ash.read!(BeamPM.Ash.Resources.EntitlementEvent)
     assert read_back.id == created.id
+    # Datetime identity across the Ash boundary is DateTime.compare/2 == :eq
+    # against the parsed wire fixture (Ash normalizes the ISO 8601 string the
+    # Erlang/Elixir/JSON legs carry verbatim into a UTC %DateTime{} with
+    # microsecond {n, 6}) -- explicitly NOT byte/struct identity: a no-fraction
+    # wire value would read back {0, 6} vs a parsed {0, 0}. The six-digit fixture
+    # makes a truncating attribute type (:utc_datetime) fail here with :lt.
     assert read_back.event_id == "sample_event_id"
     assert read_back.entitlement_id == "sample_entitlement_id"
     assert read_back.event_type == "sample_event_type"
-    assert read_back.effective_at == ~U[2026-08-29 12:00:00Z]
+    {:ok, effective_at_wire, 0} = DateTime.from_iso8601("2026-08-29T12:00:00.123456Z")
+    assert DateTime.compare(read_back.effective_at, effective_at_wire) == :eq
     assert read_back.payload == %{"k" => "v"}
   end
 end

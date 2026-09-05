@@ -9,7 +9,7 @@ defmodule BeamPM.Ash.Resources.SecurityReadinessTest do
       account_id: "sample_account_id",
       control_coverage: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
       }
 
     created =
@@ -19,11 +19,18 @@ defmodule BeamPM.Ash.Resources.SecurityReadinessTest do
 
     [read_back] = Ash.read!(BeamPM.Ash.Resources.SecurityReadiness)
     assert read_back.id == created.id
+    # Datetime identity across the Ash boundary is DateTime.compare/2 == :eq
+    # against the parsed wire fixture (Ash normalizes the ISO 8601 string the
+    # Erlang/Elixir/JSON legs carry verbatim into a UTC %DateTime{} with
+    # microsecond {n, 6}) -- explicitly NOT byte/struct identity: a no-fraction
+    # wire value would read back {0, 6} vs a parsed {0, 0}. The six-digit fixture
+    # makes a truncating attribute type (:utc_datetime) fail here with :lt.
     assert read_back.security_readiness_id == "sample_security_readiness_id"
     assert read_back.account_id == "sample_account_id"
     assert read_back.control_coverage == 3.5
     assert read_back.evidence_digest == "sample_evidence_digest"
-    assert read_back.observed_at == ~U[2026-08-29 12:00:00Z]
+    {:ok, observed_at_wire, 0} = DateTime.from_iso8601("2026-08-29T12:00:00.123456Z")
+    assert DateTime.compare(read_back.observed_at, observed_at_wire) == :eq
   end
 end
 

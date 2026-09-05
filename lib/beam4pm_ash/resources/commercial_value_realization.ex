@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.CommercialValueRealization do
     attribute :realization_id, :string, public?: true, allow_nil?: false
     attribute :baseline_id, :string, public?: true, allow_nil?: false
     attribute :realized_value, :float, public?: true, allow_nil?: false
-    attribute :measured_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :measured_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

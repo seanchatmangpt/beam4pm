@@ -11,7 +11,7 @@ defmodule BeamPM.Ash.Resources.OcelAttribute do
     uuid_primary_key :id
     attribute :attribute_name, :string, public?: true, allow_nil?: false
     attribute :attribute_value, :string, public?: true, allow_nil?: false
-    attribute :recorded_at, :utc_datetime, public?: true
+    attribute :recorded_at, :utc_datetime_usec, public?: true
   end
 
   actions do

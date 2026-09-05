@@ -11,7 +11,7 @@ defmodule BeamPM.Ash.Resources.QueueSnapshot do
     uuid_primary_key :id
     attribute :queue_name, :string, public?: true, allow_nil?: false
     attribute :depth, :integer, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

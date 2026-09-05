@@ -20,7 +20,9 @@
 # neutralized by the in-template Enum.sort_by re-sorting).
 #
 # Side effect: ggen_igniter records each (template, out) recipe in a
-# reconciliation manifest at .ggen_igniter/manifest.json (repo root).
+# reconciliation manifest at .ggen_igniter/manifest.json (repo root), and
+# step 0b writes the merged consumer+pack graph to tmp_probe/ontology_merged.ttl
+# (gitignored scratch, reproducible path).
 set -euo pipefail
 
 PACK="${PACK:-vendor/ggen-marketplace/packs/beam4pm-process-model-pack}"
@@ -44,6 +46,27 @@ mix deps.get
 #    replacement.
 rm -f lib/beam4pm_ash.ex test/beam4pm_ash_test.exs
 
+# 0b. Merged graph for the Ash leg. ggen_igniter loads exactly ONE --ontology
+#     file (mix task option `ontology: :string`; GgenIgniter.Ontology.load!/1
+#     is a single RDF.Turtle.read_file!/1), but the Ash templates' query
+#     igniter/queries/ash_fields.rq JOINs the consumer's bpm:Field rows
+#     against the bpm:FieldType vocabulary (bpm:ashTypeExpr, bpm:sampleElixir)
+#     that lives in the PACK's ontology.ttl -- the Rust ggen leg gets that
+#     merge for free from ggen.toml [packs]; igniter has no equivalent.
+#     Measured 2026-09-05: the JOIN binds 0 Ash types on ontology.ttl alone
+#     (every resource render refused by name) and all 1074 field rows on the
+#     concatenation. Plain concatenation is lawful Turtle here: neither file
+#     declares @base and a repeated @prefix is a no-op redefinition. Fixed,
+#     gitignored path (tmp_probe/, never mktemp) so the ontology path a
+#     receipt records is reproducible run to run; tmp_probe/ is outside
+#     gate_m2_check.sh's SEARCH_DIRS and the merged file carries no
+#     GENERATED marker, so it is never mistaken for manufactured output.
+#     Only steps 1a and 2a consume it -- fields.rq (steps 3, and
+#     scripts/pro_type_pages_sync.sh) keeps running on the consumer graph.
+MERGED_TTL="tmp_probe/ontology_merged.ttl"
+mkdir -p tmp_probe
+cat ontology.ttl "$PACK/ontology.ttl" > "$MERGED_TTL"
+
 # 1a. Ash resources: one Ash.Resource module PER admitted bpm:RecordType row
 #     (ETS data layer, uuid_primary_key :id, ontology-derived attributes),
 #     one file per resource under lib/beam4pm_ash/resources/. Split out of
@@ -54,11 +77,15 @@ rm -f lib/beam4pm_ash.ex test/beam4pm_ash_test.exs
 #     win. `--on-stale prune` really deletes any resource file left over
 #     from a record removed from ontology.ttl since the last sync (so the
 #     directory never accumulates orphans as the admitted record set
-#     changes), while still writing this run's outputs first.
+#     changes), while still writing this run's outputs first. Attribute
+#     types come from the vocabulary's bpm:ashTypeExpr via ash_fields.rq on
+#     the merged graph (0b) -- datetime is :utc_datetime_usec, so the
+#     microseconds every other leg carries on the wire survive the Ash leg
+#     (the former in-template ladder said :utc_datetime and truncated them).
 mix ggen_igniter.sync \
-  --ontology ontology.ttl \
+  --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
-  --query fields="$IGN/queries/fields.rq" \
+  --query ash_fields="$IGN/queries/ash_fields.rq" \
   --for-each records \
   --on-stale prune \
   --template "$IGN/templates/beam4pm_ash_resource.ex.eex" \
@@ -79,11 +106,17 @@ mix ggen_igniter.sync \
 #     the same marginal-compile-cost reason as 1a. mix's default
 #     test_paths ["test"] recurses, and test/test_helper.exs (unchanged)
 #     already covers this nested directory, so no new test_helper is
-#     needed. `--on-stale prune` mirrors 1a.
+#     needed. `--on-stale prune` mirrors 1a. Fixtures come from the same
+#     bpm:sampleElixir the codec/roundtrip (GATE M5) tests are generated
+#     from, via ash_fields.rq on the merged graph (0b); datetime identity is
+#     asserted as DateTime.compare(ash_read, wire_parsed) == :eq -- Ash
+#     normalizes the wire string into a %DateTime{} with microsecond {n, 6},
+#     so byte/struct identity would fail on equal instants -- and the
+#     six-digit fixture makes a truncating attribute type fail with :lt.
 mix ggen_igniter.sync \
-  --ontology ontology.ttl \
+  --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
-  --query fields="$IGN/queries/fields.rq" \
+  --query ash_fields="$IGN/queries/ash_fields.rq" \
   --for-each records \
   --on-stale prune \
   --template "$IGN/templates/beam4pm_ash_resource_test.exs.eex" \
@@ -97,18 +130,27 @@ mix ggen_igniter.sync \
   --template "$IGN/templates/beam4pm_ash_kernel_test.exs.eex" \
   --out test/beam4pm_ash_kernel_test.exs
 
-# 3. (optional) Cross-engine identity probe: the EEx-rendered manifest must
-#    be byte-identical to the Rust-ggen/Tera-manufactured
-#    lib/beam4pm_types_manifest.ex.
-#    Verified result 2026-08-29: BYTE-IDENTICAL (on both engines).
+# 3. Cross-engine identity probe: the EEx-rendered manifest must be
+#    byte-identical to the Rust-ggen/Tera-manufactured
+#    lib/beam4pm_types_manifest.ex. Verified BYTE-IDENTICAL 2026-08-29 (both
+#    engines) and again 2026-09-05. FATAL since 2026-09-05: the former
+#    `diff ... && echo` form never failed this script -- under `set -e` a
+#    `cmd && other` list whose first command fails is not an error, so a
+#    divergence between the two engines printed a diff and kept going. Runs
+#    on the consumer graph (fields.rq), exactly as the Rust leg's own
+#    manifest template does.
 mix ggen_igniter.sync \
   --ontology ontology.ttl \
   --query records="$IGN/queries/records.rq" \
   --query fields="$IGN/queries/fields.rq" \
   --template "$IGN/templates/beam4pm_types_manifest.ex.eex" \
   --out tmp_probe/beam4pm_types_manifest.ex
-diff -u lib/beam4pm_types_manifest.ex tmp_probe/beam4pm_types_manifest.ex \
-  && echo "cross-engine identity probe: BYTE-IDENTICAL"
+if diff -u lib/beam4pm_types_manifest.ex tmp_probe/beam4pm_types_manifest.ex; then
+  echo "cross-engine identity probe: BYTE-IDENTICAL"
+else
+  echo "cross-engine identity probe: DIVERGED -- the igniter and Rust ggen engines disagree on beam4pm_types_manifest.ex (see diff above)" >&2
+  exit 1
+fi
 
 # Verify (as actually run in the scratch consumer: exit 0, and
 # `1 doctest, 32 tests, 0 failures` - 31 of those tests are this suite).

@@ -8,7 +8,7 @@ defmodule BeamPM.Ash.Resources.DeploymentEntitlementTest do
       entitlement_id: "sample_entitlement_id",
       tenant_id: "sample_tenant_id",
       profile_id: "sample_profile_id",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
       }
 
     created =
@@ -18,10 +18,17 @@ defmodule BeamPM.Ash.Resources.DeploymentEntitlementTest do
 
     [read_back] = Ash.read!(BeamPM.Ash.Resources.DeploymentEntitlement)
     assert read_back.id == created.id
+    # Datetime identity across the Ash boundary is DateTime.compare/2 == :eq
+    # against the parsed wire fixture (Ash normalizes the ISO 8601 string the
+    # Erlang/Elixir/JSON legs carry verbatim into a UTC %DateTime{} with
+    # microsecond {n, 6}) -- explicitly NOT byte/struct identity: a no-fraction
+    # wire value would read back {0, 6} vs a parsed {0, 0}. The six-digit fixture
+    # makes a truncating attribute type (:utc_datetime) fail here with :lt.
     assert read_back.entitlement_id == "sample_entitlement_id"
     assert read_back.tenant_id == "sample_tenant_id"
     assert read_back.profile_id == "sample_profile_id"
-    assert read_back.valid_until == ~U[2026-08-29 12:00:00Z]
+    {:ok, valid_until_wire, 0} = DateTime.from_iso8601("2026-08-29T12:00:00.123456Z")
+    assert DateTime.compare(read_back.valid_until, valid_until_wire) == :eq
   end
 end
 

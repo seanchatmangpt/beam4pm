@@ -8,7 +8,7 @@ defmodule BeamPM.Ash.Resources.CommittedSpendTest do
       commitment_id: "sample_commitment_id",
       amount: 3.5,
       currency: "sample_currency",
-      expires_at: "2026-08-29T12:00:00Z"
+      expires_at: "2026-08-29T12:00:00.123456Z"
       }
 
     created =
@@ -18,10 +18,17 @@ defmodule BeamPM.Ash.Resources.CommittedSpendTest do
 
     [read_back] = Ash.read!(BeamPM.Ash.Resources.CommittedSpend)
     assert read_back.id == created.id
+    # Datetime identity across the Ash boundary is DateTime.compare/2 == :eq
+    # against the parsed wire fixture (Ash normalizes the ISO 8601 string the
+    # Erlang/Elixir/JSON legs carry verbatim into a UTC %DateTime{} with
+    # microsecond {n, 6}) -- explicitly NOT byte/struct identity: a no-fraction
+    # wire value would read back {0, 6} vs a parsed {0, 0}. The six-digit fixture
+    # makes a truncating attribute type (:utc_datetime) fail here with :lt.
     assert read_back.commitment_id == "sample_commitment_id"
     assert read_back.amount == 3.5
     assert read_back.currency == "sample_currency"
-    assert read_back.expires_at == ~U[2026-08-29 12:00:00Z]
+    {:ok, expires_at_wire, 0} = DateTime.from_iso8601("2026-08-29T12:00:00.123456Z")
+    assert DateTime.compare(read_back.expires_at, expires_at_wire) == :eq
   end
 end
 

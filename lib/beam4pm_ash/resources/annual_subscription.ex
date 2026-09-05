@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.AnnualSubscription do
     attribute :subscription_id, :string, public?: true, allow_nil?: false
     attribute :sku, :string, public?: true, allow_nil?: false
     attribute :seat_count, :integer, public?: true, allow_nil?: false
-    attribute :renews_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :renews_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

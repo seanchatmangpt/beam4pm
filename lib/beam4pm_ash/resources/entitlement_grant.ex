@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.EntitlementGrant do
     attribute :grant_id, :string, public?: true, allow_nil?: false
     attribute :tenant_id, :string, public?: true, allow_nil?: false
     attribute :capability_id, :string, public?: true, allow_nil?: false
-    attribute :valid_until, :utc_datetime, public?: true, allow_nil?: false
+    attribute :valid_until, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

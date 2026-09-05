@@ -9,8 +9,8 @@ defmodule BeamPM.Ash.Resources.BillingReconciliationTest do
       metric_name: "sample_metric_name",
       total_quantity: 3.5,
       applied_event_ids: ["alpha", "beta"],
-      period_start: "2026-08-29T12:00:00Z",
-      period_end: "2026-08-29T12:00:00Z"
+      period_start: "2026-08-29T12:00:00.123456Z",
+      period_end: "2026-08-29T12:00:00.123456Z"
       }
 
     created =
@@ -20,12 +20,20 @@ defmodule BeamPM.Ash.Resources.BillingReconciliationTest do
 
     [read_back] = Ash.read!(BeamPM.Ash.Resources.BillingReconciliation)
     assert read_back.id == created.id
+    # Datetime identity across the Ash boundary is DateTime.compare/2 == :eq
+    # against the parsed wire fixture (Ash normalizes the ISO 8601 string the
+    # Erlang/Elixir/JSON legs carry verbatim into a UTC %DateTime{} with
+    # microsecond {n, 6}) -- explicitly NOT byte/struct identity: a no-fraction
+    # wire value would read back {0, 6} vs a parsed {0, 0}. The six-digit fixture
+    # makes a truncating attribute type (:utc_datetime) fail here with :lt.
     assert read_back.entitlement_id == "sample_entitlement_id"
     assert read_back.metric_name == "sample_metric_name"
     assert read_back.total_quantity == 3.5
     assert read_back.applied_event_ids == ["alpha", "beta"]
-    assert read_back.period_start == ~U[2026-08-29 12:00:00Z]
-    assert read_back.period_end == ~U[2026-08-29 12:00:00Z]
+    {:ok, period_start_wire, 0} = DateTime.from_iso8601("2026-08-29T12:00:00.123456Z")
+    assert DateTime.compare(read_back.period_start, period_start_wire) == :eq
+    {:ok, period_end_wire, 0} = DateTime.from_iso8601("2026-08-29T12:00:00.123456Z")
+    assert DateTime.compare(read_back.period_end, period_end_wire) == :eq
   end
 end
 

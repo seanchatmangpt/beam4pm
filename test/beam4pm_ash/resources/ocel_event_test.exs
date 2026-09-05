@@ -7,7 +7,7 @@ defmodule BeamPM.Ash.Resources.OcelEventTest do
       %{
       event_id: "sample_event_id",
       event_type: "sample_event_type",
-      event_time: "2026-08-29T12:00:00Z",
+      event_time: "2026-08-29T12:00:00.123456Z",
       attributes: %{"k" => "v"}
       }
 
@@ -18,9 +18,16 @@ defmodule BeamPM.Ash.Resources.OcelEventTest do
 
     [read_back] = Ash.read!(BeamPM.Ash.Resources.OcelEvent)
     assert read_back.id == created.id
+    # Datetime identity across the Ash boundary is DateTime.compare/2 == :eq
+    # against the parsed wire fixture (Ash normalizes the ISO 8601 string the
+    # Erlang/Elixir/JSON legs carry verbatim into a UTC %DateTime{} with
+    # microsecond {n, 6}) -- explicitly NOT byte/struct identity: a no-fraction
+    # wire value would read back {0, 6} vs a parsed {0, 0}. The six-digit fixture
+    # makes a truncating attribute type (:utc_datetime) fail here with :lt.
     assert read_back.event_id == "sample_event_id"
     assert read_back.event_type == "sample_event_type"
-    assert read_back.event_time == ~U[2026-08-29 12:00:00Z]
+    {:ok, event_time_wire, 0} = DateTime.from_iso8601("2026-08-29T12:00:00.123456Z")
+    assert DateTime.compare(read_back.event_time, event_time_wire) == :eq
     assert read_back.attributes == %{"k" => "v"}
   end
 end

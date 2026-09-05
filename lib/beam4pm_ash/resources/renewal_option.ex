@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.RenewalOption do
     attribute :option_id, :string, public?: true, allow_nil?: false
     attribute :subscription_id, :string, public?: true, allow_nil?: false
     attribute :term_months, :integer, public?: true, allow_nil?: false
-    attribute :notice_by, :utc_datetime, public?: true, allow_nil?: false
+    attribute :notice_by, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

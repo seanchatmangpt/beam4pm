@@ -13,7 +13,7 @@ defmodule BeamPM.Ash.Resources.UsageSignal do
     attribute :account_id, :string, public?: true, allow_nil?: false
     attribute :active_user_count, :integer, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

@@ -9,7 +9,7 @@ defmodule BeamPM.Ash.Resources.ObjectAttributeChangeTest do
       attribute_name: "sample_attribute_name",
       old_value: "sample_old_value",
       new_value: "sample_new_value",
-      changed_at: "2026-08-29T12:00:00Z"
+      changed_at: "2026-08-29T12:00:00.123456Z"
       }
 
     created =
@@ -19,11 +19,18 @@ defmodule BeamPM.Ash.Resources.ObjectAttributeChangeTest do
 
     [read_back] = Ash.read!(BeamPM.Ash.Resources.ObjectAttributeChange)
     assert read_back.id == created.id
+    # Datetime identity across the Ash boundary is DateTime.compare/2 == :eq
+    # against the parsed wire fixture (Ash normalizes the ISO 8601 string the
+    # Erlang/Elixir/JSON legs carry verbatim into a UTC %DateTime{} with
+    # microsecond {n, 6}) -- explicitly NOT byte/struct identity: a no-fraction
+    # wire value would read back {0, 6} vs a parsed {0, 0}. The six-digit fixture
+    # makes a truncating attribute type (:utc_datetime) fail here with :lt.
     assert read_back.object_id == "sample_object_id"
     assert read_back.attribute_name == "sample_attribute_name"
     assert read_back.old_value == "sample_old_value"
     assert read_back.new_value == "sample_new_value"
-    assert read_back.changed_at == ~U[2026-08-29 12:00:00Z]
+    {:ok, changed_at_wire, 0} = DateTime.from_iso8601("2026-08-29T12:00:00.123456Z")
+    assert DateTime.compare(read_back.changed_at, changed_at_wire) == :eq
   end
 end
 

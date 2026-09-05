@@ -109,7 +109,20 @@ ambiguity), plus new ones:
   generated comments); Gleam has no codec/roundtrip leg, so M5 covers
   Erlang↔Elixir only.
 - The Ash projection adds a synthetic `uuid_primary_key :id` not present in
-  the wire schema; Ash resources are not exercised by the roundtrip.
+  the wire schema; Ash resources are not exercised by the roundtrip
+  (`scripts/roundtrip_check.sh` stays Erlang↔Elixir). Updated 2026-09-05: the
+  Ash leg's semantic identity with the other legs is instead proven per
+  resource by its generated ExUnit test against the *same* `bpm:sampleElixir`
+  fixture the codec/roundtrip tests render. Ash attribute types are now the
+  vocabulary's `bpm:ashTypeExpr` (`datetime` → `:utc_datetime_usec`; the
+  former in-template `:utc_datetime` truncated microseconds — measured
+  `12:00:00.123456Z` → `~U[… 12:00:00Z]`, `DateTime.compare` `:lt`). Because
+  Ash normalizes the wire string into a UTC `%DateTime{}` with microsecond
+  `{n, 6}`, the Ash identity relation for datetime fields is
+  `DateTime.compare(ash_read, DateTime.from_iso8601(wire)) == :eq` —
+  explicitly **not** byte or struct identity (a no-fraction wire value parses
+  `{0, 0}` but reads back `{0, 6}`). The shared fixture carries six
+  microsecond digits so a truncating attribute type fails with `:lt`.
 - Compiling `:ggen_igniter` requires a Rust/cargo toolchain (Rustler NIF) —
   a real contributor-environment constraint, fail-closed in the playground.
 
