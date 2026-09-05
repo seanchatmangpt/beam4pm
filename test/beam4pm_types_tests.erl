@@ -2466,7 +2466,9 @@ service_span_ok_test() ->
         span_id => <<"x">>,
         service_name => <<"x">>,
         duration_ms => 1,
-        parent_span_id => <<"x">>
+        parent_span_id => <<"x">>,
+        trace_id => <<"x">>,
+        start_time => <<"2026-01-01T00:00:00Z">>
     })).
 
 service_span_missing_field_test() ->
@@ -2536,6 +2538,17 @@ solution_fit_ok_test() ->
 
 solution_fit_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_solution_fit(#{})).
+
+span_edge_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_span_edge(#{
+        source_service => <<"x">>,
+        target_service => <<"x">>,
+        frequency => 1,
+        evidence => some_atom
+    })).
+
+span_edge_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_span_edge(#{})).
 
 stakeholder_map_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_stakeholder_map(#{

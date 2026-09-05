@@ -6,8 +6,8 @@
 # BeamPM.Codec, created on the real Ash.DataLayer.Ets resource, read back
 # by primary key, and compared field by field against BeamPM.Roundtrip's
 # independently constructed sample -- see the identity relation on
-# verify_one/3. 289 record types; 77 carry
-# 79 datetime attribute(s) compared with DateTime.compare/2.
+# verify_one/3. 290 record types; 78 carry
+# 80 datetime attribute(s) compared with DateTime.compare/2.
 
 defmodule BeamPM.AshRoundtrip do
   @moduledoc """
@@ -276,6 +276,7 @@ defmodule BeamPM.AshRoundtrip do
     :sla_offer_admission,
     :sojourn_time,
     :solution_fit,
+    :span_edge,
     :stakeholder_map,
     :stale_receipt_refusal,
     :stale_subject_refusal_evidence,
@@ -571,6 +572,7 @@ defmodule BeamPM.AshRoundtrip do
     sla_offer_admission: BeamPM.Ash.Resources.SlaOfferAdmission,
     sojourn_time: BeamPM.Ash.Resources.SojournTime,
     solution_fit: BeamPM.Ash.Resources.SolutionFit,
+    span_edge: BeamPM.Ash.Resources.SpanEdge,
     stakeholder_map: BeamPM.Ash.Resources.StakeholderMap,
     stale_receipt_refusal: BeamPM.Ash.Resources.StaleReceiptRefusal,
     stale_subject_refusal_evidence: BeamPM.Ash.Resources.StaleSubjectRefusalEvidence,
@@ -691,6 +693,7 @@ defmodule BeamPM.AshRoundtrip do
     revenue_attribution: [:observed_at],
     rollback_decision: [:observed_at],
     security_readiness: [:observed_at],
+    service_span: [:start_time],
     solution_fit: [:observed_at],
     stakeholder_map: [:observed_at],
     success_plan: [:observed_at],

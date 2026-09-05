@@ -2463,7 +2463,9 @@
 | `span_id` | `string` | true | Unique span identifier. |
 | `service_name` | `string` | true | Name of the service that produced this span. |
 | `duration_ms` | `integer` | true | Span duration in milliseconds. |
-| `parent_span_id` | `string` | false | Optional identifier of the parent span. |
+| `parent_span_id` | `string` | false | Optional identifier of the parent span (the OpenTelemetry parent/child link; absent on a trace's root span). This is NOT the OpenTelemetry `links` field. |
+| `trace_id` | `string` | true | Identifier of the trace this span belongs to (the partition key the temporal-adjacency arm groups by; parent/child links never cross it). |
+| `start_time` | `datetime` | true | ISO8601 timestamp the span started (the only ordering the temporal-adjacency arm consults; the parent/child arm never reads it). |
 
 ## showback_allocation
 
@@ -2529,6 +2531,17 @@
 | `fit_score` | `float` | true | Fraction of admitted requirements satisfied. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## span_edge
+
+> One frequency-annotated service-to-service edge derived from tracing spans, tagged with the evidence class that supports it: parent_child_link (observed -- a parent/child span link exists) or temporal_adjacency (inferred -- consecutive start_time order within one trace, no link consulted).
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `source_service` | `string` | true | service_name of the source span (the parent for parent_child_link; the earlier-starting span for temporal_adjacency). |
+| `target_service` | `string` | true | service_name of the target span (the child for parent_child_link; the next-starting span for temporal_adjacency). |
+| `frequency` | `integer` | true | For parent_child_link: the number of parent -> child links with this (source_service, target_service). For temporal_adjacency: the number of consecutive start_time pairs with it, summed over traces. Comparable only when both arms are computed over the same span set, which causal_dfg_from_spans/1 guarantees. |
+| `evidence` | `atom` | true | Evidence class: parent_child_link (observed) or temporal_adjacency (inferred). No other value is emitted. |
 
 ## stakeholder_map
 

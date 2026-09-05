@@ -3604,7 +3604,9 @@ defmodule BeamPM.Types.GeneratedTest do
       span_id: "x",
       service_name: "x",
       duration_ms: 1,
-      parent_span_id: "x"
+      parent_span_id: "x",
+      trace_id: "x",
+      start_time: "2026-01-01T00:00:00Z"
     }
 
     assert {:ok, _} = BeamPM.Types.ServiceSpan.new(attrs)
@@ -3707,6 +3709,22 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "solution_fit new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.SolutionFit.new(%{})
+  end
+
+
+  test "span_edge new/1 succeeds when all fields are present" do
+    attrs = %{
+      source_service: "x",
+      target_service: "x",
+      frequency: 1,
+      evidence: :some_atom
+    }
+
+    assert {:ok, _} = BeamPM.Types.SpanEdge.new(attrs)
+  end
+
+  test "span_edge new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.SpanEdge.new(%{})
   end
 
 

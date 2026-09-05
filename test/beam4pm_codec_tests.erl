@@ -6233,13 +6233,17 @@ service_span_map_roundtrip_test() ->
         span_id => <<"sample_span_id">>,
         service_name => <<"sample_service_name">>,
         duration_ms => 42,
-        parent_span_id => <<"sample_parent_span_id">>
+        parent_span_id => <<"sample_parent_span_id">>,
+        trace_id => <<"sample_trace_id">>,
+        start_time => <<"2026-08-29T12:00:00.123456Z">>
     }),
     Map = beam4pm_codec:to_map(Rec),
     ?assertEqual(<<"sample_span_id">>, maps:get(<<"span_id">>, Map)),
     ?assertEqual(<<"sample_service_name">>, maps:get(<<"service_name">>, Map)),
     ?assertEqual(42, maps:get(<<"duration_ms">>, Map)),
     ?assertEqual(<<"sample_parent_span_id">>, maps:get(<<"parent_span_id">>, Map)),
+    ?assertEqual(<<"sample_trace_id">>, maps:get(<<"trace_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"start_time">>, Map)),
     {ok, Rec2} = beam4pm_codec:from_map(service_span,
         Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
     ?assertEqual(Rec, Rec2).
@@ -6249,7 +6253,9 @@ service_span_json_roundtrip_test() ->
         span_id => <<"sample_span_id">>,
         service_name => <<"sample_service_name">>,
         duration_ms => 42,
-        parent_span_id => <<"sample_parent_span_id">>
+        parent_span_id => <<"sample_parent_span_id">>,
+        trace_id => <<"sample_trace_id">>,
+        start_time => <<"2026-08-29T12:00:00.123456Z">>
     }),
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
@@ -6419,6 +6425,34 @@ solution_fit_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(solution_fit, Json),
+    ?assertEqual(Rec, Rec2).
+
+span_edge_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_span_edge(#{
+        source_service => <<"sample_source_service">>,
+        target_service => <<"sample_target_service">>,
+        frequency => 42,
+        evidence => sample_atom
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_source_service">>, maps:get(<<"source_service">>, Map)),
+    ?assertEqual(<<"sample_target_service">>, maps:get(<<"target_service">>, Map)),
+    ?assertEqual(42, maps:get(<<"frequency">>, Map)),
+    ?assertEqual(<<"sample_atom">>, maps:get(<<"evidence">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(span_edge,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+span_edge_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_span_edge(#{
+        source_service => <<"sample_source_service">>,
+        target_service => <<"sample_target_service">>,
+        frequency => 42,
+        evidence => sample_atom
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(span_edge, Json),
     ?assertEqual(Rec, Rec2).
 
 stakeholder_map_map_roundtrip_test() ->

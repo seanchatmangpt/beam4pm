@@ -8,7 +8,9 @@ defmodule BeamPM.Ash.Resources.ServiceSpanTest do
       span_id: "sample_span_id",
       service_name: "sample_service_name",
       duration_ms: 42,
-      parent_span_id: "sample_parent_span_id"
+      parent_span_id: "sample_parent_span_id",
+      trace_id: "sample_trace_id",
+      start_time: "2026-08-29T12:00:00.123456Z"
       }
 
     created =
@@ -18,10 +20,19 @@ defmodule BeamPM.Ash.Resources.ServiceSpanTest do
 
     [read_back] = Ash.read!(BeamPM.Ash.Resources.ServiceSpan)
     assert read_back.id == created.id
+    # Datetime identity across the Ash boundary is DateTime.compare/2 == :eq
+    # against the parsed wire fixture (Ash normalizes the ISO 8601 string the
+    # Erlang/Elixir/JSON legs carry verbatim into a UTC %DateTime{} with
+    # microsecond {n, 6}) -- explicitly NOT byte/struct identity: a no-fraction
+    # wire value would read back {0, 6} vs a parsed {0, 0}. The six-digit fixture
+    # makes a truncating attribute type (:utc_datetime) fail here with :lt.
     assert read_back.span_id == "sample_span_id"
     assert read_back.service_name == "sample_service_name"
     assert read_back.duration_ms == 42
     assert read_back.parent_span_id == "sample_parent_span_id"
+    assert read_back.trace_id == "sample_trace_id"
+    {:ok, start_time_wire, 0} = DateTime.from_iso8601("2026-08-29T12:00:00.123456Z")
+    assert DateTime.compare(read_back.start_time, start_time_wire) == :eq
   end
 end
 

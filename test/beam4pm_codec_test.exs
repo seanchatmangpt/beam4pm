@@ -9192,7 +9192,9 @@ defmodule BeamPM.Codec.GeneratedTest do
       span_id: "sample_span_id",
       service_name: "sample_service_name",
       duration_ms: 42,
-      parent_span_id: "sample_parent_span_id"
+      parent_span_id: "sample_parent_span_id",
+      trace_id: "sample_trace_id",
+      start_time: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ServiceSpan.new(attrs)
@@ -9201,7 +9203,9 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert m["service_name"] == "sample_service_name"
     assert m["duration_ms"] == 42
     assert m["parent_span_id"] == "sample_parent_span_id"
-    assert map_size(m) == 4
+    assert m["trace_id"] == "sample_trace_id"
+    assert m["start_time"] == "2026-08-29T12:00:00.123456Z"
+    assert map_size(m) == 6
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:service_span, m)
     assert {:ok, ^rec} =
              BeamPM.Codec.from_map(:service_span, Map.put(m, "definitely_unknown_key", "x"))
@@ -9212,7 +9216,9 @@ defmodule BeamPM.Codec.GeneratedTest do
       span_id: "sample_span_id",
       service_name: "sample_service_name",
       duration_ms: 42,
-      parent_span_id: "sample_parent_span_id"
+      parent_span_id: "sample_parent_span_id",
+      trace_id: "sample_trace_id",
+      start_time: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ServiceSpan.new(attrs)
@@ -9230,13 +9236,15 @@ defmodule BeamPM.Codec.GeneratedTest do
     attrs = %{
       span_id: "sample_span_id",
       service_name: "sample_service_name",
-      duration_ms: 42
+      duration_ms: 42,
+      trace_id: "sample_trace_id",
+      start_time: "2026-08-29T12:00:00.123456Z"
     }
 
     assert {:ok, rec} = BeamPM.Types.ServiceSpan.new(attrs)
     m = BeamPM.Codec.to_map(rec)
     refute Map.has_key?(m, "parent_span_id")
-    assert map_size(m) == 3
+    assert map_size(m) == 5
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:service_span, m)
   end
 
@@ -9474,6 +9482,46 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "solution_fit from_map reports the first missing required field" do
     assert {:error, {:missing_field, :solution_fit_id}} =
              BeamPM.Codec.from_map(:solution_fit, %{})
+  end
+
+
+  test "span_edge to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      source_service: "sample_source_service",
+      target_service: "sample_target_service",
+      frequency: 42,
+      evidence: :sample_atom
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SpanEdge.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["source_service"] == "sample_source_service"
+    assert m["target_service"] == "sample_target_service"
+    assert m["frequency"] == 42
+    assert m["evidence"] == "sample_atom"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:span_edge, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:span_edge, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "span_edge encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      source_service: "sample_source_service",
+      target_service: "sample_target_service",
+      frequency: 42,
+      evidence: :sample_atom
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SpanEdge.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:span_edge, json)
+  end
+
+  test "span_edge from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :source_service}} =
+             BeamPM.Codec.from_map(:span_edge, %{})
   end
 
 

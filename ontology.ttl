@@ -838,7 +838,8 @@ bpm:k8s_object_ref_namespace_f a bpm:Field ;
 bpm:service_span_rt a bpm:RecordType ;
     bpm:recordName "service_span" ;
     bpm:recordDoc "One OpenTelemetry-style tracing span observed for a service call." ;
-    bpm:hasField bpm:service_span_span_id_f , bpm:service_span_service_name_f , bpm:service_span_duration_ms_f , bpm:service_span_parent_span_id_f .
+    bpm:hasField bpm:service_span_span_id_f , bpm:service_span_service_name_f , bpm:service_span_duration_ms_f , bpm:service_span_parent_span_id_f ,
+                 bpm:service_span_trace_id_f , bpm:service_span_start_time_f .
 
 bpm:service_span_span_id_f a bpm:Field ;
     bpm:fieldName "span_id" ;
@@ -864,8 +865,83 @@ bpm:service_span_duration_ms_f a bpm:Field ;
 bpm:service_span_parent_span_id_f a bpm:Field ;
     bpm:fieldName "parent_span_id" ;
     bpm:fieldType "string" ;
-    bpm:fieldDoc "Optional identifier of the parent span." ;
+    bpm:fieldDoc "Optional identifier of the parent span (the OpenTelemetry parent/child link; absent on a trace's root span). This is NOT the OpenTelemetry `links` field." ;
     bpm:fieldRequired "false" ;
+    bpm:fieldOrder 4 .
+
+# trace_id and start_time were admitted 2026-09-05 (VISION-2030 section 24
+# falsifier "telemetry adjacency cannot be distinguished from causality"):
+# before them a service_span carried no partition key and no ordering field,
+# so the temporal-adjacency arm of beam4pm_discovery:causal_dfg_from_spans/1
+# (the "inferred" view of section 7) could not be computed from admitted
+# spans at all, and the parent/child arm (the "observed" view) could not be
+# compared against anything. Both are required because every OpenTelemetry
+# span carries them; parent_span_id stays optional because root spans have
+# no parent.
+bpm:service_span_trace_id_f a bpm:Field ;
+    bpm:fieldName "trace_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Identifier of the trace this span belongs to (the partition key the temporal-adjacency arm groups by; parent/child links never cross it)." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 5 .
+
+bpm:service_span_start_time_f a bpm:Field ;
+    bpm:fieldName "start_time" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 timestamp the span started (the only ordering the temporal-adjacency arm consults; the parent/child arm never reads it)." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 6 .
+
+# ---------------------------------------------------------------------------
+# span_edge -- the evidence-tagged edge beam4pm_discovery:causal_dfg_from_spans/1
+# (Erlang), BeamPM.Discovery.causal_dfg_from_spans/1 (Elixir) and
+# beam4pm/discovery.causal_dfg_from_spans (Gleam) emit over service_span input.
+#
+# Deliberately NOT a dfg_edge: dfg_edge's recordDoc is "directly-follows edge
+# between two activities", and an OpenTelemetry parent -> child link is
+# invocation/containment causality (the child runs INSIDE the parent's
+# interval) -- the child does not follow the parent's completion. Reusing
+# dfg_edge would have reused the shape while silently changing its meaning.
+# The evidence class is carried ON the record (VISION-2030 section 7: the
+# twin must keep "observed" and "inferred" as distinct views, and that
+# distinction must survive the two lists being merged by a caller), never
+# only in the position of a return tuple.
+# ---------------------------------------------------------------------------
+
+bpm:span_edge_rt a bpm:RecordType ;
+    bpm:recordName "span_edge" ;
+    bpm:recordDoc "One frequency-annotated service-to-service edge derived from tracing spans, tagged with the evidence class that supports it: parent_child_link (observed -- a parent/child span link exists) or temporal_adjacency (inferred -- consecutive start_time order within one trace, no link consulted)." ;
+    bpm:hasField bpm:span_edge_source_service_f ,
+                 bpm:span_edge_target_service_f ,
+                 bpm:span_edge_frequency_f ,
+                 bpm:span_edge_evidence_f .
+
+bpm:span_edge_source_service_f a bpm:Field ;
+    bpm:fieldName "source_service" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "service_name of the source span (the parent for parent_child_link; the earlier-starting span for temporal_adjacency)." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:span_edge_target_service_f a bpm:Field ;
+    bpm:fieldName "target_service" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "service_name of the target span (the child for parent_child_link; the next-starting span for temporal_adjacency)." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:span_edge_frequency_f a bpm:Field ;
+    bpm:fieldName "frequency" ;
+    bpm:fieldType "integer" ;
+    bpm:fieldDoc "For parent_child_link: the number of parent -> child links with this (source_service, target_service). For temporal_adjacency: the number of consecutive start_time pairs with it, summed over traces. Comparable only when both arms are computed over the same span set, which causal_dfg_from_spans/1 guarantees." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+bpm:span_edge_evidence_f a bpm:Field ;
+    bpm:fieldName "evidence" ;
+    bpm:fieldType "atom" ;
+    bpm:fieldDoc "Evidence class: parent_child_link (observed) or temporal_adjacency (inferred). No other value is emitted." ;
+    bpm:fieldRequired "true" ;
     bpm:fieldOrder 4 .
 
 # ---------------------------------------------------------------------------

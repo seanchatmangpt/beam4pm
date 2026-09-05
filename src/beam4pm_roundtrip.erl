@@ -250,6 +250,7 @@ record_names() ->
         sla_offer_admission,
         sojourn_time,
         solution_fit,
+        span_edge,
         stakeholder_map,
         stale_receipt_refusal,
         stale_subject_refusal_evidence,
@@ -3371,13 +3372,17 @@ sample(service_span, full) ->
         span_id => <<"sample_span_id">>,
         service_name => <<"sample_service_name">>,
         duration_ms => 42,
-        parent_span_id => <<"sample_parent_span_id">>
+        parent_span_id => <<"sample_parent_span_id">>,
+        trace_id => <<"sample_trace_id">>,
+        start_time => <<"2026-08-29T12:00:00.123456Z">>
     });
 sample(service_span, minimal) ->
     beam4pm_types:new_service_span(#{
         span_id => <<"sample_span_id">>,
         service_name => <<"sample_service_name">>,
-        duration_ms => 42
+        duration_ms => 42,
+        trace_id => <<"sample_trace_id">>,
+        start_time => <<"2026-08-29T12:00:00.123456Z">>
     });
 sample(showback_allocation, full) ->
     beam4pm_types:new_showback_allocation(#{
@@ -3460,6 +3465,20 @@ sample(solution_fit, minimal) ->
         fit_score => 3.5,
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00.123456Z">>
+    });
+sample(span_edge, full) ->
+    beam4pm_types:new_span_edge(#{
+        source_service => <<"sample_source_service">>,
+        target_service => <<"sample_target_service">>,
+        frequency => 42,
+        evidence => sample_atom
+    });
+sample(span_edge, minimal) ->
+    beam4pm_types:new_span_edge(#{
+        source_service => <<"sample_source_service">>,
+        target_service => <<"sample_target_service">>,
+        frequency => 42,
+        evidence => sample_atom
     });
 sample(stakeholder_map, full) ->
     beam4pm_types:new_stakeholder_map(#{

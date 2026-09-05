@@ -5492,10 +5492,18 @@
         },
         "parent_span_id": {
           "type": "string",
-          "description": "Optional identifier of the parent span."
+          "description": "Optional identifier of the parent span (the OpenTelemetry parent/child link; absent on a trace's root span). This is NOT the OpenTelemetry `links` field."
+        },
+        "trace_id": {
+          "type": "string",
+          "description": "Identifier of the trace this span belongs to (the partition key the temporal-adjacency arm groups by; parent/child links never cross it)."
+        },
+        "start_time": {
+          "type": "string",
+          "description": "ISO8601 timestamp the span started (the only ordering the temporal-adjacency arm consults; the parent/child arm never reads it)."
         }
       },
-      "required": ["span_id", "service_name", "duration_ms"
+      "required": ["span_id", "service_name", "duration_ms", "trace_id", "start_time"
       ]
 
     },
@@ -5642,6 +5650,31 @@
         }
       },
       "required": ["solution_fit_id", "account_id", "fit_score", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "span_edge": {
+      "type": "object",
+      "description": "One frequency-annotated service-to-service edge derived from tracing spans, tagged with the evidence class that supports it: parent_child_link (observed -- a parent/child span link exists) or temporal_adjacency (inferred -- consecutive start_time order within one trace, no link consulted).",
+      "properties": {
+        "source_service": {
+          "type": "string",
+          "description": "service_name of the source span (the parent for parent_child_link; the earlier-starting span for temporal_adjacency)."
+        },
+        "target_service": {
+          "type": "string",
+          "description": "service_name of the target span (the child for parent_child_link; the next-starting span for temporal_adjacency)."
+        },
+        "frequency": {
+          "type": "integer",
+          "description": "For parent_child_link: the number of parent -> child links with this (source_service, target_service). For temporal_adjacency: the number of consecutive start_time pairs with it, summed over traces. Comparable only when both arms are computed over the same span set, which causal_dfg_from_spans/1 guarantees."
+        },
+        "evidence": {
+          "type": "string",
+          "description": "Evidence class: parent_child_link (observed) or temporal_adjacency (inferred). No other value is emitted."
+        }
+      },
+      "required": ["source_service", "target_service", "frequency", "evidence"
       ]
 
     },

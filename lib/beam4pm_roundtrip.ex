@@ -245,6 +245,7 @@ defmodule BeamPM.Roundtrip do
     :sla_offer_admission,
     :sojourn_time,
     :solution_fit,
+    :span_edge,
     :stakeholder_map,
     :stale_receipt_refusal,
     :stale_subject_refusal_evidence,
@@ -4288,7 +4289,9 @@ defmodule BeamPM.Roundtrip do
       span_id: "sample_span_id",
       service_name: "sample_service_name",
       duration_ms: 42,
-      parent_span_id: "sample_parent_span_id"
+      parent_span_id: "sample_parent_span_id",
+      trace_id: "sample_trace_id",
+      start_time: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4296,7 +4299,9 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.ServiceSpan.new(%{
       span_id: "sample_span_id",
       service_name: "sample_service_name",
-      duration_ms: 42
+      duration_ms: 42,
+      trace_id: "sample_trace_id",
+      start_time: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4403,6 +4408,24 @@ defmodule BeamPM.Roundtrip do
       fit_score: 3.5,
       evidence_digest: "sample_evidence_digest",
       observed_at: "2026-08-29T12:00:00.123456Z"
+    })
+  end
+
+  def sample(:span_edge, :full) do
+    BeamPM.Types.SpanEdge.new(%{
+      source_service: "sample_source_service",
+      target_service: "sample_target_service",
+      frequency: 42,
+      evidence: :sample_atom
+    })
+  end
+
+  def sample(:span_edge, :minimal) do
+    BeamPM.Types.SpanEdge.new(%{
+      source_service: "sample_source_service",
+      target_service: "sample_target_service",
+      frequency: 42,
+      evidence: :sample_atom
     })
   end
 

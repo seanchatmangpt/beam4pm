@@ -2013,7 +2013,9 @@ defmodule BeamPM.Codec do
       {"span_id", r.span_id, :passthrough},
       {"service_name", r.service_name, :passthrough},
       {"duration_ms", r.duration_ms, :passthrough},
-      {"parent_span_id", r.parent_span_id, :passthrough}
+      {"parent_span_id", r.parent_span_id, :passthrough},
+      {"trace_id", r.trace_id, :passthrough},
+      {"start_time", r.start_time, :passthrough}
     ])
   end
 
@@ -2067,6 +2069,15 @@ defmodule BeamPM.Codec do
       {"fit_score", r.fit_score, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.SpanEdge{} = r) do
+    to_known_map([
+      {"source_service", r.source_service, :passthrough},
+      {"target_service", r.target_service, :passthrough},
+      {"frequency", r.frequency, :passthrough},
+      {"evidence", r.evidence, :atom}
     ])
   end
 
@@ -5454,7 +5465,9 @@ defmodule BeamPM.Codec do
         {"span_id", :span_id, :passthrough},
         {"service_name", :service_name, :passthrough},
         {"duration_ms", :duration_ms, :passthrough},
-        {"parent_span_id", :parent_span_id, :passthrough}
+        {"parent_span_id", :parent_span_id, :passthrough},
+        {"trace_id", :trace_id, :passthrough},
+        {"start_time", :start_time, :passthrough}
       ],
       &BeamPM.Types.ServiceSpan.new/1
     )
@@ -5534,6 +5547,19 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.SolutionFit.new/1
+    )
+  end
+
+  def from_map(:span_edge, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"source_service", :source_service, :passthrough},
+        {"target_service", :target_service, :passthrough},
+        {"frequency", :frequency, :passthrough},
+        {"evidence", :evidence, :atom}
+      ],
+      &BeamPM.Types.SpanEdge.new/1
     )
   end
 

@@ -255,6 +255,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.SlaOfferAdmission
     resource BeamPM.Ash.Resources.SojournTime
     resource BeamPM.Ash.Resources.SolutionFit
+    resource BeamPM.Ash.Resources.SpanEdge
     resource BeamPM.Ash.Resources.StakeholderMap
     resource BeamPM.Ash.Resources.StaleReceiptRefusal
     resource BeamPM.Ash.Resources.StaleSubjectRefusalEvidence
