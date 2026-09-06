@@ -49,7 +49,7 @@ jobs:
       marketplace_sha: ${{ steps.pin.outputs.sha }}
     steps:
       - name: Checkout exact candidate (submodule pointer only, no recursion needed)
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -67,7 +67,7 @@ jobs:
   manufacture:
     name: GGen ecosystem manufacture
     needs: resolve
-    uses: seanchatmangpt/ggen-ecosystem/.github/workflows/ggen-ecosystem-sync.yml@cef697e03922c107722bb6ef5ab3e5085e8ccd1e
+    uses: seanchatmangpt/ggen-ecosystem/.github/workflows/ggen-ecosystem-sync.yml@d17d62a30a841ddc6c4bbf317683be87f9c2234c
     with:
       ggen_container_tag: v26.8.28
       marketplace_sha: ${{ needs.resolve.outputs.marketplace_sha }}
