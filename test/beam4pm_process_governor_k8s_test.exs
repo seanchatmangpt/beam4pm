@@ -232,4 +232,99 @@ defmodule BeamPM.ProcessGovernorK8sTest do
     refute namespace_exists?(),
            "expected this test's own Session.close/2 to have torn down the demo namespace"
   end
+
+  test "ProcessGovernor.replay/2 end-to-end on a real k8s_scaling_governed receipt chain, plus a real on-disk corruption falsifier",
+       %{tmp_dir: tmp_dir} do
+    # ONE real continuous k8s_scaling_governed session (identical pattern to
+    # the first test above) backs BOTH assertions below: replay/2's
+    # successful re-verification-and-re-mining path, and its
+    # first-corrupted-receipt-wins failure path. Deliberately not split into
+    # two independent `test` blocks - each would need its own full real
+    # continuous run against the shared, fixed-name `beam4pm-actuation-demo`
+    # namespace, doubling both wall-clock cost and the sequential-live-run
+    # namespace-collision window a prior review already flagged (inherited,
+    # not introduced, by the existing two tests above) for no benefit: the
+    # falsifier only ever mutates bytes already on disk in `tmp_dir` and
+    # never touches the cluster again once `run/2` has returned.
+    opts = [
+      gym: "k8s-deployment-scaler",
+      bridge: bridge_path(),
+      continuous: true,
+      bridge_timeout: 90_000,
+      receipts_dir: tmp_dir
+    ]
+
+    assert {:ok, final} = ProcessGovernor.run(@process_id, opts)
+    assert final.state == "scaled_down"
+    assert length(final.receipts) == 2
+
+    [receipt2, receipt1] = final.receipts
+    assert receipt1.ordinal == 1 and receipt1.outcome == :applied
+    assert receipt1.actuation_name == "k8s_scale_up"
+    assert receipt2.ordinal == 2 and receipt2.outcome == :applied
+    assert receipt2.actuation_name == "k8s_scale_down"
+
+    # -- Part 1: real end-to-end replay of the real k8s receipt chain --------
+    # replay/2 re-opens both embedded beam4pm-brce/v1 actuation receipts from
+    # disk, re-verifies each against `receipt.actuation_name`, and re-mines
+    # the whole two-transition run as one real OCEL trace via
+    # BeamPM.Discovery - proving replay works on a genuine k8s actuation
+    # chain, not only the toy_counter_governed gym
+    # test/beam4pm_process_governor_test.exs already covers.
+    assert {:ok, replayed} = ProcessGovernor.replay(@process_id, Enum.reverse(final.receipts))
+    assert replayed.final_state == final.state
+    assert replayed.final_state == "scaled_down"
+
+    assert %BeamPM.Types.LogTrace{
+             case_id: @process_id,
+             activity_sequence: [
+               "plan",
+               "admit",
+               "execute",
+               "observe",
+               "plan",
+               "admit",
+               "execute",
+               "observe"
+             ]
+           } = replayed.mined_trace
+
+    dfg_tuples =
+      Enum.map(replayed.dfg, fn e -> {e.source_activity, e.target_activity, e.frequency} end)
+
+    assert {"observe", "plan", 1} in dfg_tuples
+    assert {"admit", "execute", 2} in dfg_tuples
+    assert {"plan", "admit", 2} in dfg_tuples
+    assert {"execute", "observe", 2} in dfg_tuples
+
+    # -- Part 2: real falsifier - corrupt receipt1's real actuation file on --
+    # -- disk, prove replay/2 catches it at exactly ordinal 1 ----------------
+    # Same decode -> mutate a real field -> re-encode -> write technique as
+    # test/beam4pm_receipt_chain_test.exs's own "REAL FALSIFIER" test (never
+    # a literal raw byte-flip, which risks landing on invalid JSON rather
+    # than the specific `action.action_name` mismatch branch
+    # `verify_and_mine_one/1` checks) - a real, on-disk, decodable-but-wrong
+    # actuation receipt, not a fabricated in-memory one.
+    actuation1_path = receipt1.actuation.receipt_path
+    original = actuation1_path |> File.read!() |> JSON.decode!()
+    original_action_name = original["action"]["action_name"]
+    assert original_action_name == "k8s_scale_up"
+
+    tampered =
+      Map.update!(original, "action", fn a ->
+        Map.put(a, "action_name", "TAMPERED_" <> a["action_name"])
+      end)
+
+    File.write!(actuation1_path, JSON.encode!(tampered))
+
+    reread = actuation1_path |> File.read!() |> JSON.decode!()
+    assert reread["action"]["action_name"] != original_action_name,
+           "the corruption must actually change the real file's action_name"
+
+    # receipt2's own actuation file is untouched - replay/2 must still fail
+    # closed at receipt1 (the first receipt in the oldest-first replay
+    # order), never skip past the broken one to a later "successful" state.
+    assert {:error, {:replay_broken, 1, {:receipt_verification_failed, ^actuation1_path}}} =
+             ProcessGovernor.replay(@process_id, Enum.reverse(final.receipts))
+  end
 end

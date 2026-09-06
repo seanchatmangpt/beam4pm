@@ -42,7 +42,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_pddl_projection_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_pddl_projection_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_petgraph_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_facades_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `test/beam4pm_petgraph_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
-| `test/beam4pm_process_governor_k8s_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_process_governor_k8s_test.exs` | cmd:kubectl --context kind-ex4pm cluster-info |
+| `test/beam4pm_process_governor_k8s_test.exs` | `0107a09` | 2026-12-31 | `mix test test/beam4pm_process_governor_k8s_test.exs` | cmd:kubectl --context kind-ex4pm cluster-info |
 | `test/beam4pm_rust4pm_ci_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_ci_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_rust4pm_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_facades_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_rust4pm_health_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_health_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
@@ -103,8 +103,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `test/beam4pm_process_governor_k8s_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Chicago qualification of BeamPM.ProcessGovernor.run/2 continuous k8s scaling against a live kind-ex4pm cluster with independent kubectl cross-checks; cluster bindings are not yet ontology facts. Named skip when the cluster is unreachable.
-- Content sha256 at admission: `bb04a0390a9ac3f6db8e51c343b332cad46ce1c4403a8ddf37f45afa44ec40a0`
+- Reason: Chicago qualification of BeamPM.ProcessGovernor.run/2 continuous k8s scaling against a live kind-ex4pm cluster with independent kubectl cross-checks, plus (2026-09-05 re-admission) BeamPM.ProcessGovernor.replay/2 end-to-end over the real k8s_scaling_governed receipt chain and a real on-disk actuation-receipt corruption falsifier (decode/mutate action.action_name/re-encode, same technique as beam4pm_receipt_chain_test.exs's own REAL FALSIFIER) proving replay/2 fails closed at the exact corrupted ordinal; cluster bindings are not yet ontology facts. Named skip when the cluster is unreachable.
+- Content sha256 at admission: `41e9ddf5c92782efb759331b92f46579d11fb21dd873bd328dcd33448ef014ae`
 - Sunset plan: Admit the k8s qualification bindings as ontology facts and render this file from a pack .exs.eex beside beam4pm_process_governor_test.exs.eex; then delete this admission.
 
 #### `test/beam4pm_rust4pm_ci_test.exs`

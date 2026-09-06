@@ -8552,11 +8552,11 @@ bap:hand_authored_test_process_governor_k8s a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_process_governor_k8s_test.exs" ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Chicago qualification of BeamPM.ProcessGovernor.run/2 continuous k8s scaling against a live kind-ex4pm cluster with independent kubectl cross-checks; cluster bindings are not yet ontology facts. Named skip when the cluster is unreachable." ;
+    bpm:admissionReason "Chicago qualification of BeamPM.ProcessGovernor.run/2 continuous k8s scaling against a live kind-ex4pm cluster with independent kubectl cross-checks, plus (2026-09-05 re-admission) BeamPM.ProcessGovernor.replay/2 end-to-end over the real k8s_scaling_governed receipt chain and a real on-disk actuation-receipt corruption falsifier (decode/mutate action.action_name/re-encode, same technique as beam4pm_receipt_chain_test.exs's own REAL FALSIFIER) proving replay/2 fails closed at the exact corrupted ordinal; cluster bindings are not yet ontology facts. Named skip when the cluster is unreachable." ;
     bpm:acceptanceCommand "mix test test/beam4pm_process_governor_k8s_test.exs" ;
     bpm:acceptancePrerequisite "cmd:kubectl --context kind-ex4pm cluster-info" ;
-    bpm:contentSha256 "bb04a0390a9ac3f6db8e51c343b332cad46ce1c4403a8ddf37f45afa44ec40a0" ;
-    bpm:admittedAtCommit "f44dcd0" ;
+    bpm:contentSha256 "41e9ddf5c92782efb759331b92f46579d11fb21dd873bd328dcd33448ef014ae" ;
+    bpm:admittedAtCommit "0107a09" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the k8s qualification bindings as ontology facts and render this file from a pack .exs.eex beside beam4pm_process_governor_test.exs.eex; then delete this admission." .
 
