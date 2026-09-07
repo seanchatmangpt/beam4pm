@@ -9727,3 +9727,33 @@ b4p:standing_state_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp standing was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-049 — refusal_boundary_observation
+b4p:refusal_boundary_observation_rt a bpm:RecordType ;
+    bpm:recordName "refusal_boundary_observation" ;
+    bpm:recordDoc "Emits REFUSED with exact authority boundary and evidence." ;
+    bpm:hasField b4p:refusal_boundary_observation_subject_id_f,
+                 b4p:refusal_boundary_observation_refusal_code_f,
+                 b4p:refusal_boundary_observation_authority_boundary_f,
+                 b4p:refusal_boundary_observation_evidence_digest_f .
+
+b4p:refusal_boundary_observation_subject_id_f a bpm:Field ;
+    bpm:fieldName "subject_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact refused subject identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:refusal_boundary_observation_refusal_code_f a bpm:Field ;
+    bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed refusal reason." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:refusal_boundary_observation_authority_boundary_f a bpm:Field ;
+    bpm:fieldName "authority_boundary" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Boundary that denied the action." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:refusal_boundary_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest supporting refusal." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
