@@ -8317,3 +8317,33 @@ b4p:repository_default_branch_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp bounding the freshness of this observation." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-002 — repository_exact_head_observation
+b4p:repository_exact_head_observation_rt a bpm:RecordType ;
+    bpm:recordName "repository_exact_head_observation" ;
+    bpm:recordDoc "Binds a repository observation to an exact branch head and prior head for autonomous change detection." ;
+    bpm:hasField b4p:repository_exact_head_observation_repository_id_f,
+                 b4p:repository_exact_head_observation_branch_name_f,
+                 b4p:repository_exact_head_observation_head_sha_f,
+                 b4p:repository_exact_head_observation_previous_head_sha_f .
+
+b4p:repository_exact_head_observation_repository_id_f a bpm:Field ;
+    bpm:fieldName "repository_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable repository identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:repository_exact_head_observation_branch_name_f a bpm:Field ;
+    bpm:fieldName "branch_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed branch name." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:repository_exact_head_observation_head_sha_f a bpm:Field ;
+    bpm:fieldName "head_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact observed head commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:repository_exact_head_observation_previous_head_sha_f a bpm:Field ;
+    bpm:fieldName "previous_head_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Previously admitted head used to detect change." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
