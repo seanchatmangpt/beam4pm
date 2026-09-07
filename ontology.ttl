@@ -8347,3 +8347,33 @@ b4p:crown_marketplace_pack_pin_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-003 — crown_generated_source_ownership
+b4p:crown_generated_source_ownership_rt a bpm:RecordType ;
+    bpm:recordName "crown_generated_source_ownership" ;
+    bpm:recordDoc "Routes drift in a generated projection back to its declared canonical semantic source." ;
+    bpm:hasField b4p:crown_generated_source_ownership_propagation_id_f,
+                 b4p:crown_generated_source_ownership_subject_sha_f,
+                 b4p:crown_generated_source_ownership_canonical_source_path_f,
+                 b4p:crown_generated_source_ownership_receipt_digest_f .
+
+b4p:crown_generated_source_ownership_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_generated_source_ownership_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_generated_source_ownership_canonical_source_path_f a bpm:Field ;
+    bpm:fieldName "canonical_source_path" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Canonical non-generated source path authorized to repair the projection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_generated_source_ownership_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
