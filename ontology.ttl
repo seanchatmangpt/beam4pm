@@ -8827,3 +8827,33 @@ b4p:crown_gitlink_reconciliation_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-019 — crown_package_pin_reconciliation
+b4p:crown_package_pin_reconciliation_rt a bpm:RecordType ;
+    bpm:recordName "crown_package_pin_reconciliation" ;
+    bpm:recordDoc "Reconciles package resolution to an immutable version and content digest." ;
+    bpm:hasField b4p:crown_package_pin_reconciliation_propagation_id_f,
+                 b4p:crown_package_pin_reconciliation_subject_sha_f,
+                 b4p:crown_package_pin_reconciliation_package_version_digest_f,
+                 b4p:crown_package_pin_reconciliation_receipt_digest_f .
+
+b4p:crown_package_pin_reconciliation_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_package_pin_reconciliation_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_package_pin_reconciliation_package_version_digest_f a bpm:Field ;
+    bpm:fieldName "package_version_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact resolved package version." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_package_pin_reconciliation_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
