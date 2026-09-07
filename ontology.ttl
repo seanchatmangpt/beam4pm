@@ -9397,3 +9397,33 @@ b4p:crown_partial_checkpoint_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-038 — crown_resume_token
+b4p:crown_resume_token_rt a bpm:RecordType ;
+    bpm:recordName "crown_resume_token" ;
+    bpm:recordDoc "Binds resumed propagation to its checkpoint and current dependency graph." ;
+    bpm:hasField b4p:crown_resume_token_propagation_id_f,
+                 b4p:crown_resume_token_subject_sha_f,
+                 b4p:crown_resume_token_resume_token_digest_f,
+                 b4p:crown_resume_token_receipt_digest_f .
+
+b4p:crown_resume_token_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_resume_token_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_resume_token_resume_token_digest_f a bpm:Field ;
+    bpm:fieldName "resume_token_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the validated resume token." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_resume_token_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
