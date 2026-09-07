@@ -9577,3 +9577,33 @@ b4p:changed_surface_inference_inference_status_f a bpm:Field ;
     bpm:fieldName "inference_status" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Machine-readable inference standing." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-044 — customer_signal_observation
+b4p:customer_signal_observation_rt a bpm:RecordType ;
+    bpm:recordName "customer_signal_observation" ;
+    bpm:recordDoc "Normalizes a customer signal into typed, digest-bound evidence." ;
+    bpm:hasField b4p:customer_signal_observation_customer_id_f,
+                 b4p:customer_signal_observation_signal_type_f,
+                 b4p:customer_signal_observation_signal_digest_f,
+                 b4p:customer_signal_observation_observed_at_f .
+
+b4p:customer_signal_observation_customer_id_f a bpm:Field ;
+    bpm:fieldName "customer_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable customer identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:customer_signal_observation_signal_type_f a bpm:Field ;
+    bpm:fieldName "signal_type" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Normalized customer signal type." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:customer_signal_observation_signal_digest_f a bpm:Field ;
+    bpm:fieldName "signal_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable customer signal digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:customer_signal_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp customer signal was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
