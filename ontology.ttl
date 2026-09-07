@@ -9007,3 +9007,33 @@ b4p:validation_capsule_drift_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of digest comparison." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-025 — toolchain_identity_observation
+b4p:toolchain_identity_observation_rt a bpm:RecordType ;
+    bpm:recordName "toolchain_identity_observation" ;
+    bpm:recordDoc "Observes exact tool name, version, and executable bytes used for validation." ;
+    bpm:hasField b4p:toolchain_identity_observation_tool_name_f,
+                 b4p:toolchain_identity_observation_tool_version_f,
+                 b4p:toolchain_identity_observation_executable_digest_f,
+                 b4p:toolchain_identity_observation_observed_at_f .
+
+b4p:toolchain_identity_observation_tool_name_f a bpm:Field ;
+    bpm:fieldName "tool_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed tool identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:toolchain_identity_observation_tool_version_f a bpm:Field ;
+    bpm:fieldName "tool_version" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed tool version." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:toolchain_identity_observation_executable_digest_f a bpm:Field ;
+    bpm:fieldName "executable_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of executed tool bytes." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:toolchain_identity_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of toolchain observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
