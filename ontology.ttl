@@ -8287,3 +8287,33 @@ b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f a bpm:Field ;
     bpm:fieldName "outcome_receipt_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS4-ACP-001 — caller_local_crown_identity
+b4p:caller_local_crown_identity_rt a bpm:RecordType ;
+    bpm:recordName "caller_local_crown_identity" ;
+    bpm:recordDoc "Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused." ;
+    bpm:hasField b4p:caller_local_crown_identity_propagation_id_f,
+                 b4p:caller_local_crown_identity_subject_sha_f,
+                 b4p:caller_local_crown_identity_consumer_subject_sha_f,
+                 b4p:caller_local_crown_identity_receipt_digest_f .
+
+b4p:caller_local_crown_identity_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:caller_local_crown_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:caller_local_crown_identity_consumer_subject_sha_f a bpm:Field ;
+    bpm:fieldName "consumer_subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact caller-local consumer commit SHA that must be requalified." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:caller_local_crown_identity_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
