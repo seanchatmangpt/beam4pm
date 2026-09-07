@@ -8677,3 +8677,33 @@ b4p:artifact_digest_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of artifact observation." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-014 — package_release_observation
+b4p:package_release_observation_rt a bpm:RecordType ;
+    bpm:recordName "package_release_observation" ;
+    bpm:recordDoc "Observes a package version together with its immutable distribution digest." ;
+    bpm:hasField b4p:package_release_observation_package_id_f,
+                 b4p:package_release_observation_version_f,
+                 b4p:package_release_observation_immutable_digest_f,
+                 b4p:package_release_observation_observed_at_f .
+
+b4p:package_release_observation_package_id_f a bpm:Field ;
+    bpm:fieldName "package_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable package identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:package_release_observation_version_f a bpm:Field ;
+    bpm:fieldName "version" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed published version." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:package_release_observation_immutable_digest_f a bpm:Field ;
+    bpm:fieldName "immutable_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable package content digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:package_release_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of package observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
