@@ -9097,3 +9097,33 @@ b4p:crown_child_publish_observation_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-028 — crown_workflow_run_receipt
+b4p:crown_workflow_run_receipt_rt a bpm:RecordType ;
+    bpm:recordName "crown_workflow_run_receipt" ;
+    bpm:recordDoc "Binds a qualification receipt to the exact workflow execution and attempt." ;
+    bpm:hasField b4p:crown_workflow_run_receipt_propagation_id_f,
+                 b4p:crown_workflow_run_receipt_subject_sha_f,
+                 b4p:crown_workflow_run_receipt_workflow_run_id_f,
+                 b4p:crown_workflow_run_receipt_receipt_digest_f .
+
+b4p:crown_workflow_run_receipt_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_workflow_run_receipt_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_workflow_run_receipt_workflow_run_id_f a bpm:Field ;
+    bpm:fieldName "workflow_run_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact hosted workflow run and attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_workflow_run_receipt_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
