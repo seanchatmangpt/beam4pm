@@ -29,16 +29,21 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.AdoptionMilestone
     resource BeamPM.Ash.Resources.AlignmentMove
     resource BeamPM.Ash.Resources.AnnualSubscription
+    resource BeamPM.Ash.Resources.AnomalyDetectionObservation
     resource BeamPM.Ash.Resources.ApprovalSeparationEvidence
     resource BeamPM.Ash.Resources.ArchitectureReadiness
     resource BeamPM.Ash.Resources.ArchitectureReviewEvidence
     resource BeamPM.Ash.Resources.ArtifactDigestEvidence
+    resource BeamPM.Ash.Resources.ArtifactDigestObservation
     resource BeamPM.Ash.Resources.AttestationVerificationEvidence
     resource BeamPM.Ash.Resources.AuditChainEvidence
+    resource BeamPM.Ash.Resources.AutonomicStateVector
     resource BeamPM.Ash.Resources.AvailabilityObservation
     resource BeamPM.Ash.Resources.AvailabilitySloEvidence
     resource BeamPM.Ash.Resources.BackupRestoreEvidence
     resource BeamPM.Ash.Resources.BaselineMetric
+    resource BeamPM.Ash.Resources.BeliefStateSnapshot
+    resource BeamPM.Ash.Resources.BeliefStateUpdate
     resource BeamPM.Ash.Resources.BeneficialOwnerEvidence
     resource BeamPM.Ash.Resources.BillableUsageIdentity
     resource BeamPM.Ash.Resources.BillingAccount
@@ -50,15 +55,19 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.BusinessContinuityEvidence
     resource BeamPM.Ash.Resources.BusinessOutcomeMeasurement
     resource BeamPM.Ash.Resources.BuyingCommittee
+    resource BeamPM.Ash.Resources.CallerLocalCheckoutObservation
     resource BeamPM.Ash.Resources.CanaryDecision
     resource BeamPM.Ash.Resources.CanaryEvidence
+    resource BeamPM.Ash.Resources.CanonicalSourceAuthorityObservation
     resource BeamPM.Ash.Resources.CapabilityBundle
     resource BeamPM.Ash.Resources.CapabilityGap
     resource BeamPM.Ash.Resources.CapsuleIdentity
     resource BeamPM.Ash.Resources.CaseStats
     resource BeamPM.Ash.Resources.CatalogRelease
+    resource BeamPM.Ash.Resources.CausalLineageObservation
     resource BeamPM.Ash.Resources.ChangeControlEvidence
     resource BeamPM.Ash.Resources.ChangeOrderAuthority
+    resource BeamPM.Ash.Resources.ChangedSurfaceInference
     resource BeamPM.Ash.Resources.ChannelAgreement
     resource BeamPM.Ash.Resources.ChargebackRule
     resource BeamPM.Ash.Resources.ClusterQuorumState
@@ -71,14 +80,19 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.CommercialQuote
     resource BeamPM.Ash.Resources.CommercialQuoteLine
     resource BeamPM.Ash.Resources.CommercialValueRealization
+    resource BeamPM.Ash.Resources.CommitCheckStateObservation
     resource BeamPM.Ash.Resources.CommittedSpend
     resource BeamPM.Ash.Resources.CommittedSpendAdmission
     resource BeamPM.Ash.Resources.CompatibilityContract
     resource BeamPM.Ash.Resources.ConfigurationExport
     resource BeamPM.Ash.Resources.ConfigurationImport
     resource BeamPM.Ash.Resources.ConformanceResult
+    resource BeamPM.Ash.Resources.ConsequentialStateInvalidation
+    resource BeamPM.Ash.Resources.ConsumerPackPinObservation
     resource BeamPM.Ash.Resources.ConsumptionPool
     resource BeamPM.Ash.Resources.ConsumptionSubscription
+    resource BeamPM.Ash.Resources.ContainerManifestDigestObservation
+    resource BeamPM.Ash.Resources.ContainerPlatformDigestObservation
     resource BeamPM.Ash.Resources.ContractingEntityIdentity
     resource BeamPM.Ash.Resources.CostToServeMeasurement
     resource BeamPM.Ash.Resources.CrashRecoveryReceipt
@@ -86,16 +100,19 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.CrossSellFit
     resource BeamPM.Ash.Resources.CustomerHealth
     resource BeamPM.Ash.Resources.CustomerManagedKeyEvidence
+    resource BeamPM.Ash.Resources.CustomerSignalObservation
     resource BeamPM.Ash.Resources.DataEgressEvidence
     resource BeamPM.Ash.Resources.DataMigrationScopeAdmission
     resource BeamPM.Ash.Resources.DataProcessingAddendumState
     resource BeamPM.Ash.Resources.DataReadiness
     resource BeamPM.Ash.Resources.DataResidencyPolicy
     resource BeamPM.Ash.Resources.DealDeskPacket
+    resource BeamPM.Ash.Resources.DecisionCompressionObservation
     resource BeamPM.Ash.Resources.DeletionProofEvidence
     resource BeamPM.Ash.Resources.DemoRun
     resource BeamPM.Ash.Resources.DemoScenario
     resource BeamPM.Ash.Resources.DependencyInventoryEvidence
+    resource BeamPM.Ash.Resources.DependencyPinObservation
     resource BeamPM.Ash.Resources.DeploymentEntitlement
     resource BeamPM.Ash.Resources.DeveloperReadiness
     resource BeamPM.Ash.Resources.DfgEdge
@@ -114,6 +131,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.EntitlementState
     resource BeamPM.Ash.Resources.EnvironmentIdentity
     resource BeamPM.Ash.Resources.EnvironmentProfile
+    resource BeamPM.Ash.Resources.EnvironmentSignalObservation
     resource BeamPM.Ash.Resources.ErrorBudgetState
     resource BeamPM.Ash.Resources.EventLog
     resource BeamPM.Ash.Resources.EventType
@@ -127,12 +145,14 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ExpansionSignal
     resource BeamPM.Ash.Resources.ForgedReceiptRefusal
     resource BeamPM.Ash.Resources.FundingApprovalChain
+    resource BeamPM.Ash.Resources.GeneratedOutputOwnershipObservation
     resource BeamPM.Ash.Resources.HeuristicArc
     resource BeamPM.Ash.Resources.ImplementationFeeAdmission
     resource BeamPM.Ash.Resources.IncidentAcknowledgement
     resource BeamPM.Ash.Resources.IncidentDetectionEvent
     resource BeamPM.Ash.Resources.IncidentResponseEvidence
     resource BeamPM.Ash.Resources.IndemnityScopeAdmission
+    resource BeamPM.Ash.Resources.InformationPartitionObservation
     resource BeamPM.Ash.Resources.InsuranceRequirement
     resource BeamPM.Ash.Resources.IntegrationReadiness
     resource BeamPM.Ash.Resources.IntegrationScopeAdmission
@@ -145,6 +165,9 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.LiabilityCapAdmission
     resource BeamPM.Ash.Resources.LicenseEvidence
     resource BeamPM.Ash.Resources.LogTrace
+    resource BeamPM.Ash.Resources.MachineActionableDelta
+    resource BeamPM.Ash.Resources.ManufactureReceiptPresenceObservation
+    resource BeamPM.Ash.Resources.ManufactureReceiptValidityObservation
     resource BeamPM.Ash.Resources.MasterServiceAgreementState
     resource BeamPM.Ash.Resources.MeteredUsageSample
     resource BeamPM.Ash.Resources.MigrationContract
@@ -153,10 +176,15 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.MultiarchEvidence
     resource BeamPM.Ash.Resources.MutableIdentityRefusalEvidence
     resource BeamPM.Ash.Resources.NodeFailoverEvent
+    resource BeamPM.Ash.Resources.NormalizedEventObservation
     resource BeamPM.Ash.Resources.ObjectAttributeChange
     resource BeamPM.Ash.Resources.ObjectType
     resource BeamPM.Ash.Resources.Objection
     resource BeamPM.Ash.Resources.ObjectionResolution
+    resource BeamPM.Ash.Resources.ObservationDeduplicationDecision
+    resource BeamPM.Ash.Resources.ObservationEntropyEstimate
+    resource BeamPM.Ash.Resources.ObservationFreshnessAssessment
+    resource BeamPM.Ash.Resources.ObservationStalenessInvalidation
     resource BeamPM.Ash.Resources.OcDeclareConstraint
     resource BeamPM.Ash.Resources.OcelAttribute
     resource BeamPM.Ash.Resources.OcelEvent
@@ -169,6 +197,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.OpportunityValueRange
     resource BeamPM.Ash.Resources.OrderFormAdmission
     resource BeamPM.Ash.Resources.OveragePolicy
+    resource BeamPM.Ash.Resources.PackageReleaseObservation
     resource BeamPM.Ash.Resources.PaidWorkloadOutcomeReceipt
     resource BeamPM.Ash.Resources.PathSchema
     resource BeamPM.Ash.Resources.PathSchemaQuery
@@ -202,6 +231,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ProofOfValueBudget
     resource BeamPM.Ash.Resources.ProofOfValueExitGate
     resource BeamPM.Ash.Resources.ProvenanceBindingEvidence
+    resource BeamPM.Ash.Resources.ProvenanceBindingObservation
     resource BeamPM.Ash.Resources.PurchaseOrderBinding
     resource BeamPM.Ash.Resources.PurchaseOrderRequirement
     resource BeamPM.Ash.Resources.PurchasingEntityIdentity
@@ -216,6 +246,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.RecoveryPlan
     resource BeamPM.Ash.Resources.RecoveryPointReceipt
     resource BeamPM.Ash.Resources.RecoveryTimeReceipt
+    resource BeamPM.Ash.Resources.RefusalBoundaryObservation
     resource BeamPM.Ash.Resources.RemediationSlaEvidence
     resource BeamPM.Ash.Resources.RenewalEvidence
     resource BeamPM.Ash.Resources.RenewalHealth
@@ -223,6 +254,10 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.RenewalRisk
     resource BeamPM.Ash.Resources.RenewalTermAdmission
     resource BeamPM.Ash.Resources.ReplayEnvironmentIdentity
+    resource BeamPM.Ash.Resources.RepositoryAncestryObservation
+    resource BeamPM.Ash.Resources.RepositoryDefaultBranchObservation
+    resource BeamPM.Ash.Resources.RepositoryExactHeadObservation
+    resource BeamPM.Ash.Resources.RepositoryWorktreeStateObservation
     resource BeamPM.Ash.Resources.ReproducibleBuildEvidence
     resource BeamPM.Ash.Resources.ResellerAuthorization
     resource BeamPM.Ash.Resources.ResidencyEvidence
@@ -236,13 +271,16 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.RollbackDecision
     resource BeamPM.Ash.Resources.RollbackEvidence
     resource BeamPM.Ash.Resources.RollingUpgradePlan
+    resource BeamPM.Ash.Resources.RuntimeHealthObservation
     resource BeamPM.Ash.Resources.RuntimePolicyDecision
     resource BeamPM.Ash.Resources.SanctionsScreeningResult
     resource BeamPM.Ash.Resources.SbomInventoryEvidence
+    resource BeamPM.Ash.Resources.SecondPassByteIdentityObservation
     resource BeamPM.Ash.Resources.SecretBoundaryEvidence
     resource BeamPM.Ash.Resources.SecurityAddendumState
     resource BeamPM.Ash.Resources.SecurityBlocker
     resource BeamPM.Ash.Resources.SecurityReadiness
+    resource BeamPM.Ash.Resources.SemanticDriftObservation
     resource BeamPM.Ash.Resources.ServiceCredit
     resource BeamPM.Ash.Resources.ServiceCreditAdmission
     resource BeamPM.Ash.Resources.ServiceHealthSnapshot
@@ -258,6 +296,9 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.StakeholderMap
     resource BeamPM.Ash.Resources.StaleReceiptRefusal
     resource BeamPM.Ash.Resources.StaleSubjectRefusalEvidence
+    resource BeamPM.Ash.Resources.StandingStateObservation
+    resource BeamPM.Ash.Resources.SubmoduleLockObservation
+    resource BeamPM.Ash.Resources.SubmoduleRegistrationObservation
     resource BeamPM.Ash.Resources.SuccessPlan
     resource BeamPM.Ash.Resources.SupervisorRestartPolicy
     resource BeamPM.Ash.Resources.SupportContract
@@ -271,6 +312,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.TargetMetric
     resource BeamPM.Ash.Resources.TaxJurisdictionEvidence
     resource BeamPM.Ash.Resources.TechnicalBlocker
+    resource BeamPM.Ash.Resources.TemporalOrderObservation
     resource BeamPM.Ash.Resources.TenantAccount
     resource BeamPM.Ash.Resources.TenantDataPartition
     resource BeamPM.Ash.Resources.TenantKeyScope
@@ -281,10 +323,12 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.TerminationRightAdmission
     resource BeamPM.Ash.Resources.TimeToValue
     resource BeamPM.Ash.Resources.ToolchainIdentity
+    resource BeamPM.Ash.Resources.ToolchainIdentityObservation
     resource BeamPM.Ash.Resources.TrainingReadiness
     resource BeamPM.Ash.Resources.TrainingScopeAdmission
     resource BeamPM.Ash.Resources.TrueUpPolicy
     resource BeamPM.Ash.Resources.TypeEdge
+    resource BeamPM.Ash.Resources.UncertaintyObservation
     resource BeamPM.Ash.Resources.UnsupportedCapabilityEvidence
     resource BeamPM.Ash.Resources.UpgradeEvidence
     resource BeamPM.Ash.Resources.UpsellReadiness
@@ -292,8 +336,11 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.UsagePlan
     resource BeamPM.Ash.Resources.UsageReconciliationReceipt
     resource BeamPM.Ash.Resources.UsageSignal
+    resource BeamPM.Ash.Resources.ValidationCapsuleDriftObservation
+    resource BeamPM.Ash.Resources.ValidationCapsuleIdentityObservation
     resource BeamPM.Ash.Resources.ValueBaseline
     resource BeamPM.Ash.Resources.ValueDriver
+    resource BeamPM.Ash.Resources.ValueOfInformationEstimate
     resource BeamPM.Ash.Resources.ValueRealization
     resource BeamPM.Ash.Resources.ValueTelemetrySample
     resource BeamPM.Ash.Resources.VendorRegistrationState
@@ -301,6 +348,9 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.VersionLifecycleEvidence
     resource BeamPM.Ash.Resources.VolumeTierAdmission
     resource BeamPM.Ash.Resources.VulnerabilityScanEvidence
+    resource BeamPM.Ash.Resources.WorkflowDefinitionDigestObservation
+    resource BeamPM.Ash.Resources.WorkflowJobStateObservation
+    resource BeamPM.Ash.Resources.WorkflowRunStateObservation
     resource BeamPM.Ash.Resources.WorkloadBackpressureSignal
     resource BeamPM.Ash.Resources.WorkloadCancellationReceipt
     resource BeamPM.Ash.Resources.WorkloadExecutionIdentity
