@@ -8437,3 +8437,33 @@ b4p:submodule_lock_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of comparison." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-006 — submodule_registration_observation
+b4p:submodule_registration_observation_rt a bpm:RecordType ;
+    bpm:recordName "submodule_registration_observation" ;
+    bpm:recordDoc "Observes whether every gitlink has repository registration metadata before autonomous checkout." ;
+    bpm:hasField b4p:submodule_registration_observation_submodule_path_f,
+                 b4p:submodule_registration_observation_registration_state_f,
+                 b4p:submodule_registration_observation_repository_url_f,
+                 b4p:submodule_registration_observation_evidence_digest_f .
+
+b4p:submodule_registration_observation_submodule_path_f a bpm:Field ;
+    bpm:fieldName "submodule_path" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed gitlink path." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:submodule_registration_observation_registration_state_f a bpm:Field ;
+    bpm:fieldName "registration_state" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Registration standing for the gitlink." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:submodule_registration_observation_repository_url_f a bpm:Field ;
+    bpm:fieldName "repository_url" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Resolved immutable repository source." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:submodule_registration_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of registration evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
