@@ -8467,3 +8467,33 @@ b4p:submodule_registration_observation_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of registration evidence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-007 — generated_output_ownership_observation
+b4p:generated_output_ownership_observation_rt a bpm:RecordType ;
+    bpm:recordName "generated_output_ownership_observation" ;
+    bpm:recordDoc "Classifies a path as generated or source-owned using its explicit provenance marker." ;
+    bpm:hasField b4p:generated_output_ownership_observation_output_path_f,
+                 b4p:generated_output_ownership_observation_ownership_marker_f,
+                 b4p:generated_output_ownership_observation_source_input_digest_f,
+                 b4p:generated_output_ownership_observation_standing_f .
+
+b4p:generated_output_ownership_observation_output_path_f a bpm:Field ;
+    bpm:fieldName "output_path" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed repository path." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:generated_output_ownership_observation_ownership_marker_f a bpm:Field ;
+    bpm:fieldName "ownership_marker" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed provenance marker." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:generated_output_ownership_observation_source_input_digest_f a bpm:Field ;
+    bpm:fieldName "source_input_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of canonical inputs that own the output." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:generated_output_ownership_observation_standing_f a bpm:Field ;
+    bpm:fieldName "standing" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Machine-readable ownership standing." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
