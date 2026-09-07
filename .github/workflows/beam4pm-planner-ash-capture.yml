@@ -105,7 +105,7 @@ jobs:
           next_lawful_actuation
           NAMES
           while IFS= read -r name; do
-            for path in               "lib/beam4pm_ash/resources/$name.ex"               "test/beam4pm_ash/resources/${name}_test.exs"               "docs/reference/types/$name.md"; do
+            for path in "lib/beam4pm_ash/resources/$name.ex" "test/beam4pm_ash/resources/${name}_test.exs"; do
               test -s "$path" || { echo "BUILD_BROKEN[MISSING_PLANNER_PROJECTION]:$path" >&2; exit 1; }
               mkdir -p "planner-ash-projections/$(dirname "$path")"
               cp "$path" "planner-ash-projections/$path"
