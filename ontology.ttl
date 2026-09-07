@@ -8887,3 +8887,33 @@ b4p:manufacture_receipt_presence_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp receipt was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-021 — manufacture_receipt_validity_observation
+b4p:manufacture_receipt_validity_observation_rt a bpm:RecordType ;
+    bpm:recordName "manufacture_receipt_validity_observation" ;
+    bpm:recordDoc "Records independent verification of receipt subject, digest, and verifier identity." ;
+    bpm:hasField b4p:manufacture_receipt_validity_observation_receipt_digest_f,
+                 b4p:manufacture_receipt_validity_observation_subject_sha_f,
+                 b4p:manufacture_receipt_validity_observation_verification_status_f,
+                 b4p:manufacture_receipt_validity_observation_verifier_identity_f .
+
+b4p:manufacture_receipt_validity_observation_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable receipt digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:manufacture_receipt_validity_observation_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact subject claimed by receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:manufacture_receipt_validity_observation_verification_status_f a bpm:Field ;
+    bpm:fieldName "verification_status" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Machine-readable verification result." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:manufacture_receipt_validity_observation_verifier_identity_f a bpm:Field ;
+    bpm:fieldName "verifier_identity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact verifier implementation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
