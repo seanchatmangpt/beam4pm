@@ -9547,3 +9547,33 @@ b4p:crown_path_skip_refusal_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-043 — crown_check_relevance
+b4p:crown_check_relevance_rt a bpm:RecordType ;
+    bpm:recordName "crown_check_relevance" ;
+    bpm:recordDoc "Separates irrelevant checks from exact-subject qualification without hiding required evidence." ;
+    bpm:hasField b4p:crown_check_relevance_propagation_id_f,
+                 b4p:crown_check_relevance_subject_sha_f,
+                 b4p:crown_check_relevance_relevance_proof_digest_f,
+                 b4p:crown_check_relevance_receipt_digest_f .
+
+b4p:crown_check_relevance_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_check_relevance_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_check_relevance_relevance_proof_digest_f a bpm:Field ;
+    bpm:fieldName "relevance_proof_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest proving check relevance classification." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_check_relevance_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
