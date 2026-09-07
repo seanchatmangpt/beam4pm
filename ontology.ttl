@@ -9517,3 +9517,33 @@ b4p:anomaly_detection_observation_anomaly_score_f a bpm:Field ;
     bpm:fieldName "anomaly_score" ; bpm:fieldType "float" ;
     bpm:fieldDoc "Computed anomaly score." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-042 — semantic_drift_observation
+b4p:semantic_drift_observation_rt a bpm:RecordType ;
+    bpm:recordName "semantic_drift_observation" ;
+    bpm:recordDoc "Classifies semantic change between prior and current canonical digests." ;
+    bpm:hasField b4p:semantic_drift_observation_subject_id_f,
+                 b4p:semantic_drift_observation_prior_semantic_digest_f,
+                 b4p:semantic_drift_observation_current_semantic_digest_f,
+                 b4p:semantic_drift_observation_drift_class_f .
+
+b4p:semantic_drift_observation_subject_id_f a bpm:Field ;
+    bpm:fieldName "subject_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed semantic subject." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:semantic_drift_observation_prior_semantic_digest_f a bpm:Field ;
+    bpm:fieldName "prior_semantic_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Prior canonical semantic digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:semantic_drift_observation_current_semantic_digest_f a bpm:Field ;
+    bpm:fieldName "current_semantic_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Current canonical semantic digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:semantic_drift_observation_drift_class_f a bpm:Field ;
+    bpm:fieldName "drift_class" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Machine-readable semantic drift class." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
