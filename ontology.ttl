@@ -9157,3 +9157,33 @@ b4p:observation_staleness_invalidation_replacement_required_f a bpm:Field ;
     bpm:fieldName "replacement_required" ; bpm:fieldType "boolean" ;
     bpm:fieldDoc "Whether new evidence must be acquired." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-030 — temporal_order_observation
+b4p:temporal_order_observation_rt a bpm:RecordType ;
+    bpm:recordName "temporal_order_observation" ;
+    bpm:recordDoc "Encodes observed ordering between two observations and its evidence basis." ;
+    bpm:hasField b4p:temporal_order_observation_earlier_observation_id_f,
+                 b4p:temporal_order_observation_later_observation_id_f,
+                 b4p:temporal_order_observation_ordering_basis_f,
+                 b4p:temporal_order_observation_evidence_digest_f .
+
+b4p:temporal_order_observation_earlier_observation_id_f a bpm:Field ;
+    bpm:fieldName "earlier_observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Earlier observation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:temporal_order_observation_later_observation_id_f a bpm:Field ;
+    bpm:fieldName "later_observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Later observation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:temporal_order_observation_ordering_basis_f a bpm:Field ;
+    bpm:fieldName "ordering_basis" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Clock or sequence basis for ordering." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:temporal_order_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of temporal evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
