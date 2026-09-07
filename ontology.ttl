@@ -8977,3 +8977,33 @@ b4p:validation_capsule_identity_observation_image_digest_f a bpm:Field ;
     bpm:fieldName "image_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable platform image digest." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-024 — validation_capsule_drift_observation
+b4p:validation_capsule_drift_observation_rt a bpm:RecordType ;
+    bpm:recordName "validation_capsule_drift_observation" ;
+    bpm:recordDoc "Compares expected and observed capsule digests and emits typed drift." ;
+    bpm:hasField b4p:validation_capsule_drift_observation_expected_digest_f,
+                 b4p:validation_capsule_drift_observation_observed_digest_f,
+                 b4p:validation_capsule_drift_observation_drift_status_f,
+                 b4p:validation_capsule_drift_observation_observed_at_f .
+
+b4p:validation_capsule_drift_observation_expected_digest_f a bpm:Field ;
+    bpm:fieldName "expected_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Admitted capsule digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:validation_capsule_drift_observation_observed_digest_f a bpm:Field ;
+    bpm:fieldName "observed_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Currently resolved capsule digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:validation_capsule_drift_observation_drift_status_f a bpm:Field ;
+    bpm:fieldName "drift_status" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Machine-readable capsule drift result." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:validation_capsule_drift_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of digest comparison." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
