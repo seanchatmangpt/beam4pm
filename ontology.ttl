@@ -8767,3 +8767,33 @@ b4p:container_platform_digest_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of platform resolution." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-017 — dependency_pin_observation
+b4p:dependency_pin_observation_rt a bpm:RecordType ;
+    bpm:recordName "dependency_pin_observation" ;
+    bpm:recordDoc "Compares a declared dependency ref with its immutable resolved commit." ;
+    bpm:hasField b4p:dependency_pin_observation_dependency_id_f,
+                 b4p:dependency_pin_observation_declared_ref_f,
+                 b4p:dependency_pin_observation_resolved_sha_f,
+                 b4p:dependency_pin_observation_observed_at_f .
+
+b4p:dependency_pin_observation_dependency_id_f a bpm:Field ;
+    bpm:fieldName "dependency_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable dependency identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:dependency_pin_observation_declared_ref_f a bpm:Field ;
+    bpm:fieldName "declared_ref" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Declared dependency reference." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:dependency_pin_observation_resolved_sha_f a bpm:Field ;
+    bpm:fieldName "resolved_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Resolved immutable commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:dependency_pin_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of resolution." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
