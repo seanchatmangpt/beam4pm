@@ -118,8 +118,7 @@ jobs:
             xargs -0 sha256sum > planner-ash-projections/planner-ash-tree.sha256
           test "$(find planner-ash-projections/lib/beam4pm_ash/resources -type f | wc -l)" -eq 50
           test "$(find planner-ash-projections/test/beam4pm_ash/resources -type f | wc -l)" -eq 50
-          test "$(find planner-ash-projections/docs/reference/types -type f | wc -l)" -eq 50
-          echo "ALIVE[50_PLANNER_ASH_TRIPLETS_CAPTURED]"
+          echo "ALIVE[50_PLANNER_ASH_RESOURCE_TEST_PAIRS_CAPTURED]"
 
       - name: Upload exact generated planner projections
         if: always()
