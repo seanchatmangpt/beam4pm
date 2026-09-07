@@ -8557,3 +8557,33 @@ b4p:workflow_definition_digest_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of workflow observation." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-010 — workflow_run_state_observation
+b4p:workflow_run_state_observation_rt a bpm:RecordType ;
+    bpm:recordName "workflow_run_state_observation" ;
+    bpm:recordDoc "Observes a workflow run against its exact head and terminal conclusion." ;
+    bpm:hasField b4p:workflow_run_state_observation_run_id_f,
+                 b4p:workflow_run_state_observation_workflow_id_f,
+                 b4p:workflow_run_state_observation_head_sha_f,
+                 b4p:workflow_run_state_observation_conclusion_f .
+
+b4p:workflow_run_state_observation_run_id_f a bpm:Field ;
+    bpm:fieldName "run_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable workflow-run identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:workflow_run_state_observation_workflow_id_f a bpm:Field ;
+    bpm:fieldName "workflow_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable workflow-definition identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:workflow_run_state_observation_head_sha_f a bpm:Field ;
+    bpm:fieldName "head_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact subject commit executed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:workflow_run_state_observation_conclusion_f a bpm:Field ;
+    bpm:fieldName "conclusion" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed terminal run conclusion." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
