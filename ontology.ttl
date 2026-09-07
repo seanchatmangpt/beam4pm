@@ -8497,3 +8497,33 @@ b4p:generated_output_ownership_observation_standing_f a bpm:Field ;
     bpm:fieldName "standing" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Machine-readable ownership standing." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-008 — canonical_source_authority_observation
+b4p:canonical_source_authority_observation_rt a bpm:RecordType ;
+    bpm:recordName "canonical_source_authority_observation" ;
+    bpm:recordDoc "Encodes whether a repository path is an authorized canonical manufacturing input." ;
+    bpm:hasField b4p:canonical_source_authority_observation_source_path_f,
+                 b4p:canonical_source_authority_observation_authority_class_f,
+                 b4p:canonical_source_authority_observation_mutation_allowed_f,
+                 b4p:canonical_source_authority_observation_evidence_digest_f .
+
+b4p:canonical_source_authority_observation_source_path_f a bpm:Field ;
+    bpm:fieldName "source_path" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed repository path." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:canonical_source_authority_observation_authority_class_f a bpm:Field ;
+    bpm:fieldName "authority_class" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Classified source authority." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:canonical_source_authority_observation_mutation_allowed_f a bpm:Field ;
+    bpm:fieldName "mutation_allowed" ; bpm:fieldType "boolean" ;
+    bpm:fieldDoc "Whether mutation is admitted at this boundary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:canonical_source_authority_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of authority evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
