@@ -9037,3 +9037,33 @@ b4p:crown_fanin_convergence_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-026 — crown_recursive_fixed_point
+b4p:crown_recursive_fixed_point_rt a bpm:RecordType ;
+    bpm:recordName "crown_recursive_fixed_point" ;
+    bpm:recordDoc "Proves recursive ecosystem propagation reached a stable exact-crown fixed point." ;
+    bpm:hasField b4p:crown_recursive_fixed_point_propagation_id_f,
+                 b4p:crown_recursive_fixed_point_subject_sha_f,
+                 b4p:crown_recursive_fixed_point_fixed_point_digest_f,
+                 b4p:crown_recursive_fixed_point_receipt_digest_f .
+
+b4p:crown_recursive_fixed_point_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_recursive_fixed_point_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_recursive_fixed_point_fixed_point_digest_f a bpm:Field ;
+    bpm:fieldName "fixed_point_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the converged ecosystem crown assignment." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_recursive_fixed_point_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
