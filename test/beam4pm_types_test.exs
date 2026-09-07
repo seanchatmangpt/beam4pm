@@ -289,6 +289,710 @@ defmodule BeamPM.Types.GeneratedTest do
   end
 
 
+  test "autonomic_actuation_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicActuationReceipt.new(attrs)
+  end
+
+  test "autonomic_actuation_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicActuationReceipt.new(%{})
+  end
+
+
+  test "autonomic_actuation_replay new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicActuationReplay.new(attrs)
+  end
+
+  test "autonomic_actuation_replay new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicActuationReplay.new(%{})
+  end
+
+
+  test "autonomic_actuation_selection new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicActuationSelection.new(attrs)
+  end
+
+  test "autonomic_actuation_selection new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicActuationSelection.new(%{})
+  end
+
+
+  test "autonomic_authority_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicAuthorityAdmission.new(attrs)
+  end
+
+  test "autonomic_authority_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicAuthorityAdmission.new(%{})
+  end
+
+
+  test "autonomic_authority_escalation new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicAuthorityEscalation.new(attrs)
+  end
+
+  test "autonomic_authority_escalation new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicAuthorityEscalation.new(%{})
+  end
+
+
+  test "autonomic_backpressure_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicBackpressureAdmission.new(attrs)
+  end
+
+  test "autonomic_backpressure_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicBackpressureAdmission.new(%{})
+  end
+
+
+  test "autonomic_caller_local_binding new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicCallerLocalBinding.new(attrs)
+  end
+
+  test "autonomic_caller_local_binding new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCallerLocalBinding.new(%{})
+  end
+
+
+  test "autonomic_canary_admission new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicCanaryAdmission.new(attrs)
+  end
+
+  test "autonomic_canary_admission new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCanaryAdmission.new(%{})
+  end
+
+
+  test "autonomic_cancellation_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicCancellationReceipt.new(attrs)
+  end
+
+  test "autonomic_cancellation_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCancellationReceipt.new(%{})
+  end
+
+
+  test "autonomic_canonical_repair_route new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicCanonicalRepairRoute.new(attrs)
+  end
+
+  test "autonomic_canonical_repair_route new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCanonicalRepairRoute.new(%{})
+  end
+
+
+  test "autonomic_capability_token new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicCapabilityToken.new(attrs)
+  end
+
+  test "autonomic_capability_token new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCapabilityToken.new(%{})
+  end
+
+
+  test "autonomic_circuit_breaker_transition new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicCircuitBreakerTransition.new(attrs)
+  end
+
+  test "autonomic_circuit_breaker_transition new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCircuitBreakerTransition.new(%{})
+  end
+
+
+  test "autonomic_compensation_verification new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicCompensationVerification.new(attrs)
+  end
+
+  test "autonomic_compensation_verification new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCompensationVerification.new(%{})
+  end
+
+
+  test "autonomic_crash_recovery new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicCrashRecovery.new(attrs)
+  end
+
+  test "autonomic_crash_recovery new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCrashRecovery.new(%{})
+  end
+
+
+  test "autonomic_cross_consumer_receipt_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicCrossConsumerReceiptRefusal.new(attrs)
+  end
+
+  test "autonomic_cross_consumer_receipt_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCrossConsumerReceiptRefusal.new(%{})
+  end
+
+
+  test "autonomic_deterministic_receipt_replay new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicDeterministicReceiptReplay.new(attrs)
+  end
+
+  test "autonomic_deterministic_receipt_replay new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicDeterministicReceiptReplay.new(%{})
+  end
+
+
+  test "autonomic_failure_classification new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicFailureClassification.new(attrs)
+  end
+
+  test "autonomic_failure_classification new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicFailureClassification.new(%{})
+  end
+
+
+  test "autonomic_forged_receipt_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicForgedReceiptRefusal.new(attrs)
+  end
+
+  test "autonomic_forged_receipt_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicForgedReceiptRefusal.new(%{})
+  end
+
+
+  test "autonomic_generated_surface_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicGeneratedSurfaceRefusal.new(attrs)
+  end
+
+  test "autonomic_generated_surface_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicGeneratedSurfaceRefusal.new(%{})
+  end
+
+
+  test "autonomic_idempotence_fence new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicIdempotenceFence.new(attrs)
+  end
+
+  test "autonomic_idempotence_fence new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicIdempotenceFence.new(%{})
+  end
+
+
+  test "autonomic_incident_recovery new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicIncidentRecovery.new(attrs)
+  end
+
+  test "autonomic_incident_recovery new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicIncidentRecovery.new(%{})
+  end
+
+
+  test "autonomic_least_authority_grant new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicLeastAuthorityGrant.new(attrs)
+  end
+
+  test "autonomic_least_authority_grant new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicLeastAuthorityGrant.new(%{})
+  end
+
+
+  test "autonomic_model_authority_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicModelAuthorityRefusal.new(attrs)
+  end
+
+  test "autonomic_model_authority_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicModelAuthorityRefusal.new(%{})
+  end
+
+
+  test "autonomic_mutable_pack_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicMutablePackRefusal.new(attrs)
+  end
+
+  test "autonomic_mutable_pack_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicMutablePackRefusal.new(%{})
+  end
+
+
+  test "autonomic_output_ownership_check new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicOutputOwnershipCheck.new(attrs)
+  end
+
+  test "autonomic_output_ownership_check new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicOutputOwnershipCheck.new(%{})
+  end
+
+
+  test "autonomic_pack_sha_authority new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicPackShaAuthority.new(attrs)
+  end
+
+  test "autonomic_pack_sha_authority new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicPackShaAuthority.new(%{})
+  end
+
+
+  test "autonomic_plan_construction new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicPlanConstruction.new(attrs)
+  end
+
+  test "autonomic_plan_construction new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicPlanConstruction.new(%{})
+  end
+
+
+  test "autonomic_planner_authority_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicPlannerAuthorityRefusal.new(attrs)
+  end
+
+  test "autonomic_planner_authority_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicPlannerAuthorityRefusal.new(%{})
+  end
+
+
+  test "autonomic_rca_hypothesis new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicRcaHypothesis.new(attrs)
+  end
+
+  test "autonomic_rca_hypothesis new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRcaHypothesis.new(%{})
+  end
+
+
+  test "autonomic_receipt_authority_binding new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicReceiptAuthorityBinding.new(attrs)
+  end
+
+  test "autonomic_receipt_authority_binding new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicReceiptAuthorityBinding.new(%{})
+  end
+
+
+  test "autonomic_receipt_chain_link new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicReceiptChainLink.new(attrs)
+  end
+
+  test "autonomic_receipt_chain_link new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicReceiptChainLink.new(%{})
+  end
+
+
+  test "autonomic_receipt_completeness_check new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicReceiptCompletenessCheck.new(attrs)
+  end
+
+  test "autonomic_receipt_completeness_check new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicReceiptCompletenessCheck.new(%{})
+  end
+
+
+  test "autonomic_receipt_subject_binding new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicReceiptSubjectBinding.new(attrs)
+  end
+
+  test "autonomic_receipt_subject_binding new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicReceiptSubjectBinding.new(%{})
+  end
+
+
+  test "autonomic_repair_reexecution new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicRepairReexecution.new(attrs)
+  end
+
+  test "autonomic_repair_reexecution new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRepairReexecution.new(%{})
+  end
+
+
+  test "autonomic_repair_selection new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicRepairSelection.new(attrs)
+  end
+
+  test "autonomic_repair_selection new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRepairSelection.new(%{})
+  end
+
+
+  test "autonomic_replay_divergence_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicReplayDivergenceRefusal.new(attrs)
+  end
+
+  test "autonomic_replay_divergence_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicReplayDivergenceRefusal.new(%{})
+  end
+
+
+  test "autonomic_retry_backoff new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicRetryBackoff.new(attrs)
+  end
+
+  test "autonomic_retry_backoff new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRetryBackoff.new(%{})
+  end
+
+
+  test "autonomic_retry_budget new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicRetryBudget.new(attrs)
+  end
+
+  test "autonomic_retry_budget new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRetryBudget.new(%{})
+  end
+
+
+  test "autonomic_rollback_transition new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicRollbackTransition.new(attrs)
+  end
+
+  test "autonomic_rollback_transition new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRollbackTransition.new(%{})
+  end
+
+
+  test "autonomic_saga_compensation new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicSagaCompensation.new(attrs)
+  end
+
+  test "autonomic_saga_compensation new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicSagaCompensation.new(%{})
+  end
+
+
+  test "autonomic_second_run_identity new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicSecondRunIdentity.new(attrs)
+  end
+
+  test "autonomic_second_run_identity new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicSecondRunIdentity.new(%{})
+  end
+
+
+  test "autonomic_self_healing_completion_receipt new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicSelfHealingCompletionReceipt.new(attrs)
+  end
+
+  test "autonomic_self_healing_completion_receipt new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicSelfHealingCompletionReceipt.new(%{})
+  end
+
+
+  test "autonomic_stale_action_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicStaleActionRefusal.new(attrs)
+  end
+
+  test "autonomic_stale_action_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicStaleActionRefusal.new(%{})
+  end
+
+
+  test "autonomic_stale_receipt_refusal new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicStaleReceiptRefusal.new(attrs)
+  end
+
+  test "autonomic_stale_receipt_refusal new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicStaleReceiptRefusal.new(%{})
+  end
+
+
   test "autonomic_state_vector new/1 succeeds when all fields are present" do
     attrs = %{
       state_vector_id: "x",
@@ -302,6 +1006,102 @@ defmodule BeamPM.Types.GeneratedTest do
 
   test "autonomic_state_vector new/1 returns an error when a required field is missing" do
     assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicStateVector.new(%{})
+  end
+
+
+  test "autonomic_subject_compare_and_swap new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicSubjectCompareAndSwap.new(attrs)
+  end
+
+  test "autonomic_subject_compare_and_swap new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicSubjectCompareAndSwap.new(%{})
+  end
+
+
+  test "autonomic_supervisor_restart new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicSupervisorRestart.new(attrs)
+  end
+
+  test "autonomic_supervisor_restart new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicSupervisorRestart.new(%{})
+  end
+
+
+  test "autonomic_timeout_budget new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicTimeoutBudget.new(attrs)
+  end
+
+  test "autonomic_timeout_budget new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicTimeoutBudget.new(%{})
+  end
+
+
+  test "autonomic_transition_execution new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicTransitionExecution.new(attrs)
+  end
+
+  test "autonomic_transition_execution new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicTransitionExecution.new(%{})
+  end
+
+
+  test "autonomic_transition_verification new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicTransitionVerification.new(attrs)
+  end
+
+  test "autonomic_transition_verification new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicTransitionVerification.new(%{})
+  end
+
+
+  test "autonomic_upgrade_transition new/1 succeeds when all fields are present" do
+    attrs = %{
+      actuation_id: "x",
+      subject_sha: "x",
+      authority_receipt_sha: "x",
+      state_digest: "x"
+    }
+
+    assert {:ok, _} = BeamPM.Types.AutonomicUpgradeTransition.new(attrs)
+  end
+
+  test "autonomic_upgrade_transition new/1 returns an error when a required field is missing" do
+    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicUpgradeTransition.new(%{})
   end
 
 

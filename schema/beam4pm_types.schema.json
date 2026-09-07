@@ -449,6 +449,1106 @@
       ]
 
     },
+    "autonomic_actuation_receipt": {
+      "type": "object",
+      "description": "Produces a complete deterministic receipt for one authorized actuation.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_actuation_replay": {
+      "type": "object",
+      "description": "Replays an actuation receipt against the same exact subject without repeating consequences.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_actuation_selection": {
+      "type": "object",
+      "description": "Selects one bounded actuation candidate while preserving the exact decision subject and admitted authority.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_authority_admission": {
+      "type": "object",
+      "description": "Admits or refuses authority for one consequential transition using an immutable authority receipt.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_authority_escalation": {
+      "type": "object",
+      "description": "Emits a machine-readable escalation only when the remaining boundary is irreducible by admitted authority.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_backpressure_admission": {
+      "type": "object",
+      "description": "Refuses new consequential work when admitted queue or inflight capacity is exhausted.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_caller_local_binding": {
+      "type": "object",
+      "description": "Binds actuation to the exact consumer checkout rather than a central surrogate.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_canary_admission": {
+      "type": "object",
+      "description": "Admits a bounded canary transition and refuses fleet-wide expansion without verified evidence.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_cancellation_receipt": {
+      "type": "object",
+      "description": "Produces a deterministic receipt proving cancellation and the resulting bounded state.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_canonical_repair_route": {
+      "type": "object",
+      "description": "Routes a generated-surface defect to its canonical semantic source or independent qualification rail.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_capability_token": {
+      "type": "object",
+      "description": "Scopes actuation authority to one capability, subject, and bounded transition.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_circuit_breaker_transition": {
+      "type": "object",
+      "description": "Opens, probes, and closes a circuit using receipted health state transitions.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_compensation_verification": {
+      "type": "object",
+      "description": "Verifies compensation restored the admitted recovery state without hiding partial effects.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_crash_recovery": {
+      "type": "object",
+      "description": "Resumes a receipted transition after process crash from the last verified state boundary.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_cross_consumer_receipt_refusal": {
+      "type": "object",
+      "description": "Refuses reuse of an actuation receipt across distinct caller-local consumer subjects.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_deterministic_receipt_replay": {
+      "type": "object",
+      "description": "Recomputes receipt identity deterministically without reapplying the original consequence.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_failure_classification": {
+      "type": "object",
+      "description": "Classifies execution failures as subject, authority, capsule, dependency, transient, or irreducible boundary.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_forged_receipt_refusal": {
+      "type": "object",
+      "description": "Refuses receipts whose claimed transition identity fails deterministic verification.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_generated_surface_refusal": {
+      "type": "object",
+      "description": "Refuses direct mutation of generator-owned workflows and projections.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_idempotence_fence": {
+      "type": "object",
+      "description": "Prevents duplicate execution of an already receipted actuation identity.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_incident_recovery": {
+      "type": "object",
+      "description": "Coordinates automatic incident recovery through verified transitions and deterministic receipts.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_least_authority_grant": {
+      "type": "object",
+      "description": "Encodes the least authority sufficient for exactly one admitted actuation.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_model_authority_refusal": {
+      "type": "object",
+      "description": "Refuses model-produced intent as ambient authority for a consequential transition.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_mutable_pack_refusal": {
+      "type": "object",
+      "description": "Refuses actuation when a marketplace pack is selected by mutable tag or branch.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_output_ownership_check": {
+      "type": "object",
+      "description": "Verifies that every written output is owned by the admitted manufacturing plan.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_pack_sha_authority": {
+      "type": "object",
+      "description": "Requires an exact immutable marketplace pack SHA before construction or execution.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_plan_construction": {
+      "type": "object",
+      "description": "Constructs an executable actuation plan bound to the exact caller-local subject.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_planner_authority_refusal": {
+      "type": "object",
+      "description": "Refuses planner output as authority unless a separate admitted authority receipt is present.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_rca_hypothesis": {
+      "type": "object",
+      "description": "Generates a bounded machine-actionable root-cause hypothesis from failed actuation evidence.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_receipt_authority_binding": {
+      "type": "object",
+      "description": "Binds a receipt to the exact authority admission used for the transition.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_receipt_chain_link": {
+      "type": "object",
+      "description": "Links each consequential transition receipt to its verified predecessor receipt.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_receipt_completeness_check": {
+      "type": "object",
+      "description": "Refuses any actuation receipt missing subject, authority, before-state, after-state, or result identity.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_receipt_subject_binding": {
+      "type": "object",
+      "description": "Cryptographically binds an actuation receipt to the exact caller-local subject SHA.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_repair_reexecution": {
+      "type": "object",
+      "description": "Re-executes a repaired actuation from the last verified state with a linked receipt.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_repair_selection": {
+      "type": "object",
+      "description": "Selects a least-change repair whose authority and affected surface remain explicitly bounded.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_replay_divergence_refusal": {
+      "type": "object",
+      "description": "Refuses replay when recomputed state or receipt identity diverges from the admitted evidence.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_retry_backoff": {
+      "type": "object",
+      "description": "Schedules bounded retry delay without widening the original authority or subject.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_retry_budget": {
+      "type": "object",
+      "description": "Bounds recoverable actuation retries by explicit count and authority scope.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_rollback_transition": {
+      "type": "object",
+      "description": "Restores an exact admitted prior state when forward repair cannot safely complete.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_saga_compensation": {
+      "type": "object",
+      "description": "Constructs a compensating transition for a partially completed multi-step actuation.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_second_run_identity": {
+      "type": "object",
+      "description": "Proves a second manufacture or sync produces byte-identical owned outputs.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_self_healing_completion_receipt": {
+      "type": "object",
+      "description": "Proves the full select, authorize, execute, verify, repair, replay, and containment loop completed.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_stale_action_refusal": {
+      "type": "object",
+      "description": "Refuses a queued action whose subject, authority, or expected before-state became stale.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_stale_receipt_refusal": {
+      "type": "object",
+      "description": "Refuses receipts whose subject or before-state no longer matches the admitted transition.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
     "autonomic_state_vector": {
       "type": "object",
       "description": "Encodes decision-relevant observed dimensions for one exact subject.",
@@ -471,6 +1571,156 @@
         }
       },
       "required": ["state_vector_id", "subject_id", "dimension_digest", "observed_at"
+      ]
+
+    },
+    "autonomic_subject_compare_and_swap": {
+      "type": "object",
+      "description": "Refuses an actuation unless the observed subject SHA equals the admitted expected SHA.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_supervisor_restart": {
+      "type": "object",
+      "description": "Restarts a failed actuation worker under bounded BEAM supervision semantics.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_timeout_budget": {
+      "type": "object",
+      "description": "Cancels an unfinished actuation when its admitted execution budget expires.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_transition_execution": {
+      "type": "object",
+      "description": "Records execution of one admitted state transition without granting ambient planner authority.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_transition_verification": {
+      "type": "object",
+      "description": "Verifies the exact before and after state digests for a completed consequential transition.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
+      ]
+
+    },
+    "autonomic_upgrade_transition": {
+      "type": "object",
+      "description": "Executes a version upgrade against exact capsule, pack, and subject identities with rollback evidence.",
+      "properties": {
+        "actuation_id": {
+          "type": "string",
+          "description": "Unique bounded actuation identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local subject commit SHA."
+        },
+        "authority_receipt_sha": {
+          "type": "string",
+          "description": "Immutable receipt admitting authority for this transition."
+        },
+        "state_digest": {
+          "type": "string",
+          "description": "Deterministic state digest used by verification and replay."
+        }
+      },
+      "required": ["actuation_id", "subject_sha", "authority_receipt_sha", "state_digest"
       ]
 
     },

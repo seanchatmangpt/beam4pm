@@ -27,7 +27,57 @@ defmodule BeamPM.Roundtrip do
     :artifact_digest_observation,
     :attestation_verification_evidence,
     :audit_chain_evidence,
+    :autonomic_actuation_receipt,
+    :autonomic_actuation_replay,
+    :autonomic_actuation_selection,
+    :autonomic_authority_admission,
+    :autonomic_authority_escalation,
+    :autonomic_backpressure_admission,
+    :autonomic_caller_local_binding,
+    :autonomic_canary_admission,
+    :autonomic_cancellation_receipt,
+    :autonomic_canonical_repair_route,
+    :autonomic_capability_token,
+    :autonomic_circuit_breaker_transition,
+    :autonomic_compensation_verification,
+    :autonomic_crash_recovery,
+    :autonomic_cross_consumer_receipt_refusal,
+    :autonomic_deterministic_receipt_replay,
+    :autonomic_failure_classification,
+    :autonomic_forged_receipt_refusal,
+    :autonomic_generated_surface_refusal,
+    :autonomic_idempotence_fence,
+    :autonomic_incident_recovery,
+    :autonomic_least_authority_grant,
+    :autonomic_model_authority_refusal,
+    :autonomic_mutable_pack_refusal,
+    :autonomic_output_ownership_check,
+    :autonomic_pack_sha_authority,
+    :autonomic_plan_construction,
+    :autonomic_planner_authority_refusal,
+    :autonomic_rca_hypothesis,
+    :autonomic_receipt_authority_binding,
+    :autonomic_receipt_chain_link,
+    :autonomic_receipt_completeness_check,
+    :autonomic_receipt_subject_binding,
+    :autonomic_repair_reexecution,
+    :autonomic_repair_selection,
+    :autonomic_replay_divergence_refusal,
+    :autonomic_retry_backoff,
+    :autonomic_retry_budget,
+    :autonomic_rollback_transition,
+    :autonomic_saga_compensation,
+    :autonomic_second_run_identity,
+    :autonomic_self_healing_completion_receipt,
+    :autonomic_stale_action_refusal,
+    :autonomic_stale_receipt_refusal,
     :autonomic_state_vector,
+    :autonomic_subject_compare_and_swap,
+    :autonomic_supervisor_restart,
+    :autonomic_timeout_budget,
+    :autonomic_transition_execution,
+    :autonomic_transition_verification,
+    :autonomic_upgrade_transition,
     :availability_observation,
     :availability_slo_evidence,
     :backup_restore_evidence,
@@ -684,6 +734,798 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:autonomic_actuation_receipt, :full) do
+    BeamPM.Types.AutonomicActuationReceipt.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_actuation_receipt, :minimal) do
+    BeamPM.Types.AutonomicActuationReceipt.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_actuation_replay, :full) do
+    BeamPM.Types.AutonomicActuationReplay.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_actuation_replay, :minimal) do
+    BeamPM.Types.AutonomicActuationReplay.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_actuation_selection, :full) do
+    BeamPM.Types.AutonomicActuationSelection.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_actuation_selection, :minimal) do
+    BeamPM.Types.AutonomicActuationSelection.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_authority_admission, :full) do
+    BeamPM.Types.AutonomicAuthorityAdmission.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_authority_admission, :minimal) do
+    BeamPM.Types.AutonomicAuthorityAdmission.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_authority_escalation, :full) do
+    BeamPM.Types.AutonomicAuthorityEscalation.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_authority_escalation, :minimal) do
+    BeamPM.Types.AutonomicAuthorityEscalation.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_backpressure_admission, :full) do
+    BeamPM.Types.AutonomicBackpressureAdmission.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_backpressure_admission, :minimal) do
+    BeamPM.Types.AutonomicBackpressureAdmission.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_caller_local_binding, :full) do
+    BeamPM.Types.AutonomicCallerLocalBinding.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_caller_local_binding, :minimal) do
+    BeamPM.Types.AutonomicCallerLocalBinding.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_canary_admission, :full) do
+    BeamPM.Types.AutonomicCanaryAdmission.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_canary_admission, :minimal) do
+    BeamPM.Types.AutonomicCanaryAdmission.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_cancellation_receipt, :full) do
+    BeamPM.Types.AutonomicCancellationReceipt.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_cancellation_receipt, :minimal) do
+    BeamPM.Types.AutonomicCancellationReceipt.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_canonical_repair_route, :full) do
+    BeamPM.Types.AutonomicCanonicalRepairRoute.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_canonical_repair_route, :minimal) do
+    BeamPM.Types.AutonomicCanonicalRepairRoute.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_capability_token, :full) do
+    BeamPM.Types.AutonomicCapabilityToken.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_capability_token, :minimal) do
+    BeamPM.Types.AutonomicCapabilityToken.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_circuit_breaker_transition, :full) do
+    BeamPM.Types.AutonomicCircuitBreakerTransition.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_circuit_breaker_transition, :minimal) do
+    BeamPM.Types.AutonomicCircuitBreakerTransition.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_compensation_verification, :full) do
+    BeamPM.Types.AutonomicCompensationVerification.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_compensation_verification, :minimal) do
+    BeamPM.Types.AutonomicCompensationVerification.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_crash_recovery, :full) do
+    BeamPM.Types.AutonomicCrashRecovery.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_crash_recovery, :minimal) do
+    BeamPM.Types.AutonomicCrashRecovery.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_cross_consumer_receipt_refusal, :full) do
+    BeamPM.Types.AutonomicCrossConsumerReceiptRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_cross_consumer_receipt_refusal, :minimal) do
+    BeamPM.Types.AutonomicCrossConsumerReceiptRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_deterministic_receipt_replay, :full) do
+    BeamPM.Types.AutonomicDeterministicReceiptReplay.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_deterministic_receipt_replay, :minimal) do
+    BeamPM.Types.AutonomicDeterministicReceiptReplay.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_failure_classification, :full) do
+    BeamPM.Types.AutonomicFailureClassification.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_failure_classification, :minimal) do
+    BeamPM.Types.AutonomicFailureClassification.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_forged_receipt_refusal, :full) do
+    BeamPM.Types.AutonomicForgedReceiptRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_forged_receipt_refusal, :minimal) do
+    BeamPM.Types.AutonomicForgedReceiptRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_generated_surface_refusal, :full) do
+    BeamPM.Types.AutonomicGeneratedSurfaceRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_generated_surface_refusal, :minimal) do
+    BeamPM.Types.AutonomicGeneratedSurfaceRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_idempotence_fence, :full) do
+    BeamPM.Types.AutonomicIdempotenceFence.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_idempotence_fence, :minimal) do
+    BeamPM.Types.AutonomicIdempotenceFence.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_incident_recovery, :full) do
+    BeamPM.Types.AutonomicIncidentRecovery.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_incident_recovery, :minimal) do
+    BeamPM.Types.AutonomicIncidentRecovery.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_least_authority_grant, :full) do
+    BeamPM.Types.AutonomicLeastAuthorityGrant.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_least_authority_grant, :minimal) do
+    BeamPM.Types.AutonomicLeastAuthorityGrant.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_model_authority_refusal, :full) do
+    BeamPM.Types.AutonomicModelAuthorityRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_model_authority_refusal, :minimal) do
+    BeamPM.Types.AutonomicModelAuthorityRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_mutable_pack_refusal, :full) do
+    BeamPM.Types.AutonomicMutablePackRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_mutable_pack_refusal, :minimal) do
+    BeamPM.Types.AutonomicMutablePackRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_output_ownership_check, :full) do
+    BeamPM.Types.AutonomicOutputOwnershipCheck.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_output_ownership_check, :minimal) do
+    BeamPM.Types.AutonomicOutputOwnershipCheck.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_pack_sha_authority, :full) do
+    BeamPM.Types.AutonomicPackShaAuthority.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_pack_sha_authority, :minimal) do
+    BeamPM.Types.AutonomicPackShaAuthority.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_plan_construction, :full) do
+    BeamPM.Types.AutonomicPlanConstruction.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_plan_construction, :minimal) do
+    BeamPM.Types.AutonomicPlanConstruction.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_planner_authority_refusal, :full) do
+    BeamPM.Types.AutonomicPlannerAuthorityRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_planner_authority_refusal, :minimal) do
+    BeamPM.Types.AutonomicPlannerAuthorityRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_rca_hypothesis, :full) do
+    BeamPM.Types.AutonomicRcaHypothesis.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_rca_hypothesis, :minimal) do
+    BeamPM.Types.AutonomicRcaHypothesis.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_receipt_authority_binding, :full) do
+    BeamPM.Types.AutonomicReceiptAuthorityBinding.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_receipt_authority_binding, :minimal) do
+    BeamPM.Types.AutonomicReceiptAuthorityBinding.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_receipt_chain_link, :full) do
+    BeamPM.Types.AutonomicReceiptChainLink.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_receipt_chain_link, :minimal) do
+    BeamPM.Types.AutonomicReceiptChainLink.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_receipt_completeness_check, :full) do
+    BeamPM.Types.AutonomicReceiptCompletenessCheck.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_receipt_completeness_check, :minimal) do
+    BeamPM.Types.AutonomicReceiptCompletenessCheck.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_receipt_subject_binding, :full) do
+    BeamPM.Types.AutonomicReceiptSubjectBinding.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_receipt_subject_binding, :minimal) do
+    BeamPM.Types.AutonomicReceiptSubjectBinding.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_repair_reexecution, :full) do
+    BeamPM.Types.AutonomicRepairReexecution.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_repair_reexecution, :minimal) do
+    BeamPM.Types.AutonomicRepairReexecution.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_repair_selection, :full) do
+    BeamPM.Types.AutonomicRepairSelection.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_repair_selection, :minimal) do
+    BeamPM.Types.AutonomicRepairSelection.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_replay_divergence_refusal, :full) do
+    BeamPM.Types.AutonomicReplayDivergenceRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_replay_divergence_refusal, :minimal) do
+    BeamPM.Types.AutonomicReplayDivergenceRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_retry_backoff, :full) do
+    BeamPM.Types.AutonomicRetryBackoff.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_retry_backoff, :minimal) do
+    BeamPM.Types.AutonomicRetryBackoff.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_retry_budget, :full) do
+    BeamPM.Types.AutonomicRetryBudget.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_retry_budget, :minimal) do
+    BeamPM.Types.AutonomicRetryBudget.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_rollback_transition, :full) do
+    BeamPM.Types.AutonomicRollbackTransition.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_rollback_transition, :minimal) do
+    BeamPM.Types.AutonomicRollbackTransition.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_saga_compensation, :full) do
+    BeamPM.Types.AutonomicSagaCompensation.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_saga_compensation, :minimal) do
+    BeamPM.Types.AutonomicSagaCompensation.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_second_run_identity, :full) do
+    BeamPM.Types.AutonomicSecondRunIdentity.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_second_run_identity, :minimal) do
+    BeamPM.Types.AutonomicSecondRunIdentity.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_self_healing_completion_receipt, :full) do
+    BeamPM.Types.AutonomicSelfHealingCompletionReceipt.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_self_healing_completion_receipt, :minimal) do
+    BeamPM.Types.AutonomicSelfHealingCompletionReceipt.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_stale_action_refusal, :full) do
+    BeamPM.Types.AutonomicStaleActionRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_stale_action_refusal, :minimal) do
+    BeamPM.Types.AutonomicStaleActionRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_stale_receipt_refusal, :full) do
+    BeamPM.Types.AutonomicStaleReceiptRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_stale_receipt_refusal, :minimal) do
+    BeamPM.Types.AutonomicStaleReceiptRefusal.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
   def sample(:autonomic_state_vector, :full) do
     BeamPM.Types.AutonomicStateVector.new(%{
       state_vector_id: "sample_state_vector_id",
@@ -699,6 +1541,114 @@ defmodule BeamPM.Roundtrip do
       subject_id: "sample_subject_id",
       dimension_digest: "sample_dimension_digest",
       observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:autonomic_subject_compare_and_swap, :full) do
+    BeamPM.Types.AutonomicSubjectCompareAndSwap.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_subject_compare_and_swap, :minimal) do
+    BeamPM.Types.AutonomicSubjectCompareAndSwap.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_supervisor_restart, :full) do
+    BeamPM.Types.AutonomicSupervisorRestart.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_supervisor_restart, :minimal) do
+    BeamPM.Types.AutonomicSupervisorRestart.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_timeout_budget, :full) do
+    BeamPM.Types.AutonomicTimeoutBudget.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_timeout_budget, :minimal) do
+    BeamPM.Types.AutonomicTimeoutBudget.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_transition_execution, :full) do
+    BeamPM.Types.AutonomicTransitionExecution.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_transition_execution, :minimal) do
+    BeamPM.Types.AutonomicTransitionExecution.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_transition_verification, :full) do
+    BeamPM.Types.AutonomicTransitionVerification.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_transition_verification, :minimal) do
+    BeamPM.Types.AutonomicTransitionVerification.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_upgrade_transition, :full) do
+    BeamPM.Types.AutonomicUpgradeTransition.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    })
+  end
+
+  def sample(:autonomic_upgrade_transition, :minimal) do
+    BeamPM.Types.AutonomicUpgradeTransition.new(%{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
     })
   end
 
