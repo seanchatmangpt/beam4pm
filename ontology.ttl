@@ -9367,3 +9367,33 @@ b4p:uncertainty_observation_standing_f a bpm:Field ;
     bpm:fieldName "standing" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Machine-readable UNKNOWN-compatible standing." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-037 — information_partition_observation
+b4p:information_partition_observation_rt a bpm:RecordType ;
+    bpm:recordName "information_partition_observation" ;
+    bpm:recordDoc "Partitions a state vector by a decision-relevant information key." ;
+    bpm:hasField b4p:information_partition_observation_partition_id_f,
+                 b4p:information_partition_observation_state_vector_id_f,
+                 b4p:information_partition_observation_partition_key_f,
+                 b4p:information_partition_observation_information_digest_f .
+
+b4p:information_partition_observation_partition_id_f a bpm:Field ;
+    bpm:fieldName "partition_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable information partition identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:information_partition_observation_state_vector_id_f a bpm:Field ;
+    bpm:fieldName "state_vector_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Source state-vector identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:information_partition_observation_partition_key_f a bpm:Field ;
+    bpm:fieldName "partition_key" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Decision-relevant partition key." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:information_partition_observation_information_digest_f a bpm:Field ;
+    bpm:fieldName "information_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of partition contents." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
