@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-028 — counterfactual_frontier
+b4p:counterfactual_frontier_rt a bpm:RecordType ;
+    bpm:recordName "counterfactual_frontier" ;
+    bpm:recordDoc "Preserves counterfactual futures for every nondominated option." ;
+    bpm:hasField b4p:counterfactual_frontier_option_set_id_f,
+                 b4p:counterfactual_frontier_world_model_hash_f,
+                 b4p:counterfactual_frontier_frontier_hash_f .
+
+b4p:counterfactual_frontier_option_set_id_f a bpm:Field ;
+    bpm:fieldName "option_set_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required option_set_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:counterfactual_frontier_world_model_hash_f a bpm:Field ;
+    bpm:fieldName "world_model_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required world_model_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:counterfactual_frontier_frontier_hash_f a bpm:Field ;
+    bpm:fieldName "frontier_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required frontier_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
