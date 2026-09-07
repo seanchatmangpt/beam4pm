@@ -8299,3 +8299,15 @@ b4p:autonomic_actuation_selection_actuation_id_f a bpm:Field ; bpm:fieldName "ac
 b4p:autonomic_actuation_selection_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 b4p:autonomic_actuation_selection_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 b4p:autonomic_actuation_selection_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-002 — autonomic_authority_admission
+b4p:autonomic_authority_admission_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_authority_admission" ;
+    bpm:recordDoc "Admits or refuses authority for one consequential transition using an immutable authority receipt." ;
+    bpm:hasField b4p:autonomic_authority_admission_actuation_id_f, b4p:autonomic_authority_admission_subject_sha_f, b4p:autonomic_authority_admission_authority_receipt_sha_f, b4p:autonomic_authority_admission_state_digest_f .
+
+b4p:autonomic_authority_admission_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_authority_admission_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_authority_admission_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_authority_admission_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
