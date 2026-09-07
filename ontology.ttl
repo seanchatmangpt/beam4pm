@@ -9427,3 +9427,33 @@ b4p:decision_compression_observation_loss_bound_f a bpm:Field ;
     bpm:fieldName "loss_bound" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Declared information-loss bound." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-039 — observation_entropy_estimate
+b4p:observation_entropy_estimate_rt a bpm:RecordType ;
+    bpm:recordName "observation_entropy_estimate" ;
+    bpm:recordDoc "Records entropy of a state vector using an explicit estimation method." ;
+    bpm:hasField b4p:observation_entropy_estimate_state_vector_id_f,
+                 b4p:observation_entropy_estimate_entropy_method_f,
+                 b4p:observation_entropy_estimate_entropy_value_f,
+                 b4p:observation_entropy_estimate_observed_at_f .
+
+b4p:observation_entropy_estimate_state_vector_id_f a bpm:Field ;
+    bpm:fieldName "state_vector_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Measured state-vector identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:observation_entropy_estimate_entropy_method_f a bpm:Field ;
+    bpm:fieldName "entropy_method" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Named entropy estimation method." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:observation_entropy_estimate_entropy_value_f a bpm:Field ;
+    bpm:fieldName "entropy_value" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed entropy estimate." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:observation_entropy_estimate_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of entropy estimation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
