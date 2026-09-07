@@ -9157,3 +9157,33 @@ b4p:crown_artifact_pullback_smoke_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-030 — crown_consumer_smoke
+b4p:crown_consumer_smoke_rt a bpm:RecordType ;
+    bpm:recordName "crown_consumer_smoke" ;
+    bpm:recordDoc "Requires a real downstream consumer smoke consequence for the exact propagated crown." ;
+    bpm:hasField b4p:crown_consumer_smoke_propagation_id_f,
+                 b4p:crown_consumer_smoke_subject_sha_f,
+                 b4p:crown_consumer_smoke_consumer_smoke_digest_f,
+                 b4p:crown_consumer_smoke_receipt_digest_f .
+
+b4p:crown_consumer_smoke_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_consumer_smoke_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_consumer_smoke_consumer_smoke_digest_f a bpm:Field ;
+    bpm:fieldName "consumer_smoke_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact-consumer smoke receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_consumer_smoke_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
