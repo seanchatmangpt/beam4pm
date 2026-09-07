@@ -8347,3 +8347,33 @@ b4p:repository_exact_head_observation_previous_head_sha_f a bpm:Field ;
     bpm:fieldName "previous_head_sha" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Previously admitted head used to detect change." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-003 — repository_ancestry_observation
+b4p:repository_ancestry_observation_rt a bpm:RecordType ;
+    bpm:recordName "repository_ancestry_observation" ;
+    bpm:recordDoc "Records mechanically observed ancestry between repository commits so containment never requires human reconstruction." ;
+    bpm:hasField b4p:repository_ancestry_observation_ancestor_sha_f,
+                 b4p:repository_ancestry_observation_descendant_sha_f,
+                 b4p:repository_ancestry_observation_relation_f,
+                 b4p:repository_ancestry_observation_evidence_digest_f .
+
+b4p:repository_ancestry_observation_ancestor_sha_f a bpm:Field ;
+    bpm:fieldName "ancestor_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate ancestor commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:repository_ancestry_observation_descendant_sha_f a bpm:Field ;
+    bpm:fieldName "descendant_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate descendant commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:repository_ancestry_observation_relation_f a bpm:Field ;
+    bpm:fieldName "relation" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed ancestry relation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:repository_ancestry_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the mechanical ancestry evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
