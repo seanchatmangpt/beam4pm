@@ -8917,3 +8917,33 @@ b4p:manufacture_receipt_validity_observation_verifier_identity_f a bpm:Field ;
     bpm:fieldName "verifier_identity" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Exact verifier implementation identity." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-022 — second_pass_byte_identity_observation
+b4p:second_pass_byte_identity_observation_rt a bpm:RecordType ;
+    bpm:recordName "second_pass_byte_identity_observation" ;
+    bpm:recordDoc "Proves the second manufacture pass produced byte-identical owned outputs." ;
+    bpm:hasField b4p:second_pass_byte_identity_observation_first_tree_digest_f,
+                 b4p:second_pass_byte_identity_observation_second_tree_digest_f,
+                 b4p:second_pass_byte_identity_observation_byte_identity_f,
+                 b4p:second_pass_byte_identity_observation_receipt_digest_f .
+
+b4p:second_pass_byte_identity_observation_first_tree_digest_f a bpm:Field ;
+    bpm:fieldName "first_tree_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest after first manufacture pass." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:second_pass_byte_identity_observation_second_tree_digest_f a bpm:Field ;
+    bpm:fieldName "second_tree_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest after second manufacture pass." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:second_pass_byte_identity_observation_byte_identity_f a bpm:Field ;
+    bpm:fieldName "byte_identity" ; bpm:fieldType "boolean" ;
+    bpm:fieldDoc "Whether the output trees are byte-identical." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:second_pass_byte_identity_observation_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Receipt binding the replay result." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
