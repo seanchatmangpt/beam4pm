@@ -8371,3 +8371,15 @@ b4p:autonomic_actuation_replay_actuation_id_f a bpm:Field ; bpm:fieldName "actua
 b4p:autonomic_actuation_replay_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 b4p:autonomic_actuation_replay_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 b4p:autonomic_actuation_replay_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-008 — autonomic_subject_compare_and_swap
+b4p:autonomic_subject_compare_and_swap_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_subject_compare_and_swap" ;
+    bpm:recordDoc "Refuses an actuation unless the observed subject SHA equals the admitted expected SHA." ;
+    bpm:hasField b4p:autonomic_subject_compare_and_swap_actuation_id_f, b4p:autonomic_subject_compare_and_swap_subject_sha_f, b4p:autonomic_subject_compare_and_swap_authority_receipt_sha_f, b4p:autonomic_subject_compare_and_swap_state_digest_f .
+
+b4p:autonomic_subject_compare_and_swap_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_subject_compare_and_swap_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_subject_compare_and_swap_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_subject_compare_and_swap_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
