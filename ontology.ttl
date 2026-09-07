@@ -8587,3 +8587,33 @@ b4p:workflow_run_state_observation_conclusion_f a bpm:Field ;
     bpm:fieldName "conclusion" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Observed terminal run conclusion." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-011 — workflow_job_state_observation
+b4p:workflow_job_state_observation_rt a bpm:RecordType ;
+    bpm:recordName "workflow_job_state_observation" ;
+    bpm:recordDoc "Observes a workflow job, runner identity, and conclusion inside an exact run." ;
+    bpm:hasField b4p:workflow_job_state_observation_job_id_f,
+                 b4p:workflow_job_state_observation_run_id_f,
+                 b4p:workflow_job_state_observation_runner_identity_f,
+                 b4p:workflow_job_state_observation_conclusion_f .
+
+b4p:workflow_job_state_observation_job_id_f a bpm:Field ;
+    bpm:fieldName "job_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable workflow-job identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:workflow_job_state_observation_run_id_f a bpm:Field ;
+    bpm:fieldName "run_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Owning workflow-run identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:workflow_job_state_observation_runner_identity_f a bpm:Field ;
+    bpm:fieldName "runner_identity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed runner or capsule identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:workflow_job_state_observation_conclusion_f a bpm:Field ;
+    bpm:fieldName "conclusion" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed terminal job conclusion." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
