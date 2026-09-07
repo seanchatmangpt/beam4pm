@@ -9097,3 +9097,33 @@ b4p:observation_deduplication_decision_decision_f a bpm:Field ;
     bpm:fieldName "decision" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Machine-readable deduplication decision." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-028 — observation_freshness_assessment
+b4p:observation_freshness_assessment_rt a bpm:RecordType ;
+    bpm:recordName "observation_freshness_assessment" ;
+    bpm:recordDoc "Evaluates an observation against an explicit freshness deadline." ;
+    bpm:hasField b4p:observation_freshness_assessment_observation_id_f,
+                 b4p:observation_freshness_assessment_observed_at_f,
+                 b4p:observation_freshness_assessment_freshness_deadline_f,
+                 b4p:observation_freshness_assessment_freshness_status_f .
+
+b4p:observation_freshness_assessment_observation_id_f a bpm:Field ;
+    bpm:fieldName "observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable observation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:observation_freshness_assessment_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Time observation was produced." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:observation_freshness_assessment_freshness_deadline_f a bpm:Field ;
+    bpm:fieldName "freshness_deadline" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Latest acceptable observation time." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:observation_freshness_assessment_freshness_status_f a bpm:Field ;
+    bpm:fieldName "freshness_status" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Machine-readable freshness standing." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
