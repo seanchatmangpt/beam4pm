@@ -9547,3 +9547,33 @@ b4p:semantic_drift_observation_drift_class_f a bpm:Field ;
     bpm:fieldName "drift_class" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Machine-readable semantic drift class." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-043 — changed_surface_inference
+b4p:changed_surface_inference_rt a bpm:RecordType ;
+    bpm:recordName "changed_surface_inference" ;
+    bpm:recordDoc "Infers the exact changed surface between two repository trees." ;
+    bpm:hasField b4p:changed_surface_inference_prior_tree_sha_f,
+                 b4p:changed_surface_inference_current_tree_sha_f,
+                 b4p:changed_surface_inference_changed_surface_digest_f,
+                 b4p:changed_surface_inference_inference_status_f .
+
+b4p:changed_surface_inference_prior_tree_sha_f a bpm:Field ;
+    bpm:fieldName "prior_tree_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Prior repository tree identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:changed_surface_inference_current_tree_sha_f a bpm:Field ;
+    bpm:fieldName "current_tree_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Current repository tree identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:changed_surface_inference_changed_surface_digest_f a bpm:Field ;
+    bpm:fieldName "changed_surface_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of normalized changed paths." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:changed_surface_inference_inference_status_f a bpm:Field ;
+    bpm:fieldName "inference_status" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Machine-readable inference standing." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
