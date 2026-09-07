@@ -8797,3 +8797,33 @@ b4p:crown_lock_reconciliation_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-018 — crown_gitlink_reconciliation
+b4p:crown_gitlink_reconciliation_rt a bpm:RecordType ;
+    bpm:recordName "crown_gitlink_reconciliation" ;
+    bpm:recordDoc "Reconciles a consumer gitlink to the exact admitted dependency commit." ;
+    bpm:hasField b4p:crown_gitlink_reconciliation_propagation_id_f,
+                 b4p:crown_gitlink_reconciliation_subject_sha_f,
+                 b4p:crown_gitlink_reconciliation_gitlink_commit_sha_f,
+                 b4p:crown_gitlink_reconciliation_receipt_digest_f .
+
+b4p:crown_gitlink_reconciliation_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_gitlink_reconciliation_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_gitlink_reconciliation_gitlink_commit_sha_f a bpm:Field ;
+    bpm:fieldName "gitlink_commit_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact submodule gitlink commit SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_gitlink_reconciliation_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
