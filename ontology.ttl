@@ -8707,3 +8707,33 @@ b4p:package_release_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of package observation." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-015 — container_manifest_digest_observation
+b4p:container_manifest_digest_observation_rt a bpm:RecordType ;
+    bpm:recordName "container_manifest_digest_observation" ;
+    bpm:recordDoc "Resolves a mutable container tag to an immutable multi-platform manifest digest." ;
+    bpm:hasField b4p:container_manifest_digest_observation_image_repository_f,
+                 b4p:container_manifest_digest_observation_tag_f,
+                 b4p:container_manifest_digest_observation_index_digest_f,
+                 b4p:container_manifest_digest_observation_observed_at_f .
+
+b4p:container_manifest_digest_observation_image_repository_f a bpm:Field ;
+    bpm:fieldName "image_repository" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Container repository identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:container_manifest_digest_observation_tag_f a bpm:Field ;
+    bpm:fieldName "tag" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed mutable tag." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:container_manifest_digest_observation_index_digest_f a bpm:Field ;
+    bpm:fieldName "index_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Resolved immutable manifest-index digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:container_manifest_digest_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of registry resolution." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
