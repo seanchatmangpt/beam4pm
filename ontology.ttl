@@ -8437,3 +8437,33 @@ b4p:crown_second_pass_identity_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-006 — crown_default_head_sensor
+b4p:crown_default_head_sensor_rt a bpm:RecordType ;
+    bpm:recordName "crown_default_head_sensor" ;
+    bpm:recordDoc "Observes the exact downstream default-branch head before selecting a reconciliation candidate." ;
+    bpm:hasField b4p:crown_default_head_sensor_propagation_id_f,
+                 b4p:crown_default_head_sensor_subject_sha_f,
+                 b4p:crown_default_head_sensor_default_head_sha_f,
+                 b4p:crown_default_head_sensor_receipt_digest_f .
+
+b4p:crown_default_head_sensor_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_default_head_sensor_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_default_head_sensor_default_head_sha_f a bpm:Field ;
+    bpm:fieldName "default_head_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed immutable default-branch head SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_default_head_sensor_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
