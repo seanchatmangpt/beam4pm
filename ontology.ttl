@@ -9397,3 +9397,33 @@ b4p:information_partition_observation_information_digest_f a bpm:Field ;
     bpm:fieldName "information_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of partition contents." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-038 — decision_compression_observation
+b4p:decision_compression_observation_rt a bpm:RecordType ;
+    bpm:recordName "decision_compression_observation" ;
+    bpm:recordDoc "Compresses high-dimensional state into a bounded actionable delta with loss bound." ;
+    bpm:hasField b4p:decision_compression_observation_compression_id_f,
+                 b4p:decision_compression_observation_input_state_digest_f,
+                 b4p:decision_compression_observation_output_delta_digest_f,
+                 b4p:decision_compression_observation_loss_bound_f .
+
+b4p:decision_compression_observation_compression_id_f a bpm:Field ;
+    bpm:fieldName "compression_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable compression operation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:decision_compression_observation_input_state_digest_f a bpm:Field ;
+    bpm:fieldName "input_state_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of high-dimensional input state." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:decision_compression_observation_output_delta_digest_f a bpm:Field ;
+    bpm:fieldName "output_delta_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of compressed delta." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:decision_compression_observation_loss_bound_f a bpm:Field ;
+    bpm:fieldName "loss_bound" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Declared information-loss bound." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
