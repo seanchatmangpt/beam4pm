@@ -8287,3 +8287,506 @@ b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f a bpm:Field ;
     bpm:fieldName "outcome_receipt_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS2 autonomic planner league — manufactured canonical contracts
+
+# WS2-PLAN-001 — exact_subject_binding
+b4p:exact_subject_binding_rt a bpm:RecordType ;
+    bpm:recordName "exact_subject_binding" ;
+    bpm:recordDoc "Binds every plan to one immutable repository/ref/SHA subject." ;
+    bpm:hasField b4p:exact_subject_binding_subject_id_f, b4p:exact_subject_binding_subject_sha_f, b4p:exact_subject_binding_binding_hash_f .
+
+b4p:exact_subject_binding_subject_id_f a bpm:Field ; bpm:fieldName "subject_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required subject_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:exact_subject_binding_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Required subject_sha for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:exact_subject_binding_binding_hash_f a bpm:Field ; bpm:fieldName "binding_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required binding_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-002 — caller_local_consumer
+b4p:caller_local_consumer_rt a bpm:RecordType ;
+    bpm:recordName "caller_local_consumer" ;
+    bpm:recordDoc "Preserves each caller-local consumer as an independently planned exact subject." ;
+    bpm:hasField b4p:caller_local_consumer_consumer_id_f, b4p:caller_local_consumer_subject_sha_f, b4p:caller_local_consumer_consumer_hash_f .
+
+b4p:caller_local_consumer_consumer_id_f a bpm:Field ; bpm:fieldName "consumer_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required consumer_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:caller_local_consumer_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Required subject_sha for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:caller_local_consumer_consumer_hash_f a bpm:Field ; bpm:fieldName "consumer_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required consumer_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-003 — consumer_equivalence_proof
+b4p:consumer_equivalence_proof_rt a bpm:RecordType ;
+    bpm:recordName "consumer_equivalence_proof" ;
+    bpm:recordDoc "Admits central-surrogate planning only after explicit consumer-equivalence proof." ;
+    bpm:hasField b4p:consumer_equivalence_proof_consumer_set_id_f, b4p:consumer_equivalence_proof_equivalence_proof_hash_f, b4p:consumer_equivalence_proof_standing_f .
+
+b4p:consumer_equivalence_proof_consumer_set_id_f a bpm:Field ; bpm:fieldName "consumer_set_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required consumer_set_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:consumer_equivalence_proof_equivalence_proof_hash_f a bpm:Field ; bpm:fieldName "equivalence_proof_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required equivalence_proof_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:consumer_equivalence_proof_standing_f a bpm:Field ; bpm:fieldName "standing" ; bpm:fieldType "string" ; bpm:fieldDoc "Required standing preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-004 — immutable_pack_selection
+b4p:immutable_pack_selection_rt a bpm:RecordType ;
+    bpm:recordName "immutable_pack_selection" ;
+    bpm:recordDoc "Selects a marketplace pack only by exact immutable commit SHA." ;
+    bpm:hasField b4p:immutable_pack_selection_pack_id_f, b4p:immutable_pack_selection_pack_sha_f, b4p:immutable_pack_selection_selection_hash_f .
+
+b4p:immutable_pack_selection_pack_id_f a bpm:Field ; bpm:fieldName "pack_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required pack_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:immutable_pack_selection_pack_sha_f a bpm:Field ; bpm:fieldName "pack_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Required pack_sha for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:immutable_pack_selection_selection_hash_f a bpm:Field ; bpm:fieldName "selection_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required selection_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-005 — capsule_availability
+b4p:capsule_availability_rt a bpm:RecordType ;
+    bpm:recordName "capsule_availability" ;
+    bpm:recordDoc "Records whether the exact validation capsule is available before qualification." ;
+    bpm:hasField b4p:capsule_availability_capsule_id_f, b4p:capsule_availability_capsule_digest_f, b4p:capsule_availability_availability_f .
+
+b4p:capsule_availability_capsule_id_f a bpm:Field ; bpm:fieldName "capsule_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required capsule_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:capsule_availability_capsule_digest_f a bpm:Field ; bpm:fieldName "capsule_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Required capsule_digest for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:capsule_availability_availability_f a bpm:Field ; bpm:fieldName "availability" ; bpm:fieldType "string" ; bpm:fieldDoc "Required availability preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-006 — generated_source_route
+b4p:generated_source_route_rt a bpm:RecordType ;
+    bpm:recordName "generated_source_route" ;
+    bpm:recordDoc "Routes generated-projection defects to canonical semantic source or an independent rail." ;
+    bpm:hasField b4p:generated_source_route_projection_id_f, b4p:generated_source_route_source_coordinate_f, b4p:generated_source_route_route_f .
+
+b4p:generated_source_route_projection_id_f a bpm:Field ; bpm:fieldName "projection_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required projection_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:generated_source_route_source_coordinate_f a bpm:Field ; bpm:fieldName "source_coordinate" ; bpm:fieldType "string" ; bpm:fieldDoc "Required source_coordinate for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:generated_source_route_route_f a bpm:Field ; bpm:fieldName "route" ; bpm:fieldType "string" ; bpm:fieldDoc "Required route preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-007 — output_ownership_gate
+b4p:output_ownership_gate_rt a bpm:RecordType ;
+    bpm:recordName "output_ownership_gate" ;
+    bpm:recordDoc "Refuses manufacture promotion until every output path has admitted ownership." ;
+    bpm:hasField b4p:output_ownership_gate_subject_id_f, b4p:output_ownership_gate_ownership_manifest_hash_f, b4p:output_ownership_gate_standing_f .
+
+b4p:output_ownership_gate_subject_id_f a bpm:Field ; bpm:fieldName "subject_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required subject_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:output_ownership_gate_ownership_manifest_hash_f a bpm:Field ; bpm:fieldName "ownership_manifest_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required ownership_manifest_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:output_ownership_gate_standing_f a bpm:Field ; bpm:fieldName "standing" ; bpm:fieldType "string" ; bpm:fieldDoc "Required standing preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-008 — receipt_required_gate
+b4p:receipt_required_gate_rt a bpm:RecordType ;
+    bpm:recordName "receipt_required_gate" ;
+    bpm:recordDoc "Prevents any actuation candidate from becoming selectable without a verifiable receipt plan." ;
+    bpm:hasField b4p:receipt_required_gate_action_id_f, b4p:receipt_required_gate_receipt_contract_id_f, b4p:receipt_required_gate_standing_f .
+
+b4p:receipt_required_gate_action_id_f a bpm:Field ; bpm:fieldName "action_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required action_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:receipt_required_gate_receipt_contract_id_f a bpm:Field ; bpm:fieldName "receipt_contract_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required receipt_contract_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:receipt_required_gate_standing_f a bpm:Field ; bpm:fieldName "standing" ; bpm:fieldType "string" ; bpm:fieldDoc "Required standing preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-009 — second_run_identity_objective
+b4p:second_run_identity_objective_rt a bpm:RecordType ;
+    bpm:recordName "second_run_identity_objective" ;
+    bpm:recordDoc "Makes byte-identical second manufacture a first-class planning objective." ;
+    bpm:hasField b4p:second_run_identity_objective_subject_id_f, b4p:second_run_identity_objective_first_tree_hash_f, b4p:second_run_identity_objective_second_tree_hash_f .
+
+b4p:second_run_identity_objective_subject_id_f a bpm:Field ; bpm:fieldName "subject_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required subject_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:second_run_identity_objective_first_tree_hash_f a bpm:Field ; bpm:fieldName "first_tree_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required first_tree_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:second_run_identity_objective_second_tree_hash_f a bpm:Field ; bpm:fieldName "second_tree_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required second_tree_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-010 — planner_identity
+b4p:planner_identity_rt a bpm:RecordType ;
+    bpm:recordName "planner_identity" ;
+    bpm:recordDoc "Separates planner identity from policy, role, agent, and authority identities." ;
+    bpm:hasField b4p:planner_identity_planner_id_f, b4p:planner_identity_planner_kind_f, b4p:planner_identity_identity_hash_f .
+
+b4p:planner_identity_planner_id_f a bpm:Field ; bpm:fieldName "planner_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required planner_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:planner_identity_planner_kind_f a bpm:Field ; bpm:fieldName "planner_kind" ; bpm:fieldType "string" ; bpm:fieldDoc "Required planner_kind for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:planner_identity_identity_hash_f a bpm:Field ; bpm:fieldName "identity_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required identity_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-011 — policy_binding
+b4p:policy_binding_rt a bpm:RecordType ;
+    bpm:recordName "policy_binding" ;
+    bpm:recordDoc "Binds one planner to parameters, objective, observations, and action projection." ;
+    bpm:hasField b4p:policy_binding_policy_id_f, b4p:policy_binding_planner_id_f, b4p:policy_binding_policy_hash_f .
+
+b4p:policy_binding_policy_id_f a bpm:Field ; bpm:fieldName "policy_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required policy_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:policy_binding_planner_id_f a bpm:Field ; bpm:fieldName "planner_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required planner_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:policy_binding_policy_hash_f a bpm:Field ; bpm:fieldName "policy_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required policy_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-012 — role_compatibility
+b4p:role_compatibility_rt a bpm:RecordType ;
+    bpm:recordName "role_compatibility" ;
+    bpm:recordDoc "Evaluates whether a policy is lawful for an assigned role in the current world." ;
+    bpm:hasField b4p:role_compatibility_role_id_f, b4p:role_compatibility_policy_id_f, b4p:role_compatibility_compatibility_f .
+
+b4p:role_compatibility_role_id_f a bpm:Field ; bpm:fieldName "role_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required role_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:role_compatibility_policy_id_f a bpm:Field ; bpm:fieldName "policy_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required policy_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:role_compatibility_compatibility_f a bpm:Field ; bpm:fieldName "compatibility" ; bpm:fieldType "string" ; bpm:fieldDoc "Required compatibility preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-013 — agent_assignment
+b4p:agent_assignment_rt a bpm:RecordType ;
+    bpm:recordName "agent_assignment" ;
+    bpm:recordDoc "Assigns an admitted policy to an agent without transferring authority." ;
+    bpm:hasField b4p:agent_assignment_agent_id_f, b4p:agent_assignment_policy_id_f, b4p:agent_assignment_assignment_hash_f .
+
+b4p:agent_assignment_agent_id_f a bpm:Field ; bpm:fieldName "agent_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required agent_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:agent_assignment_policy_id_f a bpm:Field ; bpm:fieldName "policy_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required policy_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:agent_assignment_assignment_hash_f a bpm:Field ; bpm:fieldName "assignment_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required assignment_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-014 — authority_ceiling
+b4p:authority_ceiling_rt a bpm:RecordType ;
+    bpm:recordName "authority_ceiling" ;
+    bpm:recordDoc "Caps every candidate action at the exact authority grant available to its subject." ;
+    bpm:hasField b4p:authority_ceiling_action_id_f, b4p:authority_ceiling_grant_id_f, b4p:authority_ceiling_ceiling_f .
+
+b4p:authority_ceiling_action_id_f a bpm:Field ; bpm:fieldName "action_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required action_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:authority_ceiling_grant_id_f a bpm:Field ; bpm:fieldName "grant_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required grant_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:authority_ceiling_ceiling_f a bpm:Field ; bpm:fieldName "ceiling" ; bpm:fieldType "string" ; bpm:fieldDoc "Required ceiling preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-015 — planner_portfolio
+b4p:planner_portfolio_rt a bpm:RecordType ;
+    bpm:recordName "planner_portfolio" ;
+    bpm:recordDoc "Preserves a diverse set of planners for one bounded planning episode." ;
+    bpm:hasField b4p:planner_portfolio_portfolio_id_f, b4p:planner_portfolio_planner_ids_f, b4p:planner_portfolio_diversity_hash_f .
+
+b4p:planner_portfolio_portfolio_id_f a bpm:Field ; bpm:fieldName "portfolio_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required portfolio_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:planner_portfolio_planner_ids_f a bpm:Field ; bpm:fieldName "planner_ids" ; bpm:fieldType "string" ; bpm:fieldDoc "Required planner_ids for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:planner_portfolio_diversity_hash_f a bpm:Field ; bpm:fieldName "diversity_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required diversity_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-016 — planner_capability_profile
+b4p:planner_capability_profile_rt a bpm:RecordType ;
+    bpm:recordName "planner_capability_profile" ;
+    bpm:recordDoc "Declares the problem features and guarantees supported by one planner." ;
+    bpm:hasField b4p:planner_capability_profile_planner_id_f, b4p:planner_capability_profile_capability_set_f, b4p:planner_capability_profile_profile_hash_f .
+
+b4p:planner_capability_profile_planner_id_f a bpm:Field ; bpm:fieldName "planner_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required planner_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:planner_capability_profile_capability_set_f a bpm:Field ; bpm:fieldName "capability_set" ; bpm:fieldType "string" ; bpm:fieldDoc "Required capability_set for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:planner_capability_profile_profile_hash_f a bpm:Field ; bpm:fieldName "profile_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required profile_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-017 — meta_router
+b4p:meta_router_rt a bpm:RecordType ;
+    bpm:recordName "meta_router" ;
+    bpm:recordDoc "Selects a planner from a portfolio using observed problem characteristics." ;
+    bpm:hasField b4p:meta_router_portfolio_id_f, b4p:meta_router_observation_hash_f, b4p:meta_router_selected_planner_id_f .
+
+b4p:meta_router_portfolio_id_f a bpm:Field ; bpm:fieldName "portfolio_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required portfolio_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:meta_router_observation_hash_f a bpm:Field ; bpm:fieldName "observation_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required observation_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:meta_router_selected_planner_id_f a bpm:Field ; bpm:fieldName "selected_planner_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required selected_planner_id preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-018 — psro_population
+b4p:psro_population_rt a bpm:RecordType ;
+    bpm:recordName "psro_population" ;
+    bpm:recordDoc "Maintains a population of policies and response oracles for meta-routing." ;
+    bpm:hasField b4p:psro_population_population_id_f, b4p:psro_population_policy_ids_f, b4p:psro_population_population_hash_f .
+
+b4p:psro_population_population_id_f a bpm:Field ; bpm:fieldName "population_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required population_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:psro_population_policy_ids_f a bpm:Field ; bpm:fieldName "policy_ids" ; bpm:fieldType "string" ; bpm:fieldDoc "Required policy_ids for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:psro_population_population_hash_f a bpm:Field ; bpm:fieldName "population_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required population_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-019 — astar_plan_candidate
+b4p:astar_plan_candidate_rt a bpm:RecordType ;
+    bpm:recordName "astar_plan_candidate" ;
+    bpm:recordDoc "Represents an A-star plan with admissible heuristic and exact state lineage." ;
+    bpm:hasField b4p:astar_plan_candidate_plan_id_f, b4p:astar_plan_candidate_heuristic_id_f, b4p:astar_plan_candidate_path_hash_f .
+
+b4p:astar_plan_candidate_plan_id_f a bpm:Field ; bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required plan_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:astar_plan_candidate_heuristic_id_f a bpm:Field ; bpm:fieldName "heuristic_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required heuristic_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:astar_plan_candidate_path_hash_f a bpm:Field ; bpm:fieldName "path_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required path_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-020 — mcts_plan_candidate
+b4p:mcts_plan_candidate_rt a bpm:RecordType ;
+    bpm:recordName "mcts_plan_candidate" ;
+    bpm:recordDoc "Represents a seeded Monte Carlo tree-search plan and its rollout evidence." ;
+    bpm:hasField b4p:mcts_plan_candidate_plan_id_f, b4p:mcts_plan_candidate_seed_f, b4p:mcts_plan_candidate_rollout_hash_f .
+
+b4p:mcts_plan_candidate_plan_id_f a bpm:Field ; bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required plan_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:mcts_plan_candidate_seed_f a bpm:Field ; bpm:fieldName "seed" ; bpm:fieldType "string" ; bpm:fieldDoc "Required seed for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:mcts_plan_candidate_rollout_hash_f a bpm:Field ; bpm:fieldName "rollout_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required rollout_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-021 — beam_search_candidate
+b4p:beam_search_candidate_rt a bpm:RecordType ;
+    bpm:recordName "beam_search_candidate" ;
+    bpm:recordDoc "Represents a bounded beam-search plan with explicit width and frontier." ;
+    bpm:hasField b4p:beam_search_candidate_plan_id_f, b4p:beam_search_candidate_beam_width_f, b4p:beam_search_candidate_frontier_hash_f .
+
+b4p:beam_search_candidate_plan_id_f a bpm:Field ; bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required plan_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:beam_search_candidate_beam_width_f a bpm:Field ; bpm:fieldName "beam_width" ; bpm:fieldType "string" ; bpm:fieldDoc "Required beam_width for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:beam_search_candidate_frontier_hash_f a bpm:Field ; bpm:fieldName "frontier_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required frontier_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-022 — optimization_plan_candidate
+b4p:optimization_plan_candidate_rt a bpm:RecordType ;
+    bpm:recordName "optimization_plan_candidate" ;
+    bpm:recordDoc "Represents an optimization-derived plan with objective and solver receipt." ;
+    bpm:hasField b4p:optimization_plan_candidate_plan_id_f, b4p:optimization_plan_candidate_objective_id_f, b4p:optimization_plan_candidate_solver_receipt_hash_f .
+
+b4p:optimization_plan_candidate_plan_id_f a bpm:Field ; bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required plan_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:optimization_plan_candidate_objective_id_f a bpm:Field ; bpm:fieldName "objective_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required objective_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:optimization_plan_candidate_solver_receipt_hash_f a bpm:Field ; bpm:fieldName "solver_receipt_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required solver_receipt_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-023 — ppddl_projection
+b4p:ppddl_projection_rt a bpm:RecordType ;
+    bpm:recordName "ppddl_projection" ;
+    bpm:recordDoc "Binds a plan candidate to an exact PPDDL problem/domain projection." ;
+    bpm:hasField b4p:ppddl_projection_plan_id_f, b4p:ppddl_projection_domain_hash_f, b4p:ppddl_projection_problem_hash_f .
+
+b4p:ppddl_projection_plan_id_f a bpm:Field ; bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required plan_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:ppddl_projection_domain_hash_f a bpm:Field ; bpm:fieldName "domain_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required domain_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:ppddl_projection_problem_hash_f a bpm:Field ; bpm:fieldName "problem_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required problem_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-024 — powl_projection
+b4p:powl_projection_rt a bpm:RecordType ;
+    bpm:recordName "powl_projection" ;
+    bpm:recordDoc "Binds a plan candidate to an exact POWL process-plan projection." ;
+    bpm:hasField b4p:powl_projection_plan_id_f, b4p:powl_projection_powl_hash_f, b4p:powl_projection_projection_receipt_hash_f .
+
+b4p:powl_projection_plan_id_f a bpm:Field ; bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required plan_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:powl_projection_powl_hash_f a bpm:Field ; bpm:fieldName "powl_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required powl_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:powl_projection_projection_receipt_hash_f a bpm:Field ; bpm:fieldName "projection_receipt_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required projection_receipt_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-025 — dependency_dag
+b4p:dependency_dag_rt a bpm:RecordType ;
+    bpm:recordName "dependency_dag" ;
+    bpm:recordDoc "Represents action dependencies as an acyclic exact-subject graph." ;
+    bpm:hasField b4p:dependency_dag_dag_id_f, b4p:dependency_dag_node_set_hash_f, b4p:dependency_dag_edge_set_hash_f .
+
+b4p:dependency_dag_dag_id_f a bpm:Field ; bpm:fieldName "dag_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required dag_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:dependency_dag_node_set_hash_f a bpm:Field ; bpm:fieldName "node_set_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required node_set_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:dependency_dag_edge_set_hash_f a bpm:Field ; bpm:fieldName "edge_set_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required edge_set_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-026 — admissible_action_set
+b4p:admissible_action_set_rt a bpm:RecordType ;
+    bpm:recordName "admissible_action_set" ;
+    bpm:recordDoc "Computes all actions currently permitted by state, constraints, and authority." ;
+    bpm:hasField b4p:admissible_action_set_state_id_f, b4p:admissible_action_set_constraint_hash_f, b4p:admissible_action_set_action_set_hash_f .
+
+b4p:admissible_action_set_state_id_f a bpm:Field ; bpm:fieldName "state_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required state_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:admissible_action_set_constraint_hash_f a bpm:Field ; bpm:fieldName "constraint_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required constraint_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:admissible_action_set_action_set_hash_f a bpm:Field ; bpm:fieldName "action_set_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required action_set_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-027 — option_generation
+b4p:option_generation_rt a bpm:RecordType ;
+    bpm:recordName "option_generation" ;
+    bpm:recordDoc "Generates a reversible DfCM option set without premature selection." ;
+    bpm:hasField b4p:option_generation_state_id_f, b4p:option_generation_generator_id_f, b4p:option_generation_option_set_hash_f .
+
+b4p:option_generation_state_id_f a bpm:Field ; bpm:fieldName "state_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required state_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:option_generation_generator_id_f a bpm:Field ; bpm:fieldName "generator_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required generator_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:option_generation_option_set_hash_f a bpm:Field ; bpm:fieldName "option_set_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required option_set_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-028 — counterfactual_frontier
+b4p:counterfactual_frontier_rt a bpm:RecordType ;
+    bpm:recordName "counterfactual_frontier" ;
+    bpm:recordDoc "Preserves counterfactual futures for every nondominated option." ;
+    bpm:hasField b4p:counterfactual_frontier_option_set_id_f, b4p:counterfactual_frontier_world_model_hash_f, b4p:counterfactual_frontier_frontier_hash_f .
+
+b4p:counterfactual_frontier_option_set_id_f a bpm:Field ; bpm:fieldName "option_set_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required option_set_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:counterfactual_frontier_world_model_hash_f a bpm:Field ; bpm:fieldName "world_model_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required world_model_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:counterfactual_frontier_frontier_hash_f a bpm:Field ; bpm:fieldName "frontier_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required frontier_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-029 — pareto_filter
+b4p:pareto_filter_rt a bpm:RecordType ;
+    bpm:recordName "pareto_filter" ;
+    bpm:recordDoc "Removes strictly dominated options while preserving incomparable alternatives." ;
+    bpm:hasField b4p:pareto_filter_option_set_id_f, b4p:pareto_filter_objective_set_hash_f, b4p:pareto_filter_pareto_set_hash_f .
+
+b4p:pareto_filter_option_set_id_f a bpm:Field ; bpm:fieldName "option_set_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required option_set_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:pareto_filter_objective_set_hash_f a bpm:Field ; bpm:fieldName "objective_set_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required objective_set_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:pareto_filter_pareto_set_hash_f a bpm:Field ; bpm:fieldName "pareto_set_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required pareto_set_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-030 — dominance_witness
+b4p:dominance_witness_rt a bpm:RecordType ;
+    bpm:recordName "dominance_witness" ;
+    bpm:recordDoc "Records the exact objective evidence proving one option dominates another." ;
+    bpm:hasField b4p:dominance_witness_dominant_option_id_f, b4p:dominance_witness_dominated_option_id_f, b4p:dominance_witness_witness_hash_f .
+
+b4p:dominance_witness_dominant_option_id_f a bpm:Field ; bpm:fieldName "dominant_option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required dominant_option_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:dominance_witness_dominated_option_id_f a bpm:Field ; bpm:fieldName "dominated_option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required dominated_option_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:dominance_witness_witness_hash_f a bpm:Field ; bpm:fieldName "witness_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required witness_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-031 — cost_of_delay_score
+b4p:cost_of_delay_score_rt a bpm:RecordType ;
+    bpm:recordName "cost_of_delay_score" ;
+    bpm:recordDoc "Scores delay cost for an option without overriding explicit authority." ;
+    bpm:hasField b4p:cost_of_delay_score_option_id_f, b4p:cost_of_delay_score_horizon_f, b4p:cost_of_delay_score_score_f .
+
+b4p:cost_of_delay_score_option_id_f a bpm:Field ; bpm:fieldName "option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required option_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:cost_of_delay_score_horizon_f a bpm:Field ; bpm:fieldName "horizon" ; bpm:fieldType "string" ; bpm:fieldDoc "Required horizon for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:cost_of_delay_score_score_f a bpm:Field ; bpm:fieldName "score" ; bpm:fieldType "string" ; bpm:fieldDoc "Required score preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-032 — value_of_information_score
+b4p:value_of_information_score_rt a bpm:RecordType ;
+    bpm:recordName "value_of_information_score" ;
+    bpm:recordDoc "Scores the expected value of acquiring missing information before selection." ;
+    bpm:hasField b4p:value_of_information_score_option_id_f, b4p:value_of_information_score_observation_id_f, b4p:value_of_information_score_score_f .
+
+b4p:value_of_information_score_option_id_f a bpm:Field ; bpm:fieldName "option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required option_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:value_of_information_score_observation_id_f a bpm:Field ; bpm:fieldName "observation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required observation_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:value_of_information_score_score_f a bpm:Field ; bpm:fieldName "score" ; bpm:fieldType "string" ; bpm:fieldDoc "Required score preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-033 — mutual_information_score
+b4p:mutual_information_score_rt a bpm:RecordType ;
+    bpm:recordName "mutual_information_score" ;
+    bpm:recordDoc "Ranks observations by expected mutual information with decision-relevant state." ;
+    bpm:hasField b4p:mutual_information_score_observation_id_f, b4p:mutual_information_score_target_state_id_f, b4p:mutual_information_score_score_f .
+
+b4p:mutual_information_score_observation_id_f a bpm:Field ; bpm:fieldName "observation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required observation_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:mutual_information_score_target_state_id_f a bpm:Field ; bpm:fieldName "target_state_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required target_state_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:mutual_information_score_score_f a bpm:Field ; bpm:fieldName "score" ; bpm:fieldType "string" ; bpm:fieldDoc "Required score preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-034 — entropy_reduction_score
+b4p:entropy_reduction_score_rt a bpm:RecordType ;
+    bpm:recordName "entropy_reduction_score" ;
+    bpm:recordDoc "Measures expected uncertainty reduction from a bounded observation action." ;
+    bpm:hasField b4p:entropy_reduction_score_action_id_f, b4p:entropy_reduction_score_prior_entropy_f, b4p:entropy_reduction_score_expected_posterior_entropy_f .
+
+b4p:entropy_reduction_score_action_id_f a bpm:Field ; bpm:fieldName "action_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required action_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:entropy_reduction_score_prior_entropy_f a bpm:Field ; bpm:fieldName "prior_entropy" ; bpm:fieldType "string" ; bpm:fieldDoc "Required prior_entropy for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:entropy_reduction_score_expected_posterior_entropy_f a bpm:Field ; bpm:fieldName "expected_posterior_entropy" ; bpm:fieldType "string" ; bpm:fieldDoc "Required expected_posterior_entropy preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-035 — novelty_score
+b4p:novelty_score_rt a bpm:RecordType ;
+    bpm:recordName "novelty_score" ;
+    bpm:recordDoc "Rewards options that expand the lawful reachable capability frontier." ;
+    bpm:hasField b4p:novelty_score_option_id_f, b4p:novelty_score_reference_set_hash_f, b4p:novelty_score_score_f .
+
+b4p:novelty_score_option_id_f a bpm:Field ; bpm:fieldName "option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required option_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:novelty_score_reference_set_hash_f a bpm:Field ; bpm:fieldName "reference_set_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required reference_set_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:novelty_score_score_f a bpm:Field ; bpm:fieldName "score" ; bpm:fieldType "string" ; bpm:fieldDoc "Required score preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-036 — orthogonality_score
+b4p:orthogonality_score_rt a bpm:RecordType ;
+    bpm:recordName "orthogonality_score" ;
+    bpm:recordDoc "Measures semantic independence between candidate work items." ;
+    bpm:hasField b4p:orthogonality_score_left_option_id_f, b4p:orthogonality_score_right_option_id_f, b4p:orthogonality_score_score_f .
+
+b4p:orthogonality_score_left_option_id_f a bpm:Field ; bpm:fieldName "left_option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required left_option_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:orthogonality_score_right_option_id_f a bpm:Field ; bpm:fieldName "right_option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required right_option_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:orthogonality_score_score_f a bpm:Field ; bpm:fieldName "score" ; bpm:fieldType "string" ; bpm:fieldDoc "Required score preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-037 — reachability_analysis
+b4p:reachability_analysis_rt a bpm:RecordType ;
+    bpm:recordName "reachability_analysis" ;
+    bpm:recordDoc "Determines whether an admitted goal remains reachable from current state." ;
+    bpm:hasField b4p:reachability_analysis_state_id_f, b4p:reachability_analysis_goal_id_f, b4p:reachability_analysis_reachability_proof_hash_f .
+
+b4p:reachability_analysis_state_id_f a bpm:Field ; bpm:fieldName "state_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required state_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:reachability_analysis_goal_id_f a bpm:Field ; bpm:fieldName "goal_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required goal_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:reachability_analysis_reachability_proof_hash_f a bpm:Field ; bpm:fieldName "reachability_proof_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required reachability_proof_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-038 — propagation_score
+b4p:propagation_score_rt a bpm:RecordType ;
+    bpm:recordName "propagation_score" ;
+    bpm:recordDoc "Scores downstream consequences across the dependency and capability graph." ;
+    bpm:hasField b4p:propagation_score_option_id_f, b4p:propagation_score_graph_hash_f, b4p:propagation_score_score_f .
+
+b4p:propagation_score_option_id_f a bpm:Field ; bpm:fieldName "option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required option_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:propagation_score_graph_hash_f a bpm:Field ; bpm:fieldName "graph_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required graph_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:propagation_score_score_f a bpm:Field ; bpm:fieldName "score" ; bpm:fieldType "string" ; bpm:fieldDoc "Required score preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-039 — reversibility_weight
+b4p:reversibility_weight_rt a bpm:RecordType ;
+    bpm:recordName "reversibility_weight" ;
+    bpm:recordDoc "Weights reversible actions above irreversible ones until evidence justifies commitment." ;
+    bpm:hasField b4p:reversibility_weight_action_id_f, b4p:reversibility_weight_rollback_id_f, b4p:reversibility_weight_weight_f .
+
+b4p:reversibility_weight_action_id_f a bpm:Field ; bpm:fieldName "action_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required action_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:reversibility_weight_rollback_id_f a bpm:Field ; bpm:fieldName "rollback_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required rollback_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:reversibility_weight_weight_f a bpm:Field ; bpm:fieldName "weight" ; bpm:fieldType "string" ; bpm:fieldDoc "Required weight preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-040 — irreversibility_budget
+b4p:irreversibility_budget_rt a bpm:RecordType ;
+    bpm:recordName "irreversibility_budget" ;
+    bpm:recordDoc "Limits irreversible commitments within one bounded planning episode." ;
+    bpm:hasField b4p:irreversibility_budget_episode_id_f, b4p:irreversibility_budget_budget_f, b4p:irreversibility_budget_consumed_f .
+
+b4p:irreversibility_budget_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required episode_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:irreversibility_budget_budget_f a bpm:Field ; bpm:fieldName "budget" ; bpm:fieldType "string" ; bpm:fieldDoc "Required budget for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:irreversibility_budget_consumed_f a bpm:Field ; bpm:fieldName "consumed" ; bpm:fieldType "string" ; bpm:fieldDoc "Required consumed preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-041 — resource_capacity_plan
+b4p:resource_capacity_plan_rt a bpm:RecordType ;
+    bpm:recordName "resource_capacity_plan" ;
+    bpm:recordDoc "Allocates finite compute, time, and concurrency capacity across lawful options." ;
+    bpm:hasField b4p:resource_capacity_plan_episode_id_f, b4p:resource_capacity_plan_resource_pool_hash_f, b4p:resource_capacity_plan_allocation_hash_f .
+
+b4p:resource_capacity_plan_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required episode_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:resource_capacity_plan_resource_pool_hash_f a bpm:Field ; bpm:fieldName "resource_pool_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required resource_pool_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:resource_capacity_plan_allocation_hash_f a bpm:Field ; bpm:fieldName "allocation_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required allocation_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-042 — wip_limit_gate
+b4p:wip_limit_gate_rt a bpm:RecordType ;
+    bpm:recordName "wip_limit_gate" ;
+    bpm:recordDoc "Refuses selections that would exceed the admitted work-in-process ceiling." ;
+    bpm:hasField b4p:wip_limit_gate_episode_id_f, b4p:wip_limit_gate_wip_limit_f, b4p:wip_limit_gate_standing_f .
+
+b4p:wip_limit_gate_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required episode_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:wip_limit_gate_wip_limit_f a bpm:Field ; bpm:fieldName "wip_limit" ; bpm:fieldType "string" ; bpm:fieldDoc "Required wip_limit for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:wip_limit_gate_standing_f a bpm:Field ; bpm:fieldName "standing" ; bpm:fieldType "string" ; bpm:fieldDoc "Required standing preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-043 — dynamic_replan_trigger
+b4p:dynamic_replan_trigger_rt a bpm:RecordType ;
+    bpm:recordName "dynamic_replan_trigger" ;
+    bpm:recordDoc "Triggers replanning when observed state invalidates a plan assumption." ;
+    bpm:hasField b4p:dynamic_replan_trigger_plan_id_f, b4p:dynamic_replan_trigger_event_id_f, b4p:dynamic_replan_trigger_trigger_hash_f .
+
+b4p:dynamic_replan_trigger_plan_id_f a bpm:Field ; bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required plan_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:dynamic_replan_trigger_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required event_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:dynamic_replan_trigger_trigger_hash_f a bpm:Field ; bpm:fieldName "trigger_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required trigger_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-044 — stale_plan_refusal
+b4p:stale_plan_refusal_rt a bpm:RecordType ;
+    bpm:recordName "stale_plan_refusal" ;
+    bpm:recordDoc "Refuses execution when subject, pack, policy, or world identity has drifted." ;
+    bpm:hasField b4p:stale_plan_refusal_plan_id_f, b4p:stale_plan_refusal_admitted_preimage_hash_f, b4p:stale_plan_refusal_observed_preimage_hash_f .
+
+b4p:stale_plan_refusal_plan_id_f a bpm:Field ; bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required plan_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:stale_plan_refusal_admitted_preimage_hash_f a bpm:Field ; bpm:fieldName "admitted_preimage_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required admitted_preimage_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:stale_plan_refusal_observed_preimage_hash_f a bpm:Field ; bpm:fieldName "observed_preimage_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required observed_preimage_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-045 — event_triggered_planning
+b4p:event_triggered_planning_rt a bpm:RecordType ;
+    bpm:recordName "event_triggered_planning" ;
+    bpm:recordDoc "Creates a bounded planning episode from an admitted world event." ;
+    bpm:hasField b4p:event_triggered_planning_event_id_f, b4p:event_triggered_planning_world_state_hash_f, b4p:event_triggered_planning_episode_id_f .
+
+b4p:event_triggered_planning_event_id_f a bpm:Field ; bpm:fieldName "event_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required event_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:event_triggered_planning_world_state_hash_f a bpm:Field ; bpm:fieldName "world_state_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required world_state_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:event_triggered_planning_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required episode_id preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-046 — plan_memory
+b4p:plan_memory_rt a bpm:RecordType ;
+    bpm:recordName "plan_memory" ;
+    bpm:recordDoc "Stores reusable plan evidence without converting historical success into current authority." ;
+    bpm:hasField b4p:plan_memory_plan_id_f, b4p:plan_memory_evidence_hash_f, b4p:plan_memory_memory_hash_f .
+
+b4p:plan_memory_plan_id_f a bpm:Field ; bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required plan_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:plan_memory_evidence_hash_f a bpm:Field ; bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required evidence_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:plan_memory_memory_hash_f a bpm:Field ; bpm:fieldName "memory_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required memory_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-047 — plan_lineage
+b4p:plan_lineage_rt a bpm:RecordType ;
+    bpm:recordName "plan_lineage" ;
+    bpm:recordDoc "Tracks derivation, repair, and supersession across plan generations." ;
+    bpm:hasField b4p:plan_lineage_plan_id_f, b4p:plan_lineage_parent_plan_id_f, b4p:plan_lineage_lineage_hash_f .
+
+b4p:plan_lineage_plan_id_f a bpm:Field ; bpm:fieldName "plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required plan_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:plan_lineage_parent_plan_id_f a bpm:Field ; bpm:fieldName "parent_plan_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required parent_plan_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:plan_lineage_lineage_hash_f a bpm:Field ; bpm:fieldName "lineage_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required lineage_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-048 — uncertainty_aware_selection
+b4p:uncertainty_aware_selection_rt a bpm:RecordType ;
+    bpm:recordName "uncertainty_aware_selection" ;
+    bpm:recordDoc "Selects only when confidence and downside bounds satisfy explicit values." ;
+    bpm:hasField b4p:uncertainty_aware_selection_option_set_id_f, b4p:uncertainty_aware_selection_uncertainty_model_hash_f, b4p:uncertainty_aware_selection_selected_option_id_f .
+
+b4p:uncertainty_aware_selection_option_set_id_f a bpm:Field ; bpm:fieldName "option_set_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required option_set_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:uncertainty_aware_selection_uncertainty_model_hash_f a bpm:Field ; bpm:fieldName "uncertainty_model_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required uncertainty_model_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:uncertainty_aware_selection_selected_option_id_f a bpm:Field ; bpm:fieldName "selected_option_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required selected_option_id preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-049 — reserve_work_promotion
+b4p:reserve_work_promotion_rt a bpm:RecordType ;
+    bpm:recordName "reserve_work_promotion" ;
+    bpm:recordDoc "Automatically promotes the highest-value lawful reserve when primary work blocks." ;
+    bpm:hasField b4p:reserve_work_promotion_blocked_work_id_f, b4p:reserve_work_promotion_reserve_set_hash_f, b4p:reserve_work_promotion_promoted_work_id_f .
+
+b4p:reserve_work_promotion_blocked_work_id_f a bpm:Field ; bpm:fieldName "blocked_work_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required blocked_work_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:reserve_work_promotion_reserve_set_hash_f a bpm:Field ; bpm:fieldName "reserve_set_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required reserve_set_hash for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:reserve_work_promotion_promoted_work_id_f a bpm:Field ; bpm:fieldName "promoted_work_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required promoted_work_id preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-PLAN-050 — next_lawful_actuation
+b4p:next_lawful_actuation_rt a bpm:RecordType ;
+    bpm:recordName "next_lawful_actuation" ;
+    bpm:recordDoc "Selects the next bounded action from scored admissible options without human micro-scheduling." ;
+    bpm:hasField b4p:next_lawful_actuation_episode_id_f, b4p:next_lawful_actuation_selected_action_id_f, b4p:next_lawful_actuation_selection_receipt_hash_f .
+
+b4p:next_lawful_actuation_episode_id_f a bpm:Field ; bpm:fieldName "episode_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required episode_id for this bounded planner contract." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:next_lawful_actuation_selected_action_id_f a bpm:Field ; bpm:fieldName "selected_action_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Required selected_action_id for deterministic planner evaluation." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:next_lawful_actuation_selection_receipt_hash_f a bpm:Field ; bpm:fieldName "selection_receipt_hash" ; bpm:fieldType "string" ; bpm:fieldDoc "Required selection_receipt_hash preserving evidence and falsifiability." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
