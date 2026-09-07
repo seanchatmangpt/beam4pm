@@ -8377,3 +8377,33 @@ b4p:repository_ancestry_observation_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of the mechanical ancestry evidence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-004 — repository_worktree_state_observation
+b4p:repository_worktree_state_observation_rt a bpm:RecordType ;
+    bpm:recordName "repository_worktree_state_observation" ;
+    bpm:recordDoc "Captures caller-local repository worktree state and dirty-surface cardinality before manufacture." ;
+    bpm:hasField b4p:repository_worktree_state_observation_repository_id_f,
+                 b4p:repository_worktree_state_observation_worktree_hash_f,
+                 b4p:repository_worktree_state_observation_dirty_path_count_f,
+                 b4p:repository_worktree_state_observation_observed_at_f .
+
+b4p:repository_worktree_state_observation_repository_id_f a bpm:Field ;
+    bpm:fieldName "repository_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable repository identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:repository_worktree_state_observation_worktree_hash_f a bpm:Field ;
+    bpm:fieldName "worktree_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of tracked caller-local worktree state." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:repository_worktree_state_observation_dirty_path_count_f a bpm:Field ;
+    bpm:fieldName "dirty_path_count" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Number of changed tracked paths." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:repository_worktree_state_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of worktree observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
