@@ -9667,3 +9667,33 @@ b4p:runtime_health_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp health was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-047 — consequential_state_invalidation
+b4p:consequential_state_invalidation_rt a bpm:RecordType ;
+    bpm:recordName "consequential_state_invalidation" ;
+    bpm:recordDoc "Invalidates affected belief state automatically after a consequential transition." ;
+    bpm:hasField b4p:consequential_state_invalidation_transition_id_f,
+                 b4p:consequential_state_invalidation_affected_state_digest_f,
+                 b4p:consequential_state_invalidation_invalidation_reason_f,
+                 b4p:consequential_state_invalidation_invalidated_at_f .
+
+b4p:consequential_state_invalidation_transition_id_f a bpm:Field ;
+    bpm:fieldName "transition_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Consequential transition identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:consequential_state_invalidation_affected_state_digest_f a bpm:Field ;
+    bpm:fieldName "affected_state_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of state invalidated by transition." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:consequential_state_invalidation_invalidation_reason_f a bpm:Field ;
+    bpm:fieldName "invalidation_reason" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed invalidation reason." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:consequential_state_invalidation_invalidated_at_f a bpm:Field ;
+    bpm:fieldName "invalidated_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp invalidation became effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
