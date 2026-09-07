@@ -9187,3 +9187,33 @@ b4p:temporal_order_observation_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of temporal evidence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-031 — causal_lineage_observation
+b4p:causal_lineage_observation_rt a bpm:RecordType ;
+    bpm:recordName "causal_lineage_observation" ;
+    bpm:recordDoc "Binds a candidate cause to effect with explicit causal evidence." ;
+    bpm:hasField b4p:causal_lineage_observation_cause_observation_id_f,
+                 b4p:causal_lineage_observation_effect_observation_id_f,
+                 b4p:causal_lineage_observation_causal_basis_f,
+                 b4p:causal_lineage_observation_evidence_digest_f .
+
+b4p:causal_lineage_observation_cause_observation_id_f a bpm:Field ;
+    bpm:fieldName "cause_observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate causal observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:causal_lineage_observation_effect_observation_id_f a bpm:Field ;
+    bpm:fieldName "effect_observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed effect identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:causal_lineage_observation_causal_basis_f a bpm:Field ;
+    bpm:fieldName "causal_basis" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Declared causal inference basis." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:causal_lineage_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of causal evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
