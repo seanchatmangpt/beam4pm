@@ -8287,3 +8287,15 @@ b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f a bpm:Field ;
     bpm:fieldName "outcome_receipt_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS3-ACT-001 — autonomic_actuation_selection
+b4p:autonomic_actuation_selection_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_actuation_selection" ;
+    bpm:recordDoc "Selects one bounded actuation candidate while preserving the exact decision subject and admitted authority." ;
+    bpm:hasField b4p:autonomic_actuation_selection_actuation_id_f, b4p:autonomic_actuation_selection_subject_sha_f, b4p:autonomic_actuation_selection_authority_receipt_sha_f, b4p:autonomic_actuation_selection_state_digest_f .
+
+b4p:autonomic_actuation_selection_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_actuation_selection_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_actuation_selection_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_actuation_selection_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
