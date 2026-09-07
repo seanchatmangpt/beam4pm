@@ -9307,3 +9307,33 @@ b4p:belief_state_snapshot_uncertainty_status_f a bpm:Field ;
     bpm:fieldName "uncertainty_status" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Machine-readable uncertainty standing." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-035 — belief_state_update
+b4p:belief_state_update_rt a bpm:RecordType ;
+    bpm:recordName "belief_state_update" ;
+    bpm:recordDoc "Binds prior belief, new evidence, update rule, and posterior belief." ;
+    bpm:hasField b4p:belief_state_update_prior_belief_id_f,
+                 b4p:belief_state_update_evidence_digest_f,
+                 b4p:belief_state_update_posterior_belief_id_f,
+                 b4p:belief_state_update_update_rule_f .
+
+b4p:belief_state_update_prior_belief_id_f a bpm:Field ;
+    bpm:fieldName "prior_belief_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Prior belief-state identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:belief_state_update_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of newly admitted evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:belief_state_update_posterior_belief_id_f a bpm:Field ;
+    bpm:fieldName "posterior_belief_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Resulting belief-state identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:belief_state_update_update_rule_f a bpm:Field ;
+    bpm:fieldName "update_rule" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Deterministic belief update rule." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
