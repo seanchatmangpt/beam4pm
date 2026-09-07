@@ -245,6 +245,31 @@
       ]
 
     },
+    "anomaly_detection_observation": {
+      "type": "object",
+      "description": "Scores an observed subject against an exact baseline digest.",
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "description": "Observed subject identity."
+        },
+        "baseline_digest": {
+          "type": "string",
+          "description": "Exact anomaly baseline digest."
+        },
+        "observation_digest": {
+          "type": "string",
+          "description": "Current observation digest."
+        },
+        "anomaly_score": {
+          "type": "number",
+          "description": "Computed anomaly score."
+        }
+      },
+      "required": ["subject_id", "baseline_digest", "observation_digest", "anomaly_score"
+      ]
+
+    },
     "approval_separation_evidence": {
       "type": "object",
       "description": "Executable segregation-of-duties evidence binding an exact subject to an approver distinct from its producer.",
@@ -349,6 +374,31 @@
       ]
 
     },
+    "artifact_digest_observation": {
+      "type": "object",
+      "description": "Binds a produced artifact digest to its exact producer run.",
+      "properties": {
+        "artifact_id": {
+          "type": "string",
+          "description": "Stable artifact identity."
+        },
+        "artifact_sha256": {
+          "type": "string",
+          "description": "Observed artifact content digest."
+        },
+        "producer_run_id": {
+          "type": "string",
+          "description": "Exact producer workflow run."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of artifact observation."
+        }
+      },
+      "required": ["artifact_id", "artifact_sha256", "producer_run_id", "observed_at"
+      ]
+
+    },
     "attestation_verification_evidence": {
       "type": "object",
       "description": "Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.",
@@ -396,6 +446,31 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "previous_receipt_hash", "observed_result"
+      ]
+
+    },
+    "autonomic_state_vector": {
+      "type": "object",
+      "description": "Encodes decision-relevant observed dimensions for one exact subject.",
+      "properties": {
+        "state_vector_id": {
+          "type": "string",
+          "description": "Stable state-vector identity."
+        },
+        "subject_id": {
+          "type": "string",
+          "description": "Exact observed subject identity."
+        },
+        "dimension_digest": {
+          "type": "string",
+          "description": "Digest of ordered state dimensions."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of state-vector encoding."
+        }
+      },
+      "required": ["state_vector_id", "subject_id", "dimension_digest", "observed_at"
       ]
 
     },
@@ -496,6 +571,56 @@
         }
       },
       "required": ["baseline_metric_id", "account_id", "baseline_value", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "belief_state_snapshot": {
+      "type": "object",
+      "description": "Captures a posterior belief state and explicit uncertainty standing.",
+      "properties": {
+        "belief_state_id": {
+          "type": "string",
+          "description": "Stable belief-state identity."
+        },
+        "subject_id": {
+          "type": "string",
+          "description": "Exact subject of belief."
+        },
+        "posterior_digest": {
+          "type": "string",
+          "description": "Digest of posterior state."
+        },
+        "uncertainty_status": {
+          "type": "string",
+          "description": "Machine-readable uncertainty standing."
+        }
+      },
+      "required": ["belief_state_id", "subject_id", "posterior_digest", "uncertainty_status"
+      ]
+
+    },
+    "belief_state_update": {
+      "type": "object",
+      "description": "Binds prior belief, new evidence, update rule, and posterior belief.",
+      "properties": {
+        "prior_belief_id": {
+          "type": "string",
+          "description": "Prior belief-state identity."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of newly admitted evidence."
+        },
+        "posterior_belief_id": {
+          "type": "string",
+          "description": "Resulting belief-state identity."
+        },
+        "update_rule": {
+          "type": "string",
+          "description": "Deterministic belief update rule."
+        }
+      },
+      "required": ["prior_belief_id", "evidence_digest", "posterior_belief_id", "update_rule"
       ]
 
     },
@@ -759,6 +884,31 @@
       ]
 
     },
+    "caller_local_checkout_observation": {
+      "type": "object",
+      "description": "Proves a reusable rail executed from the consumer's own exact checkout.",
+      "properties": {
+        "consumer_repository_id": {
+          "type": "string",
+          "description": "Stable consumer repository identity."
+        },
+        "checkout_sha": {
+          "type": "string",
+          "description": "Exact caller-local checkout commit."
+        },
+        "checkout_path": {
+          "type": "string",
+          "description": "Observed caller-local execution path."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest binding execution to checkout."
+        }
+      },
+      "required": ["consumer_repository_id", "checkout_sha", "checkout_path", "evidence_digest"
+      ]
+
+    },
     "canary_decision": {
       "type": "object",
       "description": "Receipted enterprise canary decision based on an observed rollout consequence.",
@@ -810,6 +960,31 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "canary_percentage", "observed_result"
+      ]
+
+    },
+    "canonical_source_authority_observation": {
+      "type": "object",
+      "description": "Encodes whether a repository path is an authorized canonical manufacturing input.",
+      "properties": {
+        "source_path": {
+          "type": "string",
+          "description": "Observed repository path."
+        },
+        "authority_class": {
+          "type": "string",
+          "description": "Classified source authority."
+        },
+        "mutation_allowed": {
+          "type": "boolean",
+          "description": "Whether mutation is admitted at this boundary."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of authority evidence."
+        }
+      },
+      "required": ["source_path", "authority_class", "mutation_allowed", "evidence_digest"
       ]
 
     },
@@ -936,6 +1111,31 @@
       ]
 
     },
+    "causal_lineage_observation": {
+      "type": "object",
+      "description": "Binds a candidate cause to effect with explicit causal evidence.",
+      "properties": {
+        "cause_observation_id": {
+          "type": "string",
+          "description": "Candidate causal observation."
+        },
+        "effect_observation_id": {
+          "type": "string",
+          "description": "Observed effect identity."
+        },
+        "causal_basis": {
+          "type": "string",
+          "description": "Declared causal inference basis."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of causal evidence."
+        }
+      },
+      "required": ["cause_observation_id", "effect_observation_id", "causal_basis", "evidence_digest"
+      ]
+
+    },
     "change_control_evidence": {
       "type": "object",
       "description": "Executable change-control evidence binding an exact subject to the approved request governing its mutation.",
@@ -979,6 +1179,31 @@
         }
       },
       "required": ["opportunity_id", "authority_id", "evidence_hash"
+      ]
+
+    },
+    "changed_surface_inference": {
+      "type": "object",
+      "description": "Infers the exact changed surface between two repository trees.",
+      "properties": {
+        "prior_tree_sha": {
+          "type": "string",
+          "description": "Prior repository tree identity."
+        },
+        "current_tree_sha": {
+          "type": "string",
+          "description": "Current repository tree identity."
+        },
+        "changed_surface_digest": {
+          "type": "string",
+          "description": "Digest of normalized changed paths."
+        },
+        "inference_status": {
+          "type": "string",
+          "description": "Machine-readable inference standing."
+        }
+      },
+      "required": ["prior_tree_sha", "current_tree_sha", "changed_surface_digest", "inference_status"
       ]
 
     },
@@ -1278,6 +1503,31 @@
       ]
 
     },
+    "commit_check_state_observation": {
+      "type": "object",
+      "description": "Projects commit check state into a machine-readable exact-subject observation.",
+      "properties": {
+        "commit_sha": {
+          "type": "string",
+          "description": "Exact checked commit."
+        },
+        "check_name": {
+          "type": "string",
+          "description": "Stable check context name."
+        },
+        "check_status": {
+          "type": "string",
+          "description": "Observed check status."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of check observation."
+        }
+      },
+      "required": ["commit_sha", "check_name", "check_status", "observed_at"
+      ]
+
+    },
     "committed_spend": {
       "type": "object",
       "description": "Term commitment with amount, currency, and expiration.",
@@ -1420,6 +1670,56 @@
       ]
 
     },
+    "consequential_state_invalidation": {
+      "type": "object",
+      "description": "Invalidates affected belief state automatically after a consequential transition.",
+      "properties": {
+        "transition_id": {
+          "type": "string",
+          "description": "Consequential transition identity."
+        },
+        "affected_state_digest": {
+          "type": "string",
+          "description": "Digest of state invalidated by transition."
+        },
+        "invalidation_reason": {
+          "type": "string",
+          "description": "Typed invalidation reason."
+        },
+        "invalidated_at": {
+          "type": "string",
+          "description": "Timestamp invalidation became effective."
+        }
+      },
+      "required": ["transition_id", "affected_state_digest", "invalidation_reason", "invalidated_at"
+      ]
+
+    },
+    "consumer_pack_pin_observation": {
+      "type": "object",
+      "description": "Proves a consumer used an exact immutable marketplace pack SHA.",
+      "properties": {
+        "consumer_repository_id": {
+          "type": "string",
+          "description": "Stable consumer identity."
+        },
+        "pack_id": {
+          "type": "string",
+          "description": "Consumed validation-pack identity."
+        },
+        "pack_sha": {
+          "type": "string",
+          "description": "Exact immutable pack commit."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of caller-local pin evidence."
+        }
+      },
+      "required": ["consumer_repository_id", "pack_id", "pack_sha", "evidence_digest"
+      ]
+
+    },
     "consumption_pool": {
       "type": "object",
       "description": "Shared enterprise consumption pool with unit and balance.",
@@ -1467,6 +1767,56 @@
         }
       },
       "required": ["subscription_id", "account_id", "plan_id", "status"
+      ]
+
+    },
+    "container_manifest_digest_observation": {
+      "type": "object",
+      "description": "Resolves a mutable container tag to an immutable multi-platform manifest digest.",
+      "properties": {
+        "image_repository": {
+          "type": "string",
+          "description": "Container repository identity."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Observed mutable tag."
+        },
+        "index_digest": {
+          "type": "string",
+          "description": "Resolved immutable manifest-index digest."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of registry resolution."
+        }
+      },
+      "required": ["image_repository", "tag", "index_digest", "observed_at"
+      ]
+
+    },
+    "container_platform_digest_observation": {
+      "type": "object",
+      "description": "Resolves a manifest index to one exact platform image digest.",
+      "properties": {
+        "index_digest": {
+          "type": "string",
+          "description": "Parent manifest-index digest."
+        },
+        "platform": {
+          "type": "string",
+          "description": "Normalized operating-system and architecture."
+        },
+        "platform_digest": {
+          "type": "string",
+          "description": "Exact platform image digest."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of platform resolution."
+        }
+      },
+      "required": ["index_digest", "platform", "platform_digest", "observed_at"
       ]
 
     },
@@ -1637,6 +1987,31 @@
       ]
 
     },
+    "customer_signal_observation": {
+      "type": "object",
+      "description": "Normalizes a customer signal into typed, digest-bound evidence.",
+      "properties": {
+        "customer_id": {
+          "type": "string",
+          "description": "Stable customer identity."
+        },
+        "signal_type": {
+          "type": "string",
+          "description": "Normalized customer signal type."
+        },
+        "signal_digest": {
+          "type": "string",
+          "description": "Immutable customer signal digest."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp customer signal was observed."
+        }
+      },
+      "required": ["customer_id", "signal_type", "signal_digest", "observed_at"
+      ]
+
+    },
     "data_egress_evidence": {
       "type": "object",
       "description": "Executable egress evidence binding an exact subject to the bytes observed crossing its admitted data boundary.",
@@ -1780,6 +2155,31 @@
       ]
 
     },
+    "decision_compression_observation": {
+      "type": "object",
+      "description": "Compresses high-dimensional state into a bounded actionable delta with loss bound.",
+      "properties": {
+        "compression_id": {
+          "type": "string",
+          "description": "Stable compression operation identity."
+        },
+        "input_state_digest": {
+          "type": "string",
+          "description": "Digest of high-dimensional input state."
+        },
+        "output_delta_digest": {
+          "type": "string",
+          "description": "Digest of compressed delta."
+        },
+        "loss_bound": {
+          "type": "string",
+          "description": "Declared information-loss bound."
+        }
+      },
+      "required": ["compression_id", "input_state_digest", "output_delta_digest", "loss_bound"
+      ]
+
+    },
     "deletion_proof_evidence": {
       "type": "object",
       "description": "Executable deletion evidence binding an exact subject to a verifiable deletion receipt.",
@@ -1885,6 +2285,31 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "dependency_count", "observed_result"
+      ]
+
+    },
+    "dependency_pin_observation": {
+      "type": "object",
+      "description": "Compares a declared dependency ref with its immutable resolved commit.",
+      "properties": {
+        "dependency_id": {
+          "type": "string",
+          "description": "Stable dependency identity."
+        },
+        "declared_ref": {
+          "type": "string",
+          "description": "Declared dependency reference."
+        },
+        "resolved_sha": {
+          "type": "string",
+          "description": "Resolved immutable commit."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of resolution."
+        }
+      },
+      "required": ["dependency_id", "declared_ref", "resolved_sha", "observed_at"
       ]
 
     },
@@ -2335,6 +2760,31 @@
       ]
 
     },
+    "environment_signal_observation": {
+      "type": "object",
+      "description": "Normalizes deployment-environment evidence without human polling.",
+      "properties": {
+        "environment_id": {
+          "type": "string",
+          "description": "Stable environment identity."
+        },
+        "signal_type": {
+          "type": "string",
+          "description": "Normalized environment signal type."
+        },
+        "signal_digest": {
+          "type": "string",
+          "description": "Immutable environment signal digest."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp environment signal was observed."
+        }
+      },
+      "required": ["environment_id", "signal_type", "signal_digest", "observed_at"
+      ]
+
+    },
     "error_budget_state": {
       "type": "object",
       "description": "Captures the exact remaining error budget that governs paid-service release policy.",
@@ -2653,6 +3103,31 @@
       ]
 
     },
+    "generated_output_ownership_observation": {
+      "type": "object",
+      "description": "Classifies a path as generated or source-owned using its explicit provenance marker.",
+      "properties": {
+        "output_path": {
+          "type": "string",
+          "description": "Observed repository path."
+        },
+        "ownership_marker": {
+          "type": "string",
+          "description": "Observed provenance marker."
+        },
+        "source_input_digest": {
+          "type": "string",
+          "description": "Digest of canonical inputs that own the output."
+        },
+        "standing": {
+          "type": "string",
+          "description": "Machine-readable ownership standing."
+        }
+      },
+      "required": ["output_path", "ownership_marker", "source_input_digest", "standing"
+      ]
+
+    },
     "heuristic_arc": {
       "type": "object",
       "description": "One dependency-scored candidate arc considered during heuristic-net discovery.",
@@ -2780,6 +3255,31 @@
         }
       },
       "required": ["opportunity_id", "indemnity_scope_id", "decision"
+      ]
+
+    },
+    "information_partition_observation": {
+      "type": "object",
+      "description": "Partitions a state vector by a decision-relevant information key.",
+      "properties": {
+        "partition_id": {
+          "type": "string",
+          "description": "Stable information partition identity."
+        },
+        "state_vector_id": {
+          "type": "string",
+          "description": "Source state-vector identity."
+        },
+        "partition_key": {
+          "type": "string",
+          "description": "Decision-relevant partition key."
+        },
+        "information_digest": {
+          "type": "string",
+          "description": "Digest of partition contents."
+        }
+      },
+      "required": ["partition_id", "state_vector_id", "partition_key", "information_digest"
       ]
 
     },
@@ -3053,6 +3553,81 @@
       ]
 
     },
+    "machine_actionable_delta": {
+      "type": "object",
+      "description": "Emits the compressed state change and recommended next autonomic action.",
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "description": "Exact changed subject identity."
+        },
+        "prior_state_digest": {
+          "type": "string",
+          "description": "Prior admitted state digest."
+        },
+        "delta_digest": {
+          "type": "string",
+          "description": "Digest of machine-actionable delta."
+        },
+        "recommended_action": {
+          "type": "string",
+          "description": "Bounded next action for the control plane."
+        }
+      },
+      "required": ["subject_id", "prior_state_digest", "delta_digest", "recommended_action"
+      ]
+
+    },
+    "manufacture_receipt_presence_observation": {
+      "type": "object",
+      "description": "Observes whether real manufacture emitted a receipt for the exact subject.",
+      "properties": {
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact manufactured subject."
+        },
+        "receipt_id": {
+          "type": "string",
+          "description": "Stable manufacture receipt identity."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable receipt content digest."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp receipt was observed."
+        }
+      },
+      "required": ["subject_sha", "receipt_id", "receipt_digest", "observed_at"
+      ]
+
+    },
+    "manufacture_receipt_validity_observation": {
+      "type": "object",
+      "description": "Records independent verification of receipt subject, digest, and verifier identity.",
+      "properties": {
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable receipt digest."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact subject claimed by receipt."
+        },
+        "verification_status": {
+          "type": "string",
+          "description": "Machine-readable verification result."
+        },
+        "verifier_identity": {
+          "type": "string",
+          "description": "Exact verifier implementation identity."
+        }
+      },
+      "required": ["receipt_digest", "subject_sha", "verification_status", "verifier_identity"
+      ]
+
+    },
     "master_service_agreement_state": {
       "type": "object",
       "description": "Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.",
@@ -3242,6 +3817,31 @@
       ]
 
     },
+    "normalized_event_observation": {
+      "type": "object",
+      "description": "Normalizes a source event into stable identity, type, and event time.",
+      "properties": {
+        "source_system": {
+          "type": "string",
+          "description": "Originating system identity."
+        },
+        "event_id": {
+          "type": "string",
+          "description": "Stable source event identity."
+        },
+        "event_type": {
+          "type": "string",
+          "description": "Normalized event type."
+        },
+        "event_time": {
+          "type": "string",
+          "description": "Normalized event timestamp."
+        }
+      },
+      "required": ["source_system", "event_id", "event_type", "event_time"
+      ]
+
+    },
     "object_attribute_change": {
       "type": "object",
       "description": "One recorded change to a time-indexed object attribute.",
@@ -3344,6 +3944,106 @@
         }
       },
       "required": ["objection_resolution_id", "account_id", "resolution_status", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "observation_deduplication_decision": {
+      "type": "object",
+      "description": "Records an executable accept-or-duplicate decision for an observation digest.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Observed event identity."
+        },
+        "event_digest": {
+          "type": "string",
+          "description": "Canonical event digest."
+        },
+        "dedup_key": {
+          "type": "string",
+          "description": "Deterministic deduplication key."
+        },
+        "decision": {
+          "type": "string",
+          "description": "Machine-readable deduplication decision."
+        }
+      },
+      "required": ["event_id", "event_digest", "dedup_key", "decision"
+      ]
+
+    },
+    "observation_entropy_estimate": {
+      "type": "object",
+      "description": "Records entropy of a state vector using an explicit estimation method.",
+      "properties": {
+        "state_vector_id": {
+          "type": "string",
+          "description": "Measured state-vector identity."
+        },
+        "entropy_method": {
+          "type": "string",
+          "description": "Named entropy estimation method."
+        },
+        "entropy_value": {
+          "type": "number",
+          "description": "Observed entropy estimate."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of entropy estimation."
+        }
+      },
+      "required": ["state_vector_id", "entropy_method", "entropy_value", "observed_at"
+      ]
+
+    },
+    "observation_freshness_assessment": {
+      "type": "object",
+      "description": "Evaluates an observation against an explicit freshness deadline.",
+      "properties": {
+        "observation_id": {
+          "type": "string",
+          "description": "Stable observation identity."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Time observation was produced."
+        },
+        "freshness_deadline": {
+          "type": "string",
+          "description": "Latest acceptable observation time."
+        },
+        "freshness_status": {
+          "type": "string",
+          "description": "Machine-readable freshness standing."
+        }
+      },
+      "required": ["observation_id", "observed_at", "freshness_deadline", "freshness_status"
+      ]
+
+    },
+    "observation_staleness_invalidation": {
+      "type": "object",
+      "description": "Invalidates stale state and declares whether replacement evidence is required.",
+      "properties": {
+        "observation_id": {
+          "type": "string",
+          "description": "Stale observation identity."
+        },
+        "invalidated_at": {
+          "type": "string",
+          "description": "Time invalidation became effective."
+        },
+        "staleness_reason": {
+          "type": "string",
+          "description": "Typed reason for invalidation."
+        },
+        "replacement_required": {
+          "type": "boolean",
+          "description": "Whether new evidence must be acquired."
+        }
+      },
+      "required": ["observation_id", "invalidated_at", "staleness_reason", "replacement_required"
       ]
 
     },
@@ -3620,6 +4320,31 @@
         }
       },
       "required": ["policy_id", "quota_id", "unit_price", "behavior"
+      ]
+
+    },
+    "package_release_observation": {
+      "type": "object",
+      "description": "Observes a package version together with its immutable distribution digest.",
+      "properties": {
+        "package_id": {
+          "type": "string",
+          "description": "Stable package identity."
+        },
+        "version": {
+          "type": "string",
+          "description": "Observed published version."
+        },
+        "immutable_digest": {
+          "type": "string",
+          "description": "Immutable package content digest."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of package observation."
+        }
+      },
+      "required": ["package_id", "version", "immutable_digest", "observed_at"
       ]
 
     },
@@ -4388,6 +5113,31 @@
       ]
 
     },
+    "provenance_binding_observation": {
+      "type": "object",
+      "description": "Binds observation, source capsule, and evidence digest into one provenance fact.",
+      "properties": {
+        "observation_id": {
+          "type": "string",
+          "description": "Stable observation identity."
+        },
+        "source_capsule_digest": {
+          "type": "string",
+          "description": "Exact source capsule digest."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Immutable supporting evidence digest."
+        },
+        "binding_status": {
+          "type": "string",
+          "description": "Machine-readable provenance standing."
+        }
+      },
+      "required": ["observation_id", "source_capsule_digest", "evidence_digest", "binding_status"
+      ]
+
+    },
     "purchase_order_binding": {
       "type": "object",
       "description": "Customer purchase-order evidence bound to an enterprise order.",
@@ -4706,6 +5456,31 @@
       ]
 
     },
+    "refusal_boundary_observation": {
+      "type": "object",
+      "description": "Emits REFUSED with exact authority boundary and evidence.",
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "description": "Exact refused subject identity."
+        },
+        "refusal_code": {
+          "type": "string",
+          "description": "Typed refusal reason."
+        },
+        "authority_boundary": {
+          "type": "string",
+          "description": "Boundary that denied the action."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest supporting refusal."
+        }
+      },
+      "required": ["subject_id", "refusal_code", "authority_boundary", "evidence_digest"
+      ]
+
+    },
     "remediation_sla_evidence": {
       "type": "object",
       "description": "Executable remediation evidence binding an exact subject and finding to its enforced due instant.",
@@ -4882,6 +5657,106 @@
         }
       },
       "required": ["tenant_id", "environment_id", "identity_hash"
+      ]
+
+    },
+    "repository_ancestry_observation": {
+      "type": "object",
+      "description": "Records mechanically observed ancestry between repository commits so containment never requires human reconstruction.",
+      "properties": {
+        "ancestor_sha": {
+          "type": "string",
+          "description": "Candidate ancestor commit."
+        },
+        "descendant_sha": {
+          "type": "string",
+          "description": "Candidate descendant commit."
+        },
+        "relation": {
+          "type": "string",
+          "description": "Observed ancestry relation."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of the mechanical ancestry evidence."
+        }
+      },
+      "required": ["ancestor_sha", "descendant_sha", "relation", "evidence_digest"
+      ]
+
+    },
+    "repository_default_branch_observation": {
+      "type": "object",
+      "description": "Observes a repository default branch and its exact head so autonomic state can invalidate on branch drift.",
+      "properties": {
+        "repository_id": {
+          "type": "string",
+          "description": "Stable repository identity observed by the sensor."
+        },
+        "default_branch": {
+          "type": "string",
+          "description": "Observed default branch name."
+        },
+        "head_sha": {
+          "type": "string",
+          "description": "Exact commit at the observed default-branch head."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp bounding the freshness of this observation."
+        }
+      },
+      "required": ["repository_id", "default_branch", "head_sha", "observed_at"
+      ]
+
+    },
+    "repository_exact_head_observation": {
+      "type": "object",
+      "description": "Binds a repository observation to an exact branch head and prior head for autonomous change detection.",
+      "properties": {
+        "repository_id": {
+          "type": "string",
+          "description": "Stable repository identity."
+        },
+        "branch_name": {
+          "type": "string",
+          "description": "Observed branch name."
+        },
+        "head_sha": {
+          "type": "string",
+          "description": "Exact observed head commit."
+        },
+        "previous_head_sha": {
+          "type": "string",
+          "description": "Previously admitted head used to detect change."
+        }
+      },
+      "required": ["repository_id", "branch_name", "head_sha", "previous_head_sha"
+      ]
+
+    },
+    "repository_worktree_state_observation": {
+      "type": "object",
+      "description": "Captures caller-local repository worktree state and dirty-surface cardinality before manufacture.",
+      "properties": {
+        "repository_id": {
+          "type": "string",
+          "description": "Stable repository identity."
+        },
+        "worktree_hash": {
+          "type": "string",
+          "description": "Digest of tracked caller-local worktree state."
+        },
+        "dirty_path_count": {
+          "type": "integer",
+          "description": "Number of changed tracked paths."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of worktree observation."
+        }
+      },
+      "required": ["repository_id", "worktree_hash", "dirty_path_count", "observed_at"
       ]
 
     },
@@ -5198,6 +6073,31 @@
       ]
 
     },
+    "runtime_health_observation": {
+      "type": "object",
+      "description": "Captures runtime health state with exact supporting evidence.",
+      "properties": {
+        "runtime_id": {
+          "type": "string",
+          "description": "Stable runtime identity."
+        },
+        "health_state": {
+          "type": "string",
+          "description": "Observed runtime health classification."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of runtime health evidence."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp health was observed."
+        }
+      },
+      "required": ["runtime_id", "health_state", "evidence_digest", "observed_at"
+      ]
+
+    },
     "runtime_policy_decision": {
       "type": "object",
       "description": "Records an explicit runtime policy decision before paid workload actuation.",
@@ -5262,6 +6162,31 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "component_count", "observed_result"
+      ]
+
+    },
+    "second_pass_byte_identity_observation": {
+      "type": "object",
+      "description": "Proves the second manufacture pass produced byte-identical owned outputs.",
+      "properties": {
+        "first_tree_digest": {
+          "type": "string",
+          "description": "Digest after first manufacture pass."
+        },
+        "second_tree_digest": {
+          "type": "string",
+          "description": "Digest after second manufacture pass."
+        },
+        "byte_identity": {
+          "type": "boolean",
+          "description": "Whether the output trees are byte-identical."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Receipt binding the replay result."
+        }
+      },
+      "required": ["first_tree_digest", "second_tree_digest", "byte_identity", "receipt_digest"
       ]
 
     },
@@ -5358,6 +6283,31 @@
         }
       },
       "required": ["security_readiness_id", "account_id", "control_coverage", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "semantic_drift_observation": {
+      "type": "object",
+      "description": "Classifies semantic change between prior and current canonical digests.",
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "description": "Observed semantic subject."
+        },
+        "prior_semantic_digest": {
+          "type": "string",
+          "description": "Prior canonical semantic digest."
+        },
+        "current_semantic_digest": {
+          "type": "string",
+          "description": "Current canonical semantic digest."
+        },
+        "drift_class": {
+          "type": "string",
+          "description": "Machine-readable semantic drift class."
+        }
+      },
+      "required": ["subject_id", "prior_semantic_digest", "current_semantic_digest", "drift_class"
       ]
 
     },
@@ -5720,6 +6670,81 @@
       ]
 
     },
+    "standing_state_observation": {
+      "type": "object",
+      "description": "Emits scoped ALIVE, PARTIAL_ALIVE, BLOCKED, UNKNOWN, or BUILD_BROKEN state.",
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "description": "Exact standing subject identity."
+        },
+        "standing": {
+          "type": "string",
+          "description": "Machine-readable standing vocabulary value."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest supporting the standing."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp standing was observed."
+        }
+      },
+      "required": ["subject_id", "standing", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "submodule_lock_observation": {
+      "type": "object",
+      "description": "Compares an exact gitlink with its declared dependency lock to expose submodule drift automatically.",
+      "properties": {
+        "submodule_path": {
+          "type": "string",
+          "description": "Caller-local submodule path."
+        },
+        "gitlink_sha": {
+          "type": "string",
+          "description": "Exact gitlink commit."
+        },
+        "lock_sha": {
+          "type": "string",
+          "description": "Declared immutable lock commit."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of comparison."
+        }
+      },
+      "required": ["submodule_path", "gitlink_sha", "lock_sha", "observed_at"
+      ]
+
+    },
+    "submodule_registration_observation": {
+      "type": "object",
+      "description": "Observes whether every gitlink has repository registration metadata before autonomous checkout.",
+      "properties": {
+        "submodule_path": {
+          "type": "string",
+          "description": "Observed gitlink path."
+        },
+        "registration_state": {
+          "type": "string",
+          "description": "Registration standing for the gitlink."
+        },
+        "repository_url": {
+          "type": "string",
+          "description": "Resolved immutable repository source."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of registration evidence."
+        }
+      },
+      "required": ["submodule_path", "registration_state", "repository_url", "evidence_digest"
+      ]
+
+    },
     "success_plan": {
       "type": "object",
       "description": "Executable customer-success plan target with receipted account identity.",
@@ -6033,6 +7058,31 @@
       ]
 
     },
+    "temporal_order_observation": {
+      "type": "object",
+      "description": "Encodes observed ordering between two observations and its evidence basis.",
+      "properties": {
+        "earlier_observation_id": {
+          "type": "string",
+          "description": "Earlier observation identity."
+        },
+        "later_observation_id": {
+          "type": "string",
+          "description": "Later observation identity."
+        },
+        "ordering_basis": {
+          "type": "string",
+          "description": "Clock or sequence basis for ordering."
+        },
+        "evidence_digest": {
+          "type": "string",
+          "description": "Digest of temporal evidence."
+        }
+      },
+      "required": ["earlier_observation_id", "later_observation_id", "ordering_basis", "evidence_digest"
+      ]
+
+    },
     "tenant_account": {
       "type": "object",
       "description": "Commercial tenant bound to account, region, and edition.",
@@ -6263,6 +7313,31 @@
       ]
 
     },
+    "toolchain_identity_observation": {
+      "type": "object",
+      "description": "Observes exact tool name, version, and executable bytes used for validation.",
+      "properties": {
+        "tool_name": {
+          "type": "string",
+          "description": "Observed tool identity."
+        },
+        "tool_version": {
+          "type": "string",
+          "description": "Observed tool version."
+        },
+        "executable_digest": {
+          "type": "string",
+          "description": "Digest of executed tool bytes."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of toolchain observation."
+        }
+      },
+      "required": ["tool_name", "tool_version", "executable_digest", "observed_at"
+      ]
+
+    },
     "training_readiness": {
       "type": "object",
       "description": "Observed workforce training readiness for production adoption.",
@@ -6360,6 +7435,31 @@
         }
       },
       "required": ["source_type", "target_type", "qualifier", "direction"
+      ]
+
+    },
+    "uncertainty_observation": {
+      "type": "object",
+      "description": "Represents typed UNKNOWN uncertainty instead of manufacturing false certainty.",
+      "properties": {
+        "observation_id": {
+          "type": "string",
+          "description": "Observation with uncertainty."
+        },
+        "uncertainty_kind": {
+          "type": "string",
+          "description": "Typed uncertainty classification."
+        },
+        "confidence_basis": {
+          "type": "string",
+          "description": "Basis for any confidence estimate."
+        },
+        "standing": {
+          "type": "string",
+          "description": "Machine-readable UNKNOWN-compatible standing."
+        }
+      },
+      "required": ["observation_id", "uncertainty_kind", "confidence_basis", "standing"
       ]
 
     },
@@ -6546,6 +7646,56 @@
       ]
 
     },
+    "validation_capsule_drift_observation": {
+      "type": "object",
+      "description": "Compares expected and observed capsule digests and emits typed drift.",
+      "properties": {
+        "expected_digest": {
+          "type": "string",
+          "description": "Admitted capsule digest."
+        },
+        "observed_digest": {
+          "type": "string",
+          "description": "Currently resolved capsule digest."
+        },
+        "drift_status": {
+          "type": "string",
+          "description": "Machine-readable capsule drift result."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of digest comparison."
+        }
+      },
+      "required": ["expected_digest", "observed_digest", "drift_status", "observed_at"
+      ]
+
+    },
+    "validation_capsule_identity_observation": {
+      "type": "object",
+      "description": "Binds source capsule, validation pack, execution mode, toolchain, and immutable image.",
+      "properties": {
+        "capsule_repository": {
+          "type": "string",
+          "description": "Capsule source repository."
+        },
+        "capsule_sha": {
+          "type": "string",
+          "description": "Exact capsule source commit."
+        },
+        "execution_mode": {
+          "type": "string",
+          "description": "Observed capsule execution mode."
+        },
+        "image_digest": {
+          "type": "string",
+          "description": "Immutable platform image digest."
+        }
+      },
+      "required": ["capsule_repository", "capsule_sha", "execution_mode", "image_digest"
+      ]
+
+    },
     "value_baseline": {
       "type": "object",
       "description": "Measured pre-adoption business baseline for ROI comparison.",
@@ -6597,6 +7747,31 @@
         }
       },
       "required": ["value_driver_id", "account_id", "annual_value", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "value_of_information_estimate": {
+      "type": "object",
+      "description": "Estimates expected information gain and acquisition cost for a pending decision.",
+      "properties": {
+        "decision_id": {
+          "type": "string",
+          "description": "Decision requiring additional information."
+        },
+        "evidence_candidate_id": {
+          "type": "string",
+          "description": "Candidate evidence acquisition."
+        },
+        "expected_information_gain": {
+          "type": "number",
+          "description": "Expected reduction in uncertainty."
+        },
+        "cost_basis": {
+          "type": "string",
+          "description": "Evidence acquisition cost basis."
+        }
+      },
+      "required": ["decision_id", "evidence_candidate_id", "expected_information_gain", "cost_basis"
       ]
 
     },
@@ -6764,6 +7939,81 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "vulnerability_count", "observed_result"
+      ]
+
+    },
+    "workflow_definition_digest_observation": {
+      "type": "object",
+      "description": "Binds a workflow definition to exact bytes and repository subject before trusting its runs.",
+      "properties": {
+        "workflow_path": {
+          "type": "string",
+          "description": "Workflow source path."
+        },
+        "definition_sha256": {
+          "type": "string",
+          "description": "Digest of exact workflow bytes."
+        },
+        "source_sha": {
+          "type": "string",
+          "description": "Repository commit containing the workflow."
+        },
+        "observed_at": {
+          "type": "string",
+          "description": "Timestamp of workflow observation."
+        }
+      },
+      "required": ["workflow_path", "definition_sha256", "source_sha", "observed_at"
+      ]
+
+    },
+    "workflow_job_state_observation": {
+      "type": "object",
+      "description": "Observes a workflow job, runner identity, and conclusion inside an exact run.",
+      "properties": {
+        "job_id": {
+          "type": "string",
+          "description": "Stable workflow-job identity."
+        },
+        "run_id": {
+          "type": "string",
+          "description": "Owning workflow-run identity."
+        },
+        "runner_identity": {
+          "type": "string",
+          "description": "Observed runner or capsule identity."
+        },
+        "conclusion": {
+          "type": "string",
+          "description": "Observed terminal job conclusion."
+        }
+      },
+      "required": ["job_id", "run_id", "runner_identity", "conclusion"
+      ]
+
+    },
+    "workflow_run_state_observation": {
+      "type": "object",
+      "description": "Observes a workflow run against its exact head and terminal conclusion.",
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "description": "Stable workflow-run identity."
+        },
+        "workflow_id": {
+          "type": "string",
+          "description": "Stable workflow-definition identity."
+        },
+        "head_sha": {
+          "type": "string",
+          "description": "Exact subject commit executed."
+        },
+        "conclusion": {
+          "type": "string",
+          "description": "Observed terminal run conclusion."
+        }
+      },
+      "required": ["run_id", "workflow_id", "head_sha", "conclusion"
       ]
 
     },

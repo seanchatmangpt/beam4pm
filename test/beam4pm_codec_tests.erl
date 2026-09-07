@@ -288,6 +288,34 @@ annual_subscription_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(annual_subscription, Json),
     ?assertEqual(Rec, Rec2).
 
+anomaly_detection_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_anomaly_detection_observation(#{
+        subject_id => <<"sample_subject_id">>,
+        baseline_digest => <<"sample_baseline_digest">>,
+        observation_digest => <<"sample_observation_digest">>,
+        anomaly_score => 3.5
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_subject_id">>, maps:get(<<"subject_id">>, Map)),
+    ?assertEqual(<<"sample_baseline_digest">>, maps:get(<<"baseline_digest">>, Map)),
+    ?assertEqual(<<"sample_observation_digest">>, maps:get(<<"observation_digest">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"anomaly_score">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(anomaly_detection_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+anomaly_detection_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_anomaly_detection_observation(#{
+        subject_id => <<"sample_subject_id">>,
+        baseline_digest => <<"sample_baseline_digest">>,
+        observation_digest => <<"sample_observation_digest">>,
+        anomaly_score => 3.5
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(anomaly_detection_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 approval_separation_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_approval_separation_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -403,6 +431,34 @@ artifact_digest_evidence_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(artifact_digest_evidence, Json),
     ?assertEqual(Rec, Rec2).
 
+artifact_digest_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_artifact_digest_observation(#{
+        artifact_id => <<"sample_artifact_id">>,
+        artifact_sha256 => <<"sample_artifact_sha256">>,
+        producer_run_id => <<"sample_producer_run_id">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_artifact_id">>, maps:get(<<"artifact_id">>, Map)),
+    ?assertEqual(<<"sample_artifact_sha256">>, maps:get(<<"artifact_sha256">>, Map)),
+    ?assertEqual(<<"sample_producer_run_id">>, maps:get(<<"producer_run_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(artifact_digest_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+artifact_digest_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_artifact_digest_observation(#{
+        artifact_id => <<"sample_artifact_id">>,
+        artifact_sha256 => <<"sample_artifact_sha256">>,
+        producer_run_id => <<"sample_producer_run_id">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(artifact_digest_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 attestation_verification_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_attestation_verification_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -457,6 +513,34 @@ audit_chain_evidence_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(audit_chain_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
+autonomic_state_vector_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_autonomic_state_vector(#{
+        state_vector_id => <<"sample_state_vector_id">>,
+        subject_id => <<"sample_subject_id">>,
+        dimension_digest => <<"sample_dimension_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_state_vector_id">>, maps:get(<<"state_vector_id">>, Map)),
+    ?assertEqual(<<"sample_subject_id">>, maps:get(<<"subject_id">>, Map)),
+    ?assertEqual(<<"sample_dimension_digest">>, maps:get(<<"dimension_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(autonomic_state_vector,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+autonomic_state_vector_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_autonomic_state_vector(#{
+        state_vector_id => <<"sample_state_vector_id">>,
+        subject_id => <<"sample_subject_id">>,
+        dimension_digest => <<"sample_dimension_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(autonomic_state_vector, Json),
     ?assertEqual(Rec, Rec2).
 
 availability_observation_map_roundtrip_test() ->
@@ -569,6 +653,62 @@ baseline_metric_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(baseline_metric, Json),
+    ?assertEqual(Rec, Rec2).
+
+belief_state_snapshot_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_belief_state_snapshot(#{
+        belief_state_id => <<"sample_belief_state_id">>,
+        subject_id => <<"sample_subject_id">>,
+        posterior_digest => <<"sample_posterior_digest">>,
+        uncertainty_status => <<"sample_uncertainty_status">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_belief_state_id">>, maps:get(<<"belief_state_id">>, Map)),
+    ?assertEqual(<<"sample_subject_id">>, maps:get(<<"subject_id">>, Map)),
+    ?assertEqual(<<"sample_posterior_digest">>, maps:get(<<"posterior_digest">>, Map)),
+    ?assertEqual(<<"sample_uncertainty_status">>, maps:get(<<"uncertainty_status">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(belief_state_snapshot,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+belief_state_snapshot_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_belief_state_snapshot(#{
+        belief_state_id => <<"sample_belief_state_id">>,
+        subject_id => <<"sample_subject_id">>,
+        posterior_digest => <<"sample_posterior_digest">>,
+        uncertainty_status => <<"sample_uncertainty_status">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(belief_state_snapshot, Json),
+    ?assertEqual(Rec, Rec2).
+
+belief_state_update_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_belief_state_update(#{
+        prior_belief_id => <<"sample_prior_belief_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        posterior_belief_id => <<"sample_posterior_belief_id">>,
+        update_rule => <<"sample_update_rule">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_prior_belief_id">>, maps:get(<<"prior_belief_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"sample_posterior_belief_id">>, maps:get(<<"posterior_belief_id">>, Map)),
+    ?assertEqual(<<"sample_update_rule">>, maps:get(<<"update_rule">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(belief_state_update,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+belief_state_update_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_belief_state_update(#{
+        prior_belief_id => <<"sample_prior_belief_id">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        posterior_belief_id => <<"sample_posterior_belief_id">>,
+        update_rule => <<"sample_update_rule">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(belief_state_update, Json),
     ?assertEqual(Rec, Rec2).
 
 beneficial_owner_evidence_map_roundtrip_test() ->
@@ -867,6 +1007,34 @@ buying_committee_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(buying_committee, Json),
     ?assertEqual(Rec, Rec2).
 
+caller_local_checkout_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_caller_local_checkout_observation(#{
+        consumer_repository_id => <<"sample_consumer_repository_id">>,
+        checkout_sha => <<"sample_checkout_sha">>,
+        checkout_path => <<"sample_checkout_path">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_consumer_repository_id">>, maps:get(<<"consumer_repository_id">>, Map)),
+    ?assertEqual(<<"sample_checkout_sha">>, maps:get(<<"checkout_sha">>, Map)),
+    ?assertEqual(<<"sample_checkout_path">>, maps:get(<<"checkout_path">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(caller_local_checkout_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+caller_local_checkout_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_caller_local_checkout_observation(#{
+        consumer_repository_id => <<"sample_consumer_repository_id">>,
+        checkout_sha => <<"sample_checkout_sha">>,
+        checkout_path => <<"sample_checkout_path">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(caller_local_checkout_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 canary_decision_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_canary_decision(#{
         canary_decision_id => <<"sample_canary_decision_id">>,
@@ -924,6 +1092,34 @@ canary_evidence_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(canary_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
+canonical_source_authority_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_canonical_source_authority_observation(#{
+        source_path => <<"sample_source_path">>,
+        authority_class => <<"sample_authority_class">>,
+        mutation_allowed => true,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_source_path">>, maps:get(<<"source_path">>, Map)),
+    ?assertEqual(<<"sample_authority_class">>, maps:get(<<"authority_class">>, Map)),
+    ?assertEqual(true, maps:get(<<"mutation_allowed">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(canonical_source_authority_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+canonical_source_authority_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_canonical_source_authority_observation(#{
+        source_path => <<"sample_source_path">>,
+        authority_class => <<"sample_authority_class">>,
+        mutation_allowed => true,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(canonical_source_authority_observation, Json),
     ?assertEqual(Rec, Rec2).
 
 capability_bundle_map_roundtrip_test() ->
@@ -1063,6 +1259,34 @@ catalog_release_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(catalog_release, Json),
     ?assertEqual(Rec, Rec2).
 
+causal_lineage_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_causal_lineage_observation(#{
+        cause_observation_id => <<"sample_cause_observation_id">>,
+        effect_observation_id => <<"sample_effect_observation_id">>,
+        causal_basis => <<"sample_causal_basis">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_cause_observation_id">>, maps:get(<<"cause_observation_id">>, Map)),
+    ?assertEqual(<<"sample_effect_observation_id">>, maps:get(<<"effect_observation_id">>, Map)),
+    ?assertEqual(<<"sample_causal_basis">>, maps:get(<<"causal_basis">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(causal_lineage_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+causal_lineage_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_causal_lineage_observation(#{
+        cause_observation_id => <<"sample_cause_observation_id">>,
+        effect_observation_id => <<"sample_effect_observation_id">>,
+        causal_basis => <<"sample_causal_basis">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(causal_lineage_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 change_control_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_change_control_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -1114,6 +1338,34 @@ change_order_authority_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(change_order_authority, Json),
+    ?assertEqual(Rec, Rec2).
+
+changed_surface_inference_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_changed_surface_inference(#{
+        prior_tree_sha => <<"sample_prior_tree_sha">>,
+        current_tree_sha => <<"sample_current_tree_sha">>,
+        changed_surface_digest => <<"sample_changed_surface_digest">>,
+        inference_status => <<"sample_inference_status">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_prior_tree_sha">>, maps:get(<<"prior_tree_sha">>, Map)),
+    ?assertEqual(<<"sample_current_tree_sha">>, maps:get(<<"current_tree_sha">>, Map)),
+    ?assertEqual(<<"sample_changed_surface_digest">>, maps:get(<<"changed_surface_digest">>, Map)),
+    ?assertEqual(<<"sample_inference_status">>, maps:get(<<"inference_status">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(changed_surface_inference,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+changed_surface_inference_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_changed_surface_inference(#{
+        prior_tree_sha => <<"sample_prior_tree_sha">>,
+        current_tree_sha => <<"sample_current_tree_sha">>,
+        changed_surface_digest => <<"sample_changed_surface_digest">>,
+        inference_status => <<"sample_inference_status">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(changed_surface_inference, Json),
     ?assertEqual(Rec, Rec2).
 
 channel_agreement_map_roundtrip_test() ->
@@ -1449,6 +1701,34 @@ commercial_value_realization_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(commercial_value_realization, Json),
     ?assertEqual(Rec, Rec2).
 
+commit_check_state_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_commit_check_state_observation(#{
+        commit_sha => <<"sample_commit_sha">>,
+        check_name => <<"sample_check_name">>,
+        check_status => <<"sample_check_status">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_commit_sha">>, maps:get(<<"commit_sha">>, Map)),
+    ?assertEqual(<<"sample_check_name">>, maps:get(<<"check_name">>, Map)),
+    ?assertEqual(<<"sample_check_status">>, maps:get(<<"check_status">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(commit_check_state_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+commit_check_state_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_commit_check_state_observation(#{
+        commit_sha => <<"sample_commit_sha">>,
+        check_name => <<"sample_check_name">>,
+        check_status => <<"sample_check_status">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(commit_check_state_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 committed_spend_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_committed_spend(#{
         commitment_id => <<"sample_commitment_id">>,
@@ -1611,6 +1891,62 @@ conformance_result_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(conformance_result, Json),
     ?assertEqual(Rec, Rec2).
 
+consequential_state_invalidation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_consequential_state_invalidation(#{
+        transition_id => <<"sample_transition_id">>,
+        affected_state_digest => <<"sample_affected_state_digest">>,
+        invalidation_reason => <<"sample_invalidation_reason">>,
+        invalidated_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_transition_id">>, maps:get(<<"transition_id">>, Map)),
+    ?assertEqual(<<"sample_affected_state_digest">>, maps:get(<<"affected_state_digest">>, Map)),
+    ?assertEqual(<<"sample_invalidation_reason">>, maps:get(<<"invalidation_reason">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"invalidated_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(consequential_state_invalidation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+consequential_state_invalidation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_consequential_state_invalidation(#{
+        transition_id => <<"sample_transition_id">>,
+        affected_state_digest => <<"sample_affected_state_digest">>,
+        invalidation_reason => <<"sample_invalidation_reason">>,
+        invalidated_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(consequential_state_invalidation, Json),
+    ?assertEqual(Rec, Rec2).
+
+consumer_pack_pin_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_consumer_pack_pin_observation(#{
+        consumer_repository_id => <<"sample_consumer_repository_id">>,
+        pack_id => <<"sample_pack_id">>,
+        pack_sha => <<"sample_pack_sha">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_consumer_repository_id">>, maps:get(<<"consumer_repository_id">>, Map)),
+    ?assertEqual(<<"sample_pack_id">>, maps:get(<<"pack_id">>, Map)),
+    ?assertEqual(<<"sample_pack_sha">>, maps:get(<<"pack_sha">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(consumer_pack_pin_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+consumer_pack_pin_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_consumer_pack_pin_observation(#{
+        consumer_repository_id => <<"sample_consumer_repository_id">>,
+        pack_id => <<"sample_pack_id">>,
+        pack_sha => <<"sample_pack_sha">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(consumer_pack_pin_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 consumption_pool_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_consumption_pool(#{
         pool_id => <<"sample_pool_id">>,
@@ -1665,6 +2001,62 @@ consumption_subscription_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(consumption_subscription, Json),
+    ?assertEqual(Rec, Rec2).
+
+container_manifest_digest_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_container_manifest_digest_observation(#{
+        image_repository => <<"sample_image_repository">>,
+        tag => <<"sample_tag">>,
+        index_digest => <<"sample_index_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_image_repository">>, maps:get(<<"image_repository">>, Map)),
+    ?assertEqual(<<"sample_tag">>, maps:get(<<"tag">>, Map)),
+    ?assertEqual(<<"sample_index_digest">>, maps:get(<<"index_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(container_manifest_digest_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+container_manifest_digest_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_container_manifest_digest_observation(#{
+        image_repository => <<"sample_image_repository">>,
+        tag => <<"sample_tag">>,
+        index_digest => <<"sample_index_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(container_manifest_digest_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
+container_platform_digest_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_container_platform_digest_observation(#{
+        index_digest => <<"sample_index_digest">>,
+        platform => <<"sample_platform">>,
+        platform_digest => <<"sample_platform_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_index_digest">>, maps:get(<<"index_digest">>, Map)),
+    ?assertEqual(<<"sample_platform">>, maps:get(<<"platform">>, Map)),
+    ?assertEqual(<<"sample_platform_digest">>, maps:get(<<"platform_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(container_platform_digest_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+container_platform_digest_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_container_platform_digest_observation(#{
+        index_digest => <<"sample_index_digest">>,
+        platform => <<"sample_platform">>,
+        platform_digest => <<"sample_platform_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(container_platform_digest_observation, Json),
     ?assertEqual(Rec, Rec2).
 
 contracting_entity_identity_map_roundtrip_test() ->
@@ -1857,6 +2249,34 @@ customer_managed_key_evidence_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(customer_managed_key_evidence, Json),
     ?assertEqual(Rec, Rec2).
 
+customer_signal_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_customer_signal_observation(#{
+        customer_id => <<"sample_customer_id">>,
+        signal_type => <<"sample_signal_type">>,
+        signal_digest => <<"sample_signal_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_customer_id">>, maps:get(<<"customer_id">>, Map)),
+    ?assertEqual(<<"sample_signal_type">>, maps:get(<<"signal_type">>, Map)),
+    ?assertEqual(<<"sample_signal_digest">>, maps:get(<<"signal_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(customer_signal_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+customer_signal_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_customer_signal_observation(#{
+        customer_id => <<"sample_customer_id">>,
+        signal_type => <<"sample_signal_type">>,
+        signal_digest => <<"sample_signal_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(customer_signal_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 data_egress_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_data_egress_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -2019,6 +2439,34 @@ deal_desk_packet_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(deal_desk_packet, Json),
     ?assertEqual(Rec, Rec2).
 
+decision_compression_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_decision_compression_observation(#{
+        compression_id => <<"sample_compression_id">>,
+        input_state_digest => <<"sample_input_state_digest">>,
+        output_delta_digest => <<"sample_output_delta_digest">>,
+        loss_bound => <<"sample_loss_bound">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_compression_id">>, maps:get(<<"compression_id">>, Map)),
+    ?assertEqual(<<"sample_input_state_digest">>, maps:get(<<"input_state_digest">>, Map)),
+    ?assertEqual(<<"sample_output_delta_digest">>, maps:get(<<"output_delta_digest">>, Map)),
+    ?assertEqual(<<"sample_loss_bound">>, maps:get(<<"loss_bound">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(decision_compression_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+decision_compression_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_decision_compression_observation(#{
+        compression_id => <<"sample_compression_id">>,
+        input_state_digest => <<"sample_input_state_digest">>,
+        output_delta_digest => <<"sample_output_delta_digest">>,
+        loss_bound => <<"sample_loss_bound">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(decision_compression_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 deletion_proof_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_deletion_proof_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -2135,6 +2583,34 @@ dependency_inventory_evidence_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(dependency_inventory_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
+dependency_pin_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_dependency_pin_observation(#{
+        dependency_id => <<"sample_dependency_id">>,
+        declared_ref => <<"sample_declared_ref">>,
+        resolved_sha => <<"sample_resolved_sha">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_dependency_id">>, maps:get(<<"dependency_id">>, Map)),
+    ?assertEqual(<<"sample_declared_ref">>, maps:get(<<"declared_ref">>, Map)),
+    ?assertEqual(<<"sample_resolved_sha">>, maps:get(<<"resolved_sha">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(dependency_pin_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+dependency_pin_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_dependency_pin_observation(#{
+        dependency_id => <<"sample_dependency_id">>,
+        declared_ref => <<"sample_declared_ref">>,
+        resolved_sha => <<"sample_resolved_sha">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(dependency_pin_observation, Json),
     ?assertEqual(Rec, Rec2).
 
 deployment_entitlement_map_roundtrip_test() ->
@@ -2638,6 +3114,34 @@ environment_profile_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(environment_profile, Json),
     ?assertEqual(Rec, Rec2).
 
+environment_signal_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_environment_signal_observation(#{
+        environment_id => <<"sample_environment_id">>,
+        signal_type => <<"sample_signal_type">>,
+        signal_digest => <<"sample_signal_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_environment_id">>, maps:get(<<"environment_id">>, Map)),
+    ?assertEqual(<<"sample_signal_type">>, maps:get(<<"signal_type">>, Map)),
+    ?assertEqual(<<"sample_signal_digest">>, maps:get(<<"signal_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(environment_signal_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+environment_signal_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_environment_signal_observation(#{
+        environment_id => <<"sample_environment_id">>,
+        signal_type => <<"sample_signal_type">>,
+        signal_digest => <<"sample_signal_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(environment_signal_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 error_budget_state_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_error_budget_state(#{
         tenant_id => <<"sample_tenant_id">>,
@@ -2996,6 +3500,34 @@ funding_approval_chain_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(funding_approval_chain, Json),
     ?assertEqual(Rec, Rec2).
 
+generated_output_ownership_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_generated_output_ownership_observation(#{
+        output_path => <<"sample_output_path">>,
+        ownership_marker => <<"sample_ownership_marker">>,
+        source_input_digest => <<"sample_source_input_digest">>,
+        standing => <<"sample_standing">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_output_path">>, maps:get(<<"output_path">>, Map)),
+    ?assertEqual(<<"sample_ownership_marker">>, maps:get(<<"ownership_marker">>, Map)),
+    ?assertEqual(<<"sample_source_input_digest">>, maps:get(<<"source_input_digest">>, Map)),
+    ?assertEqual(<<"sample_standing">>, maps:get(<<"standing">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(generated_output_ownership_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+generated_output_ownership_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_generated_output_ownership_observation(#{
+        output_path => <<"sample_output_path">>,
+        ownership_marker => <<"sample_ownership_marker">>,
+        source_input_digest => <<"sample_source_input_digest">>,
+        standing => <<"sample_standing">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(generated_output_ownership_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 heuristic_arc_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_heuristic_arc(#{
         source_activity => <<"sample_source_activity">>,
@@ -3147,6 +3679,34 @@ indemnity_scope_admission_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(indemnity_scope_admission, Json),
+    ?assertEqual(Rec, Rec2).
+
+information_partition_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_information_partition_observation(#{
+        partition_id => <<"sample_partition_id">>,
+        state_vector_id => <<"sample_state_vector_id">>,
+        partition_key => <<"sample_partition_key">>,
+        information_digest => <<"sample_information_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_partition_id">>, maps:get(<<"partition_id">>, Map)),
+    ?assertEqual(<<"sample_state_vector_id">>, maps:get(<<"state_vector_id">>, Map)),
+    ?assertEqual(<<"sample_partition_key">>, maps:get(<<"partition_key">>, Map)),
+    ?assertEqual(<<"sample_information_digest">>, maps:get(<<"information_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(information_partition_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+information_partition_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_information_partition_observation(#{
+        partition_id => <<"sample_partition_id">>,
+        state_vector_id => <<"sample_state_vector_id">>,
+        partition_key => <<"sample_partition_key">>,
+        information_digest => <<"sample_information_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(information_partition_observation, Json),
     ?assertEqual(Rec, Rec2).
 
 insurance_requirement_map_roundtrip_test() ->
@@ -3461,6 +4021,90 @@ log_trace_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(log_trace, Json),
     ?assertEqual(Rec, Rec2).
 
+machine_actionable_delta_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_machine_actionable_delta(#{
+        subject_id => <<"sample_subject_id">>,
+        prior_state_digest => <<"sample_prior_state_digest">>,
+        delta_digest => <<"sample_delta_digest">>,
+        recommended_action => <<"sample_recommended_action">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_subject_id">>, maps:get(<<"subject_id">>, Map)),
+    ?assertEqual(<<"sample_prior_state_digest">>, maps:get(<<"prior_state_digest">>, Map)),
+    ?assertEqual(<<"sample_delta_digest">>, maps:get(<<"delta_digest">>, Map)),
+    ?assertEqual(<<"sample_recommended_action">>, maps:get(<<"recommended_action">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(machine_actionable_delta,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+machine_actionable_delta_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_machine_actionable_delta(#{
+        subject_id => <<"sample_subject_id">>,
+        prior_state_digest => <<"sample_prior_state_digest">>,
+        delta_digest => <<"sample_delta_digest">>,
+        recommended_action => <<"sample_recommended_action">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(machine_actionable_delta, Json),
+    ?assertEqual(Rec, Rec2).
+
+manufacture_receipt_presence_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_manufacture_receipt_presence_observation(#{
+        subject_sha => <<"sample_subject_sha">>,
+        receipt_id => <<"sample_receipt_id">>,
+        receipt_digest => <<"sample_receipt_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_subject_sha">>, maps:get(<<"subject_sha">>, Map)),
+    ?assertEqual(<<"sample_receipt_id">>, maps:get(<<"receipt_id">>, Map)),
+    ?assertEqual(<<"sample_receipt_digest">>, maps:get(<<"receipt_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(manufacture_receipt_presence_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+manufacture_receipt_presence_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_manufacture_receipt_presence_observation(#{
+        subject_sha => <<"sample_subject_sha">>,
+        receipt_id => <<"sample_receipt_id">>,
+        receipt_digest => <<"sample_receipt_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(manufacture_receipt_presence_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
+manufacture_receipt_validity_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_manufacture_receipt_validity_observation(#{
+        receipt_digest => <<"sample_receipt_digest">>,
+        subject_sha => <<"sample_subject_sha">>,
+        verification_status => <<"sample_verification_status">>,
+        verifier_identity => <<"sample_verifier_identity">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_receipt_digest">>, maps:get(<<"receipt_digest">>, Map)),
+    ?assertEqual(<<"sample_subject_sha">>, maps:get(<<"subject_sha">>, Map)),
+    ?assertEqual(<<"sample_verification_status">>, maps:get(<<"verification_status">>, Map)),
+    ?assertEqual(<<"sample_verifier_identity">>, maps:get(<<"verifier_identity">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(manufacture_receipt_validity_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+manufacture_receipt_validity_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_manufacture_receipt_validity_observation(#{
+        receipt_digest => <<"sample_receipt_digest">>,
+        subject_sha => <<"sample_subject_sha">>,
+        verification_status => <<"sample_verification_status">>,
+        verifier_identity => <<"sample_verifier_identity">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(manufacture_receipt_validity_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 master_service_agreement_state_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_master_service_agreement_state(#{
         opportunity_id => <<"sample_opportunity_id">>,
@@ -3676,6 +4320,34 @@ node_failover_event_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(node_failover_event, Json),
     ?assertEqual(Rec, Rec2).
 
+normalized_event_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_normalized_event_observation(#{
+        source_system => <<"sample_source_system">>,
+        event_id => <<"sample_event_id">>,
+        event_type => <<"sample_event_type">>,
+        event_time => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_source_system">>, maps:get(<<"source_system">>, Map)),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"sample_event_type">>, maps:get(<<"event_type">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"event_time">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(normalized_event_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+normalized_event_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_normalized_event_observation(#{
+        source_system => <<"sample_source_system">>,
+        event_id => <<"sample_event_id">>,
+        event_type => <<"sample_event_type">>,
+        event_time => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(normalized_event_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 object_attribute_change_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_object_attribute_change(#{
         object_id => <<"sample_object_id">>,
@@ -3789,6 +4461,118 @@ objection_resolution_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(objection_resolution, Json),
+    ?assertEqual(Rec, Rec2).
+
+observation_deduplication_decision_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_observation_deduplication_decision(#{
+        event_id => <<"sample_event_id">>,
+        event_digest => <<"sample_event_digest">>,
+        dedup_key => <<"sample_dedup_key">>,
+        decision => <<"sample_decision">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_event_id">>, maps:get(<<"event_id">>, Map)),
+    ?assertEqual(<<"sample_event_digest">>, maps:get(<<"event_digest">>, Map)),
+    ?assertEqual(<<"sample_dedup_key">>, maps:get(<<"dedup_key">>, Map)),
+    ?assertEqual(<<"sample_decision">>, maps:get(<<"decision">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(observation_deduplication_decision,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+observation_deduplication_decision_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_observation_deduplication_decision(#{
+        event_id => <<"sample_event_id">>,
+        event_digest => <<"sample_event_digest">>,
+        dedup_key => <<"sample_dedup_key">>,
+        decision => <<"sample_decision">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(observation_deduplication_decision, Json),
+    ?assertEqual(Rec, Rec2).
+
+observation_entropy_estimate_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_observation_entropy_estimate(#{
+        state_vector_id => <<"sample_state_vector_id">>,
+        entropy_method => <<"sample_entropy_method">>,
+        entropy_value => 3.5,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_state_vector_id">>, maps:get(<<"state_vector_id">>, Map)),
+    ?assertEqual(<<"sample_entropy_method">>, maps:get(<<"entropy_method">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"entropy_value">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(observation_entropy_estimate,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+observation_entropy_estimate_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_observation_entropy_estimate(#{
+        state_vector_id => <<"sample_state_vector_id">>,
+        entropy_method => <<"sample_entropy_method">>,
+        entropy_value => 3.5,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(observation_entropy_estimate, Json),
+    ?assertEqual(Rec, Rec2).
+
+observation_freshness_assessment_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_observation_freshness_assessment(#{
+        observation_id => <<"sample_observation_id">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>,
+        freshness_deadline => <<"2026-08-29T12:00:00Z">>,
+        freshness_status => <<"sample_freshness_status">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_observation_id">>, maps:get(<<"observation_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"freshness_deadline">>, Map)),
+    ?assertEqual(<<"sample_freshness_status">>, maps:get(<<"freshness_status">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(observation_freshness_assessment,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+observation_freshness_assessment_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_observation_freshness_assessment(#{
+        observation_id => <<"sample_observation_id">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>,
+        freshness_deadline => <<"2026-08-29T12:00:00Z">>,
+        freshness_status => <<"sample_freshness_status">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(observation_freshness_assessment, Json),
+    ?assertEqual(Rec, Rec2).
+
+observation_staleness_invalidation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_observation_staleness_invalidation(#{
+        observation_id => <<"sample_observation_id">>,
+        invalidated_at => <<"2026-08-29T12:00:00Z">>,
+        staleness_reason => <<"sample_staleness_reason">>,
+        replacement_required => true
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_observation_id">>, maps:get(<<"observation_id">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"invalidated_at">>, Map)),
+    ?assertEqual(<<"sample_staleness_reason">>, maps:get(<<"staleness_reason">>, Map)),
+    ?assertEqual(true, maps:get(<<"replacement_required">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(observation_staleness_invalidation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+observation_staleness_invalidation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_observation_staleness_invalidation(#{
+        observation_id => <<"sample_observation_id">>,
+        invalidated_at => <<"2026-08-29T12:00:00Z">>,
+        staleness_reason => <<"sample_staleness_reason">>,
+        replacement_required => true
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(observation_staleness_invalidation, Json),
     ?assertEqual(Rec, Rec2).
 
 oc_declare_constraint_map_roundtrip_test() ->
@@ -4107,6 +4891,34 @@ overage_policy_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(overage_policy, Json),
+    ?assertEqual(Rec, Rec2).
+
+package_release_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_package_release_observation(#{
+        package_id => <<"sample_package_id">>,
+        version => <<"sample_version">>,
+        immutable_digest => <<"sample_immutable_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_package_id">>, maps:get(<<"package_id">>, Map)),
+    ?assertEqual(<<"sample_version">>, maps:get(<<"version">>, Map)),
+    ?assertEqual(<<"sample_immutable_digest">>, maps:get(<<"immutable_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(package_release_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+package_release_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_package_release_observation(#{
+        package_id => <<"sample_package_id">>,
+        version => <<"sample_version">>,
+        immutable_digest => <<"sample_immutable_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(package_release_observation, Json),
     ?assertEqual(Rec, Rec2).
 
 paid_workload_outcome_receipt_map_roundtrip_test() ->
@@ -4985,6 +5797,34 @@ provenance_binding_evidence_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(provenance_binding_evidence, Json),
     ?assertEqual(Rec, Rec2).
 
+provenance_binding_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_provenance_binding_observation(#{
+        observation_id => <<"sample_observation_id">>,
+        source_capsule_digest => <<"sample_source_capsule_digest">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        binding_status => <<"sample_binding_status">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_observation_id">>, maps:get(<<"observation_id">>, Map)),
+    ?assertEqual(<<"sample_source_capsule_digest">>, maps:get(<<"source_capsule_digest">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"sample_binding_status">>, maps:get(<<"binding_status">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(provenance_binding_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+provenance_binding_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_provenance_binding_observation(#{
+        observation_id => <<"sample_observation_id">>,
+        source_capsule_digest => <<"sample_source_capsule_digest">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        binding_status => <<"sample_binding_status">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(provenance_binding_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 purchase_order_binding_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_purchase_order_binding(#{
         binding_id => <<"sample_binding_id">>,
@@ -5353,6 +6193,34 @@ recovery_time_receipt_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(recovery_time_receipt, Json),
     ?assertEqual(Rec, Rec2).
 
+refusal_boundary_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_refusal_boundary_observation(#{
+        subject_id => <<"sample_subject_id">>,
+        refusal_code => <<"sample_refusal_code">>,
+        authority_boundary => <<"sample_authority_boundary">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_subject_id">>, maps:get(<<"subject_id">>, Map)),
+    ?assertEqual(<<"sample_refusal_code">>, maps:get(<<"refusal_code">>, Map)),
+    ?assertEqual(<<"sample_authority_boundary">>, maps:get(<<"authority_boundary">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(refusal_boundary_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+refusal_boundary_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_refusal_boundary_observation(#{
+        subject_id => <<"sample_subject_id">>,
+        refusal_code => <<"sample_refusal_code">>,
+        authority_boundary => <<"sample_authority_boundary">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(refusal_boundary_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 remediation_sla_evidence_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_remediation_sla_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -5550,6 +6418,118 @@ replay_environment_identity_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(replay_environment_identity, Json),
+    ?assertEqual(Rec, Rec2).
+
+repository_ancestry_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_repository_ancestry_observation(#{
+        ancestor_sha => <<"sample_ancestor_sha">>,
+        descendant_sha => <<"sample_descendant_sha">>,
+        relation => <<"sample_relation">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_ancestor_sha">>, maps:get(<<"ancestor_sha">>, Map)),
+    ?assertEqual(<<"sample_descendant_sha">>, maps:get(<<"descendant_sha">>, Map)),
+    ?assertEqual(<<"sample_relation">>, maps:get(<<"relation">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(repository_ancestry_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+repository_ancestry_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_repository_ancestry_observation(#{
+        ancestor_sha => <<"sample_ancestor_sha">>,
+        descendant_sha => <<"sample_descendant_sha">>,
+        relation => <<"sample_relation">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(repository_ancestry_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
+repository_default_branch_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_repository_default_branch_observation(#{
+        repository_id => <<"sample_repository_id">>,
+        default_branch => <<"sample_default_branch">>,
+        head_sha => <<"sample_head_sha">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_repository_id">>, maps:get(<<"repository_id">>, Map)),
+    ?assertEqual(<<"sample_default_branch">>, maps:get(<<"default_branch">>, Map)),
+    ?assertEqual(<<"sample_head_sha">>, maps:get(<<"head_sha">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(repository_default_branch_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+repository_default_branch_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_repository_default_branch_observation(#{
+        repository_id => <<"sample_repository_id">>,
+        default_branch => <<"sample_default_branch">>,
+        head_sha => <<"sample_head_sha">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(repository_default_branch_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
+repository_exact_head_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_repository_exact_head_observation(#{
+        repository_id => <<"sample_repository_id">>,
+        branch_name => <<"sample_branch_name">>,
+        head_sha => <<"sample_head_sha">>,
+        previous_head_sha => <<"sample_previous_head_sha">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_repository_id">>, maps:get(<<"repository_id">>, Map)),
+    ?assertEqual(<<"sample_branch_name">>, maps:get(<<"branch_name">>, Map)),
+    ?assertEqual(<<"sample_head_sha">>, maps:get(<<"head_sha">>, Map)),
+    ?assertEqual(<<"sample_previous_head_sha">>, maps:get(<<"previous_head_sha">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(repository_exact_head_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+repository_exact_head_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_repository_exact_head_observation(#{
+        repository_id => <<"sample_repository_id">>,
+        branch_name => <<"sample_branch_name">>,
+        head_sha => <<"sample_head_sha">>,
+        previous_head_sha => <<"sample_previous_head_sha">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(repository_exact_head_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
+repository_worktree_state_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_repository_worktree_state_observation(#{
+        repository_id => <<"sample_repository_id">>,
+        worktree_hash => <<"sample_worktree_hash">>,
+        dirty_path_count => 42,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_repository_id">>, maps:get(<<"repository_id">>, Map)),
+    ?assertEqual(<<"sample_worktree_hash">>, maps:get(<<"worktree_hash">>, Map)),
+    ?assertEqual(42, maps:get(<<"dirty_path_count">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(repository_worktree_state_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+repository_worktree_state_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_repository_worktree_state_observation(#{
+        repository_id => <<"sample_repository_id">>,
+        worktree_hash => <<"sample_worktree_hash">>,
+        dirty_path_count => 42,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(repository_worktree_state_observation, Json),
     ?assertEqual(Rec, Rec2).
 
 reproducible_build_evidence_map_roundtrip_test() ->
@@ -5907,6 +6887,34 @@ rolling_upgrade_plan_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(rolling_upgrade_plan, Json),
     ?assertEqual(Rec, Rec2).
 
+runtime_health_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_runtime_health_observation(#{
+        runtime_id => <<"sample_runtime_id">>,
+        health_state => <<"sample_health_state">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_runtime_id">>, maps:get(<<"runtime_id">>, Map)),
+    ?assertEqual(<<"sample_health_state">>, maps:get(<<"health_state">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(runtime_health_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+runtime_health_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_runtime_health_observation(#{
+        runtime_id => <<"sample_runtime_id">>,
+        health_state => <<"sample_health_state">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(runtime_health_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 runtime_policy_decision_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_runtime_policy_decision(#{
         tenant_id => <<"sample_tenant_id">>,
@@ -5983,6 +6991,34 @@ sbom_inventory_evidence_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(sbom_inventory_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
+second_pass_byte_identity_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_second_pass_byte_identity_observation(#{
+        first_tree_digest => <<"sample_first_tree_digest">>,
+        second_tree_digest => <<"sample_second_tree_digest">>,
+        byte_identity => true,
+        receipt_digest => <<"sample_receipt_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_first_tree_digest">>, maps:get(<<"first_tree_digest">>, Map)),
+    ?assertEqual(<<"sample_second_tree_digest">>, maps:get(<<"second_tree_digest">>, Map)),
+    ?assertEqual(true, maps:get(<<"byte_identity">>, Map)),
+    ?assertEqual(<<"sample_receipt_digest">>, maps:get(<<"receipt_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(second_pass_byte_identity_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+second_pass_byte_identity_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_second_pass_byte_identity_observation(#{
+        first_tree_digest => <<"sample_first_tree_digest">>,
+        second_tree_digest => <<"sample_second_tree_digest">>,
+        byte_identity => true,
+        receipt_digest => <<"sample_receipt_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(second_pass_byte_identity_observation, Json),
     ?assertEqual(Rec, Rec2).
 
 secret_boundary_evidence_map_roundtrip_test() ->
@@ -6092,6 +7128,34 @@ security_readiness_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(security_readiness, Json),
+    ?assertEqual(Rec, Rec2).
+
+semantic_drift_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_semantic_drift_observation(#{
+        subject_id => <<"sample_subject_id">>,
+        prior_semantic_digest => <<"sample_prior_semantic_digest">>,
+        current_semantic_digest => <<"sample_current_semantic_digest">>,
+        drift_class => <<"sample_drift_class">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_subject_id">>, maps:get(<<"subject_id">>, Map)),
+    ?assertEqual(<<"sample_prior_semantic_digest">>, maps:get(<<"prior_semantic_digest">>, Map)),
+    ?assertEqual(<<"sample_current_semantic_digest">>, maps:get(<<"current_semantic_digest">>, Map)),
+    ?assertEqual(<<"sample_drift_class">>, maps:get(<<"drift_class">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(semantic_drift_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+semantic_drift_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_semantic_drift_observation(#{
+        subject_id => <<"sample_subject_id">>,
+        prior_semantic_digest => <<"sample_prior_semantic_digest">>,
+        current_semantic_digest => <<"sample_current_semantic_digest">>,
+        drift_class => <<"sample_drift_class">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(semantic_drift_observation, Json),
     ?assertEqual(Rec, Rec2).
 
 service_credit_map_roundtrip_test() ->
@@ -6502,6 +7566,90 @@ stale_subject_refusal_evidence_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(stale_subject_refusal_evidence, Json),
     ?assertEqual(Rec, Rec2).
 
+standing_state_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_standing_state_observation(#{
+        subject_id => <<"sample_subject_id">>,
+        standing => <<"sample_standing">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_subject_id">>, maps:get(<<"subject_id">>, Map)),
+    ?assertEqual(<<"sample_standing">>, maps:get(<<"standing">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(standing_state_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+standing_state_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_standing_state_observation(#{
+        subject_id => <<"sample_subject_id">>,
+        standing => <<"sample_standing">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(standing_state_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
+submodule_lock_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_submodule_lock_observation(#{
+        submodule_path => <<"sample_submodule_path">>,
+        gitlink_sha => <<"sample_gitlink_sha">>,
+        lock_sha => <<"sample_lock_sha">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_submodule_path">>, maps:get(<<"submodule_path">>, Map)),
+    ?assertEqual(<<"sample_gitlink_sha">>, maps:get(<<"gitlink_sha">>, Map)),
+    ?assertEqual(<<"sample_lock_sha">>, maps:get(<<"lock_sha">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(submodule_lock_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+submodule_lock_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_submodule_lock_observation(#{
+        submodule_path => <<"sample_submodule_path">>,
+        gitlink_sha => <<"sample_gitlink_sha">>,
+        lock_sha => <<"sample_lock_sha">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(submodule_lock_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
+submodule_registration_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_submodule_registration_observation(#{
+        submodule_path => <<"sample_submodule_path">>,
+        registration_state => <<"sample_registration_state">>,
+        repository_url => <<"sample_repository_url">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_submodule_path">>, maps:get(<<"submodule_path">>, Map)),
+    ?assertEqual(<<"sample_registration_state">>, maps:get(<<"registration_state">>, Map)),
+    ?assertEqual(<<"sample_repository_url">>, maps:get(<<"repository_url">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(submodule_registration_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+submodule_registration_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_submodule_registration_observation(#{
+        submodule_path => <<"sample_submodule_path">>,
+        registration_state => <<"sample_registration_state">>,
+        repository_url => <<"sample_repository_url">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(submodule_registration_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 success_plan_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_success_plan(#{
         success_plan_id => <<"sample_success_plan_id">>,
@@ -6857,6 +8005,34 @@ technical_blocker_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(technical_blocker, Json),
     ?assertEqual(Rec, Rec2).
 
+temporal_order_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_temporal_order_observation(#{
+        earlier_observation_id => <<"sample_earlier_observation_id">>,
+        later_observation_id => <<"sample_later_observation_id">>,
+        ordering_basis => <<"sample_ordering_basis">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_earlier_observation_id">>, maps:get(<<"earlier_observation_id">>, Map)),
+    ?assertEqual(<<"sample_later_observation_id">>, maps:get(<<"later_observation_id">>, Map)),
+    ?assertEqual(<<"sample_ordering_basis">>, maps:get(<<"ordering_basis">>, Map)),
+    ?assertEqual(<<"sample_evidence_digest">>, maps:get(<<"evidence_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(temporal_order_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+temporal_order_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_temporal_order_observation(#{
+        earlier_observation_id => <<"sample_earlier_observation_id">>,
+        later_observation_id => <<"sample_later_observation_id">>,
+        ordering_basis => <<"sample_ordering_basis">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(temporal_order_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 tenant_account_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_tenant_account(#{
         tenant_id => <<"sample_tenant_id">>,
@@ -7122,6 +8298,34 @@ toolchain_identity_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(toolchain_identity, Json),
     ?assertEqual(Rec, Rec2).
 
+toolchain_identity_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_toolchain_identity_observation(#{
+        tool_name => <<"sample_tool_name">>,
+        tool_version => <<"sample_tool_version">>,
+        executable_digest => <<"sample_executable_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_tool_name">>, maps:get(<<"tool_name">>, Map)),
+    ?assertEqual(<<"sample_tool_version">>, maps:get(<<"tool_version">>, Map)),
+    ?assertEqual(<<"sample_executable_digest">>, maps:get(<<"executable_digest">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(toolchain_identity_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+toolchain_identity_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_toolchain_identity_observation(#{
+        tool_name => <<"sample_tool_name">>,
+        tool_version => <<"sample_tool_version">>,
+        executable_digest => <<"sample_executable_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(toolchain_identity_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 training_readiness_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_training_readiness(#{
         training_readiness_id => <<"sample_training_readiness_id">>,
@@ -7232,6 +8436,34 @@ type_edge_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(type_edge, Json),
+    ?assertEqual(Rec, Rec2).
+
+uncertainty_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_uncertainty_observation(#{
+        observation_id => <<"sample_observation_id">>,
+        uncertainty_kind => <<"sample_uncertainty_kind">>,
+        confidence_basis => <<"sample_confidence_basis">>,
+        standing => <<"sample_standing">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_observation_id">>, maps:get(<<"observation_id">>, Map)),
+    ?assertEqual(<<"sample_uncertainty_kind">>, maps:get(<<"uncertainty_kind">>, Map)),
+    ?assertEqual(<<"sample_confidence_basis">>, maps:get(<<"confidence_basis">>, Map)),
+    ?assertEqual(<<"sample_standing">>, maps:get(<<"standing">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(uncertainty_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+uncertainty_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_uncertainty_observation(#{
+        observation_id => <<"sample_observation_id">>,
+        uncertainty_kind => <<"sample_uncertainty_kind">>,
+        confidence_basis => <<"sample_confidence_basis">>,
+        standing => <<"sample_standing">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(uncertainty_observation, Json),
     ?assertEqual(Rec, Rec2).
 
 unsupported_capability_evidence_map_roundtrip_test() ->
@@ -7436,6 +8668,62 @@ usage_signal_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(usage_signal, Json),
     ?assertEqual(Rec, Rec2).
 
+validation_capsule_drift_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_validation_capsule_drift_observation(#{
+        expected_digest => <<"sample_expected_digest">>,
+        observed_digest => <<"sample_observed_digest">>,
+        drift_status => <<"sample_drift_status">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_expected_digest">>, maps:get(<<"expected_digest">>, Map)),
+    ?assertEqual(<<"sample_observed_digest">>, maps:get(<<"observed_digest">>, Map)),
+    ?assertEqual(<<"sample_drift_status">>, maps:get(<<"drift_status">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(validation_capsule_drift_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+validation_capsule_drift_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_validation_capsule_drift_observation(#{
+        expected_digest => <<"sample_expected_digest">>,
+        observed_digest => <<"sample_observed_digest">>,
+        drift_status => <<"sample_drift_status">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(validation_capsule_drift_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
+validation_capsule_identity_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_validation_capsule_identity_observation(#{
+        capsule_repository => <<"sample_capsule_repository">>,
+        capsule_sha => <<"sample_capsule_sha">>,
+        execution_mode => <<"sample_execution_mode">>,
+        image_digest => <<"sample_image_digest">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_capsule_repository">>, maps:get(<<"capsule_repository">>, Map)),
+    ?assertEqual(<<"sample_capsule_sha">>, maps:get(<<"capsule_sha">>, Map)),
+    ?assertEqual(<<"sample_execution_mode">>, maps:get(<<"execution_mode">>, Map)),
+    ?assertEqual(<<"sample_image_digest">>, maps:get(<<"image_digest">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(validation_capsule_identity_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+validation_capsule_identity_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_validation_capsule_identity_observation(#{
+        capsule_repository => <<"sample_capsule_repository">>,
+        capsule_sha => <<"sample_capsule_sha">>,
+        execution_mode => <<"sample_execution_mode">>,
+        image_digest => <<"sample_image_digest">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(validation_capsule_identity_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
 value_baseline_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_value_baseline(#{
         baseline_id => <<"sample_baseline_id">>,
@@ -7493,6 +8781,34 @@ value_driver_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(value_driver, Json),
+    ?assertEqual(Rec, Rec2).
+
+value_of_information_estimate_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_value_of_information_estimate(#{
+        decision_id => <<"sample_decision_id">>,
+        evidence_candidate_id => <<"sample_evidence_candidate_id">>,
+        expected_information_gain => 3.5,
+        cost_basis => <<"sample_cost_basis">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_decision_id">>, maps:get(<<"decision_id">>, Map)),
+    ?assertEqual(<<"sample_evidence_candidate_id">>, maps:get(<<"evidence_candidate_id">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"expected_information_gain">>, Map)),
+    ?assertEqual(<<"sample_cost_basis">>, maps:get(<<"cost_basis">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(value_of_information_estimate,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+value_of_information_estimate_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_value_of_information_estimate(#{
+        decision_id => <<"sample_decision_id">>,
+        evidence_candidate_id => <<"sample_evidence_candidate_id">>,
+        expected_information_gain => 3.5,
+        cost_basis => <<"sample_cost_basis">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(value_of_information_estimate, Json),
     ?assertEqual(Rec, Rec2).
 
 value_realization_map_roundtrip_test() ->
@@ -7683,6 +8999,90 @@ vulnerability_scan_evidence_json_roundtrip_test() ->
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),
     {ok, Rec2} = beam4pm_codec:decode(vulnerability_scan_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
+workflow_definition_digest_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_workflow_definition_digest_observation(#{
+        workflow_path => <<"sample_workflow_path">>,
+        definition_sha256 => <<"sample_definition_sha256">>,
+        source_sha => <<"sample_source_sha">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_workflow_path">>, maps:get(<<"workflow_path">>, Map)),
+    ?assertEqual(<<"sample_definition_sha256">>, maps:get(<<"definition_sha256">>, Map)),
+    ?assertEqual(<<"sample_source_sha">>, maps:get(<<"source_sha">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00Z">>, maps:get(<<"observed_at">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(workflow_definition_digest_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+workflow_definition_digest_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_workflow_definition_digest_observation(#{
+        workflow_path => <<"sample_workflow_path">>,
+        definition_sha256 => <<"sample_definition_sha256">>,
+        source_sha => <<"sample_source_sha">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(workflow_definition_digest_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
+workflow_job_state_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_workflow_job_state_observation(#{
+        job_id => <<"sample_job_id">>,
+        run_id => <<"sample_run_id">>,
+        runner_identity => <<"sample_runner_identity">>,
+        conclusion => <<"sample_conclusion">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_job_id">>, maps:get(<<"job_id">>, Map)),
+    ?assertEqual(<<"sample_run_id">>, maps:get(<<"run_id">>, Map)),
+    ?assertEqual(<<"sample_runner_identity">>, maps:get(<<"runner_identity">>, Map)),
+    ?assertEqual(<<"sample_conclusion">>, maps:get(<<"conclusion">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(workflow_job_state_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+workflow_job_state_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_workflow_job_state_observation(#{
+        job_id => <<"sample_job_id">>,
+        run_id => <<"sample_run_id">>,
+        runner_identity => <<"sample_runner_identity">>,
+        conclusion => <<"sample_conclusion">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(workflow_job_state_observation, Json),
+    ?assertEqual(Rec, Rec2).
+
+workflow_run_state_observation_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_workflow_run_state_observation(#{
+        run_id => <<"sample_run_id">>,
+        workflow_id => <<"sample_workflow_id">>,
+        head_sha => <<"sample_head_sha">>,
+        conclusion => <<"sample_conclusion">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_run_id">>, maps:get(<<"run_id">>, Map)),
+    ?assertEqual(<<"sample_workflow_id">>, maps:get(<<"workflow_id">>, Map)),
+    ?assertEqual(<<"sample_head_sha">>, maps:get(<<"head_sha">>, Map)),
+    ?assertEqual(<<"sample_conclusion">>, maps:get(<<"conclusion">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(workflow_run_state_observation,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+workflow_run_state_observation_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_workflow_run_state_observation(#{
+        run_id => <<"sample_run_id">>,
+        workflow_id => <<"sample_workflow_id">>,
+        head_sha => <<"sample_head_sha">>,
+        conclusion => <<"sample_conclusion">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(workflow_run_state_observation, Json),
     ?assertEqual(Rec, Rec2).
 
 workload_backpressure_signal_map_roundtrip_test() ->
