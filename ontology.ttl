@@ -9487,3 +9487,33 @@ b4p:crown_convergence_proof_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-041 — crown_applicable_gate_coverage
+b4p:crown_applicable_gate_coverage_rt a bpm:RecordType ;
+    bpm:recordName "crown_applicable_gate_coverage" ;
+    bpm:recordDoc "Requires every gate applicable to the changed subject before declaring the crown alive." ;
+    bpm:hasField b4p:crown_applicable_gate_coverage_propagation_id_f,
+                 b4p:crown_applicable_gate_coverage_subject_sha_f,
+                 b4p:crown_applicable_gate_coverage_applicable_gate_set_digest_f,
+                 b4p:crown_applicable_gate_coverage_receipt_digest_f .
+
+b4p:crown_applicable_gate_coverage_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_applicable_gate_coverage_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_applicable_gate_coverage_applicable_gate_set_digest_f a bpm:Field ;
+    bpm:fieldName "applicable_gate_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the normalized applicable gate set and results." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_applicable_gate_coverage_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
