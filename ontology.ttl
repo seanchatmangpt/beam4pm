@@ -9187,3 +9187,33 @@ b4p:crown_consumer_smoke_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-031 — crown_manufacturer_identity
+b4p:crown_manufacturer_identity_rt a bpm:RecordType ;
+    bpm:recordName "crown_manufacturer_identity" ;
+    bpm:recordDoc "Binds propagation to the exact deterministic manufacturer executable identity." ;
+    bpm:hasField b4p:crown_manufacturer_identity_propagation_id_f,
+                 b4p:crown_manufacturer_identity_subject_sha_f,
+                 b4p:crown_manufacturer_identity_manufacturer_digest_f,
+                 b4p:crown_manufacturer_identity_receipt_digest_f .
+
+b4p:crown_manufacturer_identity_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_manufacturer_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_manufacturer_identity_manufacturer_digest_f a bpm:Field ;
+    bpm:fieldName "manufacturer_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the admitted GGen manufacturer binary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_manufacturer_identity_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
