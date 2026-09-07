@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-026 — admissible_action_set
+b4p:admissible_action_set_rt a bpm:RecordType ;
+    bpm:recordName "admissible_action_set" ;
+    bpm:recordDoc "Computes all actions currently permitted by state, constraints, and authority." ;
+    bpm:hasField b4p:admissible_action_set_state_id_f,
+                 b4p:admissible_action_set_constraint_hash_f,
+                 b4p:admissible_action_set_action_set_hash_f .
+
+b4p:admissible_action_set_state_id_f a bpm:Field ;
+    bpm:fieldName "state_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required state_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:admissible_action_set_constraint_hash_f a bpm:Field ;
+    bpm:fieldName "constraint_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required constraint_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:admissible_action_set_action_set_hash_f a bpm:Field ;
+    bpm:fieldName "action_set_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required action_set_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

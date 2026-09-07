@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-037 — reachability_analysis
+b4p:reachability_analysis_rt a bpm:RecordType ;
+    bpm:recordName "reachability_analysis" ;
+    bpm:recordDoc "Determines whether an admitted goal remains reachable from current state." ;
+    bpm:hasField b4p:reachability_analysis_state_id_f,
+                 b4p:reachability_analysis_goal_id_f,
+                 b4p:reachability_analysis_reachability_proof_hash_f .
+
+b4p:reachability_analysis_state_id_f a bpm:Field ;
+    bpm:fieldName "state_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required state_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:reachability_analysis_goal_id_f a bpm:Field ;
+    bpm:fieldName "goal_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required goal_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:reachability_analysis_reachability_proof_hash_f a bpm:Field ;
+    bpm:fieldName "reachability_proof_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required reachability_proof_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
