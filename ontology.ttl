@@ -8287,3 +8287,33 @@ b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f a bpm:Field ;
     bpm:fieldName "outcome_receipt_hash" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable evidence identity binding the observed production consequence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+
+# WS1-OBS-001 — repository_default_branch_observation
+b4p:repository_default_branch_observation_rt a bpm:RecordType ;
+    bpm:recordName "repository_default_branch_observation" ;
+    bpm:recordDoc "Observes a repository default branch and its exact head so autonomic state can invalidate on branch drift." ;
+    bpm:hasField b4p:repository_default_branch_observation_repository_id_f,
+                 b4p:repository_default_branch_observation_default_branch_f,
+                 b4p:repository_default_branch_observation_head_sha_f,
+                 b4p:repository_default_branch_observation_observed_at_f .
+
+b4p:repository_default_branch_observation_repository_id_f a bpm:Field ;
+    bpm:fieldName "repository_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable repository identity observed by the sensor." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:repository_default_branch_observation_default_branch_f a bpm:Field ;
+    bpm:fieldName "default_branch" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed default branch name." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:repository_default_branch_observation_head_sha_f a bpm:Field ;
+    bpm:fieldName "head_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact commit at the observed default-branch head." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:repository_default_branch_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp bounding the freshness of this observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
