@@ -8407,3 +8407,33 @@ b4p:repository_worktree_state_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of worktree observation." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-005 — submodule_lock_observation
+b4p:submodule_lock_observation_rt a bpm:RecordType ;
+    bpm:recordName "submodule_lock_observation" ;
+    bpm:recordDoc "Compares an exact gitlink with its declared dependency lock to expose submodule drift automatically." ;
+    bpm:hasField b4p:submodule_lock_observation_submodule_path_f,
+                 b4p:submodule_lock_observation_gitlink_sha_f,
+                 b4p:submodule_lock_observation_lock_sha_f,
+                 b4p:submodule_lock_observation_observed_at_f .
+
+b4p:submodule_lock_observation_submodule_path_f a bpm:Field ;
+    bpm:fieldName "submodule_path" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Caller-local submodule path." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:submodule_lock_observation_gitlink_sha_f a bpm:Field ;
+    bpm:fieldName "gitlink_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact gitlink commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:submodule_lock_observation_lock_sha_f a bpm:Field ;
+    bpm:fieldName "lock_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Declared immutable lock commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:submodule_lock_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of comparison." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
