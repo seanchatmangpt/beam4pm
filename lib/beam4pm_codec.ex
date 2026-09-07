@@ -102,6 +102,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.AnomalyDetectionObservation{} = r) do
+    to_known_map([
+      {"subject_id", r.subject_id, :passthrough},
+      {"baseline_digest", r.baseline_digest, :passthrough},
+      {"observation_digest", r.observation_digest, :passthrough},
+      {"anomaly_score", r.anomaly_score, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ApprovalSeparationEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -139,6 +148,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ArtifactDigestObservation{} = r) do
+    to_known_map([
+      {"artifact_id", r.artifact_id, :passthrough},
+      {"artifact_sha256", r.artifact_sha256, :passthrough},
+      {"producer_run_id", r.producer_run_id, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.AttestationVerificationEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -154,6 +172,15 @@ defmodule BeamPM.Codec do
       {"subject_sha", r.subject_sha, :passthrough},
       {"previous_receipt_hash", r.previous_receipt_hash, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicStateVector{} = r) do
+    to_known_map([
+      {"state_vector_id", r.state_vector_id, :passthrough},
+      {"subject_id", r.subject_id, :passthrough},
+      {"dimension_digest", r.dimension_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
     ])
   end
 
@@ -190,6 +217,24 @@ defmodule BeamPM.Codec do
       {"baseline_value", r.baseline_value, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.BeliefStateSnapshot{} = r) do
+    to_known_map([
+      {"belief_state_id", r.belief_state_id, :passthrough},
+      {"subject_id", r.subject_id, :passthrough},
+      {"posterior_digest", r.posterior_digest, :passthrough},
+      {"uncertainty_status", r.uncertainty_status, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.BeliefStateUpdate{} = r) do
+    to_known_map([
+      {"prior_belief_id", r.prior_belief_id, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"posterior_belief_id", r.posterior_belief_id, :passthrough},
+      {"update_rule", r.update_rule, :passthrough}
     ])
   end
 
@@ -288,6 +333,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.CallerLocalCheckoutObservation{} = r) do
+    to_known_map([
+      {"consumer_repository_id", r.consumer_repository_id, :passthrough},
+      {"checkout_sha", r.checkout_sha, :passthrough},
+      {"checkout_path", r.checkout_path, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.CanaryDecision{} = r) do
     to_known_map([
       {"canary_decision_id", r.canary_decision_id, :passthrough},
@@ -304,6 +358,15 @@ defmodule BeamPM.Codec do
       {"subject_sha", r.subject_sha, :passthrough},
       {"canary_percentage", r.canary_percentage, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CanonicalSourceAuthorityObservation{} = r) do
+    to_known_map([
+      {"source_path", r.source_path, :passthrough},
+      {"authority_class", r.authority_class, :passthrough},
+      {"mutation_allowed", r.mutation_allowed, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough}
     ])
   end
 
@@ -351,6 +414,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.CausalLineageObservation{} = r) do
+    to_known_map([
+      {"cause_observation_id", r.cause_observation_id, :passthrough},
+      {"effect_observation_id", r.effect_observation_id, :passthrough},
+      {"causal_basis", r.causal_basis, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ChangeControlEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -365,6 +437,15 @@ defmodule BeamPM.Codec do
       {"opportunity_id", r.opportunity_id, :passthrough},
       {"authority_id", r.authority_id, :passthrough},
       {"evidence_hash", r.evidence_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ChangedSurfaceInference{} = r) do
+    to_known_map([
+      {"prior_tree_sha", r.prior_tree_sha, :passthrough},
+      {"current_tree_sha", r.current_tree_sha, :passthrough},
+      {"changed_surface_digest", r.changed_surface_digest, :passthrough},
+      {"inference_status", r.inference_status, :passthrough}
     ])
   end
 
@@ -475,6 +556,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.CommitCheckStateObservation{} = r) do
+    to_known_map([
+      {"commit_sha", r.commit_sha, :passthrough},
+      {"check_name", r.check_name, :passthrough},
+      {"check_status", r.check_status, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.CommittedSpend{} = r) do
     to_known_map([
       {"commitment_id", r.commitment_id, :passthrough},
@@ -527,6 +617,24 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ConsequentialStateInvalidation{} = r) do
+    to_known_map([
+      {"transition_id", r.transition_id, :passthrough},
+      {"affected_state_digest", r.affected_state_digest, :passthrough},
+      {"invalidation_reason", r.invalidation_reason, :passthrough},
+      {"invalidated_at", r.invalidated_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ConsumerPackPinObservation{} = r) do
+    to_known_map([
+      {"consumer_repository_id", r.consumer_repository_id, :passthrough},
+      {"pack_id", r.pack_id, :passthrough},
+      {"pack_sha", r.pack_sha, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ConsumptionPool{} = r) do
     to_known_map([
       {"pool_id", r.pool_id, :passthrough},
@@ -542,6 +650,24 @@ defmodule BeamPM.Codec do
       {"account_id", r.account_id, :passthrough},
       {"plan_id", r.plan_id, :passthrough},
       {"status", r.status, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ContainerManifestDigestObservation{} = r) do
+    to_known_map([
+      {"image_repository", r.image_repository, :passthrough},
+      {"tag", r.tag, :passthrough},
+      {"index_digest", r.index_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ContainerPlatformDigestObservation{} = r) do
+    to_known_map([
+      {"index_digest", r.index_digest, :passthrough},
+      {"platform", r.platform, :passthrough},
+      {"platform_digest", r.platform_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
     ])
   end
 
@@ -606,6 +732,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.CustomerSignalObservation{} = r) do
+    to_known_map([
+      {"customer_id", r.customer_id, :passthrough},
+      {"signal_type", r.signal_type, :passthrough},
+      {"signal_digest", r.signal_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.DataEgressEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -658,6 +793,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.DecisionCompressionObservation{} = r) do
+    to_known_map([
+      {"compression_id", r.compression_id, :passthrough},
+      {"input_state_digest", r.input_state_digest, :passthrough},
+      {"output_delta_digest", r.output_delta_digest, :passthrough},
+      {"loss_bound", r.loss_bound, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.DeletionProofEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -693,6 +837,15 @@ defmodule BeamPM.Codec do
       {"subject_sha", r.subject_sha, :passthrough},
       {"dependency_count", r.dependency_count, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.DependencyPinObservation{} = r) do
+    to_known_map([
+      {"dependency_id", r.dependency_id, :passthrough},
+      {"declared_ref", r.declared_ref, :passthrough},
+      {"resolved_sha", r.resolved_sha, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
     ])
   end
 
@@ -857,6 +1010,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.EnvironmentSignalObservation{} = r) do
+    to_known_map([
+      {"environment_id", r.environment_id, :passthrough},
+      {"signal_type", r.signal_type, :passthrough},
+      {"signal_digest", r.signal_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ErrorBudgetState{} = r) do
     to_known_map([
       {"tenant_id", r.tenant_id, :passthrough},
@@ -972,6 +1134,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.GeneratedOutputOwnershipObservation{} = r) do
+    to_known_map([
+      {"output_path", r.output_path, :passthrough},
+      {"ownership_marker", r.ownership_marker, :passthrough},
+      {"source_input_digest", r.source_input_digest, :passthrough},
+      {"standing", r.standing, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.HeuristicArc{} = r) do
     to_known_map([
       {"source_activity", r.source_activity, :passthrough},
@@ -1018,6 +1189,15 @@ defmodule BeamPM.Codec do
       {"opportunity_id", r.opportunity_id, :passthrough},
       {"indemnity_scope_id", r.indemnity_scope_id, :passthrough},
       {"decision", r.decision, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.InformationPartitionObservation{} = r) do
+    to_known_map([
+      {"partition_id", r.partition_id, :passthrough},
+      {"state_vector_id", r.state_vector_id, :passthrough},
+      {"partition_key", r.partition_key, :passthrough},
+      {"information_digest", r.information_digest, :passthrough}
     ])
   end
 
@@ -1121,6 +1301,33 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.MachineActionableDelta{} = r) do
+    to_known_map([
+      {"subject_id", r.subject_id, :passthrough},
+      {"prior_state_digest", r.prior_state_digest, :passthrough},
+      {"delta_digest", r.delta_digest, :passthrough},
+      {"recommended_action", r.recommended_action, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ManufactureReceiptPresenceObservation{} = r) do
+    to_known_map([
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"receipt_id", r.receipt_id, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ManufactureReceiptValidityObservation{} = r) do
+    to_known_map([
+      {"receipt_digest", r.receipt_digest, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"verification_status", r.verification_status, :passthrough},
+      {"verifier_identity", r.verifier_identity, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.MasterServiceAgreementState{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -1190,6 +1397,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.NormalizedEventObservation{} = r) do
+    to_known_map([
+      {"source_system", r.source_system, :passthrough},
+      {"event_id", r.event_id, :passthrough},
+      {"event_type", r.event_type, :passthrough},
+      {"event_time", r.event_time, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ObjectAttributeChange{} = r) do
     to_known_map([
       {"object_id", r.object_id, :passthrough},
@@ -1224,6 +1440,42 @@ defmodule BeamPM.Codec do
       {"resolution_status", r.resolution_status, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ObservationDeduplicationDecision{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"event_digest", r.event_digest, :passthrough},
+      {"dedup_key", r.dedup_key, :passthrough},
+      {"decision", r.decision, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ObservationEntropyEstimate{} = r) do
+    to_known_map([
+      {"state_vector_id", r.state_vector_id, :passthrough},
+      {"entropy_method", r.entropy_method, :passthrough},
+      {"entropy_value", r.entropy_value, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ObservationFreshnessAssessment{} = r) do
+    to_known_map([
+      {"observation_id", r.observation_id, :passthrough},
+      {"observed_at", r.observed_at, :passthrough},
+      {"freshness_deadline", r.freshness_deadline, :passthrough},
+      {"freshness_status", r.freshness_status, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ObservationStalenessInvalidation{} = r) do
+    to_known_map([
+      {"observation_id", r.observation_id, :passthrough},
+      {"invalidated_at", r.invalidated_at, :passthrough},
+      {"staleness_reason", r.staleness_reason, :passthrough},
+      {"replacement_required", r.replacement_required, :passthrough}
     ])
   end
 
@@ -1326,6 +1578,15 @@ defmodule BeamPM.Codec do
       {"quota_id", r.quota_id, :passthrough},
       {"unit_price", r.unit_price, :passthrough},
       {"behavior", r.behavior, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PackageReleaseObservation{} = r) do
+    to_known_map([
+      {"package_id", r.package_id, :passthrough},
+      {"version", r.version, :passthrough},
+      {"immutable_digest", r.immutable_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
     ])
   end
 
@@ -1610,6 +1871,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ProvenanceBindingObservation{} = r) do
+    to_known_map([
+      {"observation_id", r.observation_id, :passthrough},
+      {"source_capsule_digest", r.source_capsule_digest, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"binding_status", r.binding_status, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.PurchaseOrderBinding{} = r) do
     to_known_map([
       {"binding_id", r.binding_id, :passthrough},
@@ -1728,6 +1998,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.RefusalBoundaryObservation{} = r) do
+    to_known_map([
+      {"subject_id", r.subject_id, :passthrough},
+      {"refusal_code", r.refusal_code, :passthrough},
+      {"authority_boundary", r.authority_boundary, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.RemediationSlaEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -1789,6 +2068,42 @@ defmodule BeamPM.Codec do
       {"tenant_id", r.tenant_id, :passthrough},
       {"environment_id", r.environment_id, :passthrough},
       {"identity_hash", r.identity_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RepositoryAncestryObservation{} = r) do
+    to_known_map([
+      {"ancestor_sha", r.ancestor_sha, :passthrough},
+      {"descendant_sha", r.descendant_sha, :passthrough},
+      {"relation", r.relation, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RepositoryDefaultBranchObservation{} = r) do
+    to_known_map([
+      {"repository_id", r.repository_id, :passthrough},
+      {"default_branch", r.default_branch, :passthrough},
+      {"head_sha", r.head_sha, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RepositoryExactHeadObservation{} = r) do
+    to_known_map([
+      {"repository_id", r.repository_id, :passthrough},
+      {"branch_name", r.branch_name, :passthrough},
+      {"head_sha", r.head_sha, :passthrough},
+      {"previous_head_sha", r.previous_head_sha, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RepositoryWorktreeStateObservation{} = r) do
+    to_known_map([
+      {"repository_id", r.repository_id, :passthrough},
+      {"worktree_hash", r.worktree_hash, :passthrough},
+      {"dirty_path_count", r.dirty_path_count, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
     ])
   end
 
@@ -1906,6 +2221,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.RuntimeHealthObservation{} = r) do
+    to_known_map([
+      {"runtime_id", r.runtime_id, :passthrough},
+      {"health_state", r.health_state, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.RuntimePolicyDecision{} = r) do
     to_known_map([
       {"tenant_id", r.tenant_id, :passthrough},
@@ -1928,6 +2252,15 @@ defmodule BeamPM.Codec do
       {"subject_sha", r.subject_sha, :passthrough},
       {"component_count", r.component_count, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.SecondPassByteIdentityObservation{} = r) do
+    to_known_map([
+      {"first_tree_digest", r.first_tree_digest, :passthrough},
+      {"second_tree_digest", r.second_tree_digest, :passthrough},
+      {"byte_identity", r.byte_identity, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
     ])
   end
 
@@ -1963,6 +2296,15 @@ defmodule BeamPM.Codec do
       {"control_coverage", r.control_coverage, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.SemanticDriftObservation{} = r) do
+    to_known_map([
+      {"subject_id", r.subject_id, :passthrough},
+      {"prior_semantic_digest", r.prior_semantic_digest, :passthrough},
+      {"current_semantic_digest", r.current_semantic_digest, :passthrough},
+      {"drift_class", r.drift_class, :passthrough}
     ])
   end
 
@@ -2097,6 +2439,33 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.StandingStateObservation{} = r) do
+    to_known_map([
+      {"subject_id", r.subject_id, :passthrough},
+      {"standing", r.standing, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.SubmoduleLockObservation{} = r) do
+    to_known_map([
+      {"submodule_path", r.submodule_path, :passthrough},
+      {"gitlink_sha", r.gitlink_sha, :passthrough},
+      {"lock_sha", r.lock_sha, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.SubmoduleRegistrationObservation{} = r) do
+    to_known_map([
+      {"submodule_path", r.submodule_path, :passthrough},
+      {"registration_state", r.registration_state, :passthrough},
+      {"repository_url", r.repository_url, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.SuccessPlan{} = r) do
     to_known_map([
       {"success_plan_id", r.success_plan_id, :passthrough},
@@ -2211,6 +2580,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.TemporalOrderObservation{} = r) do
+    to_known_map([
+      {"earlier_observation_id", r.earlier_observation_id, :passthrough},
+      {"later_observation_id", r.later_observation_id, :passthrough},
+      {"ordering_basis", r.ordering_basis, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.TenantAccount{} = r) do
     to_known_map([
       {"tenant_id", r.tenant_id, :passthrough},
@@ -2296,6 +2674,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ToolchainIdentityObservation{} = r) do
+    to_known_map([
+      {"tool_name", r.tool_name, :passthrough},
+      {"tool_version", r.tool_version, :passthrough},
+      {"executable_digest", r.executable_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.TrainingReadiness{} = r) do
     to_known_map([
       {"training_readiness_id", r.training_readiness_id, :passthrough},
@@ -2329,6 +2716,15 @@ defmodule BeamPM.Codec do
       {"target_type", r.target_type, :passthrough},
       {"qualifier", r.qualifier, :passthrough},
       {"direction", r.direction, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.UncertaintyObservation{} = r) do
+    to_known_map([
+      {"observation_id", r.observation_id, :passthrough},
+      {"uncertainty_kind", r.uncertainty_kind, :passthrough},
+      {"confidence_basis", r.confidence_basis, :passthrough},
+      {"standing", r.standing, :passthrough}
     ])
   end
 
@@ -2397,6 +2793,24 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ValidationCapsuleDriftObservation{} = r) do
+    to_known_map([
+      {"expected_digest", r.expected_digest, :passthrough},
+      {"observed_digest", r.observed_digest, :passthrough},
+      {"drift_status", r.drift_status, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ValidationCapsuleIdentityObservation{} = r) do
+    to_known_map([
+      {"capsule_repository", r.capsule_repository, :passthrough},
+      {"capsule_sha", r.capsule_sha, :passthrough},
+      {"execution_mode", r.execution_mode, :passthrough},
+      {"image_digest", r.image_digest, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ValueBaseline{} = r) do
     to_known_map([
       {"baseline_id", r.baseline_id, :passthrough},
@@ -2413,6 +2827,15 @@ defmodule BeamPM.Codec do
       {"annual_value", r.annual_value, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ValueOfInformationEstimate{} = r) do
+    to_known_map([
+      {"decision_id", r.decision_id, :passthrough},
+      {"evidence_candidate_id", r.evidence_candidate_id, :passthrough},
+      {"expected_information_gain", r.expected_information_gain, :passthrough},
+      {"cost_basis", r.cost_basis, :passthrough}
     ])
   end
 
@@ -2474,6 +2897,33 @@ defmodule BeamPM.Codec do
       {"subject_sha", r.subject_sha, :passthrough},
       {"vulnerability_count", r.vulnerability_count, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.WorkflowDefinitionDigestObservation{} = r) do
+    to_known_map([
+      {"workflow_path", r.workflow_path, :passthrough},
+      {"definition_sha256", r.definition_sha256, :passthrough},
+      {"source_sha", r.source_sha, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.WorkflowJobStateObservation{} = r) do
+    to_known_map([
+      {"job_id", r.job_id, :passthrough},
+      {"run_id", r.run_id, :passthrough},
+      {"runner_identity", r.runner_identity, :passthrough},
+      {"conclusion", r.conclusion, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.WorkflowRunStateObservation{} = r) do
+    to_known_map([
+      {"run_id", r.run_id, :passthrough},
+      {"workflow_id", r.workflow_id, :passthrough},
+      {"head_sha", r.head_sha, :passthrough},
+      {"conclusion", r.conclusion, :passthrough}
     ])
   end
 
@@ -2665,6 +3115,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:anomaly_detection_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"subject_id", :subject_id, :passthrough},
+        {"baseline_digest", :baseline_digest, :passthrough},
+        {"observation_digest", :observation_digest, :passthrough},
+        {"anomaly_score", :anomaly_score, :passthrough}
+      ],
+      &BeamPM.Types.AnomalyDetectionObservation.new/1
+    )
+  end
+
   def from_map(:approval_separation_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -2718,6 +3181,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:artifact_digest_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"artifact_id", :artifact_id, :passthrough},
+        {"artifact_sha256", :artifact_sha256, :passthrough},
+        {"producer_run_id", :producer_run_id, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.ArtifactDigestObservation.new/1
+    )
+  end
+
   def from_map(:attestation_verification_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -2741,6 +3217,19 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.AuditChainEvidence.new/1
+    )
+  end
+
+  def from_map(:autonomic_state_vector, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"state_vector_id", :state_vector_id, :passthrough},
+        {"subject_id", :subject_id, :passthrough},
+        {"dimension_digest", :dimension_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicStateVector.new/1
     )
   end
 
@@ -2793,6 +3282,32 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.BaselineMetric.new/1
+    )
+  end
+
+  def from_map(:belief_state_snapshot, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"belief_state_id", :belief_state_id, :passthrough},
+        {"subject_id", :subject_id, :passthrough},
+        {"posterior_digest", :posterior_digest, :passthrough},
+        {"uncertainty_status", :uncertainty_status, :passthrough}
+      ],
+      &BeamPM.Types.BeliefStateSnapshot.new/1
+    )
+  end
+
+  def from_map(:belief_state_update, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"prior_belief_id", :prior_belief_id, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"posterior_belief_id", :posterior_belief_id, :passthrough},
+        {"update_rule", :update_rule, :passthrough}
+      ],
+      &BeamPM.Types.BeliefStateUpdate.new/1
     )
   end
 
@@ -2935,6 +3450,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:caller_local_checkout_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"consumer_repository_id", :consumer_repository_id, :passthrough},
+        {"checkout_sha", :checkout_sha, :passthrough},
+        {"checkout_path", :checkout_path, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough}
+      ],
+      &BeamPM.Types.CallerLocalCheckoutObservation.new/1
+    )
+  end
+
   def from_map(:canary_decision, m) when is_map(m) do
     from_known_fields(
       m,
@@ -2959,6 +3487,19 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.CanaryEvidence.new/1
+    )
+  end
+
+  def from_map(:canonical_source_authority_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"source_path", :source_path, :passthrough},
+        {"authority_class", :authority_class, :passthrough},
+        {"mutation_allowed", :mutation_allowed, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough}
+      ],
+      &BeamPM.Types.CanonicalSourceAuthorityObservation.new/1
     )
   end
 
@@ -3026,6 +3567,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:causal_lineage_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"cause_observation_id", :cause_observation_id, :passthrough},
+        {"effect_observation_id", :effect_observation_id, :passthrough},
+        {"causal_basis", :causal_basis, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough}
+      ],
+      &BeamPM.Types.CausalLineageObservation.new/1
+    )
+  end
+
   def from_map(:change_control_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3048,6 +3602,19 @@ defmodule BeamPM.Codec do
         {"evidence_hash", :evidence_hash, :passthrough}
       ],
       &BeamPM.Types.ChangeOrderAuthority.new/1
+    )
+  end
+
+  def from_map(:changed_surface_inference, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"prior_tree_sha", :prior_tree_sha, :passthrough},
+        {"current_tree_sha", :current_tree_sha, :passthrough},
+        {"changed_surface_digest", :changed_surface_digest, :passthrough},
+        {"inference_status", :inference_status, :passthrough}
+      ],
+      &BeamPM.Types.ChangedSurfaceInference.new/1
     )
   end
 
@@ -3206,6 +3773,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:commit_check_state_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"commit_sha", :commit_sha, :passthrough},
+        {"check_name", :check_name, :passthrough},
+        {"check_status", :check_status, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.CommitCheckStateObservation.new/1
+    )
+  end
+
   def from_map(:committed_spend, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3282,6 +3862,32 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:consequential_state_invalidation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"transition_id", :transition_id, :passthrough},
+        {"affected_state_digest", :affected_state_digest, :passthrough},
+        {"invalidation_reason", :invalidation_reason, :passthrough},
+        {"invalidated_at", :invalidated_at, :passthrough}
+      ],
+      &BeamPM.Types.ConsequentialStateInvalidation.new/1
+    )
+  end
+
+  def from_map(:consumer_pack_pin_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"consumer_repository_id", :consumer_repository_id, :passthrough},
+        {"pack_id", :pack_id, :passthrough},
+        {"pack_sha", :pack_sha, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough}
+      ],
+      &BeamPM.Types.ConsumerPackPinObservation.new/1
+    )
+  end
+
   def from_map(:consumption_pool, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3305,6 +3911,32 @@ defmodule BeamPM.Codec do
         {"status", :status, :atom}
       ],
       &BeamPM.Types.ConsumptionSubscription.new/1
+    )
+  end
+
+  def from_map(:container_manifest_digest_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"image_repository", :image_repository, :passthrough},
+        {"tag", :tag, :passthrough},
+        {"index_digest", :index_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.ContainerManifestDigestObservation.new/1
+    )
+  end
+
+  def from_map(:container_platform_digest_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"index_digest", :index_digest, :passthrough},
+        {"platform", :platform, :passthrough},
+        {"platform_digest", :platform_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.ContainerPlatformDigestObservation.new/1
     )
   end
 
@@ -3397,6 +4029,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:customer_signal_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"customer_id", :customer_id, :passthrough},
+        {"signal_type", :signal_type, :passthrough},
+        {"signal_digest", :signal_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.CustomerSignalObservation.new/1
+    )
+  end
+
   def from_map(:data_egress_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3473,6 +4118,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:decision_compression_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"compression_id", :compression_id, :passthrough},
+        {"input_state_digest", :input_state_digest, :passthrough},
+        {"output_delta_digest", :output_delta_digest, :passthrough},
+        {"loss_bound", :loss_bound, :passthrough}
+      ],
+      &BeamPM.Types.DecisionCompressionObservation.new/1
+    )
+  end
+
   def from_map(:deletion_proof_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3524,6 +4182,19 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.DependencyInventoryEvidence.new/1
+    )
+  end
+
+  def from_map(:dependency_pin_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"dependency_id", :dependency_id, :passthrough},
+        {"declared_ref", :declared_ref, :passthrough},
+        {"resolved_sha", :resolved_sha, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.DependencyPinObservation.new/1
     )
   end
 
@@ -3760,6 +4431,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:environment_signal_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"environment_id", :environment_id, :passthrough},
+        {"signal_type", :signal_type, :passthrough},
+        {"signal_digest", :signal_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.EnvironmentSignalObservation.new/1
+    )
+  end
+
   def from_map(:error_budget_state, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3927,6 +4611,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:generated_output_ownership_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"output_path", :output_path, :passthrough},
+        {"ownership_marker", :ownership_marker, :passthrough},
+        {"source_input_digest", :source_input_digest, :passthrough},
+        {"standing", :standing, :passthrough}
+      ],
+      &BeamPM.Types.GeneratedOutputOwnershipObservation.new/1
+    )
+  end
+
   def from_map(:heuristic_arc, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3997,6 +4694,19 @@ defmodule BeamPM.Codec do
         {"decision", :decision, :passthrough}
       ],
       &BeamPM.Types.IndemnityScopeAdmission.new/1
+    )
+  end
+
+  def from_map(:information_partition_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"partition_id", :partition_id, :passthrough},
+        {"state_vector_id", :state_vector_id, :passthrough},
+        {"partition_key", :partition_key, :passthrough},
+        {"information_digest", :information_digest, :passthrough}
+      ],
+      &BeamPM.Types.InformationPartitionObservation.new/1
     )
   end
 
@@ -4148,6 +4858,45 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:machine_actionable_delta, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"subject_id", :subject_id, :passthrough},
+        {"prior_state_digest", :prior_state_digest, :passthrough},
+        {"delta_digest", :delta_digest, :passthrough},
+        {"recommended_action", :recommended_action, :passthrough}
+      ],
+      &BeamPM.Types.MachineActionableDelta.new/1
+    )
+  end
+
+  def from_map(:manufacture_receipt_presence_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"subject_sha", :subject_sha, :passthrough},
+        {"receipt_id", :receipt_id, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.ManufactureReceiptPresenceObservation.new/1
+    )
+  end
+
+  def from_map(:manufacture_receipt_validity_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"receipt_digest", :receipt_digest, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"verification_status", :verification_status, :passthrough},
+        {"verifier_identity", :verifier_identity, :passthrough}
+      ],
+      &BeamPM.Types.ManufactureReceiptValidityObservation.new/1
+    )
+  end
+
   def from_map(:master_service_agreement_state, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4249,6 +4998,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:normalized_event_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"source_system", :source_system, :passthrough},
+        {"event_id", :event_id, :passthrough},
+        {"event_type", :event_type, :passthrough},
+        {"event_time", :event_time, :passthrough}
+      ],
+      &BeamPM.Types.NormalizedEventObservation.new/1
+    )
+  end
+
   def from_map(:object_attribute_change, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4299,6 +5061,58 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.ObjectionResolution.new/1
+    )
+  end
+
+  def from_map(:observation_deduplication_decision, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"event_digest", :event_digest, :passthrough},
+        {"dedup_key", :dedup_key, :passthrough},
+        {"decision", :decision, :passthrough}
+      ],
+      &BeamPM.Types.ObservationDeduplicationDecision.new/1
+    )
+  end
+
+  def from_map(:observation_entropy_estimate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"state_vector_id", :state_vector_id, :passthrough},
+        {"entropy_method", :entropy_method, :passthrough},
+        {"entropy_value", :entropy_value, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.ObservationEntropyEstimate.new/1
+    )
+  end
+
+  def from_map(:observation_freshness_assessment, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"observation_id", :observation_id, :passthrough},
+        {"observed_at", :observed_at, :passthrough},
+        {"freshness_deadline", :freshness_deadline, :passthrough},
+        {"freshness_status", :freshness_status, :passthrough}
+      ],
+      &BeamPM.Types.ObservationFreshnessAssessment.new/1
+    )
+  end
+
+  def from_map(:observation_staleness_invalidation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"observation_id", :observation_id, :passthrough},
+        {"invalidated_at", :invalidated_at, :passthrough},
+        {"staleness_reason", :staleness_reason, :passthrough},
+        {"replacement_required", :replacement_required, :passthrough}
+      ],
+      &BeamPM.Types.ObservationStalenessInvalidation.new/1
     )
   end
 
@@ -4449,6 +5263,19 @@ defmodule BeamPM.Codec do
         {"behavior", :behavior, :atom}
       ],
       &BeamPM.Types.OveragePolicy.new/1
+    )
+  end
+
+  def from_map(:package_release_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"package_id", :package_id, :passthrough},
+        {"version", :version, :passthrough},
+        {"immutable_digest", :immutable_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.PackageReleaseObservation.new/1
     )
   end
 
@@ -4865,6 +5692,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:provenance_binding_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"observation_id", :observation_id, :passthrough},
+        {"source_capsule_digest", :source_capsule_digest, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"binding_status", :binding_status, :passthrough}
+      ],
+      &BeamPM.Types.ProvenanceBindingObservation.new/1
+    )
+  end
+
   def from_map(:purchase_order_binding, m) when is_map(m) do
     from_known_fields(
       m,
@@ -5039,6 +5879,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:refusal_boundary_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"subject_id", :subject_id, :passthrough},
+        {"refusal_code", :refusal_code, :passthrough},
+        {"authority_boundary", :authority_boundary, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough}
+      ],
+      &BeamPM.Types.RefusalBoundaryObservation.new/1
+    )
+  end
+
   def from_map(:remediation_sla_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -5128,6 +5981,58 @@ defmodule BeamPM.Codec do
         {"identity_hash", :identity_hash, :passthrough}
       ],
       &BeamPM.Types.ReplayEnvironmentIdentity.new/1
+    )
+  end
+
+  def from_map(:repository_ancestry_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"ancestor_sha", :ancestor_sha, :passthrough},
+        {"descendant_sha", :descendant_sha, :passthrough},
+        {"relation", :relation, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough}
+      ],
+      &BeamPM.Types.RepositoryAncestryObservation.new/1
+    )
+  end
+
+  def from_map(:repository_default_branch_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"repository_id", :repository_id, :passthrough},
+        {"default_branch", :default_branch, :passthrough},
+        {"head_sha", :head_sha, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.RepositoryDefaultBranchObservation.new/1
+    )
+  end
+
+  def from_map(:repository_exact_head_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"repository_id", :repository_id, :passthrough},
+        {"branch_name", :branch_name, :passthrough},
+        {"head_sha", :head_sha, :passthrough},
+        {"previous_head_sha", :previous_head_sha, :passthrough}
+      ],
+      &BeamPM.Types.RepositoryExactHeadObservation.new/1
+    )
+  end
+
+  def from_map(:repository_worktree_state_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"repository_id", :repository_id, :passthrough},
+        {"worktree_hash", :worktree_hash, :passthrough},
+        {"dirty_path_count", :dirty_path_count, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.RepositoryWorktreeStateObservation.new/1
     )
   end
 
@@ -5297,6 +6202,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:runtime_health_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"runtime_id", :runtime_id, :passthrough},
+        {"health_state", :health_state, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.RuntimeHealthObservation.new/1
+    )
+  end
+
   def from_map(:runtime_policy_decision, m) when is_map(m) do
     from_known_fields(
       m,
@@ -5331,6 +6249,19 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.SbomInventoryEvidence.new/1
+    )
+  end
+
+  def from_map(:second_pass_byte_identity_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"first_tree_digest", :first_tree_digest, :passthrough},
+        {"second_tree_digest", :second_tree_digest, :passthrough},
+        {"byte_identity", :byte_identity, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.SecondPassByteIdentityObservation.new/1
     )
   end
 
@@ -5382,6 +6313,19 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.SecurityReadiness.new/1
+    )
+  end
+
+  def from_map(:semantic_drift_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"subject_id", :subject_id, :passthrough},
+        {"prior_semantic_digest", :prior_semantic_digest, :passthrough},
+        {"current_semantic_digest", :current_semantic_digest, :passthrough},
+        {"drift_class", :drift_class, :passthrough}
+      ],
+      &BeamPM.Types.SemanticDriftObservation.new/1
     )
   end
 
@@ -5576,6 +6520,45 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:standing_state_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"subject_id", :subject_id, :passthrough},
+        {"standing", :standing, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.StandingStateObservation.new/1
+    )
+  end
+
+  def from_map(:submodule_lock_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"submodule_path", :submodule_path, :passthrough},
+        {"gitlink_sha", :gitlink_sha, :passthrough},
+        {"lock_sha", :lock_sha, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.SubmoduleLockObservation.new/1
+    )
+  end
+
+  def from_map(:submodule_registration_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"submodule_path", :submodule_path, :passthrough},
+        {"registration_state", :registration_state, :passthrough},
+        {"repository_url", :repository_url, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough}
+      ],
+      &BeamPM.Types.SubmoduleRegistrationObservation.new/1
+    )
+  end
+
   def from_map(:success_plan, m) when is_map(m) do
     from_known_fields(
       m,
@@ -5742,6 +6725,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:temporal_order_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"earlier_observation_id", :earlier_observation_id, :passthrough},
+        {"later_observation_id", :later_observation_id, :passthrough},
+        {"ordering_basis", :ordering_basis, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough}
+      ],
+      &BeamPM.Types.TemporalOrderObservation.new/1
+    )
+  end
+
   def from_map(:tenant_account, m) when is_map(m) do
     from_known_fields(
       m,
@@ -5867,6 +6863,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:toolchain_identity_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"tool_name", :tool_name, :passthrough},
+        {"tool_version", :tool_version, :passthrough},
+        {"executable_digest", :executable_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.ToolchainIdentityObservation.new/1
+    )
+  end
+
   def from_map(:training_readiness, m) when is_map(m) do
     from_known_fields(
       m,
@@ -5916,6 +6925,19 @@ defmodule BeamPM.Codec do
         {"direction", :direction, :atom}
       ],
       &BeamPM.Types.TypeEdge.new/1
+    )
+  end
+
+  def from_map(:uncertainty_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"observation_id", :observation_id, :passthrough},
+        {"uncertainty_kind", :uncertainty_kind, :passthrough},
+        {"confidence_basis", :confidence_basis, :passthrough},
+        {"standing", :standing, :passthrough}
+      ],
+      &BeamPM.Types.UncertaintyObservation.new/1
     )
   end
 
@@ -6012,6 +7034,32 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:validation_capsule_drift_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"expected_digest", :expected_digest, :passthrough},
+        {"observed_digest", :observed_digest, :passthrough},
+        {"drift_status", :drift_status, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.ValidationCapsuleDriftObservation.new/1
+    )
+  end
+
+  def from_map(:validation_capsule_identity_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"capsule_repository", :capsule_repository, :passthrough},
+        {"capsule_sha", :capsule_sha, :passthrough},
+        {"execution_mode", :execution_mode, :passthrough},
+        {"image_digest", :image_digest, :passthrough}
+      ],
+      &BeamPM.Types.ValidationCapsuleIdentityObservation.new/1
+    )
+  end
+
   def from_map(:value_baseline, m) when is_map(m) do
     from_known_fields(
       m,
@@ -6036,6 +7084,19 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.ValueDriver.new/1
+    )
+  end
+
+  def from_map(:value_of_information_estimate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"decision_id", :decision_id, :passthrough},
+        {"evidence_candidate_id", :evidence_candidate_id, :passthrough},
+        {"expected_information_gain", :expected_information_gain, :passthrough},
+        {"cost_basis", :cost_basis, :passthrough}
+      ],
+      &BeamPM.Types.ValueOfInformationEstimate.new/1
     )
   end
 
@@ -6125,6 +7186,45 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.VulnerabilityScanEvidence.new/1
+    )
+  end
+
+  def from_map(:workflow_definition_digest_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"workflow_path", :workflow_path, :passthrough},
+        {"definition_sha256", :definition_sha256, :passthrough},
+        {"source_sha", :source_sha, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.WorkflowDefinitionDigestObservation.new/1
+    )
+  end
+
+  def from_map(:workflow_job_state_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"job_id", :job_id, :passthrough},
+        {"run_id", :run_id, :passthrough},
+        {"runner_identity", :runner_identity, :passthrough},
+        {"conclusion", :conclusion, :passthrough}
+      ],
+      &BeamPM.Types.WorkflowJobStateObservation.new/1
+    )
+  end
+
+  def from_map(:workflow_run_state_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"run_id", :run_id, :passthrough},
+        {"workflow_id", :workflow_id, :passthrough},
+        {"head_sha", :head_sha, :passthrough},
+        {"conclusion", :conclusion, :passthrough}
+      ],
+      &BeamPM.Types.WorkflowRunStateObservation.new/1
     )
   end
 
