@@ -8947,3 +8947,33 @@ b4p:second_pass_byte_identity_observation_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Receipt binding the replay result." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-023 — validation_capsule_identity_observation
+b4p:validation_capsule_identity_observation_rt a bpm:RecordType ;
+    bpm:recordName "validation_capsule_identity_observation" ;
+    bpm:recordDoc "Binds source capsule, validation pack, execution mode, toolchain, and immutable image." ;
+    bpm:hasField b4p:validation_capsule_identity_observation_capsule_repository_f,
+                 b4p:validation_capsule_identity_observation_capsule_sha_f,
+                 b4p:validation_capsule_identity_observation_execution_mode_f,
+                 b4p:validation_capsule_identity_observation_image_digest_f .
+
+b4p:validation_capsule_identity_observation_capsule_repository_f a bpm:Field ;
+    bpm:fieldName "capsule_repository" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Capsule source repository." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:validation_capsule_identity_observation_capsule_sha_f a bpm:Field ;
+    bpm:fieldName "capsule_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact capsule source commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:validation_capsule_identity_observation_execution_mode_f a bpm:Field ;
+    bpm:fieldName "execution_mode" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed capsule execution mode." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:validation_capsule_identity_observation_image_digest_f a bpm:Field ;
+    bpm:fieldName "image_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable platform image digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
