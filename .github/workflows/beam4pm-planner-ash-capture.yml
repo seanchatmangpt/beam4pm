@@ -1,0 +1,66 @@
+# Hand-authored independent qualification rail; generated projections remain read-only.
+name: beam4pm Planner Ash Capture
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "ontology.ttl"
+      - ".github/workflows/beam4pm-planner-ash-capture.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact PR head with marketplace submodule
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          submodules: recursive
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Prove exact subject identity
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+
+      - name: Set up exact BEAM toolchain
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
+        with:
+          otp-version: "27.2"
+          elixir-version: "1.18.5"
+
+      - name: Resolve Igniter dependencies
+        run: mix deps.get
+
+      - name: Manufacture Ash projections from canonical ontology
+        run: |
+          set -euo pipefail
+          bash scripts/igniter_sync.sh
+
+      - name: Bind planner projection tree
+        run: |
+          set -euo pipefail
+          find lib/beam4pm_ash docs/reference/types test/beam4pm_ash -type f -print0 |
+            sort -z |
+            xargs -0 sha256sum > planner-ash-tree.sha256
+          test "$(grep -c 'exact_subject_binding' planner-ash-tree.sha256)" -ge 2
+          test "$(grep -c 'next_lawful_actuation' planner-ash-tree.sha256)" -ge 2
+
+      - name: Upload exact generated planner projections
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: planner-ash-projections-${{ github.event.pull_request.head.sha || github.sha }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            lib/beam4pm_ash/**
+            docs/reference/types/**
+            test/beam4pm_ash/**
+            planner-ash-tree.sha256
