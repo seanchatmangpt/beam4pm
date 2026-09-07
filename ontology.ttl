@@ -9217,3 +9217,33 @@ b4p:causal_lineage_observation_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of causal evidence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-032 — provenance_binding_observation
+b4p:provenance_binding_observation_rt a bpm:RecordType ;
+    bpm:recordName "provenance_binding_observation" ;
+    bpm:recordDoc "Binds observation, source capsule, and evidence digest into one provenance fact." ;
+    bpm:hasField b4p:provenance_binding_observation_observation_id_f,
+                 b4p:provenance_binding_observation_source_capsule_digest_f,
+                 b4p:provenance_binding_observation_evidence_digest_f,
+                 b4p:provenance_binding_observation_binding_status_f .
+
+b4p:provenance_binding_observation_observation_id_f a bpm:Field ;
+    bpm:fieldName "observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable observation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:provenance_binding_observation_source_capsule_digest_f a bpm:Field ;
+    bpm:fieldName "source_capsule_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact source capsule digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:provenance_binding_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable supporting evidence digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:provenance_binding_observation_binding_status_f a bpm:Field ;
+    bpm:fieldName "binding_status" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Machine-readable provenance standing." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
