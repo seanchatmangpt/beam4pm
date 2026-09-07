@@ -8377,3 +8377,33 @@ b4p:crown_generated_source_ownership_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-004 — crown_receipt_output_ownership
+b4p:crown_receipt_output_ownership_rt a bpm:RecordType ;
+    bpm:recordName "crown_receipt_output_ownership" ;
+    bpm:recordDoc "Propagates receipt lineage together with the declared owner of every manufactured output." ;
+    bpm:hasField b4p:crown_receipt_output_ownership_propagation_id_f,
+                 b4p:crown_receipt_output_ownership_subject_sha_f,
+                 b4p:crown_receipt_output_ownership_output_owner_f,
+                 b4p:crown_receipt_output_ownership_receipt_digest_f .
+
+b4p:crown_receipt_output_ownership_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_receipt_output_ownership_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_receipt_output_ownership_output_owner_f a bpm:Field ;
+    bpm:fieldName "output_owner" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Declared owner identity for the manufactured output set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_receipt_output_ownership_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
