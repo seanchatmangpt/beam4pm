@@ -9637,3 +9637,33 @@ b4p:environment_signal_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp environment signal was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-046 — runtime_health_observation
+b4p:runtime_health_observation_rt a bpm:RecordType ;
+    bpm:recordName "runtime_health_observation" ;
+    bpm:recordDoc "Captures runtime health state with exact supporting evidence." ;
+    bpm:hasField b4p:runtime_health_observation_runtime_id_f,
+                 b4p:runtime_health_observation_health_state_f,
+                 b4p:runtime_health_observation_evidence_digest_f,
+                 b4p:runtime_health_observation_observed_at_f .
+
+b4p:runtime_health_observation_runtime_id_f a bpm:Field ;
+    bpm:fieldName "runtime_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable runtime identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:runtime_health_observation_health_state_f a bpm:Field ;
+    bpm:fieldName "health_state" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed runtime health classification." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:runtime_health_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of runtime health evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:runtime_health_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp health was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
