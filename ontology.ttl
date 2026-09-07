@@ -8557,3 +8557,33 @@ b4p:crown_multiarch_platform_set_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-010 — crown_sbom_subject_binding
+b4p:crown_sbom_subject_binding_rt a bpm:RecordType ;
+    bpm:recordName "crown_sbom_subject_binding" ;
+    bpm:recordDoc "Binds a retained software bill of materials to the exact published crown subject." ;
+    bpm:hasField b4p:crown_sbom_subject_binding_propagation_id_f,
+                 b4p:crown_sbom_subject_binding_subject_sha_f,
+                 b4p:crown_sbom_subject_binding_sbom_digest_f,
+                 b4p:crown_sbom_subject_binding_receipt_digest_f .
+
+b4p:crown_sbom_subject_binding_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_sbom_subject_binding_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_sbom_subject_binding_sbom_digest_f a bpm:Field ;
+    bpm:fieldName "sbom_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the SBOM whose subject is the exact crown." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_sbom_subject_binding_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
