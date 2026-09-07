@@ -8647,3 +8647,33 @@ b4p:commit_check_state_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of check observation." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-013 — artifact_digest_observation
+b4p:artifact_digest_observation_rt a bpm:RecordType ;
+    bpm:recordName "artifact_digest_observation" ;
+    bpm:recordDoc "Binds a produced artifact digest to its exact producer run." ;
+    bpm:hasField b4p:artifact_digest_observation_artifact_id_f,
+                 b4p:artifact_digest_observation_artifact_sha256_f,
+                 b4p:artifact_digest_observation_producer_run_id_f,
+                 b4p:artifact_digest_observation_observed_at_f .
+
+b4p:artifact_digest_observation_artifact_id_f a bpm:Field ;
+    bpm:fieldName "artifact_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable artifact identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:artifact_digest_observation_artifact_sha256_f a bpm:Field ;
+    bpm:fieldName "artifact_sha256" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed artifact content digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:artifact_digest_observation_producer_run_id_f a bpm:Field ;
+    bpm:fieldName "producer_run_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact producer workflow run." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:artifact_digest_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of artifact observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
