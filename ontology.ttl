@@ -8517,3 +8517,13 @@ b4p:autonomic_receipt_subject_binding_actuation_id_f a bpm:Field ; bpm:fieldName
 b4p:autonomic_receipt_subject_binding_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 b4p:autonomic_receipt_subject_binding_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 b4p:autonomic_receipt_subject_binding_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-022 — autonomic_receipt_authority_binding
+b4p:autonomic_receipt_authority_binding_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_receipt_authority_binding" ; bpm:recordDoc "Binds a receipt to the exact authority admission used for the transition." ;
+    bpm:hasField b4p:autonomic_receipt_authority_binding_actuation_id_f, b4p:autonomic_receipt_authority_binding_subject_sha_f, b4p:autonomic_receipt_authority_binding_authority_receipt_sha_f, b4p:autonomic_receipt_authority_binding_state_digest_f .
+b4p:autonomic_receipt_authority_binding_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_receipt_authority_binding_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_receipt_authority_binding_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_receipt_authority_binding_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
