@@ -8527,3 +8527,33 @@ b4p:canonical_source_authority_observation_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of authority evidence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-009 — workflow_definition_digest_observation
+b4p:workflow_definition_digest_observation_rt a bpm:RecordType ;
+    bpm:recordName "workflow_definition_digest_observation" ;
+    bpm:recordDoc "Binds a workflow definition to exact bytes and repository subject before trusting its runs." ;
+    bpm:hasField b4p:workflow_definition_digest_observation_workflow_path_f,
+                 b4p:workflow_definition_digest_observation_definition_sha256_f,
+                 b4p:workflow_definition_digest_observation_source_sha_f,
+                 b4p:workflow_definition_digest_observation_observed_at_f .
+
+b4p:workflow_definition_digest_observation_workflow_path_f a bpm:Field ;
+    bpm:fieldName "workflow_path" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Workflow source path." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:workflow_definition_digest_observation_definition_sha256_f a bpm:Field ;
+    bpm:fieldName "definition_sha256" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of exact workflow bytes." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:workflow_definition_digest_observation_source_sha_f a bpm:Field ;
+    bpm:fieldName "source_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Repository commit containing the workflow." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:workflow_definition_digest_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of workflow observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
