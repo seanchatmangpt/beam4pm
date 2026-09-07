@@ -8617,3 +8617,33 @@ b4p:workflow_job_state_observation_conclusion_f a bpm:Field ;
     bpm:fieldName "conclusion" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Observed terminal job conclusion." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-012 — commit_check_state_observation
+b4p:commit_check_state_observation_rt a bpm:RecordType ;
+    bpm:recordName "commit_check_state_observation" ;
+    bpm:recordDoc "Projects commit check state into a machine-readable exact-subject observation." ;
+    bpm:hasField b4p:commit_check_state_observation_commit_sha_f,
+                 b4p:commit_check_state_observation_check_name_f,
+                 b4p:commit_check_state_observation_check_status_f,
+                 b4p:commit_check_state_observation_observed_at_f .
+
+b4p:commit_check_state_observation_commit_sha_f a bpm:Field ;
+    bpm:fieldName "commit_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact checked commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:commit_check_state_observation_check_name_f a bpm:Field ;
+    bpm:fieldName "check_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable check context name." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:commit_check_state_observation_check_status_f a bpm:Field ;
+    bpm:fieldName "check_status" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed check status." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:commit_check_state_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of check observation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
