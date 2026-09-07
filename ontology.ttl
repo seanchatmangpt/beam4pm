@@ -8717,3 +8717,13 @@ b4p:autonomic_failure_classification_actuation_id_f a bpm:Field ; bpm:fieldName 
 b4p:autonomic_failure_classification_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 b4p:autonomic_failure_classification_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 b4p:autonomic_failure_classification_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-042 — autonomic_rca_hypothesis
+b4p:autonomic_rca_hypothesis_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_rca_hypothesis" ; bpm:recordDoc "Generates a bounded machine-actionable root-cause hypothesis from failed actuation evidence." ;
+    bpm:hasField b4p:autonomic_rca_hypothesis_actuation_id_f, b4p:autonomic_rca_hypothesis_subject_sha_f, b4p:autonomic_rca_hypothesis_authority_receipt_sha_f, b4p:autonomic_rca_hypothesis_state_digest_f .
+b4p:autonomic_rca_hypothesis_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_rca_hypothesis_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_rca_hypothesis_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_rca_hypothesis_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
