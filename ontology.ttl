@@ -9757,3 +9757,33 @@ b4p:refusal_boundary_observation_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest supporting refusal." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-050 — machine_actionable_delta
+b4p:machine_actionable_delta_rt a bpm:RecordType ;
+    bpm:recordName "machine_actionable_delta" ;
+    bpm:recordDoc "Emits the compressed state change and recommended next autonomic action." ;
+    bpm:hasField b4p:machine_actionable_delta_subject_id_f,
+                 b4p:machine_actionable_delta_prior_state_digest_f,
+                 b4p:machine_actionable_delta_delta_digest_f,
+                 b4p:machine_actionable_delta_recommended_action_f .
+
+b4p:machine_actionable_delta_subject_id_f a bpm:Field ;
+    bpm:fieldName "subject_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact changed subject identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:machine_actionable_delta_prior_state_digest_f a bpm:Field ;
+    bpm:fieldName "prior_state_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Prior admitted state digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:machine_actionable_delta_delta_digest_f a bpm:Field ;
+    bpm:fieldName "delta_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of machine-actionable delta." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:machine_actionable_delta_recommended_action_f a bpm:Field ;
+    bpm:fieldName "recommended_action" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Bounded next action for the control plane." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
