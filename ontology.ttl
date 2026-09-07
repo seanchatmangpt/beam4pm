@@ -9367,3 +9367,33 @@ b4p:crown_known_good_rollback_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-037 — crown_partial_checkpoint
+b4p:crown_partial_checkpoint_rt a bpm:RecordType ;
+    bpm:recordName "crown_partial_checkpoint" ;
+    bpm:recordDoc "Persists exact completed propagation edges for safe recovery after partial failure." ;
+    bpm:hasField b4p:crown_partial_checkpoint_propagation_id_f,
+                 b4p:crown_partial_checkpoint_subject_sha_f,
+                 b4p:crown_partial_checkpoint_checkpoint_digest_f,
+                 b4p:crown_partial_checkpoint_receipt_digest_f .
+
+b4p:crown_partial_checkpoint_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_partial_checkpoint_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_partial_checkpoint_checkpoint_digest_f a bpm:Field ;
+    bpm:fieldName "checkpoint_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the completed-edge checkpoint." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_partial_checkpoint_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
