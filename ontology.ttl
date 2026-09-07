@@ -8947,3 +8947,33 @@ b4p:crown_dependency_edge_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-023 — crown_topological_order
+b4p:crown_topological_order_rt a bpm:RecordType ;
+    bpm:recordName "crown_topological_order" ;
+    bpm:recordDoc "Orders crown propagation so dependencies qualify before their consumers." ;
+    bpm:hasField b4p:crown_topological_order_propagation_id_f,
+                 b4p:crown_topological_order_subject_sha_f,
+                 b4p:crown_topological_order_topological_rank_f,
+                 b4p:crown_topological_order_receipt_digest_f .
+
+b4p:crown_topological_order_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_topological_order_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_topological_order_topological_rank_f a bpm:Field ;
+    bpm:fieldName "topological_rank" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Deterministic topological rank for this propagation node." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_topological_order_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
