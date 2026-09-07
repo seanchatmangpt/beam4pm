@@ -8407,3 +8407,33 @@ b4p:crown_receipt_output_ownership_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-005 — crown_second_pass_identity
+b4p:crown_second_pass_identity_rt a bpm:RecordType ;
+    bpm:recordName "crown_second_pass_identity" ;
+    bpm:recordDoc "Proves a second lawful GGen sync is byte-identical to the first manufactured output set." ;
+    bpm:hasField b4p:crown_second_pass_identity_propagation_id_f,
+                 b4p:crown_second_pass_identity_subject_sha_f,
+                 b4p:crown_second_pass_identity_second_pass_digest_f,
+                 b4p:crown_second_pass_identity_receipt_digest_f .
+
+b4p:crown_second_pass_identity_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_second_pass_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_second_pass_identity_second_pass_digest_f a bpm:Field ;
+    bpm:fieldName "second_pass_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the complete second-pass output set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_second_pass_identity_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
