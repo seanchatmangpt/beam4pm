@@ -8857,3 +8857,33 @@ b4p:consumer_pack_pin_observation_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of caller-local pin evidence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-020 — manufacture_receipt_presence_observation
+b4p:manufacture_receipt_presence_observation_rt a bpm:RecordType ;
+    bpm:recordName "manufacture_receipt_presence_observation" ;
+    bpm:recordDoc "Observes whether real manufacture emitted a receipt for the exact subject." ;
+    bpm:hasField b4p:manufacture_receipt_presence_observation_subject_sha_f,
+                 b4p:manufacture_receipt_presence_observation_receipt_id_f,
+                 b4p:manufacture_receipt_presence_observation_receipt_digest_f,
+                 b4p:manufacture_receipt_presence_observation_observed_at_f .
+
+b4p:manufacture_receipt_presence_observation_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact manufactured subject." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:manufacture_receipt_presence_observation_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable manufacture receipt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:manufacture_receipt_presence_observation_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable receipt content digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:manufacture_receipt_presence_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp receipt was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
