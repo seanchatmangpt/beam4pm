@@ -9457,3 +9457,33 @@ b4p:observation_entropy_estimate_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of entropy estimation." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-040 — value_of_information_estimate
+b4p:value_of_information_estimate_rt a bpm:RecordType ;
+    bpm:recordName "value_of_information_estimate" ;
+    bpm:recordDoc "Estimates expected information gain and acquisition cost for a pending decision." ;
+    bpm:hasField b4p:value_of_information_estimate_decision_id_f,
+                 b4p:value_of_information_estimate_evidence_candidate_id_f,
+                 b4p:value_of_information_estimate_expected_information_gain_f,
+                 b4p:value_of_information_estimate_cost_basis_f .
+
+b4p:value_of_information_estimate_decision_id_f a bpm:Field ;
+    bpm:fieldName "decision_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Decision requiring additional information." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:value_of_information_estimate_evidence_candidate_id_f a bpm:Field ;
+    bpm:fieldName "evidence_candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate evidence acquisition." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:value_of_information_estimate_expected_information_gain_f a bpm:Field ;
+    bpm:fieldName "expected_information_gain" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Expected reduction in uncertainty." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:value_of_information_estimate_cost_basis_f a bpm:Field ;
+    bpm:fieldName "cost_basis" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence acquisition cost basis." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
