@@ -9457,3 +9457,33 @@ b4p:crown_latency_observation_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-040 — crown_convergence_proof
+b4p:crown_convergence_proof_rt a bpm:RecordType ;
+    bpm:recordName "crown_convergence_proof" ;
+    bpm:recordDoc "Produces a deterministic proof that every admitted consumer holds the expected crown." ;
+    bpm:hasField b4p:crown_convergence_proof_propagation_id_f,
+                 b4p:crown_convergence_proof_subject_sha_f,
+                 b4p:crown_convergence_proof_convergence_proof_digest_f,
+                 b4p:crown_convergence_proof_receipt_digest_f .
+
+b4p:crown_convergence_proof_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_convergence_proof_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_convergence_proof_convergence_proof_digest_f a bpm:Field ;
+    bpm:fieldName "convergence_proof_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the ecosystem convergence proof." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_convergence_proof_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
