@@ -9337,3 +9337,33 @@ b4p:belief_state_update_update_rule_f a bpm:Field ;
     bpm:fieldName "update_rule" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Deterministic belief update rule." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-036 — uncertainty_observation
+b4p:uncertainty_observation_rt a bpm:RecordType ;
+    bpm:recordName "uncertainty_observation" ;
+    bpm:recordDoc "Represents typed UNKNOWN uncertainty instead of manufacturing false certainty." ;
+    bpm:hasField b4p:uncertainty_observation_observation_id_f,
+                 b4p:uncertainty_observation_uncertainty_kind_f,
+                 b4p:uncertainty_observation_confidence_basis_f,
+                 b4p:uncertainty_observation_standing_f .
+
+b4p:uncertainty_observation_observation_id_f a bpm:Field ;
+    bpm:fieldName "observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observation with uncertainty." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:uncertainty_observation_uncertainty_kind_f a bpm:Field ;
+    bpm:fieldName "uncertainty_kind" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed uncertainty classification." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:uncertainty_observation_confidence_basis_f a bpm:Field ;
+    bpm:fieldName "confidence_basis" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Basis for any confidence estimate." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:uncertainty_observation_standing_f a bpm:Field ;
+    bpm:fieldName "standing" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Machine-readable UNKNOWN-compatible standing." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
