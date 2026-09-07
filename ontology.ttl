@@ -8323,3 +8323,15 @@ b4p:autonomic_plan_construction_actuation_id_f a bpm:Field ; bpm:fieldName "actu
 b4p:autonomic_plan_construction_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
 b4p:autonomic_plan_construction_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
 b4p:autonomic_plan_construction_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-004 — autonomic_transition_execution
+b4p:autonomic_transition_execution_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_transition_execution" ;
+    bpm:recordDoc "Records execution of one admitted state transition without granting ambient planner authority." ;
+    bpm:hasField b4p:autonomic_transition_execution_actuation_id_f, b4p:autonomic_transition_execution_subject_sha_f, b4p:autonomic_transition_execution_authority_receipt_sha_f, b4p:autonomic_transition_execution_state_digest_f .
+
+b4p:autonomic_transition_execution_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_transition_execution_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_transition_execution_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_transition_execution_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
