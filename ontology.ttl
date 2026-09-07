@@ -8737,3 +8737,33 @@ b4p:container_manifest_digest_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of registry resolution." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-016 — container_platform_digest_observation
+b4p:container_platform_digest_observation_rt a bpm:RecordType ;
+    bpm:recordName "container_platform_digest_observation" ;
+    bpm:recordDoc "Resolves a manifest index to one exact platform image digest." ;
+    bpm:hasField b4p:container_platform_digest_observation_index_digest_f,
+                 b4p:container_platform_digest_observation_platform_f,
+                 b4p:container_platform_digest_observation_platform_digest_f,
+                 b4p:container_platform_digest_observation_observed_at_f .
+
+b4p:container_platform_digest_observation_index_digest_f a bpm:Field ;
+    bpm:fieldName "index_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Parent manifest-index digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:container_platform_digest_observation_platform_f a bpm:Field ;
+    bpm:fieldName "platform" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Normalized operating-system and architecture." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:container_platform_digest_observation_platform_digest_f a bpm:Field ;
+    bpm:fieldName "platform_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact platform image digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:container_platform_digest_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of platform resolution." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
