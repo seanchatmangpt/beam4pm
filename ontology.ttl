@@ -8797,3 +8797,33 @@ b4p:dependency_pin_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp of resolution." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-018 — caller_local_checkout_observation
+b4p:caller_local_checkout_observation_rt a bpm:RecordType ;
+    bpm:recordName "caller_local_checkout_observation" ;
+    bpm:recordDoc "Proves a reusable rail executed from the consumer's own exact checkout." ;
+    bpm:hasField b4p:caller_local_checkout_observation_consumer_repository_id_f,
+                 b4p:caller_local_checkout_observation_checkout_sha_f,
+                 b4p:caller_local_checkout_observation_checkout_path_f,
+                 b4p:caller_local_checkout_observation_evidence_digest_f .
+
+b4p:caller_local_checkout_observation_consumer_repository_id_f a bpm:Field ;
+    bpm:fieldName "consumer_repository_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable consumer repository identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:caller_local_checkout_observation_checkout_sha_f a bpm:Field ;
+    bpm:fieldName "checkout_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact caller-local checkout commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:caller_local_checkout_observation_checkout_path_f a bpm:Field ;
+    bpm:fieldName "checkout_path" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed caller-local execution path." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:caller_local_checkout_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest binding execution to checkout." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
