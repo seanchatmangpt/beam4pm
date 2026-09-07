@@ -3,7 +3,7 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 289
+    assert length(BeamPM.Types.Manifest.record_names()) == 339
   end
 
   test "fields/1 returns the ordered field-name list for account_discovery" do
@@ -46,6 +46,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:annual_subscription) == [:subscription_id, :sku, :seat_count, :renews_at]
   end
 
+  test "fields/1 returns the ordered field-name list for anomaly_detection_observation" do
+    assert BeamPM.Types.Manifest.fields(:anomaly_detection_observation) == [:subject_id, :baseline_digest, :observation_digest, :anomaly_score]
+  end
+
   test "fields/1 returns the ordered field-name list for approval_separation_evidence" do
     assert BeamPM.Types.Manifest.fields(:approval_separation_evidence) == [:evidence_id, :subject_sha, :approver_identity, :observed_result]
   end
@@ -62,12 +66,20 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:artifact_digest_evidence) == [:evidence_id, :subject_sha, :digest, :observed_result]
   end
 
+  test "fields/1 returns the ordered field-name list for artifact_digest_observation" do
+    assert BeamPM.Types.Manifest.fields(:artifact_digest_observation) == [:artifact_id, :artifact_sha256, :producer_run_id, :observed_at]
+  end
+
   test "fields/1 returns the ordered field-name list for attestation_verification_evidence" do
     assert BeamPM.Types.Manifest.fields(:attestation_verification_evidence) == [:evidence_id, :subject_sha, :predicate_type, :observed_result]
   end
 
   test "fields/1 returns the ordered field-name list for audit_chain_evidence" do
     assert BeamPM.Types.Manifest.fields(:audit_chain_evidence) == [:evidence_id, :subject_sha, :previous_receipt_hash, :observed_result]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_state_vector" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_state_vector) == [:state_vector_id, :subject_id, :dimension_digest, :observed_at]
   end
 
   test "fields/1 returns the ordered field-name list for availability_observation" do
@@ -84,6 +96,14 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for baseline_metric" do
     assert BeamPM.Types.Manifest.fields(:baseline_metric) == [:baseline_metric_id, :account_id, :baseline_value, :evidence_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for belief_state_snapshot" do
+    assert BeamPM.Types.Manifest.fields(:belief_state_snapshot) == [:belief_state_id, :subject_id, :posterior_digest, :uncertainty_status]
+  end
+
+  test "fields/1 returns the ordered field-name list for belief_state_update" do
+    assert BeamPM.Types.Manifest.fields(:belief_state_update) == [:prior_belief_id, :evidence_digest, :posterior_belief_id, :update_rule]
   end
 
   test "fields/1 returns the ordered field-name list for beneficial_owner_evidence" do
@@ -130,12 +150,20 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:buying_committee) == [:buying_committee_id, :account_id, :committee_coverage, :evidence_digest, :observed_at]
   end
 
+  test "fields/1 returns the ordered field-name list for caller_local_checkout_observation" do
+    assert BeamPM.Types.Manifest.fields(:caller_local_checkout_observation) == [:consumer_repository_id, :checkout_sha, :checkout_path, :evidence_digest]
+  end
+
   test "fields/1 returns the ordered field-name list for canary_decision" do
     assert BeamPM.Types.Manifest.fields(:canary_decision) == [:canary_decision_id, :account_id, :canary_result, :evidence_digest, :observed_at]
   end
 
   test "fields/1 returns the ordered field-name list for canary_evidence" do
     assert BeamPM.Types.Manifest.fields(:canary_evidence) == [:evidence_id, :subject_sha, :canary_percentage, :observed_result]
+  end
+
+  test "fields/1 returns the ordered field-name list for canonical_source_authority_observation" do
+    assert BeamPM.Types.Manifest.fields(:canonical_source_authority_observation) == [:source_path, :authority_class, :mutation_allowed, :evidence_digest]
   end
 
   test "fields/1 returns the ordered field-name list for capability_bundle" do
@@ -158,12 +186,20 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:catalog_release) == [:release_id, :version, :sku_ids, :effective_at]
   end
 
+  test "fields/1 returns the ordered field-name list for causal_lineage_observation" do
+    assert BeamPM.Types.Manifest.fields(:causal_lineage_observation) == [:cause_observation_id, :effect_observation_id, :causal_basis, :evidence_digest]
+  end
+
   test "fields/1 returns the ordered field-name list for change_control_evidence" do
     assert BeamPM.Types.Manifest.fields(:change_control_evidence) == [:evidence_id, :subject_sha, :change_request_id, :observed_result]
   end
 
   test "fields/1 returns the ordered field-name list for change_order_authority" do
     assert BeamPM.Types.Manifest.fields(:change_order_authority) == [:opportunity_id, :authority_id, :evidence_hash]
+  end
+
+  test "fields/1 returns the ordered field-name list for changed_surface_inference" do
+    assert BeamPM.Types.Manifest.fields(:changed_surface_inference) == [:prior_tree_sha, :current_tree_sha, :changed_surface_digest, :inference_status]
   end
 
   test "fields/1 returns the ordered field-name list for channel_agreement" do
@@ -214,6 +250,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:commercial_value_realization) == [:realization_id, :baseline_id, :realized_value, :measured_at]
   end
 
+  test "fields/1 returns the ordered field-name list for commit_check_state_observation" do
+    assert BeamPM.Types.Manifest.fields(:commit_check_state_observation) == [:commit_sha, :check_name, :check_status, :observed_at]
+  end
+
   test "fields/1 returns the ordered field-name list for committed_spend" do
     assert BeamPM.Types.Manifest.fields(:committed_spend) == [:commitment_id, :amount, :currency, :expires_at]
   end
@@ -238,12 +278,28 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:conformance_result) == [:trace_id, :fitness, :precision]
   end
 
+  test "fields/1 returns the ordered field-name list for consequential_state_invalidation" do
+    assert BeamPM.Types.Manifest.fields(:consequential_state_invalidation) == [:transition_id, :affected_state_digest, :invalidation_reason, :invalidated_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for consumer_pack_pin_observation" do
+    assert BeamPM.Types.Manifest.fields(:consumer_pack_pin_observation) == [:consumer_repository_id, :pack_id, :pack_sha, :evidence_digest]
+  end
+
   test "fields/1 returns the ordered field-name list for consumption_pool" do
     assert BeamPM.Types.Manifest.fields(:consumption_pool) == [:pool_id, :account_id, :unit, :remaining_quantity]
   end
 
   test "fields/1 returns the ordered field-name list for consumption_subscription" do
     assert BeamPM.Types.Manifest.fields(:consumption_subscription) == [:subscription_id, :account_id, :plan_id, :status]
+  end
+
+  test "fields/1 returns the ordered field-name list for container_manifest_digest_observation" do
+    assert BeamPM.Types.Manifest.fields(:container_manifest_digest_observation) == [:image_repository, :tag, :index_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for container_platform_digest_observation" do
+    assert BeamPM.Types.Manifest.fields(:container_platform_digest_observation) == [:index_digest, :platform, :platform_digest, :observed_at]
   end
 
   test "fields/1 returns the ordered field-name list for contracting_entity_identity" do
@@ -274,6 +330,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:customer_managed_key_evidence) == [:evidence_id, :subject_sha, :key_identifier, :observed_result]
   end
 
+  test "fields/1 returns the ordered field-name list for customer_signal_observation" do
+    assert BeamPM.Types.Manifest.fields(:customer_signal_observation) == [:customer_id, :signal_type, :signal_digest, :observed_at]
+  end
+
   test "fields/1 returns the ordered field-name list for data_egress_evidence" do
     assert BeamPM.Types.Manifest.fields(:data_egress_evidence) == [:evidence_id, :subject_sha, :egress_bytes, :observed_result]
   end
@@ -298,6 +358,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:deal_desk_packet) == [:opportunity_id, :packet_id, :evidence_hash]
   end
 
+  test "fields/1 returns the ordered field-name list for decision_compression_observation" do
+    assert BeamPM.Types.Manifest.fields(:decision_compression_observation) == [:compression_id, :input_state_digest, :output_delta_digest, :loss_bound]
+  end
+
   test "fields/1 returns the ordered field-name list for deletion_proof_evidence" do
     assert BeamPM.Types.Manifest.fields(:deletion_proof_evidence) == [:evidence_id, :subject_sha, :deletion_receipt_id, :observed_result]
   end
@@ -312,6 +376,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for dependency_inventory_evidence" do
     assert BeamPM.Types.Manifest.fields(:dependency_inventory_evidence) == [:evidence_id, :subject_sha, :dependency_count, :observed_result]
+  end
+
+  test "fields/1 returns the ordered field-name list for dependency_pin_observation" do
+    assert BeamPM.Types.Manifest.fields(:dependency_pin_observation) == [:dependency_id, :declared_ref, :resolved_sha, :observed_at]
   end
 
   test "fields/1 returns the ordered field-name list for deployment_entitlement" do
@@ -386,6 +454,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:environment_profile) == [:profile_id, :environment, :region, :configuration_hash]
   end
 
+  test "fields/1 returns the ordered field-name list for environment_signal_observation" do
+    assert BeamPM.Types.Manifest.fields(:environment_signal_observation) == [:environment_id, :signal_type, :signal_digest, :observed_at]
+  end
+
   test "fields/1 returns the ordered field-name list for error_budget_state" do
     assert BeamPM.Types.Manifest.fields(:error_budget_state) == [:tenant_id, :slo_id, :state_hash]
   end
@@ -438,6 +510,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:funding_approval_chain) == [:opportunity_id, :approval_chain_id, :evidence_hash]
   end
 
+  test "fields/1 returns the ordered field-name list for generated_output_ownership_observation" do
+    assert BeamPM.Types.Manifest.fields(:generated_output_ownership_observation) == [:output_path, :ownership_marker, :source_input_digest, :standing]
+  end
+
   test "fields/1 returns the ordered field-name list for heuristic_arc" do
     assert BeamPM.Types.Manifest.fields(:heuristic_arc) == [:source_activity, :target_activity, :dependency_measure]
   end
@@ -460,6 +536,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for indemnity_scope_admission" do
     assert BeamPM.Types.Manifest.fields(:indemnity_scope_admission) == [:opportunity_id, :indemnity_scope_id, :decision]
+  end
+
+  test "fields/1 returns the ordered field-name list for information_partition_observation" do
+    assert BeamPM.Types.Manifest.fields(:information_partition_observation) == [:partition_id, :state_vector_id, :partition_key, :information_digest]
   end
 
   test "fields/1 returns the ordered field-name list for insurance_requirement" do
@@ -510,6 +590,18 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:log_trace) == [:case_id, :activity_sequence]
   end
 
+  test "fields/1 returns the ordered field-name list for machine_actionable_delta" do
+    assert BeamPM.Types.Manifest.fields(:machine_actionable_delta) == [:subject_id, :prior_state_digest, :delta_digest, :recommended_action]
+  end
+
+  test "fields/1 returns the ordered field-name list for manufacture_receipt_presence_observation" do
+    assert BeamPM.Types.Manifest.fields(:manufacture_receipt_presence_observation) == [:subject_sha, :receipt_id, :receipt_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for manufacture_receipt_validity_observation" do
+    assert BeamPM.Types.Manifest.fields(:manufacture_receipt_validity_observation) == [:receipt_digest, :subject_sha, :verification_status, :verifier_identity]
+  end
+
   test "fields/1 returns the ordered field-name list for master_service_agreement_state" do
     assert BeamPM.Types.Manifest.fields(:master_service_agreement_state) == [:opportunity_id, :agreement_id, :agreement_state]
   end
@@ -542,6 +634,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:node_failover_event) == [:tenant_id, :node_id, :failover_hash]
   end
 
+  test "fields/1 returns the ordered field-name list for normalized_event_observation" do
+    assert BeamPM.Types.Manifest.fields(:normalized_event_observation) == [:source_system, :event_id, :event_type, :event_time]
+  end
+
   test "fields/1 returns the ordered field-name list for object_attribute_change" do
     assert BeamPM.Types.Manifest.fields(:object_attribute_change) == [:object_id, :attribute_name, :old_value, :new_value, :changed_at]
   end
@@ -556,6 +652,22 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for objection_resolution" do
     assert BeamPM.Types.Manifest.fields(:objection_resolution) == [:objection_resolution_id, :account_id, :resolution_status, :evidence_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for observation_deduplication_decision" do
+    assert BeamPM.Types.Manifest.fields(:observation_deduplication_decision) == [:event_id, :event_digest, :dedup_key, :decision]
+  end
+
+  test "fields/1 returns the ordered field-name list for observation_entropy_estimate" do
+    assert BeamPM.Types.Manifest.fields(:observation_entropy_estimate) == [:state_vector_id, :entropy_method, :entropy_value, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for observation_freshness_assessment" do
+    assert BeamPM.Types.Manifest.fields(:observation_freshness_assessment) == [:observation_id, :observed_at, :freshness_deadline, :freshness_status]
+  end
+
+  test "fields/1 returns the ordered field-name list for observation_staleness_invalidation" do
+    assert BeamPM.Types.Manifest.fields(:observation_staleness_invalidation) == [:observation_id, :invalidated_at, :staleness_reason, :replacement_required]
   end
 
   test "fields/1 returns the ordered field-name list for oc_declare_constraint" do
@@ -604,6 +716,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for overage_policy" do
     assert BeamPM.Types.Manifest.fields(:overage_policy) == [:policy_id, :quota_id, :unit_price, :behavior]
+  end
+
+  test "fields/1 returns the ordered field-name list for package_release_observation" do
+    assert BeamPM.Types.Manifest.fields(:package_release_observation) == [:package_id, :version, :immutable_digest, :observed_at]
   end
 
   test "fields/1 returns the ordered field-name list for paid_workload_outcome_receipt" do
@@ -738,6 +854,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:provenance_binding_evidence) == [:evidence_id, :subject_sha, :builder_identity, :observed_result]
   end
 
+  test "fields/1 returns the ordered field-name list for provenance_binding_observation" do
+    assert BeamPM.Types.Manifest.fields(:provenance_binding_observation) == [:observation_id, :source_capsule_digest, :evidence_digest, :binding_status]
+  end
+
   test "fields/1 returns the ordered field-name list for purchase_order_binding" do
     assert BeamPM.Types.Manifest.fields(:purchase_order_binding) == [:binding_id, :order_id, :purchase_order_number, :status]
   end
@@ -794,6 +914,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:recovery_time_receipt) == [:tenant_id, :incident_id, :recovery_hash]
   end
 
+  test "fields/1 returns the ordered field-name list for refusal_boundary_observation" do
+    assert BeamPM.Types.Manifest.fields(:refusal_boundary_observation) == [:subject_id, :refusal_code, :authority_boundary, :evidence_digest]
+  end
+
   test "fields/1 returns the ordered field-name list for remediation_sla_evidence" do
     assert BeamPM.Types.Manifest.fields(:remediation_sla_evidence) == [:evidence_id, :subject_sha, :remediation_due_at, :observed_result]
   end
@@ -820,6 +944,22 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for replay_environment_identity" do
     assert BeamPM.Types.Manifest.fields(:replay_environment_identity) == [:tenant_id, :environment_id, :identity_hash]
+  end
+
+  test "fields/1 returns the ordered field-name list for repository_ancestry_observation" do
+    assert BeamPM.Types.Manifest.fields(:repository_ancestry_observation) == [:ancestor_sha, :descendant_sha, :relation, :evidence_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for repository_default_branch_observation" do
+    assert BeamPM.Types.Manifest.fields(:repository_default_branch_observation) == [:repository_id, :default_branch, :head_sha, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for repository_exact_head_observation" do
+    assert BeamPM.Types.Manifest.fields(:repository_exact_head_observation) == [:repository_id, :branch_name, :head_sha, :previous_head_sha]
+  end
+
+  test "fields/1 returns the ordered field-name list for repository_worktree_state_observation" do
+    assert BeamPM.Types.Manifest.fields(:repository_worktree_state_observation) == [:repository_id, :worktree_hash, :dirty_path_count, :observed_at]
   end
 
   test "fields/1 returns the ordered field-name list for reproducible_build_evidence" do
@@ -874,6 +1014,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:rolling_upgrade_plan) == [:tenant_id, :upgrade_id, :plan_hash]
   end
 
+  test "fields/1 returns the ordered field-name list for runtime_health_observation" do
+    assert BeamPM.Types.Manifest.fields(:runtime_health_observation) == [:runtime_id, :health_state, :evidence_digest, :observed_at]
+  end
+
   test "fields/1 returns the ordered field-name list for runtime_policy_decision" do
     assert BeamPM.Types.Manifest.fields(:runtime_policy_decision) == [:tenant_id, :decision_id, :policy_hash]
   end
@@ -884,6 +1028,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for sbom_inventory_evidence" do
     assert BeamPM.Types.Manifest.fields(:sbom_inventory_evidence) == [:evidence_id, :subject_sha, :component_count, :observed_result]
+  end
+
+  test "fields/1 returns the ordered field-name list for second_pass_byte_identity_observation" do
+    assert BeamPM.Types.Manifest.fields(:second_pass_byte_identity_observation) == [:first_tree_digest, :second_tree_digest, :byte_identity, :receipt_digest]
   end
 
   test "fields/1 returns the ordered field-name list for secret_boundary_evidence" do
@@ -900,6 +1048,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for security_readiness" do
     assert BeamPM.Types.Manifest.fields(:security_readiness) == [:security_readiness_id, :account_id, :control_coverage, :evidence_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for semantic_drift_observation" do
+    assert BeamPM.Types.Manifest.fields(:semantic_drift_observation) == [:subject_id, :prior_semantic_digest, :current_semantic_digest, :drift_class]
   end
 
   test "fields/1 returns the ordered field-name list for service_credit" do
@@ -962,6 +1114,18 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:stale_subject_refusal_evidence) == [:evidence_id, :subject_sha, :stale_sha, :observed_result]
   end
 
+  test "fields/1 returns the ordered field-name list for standing_state_observation" do
+    assert BeamPM.Types.Manifest.fields(:standing_state_observation) == [:subject_id, :standing, :evidence_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for submodule_lock_observation" do
+    assert BeamPM.Types.Manifest.fields(:submodule_lock_observation) == [:submodule_path, :gitlink_sha, :lock_sha, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for submodule_registration_observation" do
+    assert BeamPM.Types.Manifest.fields(:submodule_registration_observation) == [:submodule_path, :registration_state, :repository_url, :evidence_digest]
+  end
+
   test "fields/1 returns the ordered field-name list for success_plan" do
     assert BeamPM.Types.Manifest.fields(:success_plan) == [:success_plan_id, :account_id, :success_target, :evidence_digest, :observed_at]
   end
@@ -1014,6 +1178,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:technical_blocker) == [:opportunity_id, :blocker_id, :refusal_code]
   end
 
+  test "fields/1 returns the ordered field-name list for temporal_order_observation" do
+    assert BeamPM.Types.Manifest.fields(:temporal_order_observation) == [:earlier_observation_id, :later_observation_id, :ordering_basis, :evidence_digest]
+  end
+
   test "fields/1 returns the ordered field-name list for tenant_account" do
     assert BeamPM.Types.Manifest.fields(:tenant_account) == [:tenant_id, :account_id, :home_region, :edition_id]
   end
@@ -1054,6 +1222,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:toolchain_identity) == [:tenant_id, :toolchain_id, :identity_hash]
   end
 
+  test "fields/1 returns the ordered field-name list for toolchain_identity_observation" do
+    assert BeamPM.Types.Manifest.fields(:toolchain_identity_observation) == [:tool_name, :tool_version, :executable_digest, :observed_at]
+  end
+
   test "fields/1 returns the ordered field-name list for training_readiness" do
     assert BeamPM.Types.Manifest.fields(:training_readiness) == [:training_readiness_id, :account_id, :training_completion_rate, :evidence_digest, :observed_at]
   end
@@ -1068,6 +1240,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for type_edge" do
     assert BeamPM.Types.Manifest.fields(:type_edge) == [:source_type, :target_type, :qualifier, :direction]
+  end
+
+  test "fields/1 returns the ordered field-name list for uncertainty_observation" do
+    assert BeamPM.Types.Manifest.fields(:uncertainty_observation) == [:observation_id, :uncertainty_kind, :confidence_basis, :standing]
   end
 
   test "fields/1 returns the ordered field-name list for unsupported_capability_evidence" do
@@ -1098,12 +1274,24 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:usage_signal) == [:usage_signal_id, :account_id, :active_user_count, :evidence_digest, :observed_at]
   end
 
+  test "fields/1 returns the ordered field-name list for validation_capsule_drift_observation" do
+    assert BeamPM.Types.Manifest.fields(:validation_capsule_drift_observation) == [:expected_digest, :observed_digest, :drift_status, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for validation_capsule_identity_observation" do
+    assert BeamPM.Types.Manifest.fields(:validation_capsule_identity_observation) == [:capsule_repository, :capsule_sha, :execution_mode, :image_digest]
+  end
+
   test "fields/1 returns the ordered field-name list for value_baseline" do
     assert BeamPM.Types.Manifest.fields(:value_baseline) == [:baseline_id, :account_id, :metric_name, :baseline_value]
   end
 
   test "fields/1 returns the ordered field-name list for value_driver" do
     assert BeamPM.Types.Manifest.fields(:value_driver) == [:value_driver_id, :account_id, :annual_value, :evidence_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for value_of_information_estimate" do
+    assert BeamPM.Types.Manifest.fields(:value_of_information_estimate) == [:decision_id, :evidence_candidate_id, :expected_information_gain, :cost_basis]
   end
 
   test "fields/1 returns the ordered field-name list for value_realization" do
@@ -1132,6 +1320,18 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for vulnerability_scan_evidence" do
     assert BeamPM.Types.Manifest.fields(:vulnerability_scan_evidence) == [:evidence_id, :subject_sha, :vulnerability_count, :observed_result]
+  end
+
+  test "fields/1 returns the ordered field-name list for workflow_definition_digest_observation" do
+    assert BeamPM.Types.Manifest.fields(:workflow_definition_digest_observation) == [:workflow_path, :definition_sha256, :source_sha, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for workflow_job_state_observation" do
+    assert BeamPM.Types.Manifest.fields(:workflow_job_state_observation) == [:job_id, :run_id, :runner_identity, :conclusion]
+  end
+
+  test "fields/1 returns the ordered field-name list for workflow_run_state_observation" do
+    assert BeamPM.Types.Manifest.fields(:workflow_run_state_observation) == [:run_id, :workflow_id, :head_sha, :conclusion]
   end
 
   test "fields/1 returns the ordered field-name list for workload_backpressure_signal" do

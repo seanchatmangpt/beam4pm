@@ -110,6 +110,17 @@
 | `seat_count` | `integer` | true | Contracted seats. |
 | `renews_at` | `datetime` | true | Annual renewal instant. |
 
+## anomaly_detection_observation
+
+> Scores an observed subject against an exact baseline digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Observed subject identity. |
+| `baseline_digest` | `string` | true | Exact anomaly baseline digest. |
+| `observation_digest` | `string` | true | Current observation digest. |
+| `anomaly_score` | `float` | true | Computed anomaly score. |
+
 ## approval_separation_evidence
 
 > Executable segregation-of-duties evidence binding an exact subject to an approver distinct from its producer.
@@ -155,6 +166,17 @@
 | `digest` | `string` | true | Content digest observed for the admitted commercial artifact. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## artifact_digest_observation
+
+> Binds a produced artifact digest to its exact producer run.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `artifact_id` | `string` | true | Stable artifact identity. |
+| `artifact_sha256` | `string` | true | Observed artifact content digest. |
+| `producer_run_id` | `string` | true | Exact producer workflow run. |
+| `observed_at` | `datetime` | true | Timestamp of artifact observation. |
+
 ## attestation_verification_evidence
 
 > Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
@@ -176,6 +198,17 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `previous_receipt_hash` | `string` | true | Hash of the preceding receipt in the observed audit chain. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## autonomic_state_vector
+
+> Encodes decision-relevant observed dimensions for one exact subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `state_vector_id` | `string` | true | Stable state-vector identity. |
+| `subject_id` | `string` | true | Exact observed subject identity. |
+| `dimension_digest` | `string` | true | Digest of ordered state dimensions. |
+| `observed_at` | `datetime` | true | Timestamp of state-vector encoding. |
 
 ## availability_observation
 
@@ -220,6 +253,28 @@
 | `baseline_value` | `float` | true | Measured value before the intervention. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## belief_state_snapshot
+
+> Captures a posterior belief state and explicit uncertainty standing.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `belief_state_id` | `string` | true | Stable belief-state identity. |
+| `subject_id` | `string` | true | Exact subject of belief. |
+| `posterior_digest` | `string` | true | Digest of posterior state. |
+| `uncertainty_status` | `string` | true | Machine-readable uncertainty standing. |
+
+## belief_state_update
+
+> Binds prior belief, new evidence, update rule, and posterior belief.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `prior_belief_id` | `string` | true | Prior belief-state identity. |
+| `evidence_digest` | `string` | true | Digest of newly admitted evidence. |
+| `posterior_belief_id` | `string` | true | Resulting belief-state identity. |
+| `update_rule` | `string` | true | Deterministic belief update rule. |
 
 ## beneficial_owner_evidence
 
@@ -338,6 +393,17 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## caller_local_checkout_observation
+
+> Proves a reusable rail executed from the consumer's own exact checkout.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `consumer_repository_id` | `string` | true | Stable consumer repository identity. |
+| `checkout_sha` | `string` | true | Exact caller-local checkout commit. |
+| `checkout_path` | `string` | true | Observed caller-local execution path. |
+| `evidence_digest` | `string` | true | Digest binding execution to checkout. |
+
 ## canary_decision
 
 > Receipted enterprise canary decision based on an observed rollout consequence.
@@ -360,6 +426,17 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `canary_percentage` | `float` | true | Observed fraction of production traffic routed to the canary subject. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## canonical_source_authority_observation
+
+> Encodes whether a repository path is an authorized canonical manufacturing input.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `source_path` | `string` | true | Observed repository path. |
+| `authority_class` | `string` | true | Classified source authority. |
+| `mutation_allowed` | `boolean` | true | Whether mutation is admitted at this boundary. |
+| `evidence_digest` | `string` | true | Digest of authority evidence. |
 
 ## capability_bundle
 
@@ -415,6 +492,17 @@
 | `sku_ids` | `list_string` | true | Published SKU identities. |
 | `effective_at` | `datetime` | true | Catalog activation instant. |
 
+## causal_lineage_observation
+
+> Binds a candidate cause to effect with explicit causal evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `cause_observation_id` | `string` | true | Candidate causal observation. |
+| `effect_observation_id` | `string` | true | Observed effect identity. |
+| `causal_basis` | `string` | true | Declared causal inference basis. |
+| `evidence_digest` | `string` | true | Digest of causal evidence. |
+
 ## change_control_evidence
 
 > Executable change-control evidence binding an exact subject to the approved request governing its mutation.
@@ -435,6 +523,17 @@
 | `opportunity_id` | `string` | true | Required change order authority input; omission is an executable typed refusal, never an inferred approval. |
 | `authority_id` | `string` | true | Required change order authority input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## changed_surface_inference
+
+> Infers the exact changed surface between two repository trees.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `prior_tree_sha` | `string` | true | Prior repository tree identity. |
+| `current_tree_sha` | `string` | true | Current repository tree identity. |
+| `changed_surface_digest` | `string` | true | Digest of normalized changed paths. |
+| `inference_status` | `string` | true | Machine-readable inference standing. |
 
 ## channel_agreement
 
@@ -567,6 +666,17 @@
 | `realized_value` | `float` | true | Observed post-adoption value. |
 | `measured_at` | `datetime` | true | Outcome measurement instant. |
 
+## commit_check_state_observation
+
+> Projects commit check state into a machine-readable exact-subject observation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `commit_sha` | `string` | true | Exact checked commit. |
+| `check_name` | `string` | true | Stable check context name. |
+| `check_status` | `string` | true | Observed check status. |
+| `observed_at` | `datetime` | true | Timestamp of check observation. |
+
 ## committed_spend
 
 > Term commitment with amount, currency, and expiration.
@@ -631,6 +741,28 @@
 | `fitness` | `float` | true | Fitness score in [0.0, 1.0]. |
 | `precision` | `float` | false | Optional precision score in [0.0, 1.0]. |
 
+## consequential_state_invalidation
+
+> Invalidates affected belief state automatically after a consequential transition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `transition_id` | `string` | true | Consequential transition identity. |
+| `affected_state_digest` | `string` | true | Digest of state invalidated by transition. |
+| `invalidation_reason` | `string` | true | Typed invalidation reason. |
+| `invalidated_at` | `datetime` | true | Timestamp invalidation became effective. |
+
+## consumer_pack_pin_observation
+
+> Proves a consumer used an exact immutable marketplace pack SHA.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `consumer_repository_id` | `string` | true | Stable consumer identity. |
+| `pack_id` | `string` | true | Consumed validation-pack identity. |
+| `pack_sha` | `string` | true | Exact immutable pack commit. |
+| `evidence_digest` | `string` | true | Digest of caller-local pin evidence. |
+
 ## consumption_pool
 
 > Shared enterprise consumption pool with unit and balance.
@@ -652,6 +784,28 @@
 | `account_id` | `string` | true | Purchasing account. |
 | `plan_id` | `string` | true | Usage plan identity. |
 | `status` | `atom` | true | Subscription lifecycle standing. |
+
+## container_manifest_digest_observation
+
+> Resolves a mutable container tag to an immutable multi-platform manifest digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `image_repository` | `string` | true | Container repository identity. |
+| `tag` | `string` | true | Observed mutable tag. |
+| `index_digest` | `string` | true | Resolved immutable manifest-index digest. |
+| `observed_at` | `datetime` | true | Timestamp of registry resolution. |
+
+## container_platform_digest_observation
+
+> Resolves a manifest index to one exact platform image digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `index_digest` | `string` | true | Parent manifest-index digest. |
+| `platform` | `string` | true | Normalized operating-system and architecture. |
+| `platform_digest` | `string` | true | Exact platform image digest. |
+| `observed_at` | `datetime` | true | Timestamp of platform resolution. |
 
 ## contracting_entity_identity
 
@@ -728,6 +882,17 @@
 | `key_identifier` | `string` | true | Non-secret identifier of the customer-managed key observed at encryption. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## customer_signal_observation
+
+> Normalizes a customer signal into typed, digest-bound evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `customer_id` | `string` | true | Stable customer identity. |
+| `signal_type` | `string` | true | Normalized customer signal type. |
+| `signal_digest` | `string` | true | Immutable customer signal digest. |
+| `observed_at` | `datetime` | true | Timestamp customer signal was observed. |
+
 ## data_egress_evidence
 
 > Executable egress evidence binding an exact subject to the bytes observed crossing its admitted data boundary.
@@ -792,6 +957,17 @@
 | `packet_id` | `string` | true | Required deal desk packet input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## decision_compression_observation
+
+> Compresses high-dimensional state into a bounded actionable delta with loss bound.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `compression_id` | `string` | true | Stable compression operation identity. |
+| `input_state_digest` | `string` | true | Digest of high-dimensional input state. |
+| `output_delta_digest` | `string` | true | Digest of compressed delta. |
+| `loss_bound` | `string` | true | Declared information-loss bound. |
+
 ## deletion_proof_evidence
 
 > Executable deletion evidence binding an exact subject to a verifiable deletion receipt.
@@ -837,6 +1013,17 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `dependency_count` | `integer` | true | Observed number of resolved direct and transitive dependencies. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## dependency_pin_observation
+
+> Compares a declared dependency ref with its immutable resolved commit.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `dependency_id` | `string` | true | Stable dependency identity. |
+| `declared_ref` | `string` | true | Declared dependency reference. |
+| `resolved_sha` | `string` | true | Resolved immutable commit. |
+| `observed_at` | `datetime` | true | Timestamp of resolution. |
 
 ## deployment_entitlement
 
@@ -1035,6 +1222,17 @@
 | `region` | `string` | true | Target deployment region. |
 | `configuration_hash` | `string` | true | Canonical configuration digest. |
 
+## environment_signal_observation
+
+> Normalizes deployment-environment evidence without human polling.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `environment_id` | `string` | true | Stable environment identity. |
+| `signal_type` | `string` | true | Normalized environment signal type. |
+| `signal_digest` | `string` | true | Immutable environment signal digest. |
+| `observed_at` | `datetime` | true | Timestamp environment signal was observed. |
+
 ## error_budget_state
 
 > Captures the exact remaining error budget that governs paid-service release policy.
@@ -1176,6 +1374,17 @@
 | `approval_chain_id` | `string` | true | Required funding approval chain input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## generated_output_ownership_observation
+
+> Classifies a path as generated or source-owned using its explicit provenance marker.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `output_path` | `string` | true | Observed repository path. |
+| `ownership_marker` | `string` | true | Observed provenance marker. |
+| `source_input_digest` | `string` | true | Digest of canonical inputs that own the output. |
+| `standing` | `string` | true | Machine-readable ownership standing. |
+
 ## heuristic_arc
 
 > One dependency-scored candidate arc considered during heuristic-net discovery.
@@ -1236,6 +1445,17 @@
 | `opportunity_id` | `string` | true | Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval. |
 | `indemnity_scope_id` | `string` | true | Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## information_partition_observation
+
+> Partitions a state vector by a decision-relevant information key.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `partition_id` | `string` | true | Stable information partition identity. |
+| `state_vector_id` | `string` | true | Source state-vector identity. |
+| `partition_key` | `string` | true | Decision-relevant partition key. |
+| `information_digest` | `string` | true | Digest of partition contents. |
 
 ## insurance_requirement
 
@@ -1361,6 +1581,39 @@
 | `case_id` | `string` | true | Identifier of the case this trace belongs to. |
 | `activity_sequence` | `list_string` | true | Ordered list of activity names observed for this case. |
 
+## machine_actionable_delta
+
+> Emits the compressed state change and recommended next autonomic action.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Exact changed subject identity. |
+| `prior_state_digest` | `string` | true | Prior admitted state digest. |
+| `delta_digest` | `string` | true | Digest of machine-actionable delta. |
+| `recommended_action` | `string` | true | Bounded next action for the control plane. |
+
+## manufacture_receipt_presence_observation
+
+> Observes whether real manufacture emitted a receipt for the exact subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_sha` | `string` | true | Exact manufactured subject. |
+| `receipt_id` | `string` | true | Stable manufacture receipt identity. |
+| `receipt_digest` | `string` | true | Immutable receipt content digest. |
+| `observed_at` | `datetime` | true | Timestamp receipt was observed. |
+
+## manufacture_receipt_validity_observation
+
+> Records independent verification of receipt subject, digest, and verifier identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `receipt_digest` | `string` | true | Immutable receipt digest. |
+| `subject_sha` | `string` | true | Exact subject claimed by receipt. |
+| `verification_status` | `string` | true | Machine-readable verification result. |
+| `verifier_identity` | `string` | true | Exact verifier implementation identity. |
+
 ## master_service_agreement_state
 
 > Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
@@ -1446,6 +1699,17 @@
 | `node_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `failover_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## normalized_event_observation
+
+> Normalizes a source event into stable identity, type, and event time.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `source_system` | `string` | true | Originating system identity. |
+| `event_id` | `string` | true | Stable source event identity. |
+| `event_type` | `string` | true | Normalized event type. |
+| `event_time` | `datetime` | true | Normalized event timestamp. |
+
 ## object_attribute_change
 
 > One recorded change to a time-indexed object attribute.
@@ -1490,6 +1754,50 @@
 | `resolution_status` | `string` | true | Observed resolution status. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## observation_deduplication_decision
+
+> Records an executable accept-or-duplicate decision for an observation digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Observed event identity. |
+| `event_digest` | `string` | true | Canonical event digest. |
+| `dedup_key` | `string` | true | Deterministic deduplication key. |
+| `decision` | `string` | true | Machine-readable deduplication decision. |
+
+## observation_entropy_estimate
+
+> Records entropy of a state vector using an explicit estimation method.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `state_vector_id` | `string` | true | Measured state-vector identity. |
+| `entropy_method` | `string` | true | Named entropy estimation method. |
+| `entropy_value` | `float` | true | Observed entropy estimate. |
+| `observed_at` | `datetime` | true | Timestamp of entropy estimation. |
+
+## observation_freshness_assessment
+
+> Evaluates an observation against an explicit freshness deadline.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `observation_id` | `string` | true | Stable observation identity. |
+| `observed_at` | `datetime` | true | Time observation was produced. |
+| `freshness_deadline` | `datetime` | true | Latest acceptable observation time. |
+| `freshness_status` | `string` | true | Machine-readable freshness standing. |
+
+## observation_staleness_invalidation
+
+> Invalidates stale state and declares whether replacement evidence is required.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `observation_id` | `string` | true | Stale observation identity. |
+| `invalidated_at` | `datetime` | true | Time invalidation became effective. |
+| `staleness_reason` | `string` | true | Typed reason for invalidation. |
+| `replacement_required` | `boolean` | true | Whether new evidence must be acquired. |
 
 ## oc_declare_constraint
 
@@ -1616,6 +1924,17 @@
 | `quota_id` | `string` | true | Governed quota. |
 | `unit_price` | `float` | true | Price per overage unit. |
 | `behavior` | `atom` | true | Overage enforcement behavior. |
+
+## package_release_observation
+
+> Observes a package version together with its immutable distribution digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `package_id` | `string` | true | Stable package identity. |
+| `version` | `string` | true | Observed published version. |
+| `immutable_digest` | `string` | true | Immutable package content digest. |
+| `observed_at` | `datetime` | true | Timestamp of package observation. |
 
 ## paid_workload_outcome_receipt
 
@@ -1964,6 +2283,17 @@
 | `builder_identity` | `string` | true | Immutable identity of the builder that emitted the provenance. |
 | `observed_result` | `atom` | true | Observed verification consequence: verified or refused. |
 
+## provenance_binding_observation
+
+> Binds observation, source capsule, and evidence digest into one provenance fact.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `observation_id` | `string` | true | Stable observation identity. |
+| `source_capsule_digest` | `string` | true | Exact source capsule digest. |
+| `evidence_digest` | `string` | true | Immutable supporting evidence digest. |
+| `binding_status` | `string` | true | Machine-readable provenance standing. |
+
 ## purchase_order_binding
 
 > Customer purchase-order evidence bound to an enterprise order.
@@ -2110,6 +2440,17 @@
 | `incident_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `recovery_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## refusal_boundary_observation
+
+> Emits REFUSED with exact authority boundary and evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Exact refused subject identity. |
+| `refusal_code` | `string` | true | Typed refusal reason. |
+| `authority_boundary` | `string` | true | Boundary that denied the action. |
+| `evidence_digest` | `string` | true | Digest supporting refusal. |
+
 ## remediation_sla_evidence
 
 > Executable remediation evidence binding an exact subject and finding to its enforced due instant.
@@ -2187,6 +2528,50 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `environment_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## repository_ancestry_observation
+
+> Records mechanically observed ancestry between repository commits so containment never requires human reconstruction.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `ancestor_sha` | `string` | true | Candidate ancestor commit. |
+| `descendant_sha` | `string` | true | Candidate descendant commit. |
+| `relation` | `string` | true | Observed ancestry relation. |
+| `evidence_digest` | `string` | true | Digest of the mechanical ancestry evidence. |
+
+## repository_default_branch_observation
+
+> Observes a repository default branch and its exact head so autonomic state can invalidate on branch drift.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `repository_id` | `string` | true | Stable repository identity observed by the sensor. |
+| `default_branch` | `string` | true | Observed default branch name. |
+| `head_sha` | `string` | true | Exact commit at the observed default-branch head. |
+| `observed_at` | `datetime` | true | Timestamp bounding the freshness of this observation. |
+
+## repository_exact_head_observation
+
+> Binds a repository observation to an exact branch head and prior head for autonomous change detection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `repository_id` | `string` | true | Stable repository identity. |
+| `branch_name` | `string` | true | Observed branch name. |
+| `head_sha` | `string` | true | Exact observed head commit. |
+| `previous_head_sha` | `string` | true | Previously admitted head used to detect change. |
+
+## repository_worktree_state_observation
+
+> Captures caller-local repository worktree state and dirty-surface cardinality before manufacture.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `repository_id` | `string` | true | Stable repository identity. |
+| `worktree_hash` | `string` | true | Digest of tracked caller-local worktree state. |
+| `dirty_path_count` | `integer` | true | Number of changed tracked paths. |
+| `observed_at` | `datetime` | true | Timestamp of worktree observation. |
 
 ## reproducible_build_evidence
 
@@ -2328,6 +2713,17 @@
 | `upgrade_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `plan_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## runtime_health_observation
+
+> Captures runtime health state with exact supporting evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `runtime_id` | `string` | true | Stable runtime identity. |
+| `health_state` | `string` | true | Observed runtime health classification. |
+| `evidence_digest` | `string` | true | Digest of runtime health evidence. |
+| `observed_at` | `datetime` | true | Timestamp health was observed. |
+
 ## runtime_policy_decision
 
 > Records an explicit runtime policy decision before paid workload actuation.
@@ -2358,6 +2754,17 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `component_count` | `integer` | true | Observed number of components in the parsed SBOM inventory. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## second_pass_byte_identity_observation
+
+> Proves the second manufacture pass produced byte-identical owned outputs.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `first_tree_digest` | `string` | true | Digest after first manufacture pass. |
+| `second_tree_digest` | `string` | true | Digest after second manufacture pass. |
+| `byte_identity` | `boolean` | true | Whether the output trees are byte-identical. |
+| `receipt_digest` | `string` | true | Receipt binding the replay result. |
 
 ## secret_boundary_evidence
 
@@ -2401,6 +2808,17 @@
 | `control_coverage` | `float` | true | Fraction of required controls with accepted evidence. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## semantic_drift_observation
+
+> Classifies semantic change between prior and current canonical digests.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Observed semantic subject. |
+| `prior_semantic_digest` | `string` | true | Prior canonical semantic digest. |
+| `current_semantic_digest` | `string` | true | Current canonical semantic digest. |
+| `drift_class` | `string` | true | Machine-readable semantic drift class. |
 
 ## service_credit
 
@@ -2563,6 +2981,39 @@
 | `stale_sha` | `string` | true | Stale subject SHA observed and refused by exact-head policy. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## standing_state_observation
+
+> Emits scoped ALIVE, PARTIAL_ALIVE, BLOCKED, UNKNOWN, or BUILD_BROKEN state.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Exact standing subject identity. |
+| `standing` | `string` | true | Machine-readable standing vocabulary value. |
+| `evidence_digest` | `string` | true | Digest supporting the standing. |
+| `observed_at` | `datetime` | true | Timestamp standing was observed. |
+
+## submodule_lock_observation
+
+> Compares an exact gitlink with its declared dependency lock to expose submodule drift automatically.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `submodule_path` | `string` | true | Caller-local submodule path. |
+| `gitlink_sha` | `string` | true | Exact gitlink commit. |
+| `lock_sha` | `string` | true | Declared immutable lock commit. |
+| `observed_at` | `datetime` | true | Timestamp of comparison. |
+
+## submodule_registration_observation
+
+> Observes whether every gitlink has repository registration metadata before autonomous checkout.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `submodule_path` | `string` | true | Observed gitlink path. |
+| `registration_state` | `string` | true | Registration standing for the gitlink. |
+| `repository_url` | `string` | true | Resolved immutable repository source. |
+| `evidence_digest` | `string` | true | Digest of registration evidence. |
+
 ## success_plan
 
 > Executable customer-success plan target with receipted account identity.
@@ -2703,6 +3154,17 @@
 | `blocker_id` | `string` | true | Required technical blocker input; omission is an executable typed refusal, never an inferred approval. |
 | `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## temporal_order_observation
+
+> Encodes observed ordering between two observations and its evidence basis.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `earlier_observation_id` | `string` | true | Earlier observation identity. |
+| `later_observation_id` | `string` | true | Later observation identity. |
+| `ordering_basis` | `string` | true | Clock or sequence basis for ordering. |
+| `evidence_digest` | `string` | true | Digest of temporal evidence. |
+
 ## tenant_account
 
 > Commercial tenant bound to account, region, and edition.
@@ -2808,6 +3270,17 @@
 | `toolchain_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## toolchain_identity_observation
+
+> Observes exact tool name, version, and executable bytes used for validation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tool_name` | `string` | true | Observed tool identity. |
+| `tool_version` | `string` | true | Observed tool version. |
+| `executable_digest` | `string` | true | Digest of executed tool bytes. |
+| `observed_at` | `datetime` | true | Timestamp of toolchain observation. |
+
 ## training_readiness
 
 > Observed workforce training readiness for production adoption.
@@ -2851,6 +3324,17 @@
 | `target_type` | `string` | true | The edge target type name. |
 | `qualifier` | `string` | true | The relationship qualifier/role name for this edge. |
 | `direction` | `atom` | true | One of: e2o \| o2o. |
+
+## uncertainty_observation
+
+> Represents typed UNKNOWN uncertainty instead of manufacturing false certainty.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `observation_id` | `string` | true | Observation with uncertainty. |
+| `uncertainty_kind` | `string` | true | Typed uncertainty classification. |
+| `confidence_basis` | `string` | true | Basis for any confidence estimate. |
+| `standing` | `string` | true | Machine-readable UNKNOWN-compatible standing. |
 
 ## unsupported_capability_evidence
 
@@ -2931,6 +3415,28 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## validation_capsule_drift_observation
+
+> Compares expected and observed capsule digests and emits typed drift.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `expected_digest` | `string` | true | Admitted capsule digest. |
+| `observed_digest` | `string` | true | Currently resolved capsule digest. |
+| `drift_status` | `string` | true | Machine-readable capsule drift result. |
+| `observed_at` | `datetime` | true | Timestamp of digest comparison. |
+
+## validation_capsule_identity_observation
+
+> Binds source capsule, validation pack, execution mode, toolchain, and immutable image.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `capsule_repository` | `string` | true | Capsule source repository. |
+| `capsule_sha` | `string` | true | Exact capsule source commit. |
+| `execution_mode` | `string` | true | Observed capsule execution mode. |
+| `image_digest` | `string` | true | Immutable platform image digest. |
+
 ## value_baseline
 
 > Measured pre-adoption business baseline for ROI comparison.
@@ -2953,6 +3459,17 @@
 | `annual_value` | `float` | true | Observed annualized value in account currency. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## value_of_information_estimate
+
+> Estimates expected information gain and acquisition cost for a pending decision.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `decision_id` | `string` | true | Decision requiring additional information. |
+| `evidence_candidate_id` | `string` | true | Candidate evidence acquisition. |
+| `expected_information_gain` | `float` | true | Expected reduction in uncertainty. |
+| `cost_basis` | `string` | true | Evidence acquisition cost basis. |
 
 ## value_realization
 
@@ -3028,6 +3545,39 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `vulnerability_count` | `integer` | true | Observed count of admitted vulnerability findings. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## workflow_definition_digest_observation
+
+> Binds a workflow definition to exact bytes and repository subject before trusting its runs.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `workflow_path` | `string` | true | Workflow source path. |
+| `definition_sha256` | `string` | true | Digest of exact workflow bytes. |
+| `source_sha` | `string` | true | Repository commit containing the workflow. |
+| `observed_at` | `datetime` | true | Timestamp of workflow observation. |
+
+## workflow_job_state_observation
+
+> Observes a workflow job, runner identity, and conclusion inside an exact run.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `job_id` | `string` | true | Stable workflow-job identity. |
+| `run_id` | `string` | true | Owning workflow-run identity. |
+| `runner_identity` | `string` | true | Observed runner or capsule identity. |
+| `conclusion` | `string` | true | Observed terminal job conclusion. |
+
+## workflow_run_state_observation
+
+> Observes a workflow run against its exact head and terminal conclusion.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `run_id` | `string` | true | Stable workflow-run identity. |
+| `workflow_id` | `string` | true | Stable workflow-definition identity. |
+| `head_sha` | `string` | true | Exact subject commit executed. |
+| `conclusion` | `string` | true | Observed terminal run conclusion. |
 
 ## workload_backpressure_signal
 

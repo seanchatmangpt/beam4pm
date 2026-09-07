@@ -145,6 +145,20 @@ pub type AnnualSubscription {
   )
 }
 
+/// Scores an observed subject against an exact baseline digest.
+pub type AnomalyDetectionObservation {
+  AnomalyDetectionObservation(
+    /// Observed subject identity.
+    subject_id: String,
+    /// Exact anomaly baseline digest.
+    baseline_digest: String,
+    /// Current observation digest.
+    observation_digest: String,
+    /// Computed anomaly score.
+    anomaly_score: Float,
+  )
+}
+
 /// Executable segregation-of-duties evidence binding an exact subject to an approver distinct from its producer.
 pub type ApprovalSeparationEvidence {
   ApprovalSeparationEvidence(
@@ -203,6 +217,20 @@ pub type ArtifactDigestEvidence {
   )
 }
 
+/// Binds a produced artifact digest to its exact producer run.
+pub type ArtifactDigestObservation {
+  ArtifactDigestObservation(
+    /// Stable artifact identity.
+    artifact_id: String,
+    /// Observed artifact content digest.
+    artifact_sha256: String,
+    /// Exact producer workflow run.
+    producer_run_id: String,
+    /// Timestamp of artifact observation.
+    observed_at: String,
+  )
+}
+
 /// Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
 pub type AttestationVerificationEvidence {
   AttestationVerificationEvidence(
@@ -228,6 +256,20 @@ pub type AuditChainEvidence {
     previous_receipt_hash: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Encodes decision-relevant observed dimensions for one exact subject.
+pub type AutonomicStateVector {
+  AutonomicStateVector(
+    /// Stable state-vector identity.
+    state_vector_id: String,
+    /// Exact observed subject identity.
+    subject_id: String,
+    /// Digest of ordered state dimensions.
+    dimension_digest: String,
+    /// Timestamp of state-vector encoding.
+    observed_at: String,
   )
 }
 
@@ -284,6 +326,34 @@ pub type BaselineMetric {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Captures a posterior belief state and explicit uncertainty standing.
+pub type BeliefStateSnapshot {
+  BeliefStateSnapshot(
+    /// Stable belief-state identity.
+    belief_state_id: String,
+    /// Exact subject of belief.
+    subject_id: String,
+    /// Digest of posterior state.
+    posterior_digest: String,
+    /// Machine-readable uncertainty standing.
+    uncertainty_status: String,
+  )
+}
+
+/// Binds prior belief, new evidence, update rule, and posterior belief.
+pub type BeliefStateUpdate {
+  BeliefStateUpdate(
+    /// Prior belief-state identity.
+    prior_belief_id: String,
+    /// Digest of newly admitted evidence.
+    evidence_digest: String,
+    /// Resulting belief-state identity.
+    posterior_belief_id: String,
+    /// Deterministic belief update rule.
+    update_rule: String,
   )
 }
 
@@ -433,6 +503,20 @@ pub type BuyingCommittee {
   )
 }
 
+/// Proves a reusable rail executed from the consumer's own exact checkout.
+pub type CallerLocalCheckoutObservation {
+  CallerLocalCheckoutObservation(
+    /// Stable consumer repository identity.
+    consumer_repository_id: String,
+    /// Exact caller-local checkout commit.
+    checkout_sha: String,
+    /// Observed caller-local execution path.
+    checkout_path: String,
+    /// Digest binding execution to checkout.
+    evidence_digest: String,
+  )
+}
+
 /// Receipted enterprise canary decision based on an observed rollout consequence.
 pub type CanaryDecision {
   CanaryDecision(
@@ -460,6 +544,20 @@ pub type CanaryEvidence {
     canary_percentage: Float,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Encodes whether a repository path is an authorized canonical manufacturing input.
+pub type CanonicalSourceAuthorityObservation {
+  CanonicalSourceAuthorityObservation(
+    /// Observed repository path.
+    source_path: String,
+    /// Classified source authority.
+    authority_class: String,
+    /// Whether mutation is admitted at this boundary.
+    mutation_allowed: Bool,
+    /// Digest of authority evidence.
+    evidence_digest: String,
   )
 }
 
@@ -531,6 +629,20 @@ pub type CatalogRelease {
   )
 }
 
+/// Binds a candidate cause to effect with explicit causal evidence.
+pub type CausalLineageObservation {
+  CausalLineageObservation(
+    /// Candidate causal observation.
+    cause_observation_id: String,
+    /// Observed effect identity.
+    effect_observation_id: String,
+    /// Declared causal inference basis.
+    causal_basis: String,
+    /// Digest of causal evidence.
+    evidence_digest: String,
+  )
+}
+
 /// Executable change-control evidence binding an exact subject to the approved request governing its mutation.
 pub type ChangeControlEvidence {
   ChangeControlEvidence(
@@ -554,6 +666,20 @@ pub type ChangeOrderAuthority {
     authority_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     evidence_hash: String,
+  )
+}
+
+/// Infers the exact changed surface between two repository trees.
+pub type ChangedSurfaceInference {
+  ChangedSurfaceInference(
+    /// Prior repository tree identity.
+    prior_tree_sha: String,
+    /// Current repository tree identity.
+    current_tree_sha: String,
+    /// Digest of normalized changed paths.
+    changed_surface_digest: String,
+    /// Machine-readable inference standing.
+    inference_status: String,
   )
 }
 
@@ -723,6 +849,20 @@ pub type CommercialValueRealization {
   )
 }
 
+/// Projects commit check state into a machine-readable exact-subject observation.
+pub type CommitCheckStateObservation {
+  CommitCheckStateObservation(
+    /// Exact checked commit.
+    commit_sha: String,
+    /// Stable check context name.
+    check_name: String,
+    /// Observed check status.
+    check_status: String,
+    /// Timestamp of check observation.
+    observed_at: String,
+  )
+}
+
 /// Term commitment with amount, currency, and expiration.
 pub type CommittedSpend {
   CommittedSpend(
@@ -803,6 +943,34 @@ pub type ConformanceResult {
   )
 }
 
+/// Invalidates affected belief state automatically after a consequential transition.
+pub type ConsequentialStateInvalidation {
+  ConsequentialStateInvalidation(
+    /// Consequential transition identity.
+    transition_id: String,
+    /// Digest of state invalidated by transition.
+    affected_state_digest: String,
+    /// Typed invalidation reason.
+    invalidation_reason: String,
+    /// Timestamp invalidation became effective.
+    invalidated_at: String,
+  )
+}
+
+/// Proves a consumer used an exact immutable marketplace pack SHA.
+pub type ConsumerPackPinObservation {
+  ConsumerPackPinObservation(
+    /// Stable consumer identity.
+    consumer_repository_id: String,
+    /// Consumed validation-pack identity.
+    pack_id: String,
+    /// Exact immutable pack commit.
+    pack_sha: String,
+    /// Digest of caller-local pin evidence.
+    evidence_digest: String,
+  )
+}
+
 /// Shared enterprise consumption pool with unit and balance.
 pub type ConsumptionPool {
   ConsumptionPool(
@@ -828,6 +996,34 @@ pub type ConsumptionSubscription {
     plan_id: String,
     /// Subscription lifecycle standing.
     status: String,
+  )
+}
+
+/// Resolves a mutable container tag to an immutable multi-platform manifest digest.
+pub type ContainerManifestDigestObservation {
+  ContainerManifestDigestObservation(
+    /// Container repository identity.
+    image_repository: String,
+    /// Observed mutable tag.
+    tag: String,
+    /// Resolved immutable manifest-index digest.
+    index_digest: String,
+    /// Timestamp of registry resolution.
+    observed_at: String,
+  )
+}
+
+/// Resolves a manifest index to one exact platform image digest.
+pub type ContainerPlatformDigestObservation {
+  ContainerPlatformDigestObservation(
+    /// Parent manifest-index digest.
+    index_digest: String,
+    /// Normalized operating-system and architecture.
+    platform: String,
+    /// Exact platform image digest.
+    platform_digest: String,
+    /// Timestamp of platform resolution.
+    observed_at: String,
   )
 }
 
@@ -925,6 +1121,20 @@ pub type CustomerManagedKeyEvidence {
   )
 }
 
+/// Normalizes a customer signal into typed, digest-bound evidence.
+pub type CustomerSignalObservation {
+  CustomerSignalObservation(
+    /// Stable customer identity.
+    customer_id: String,
+    /// Normalized customer signal type.
+    signal_type: String,
+    /// Immutable customer signal digest.
+    signal_digest: String,
+    /// Timestamp customer signal was observed.
+    observed_at: String,
+  )
+}
+
 /// Executable egress evidence binding an exact subject to the bytes observed crossing its admitted data boundary.
 pub type DataEgressEvidence {
   DataEgressEvidence(
@@ -1005,6 +1215,20 @@ pub type DealDeskPacket {
   )
 }
 
+/// Compresses high-dimensional state into a bounded actionable delta with loss bound.
+pub type DecisionCompressionObservation {
+  DecisionCompressionObservation(
+    /// Stable compression operation identity.
+    compression_id: String,
+    /// Digest of high-dimensional input state.
+    input_state_digest: String,
+    /// Digest of compressed delta.
+    output_delta_digest: String,
+    /// Declared information-loss bound.
+    loss_bound: String,
+  )
+}
+
 /// Executable deletion evidence binding an exact subject to a verifiable deletion receipt.
 pub type DeletionProofEvidence {
   DeletionProofEvidence(
@@ -1062,6 +1286,20 @@ pub type DependencyInventoryEvidence {
     dependency_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Compares a declared dependency ref with its immutable resolved commit.
+pub type DependencyPinObservation {
+  DependencyPinObservation(
+    /// Stable dependency identity.
+    dependency_id: String,
+    /// Declared dependency reference.
+    declared_ref: String,
+    /// Resolved immutable commit.
+    resolved_sha: String,
+    /// Timestamp of resolution.
+    observed_at: String,
   )
 }
 
@@ -1315,6 +1553,20 @@ pub type EnvironmentProfile {
   )
 }
 
+/// Normalizes deployment-environment evidence without human polling.
+pub type EnvironmentSignalObservation {
+  EnvironmentSignalObservation(
+    /// Stable environment identity.
+    environment_id: String,
+    /// Normalized environment signal type.
+    signal_type: String,
+    /// Immutable environment signal digest.
+    signal_digest: String,
+    /// Timestamp environment signal was observed.
+    observed_at: String,
+  )
+}
+
 /// Captures the exact remaining error budget that governs paid-service release policy.
 pub type ErrorBudgetState {
   ErrorBudgetState(
@@ -1493,6 +1745,20 @@ pub type FundingApprovalChain {
   )
 }
 
+/// Classifies a path as generated or source-owned using its explicit provenance marker.
+pub type GeneratedOutputOwnershipObservation {
+  GeneratedOutputOwnershipObservation(
+    /// Observed repository path.
+    output_path: String,
+    /// Observed provenance marker.
+    ownership_marker: String,
+    /// Digest of canonical inputs that own the output.
+    source_input_digest: String,
+    /// Machine-readable ownership standing.
+    standing: String,
+  )
+}
+
 /// One dependency-scored candidate arc considered during heuristic-net discovery.
 pub type HeuristicArc {
   HeuristicArc(
@@ -1564,6 +1830,20 @@ pub type IndemnityScopeAdmission {
     indemnity_scope_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Partitions a state vector by a decision-relevant information key.
+pub type InformationPartitionObservation {
+  InformationPartitionObservation(
+    /// Stable information partition identity.
+    partition_id: String,
+    /// Source state-vector identity.
+    state_vector_id: String,
+    /// Decision-relevant partition key.
+    partition_key: String,
+    /// Digest of partition contents.
+    information_digest: String,
   )
 }
 
@@ -1719,6 +1999,48 @@ pub type LogTrace {
   )
 }
 
+/// Emits the compressed state change and recommended next autonomic action.
+pub type MachineActionableDelta {
+  MachineActionableDelta(
+    /// Exact changed subject identity.
+    subject_id: String,
+    /// Prior admitted state digest.
+    prior_state_digest: String,
+    /// Digest of machine-actionable delta.
+    delta_digest: String,
+    /// Bounded next action for the control plane.
+    recommended_action: String,
+  )
+}
+
+/// Observes whether real manufacture emitted a receipt for the exact subject.
+pub type ManufactureReceiptPresenceObservation {
+  ManufactureReceiptPresenceObservation(
+    /// Exact manufactured subject.
+    subject_sha: String,
+    /// Stable manufacture receipt identity.
+    receipt_id: String,
+    /// Immutable receipt content digest.
+    receipt_digest: String,
+    /// Timestamp receipt was observed.
+    observed_at: String,
+  )
+}
+
+/// Records independent verification of receipt subject, digest, and verifier identity.
+pub type ManufactureReceiptValidityObservation {
+  ManufactureReceiptValidityObservation(
+    /// Immutable receipt digest.
+    receipt_digest: String,
+    /// Exact subject claimed by receipt.
+    subject_sha: String,
+    /// Machine-readable verification result.
+    verification_status: String,
+    /// Exact verifier implementation identity.
+    verifier_identity: String,
+  )
+}
+
 /// Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
 pub type MasterServiceAgreementState {
   MasterServiceAgreementState(
@@ -1825,6 +2147,20 @@ pub type NodeFailoverEvent {
   )
 }
 
+/// Normalizes a source event into stable identity, type, and event time.
+pub type NormalizedEventObservation {
+  NormalizedEventObservation(
+    /// Originating system identity.
+    source_system: String,
+    /// Stable source event identity.
+    event_id: String,
+    /// Normalized event type.
+    event_type: String,
+    /// Normalized event timestamp.
+    event_time: String,
+  )
+}
+
 /// One recorded change to a time-indexed object attribute.
 pub type ObjectAttributeChange {
   ObjectAttributeChange(
@@ -1880,6 +2216,62 @@ pub type ObjectionResolution {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Records an executable accept-or-duplicate decision for an observation digest.
+pub type ObservationDeduplicationDecision {
+  ObservationDeduplicationDecision(
+    /// Observed event identity.
+    event_id: String,
+    /// Canonical event digest.
+    event_digest: String,
+    /// Deterministic deduplication key.
+    dedup_key: String,
+    /// Machine-readable deduplication decision.
+    decision: String,
+  )
+}
+
+/// Records entropy of a state vector using an explicit estimation method.
+pub type ObservationEntropyEstimate {
+  ObservationEntropyEstimate(
+    /// Measured state-vector identity.
+    state_vector_id: String,
+    /// Named entropy estimation method.
+    entropy_method: String,
+    /// Observed entropy estimate.
+    entropy_value: Float,
+    /// Timestamp of entropy estimation.
+    observed_at: String,
+  )
+}
+
+/// Evaluates an observation against an explicit freshness deadline.
+pub type ObservationFreshnessAssessment {
+  ObservationFreshnessAssessment(
+    /// Stable observation identity.
+    observation_id: String,
+    /// Time observation was produced.
+    observed_at: String,
+    /// Latest acceptable observation time.
+    freshness_deadline: String,
+    /// Machine-readable freshness standing.
+    freshness_status: String,
+  )
+}
+
+/// Invalidates stale state and declares whether replacement evidence is required.
+pub type ObservationStalenessInvalidation {
+  ObservationStalenessInvalidation(
+    /// Stale observation identity.
+    observation_id: String,
+    /// Time invalidation became effective.
+    invalidated_at: String,
+    /// Typed reason for invalidation.
+    staleness_reason: String,
+    /// Whether new evidence must be acquired.
+    replacement_required: Bool,
   )
 }
 
@@ -2036,6 +2428,20 @@ pub type OveragePolicy {
     unit_price: Float,
     /// Overage enforcement behavior.
     behavior: String,
+  )
+}
+
+/// Observes a package version together with its immutable distribution digest.
+pub type PackageReleaseObservation {
+  PackageReleaseObservation(
+    /// Stable package identity.
+    package_id: String,
+    /// Observed published version.
+    version: String,
+    /// Immutable package content digest.
+    immutable_digest: String,
+    /// Timestamp of package observation.
+    observed_at: String,
   )
 }
 
@@ -2469,6 +2875,20 @@ pub type ProvenanceBindingEvidence {
   )
 }
 
+/// Binds observation, source capsule, and evidence digest into one provenance fact.
+pub type ProvenanceBindingObservation {
+  ProvenanceBindingObservation(
+    /// Stable observation identity.
+    observation_id: String,
+    /// Exact source capsule digest.
+    source_capsule_digest: String,
+    /// Immutable supporting evidence digest.
+    evidence_digest: String,
+    /// Machine-readable provenance standing.
+    binding_status: String,
+  )
+}
+
 /// Customer purchase-order evidence bound to an enterprise order.
 pub type PurchaseOrderBinding {
   PurchaseOrderBinding(
@@ -2649,6 +3069,20 @@ pub type RecoveryTimeReceipt {
   )
 }
 
+/// Emits REFUSED with exact authority boundary and evidence.
+pub type RefusalBoundaryObservation {
+  RefusalBoundaryObservation(
+    /// Exact refused subject identity.
+    subject_id: String,
+    /// Typed refusal reason.
+    refusal_code: String,
+    /// Boundary that denied the action.
+    authority_boundary: String,
+    /// Digest supporting refusal.
+    evidence_digest: String,
+  )
+}
+
 /// Executable remediation evidence binding an exact subject and finding to its enforced due instant.
 pub type RemediationSlaEvidence {
   RemediationSlaEvidence(
@@ -2746,6 +3180,62 @@ pub type ReplayEnvironmentIdentity {
     environment_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     identity_hash: String,
+  )
+}
+
+/// Records mechanically observed ancestry between repository commits so containment never requires human reconstruction.
+pub type RepositoryAncestryObservation {
+  RepositoryAncestryObservation(
+    /// Candidate ancestor commit.
+    ancestor_sha: String,
+    /// Candidate descendant commit.
+    descendant_sha: String,
+    /// Observed ancestry relation.
+    relation: String,
+    /// Digest of the mechanical ancestry evidence.
+    evidence_digest: String,
+  )
+}
+
+/// Observes a repository default branch and its exact head so autonomic state can invalidate on branch drift.
+pub type RepositoryDefaultBranchObservation {
+  RepositoryDefaultBranchObservation(
+    /// Stable repository identity observed by the sensor.
+    repository_id: String,
+    /// Observed default branch name.
+    default_branch: String,
+    /// Exact commit at the observed default-branch head.
+    head_sha: String,
+    /// Timestamp bounding the freshness of this observation.
+    observed_at: String,
+  )
+}
+
+/// Binds a repository observation to an exact branch head and prior head for autonomous change detection.
+pub type RepositoryExactHeadObservation {
+  RepositoryExactHeadObservation(
+    /// Stable repository identity.
+    repository_id: String,
+    /// Observed branch name.
+    branch_name: String,
+    /// Exact observed head commit.
+    head_sha: String,
+    /// Previously admitted head used to detect change.
+    previous_head_sha: String,
+  )
+}
+
+/// Captures caller-local repository worktree state and dirty-surface cardinality before manufacture.
+pub type RepositoryWorktreeStateObservation {
+  RepositoryWorktreeStateObservation(
+    /// Stable repository identity.
+    repository_id: String,
+    /// Digest of tracked caller-local worktree state.
+    worktree_hash: String,
+    /// Number of changed tracked paths.
+    dirty_path_count: Int,
+    /// Timestamp of worktree observation.
+    observed_at: String,
   )
 }
 
@@ -2925,6 +3415,20 @@ pub type RollingUpgradePlan {
   )
 }
 
+/// Captures runtime health state with exact supporting evidence.
+pub type RuntimeHealthObservation {
+  RuntimeHealthObservation(
+    /// Stable runtime identity.
+    runtime_id: String,
+    /// Observed runtime health classification.
+    health_state: String,
+    /// Digest of runtime health evidence.
+    evidence_digest: String,
+    /// Timestamp health was observed.
+    observed_at: String,
+  )
+}
+
 /// Records an explicit runtime policy decision before paid workload actuation.
 pub type RuntimePolicyDecision {
   RuntimePolicyDecision(
@@ -2960,6 +3464,20 @@ pub type SbomInventoryEvidence {
     component_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Proves the second manufacture pass produced byte-identical owned outputs.
+pub type SecondPassByteIdentityObservation {
+  SecondPassByteIdentityObservation(
+    /// Digest after first manufacture pass.
+    first_tree_digest: String,
+    /// Digest after second manufacture pass.
+    second_tree_digest: String,
+    /// Whether the output trees are byte-identical.
+    byte_identity: Bool,
+    /// Receipt binding the replay result.
+    receipt_digest: String,
   )
 }
 
@@ -3014,6 +3532,20 @@ pub type SecurityReadiness {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Classifies semantic change between prior and current canonical digests.
+pub type SemanticDriftObservation {
+  SemanticDriftObservation(
+    /// Observed semantic subject.
+    subject_id: String,
+    /// Prior canonical semantic digest.
+    prior_semantic_digest: String,
+    /// Current canonical semantic digest.
+    current_semantic_digest: String,
+    /// Machine-readable semantic drift class.
+    drift_class: String,
   )
 }
 
@@ -3219,6 +3751,48 @@ pub type StaleSubjectRefusalEvidence {
   )
 }
 
+/// Emits scoped ALIVE, PARTIAL_ALIVE, BLOCKED, UNKNOWN, or BUILD_BROKEN state.
+pub type StandingStateObservation {
+  StandingStateObservation(
+    /// Exact standing subject identity.
+    subject_id: String,
+    /// Machine-readable standing vocabulary value.
+    standing: String,
+    /// Digest supporting the standing.
+    evidence_digest: String,
+    /// Timestamp standing was observed.
+    observed_at: String,
+  )
+}
+
+/// Compares an exact gitlink with its declared dependency lock to expose submodule drift automatically.
+pub type SubmoduleLockObservation {
+  SubmoduleLockObservation(
+    /// Caller-local submodule path.
+    submodule_path: String,
+    /// Exact gitlink commit.
+    gitlink_sha: String,
+    /// Declared immutable lock commit.
+    lock_sha: String,
+    /// Timestamp of comparison.
+    observed_at: String,
+  )
+}
+
+/// Observes whether every gitlink has repository registration metadata before autonomous checkout.
+pub type SubmoduleRegistrationObservation {
+  SubmoduleRegistrationObservation(
+    /// Observed gitlink path.
+    submodule_path: String,
+    /// Registration standing for the gitlink.
+    registration_state: String,
+    /// Resolved immutable repository source.
+    repository_url: String,
+    /// Digest of registration evidence.
+    evidence_digest: String,
+  )
+}
+
 /// Executable customer-success plan target with receipted account identity.
 pub type SuccessPlan {
   SuccessPlan(
@@ -3395,6 +3969,20 @@ pub type TechnicalBlocker {
   )
 }
 
+/// Encodes observed ordering between two observations and its evidence basis.
+pub type TemporalOrderObservation {
+  TemporalOrderObservation(
+    /// Earlier observation identity.
+    earlier_observation_id: String,
+    /// Later observation identity.
+    later_observation_id: String,
+    /// Clock or sequence basis for ordering.
+    ordering_basis: String,
+    /// Digest of temporal evidence.
+    evidence_digest: String,
+  )
+}
+
 /// Commercial tenant bound to account, region, and edition.
 pub type TenantAccount {
   TenantAccount(
@@ -3525,6 +4113,20 @@ pub type ToolchainIdentity {
   )
 }
 
+/// Observes exact tool name, version, and executable bytes used for validation.
+pub type ToolchainIdentityObservation {
+  ToolchainIdentityObservation(
+    /// Observed tool identity.
+    tool_name: String,
+    /// Observed tool version.
+    tool_version: String,
+    /// Digest of executed tool bytes.
+    executable_digest: String,
+    /// Timestamp of toolchain observation.
+    observed_at: String,
+  )
+}
+
 /// Observed workforce training readiness for production adoption.
 pub type TrainingReadiness {
   TrainingReadiness(
@@ -3578,6 +4180,20 @@ pub type TypeEdge {
     qualifier: String,
     /// One of: e2o | o2o.
     direction: String,
+  )
+}
+
+/// Represents typed UNKNOWN uncertainty instead of manufacturing false certainty.
+pub type UncertaintyObservation {
+  UncertaintyObservation(
+    /// Observation with uncertainty.
+    observation_id: String,
+    /// Typed uncertainty classification.
+    uncertainty_kind: String,
+    /// Basis for any confidence estimate.
+    confidence_basis: String,
+    /// Machine-readable UNKNOWN-compatible standing.
+    standing: String,
   )
 }
 
@@ -3683,6 +4299,34 @@ pub type UsageSignal {
   )
 }
 
+/// Compares expected and observed capsule digests and emits typed drift.
+pub type ValidationCapsuleDriftObservation {
+  ValidationCapsuleDriftObservation(
+    /// Admitted capsule digest.
+    expected_digest: String,
+    /// Currently resolved capsule digest.
+    observed_digest: String,
+    /// Machine-readable capsule drift result.
+    drift_status: String,
+    /// Timestamp of digest comparison.
+    observed_at: String,
+  )
+}
+
+/// Binds source capsule, validation pack, execution mode, toolchain, and immutable image.
+pub type ValidationCapsuleIdentityObservation {
+  ValidationCapsuleIdentityObservation(
+    /// Capsule source repository.
+    capsule_repository: String,
+    /// Exact capsule source commit.
+    capsule_sha: String,
+    /// Observed capsule execution mode.
+    execution_mode: String,
+    /// Immutable platform image digest.
+    image_digest: String,
+  )
+}
+
 /// Measured pre-adoption business baseline for ROI comparison.
 pub type ValueBaseline {
   ValueBaseline(
@@ -3710,6 +4354,20 @@ pub type ValueDriver {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Estimates expected information gain and acquisition cost for a pending decision.
+pub type ValueOfInformationEstimate {
+  ValueOfInformationEstimate(
+    /// Decision requiring additional information.
+    decision_id: String,
+    /// Candidate evidence acquisition.
+    evidence_candidate_id: String,
+    /// Expected reduction in uncertainty.
+    expected_information_gain: Float,
+    /// Evidence acquisition cost basis.
+    cost_basis: String,
   )
 }
 
@@ -3804,6 +4462,48 @@ pub type VulnerabilityScanEvidence {
     vulnerability_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Binds a workflow definition to exact bytes and repository subject before trusting its runs.
+pub type WorkflowDefinitionDigestObservation {
+  WorkflowDefinitionDigestObservation(
+    /// Workflow source path.
+    workflow_path: String,
+    /// Digest of exact workflow bytes.
+    definition_sha256: String,
+    /// Repository commit containing the workflow.
+    source_sha: String,
+    /// Timestamp of workflow observation.
+    observed_at: String,
+  )
+}
+
+/// Observes a workflow job, runner identity, and conclusion inside an exact run.
+pub type WorkflowJobStateObservation {
+  WorkflowJobStateObservation(
+    /// Stable workflow-job identity.
+    job_id: String,
+    /// Owning workflow-run identity.
+    run_id: String,
+    /// Observed runner or capsule identity.
+    runner_identity: String,
+    /// Observed terminal job conclusion.
+    conclusion: String,
+  )
+}
+
+/// Observes a workflow run against its exact head and terminal conclusion.
+pub type WorkflowRunStateObservation {
+  WorkflowRunStateObservation(
+    /// Stable workflow-run identity.
+    run_id: String,
+    /// Stable workflow-definition identity.
+    workflow_id: String,
+    /// Exact subject commit executed.
+    head_sha: String,
+    /// Observed terminal run conclusion.
+    conclusion: String,
   )
 }
 
