@@ -9517,3 +9517,33 @@ b4p:crown_applicable_gate_coverage_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-042 — crown_path_skip_refusal
+b4p:crown_path_skip_refusal_rt a bpm:RecordType ;
+    bpm:recordName "crown_path_skip_refusal" ;
+    bpm:recordDoc "Refuses false ALIVE when a required qualification gate was path-skipped." ;
+    bpm:hasField b4p:crown_path_skip_refusal_propagation_id_f,
+                 b4p:crown_path_skip_refusal_subject_sha_f,
+                 b4p:crown_path_skip_refusal_skipped_gate_id_f,
+                 b4p:crown_path_skip_refusal_receipt_digest_f .
+
+b4p:crown_path_skip_refusal_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_path_skip_refusal_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_path_skip_refusal_skipped_gate_id_f a bpm:Field ;
+    bpm:fieldName "skipped_gate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the required gate that was skipped." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_path_skip_refusal_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
