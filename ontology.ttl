@@ -9607,3 +9607,33 @@ b4p:customer_signal_observation_observed_at_f a bpm:Field ;
     bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Timestamp customer signal was observed." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-045 — environment_signal_observation
+b4p:environment_signal_observation_rt a bpm:RecordType ;
+    bpm:recordName "environment_signal_observation" ;
+    bpm:recordDoc "Normalizes deployment-environment evidence without human polling." ;
+    bpm:hasField b4p:environment_signal_observation_environment_id_f,
+                 b4p:environment_signal_observation_signal_type_f,
+                 b4p:environment_signal_observation_signal_digest_f,
+                 b4p:environment_signal_observation_observed_at_f .
+
+b4p:environment_signal_observation_environment_id_f a bpm:Field ;
+    bpm:fieldName "environment_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable environment identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:environment_signal_observation_signal_type_f a bpm:Field ;
+    bpm:fieldName "signal_type" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Normalized environment signal type." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:environment_signal_observation_signal_digest_f a bpm:Field ;
+    bpm:fieldName "signal_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable environment signal digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:environment_signal_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp environment signal was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
