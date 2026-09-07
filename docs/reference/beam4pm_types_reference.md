@@ -78,6 +78,16 @@
 | `capability_ids` | `list_string` | true | Additional capabilities. |
 | `status` | `atom` | true | Add-on lifecycle standing. |
 
+## admissible_action_set
+
+> Computes all actions currently permitted by state, constraints, and authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `state_id` | `string` | true | Required state_id for this bounded planner contract. |
+| `constraint_hash` | `string` | true | Required constraint_hash for deterministic planner evaluation. |
+| `action_set_hash` | `string` | true | Required action_set_hash preserving evidence and falsifiability. |
+
 ## adoption_milestone
 
 > Receipted customer adoption milestone tied to observable use.
@@ -89,6 +99,16 @@
 | `milestone_name` | `string` | true | Stable name of the achieved adoption milestone. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## agent_assignment
+
+> Assigns an admitted policy to an agent without transferring authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `agent_id` | `string` | true | Required agent_id for this bounded planner contract. |
+| `policy_id` | `string` | true | Required policy_id for deterministic planner evaluation. |
+| `assignment_hash` | `string` | true | Required assignment_hash preserving evidence and falsifiability. |
 
 ## alignment_move
 
@@ -155,6 +175,16 @@
 | `digest` | `string` | true | Content digest observed for the admitted commercial artifact. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## astar_plan_candidate
+
+> Represents an A-star plan with admissible heuristic and exact state lineage.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `heuristic_id` | `string` | true | Required heuristic_id for deterministic planner evaluation. |
+| `path_hash` | `string` | true | Required path_hash preserving evidence and falsifiability. |
+
 ## attestation_verification_evidence
 
 > Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
@@ -176,6 +206,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `previous_receipt_hash` | `string` | true | Hash of the preceding receipt in the observed audit chain. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## authority_ceiling
+
+> Caps every candidate action at the exact authority grant available to its subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `action_id` | `string` | true | Required action_id for this bounded planner contract. |
+| `grant_id` | `string` | true | Required grant_id for deterministic planner evaluation. |
+| `ceiling` | `string` | true | Required ceiling preserving evidence and falsifiability. |
 
 ## availability_observation
 
@@ -220,6 +260,16 @@
 | `baseline_value` | `float` | true | Measured value before the intervention. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## beam_search_candidate
+
+> Represents a bounded beam-search plan with explicit width and frontier.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `beam_width` | `string` | true | Required beam_width for deterministic planner evaluation. |
+| `frontier_hash` | `string` | true | Required frontier_hash preserving evidence and falsifiability. |
 
 ## beneficial_owner_evidence
 
@@ -338,6 +388,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## caller_local_consumer
+
+> Preserves each caller-local consumer as an independently planned exact subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `consumer_id` | `string` | true | Required consumer_id for this bounded planner contract. |
+| `subject_sha` | `string` | true | Required subject_sha for deterministic planner evaluation. |
+| `consumer_hash` | `string` | true | Required consumer_hash preserving evidence and falsifiability. |
+
 ## canary_decision
 
 > Receipted enterprise canary decision based on an observed rollout consequence.
@@ -383,6 +443,16 @@
 | `gap_severity` | `string` | true | Observed severity of the capability gap. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## capsule_availability
+
+> Records whether the exact validation capsule is available before qualification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `capsule_id` | `string` | true | Required capsule_id for this bounded planner contract. |
+| `capsule_digest` | `string` | true | Required capsule_digest for deterministic planner evaluation. |
+| `availability` | `string` | true | Required availability preserving evidence and falsifiability. |
 
 ## capsule_identity
 
@@ -631,6 +701,16 @@
 | `fitness` | `float` | true | Fitness score in [0.0, 1.0]. |
 | `precision` | `float` | false | Optional precision score in [0.0, 1.0]. |
 
+## consumer_equivalence_proof
+
+> Admits central-surrogate planning only after explicit consumer-equivalence proof.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `consumer_set_id` | `string` | true | Required consumer_set_id for this bounded planner contract. |
+| `equivalence_proof_hash` | `string` | true | Required equivalence_proof_hash for deterministic planner evaluation. |
+| `standing` | `string` | true | Required standing preserving evidence and falsifiability. |
+
 ## consumption_pool
 
 > Shared enterprise consumption pool with unit and balance.
@@ -663,6 +743,16 @@
 | `contracting_entity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
 | `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## cost_of_delay_score
+
+> Scores delay cost for an option without overriding explicit authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Required option_id for this bounded planner contract. |
+| `horizon` | `string` | true | Required horizon for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
 ## cost_to_serve_measurement
 
 > Records attributable runtime cost-to-serve for a paid tenant and billing period.
@@ -672,6 +762,16 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `billing_period_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `measurement_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## counterfactual_frontier
+
+> Preserves counterfactual futures for every nondominated option.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_set_id` | `string` | true | Required option_set_id for this bounded planner contract. |
+| `world_model_hash` | `string` | true | Required world_model_hash for deterministic planner evaluation. |
+| `frontier_hash` | `string` | true | Required frontier_hash preserving evidence and falsifiability. |
 
 ## crash_recovery_receipt
 
@@ -827,6 +927,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## dependency_dag
+
+> Represents action dependencies as an acyclic exact-subject graph.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `dag_id` | `string` | true | Required dag_id for this bounded planner contract. |
+| `node_set_hash` | `string` | true | Required node_set_hash for deterministic planner evaluation. |
+| `edge_set_hash` | `string` | true | Required edge_set_hash preserving evidence and falsifiability. |
+
 ## dependency_inventory_evidence
 
 > Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.
@@ -904,6 +1014,26 @@
 | `expected_value` | `string` | true | Falsifiable value expectation stated by the customer. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## dominance_witness
+
+> Records the exact objective evidence proving one option dominates another.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `dominant_option_id` | `string` | true | Required dominant_option_id for this bounded planner contract. |
+| `dominated_option_id` | `string` | true | Required dominated_option_id for deterministic planner evaluation. |
+| `witness_hash` | `string` | true | Required witness_hash preserving evidence and falsifiability. |
+
+## dynamic_replan_trigger
+
+> Triggers replanning when observed state invalidates a plan assumption.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `event_id` | `string` | true | Required event_id for deterministic planner evaluation. |
+| `trigger_hash` | `string` | true | Required trigger_hash preserving evidence and falsifiability. |
 
 ## edition_definition
 
@@ -1014,6 +1144,16 @@
 | `last_applied_event_id` | `string` | true | The event_id of the single entitlement_event that produced this state. Second (tiebreak) component of the reconciliation watermark, and the audit link from a commercial state back to the exact provider notification that caused it. Required, never undefined: an entitlement_state may only be constructed by applying a real event, so there is no lawful state without a causing event id. |
 | `updated_at` | `datetime` | true | The effective_at of the last applied event -- NOT wall-clock ingestion time. First component of the reconciliation watermark. Defining it as provider effective time (a) makes the state a pure function of the event set, so the same events replayed in any order at any later date rebuild a byte-identical state, and (b) makes the strictly-greater-than admission test well-founded. A wall-clock updated_at would silently admit an out-of-order older event, because it always advances. |
 
+## entropy_reduction_score
+
+> Measures expected uncertainty reduction from a bounded observation action.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `action_id` | `string` | true | Required action_id for this bounded planner contract. |
+| `prior_entropy` | `string` | true | Required prior_entropy for deterministic planner evaluation. |
+| `expected_posterior_entropy` | `string` | true | Required expected_posterior_entropy preserving evidence and falsifiability. |
+
 ## environment_identity
 
 > Binds paid workload execution to an immutable production environment identity.
@@ -1055,6 +1195,16 @@
 | `name` | `string` | true | Human-readable log name. |
 | `description` | `string` | false | Optional free-text description of this log. |
 
+## event_triggered_planning
+
+> Creates a bounded planning episode from an admitted world event.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Required event_id for this bounded planner contract. |
+| `world_state_hash` | `string` | true | Required world_state_hash for deterministic planner evaluation. |
+| `episode_id` | `string` | true | Required episode_id preserving evidence and falsifiability. |
+
 ## event_type
 
 > A declared OCEL event type and its attribute schema.
@@ -1074,6 +1224,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `observed_at` | `datetime` | true | UTC instant at which the subject evidence was observed. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## exact_subject_binding
+
+> Binds every plan to one immutable repository/ref/SHA subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Required subject_id for this bounded planner contract. |
+| `subject_sha` | `string` | true | Required subject_sha for deterministic planner evaluation. |
+| `binding_hash` | `string` | true | Required binding_hash preserving evidence and falsifiability. |
 
 ## exception_authority
 
@@ -1176,6 +1336,16 @@
 | `approval_chain_id` | `string` | true | Required funding approval chain input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## generated_source_route
+
+> Routes generated-projection defects to canonical semantic source or an independent rail.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `projection_id` | `string` | true | Required projection_id for this bounded planner contract. |
+| `source_coordinate` | `string` | true | Required source_coordinate for deterministic planner evaluation. |
+| `route` | `string` | true | Required route preserving evidence and falsifiability. |
+
 ## heuristic_arc
 
 > One dependency-scored candidate arc considered during heuristic-net discovery.
@@ -1185,6 +1355,16 @@
 | `source_activity` | `string` | true | The candidate arc source activity. |
 | `target_activity` | `string` | true | The candidate arc target activity. |
 | `dependency_measure` | `float` | true | The computed dependency/confidence score for this candidate arc. |
+
+## immutable_pack_selection
+
+> Selects a marketplace pack only by exact immutable commit SHA.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `pack_id` | `string` | true | Required pack_id for this bounded planner contract. |
+| `pack_sha` | `string` | true | Required pack_sha for deterministic planner evaluation. |
+| `selection_hash` | `string` | true | Required selection_hash preserving evidence and falsifiability. |
 
 ## implementation_fee_admission
 
@@ -1290,6 +1470,16 @@
 | `cadence` | `atom` | true | Invoice cadence. |
 | `next_invoice_at` | `datetime` | true | Next scheduled invoice instant. |
 
+## irreversibility_budget
+
+> Limits irreversible commitments within one bounded planning episode.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `episode_id` | `string` | true | Required episode_id for this bounded planner contract. |
+| `budget` | `string` | true | Required budget for deterministic planner evaluation. |
+| `consumed` | `string` | true | Required consumed preserving evidence and falsifiability. |
+
 ## k8s_object_ref
 
 > A reference to one Kubernetes object observed in the runtime topology.
@@ -1371,6 +1561,26 @@
 | `agreement_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
 | `agreement_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## mcts_plan_candidate
+
+> Represents a seeded Monte Carlo tree-search plan and its rollout evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `seed` | `string` | true | Required seed for deterministic planner evaluation. |
+| `rollout_hash` | `string` | true | Required rollout_hash preserving evidence and falsifiability. |
+
+## meta_router
+
+> Selects a planner from a portfolio using observed problem characteristics.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `portfolio_id` | `string` | true | Required portfolio_id for this bounded planner contract. |
+| `observation_hash` | `string` | true | Required observation_hash for deterministic planner evaluation. |
+| `selected_planner_id` | `string` | true | Required selected_planner_id preserving evidence and falsifiability. |
+
 ## metered_usage_sample
 
 > Records a bounded production usage sample eligible for tenant-level metering.
@@ -1436,6 +1646,26 @@
 | `mutable_reference` | `string` | true | Mutable reference observed and refused before artifact admission. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## mutual_information_score
+
+> Ranks observations by expected mutual information with decision-relevant state.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `observation_id` | `string` | true | Required observation_id for this bounded planner contract. |
+| `target_state_id` | `string` | true | Required target_state_id for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
+## next_lawful_actuation
+
+> Selects the next bounded action from scored admissible options without human micro-scheduling.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `episode_id` | `string` | true | Required episode_id for this bounded planner contract. |
+| `selected_action_id` | `string` | true | Required selected_action_id for deterministic planner evaluation. |
+| `selection_receipt_hash` | `string` | true | Required selection_receipt_hash preserving evidence and falsifiability. |
+
 ## node_failover_event
 
 > Records the exact node failure and observed failover consequence for a paid service.
@@ -1445,6 +1675,16 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `node_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `failover_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## novelty_score
+
+> Rewards options that expand the lawful reachable capability frontier.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Required option_id for this bounded planner contract. |
+| `reference_set_hash` | `string` | true | Required reference_set_hash for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
 
 ## object_attribute_change
 
@@ -1596,6 +1836,26 @@
 | `minimum_value` | `string` | true | Required opportunity value range input; omission is an executable typed refusal, never an inferred approval. |
 | `maximum_value` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## optimization_plan_candidate
+
+> Represents an optimization-derived plan with objective and solver receipt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `objective_id` | `string` | true | Required objective_id for deterministic planner evaluation. |
+| `solver_receipt_hash` | `string` | true | Required solver_receipt_hash preserving evidence and falsifiability. |
+
+## option_generation
+
+> Generates a reversible DfCM option set without premature selection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `state_id` | `string` | true | Required state_id for this bounded planner contract. |
+| `generator_id` | `string` | true | Required generator_id for deterministic planner evaluation. |
+| `option_set_hash` | `string` | true | Required option_set_hash preserving evidence and falsifiability. |
+
 ## order_form_admission
 
 > Admits the exact order form that expresses the buyer's priced scope and authorized terms.
@@ -1605,6 +1865,26 @@
 | `opportunity_id` | `string` | true | Required order form admission input; omission is an executable typed refusal, never an inferred approval. |
 | `order_form_id` | `string` | true | Required order form admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## orthogonality_score
+
+> Measures semantic independence between candidate work items.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `left_option_id` | `string` | true | Required left_option_id for this bounded planner contract. |
+| `right_option_id` | `string` | true | Required right_option_id for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
+## output_ownership_gate
+
+> Refuses manufacture promotion until every output path has admitted ownership.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Required subject_id for this bounded planner contract. |
+| `ownership_manifest_hash` | `string` | true | Required ownership_manifest_hash for deterministic planner evaluation. |
+| `standing` | `string` | true | Required standing preserving evidence and falsifiability. |
 
 ## overage_policy
 
@@ -1626,6 +1906,16 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `workload_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `outcome_receipt_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## pareto_filter
+
+> Removes strictly dominated options while preserving incomparable alternatives.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_set_id` | `string` | true | Required option_set_id for this bounded planner contract. |
+| `objective_set_hash` | `string` | true | Required objective_set_hash for deterministic planner evaluation. |
+| `pareto_set_hash` | `string` | true | Required pareto_set_hash preserving evidence and falsifiability. |
 
 ## path_schema
 
@@ -1708,6 +1998,56 @@
 | `transition_id` | `string` | true | Unique transition identifier. |
 | `label` | `string` | false | Optional human-readable/activity label (silent transition if absent). |
 
+## plan_lineage
+
+> Tracks derivation, repair, and supersession across plan generations.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `parent_plan_id` | `string` | true | Required parent_plan_id for deterministic planner evaluation. |
+| `lineage_hash` | `string` | true | Required lineage_hash preserving evidence and falsifiability. |
+
+## plan_memory
+
+> Stores reusable plan evidence without converting historical success into current authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `evidence_hash` | `string` | true | Required evidence_hash for deterministic planner evaluation. |
+| `memory_hash` | `string` | true | Required memory_hash preserving evidence and falsifiability. |
+
+## planner_capability_profile
+
+> Declares the problem features and guarantees supported by one planner.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `planner_id` | `string` | true | Required planner_id for this bounded planner contract. |
+| `capability_set` | `string` | true | Required capability_set for deterministic planner evaluation. |
+| `profile_hash` | `string` | true | Required profile_hash preserving evidence and falsifiability. |
+
+## planner_identity
+
+> Separates planner identity from policy, role, agent, and authority identities.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `planner_id` | `string` | true | Required planner_id for this bounded planner contract. |
+| `planner_kind` | `string` | true | Required planner_kind for deterministic planner evaluation. |
+| `identity_hash` | `string` | true | Required identity_hash preserving evidence and falsifiability. |
+
+## planner_portfolio
+
+> Preserves a diverse set of planners for one bounded planning episode.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `portfolio_id` | `string` | true | Required portfolio_id for this bounded planner contract. |
+| `planner_ids` | `string` | true | Required planner_ids for deterministic planner evaluation. |
+| `diversity_hash` | `string` | true | Required diversity_hash preserving evidence and falsifiability. |
+
 ## planning_action
 
 > One PDDL-style planning action with its preconditions and effects.
@@ -1775,6 +2115,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## policy_binding
+
+> Binds one planner to parameters, objective, observations, and action projection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `policy_id` | `string` | true | Required policy_id for this bounded planner contract. |
+| `planner_id` | `string` | true | Required planner_id for deterministic planner evaluation. |
+| `policy_hash` | `string` | true | Required policy_hash preserving evidence and falsifiability. |
+
 ## policy_decision
 
 > One admission/authority policy decision recorded for an attempted action.
@@ -1824,6 +2174,26 @@
 | --- | --- | --- | --- |
 | `from_index` | `integer` | true | Index into the parent PartialOrderNode's children that must happen first. |
 | `to_index` | `integer` | true | Index into the parent PartialOrderNode's children that must happen after from_index. |
+
+## powl_projection
+
+> Binds a plan candidate to an exact POWL process-plan projection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `powl_hash` | `string` | true | Required powl_hash for deterministic planner evaluation. |
+| `projection_receipt_hash` | `string` | true | Required projection_receipt_hash preserving evidence and falsifiability. |
+
+## ppddl_projection
+
+> Binds a plan candidate to an exact PPDDL problem/domain projection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `domain_hash` | `string` | true | Required domain_hash for deterministic planner evaluation. |
+| `problem_hash` | `string` | true | Required problem_hash preserving evidence and falsifiability. |
 
 ## pricing_basis_contract
 
@@ -1953,6 +2323,16 @@
 | `exit_gate_id` | `string` | true | Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## propagation_score
+
+> Scores downstream consequences across the dependency and capability graph.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Required option_id for this bounded planner contract. |
+| `graph_hash` | `string` | true | Required graph_hash for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
 ## provenance_binding_evidence
 
 > Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
@@ -1963,6 +2343,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `builder_identity` | `string` | true | Immutable identity of the builder that emitted the provenance. |
 | `observed_result` | `atom` | true | Observed verification consequence: verified or refused. |
+
+## psro_population
+
+> Maintains a population of policies and response oracles for meta-routing.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `population_id` | `string` | true | Required population_id for this bounded planner contract. |
+| `policy_ids` | `string` | true | Required policy_ids for deterministic planner evaluation. |
+| `population_hash` | `string` | true | Required population_hash preserving evidence and falsifiability. |
 
 ## purchase_order_binding
 
@@ -2027,6 +2417,16 @@
 | `committed_amount` | `float` | true | Phase commitment amount. |
 | `effective_at` | `datetime` | true | Phase activation instant. |
 
+## reachability_analysis
+
+> Determines whether an admitted goal remains reachable from current state.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `state_id` | `string` | true | Required state_id for this bounded planner contract. |
+| `goal_id` | `string` | true | Required goal_id for deterministic planner evaluation. |
+| `reachability_proof_hash` | `string` | true | Required reachability_proof_hash preserving evidence and falsifiability. |
+
 ## receipt_replay_evidence
 
 > Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt.
@@ -2047,6 +2447,16 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `receipt_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `replay_request_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## receipt_required_gate
+
+> Prevents any actuation candidate from becoming selectable without a verifiable receipt plan.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `action_id` | `string` | true | Required action_id for this bounded planner contract. |
+| `receipt_contract_id` | `string` | true | Required receipt_contract_id for deterministic planner evaluation. |
+| `standing` | `string` | true | Required standing preserving evidence and falsifiability. |
 
 ## receipt_signature
 
@@ -2210,6 +2620,16 @@
 | `sku` | `string` | true | Authorized sellable SKU. |
 | `status` | `atom` | true | Authorization standing. |
 
+## reserve_work_promotion
+
+> Automatically promotes the highest-value lawful reserve when primary work blocks.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `blocked_work_id` | `string` | true | Required blocked_work_id for this bounded planner contract. |
+| `reserve_set_hash` | `string` | true | Required reserve_set_hash for deterministic planner evaluation. |
+| `promoted_work_id` | `string` | true | Required promoted_work_id preserving evidence and falsifiability. |
+
 ## residency_evidence
 
 > Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.
@@ -2230,6 +2650,16 @@
 | `resource_id` | `string` | true | Identifier of the assigned resource. |
 | `activity` | `string` | true | The activity the resource was assigned to. |
 | `event_id` | `string` | true | Identifier of the specific event occurrence. |
+
+## resource_capacity_plan
+
+> Allocates finite compute, time, and concurrency capacity across lawful options.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `episode_id` | `string` | true | Required episode_id for this bounded planner contract. |
+| `resource_pool_hash` | `string` | true | Required resource_pool_hash for deterministic planner evaluation. |
+| `allocation_hash` | `string` | true | Required allocation_hash preserving evidence and falsifiability. |
 
 ## retention_policy_evidence
 
@@ -2274,6 +2704,16 @@
 | `schedule_id` | `string` | true | Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval. |
 | `assumption_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## reversibility_weight
+
+> Weights reversible actions above irreversible ones until evidence justifies commitment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `action_id` | `string` | true | Required action_id for this bounded planner contract. |
+| `rollback_id` | `string` | true | Required rollback_id for deterministic planner evaluation. |
+| `weight` | `string` | true | Required weight preserving evidence and falsifiability. |
+
 ## rfp_response_evidence
 
 > Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
@@ -2284,6 +2724,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `answer_set_hash` | `string` | true | Digest of the answer set derived from verified subject facts. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## role_compatibility
+
+> Evaluates whether a policy is lawful for an assigned role in the current world.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `role_id` | `string` | true | Required role_id for this bounded planner contract. |
+| `policy_id` | `string` | true | Required policy_id for deterministic planner evaluation. |
+| `compatibility` | `string` | true | Required compatibility preserving evidence and falsifiability. |
 
 ## rollback_checkpoint
 
@@ -2358,6 +2808,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `component_count` | `integer` | true | Observed number of components in the parsed SBOM inventory. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## second_run_identity_objective
+
+> Makes byte-identical second manufacture a first-class planning objective.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Required subject_id for this bounded planner contract. |
+| `first_tree_hash` | `string` | true | Required first_tree_hash for deterministic planner evaluation. |
+| `second_tree_hash` | `string` | true | Required second_tree_hash preserving evidence and falsifiability. |
 
 ## secret_boundary_evidence
 
@@ -2541,6 +3001,16 @@
 | `stakeholder_count` | `integer` | true | Number of distinct admitted stakeholder roles. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## stale_plan_refusal
+
+> Refuses execution when subject, pack, policy, or world identity has drifted.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `admitted_preimage_hash` | `string` | true | Required admitted_preimage_hash for deterministic planner evaluation. |
+| `observed_preimage_hash` | `string` | true | Required observed_preimage_hash preserving evidence and falsifiability. |
 
 ## stale_receipt_refusal
 
@@ -2852,6 +3322,16 @@
 | `qualifier` | `string` | true | The relationship qualifier/role name for this edge. |
 | `direction` | `atom` | true | One of: e2o \| o2o. |
 
+## uncertainty_aware_selection
+
+> Selects only when confidence and downside bounds satisfy explicit values.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_set_id` | `string` | true | Required option_set_id for this bounded planner contract. |
+| `uncertainty_model_hash` | `string` | true | Required uncertainty_model_hash for deterministic planner evaluation. |
+| `selected_option_id` | `string` | true | Required selected_option_id preserving evidence and falsifiability. |
+
 ## unsupported_capability_evidence
 
 > Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses.
@@ -2954,6 +3434,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## value_of_information_score
+
+> Scores the expected value of acquiring missing information before selection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Required option_id for this bounded planner contract. |
+| `observation_id` | `string` | true | Required observation_id for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
 ## value_realization
 
 > Receipted realized customer value derived from observed consequences.
@@ -3028,6 +3518,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `vulnerability_count` | `integer` | true | Observed count of admitted vulnerability findings. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## wip_limit_gate
+
+> Refuses selections that would exceed the admitted work-in-process ceiling.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `episode_id` | `string` | true | Required episode_id for this bounded planner contract. |
+| `wip_limit` | `string` | true | Required wip_limit for deterministic planner evaluation. |
+| `standing` | `string` | true | Required standing preserving evidence and falsifiability. |
 
 ## workload_backpressure_signal
 
