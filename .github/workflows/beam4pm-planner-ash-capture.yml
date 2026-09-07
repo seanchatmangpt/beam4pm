@@ -44,7 +44,7 @@ jobs:
         continue-on-error: true
         run: |
           set -uo pipefail
-          sed '/^# Verify (as actually run/,$d' scripts/igniter_sync.sh | bash
+          bash scripts/igniter_sync.sh
 
       - name: Bind exact planner projection tree
         if: always()
