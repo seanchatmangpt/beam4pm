@@ -8977,3 +8977,33 @@ b4p:crown_topological_order_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-024 — crown_fanout_batch
+b4p:crown_fanout_batch_rt a bpm:RecordType ;
+    bpm:recordName "crown_fanout_batch" ;
+    bpm:recordDoc "Binds parallel downstream propagation to one deterministic admitted consumer set." ;
+    bpm:hasField b4p:crown_fanout_batch_propagation_id_f,
+                 b4p:crown_fanout_batch_subject_sha_f,
+                 b4p:crown_fanout_batch_fanout_set_digest_f,
+                 b4p:crown_fanout_batch_receipt_digest_f .
+
+b4p:crown_fanout_batch_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_fanout_batch_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_fanout_batch_fanout_set_digest_f a bpm:Field ;
+    bpm:fieldName "fanout_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the sorted fan-out consumer set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_fanout_batch_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
