@@ -9247,3 +9247,33 @@ b4p:provenance_binding_observation_binding_status_f a bpm:Field ;
     bpm:fieldName "binding_status" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Machine-readable provenance standing." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-033 — autonomic_state_vector
+b4p:autonomic_state_vector_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_state_vector" ;
+    bpm:recordDoc "Encodes decision-relevant observed dimensions for one exact subject." ;
+    bpm:hasField b4p:autonomic_state_vector_state_vector_id_f,
+                 b4p:autonomic_state_vector_subject_id_f,
+                 b4p:autonomic_state_vector_dimension_digest_f,
+                 b4p:autonomic_state_vector_observed_at_f .
+
+b4p:autonomic_state_vector_state_vector_id_f a bpm:Field ;
+    bpm:fieldName "state_vector_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable state-vector identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:autonomic_state_vector_subject_id_f a bpm:Field ;
+    bpm:fieldName "subject_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact observed subject identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:autonomic_state_vector_dimension_digest_f a bpm:Field ;
+    bpm:fieldName "dimension_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of ordered state dimensions." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:autonomic_state_vector_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of state-vector encoding." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
