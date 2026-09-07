@@ -9127,3 +9127,33 @@ b4p:observation_freshness_assessment_freshness_status_f a bpm:Field ;
     bpm:fieldName "freshness_status" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Machine-readable freshness standing." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-029 — observation_staleness_invalidation
+b4p:observation_staleness_invalidation_rt a bpm:RecordType ;
+    bpm:recordName "observation_staleness_invalidation" ;
+    bpm:recordDoc "Invalidates stale state and declares whether replacement evidence is required." ;
+    bpm:hasField b4p:observation_staleness_invalidation_observation_id_f,
+                 b4p:observation_staleness_invalidation_invalidated_at_f,
+                 b4p:observation_staleness_invalidation_staleness_reason_f,
+                 b4p:observation_staleness_invalidation_replacement_required_f .
+
+b4p:observation_staleness_invalidation_observation_id_f a bpm:Field ;
+    bpm:fieldName "observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stale observation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:observation_staleness_invalidation_invalidated_at_f a bpm:Field ;
+    bpm:fieldName "invalidated_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Time invalidation became effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:observation_staleness_invalidation_staleness_reason_f a bpm:Field ;
+    bpm:fieldName "staleness_reason" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed reason for invalidation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:observation_staleness_invalidation_replacement_required_f a bpm:Field ;
+    bpm:fieldName "replacement_required" ; bpm:fieldType "boolean" ;
+    bpm:fieldDoc "Whether new evidence must be acquired." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
