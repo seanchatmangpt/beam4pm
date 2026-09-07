@@ -9577,3 +9577,33 @@ b4p:crown_check_relevance_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-044 — crown_source_capsule
+b4p:crown_source_capsule_rt a bpm:RecordType ;
+    bpm:recordName "crown_source_capsule" ;
+    bpm:recordDoc "Binds validation to the exact ggen-ecosystem source capsule and image identity." ;
+    bpm:hasField b4p:crown_source_capsule_propagation_id_f,
+                 b4p:crown_source_capsule_subject_sha_f,
+                 b4p:crown_source_capsule_capsule_digest_f,
+                 b4p:crown_source_capsule_receipt_digest_f .
+
+b4p:crown_source_capsule_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_source_capsule_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_source_capsule_capsule_digest_f a bpm:Field ;
+    bpm:fieldName "capsule_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact source capsule or reproducible image digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_source_capsule_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
