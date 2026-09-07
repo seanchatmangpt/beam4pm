@@ -9067,3 +9067,33 @@ b4p:normalized_event_observation_event_time_f a bpm:Field ;
     bpm:fieldName "event_time" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "Normalized event timestamp." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS1-OBS-027 — observation_deduplication_decision
+b4p:observation_deduplication_decision_rt a bpm:RecordType ;
+    bpm:recordName "observation_deduplication_decision" ;
+    bpm:recordDoc "Records an executable accept-or-duplicate decision for an observation digest." ;
+    bpm:hasField b4p:observation_deduplication_decision_event_id_f,
+                 b4p:observation_deduplication_decision_event_digest_f,
+                 b4p:observation_deduplication_decision_dedup_key_f,
+                 b4p:observation_deduplication_decision_decision_f .
+
+b4p:observation_deduplication_decision_event_id_f a bpm:Field ;
+    bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed event identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:observation_deduplication_decision_event_digest_f a bpm:Field ;
+    bpm:fieldName "event_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Canonical event digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:observation_deduplication_decision_dedup_key_f a bpm:Field ;
+    bpm:fieldName "dedup_key" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Deterministic deduplication key." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:observation_deduplication_decision_decision_f a bpm:Field ;
+    bpm:fieldName "decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Machine-readable deduplication decision." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
