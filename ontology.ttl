@@ -8737,3 +8737,33 @@ b4p:crown_freshness_window_receipt_digest_f a bpm:Field ;
     bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-016 — crown_stale_refusal
+b4p:crown_stale_refusal_rt a bpm:RecordType ;
+    bpm:recordName "crown_stale_refusal" ;
+    bpm:recordDoc "Records crown age so stale subjects are typed and refused without actuation." ;
+    bpm:hasField b4p:crown_stale_refusal_propagation_id_f,
+                 b4p:crown_stale_refusal_subject_sha_f,
+                 b4p:crown_stale_refusal_observed_age_seconds_f,
+                 b4p:crown_stale_refusal_receipt_digest_f .
+
+b4p:crown_stale_refusal_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_stale_refusal_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_stale_refusal_observed_age_seconds_f a bpm:Field ;
+    bpm:fieldName "observed_age_seconds" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed crown age in seconds at the decision boundary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_stale_refusal_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
