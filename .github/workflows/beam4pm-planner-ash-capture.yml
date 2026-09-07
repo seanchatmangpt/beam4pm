@@ -40,27 +40,92 @@ jobs:
         run: mix deps.get
 
       - name: Manufacture Ash projections from canonical ontology
+        id: manufacture
+        continue-on-error: true
         run: |
-          set -euo pipefail
+          set -uo pipefail
           bash scripts/igniter_sync.sh
 
-      - name: Bind planner projection tree
+      - name: Bind exact planner projection tree
+        if: always()
         run: |
           set -euo pipefail
-          find lib/beam4pm_ash docs/reference/types test/beam4pm_ash -type f -print0 |
+          rm -rf planner-ash-projections
+          mkdir -p planner-ash-projections
+          cat > "$RUNNER_TEMP/planner-names.txt" <<'NAMES'
+          exact_subject_binding
+          caller_local_consumer
+          consumer_equivalence_proof
+          immutable_pack_selection
+          capsule_availability
+          generated_source_route
+          output_ownership_gate
+          receipt_required_gate
+          second_run_identity_objective
+          planner_identity
+          policy_binding
+          role_compatibility
+          agent_assignment
+          authority_ceiling
+          planner_portfolio
+          planner_capability_profile
+          meta_router
+          psro_population
+          astar_plan_candidate
+          mcts_plan_candidate
+          beam_search_candidate
+          optimization_plan_candidate
+          ppddl_projection
+          powl_projection
+          dependency_dag
+          admissible_action_set
+          option_generation
+          counterfactual_frontier
+          pareto_filter
+          dominance_witness
+          cost_of_delay_score
+          value_of_information_score
+          mutual_information_score
+          entropy_reduction_score
+          novelty_score
+          orthogonality_score
+          reachability_analysis
+          propagation_score
+          reversibility_weight
+          irreversibility_budget
+          resource_capacity_plan
+          wip_limit_gate
+          dynamic_replan_trigger
+          stale_plan_refusal
+          event_triggered_planning
+          plan_memory
+          plan_lineage
+          uncertainty_aware_selection
+          reserve_work_promotion
+          next_lawful_actuation
+          NAMES
+          while IFS= read -r name; do
+            for path in               "lib/beam4pm_ash/resources/$name.ex"               "test/beam4pm_ash/resources/${name}_test.exs"               "docs/reference/types/$name.md"; do
+              test -s "$path" || { echo "BUILD_BROKEN[MISSING_PLANNER_PROJECTION]:$path" >&2; exit 1; }
+              mkdir -p "planner-ash-projections/$(dirname "$path")"
+              cp "$path" "planner-ash-projections/$path"
+            done
+          done < "$RUNNER_TEMP/planner-names.txt"
+          test -s lib/beam4pm_ash_domain.ex
+          cp --parents lib/beam4pm_ash_domain.ex planner-ash-projections
+          find planner-ash-projections -type f -print0 |
             sort -z |
-            xargs -0 sha256sum > planner-ash-tree.sha256
-          test "$(grep -c 'exact_subject_binding' planner-ash-tree.sha256)" -ge 2
-          test "$(grep -c 'next_lawful_actuation' planner-ash-tree.sha256)" -ge 2
+            xargs -0 sha256sum > planner-ash-projections/planner-ash-tree.sha256
+          test "$(find planner-ash-projections/lib/beam4pm_ash/resources -type f | wc -l)" -eq 50
+          test "$(find planner-ash-projections/test/beam4pm_ash/resources -type f | wc -l)" -eq 50
+          test "$(find planner-ash-projections/docs/reference/types -type f | wc -l)" -eq 50
+          echo "ALIVE[50_PLANNER_ASH_TRIPLETS_CAPTURED]"
 
       - name: Upload exact generated planner projections
+        if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: planner-ash-projections-${{ github.event.pull_request.head.sha || github.sha }}
           retention-days: 7
           if-no-files-found: error
-          path: |
-            lib/beam4pm_ash/**
-            docs/reference/types/**
-            test/beam4pm_ash/**
-            planner-ash-tree.sha256
+          path: planner-ash-projections/
