@@ -9962,3 +9962,38 @@ b4p:environment_failure_separation_classification_basis_f a bpm:Field ;
     bpm:fieldName "classification_basis" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Evidence basis for environment classification." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-006 — subject_failure_separation
+b4p:subject_failure_separation_rt a bpm:RecordType ;
+    bpm:recordName "subject_failure_separation" ;
+    bpm:recordDoc "Attributes a failure to the exact subject only after the validation capsule is independently admitted." ;
+    bpm:hasField b4p:subject_failure_separation_assessment_id_f,
+                 b4p:subject_failure_separation_exact_subject_sha_f,
+                 b4p:subject_failure_separation_capsule_standing_f,
+                 b4p:subject_failure_separation_subject_failure_code_f,
+                 b4p:subject_failure_separation_independent_reproducer_digest_f .
+
+b4p:subject_failure_separation_assessment_id_f a bpm:Field ;
+    bpm:fieldName "assessment_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable subject-failure assessment identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:subject_failure_separation_exact_subject_sha_f a bpm:Field ;
+    bpm:fieldName "exact_subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact subject that reproduced the failure." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:subject_failure_separation_capsule_standing_f a bpm:Field ;
+    bpm:fieldName "capsule_standing" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Independent standing of the validation capsule." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:subject_failure_separation_subject_failure_code_f a bpm:Field ;
+    bpm:fieldName "subject_failure_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed failure attributed to the subject." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:subject_failure_separation_independent_reproducer_digest_f a bpm:Field ;
+    bpm:fieldName "independent_reproducer_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of an independent reproducer." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
