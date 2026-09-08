@@ -11424,3 +11424,44 @@ b4p:experiment_learning_receipt_authority_ceiling_f a bpm:Field ;
     bpm:fieldName "authority_ceiling" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Boundary excluding consequential DO authority." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-044 — saturation_detection
+b4p:saturation_detection_rt a bpm:RecordType ;
+    bpm:recordName "saturation_detection" ;
+    bpm:recordDoc "Detects diminishing learning returns from measured gain, novelty, and coverage evidence." ;
+    bpm:hasField b4p:saturation_detection_detection_id_f,
+                 b4p:saturation_detection_curriculum_id_f,
+                 b4p:saturation_detection_recent_gain_f,
+                 b4p:saturation_detection_gain_slope_f,
+                 b4p:saturation_detection_novelty_floor_f,
+                 b4p:saturation_detection_coverage_digest_f .
+
+b4p:saturation_detection_detection_id_f a bpm:Field ;
+    bpm:fieldName "detection_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable saturation detection identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:saturation_detection_curriculum_id_f a bpm:Field ;
+    bpm:fieldName "curriculum_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Curriculum being measured." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:saturation_detection_recent_gain_f a bpm:Field ;
+    bpm:fieldName "recent_gain" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Recent objective improvement." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:saturation_detection_gain_slope_f a bpm:Field ;
+    bpm:fieldName "gain_slope" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Trend in marginal learning gain." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:saturation_detection_novelty_floor_f a bpm:Field ;
+    bpm:fieldName "novelty_floor" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Minimum admitted novelty." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:saturation_detection_coverage_digest_f a bpm:Field ;
+    bpm:fieldName "coverage_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of evaluated capability coverage." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
