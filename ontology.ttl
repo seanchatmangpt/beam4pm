@@ -10950,3 +10950,38 @@ b4p:failed_challenger_retention_eligible_for_future_f a bpm:Field ;
     bpm:fieldName "eligible_for_future" ; bpm:fieldType "boolean" ;
     bpm:fieldDoc "Whether changed conditions may justify reevaluation." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-032 — refusal_threshold
+b4p:refusal_threshold_rt a bpm:RecordType ;
+    bpm:recordName "refusal_threshold" ;
+    bpm:recordDoc "Defines an immutable evidence boundary that forces policy refusal when crossed." ;
+    bpm:hasField b4p:refusal_threshold_threshold_id_f,
+                 b4p:refusal_threshold_refusal_class_f,
+                 b4p:refusal_threshold_limit_f,
+                 b4p:refusal_threshold_metric_id_f,
+                 b4p:refusal_threshold_authority_binding_f .
+
+b4p:refusal_threshold_threshold_id_f a bpm:Field ;
+    bpm:fieldName "threshold_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable refusal threshold identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:refusal_threshold_refusal_class_f a bpm:Field ;
+    bpm:fieldName "refusal_class" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Failure or risk class governed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:refusal_threshold_limit_f a bpm:Field ;
+    bpm:fieldName "limit" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Numeric refusal boundary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:refusal_threshold_metric_id_f a bpm:Field ;
+    bpm:fieldName "metric_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Metric compared to the boundary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:refusal_threshold_authority_binding_f a bpm:Field ;
+    bpm:fieldName "authority_binding" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Authority that alone may revise the threshold." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
