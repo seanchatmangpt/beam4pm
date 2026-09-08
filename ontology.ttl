@@ -10266,3 +10266,44 @@ b4p:challenger_candidate_evaluation_refusal_code_f a bpm:Field ;
     bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Typed refusal or admitted result." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-014 — shadow_challenger_execution
+b4p:shadow_challenger_execution_rt a bpm:RecordType ;
+    bpm:recordName "shadow_challenger_execution" ;
+    bpm:recordDoc "Runs a challenger in observation-only shadow mode with no consequential DO authority." ;
+    bpm:hasField b4p:shadow_challenger_execution_execution_id_f,
+                 b4p:shadow_challenger_execution_incumbent_policy_id_f,
+                 b4p:shadow_challenger_execution_challenger_policy_id_f,
+                 b4p:shadow_challenger_execution_shared_observation_digest_f,
+                 b4p:shadow_challenger_execution_shadow_receipt_digest_f,
+                 b4p:shadow_challenger_execution_authority_mode_f .
+
+b4p:shadow_challenger_execution_execution_id_f a bpm:Field ;
+    bpm:fieldName "execution_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable shadow execution identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:shadow_challenger_execution_incumbent_policy_id_f a bpm:Field ;
+    bpm:fieldName "incumbent_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Live incumbent policy identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:shadow_challenger_execution_challenger_policy_id_f a bpm:Field ;
+    bpm:fieldName "challenger_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Shadow challenger policy identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:shadow_challenger_execution_shared_observation_digest_f a bpm:Field ;
+    bpm:fieldName "shared_observation_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of identical inputs supplied to both policies." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:shadow_challenger_execution_shadow_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "shadow_receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Receipt proving challenger execution remained shadow-only." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:shadow_challenger_execution_authority_mode_f a bpm:Field ;
+    bpm:fieldName "authority_mode" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Authority mode, required to remain non-consequential." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
