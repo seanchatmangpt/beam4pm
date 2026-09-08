@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-033 — mutual_information_score
+b4p:mutual_information_score_rt a bpm:RecordType ;
+    bpm:recordName "mutual_information_score" ;
+    bpm:recordDoc "Ranks observations by expected mutual information with decision-relevant state." ;
+    bpm:hasField b4p:mutual_information_score_observation_id_f,
+                 b4p:mutual_information_score_target_state_id_f,
+                 b4p:mutual_information_score_score_f .
+
+b4p:mutual_information_score_observation_id_f a bpm:Field ;
+    bpm:fieldName "observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required observation_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:mutual_information_score_target_state_id_f a bpm:Field ;
+    bpm:fieldName "target_state_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required target_state_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:mutual_information_score_score_f a bpm:Field ;
+    bpm:fieldName "score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required score preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

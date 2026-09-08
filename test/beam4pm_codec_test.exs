@@ -298,6 +298,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "admissible_action_set to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      state_id: "sample_state_id",
+      constraint_hash: "sample_constraint_hash",
+      action_set_hash: "sample_action_set_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AdmissibleActionSet.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["state_id"] == "sample_state_id"
+    assert m["constraint_hash"] == "sample_constraint_hash"
+    assert m["action_set_hash"] == "sample_action_set_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:admissible_action_set, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:admissible_action_set, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "admissible_action_set encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      state_id: "sample_state_id",
+      constraint_hash: "sample_constraint_hash",
+      action_set_hash: "sample_action_set_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AdmissibleActionSet.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:admissible_action_set, json)
+  end
+
+  test "admissible_action_set from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :state_id}} =
+             BeamPM.Codec.from_map(:admissible_action_set, %{})
+  end
+
+
   test "adoption_milestone to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       adoption_milestone_id: "sample_adoption_milestone_id",
@@ -338,6 +375,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "adoption_milestone from_map reports the first missing required field" do
     assert {:error, {:missing_field, :adoption_milestone_id}} =
              BeamPM.Codec.from_map(:adoption_milestone, %{})
+  end
+
+
+  test "agent_assignment to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      agent_id: "sample_agent_id",
+      policy_id: "sample_policy_id",
+      assignment_hash: "sample_assignment_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AgentAssignment.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["agent_id"] == "sample_agent_id"
+    assert m["policy_id"] == "sample_policy_id"
+    assert m["assignment_hash"] == "sample_assignment_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:agent_assignment, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:agent_assignment, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "agent_assignment encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      agent_id: "sample_agent_id",
+      policy_id: "sample_policy_id",
+      assignment_hash: "sample_assignment_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AgentAssignment.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:agent_assignment, json)
+  end
+
+  test "agent_assignment from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :agent_id}} =
+             BeamPM.Codec.from_map(:agent_assignment, %{})
   end
 
 
@@ -658,6 +732,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "astar_plan_candidate to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      heuristic_id: "sample_heuristic_id",
+      path_hash: "sample_path_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AstarPlanCandidate.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["plan_id"] == "sample_plan_id"
+    assert m["heuristic_id"] == "sample_heuristic_id"
+    assert m["path_hash"] == "sample_path_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:astar_plan_candidate, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:astar_plan_candidate, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "astar_plan_candidate encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      heuristic_id: "sample_heuristic_id",
+      path_hash: "sample_path_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AstarPlanCandidate.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:astar_plan_candidate, json)
+  end
+
+  test "astar_plan_candidate from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :plan_id}} =
+             BeamPM.Codec.from_map(:astar_plan_candidate, %{})
+  end
+
+
   test "attestation_verification_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -735,6 +846,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "audit_chain_evidence from_map reports the first missing required field" do
     assert {:error, {:missing_field, :evidence_id}} =
              BeamPM.Codec.from_map(:audit_chain_evidence, %{})
+  end
+
+
+  test "authority_ceiling to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      action_id: "sample_action_id",
+      grant_id: "sample_grant_id",
+      ceiling: "sample_ceiling"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AuthorityCeiling.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["action_id"] == "sample_action_id"
+    assert m["grant_id"] == "sample_grant_id"
+    assert m["ceiling"] == "sample_ceiling"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:authority_ceiling, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:authority_ceiling, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "authority_ceiling encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      action_id: "sample_action_id",
+      grant_id: "sample_grant_id",
+      ceiling: "sample_ceiling"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AuthorityCeiling.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:authority_ceiling, json)
+  end
+
+  test "authority_ceiling from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :action_id}} =
+             BeamPM.Codec.from_map(:authority_ceiling, %{})
   end
 
 
@@ -935,6 +1083,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "baseline_metric from_map reports the first missing required field" do
     assert {:error, {:missing_field, :baseline_metric_id}} =
              BeamPM.Codec.from_map(:baseline_metric, %{})
+  end
+
+
+  test "beam_search_candidate to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      beam_width: "sample_beam_width",
+      frontier_hash: "sample_frontier_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BeamSearchCandidate.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["plan_id"] == "sample_plan_id"
+    assert m["beam_width"] == "sample_beam_width"
+    assert m["frontier_hash"] == "sample_frontier_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:beam_search_candidate, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:beam_search_candidate, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "beam_search_candidate encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      beam_width: "sample_beam_width",
+      frontier_hash: "sample_frontier_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.BeamSearchCandidate.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:beam_search_candidate, json)
+  end
+
+  test "beam_search_candidate from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :plan_id}} =
+             BeamPM.Codec.from_map(:beam_search_candidate, %{})
   end
 
 
@@ -1486,43 +1671,40 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
-  test "caller_local_crown_identity to_map/from_map roundtrip (full variant) with exact map values" do
+  test "caller_local_consumer to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
-      propagation_id: "sample_propagation_id",
+      consumer_id: "sample_consumer_id",
       subject_sha: "sample_subject_sha",
-      consumer_subject_sha: "sample_consumer_subject_sha",
-      receipt_digest: "sample_receipt_digest"
+      consumer_hash: "sample_consumer_hash"
     }
 
-    assert {:ok, rec} = BeamPM.Types.CallerLocalCrownIdentity.new(attrs)
+    assert {:ok, rec} = BeamPM.Types.CallerLocalConsumer.new(attrs)
     m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
+    assert m["consumer_id"] == "sample_consumer_id"
     assert m["subject_sha"] == "sample_subject_sha"
-    assert m["consumer_subject_sha"] == "sample_consumer_subject_sha"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:caller_local_crown_identity, m)
+    assert m["consumer_hash"] == "sample_consumer_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:caller_local_consumer, m)
     assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:caller_local_crown_identity, Map.put(m, "definitely_unknown_key", "x"))
+             BeamPM.Codec.from_map(:caller_local_consumer, Map.put(m, "definitely_unknown_key", "x"))
   end
 
-  test "caller_local_crown_identity encode/decode JSON roundtrip (full variant)" do
+  test "caller_local_consumer encode/decode JSON roundtrip (full variant)" do
     attrs = %{
-      propagation_id: "sample_propagation_id",
+      consumer_id: "sample_consumer_id",
       subject_sha: "sample_subject_sha",
-      consumer_subject_sha: "sample_consumer_subject_sha",
-      receipt_digest: "sample_receipt_digest"
+      consumer_hash: "sample_consumer_hash"
     }
 
-    assert {:ok, rec} = BeamPM.Types.CallerLocalCrownIdentity.new(attrs)
+    assert {:ok, rec} = BeamPM.Types.CallerLocalConsumer.new(attrs)
     json = BeamPM.Codec.encode(rec)
     assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:caller_local_crown_identity, json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:caller_local_consumer, json)
   end
 
-  test "caller_local_crown_identity from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:caller_local_crown_identity, %{})
+  test "caller_local_consumer from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :consumer_id}} =
+             BeamPM.Codec.from_map(:caller_local_consumer, %{})
   end
 
 
@@ -1729,6 +1911,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "capability_gap from_map reports the first missing required field" do
     assert {:error, {:missing_field, :capability_gap_id}} =
              BeamPM.Codec.from_map(:capability_gap, %{})
+  end
+
+
+  test "capsule_availability to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      capsule_id: "sample_capsule_id",
+      capsule_digest: "sample_capsule_digest",
+      availability: "sample_availability"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CapsuleAvailability.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["capsule_id"] == "sample_capsule_id"
+    assert m["capsule_digest"] == "sample_capsule_digest"
+    assert m["availability"] == "sample_availability"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:capsule_availability, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:capsule_availability, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "capsule_availability encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      capsule_id: "sample_capsule_id",
+      capsule_digest: "sample_capsule_digest",
+      availability: "sample_availability"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CapsuleAvailability.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:capsule_availability, json)
+  end
+
+  test "capsule_availability from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :capsule_id}} =
+             BeamPM.Codec.from_map(:capsule_availability, %{})
   end
 
 
@@ -2818,6 +3037,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "consumer_equivalence_proof to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      consumer_set_id: "sample_consumer_set_id",
+      equivalence_proof_hash: "sample_equivalence_proof_hash",
+      standing: "sample_standing"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ConsumerEquivalenceProof.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["consumer_set_id"] == "sample_consumer_set_id"
+    assert m["equivalence_proof_hash"] == "sample_equivalence_proof_hash"
+    assert m["standing"] == "sample_standing"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:consumer_equivalence_proof, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:consumer_equivalence_proof, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "consumer_equivalence_proof encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      consumer_set_id: "sample_consumer_set_id",
+      equivalence_proof_hash: "sample_equivalence_proof_hash",
+      standing: "sample_standing"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ConsumerEquivalenceProof.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:consumer_equivalence_proof, json)
+  end
+
+  test "consumer_equivalence_proof from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :consumer_set_id}} =
+             BeamPM.Codec.from_map(:consumer_equivalence_proof, %{})
+  end
+
+
   test "consumer_pack_pin_observation to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       consumer_repository_id: "sample_consumer_repository_id",
@@ -3055,6 +3311,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "cost_of_delay_score to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      option_id: "sample_option_id",
+      horizon: "sample_horizon",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CostOfDelayScore.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["option_id"] == "sample_option_id"
+    assert m["horizon"] == "sample_horizon"
+    assert m["score"] == "sample_score"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:cost_of_delay_score, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:cost_of_delay_score, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "cost_of_delay_score encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      option_id: "sample_option_id",
+      horizon: "sample_horizon",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CostOfDelayScore.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:cost_of_delay_score, json)
+  end
+
+  test "cost_of_delay_score from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :option_id}} =
+             BeamPM.Codec.from_map(:cost_of_delay_score, %{})
+  end
+
+
   test "cost_to_serve_measurement to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       tenant_id: "sample_tenant_id",
@@ -3089,6 +3382,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "cost_to_serve_measurement from_map reports the first missing required field" do
     assert {:error, {:missing_field, :tenant_id}} =
              BeamPM.Codec.from_map(:cost_to_serve_measurement, %{})
+  end
+
+
+  test "counterfactual_frontier to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      option_set_id: "sample_option_set_id",
+      world_model_hash: "sample_world_model_hash",
+      frontier_hash: "sample_frontier_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CounterfactualFrontier.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["option_set_id"] == "sample_option_set_id"
+    assert m["world_model_hash"] == "sample_world_model_hash"
+    assert m["frontier_hash"] == "sample_frontier_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:counterfactual_frontier, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:counterfactual_frontier, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "counterfactual_frontier encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      option_set_id: "sample_option_set_id",
+      world_model_hash: "sample_world_model_hash",
+      frontier_hash: "sample_frontier_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.CounterfactualFrontier.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:counterfactual_frontier, json)
+  end
+
+  test "counterfactual_frontier from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :option_set_id}} =
+             BeamPM.Codec.from_map(:counterfactual_frontier, %{})
   end
 
 
@@ -3206,1966 +3536,6 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "cross_sell_fit from_map reports the first missing required field" do
     assert {:error, {:missing_field, :cross_sell_fit_id}} =
              BeamPM.Codec.from_map(:cross_sell_fit, %{})
-  end
-
-
-  test "crown_applicable_gate_coverage to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      applicable_gate_set_digest: "sample_applicable_gate_set_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownApplicableGateCoverage.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["applicable_gate_set_digest"] == "sample_applicable_gate_set_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_applicable_gate_coverage, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_applicable_gate_coverage, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_applicable_gate_coverage encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      applicable_gate_set_digest: "sample_applicable_gate_set_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownApplicableGateCoverage.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_applicable_gate_coverage, json)
-  end
-
-  test "crown_applicable_gate_coverage from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_applicable_gate_coverage, %{})
-  end
-
-
-  test "crown_artifact_pullback_smoke to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      pullback_digest: "sample_pullback_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownArtifactPullbackSmoke.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["pullback_digest"] == "sample_pullback_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_artifact_pullback_smoke, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_artifact_pullback_smoke, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_artifact_pullback_smoke encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      pullback_digest: "sample_pullback_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownArtifactPullbackSmoke.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_artifact_pullback_smoke, json)
-  end
-
-  test "crown_artifact_pullback_smoke from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_artifact_pullback_smoke, %{})
-  end
-
-
-  test "crown_attestation_signer to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      signer_identity: "sample_signer_identity",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownAttestationSigner.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["signer_identity"] == "sample_signer_identity"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_attestation_signer, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_attestation_signer, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_attestation_signer encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      signer_identity: "sample_signer_identity",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownAttestationSigner.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_attestation_signer, json)
-  end
-
-  test "crown_attestation_signer from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_attestation_signer, %{})
-  end
-
-
-  test "crown_autonomic_republish to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      republished_crown_digest: "sample_republished_crown_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownAutonomicRepublish.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["republished_crown_digest"] == "sample_republished_crown_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_autonomic_republish, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_autonomic_republish, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_autonomic_republish encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      republished_crown_digest: "sample_republished_crown_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownAutonomicRepublish.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_autonomic_republish, json)
-  end
-
-  test "crown_autonomic_republish from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_autonomic_republish, %{})
-  end
-
-
-  test "crown_capsule_toolchain to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      toolchain_digest: "sample_toolchain_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownCapsuleToolchain.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["toolchain_digest"] == "sample_toolchain_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_capsule_toolchain, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_capsule_toolchain, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_capsule_toolchain encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      toolchain_digest: "sample_toolchain_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownCapsuleToolchain.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_capsule_toolchain, json)
-  end
-
-  test "crown_capsule_toolchain from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_capsule_toolchain, %{})
-  end
-
-
-  test "crown_cas_promotion to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      expected_previous_digest: "sample_expected_previous_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownCasPromotion.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["expected_previous_digest"] == "sample_expected_previous_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_cas_promotion, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_cas_promotion, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_cas_promotion encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      expected_previous_digest: "sample_expected_previous_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownCasPromotion.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_cas_promotion, json)
-  end
-
-  test "crown_cas_promotion from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_cas_promotion, %{})
-  end
-
-
-  test "crown_check_relevance to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      relevance_proof_digest: "sample_relevance_proof_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownCheckRelevance.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["relevance_proof_digest"] == "sample_relevance_proof_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_check_relevance, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_check_relevance, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_check_relevance encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      relevance_proof_digest: "sample_relevance_proof_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownCheckRelevance.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_check_relevance, json)
-  end
-
-  test "crown_check_relevance from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_check_relevance, %{})
-  end
-
-
-  test "crown_child_publish_observation to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      child_publish_run_id: "sample_child_publish_run_id",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownChildPublishObservation.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["child_publish_run_id"] == "sample_child_publish_run_id"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_child_publish_observation, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_child_publish_observation, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_child_publish_observation encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      child_publish_run_id: "sample_child_publish_run_id",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownChildPublishObservation.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_child_publish_observation, json)
-  end
-
-  test "crown_child_publish_observation from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_child_publish_observation, %{})
-  end
-
-
-  test "crown_consumer_smoke to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      consumer_smoke_digest: "sample_consumer_smoke_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownConsumerSmoke.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["consumer_smoke_digest"] == "sample_consumer_smoke_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_consumer_smoke, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_consumer_smoke, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_consumer_smoke encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      consumer_smoke_digest: "sample_consumer_smoke_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownConsumerSmoke.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_consumer_smoke, json)
-  end
-
-  test "crown_consumer_smoke from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_consumer_smoke, %{})
-  end
-
-
-  test "crown_convergence_proof to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      convergence_proof_digest: "sample_convergence_proof_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownConvergenceProof.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["convergence_proof_digest"] == "sample_convergence_proof_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_convergence_proof, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_convergence_proof, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_convergence_proof encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      convergence_proof_digest: "sample_convergence_proof_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownConvergenceProof.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_convergence_proof, json)
-  end
-
-  test "crown_convergence_proof from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_convergence_proof, %{})
-  end
-
-
-  test "crown_cosign_certificate to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      certificate_identity: "sample_certificate_identity",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownCosignCertificate.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["certificate_identity"] == "sample_certificate_identity"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_cosign_certificate, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_cosign_certificate, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_cosign_certificate encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      certificate_identity: "sample_certificate_identity",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownCosignCertificate.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_cosign_certificate, json)
-  end
-
-  test "crown_cosign_certificate from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_cosign_certificate, %{})
-  end
-
-
-  test "crown_default_head_sensor to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      default_head_sha: "sample_default_head_sha",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownDefaultHeadSensor.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["default_head_sha"] == "sample_default_head_sha"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_default_head_sensor, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_default_head_sensor, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_default_head_sensor encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      default_head_sha: "sample_default_head_sha",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownDefaultHeadSensor.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_default_head_sensor, json)
-  end
-
-  test "crown_default_head_sensor from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_default_head_sensor, %{})
-  end
-
-
-  test "crown_dependency_edge to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      downstream_consumer_id: "sample_downstream_consumer_id",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownDependencyEdge.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["downstream_consumer_id"] == "sample_downstream_consumer_id"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_dependency_edge, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_dependency_edge, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_dependency_edge encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      downstream_consumer_id: "sample_downstream_consumer_id",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownDependencyEdge.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_dependency_edge, json)
-  end
-
-  test "crown_dependency_edge from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_dependency_edge, %{})
-  end
-
-
-  test "crown_execution_mode to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      execution_mode: "sample_execution_mode",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownExecutionMode.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["execution_mode"] == "sample_execution_mode"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_execution_mode, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_execution_mode, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_execution_mode encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      execution_mode: "sample_execution_mode",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownExecutionMode.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_execution_mode, json)
-  end
-
-  test "crown_execution_mode from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_execution_mode, %{})
-  end
-
-
-  test "crown_fanin_convergence to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      fanin_set_digest: "sample_fanin_set_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownFaninConvergence.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["fanin_set_digest"] == "sample_fanin_set_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_fanin_convergence, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_fanin_convergence, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_fanin_convergence encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      fanin_set_digest: "sample_fanin_set_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownFaninConvergence.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_fanin_convergence, json)
-  end
-
-  test "crown_fanin_convergence from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_fanin_convergence, %{})
-  end
-
-
-  test "crown_fanout_batch to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      fanout_set_digest: "sample_fanout_set_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownFanoutBatch.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["fanout_set_digest"] == "sample_fanout_set_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_fanout_batch, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_fanout_batch, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_fanout_batch encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      fanout_set_digest: "sample_fanout_set_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownFanoutBatch.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_fanout_batch, json)
-  end
-
-  test "crown_fanout_batch from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_fanout_batch, %{})
-  end
-
-
-  test "crown_federated_phase_receipt to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      selected_option_digest: "sample_selected_option_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownFederatedPhaseReceipt.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["selected_option_digest"] == "sample_selected_option_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_federated_phase_receipt, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_federated_phase_receipt, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_federated_phase_receipt encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      selected_option_digest: "sample_selected_option_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownFederatedPhaseReceipt.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_federated_phase_receipt, json)
-  end
-
-  test "crown_federated_phase_receipt from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_federated_phase_receipt, %{})
-  end
-
-
-  test "crown_freshness_window to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      fresh_until: "sample_fresh_until",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownFreshnessWindow.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["fresh_until"] == "sample_fresh_until"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_freshness_window, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_freshness_window, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_freshness_window encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      fresh_until: "sample_fresh_until",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownFreshnessWindow.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_freshness_window, json)
-  end
-
-  test "crown_freshness_window from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_freshness_window, %{})
-  end
-
-
-  test "crown_generated_source_ownership to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      canonical_source_path: "sample_canonical_source_path",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownGeneratedSourceOwnership.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["canonical_source_path"] == "sample_canonical_source_path"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_generated_source_ownership, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_generated_source_ownership, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_generated_source_ownership encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      canonical_source_path: "sample_canonical_source_path",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownGeneratedSourceOwnership.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_generated_source_ownership, json)
-  end
-
-  test "crown_generated_source_ownership from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_generated_source_ownership, %{})
-  end
-
-
-  test "crown_gitlink_reconciliation to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      gitlink_commit_sha: "sample_gitlink_commit_sha",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownGitlinkReconciliation.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["gitlink_commit_sha"] == "sample_gitlink_commit_sha"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_gitlink_reconciliation, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_gitlink_reconciliation, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_gitlink_reconciliation encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      gitlink_commit_sha: "sample_gitlink_commit_sha",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownGitlinkReconciliation.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_gitlink_reconciliation, json)
-  end
-
-  test "crown_gitlink_reconciliation from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_gitlink_reconciliation, %{})
-  end
-
-
-  test "crown_immutable_sha_tag to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      immutable_tag: "sample_immutable_tag",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownImmutableShaTag.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["immutable_tag"] == "sample_immutable_tag"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_immutable_sha_tag, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_immutable_sha_tag, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_immutable_sha_tag encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      immutable_tag: "sample_immutable_tag",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownImmutableShaTag.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_immutable_sha_tag, json)
-  end
-
-  test "crown_immutable_sha_tag from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_immutable_sha_tag, %{})
-  end
-
-
-  test "crown_known_good_rollback to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      rollback_crown_digest: "sample_rollback_crown_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownKnownGoodRollback.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["rollback_crown_digest"] == "sample_rollback_crown_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_known_good_rollback, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_known_good_rollback, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_known_good_rollback encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      rollback_crown_digest: "sample_rollback_crown_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownKnownGoodRollback.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_known_good_rollback, json)
-  end
-
-  test "crown_known_good_rollback from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_known_good_rollback, %{})
-  end
-
-
-  test "crown_latency_observation to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      latency_millis: "sample_latency_millis",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownLatencyObservation.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["latency_millis"] == "sample_latency_millis"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_latency_observation, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_latency_observation, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_latency_observation encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      latency_millis: "sample_latency_millis",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownLatencyObservation.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_latency_observation, json)
-  end
-
-  test "crown_latency_observation from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_latency_observation, %{})
-  end
-
-
-  test "crown_lock_reconciliation to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      lock_commit_sha: "sample_lock_commit_sha",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownLockReconciliation.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["lock_commit_sha"] == "sample_lock_commit_sha"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_lock_reconciliation, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_lock_reconciliation, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_lock_reconciliation encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      lock_commit_sha: "sample_lock_commit_sha",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownLockReconciliation.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_lock_reconciliation, json)
-  end
-
-  test "crown_lock_reconciliation from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_lock_reconciliation, %{})
-  end
-
-
-  test "crown_manufacturer_identity to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      manufacturer_digest: "sample_manufacturer_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownManufacturerIdentity.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["manufacturer_digest"] == "sample_manufacturer_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_manufacturer_identity, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_manufacturer_identity, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_manufacturer_identity encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      manufacturer_digest: "sample_manufacturer_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownManufacturerIdentity.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_manufacturer_identity, json)
-  end
-
-  test "crown_manufacturer_identity from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_manufacturer_identity, %{})
-  end
-
-
-  test "crown_marketplace_pack_pin to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      pack_commit_sha: "sample_pack_commit_sha",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownMarketplacePackPin.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["pack_commit_sha"] == "sample_pack_commit_sha"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_marketplace_pack_pin, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_marketplace_pack_pin, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_marketplace_pack_pin encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      pack_commit_sha: "sample_pack_commit_sha",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownMarketplacePackPin.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_marketplace_pack_pin, json)
-  end
-
-  test "crown_marketplace_pack_pin from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_marketplace_pack_pin, %{})
-  end
-
-
-  test "crown_multiarch_platform_set to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      platform_set_digest: "sample_platform_set_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownMultiarchPlatformSet.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["platform_set_digest"] == "sample_platform_set_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_multiarch_platform_set, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_multiarch_platform_set, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_multiarch_platform_set encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      platform_set_digest: "sample_platform_set_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownMultiarchPlatformSet.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_multiarch_platform_set, json)
-  end
-
-  test "crown_multiarch_platform_set from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_multiarch_platform_set, %{})
-  end
-
-
-  test "crown_oci_manifest_binding to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      oci_index_digest: "sample_oci_index_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownOciManifestBinding.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["oci_index_digest"] == "sample_oci_index_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_oci_manifest_binding, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_oci_manifest_binding, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_oci_manifest_binding encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      oci_index_digest: "sample_oci_index_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownOciManifestBinding.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_oci_manifest_binding, json)
-  end
-
-  test "crown_oci_manifest_binding from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_oci_manifest_binding, %{})
-  end
-
-
-  test "crown_package_pin_reconciliation to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      package_version_digest: "sample_package_version_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownPackagePinReconciliation.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["package_version_digest"] == "sample_package_version_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_package_pin_reconciliation, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_package_pin_reconciliation, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_package_pin_reconciliation encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      package_version_digest: "sample_package_version_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownPackagePinReconciliation.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_package_pin_reconciliation, json)
-  end
-
-  test "crown_package_pin_reconciliation from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_package_pin_reconciliation, %{})
-  end
-
-
-  test "crown_partial_checkpoint to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      checkpoint_digest: "sample_checkpoint_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownPartialCheckpoint.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["checkpoint_digest"] == "sample_checkpoint_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_partial_checkpoint, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_partial_checkpoint, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_partial_checkpoint encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      checkpoint_digest: "sample_checkpoint_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownPartialCheckpoint.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_partial_checkpoint, json)
-  end
-
-  test "crown_partial_checkpoint from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_partial_checkpoint, %{})
-  end
-
-
-  test "crown_path_skip_refusal to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      skipped_gate_id: "sample_skipped_gate_id",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownPathSkipRefusal.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["skipped_gate_id"] == "sample_skipped_gate_id"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_path_skip_refusal, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_path_skip_refusal, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_path_skip_refusal encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      skipped_gate_id: "sample_skipped_gate_id",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownPathSkipRefusal.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_path_skip_refusal, json)
-  end
-
-  test "crown_path_skip_refusal from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_path_skip_refusal, %{})
-  end
-
-
-  test "crown_planner_identity to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      planner_digest: "sample_planner_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownPlannerIdentity.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["planner_digest"] == "sample_planner_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_planner_identity, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_planner_identity, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_planner_identity encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      planner_digest: "sample_planner_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownPlannerIdentity.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_planner_identity, json)
-  end
-
-  test "crown_planner_identity from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_planner_identity, %{})
-  end
-
-
-  test "crown_process_runtime_identity to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      process_runtime_digest: "sample_process_runtime_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownProcessRuntimeIdentity.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["process_runtime_digest"] == "sample_process_runtime_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_process_runtime_identity, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_process_runtime_identity, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_process_runtime_identity encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      process_runtime_digest: "sample_process_runtime_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownProcessRuntimeIdentity.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_process_runtime_identity, json)
-  end
-
-  test "crown_process_runtime_identity from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_process_runtime_identity, %{})
-  end
-
-
-  test "crown_promotion_race to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      observed_previous_digest: "sample_observed_previous_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownPromotionRace.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["observed_previous_digest"] == "sample_observed_previous_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_promotion_race, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_promotion_race, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_promotion_race encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      observed_previous_digest: "sample_observed_previous_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownPromotionRace.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_promotion_race, json)
-  end
-
-  test "crown_promotion_race from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_promotion_race, %{})
-  end
-
-
-  test "crown_provenance_binding to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      provenance_digest: "sample_provenance_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownProvenanceBinding.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["provenance_digest"] == "sample_provenance_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_provenance_binding, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_provenance_binding, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_provenance_binding encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      provenance_digest: "sample_provenance_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownProvenanceBinding.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_provenance_binding, json)
-  end
-
-  test "crown_provenance_binding from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_provenance_binding, %{})
-  end
-
-
-  test "crown_receipt_output_ownership to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      output_owner: "sample_output_owner",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownReceiptOutputOwnership.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["output_owner"] == "sample_output_owner"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_receipt_output_ownership, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_receipt_output_ownership, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_receipt_output_ownership encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      output_owner: "sample_output_owner",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownReceiptOutputOwnership.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_receipt_output_ownership, json)
-  end
-
-  test "crown_receipt_output_ownership from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_receipt_output_ownership, %{})
-  end
-
-
-  test "crown_recursive_fixed_point to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      fixed_point_digest: "sample_fixed_point_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownRecursiveFixedPoint.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["fixed_point_digest"] == "sample_fixed_point_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_recursive_fixed_point, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_recursive_fixed_point, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_recursive_fixed_point encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      fixed_point_digest: "sample_fixed_point_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownRecursiveFixedPoint.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_recursive_fixed_point, json)
-  end
-
-  test "crown_recursive_fixed_point from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_recursive_fixed_point, %{})
-  end
-
-
-  test "crown_resume_token to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      resume_token_digest: "sample_resume_token_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownResumeToken.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["resume_token_digest"] == "sample_resume_token_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_resume_token, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_resume_token, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_resume_token encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      resume_token_digest: "sample_resume_token_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownResumeToken.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_resume_token, json)
-  end
-
-  test "crown_resume_token from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_resume_token, %{})
-  end
-
-
-  test "crown_runtime_identity to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      runtime_digest: "sample_runtime_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownRuntimeIdentity.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["runtime_digest"] == "sample_runtime_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_runtime_identity, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_runtime_identity, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_runtime_identity encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      runtime_digest: "sample_runtime_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownRuntimeIdentity.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_runtime_identity, json)
-  end
-
-  test "crown_runtime_identity from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_runtime_identity, %{})
-  end
-
-
-  test "crown_sbom_subject_binding to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      sbom_digest: "sample_sbom_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownSbomSubjectBinding.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["sbom_digest"] == "sample_sbom_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_sbom_subject_binding, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_sbom_subject_binding, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_sbom_subject_binding encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      sbom_digest: "sample_sbom_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownSbomSubjectBinding.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_sbom_subject_binding, json)
-  end
-
-  test "crown_sbom_subject_binding from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_sbom_subject_binding, %{})
-  end
-
-
-  test "crown_second_pass_identity to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      second_pass_digest: "sample_second_pass_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownSecondPassIdentity.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["second_pass_digest"] == "sample_second_pass_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_second_pass_identity, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_second_pass_identity, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_second_pass_identity encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      second_pass_digest: "sample_second_pass_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownSecondPassIdentity.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_second_pass_identity, json)
-  end
-
-  test "crown_second_pass_identity from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_second_pass_identity, %{})
-  end
-
-
-  test "crown_security_scan to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      scan_report_digest: "sample_scan_report_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownSecurityScan.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["scan_report_digest"] == "sample_scan_report_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_security_scan, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_security_scan, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_security_scan encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      scan_report_digest: "sample_scan_report_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownSecurityScan.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_security_scan, json)
-  end
-
-  test "crown_security_scan from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_security_scan, %{})
-  end
-
-
-  test "crown_source_capsule to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      capsule_digest: "sample_capsule_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownSourceCapsule.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["capsule_digest"] == "sample_capsule_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_source_capsule, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_source_capsule, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_source_capsule encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      capsule_digest: "sample_capsule_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownSourceCapsule.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_source_capsule, json)
-  end
-
-  test "crown_source_capsule from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_source_capsule, %{})
-  end
-
-
-  test "crown_stale_refusal to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      observed_age_seconds: "sample_observed_age_seconds",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownStaleRefusal.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["observed_age_seconds"] == "sample_observed_age_seconds"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_stale_refusal, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_stale_refusal, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_stale_refusal encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      observed_age_seconds: "sample_observed_age_seconds",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownStaleRefusal.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_stale_refusal, json)
-  end
-
-  test "crown_stale_refusal from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_stale_refusal, %{})
-  end
-
-
-  test "crown_supply_chain_policy to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      policy_decision_digest: "sample_policy_decision_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownSupplyChainPolicy.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["policy_decision_digest"] == "sample_policy_decision_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_supply_chain_policy, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_supply_chain_policy, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_supply_chain_policy encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      policy_decision_digest: "sample_policy_decision_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownSupplyChainPolicy.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_supply_chain_policy, json)
-  end
-
-  test "crown_supply_chain_policy from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_supply_chain_policy, %{})
-  end
-
-
-  test "crown_topological_order to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      topological_rank: "sample_topological_rank",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownTopologicalOrder.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["topological_rank"] == "sample_topological_rank"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_topological_order, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_topological_order, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_topological_order encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      topological_rank: "sample_topological_rank",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownTopologicalOrder.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_topological_order, json)
-  end
-
-  test "crown_topological_order from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_topological_order, %{})
-  end
-
-
-  test "crown_validation_pack to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      validation_pack_sha: "sample_validation_pack_sha",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownValidationPack.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["validation_pack_sha"] == "sample_validation_pack_sha"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_validation_pack, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_validation_pack, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_validation_pack encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      validation_pack_sha: "sample_validation_pack_sha",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownValidationPack.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_validation_pack, json)
-  end
-
-  test "crown_validation_pack from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_validation_pack, %{})
-  end
-
-
-  test "crown_workflow_run_receipt to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      workflow_run_id: "sample_workflow_run_id",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownWorkflowRunReceipt.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["workflow_run_id"] == "sample_workflow_run_id"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_workflow_run_receipt, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_workflow_run_receipt, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_workflow_run_receipt encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      workflow_run_id: "sample_workflow_run_id",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownWorkflowRunReceipt.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_workflow_run_receipt, json)
-  end
-
-  test "crown_workflow_run_receipt from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_workflow_run_receipt, %{})
-  end
-
-
-  test "crown_zero_unreceipted_writes to_map/from_map roundtrip (full variant) with exact map values" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      write_set_digest: "sample_write_set_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownZeroUnreceiptedWrites.new(attrs)
-    m = BeamPM.Codec.to_map(rec)
-    assert m["propagation_id"] == "sample_propagation_id"
-    assert m["subject_sha"] == "sample_subject_sha"
-    assert m["write_set_digest"] == "sample_write_set_digest"
-    assert m["receipt_digest"] == "sample_receipt_digest"
-    assert map_size(m) == 4
-    assert {:ok, ^rec} = BeamPM.Codec.from_map(:crown_zero_unreceipted_writes, m)
-    assert {:ok, ^rec} =
-             BeamPM.Codec.from_map(:crown_zero_unreceipted_writes, Map.put(m, "definitely_unknown_key", "x"))
-  end
-
-  test "crown_zero_unreceipted_writes encode/decode JSON roundtrip (full variant)" do
-    attrs = %{
-      propagation_id: "sample_propagation_id",
-      subject_sha: "sample_subject_sha",
-      write_set_digest: "sample_write_set_digest",
-      receipt_digest: "sample_receipt_digest"
-    }
-
-    assert {:ok, rec} = BeamPM.Types.CrownZeroUnreceiptedWrites.new(attrs)
-    json = BeamPM.Codec.encode(rec)
-    assert is_binary(json)
-    assert {:ok, ^rec} = BeamPM.Codec.decode(:crown_zero_unreceipted_writes, json)
-  end
-
-  test "crown_zero_unreceipted_writes from_map reports the first missing required field" do
-    assert {:error, {:missing_field, :propagation_id}} =
-             BeamPM.Codec.from_map(:crown_zero_unreceipted_writes, %{})
   end
 
 
@@ -5692,6 +4062,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "dependency_dag to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      dag_id: "sample_dag_id",
+      node_set_hash: "sample_node_set_hash",
+      edge_set_hash: "sample_edge_set_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.DependencyDag.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["dag_id"] == "sample_dag_id"
+    assert m["node_set_hash"] == "sample_node_set_hash"
+    assert m["edge_set_hash"] == "sample_edge_set_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:dependency_dag, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:dependency_dag, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "dependency_dag encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      dag_id: "sample_dag_id",
+      node_set_hash: "sample_node_set_hash",
+      edge_set_hash: "sample_edge_set_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.DependencyDag.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:dependency_dag, json)
+  end
+
+  test "dependency_dag from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :dag_id}} =
+             BeamPM.Codec.from_map(:dependency_dag, %{})
+  end
+
+
   test "dependency_inventory_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -6012,6 +4419,80 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "discovery_hypothesis from_map reports the first missing required field" do
     assert {:error, {:missing_field, :discovery_hypothesis_id}} =
              BeamPM.Codec.from_map(:discovery_hypothesis, %{})
+  end
+
+
+  test "dominance_witness to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      dominant_option_id: "sample_dominant_option_id",
+      dominated_option_id: "sample_dominated_option_id",
+      witness_hash: "sample_witness_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.DominanceWitness.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["dominant_option_id"] == "sample_dominant_option_id"
+    assert m["dominated_option_id"] == "sample_dominated_option_id"
+    assert m["witness_hash"] == "sample_witness_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:dominance_witness, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:dominance_witness, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "dominance_witness encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      dominant_option_id: "sample_dominant_option_id",
+      dominated_option_id: "sample_dominated_option_id",
+      witness_hash: "sample_witness_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.DominanceWitness.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:dominance_witness, json)
+  end
+
+  test "dominance_witness from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :dominant_option_id}} =
+             BeamPM.Codec.from_map(:dominance_witness, %{})
+  end
+
+
+  test "dynamic_replan_trigger to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      event_id: "sample_event_id",
+      trigger_hash: "sample_trigger_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.DynamicReplanTrigger.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["plan_id"] == "sample_plan_id"
+    assert m["event_id"] == "sample_event_id"
+    assert m["trigger_hash"] == "sample_trigger_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:dynamic_replan_trigger, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:dynamic_replan_trigger, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "dynamic_replan_trigger encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      event_id: "sample_event_id",
+      trigger_hash: "sample_trigger_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.DynamicReplanTrigger.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:dynamic_replan_trigger, json)
+  end
+
+  test "dynamic_replan_trigger from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :plan_id}} =
+             BeamPM.Codec.from_map(:dynamic_replan_trigger, %{})
   end
 
 
@@ -6426,6 +4907,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "entropy_reduction_score to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      action_id: "sample_action_id",
+      prior_entropy: "sample_prior_entropy",
+      expected_posterior_entropy: "sample_expected_posterior_entropy"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EntropyReductionScore.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["action_id"] == "sample_action_id"
+    assert m["prior_entropy"] == "sample_prior_entropy"
+    assert m["expected_posterior_entropy"] == "sample_expected_posterior_entropy"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:entropy_reduction_score, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:entropy_reduction_score, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "entropy_reduction_score encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      action_id: "sample_action_id",
+      prior_entropy: "sample_prior_entropy",
+      expected_posterior_entropy: "sample_expected_posterior_entropy"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EntropyReductionScore.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:entropy_reduction_score, json)
+  end
+
+  test "entropy_reduction_score from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :action_id}} =
+             BeamPM.Codec.from_map(:entropy_reduction_score, %{})
+  end
+
+
   test "environment_identity to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       tenant_id: "sample_tenant_id",
@@ -6629,6 +5147,43 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:event_log, m)
   end
 
+  test "event_triggered_planning to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      event_id: "sample_event_id",
+      world_state_hash: "sample_world_state_hash",
+      episode_id: "sample_episode_id"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EventTriggeredPlanning.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["event_id"] == "sample_event_id"
+    assert m["world_state_hash"] == "sample_world_state_hash"
+    assert m["episode_id"] == "sample_episode_id"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:event_triggered_planning, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:event_triggered_planning, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "event_triggered_planning encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      event_id: "sample_event_id",
+      world_state_hash: "sample_world_state_hash",
+      episode_id: "sample_episode_id"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.EventTriggeredPlanning.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:event_triggered_planning, json)
+  end
+
+  test "event_triggered_planning from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :event_id}} =
+             BeamPM.Codec.from_map(:event_triggered_planning, %{})
+  end
+
+
   test "event_type to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       type_name: "sample_type_name",
@@ -6711,6 +5266,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "evidence_freshness_evidence from_map reports the first missing required field" do
     assert {:error, {:missing_field, :evidence_id}} =
              BeamPM.Codec.from_map(:evidence_freshness_evidence, %{})
+  end
+
+
+  test "exact_subject_binding to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      subject_id: "sample_subject_id",
+      subject_sha: "sample_subject_sha",
+      binding_hash: "sample_binding_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ExactSubjectBinding.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["subject_id"] == "sample_subject_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["binding_hash"] == "sample_binding_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:exact_subject_binding, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:exact_subject_binding, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "exact_subject_binding encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      subject_id: "sample_subject_id",
+      subject_sha: "sample_subject_sha",
+      binding_hash: "sample_binding_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ExactSubjectBinding.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:exact_subject_binding, json)
+  end
+
+  test "exact_subject_binding from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :subject_id}} =
+             BeamPM.Codec.from_map(:exact_subject_binding, %{})
   end
 
 
@@ -7120,6 +5712,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "generated_source_route to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      projection_id: "sample_projection_id",
+      source_coordinate: "sample_source_coordinate",
+      route: "sample_route"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.GeneratedSourceRoute.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["projection_id"] == "sample_projection_id"
+    assert m["source_coordinate"] == "sample_source_coordinate"
+    assert m["route"] == "sample_route"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:generated_source_route, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:generated_source_route, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "generated_source_route encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      projection_id: "sample_projection_id",
+      source_coordinate: "sample_source_coordinate",
+      route: "sample_route"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.GeneratedSourceRoute.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:generated_source_route, json)
+  end
+
+  test "generated_source_route from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :projection_id}} =
+             BeamPM.Codec.from_map(:generated_source_route, %{})
+  end
+
+
   test "heuristic_arc to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       source_activity: "sample_source_activity",
@@ -7154,6 +5783,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "heuristic_arc from_map reports the first missing required field" do
     assert {:error, {:missing_field, :source_activity}} =
              BeamPM.Codec.from_map(:heuristic_arc, %{})
+  end
+
+
+  test "immutable_pack_selection to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      pack_id: "sample_pack_id",
+      pack_sha: "sample_pack_sha",
+      selection_hash: "sample_selection_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ImmutablePackSelection.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["pack_id"] == "sample_pack_id"
+    assert m["pack_sha"] == "sample_pack_sha"
+    assert m["selection_hash"] == "sample_selection_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:immutable_pack_selection, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:immutable_pack_selection, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "immutable_pack_selection encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      pack_id: "sample_pack_id",
+      pack_sha: "sample_pack_sha",
+      selection_hash: "sample_selection_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ImmutablePackSelection.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:immutable_pack_selection, json)
+  end
+
+  test "immutable_pack_selection from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :pack_id}} =
+             BeamPM.Codec.from_map(:immutable_pack_selection, %{})
   end
 
 
@@ -7576,6 +6242,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "invoice_schedule from_map reports the first missing required field" do
     assert {:error, {:missing_field, :schedule_id}} =
              BeamPM.Codec.from_map(:invoice_schedule, %{})
+  end
+
+
+  test "irreversibility_budget to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      episode_id: "sample_episode_id",
+      budget: "sample_budget",
+      consumed: "sample_consumed"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.IrreversibilityBudget.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["episode_id"] == "sample_episode_id"
+    assert m["budget"] == "sample_budget"
+    assert m["consumed"] == "sample_consumed"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:irreversibility_budget, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:irreversibility_budget, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "irreversibility_budget encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      episode_id: "sample_episode_id",
+      budget: "sample_budget",
+      consumed: "sample_consumed"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.IrreversibilityBudget.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:irreversibility_budget, json)
+  end
+
+  test "irreversibility_budget from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :episode_id}} =
+             BeamPM.Codec.from_map(:irreversibility_budget, %{})
   end
 
 
@@ -8010,6 +6713,80 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "mcts_plan_candidate to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      seed: "sample_seed",
+      rollout_hash: "sample_rollout_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MctsPlanCandidate.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["plan_id"] == "sample_plan_id"
+    assert m["seed"] == "sample_seed"
+    assert m["rollout_hash"] == "sample_rollout_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:mcts_plan_candidate, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:mcts_plan_candidate, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "mcts_plan_candidate encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      seed: "sample_seed",
+      rollout_hash: "sample_rollout_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MctsPlanCandidate.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:mcts_plan_candidate, json)
+  end
+
+  test "mcts_plan_candidate from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :plan_id}} =
+             BeamPM.Codec.from_map(:mcts_plan_candidate, %{})
+  end
+
+
+  test "meta_router to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      portfolio_id: "sample_portfolio_id",
+      observation_hash: "sample_observation_hash",
+      selected_planner_id: "sample_selected_planner_id"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MetaRouter.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["portfolio_id"] == "sample_portfolio_id"
+    assert m["observation_hash"] == "sample_observation_hash"
+    assert m["selected_planner_id"] == "sample_selected_planner_id"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:meta_router, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:meta_router, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "meta_router encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      portfolio_id: "sample_portfolio_id",
+      observation_hash: "sample_observation_hash",
+      selected_planner_id: "sample_selected_planner_id"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MetaRouter.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:meta_router, json)
+  end
+
+  test "meta_router from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :portfolio_id}} =
+             BeamPM.Codec.from_map(:meta_router, %{})
+  end
+
+
   test "metered_usage_sample to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       tenant_id: "sample_tenant_id",
@@ -8247,6 +7024,80 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "mutual_information_score to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      observation_id: "sample_observation_id",
+      target_state_id: "sample_target_state_id",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MutualInformationScore.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["observation_id"] == "sample_observation_id"
+    assert m["target_state_id"] == "sample_target_state_id"
+    assert m["score"] == "sample_score"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:mutual_information_score, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:mutual_information_score, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "mutual_information_score encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      observation_id: "sample_observation_id",
+      target_state_id: "sample_target_state_id",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.MutualInformationScore.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:mutual_information_score, json)
+  end
+
+  test "mutual_information_score from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :observation_id}} =
+             BeamPM.Codec.from_map(:mutual_information_score, %{})
+  end
+
+
+  test "next_lawful_actuation to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      episode_id: "sample_episode_id",
+      selected_action_id: "sample_selected_action_id",
+      selection_receipt_hash: "sample_selection_receipt_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.NextLawfulActuation.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["episode_id"] == "sample_episode_id"
+    assert m["selected_action_id"] == "sample_selected_action_id"
+    assert m["selection_receipt_hash"] == "sample_selection_receipt_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:next_lawful_actuation, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:next_lawful_actuation, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "next_lawful_actuation encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      episode_id: "sample_episode_id",
+      selected_action_id: "sample_selected_action_id",
+      selection_receipt_hash: "sample_selection_receipt_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.NextLawfulActuation.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:next_lawful_actuation, json)
+  end
+
+  test "next_lawful_actuation from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :episode_id}} =
+             BeamPM.Codec.from_map(:next_lawful_actuation, %{})
+  end
+
+
   test "node_failover_event to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       tenant_id: "sample_tenant_id",
@@ -8321,6 +7172,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "normalized_event_observation from_map reports the first missing required field" do
     assert {:error, {:missing_field, :source_system}} =
              BeamPM.Codec.from_map(:normalized_event_observation, %{})
+  end
+
+
+  test "novelty_score to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      option_id: "sample_option_id",
+      reference_set_hash: "sample_reference_set_hash",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.NoveltyScore.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["option_id"] == "sample_option_id"
+    assert m["reference_set_hash"] == "sample_reference_set_hash"
+    assert m["score"] == "sample_score"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:novelty_score, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:novelty_score, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "novelty_score encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      option_id: "sample_option_id",
+      reference_set_hash: "sample_reference_set_hash",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.NoveltyScore.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:novelty_score, json)
+  end
+
+  test "novelty_score from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :option_id}} =
+             BeamPM.Codec.from_map(:novelty_score, %{})
   end
 
 
@@ -9094,6 +7982,80 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "optimization_plan_candidate to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      objective_id: "sample_objective_id",
+      solver_receipt_hash: "sample_solver_receipt_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OptimizationPlanCandidate.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["plan_id"] == "sample_plan_id"
+    assert m["objective_id"] == "sample_objective_id"
+    assert m["solver_receipt_hash"] == "sample_solver_receipt_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:optimization_plan_candidate, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:optimization_plan_candidate, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "optimization_plan_candidate encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      objective_id: "sample_objective_id",
+      solver_receipt_hash: "sample_solver_receipt_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OptimizationPlanCandidate.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:optimization_plan_candidate, json)
+  end
+
+  test "optimization_plan_candidate from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :plan_id}} =
+             BeamPM.Codec.from_map(:optimization_plan_candidate, %{})
+  end
+
+
+  test "option_generation to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      state_id: "sample_state_id",
+      generator_id: "sample_generator_id",
+      option_set_hash: "sample_option_set_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OptionGeneration.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["state_id"] == "sample_state_id"
+    assert m["generator_id"] == "sample_generator_id"
+    assert m["option_set_hash"] == "sample_option_set_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:option_generation, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:option_generation, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "option_generation encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      state_id: "sample_state_id",
+      generator_id: "sample_generator_id",
+      option_set_hash: "sample_option_set_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OptionGeneration.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:option_generation, json)
+  end
+
+  test "option_generation from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :state_id}} =
+             BeamPM.Codec.from_map(:option_generation, %{})
+  end
+
+
   test "order_form_admission to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       opportunity_id: "sample_opportunity_id",
@@ -9128,6 +8090,80 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "order_form_admission from_map reports the first missing required field" do
     assert {:error, {:missing_field, :opportunity_id}} =
              BeamPM.Codec.from_map(:order_form_admission, %{})
+  end
+
+
+  test "orthogonality_score to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      left_option_id: "sample_left_option_id",
+      right_option_id: "sample_right_option_id",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OrthogonalityScore.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["left_option_id"] == "sample_left_option_id"
+    assert m["right_option_id"] == "sample_right_option_id"
+    assert m["score"] == "sample_score"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:orthogonality_score, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:orthogonality_score, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "orthogonality_score encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      left_option_id: "sample_left_option_id",
+      right_option_id: "sample_right_option_id",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OrthogonalityScore.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:orthogonality_score, json)
+  end
+
+  test "orthogonality_score from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :left_option_id}} =
+             BeamPM.Codec.from_map(:orthogonality_score, %{})
+  end
+
+
+  test "output_ownership_gate to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      subject_id: "sample_subject_id",
+      ownership_manifest_hash: "sample_ownership_manifest_hash",
+      standing: "sample_standing"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OutputOwnershipGate.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["subject_id"] == "sample_subject_id"
+    assert m["ownership_manifest_hash"] == "sample_ownership_manifest_hash"
+    assert m["standing"] == "sample_standing"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:output_ownership_gate, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:output_ownership_gate, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "output_ownership_gate encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      subject_id: "sample_subject_id",
+      ownership_manifest_hash: "sample_ownership_manifest_hash",
+      standing: "sample_standing"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.OutputOwnershipGate.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:output_ownership_gate, json)
+  end
+
+  test "output_ownership_gate from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :subject_id}} =
+             BeamPM.Codec.from_map(:output_ownership_gate, %{})
   end
 
 
@@ -9245,6 +8281,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "paid_workload_outcome_receipt from_map reports the first missing required field" do
     assert {:error, {:missing_field, :tenant_id}} =
              BeamPM.Codec.from_map(:paid_workload_outcome_receipt, %{})
+  end
+
+
+  test "pareto_filter to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      option_set_id: "sample_option_set_id",
+      objective_set_hash: "sample_objective_set_hash",
+      pareto_set_hash: "sample_pareto_set_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ParetoFilter.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["option_set_id"] == "sample_option_set_id"
+    assert m["objective_set_hash"] == "sample_objective_set_hash"
+    assert m["pareto_set_hash"] == "sample_pareto_set_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:pareto_filter, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:pareto_filter, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "pareto_filter encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      option_set_id: "sample_option_set_id",
+      objective_set_hash: "sample_objective_set_hash",
+      pareto_set_hash: "sample_pareto_set_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ParetoFilter.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:pareto_filter, json)
+  end
+
+  test "pareto_filter from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :option_set_id}} =
+             BeamPM.Codec.from_map(:pareto_filter, %{})
   end
 
 
@@ -9558,6 +8631,191 @@ defmodule BeamPM.Codec.GeneratedTest do
     assert {:ok, ^rec} = BeamPM.Codec.from_map(:petri_transition, m)
   end
 
+  test "plan_lineage to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      parent_plan_id: "sample_parent_plan_id",
+      lineage_hash: "sample_lineage_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PlanLineage.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["plan_id"] == "sample_plan_id"
+    assert m["parent_plan_id"] == "sample_parent_plan_id"
+    assert m["lineage_hash"] == "sample_lineage_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:plan_lineage, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:plan_lineage, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "plan_lineage encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      parent_plan_id: "sample_parent_plan_id",
+      lineage_hash: "sample_lineage_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PlanLineage.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:plan_lineage, json)
+  end
+
+  test "plan_lineage from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :plan_id}} =
+             BeamPM.Codec.from_map(:plan_lineage, %{})
+  end
+
+
+  test "plan_memory to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      evidence_hash: "sample_evidence_hash",
+      memory_hash: "sample_memory_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PlanMemory.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["plan_id"] == "sample_plan_id"
+    assert m["evidence_hash"] == "sample_evidence_hash"
+    assert m["memory_hash"] == "sample_memory_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:plan_memory, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:plan_memory, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "plan_memory encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      evidence_hash: "sample_evidence_hash",
+      memory_hash: "sample_memory_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PlanMemory.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:plan_memory, json)
+  end
+
+  test "plan_memory from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :plan_id}} =
+             BeamPM.Codec.from_map(:plan_memory, %{})
+  end
+
+
+  test "planner_capability_profile to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      planner_id: "sample_planner_id",
+      capability_set: "sample_capability_set",
+      profile_hash: "sample_profile_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PlannerCapabilityProfile.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["planner_id"] == "sample_planner_id"
+    assert m["capability_set"] == "sample_capability_set"
+    assert m["profile_hash"] == "sample_profile_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:planner_capability_profile, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:planner_capability_profile, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "planner_capability_profile encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      planner_id: "sample_planner_id",
+      capability_set: "sample_capability_set",
+      profile_hash: "sample_profile_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PlannerCapabilityProfile.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:planner_capability_profile, json)
+  end
+
+  test "planner_capability_profile from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :planner_id}} =
+             BeamPM.Codec.from_map(:planner_capability_profile, %{})
+  end
+
+
+  test "planner_identity to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      planner_id: "sample_planner_id",
+      planner_kind: "sample_planner_kind",
+      identity_hash: "sample_identity_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PlannerIdentity.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["planner_id"] == "sample_planner_id"
+    assert m["planner_kind"] == "sample_planner_kind"
+    assert m["identity_hash"] == "sample_identity_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:planner_identity, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:planner_identity, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "planner_identity encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      planner_id: "sample_planner_id",
+      planner_kind: "sample_planner_kind",
+      identity_hash: "sample_identity_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PlannerIdentity.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:planner_identity, json)
+  end
+
+  test "planner_identity from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :planner_id}} =
+             BeamPM.Codec.from_map(:planner_identity, %{})
+  end
+
+
+  test "planner_portfolio to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      portfolio_id: "sample_portfolio_id",
+      planner_ids: "sample_planner_ids",
+      diversity_hash: "sample_diversity_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PlannerPortfolio.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["portfolio_id"] == "sample_portfolio_id"
+    assert m["planner_ids"] == "sample_planner_ids"
+    assert m["diversity_hash"] == "sample_diversity_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:planner_portfolio, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:planner_portfolio, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "planner_portfolio encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      portfolio_id: "sample_portfolio_id",
+      planner_ids: "sample_planner_ids",
+      diversity_hash: "sample_diversity_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PlannerPortfolio.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:planner_portfolio, json)
+  end
+
+  test "planner_portfolio from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :portfolio_id}} =
+             BeamPM.Codec.from_map(:planner_portfolio, %{})
+  end
+
+
   test "planning_action to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       action_name: "sample_action_name",
@@ -9813,6 +9071,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "policy_binding to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      policy_id: "sample_policy_id",
+      planner_id: "sample_planner_id",
+      policy_hash: "sample_policy_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PolicyBinding.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["policy_id"] == "sample_policy_id"
+    assert m["planner_id"] == "sample_planner_id"
+    assert m["policy_hash"] == "sample_policy_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:policy_binding, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:policy_binding, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "policy_binding encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      policy_id: "sample_policy_id",
+      planner_id: "sample_planner_id",
+      policy_hash: "sample_policy_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PolicyBinding.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:policy_binding, json)
+  end
+
+  test "policy_binding from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :policy_id}} =
+             BeamPM.Codec.from_map(:policy_binding, %{})
+  end
+
+
   test "policy_decision to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       decision_id: "sample_decision_id",
@@ -10044,6 +9339,80 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "powl_partial_order_edge from_map reports the first missing required field" do
     assert {:error, {:missing_field, :from_index}} =
              BeamPM.Codec.from_map(:powl_partial_order_edge, %{})
+  end
+
+
+  test "powl_projection to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      powl_hash: "sample_powl_hash",
+      projection_receipt_hash: "sample_projection_receipt_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlProjection.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["plan_id"] == "sample_plan_id"
+    assert m["powl_hash"] == "sample_powl_hash"
+    assert m["projection_receipt_hash"] == "sample_projection_receipt_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:powl_projection, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:powl_projection, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "powl_projection encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      powl_hash: "sample_powl_hash",
+      projection_receipt_hash: "sample_projection_receipt_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PowlProjection.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:powl_projection, json)
+  end
+
+  test "powl_projection from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :plan_id}} =
+             BeamPM.Codec.from_map(:powl_projection, %{})
+  end
+
+
+  test "ppddl_projection to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      domain_hash: "sample_domain_hash",
+      problem_hash: "sample_problem_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PpddlProjection.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["plan_id"] == "sample_plan_id"
+    assert m["domain_hash"] == "sample_domain_hash"
+    assert m["problem_hash"] == "sample_problem_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:ppddl_projection, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:ppddl_projection, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "ppddl_projection encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      domain_hash: "sample_domain_hash",
+      problem_hash: "sample_problem_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PpddlProjection.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:ppddl_projection, json)
+  end
+
+  test "ppddl_projection from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :plan_id}} =
+             BeamPM.Codec.from_map(:ppddl_projection, %{})
   end
 
 
@@ -10515,6 +9884,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "propagation_score to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      option_id: "sample_option_id",
+      graph_hash: "sample_graph_hash",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PropagationScore.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["option_id"] == "sample_option_id"
+    assert m["graph_hash"] == "sample_graph_hash"
+    assert m["score"] == "sample_score"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:propagation_score, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:propagation_score, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "propagation_score encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      option_id: "sample_option_id",
+      graph_hash: "sample_graph_hash",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PropagationScore.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:propagation_score, json)
+  end
+
+  test "propagation_score from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :option_id}} =
+             BeamPM.Codec.from_map(:propagation_score, %{})
+  end
+
+
   test "provenance_binding_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -10592,6 +9998,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "provenance_binding_observation from_map reports the first missing required field" do
     assert {:error, {:missing_field, :observation_id}} =
              BeamPM.Codec.from_map(:provenance_binding_observation, %{})
+  end
+
+
+  test "psro_population to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      population_id: "sample_population_id",
+      policy_ids: "sample_policy_ids",
+      population_hash: "sample_population_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PsroPopulation.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["population_id"] == "sample_population_id"
+    assert m["policy_ids"] == "sample_policy_ids"
+    assert m["population_hash"] == "sample_population_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:psro_population, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:psro_population, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "psro_population encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      population_id: "sample_population_id",
+      policy_ids: "sample_policy_ids",
+      population_hash: "sample_population_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.PsroPopulation.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:psro_population, json)
+  end
+
+  test "psro_population from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :population_id}} =
+             BeamPM.Codec.from_map(:psro_population, %{})
   end
 
 
@@ -10826,6 +10269,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "reachability_analysis to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      state_id: "sample_state_id",
+      goal_id: "sample_goal_id",
+      reachability_proof_hash: "sample_reachability_proof_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ReachabilityAnalysis.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["state_id"] == "sample_state_id"
+    assert m["goal_id"] == "sample_goal_id"
+    assert m["reachability_proof_hash"] == "sample_reachability_proof_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:reachability_analysis, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:reachability_analysis, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "reachability_analysis encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      state_id: "sample_state_id",
+      goal_id: "sample_goal_id",
+      reachability_proof_hash: "sample_reachability_proof_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ReachabilityAnalysis.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:reachability_analysis, json)
+  end
+
+  test "reachability_analysis from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :state_id}} =
+             BeamPM.Codec.from_map(:reachability_analysis, %{})
+  end
+
+
   test "receipt_replay_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -10900,6 +10380,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "receipt_replay_request from_map reports the first missing required field" do
     assert {:error, {:missing_field, :tenant_id}} =
              BeamPM.Codec.from_map(:receipt_replay_request, %{})
+  end
+
+
+  test "receipt_required_gate to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      action_id: "sample_action_id",
+      receipt_contract_id: "sample_receipt_contract_id",
+      standing: "sample_standing"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ReceiptRequiredGate.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["action_id"] == "sample_action_id"
+    assert m["receipt_contract_id"] == "sample_receipt_contract_id"
+    assert m["standing"] == "sample_standing"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:receipt_required_gate, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:receipt_required_gate, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "receipt_required_gate encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      action_id: "sample_action_id",
+      receipt_contract_id: "sample_receipt_contract_id",
+      standing: "sample_standing"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ReceiptRequiredGate.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:receipt_required_gate, json)
+  end
+
+  test "receipt_required_gate from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :action_id}} =
+             BeamPM.Codec.from_map(:receipt_required_gate, %{})
   end
 
 
@@ -11694,6 +11211,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "reserve_work_promotion to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      blocked_work_id: "sample_blocked_work_id",
+      reserve_set_hash: "sample_reserve_set_hash",
+      promoted_work_id: "sample_promoted_work_id"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ReserveWorkPromotion.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["blocked_work_id"] == "sample_blocked_work_id"
+    assert m["reserve_set_hash"] == "sample_reserve_set_hash"
+    assert m["promoted_work_id"] == "sample_promoted_work_id"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:reserve_work_promotion, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:reserve_work_promotion, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "reserve_work_promotion encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      blocked_work_id: "sample_blocked_work_id",
+      reserve_set_hash: "sample_reserve_set_hash",
+      promoted_work_id: "sample_promoted_work_id"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ReserveWorkPromotion.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:reserve_work_promotion, json)
+  end
+
+  test "reserve_work_promotion from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :blocked_work_id}} =
+             BeamPM.Codec.from_map(:reserve_work_promotion, %{})
+  end
+
+
   test "residency_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -11768,6 +11322,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "resource_allocation from_map reports the first missing required field" do
     assert {:error, {:missing_field, :resource_id}} =
              BeamPM.Codec.from_map(:resource_allocation, %{})
+  end
+
+
+  test "resource_capacity_plan to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      episode_id: "sample_episode_id",
+      resource_pool_hash: "sample_resource_pool_hash",
+      allocation_hash: "sample_allocation_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ResourceCapacityPlan.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["episode_id"] == "sample_episode_id"
+    assert m["resource_pool_hash"] == "sample_resource_pool_hash"
+    assert m["allocation_hash"] == "sample_allocation_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:resource_capacity_plan, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:resource_capacity_plan, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "resource_capacity_plan encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      episode_id: "sample_episode_id",
+      resource_pool_hash: "sample_resource_pool_hash",
+      allocation_hash: "sample_allocation_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ResourceCapacityPlan.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:resource_capacity_plan, json)
+  end
+
+  test "resource_capacity_plan from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :episode_id}} =
+             BeamPM.Codec.from_map(:resource_capacity_plan, %{})
   end
 
 
@@ -11928,6 +11519,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "reversibility_weight to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      action_id: "sample_action_id",
+      rollback_id: "sample_rollback_id",
+      weight: "sample_weight"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ReversibilityWeight.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["action_id"] == "sample_action_id"
+    assert m["rollback_id"] == "sample_rollback_id"
+    assert m["weight"] == "sample_weight"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:reversibility_weight, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:reversibility_weight, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "reversibility_weight encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      action_id: "sample_action_id",
+      rollback_id: "sample_rollback_id",
+      weight: "sample_weight"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ReversibilityWeight.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:reversibility_weight, json)
+  end
+
+  test "reversibility_weight from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :action_id}} =
+             BeamPM.Codec.from_map(:reversibility_weight, %{})
+  end
+
+
   test "rfp_response_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -11965,6 +11593,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "rfp_response_evidence from_map reports the first missing required field" do
     assert {:error, {:missing_field, :evidence_id}} =
              BeamPM.Codec.from_map(:rfp_response_evidence, %{})
+  end
+
+
+  test "role_compatibility to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      role_id: "sample_role_id",
+      policy_id: "sample_policy_id",
+      compatibility: "sample_compatibility"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RoleCompatibility.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["role_id"] == "sample_role_id"
+    assert m["policy_id"] == "sample_policy_id"
+    assert m["compatibility"] == "sample_compatibility"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:role_compatibility, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:role_compatibility, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "role_compatibility encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      role_id: "sample_role_id",
+      policy_id: "sample_policy_id",
+      compatibility: "sample_compatibility"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.RoleCompatibility.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:role_compatibility, json)
+  end
+
+  test "role_compatibility from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :role_id}} =
+             BeamPM.Codec.from_map(:role_compatibility, %{})
   end
 
 
@@ -12316,6 +11981,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "second_pass_byte_identity_observation from_map reports the first missing required field" do
     assert {:error, {:missing_field, :first_tree_digest}} =
              BeamPM.Codec.from_map(:second_pass_byte_identity_observation, %{})
+  end
+
+
+  test "second_run_identity_objective to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      subject_id: "sample_subject_id",
+      first_tree_hash: "sample_first_tree_hash",
+      second_tree_hash: "sample_second_tree_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SecondRunIdentityObjective.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["subject_id"] == "sample_subject_id"
+    assert m["first_tree_hash"] == "sample_first_tree_hash"
+    assert m["second_tree_hash"] == "sample_second_tree_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:second_run_identity_objective, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:second_run_identity_objective, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "second_run_identity_objective encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      subject_id: "sample_subject_id",
+      first_tree_hash: "sample_first_tree_hash",
+      second_tree_hash: "sample_second_tree_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.SecondRunIdentityObjective.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:second_run_identity_objective, json)
+  end
+
+  test "second_run_identity_objective from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :subject_id}} =
+             BeamPM.Codec.from_map(:second_run_identity_objective, %{})
   end
 
 
@@ -13037,6 +12739,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "stakeholder_map from_map reports the first missing required field" do
     assert {:error, {:missing_field, :stakeholder_map_id}} =
              BeamPM.Codec.from_map(:stakeholder_map, %{})
+  end
+
+
+  test "stale_plan_refusal to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      admitted_preimage_hash: "sample_admitted_preimage_hash",
+      observed_preimage_hash: "sample_observed_preimage_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.StalePlanRefusal.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["plan_id"] == "sample_plan_id"
+    assert m["admitted_preimage_hash"] == "sample_admitted_preimage_hash"
+    assert m["observed_preimage_hash"] == "sample_observed_preimage_hash"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:stale_plan_refusal, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:stale_plan_refusal, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "stale_plan_refusal encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      plan_id: "sample_plan_id",
+      admitted_preimage_hash: "sample_admitted_preimage_hash",
+      observed_preimage_hash: "sample_observed_preimage_hash"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.StalePlanRefusal.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:stale_plan_refusal, json)
+  end
+
+  test "stale_plan_refusal from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :plan_id}} =
+             BeamPM.Codec.from_map(:stale_plan_refusal, %{})
   end
 
 
@@ -14385,6 +14124,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "uncertainty_aware_selection to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      option_set_id: "sample_option_set_id",
+      uncertainty_model_hash: "sample_uncertainty_model_hash",
+      selected_option_id: "sample_selected_option_id"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.UncertaintyAwareSelection.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["option_set_id"] == "sample_option_set_id"
+    assert m["uncertainty_model_hash"] == "sample_uncertainty_model_hash"
+    assert m["selected_option_id"] == "sample_selected_option_id"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:uncertainty_aware_selection, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:uncertainty_aware_selection, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "uncertainty_aware_selection encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      option_set_id: "sample_option_set_id",
+      uncertainty_model_hash: "sample_uncertainty_model_hash",
+      selected_option_id: "sample_selected_option_id"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.UncertaintyAwareSelection.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:uncertainty_aware_selection, json)
+  end
+
+  test "uncertainty_aware_selection from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :option_set_id}} =
+             BeamPM.Codec.from_map(:uncertainty_aware_selection, %{})
+  end
+
+
   test "uncertainty_observation to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       observation_id: "sample_observation_id",
@@ -14914,6 +14690,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "value_of_information_score to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      option_id: "sample_option_id",
+      observation_id: "sample_observation_id",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ValueOfInformationScore.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["option_id"] == "sample_option_id"
+    assert m["observation_id"] == "sample_observation_id"
+    assert m["score"] == "sample_score"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:value_of_information_score, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:value_of_information_score, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "value_of_information_score encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      option_id: "sample_option_id",
+      observation_id: "sample_observation_id",
+      score: "sample_score"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ValueOfInformationScore.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:value_of_information_score, json)
+  end
+
+  test "value_of_information_score from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :option_id}} =
+             BeamPM.Codec.from_map(:value_of_information_score, %{})
+  end
+
+
   test "value_realization to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       value_realization_id: "sample_value_realization_id",
@@ -15185,6 +14998,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "vulnerability_scan_evidence from_map reports the first missing required field" do
     assert {:error, {:missing_field, :evidence_id}} =
              BeamPM.Codec.from_map(:vulnerability_scan_evidence, %{})
+  end
+
+
+  test "wip_limit_gate to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      episode_id: "sample_episode_id",
+      wip_limit: "sample_wip_limit",
+      standing: "sample_standing"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.WipLimitGate.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["episode_id"] == "sample_episode_id"
+    assert m["wip_limit"] == "sample_wip_limit"
+    assert m["standing"] == "sample_standing"
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:wip_limit_gate, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:wip_limit_gate, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "wip_limit_gate encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      episode_id: "sample_episode_id",
+      wip_limit: "sample_wip_limit",
+      standing: "sample_standing"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.WipLimitGate.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:wip_limit_gate, json)
+  end
+
+  test "wip_limit_gate from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :episode_id}} =
+             BeamPM.Codec.from_map(:wip_limit_gate, %{})
   end
 
 

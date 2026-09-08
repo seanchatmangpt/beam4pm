@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-050 — next_lawful_actuation
+b4p:next_lawful_actuation_rt a bpm:RecordType ;
+    bpm:recordName "next_lawful_actuation" ;
+    bpm:recordDoc "Selects the next bounded action from scored admissible options without human micro-scheduling." ;
+    bpm:hasField b4p:next_lawful_actuation_episode_id_f,
+                 b4p:next_lawful_actuation_selected_action_id_f,
+                 b4p:next_lawful_actuation_selection_receipt_hash_f .
+
+b4p:next_lawful_actuation_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required episode_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:next_lawful_actuation_selected_action_id_f a bpm:Field ;
+    bpm:fieldName "selected_action_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required selected_action_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:next_lawful_actuation_selection_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "selection_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required selection_receipt_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

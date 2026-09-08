@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-018 — psro_population
+b4p:psro_population_rt a bpm:RecordType ;
+    bpm:recordName "psro_population" ;
+    bpm:recordDoc "Maintains a population of policies and response oracles for meta-routing." ;
+    bpm:hasField b4p:psro_population_population_id_f,
+                 b4p:psro_population_policy_ids_f,
+                 b4p:psro_population_population_hash_f .
+
+b4p:psro_population_population_id_f a bpm:Field ;
+    bpm:fieldName "population_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required population_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:psro_population_policy_ids_f a bpm:Field ;
+    bpm:fieldName "policy_ids" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required policy_ids for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:psro_population_population_hash_f a bpm:Field ;
+    bpm:fieldName "population_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required population_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

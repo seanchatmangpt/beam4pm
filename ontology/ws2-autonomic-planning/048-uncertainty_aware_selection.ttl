@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-048 — uncertainty_aware_selection
+b4p:uncertainty_aware_selection_rt a bpm:RecordType ;
+    bpm:recordName "uncertainty_aware_selection" ;
+    bpm:recordDoc "Selects only when confidence and downside bounds satisfy explicit values." ;
+    bpm:hasField b4p:uncertainty_aware_selection_option_set_id_f,
+                 b4p:uncertainty_aware_selection_uncertainty_model_hash_f,
+                 b4p:uncertainty_aware_selection_selected_option_id_f .
+
+b4p:uncertainty_aware_selection_option_set_id_f a bpm:Field ;
+    bpm:fieldName "option_set_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required option_set_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:uncertainty_aware_selection_uncertainty_model_hash_f a bpm:Field ;
+    bpm:fieldName "uncertainty_model_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required uncertainty_model_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:uncertainty_aware_selection_selected_option_id_f a bpm:Field ;
+    bpm:fieldName "selected_option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required selected_option_id preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

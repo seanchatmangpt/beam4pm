@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-004 — immutable_pack_selection
+b4p:immutable_pack_selection_rt a bpm:RecordType ;
+    bpm:recordName "immutable_pack_selection" ;
+    bpm:recordDoc "Selects a marketplace pack only by exact immutable commit SHA." ;
+    bpm:hasField b4p:immutable_pack_selection_pack_id_f,
+                 b4p:immutable_pack_selection_pack_sha_f,
+                 b4p:immutable_pack_selection_selection_hash_f .
+
+b4p:immutable_pack_selection_pack_id_f a bpm:Field ;
+    bpm:fieldName "pack_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required pack_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:immutable_pack_selection_pack_sha_f a bpm:Field ;
+    bpm:fieldName "pack_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required pack_sha for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:immutable_pack_selection_selection_hash_f a bpm:Field ;
+    bpm:fieldName "selection_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required selection_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

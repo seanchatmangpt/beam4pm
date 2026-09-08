@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-014 — authority_ceiling
+b4p:authority_ceiling_rt a bpm:RecordType ;
+    bpm:recordName "authority_ceiling" ;
+    bpm:recordDoc "Caps every candidate action at the exact authority grant available to its subject." ;
+    bpm:hasField b4p:authority_ceiling_action_id_f,
+                 b4p:authority_ceiling_grant_id_f,
+                 b4p:authority_ceiling_ceiling_f .
+
+b4p:authority_ceiling_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required action_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:authority_ceiling_grant_id_f a bpm:Field ;
+    bpm:fieldName "grant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required grant_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:authority_ceiling_ceiling_f a bpm:Field ;
+    bpm:fieldName "ceiling" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required ceiling preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
