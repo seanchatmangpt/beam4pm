@@ -10032,3 +10032,38 @@ b4p:receipt_learning_compilation_learning_digest_f a bpm:Field ;
     bpm:fieldName "learning_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of the compiled learning corpus." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-008 — historical_episode_replay
+b4p:historical_episode_replay_rt a bpm:RecordType ;
+    bpm:recordName "historical_episode_replay" ;
+    bpm:recordDoc "Replays a historical episode against an exact ancestor and preserves any seeded divergence." ;
+    bpm:hasField b4p:historical_episode_replay_replay_id_f,
+                 b4p:historical_episode_replay_episode_id_f,
+                 b4p:historical_episode_replay_historical_subject_sha_f,
+                 b4p:historical_episode_replay_replay_seed_f,
+                 b4p:historical_episode_replay_divergence_code_f .
+
+b4p:historical_episode_replay_replay_id_f a bpm:Field ;
+    bpm:fieldName "replay_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable historical replay identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:historical_episode_replay_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Historical episode being replayed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:historical_episode_replay_historical_subject_sha_f a bpm:Field ;
+    bpm:fieldName "historical_subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact historical subject commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:historical_episode_replay_replay_seed_f a bpm:Field ;
+    bpm:fieldName "replay_seed" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Explicit deterministic evaluation seed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:historical_episode_replay_divergence_code_f a bpm:Field ;
+    bpm:fieldName "divergence_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed divergence or exact-match result." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
