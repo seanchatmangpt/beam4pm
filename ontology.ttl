@@ -10798,3 +10798,38 @@ b4p:root_cause_reuse_decision_applicability_evidence_digest_f a bpm:Field ;
     bpm:fieldName "applicability_evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Evidence proving or refusing applicability." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-028 — repair_effectiveness_measurement
+b4p:repair_effectiveness_measurement_rt a bpm:RecordType ;
+    bpm:recordName "repair_effectiveness_measurement" ;
+    bpm:recordDoc "Measures whether a repair reduced the target failure over a fixed evaluation window." ;
+    bpm:hasField b4p:repair_effectiveness_measurement_measurement_id_f,
+                 b4p:repair_effectiveness_measurement_repair_id_f,
+                 b4p:repair_effectiveness_measurement_baseline_failure_rate_f,
+                 b4p:repair_effectiveness_measurement_post_repair_failure_rate_f,
+                 b4p:repair_effectiveness_measurement_evaluation_window_digest_f .
+
+b4p:repair_effectiveness_measurement_measurement_id_f a bpm:Field ;
+    bpm:fieldName "measurement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable repair measurement identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:repair_effectiveness_measurement_repair_id_f a bpm:Field ;
+    bpm:fieldName "repair_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Repair being evaluated." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:repair_effectiveness_measurement_baseline_failure_rate_f a bpm:Field ;
+    bpm:fieldName "baseline_failure_rate" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Pre-repair failure rate." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:repair_effectiveness_measurement_post_repair_failure_rate_f a bpm:Field ;
+    bpm:fieldName "post_repair_failure_rate" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Post-repair failure rate." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:repair_effectiveness_measurement_evaluation_window_digest_f a bpm:Field ;
+    bpm:fieldName "evaluation_window_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the compared episode windows." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
