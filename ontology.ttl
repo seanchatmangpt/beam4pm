@@ -11623,3 +11623,44 @@ b4p:acceptance_criteria_nonweakening_refusal_code_f a bpm:Field ;
     bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Typed refusal when weakening is detected." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-049 — consumer_equivalence_learning_guard
+b4p:consumer_equivalence_learning_guard_rt a bpm:RecordType ;
+    bpm:recordName "consumer_equivalence_learning_guard" ;
+    bpm:recordDoc "Refuses transfer of caller-local learning to another consumer without equivalence evidence." ;
+    bpm:hasField b4p:consumer_equivalence_learning_guard_guard_id_f,
+                 b4p:consumer_equivalence_learning_guard_source_consumer_id_f,
+                 b4p:consumer_equivalence_learning_guard_target_consumer_id_f,
+                 b4p:consumer_equivalence_learning_guard_equivalence_evidence_digest_f,
+                 b4p:consumer_equivalence_learning_guard_decision_f,
+                 b4p:consumer_equivalence_learning_guard_refusal_code_f .
+
+b4p:consumer_equivalence_learning_guard_guard_id_f a bpm:Field ;
+    bpm:fieldName "guard_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable consumer-equivalence guard identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:consumer_equivalence_learning_guard_source_consumer_id_f a bpm:Field ;
+    bpm:fieldName "source_consumer_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Consumer where evidence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:consumer_equivalence_learning_guard_target_consumer_id_f a bpm:Field ;
+    bpm:fieldName "target_consumer_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Consumer proposed for generalization." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:consumer_equivalence_learning_guard_equivalence_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "equivalence_evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest proving relevant consumer equivalence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:consumer_equivalence_learning_guard_decision_f a bpm:Field ;
+    bpm:fieldName "decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "TRANSFER or REFUSE decision." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:consumer_equivalence_learning_guard_refusal_code_f a bpm:Field ;
+    bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed reason when equivalence is absent." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
