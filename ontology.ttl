@@ -11582,3 +11582,44 @@ b4p:no_authority_learning_guard_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Evidence supporting the authority comparison." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-048 — acceptance_criteria_nonweakening
+b4p:acceptance_criteria_nonweakening_rt a bpm:RecordType ;
+    bpm:recordName "acceptance_criteria_nonweakening" ;
+    bpm:recordDoc "Refuses adaptive changes that weaken the pre-existing acceptance contract." ;
+    bpm:hasField b4p:acceptance_criteria_nonweakening_assessment_id_f,
+                 b4p:acceptance_criteria_nonweakening_acceptance_contract_id_f,
+                 b4p:acceptance_criteria_nonweakening_prior_digest_f,
+                 b4p:acceptance_criteria_nonweakening_candidate_digest_f,
+                 b4p:acceptance_criteria_nonweakening_strength_result_f,
+                 b4p:acceptance_criteria_nonweakening_refusal_code_f .
+
+b4p:acceptance_criteria_nonweakening_assessment_id_f a bpm:Field ;
+    bpm:fieldName "assessment_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable non-weakening assessment identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:acceptance_criteria_nonweakening_acceptance_contract_id_f a bpm:Field ;
+    bpm:fieldName "acceptance_contract_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Acceptance contract protected." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:acceptance_criteria_nonweakening_prior_digest_f a bpm:Field ;
+    bpm:fieldName "prior_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of current criteria." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:acceptance_criteria_nonweakening_candidate_digest_f a bpm:Field ;
+    bpm:fieldName "candidate_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of proposed criteria." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:acceptance_criteria_nonweakening_strength_result_f a bpm:Field ;
+    bpm:fieldName "strength_result" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Equivalent, stronger, or weaker comparison." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:acceptance_criteria_nonweakening_refusal_code_f a bpm:Field ;
+    bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed refusal when weakening is detected." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
