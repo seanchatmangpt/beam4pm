@@ -10430,3 +10430,44 @@ b4p:regression_detector_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Independent comparison evidence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-018 — regression_refusal
+b4p:regression_refusal_rt a bpm:RecordType ;
+    bpm:recordName "regression_refusal" ;
+    bpm:recordDoc "Refuses promotion when observed regression exceeds the immutable acceptance threshold." ;
+    bpm:hasField b4p:regression_refusal_refusal_id_f,
+                 b4p:regression_refusal_candidate_policy_id_f,
+                 b4p:regression_refusal_regression_detection_id_f,
+                 b4p:regression_refusal_acceptance_threshold_f,
+                 b4p:regression_refusal_observed_regression_f,
+                 b4p:regression_refusal_authority_ceiling_f .
+
+b4p:regression_refusal_refusal_id_f a bpm:Field ;
+    bpm:fieldName "refusal_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable regression refusal identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:regression_refusal_candidate_policy_id_f a bpm:Field ;
+    bpm:fieldName "candidate_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate refused promotion." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:regression_refusal_regression_detection_id_f a bpm:Field ;
+    bpm:fieldName "regression_detection_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Supporting regression detection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:regression_refusal_acceptance_threshold_f a bpm:Field ;
+    bpm:fieldName "acceptance_threshold" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Maximum admitted regression." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:regression_refusal_observed_regression_f a bpm:Field ;
+    bpm:fieldName "observed_regression" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Measured regression." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:regression_refusal_authority_ceiling_f a bpm:Field ;
+    bpm:fieldName "authority_ceiling" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Boundary preventing self-override of refusal." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
