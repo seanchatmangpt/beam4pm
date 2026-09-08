@@ -10658,3 +10658,38 @@ b4p:hypothesis_priority_update_payoff_evidence_digest_f a bpm:Field ;
     bpm:fieldName "payoff_evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest supporting the update." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-024 — anti_repeat_signature
+b4p:anti_repeat_signature_rt a bpm:RecordType ;
+    bpm:recordName "anti_repeat_signature" ;
+    bpm:recordDoc "Compiles a confirmed failure pattern into durable anti-repeat memory." ;
+    bpm:hasField b4p:anti_repeat_signature_signature_id_f,
+                 b4p:anti_repeat_signature_failure_class_f,
+                 b4p:anti_repeat_signature_causal_features_digest_f,
+                 b4p:anti_repeat_signature_repair_family_f,
+                 b4p:anti_repeat_signature_first_seen_episode_f .
+
+b4p:anti_repeat_signature_signature_id_f a bpm:Field ;
+    bpm:fieldName "signature_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable anti-repeat signature identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:anti_repeat_signature_failure_class_f a bpm:Field ;
+    bpm:fieldName "failure_class" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Confirmed failure class." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:anti_repeat_signature_causal_features_digest_f a bpm:Field ;
+    bpm:fieldName "causal_features_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of decision-relevant causal features." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:anti_repeat_signature_repair_family_f a bpm:Field ;
+    bpm:fieldName "repair_family" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Repair family that addressed the failure." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:anti_repeat_signature_first_seen_episode_f a bpm:Field ;
+    bpm:fieldName "first_seen_episode" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "First preserved episode exhibiting the pattern." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
