@@ -1,5 +1,5 @@
 # Hand-authored independent qualification rail; generated projections remain read-only.
-name: beam4pm Planner Ash Capture
+name: beam4pm Planner Projection Capture
 on:
   pull_request:
     branches: [main]
@@ -45,6 +45,7 @@ jobs:
         run: |
           set -uo pipefail
           bash scripts/igniter_sync.sh
+          bash scripts/pro_type_pages_sync.sh
 
       - name: Bind exact planner projection tree
         if: always()
@@ -105,7 +106,7 @@ jobs:
           next_lawful_actuation
           NAMES
           while IFS= read -r name; do
-            for path in "lib/beam4pm_ash/resources/$name.ex" "test/beam4pm_ash/resources/${name}_test.exs"; do
+            for path in "lib/beam4pm_ash/resources/$name.ex" "test/beam4pm_ash/resources/${name}_test.exs" "docs/reference/types/${name}.md"; do
               test -s "$path" || { echo "BUILD_BROKEN[MISSING_PLANNER_PROJECTION]:$path" >&2; exit 1; }
               mkdir -p "planner-ash-projections/$(dirname "$path")"
               cp "$path" "planner-ash-projections/$path"
@@ -118,6 +119,7 @@ jobs:
             xargs -0 sha256sum > planner-ash-projections/planner-ash-tree.sha256
           test "$(find planner-ash-projections/lib/beam4pm_ash/resources -type f | wc -l)" -eq 50
           test "$(find planner-ash-projections/test/beam4pm_ash/resources -type f | wc -l)" -eq 50
+          test "$(find planner-ash-projections/docs/reference/types -type f | wc -l)" -eq 50
           echo "ALIVE[50_PLANNER_ASH_RESOURCE_TEST_PAIRS_CAPTURED]"
 
       - name: Upload exact generated planner projections
