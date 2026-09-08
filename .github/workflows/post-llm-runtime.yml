@@ -29,7 +29,7 @@ jobs:
       dry_run: false
 
   chicago:
-    name: Governed post-LLM BRCE Chicago
+    name: Governed post-LLM BRCE + closure Chicago
     needs: manufacture
     if: needs.manufacture.outputs.sync_exit_code == '0'
     runs-on: ubuntu-24.04
@@ -65,22 +65,36 @@ jobs:
           root=contracts/post-llm-runtime/generated/post_llm
           test -s "$root/runtime.ex"
           test -s "$root/runtime_test.exs"
+          test -s "$root/closure.ex"
+          test -s "$root/closure_test.exs"
           test -s "$root/README.md"
-          sha256sum "$root/runtime.ex" "$root/runtime_test.exs" "$root/README.md" | sort > .ggen-evidence/post-llm-generated.sha256
+          sha256sum \
+            "$root/runtime.ex" \
+            "$root/runtime_test.exs" \
+            "$root/closure.ex" \
+            "$root/closure_test.exs" \
+            "$root/README.md" | sort > .ggen-evidence/post-llm-generated.sha256
 
-      - name: Compile generated runtime with warnings as errors
+      - name: Compile generated runtime and closure policy with warnings as errors
         run: |
           set -euo pipefail
           root=contracts/post-llm-runtime/generated/post_llm
           mkdir -p /tmp/post-llm-ebin
-          elixirc --warnings-as-errors -o /tmp/post-llm-ebin "$root/runtime.ex"
+          elixirc --warnings-as-errors -o /tmp/post-llm-ebin "$root/runtime.ex" "$root/closure.ex"
 
-      - name: Execute generated Chicago witness
+      - name: Execute generated BRCE Chicago witness
         run: |
           set -euo pipefail
           root=contracts/post-llm-runtime/generated/post_llm
           elixir "$root/runtime_test.exs" | tee .ggen-evidence/post-llm-chicago.log
           grep -Eq '[0-9]+ tests, 0 failures' .ggen-evidence/post-llm-chicago.log
+
+      - name: Execute generated autonomic closure witness
+        run: |
+          set -euo pipefail
+          root=contracts/post-llm-runtime/generated/post_llm
+          elixir "$root/closure_test.exs" | tee .ggen-evidence/post-llm-closure.log
+          grep -Eq '[0-9]+ tests, 0 failures' .ggen-evidence/post-llm-closure.log
 
       - name: Bind execution receipt
         run: |
@@ -95,7 +109,7 @@ jobs:
             --arg pack_sha "783b44d585ae123f4ed805add5aab0ea97f76f0a" \
             --arg exact_subject "$exact_subject" \
             '{
-              standing: "ALIVE[POST_LLM_GOVERNED_RUNTIME]",
+              standing: "ALIVE[POST_LLM_GOVERNED_RUNTIME_AND_CLOSURE]",
               source_sha: $source_sha,
               exact_subject: $exact_subject,
               pack_sha: $pack_sha,
@@ -116,7 +130,18 @@ jobs:
                 "standing_evidence_dimensions",
                 "event_envelope",
                 "idempotency_key",
-                "compensation_intent"
+                "compensation_intent",
+                "closure_capability_admission",
+                "directive_decompression",
+                "semantic_neighborhood_gap_detection",
+                "scope_invention_refusal",
+                "sean_memory_dependence_falsifier",
+                "obligation_carry_forward",
+                "recurring_repair_packification",
+                "autonomic_discovery_gap_detection",
+                "closure_brce_single_actuation",
+                "closure_receipt_verification",
+                "closure_replay_no_ambient_do"
               ]
             }' > .ggen-evidence/post-llm-chicago-receipt.json
           sha256sum .ggen-evidence/post-llm-chicago-receipt.json
@@ -129,5 +154,6 @@ jobs:
             .ggen-evidence/post-llm-chicago-receipt.json
             .ggen-evidence/post-llm-generated.sha256
             .ggen-evidence/post-llm-chicago.log
+            .ggen-evidence/post-llm-closure.log
             .ggen-evidence/github-sync-receipt.json
           if-no-files-found: error

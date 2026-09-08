@@ -909,6 +909,31 @@
       ]
 
     },
+    "caller_local_crown_identity": {
+      "type": "object",
+      "description": "Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "consumer_subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local consumer commit SHA that must be requalified."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "consumer_subject_sha", "receipt_digest"
+      ]
+
+    },
     "canary_decision": {
       "type": "object",
       "description": "Receipted enterprise canary decision based on an observed rollout consequence.",
@@ -1930,6 +1955,1231 @@
         }
       },
       "required": ["cross_sell_fit_id", "account_id", "cross_sell_score", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "crown_applicable_gate_coverage": {
+      "type": "object",
+      "description": "Requires every gate applicable to the changed subject before declaring the crown alive.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "applicable_gate_set_digest": {
+          "type": "string",
+          "description": "Digest of the normalized applicable gate set and results."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "applicable_gate_set_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_artifact_pullback_smoke": {
+      "type": "object",
+      "description": "Proves the published artifact can be pulled back from its distribution boundary byte-for-byte.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "pullback_digest": {
+          "type": "string",
+          "description": "Digest observed after artifact pullback."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "pullback_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_attestation_signer": {
+      "type": "object",
+      "description": "Requires an admitted signer identity for every propagated supply-chain attestation.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "signer_identity": {
+          "type": "string",
+          "description": "Verified identity that signed the attestation."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "signer_identity", "receipt_digest"
+      ]
+
+    },
+    "crown_autonomic_republish": {
+      "type": "object",
+      "description": "Receipts autonomous downstream requalification and immutable crown republication.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "republished_crown_digest": {
+          "type": "string",
+          "description": "Exact digest of the republished downstream crown."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "republished_crown_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_capsule_toolchain": {
+      "type": "object",
+      "description": "Binds source capsule, validation pack, execution mode, and toolchain as one evidence identity.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "toolchain_digest": {
+          "type": "string",
+          "description": "Digest of the exact capsule toolchain closure."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "toolchain_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_cas_promotion": {
+      "type": "object",
+      "description": "Authorizes promotion only when the observed prior crown equals the compare-and-swap expectation.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "expected_previous_digest": {
+          "type": "string",
+          "description": "Expected previously promoted crown digest."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "expected_previous_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_check_relevance": {
+      "type": "object",
+      "description": "Separates irrelevant checks from exact-subject qualification without hiding required evidence.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "relevance_proof_digest": {
+          "type": "string",
+          "description": "Digest proving check relevance classification."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "relevance_proof_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_child_publish_observation": {
+      "type": "object",
+      "description": "Observes the exact child publication execution before its crown can propagate further.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "child_publish_run_id": {
+          "type": "string",
+          "description": "Exact workflow run identity that published the child crown."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "child_publish_run_id", "receipt_digest"
+      ]
+
+    },
+    "crown_consumer_smoke": {
+      "type": "object",
+      "description": "Requires a real downstream consumer smoke consequence for the exact propagated crown.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "consumer_smoke_digest": {
+          "type": "string",
+          "description": "Digest of the exact-consumer smoke receipt."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "consumer_smoke_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_convergence_proof": {
+      "type": "object",
+      "description": "Produces a deterministic proof that every admitted consumer holds the expected crown.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "convergence_proof_digest": {
+          "type": "string",
+          "description": "Digest of the ecosystem convergence proof."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "convergence_proof_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_cosign_certificate": {
+      "type": "object",
+      "description": "Captures the keyless signing certificate identity admitted for the exact crown digest.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "certificate_identity": {
+          "type": "string",
+          "description": "Verified Cosign certificate identity."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "certificate_identity", "receipt_digest"
+      ]
+
+    },
+    "crown_default_head_sensor": {
+      "type": "object",
+      "description": "Observes the exact downstream default-branch head before selecting a reconciliation candidate.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "default_head_sha": {
+          "type": "string",
+          "description": "Observed immutable default-branch head SHA."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "default_head_sha", "receipt_digest"
+      ]
+
+    },
+    "crown_dependency_edge": {
+      "type": "object",
+      "description": "Declares one exact upstream-to-downstream propagation edge in the ecosystem graph.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "downstream_consumer_id": {
+          "type": "string",
+          "description": "Exact downstream consumer repository identity."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "downstream_consumer_id", "receipt_digest"
+      ]
+
+    },
+    "crown_execution_mode": {
+      "type": "object",
+      "description": "Records whether qualification ran locally, in a capsule, or on a hosted runner.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "execution_mode": {
+          "type": "string",
+          "description": "Admitted execution-mode identifier."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "execution_mode", "receipt_digest"
+      ]
+
+    },
+    "crown_fanin_convergence": {
+      "type": "object",
+      "description": "Requires every admitted upstream parent crown before a fan-in consumer can converge.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "fanin_set_digest": {
+          "type": "string",
+          "description": "Digest of the complete admitted fan-in crown set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "fanin_set_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_fanout_batch": {
+      "type": "object",
+      "description": "Binds parallel downstream propagation to one deterministic admitted consumer set.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "fanout_set_digest": {
+          "type": "string",
+          "description": "Digest of the sorted fan-out consumer set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "fanout_set_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_federated_phase_receipt": {
+      "type": "object",
+      "description": "Receipts SELECT, CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, and RECEIPT as ordered phases.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "selected_option_digest": {
+          "type": "string",
+          "description": "Digest of the selected qualified propagation option."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "selected_option_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_freshness_window": {
+      "type": "object",
+      "description": "Defines the deterministic deadline after which a crown cannot be promoted without requalification.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "fresh_until": {
+          "type": "string",
+          "description": "UTC freshness deadline admitted by policy."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "fresh_until", "receipt_digest"
+      ]
+
+    },
+    "crown_generated_source_ownership": {
+      "type": "object",
+      "description": "Routes drift in a generated projection back to its declared canonical semantic source.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "canonical_source_path": {
+          "type": "string",
+          "description": "Canonical non-generated source path authorized to repair the projection."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "canonical_source_path", "receipt_digest"
+      ]
+
+    },
+    "crown_gitlink_reconciliation": {
+      "type": "object",
+      "description": "Reconciles a consumer gitlink to the exact admitted dependency commit.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "gitlink_commit_sha": {
+          "type": "string",
+          "description": "Exact submodule gitlink commit SHA."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "gitlink_commit_sha", "receipt_digest"
+      ]
+
+    },
+    "crown_immutable_sha_tag": {
+      "type": "object",
+      "description": "Admits only artifact tags derived from an exact immutable source SHA.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "immutable_tag": {
+          "type": "string",
+          "description": "Immutable source-derived artifact tag."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "immutable_tag", "receipt_digest"
+      ]
+
+    },
+    "crown_known_good_rollback": {
+      "type": "object",
+      "description": "Selects an immutable previously qualified crown for autonomous rollback.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "rollback_crown_digest": {
+          "type": "string",
+          "description": "Exact prior known-good crown digest."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "rollback_crown_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_latency_observation": {
+      "type": "object",
+      "description": "Records exact end-to-end propagation latency for freshness and SLO decisions.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "latency_millis": {
+          "type": "string",
+          "description": "Observed propagation latency in milliseconds."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "latency_millis", "receipt_digest"
+      ]
+
+    },
+    "crown_lock_reconciliation": {
+      "type": "object",
+      "description": "Reconciles a downstream lock entry to the exact admitted upstream commit.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "lock_commit_sha": {
+          "type": "string",
+          "description": "Exact commit SHA encoded in the reconciled lock."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "lock_commit_sha", "receipt_digest"
+      ]
+
+    },
+    "crown_manufacturer_identity": {
+      "type": "object",
+      "description": "Binds propagation to the exact deterministic manufacturer executable identity.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "manufacturer_digest": {
+          "type": "string",
+          "description": "Digest of the admitted GGen manufacturer binary."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "manufacturer_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_marketplace_pack_pin": {
+      "type": "object",
+      "description": "Requires every consumed marketplace pack to resolve to an immutable Git commit before manufacture.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "pack_commit_sha": {
+          "type": "string",
+          "description": "Exact immutable marketplace pack commit SHA."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "pack_commit_sha", "receipt_digest"
+      ]
+
+    },
+    "crown_multiarch_platform_set": {
+      "type": "object",
+      "description": "Requires the crown manifest to contain the admitted architecture and operating-system set.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "platform_set_digest": {
+          "type": "string",
+          "description": "Digest of the normalized admitted platform set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "platform_set_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_oci_manifest_binding": {
+      "type": "object",
+      "description": "Binds a propagated crown to its exact OCI multi-architecture index digest.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "oci_index_digest": {
+          "type": "string",
+          "description": "Exact OCI index digest selected for propagation."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "oci_index_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_package_pin_reconciliation": {
+      "type": "object",
+      "description": "Reconciles package resolution to an immutable version and content digest.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "package_version_digest": {
+          "type": "string",
+          "description": "Digest of the exact resolved package version."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "package_version_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_partial_checkpoint": {
+      "type": "object",
+      "description": "Persists exact completed propagation edges for safe recovery after partial failure.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "checkpoint_digest": {
+          "type": "string",
+          "description": "Digest of the completed-edge checkpoint."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "checkpoint_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_path_skip_refusal": {
+      "type": "object",
+      "description": "Refuses false ALIVE when a required qualification gate was path-skipped.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "skipped_gate_id": {
+          "type": "string",
+          "description": "Identity of the required gate that was skipped."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "skipped_gate_id", "receipt_digest"
+      ]
+
+    },
+    "crown_planner_identity": {
+      "type": "object",
+      "description": "Binds autonomous propagation selection to the exact admitted planner identity.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "planner_digest": {
+          "type": "string",
+          "description": "Digest of the planner that selected the propagation action."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "planner_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_process_runtime_identity": {
+      "type": "object",
+      "description": "Binds process-intelligence evidence to the exact Beam4PM computation identity.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "process_runtime_digest": {
+          "type": "string",
+          "description": "Digest of the process-intelligence runtime subject."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "process_runtime_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_promotion_race": {
+      "type": "object",
+      "description": "Records the conflicting prior digest when a concurrent promotion wins the race.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "observed_previous_digest": {
+          "type": "string",
+          "description": "Observed prior crown digest at the failed CAS boundary."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "observed_previous_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_provenance_binding": {
+      "type": "object",
+      "description": "Binds build provenance to the exact source, builder, and published artifact identities.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "provenance_digest": {
+          "type": "string",
+          "description": "Digest of exact-subject build provenance."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "provenance_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_receipt_output_ownership": {
+      "type": "object",
+      "description": "Propagates receipt lineage together with the declared owner of every manufactured output.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "output_owner": {
+          "type": "string",
+          "description": "Declared owner identity for the manufactured output set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "output_owner", "receipt_digest"
+      ]
+
+    },
+    "crown_recursive_fixed_point": {
+      "type": "object",
+      "description": "Proves recursive ecosystem propagation reached a stable exact-crown fixed point.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "fixed_point_digest": {
+          "type": "string",
+          "description": "Digest of the converged ecosystem crown assignment."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "fixed_point_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_resume_token": {
+      "type": "object",
+      "description": "Binds resumed propagation to its checkpoint and current dependency graph.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "resume_token_digest": {
+          "type": "string",
+          "description": "Digest of the validated resume token."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "resume_token_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_runtime_identity": {
+      "type": "object",
+      "description": "Binds the propagated artifact to the exact runtime used for qualification.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "runtime_digest": {
+          "type": "string",
+          "description": "Digest of the admitted runtime environment."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "runtime_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_sbom_subject_binding": {
+      "type": "object",
+      "description": "Binds a retained software bill of materials to the exact published crown subject.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "sbom_digest": {
+          "type": "string",
+          "description": "Digest of the SBOM whose subject is the exact crown."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "sbom_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_second_pass_identity": {
+      "type": "object",
+      "description": "Proves a second lawful GGen sync is byte-identical to the first manufactured output set.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "second_pass_digest": {
+          "type": "string",
+          "description": "Digest of the complete second-pass output set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "second_pass_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_security_scan": {
+      "type": "object",
+      "description": "Requires a retained security scan report bound to the exact crown artifact digest.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "scan_report_digest": {
+          "type": "string",
+          "description": "Digest of the exact-artifact vulnerability scan report."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "scan_report_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_source_capsule": {
+      "type": "object",
+      "description": "Binds validation to the exact ggen-ecosystem source capsule and image identity.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "capsule_digest": {
+          "type": "string",
+          "description": "Exact source capsule or reproducible image digest."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "capsule_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_stale_refusal": {
+      "type": "object",
+      "description": "Records crown age so stale subjects are typed and refused without actuation.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "observed_age_seconds": {
+          "type": "string",
+          "description": "Observed crown age in seconds at the decision boundary."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "observed_age_seconds", "receipt_digest"
+      ]
+
+    },
+    "crown_supply_chain_policy": {
+      "type": "object",
+      "description": "Records the executable supply-chain policy decision that admitted or refused the crown.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "policy_decision_digest": {
+          "type": "string",
+          "description": "Digest of the exact policy input and decision."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "policy_decision_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_topological_order": {
+      "type": "object",
+      "description": "Orders crown propagation so dependencies qualify before their consumers.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "topological_rank": {
+          "type": "string",
+          "description": "Deterministic topological rank for this propagation node."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "topological_rank", "receipt_digest"
+      ]
+
+    },
+    "crown_validation_pack": {
+      "type": "object",
+      "description": "Pins the executable validation pack to an immutable marketplace commit.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "validation_pack_sha": {
+          "type": "string",
+          "description": "Exact validation-pack Git commit SHA."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "validation_pack_sha", "receipt_digest"
+      ]
+
+    },
+    "crown_workflow_run_receipt": {
+      "type": "object",
+      "description": "Binds a qualification receipt to the exact workflow execution and attempt.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "workflow_run_id": {
+          "type": "string",
+          "description": "Exact hosted workflow run and attempt identity."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "workflow_run_id", "receipt_digest"
+      ]
+
+    },
+    "crown_zero_unreceipted_writes": {
+      "type": "object",
+      "description": "Proves every propagation write belongs to a retained authorized receipt.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "write_set_digest": {
+          "type": "string",
+          "description": "Digest of the complete authorized write set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "write_set_digest", "receipt_digest"
       ]
 
     },

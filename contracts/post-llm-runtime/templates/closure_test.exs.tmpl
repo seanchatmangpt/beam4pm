@@ -1,0 +1,160 @@
+---
+to: generated/post_llm/closure_test.exs
+---
+Code.require_file("runtime.ex", __DIR__)
+Code.require_file("closure.ex", __DIR__)
+ExUnit.start()
+
+defmodule BeamPM.PostLLM.ClosureTest do
+  use ExUnit.Case, async: false
+
+  alias BeamPM.PostLLM.{BRCE, Capability, Closure, Receipt, Replay, Select}
+
+  @closure_capabilities [
+    "directive_decompression",
+    "semantic_neighborhood_closure",
+    "continuity_preservation",
+    "dependency_closure",
+    "exact_subject_evidence",
+    "obligation_carry_forward",
+    "memory_dependence_falsifier",
+    "recurring_repair_packification",
+    "autonomic_capability_discovery",
+    "closure_operationalization"
+  ]
+
+  test "closure capabilities are admitted by the manufactured runtime graph" do
+    Enum.each(@closure_capabilities, fn capability ->
+      assert :ok == Capability.admit(capability)
+    end)
+  end
+
+  test "compressed directives expand through the complete bounded closure traversal" do
+    assert [
+             :preserve,
+             :fence,
+             :calculus,
+             :exclusions,
+             :falsifiers,
+             :extension,
+             :operationalization,
+             :closure
+           ] == Closure.stages()
+
+    observed = %{
+      implemented: true,
+      wired: false,
+      freshness_required: true,
+      freshness_law: false,
+      receipt: true,
+      replay: false,
+      recurring_repair: true,
+      duplicate_primitive_owners: ["repo-a", "repo-b"],
+      capability_present: true,
+      discoverable: false
+    }
+
+    assert {:ok, program} = Closure.decompress("finish", observed)
+    assert program.subject == BeamPM.PostLLM.ExactSubject.subject()
+    assert :wire_implementation in program.obligations
+    assert :define_freshness_law in program.obligations
+    assert :add_replay in program.obligations
+    assert :packify_recurring_repair in program.obligations
+    assert :resolve_canonical_ownership in program.obligations
+    assert :make_capability_discoverable in program.obligations
+    assert :partial_alive == Closure.standing(program)
+  end
+
+  test "external scope invention is refused unless explicitly admitted" do
+    observed = %{scope_extensions: [:parallel_architecture]}
+
+    assert {:refused, "SCOPE_INVENTION_REFUSED", _reason, _subject} =
+             Closure.decompress("finish", observed)
+
+    assert {:ok, program} =
+             Closure.decompress("finish", observed, allow_extensions: true)
+
+    assert program.scope_extensions == [:parallel_architecture]
+  end
+
+  test "routine dependence on Sean memory is a closure falsifier and cannot manufacture DO" do
+    observed = %{routine: true, sean_memory_required: true}
+    assert {:ok, program} = Closure.decompress("finish", observed)
+    assert :remove_sean_memory_dependency in program.obligations
+    assert :partial_alive == Closure.standing(program)
+
+    assert {:refused, "AUTONOMIC_MEMORY_DEPENDENCE", _reason, _subject} =
+             Closure.admit(program)
+
+    assert {:refused, "AUTONOMIC_MEMORY_DEPENDENCE", _reason, _subject} =
+             Closure.manufacture(program)
+  end
+
+  test "unverified obligations survive carry-forward and verified obligations leave the open graph" do
+    observed = %{implemented: true, wired: false, receipt: true, replay: false}
+    assert {:ok, program} = Closure.decompress("finish", observed)
+
+    next = Closure.carry_forward(program, [:wire_implementation])
+    refute :wire_implementation in next.obligations
+    assert :add_replay in next.obligations
+    assert :wire_implementation in next.verified_obligations
+  end
+
+  test "exact-subject closure actuates only through BRCE, receipts once, and replay has no ambient DO" do
+    observed = %{
+      observed: true,
+      admitted: true,
+      executed: true,
+      changed: true,
+      verified: true,
+      implemented: true,
+      wired: true,
+      generated: true,
+      tested: true,
+      exact_subject_executed: true,
+      receipt: true,
+      replay: true,
+      independent_verifier: true,
+      capability_present: true,
+      discoverable: true,
+      schedulable: true
+    }
+
+    assert {:ok, program} = Closure.decompress("finish", observed)
+    assert [] == program.obligations
+    assert :alive == Closure.standing(program)
+    assert {:ok, candidate} = Closure.manufacture(program)
+    assert candidate.phase == :construct
+    assert candidate.authority == :none
+
+    selected = Select.request_do(candidate)
+    Process.put(:closure_actuations, 0)
+
+    actuator = fn intent ->
+      Process.put(:closure_actuations, Process.get(:closure_actuations, 0) + 1)
+      %{closed: true, intent_id: intent.id}
+    end
+
+    context = %{
+      actor: "closure-court",
+      tenant: "beam4pm",
+      correlation_id: "closure-exact-head",
+      policy: :admitted
+    }
+
+    assert {:ok, %{closed: true}, receipt} =
+             BRCE.execute(selected, context, actuator, "2026-09-08T00:00:00Z")
+
+    assert 1 == Process.get(:closure_actuations)
+    assert Receipt.verify(receipt)
+
+    assert {:ok, replayed} = Replay.manufacture(receipt)
+    assert replayed.phase == :construct
+    assert replayed.authority == :none
+
+    assert {:refused, "AUTHORITY_REFUSED", _reason, _subject} =
+             BRCE.execute(replayed, context, actuator, "2026-09-08T00:00:01Z")
+
+    assert 1 == Process.get(:closure_actuations)
+  end
+end

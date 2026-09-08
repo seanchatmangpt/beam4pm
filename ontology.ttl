@@ -9787,3 +9787,1502 @@ b4p:machine_actionable_delta_recommended_action_f a bpm:Field ;
     bpm:fieldName "recommended_action" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Bounded next action for the control plane." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS4-ACP-001 — caller_local_crown_identity
+b4p:caller_local_crown_identity_rt a bpm:RecordType ;
+    bpm:recordName "caller_local_crown_identity" ;
+    bpm:recordDoc "Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused." ;
+    bpm:hasField b4p:caller_local_crown_identity_propagation_id_f,
+                 b4p:caller_local_crown_identity_subject_sha_f,
+                 b4p:caller_local_crown_identity_consumer_subject_sha_f,
+                 b4p:caller_local_crown_identity_receipt_digest_f .
+
+b4p:caller_local_crown_identity_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:caller_local_crown_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:caller_local_crown_identity_consumer_subject_sha_f a bpm:Field ;
+    bpm:fieldName "consumer_subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact caller-local consumer commit SHA that must be requalified." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:caller_local_crown_identity_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-002 — crown_marketplace_pack_pin
+b4p:crown_marketplace_pack_pin_rt a bpm:RecordType ;
+    bpm:recordName "crown_marketplace_pack_pin" ;
+    bpm:recordDoc "Requires every consumed marketplace pack to resolve to an immutable Git commit before manufacture." ;
+    bpm:hasField b4p:crown_marketplace_pack_pin_propagation_id_f,
+                 b4p:crown_marketplace_pack_pin_subject_sha_f,
+                 b4p:crown_marketplace_pack_pin_pack_commit_sha_f,
+                 b4p:crown_marketplace_pack_pin_receipt_digest_f .
+
+b4p:crown_marketplace_pack_pin_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_marketplace_pack_pin_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_marketplace_pack_pin_pack_commit_sha_f a bpm:Field ;
+    bpm:fieldName "pack_commit_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact immutable marketplace pack commit SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_marketplace_pack_pin_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-003 — crown_generated_source_ownership
+b4p:crown_generated_source_ownership_rt a bpm:RecordType ;
+    bpm:recordName "crown_generated_source_ownership" ;
+    bpm:recordDoc "Routes drift in a generated projection back to its declared canonical semantic source." ;
+    bpm:hasField b4p:crown_generated_source_ownership_propagation_id_f,
+                 b4p:crown_generated_source_ownership_subject_sha_f,
+                 b4p:crown_generated_source_ownership_canonical_source_path_f,
+                 b4p:crown_generated_source_ownership_receipt_digest_f .
+
+b4p:crown_generated_source_ownership_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_generated_source_ownership_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_generated_source_ownership_canonical_source_path_f a bpm:Field ;
+    bpm:fieldName "canonical_source_path" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Canonical non-generated source path authorized to repair the projection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_generated_source_ownership_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-004 — crown_receipt_output_ownership
+b4p:crown_receipt_output_ownership_rt a bpm:RecordType ;
+    bpm:recordName "crown_receipt_output_ownership" ;
+    bpm:recordDoc "Propagates receipt lineage together with the declared owner of every manufactured output." ;
+    bpm:hasField b4p:crown_receipt_output_ownership_propagation_id_f,
+                 b4p:crown_receipt_output_ownership_subject_sha_f,
+                 b4p:crown_receipt_output_ownership_output_owner_f,
+                 b4p:crown_receipt_output_ownership_receipt_digest_f .
+
+b4p:crown_receipt_output_ownership_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_receipt_output_ownership_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_receipt_output_ownership_output_owner_f a bpm:Field ;
+    bpm:fieldName "output_owner" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Declared owner identity for the manufactured output set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_receipt_output_ownership_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-005 — crown_second_pass_identity
+b4p:crown_second_pass_identity_rt a bpm:RecordType ;
+    bpm:recordName "crown_second_pass_identity" ;
+    bpm:recordDoc "Proves a second lawful GGen sync is byte-identical to the first manufactured output set." ;
+    bpm:hasField b4p:crown_second_pass_identity_propagation_id_f,
+                 b4p:crown_second_pass_identity_subject_sha_f,
+                 b4p:crown_second_pass_identity_second_pass_digest_f,
+                 b4p:crown_second_pass_identity_receipt_digest_f .
+
+b4p:crown_second_pass_identity_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_second_pass_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_second_pass_identity_second_pass_digest_f a bpm:Field ;
+    bpm:fieldName "second_pass_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the complete second-pass output set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_second_pass_identity_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-006 — crown_default_head_sensor
+b4p:crown_default_head_sensor_rt a bpm:RecordType ;
+    bpm:recordName "crown_default_head_sensor" ;
+    bpm:recordDoc "Observes the exact downstream default-branch head before selecting a reconciliation candidate." ;
+    bpm:hasField b4p:crown_default_head_sensor_propagation_id_f,
+                 b4p:crown_default_head_sensor_subject_sha_f,
+                 b4p:crown_default_head_sensor_default_head_sha_f,
+                 b4p:crown_default_head_sensor_receipt_digest_f .
+
+b4p:crown_default_head_sensor_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_default_head_sensor_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_default_head_sensor_default_head_sha_f a bpm:Field ;
+    bpm:fieldName "default_head_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed immutable default-branch head SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_default_head_sensor_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-007 — crown_immutable_sha_tag
+b4p:crown_immutable_sha_tag_rt a bpm:RecordType ;
+    bpm:recordName "crown_immutable_sha_tag" ;
+    bpm:recordDoc "Admits only artifact tags derived from an exact immutable source SHA." ;
+    bpm:hasField b4p:crown_immutable_sha_tag_propagation_id_f,
+                 b4p:crown_immutable_sha_tag_subject_sha_f,
+                 b4p:crown_immutable_sha_tag_immutable_tag_f,
+                 b4p:crown_immutable_sha_tag_receipt_digest_f .
+
+b4p:crown_immutable_sha_tag_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_immutable_sha_tag_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_immutable_sha_tag_immutable_tag_f a bpm:Field ;
+    bpm:fieldName "immutable_tag" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable source-derived artifact tag." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_immutable_sha_tag_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-008 — crown_oci_manifest_binding
+b4p:crown_oci_manifest_binding_rt a bpm:RecordType ;
+    bpm:recordName "crown_oci_manifest_binding" ;
+    bpm:recordDoc "Binds a propagated crown to its exact OCI multi-architecture index digest." ;
+    bpm:hasField b4p:crown_oci_manifest_binding_propagation_id_f,
+                 b4p:crown_oci_manifest_binding_subject_sha_f,
+                 b4p:crown_oci_manifest_binding_oci_index_digest_f,
+                 b4p:crown_oci_manifest_binding_receipt_digest_f .
+
+b4p:crown_oci_manifest_binding_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_oci_manifest_binding_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_oci_manifest_binding_oci_index_digest_f a bpm:Field ;
+    bpm:fieldName "oci_index_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact OCI index digest selected for propagation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_oci_manifest_binding_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-009 — crown_multiarch_platform_set
+b4p:crown_multiarch_platform_set_rt a bpm:RecordType ;
+    bpm:recordName "crown_multiarch_platform_set" ;
+    bpm:recordDoc "Requires the crown manifest to contain the admitted architecture and operating-system set." ;
+    bpm:hasField b4p:crown_multiarch_platform_set_propagation_id_f,
+                 b4p:crown_multiarch_platform_set_subject_sha_f,
+                 b4p:crown_multiarch_platform_set_platform_set_digest_f,
+                 b4p:crown_multiarch_platform_set_receipt_digest_f .
+
+b4p:crown_multiarch_platform_set_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_multiarch_platform_set_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_multiarch_platform_set_platform_set_digest_f a bpm:Field ;
+    bpm:fieldName "platform_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the normalized admitted platform set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_multiarch_platform_set_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-010 — crown_sbom_subject_binding
+b4p:crown_sbom_subject_binding_rt a bpm:RecordType ;
+    bpm:recordName "crown_sbom_subject_binding" ;
+    bpm:recordDoc "Binds a retained software bill of materials to the exact published crown subject." ;
+    bpm:hasField b4p:crown_sbom_subject_binding_propagation_id_f,
+                 b4p:crown_sbom_subject_binding_subject_sha_f,
+                 b4p:crown_sbom_subject_binding_sbom_digest_f,
+                 b4p:crown_sbom_subject_binding_receipt_digest_f .
+
+b4p:crown_sbom_subject_binding_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_sbom_subject_binding_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_sbom_subject_binding_sbom_digest_f a bpm:Field ;
+    bpm:fieldName "sbom_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the SBOM whose subject is the exact crown." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_sbom_subject_binding_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-011 — crown_provenance_binding
+b4p:crown_provenance_binding_rt a bpm:RecordType ;
+    bpm:recordName "crown_provenance_binding" ;
+    bpm:recordDoc "Binds build provenance to the exact source, builder, and published artifact identities." ;
+    bpm:hasField b4p:crown_provenance_binding_propagation_id_f,
+                 b4p:crown_provenance_binding_subject_sha_f,
+                 b4p:crown_provenance_binding_provenance_digest_f,
+                 b4p:crown_provenance_binding_receipt_digest_f .
+
+b4p:crown_provenance_binding_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_provenance_binding_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_provenance_binding_provenance_digest_f a bpm:Field ;
+    bpm:fieldName "provenance_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of exact-subject build provenance." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_provenance_binding_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-012 — crown_attestation_signer
+b4p:crown_attestation_signer_rt a bpm:RecordType ;
+    bpm:recordName "crown_attestation_signer" ;
+    bpm:recordDoc "Requires an admitted signer identity for every propagated supply-chain attestation." ;
+    bpm:hasField b4p:crown_attestation_signer_propagation_id_f,
+                 b4p:crown_attestation_signer_subject_sha_f,
+                 b4p:crown_attestation_signer_signer_identity_f,
+                 b4p:crown_attestation_signer_receipt_digest_f .
+
+b4p:crown_attestation_signer_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_attestation_signer_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_attestation_signer_signer_identity_f a bpm:Field ;
+    bpm:fieldName "signer_identity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Verified identity that signed the attestation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_attestation_signer_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-013 — crown_cosign_certificate
+b4p:crown_cosign_certificate_rt a bpm:RecordType ;
+    bpm:recordName "crown_cosign_certificate" ;
+    bpm:recordDoc "Captures the keyless signing certificate identity admitted for the exact crown digest." ;
+    bpm:hasField b4p:crown_cosign_certificate_propagation_id_f,
+                 b4p:crown_cosign_certificate_subject_sha_f,
+                 b4p:crown_cosign_certificate_certificate_identity_f,
+                 b4p:crown_cosign_certificate_receipt_digest_f .
+
+b4p:crown_cosign_certificate_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_cosign_certificate_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_cosign_certificate_certificate_identity_f a bpm:Field ;
+    bpm:fieldName "certificate_identity" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Verified Cosign certificate identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_cosign_certificate_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-014 — crown_security_scan
+b4p:crown_security_scan_rt a bpm:RecordType ;
+    bpm:recordName "crown_security_scan" ;
+    bpm:recordDoc "Requires a retained security scan report bound to the exact crown artifact digest." ;
+    bpm:hasField b4p:crown_security_scan_propagation_id_f,
+                 b4p:crown_security_scan_subject_sha_f,
+                 b4p:crown_security_scan_scan_report_digest_f,
+                 b4p:crown_security_scan_receipt_digest_f .
+
+b4p:crown_security_scan_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_security_scan_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_security_scan_scan_report_digest_f a bpm:Field ;
+    bpm:fieldName "scan_report_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact-artifact vulnerability scan report." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_security_scan_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-015 — crown_freshness_window
+b4p:crown_freshness_window_rt a bpm:RecordType ;
+    bpm:recordName "crown_freshness_window" ;
+    bpm:recordDoc "Defines the deterministic deadline after which a crown cannot be promoted without requalification." ;
+    bpm:hasField b4p:crown_freshness_window_propagation_id_f,
+                 b4p:crown_freshness_window_subject_sha_f,
+                 b4p:crown_freshness_window_fresh_until_f,
+                 b4p:crown_freshness_window_receipt_digest_f .
+
+b4p:crown_freshness_window_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_freshness_window_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_freshness_window_fresh_until_f a bpm:Field ;
+    bpm:fieldName "fresh_until" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "UTC freshness deadline admitted by policy." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_freshness_window_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-016 — crown_stale_refusal
+b4p:crown_stale_refusal_rt a bpm:RecordType ;
+    bpm:recordName "crown_stale_refusal" ;
+    bpm:recordDoc "Records crown age so stale subjects are typed and refused without actuation." ;
+    bpm:hasField b4p:crown_stale_refusal_propagation_id_f,
+                 b4p:crown_stale_refusal_subject_sha_f,
+                 b4p:crown_stale_refusal_observed_age_seconds_f,
+                 b4p:crown_stale_refusal_receipt_digest_f .
+
+b4p:crown_stale_refusal_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_stale_refusal_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_stale_refusal_observed_age_seconds_f a bpm:Field ;
+    bpm:fieldName "observed_age_seconds" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed crown age in seconds at the decision boundary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_stale_refusal_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-017 — crown_lock_reconciliation
+b4p:crown_lock_reconciliation_rt a bpm:RecordType ;
+    bpm:recordName "crown_lock_reconciliation" ;
+    bpm:recordDoc "Reconciles a downstream lock entry to the exact admitted upstream commit." ;
+    bpm:hasField b4p:crown_lock_reconciliation_propagation_id_f,
+                 b4p:crown_lock_reconciliation_subject_sha_f,
+                 b4p:crown_lock_reconciliation_lock_commit_sha_f,
+                 b4p:crown_lock_reconciliation_receipt_digest_f .
+
+b4p:crown_lock_reconciliation_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_lock_reconciliation_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_lock_reconciliation_lock_commit_sha_f a bpm:Field ;
+    bpm:fieldName "lock_commit_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact commit SHA encoded in the reconciled lock." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_lock_reconciliation_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-018 — crown_gitlink_reconciliation
+b4p:crown_gitlink_reconciliation_rt a bpm:RecordType ;
+    bpm:recordName "crown_gitlink_reconciliation" ;
+    bpm:recordDoc "Reconciles a consumer gitlink to the exact admitted dependency commit." ;
+    bpm:hasField b4p:crown_gitlink_reconciliation_propagation_id_f,
+                 b4p:crown_gitlink_reconciliation_subject_sha_f,
+                 b4p:crown_gitlink_reconciliation_gitlink_commit_sha_f,
+                 b4p:crown_gitlink_reconciliation_receipt_digest_f .
+
+b4p:crown_gitlink_reconciliation_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_gitlink_reconciliation_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_gitlink_reconciliation_gitlink_commit_sha_f a bpm:Field ;
+    bpm:fieldName "gitlink_commit_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact submodule gitlink commit SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_gitlink_reconciliation_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-019 — crown_package_pin_reconciliation
+b4p:crown_package_pin_reconciliation_rt a bpm:RecordType ;
+    bpm:recordName "crown_package_pin_reconciliation" ;
+    bpm:recordDoc "Reconciles package resolution to an immutable version and content digest." ;
+    bpm:hasField b4p:crown_package_pin_reconciliation_propagation_id_f,
+                 b4p:crown_package_pin_reconciliation_subject_sha_f,
+                 b4p:crown_package_pin_reconciliation_package_version_digest_f,
+                 b4p:crown_package_pin_reconciliation_receipt_digest_f .
+
+b4p:crown_package_pin_reconciliation_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_package_pin_reconciliation_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_package_pin_reconciliation_package_version_digest_f a bpm:Field ;
+    bpm:fieldName "package_version_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact resolved package version." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_package_pin_reconciliation_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-020 — crown_cas_promotion
+b4p:crown_cas_promotion_rt a bpm:RecordType ;
+    bpm:recordName "crown_cas_promotion" ;
+    bpm:recordDoc "Authorizes promotion only when the observed prior crown equals the compare-and-swap expectation." ;
+    bpm:hasField b4p:crown_cas_promotion_propagation_id_f,
+                 b4p:crown_cas_promotion_subject_sha_f,
+                 b4p:crown_cas_promotion_expected_previous_digest_f,
+                 b4p:crown_cas_promotion_receipt_digest_f .
+
+b4p:crown_cas_promotion_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_cas_promotion_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_cas_promotion_expected_previous_digest_f a bpm:Field ;
+    bpm:fieldName "expected_previous_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Expected previously promoted crown digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_cas_promotion_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-021 — crown_promotion_race
+b4p:crown_promotion_race_rt a bpm:RecordType ;
+    bpm:recordName "crown_promotion_race" ;
+    bpm:recordDoc "Records the conflicting prior digest when a concurrent promotion wins the race." ;
+    bpm:hasField b4p:crown_promotion_race_propagation_id_f,
+                 b4p:crown_promotion_race_subject_sha_f,
+                 b4p:crown_promotion_race_observed_previous_digest_f,
+                 b4p:crown_promotion_race_receipt_digest_f .
+
+b4p:crown_promotion_race_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_promotion_race_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_promotion_race_observed_previous_digest_f a bpm:Field ;
+    bpm:fieldName "observed_previous_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed prior crown digest at the failed CAS boundary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_promotion_race_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-022 — crown_dependency_edge
+b4p:crown_dependency_edge_rt a bpm:RecordType ;
+    bpm:recordName "crown_dependency_edge" ;
+    bpm:recordDoc "Declares one exact upstream-to-downstream propagation edge in the ecosystem graph." ;
+    bpm:hasField b4p:crown_dependency_edge_propagation_id_f,
+                 b4p:crown_dependency_edge_subject_sha_f,
+                 b4p:crown_dependency_edge_downstream_consumer_id_f,
+                 b4p:crown_dependency_edge_receipt_digest_f .
+
+b4p:crown_dependency_edge_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_dependency_edge_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_dependency_edge_downstream_consumer_id_f a bpm:Field ;
+    bpm:fieldName "downstream_consumer_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact downstream consumer repository identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_dependency_edge_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-023 — crown_topological_order
+b4p:crown_topological_order_rt a bpm:RecordType ;
+    bpm:recordName "crown_topological_order" ;
+    bpm:recordDoc "Orders crown propagation so dependencies qualify before their consumers." ;
+    bpm:hasField b4p:crown_topological_order_propagation_id_f,
+                 b4p:crown_topological_order_subject_sha_f,
+                 b4p:crown_topological_order_topological_rank_f,
+                 b4p:crown_topological_order_receipt_digest_f .
+
+b4p:crown_topological_order_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_topological_order_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_topological_order_topological_rank_f a bpm:Field ;
+    bpm:fieldName "topological_rank" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Deterministic topological rank for this propagation node." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_topological_order_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-024 — crown_fanout_batch
+b4p:crown_fanout_batch_rt a bpm:RecordType ;
+    bpm:recordName "crown_fanout_batch" ;
+    bpm:recordDoc "Binds parallel downstream propagation to one deterministic admitted consumer set." ;
+    bpm:hasField b4p:crown_fanout_batch_propagation_id_f,
+                 b4p:crown_fanout_batch_subject_sha_f,
+                 b4p:crown_fanout_batch_fanout_set_digest_f,
+                 b4p:crown_fanout_batch_receipt_digest_f .
+
+b4p:crown_fanout_batch_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_fanout_batch_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_fanout_batch_fanout_set_digest_f a bpm:Field ;
+    bpm:fieldName "fanout_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the sorted fan-out consumer set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_fanout_batch_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-025 — crown_fanin_convergence
+b4p:crown_fanin_convergence_rt a bpm:RecordType ;
+    bpm:recordName "crown_fanin_convergence" ;
+    bpm:recordDoc "Requires every admitted upstream parent crown before a fan-in consumer can converge." ;
+    bpm:hasField b4p:crown_fanin_convergence_propagation_id_f,
+                 b4p:crown_fanin_convergence_subject_sha_f,
+                 b4p:crown_fanin_convergence_fanin_set_digest_f,
+                 b4p:crown_fanin_convergence_receipt_digest_f .
+
+b4p:crown_fanin_convergence_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_fanin_convergence_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_fanin_convergence_fanin_set_digest_f a bpm:Field ;
+    bpm:fieldName "fanin_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the complete admitted fan-in crown set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_fanin_convergence_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-026 — crown_recursive_fixed_point
+b4p:crown_recursive_fixed_point_rt a bpm:RecordType ;
+    bpm:recordName "crown_recursive_fixed_point" ;
+    bpm:recordDoc "Proves recursive ecosystem propagation reached a stable exact-crown fixed point." ;
+    bpm:hasField b4p:crown_recursive_fixed_point_propagation_id_f,
+                 b4p:crown_recursive_fixed_point_subject_sha_f,
+                 b4p:crown_recursive_fixed_point_fixed_point_digest_f,
+                 b4p:crown_recursive_fixed_point_receipt_digest_f .
+
+b4p:crown_recursive_fixed_point_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_recursive_fixed_point_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_recursive_fixed_point_fixed_point_digest_f a bpm:Field ;
+    bpm:fieldName "fixed_point_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the converged ecosystem crown assignment." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_recursive_fixed_point_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-027 — crown_child_publish_observation
+b4p:crown_child_publish_observation_rt a bpm:RecordType ;
+    bpm:recordName "crown_child_publish_observation" ;
+    bpm:recordDoc "Observes the exact child publication execution before its crown can propagate further." ;
+    bpm:hasField b4p:crown_child_publish_observation_propagation_id_f,
+                 b4p:crown_child_publish_observation_subject_sha_f,
+                 b4p:crown_child_publish_observation_child_publish_run_id_f,
+                 b4p:crown_child_publish_observation_receipt_digest_f .
+
+b4p:crown_child_publish_observation_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_child_publish_observation_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_child_publish_observation_child_publish_run_id_f a bpm:Field ;
+    bpm:fieldName "child_publish_run_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact workflow run identity that published the child crown." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_child_publish_observation_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-028 — crown_workflow_run_receipt
+b4p:crown_workflow_run_receipt_rt a bpm:RecordType ;
+    bpm:recordName "crown_workflow_run_receipt" ;
+    bpm:recordDoc "Binds a qualification receipt to the exact workflow execution and attempt." ;
+    bpm:hasField b4p:crown_workflow_run_receipt_propagation_id_f,
+                 b4p:crown_workflow_run_receipt_subject_sha_f,
+                 b4p:crown_workflow_run_receipt_workflow_run_id_f,
+                 b4p:crown_workflow_run_receipt_receipt_digest_f .
+
+b4p:crown_workflow_run_receipt_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_workflow_run_receipt_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_workflow_run_receipt_workflow_run_id_f a bpm:Field ;
+    bpm:fieldName "workflow_run_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact hosted workflow run and attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_workflow_run_receipt_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-029 — crown_artifact_pullback_smoke
+b4p:crown_artifact_pullback_smoke_rt a bpm:RecordType ;
+    bpm:recordName "crown_artifact_pullback_smoke" ;
+    bpm:recordDoc "Proves the published artifact can be pulled back from its distribution boundary byte-for-byte." ;
+    bpm:hasField b4p:crown_artifact_pullback_smoke_propagation_id_f,
+                 b4p:crown_artifact_pullback_smoke_subject_sha_f,
+                 b4p:crown_artifact_pullback_smoke_pullback_digest_f,
+                 b4p:crown_artifact_pullback_smoke_receipt_digest_f .
+
+b4p:crown_artifact_pullback_smoke_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_artifact_pullback_smoke_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_artifact_pullback_smoke_pullback_digest_f a bpm:Field ;
+    bpm:fieldName "pullback_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest observed after artifact pullback." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_artifact_pullback_smoke_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-030 — crown_consumer_smoke
+b4p:crown_consumer_smoke_rt a bpm:RecordType ;
+    bpm:recordName "crown_consumer_smoke" ;
+    bpm:recordDoc "Requires a real downstream consumer smoke consequence for the exact propagated crown." ;
+    bpm:hasField b4p:crown_consumer_smoke_propagation_id_f,
+                 b4p:crown_consumer_smoke_subject_sha_f,
+                 b4p:crown_consumer_smoke_consumer_smoke_digest_f,
+                 b4p:crown_consumer_smoke_receipt_digest_f .
+
+b4p:crown_consumer_smoke_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_consumer_smoke_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_consumer_smoke_consumer_smoke_digest_f a bpm:Field ;
+    bpm:fieldName "consumer_smoke_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact-consumer smoke receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_consumer_smoke_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-031 — crown_manufacturer_identity
+b4p:crown_manufacturer_identity_rt a bpm:RecordType ;
+    bpm:recordName "crown_manufacturer_identity" ;
+    bpm:recordDoc "Binds propagation to the exact deterministic manufacturer executable identity." ;
+    bpm:hasField b4p:crown_manufacturer_identity_propagation_id_f,
+                 b4p:crown_manufacturer_identity_subject_sha_f,
+                 b4p:crown_manufacturer_identity_manufacturer_digest_f,
+                 b4p:crown_manufacturer_identity_receipt_digest_f .
+
+b4p:crown_manufacturer_identity_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_manufacturer_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_manufacturer_identity_manufacturer_digest_f a bpm:Field ;
+    bpm:fieldName "manufacturer_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the admitted GGen manufacturer binary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_manufacturer_identity_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-032 — crown_runtime_identity
+b4p:crown_runtime_identity_rt a bpm:RecordType ;
+    bpm:recordName "crown_runtime_identity" ;
+    bpm:recordDoc "Binds the propagated artifact to the exact runtime used for qualification." ;
+    bpm:hasField b4p:crown_runtime_identity_propagation_id_f,
+                 b4p:crown_runtime_identity_subject_sha_f,
+                 b4p:crown_runtime_identity_runtime_digest_f,
+                 b4p:crown_runtime_identity_receipt_digest_f .
+
+b4p:crown_runtime_identity_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_runtime_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_runtime_identity_runtime_digest_f a bpm:Field ;
+    bpm:fieldName "runtime_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the admitted runtime environment." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_runtime_identity_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-033 — crown_planner_identity
+b4p:crown_planner_identity_rt a bpm:RecordType ;
+    bpm:recordName "crown_planner_identity" ;
+    bpm:recordDoc "Binds autonomous propagation selection to the exact admitted planner identity." ;
+    bpm:hasField b4p:crown_planner_identity_propagation_id_f,
+                 b4p:crown_planner_identity_subject_sha_f,
+                 b4p:crown_planner_identity_planner_digest_f,
+                 b4p:crown_planner_identity_receipt_digest_f .
+
+b4p:crown_planner_identity_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_planner_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_planner_identity_planner_digest_f a bpm:Field ;
+    bpm:fieldName "planner_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the planner that selected the propagation action." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_planner_identity_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-034 — crown_process_runtime_identity
+b4p:crown_process_runtime_identity_rt a bpm:RecordType ;
+    bpm:recordName "crown_process_runtime_identity" ;
+    bpm:recordDoc "Binds process-intelligence evidence to the exact Beam4PM computation identity." ;
+    bpm:hasField b4p:crown_process_runtime_identity_propagation_id_f,
+                 b4p:crown_process_runtime_identity_subject_sha_f,
+                 b4p:crown_process_runtime_identity_process_runtime_digest_f,
+                 b4p:crown_process_runtime_identity_receipt_digest_f .
+
+b4p:crown_process_runtime_identity_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_process_runtime_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_process_runtime_identity_process_runtime_digest_f a bpm:Field ;
+    bpm:fieldName "process_runtime_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the process-intelligence runtime subject." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_process_runtime_identity_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-035 — crown_supply_chain_policy
+b4p:crown_supply_chain_policy_rt a bpm:RecordType ;
+    bpm:recordName "crown_supply_chain_policy" ;
+    bpm:recordDoc "Records the executable supply-chain policy decision that admitted or refused the crown." ;
+    bpm:hasField b4p:crown_supply_chain_policy_propagation_id_f,
+                 b4p:crown_supply_chain_policy_subject_sha_f,
+                 b4p:crown_supply_chain_policy_policy_decision_digest_f,
+                 b4p:crown_supply_chain_policy_receipt_digest_f .
+
+b4p:crown_supply_chain_policy_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_supply_chain_policy_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_supply_chain_policy_policy_decision_digest_f a bpm:Field ;
+    bpm:fieldName "policy_decision_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact policy input and decision." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_supply_chain_policy_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-036 — crown_known_good_rollback
+b4p:crown_known_good_rollback_rt a bpm:RecordType ;
+    bpm:recordName "crown_known_good_rollback" ;
+    bpm:recordDoc "Selects an immutable previously qualified crown for autonomous rollback." ;
+    bpm:hasField b4p:crown_known_good_rollback_propagation_id_f,
+                 b4p:crown_known_good_rollback_subject_sha_f,
+                 b4p:crown_known_good_rollback_rollback_crown_digest_f,
+                 b4p:crown_known_good_rollback_receipt_digest_f .
+
+b4p:crown_known_good_rollback_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_known_good_rollback_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_known_good_rollback_rollback_crown_digest_f a bpm:Field ;
+    bpm:fieldName "rollback_crown_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact prior known-good crown digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_known_good_rollback_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-037 — crown_partial_checkpoint
+b4p:crown_partial_checkpoint_rt a bpm:RecordType ;
+    bpm:recordName "crown_partial_checkpoint" ;
+    bpm:recordDoc "Persists exact completed propagation edges for safe recovery after partial failure." ;
+    bpm:hasField b4p:crown_partial_checkpoint_propagation_id_f,
+                 b4p:crown_partial_checkpoint_subject_sha_f,
+                 b4p:crown_partial_checkpoint_checkpoint_digest_f,
+                 b4p:crown_partial_checkpoint_receipt_digest_f .
+
+b4p:crown_partial_checkpoint_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_partial_checkpoint_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_partial_checkpoint_checkpoint_digest_f a bpm:Field ;
+    bpm:fieldName "checkpoint_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the completed-edge checkpoint." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_partial_checkpoint_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-038 — crown_resume_token
+b4p:crown_resume_token_rt a bpm:RecordType ;
+    bpm:recordName "crown_resume_token" ;
+    bpm:recordDoc "Binds resumed propagation to its checkpoint and current dependency graph." ;
+    bpm:hasField b4p:crown_resume_token_propagation_id_f,
+                 b4p:crown_resume_token_subject_sha_f,
+                 b4p:crown_resume_token_resume_token_digest_f,
+                 b4p:crown_resume_token_receipt_digest_f .
+
+b4p:crown_resume_token_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_resume_token_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_resume_token_resume_token_digest_f a bpm:Field ;
+    bpm:fieldName "resume_token_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the validated resume token." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_resume_token_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-039 — crown_latency_observation
+b4p:crown_latency_observation_rt a bpm:RecordType ;
+    bpm:recordName "crown_latency_observation" ;
+    bpm:recordDoc "Records exact end-to-end propagation latency for freshness and SLO decisions." ;
+    bpm:hasField b4p:crown_latency_observation_propagation_id_f,
+                 b4p:crown_latency_observation_subject_sha_f,
+                 b4p:crown_latency_observation_latency_millis_f,
+                 b4p:crown_latency_observation_receipt_digest_f .
+
+b4p:crown_latency_observation_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_latency_observation_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_latency_observation_latency_millis_f a bpm:Field ;
+    bpm:fieldName "latency_millis" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed propagation latency in milliseconds." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_latency_observation_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-040 — crown_convergence_proof
+b4p:crown_convergence_proof_rt a bpm:RecordType ;
+    bpm:recordName "crown_convergence_proof" ;
+    bpm:recordDoc "Produces a deterministic proof that every admitted consumer holds the expected crown." ;
+    bpm:hasField b4p:crown_convergence_proof_propagation_id_f,
+                 b4p:crown_convergence_proof_subject_sha_f,
+                 b4p:crown_convergence_proof_convergence_proof_digest_f,
+                 b4p:crown_convergence_proof_receipt_digest_f .
+
+b4p:crown_convergence_proof_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_convergence_proof_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_convergence_proof_convergence_proof_digest_f a bpm:Field ;
+    bpm:fieldName "convergence_proof_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the ecosystem convergence proof." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_convergence_proof_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-041 — crown_applicable_gate_coverage
+b4p:crown_applicable_gate_coverage_rt a bpm:RecordType ;
+    bpm:recordName "crown_applicable_gate_coverage" ;
+    bpm:recordDoc "Requires every gate applicable to the changed subject before declaring the crown alive." ;
+    bpm:hasField b4p:crown_applicable_gate_coverage_propagation_id_f,
+                 b4p:crown_applicable_gate_coverage_subject_sha_f,
+                 b4p:crown_applicable_gate_coverage_applicable_gate_set_digest_f,
+                 b4p:crown_applicable_gate_coverage_receipt_digest_f .
+
+b4p:crown_applicable_gate_coverage_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_applicable_gate_coverage_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_applicable_gate_coverage_applicable_gate_set_digest_f a bpm:Field ;
+    bpm:fieldName "applicable_gate_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the normalized applicable gate set and results." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_applicable_gate_coverage_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-042 — crown_path_skip_refusal
+b4p:crown_path_skip_refusal_rt a bpm:RecordType ;
+    bpm:recordName "crown_path_skip_refusal" ;
+    bpm:recordDoc "Refuses false ALIVE when a required qualification gate was path-skipped." ;
+    bpm:hasField b4p:crown_path_skip_refusal_propagation_id_f,
+                 b4p:crown_path_skip_refusal_subject_sha_f,
+                 b4p:crown_path_skip_refusal_skipped_gate_id_f,
+                 b4p:crown_path_skip_refusal_receipt_digest_f .
+
+b4p:crown_path_skip_refusal_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_path_skip_refusal_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_path_skip_refusal_skipped_gate_id_f a bpm:Field ;
+    bpm:fieldName "skipped_gate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Identity of the required gate that was skipped." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_path_skip_refusal_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-043 — crown_check_relevance
+b4p:crown_check_relevance_rt a bpm:RecordType ;
+    bpm:recordName "crown_check_relevance" ;
+    bpm:recordDoc "Separates irrelevant checks from exact-subject qualification without hiding required evidence." ;
+    bpm:hasField b4p:crown_check_relevance_propagation_id_f,
+                 b4p:crown_check_relevance_subject_sha_f,
+                 b4p:crown_check_relevance_relevance_proof_digest_f,
+                 b4p:crown_check_relevance_receipt_digest_f .
+
+b4p:crown_check_relevance_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_check_relevance_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_check_relevance_relevance_proof_digest_f a bpm:Field ;
+    bpm:fieldName "relevance_proof_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest proving check relevance classification." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_check_relevance_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-044 — crown_source_capsule
+b4p:crown_source_capsule_rt a bpm:RecordType ;
+    bpm:recordName "crown_source_capsule" ;
+    bpm:recordDoc "Binds validation to the exact ggen-ecosystem source capsule and image identity." ;
+    bpm:hasField b4p:crown_source_capsule_propagation_id_f,
+                 b4p:crown_source_capsule_subject_sha_f,
+                 b4p:crown_source_capsule_capsule_digest_f,
+                 b4p:crown_source_capsule_receipt_digest_f .
+
+b4p:crown_source_capsule_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_source_capsule_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_source_capsule_capsule_digest_f a bpm:Field ;
+    bpm:fieldName "capsule_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact source capsule or reproducible image digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_source_capsule_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-045 — crown_validation_pack
+b4p:crown_validation_pack_rt a bpm:RecordType ;
+    bpm:recordName "crown_validation_pack" ;
+    bpm:recordDoc "Pins the executable validation pack to an immutable marketplace commit." ;
+    bpm:hasField b4p:crown_validation_pack_propagation_id_f,
+                 b4p:crown_validation_pack_subject_sha_f,
+                 b4p:crown_validation_pack_validation_pack_sha_f,
+                 b4p:crown_validation_pack_receipt_digest_f .
+
+b4p:crown_validation_pack_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_validation_pack_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_validation_pack_validation_pack_sha_f a bpm:Field ;
+    bpm:fieldName "validation_pack_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact validation-pack Git commit SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_validation_pack_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-046 — crown_execution_mode
+b4p:crown_execution_mode_rt a bpm:RecordType ;
+    bpm:recordName "crown_execution_mode" ;
+    bpm:recordDoc "Records whether qualification ran locally, in a capsule, or on a hosted runner." ;
+    bpm:hasField b4p:crown_execution_mode_propagation_id_f,
+                 b4p:crown_execution_mode_subject_sha_f,
+                 b4p:crown_execution_mode_execution_mode_f,
+                 b4p:crown_execution_mode_receipt_digest_f .
+
+b4p:crown_execution_mode_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_execution_mode_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_execution_mode_execution_mode_f a bpm:Field ;
+    bpm:fieldName "execution_mode" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Admitted execution-mode identifier." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_execution_mode_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-047 — crown_capsule_toolchain
+b4p:crown_capsule_toolchain_rt a bpm:RecordType ;
+    bpm:recordName "crown_capsule_toolchain" ;
+    bpm:recordDoc "Binds source capsule, validation pack, execution mode, and toolchain as one evidence identity." ;
+    bpm:hasField b4p:crown_capsule_toolchain_propagation_id_f,
+                 b4p:crown_capsule_toolchain_subject_sha_f,
+                 b4p:crown_capsule_toolchain_toolchain_digest_f,
+                 b4p:crown_capsule_toolchain_receipt_digest_f .
+
+b4p:crown_capsule_toolchain_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_capsule_toolchain_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_capsule_toolchain_toolchain_digest_f a bpm:Field ;
+    bpm:fieldName "toolchain_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact capsule toolchain closure." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_capsule_toolchain_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-048 — crown_zero_unreceipted_writes
+b4p:crown_zero_unreceipted_writes_rt a bpm:RecordType ;
+    bpm:recordName "crown_zero_unreceipted_writes" ;
+    bpm:recordDoc "Proves every propagation write belongs to a retained authorized receipt." ;
+    bpm:hasField b4p:crown_zero_unreceipted_writes_propagation_id_f,
+                 b4p:crown_zero_unreceipted_writes_subject_sha_f,
+                 b4p:crown_zero_unreceipted_writes_write_set_digest_f,
+                 b4p:crown_zero_unreceipted_writes_receipt_digest_f .
+
+b4p:crown_zero_unreceipted_writes_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_zero_unreceipted_writes_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_zero_unreceipted_writes_write_set_digest_f a bpm:Field ;
+    bpm:fieldName "write_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the complete authorized write set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_zero_unreceipted_writes_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-049 — crown_federated_phase_receipt
+b4p:crown_federated_phase_receipt_rt a bpm:RecordType ;
+    bpm:recordName "crown_federated_phase_receipt" ;
+    bpm:recordDoc "Receipts SELECT, CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, and RECEIPT as ordered phases." ;
+    bpm:hasField b4p:crown_federated_phase_receipt_propagation_id_f,
+                 b4p:crown_federated_phase_receipt_subject_sha_f,
+                 b4p:crown_federated_phase_receipt_selected_option_digest_f,
+                 b4p:crown_federated_phase_receipt_receipt_digest_f .
+
+b4p:crown_federated_phase_receipt_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_federated_phase_receipt_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_federated_phase_receipt_selected_option_digest_f a bpm:Field ;
+    bpm:fieldName "selected_option_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the selected qualified propagation option." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_federated_phase_receipt_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS4-ACP-050 — crown_autonomic_republish
+b4p:crown_autonomic_republish_rt a bpm:RecordType ;
+    bpm:recordName "crown_autonomic_republish" ;
+    bpm:recordDoc "Receipts autonomous downstream requalification and immutable crown republication." ;
+    bpm:hasField b4p:crown_autonomic_republish_propagation_id_f,
+                 b4p:crown_autonomic_republish_subject_sha_f,
+                 b4p:crown_autonomic_republish_republished_crown_digest_f,
+                 b4p:crown_autonomic_republish_receipt_digest_f .
+
+b4p:crown_autonomic_republish_propagation_id_f a bpm:Field ;
+    bpm:fieldName "propagation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Unique autonomic propagation attempt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:crown_autonomic_republish_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact admitted Git subject SHA." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:crown_autonomic_republish_republished_crown_digest_f a bpm:Field ;
+    bpm:fieldName "republished_crown_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact digest of the republished downstream crown." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:crown_autonomic_republish_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable digest of this capability's exact-subject qualification receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
