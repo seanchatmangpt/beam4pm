@@ -10763,3 +10763,38 @@ b4p:root_cause_pattern_reusable_scope_f a bpm:Field ;
     bpm:fieldName "reusable_scope" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Bounded scope where reuse is admissible." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-027 — root_cause_reuse_decision
+b4p:root_cause_reuse_decision_rt a bpm:RecordType ;
+    bpm:recordName "root_cause_reuse_decision" ;
+    bpm:recordDoc "Admits or refuses reuse of a historical root cause using measured similarity evidence." ;
+    bpm:hasField b4p:root_cause_reuse_decision_decision_id_f,
+                 b4p:root_cause_reuse_decision_pattern_id_f,
+                 b4p:root_cause_reuse_decision_current_failure_id_f,
+                 b4p:root_cause_reuse_decision_similarity_score_f,
+                 b4p:root_cause_reuse_decision_applicability_evidence_digest_f .
+
+b4p:root_cause_reuse_decision_decision_id_f a bpm:Field ;
+    bpm:fieldName "decision_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable reuse decision identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:root_cause_reuse_decision_pattern_id_f a bpm:Field ;
+    bpm:fieldName "pattern_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Historical root-cause pattern considered." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:root_cause_reuse_decision_current_failure_id_f a bpm:Field ;
+    bpm:fieldName "current_failure_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Current failure being diagnosed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:root_cause_reuse_decision_similarity_score_f a bpm:Field ;
+    bpm:fieldName "similarity_score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Measured causal similarity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:root_cause_reuse_decision_applicability_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "applicability_evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence proving or refusing applicability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
