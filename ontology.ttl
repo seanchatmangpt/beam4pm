@@ -10307,3 +10307,44 @@ b4p:shadow_challenger_execution_authority_mode_f a bpm:Field ;
     bpm:fieldName "authority_mode" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Authority mode, required to remain non-consequential." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-015 — seeded_evaluation
+b4p:seeded_evaluation_rt a bpm:RecordType ;
+    bpm:recordName "seeded_evaluation" ;
+    bpm:recordDoc "Produces a reproducible policy evaluation bound to an explicit seed and dataset." ;
+    bpm:hasField b4p:seeded_evaluation_evaluation_id_f,
+                 b4p:seeded_evaluation_seed_f,
+                 b4p:seeded_evaluation_dataset_digest_f,
+                 b4p:seeded_evaluation_policy_id_f,
+                 b4p:seeded_evaluation_score_f,
+                 b4p:seeded_evaluation_replay_digest_f .
+
+b4p:seeded_evaluation_evaluation_id_f a bpm:Field ;
+    bpm:fieldName "evaluation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable seeded evaluation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:seeded_evaluation_seed_f a bpm:Field ;
+    bpm:fieldName "seed" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Explicit deterministic seed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:seeded_evaluation_dataset_digest_f a bpm:Field ;
+    bpm:fieldName "dataset_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable evaluation dataset digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:seeded_evaluation_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Policy evaluated." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:seeded_evaluation_score_f a bpm:Field ;
+    bpm:fieldName "score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed evaluation score." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:seeded_evaluation_replay_digest_f a bpm:Field ;
+    bpm:fieldName "replay_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of deterministic replay output." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
