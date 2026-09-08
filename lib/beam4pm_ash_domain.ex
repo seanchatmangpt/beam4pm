@@ -56,6 +56,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.BusinessOutcomeMeasurement
     resource BeamPM.Ash.Resources.BuyingCommittee
     resource BeamPM.Ash.Resources.CallerLocalCheckoutObservation
+    resource BeamPM.Ash.Resources.CallerLocalCrownIdentity
     resource BeamPM.Ash.Resources.CanaryDecision
     resource BeamPM.Ash.Resources.CanaryEvidence
     resource BeamPM.Ash.Resources.CanonicalSourceAuthorityObservation
@@ -98,6 +99,55 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.CrashRecoveryReceipt
     resource BeamPM.Ash.Resources.CreditRiskAdmission
     resource BeamPM.Ash.Resources.CrossSellFit
+    resource BeamPM.Ash.Resources.CrownApplicableGateCoverage
+    resource BeamPM.Ash.Resources.CrownArtifactPullbackSmoke
+    resource BeamPM.Ash.Resources.CrownAttestationSigner
+    resource BeamPM.Ash.Resources.CrownAutonomicRepublish
+    resource BeamPM.Ash.Resources.CrownCapsuleToolchain
+    resource BeamPM.Ash.Resources.CrownCasPromotion
+    resource BeamPM.Ash.Resources.CrownCheckRelevance
+    resource BeamPM.Ash.Resources.CrownChildPublishObservation
+    resource BeamPM.Ash.Resources.CrownConsumerSmoke
+    resource BeamPM.Ash.Resources.CrownConvergenceProof
+    resource BeamPM.Ash.Resources.CrownCosignCertificate
+    resource BeamPM.Ash.Resources.CrownDefaultHeadSensor
+    resource BeamPM.Ash.Resources.CrownDependencyEdge
+    resource BeamPM.Ash.Resources.CrownExecutionMode
+    resource BeamPM.Ash.Resources.CrownFaninConvergence
+    resource BeamPM.Ash.Resources.CrownFanoutBatch
+    resource BeamPM.Ash.Resources.CrownFederatedPhaseReceipt
+    resource BeamPM.Ash.Resources.CrownFreshnessWindow
+    resource BeamPM.Ash.Resources.CrownGeneratedSourceOwnership
+    resource BeamPM.Ash.Resources.CrownGitlinkReconciliation
+    resource BeamPM.Ash.Resources.CrownImmutableShaTag
+    resource BeamPM.Ash.Resources.CrownKnownGoodRollback
+    resource BeamPM.Ash.Resources.CrownLatencyObservation
+    resource BeamPM.Ash.Resources.CrownLockReconciliation
+    resource BeamPM.Ash.Resources.CrownManufacturerIdentity
+    resource BeamPM.Ash.Resources.CrownMarketplacePackPin
+    resource BeamPM.Ash.Resources.CrownMultiarchPlatformSet
+    resource BeamPM.Ash.Resources.CrownOciManifestBinding
+    resource BeamPM.Ash.Resources.CrownPackagePinReconciliation
+    resource BeamPM.Ash.Resources.CrownPartialCheckpoint
+    resource BeamPM.Ash.Resources.CrownPathSkipRefusal
+    resource BeamPM.Ash.Resources.CrownPlannerIdentity
+    resource BeamPM.Ash.Resources.CrownProcessRuntimeIdentity
+    resource BeamPM.Ash.Resources.CrownPromotionRace
+    resource BeamPM.Ash.Resources.CrownProvenanceBinding
+    resource BeamPM.Ash.Resources.CrownReceiptOutputOwnership
+    resource BeamPM.Ash.Resources.CrownRecursiveFixedPoint
+    resource BeamPM.Ash.Resources.CrownResumeToken
+    resource BeamPM.Ash.Resources.CrownRuntimeIdentity
+    resource BeamPM.Ash.Resources.CrownSbomSubjectBinding
+    resource BeamPM.Ash.Resources.CrownSecondPassIdentity
+    resource BeamPM.Ash.Resources.CrownSecurityScan
+    resource BeamPM.Ash.Resources.CrownSourceCapsule
+    resource BeamPM.Ash.Resources.CrownStaleRefusal
+    resource BeamPM.Ash.Resources.CrownSupplyChainPolicy
+    resource BeamPM.Ash.Resources.CrownTopologicalOrder
+    resource BeamPM.Ash.Resources.CrownValidationPack
+    resource BeamPM.Ash.Resources.CrownWorkflowRunReceipt
+    resource BeamPM.Ash.Resources.CrownZeroUnreceiptedWrites
     resource BeamPM.Ash.Resources.CustomerHealth
     resource BeamPM.Ash.Resources.CustomerManagedKeyEvidence
     resource BeamPM.Ash.Resources.CustomerSignalObservation
