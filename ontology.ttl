@@ -9822,3 +9822,38 @@ b4p:learning_episode_authority_ceiling_f a bpm:Field ;
     bpm:fieldName "authority_ceiling" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Maximum authority learning may influence; DO authority remains excluded." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-002 — evidence_training_sample
+b4p:evidence_training_sample_rt a bpm:RecordType ;
+    bpm:recordName "evidence_training_sample" ;
+    bpm:recordDoc "Transforms admitted episode evidence into a provenance-bound training sample while refusing evidence-free labels." ;
+    bpm:hasField b4p:evidence_training_sample_sample_id_f,
+                 b4p:evidence_training_sample_episode_id_f,
+                 b4p:evidence_training_sample_feature_digest_f,
+                 b4p:evidence_training_sample_label_id_f,
+                 b4p:evidence_training_sample_provenance_digest_f .
+
+b4p:evidence_training_sample_sample_id_f a bpm:Field ;
+    bpm:fieldName "sample_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable training sample identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:evidence_training_sample_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Source learning episode identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:evidence_training_sample_feature_digest_f a bpm:Field ;
+    bpm:fieldName "feature_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the decision-relevant feature projection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:evidence_training_sample_label_id_f a bpm:Field ;
+    bpm:fieldName "label_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Outcome or failure label identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:evidence_training_sample_provenance_digest_f a bpm:Field ;
+    bpm:fieldName "provenance_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable provenance proving how the sample was derived." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
