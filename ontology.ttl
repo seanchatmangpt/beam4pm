@@ -10512,3 +10512,44 @@ b4p:novelty_reward_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Evidence supporting the distance calculation." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-020 — orthogonality_reward
+b4p:orthogonality_reward_rt a bpm:RecordType ;
+    bpm:recordName "orthogonality_reward" ;
+    bpm:recordDoc "Scores independent semantic coverage against the full comparison set." ;
+    bpm:hasField b4p:orthogonality_reward_reward_id_f,
+                 b4p:orthogonality_reward_candidate_id_f,
+                 b4p:orthogonality_reward_comparison_set_digest_f,
+                 b4p:orthogonality_reward_minimum_semantic_distance_f,
+                 b4p:orthogonality_reward_reward_f,
+                 b4p:orthogonality_reward_independence_evidence_digest_f .
+
+b4p:orthogonality_reward_reward_id_f a bpm:Field ;
+    bpm:fieldName "reward_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable orthogonality reward identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:orthogonality_reward_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate capability identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:orthogonality_reward_comparison_set_digest_f a bpm:Field ;
+    bpm:fieldName "comparison_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of capabilities compared." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:orthogonality_reward_minimum_semantic_distance_f a bpm:Field ;
+    bpm:fieldName "minimum_semantic_distance" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Minimum distance from any prior capability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:orthogonality_reward_reward_f a bpm:Field ;
+    bpm:fieldName "reward" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Bounded orthogonality reward." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:orthogonality_reward_independence_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "independence_evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest proving distinct execution semantics." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
