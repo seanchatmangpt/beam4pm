@@ -11143,3 +11143,44 @@ b4p:decision_information_preservation_loss_score_f a bpm:Field ;
     bpm:fieldName "loss_score" ; bpm:fieldType "float" ;
     bpm:fieldDoc "Measured decision-information loss." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-037 — observation_projection_update
+b4p:observation_projection_update_rt a bpm:RecordType ;
+    bpm:recordName "observation_projection_update" ;
+    bpm:recordDoc "Updates future observation shape from an admitted gap while preserving an explicit authority ceiling." ;
+    bpm:hasField b4p:observation_projection_update_update_id_f,
+                 b4p:observation_projection_update_projection_id_f,
+                 b4p:observation_projection_update_prior_digest_f,
+                 b4p:observation_projection_update_new_digest_f,
+                 b4p:observation_projection_update_triggering_gap_id_f,
+                 b4p:observation_projection_update_authority_ceiling_f .
+
+b4p:observation_projection_update_update_id_f a bpm:Field ;
+    bpm:fieldName "update_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable observation update identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:observation_projection_update_projection_id_f a bpm:Field ;
+    bpm:fieldName "projection_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Projection being adapted." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:observation_projection_update_prior_digest_f a bpm:Field ;
+    bpm:fieldName "prior_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the prior projection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:observation_projection_update_new_digest_f a bpm:Field ;
+    bpm:fieldName "new_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the candidate projection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:observation_projection_update_triggering_gap_id_f a bpm:Field ;
+    bpm:fieldName "triggering_gap_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Admitted capability gap causing the update." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:observation_projection_update_authority_ceiling_f a bpm:Field ;
+    bpm:fieldName "authority_ceiling" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Boundary excluding consequential actuation authority." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
