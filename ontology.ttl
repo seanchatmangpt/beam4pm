@@ -10471,3 +10471,44 @@ b4p:regression_refusal_authority_ceiling_f a bpm:Field ;
     bpm:fieldName "authority_ceiling" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Boundary preventing self-override of refusal." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-019 — novelty_reward
+b4p:novelty_reward_rt a bpm:RecordType ;
+    bpm:recordName "novelty_reward" ;
+    bpm:recordDoc "Rewards only measured distance from prior admitted hypotheses to resist repetitive backlog generation." ;
+    bpm:hasField b4p:novelty_reward_reward_id_f,
+                 b4p:novelty_reward_hypothesis_id_f,
+                 b4p:novelty_reward_feature_vector_digest_f,
+                 b4p:novelty_reward_nearest_prior_distance_f,
+                 b4p:novelty_reward_reward_f,
+                 b4p:novelty_reward_evidence_digest_f .
+
+b4p:novelty_reward_reward_id_f a bpm:Field ;
+    bpm:fieldName "reward_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable novelty reward identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:novelty_reward_hypothesis_id_f a bpm:Field ;
+    bpm:fieldName "hypothesis_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate hypothesis identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:novelty_reward_feature_vector_digest_f a bpm:Field ;
+    bpm:fieldName "feature_vector_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of semantic features." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:novelty_reward_nearest_prior_distance_f a bpm:Field ;
+    bpm:fieldName "nearest_prior_distance" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Distance to nearest admitted prior hypothesis." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:novelty_reward_reward_f a bpm:Field ;
+    bpm:fieldName "reward" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Bounded novelty reward." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:novelty_reward_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence supporting the distance calculation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
