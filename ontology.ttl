@@ -11342,3 +11342,44 @@ b4p:counterfactual_replay_comparison_digest_f a bpm:Field ;
     bpm:fieldName "comparison_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest comparing observed and counterfactual traces." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-042 — rollback_outcome_learning
+b4p:rollback_outcome_learning_rt a bpm:RecordType ;
+    bpm:recordName "rollback_outcome_learning" ;
+    bpm:recordDoc "Learns whether rollback restored admitted state without treating rollback completion as success by itself." ;
+    bpm:hasField b4p:rollback_outcome_learning_learning_id_f,
+                 b4p:rollback_outcome_learning_rollback_id_f,
+                 b4p:rollback_outcome_learning_pre_rollback_state_digest_f,
+                 b4p:rollback_outcome_learning_post_rollback_state_digest_f,
+                 b4p:rollback_outcome_learning_recovery_score_f,
+                 b4p:rollback_outcome_learning_evidence_digest_f .
+
+b4p:rollback_outcome_learning_learning_id_f a bpm:Field ;
+    bpm:fieldName "learning_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable rollback learning identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:rollback_outcome_learning_rollback_id_f a bpm:Field ;
+    bpm:fieldName "rollback_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Rollback transition evaluated." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:rollback_outcome_learning_pre_rollback_state_digest_f a bpm:Field ;
+    bpm:fieldName "pre_rollback_state_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "State digest before rollback." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:rollback_outcome_learning_post_rollback_state_digest_f a bpm:Field ;
+    bpm:fieldName "post_rollback_state_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "State digest after rollback." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:rollback_outcome_learning_recovery_score_f a bpm:Field ;
+    bpm:fieldName "recovery_score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Measured degree of state restoration." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:rollback_outcome_learning_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Independent recovery evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
