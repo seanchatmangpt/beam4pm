@@ -10985,3 +10985,44 @@ b4p:refusal_threshold_authority_binding_f a bpm:Field ;
     bpm:fieldName "authority_binding" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Authority that alone may revise the threshold." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-033 — value_realization_feedback
+b4p:value_realization_feedback_rt a bpm:RecordType ;
+    bpm:recordName "value_realization_feedback" ;
+    bpm:recordDoc "Feeds independently measured realized value back into future policy ranking." ;
+    bpm:hasField b4p:value_realization_feedback_feedback_id_f,
+                 b4p:value_realization_feedback_objective_id_f,
+                 b4p:value_realization_feedback_baseline_value_f,
+                 b4p:value_realization_feedback_realized_value_f,
+                 b4p:value_realization_feedback_evidence_digest_f,
+                 b4p:value_realization_feedback_policy_id_f .
+
+b4p:value_realization_feedback_feedback_id_f a bpm:Field ;
+    bpm:fieldName "feedback_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable value feedback identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:value_realization_feedback_objective_id_f a bpm:Field ;
+    bpm:fieldName "objective_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Value objective being measured." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:value_realization_feedback_baseline_value_f a bpm:Field ;
+    bpm:fieldName "baseline_value" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Value before the policy episode." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:value_realization_feedback_realized_value_f a bpm:Field ;
+    bpm:fieldName "realized_value" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed value after the episode." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:value_realization_feedback_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Independent outcome evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:value_realization_feedback_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Policy associated with the outcome." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
