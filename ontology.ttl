@@ -10143,3 +10143,44 @@ b4p:planner_payoff_observation_episode_id_f a bpm:Field ;
     bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Episode that realized the payoff." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-011 — policy_payoff_observation
+b4p:policy_payoff_observation_rt a bpm:RecordType ;
+    bpm:recordName "policy_payoff_observation" ;
+    bpm:recordDoc "Records bounded policy payoff separately from planner identity and parameters." ;
+    bpm:hasField b4p:policy_payoff_observation_observation_id_f,
+                 b4p:policy_payoff_observation_policy_id_f,
+                 b4p:policy_payoff_observation_parameter_digest_f,
+                 b4p:policy_payoff_observation_objective_id_f,
+                 b4p:policy_payoff_observation_payoff_f,
+                 b4p:policy_payoff_observation_evidence_digest_f .
+
+b4p:policy_payoff_observation_observation_id_f a bpm:Field ;
+    bpm:fieldName "observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable policy payoff observation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:policy_payoff_observation_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact policy identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:policy_payoff_observation_parameter_digest_f a bpm:Field ;
+    bpm:fieldName "parameter_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of bounded policy parameters." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:policy_payoff_observation_objective_id_f a bpm:Field ;
+    bpm:fieldName "objective_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Objective used to score the policy." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:policy_payoff_observation_payoff_f a bpm:Field ;
+    bpm:fieldName "payoff" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed numeric policy payoff." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:policy_payoff_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Independent evidence supporting the payoff." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
