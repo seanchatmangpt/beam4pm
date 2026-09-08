@@ -10623,3 +10623,38 @@ b4p:generated_hypothesis_falsifier_contract_f a bpm:Field ;
     bpm:fieldName "falsifier_contract" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Executable condition that can disprove the hypothesis." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-023 — hypothesis_priority_update
+b4p:hypothesis_priority_update_rt a bpm:RecordType ;
+    bpm:recordName "hypothesis_priority_update" ;
+    bpm:recordDoc "Updates hypothesis priority from realized evidence while retaining the prior ranking." ;
+    bpm:hasField b4p:hypothesis_priority_update_update_id_f,
+                 b4p:hypothesis_priority_update_hypothesis_id_f,
+                 b4p:hypothesis_priority_update_prior_priority_f,
+                 b4p:hypothesis_priority_update_new_priority_f,
+                 b4p:hypothesis_priority_update_payoff_evidence_digest_f .
+
+b4p:hypothesis_priority_update_update_id_f a bpm:Field ;
+    bpm:fieldName "update_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable priority update identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:hypothesis_priority_update_hypothesis_id_f a bpm:Field ;
+    bpm:fieldName "hypothesis_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Hypothesis being reprioritized." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:hypothesis_priority_update_prior_priority_f a bpm:Field ;
+    bpm:fieldName "prior_priority" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Priority before learning." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:hypothesis_priority_update_new_priority_f a bpm:Field ;
+    bpm:fieldName "new_priority" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Evidence-updated priority." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:hypothesis_priority_update_payoff_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "payoff_evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest supporting the update." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
