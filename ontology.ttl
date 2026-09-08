@@ -10728,3 +10728,38 @@ b4p:anti_repeat_refusal_alternative_required_f a bpm:Field ;
     bpm:fieldName "alternative_required" ; bpm:fieldType "boolean" ;
     bpm:fieldDoc "Whether selection must produce a different option." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-026 — root_cause_pattern
+b4p:root_cause_pattern_rt a bpm:RecordType ;
+    bpm:recordName "root_cause_pattern" ;
+    bpm:recordDoc "Stores a reusable root-cause pattern only after independent reproduction." ;
+    bpm:hasField b4p:root_cause_pattern_pattern_id_f,
+                 b4p:root_cause_pattern_failure_class_f,
+                 b4p:root_cause_pattern_causal_graph_digest_f,
+                 b4p:root_cause_pattern_confirmed_reproducer_digest_f,
+                 b4p:root_cause_pattern_reusable_scope_f .
+
+b4p:root_cause_pattern_pattern_id_f a bpm:Field ;
+    bpm:fieldName "pattern_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable root-cause pattern identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:root_cause_pattern_failure_class_f a bpm:Field ;
+    bpm:fieldName "failure_class" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Failure class explained by the pattern." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:root_cause_pattern_causal_graph_digest_f a bpm:Field ;
+    bpm:fieldName "causal_graph_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the causal graph." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:root_cause_pattern_confirmed_reproducer_digest_f a bpm:Field ;
+    bpm:fieldName "confirmed_reproducer_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Independent reproducer evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:root_cause_pattern_reusable_scope_f a bpm:Field ;
+    bpm:fieldName "reusable_scope" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Bounded scope where reuse is admissible." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
