@@ -10102,3 +10102,44 @@ b4p:trajectory_window_episode_count_f a bpm:Field ;
     bpm:fieldName "episode_count" ; bpm:fieldType "integer" ;
     bpm:fieldDoc "Number of admitted episodes in the window." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-010 — planner_payoff_observation
+b4p:planner_payoff_observation_rt a bpm:RecordType ;
+    bpm:recordName "planner_payoff_observation" ;
+    bpm:recordDoc "Records objective-specific planner payoff from independent episode evidence." ;
+    bpm:hasField b4p:planner_payoff_observation_observation_id_f,
+                 b4p:planner_payoff_observation_planner_id_f,
+                 b4p:planner_payoff_observation_objective_id_f,
+                 b4p:planner_payoff_observation_payoff_f,
+                 b4p:planner_payoff_observation_evidence_digest_f,
+                 b4p:planner_payoff_observation_episode_id_f .
+
+b4p:planner_payoff_observation_observation_id_f a bpm:Field ;
+    bpm:fieldName "observation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable planner payoff observation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_payoff_observation_planner_id_f a bpm:Field ;
+    bpm:fieldName "planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planner whose realized payoff is measured." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_payoff_observation_objective_id_f a bpm:Field ;
+    bpm:fieldName "objective_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Objective used for evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:planner_payoff_observation_payoff_f a bpm:Field ;
+    bpm:fieldName "payoff" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed numeric payoff." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:planner_payoff_observation_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Independent evidence supporting the payoff." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:planner_payoff_observation_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Episode that realized the payoff." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
