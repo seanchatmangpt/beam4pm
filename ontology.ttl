@@ -10225,3 +10225,44 @@ b4p:planner_policy_comparison_winner_evidence_digest_f a bpm:Field ;
     bpm:fieldName "winner_evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest proving the selected winner." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-013 — challenger_candidate_evaluation
+b4p:challenger_candidate_evaluation_rt a bpm:RecordType ;
+    bpm:recordName "challenger_candidate_evaluation" ;
+    bpm:recordDoc "Evaluates a challenger on a fixed episode set and preserves a refusal outcome." ;
+    bpm:hasField b4p:challenger_candidate_evaluation_evaluation_id_f,
+                 b4p:challenger_candidate_evaluation_challenger_policy_id_f,
+                 b4p:challenger_candidate_evaluation_episode_set_digest_f,
+                 b4p:challenger_candidate_evaluation_evaluation_seed_f,
+                 b4p:challenger_candidate_evaluation_score_f,
+                 b4p:challenger_candidate_evaluation_refusal_code_f .
+
+b4p:challenger_candidate_evaluation_evaluation_id_f a bpm:Field ;
+    bpm:fieldName "evaluation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable challenger evaluation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:challenger_candidate_evaluation_challenger_policy_id_f a bpm:Field ;
+    bpm:fieldName "challenger_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Challenger policy under evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:challenger_candidate_evaluation_episode_set_digest_f a bpm:Field ;
+    bpm:fieldName "episode_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the immutable evaluation episode set." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:challenger_candidate_evaluation_evaluation_seed_f a bpm:Field ;
+    bpm:fieldName "evaluation_seed" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Explicit evaluation seed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:challenger_candidate_evaluation_score_f a bpm:Field ;
+    bpm:fieldName "score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed challenger score." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:challenger_candidate_evaluation_refusal_code_f a bpm:Field ;
+    bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed refusal or admitted result." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
