@@ -11067,3 +11067,38 @@ b4p:cost_latency_reliability_tradeoff_utility_score_f a bpm:Field ;
     bpm:fieldName "utility_score" ; bpm:fieldType "float" ;
     bpm:fieldDoc "Objective-bound aggregate utility." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-035 — rate_distortion_budget
+b4p:rate_distortion_budget_rt a bpm:RecordType ;
+    bpm:recordName "rate_distortion_budget" ;
+    bpm:recordDoc "Bounds observation compression by maximum decision-relevant information distortion." ;
+    bpm:hasField b4p:rate_distortion_budget_budget_id_f,
+                 b4p:rate_distortion_budget_decision_id_f,
+                 b4p:rate_distortion_budget_source_information_bits_f,
+                 b4p:rate_distortion_budget_retained_information_bits_f,
+                 b4p:rate_distortion_budget_maximum_distortion_f .
+
+b4p:rate_distortion_budget_budget_id_f a bpm:Field ;
+    bpm:fieldName "budget_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable rate-distortion budget identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:rate_distortion_budget_decision_id_f a bpm:Field ;
+    bpm:fieldName "decision_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Decision protected by the budget." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:rate_distortion_budget_source_information_bits_f a bpm:Field ;
+    bpm:fieldName "source_information_bits" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Information present before compression." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:rate_distortion_budget_retained_information_bits_f a bpm:Field ;
+    bpm:fieldName "retained_information_bits" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Information retained after projection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:rate_distortion_budget_maximum_distortion_f a bpm:Field ;
+    bpm:fieldName "maximum_distortion" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Maximum admitted decision distortion." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
