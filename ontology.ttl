@@ -10915,3 +10915,38 @@ b4p:promotion_decision_refusal_code_f a bpm:Field ;
     bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Typed reason when promotion is refused." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-031 — failed_challenger_retention
+b4p:failed_challenger_retention_rt a bpm:RecordType ;
+    bpm:recordName "failed_challenger_retention" ;
+    bpm:recordDoc "Retains failed challenger evidence as reusable learning rather than deleting inconvenient results." ;
+    bpm:hasField b4p:failed_challenger_retention_retention_id_f,
+                 b4p:failed_challenger_retention_challenger_evaluation_id_f,
+                 b4p:failed_challenger_retention_failure_evidence_digest_f,
+                 b4p:failed_challenger_retention_retained_at_f,
+                 b4p:failed_challenger_retention_eligible_for_future_f .
+
+b4p:failed_challenger_retention_retention_id_f a bpm:Field ;
+    bpm:fieldName "retention_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable failed-challenger retention identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:failed_challenger_retention_challenger_evaluation_id_f a bpm:Field ;
+    bpm:fieldName "challenger_evaluation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Failed challenger evaluation retained." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:failed_challenger_retention_failure_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "failure_evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of preserved failure evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:failed_challenger_retention_retained_at_f a bpm:Field ;
+    bpm:fieldName "retained_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp evidence entered durable memory." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:failed_challenger_retention_eligible_for_future_f a bpm:Field ;
+    bpm:fieldName "eligible_for_future" ; bpm:fieldType "boolean" ;
+    bpm:fieldDoc "Whether changed conditions may justify reevaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
