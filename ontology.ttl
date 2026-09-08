@@ -10553,3 +10553,38 @@ b4p:orthogonality_reward_independence_evidence_digest_f a bpm:Field ;
     bpm:fieldName "independence_evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest proving distinct execution semantics." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-021 — capability_gap_learning
+b4p:capability_gap_learning_rt a bpm:RecordType ;
+    bpm:recordName "capability_gap_learning" ;
+    bpm:recordDoc "Converts observed missing capability evidence into a bounded learning signal." ;
+    bpm:hasField b4p:capability_gap_learning_learning_id_f,
+                 b4p:capability_gap_learning_observed_capability_id_f,
+                 b4p:capability_gap_learning_required_capability_id_f,
+                 b4p:capability_gap_learning_gap_type_f,
+                 b4p:capability_gap_learning_evidence_digest_f .
+
+b4p:capability_gap_learning_learning_id_f a bpm:Field ;
+    bpm:fieldName "learning_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable capability-gap learning identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:capability_gap_learning_observed_capability_id_f a bpm:Field ;
+    bpm:fieldName "observed_capability_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Capability actually observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:capability_gap_learning_required_capability_id_f a bpm:Field ;
+    bpm:fieldName "required_capability_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Capability required by the admitted objective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:capability_gap_learning_gap_type_f a bpm:Field ;
+    bpm:fieldName "gap_type" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed semantic, execution, evidence, or authority gap." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:capability_gap_learning_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest proving the gap." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
