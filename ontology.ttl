@@ -11184,3 +11184,44 @@ b4p:observation_projection_update_authority_ceiling_f a bpm:Field ;
     bpm:fieldName "authority_ceiling" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Boundary excluding consequential actuation authority." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-038 — planner_routing_update
+b4p:planner_routing_update_rt a bpm:RecordType ;
+    bpm:recordName "planner_routing_update" ;
+    bpm:recordDoc "Routes future planning to a better-supported planner with a declared rollback policy." ;
+    bpm:hasField b4p:planner_routing_update_update_id_f,
+                 b4p:planner_routing_update_route_id_f,
+                 b4p:planner_routing_update_prior_planner_id_f,
+                 b4p:planner_routing_update_selected_planner_id_f,
+                 b4p:planner_routing_update_payoff_basis_digest_f,
+                 b4p:planner_routing_update_rollback_policy_id_f .
+
+b4p:planner_routing_update_update_id_f a bpm:Field ;
+    bpm:fieldName "update_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable planner-routing update identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_routing_update_route_id_f a bpm:Field ;
+    bpm:fieldName "route_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning route being adapted." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_routing_update_prior_planner_id_f a bpm:Field ;
+    bpm:fieldName "prior_planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Previously selected planner." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:planner_routing_update_selected_planner_id_f a bpm:Field ;
+    bpm:fieldName "selected_planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence-selected future planner." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:planner_routing_update_payoff_basis_digest_f a bpm:Field ;
+    bpm:fieldName "payoff_basis_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of comparative payoff evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:planner_routing_update_rollback_policy_id_f a bpm:Field ;
+    bpm:fieldName "rollback_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Policy restoring the prior route on regression." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
