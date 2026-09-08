@@ -11541,3 +11541,44 @@ b4p:curriculum_generation_falsifier_coverage_f a bpm:Field ;
     bpm:fieldName "falsifier_coverage" ; bpm:fieldType "float" ;
     bpm:fieldDoc "Share of hypotheses with executable falsifiers." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-047 — no_authority_learning_guard
+b4p:no_authority_learning_guard_rt a bpm:RecordType ;
+    bpm:recordName "no_authority_learning_guard" ;
+    bpm:recordDoc "Refuses any learned update that would expand consequential authority." ;
+    bpm:hasField b4p:no_authority_learning_guard_guard_id_f,
+                 b4p:no_authority_learning_guard_candidate_update_id_f,
+                 b4p:no_authority_learning_guard_current_authority_f,
+                 b4p:no_authority_learning_guard_requested_authority_f,
+                 b4p:no_authority_learning_guard_decision_f,
+                 b4p:no_authority_learning_guard_evidence_digest_f .
+
+b4p:no_authority_learning_guard_guard_id_f a bpm:Field ;
+    bpm:fieldName "guard_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable no-authority guard identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:no_authority_learning_guard_candidate_update_id_f a bpm:Field ;
+    bpm:fieldName "candidate_update_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Learned update under review." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:no_authority_learning_guard_current_authority_f a bpm:Field ;
+    bpm:fieldName "current_authority" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Existing admitted authority." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:no_authority_learning_guard_requested_authority_f a bpm:Field ;
+    bpm:fieldName "requested_authority" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Authority implied by the update." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:no_authority_learning_guard_decision_f a bpm:Field ;
+    bpm:fieldName "decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "ADMIT or REFUSE guard decision." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:no_authority_learning_guard_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence supporting the authority comparison." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
