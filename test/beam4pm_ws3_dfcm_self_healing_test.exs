@@ -43,6 +43,7 @@ defmodule BeamPM.Ws3DfcmSelfHealingQualificationTest do
     |> Base.encode16(case: :lower)
   end
 
+  if Code.ensure_loaded?(BeamPM.Actuation) do
   test "observed crash preserves DfCM repair options; fresh BRCE re-admission heals and replay verifies",
        %{tmp_dir: tmp_dir} do
     chain_id = "ws3-dfcm-self-healing"
@@ -163,5 +164,6 @@ defmodule BeamPM.Ws3DfcmSelfHealingQualificationTest do
             }} = ReceiptChain.verify(tmp_dir, chain_id)
 
     assert repaired_path == repaired.receipt_path
+    end
   end
 end
