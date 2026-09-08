@@ -9857,3 +9857,38 @@ b4p:evidence_training_sample_provenance_digest_f a bpm:Field ;
     bpm:fieldName "provenance_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Immutable provenance proving how the sample was derived." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-003 — outcome_label
+b4p:outcome_label_rt a bpm:RecordType ;
+    bpm:recordName "outcome_label" ;
+    bpm:recordDoc "Assigns an evidence-backed outcome class without allowing self-reported success to confirm itself." ;
+    bpm:hasField b4p:outcome_label_label_id_f,
+                 b4p:outcome_label_episode_id_f,
+                 b4p:outcome_label_outcome_class_f,
+                 b4p:outcome_label_confidence_basis_f,
+                 b4p:outcome_label_independent_evidence_digest_f .
+
+b4p:outcome_label_label_id_f a bpm:Field ;
+    bpm:fieldName "label_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable outcome label identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:outcome_label_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact episode being labeled." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:outcome_label_outcome_class_f a bpm:Field ;
+    bpm:fieldName "outcome_class" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed outcome class." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:outcome_label_confidence_basis_f a bpm:Field ;
+    bpm:fieldName "confidence_basis" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Independent basis for label confidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:outcome_label_independent_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "independent_evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of evidence outside the candidate policy claim." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
