@@ -10184,3 +10184,44 @@ b4p:policy_payoff_observation_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Independent evidence supporting the payoff." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-012 — planner_policy_comparison
+b4p:planner_policy_comparison_rt a bpm:RecordType ;
+    bpm:recordName "planner_policy_comparison" ;
+    bpm:recordDoc "Compares incumbent and challenger policies under one planner and one admitted objective." ;
+    bpm:hasField b4p:planner_policy_comparison_comparison_id_f,
+                 b4p:planner_policy_comparison_planner_id_f,
+                 b4p:planner_policy_comparison_incumbent_policy_id_f,
+                 b4p:planner_policy_comparison_challenger_policy_id_f,
+                 b4p:planner_policy_comparison_payoff_delta_f,
+                 b4p:planner_policy_comparison_winner_evidence_digest_f .
+
+b4p:planner_policy_comparison_comparison_id_f a bpm:Field ;
+    bpm:fieldName "comparison_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable comparison identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_policy_comparison_planner_id_f a bpm:Field ;
+    bpm:fieldName "planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Planner held constant for comparison." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_policy_comparison_incumbent_policy_id_f a bpm:Field ;
+    bpm:fieldName "incumbent_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Incumbent policy identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:planner_policy_comparison_challenger_policy_id_f a bpm:Field ;
+    bpm:fieldName "challenger_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Challenger policy identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:planner_policy_comparison_payoff_delta_f a bpm:Field ;
+    bpm:fieldName "payoff_delta" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Challenger minus incumbent payoff." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:planner_policy_comparison_winner_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "winner_evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest proving the selected winner." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
