@@ -40,6 +40,8 @@ defmodule BeamPM.PostLLM.Closure do
   def stages, do: @stages
 
   def decompress(directive, observed, opts \\ [])
+
+  def decompress(directive, observed, opts)
       when is_binary(directive) and is_map(observed) do
     extensions = Map.get(observed, :scope_extensions, [])
 
@@ -126,7 +128,9 @@ defmodule BeamPM.PostLLM.Closure do
     }
   end
 
-  def manufacture(%{} = program, capability \\ "semantic_neighborhood_closure") do
+  def manufacture(program, capability \\ "semantic_neighborhood_closure")
+
+  def manufacture(%{} = program, capability) do
     with :ok <- admit(program),
          :ok <- BeamPM.PostLLM.Capability.admit(capability) do
       intent =
