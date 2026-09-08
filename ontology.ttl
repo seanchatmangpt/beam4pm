@@ -9997,3 +9997,38 @@ b4p:subject_failure_separation_independent_reproducer_digest_f a bpm:Field ;
     bpm:fieldName "independent_reproducer_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of an independent reproducer." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-007 — receipt_learning_compilation
+b4p:receipt_learning_compilation_rt a bpm:RecordType ;
+    bpm:recordName "receipt_learning_compilation" ;
+    bpm:recordDoc "Compiles only verified receipt-chain members into a deterministic learning corpus." ;
+    bpm:hasField b4p:receipt_learning_compilation_compilation_id_f,
+                 b4p:receipt_learning_compilation_receipt_chain_head_f,
+                 b4p:receipt_learning_compilation_admitted_receipt_count_f,
+                 b4p:receipt_learning_compilation_rejected_receipt_count_f,
+                 b4p:receipt_learning_compilation_learning_digest_f .
+
+b4p:receipt_learning_compilation_compilation_id_f a bpm:Field ;
+    bpm:fieldName "compilation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable receipt compilation identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:receipt_learning_compilation_receipt_chain_head_f a bpm:Field ;
+    bpm:fieldName "receipt_chain_head" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the admitted receipt chain head." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:receipt_learning_compilation_admitted_receipt_count_f a bpm:Field ;
+    bpm:fieldName "admitted_receipt_count" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Number of verified receipts admitted." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:receipt_learning_compilation_rejected_receipt_count_f a bpm:Field ;
+    bpm:fieldName "rejected_receipt_count" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Number of receipts refused by validation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:receipt_learning_compilation_learning_digest_f a bpm:Field ;
+    bpm:fieldName "learning_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the compiled learning corpus." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
