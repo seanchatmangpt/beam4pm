@@ -39,12 +39,18 @@ jobs:
       - name: Resolve Igniter dependencies
         run: mix deps.get
 
-      - name: Manufacture Ash projections from canonical ontology
-        id: manufacture
-        continue-on-error: true
+      - name: Build real RF oracles required by the manufacture verifier
         run: |
-          set -uo pipefail
-          bash scripts/igniter_sync.sh
+          set -euo pipefail
+          cargo build --release --manifest-path native/rf1-dfg-oracle/Cargo.toml
+          cargo build --release --manifest-path native/rf2-conformance-oracle/Cargo.toml
+          cargo build --release --manifest-path native/rf3-ocel-oracle/Cargo.toml
+
+      - name: Manufacture planner type pages from canonical ontology
+        id: manufacture
+        run: |
+          set -euo pipefail
+          source scripts/env/rust4pm_reactor_env.sh
           bash scripts/pro_type_pages_sync.sh
 
       - name: Bind exact planner projection tree
