@@ -11266,3 +11266,38 @@ b4p:verification_depth_update_minimum_depth_f a bpm:Field ;
     bpm:fieldName "minimum_depth" ; bpm:fieldType "integer" ;
     bpm:fieldDoc "Immutable minimum acceptance depth." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-040 — negative_fixture_generation
+b4p:negative_fixture_generation_rt a bpm:RecordType ;
+    bpm:recordName "negative_fixture_generation" ;
+    bpm:recordDoc "Generates a falsifying fixture from a preserved failure and binds the expected refusal." ;
+    bpm:hasField b4p:negative_fixture_generation_fixture_id_f,
+                 b4p:negative_fixture_generation_source_failure_id_f,
+                 b4p:negative_fixture_generation_invariant_id_f,
+                 b4p:negative_fixture_generation_generated_input_digest_f,
+                 b4p:negative_fixture_generation_expected_refusal_code_f .
+
+b4p:negative_fixture_generation_fixture_id_f a bpm:Field ;
+    bpm:fieldName "fixture_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable generated fixture identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:negative_fixture_generation_source_failure_id_f a bpm:Field ;
+    bpm:fieldName "source_failure_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Preserved failure used as source." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:negative_fixture_generation_invariant_id_f a bpm:Field ;
+    bpm:fieldName "invariant_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Invariant challenged by the fixture." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:negative_fixture_generation_generated_input_digest_f a bpm:Field ;
+    bpm:fieldName "generated_input_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of deterministic negative input." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:negative_fixture_generation_expected_refusal_code_f a bpm:Field ;
+    bpm:fieldName "expected_refusal_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact refusal required for success." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
