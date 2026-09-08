@@ -11664,3 +11664,68 @@ b4p:consumer_equivalence_learning_guard_refusal_code_f a bpm:Field ;
     bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Typed reason when equivalence is absent." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-050 — federated_dogfood_learning_crown
+b4p:federated_dogfood_learning_crown_rt a bpm:RecordType ;
+    bpm:recordName "federated_dogfood_learning_crown" ;
+    bpm:recordDoc "Receipts SELECT through CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, ownership verification, and second-pass identity for one exact caller-local consumer." ;
+    bpm:hasField b4p:federated_dogfood_learning_crown_crown_id_f,
+                 b4p:federated_dogfood_learning_crown_exact_subject_sha_f,
+                 b4p:federated_dogfood_learning_crown_consumer_id_f,
+                 b4p:federated_dogfood_learning_crown_pack_sha_f,
+                 b4p:federated_dogfood_learning_crown_capsule_digest_f,
+                 b4p:federated_dogfood_learning_crown_manufacture_receipt_digest_f,
+                 b4p:federated_dogfood_learning_crown_ownership_verification_digest_f,
+                 b4p:federated_dogfood_learning_crown_second_pass_identity_digest_f,
+                 b4p:federated_dogfood_learning_crown_workflow_sequence_f,
+                 b4p:federated_dogfood_learning_crown_authority_ceiling_f .
+
+b4p:federated_dogfood_learning_crown_crown_id_f a bpm:Field ;
+    bpm:fieldName "crown_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable federated dogfood crown identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:federated_dogfood_learning_crown_exact_subject_sha_f a bpm:Field ;
+    bpm:fieldName "exact_subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact beam4pm subject qualified." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:federated_dogfood_learning_crown_consumer_id_f a bpm:Field ;
+    bpm:fieldName "consumer_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Caller-local consumer identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:federated_dogfood_learning_crown_pack_sha_f a bpm:Field ;
+    bpm:fieldName "pack_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable marketplace pack commit." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:federated_dogfood_learning_crown_capsule_digest_f a bpm:Field ;
+    bpm:fieldName "capsule_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact ggen-ecosystem container digest." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:federated_dogfood_learning_crown_manufacture_receipt_digest_f a bpm:Field ;
+    bpm:fieldName "manufacture_receipt_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of verified manufacture receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+b4p:federated_dogfood_learning_crown_ownership_verification_digest_f a bpm:Field ;
+    bpm:fieldName "ownership_verification_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest proving generated output ownership." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 7 .
+
+b4p:federated_dogfood_learning_crown_second_pass_identity_digest_f a bpm:Field ;
+    bpm:fieldName "second_pass_identity_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest proving byte-identical second sync." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 8 .
+
+b4p:federated_dogfood_learning_crown_workflow_sequence_f a bpm:Field ;
+    bpm:fieldName "workflow_sequence" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "SELECT-CONSTRUCT-DRY_RUN_MANUFACTURE-QUALIFY-RECEIPT sequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 9 .
+
+b4p:federated_dogfood_learning_crown_authority_ceiling_f a bpm:Field ;
+    bpm:fieldName "authority_ceiling" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Boundary guaranteeing zero unreceipted DO authority." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 10 .
