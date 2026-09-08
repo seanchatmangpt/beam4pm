@@ -9787,3 +9787,38 @@ b4p:machine_actionable_delta_recommended_action_f a bpm:Field ;
     bpm:fieldName "recommended_action" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Bounded next action for the control plane." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+# WS5-AUTO-001 — learning_episode
+b4p:learning_episode_rt a bpm:RecordType ;
+    bpm:recordName "learning_episode" ;
+    bpm:recordDoc "Compiles one exact-subject execution episode into bounded learning evidence without granting actuation authority." ;
+    bpm:hasField b4p:learning_episode_episode_id_f,
+                 b4p:learning_episode_exact_subject_sha_f,
+                 b4p:learning_episode_evidence_digest_f,
+                 b4p:learning_episode_outcome_f,
+                 b4p:learning_episode_authority_ceiling_f .
+
+b4p:learning_episode_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable learning episode identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:learning_episode_exact_subject_sha_f a bpm:Field ;
+    bpm:fieldName "exact_subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact Git subject observed by the episode." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:learning_episode_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest binding the episode to immutable evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:learning_episode_outcome_f a bpm:Field ;
+    bpm:fieldName "outcome" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed success, refusal, or failure outcome." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:learning_episode_authority_ceiling_f a bpm:Field ;
+    bpm:fieldName "authority_ceiling" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Maximum authority learning may influence; DO authority remains excluded." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
