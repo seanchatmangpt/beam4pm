@@ -9892,3 +9892,38 @@ b4p:outcome_label_independent_evidence_digest_f a bpm:Field ;
     bpm:fieldName "independent_evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of evidence outside the candidate policy claim." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-004 — failure_label
+b4p:failure_label_rt a bpm:RecordType ;
+    bpm:recordName "failure_label" ;
+    bpm:recordDoc "Classifies a preserved failure by causal scope so failed challengers remain usable learning evidence." ;
+    bpm:hasField b4p:failure_label_failure_id_f,
+                 b4p:failure_label_episode_id_f,
+                 b4p:failure_label_failure_class_f,
+                 b4p:failure_label_causal_scope_f,
+                 b4p:failure_label_preserved_evidence_digest_f .
+
+b4p:failure_label_failure_id_f a bpm:Field ;
+    bpm:fieldName "failure_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable failure evidence identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:failure_label_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Episode in which the failure occurred." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:failure_label_failure_class_f a bpm:Field ;
+    bpm:fieldName "failure_class" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed subject, environment, policy, or authority failure class." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:failure_label_causal_scope_f a bpm:Field ;
+    bpm:fieldName "causal_scope" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Smallest supported causal boundary." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:failure_label_preserved_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "preserved_evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest proving the failed evidence was retained." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
