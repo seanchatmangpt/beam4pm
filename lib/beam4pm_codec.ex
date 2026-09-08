@@ -342,6 +342,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.CallerLocalCrownIdentity{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"consumer_subject_sha", r.consumer_subject_sha, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.CanaryDecision{} = r) do
     to_known_map([
       {"canary_decision_id", r.canary_decision_id, :passthrough},
@@ -710,6 +719,447 @@ defmodule BeamPM.Codec do
       {"cross_sell_score", r.cross_sell_score, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownApplicableGateCoverage{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"applicable_gate_set_digest", r.applicable_gate_set_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownArtifactPullbackSmoke{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"pullback_digest", r.pullback_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownAttestationSigner{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"signer_identity", r.signer_identity, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownAutonomicRepublish{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"republished_crown_digest", r.republished_crown_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownCapsuleToolchain{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"toolchain_digest", r.toolchain_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownCasPromotion{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"expected_previous_digest", r.expected_previous_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownCheckRelevance{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"relevance_proof_digest", r.relevance_proof_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownChildPublishObservation{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"child_publish_run_id", r.child_publish_run_id, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownConsumerSmoke{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"consumer_smoke_digest", r.consumer_smoke_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownConvergenceProof{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"convergence_proof_digest", r.convergence_proof_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownCosignCertificate{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"certificate_identity", r.certificate_identity, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownDefaultHeadSensor{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"default_head_sha", r.default_head_sha, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownDependencyEdge{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"downstream_consumer_id", r.downstream_consumer_id, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownExecutionMode{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"execution_mode", r.execution_mode, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownFaninConvergence{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"fanin_set_digest", r.fanin_set_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownFanoutBatch{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"fanout_set_digest", r.fanout_set_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownFederatedPhaseReceipt{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"selected_option_digest", r.selected_option_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownFreshnessWindow{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"fresh_until", r.fresh_until, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownGeneratedSourceOwnership{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"canonical_source_path", r.canonical_source_path, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownGitlinkReconciliation{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"gitlink_commit_sha", r.gitlink_commit_sha, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownImmutableShaTag{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"immutable_tag", r.immutable_tag, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownKnownGoodRollback{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"rollback_crown_digest", r.rollback_crown_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownLatencyObservation{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"latency_millis", r.latency_millis, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownLockReconciliation{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"lock_commit_sha", r.lock_commit_sha, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownManufacturerIdentity{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"manufacturer_digest", r.manufacturer_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownMarketplacePackPin{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"pack_commit_sha", r.pack_commit_sha, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownMultiarchPlatformSet{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"platform_set_digest", r.platform_set_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownOciManifestBinding{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"oci_index_digest", r.oci_index_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownPackagePinReconciliation{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"package_version_digest", r.package_version_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownPartialCheckpoint{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"checkpoint_digest", r.checkpoint_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownPathSkipRefusal{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"skipped_gate_id", r.skipped_gate_id, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownPlannerIdentity{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"planner_digest", r.planner_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownProcessRuntimeIdentity{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"process_runtime_digest", r.process_runtime_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownPromotionRace{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"observed_previous_digest", r.observed_previous_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownProvenanceBinding{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"provenance_digest", r.provenance_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownReceiptOutputOwnership{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"output_owner", r.output_owner, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownRecursiveFixedPoint{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"fixed_point_digest", r.fixed_point_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownResumeToken{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"resume_token_digest", r.resume_token_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownRuntimeIdentity{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"runtime_digest", r.runtime_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownSbomSubjectBinding{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"sbom_digest", r.sbom_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownSecondPassIdentity{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"second_pass_digest", r.second_pass_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownSecurityScan{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"scan_report_digest", r.scan_report_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownSourceCapsule{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"capsule_digest", r.capsule_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownStaleRefusal{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"observed_age_seconds", r.observed_age_seconds, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownSupplyChainPolicy{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"policy_decision_digest", r.policy_decision_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownTopologicalOrder{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"topological_rank", r.topological_rank, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownValidationPack{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"validation_pack_sha", r.validation_pack_sha, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownWorkflowRunReceipt{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"workflow_run_id", r.workflow_run_id, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CrownZeroUnreceiptedWrites{} = r) do
+    to_known_map([
+      {"propagation_id", r.propagation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"write_set_digest", r.write_set_digest, :passthrough},
+      {"receipt_digest", r.receipt_digest, :passthrough}
     ])
   end
 
@@ -3463,6 +3913,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:caller_local_crown_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"consumer_subject_sha", :consumer_subject_sha, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CallerLocalCrownIdentity.new/1
+    )
+  end
+
   def from_map(:canary_decision, m) when is_map(m) do
     from_known_fields(
       m,
@@ -3999,6 +4462,643 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.CrossSellFit.new/1
+    )
+  end
+
+  def from_map(:crown_applicable_gate_coverage, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"applicable_gate_set_digest", :applicable_gate_set_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownApplicableGateCoverage.new/1
+    )
+  end
+
+  def from_map(:crown_artifact_pullback_smoke, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"pullback_digest", :pullback_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownArtifactPullbackSmoke.new/1
+    )
+  end
+
+  def from_map(:crown_attestation_signer, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"signer_identity", :signer_identity, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownAttestationSigner.new/1
+    )
+  end
+
+  def from_map(:crown_autonomic_republish, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"republished_crown_digest", :republished_crown_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownAutonomicRepublish.new/1
+    )
+  end
+
+  def from_map(:crown_capsule_toolchain, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"toolchain_digest", :toolchain_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownCapsuleToolchain.new/1
+    )
+  end
+
+  def from_map(:crown_cas_promotion, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"expected_previous_digest", :expected_previous_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownCasPromotion.new/1
+    )
+  end
+
+  def from_map(:crown_check_relevance, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"relevance_proof_digest", :relevance_proof_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownCheckRelevance.new/1
+    )
+  end
+
+  def from_map(:crown_child_publish_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"child_publish_run_id", :child_publish_run_id, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownChildPublishObservation.new/1
+    )
+  end
+
+  def from_map(:crown_consumer_smoke, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"consumer_smoke_digest", :consumer_smoke_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownConsumerSmoke.new/1
+    )
+  end
+
+  def from_map(:crown_convergence_proof, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"convergence_proof_digest", :convergence_proof_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownConvergenceProof.new/1
+    )
+  end
+
+  def from_map(:crown_cosign_certificate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"certificate_identity", :certificate_identity, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownCosignCertificate.new/1
+    )
+  end
+
+  def from_map(:crown_default_head_sensor, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"default_head_sha", :default_head_sha, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownDefaultHeadSensor.new/1
+    )
+  end
+
+  def from_map(:crown_dependency_edge, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"downstream_consumer_id", :downstream_consumer_id, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownDependencyEdge.new/1
+    )
+  end
+
+  def from_map(:crown_execution_mode, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"execution_mode", :execution_mode, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownExecutionMode.new/1
+    )
+  end
+
+  def from_map(:crown_fanin_convergence, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"fanin_set_digest", :fanin_set_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownFaninConvergence.new/1
+    )
+  end
+
+  def from_map(:crown_fanout_batch, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"fanout_set_digest", :fanout_set_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownFanoutBatch.new/1
+    )
+  end
+
+  def from_map(:crown_federated_phase_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"selected_option_digest", :selected_option_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownFederatedPhaseReceipt.new/1
+    )
+  end
+
+  def from_map(:crown_freshness_window, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"fresh_until", :fresh_until, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownFreshnessWindow.new/1
+    )
+  end
+
+  def from_map(:crown_generated_source_ownership, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"canonical_source_path", :canonical_source_path, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownGeneratedSourceOwnership.new/1
+    )
+  end
+
+  def from_map(:crown_gitlink_reconciliation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"gitlink_commit_sha", :gitlink_commit_sha, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownGitlinkReconciliation.new/1
+    )
+  end
+
+  def from_map(:crown_immutable_sha_tag, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"immutable_tag", :immutable_tag, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownImmutableShaTag.new/1
+    )
+  end
+
+  def from_map(:crown_known_good_rollback, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"rollback_crown_digest", :rollback_crown_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownKnownGoodRollback.new/1
+    )
+  end
+
+  def from_map(:crown_latency_observation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"latency_millis", :latency_millis, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownLatencyObservation.new/1
+    )
+  end
+
+  def from_map(:crown_lock_reconciliation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"lock_commit_sha", :lock_commit_sha, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownLockReconciliation.new/1
+    )
+  end
+
+  def from_map(:crown_manufacturer_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"manufacturer_digest", :manufacturer_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownManufacturerIdentity.new/1
+    )
+  end
+
+  def from_map(:crown_marketplace_pack_pin, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"pack_commit_sha", :pack_commit_sha, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownMarketplacePackPin.new/1
+    )
+  end
+
+  def from_map(:crown_multiarch_platform_set, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"platform_set_digest", :platform_set_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownMultiarchPlatformSet.new/1
+    )
+  end
+
+  def from_map(:crown_oci_manifest_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"oci_index_digest", :oci_index_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownOciManifestBinding.new/1
+    )
+  end
+
+  def from_map(:crown_package_pin_reconciliation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"package_version_digest", :package_version_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownPackagePinReconciliation.new/1
+    )
+  end
+
+  def from_map(:crown_partial_checkpoint, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"checkpoint_digest", :checkpoint_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownPartialCheckpoint.new/1
+    )
+  end
+
+  def from_map(:crown_path_skip_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"skipped_gate_id", :skipped_gate_id, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownPathSkipRefusal.new/1
+    )
+  end
+
+  def from_map(:crown_planner_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"planner_digest", :planner_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownPlannerIdentity.new/1
+    )
+  end
+
+  def from_map(:crown_process_runtime_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"process_runtime_digest", :process_runtime_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownProcessRuntimeIdentity.new/1
+    )
+  end
+
+  def from_map(:crown_promotion_race, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"observed_previous_digest", :observed_previous_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownPromotionRace.new/1
+    )
+  end
+
+  def from_map(:crown_provenance_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"provenance_digest", :provenance_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownProvenanceBinding.new/1
+    )
+  end
+
+  def from_map(:crown_receipt_output_ownership, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"output_owner", :output_owner, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownReceiptOutputOwnership.new/1
+    )
+  end
+
+  def from_map(:crown_recursive_fixed_point, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"fixed_point_digest", :fixed_point_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownRecursiveFixedPoint.new/1
+    )
+  end
+
+  def from_map(:crown_resume_token, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"resume_token_digest", :resume_token_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownResumeToken.new/1
+    )
+  end
+
+  def from_map(:crown_runtime_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"runtime_digest", :runtime_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownRuntimeIdentity.new/1
+    )
+  end
+
+  def from_map(:crown_sbom_subject_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"sbom_digest", :sbom_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownSbomSubjectBinding.new/1
+    )
+  end
+
+  def from_map(:crown_second_pass_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"second_pass_digest", :second_pass_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownSecondPassIdentity.new/1
+    )
+  end
+
+  def from_map(:crown_security_scan, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"scan_report_digest", :scan_report_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownSecurityScan.new/1
+    )
+  end
+
+  def from_map(:crown_source_capsule, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"capsule_digest", :capsule_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownSourceCapsule.new/1
+    )
+  end
+
+  def from_map(:crown_stale_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"observed_age_seconds", :observed_age_seconds, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownStaleRefusal.new/1
+    )
+  end
+
+  def from_map(:crown_supply_chain_policy, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"policy_decision_digest", :policy_decision_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownSupplyChainPolicy.new/1
+    )
+  end
+
+  def from_map(:crown_topological_order, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"topological_rank", :topological_rank, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownTopologicalOrder.new/1
+    )
+  end
+
+  def from_map(:crown_validation_pack, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"validation_pack_sha", :validation_pack_sha, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownValidationPack.new/1
+    )
+  end
+
+  def from_map(:crown_workflow_run_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"workflow_run_id", :workflow_run_id, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownWorkflowRunReceipt.new/1
+    )
+  end
+
+  def from_map(:crown_zero_unreceipted_writes, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"propagation_id", :propagation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"write_set_digest", :write_set_digest, :passthrough},
+        {"receipt_digest", :receipt_digest, :passthrough}
+      ],
+      &BeamPM.Types.CrownZeroUnreceiptedWrites.new/1
     )
   end
 

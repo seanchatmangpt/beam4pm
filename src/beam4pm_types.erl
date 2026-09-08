@@ -40,6 +40,7 @@
     new_business_outcome_measurement/1,
     new_buying_committee/1,
     new_caller_local_checkout_observation/1,
+    new_caller_local_crown_identity/1,
     new_canary_decision/1,
     new_canary_evidence/1,
     new_canonical_source_authority_observation/1,
@@ -82,6 +83,55 @@
     new_crash_recovery_receipt/1,
     new_credit_risk_admission/1,
     new_cross_sell_fit/1,
+    new_crown_applicable_gate_coverage/1,
+    new_crown_artifact_pullback_smoke/1,
+    new_crown_attestation_signer/1,
+    new_crown_autonomic_republish/1,
+    new_crown_capsule_toolchain/1,
+    new_crown_cas_promotion/1,
+    new_crown_check_relevance/1,
+    new_crown_child_publish_observation/1,
+    new_crown_consumer_smoke/1,
+    new_crown_convergence_proof/1,
+    new_crown_cosign_certificate/1,
+    new_crown_default_head_sensor/1,
+    new_crown_dependency_edge/1,
+    new_crown_execution_mode/1,
+    new_crown_fanin_convergence/1,
+    new_crown_fanout_batch/1,
+    new_crown_federated_phase_receipt/1,
+    new_crown_freshness_window/1,
+    new_crown_generated_source_ownership/1,
+    new_crown_gitlink_reconciliation/1,
+    new_crown_immutable_sha_tag/1,
+    new_crown_known_good_rollback/1,
+    new_crown_latency_observation/1,
+    new_crown_lock_reconciliation/1,
+    new_crown_manufacturer_identity/1,
+    new_crown_marketplace_pack_pin/1,
+    new_crown_multiarch_platform_set/1,
+    new_crown_oci_manifest_binding/1,
+    new_crown_package_pin_reconciliation/1,
+    new_crown_partial_checkpoint/1,
+    new_crown_path_skip_refusal/1,
+    new_crown_planner_identity/1,
+    new_crown_process_runtime_identity/1,
+    new_crown_promotion_race/1,
+    new_crown_provenance_binding/1,
+    new_crown_receipt_output_ownership/1,
+    new_crown_recursive_fixed_point/1,
+    new_crown_resume_token/1,
+    new_crown_runtime_identity/1,
+    new_crown_sbom_subject_binding/1,
+    new_crown_second_pass_identity/1,
+    new_crown_security_scan/1,
+    new_crown_source_capsule/1,
+    new_crown_stale_refusal/1,
+    new_crown_supply_chain_policy/1,
+    new_crown_topological_order/1,
+    new_crown_validation_pack/1,
+    new_crown_workflow_run_receipt/1,
+    new_crown_zero_unreceipted_writes/1,
     new_customer_health/1,
     new_customer_managed_key_evidence/1,
     new_customer_signal_observation/1,
@@ -382,6 +432,7 @@
     business_outcome_measurement/0,
     buying_committee/0,
     caller_local_checkout_observation/0,
+    caller_local_crown_identity/0,
     canary_decision/0,
     canary_evidence/0,
     canonical_source_authority_observation/0,
@@ -424,6 +475,55 @@
     crash_recovery_receipt/0,
     credit_risk_admission/0,
     cross_sell_fit/0,
+    crown_applicable_gate_coverage/0,
+    crown_artifact_pullback_smoke/0,
+    crown_attestation_signer/0,
+    crown_autonomic_republish/0,
+    crown_capsule_toolchain/0,
+    crown_cas_promotion/0,
+    crown_check_relevance/0,
+    crown_child_publish_observation/0,
+    crown_consumer_smoke/0,
+    crown_convergence_proof/0,
+    crown_cosign_certificate/0,
+    crown_default_head_sensor/0,
+    crown_dependency_edge/0,
+    crown_execution_mode/0,
+    crown_fanin_convergence/0,
+    crown_fanout_batch/0,
+    crown_federated_phase_receipt/0,
+    crown_freshness_window/0,
+    crown_generated_source_ownership/0,
+    crown_gitlink_reconciliation/0,
+    crown_immutable_sha_tag/0,
+    crown_known_good_rollback/0,
+    crown_latency_observation/0,
+    crown_lock_reconciliation/0,
+    crown_manufacturer_identity/0,
+    crown_marketplace_pack_pin/0,
+    crown_multiarch_platform_set/0,
+    crown_oci_manifest_binding/0,
+    crown_package_pin_reconciliation/0,
+    crown_partial_checkpoint/0,
+    crown_path_skip_refusal/0,
+    crown_planner_identity/0,
+    crown_process_runtime_identity/0,
+    crown_promotion_race/0,
+    crown_provenance_binding/0,
+    crown_receipt_output_ownership/0,
+    crown_recursive_fixed_point/0,
+    crown_resume_token/0,
+    crown_runtime_identity/0,
+    crown_sbom_subject_binding/0,
+    crown_second_pass_identity/0,
+    crown_security_scan/0,
+    crown_source_capsule/0,
+    crown_stale_refusal/0,
+    crown_supply_chain_policy/0,
+    crown_topological_order/0,
+    crown_validation_pack/0,
+    crown_workflow_run_receipt/0,
+    crown_zero_unreceipted_writes/0,
     customer_health/0,
     customer_managed_key_evidence/0,
     customer_signal_observation/0,
@@ -1951,6 +2051,41 @@ new_caller_local_checkout_observation(Map) ->
     end
     end.
 
+%% Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused.
+-record(caller_local_crown_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    consumer_subject_sha :: binary(), %% consumer_subject_sha: Exact caller-local consumer commit SHA that must be requalified.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type caller_local_crown_identity() :: #caller_local_crown_identity{}.
+
+-spec new_caller_local_crown_identity(map()) -> {ok, caller_local_crown_identity()} | {error, {missing_field, atom()}}.
+new_caller_local_crown_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(consumer_subject_sha, Map) of
+        false -> {error, {missing_field, consumer_subject_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #caller_local_crown_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        consumer_subject_sha = maps:get(consumer_subject_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Receipted enterprise canary decision based on an observed rollout consequence.
 -record(canary_decision, {
     canary_decision_id :: binary(), %% canary_decision_id: Stable identity of this canary decision observation.
@@ -3366,6 +3501,1721 @@ new_cross_sell_fit(Map) ->
         observed_at = maps:get(observed_at, Map, undefined)
     }}
     end
+    end
+    end
+    end
+    end.
+
+%% Requires every gate applicable to the changed subject before declaring the crown alive.
+-record(crown_applicable_gate_coverage, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    applicable_gate_set_digest :: binary(), %% applicable_gate_set_digest: Digest of the normalized applicable gate set and results.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_applicable_gate_coverage() :: #crown_applicable_gate_coverage{}.
+
+-spec new_crown_applicable_gate_coverage(map()) -> {ok, crown_applicable_gate_coverage()} | {error, {missing_field, atom()}}.
+new_crown_applicable_gate_coverage(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(applicable_gate_set_digest, Map) of
+        false -> {error, {missing_field, applicable_gate_set_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_applicable_gate_coverage{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        applicable_gate_set_digest = maps:get(applicable_gate_set_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves the published artifact can be pulled back from its distribution boundary byte-for-byte.
+-record(crown_artifact_pullback_smoke, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    pullback_digest :: binary(), %% pullback_digest: Digest observed after artifact pullback.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_artifact_pullback_smoke() :: #crown_artifact_pullback_smoke{}.
+
+-spec new_crown_artifact_pullback_smoke(map()) -> {ok, crown_artifact_pullback_smoke()} | {error, {missing_field, atom()}}.
+new_crown_artifact_pullback_smoke(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(pullback_digest, Map) of
+        false -> {error, {missing_field, pullback_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_artifact_pullback_smoke{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        pullback_digest = maps:get(pullback_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires an admitted signer identity for every propagated supply-chain attestation.
+-record(crown_attestation_signer, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    signer_identity :: binary(), %% signer_identity: Verified identity that signed the attestation.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_attestation_signer() :: #crown_attestation_signer{}.
+
+-spec new_crown_attestation_signer(map()) -> {ok, crown_attestation_signer()} | {error, {missing_field, atom()}}.
+new_crown_attestation_signer(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(signer_identity, Map) of
+        false -> {error, {missing_field, signer_identity}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_attestation_signer{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        signer_identity = maps:get(signer_identity, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Receipts autonomous downstream requalification and immutable crown republication.
+-record(crown_autonomic_republish, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    republished_crown_digest :: binary(), %% republished_crown_digest: Exact digest of the republished downstream crown.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_autonomic_republish() :: #crown_autonomic_republish{}.
+
+-spec new_crown_autonomic_republish(map()) -> {ok, crown_autonomic_republish()} | {error, {missing_field, atom()}}.
+new_crown_autonomic_republish(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(republished_crown_digest, Map) of
+        false -> {error, {missing_field, republished_crown_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_autonomic_republish{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        republished_crown_digest = maps:get(republished_crown_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds source capsule, validation pack, execution mode, and toolchain as one evidence identity.
+-record(crown_capsule_toolchain, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    toolchain_digest :: binary(), %% toolchain_digest: Digest of the exact capsule toolchain closure.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_capsule_toolchain() :: #crown_capsule_toolchain{}.
+
+-spec new_crown_capsule_toolchain(map()) -> {ok, crown_capsule_toolchain()} | {error, {missing_field, atom()}}.
+new_crown_capsule_toolchain(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(toolchain_digest, Map) of
+        false -> {error, {missing_field, toolchain_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_capsule_toolchain{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        toolchain_digest = maps:get(toolchain_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Authorizes promotion only when the observed prior crown equals the compare-and-swap expectation.
+-record(crown_cas_promotion, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    expected_previous_digest :: binary(), %% expected_previous_digest: Expected previously promoted crown digest.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_cas_promotion() :: #crown_cas_promotion{}.
+
+-spec new_crown_cas_promotion(map()) -> {ok, crown_cas_promotion()} | {error, {missing_field, atom()}}.
+new_crown_cas_promotion(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(expected_previous_digest, Map) of
+        false -> {error, {missing_field, expected_previous_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_cas_promotion{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        expected_previous_digest = maps:get(expected_previous_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Separates irrelevant checks from exact-subject qualification without hiding required evidence.
+-record(crown_check_relevance, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    relevance_proof_digest :: binary(), %% relevance_proof_digest: Digest proving check relevance classification.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_check_relevance() :: #crown_check_relevance{}.
+
+-spec new_crown_check_relevance(map()) -> {ok, crown_check_relevance()} | {error, {missing_field, atom()}}.
+new_crown_check_relevance(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(relevance_proof_digest, Map) of
+        false -> {error, {missing_field, relevance_proof_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_check_relevance{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        relevance_proof_digest = maps:get(relevance_proof_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Observes the exact child publication execution before its crown can propagate further.
+-record(crown_child_publish_observation, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    child_publish_run_id :: binary(), %% child_publish_run_id: Exact workflow run identity that published the child crown.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_child_publish_observation() :: #crown_child_publish_observation{}.
+
+-spec new_crown_child_publish_observation(map()) -> {ok, crown_child_publish_observation()} | {error, {missing_field, atom()}}.
+new_crown_child_publish_observation(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(child_publish_run_id, Map) of
+        false -> {error, {missing_field, child_publish_run_id}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_child_publish_observation{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        child_publish_run_id = maps:get(child_publish_run_id, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires a real downstream consumer smoke consequence for the exact propagated crown.
+-record(crown_consumer_smoke, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    consumer_smoke_digest :: binary(), %% consumer_smoke_digest: Digest of the exact-consumer smoke receipt.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_consumer_smoke() :: #crown_consumer_smoke{}.
+
+-spec new_crown_consumer_smoke(map()) -> {ok, crown_consumer_smoke()} | {error, {missing_field, atom()}}.
+new_crown_consumer_smoke(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(consumer_smoke_digest, Map) of
+        false -> {error, {missing_field, consumer_smoke_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_consumer_smoke{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        consumer_smoke_digest = maps:get(consumer_smoke_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Produces a deterministic proof that every admitted consumer holds the expected crown.
+-record(crown_convergence_proof, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    convergence_proof_digest :: binary(), %% convergence_proof_digest: Digest of the ecosystem convergence proof.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_convergence_proof() :: #crown_convergence_proof{}.
+
+-spec new_crown_convergence_proof(map()) -> {ok, crown_convergence_proof()} | {error, {missing_field, atom()}}.
+new_crown_convergence_proof(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(convergence_proof_digest, Map) of
+        false -> {error, {missing_field, convergence_proof_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_convergence_proof{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        convergence_proof_digest = maps:get(convergence_proof_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Captures the keyless signing certificate identity admitted for the exact crown digest.
+-record(crown_cosign_certificate, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    certificate_identity :: binary(), %% certificate_identity: Verified Cosign certificate identity.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_cosign_certificate() :: #crown_cosign_certificate{}.
+
+-spec new_crown_cosign_certificate(map()) -> {ok, crown_cosign_certificate()} | {error, {missing_field, atom()}}.
+new_crown_cosign_certificate(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(certificate_identity, Map) of
+        false -> {error, {missing_field, certificate_identity}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_cosign_certificate{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        certificate_identity = maps:get(certificate_identity, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Observes the exact downstream default-branch head before selecting a reconciliation candidate.
+-record(crown_default_head_sensor, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    default_head_sha :: binary(), %% default_head_sha: Observed immutable default-branch head SHA.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_default_head_sensor() :: #crown_default_head_sensor{}.
+
+-spec new_crown_default_head_sensor(map()) -> {ok, crown_default_head_sensor()} | {error, {missing_field, atom()}}.
+new_crown_default_head_sensor(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(default_head_sha, Map) of
+        false -> {error, {missing_field, default_head_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_default_head_sensor{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        default_head_sha = maps:get(default_head_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Declares one exact upstream-to-downstream propagation edge in the ecosystem graph.
+-record(crown_dependency_edge, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    downstream_consumer_id :: binary(), %% downstream_consumer_id: Exact downstream consumer repository identity.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_dependency_edge() :: #crown_dependency_edge{}.
+
+-spec new_crown_dependency_edge(map()) -> {ok, crown_dependency_edge()} | {error, {missing_field, atom()}}.
+new_crown_dependency_edge(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(downstream_consumer_id, Map) of
+        false -> {error, {missing_field, downstream_consumer_id}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_dependency_edge{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        downstream_consumer_id = maps:get(downstream_consumer_id, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records whether qualification ran locally, in a capsule, or on a hosted runner.
+-record(crown_execution_mode, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    execution_mode :: binary(), %% execution_mode: Admitted execution-mode identifier.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_execution_mode() :: #crown_execution_mode{}.
+
+-spec new_crown_execution_mode(map()) -> {ok, crown_execution_mode()} | {error, {missing_field, atom()}}.
+new_crown_execution_mode(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(execution_mode, Map) of
+        false -> {error, {missing_field, execution_mode}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_execution_mode{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        execution_mode = maps:get(execution_mode, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires every admitted upstream parent crown before a fan-in consumer can converge.
+-record(crown_fanin_convergence, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    fanin_set_digest :: binary(), %% fanin_set_digest: Digest of the complete admitted fan-in crown set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_fanin_convergence() :: #crown_fanin_convergence{}.
+
+-spec new_crown_fanin_convergence(map()) -> {ok, crown_fanin_convergence()} | {error, {missing_field, atom()}}.
+new_crown_fanin_convergence(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(fanin_set_digest, Map) of
+        false -> {error, {missing_field, fanin_set_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_fanin_convergence{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        fanin_set_digest = maps:get(fanin_set_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds parallel downstream propagation to one deterministic admitted consumer set.
+-record(crown_fanout_batch, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    fanout_set_digest :: binary(), %% fanout_set_digest: Digest of the sorted fan-out consumer set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_fanout_batch() :: #crown_fanout_batch{}.
+
+-spec new_crown_fanout_batch(map()) -> {ok, crown_fanout_batch()} | {error, {missing_field, atom()}}.
+new_crown_fanout_batch(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(fanout_set_digest, Map) of
+        false -> {error, {missing_field, fanout_set_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_fanout_batch{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        fanout_set_digest = maps:get(fanout_set_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Receipts SELECT, CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, and RECEIPT as ordered phases.
+-record(crown_federated_phase_receipt, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    selected_option_digest :: binary(), %% selected_option_digest: Digest of the selected qualified propagation option.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_federated_phase_receipt() :: #crown_federated_phase_receipt{}.
+
+-spec new_crown_federated_phase_receipt(map()) -> {ok, crown_federated_phase_receipt()} | {error, {missing_field, atom()}}.
+new_crown_federated_phase_receipt(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(selected_option_digest, Map) of
+        false -> {error, {missing_field, selected_option_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_federated_phase_receipt{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        selected_option_digest = maps:get(selected_option_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Defines the deterministic deadline after which a crown cannot be promoted without requalification.
+-record(crown_freshness_window, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    fresh_until :: binary(), %% fresh_until: UTC freshness deadline admitted by policy.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_freshness_window() :: #crown_freshness_window{}.
+
+-spec new_crown_freshness_window(map()) -> {ok, crown_freshness_window()} | {error, {missing_field, atom()}}.
+new_crown_freshness_window(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(fresh_until, Map) of
+        false -> {error, {missing_field, fresh_until}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_freshness_window{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        fresh_until = maps:get(fresh_until, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Routes drift in a generated projection back to its declared canonical semantic source.
+-record(crown_generated_source_ownership, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    canonical_source_path :: binary(), %% canonical_source_path: Canonical non-generated source path authorized to repair the projection.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_generated_source_ownership() :: #crown_generated_source_ownership{}.
+
+-spec new_crown_generated_source_ownership(map()) -> {ok, crown_generated_source_ownership()} | {error, {missing_field, atom()}}.
+new_crown_generated_source_ownership(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(canonical_source_path, Map) of
+        false -> {error, {missing_field, canonical_source_path}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_generated_source_ownership{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        canonical_source_path = maps:get(canonical_source_path, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Reconciles a consumer gitlink to the exact admitted dependency commit.
+-record(crown_gitlink_reconciliation, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    gitlink_commit_sha :: binary(), %% gitlink_commit_sha: Exact submodule gitlink commit SHA.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_gitlink_reconciliation() :: #crown_gitlink_reconciliation{}.
+
+-spec new_crown_gitlink_reconciliation(map()) -> {ok, crown_gitlink_reconciliation()} | {error, {missing_field, atom()}}.
+new_crown_gitlink_reconciliation(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(gitlink_commit_sha, Map) of
+        false -> {error, {missing_field, gitlink_commit_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_gitlink_reconciliation{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        gitlink_commit_sha = maps:get(gitlink_commit_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Admits only artifact tags derived from an exact immutable source SHA.
+-record(crown_immutable_sha_tag, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    immutable_tag :: binary(), %% immutable_tag: Immutable source-derived artifact tag.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_immutable_sha_tag() :: #crown_immutable_sha_tag{}.
+
+-spec new_crown_immutable_sha_tag(map()) -> {ok, crown_immutable_sha_tag()} | {error, {missing_field, atom()}}.
+new_crown_immutable_sha_tag(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(immutable_tag, Map) of
+        false -> {error, {missing_field, immutable_tag}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_immutable_sha_tag{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        immutable_tag = maps:get(immutable_tag, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Selects an immutable previously qualified crown for autonomous rollback.
+-record(crown_known_good_rollback, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    rollback_crown_digest :: binary(), %% rollback_crown_digest: Exact prior known-good crown digest.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_known_good_rollback() :: #crown_known_good_rollback{}.
+
+-spec new_crown_known_good_rollback(map()) -> {ok, crown_known_good_rollback()} | {error, {missing_field, atom()}}.
+new_crown_known_good_rollback(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(rollback_crown_digest, Map) of
+        false -> {error, {missing_field, rollback_crown_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_known_good_rollback{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        rollback_crown_digest = maps:get(rollback_crown_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records exact end-to-end propagation latency for freshness and SLO decisions.
+-record(crown_latency_observation, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    latency_millis :: binary(), %% latency_millis: Observed propagation latency in milliseconds.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_latency_observation() :: #crown_latency_observation{}.
+
+-spec new_crown_latency_observation(map()) -> {ok, crown_latency_observation()} | {error, {missing_field, atom()}}.
+new_crown_latency_observation(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(latency_millis, Map) of
+        false -> {error, {missing_field, latency_millis}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_latency_observation{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        latency_millis = maps:get(latency_millis, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Reconciles a downstream lock entry to the exact admitted upstream commit.
+-record(crown_lock_reconciliation, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    lock_commit_sha :: binary(), %% lock_commit_sha: Exact commit SHA encoded in the reconciled lock.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_lock_reconciliation() :: #crown_lock_reconciliation{}.
+
+-spec new_crown_lock_reconciliation(map()) -> {ok, crown_lock_reconciliation()} | {error, {missing_field, atom()}}.
+new_crown_lock_reconciliation(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(lock_commit_sha, Map) of
+        false -> {error, {missing_field, lock_commit_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_lock_reconciliation{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        lock_commit_sha = maps:get(lock_commit_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds propagation to the exact deterministic manufacturer executable identity.
+-record(crown_manufacturer_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    manufacturer_digest :: binary(), %% manufacturer_digest: Digest of the admitted GGen manufacturer binary.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_manufacturer_identity() :: #crown_manufacturer_identity{}.
+
+-spec new_crown_manufacturer_identity(map()) -> {ok, crown_manufacturer_identity()} | {error, {missing_field, atom()}}.
+new_crown_manufacturer_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(manufacturer_digest, Map) of
+        false -> {error, {missing_field, manufacturer_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_manufacturer_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        manufacturer_digest = maps:get(manufacturer_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires every consumed marketplace pack to resolve to an immutable Git commit before manufacture.
+-record(crown_marketplace_pack_pin, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    pack_commit_sha :: binary(), %% pack_commit_sha: Exact immutable marketplace pack commit SHA.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_marketplace_pack_pin() :: #crown_marketplace_pack_pin{}.
+
+-spec new_crown_marketplace_pack_pin(map()) -> {ok, crown_marketplace_pack_pin()} | {error, {missing_field, atom()}}.
+new_crown_marketplace_pack_pin(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(pack_commit_sha, Map) of
+        false -> {error, {missing_field, pack_commit_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_marketplace_pack_pin{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        pack_commit_sha = maps:get(pack_commit_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires the crown manifest to contain the admitted architecture and operating-system set.
+-record(crown_multiarch_platform_set, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    platform_set_digest :: binary(), %% platform_set_digest: Digest of the normalized admitted platform set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_multiarch_platform_set() :: #crown_multiarch_platform_set{}.
+
+-spec new_crown_multiarch_platform_set(map()) -> {ok, crown_multiarch_platform_set()} | {error, {missing_field, atom()}}.
+new_crown_multiarch_platform_set(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(platform_set_digest, Map) of
+        false -> {error, {missing_field, platform_set_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_multiarch_platform_set{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        platform_set_digest = maps:get(platform_set_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds a propagated crown to its exact OCI multi-architecture index digest.
+-record(crown_oci_manifest_binding, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    oci_index_digest :: binary(), %% oci_index_digest: Exact OCI index digest selected for propagation.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_oci_manifest_binding() :: #crown_oci_manifest_binding{}.
+
+-spec new_crown_oci_manifest_binding(map()) -> {ok, crown_oci_manifest_binding()} | {error, {missing_field, atom()}}.
+new_crown_oci_manifest_binding(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(oci_index_digest, Map) of
+        false -> {error, {missing_field, oci_index_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_oci_manifest_binding{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        oci_index_digest = maps:get(oci_index_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Reconciles package resolution to an immutable version and content digest.
+-record(crown_package_pin_reconciliation, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    package_version_digest :: binary(), %% package_version_digest: Digest of the exact resolved package version.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_package_pin_reconciliation() :: #crown_package_pin_reconciliation{}.
+
+-spec new_crown_package_pin_reconciliation(map()) -> {ok, crown_package_pin_reconciliation()} | {error, {missing_field, atom()}}.
+new_crown_package_pin_reconciliation(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(package_version_digest, Map) of
+        false -> {error, {missing_field, package_version_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_package_pin_reconciliation{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        package_version_digest = maps:get(package_version_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Persists exact completed propagation edges for safe recovery after partial failure.
+-record(crown_partial_checkpoint, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    checkpoint_digest :: binary(), %% checkpoint_digest: Digest of the completed-edge checkpoint.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_partial_checkpoint() :: #crown_partial_checkpoint{}.
+
+-spec new_crown_partial_checkpoint(map()) -> {ok, crown_partial_checkpoint()} | {error, {missing_field, atom()}}.
+new_crown_partial_checkpoint(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(checkpoint_digest, Map) of
+        false -> {error, {missing_field, checkpoint_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_partial_checkpoint{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        checkpoint_digest = maps:get(checkpoint_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses false ALIVE when a required qualification gate was path-skipped.
+-record(crown_path_skip_refusal, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    skipped_gate_id :: binary(), %% skipped_gate_id: Identity of the required gate that was skipped.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_path_skip_refusal() :: #crown_path_skip_refusal{}.
+
+-spec new_crown_path_skip_refusal(map()) -> {ok, crown_path_skip_refusal()} | {error, {missing_field, atom()}}.
+new_crown_path_skip_refusal(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(skipped_gate_id, Map) of
+        false -> {error, {missing_field, skipped_gate_id}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_path_skip_refusal{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        skipped_gate_id = maps:get(skipped_gate_id, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds autonomous propagation selection to the exact admitted planner identity.
+-record(crown_planner_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    planner_digest :: binary(), %% planner_digest: Digest of the planner that selected the propagation action.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_planner_identity() :: #crown_planner_identity{}.
+
+-spec new_crown_planner_identity(map()) -> {ok, crown_planner_identity()} | {error, {missing_field, atom()}}.
+new_crown_planner_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(planner_digest, Map) of
+        false -> {error, {missing_field, planner_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_planner_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        planner_digest = maps:get(planner_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds process-intelligence evidence to the exact Beam4PM computation identity.
+-record(crown_process_runtime_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    process_runtime_digest :: binary(), %% process_runtime_digest: Digest of the process-intelligence runtime subject.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_process_runtime_identity() :: #crown_process_runtime_identity{}.
+
+-spec new_crown_process_runtime_identity(map()) -> {ok, crown_process_runtime_identity()} | {error, {missing_field, atom()}}.
+new_crown_process_runtime_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(process_runtime_digest, Map) of
+        false -> {error, {missing_field, process_runtime_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_process_runtime_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        process_runtime_digest = maps:get(process_runtime_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records the conflicting prior digest when a concurrent promotion wins the race.
+-record(crown_promotion_race, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    observed_previous_digest :: binary(), %% observed_previous_digest: Observed prior crown digest at the failed CAS boundary.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_promotion_race() :: #crown_promotion_race{}.
+
+-spec new_crown_promotion_race(map()) -> {ok, crown_promotion_race()} | {error, {missing_field, atom()}}.
+new_crown_promotion_race(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(observed_previous_digest, Map) of
+        false -> {error, {missing_field, observed_previous_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_promotion_race{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        observed_previous_digest = maps:get(observed_previous_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds build provenance to the exact source, builder, and published artifact identities.
+-record(crown_provenance_binding, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    provenance_digest :: binary(), %% provenance_digest: Digest of exact-subject build provenance.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_provenance_binding() :: #crown_provenance_binding{}.
+
+-spec new_crown_provenance_binding(map()) -> {ok, crown_provenance_binding()} | {error, {missing_field, atom()}}.
+new_crown_provenance_binding(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(provenance_digest, Map) of
+        false -> {error, {missing_field, provenance_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_provenance_binding{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        provenance_digest = maps:get(provenance_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Propagates receipt lineage together with the declared owner of every manufactured output.
+-record(crown_receipt_output_ownership, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    output_owner :: binary(), %% output_owner: Declared owner identity for the manufactured output set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_receipt_output_ownership() :: #crown_receipt_output_ownership{}.
+
+-spec new_crown_receipt_output_ownership(map()) -> {ok, crown_receipt_output_ownership()} | {error, {missing_field, atom()}}.
+new_crown_receipt_output_ownership(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(output_owner, Map) of
+        false -> {error, {missing_field, output_owner}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_receipt_output_ownership{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        output_owner = maps:get(output_owner, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves recursive ecosystem propagation reached a stable exact-crown fixed point.
+-record(crown_recursive_fixed_point, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    fixed_point_digest :: binary(), %% fixed_point_digest: Digest of the converged ecosystem crown assignment.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_recursive_fixed_point() :: #crown_recursive_fixed_point{}.
+
+-spec new_crown_recursive_fixed_point(map()) -> {ok, crown_recursive_fixed_point()} | {error, {missing_field, atom()}}.
+new_crown_recursive_fixed_point(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(fixed_point_digest, Map) of
+        false -> {error, {missing_field, fixed_point_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_recursive_fixed_point{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        fixed_point_digest = maps:get(fixed_point_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds resumed propagation to its checkpoint and current dependency graph.
+-record(crown_resume_token, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    resume_token_digest :: binary(), %% resume_token_digest: Digest of the validated resume token.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_resume_token() :: #crown_resume_token{}.
+
+-spec new_crown_resume_token(map()) -> {ok, crown_resume_token()} | {error, {missing_field, atom()}}.
+new_crown_resume_token(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(resume_token_digest, Map) of
+        false -> {error, {missing_field, resume_token_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_resume_token{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        resume_token_digest = maps:get(resume_token_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds the propagated artifact to the exact runtime used for qualification.
+-record(crown_runtime_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    runtime_digest :: binary(), %% runtime_digest: Digest of the admitted runtime environment.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_runtime_identity() :: #crown_runtime_identity{}.
+
+-spec new_crown_runtime_identity(map()) -> {ok, crown_runtime_identity()} | {error, {missing_field, atom()}}.
+new_crown_runtime_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(runtime_digest, Map) of
+        false -> {error, {missing_field, runtime_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_runtime_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        runtime_digest = maps:get(runtime_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds a retained software bill of materials to the exact published crown subject.
+-record(crown_sbom_subject_binding, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    sbom_digest :: binary(), %% sbom_digest: Digest of the SBOM whose subject is the exact crown.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_sbom_subject_binding() :: #crown_sbom_subject_binding{}.
+
+-spec new_crown_sbom_subject_binding(map()) -> {ok, crown_sbom_subject_binding()} | {error, {missing_field, atom()}}.
+new_crown_sbom_subject_binding(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(sbom_digest, Map) of
+        false -> {error, {missing_field, sbom_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_sbom_subject_binding{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        sbom_digest = maps:get(sbom_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves a second lawful GGen sync is byte-identical to the first manufactured output set.
+-record(crown_second_pass_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    second_pass_digest :: binary(), %% second_pass_digest: Digest of the complete second-pass output set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_second_pass_identity() :: #crown_second_pass_identity{}.
+
+-spec new_crown_second_pass_identity(map()) -> {ok, crown_second_pass_identity()} | {error, {missing_field, atom()}}.
+new_crown_second_pass_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(second_pass_digest, Map) of
+        false -> {error, {missing_field, second_pass_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_second_pass_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        second_pass_digest = maps:get(second_pass_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires a retained security scan report bound to the exact crown artifact digest.
+-record(crown_security_scan, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    scan_report_digest :: binary(), %% scan_report_digest: Digest of the exact-artifact vulnerability scan report.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_security_scan() :: #crown_security_scan{}.
+
+-spec new_crown_security_scan(map()) -> {ok, crown_security_scan()} | {error, {missing_field, atom()}}.
+new_crown_security_scan(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(scan_report_digest, Map) of
+        false -> {error, {missing_field, scan_report_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_security_scan{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        scan_report_digest = maps:get(scan_report_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds validation to the exact ggen-ecosystem source capsule and image identity.
+-record(crown_source_capsule, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    capsule_digest :: binary(), %% capsule_digest: Exact source capsule or reproducible image digest.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_source_capsule() :: #crown_source_capsule{}.
+
+-spec new_crown_source_capsule(map()) -> {ok, crown_source_capsule()} | {error, {missing_field, atom()}}.
+new_crown_source_capsule(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(capsule_digest, Map) of
+        false -> {error, {missing_field, capsule_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_source_capsule{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        capsule_digest = maps:get(capsule_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records crown age so stale subjects are typed and refused without actuation.
+-record(crown_stale_refusal, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    observed_age_seconds :: binary(), %% observed_age_seconds: Observed crown age in seconds at the decision boundary.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_stale_refusal() :: #crown_stale_refusal{}.
+
+-spec new_crown_stale_refusal(map()) -> {ok, crown_stale_refusal()} | {error, {missing_field, atom()}}.
+new_crown_stale_refusal(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(observed_age_seconds, Map) of
+        false -> {error, {missing_field, observed_age_seconds}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_stale_refusal{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        observed_age_seconds = maps:get(observed_age_seconds, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records the executable supply-chain policy decision that admitted or refused the crown.
+-record(crown_supply_chain_policy, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    policy_decision_digest :: binary(), %% policy_decision_digest: Digest of the exact policy input and decision.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_supply_chain_policy() :: #crown_supply_chain_policy{}.
+
+-spec new_crown_supply_chain_policy(map()) -> {ok, crown_supply_chain_policy()} | {error, {missing_field, atom()}}.
+new_crown_supply_chain_policy(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(policy_decision_digest, Map) of
+        false -> {error, {missing_field, policy_decision_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_supply_chain_policy{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        policy_decision_digest = maps:get(policy_decision_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Orders crown propagation so dependencies qualify before their consumers.
+-record(crown_topological_order, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    topological_rank :: binary(), %% topological_rank: Deterministic topological rank for this propagation node.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_topological_order() :: #crown_topological_order{}.
+
+-spec new_crown_topological_order(map()) -> {ok, crown_topological_order()} | {error, {missing_field, atom()}}.
+new_crown_topological_order(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(topological_rank, Map) of
+        false -> {error, {missing_field, topological_rank}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_topological_order{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        topological_rank = maps:get(topological_rank, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Pins the executable validation pack to an immutable marketplace commit.
+-record(crown_validation_pack, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    validation_pack_sha :: binary(), %% validation_pack_sha: Exact validation-pack Git commit SHA.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_validation_pack() :: #crown_validation_pack{}.
+
+-spec new_crown_validation_pack(map()) -> {ok, crown_validation_pack()} | {error, {missing_field, atom()}}.
+new_crown_validation_pack(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(validation_pack_sha, Map) of
+        false -> {error, {missing_field, validation_pack_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_validation_pack{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        validation_pack_sha = maps:get(validation_pack_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds a qualification receipt to the exact workflow execution and attempt.
+-record(crown_workflow_run_receipt, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    workflow_run_id :: binary(), %% workflow_run_id: Exact hosted workflow run and attempt identity.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_workflow_run_receipt() :: #crown_workflow_run_receipt{}.
+
+-spec new_crown_workflow_run_receipt(map()) -> {ok, crown_workflow_run_receipt()} | {error, {missing_field, atom()}}.
+new_crown_workflow_run_receipt(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(workflow_run_id, Map) of
+        false -> {error, {missing_field, workflow_run_id}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_workflow_run_receipt{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        workflow_run_id = maps:get(workflow_run_id, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves every propagation write belongs to a retained authorized receipt.
+-record(crown_zero_unreceipted_writes, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    write_set_digest :: binary(), %% write_set_digest: Digest of the complete authorized write set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_zero_unreceipted_writes() :: #crown_zero_unreceipted_writes{}.
+
+-spec new_crown_zero_unreceipted_writes(map()) -> {ok, crown_zero_unreceipted_writes()} | {error, {missing_field, atom()}}.
+new_crown_zero_unreceipted_writes(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(write_set_digest, Map) of
+        false -> {error, {missing_field, write_set_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_zero_unreceipted_writes{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        write_set_digest = maps:get(write_set_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
     end
     end
     end

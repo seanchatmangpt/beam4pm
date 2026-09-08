@@ -411,6 +411,17 @@ caller_local_checkout_observation_ok_test() ->
 caller_local_checkout_observation_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_caller_local_checkout_observation(#{})).
 
+caller_local_crown_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_caller_local_crown_identity(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        consumer_subject_sha => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+caller_local_crown_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_caller_local_crown_identity(#{})).
+
 canary_decision_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_canary_decision(#{
         canary_decision_id => <<"x">>,
@@ -865,6 +876,545 @@ cross_sell_fit_ok_test() ->
 
 cross_sell_fit_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_cross_sell_fit(#{})).
+
+crown_applicable_gate_coverage_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_applicable_gate_coverage(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        applicable_gate_set_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_applicable_gate_coverage_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_applicable_gate_coverage(#{})).
+
+crown_artifact_pullback_smoke_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_artifact_pullback_smoke(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        pullback_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_artifact_pullback_smoke_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_artifact_pullback_smoke(#{})).
+
+crown_attestation_signer_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_attestation_signer(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        signer_identity => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_attestation_signer_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_attestation_signer(#{})).
+
+crown_autonomic_republish_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_autonomic_republish(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        republished_crown_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_autonomic_republish_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_autonomic_republish(#{})).
+
+crown_capsule_toolchain_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_capsule_toolchain(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        toolchain_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_capsule_toolchain_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_capsule_toolchain(#{})).
+
+crown_cas_promotion_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_cas_promotion(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        expected_previous_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_cas_promotion_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_cas_promotion(#{})).
+
+crown_check_relevance_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_check_relevance(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        relevance_proof_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_check_relevance_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_check_relevance(#{})).
+
+crown_child_publish_observation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_child_publish_observation(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        child_publish_run_id => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_child_publish_observation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_child_publish_observation(#{})).
+
+crown_consumer_smoke_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_consumer_smoke(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        consumer_smoke_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_consumer_smoke_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_consumer_smoke(#{})).
+
+crown_convergence_proof_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_convergence_proof(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        convergence_proof_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_convergence_proof_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_convergence_proof(#{})).
+
+crown_cosign_certificate_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_cosign_certificate(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        certificate_identity => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_cosign_certificate_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_cosign_certificate(#{})).
+
+crown_default_head_sensor_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_default_head_sensor(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        default_head_sha => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_default_head_sensor_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_default_head_sensor(#{})).
+
+crown_dependency_edge_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_dependency_edge(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        downstream_consumer_id => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_dependency_edge_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_dependency_edge(#{})).
+
+crown_execution_mode_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_execution_mode(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        execution_mode => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_execution_mode_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_execution_mode(#{})).
+
+crown_fanin_convergence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_fanin_convergence(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        fanin_set_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_fanin_convergence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_fanin_convergence(#{})).
+
+crown_fanout_batch_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_fanout_batch(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        fanout_set_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_fanout_batch_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_fanout_batch(#{})).
+
+crown_federated_phase_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_federated_phase_receipt(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        selected_option_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_federated_phase_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_federated_phase_receipt(#{})).
+
+crown_freshness_window_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_freshness_window(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        fresh_until => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_freshness_window_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_freshness_window(#{})).
+
+crown_generated_source_ownership_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_generated_source_ownership(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        canonical_source_path => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_generated_source_ownership_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_generated_source_ownership(#{})).
+
+crown_gitlink_reconciliation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_gitlink_reconciliation(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        gitlink_commit_sha => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_gitlink_reconciliation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_gitlink_reconciliation(#{})).
+
+crown_immutable_sha_tag_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_immutable_sha_tag(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        immutable_tag => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_immutable_sha_tag_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_immutable_sha_tag(#{})).
+
+crown_known_good_rollback_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_known_good_rollback(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        rollback_crown_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_known_good_rollback_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_known_good_rollback(#{})).
+
+crown_latency_observation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_latency_observation(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        latency_millis => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_latency_observation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_latency_observation(#{})).
+
+crown_lock_reconciliation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_lock_reconciliation(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        lock_commit_sha => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_lock_reconciliation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_lock_reconciliation(#{})).
+
+crown_manufacturer_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_manufacturer_identity(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        manufacturer_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_manufacturer_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_manufacturer_identity(#{})).
+
+crown_marketplace_pack_pin_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_marketplace_pack_pin(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        pack_commit_sha => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_marketplace_pack_pin_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_marketplace_pack_pin(#{})).
+
+crown_multiarch_platform_set_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_multiarch_platform_set(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        platform_set_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_multiarch_platform_set_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_multiarch_platform_set(#{})).
+
+crown_oci_manifest_binding_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_oci_manifest_binding(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        oci_index_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_oci_manifest_binding_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_oci_manifest_binding(#{})).
+
+crown_package_pin_reconciliation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_package_pin_reconciliation(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        package_version_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_package_pin_reconciliation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_package_pin_reconciliation(#{})).
+
+crown_partial_checkpoint_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_partial_checkpoint(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        checkpoint_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_partial_checkpoint_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_partial_checkpoint(#{})).
+
+crown_path_skip_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_path_skip_refusal(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        skipped_gate_id => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_path_skip_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_path_skip_refusal(#{})).
+
+crown_planner_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_planner_identity(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        planner_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_planner_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_planner_identity(#{})).
+
+crown_process_runtime_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_process_runtime_identity(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        process_runtime_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_process_runtime_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_process_runtime_identity(#{})).
+
+crown_promotion_race_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_promotion_race(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        observed_previous_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_promotion_race_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_promotion_race(#{})).
+
+crown_provenance_binding_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_provenance_binding(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        provenance_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_provenance_binding_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_provenance_binding(#{})).
+
+crown_receipt_output_ownership_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_receipt_output_ownership(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        output_owner => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_receipt_output_ownership_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_receipt_output_ownership(#{})).
+
+crown_recursive_fixed_point_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_recursive_fixed_point(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        fixed_point_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_recursive_fixed_point_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_recursive_fixed_point(#{})).
+
+crown_resume_token_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_resume_token(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        resume_token_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_resume_token_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_resume_token(#{})).
+
+crown_runtime_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_runtime_identity(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        runtime_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_runtime_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_runtime_identity(#{})).
+
+crown_sbom_subject_binding_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_sbom_subject_binding(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        sbom_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_sbom_subject_binding_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_sbom_subject_binding(#{})).
+
+crown_second_pass_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_second_pass_identity(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        second_pass_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_second_pass_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_second_pass_identity(#{})).
+
+crown_security_scan_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_security_scan(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        scan_report_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_security_scan_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_security_scan(#{})).
+
+crown_source_capsule_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_source_capsule(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        capsule_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_source_capsule_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_source_capsule(#{})).
+
+crown_stale_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_stale_refusal(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        observed_age_seconds => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_stale_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_stale_refusal(#{})).
+
+crown_supply_chain_policy_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_supply_chain_policy(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        policy_decision_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_supply_chain_policy_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_supply_chain_policy(#{})).
+
+crown_topological_order_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_topological_order(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        topological_rank => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_topological_order_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_topological_order(#{})).
+
+crown_validation_pack_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_validation_pack(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        validation_pack_sha => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_validation_pack_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_validation_pack(#{})).
+
+crown_workflow_run_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_workflow_run_receipt(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        workflow_run_id => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_workflow_run_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_workflow_run_receipt(#{})).
+
+crown_zero_unreceipted_writes_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_crown_zero_unreceipted_writes(#{
+        propagation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        write_set_digest => <<"x">>,
+        receipt_digest => <<"x">>
+    })).
+
+crown_zero_unreceipted_writes_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_crown_zero_unreceipted_writes(#{})).
 
 customer_health_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_customer_health(#{

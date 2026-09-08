@@ -517,6 +517,20 @@ pub type CallerLocalCheckoutObservation {
   )
 }
 
+/// Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused.
+pub type CallerLocalCrownIdentity {
+  CallerLocalCrownIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact caller-local consumer commit SHA that must be requalified.
+    consumer_subject_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
 /// Receipted enterprise canary decision based on an observed rollout consequence.
 pub type CanaryDecision {
   CanaryDecision(
@@ -1088,6 +1102,692 @@ pub type CrossSellFit {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Requires every gate applicable to the changed subject before declaring the crown alive.
+pub type CrownApplicableGateCoverage {
+  CrownApplicableGateCoverage(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the normalized applicable gate set and results.
+    applicable_gate_set_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Proves the published artifact can be pulled back from its distribution boundary byte-for-byte.
+pub type CrownArtifactPullbackSmoke {
+  CrownArtifactPullbackSmoke(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest observed after artifact pullback.
+    pullback_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires an admitted signer identity for every propagated supply-chain attestation.
+pub type CrownAttestationSigner {
+  CrownAttestationSigner(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Verified identity that signed the attestation.
+    signer_identity: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Receipts autonomous downstream requalification and immutable crown republication.
+pub type CrownAutonomicRepublish {
+  CrownAutonomicRepublish(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact digest of the republished downstream crown.
+    republished_crown_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds source capsule, validation pack, execution mode, and toolchain as one evidence identity.
+pub type CrownCapsuleToolchain {
+  CrownCapsuleToolchain(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the exact capsule toolchain closure.
+    toolchain_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Authorizes promotion only when the observed prior crown equals the compare-and-swap expectation.
+pub type CrownCasPromotion {
+  CrownCasPromotion(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Expected previously promoted crown digest.
+    expected_previous_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Separates irrelevant checks from exact-subject qualification without hiding required evidence.
+pub type CrownCheckRelevance {
+  CrownCheckRelevance(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest proving check relevance classification.
+    relevance_proof_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Observes the exact child publication execution before its crown can propagate further.
+pub type CrownChildPublishObservation {
+  CrownChildPublishObservation(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact workflow run identity that published the child crown.
+    child_publish_run_id: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires a real downstream consumer smoke consequence for the exact propagated crown.
+pub type CrownConsumerSmoke {
+  CrownConsumerSmoke(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the exact-consumer smoke receipt.
+    consumer_smoke_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Produces a deterministic proof that every admitted consumer holds the expected crown.
+pub type CrownConvergenceProof {
+  CrownConvergenceProof(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the ecosystem convergence proof.
+    convergence_proof_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Captures the keyless signing certificate identity admitted for the exact crown digest.
+pub type CrownCosignCertificate {
+  CrownCosignCertificate(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Verified Cosign certificate identity.
+    certificate_identity: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Observes the exact downstream default-branch head before selecting a reconciliation candidate.
+pub type CrownDefaultHeadSensor {
+  CrownDefaultHeadSensor(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Observed immutable default-branch head SHA.
+    default_head_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Declares one exact upstream-to-downstream propagation edge in the ecosystem graph.
+pub type CrownDependencyEdge {
+  CrownDependencyEdge(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact downstream consumer repository identity.
+    downstream_consumer_id: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Records whether qualification ran locally, in a capsule, or on a hosted runner.
+pub type CrownExecutionMode {
+  CrownExecutionMode(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Admitted execution-mode identifier.
+    execution_mode: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires every admitted upstream parent crown before a fan-in consumer can converge.
+pub type CrownFaninConvergence {
+  CrownFaninConvergence(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the complete admitted fan-in crown set.
+    fanin_set_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds parallel downstream propagation to one deterministic admitted consumer set.
+pub type CrownFanoutBatch {
+  CrownFanoutBatch(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the sorted fan-out consumer set.
+    fanout_set_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Receipts SELECT, CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, and RECEIPT as ordered phases.
+pub type CrownFederatedPhaseReceipt {
+  CrownFederatedPhaseReceipt(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the selected qualified propagation option.
+    selected_option_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Defines the deterministic deadline after which a crown cannot be promoted without requalification.
+pub type CrownFreshnessWindow {
+  CrownFreshnessWindow(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// UTC freshness deadline admitted by policy.
+    fresh_until: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Routes drift in a generated projection back to its declared canonical semantic source.
+pub type CrownGeneratedSourceOwnership {
+  CrownGeneratedSourceOwnership(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Canonical non-generated source path authorized to repair the projection.
+    canonical_source_path: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Reconciles a consumer gitlink to the exact admitted dependency commit.
+pub type CrownGitlinkReconciliation {
+  CrownGitlinkReconciliation(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact submodule gitlink commit SHA.
+    gitlink_commit_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Admits only artifact tags derived from an exact immutable source SHA.
+pub type CrownImmutableShaTag {
+  CrownImmutableShaTag(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Immutable source-derived artifact tag.
+    immutable_tag: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Selects an immutable previously qualified crown for autonomous rollback.
+pub type CrownKnownGoodRollback {
+  CrownKnownGoodRollback(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact prior known-good crown digest.
+    rollback_crown_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Records exact end-to-end propagation latency for freshness and SLO decisions.
+pub type CrownLatencyObservation {
+  CrownLatencyObservation(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Observed propagation latency in milliseconds.
+    latency_millis: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Reconciles a downstream lock entry to the exact admitted upstream commit.
+pub type CrownLockReconciliation {
+  CrownLockReconciliation(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact commit SHA encoded in the reconciled lock.
+    lock_commit_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds propagation to the exact deterministic manufacturer executable identity.
+pub type CrownManufacturerIdentity {
+  CrownManufacturerIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the admitted GGen manufacturer binary.
+    manufacturer_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires every consumed marketplace pack to resolve to an immutable Git commit before manufacture.
+pub type CrownMarketplacePackPin {
+  CrownMarketplacePackPin(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact immutable marketplace pack commit SHA.
+    pack_commit_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires the crown manifest to contain the admitted architecture and operating-system set.
+pub type CrownMultiarchPlatformSet {
+  CrownMultiarchPlatformSet(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the normalized admitted platform set.
+    platform_set_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds a propagated crown to its exact OCI multi-architecture index digest.
+pub type CrownOciManifestBinding {
+  CrownOciManifestBinding(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact OCI index digest selected for propagation.
+    oci_index_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Reconciles package resolution to an immutable version and content digest.
+pub type CrownPackagePinReconciliation {
+  CrownPackagePinReconciliation(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the exact resolved package version.
+    package_version_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Persists exact completed propagation edges for safe recovery after partial failure.
+pub type CrownPartialCheckpoint {
+  CrownPartialCheckpoint(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the completed-edge checkpoint.
+    checkpoint_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Refuses false ALIVE when a required qualification gate was path-skipped.
+pub type CrownPathSkipRefusal {
+  CrownPathSkipRefusal(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Identity of the required gate that was skipped.
+    skipped_gate_id: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds autonomous propagation selection to the exact admitted planner identity.
+pub type CrownPlannerIdentity {
+  CrownPlannerIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the planner that selected the propagation action.
+    planner_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds process-intelligence evidence to the exact Beam4PM computation identity.
+pub type CrownProcessRuntimeIdentity {
+  CrownProcessRuntimeIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the process-intelligence runtime subject.
+    process_runtime_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Records the conflicting prior digest when a concurrent promotion wins the race.
+pub type CrownPromotionRace {
+  CrownPromotionRace(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Observed prior crown digest at the failed CAS boundary.
+    observed_previous_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds build provenance to the exact source, builder, and published artifact identities.
+pub type CrownProvenanceBinding {
+  CrownProvenanceBinding(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of exact-subject build provenance.
+    provenance_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Propagates receipt lineage together with the declared owner of every manufactured output.
+pub type CrownReceiptOutputOwnership {
+  CrownReceiptOutputOwnership(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Declared owner identity for the manufactured output set.
+    output_owner: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Proves recursive ecosystem propagation reached a stable exact-crown fixed point.
+pub type CrownRecursiveFixedPoint {
+  CrownRecursiveFixedPoint(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the converged ecosystem crown assignment.
+    fixed_point_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds resumed propagation to its checkpoint and current dependency graph.
+pub type CrownResumeToken {
+  CrownResumeToken(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the validated resume token.
+    resume_token_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds the propagated artifact to the exact runtime used for qualification.
+pub type CrownRuntimeIdentity {
+  CrownRuntimeIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the admitted runtime environment.
+    runtime_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds a retained software bill of materials to the exact published crown subject.
+pub type CrownSbomSubjectBinding {
+  CrownSbomSubjectBinding(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the SBOM whose subject is the exact crown.
+    sbom_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Proves a second lawful GGen sync is byte-identical to the first manufactured output set.
+pub type CrownSecondPassIdentity {
+  CrownSecondPassIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the complete second-pass output set.
+    second_pass_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires a retained security scan report bound to the exact crown artifact digest.
+pub type CrownSecurityScan {
+  CrownSecurityScan(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the exact-artifact vulnerability scan report.
+    scan_report_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds validation to the exact ggen-ecosystem source capsule and image identity.
+pub type CrownSourceCapsule {
+  CrownSourceCapsule(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact source capsule or reproducible image digest.
+    capsule_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Records crown age so stale subjects are typed and refused without actuation.
+pub type CrownStaleRefusal {
+  CrownStaleRefusal(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Observed crown age in seconds at the decision boundary.
+    observed_age_seconds: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Records the executable supply-chain policy decision that admitted or refused the crown.
+pub type CrownSupplyChainPolicy {
+  CrownSupplyChainPolicy(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the exact policy input and decision.
+    policy_decision_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Orders crown propagation so dependencies qualify before their consumers.
+pub type CrownTopologicalOrder {
+  CrownTopologicalOrder(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Deterministic topological rank for this propagation node.
+    topological_rank: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Pins the executable validation pack to an immutable marketplace commit.
+pub type CrownValidationPack {
+  CrownValidationPack(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact validation-pack Git commit SHA.
+    validation_pack_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds a qualification receipt to the exact workflow execution and attempt.
+pub type CrownWorkflowRunReceipt {
+  CrownWorkflowRunReceipt(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact hosted workflow run and attempt identity.
+    workflow_run_id: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Proves every propagation write belongs to a retained authorized receipt.
+pub type CrownZeroUnreceiptedWrites {
+  CrownZeroUnreceiptedWrites(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the complete authorized write set.
+    write_set_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
   )
 }
 

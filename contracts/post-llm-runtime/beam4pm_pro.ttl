@@ -46,3 +46,18 @@ b4:pro_runtime rt:enablesCapability "pro_proof_of_value_scorecard" .
 b4:pro_runtime rt:enablesCapability "pro_stakeholder_value_summary" .
 b4:pro_runtime rt:enablesCapability "pro_migration_import_readiness" .
 b4:pro_runtime rt:enablesCapability "pro_renewal_expansion_evidence" .
+
+# Autonomic closure operating contract. These capabilities decompress a
+# compressed directive into its bounded semantic neighborhood, preserve open
+# obligations, and refuse routine progress that depends on Sean remembering
+# work that the system can lawfully observe and schedule itself.
+b4:pro_runtime rt:enablesCapability "directive_decompression" .
+b4:pro_runtime rt:enablesCapability "semantic_neighborhood_closure" .
+b4:pro_runtime rt:enablesCapability "continuity_preservation" .
+b4:pro_runtime rt:enablesCapability "dependency_closure" .
+b4:pro_runtime rt:enablesCapability "exact_subject_evidence" .
+b4:pro_runtime rt:enablesCapability "obligation_carry_forward" .
+b4:pro_runtime rt:enablesCapability "memory_dependence_falsifier" .
+b4:pro_runtime rt:enablesCapability "recurring_repair_packification" .
+b4:pro_runtime rt:enablesCapability "autonomic_capability_discovery" .
+b4:pro_runtime rt:enablesCapability "closure_operationalization" .

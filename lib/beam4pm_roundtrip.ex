@@ -46,6 +46,7 @@ defmodule BeamPM.Roundtrip do
     :business_outcome_measurement,
     :buying_committee,
     :caller_local_checkout_observation,
+    :caller_local_crown_identity,
     :canary_decision,
     :canary_evidence,
     :canonical_source_authority_observation,
@@ -88,6 +89,55 @@ defmodule BeamPM.Roundtrip do
     :crash_recovery_receipt,
     :credit_risk_admission,
     :cross_sell_fit,
+    :crown_applicable_gate_coverage,
+    :crown_artifact_pullback_smoke,
+    :crown_attestation_signer,
+    :crown_autonomic_republish,
+    :crown_capsule_toolchain,
+    :crown_cas_promotion,
+    :crown_check_relevance,
+    :crown_child_publish_observation,
+    :crown_consumer_smoke,
+    :crown_convergence_proof,
+    :crown_cosign_certificate,
+    :crown_default_head_sensor,
+    :crown_dependency_edge,
+    :crown_execution_mode,
+    :crown_fanin_convergence,
+    :crown_fanout_batch,
+    :crown_federated_phase_receipt,
+    :crown_freshness_window,
+    :crown_generated_source_ownership,
+    :crown_gitlink_reconciliation,
+    :crown_immutable_sha_tag,
+    :crown_known_good_rollback,
+    :crown_latency_observation,
+    :crown_lock_reconciliation,
+    :crown_manufacturer_identity,
+    :crown_marketplace_pack_pin,
+    :crown_multiarch_platform_set,
+    :crown_oci_manifest_binding,
+    :crown_package_pin_reconciliation,
+    :crown_partial_checkpoint,
+    :crown_path_skip_refusal,
+    :crown_planner_identity,
+    :crown_process_runtime_identity,
+    :crown_promotion_race,
+    :crown_provenance_binding,
+    :crown_receipt_output_ownership,
+    :crown_recursive_fixed_point,
+    :crown_resume_token,
+    :crown_runtime_identity,
+    :crown_sbom_subject_binding,
+    :crown_second_pass_identity,
+    :crown_security_scan,
+    :crown_source_capsule,
+    :crown_stale_refusal,
+    :crown_supply_chain_policy,
+    :crown_topological_order,
+    :crown_validation_pack,
+    :crown_workflow_run_receipt,
+    :crown_zero_unreceipted_writes,
     :customer_health,
     :customer_managed_key_evidence,
     :customer_signal_observation,
@@ -1018,6 +1068,24 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:caller_local_crown_identity, :full) do
+    BeamPM.Types.CallerLocalCrownIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      consumer_subject_sha: "sample_consumer_subject_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:caller_local_crown_identity, :minimal) do
+    BeamPM.Types.CallerLocalCrownIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      consumer_subject_sha: "sample_consumer_subject_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
   def sample(:canary_decision, :full) do
     BeamPM.Types.CanaryDecision.new(%{
       canary_decision_id: "sample_canary_decision_id",
@@ -1755,6 +1823,888 @@ defmodule BeamPM.Roundtrip do
       cross_sell_score: 3.5,
       evidence_digest: "sample_evidence_digest",
       observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:crown_applicable_gate_coverage, :full) do
+    BeamPM.Types.CrownApplicableGateCoverage.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      applicable_gate_set_digest: "sample_applicable_gate_set_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_applicable_gate_coverage, :minimal) do
+    BeamPM.Types.CrownApplicableGateCoverage.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      applicable_gate_set_digest: "sample_applicable_gate_set_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_artifact_pullback_smoke, :full) do
+    BeamPM.Types.CrownArtifactPullbackSmoke.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      pullback_digest: "sample_pullback_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_artifact_pullback_smoke, :minimal) do
+    BeamPM.Types.CrownArtifactPullbackSmoke.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      pullback_digest: "sample_pullback_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_attestation_signer, :full) do
+    BeamPM.Types.CrownAttestationSigner.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      signer_identity: "sample_signer_identity",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_attestation_signer, :minimal) do
+    BeamPM.Types.CrownAttestationSigner.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      signer_identity: "sample_signer_identity",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_autonomic_republish, :full) do
+    BeamPM.Types.CrownAutonomicRepublish.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      republished_crown_digest: "sample_republished_crown_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_autonomic_republish, :minimal) do
+    BeamPM.Types.CrownAutonomicRepublish.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      republished_crown_digest: "sample_republished_crown_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_capsule_toolchain, :full) do
+    BeamPM.Types.CrownCapsuleToolchain.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      toolchain_digest: "sample_toolchain_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_capsule_toolchain, :minimal) do
+    BeamPM.Types.CrownCapsuleToolchain.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      toolchain_digest: "sample_toolchain_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_cas_promotion, :full) do
+    BeamPM.Types.CrownCasPromotion.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      expected_previous_digest: "sample_expected_previous_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_cas_promotion, :minimal) do
+    BeamPM.Types.CrownCasPromotion.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      expected_previous_digest: "sample_expected_previous_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_check_relevance, :full) do
+    BeamPM.Types.CrownCheckRelevance.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      relevance_proof_digest: "sample_relevance_proof_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_check_relevance, :minimal) do
+    BeamPM.Types.CrownCheckRelevance.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      relevance_proof_digest: "sample_relevance_proof_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_child_publish_observation, :full) do
+    BeamPM.Types.CrownChildPublishObservation.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      child_publish_run_id: "sample_child_publish_run_id",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_child_publish_observation, :minimal) do
+    BeamPM.Types.CrownChildPublishObservation.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      child_publish_run_id: "sample_child_publish_run_id",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_consumer_smoke, :full) do
+    BeamPM.Types.CrownConsumerSmoke.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      consumer_smoke_digest: "sample_consumer_smoke_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_consumer_smoke, :minimal) do
+    BeamPM.Types.CrownConsumerSmoke.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      consumer_smoke_digest: "sample_consumer_smoke_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_convergence_proof, :full) do
+    BeamPM.Types.CrownConvergenceProof.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      convergence_proof_digest: "sample_convergence_proof_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_convergence_proof, :minimal) do
+    BeamPM.Types.CrownConvergenceProof.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      convergence_proof_digest: "sample_convergence_proof_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_cosign_certificate, :full) do
+    BeamPM.Types.CrownCosignCertificate.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      certificate_identity: "sample_certificate_identity",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_cosign_certificate, :minimal) do
+    BeamPM.Types.CrownCosignCertificate.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      certificate_identity: "sample_certificate_identity",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_default_head_sensor, :full) do
+    BeamPM.Types.CrownDefaultHeadSensor.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      default_head_sha: "sample_default_head_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_default_head_sensor, :minimal) do
+    BeamPM.Types.CrownDefaultHeadSensor.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      default_head_sha: "sample_default_head_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_dependency_edge, :full) do
+    BeamPM.Types.CrownDependencyEdge.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      downstream_consumer_id: "sample_downstream_consumer_id",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_dependency_edge, :minimal) do
+    BeamPM.Types.CrownDependencyEdge.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      downstream_consumer_id: "sample_downstream_consumer_id",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_execution_mode, :full) do
+    BeamPM.Types.CrownExecutionMode.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      execution_mode: "sample_execution_mode",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_execution_mode, :minimal) do
+    BeamPM.Types.CrownExecutionMode.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      execution_mode: "sample_execution_mode",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_fanin_convergence, :full) do
+    BeamPM.Types.CrownFaninConvergence.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      fanin_set_digest: "sample_fanin_set_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_fanin_convergence, :minimal) do
+    BeamPM.Types.CrownFaninConvergence.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      fanin_set_digest: "sample_fanin_set_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_fanout_batch, :full) do
+    BeamPM.Types.CrownFanoutBatch.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      fanout_set_digest: "sample_fanout_set_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_fanout_batch, :minimal) do
+    BeamPM.Types.CrownFanoutBatch.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      fanout_set_digest: "sample_fanout_set_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_federated_phase_receipt, :full) do
+    BeamPM.Types.CrownFederatedPhaseReceipt.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      selected_option_digest: "sample_selected_option_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_federated_phase_receipt, :minimal) do
+    BeamPM.Types.CrownFederatedPhaseReceipt.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      selected_option_digest: "sample_selected_option_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_freshness_window, :full) do
+    BeamPM.Types.CrownFreshnessWindow.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      fresh_until: "sample_fresh_until",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_freshness_window, :minimal) do
+    BeamPM.Types.CrownFreshnessWindow.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      fresh_until: "sample_fresh_until",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_generated_source_ownership, :full) do
+    BeamPM.Types.CrownGeneratedSourceOwnership.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      canonical_source_path: "sample_canonical_source_path",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_generated_source_ownership, :minimal) do
+    BeamPM.Types.CrownGeneratedSourceOwnership.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      canonical_source_path: "sample_canonical_source_path",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_gitlink_reconciliation, :full) do
+    BeamPM.Types.CrownGitlinkReconciliation.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      gitlink_commit_sha: "sample_gitlink_commit_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_gitlink_reconciliation, :minimal) do
+    BeamPM.Types.CrownGitlinkReconciliation.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      gitlink_commit_sha: "sample_gitlink_commit_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_immutable_sha_tag, :full) do
+    BeamPM.Types.CrownImmutableShaTag.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      immutable_tag: "sample_immutable_tag",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_immutable_sha_tag, :minimal) do
+    BeamPM.Types.CrownImmutableShaTag.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      immutable_tag: "sample_immutable_tag",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_known_good_rollback, :full) do
+    BeamPM.Types.CrownKnownGoodRollback.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      rollback_crown_digest: "sample_rollback_crown_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_known_good_rollback, :minimal) do
+    BeamPM.Types.CrownKnownGoodRollback.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      rollback_crown_digest: "sample_rollback_crown_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_latency_observation, :full) do
+    BeamPM.Types.CrownLatencyObservation.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      latency_millis: "sample_latency_millis",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_latency_observation, :minimal) do
+    BeamPM.Types.CrownLatencyObservation.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      latency_millis: "sample_latency_millis",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_lock_reconciliation, :full) do
+    BeamPM.Types.CrownLockReconciliation.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      lock_commit_sha: "sample_lock_commit_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_lock_reconciliation, :minimal) do
+    BeamPM.Types.CrownLockReconciliation.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      lock_commit_sha: "sample_lock_commit_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_manufacturer_identity, :full) do
+    BeamPM.Types.CrownManufacturerIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      manufacturer_digest: "sample_manufacturer_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_manufacturer_identity, :minimal) do
+    BeamPM.Types.CrownManufacturerIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      manufacturer_digest: "sample_manufacturer_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_marketplace_pack_pin, :full) do
+    BeamPM.Types.CrownMarketplacePackPin.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      pack_commit_sha: "sample_pack_commit_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_marketplace_pack_pin, :minimal) do
+    BeamPM.Types.CrownMarketplacePackPin.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      pack_commit_sha: "sample_pack_commit_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_multiarch_platform_set, :full) do
+    BeamPM.Types.CrownMultiarchPlatformSet.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      platform_set_digest: "sample_platform_set_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_multiarch_platform_set, :minimal) do
+    BeamPM.Types.CrownMultiarchPlatformSet.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      platform_set_digest: "sample_platform_set_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_oci_manifest_binding, :full) do
+    BeamPM.Types.CrownOciManifestBinding.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      oci_index_digest: "sample_oci_index_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_oci_manifest_binding, :minimal) do
+    BeamPM.Types.CrownOciManifestBinding.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      oci_index_digest: "sample_oci_index_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_package_pin_reconciliation, :full) do
+    BeamPM.Types.CrownPackagePinReconciliation.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      package_version_digest: "sample_package_version_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_package_pin_reconciliation, :minimal) do
+    BeamPM.Types.CrownPackagePinReconciliation.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      package_version_digest: "sample_package_version_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_partial_checkpoint, :full) do
+    BeamPM.Types.CrownPartialCheckpoint.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      checkpoint_digest: "sample_checkpoint_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_partial_checkpoint, :minimal) do
+    BeamPM.Types.CrownPartialCheckpoint.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      checkpoint_digest: "sample_checkpoint_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_path_skip_refusal, :full) do
+    BeamPM.Types.CrownPathSkipRefusal.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      skipped_gate_id: "sample_skipped_gate_id",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_path_skip_refusal, :minimal) do
+    BeamPM.Types.CrownPathSkipRefusal.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      skipped_gate_id: "sample_skipped_gate_id",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_planner_identity, :full) do
+    BeamPM.Types.CrownPlannerIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      planner_digest: "sample_planner_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_planner_identity, :minimal) do
+    BeamPM.Types.CrownPlannerIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      planner_digest: "sample_planner_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_process_runtime_identity, :full) do
+    BeamPM.Types.CrownProcessRuntimeIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      process_runtime_digest: "sample_process_runtime_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_process_runtime_identity, :minimal) do
+    BeamPM.Types.CrownProcessRuntimeIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      process_runtime_digest: "sample_process_runtime_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_promotion_race, :full) do
+    BeamPM.Types.CrownPromotionRace.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      observed_previous_digest: "sample_observed_previous_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_promotion_race, :minimal) do
+    BeamPM.Types.CrownPromotionRace.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      observed_previous_digest: "sample_observed_previous_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_provenance_binding, :full) do
+    BeamPM.Types.CrownProvenanceBinding.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      provenance_digest: "sample_provenance_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_provenance_binding, :minimal) do
+    BeamPM.Types.CrownProvenanceBinding.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      provenance_digest: "sample_provenance_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_receipt_output_ownership, :full) do
+    BeamPM.Types.CrownReceiptOutputOwnership.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      output_owner: "sample_output_owner",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_receipt_output_ownership, :minimal) do
+    BeamPM.Types.CrownReceiptOutputOwnership.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      output_owner: "sample_output_owner",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_recursive_fixed_point, :full) do
+    BeamPM.Types.CrownRecursiveFixedPoint.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      fixed_point_digest: "sample_fixed_point_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_recursive_fixed_point, :minimal) do
+    BeamPM.Types.CrownRecursiveFixedPoint.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      fixed_point_digest: "sample_fixed_point_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_resume_token, :full) do
+    BeamPM.Types.CrownResumeToken.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      resume_token_digest: "sample_resume_token_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_resume_token, :minimal) do
+    BeamPM.Types.CrownResumeToken.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      resume_token_digest: "sample_resume_token_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_runtime_identity, :full) do
+    BeamPM.Types.CrownRuntimeIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      runtime_digest: "sample_runtime_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_runtime_identity, :minimal) do
+    BeamPM.Types.CrownRuntimeIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      runtime_digest: "sample_runtime_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_sbom_subject_binding, :full) do
+    BeamPM.Types.CrownSbomSubjectBinding.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      sbom_digest: "sample_sbom_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_sbom_subject_binding, :minimal) do
+    BeamPM.Types.CrownSbomSubjectBinding.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      sbom_digest: "sample_sbom_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_second_pass_identity, :full) do
+    BeamPM.Types.CrownSecondPassIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      second_pass_digest: "sample_second_pass_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_second_pass_identity, :minimal) do
+    BeamPM.Types.CrownSecondPassIdentity.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      second_pass_digest: "sample_second_pass_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_security_scan, :full) do
+    BeamPM.Types.CrownSecurityScan.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      scan_report_digest: "sample_scan_report_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_security_scan, :minimal) do
+    BeamPM.Types.CrownSecurityScan.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      scan_report_digest: "sample_scan_report_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_source_capsule, :full) do
+    BeamPM.Types.CrownSourceCapsule.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      capsule_digest: "sample_capsule_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_source_capsule, :minimal) do
+    BeamPM.Types.CrownSourceCapsule.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      capsule_digest: "sample_capsule_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_stale_refusal, :full) do
+    BeamPM.Types.CrownStaleRefusal.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      observed_age_seconds: "sample_observed_age_seconds",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_stale_refusal, :minimal) do
+    BeamPM.Types.CrownStaleRefusal.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      observed_age_seconds: "sample_observed_age_seconds",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_supply_chain_policy, :full) do
+    BeamPM.Types.CrownSupplyChainPolicy.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      policy_decision_digest: "sample_policy_decision_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_supply_chain_policy, :minimal) do
+    BeamPM.Types.CrownSupplyChainPolicy.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      policy_decision_digest: "sample_policy_decision_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_topological_order, :full) do
+    BeamPM.Types.CrownTopologicalOrder.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      topological_rank: "sample_topological_rank",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_topological_order, :minimal) do
+    BeamPM.Types.CrownTopologicalOrder.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      topological_rank: "sample_topological_rank",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_validation_pack, :full) do
+    BeamPM.Types.CrownValidationPack.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      validation_pack_sha: "sample_validation_pack_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_validation_pack, :minimal) do
+    BeamPM.Types.CrownValidationPack.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      validation_pack_sha: "sample_validation_pack_sha",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_workflow_run_receipt, :full) do
+    BeamPM.Types.CrownWorkflowRunReceipt.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      workflow_run_id: "sample_workflow_run_id",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_workflow_run_receipt, :minimal) do
+    BeamPM.Types.CrownWorkflowRunReceipt.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      workflow_run_id: "sample_workflow_run_id",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_zero_unreceipted_writes, :full) do
+    BeamPM.Types.CrownZeroUnreceiptedWrites.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      write_set_digest: "sample_write_set_digest",
+      receipt_digest: "sample_receipt_digest"
+    })
+  end
+
+  def sample(:crown_zero_unreceipted_writes, :minimal) do
+    BeamPM.Types.CrownZeroUnreceiptedWrites.new(%{
+      propagation_id: "sample_propagation_id",
+      subject_sha: "sample_subject_sha",
+      write_set_digest: "sample_write_set_digest",
+      receipt_digest: "sample_receipt_digest"
     })
   end
 
