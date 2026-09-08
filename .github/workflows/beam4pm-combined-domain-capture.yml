@@ -1,0 +1,57 @@
+# Hand-authored temporary evidence rail; generated domain remains read-only.
+name: beam4pm Combined Domain Capture
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "ontology.ttl"
+      - ".github/workflows/beam4pm-combined-domain-capture.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact PR head with marketplace submodule
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          submodules: recursive
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Prove exact subject identity
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - name: Set up exact BEAM toolchain
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124
+        with:
+          otp-version: "27.2"
+          elixir-version: "1.18.5"
+      - name: Resolve Igniter dependencies
+        run: mix deps.get
+      - name: Manufacture combined Ash domain from canonical ontology
+        run: |
+          set -euo pipefail
+          PACK=vendor/ggen-marketplace/packs/beam4pm-process-model-pack
+          mix ggen_igniter.sync \
+            --ontology ontology.ttl \
+            --query records="$PACK/igniter/queries/records.rq" \
+            --template "$PACK/igniter/templates/beam4pm_ash_domain.ex.eex" \
+            --out lib/beam4pm_ash_domain.ex
+          test -s lib/beam4pm_ash_domain.ex
+          grep -q 'BeamPM.Ash.Resources.NextLawfulActuation' lib/beam4pm_ash_domain.ex
+          grep -q 'BeamPM.Ash.Resources.CrownZeroUnreceiptedWrites' lib/beam4pm_ash_domain.ex
+          sha256sum lib/beam4pm_ash_domain.ex > combined-domain.sha256
+      - name: Upload exact generated combined domain
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: combined-domain-${{ github.event.pull_request.head.sha || github.sha }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            lib/beam4pm_ash_domain.ex
+            combined-domain.sha256
