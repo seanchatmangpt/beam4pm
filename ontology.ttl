@@ -10389,3 +10389,44 @@ b4p:evaluation_seed_binding_deterministic_f a bpm:Field ;
     bpm:fieldName "deterministic" ; bpm:fieldType "boolean" ;
     bpm:fieldDoc "Whether replay reproduced the result exactly." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-017 — regression_detector
+b4p:regression_detector_rt a bpm:RecordType ;
+    bpm:recordName "regression_detector" ;
+    bpm:recordDoc "Detects candidate regression against a fixed baseline and metric before promotion." ;
+    bpm:hasField b4p:regression_detector_detection_id_f,
+                 b4p:regression_detector_baseline_policy_id_f,
+                 b4p:regression_detector_candidate_policy_id_f,
+                 b4p:regression_detector_metric_id_f,
+                 b4p:regression_detector_regression_delta_f,
+                 b4p:regression_detector_evidence_digest_f .
+
+b4p:regression_detector_detection_id_f a bpm:Field ;
+    bpm:fieldName "detection_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable regression detection identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:regression_detector_baseline_policy_id_f a bpm:Field ;
+    bpm:fieldName "baseline_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Admitted baseline policy." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:regression_detector_candidate_policy_id_f a bpm:Field ;
+    bpm:fieldName "candidate_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate policy under test." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:regression_detector_metric_id_f a bpm:Field ;
+    bpm:fieldName "metric_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Metric defining regression." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:regression_detector_regression_delta_f a bpm:Field ;
+    bpm:fieldName "regression_delta" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Measured candidate regression." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:regression_detector_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Independent comparison evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
