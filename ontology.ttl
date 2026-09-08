@@ -10348,3 +10348,44 @@ b4p:seeded_evaluation_replay_digest_f a bpm:Field ;
     bpm:fieldName "replay_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest of deterministic replay output." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-016 — evaluation_seed_binding
+b4p:evaluation_seed_binding_rt a bpm:RecordType ;
+    bpm:recordName "evaluation_seed_binding" ;
+    bpm:recordDoc "Refuses evaluation evidence whose result is not cryptographically bound to its declared seed." ;
+    bpm:hasField b4p:evaluation_seed_binding_binding_id_f,
+                 b4p:evaluation_seed_binding_evaluation_id_f,
+                 b4p:evaluation_seed_binding_seed_f,
+                 b4p:evaluation_seed_binding_result_digest_f,
+                 b4p:evaluation_seed_binding_source_digest_f,
+                 b4p:evaluation_seed_binding_deterministic_f .
+
+b4p:evaluation_seed_binding_binding_id_f a bpm:Field ;
+    bpm:fieldName "binding_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable seed-binding identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:evaluation_seed_binding_evaluation_id_f a bpm:Field ;
+    bpm:fieldName "evaluation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Evaluation whose seed is bound." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:evaluation_seed_binding_seed_f a bpm:Field ;
+    bpm:fieldName "seed" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Declared deterministic seed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:evaluation_seed_binding_result_digest_f a bpm:Field ;
+    bpm:fieldName "result_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the seeded result." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:evaluation_seed_binding_source_digest_f a bpm:Field ;
+    bpm:fieldName "source_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of seed provenance." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:evaluation_seed_binding_deterministic_f a bpm:Field ;
+    bpm:fieldName "deterministic" ; bpm:fieldType "boolean" ;
+    bpm:fieldDoc "Whether replay reproduced the result exactly." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
