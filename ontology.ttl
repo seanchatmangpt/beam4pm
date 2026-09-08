@@ -11102,3 +11102,44 @@ b4p:rate_distortion_budget_maximum_distortion_f a bpm:Field ;
     bpm:fieldName "maximum_distortion" ; bpm:fieldType "float" ;
     bpm:fieldDoc "Maximum admitted decision distortion." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-036 — decision_information_preservation
+b4p:decision_information_preservation_rt a bpm:RecordType ;
+    bpm:recordName "decision_information_preservation" ;
+    bpm:recordDoc "Proves an adaptive projection preserves the distinctions required by a decision." ;
+    bpm:hasField b4p:decision_information_preservation_preservation_id_f,
+                 b4p:decision_information_preservation_decision_id_f,
+                 b4p:decision_information_preservation_source_partition_digest_f,
+                 b4p:decision_information_preservation_projection_digest_f,
+                 b4p:decision_information_preservation_preserved_question_set_digest_f,
+                 b4p:decision_information_preservation_loss_score_f .
+
+b4p:decision_information_preservation_preservation_id_f a bpm:Field ;
+    bpm:fieldName "preservation_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable preservation proof identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:decision_information_preservation_decision_id_f a bpm:Field ;
+    bpm:fieldName "decision_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Decision whose information is protected." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:decision_information_preservation_source_partition_digest_f a bpm:Field ;
+    bpm:fieldName "source_partition_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of source information partitions." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:decision_information_preservation_projection_digest_f a bpm:Field ;
+    bpm:fieldName "projection_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the adaptive projection." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:decision_information_preservation_preserved_question_set_digest_f a bpm:Field ;
+    bpm:fieldName "preserved_question_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of decision questions still answerable." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:decision_information_preservation_loss_score_f a bpm:Field ;
+    bpm:fieldName "loss_score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Measured decision-information loss." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
