@@ -9927,3 +9927,38 @@ b4p:failure_label_preserved_evidence_digest_f a bpm:Field ;
     bpm:fieldName "preserved_evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest proving the failed evidence was retained." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-005 — environment_failure_separation
+b4p:environment_failure_separation_rt a bpm:RecordType ;
+    bpm:recordName "environment_failure_separation" ;
+    bpm:recordDoc "Separates capsule or toolchain failure from subject failure before policy learning can update." ;
+    bpm:hasField b4p:environment_failure_separation_assessment_id_f,
+                 b4p:environment_failure_separation_exact_subject_sha_f,
+                 b4p:environment_failure_separation_capsule_digest_f,
+                 b4p:environment_failure_separation_failure_signal_f,
+                 b4p:environment_failure_separation_classification_basis_f .
+
+b4p:environment_failure_separation_assessment_id_f a bpm:Field ;
+    bpm:fieldName "assessment_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable separation assessment identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:environment_failure_separation_exact_subject_sha_f a bpm:Field ;
+    bpm:fieldName "exact_subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact subject that was under evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:environment_failure_separation_capsule_digest_f a bpm:Field ;
+    bpm:fieldName "capsule_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact validation capsule identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:environment_failure_separation_failure_signal_f a bpm:Field ;
+    bpm:fieldName "failure_signal" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed environment failure signal." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:environment_failure_separation_classification_basis_f a bpm:Field ;
+    bpm:fieldName "classification_basis" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence basis for environment classification." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
