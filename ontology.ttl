@@ -10588,3 +10588,38 @@ b4p:capability_gap_learning_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Digest proving the gap." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-022 — generated_hypothesis
+b4p:generated_hypothesis_rt a bpm:RecordType ;
+    bpm:recordName "generated_hypothesis" ;
+    bpm:recordDoc "Generates a testable backlog hypothesis from an admitted capability gap." ;
+    bpm:hasField b4p:generated_hypothesis_hypothesis_id_f,
+                 b4p:generated_hypothesis_source_gap_id_f,
+                 b4p:generated_hypothesis_candidate_capability_f,
+                 b4p:generated_hypothesis_expected_value_f,
+                 b4p:generated_hypothesis_falsifier_contract_f .
+
+b4p:generated_hypothesis_hypothesis_id_f a bpm:Field ;
+    bpm:fieldName "hypothesis_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable generated hypothesis identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:generated_hypothesis_source_gap_id_f a bpm:Field ;
+    bpm:fieldName "source_gap_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Capability gap that generated the hypothesis." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:generated_hypothesis_candidate_capability_f a bpm:Field ;
+    bpm:fieldName "candidate_capability" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Proposed independent capability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:generated_hypothesis_expected_value_f a bpm:Field ;
+    bpm:fieldName "expected_value" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Bounded expected objective value." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:generated_hypothesis_falsifier_contract_f a bpm:Field ;
+    bpm:fieldName "falsifier_contract" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Executable condition that can disprove the hypothesis." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
