@@ -464,6 +464,17 @@
 | `subject_sha` | `string` | true | Required subject_sha for deterministic planner evaluation. |
 | `consumer_hash` | `string` | true | Required consumer_hash preserving evidence and falsifiability. |
 
+## caller_local_crown_identity
+
+> Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `consumer_subject_sha` | `string` | true | Exact caller-local consumer commit SHA that must be requalified. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
 ## canary_decision
 
 > Receipted enterprise canary decision based on an observed rollout consequence.
@@ -958,6 +969,545 @@
 | `cross_sell_score` | `float` | true | Observed cross-sell fit score. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## crown_applicable_gate_coverage
+
+> Requires every gate applicable to the changed subject before declaring the crown alive.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `applicable_gate_set_digest` | `string` | true | Digest of the normalized applicable gate set and results. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_artifact_pullback_smoke
+
+> Proves the published artifact can be pulled back from its distribution boundary byte-for-byte.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `pullback_digest` | `string` | true | Digest observed after artifact pullback. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_attestation_signer
+
+> Requires an admitted signer identity for every propagated supply-chain attestation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `signer_identity` | `string` | true | Verified identity that signed the attestation. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_autonomic_republish
+
+> Receipts autonomous downstream requalification and immutable crown republication.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `republished_crown_digest` | `string` | true | Exact digest of the republished downstream crown. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_capsule_toolchain
+
+> Binds source capsule, validation pack, execution mode, and toolchain as one evidence identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `toolchain_digest` | `string` | true | Digest of the exact capsule toolchain closure. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_cas_promotion
+
+> Authorizes promotion only when the observed prior crown equals the compare-and-swap expectation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `expected_previous_digest` | `string` | true | Expected previously promoted crown digest. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_check_relevance
+
+> Separates irrelevant checks from exact-subject qualification without hiding required evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `relevance_proof_digest` | `string` | true | Digest proving check relevance classification. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_child_publish_observation
+
+> Observes the exact child publication execution before its crown can propagate further.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `child_publish_run_id` | `string` | true | Exact workflow run identity that published the child crown. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_consumer_smoke
+
+> Requires a real downstream consumer smoke consequence for the exact propagated crown.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `consumer_smoke_digest` | `string` | true | Digest of the exact-consumer smoke receipt. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_convergence_proof
+
+> Produces a deterministic proof that every admitted consumer holds the expected crown.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `convergence_proof_digest` | `string` | true | Digest of the ecosystem convergence proof. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_cosign_certificate
+
+> Captures the keyless signing certificate identity admitted for the exact crown digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `certificate_identity` | `string` | true | Verified Cosign certificate identity. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_default_head_sensor
+
+> Observes the exact downstream default-branch head before selecting a reconciliation candidate.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `default_head_sha` | `string` | true | Observed immutable default-branch head SHA. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_dependency_edge
+
+> Declares one exact upstream-to-downstream propagation edge in the ecosystem graph.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `downstream_consumer_id` | `string` | true | Exact downstream consumer repository identity. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_execution_mode
+
+> Records whether qualification ran locally, in a capsule, or on a hosted runner.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `execution_mode` | `string` | true | Admitted execution-mode identifier. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_fanin_convergence
+
+> Requires every admitted upstream parent crown before a fan-in consumer can converge.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `fanin_set_digest` | `string` | true | Digest of the complete admitted fan-in crown set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_fanout_batch
+
+> Binds parallel downstream propagation to one deterministic admitted consumer set.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `fanout_set_digest` | `string` | true | Digest of the sorted fan-out consumer set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_federated_phase_receipt
+
+> Receipts SELECT, CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, and RECEIPT as ordered phases.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `selected_option_digest` | `string` | true | Digest of the selected qualified propagation option. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_freshness_window
+
+> Defines the deterministic deadline after which a crown cannot be promoted without requalification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `fresh_until` | `string` | true | UTC freshness deadline admitted by policy. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_generated_source_ownership
+
+> Routes drift in a generated projection back to its declared canonical semantic source.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `canonical_source_path` | `string` | true | Canonical non-generated source path authorized to repair the projection. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_gitlink_reconciliation
+
+> Reconciles a consumer gitlink to the exact admitted dependency commit.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `gitlink_commit_sha` | `string` | true | Exact submodule gitlink commit SHA. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_immutable_sha_tag
+
+> Admits only artifact tags derived from an exact immutable source SHA.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `immutable_tag` | `string` | true | Immutable source-derived artifact tag. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_known_good_rollback
+
+> Selects an immutable previously qualified crown for autonomous rollback.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `rollback_crown_digest` | `string` | true | Exact prior known-good crown digest. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_latency_observation
+
+> Records exact end-to-end propagation latency for freshness and SLO decisions.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `latency_millis` | `string` | true | Observed propagation latency in milliseconds. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_lock_reconciliation
+
+> Reconciles a downstream lock entry to the exact admitted upstream commit.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `lock_commit_sha` | `string` | true | Exact commit SHA encoded in the reconciled lock. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_manufacturer_identity
+
+> Binds propagation to the exact deterministic manufacturer executable identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `manufacturer_digest` | `string` | true | Digest of the admitted GGen manufacturer binary. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_marketplace_pack_pin
+
+> Requires every consumed marketplace pack to resolve to an immutable Git commit before manufacture.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `pack_commit_sha` | `string` | true | Exact immutable marketplace pack commit SHA. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_multiarch_platform_set
+
+> Requires the crown manifest to contain the admitted architecture and operating-system set.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `platform_set_digest` | `string` | true | Digest of the normalized admitted platform set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_oci_manifest_binding
+
+> Binds a propagated crown to its exact OCI multi-architecture index digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `oci_index_digest` | `string` | true | Exact OCI index digest selected for propagation. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_package_pin_reconciliation
+
+> Reconciles package resolution to an immutable version and content digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `package_version_digest` | `string` | true | Digest of the exact resolved package version. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_partial_checkpoint
+
+> Persists exact completed propagation edges for safe recovery after partial failure.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `checkpoint_digest` | `string` | true | Digest of the completed-edge checkpoint. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_path_skip_refusal
+
+> Refuses false ALIVE when a required qualification gate was path-skipped.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `skipped_gate_id` | `string` | true | Identity of the required gate that was skipped. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_planner_identity
+
+> Binds autonomous propagation selection to the exact admitted planner identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `planner_digest` | `string` | true | Digest of the planner that selected the propagation action. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_process_runtime_identity
+
+> Binds process-intelligence evidence to the exact Beam4PM computation identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `process_runtime_digest` | `string` | true | Digest of the process-intelligence runtime subject. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_promotion_race
+
+> Records the conflicting prior digest when a concurrent promotion wins the race.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `observed_previous_digest` | `string` | true | Observed prior crown digest at the failed CAS boundary. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_provenance_binding
+
+> Binds build provenance to the exact source, builder, and published artifact identities.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `provenance_digest` | `string` | true | Digest of exact-subject build provenance. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_receipt_output_ownership
+
+> Propagates receipt lineage together with the declared owner of every manufactured output.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `output_owner` | `string` | true | Declared owner identity for the manufactured output set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_recursive_fixed_point
+
+> Proves recursive ecosystem propagation reached a stable exact-crown fixed point.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `fixed_point_digest` | `string` | true | Digest of the converged ecosystem crown assignment. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_resume_token
+
+> Binds resumed propagation to its checkpoint and current dependency graph.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `resume_token_digest` | `string` | true | Digest of the validated resume token. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_runtime_identity
+
+> Binds the propagated artifact to the exact runtime used for qualification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `runtime_digest` | `string` | true | Digest of the admitted runtime environment. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_sbom_subject_binding
+
+> Binds a retained software bill of materials to the exact published crown subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `sbom_digest` | `string` | true | Digest of the SBOM whose subject is the exact crown. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_second_pass_identity
+
+> Proves a second lawful GGen sync is byte-identical to the first manufactured output set.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `second_pass_digest` | `string` | true | Digest of the complete second-pass output set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_security_scan
+
+> Requires a retained security scan report bound to the exact crown artifact digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `scan_report_digest` | `string` | true | Digest of the exact-artifact vulnerability scan report. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_source_capsule
+
+> Binds validation to the exact ggen-ecosystem source capsule and image identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `capsule_digest` | `string` | true | Exact source capsule or reproducible image digest. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_stale_refusal
+
+> Records crown age so stale subjects are typed and refused without actuation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `observed_age_seconds` | `string` | true | Observed crown age in seconds at the decision boundary. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_supply_chain_policy
+
+> Records the executable supply-chain policy decision that admitted or refused the crown.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `policy_decision_digest` | `string` | true | Digest of the exact policy input and decision. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_topological_order
+
+> Orders crown propagation so dependencies qualify before their consumers.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `topological_rank` | `string` | true | Deterministic topological rank for this propagation node. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_validation_pack
+
+> Pins the executable validation pack to an immutable marketplace commit.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `validation_pack_sha` | `string` | true | Exact validation-pack Git commit SHA. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_workflow_run_receipt
+
+> Binds a qualification receipt to the exact workflow execution and attempt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `workflow_run_id` | `string` | true | Exact hosted workflow run and attempt identity. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_zero_unreceipted_writes
+
+> Proves every propagation write belongs to a retained authorized receipt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `write_set_digest` | `string` | true | Digest of the complete authorized write set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
 
 ## customer_health
 

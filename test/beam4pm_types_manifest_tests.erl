@@ -15,7 +15,7 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(389, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(439, length(beam4pm_types_manifest:record_names())).
 
 account_discovery_fields_test() ->
     ?assertEqual([account_discovery_id, account_id, discovery_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(account_discovery)).
@@ -145,6 +145,9 @@ caller_local_checkout_observation_fields_test() ->
 
 caller_local_consumer_fields_test() ->
     ?assertEqual([consumer_id, subject_sha, consumer_hash], beam4pm_types_manifest:fields(caller_local_consumer)).
+
+caller_local_crown_identity_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, consumer_subject_sha, receipt_digest], beam4pm_types_manifest:fields(caller_local_crown_identity)).
 
 canary_decision_fields_test() ->
     ?assertEqual([canary_decision_id, account_id, canary_result, evidence_digest, observed_at], beam4pm_types_manifest:fields(canary_decision)).
@@ -283,6 +286,153 @@ credit_risk_admission_fields_test() ->
 
 cross_sell_fit_fields_test() ->
     ?assertEqual([cross_sell_fit_id, account_id, cross_sell_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(cross_sell_fit)).
+
+crown_applicable_gate_coverage_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, applicable_gate_set_digest, receipt_digest], beam4pm_types_manifest:fields(crown_applicable_gate_coverage)).
+
+crown_artifact_pullback_smoke_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, pullback_digest, receipt_digest], beam4pm_types_manifest:fields(crown_artifact_pullback_smoke)).
+
+crown_attestation_signer_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, signer_identity, receipt_digest], beam4pm_types_manifest:fields(crown_attestation_signer)).
+
+crown_autonomic_republish_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, republished_crown_digest, receipt_digest], beam4pm_types_manifest:fields(crown_autonomic_republish)).
+
+crown_capsule_toolchain_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, toolchain_digest, receipt_digest], beam4pm_types_manifest:fields(crown_capsule_toolchain)).
+
+crown_cas_promotion_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, expected_previous_digest, receipt_digest], beam4pm_types_manifest:fields(crown_cas_promotion)).
+
+crown_check_relevance_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, relevance_proof_digest, receipt_digest], beam4pm_types_manifest:fields(crown_check_relevance)).
+
+crown_child_publish_observation_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, child_publish_run_id, receipt_digest], beam4pm_types_manifest:fields(crown_child_publish_observation)).
+
+crown_consumer_smoke_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, consumer_smoke_digest, receipt_digest], beam4pm_types_manifest:fields(crown_consumer_smoke)).
+
+crown_convergence_proof_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, convergence_proof_digest, receipt_digest], beam4pm_types_manifest:fields(crown_convergence_proof)).
+
+crown_cosign_certificate_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, certificate_identity, receipt_digest], beam4pm_types_manifest:fields(crown_cosign_certificate)).
+
+crown_default_head_sensor_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, default_head_sha, receipt_digest], beam4pm_types_manifest:fields(crown_default_head_sensor)).
+
+crown_dependency_edge_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, downstream_consumer_id, receipt_digest], beam4pm_types_manifest:fields(crown_dependency_edge)).
+
+crown_execution_mode_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, execution_mode, receipt_digest], beam4pm_types_manifest:fields(crown_execution_mode)).
+
+crown_fanin_convergence_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, fanin_set_digest, receipt_digest], beam4pm_types_manifest:fields(crown_fanin_convergence)).
+
+crown_fanout_batch_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, fanout_set_digest, receipt_digest], beam4pm_types_manifest:fields(crown_fanout_batch)).
+
+crown_federated_phase_receipt_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, selected_option_digest, receipt_digest], beam4pm_types_manifest:fields(crown_federated_phase_receipt)).
+
+crown_freshness_window_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, fresh_until, receipt_digest], beam4pm_types_manifest:fields(crown_freshness_window)).
+
+crown_generated_source_ownership_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, canonical_source_path, receipt_digest], beam4pm_types_manifest:fields(crown_generated_source_ownership)).
+
+crown_gitlink_reconciliation_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, gitlink_commit_sha, receipt_digest], beam4pm_types_manifest:fields(crown_gitlink_reconciliation)).
+
+crown_immutable_sha_tag_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, immutable_tag, receipt_digest], beam4pm_types_manifest:fields(crown_immutable_sha_tag)).
+
+crown_known_good_rollback_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, rollback_crown_digest, receipt_digest], beam4pm_types_manifest:fields(crown_known_good_rollback)).
+
+crown_latency_observation_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, latency_millis, receipt_digest], beam4pm_types_manifest:fields(crown_latency_observation)).
+
+crown_lock_reconciliation_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, lock_commit_sha, receipt_digest], beam4pm_types_manifest:fields(crown_lock_reconciliation)).
+
+crown_manufacturer_identity_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, manufacturer_digest, receipt_digest], beam4pm_types_manifest:fields(crown_manufacturer_identity)).
+
+crown_marketplace_pack_pin_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, pack_commit_sha, receipt_digest], beam4pm_types_manifest:fields(crown_marketplace_pack_pin)).
+
+crown_multiarch_platform_set_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, platform_set_digest, receipt_digest], beam4pm_types_manifest:fields(crown_multiarch_platform_set)).
+
+crown_oci_manifest_binding_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, oci_index_digest, receipt_digest], beam4pm_types_manifest:fields(crown_oci_manifest_binding)).
+
+crown_package_pin_reconciliation_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, package_version_digest, receipt_digest], beam4pm_types_manifest:fields(crown_package_pin_reconciliation)).
+
+crown_partial_checkpoint_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, checkpoint_digest, receipt_digest], beam4pm_types_manifest:fields(crown_partial_checkpoint)).
+
+crown_path_skip_refusal_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, skipped_gate_id, receipt_digest], beam4pm_types_manifest:fields(crown_path_skip_refusal)).
+
+crown_planner_identity_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, planner_digest, receipt_digest], beam4pm_types_manifest:fields(crown_planner_identity)).
+
+crown_process_runtime_identity_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, process_runtime_digest, receipt_digest], beam4pm_types_manifest:fields(crown_process_runtime_identity)).
+
+crown_promotion_race_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, observed_previous_digest, receipt_digest], beam4pm_types_manifest:fields(crown_promotion_race)).
+
+crown_provenance_binding_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, provenance_digest, receipt_digest], beam4pm_types_manifest:fields(crown_provenance_binding)).
+
+crown_receipt_output_ownership_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, output_owner, receipt_digest], beam4pm_types_manifest:fields(crown_receipt_output_ownership)).
+
+crown_recursive_fixed_point_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, fixed_point_digest, receipt_digest], beam4pm_types_manifest:fields(crown_recursive_fixed_point)).
+
+crown_resume_token_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, resume_token_digest, receipt_digest], beam4pm_types_manifest:fields(crown_resume_token)).
+
+crown_runtime_identity_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, runtime_digest, receipt_digest], beam4pm_types_manifest:fields(crown_runtime_identity)).
+
+crown_sbom_subject_binding_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, sbom_digest, receipt_digest], beam4pm_types_manifest:fields(crown_sbom_subject_binding)).
+
+crown_second_pass_identity_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, second_pass_digest, receipt_digest], beam4pm_types_manifest:fields(crown_second_pass_identity)).
+
+crown_security_scan_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, scan_report_digest, receipt_digest], beam4pm_types_manifest:fields(crown_security_scan)).
+
+crown_source_capsule_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, capsule_digest, receipt_digest], beam4pm_types_manifest:fields(crown_source_capsule)).
+
+crown_stale_refusal_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, observed_age_seconds, receipt_digest], beam4pm_types_manifest:fields(crown_stale_refusal)).
+
+crown_supply_chain_policy_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, policy_decision_digest, receipt_digest], beam4pm_types_manifest:fields(crown_supply_chain_policy)).
+
+crown_topological_order_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, topological_rank, receipt_digest], beam4pm_types_manifest:fields(crown_topological_order)).
+
+crown_validation_pack_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, validation_pack_sha, receipt_digest], beam4pm_types_manifest:fields(crown_validation_pack)).
+
+crown_workflow_run_receipt_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, workflow_run_id, receipt_digest], beam4pm_types_manifest:fields(crown_workflow_run_receipt)).
+
+crown_zero_unreceipted_writes_fields_test() ->
+    ?assertEqual([propagation_id, subject_sha, write_set_digest, receipt_digest], beam4pm_types_manifest:fields(crown_zero_unreceipted_writes)).
 
 customer_health_fields_test() ->
     ?assertEqual([customer_health_id, account_id, health_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(customer_health)).

@@ -53,6 +53,7 @@
     beam4pm_types:buying_committee() |
     beam4pm_types:caller_local_checkout_observation() |
     beam4pm_types:caller_local_consumer() |
+    beam4pm_types:caller_local_crown_identity() |
     beam4pm_types:canary_decision() |
     beam4pm_types:canary_evidence() |
     beam4pm_types:canonical_source_authority_observation() |
@@ -99,6 +100,55 @@
     beam4pm_types:crash_recovery_receipt() |
     beam4pm_types:credit_risk_admission() |
     beam4pm_types:cross_sell_fit() |
+    beam4pm_types:crown_applicable_gate_coverage() |
+    beam4pm_types:crown_artifact_pullback_smoke() |
+    beam4pm_types:crown_attestation_signer() |
+    beam4pm_types:crown_autonomic_republish() |
+    beam4pm_types:crown_capsule_toolchain() |
+    beam4pm_types:crown_cas_promotion() |
+    beam4pm_types:crown_check_relevance() |
+    beam4pm_types:crown_child_publish_observation() |
+    beam4pm_types:crown_consumer_smoke() |
+    beam4pm_types:crown_convergence_proof() |
+    beam4pm_types:crown_cosign_certificate() |
+    beam4pm_types:crown_default_head_sensor() |
+    beam4pm_types:crown_dependency_edge() |
+    beam4pm_types:crown_execution_mode() |
+    beam4pm_types:crown_fanin_convergence() |
+    beam4pm_types:crown_fanout_batch() |
+    beam4pm_types:crown_federated_phase_receipt() |
+    beam4pm_types:crown_freshness_window() |
+    beam4pm_types:crown_generated_source_ownership() |
+    beam4pm_types:crown_gitlink_reconciliation() |
+    beam4pm_types:crown_immutable_sha_tag() |
+    beam4pm_types:crown_known_good_rollback() |
+    beam4pm_types:crown_latency_observation() |
+    beam4pm_types:crown_lock_reconciliation() |
+    beam4pm_types:crown_manufacturer_identity() |
+    beam4pm_types:crown_marketplace_pack_pin() |
+    beam4pm_types:crown_multiarch_platform_set() |
+    beam4pm_types:crown_oci_manifest_binding() |
+    beam4pm_types:crown_package_pin_reconciliation() |
+    beam4pm_types:crown_partial_checkpoint() |
+    beam4pm_types:crown_path_skip_refusal() |
+    beam4pm_types:crown_planner_identity() |
+    beam4pm_types:crown_process_runtime_identity() |
+    beam4pm_types:crown_promotion_race() |
+    beam4pm_types:crown_provenance_binding() |
+    beam4pm_types:crown_receipt_output_ownership() |
+    beam4pm_types:crown_recursive_fixed_point() |
+    beam4pm_types:crown_resume_token() |
+    beam4pm_types:crown_runtime_identity() |
+    beam4pm_types:crown_sbom_subject_binding() |
+    beam4pm_types:crown_second_pass_identity() |
+    beam4pm_types:crown_security_scan() |
+    beam4pm_types:crown_source_capsule() |
+    beam4pm_types:crown_stale_refusal() |
+    beam4pm_types:crown_supply_chain_policy() |
+    beam4pm_types:crown_topological_order() |
+    beam4pm_types:crown_validation_pack() |
+    beam4pm_types:crown_workflow_run_receipt() |
+    beam4pm_types:crown_zero_unreceipted_writes() |
     beam4pm_types:customer_health() |
     beam4pm_types:customer_managed_key_evidence() |
     beam4pm_types:customer_signal_observation() |
@@ -694,6 +744,13 @@ to_map(R) when element(1, R) =:= caller_local_consumer ->
         {<<"subject_sha">>, plain, element(3, R)},
         {<<"consumer_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= caller_local_crown_identity ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"consumer_subject_sha">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= canary_decision ->
     pairs_to_map([
         {<<"canary_decision_id">>, plain, element(2, R)},
@@ -1004,6 +1061,349 @@ to_map(R) when element(1, R) =:= cross_sell_fit ->
         {<<"cross_sell_score">>, plain, element(4, R)},
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_applicable_gate_coverage ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"applicable_gate_set_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_artifact_pullback_smoke ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"pullback_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_attestation_signer ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"signer_identity">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_autonomic_republish ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"republished_crown_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_capsule_toolchain ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"toolchain_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_cas_promotion ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"expected_previous_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_check_relevance ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"relevance_proof_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_child_publish_observation ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"child_publish_run_id">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_consumer_smoke ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"consumer_smoke_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_convergence_proof ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"convergence_proof_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_cosign_certificate ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"certificate_identity">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_default_head_sensor ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"default_head_sha">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_dependency_edge ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"downstream_consumer_id">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_execution_mode ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"execution_mode">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_fanin_convergence ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"fanin_set_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_fanout_batch ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"fanout_set_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_federated_phase_receipt ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"selected_option_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_freshness_window ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"fresh_until">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_generated_source_ownership ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"canonical_source_path">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_gitlink_reconciliation ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"gitlink_commit_sha">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_immutable_sha_tag ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"immutable_tag">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_known_good_rollback ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"rollback_crown_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_latency_observation ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"latency_millis">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_lock_reconciliation ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"lock_commit_sha">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_manufacturer_identity ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"manufacturer_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_marketplace_pack_pin ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"pack_commit_sha">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_multiarch_platform_set ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"platform_set_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_oci_manifest_binding ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"oci_index_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_package_pin_reconciliation ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"package_version_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_partial_checkpoint ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"checkpoint_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_path_skip_refusal ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"skipped_gate_id">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_planner_identity ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"planner_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_process_runtime_identity ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"process_runtime_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_promotion_race ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"observed_previous_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_provenance_binding ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"provenance_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_receipt_output_ownership ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"output_owner">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_recursive_fixed_point ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"fixed_point_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_resume_token ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"resume_token_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_runtime_identity ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"runtime_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_sbom_subject_binding ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"sbom_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_second_pass_identity ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"second_pass_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_security_scan ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"scan_report_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_source_capsule ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"capsule_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_stale_refusal ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"observed_age_seconds">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_supply_chain_policy ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"policy_decision_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_topological_order ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"topological_rank">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_validation_pack ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"validation_pack_sha">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_workflow_run_receipt ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"workflow_run_id">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= crown_zero_unreceipted_writes ->
+    pairs_to_map([
+        {<<"propagation_id">>, plain, element(2, R)},
+        {<<"subject_sha">>, plain, element(3, R)},
+        {<<"write_set_digest">>, plain, element(4, R)},
+        {<<"receipt_digest">>, plain, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= customer_health ->
     pairs_to_map([
@@ -3296,6 +3696,13 @@ from_map(caller_local_consumer, Map) when is_map(Map) ->
         {<<"subject_sha">>, subject_sha, plain},
         {<<"consumer_hash">>, consumer_hash, plain}
     ]));
+from_map(caller_local_crown_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_caller_local_crown_identity(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"consumer_subject_sha">>, consumer_subject_sha, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
 from_map(canary_decision, Map) when is_map(Map) ->
     beam4pm_types:new_canary_decision(take_known(Map, [
         {<<"canary_decision_id">>, canary_decision_id, plain},
@@ -3606,6 +4013,349 @@ from_map(cross_sell_fit, Map) when is_map(Map) ->
         {<<"cross_sell_score">>, cross_sell_score, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(crown_applicable_gate_coverage, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_applicable_gate_coverage(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"applicable_gate_set_digest">>, applicable_gate_set_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_artifact_pullback_smoke, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_artifact_pullback_smoke(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"pullback_digest">>, pullback_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_attestation_signer, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_attestation_signer(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"signer_identity">>, signer_identity, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_autonomic_republish, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_autonomic_republish(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"republished_crown_digest">>, republished_crown_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_capsule_toolchain, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_capsule_toolchain(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"toolchain_digest">>, toolchain_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_cas_promotion, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_cas_promotion(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"expected_previous_digest">>, expected_previous_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_check_relevance, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_check_relevance(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"relevance_proof_digest">>, relevance_proof_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_child_publish_observation, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_child_publish_observation(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"child_publish_run_id">>, child_publish_run_id, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_consumer_smoke, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_consumer_smoke(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"consumer_smoke_digest">>, consumer_smoke_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_convergence_proof, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_convergence_proof(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"convergence_proof_digest">>, convergence_proof_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_cosign_certificate, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_cosign_certificate(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"certificate_identity">>, certificate_identity, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_default_head_sensor, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_default_head_sensor(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"default_head_sha">>, default_head_sha, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_dependency_edge, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_dependency_edge(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"downstream_consumer_id">>, downstream_consumer_id, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_execution_mode, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_execution_mode(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"execution_mode">>, execution_mode, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_fanin_convergence, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_fanin_convergence(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"fanin_set_digest">>, fanin_set_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_fanout_batch, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_fanout_batch(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"fanout_set_digest">>, fanout_set_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_federated_phase_receipt, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_federated_phase_receipt(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"selected_option_digest">>, selected_option_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_freshness_window, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_freshness_window(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"fresh_until">>, fresh_until, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_generated_source_ownership, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_generated_source_ownership(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"canonical_source_path">>, canonical_source_path, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_gitlink_reconciliation, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_gitlink_reconciliation(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"gitlink_commit_sha">>, gitlink_commit_sha, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_immutable_sha_tag, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_immutable_sha_tag(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"immutable_tag">>, immutable_tag, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_known_good_rollback, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_known_good_rollback(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"rollback_crown_digest">>, rollback_crown_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_latency_observation, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_latency_observation(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"latency_millis">>, latency_millis, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_lock_reconciliation, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_lock_reconciliation(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"lock_commit_sha">>, lock_commit_sha, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_manufacturer_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_manufacturer_identity(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"manufacturer_digest">>, manufacturer_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_marketplace_pack_pin, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_marketplace_pack_pin(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"pack_commit_sha">>, pack_commit_sha, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_multiarch_platform_set, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_multiarch_platform_set(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"platform_set_digest">>, platform_set_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_oci_manifest_binding, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_oci_manifest_binding(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"oci_index_digest">>, oci_index_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_package_pin_reconciliation, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_package_pin_reconciliation(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"package_version_digest">>, package_version_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_partial_checkpoint, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_partial_checkpoint(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"checkpoint_digest">>, checkpoint_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_path_skip_refusal, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_path_skip_refusal(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"skipped_gate_id">>, skipped_gate_id, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_planner_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_planner_identity(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"planner_digest">>, planner_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_process_runtime_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_process_runtime_identity(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"process_runtime_digest">>, process_runtime_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_promotion_race, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_promotion_race(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"observed_previous_digest">>, observed_previous_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_provenance_binding, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_provenance_binding(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"provenance_digest">>, provenance_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_receipt_output_ownership, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_receipt_output_ownership(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"output_owner">>, output_owner, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_recursive_fixed_point, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_recursive_fixed_point(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"fixed_point_digest">>, fixed_point_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_resume_token, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_resume_token(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"resume_token_digest">>, resume_token_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_runtime_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_runtime_identity(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"runtime_digest">>, runtime_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_sbom_subject_binding, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_sbom_subject_binding(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"sbom_digest">>, sbom_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_second_pass_identity, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_second_pass_identity(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"second_pass_digest">>, second_pass_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_security_scan, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_security_scan(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"scan_report_digest">>, scan_report_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_source_capsule, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_source_capsule(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"capsule_digest">>, capsule_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_stale_refusal, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_stale_refusal(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"observed_age_seconds">>, observed_age_seconds, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_supply_chain_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_supply_chain_policy(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"policy_decision_digest">>, policy_decision_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_topological_order, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_topological_order(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"topological_rank">>, topological_rank, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_validation_pack, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_validation_pack(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"validation_pack_sha">>, validation_pack_sha, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_workflow_run_receipt, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_workflow_run_receipt(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"workflow_run_id">>, workflow_run_id, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
+    ]));
+from_map(crown_zero_unreceipted_writes, Map) when is_map(Map) ->
+    beam4pm_types:new_crown_zero_unreceipted_writes(take_known(Map, [
+        {<<"propagation_id">>, propagation_id, plain},
+        {<<"subject_sha">>, subject_sha, plain},
+        {<<"write_set_digest">>, write_set_digest, plain},
+        {<<"receipt_digest">>, receipt_digest, plain}
     ]));
 from_map(customer_health, Map) when is_map(Map) ->
     beam4pm_types:new_customer_health(take_known(Map, [

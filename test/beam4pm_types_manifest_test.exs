@@ -3,7 +3,7 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 389
+    assert length(BeamPM.Types.Manifest.record_names()) == 439
   end
 
   test "fields/1 returns the ordered field-name list for account_discovery" do
@@ -176,6 +176,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for caller_local_consumer" do
     assert BeamPM.Types.Manifest.fields(:caller_local_consumer) == [:consumer_id, :subject_sha, :consumer_hash]
+  end
+
+  test "fields/1 returns the ordered field-name list for caller_local_crown_identity" do
+    assert BeamPM.Types.Manifest.fields(:caller_local_crown_identity) == [:propagation_id, :subject_sha, :consumer_subject_sha, :receipt_digest]
   end
 
   test "fields/1 returns the ordered field-name list for canary_decision" do
@@ -360,6 +364,202 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for cross_sell_fit" do
     assert BeamPM.Types.Manifest.fields(:cross_sell_fit) == [:cross_sell_fit_id, :account_id, :cross_sell_score, :evidence_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_applicable_gate_coverage" do
+    assert BeamPM.Types.Manifest.fields(:crown_applicable_gate_coverage) == [:propagation_id, :subject_sha, :applicable_gate_set_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_artifact_pullback_smoke" do
+    assert BeamPM.Types.Manifest.fields(:crown_artifact_pullback_smoke) == [:propagation_id, :subject_sha, :pullback_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_attestation_signer" do
+    assert BeamPM.Types.Manifest.fields(:crown_attestation_signer) == [:propagation_id, :subject_sha, :signer_identity, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_autonomic_republish" do
+    assert BeamPM.Types.Manifest.fields(:crown_autonomic_republish) == [:propagation_id, :subject_sha, :republished_crown_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_capsule_toolchain" do
+    assert BeamPM.Types.Manifest.fields(:crown_capsule_toolchain) == [:propagation_id, :subject_sha, :toolchain_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_cas_promotion" do
+    assert BeamPM.Types.Manifest.fields(:crown_cas_promotion) == [:propagation_id, :subject_sha, :expected_previous_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_check_relevance" do
+    assert BeamPM.Types.Manifest.fields(:crown_check_relevance) == [:propagation_id, :subject_sha, :relevance_proof_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_child_publish_observation" do
+    assert BeamPM.Types.Manifest.fields(:crown_child_publish_observation) == [:propagation_id, :subject_sha, :child_publish_run_id, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_consumer_smoke" do
+    assert BeamPM.Types.Manifest.fields(:crown_consumer_smoke) == [:propagation_id, :subject_sha, :consumer_smoke_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_convergence_proof" do
+    assert BeamPM.Types.Manifest.fields(:crown_convergence_proof) == [:propagation_id, :subject_sha, :convergence_proof_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_cosign_certificate" do
+    assert BeamPM.Types.Manifest.fields(:crown_cosign_certificate) == [:propagation_id, :subject_sha, :certificate_identity, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_default_head_sensor" do
+    assert BeamPM.Types.Manifest.fields(:crown_default_head_sensor) == [:propagation_id, :subject_sha, :default_head_sha, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_dependency_edge" do
+    assert BeamPM.Types.Manifest.fields(:crown_dependency_edge) == [:propagation_id, :subject_sha, :downstream_consumer_id, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_execution_mode" do
+    assert BeamPM.Types.Manifest.fields(:crown_execution_mode) == [:propagation_id, :subject_sha, :execution_mode, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_fanin_convergence" do
+    assert BeamPM.Types.Manifest.fields(:crown_fanin_convergence) == [:propagation_id, :subject_sha, :fanin_set_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_fanout_batch" do
+    assert BeamPM.Types.Manifest.fields(:crown_fanout_batch) == [:propagation_id, :subject_sha, :fanout_set_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_federated_phase_receipt" do
+    assert BeamPM.Types.Manifest.fields(:crown_federated_phase_receipt) == [:propagation_id, :subject_sha, :selected_option_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_freshness_window" do
+    assert BeamPM.Types.Manifest.fields(:crown_freshness_window) == [:propagation_id, :subject_sha, :fresh_until, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_generated_source_ownership" do
+    assert BeamPM.Types.Manifest.fields(:crown_generated_source_ownership) == [:propagation_id, :subject_sha, :canonical_source_path, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_gitlink_reconciliation" do
+    assert BeamPM.Types.Manifest.fields(:crown_gitlink_reconciliation) == [:propagation_id, :subject_sha, :gitlink_commit_sha, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_immutable_sha_tag" do
+    assert BeamPM.Types.Manifest.fields(:crown_immutable_sha_tag) == [:propagation_id, :subject_sha, :immutable_tag, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_known_good_rollback" do
+    assert BeamPM.Types.Manifest.fields(:crown_known_good_rollback) == [:propagation_id, :subject_sha, :rollback_crown_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_latency_observation" do
+    assert BeamPM.Types.Manifest.fields(:crown_latency_observation) == [:propagation_id, :subject_sha, :latency_millis, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_lock_reconciliation" do
+    assert BeamPM.Types.Manifest.fields(:crown_lock_reconciliation) == [:propagation_id, :subject_sha, :lock_commit_sha, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_manufacturer_identity" do
+    assert BeamPM.Types.Manifest.fields(:crown_manufacturer_identity) == [:propagation_id, :subject_sha, :manufacturer_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_marketplace_pack_pin" do
+    assert BeamPM.Types.Manifest.fields(:crown_marketplace_pack_pin) == [:propagation_id, :subject_sha, :pack_commit_sha, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_multiarch_platform_set" do
+    assert BeamPM.Types.Manifest.fields(:crown_multiarch_platform_set) == [:propagation_id, :subject_sha, :platform_set_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_oci_manifest_binding" do
+    assert BeamPM.Types.Manifest.fields(:crown_oci_manifest_binding) == [:propagation_id, :subject_sha, :oci_index_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_package_pin_reconciliation" do
+    assert BeamPM.Types.Manifest.fields(:crown_package_pin_reconciliation) == [:propagation_id, :subject_sha, :package_version_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_partial_checkpoint" do
+    assert BeamPM.Types.Manifest.fields(:crown_partial_checkpoint) == [:propagation_id, :subject_sha, :checkpoint_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_path_skip_refusal" do
+    assert BeamPM.Types.Manifest.fields(:crown_path_skip_refusal) == [:propagation_id, :subject_sha, :skipped_gate_id, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_planner_identity" do
+    assert BeamPM.Types.Manifest.fields(:crown_planner_identity) == [:propagation_id, :subject_sha, :planner_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_process_runtime_identity" do
+    assert BeamPM.Types.Manifest.fields(:crown_process_runtime_identity) == [:propagation_id, :subject_sha, :process_runtime_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_promotion_race" do
+    assert BeamPM.Types.Manifest.fields(:crown_promotion_race) == [:propagation_id, :subject_sha, :observed_previous_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_provenance_binding" do
+    assert BeamPM.Types.Manifest.fields(:crown_provenance_binding) == [:propagation_id, :subject_sha, :provenance_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_receipt_output_ownership" do
+    assert BeamPM.Types.Manifest.fields(:crown_receipt_output_ownership) == [:propagation_id, :subject_sha, :output_owner, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_recursive_fixed_point" do
+    assert BeamPM.Types.Manifest.fields(:crown_recursive_fixed_point) == [:propagation_id, :subject_sha, :fixed_point_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_resume_token" do
+    assert BeamPM.Types.Manifest.fields(:crown_resume_token) == [:propagation_id, :subject_sha, :resume_token_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_runtime_identity" do
+    assert BeamPM.Types.Manifest.fields(:crown_runtime_identity) == [:propagation_id, :subject_sha, :runtime_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_sbom_subject_binding" do
+    assert BeamPM.Types.Manifest.fields(:crown_sbom_subject_binding) == [:propagation_id, :subject_sha, :sbom_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_second_pass_identity" do
+    assert BeamPM.Types.Manifest.fields(:crown_second_pass_identity) == [:propagation_id, :subject_sha, :second_pass_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_security_scan" do
+    assert BeamPM.Types.Manifest.fields(:crown_security_scan) == [:propagation_id, :subject_sha, :scan_report_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_source_capsule" do
+    assert BeamPM.Types.Manifest.fields(:crown_source_capsule) == [:propagation_id, :subject_sha, :capsule_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_stale_refusal" do
+    assert BeamPM.Types.Manifest.fields(:crown_stale_refusal) == [:propagation_id, :subject_sha, :observed_age_seconds, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_supply_chain_policy" do
+    assert BeamPM.Types.Manifest.fields(:crown_supply_chain_policy) == [:propagation_id, :subject_sha, :policy_decision_digest, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_topological_order" do
+    assert BeamPM.Types.Manifest.fields(:crown_topological_order) == [:propagation_id, :subject_sha, :topological_rank, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_validation_pack" do
+    assert BeamPM.Types.Manifest.fields(:crown_validation_pack) == [:propagation_id, :subject_sha, :validation_pack_sha, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_workflow_run_receipt" do
+    assert BeamPM.Types.Manifest.fields(:crown_workflow_run_receipt) == [:propagation_id, :subject_sha, :workflow_run_id, :receipt_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for crown_zero_unreceipted_writes" do
+    assert BeamPM.Types.Manifest.fields(:crown_zero_unreceipted_writes) == [:propagation_id, :subject_sha, :write_set_digest, :receipt_digest]
   end
 
   test "fields/1 returns the ordered field-name list for customer_health" do
