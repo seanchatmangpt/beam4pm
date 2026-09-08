@@ -11301,3 +11301,44 @@ b4p:negative_fixture_generation_expected_refusal_code_f a bpm:Field ;
     bpm:fieldName "expected_refusal_code" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Exact refusal required for success." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-041 — counterfactual_replay
+b4p:counterfactual_replay_rt a bpm:RecordType ;
+    bpm:recordName "counterfactual_replay" ;
+    bpm:recordDoc "Replays an episode under one declared intervention to compare the observed and counterfactual outcomes." ;
+    bpm:hasField b4p:counterfactual_replay_replay_id_f,
+                 b4p:counterfactual_replay_source_episode_id_f,
+                 b4p:counterfactual_replay_intervention_digest_f,
+                 b4p:counterfactual_replay_seed_f,
+                 b4p:counterfactual_replay_predicted_outcome_f,
+                 b4p:counterfactual_replay_comparison_digest_f .
+
+b4p:counterfactual_replay_replay_id_f a bpm:Field ;
+    bpm:fieldName "replay_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable counterfactual replay identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:counterfactual_replay_source_episode_id_f a bpm:Field ;
+    bpm:fieldName "source_episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed episode used as baseline." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:counterfactual_replay_intervention_digest_f a bpm:Field ;
+    bpm:fieldName "intervention_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the single counterfactual intervention." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:counterfactual_replay_seed_f a bpm:Field ;
+    bpm:fieldName "seed" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Explicit deterministic replay seed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:counterfactual_replay_predicted_outcome_f a bpm:Field ;
+    bpm:fieldName "predicted_outcome" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Counterfactual outcome produced." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:counterfactual_replay_comparison_digest_f a bpm:Field ;
+    bpm:fieldName "comparison_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest comparing observed and counterfactual traces." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
