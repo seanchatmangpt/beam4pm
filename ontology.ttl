@@ -10874,3 +10874,44 @@ b4p:promotion_threshold_authority_binding_f a bpm:Field ;
     bpm:fieldName "authority_binding" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Authority that owns threshold changes." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-030 — promotion_decision
+b4p:promotion_decision_rt a bpm:RecordType ;
+    bpm:recordName "promotion_decision" ;
+    bpm:recordDoc "Promotes or refuses a challenger by applying a pre-existing threshold to independent evidence." ;
+    bpm:hasField b4p:promotion_decision_decision_id_f,
+                 b4p:promotion_decision_candidate_policy_id_f,
+                 b4p:promotion_decision_threshold_id_f,
+                 b4p:promotion_decision_evidence_set_digest_f,
+                 b4p:promotion_decision_decision_f,
+                 b4p:promotion_decision_refusal_code_f .
+
+b4p:promotion_decision_decision_id_f a bpm:Field ;
+    bpm:fieldName "decision_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable promotion decision identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:promotion_decision_candidate_policy_id_f a bpm:Field ;
+    bpm:fieldName "candidate_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate policy considered." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:promotion_decision_threshold_id_f a bpm:Field ;
+    bpm:fieldName "threshold_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable threshold applied." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:promotion_decision_evidence_set_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_set_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of independent evaluation evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:promotion_decision_decision_f a bpm:Field ;
+    bpm:fieldName "decision" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "PROMOTE or REFUSE result." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:promotion_decision_refusal_code_f a bpm:Field ;
+    bpm:fieldName "refusal_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed reason when promotion is refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
