@@ -11026,3 +11026,44 @@ b4p:value_realization_feedback_policy_id_f a bpm:Field ;
     bpm:fieldName "policy_id" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Policy associated with the outcome." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-034 — cost_latency_reliability_tradeoff
+b4p:cost_latency_reliability_tradeoff_rt a bpm:RecordType ;
+    bpm:recordName "cost_latency_reliability_tradeoff" ;
+    bpm:recordDoc "Evaluates candidate policy utility across cost, latency, and reliability without collapsing dimensions." ;
+    bpm:hasField b4p:cost_latency_reliability_tradeoff_assessment_id_f,
+                 b4p:cost_latency_reliability_tradeoff_candidate_policy_id_f,
+                 b4p:cost_latency_reliability_tradeoff_cost_score_f,
+                 b4p:cost_latency_reliability_tradeoff_latency_score_f,
+                 b4p:cost_latency_reliability_tradeoff_reliability_score_f,
+                 b4p:cost_latency_reliability_tradeoff_utility_score_f .
+
+b4p:cost_latency_reliability_tradeoff_assessment_id_f a bpm:Field ;
+    bpm:fieldName "assessment_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable tradeoff assessment identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:cost_latency_reliability_tradeoff_candidate_policy_id_f a bpm:Field ;
+    bpm:fieldName "candidate_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate policy evaluated." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:cost_latency_reliability_tradeoff_cost_score_f a bpm:Field ;
+    bpm:fieldName "cost_score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Normalized execution cost." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:cost_latency_reliability_tradeoff_latency_score_f a bpm:Field ;
+    bpm:fieldName "latency_score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Normalized execution latency." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:cost_latency_reliability_tradeoff_reliability_score_f a bpm:Field ;
+    bpm:fieldName "reliability_score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed reliability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:cost_latency_reliability_tradeoff_utility_score_f a bpm:Field ;
+    bpm:fieldName "utility_score" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Objective-bound aggregate utility." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
