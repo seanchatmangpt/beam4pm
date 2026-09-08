@@ -10693,3 +10693,38 @@ b4p:anti_repeat_signature_first_seen_episode_f a bpm:Field ;
     bpm:fieldName "first_seen_episode" ; bpm:fieldType "string" ;
     bpm:fieldDoc "First preserved episode exhibiting the pattern." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# WS5-AUTO-025 — anti_repeat_refusal
+b4p:anti_repeat_refusal_rt a bpm:RecordType ;
+    bpm:recordName "anti_repeat_refusal" ;
+    bpm:recordDoc "Refuses a candidate action that recreates a confirmed failure signature." ;
+    bpm:hasField b4p:anti_repeat_refusal_refusal_id_f,
+                 b4p:anti_repeat_refusal_candidate_action_id_f,
+                 b4p:anti_repeat_refusal_matching_signature_id_f,
+                 b4p:anti_repeat_refusal_recurrence_risk_f,
+                 b4p:anti_repeat_refusal_alternative_required_f .
+
+b4p:anti_repeat_refusal_refusal_id_f a bpm:Field ;
+    bpm:fieldName "refusal_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable anti-repeat refusal identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:anti_repeat_refusal_candidate_action_id_f a bpm:Field ;
+    bpm:fieldName "candidate_action_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate action refused." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:anti_repeat_refusal_matching_signature_id_f a bpm:Field ;
+    bpm:fieldName "matching_signature_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Confirmed failure signature matched." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:anti_repeat_refusal_recurrence_risk_f a bpm:Field ;
+    bpm:fieldName "recurrence_risk" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Measured recurrence risk." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:anti_repeat_refusal_alternative_required_f a bpm:Field ;
+    bpm:fieldName "alternative_required" ; bpm:fieldType "boolean" ;
+    bpm:fieldDoc "Whether selection must produce a different option." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
