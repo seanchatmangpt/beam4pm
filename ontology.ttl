@@ -11225,3 +11225,44 @@ b4p:planner_routing_update_rollback_policy_id_f a bpm:Field ;
     bpm:fieldName "rollback_policy_id" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Policy restoring the prior route on regression." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-039 — verification_depth_update
+b4p:verification_depth_update_rt a bpm:RecordType ;
+    bpm:recordName "verification_depth_update" ;
+    bpm:recordDoc "Raises or lowers verification depth from observed risk without weakening the immutable minimum court." ;
+    bpm:hasField b4p:verification_depth_update_update_id_f,
+                 b4p:verification_depth_update_verifier_id_f,
+                 b4p:verification_depth_update_prior_depth_f,
+                 b4p:verification_depth_update_new_depth_f,
+                 b4p:verification_depth_update_risk_signal_digest_f,
+                 b4p:verification_depth_update_minimum_depth_f .
+
+b4p:verification_depth_update_update_id_f a bpm:Field ;
+    bpm:fieldName "update_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable verification-depth update identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:verification_depth_update_verifier_id_f a bpm:Field ;
+    bpm:fieldName "verifier_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Verifier whose depth is adapted." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:verification_depth_update_prior_depth_f a bpm:Field ;
+    bpm:fieldName "prior_depth" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Prior verification depth." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:verification_depth_update_new_depth_f a bpm:Field ;
+    bpm:fieldName "new_depth" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Risk-adjusted verification depth." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:verification_depth_update_risk_signal_digest_f a bpm:Field ;
+    bpm:fieldName "risk_signal_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of observed risk evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:verification_depth_update_minimum_depth_f a bpm:Field ;
+    bpm:fieldName "minimum_depth" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Immutable minimum acceptance depth." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
