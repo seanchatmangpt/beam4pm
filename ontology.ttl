@@ -11383,3 +11383,44 @@ b4p:rollback_outcome_learning_evidence_digest_f a bpm:Field ;
     bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
     bpm:fieldDoc "Independent recovery evidence." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+# WS5-AUTO-043 — experiment_learning_receipt
+b4p:experiment_learning_receipt_rt a bpm:RecordType ;
+    bpm:recordName "experiment_learning_receipt" ;
+    bpm:recordDoc "Receipts an experiment result with exact subject, evidence, and bounded learning authority." ;
+    bpm:hasField b4p:experiment_learning_receipt_receipt_id_f,
+                 b4p:experiment_learning_receipt_experiment_id_f,
+                 b4p:experiment_learning_receipt_exact_subject_sha_f,
+                 b4p:experiment_learning_receipt_evidence_digest_f,
+                 b4p:experiment_learning_receipt_result_digest_f,
+                 b4p:experiment_learning_receipt_authority_ceiling_f .
+
+b4p:experiment_learning_receipt_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable experiment-learning receipt identity." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:experiment_learning_receipt_experiment_id_f a bpm:Field ;
+    bpm:fieldName "experiment_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Experiment producing the learning." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:experiment_learning_receipt_exact_subject_sha_f a bpm:Field ;
+    bpm:fieldName "exact_subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact evaluated Git subject." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+b4p:experiment_learning_receipt_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of experiment evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+b4p:experiment_learning_receipt_result_digest_f a bpm:Field ;
+    bpm:fieldName "result_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the learned result." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+b4p:experiment_learning_receipt_authority_ceiling_f a bpm:Field ;
+    bpm:fieldName "authority_ceiling" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Boundary excluding consequential DO authority." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
