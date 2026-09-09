@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-039 — reversibility_weight
+b4p:reversibility_weight_rt a bpm:RecordType ;
+    bpm:recordName "reversibility_weight" ;
+    bpm:recordDoc "Weights reversible actions above irreversible ones until evidence justifies commitment." ;
+    bpm:hasField b4p:reversibility_weight_action_id_f,
+                 b4p:reversibility_weight_rollback_id_f,
+                 b4p:reversibility_weight_weight_f .
+
+b4p:reversibility_weight_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required action_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:reversibility_weight_rollback_id_f a bpm:Field ;
+    bpm:fieldName "rollback_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required rollback_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:reversibility_weight_weight_f a bpm:Field ;
+    bpm:fieldName "weight" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required weight preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

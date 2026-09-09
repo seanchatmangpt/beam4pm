@@ -6,8 +6,11 @@ description = "Differential-testing oracle: beam4pm DFG discovery verified again
 license = "MIT"
 
 [dependencies]
-# rust4pm -- the canonical process-discovery implementation. Pinned exactly.
-process_mining = { version = "=0.6.2", default-features = false }
+# rust4pm-powl fork (seanchatmangpt/rust4pm, forked from aarkue/rust4pm@0.6.2
+# with a POWL discovery module added) -- pinned to the exact commit
+# native/rust4pm-wasm/Cargo.toml uses, so this oracle and the wasm engine run
+# literally the same algorithm code.
+process_mining = { git = "https://github.com/seanchatmangpt/rust4pm.git", rev = "89a6a30", default-features = false }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 

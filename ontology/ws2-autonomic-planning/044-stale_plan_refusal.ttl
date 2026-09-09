@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-044 — stale_plan_refusal
+b4p:stale_plan_refusal_rt a bpm:RecordType ;
+    bpm:recordName "stale_plan_refusal" ;
+    bpm:recordDoc "Refuses execution when subject, pack, policy, or world identity has drifted." ;
+    bpm:hasField b4p:stale_plan_refusal_plan_id_f,
+                 b4p:stale_plan_refusal_admitted_preimage_hash_f,
+                 b4p:stale_plan_refusal_observed_preimage_hash_f .
+
+b4p:stale_plan_refusal_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required plan_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:stale_plan_refusal_admitted_preimage_hash_f a bpm:Field ;
+    bpm:fieldName "admitted_preimage_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required admitted_preimage_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:stale_plan_refusal_observed_preimage_hash_f a bpm:Field ;
+    bpm:fieldName "observed_preimage_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required observed_preimage_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

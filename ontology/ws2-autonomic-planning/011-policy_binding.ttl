@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-011 — policy_binding
+b4p:policy_binding_rt a bpm:RecordType ;
+    bpm:recordName "policy_binding" ;
+    bpm:recordDoc "Binds one planner to parameters, objective, observations, and action projection." ;
+    bpm:hasField b4p:policy_binding_policy_id_f,
+                 b4p:policy_binding_planner_id_f,
+                 b4p:policy_binding_policy_hash_f .
+
+b4p:policy_binding_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required policy_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:policy_binding_planner_id_f a bpm:Field ;
+    bpm:fieldName "planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required planner_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:policy_binding_policy_hash_f a bpm:Field ;
+    bpm:fieldName "policy_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required policy_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

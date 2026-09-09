@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-031 — cost_of_delay_score
+b4p:cost_of_delay_score_rt a bpm:RecordType ;
+    bpm:recordName "cost_of_delay_score" ;
+    bpm:recordDoc "Scores delay cost for an option without overriding explicit authority." ;
+    bpm:hasField b4p:cost_of_delay_score_option_id_f,
+                 b4p:cost_of_delay_score_horizon_f,
+                 b4p:cost_of_delay_score_score_f .
+
+b4p:cost_of_delay_score_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required option_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:cost_of_delay_score_horizon_f a bpm:Field ;
+    bpm:fieldName "horizon" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required horizon for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:cost_of_delay_score_score_f a bpm:Field ;
+    bpm:fieldName "score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required score preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
