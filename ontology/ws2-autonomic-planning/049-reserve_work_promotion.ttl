@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-049 — reserve_work_promotion
+b4p:reserve_work_promotion_rt a bpm:RecordType ;
+    bpm:recordName "reserve_work_promotion" ;
+    bpm:recordDoc "Automatically promotes the highest-value lawful reserve when primary work blocks." ;
+    bpm:hasField b4p:reserve_work_promotion_blocked_work_id_f,
+                 b4p:reserve_work_promotion_reserve_set_hash_f,
+                 b4p:reserve_work_promotion_promoted_work_id_f .
+
+b4p:reserve_work_promotion_blocked_work_id_f a bpm:Field ;
+    bpm:fieldName "blocked_work_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required blocked_work_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:reserve_work_promotion_reserve_set_hash_f a bpm:Field ;
+    bpm:fieldName "reserve_set_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required reserve_set_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:reserve_work_promotion_promoted_work_id_f a bpm:Field ;
+    bpm:fieldName "promoted_work_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required promoted_work_id preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

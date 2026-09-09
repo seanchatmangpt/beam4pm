@@ -123,6 +123,18 @@ pub type AddOnBundle {
   )
 }
 
+/// Computes all actions currently permitted by state, constraints, and authority.
+pub type AdmissibleActionSet {
+  AdmissibleActionSet(
+    /// Required state_id for this bounded planner contract.
+    state_id: String,
+    /// Required constraint_hash for deterministic planner evaluation.
+    constraint_hash: String,
+    /// Required action_set_hash preserving evidence and falsifiability.
+    action_set_hash: String,
+  )
+}
+
 /// Receipted customer adoption milestone tied to observable use.
 pub type AdoptionMilestone {
   AdoptionMilestone(
@@ -136,6 +148,18 @@ pub type AdoptionMilestone {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Assigns an admitted policy to an agent without transferring authority.
+pub type AgentAssignment {
+  AgentAssignment(
+    /// Required agent_id for this bounded planner contract.
+    agent_id: String,
+    /// Required policy_id for deterministic planner evaluation.
+    policy_id: String,
+    /// Required assignment_hash preserving evidence and falsifiability.
+    assignment_hash: String,
   )
 }
 
@@ -281,6 +305,18 @@ pub type ArtifactDigestObservation {
   )
 }
 
+/// Represents an A-star plan with admissible heuristic and exact state lineage.
+pub type AstarPlanCandidate {
+  AstarPlanCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required heuristic_id for deterministic planner evaluation.
+    heuristic_id: String,
+    /// Required path_hash preserving evidence and falsifiability.
+    path_hash: String,
+  )
+}
+
 /// Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
 pub type AttestationVerificationEvidence {
   AttestationVerificationEvidence(
@@ -309,6 +345,634 @@ pub type AuditChainEvidence {
   )
 }
 
+/// Caps every candidate action at the exact authority grant available to its subject.
+pub type AuthorityCeiling {
+  AuthorityCeiling(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required grant_id for deterministic planner evaluation.
+    grant_id: String,
+    /// Required ceiling preserving evidence and falsifiability.
+    ceiling: String,
+  )
+}
+
+/// Produces a complete deterministic receipt for one authorized actuation.
+pub type AutonomicActuationReceipt {
+  AutonomicActuationReceipt(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Replays an actuation receipt against the same exact subject without repeating consequences.
+pub type AutonomicActuationReplay {
+  AutonomicActuationReplay(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Selects one bounded actuation candidate while preserving the exact decision subject and admitted authority.
+pub type AutonomicActuationSelection {
+  AutonomicActuationSelection(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Admits or refuses authority for one consequential transition using an immutable authority receipt.
+pub type AutonomicAuthorityAdmission {
+  AutonomicAuthorityAdmission(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Emits a machine-readable escalation only when the remaining boundary is irreducible by admitted authority.
+pub type AutonomicAuthorityEscalation {
+  AutonomicAuthorityEscalation(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses new consequential work when admitted queue or inflight capacity is exhausted.
+pub type AutonomicBackpressureAdmission {
+  AutonomicBackpressureAdmission(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Binds actuation to the exact consumer checkout rather than a central surrogate.
+pub type AutonomicCallerLocalBinding {
+  AutonomicCallerLocalBinding(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Admits a bounded canary transition and refuses fleet-wide expansion without verified evidence.
+pub type AutonomicCanaryAdmission {
+  AutonomicCanaryAdmission(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Produces a deterministic receipt proving cancellation and the resulting bounded state.
+pub type AutonomicCancellationReceipt {
+  AutonomicCancellationReceipt(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Routes a generated-surface defect to its canonical semantic source or independent qualification rail.
+pub type AutonomicCanonicalRepairRoute {
+  AutonomicCanonicalRepairRoute(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Scopes actuation authority to one capability, subject, and bounded transition.
+pub type AutonomicCapabilityToken {
+  AutonomicCapabilityToken(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Opens, probes, and closes a circuit using receipted health state transitions.
+pub type AutonomicCircuitBreakerTransition {
+  AutonomicCircuitBreakerTransition(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Verifies compensation restored the admitted recovery state without hiding partial effects.
+pub type AutonomicCompensationVerification {
+  AutonomicCompensationVerification(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Resumes a receipted transition after process crash from the last verified state boundary.
+pub type AutonomicCrashRecovery {
+  AutonomicCrashRecovery(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses reuse of an actuation receipt across distinct caller-local consumer subjects.
+pub type AutonomicCrossConsumerReceiptRefusal {
+  AutonomicCrossConsumerReceiptRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Recomputes receipt identity deterministically without reapplying the original consequence.
+pub type AutonomicDeterministicReceiptReplay {
+  AutonomicDeterministicReceiptReplay(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Classifies execution failures as subject, authority, capsule, dependency, transient, or irreducible boundary.
+pub type AutonomicFailureClassification {
+  AutonomicFailureClassification(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses receipts whose claimed transition identity fails deterministic verification.
+pub type AutonomicForgedReceiptRefusal {
+  AutonomicForgedReceiptRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses direct mutation of generator-owned workflows and projections.
+pub type AutonomicGeneratedSurfaceRefusal {
+  AutonomicGeneratedSurfaceRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Prevents duplicate execution of an already receipted actuation identity.
+pub type AutonomicIdempotenceFence {
+  AutonomicIdempotenceFence(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Coordinates automatic incident recovery through verified transitions and deterministic receipts.
+pub type AutonomicIncidentRecovery {
+  AutonomicIncidentRecovery(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Encodes the least authority sufficient for exactly one admitted actuation.
+pub type AutonomicLeastAuthorityGrant {
+  AutonomicLeastAuthorityGrant(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses model-produced intent as ambient authority for a consequential transition.
+pub type AutonomicModelAuthorityRefusal {
+  AutonomicModelAuthorityRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses actuation when a marketplace pack is selected by mutable tag or branch.
+pub type AutonomicMutablePackRefusal {
+  AutonomicMutablePackRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Verifies that every written output is owned by the admitted manufacturing plan.
+pub type AutonomicOutputOwnershipCheck {
+  AutonomicOutputOwnershipCheck(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Requires an exact immutable marketplace pack SHA before construction or execution.
+pub type AutonomicPackShaAuthority {
+  AutonomicPackShaAuthority(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Constructs an executable actuation plan bound to the exact caller-local subject.
+pub type AutonomicPlanConstruction {
+  AutonomicPlanConstruction(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses planner output as authority unless a separate admitted authority receipt is present.
+pub type AutonomicPlannerAuthorityRefusal {
+  AutonomicPlannerAuthorityRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Generates a bounded machine-actionable root-cause hypothesis from failed actuation evidence.
+pub type AutonomicRcaHypothesis {
+  AutonomicRcaHypothesis(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Binds a receipt to the exact authority admission used for the transition.
+pub type AutonomicReceiptAuthorityBinding {
+  AutonomicReceiptAuthorityBinding(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Links each consequential transition receipt to its verified predecessor receipt.
+pub type AutonomicReceiptChainLink {
+  AutonomicReceiptChainLink(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses any actuation receipt missing subject, authority, before-state, after-state, or result identity.
+pub type AutonomicReceiptCompletenessCheck {
+  AutonomicReceiptCompletenessCheck(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Cryptographically binds an actuation receipt to the exact caller-local subject SHA.
+pub type AutonomicReceiptSubjectBinding {
+  AutonomicReceiptSubjectBinding(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Re-executes a repaired actuation from the last verified state with a linked receipt.
+pub type AutonomicRepairReexecution {
+  AutonomicRepairReexecution(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Selects a least-change repair whose authority and affected surface remain explicitly bounded.
+pub type AutonomicRepairSelection {
+  AutonomicRepairSelection(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses replay when recomputed state or receipt identity diverges from the admitted evidence.
+pub type AutonomicReplayDivergenceRefusal {
+  AutonomicReplayDivergenceRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Schedules bounded retry delay without widening the original authority or subject.
+pub type AutonomicRetryBackoff {
+  AutonomicRetryBackoff(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Bounds recoverable actuation retries by explicit count and authority scope.
+pub type AutonomicRetryBudget {
+  AutonomicRetryBudget(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Restores an exact admitted prior state when forward repair cannot safely complete.
+pub type AutonomicRollbackTransition {
+  AutonomicRollbackTransition(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Constructs a compensating transition for a partially completed multi-step actuation.
+pub type AutonomicSagaCompensation {
+  AutonomicSagaCompensation(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Proves a second manufacture or sync produces byte-identical owned outputs.
+pub type AutonomicSecondRunIdentity {
+  AutonomicSecondRunIdentity(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Proves the full select, authorize, execute, verify, repair, replay, and containment loop completed.
+pub type AutonomicSelfHealingCompletionReceipt {
+  AutonomicSelfHealingCompletionReceipt(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses a queued action whose subject, authority, or expected before-state became stale.
+pub type AutonomicStaleActionRefusal {
+  AutonomicStaleActionRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses receipts whose subject or before-state no longer matches the admitted transition.
+pub type AutonomicStaleReceiptRefusal {
+  AutonomicStaleReceiptRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
 /// Encodes decision-relevant observed dimensions for one exact subject.
 pub type AutonomicStateVector {
   AutonomicStateVector(
@@ -320,6 +984,90 @@ pub type AutonomicStateVector {
     dimension_digest: String,
     /// Timestamp of state-vector encoding.
     observed_at: String,
+  )
+}
+
+/// Refuses an actuation unless the observed subject SHA equals the admitted expected SHA.
+pub type AutonomicSubjectCompareAndSwap {
+  AutonomicSubjectCompareAndSwap(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Restarts a failed actuation worker under bounded BEAM supervision semantics.
+pub type AutonomicSupervisorRestart {
+  AutonomicSupervisorRestart(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Cancels an unfinished actuation when its admitted execution budget expires.
+pub type AutonomicTimeoutBudget {
+  AutonomicTimeoutBudget(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Records execution of one admitted state transition without granting ambient planner authority.
+pub type AutonomicTransitionExecution {
+  AutonomicTransitionExecution(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Verifies the exact before and after state digests for a completed consequential transition.
+pub type AutonomicTransitionVerification {
+  AutonomicTransitionVerification(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Executes a version upgrade against exact capsule, pack, and subject identities with rollback evidence.
+pub type AutonomicUpgradeTransition {
+  AutonomicUpgradeTransition(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
   )
 }
 
@@ -376,6 +1124,18 @@ pub type BaselineMetric {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Represents a bounded beam-search plan with explicit width and frontier.
+pub type BeamSearchCandidate {
+  BeamSearchCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required beam_width for deterministic planner evaluation.
+    beam_width: String,
+    /// Required frontier_hash preserving evidence and falsifiability.
+    frontier_hash: String,
   )
 }
 
@@ -567,6 +1327,18 @@ pub type CallerLocalCheckoutObservation {
   )
 }
 
+/// Preserves each caller-local consumer as an independently planned exact subject.
+pub type CallerLocalConsumer {
+  CallerLocalConsumer(
+    /// Required consumer_id for this bounded planner contract.
+    consumer_id: String,
+    /// Required subject_sha for deterministic planner evaluation.
+    subject_sha: String,
+    /// Required consumer_hash preserving evidence and falsifiability.
+    consumer_hash: String,
+  )
+}
+
 /// Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused.
 pub type CallerLocalCrownIdentity {
   CallerLocalCrownIdentity(
@@ -668,6 +1440,18 @@ pub type CapabilityGapLearning {
     gap_type: String,
     /// Digest proving the gap.
     evidence_digest: String,
+  )
+}
+
+/// Records whether the exact validation capsule is available before qualification.
+pub type CapsuleAvailability {
+  CapsuleAvailability(
+    /// Required capsule_id for this bounded planner contract.
+    capsule_id: String,
+    /// Required capsule_digest for deterministic planner evaluation.
+    capsule_digest: String,
+    /// Required availability preserving evidence and falsifiability.
+    availability: String,
   )
 }
 
@@ -1073,6 +1857,18 @@ pub type ConsumerEquivalenceLearningGuard {
   )
 }
 
+/// Admits central-surrogate planning only after explicit consumer-equivalence proof.
+pub type ConsumerEquivalenceProof {
+  ConsumerEquivalenceProof(
+    /// Required consumer_set_id for this bounded planner contract.
+    consumer_set_id: String,
+    /// Required equivalence_proof_hash for deterministic planner evaluation.
+    equivalence_proof_hash: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
+  )
+}
+
 /// Proves a consumer used an exact immutable marketplace pack SHA.
 pub type ConsumerPackPinObservation {
   ConsumerPackPinObservation(
@@ -1173,6 +1969,18 @@ pub type CostLatencyReliabilityTradeoff {
   )
 }
 
+/// Scores delay cost for an option without overriding explicit authority.
+pub type CostOfDelayScore {
+  CostOfDelayScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required horizon for deterministic planner evaluation.
+    horizon: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
 /// Records attributable runtime cost-to-serve for a paid tenant and billing period.
 pub type CostToServeMeasurement {
   CostToServeMeasurement(
@@ -1182,6 +1990,18 @@ pub type CostToServeMeasurement {
     billing_period_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     measurement_hash: String,
+  )
+}
+
+/// Preserves counterfactual futures for every nondominated option.
+pub type CounterfactualFrontier {
+  CounterfactualFrontier(
+    /// Required option_set_id for this bounded planner contract.
+    option_set_id: String,
+    /// Required world_model_hash for deterministic planner evaluation.
+    world_model_hash: String,
+    /// Required frontier_hash preserving evidence and falsifiability.
+    frontier_hash: String,
   )
 }
 
@@ -2147,6 +2967,18 @@ pub type DemoScenario {
   )
 }
 
+/// Represents action dependencies as an acyclic exact-subject graph.
+pub type DependencyDag {
+  DependencyDag(
+    /// Required dag_id for this bounded planner contract.
+    dag_id: String,
+    /// Required node_set_hash for deterministic planner evaluation.
+    node_set_hash: String,
+    /// Required edge_set_hash preserving evidence and falsifiability.
+    edge_set_hash: String,
+  )
+}
+
 /// Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.
 pub type DependencyInventoryEvidence {
   DependencyInventoryEvidence(
@@ -2258,6 +3090,30 @@ pub type DiscoveryHypothesis {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Records the exact objective evidence proving one option dominates another.
+pub type DominanceWitness {
+  DominanceWitness(
+    /// Required dominant_option_id for this bounded planner contract.
+    dominant_option_id: String,
+    /// Required dominated_option_id for deterministic planner evaluation.
+    dominated_option_id: String,
+    /// Required witness_hash preserving evidence and falsifiability.
+    witness_hash: String,
+  )
+}
+
+/// Triggers replanning when observed state invalidates a plan assumption.
+pub type DynamicReplanTrigger {
+  DynamicReplanTrigger(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required event_id for deterministic planner evaluation.
+    event_id: String,
+    /// Required trigger_hash preserving evidence and falsifiability.
+    trigger_hash: String,
   )
 }
 
@@ -2399,6 +3255,18 @@ pub type EntitlementState {
   )
 }
 
+/// Measures expected uncertainty reduction from a bounded observation action.
+pub type EntropyReductionScore {
+  EntropyReductionScore(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required prior_entropy for deterministic planner evaluation.
+    prior_entropy: String,
+    /// Required expected_posterior_entropy preserving evidence and falsifiability.
+    expected_posterior_entropy: String,
+  )
+}
+
 /// Separates capsule or toolchain failure from subject failure before policy learning can update.
 pub type EnvironmentFailureSeparation {
   EnvironmentFailureSeparation(
@@ -2497,6 +3365,18 @@ pub type EventLog {
   )
 }
 
+/// Creates a bounded planning episode from an admitted world event.
+pub type EventTriggeredPlanning {
+  EventTriggeredPlanning(
+    /// Required event_id for this bounded planner contract.
+    event_id: String,
+    /// Required world_state_hash for deterministic planner evaluation.
+    world_state_hash: String,
+    /// Required episode_id preserving evidence and falsifiability.
+    episode_id: String,
+  )
+}
+
 /// A declared OCEL event type and its attribute schema.
 pub type EventType {
   EventType(
@@ -2534,6 +3414,18 @@ pub type EvidenceTrainingSample {
     label_id: String,
     /// Immutable provenance proving how the sample was derived.
     provenance_digest: String,
+  )
+}
+
+/// Binds every plan to one immutable repository/ref/SHA subject.
+pub type ExactSubjectBinding {
+  ExactSubjectBinding(
+    /// Required subject_id for this bounded planner contract.
+    subject_id: String,
+    /// Required subject_sha for deterministic planner evaluation.
+    subject_sha: String,
+    /// Required binding_hash preserving evidence and falsifiability.
+    binding_hash: String,
   )
 }
 
@@ -2773,6 +3665,18 @@ pub type GeneratedOutputOwnershipObservation {
   )
 }
 
+/// Routes generated-projection defects to canonical semantic source or an independent rail.
+pub type GeneratedSourceRoute {
+  GeneratedSourceRoute(
+    /// Required projection_id for this bounded planner contract.
+    projection_id: String,
+    /// Required source_coordinate for deterministic planner evaluation.
+    source_coordinate: String,
+    /// Required route preserving evidence and falsifiability.
+    route: String,
+  )
+}
+
 /// One dependency-scored candidate arc considered during heuristic-net discovery.
 pub type HeuristicArc {
   HeuristicArc(
@@ -2814,6 +3718,18 @@ pub type HypothesisPriorityUpdate {
     new_priority: Float,
     /// Digest supporting the update.
     payoff_evidence_digest: String,
+  )
+}
+
+/// Selects a marketplace pack only by exact immutable commit SHA.
+pub type ImmutablePackSelection {
+  ImmutablePackSelection(
+    /// Required pack_id for this bounded planner contract.
+    pack_id: String,
+    /// Required pack_sha for deterministic planner evaluation.
+    pack_sha: String,
+    /// Required selection_hash preserving evidence and falsifiability.
+    selection_hash: String,
   )
 }
 
@@ -2956,6 +3872,18 @@ pub type InvoiceSchedule {
     cadence: String,
     /// Next scheduled invoice instant.
     next_invoice_at: String,
+  )
+}
+
+/// Limits irreversible commitments within one bounded planning episode.
+pub type IrreversibilityBudget {
+  IrreversibilityBudget(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required budget for deterministic planner evaluation.
+    budget: String,
+    /// Required consumed preserving evidence and falsifiability.
+    consumed: String,
   )
 }
 
@@ -3115,6 +4043,30 @@ pub type MasterServiceAgreementState {
   )
 }
 
+/// Represents a seeded Monte Carlo tree-search plan and its rollout evidence.
+pub type MctsPlanCandidate {
+  MctsPlanCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required seed for deterministic planner evaluation.
+    seed: String,
+    /// Required rollout_hash preserving evidence and falsifiability.
+    rollout_hash: String,
+  )
+}
+
+/// Selects a planner from a portfolio using observed problem characteristics.
+pub type MetaRouter {
+  MetaRouter(
+    /// Required portfolio_id for this bounded planner contract.
+    portfolio_id: String,
+    /// Required observation_hash for deterministic planner evaluation.
+    observation_hash: String,
+    /// Required selected_planner_id preserving evidence and falsifiability.
+    selected_planner_id: String,
+  )
+}
+
 /// Records a bounded production usage sample eligible for tenant-level metering.
 pub type MeteredUsageSample {
   MeteredUsageSample(
@@ -3197,6 +4149,18 @@ pub type MutableIdentityRefusalEvidence {
   )
 }
 
+/// Ranks observations by expected mutual information with decision-relevant state.
+pub type MutualInformationScore {
+  MutualInformationScore(
+    /// Required observation_id for this bounded planner contract.
+    observation_id: String,
+    /// Required target_state_id for deterministic planner evaluation.
+    target_state_id: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
 /// Generates a falsifying fixture from a preserved failure and binds the expected refusal.
 pub type NegativeFixtureGeneration {
   NegativeFixtureGeneration(
@@ -3210,6 +4174,18 @@ pub type NegativeFixtureGeneration {
     generated_input_digest: String,
     /// Exact refusal required for success.
     expected_refusal_code: String,
+  )
+}
+
+/// Selects the next bounded action from scored admissible options without human micro-scheduling.
+pub type NextLawfulActuation {
+  NextLawfulActuation(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required selected_action_id for deterministic planner evaluation.
+    selected_action_id: String,
+    /// Required selection_receipt_hash preserving evidence and falsifiability.
+    selection_receipt_hash: String,
   )
 }
 
@@ -3272,6 +4248,18 @@ pub type NoveltyReward {
     reward: Float,
     /// Evidence supporting the distance calculation.
     evidence_digest: String,
+  )
+}
+
+/// Rewards options that expand the lawful reachable capability frontier.
+pub type NoveltyScore {
+  NoveltyScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required reference_set_hash for deterministic planner evaluation.
+    reference_set_hash: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
   )
 }
 
@@ -3537,6 +4525,30 @@ pub type OpportunityValueRange {
   )
 }
 
+/// Represents an optimization-derived plan with objective and solver receipt.
+pub type OptimizationPlanCandidate {
+  OptimizationPlanCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required objective_id for deterministic planner evaluation.
+    objective_id: String,
+    /// Required solver_receipt_hash preserving evidence and falsifiability.
+    solver_receipt_hash: String,
+  )
+}
+
+/// Generates a reversible DfCM option set without premature selection.
+pub type OptionGeneration {
+  OptionGeneration(
+    /// Required state_id for this bounded planner contract.
+    state_id: String,
+    /// Required generator_id for deterministic planner evaluation.
+    generator_id: String,
+    /// Required option_set_hash preserving evidence and falsifiability.
+    option_set_hash: String,
+  )
+}
+
 /// Admits the exact order form that expresses the buyer's priced scope and authorized terms.
 pub type OrderFormAdmission {
   OrderFormAdmission(
@@ -3567,6 +4579,18 @@ pub type OrthogonalityReward {
   )
 }
 
+/// Measures semantic independence between candidate work items.
+pub type OrthogonalityScore {
+  OrthogonalityScore(
+    /// Required left_option_id for this bounded planner contract.
+    left_option_id: String,
+    /// Required right_option_id for deterministic planner evaluation.
+    right_option_id: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
 /// Assigns an evidence-backed outcome class without allowing self-reported success to confirm itself.
 pub type OutcomeLabel {
   OutcomeLabel(
@@ -3580,6 +4604,18 @@ pub type OutcomeLabel {
     confidence_basis: String,
     /// Digest of evidence outside the candidate policy claim.
     independent_evidence_digest: String,
+  )
+}
+
+/// Refuses manufacture promotion until every output path has admitted ownership.
+pub type OutputOwnershipGate {
+  OutputOwnershipGate(
+    /// Required subject_id for this bounded planner contract.
+    subject_id: String,
+    /// Required ownership_manifest_hash for deterministic planner evaluation.
+    ownership_manifest_hash: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
   )
 }
 
@@ -3620,6 +4656,18 @@ pub type PaidWorkloadOutcomeReceipt {
     workload_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     outcome_receipt_hash: String,
+  )
+}
+
+/// Removes strictly dominated options while preserving incomparable alternatives.
+pub type ParetoFilter {
+  ParetoFilter(
+    /// Required option_set_id for this bounded planner contract.
+    option_set_id: String,
+    /// Required objective_set_hash for deterministic planner evaluation.
+    objective_set_hash: String,
+    /// Required pareto_set_hash preserving evidence and falsifiability.
+    pareto_set_hash: String,
   )
 }
 
@@ -3721,6 +4769,54 @@ pub type PetriTransition {
   )
 }
 
+/// Tracks derivation, repair, and supersession across plan generations.
+pub type PlanLineage {
+  PlanLineage(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required parent_plan_id for deterministic planner evaluation.
+    parent_plan_id: String,
+    /// Required lineage_hash preserving evidence and falsifiability.
+    lineage_hash: String,
+  )
+}
+
+/// Stores reusable plan evidence without converting historical success into current authority.
+pub type PlanMemory {
+  PlanMemory(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required evidence_hash for deterministic planner evaluation.
+    evidence_hash: String,
+    /// Required memory_hash preserving evidence and falsifiability.
+    memory_hash: String,
+  )
+}
+
+/// Declares the problem features and guarantees supported by one planner.
+pub type PlannerCapabilityProfile {
+  PlannerCapabilityProfile(
+    /// Required planner_id for this bounded planner contract.
+    planner_id: String,
+    /// Required capability_set for deterministic planner evaluation.
+    capability_set: String,
+    /// Required profile_hash preserving evidence and falsifiability.
+    profile_hash: String,
+  )
+}
+
+/// Separates planner identity from policy, role, agent, and authority identities.
+pub type PlannerIdentity {
+  PlannerIdentity(
+    /// Required planner_id for this bounded planner contract.
+    planner_id: String,
+    /// Required planner_kind for deterministic planner evaluation.
+    planner_kind: String,
+    /// Required identity_hash preserving evidence and falsifiability.
+    identity_hash: String,
+  )
+}
+
 /// Records objective-specific planner payoff from independent episode evidence.
 pub type PlannerPayoffObservation {
   PlannerPayoffObservation(
@@ -3754,6 +4850,18 @@ pub type PlannerPolicyComparison {
     payoff_delta: Float,
     /// Digest proving the selected winner.
     winner_evidence_digest: String,
+  )
+}
+
+/// Preserves a diverse set of planners for one bounded planning episode.
+pub type PlannerPortfolio {
+  PlannerPortfolio(
+    /// Required portfolio_id for this bounded planner contract.
+    portfolio_id: String,
+    /// Required planner_ids for deterministic planner evaluation.
+    planner_ids: String,
+    /// Required diversity_hash preserving evidence and falsifiability.
+    diversity_hash: String,
   )
 }
 
@@ -3861,6 +4969,18 @@ pub type PocTimeline {
   )
 }
 
+/// Binds one planner to parameters, objective, observations, and action projection.
+pub type PolicyBinding {
+  PolicyBinding(
+    /// Required policy_id for this bounded planner contract.
+    policy_id: String,
+    /// Required planner_id for deterministic planner evaluation.
+    planner_id: String,
+    /// Required policy_hash preserving evidence and falsifiability.
+    policy_hash: String,
+  )
+}
+
 /// One admission/authority policy decision recorded for an attempted action.
 pub type PolicyDecision {
   PolicyDecision(
@@ -3936,6 +5056,30 @@ pub type PowlPartialOrderEdge {
     from_index: Int,
     /// Index into the parent PartialOrderNode's children that must happen after from_index.
     to_index: Int,
+  )
+}
+
+/// Binds a plan candidate to an exact POWL process-plan projection.
+pub type PowlProjection {
+  PowlProjection(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required powl_hash for deterministic planner evaluation.
+    powl_hash: String,
+    /// Required projection_receipt_hash preserving evidence and falsifiability.
+    projection_receipt_hash: String,
+  )
+}
+
+/// Binds a plan candidate to an exact PPDDL problem/domain projection.
+pub type PpddlProjection {
+  PpddlProjection(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required domain_hash for deterministic planner evaluation.
+    domain_hash: String,
+    /// Required problem_hash preserving evidence and falsifiability.
+    problem_hash: String,
   )
 }
 
@@ -4135,6 +5279,18 @@ pub type ProofOfValueExitGate {
   )
 }
 
+/// Scores downstream consequences across the dependency and capability graph.
+pub type PropagationScore {
+  PropagationScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required graph_hash for deterministic planner evaluation.
+    graph_hash: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
 /// Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
 pub type ProvenanceBindingEvidence {
   ProvenanceBindingEvidence(
@@ -4160,6 +5316,18 @@ pub type ProvenanceBindingObservation {
     evidence_digest: String,
     /// Machine-readable provenance standing.
     binding_status: String,
+  )
+}
+
+/// Maintains a population of policies and response oracles for meta-routing.
+pub type PsroPopulation {
+  PsroPopulation(
+    /// Required population_id for this bounded planner contract.
+    population_id: String,
+    /// Required policy_ids for deterministic planner evaluation.
+    policy_ids: String,
+    /// Required population_hash preserving evidence and falsifiability.
+    population_hash: String,
   )
 }
 
@@ -4257,6 +5425,18 @@ pub type RateDistortionBudget {
   )
 }
 
+/// Determines whether an admitted goal remains reachable from current state.
+pub type ReachabilityAnalysis {
+  ReachabilityAnalysis(
+    /// Required state_id for this bounded planner contract.
+    state_id: String,
+    /// Required goal_id for deterministic planner evaluation.
+    goal_id: String,
+    /// Required reachability_proof_hash preserving evidence and falsifiability.
+    reachability_proof_hash: String,
+  )
+}
+
 /// Compiles only verified receipt-chain members into a deterministic learning corpus.
 pub type ReceiptLearningCompilation {
   ReceiptLearningCompilation(
@@ -4296,6 +5476,18 @@ pub type ReceiptReplayRequest {
     receipt_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     replay_request_hash: String,
+  )
+}
+
+/// Prevents any actuation candidate from becoming selectable without a verifiable receipt plan.
+pub type ReceiptRequiredGate {
+  ReceiptRequiredGate(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required receipt_contract_id for deterministic planner evaluation.
+    receipt_contract_id: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
   )
 }
 
@@ -4641,6 +5833,18 @@ pub type ResellerAuthorization {
   )
 }
 
+/// Automatically promotes the highest-value lawful reserve when primary work blocks.
+pub type ReserveWorkPromotion {
+  ReserveWorkPromotion(
+    /// Required blocked_work_id for this bounded planner contract.
+    blocked_work_id: String,
+    /// Required reserve_set_hash for deterministic planner evaluation.
+    reserve_set_hash: String,
+    /// Required promoted_work_id preserving evidence and falsifiability.
+    promoted_work_id: String,
+  )
+}
+
 /// Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.
 pub type ResidencyEvidence {
   ResidencyEvidence(
@@ -4664,6 +5868,18 @@ pub type ResourceAllocation {
     activity: String,
     /// Identifier of the specific event occurrence.
     event_id: String,
+  )
+}
+
+/// Allocates finite compute, time, and concurrency capacity across lawful options.
+pub type ResourceCapacityPlan {
+  ResourceCapacityPlan(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required resource_pool_hash for deterministic planner evaluation.
+    resource_pool_hash: String,
+    /// Required allocation_hash preserving evidence and falsifiability.
+    allocation_hash: String,
   )
 }
 
@@ -4721,6 +5937,18 @@ pub type RevenueScheduleAssumption {
   )
 }
 
+/// Weights reversible actions above irreversible ones until evidence justifies commitment.
+pub type ReversibilityWeight {
+  ReversibilityWeight(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required rollback_id for deterministic planner evaluation.
+    rollback_id: String,
+    /// Required weight preserving evidence and falsifiability.
+    weight: String,
+  )
+}
+
 /// Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
 pub type RfpResponseEvidence {
   RfpResponseEvidence(
@@ -4732,6 +5960,18 @@ pub type RfpResponseEvidence {
     answer_set_hash: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Evaluates whether a policy is lawful for an assigned role in the current world.
+pub type RoleCompatibility {
+  RoleCompatibility(
+    /// Required role_id for this bounded planner contract.
+    role_id: String,
+    /// Required policy_id for deterministic planner evaluation.
+    policy_id: String,
+    /// Required compatibility preserving evidence and falsifiability.
+    compatibility: String,
   )
 }
 
@@ -4920,6 +6160,18 @@ pub type SecondPassByteIdentityObservation {
     byte_identity: Bool,
     /// Receipt binding the replay result.
     receipt_digest: String,
+  )
+}
+
+/// Makes byte-identical second manufacture a first-class planning objective.
+pub type SecondRunIdentityObjective {
+  SecondRunIdentityObjective(
+    /// Required subject_id for this bounded planner contract.
+    subject_id: String,
+    /// Required first_tree_hash for deterministic planner evaluation.
+    first_tree_hash: String,
+    /// Required second_tree_hash preserving evidence and falsifiability.
+    second_tree_hash: String,
   )
 }
 
@@ -5200,6 +6452,18 @@ pub type StakeholderMap {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Refuses execution when subject, pack, policy, or world identity has drifted.
+pub type StalePlanRefusal {
+  StalePlanRefusal(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required admitted_preimage_hash for deterministic planner evaluation.
+    admitted_preimage_hash: String,
+    /// Required observed_preimage_hash preserving evidence and falsifiability.
+    observed_preimage_hash: String,
   )
 }
 
@@ -5711,6 +6975,18 @@ pub type TypeEdge {
   )
 }
 
+/// Selects only when confidence and downside bounds satisfy explicit values.
+pub type UncertaintyAwareSelection {
+  UncertaintyAwareSelection(
+    /// Required option_set_id for this bounded planner contract.
+    option_set_id: String,
+    /// Required uncertainty_model_hash for deterministic planner evaluation.
+    uncertainty_model_hash: String,
+    /// Required selected_option_id preserving evidence and falsifiability.
+    selected_option_id: String,
+  )
+}
+
 /// Represents typed UNKNOWN uncertainty instead of manufacturing false certainty.
 pub type UncertaintyObservation {
   UncertaintyObservation(
@@ -5899,6 +7175,18 @@ pub type ValueOfInformationEstimate {
   )
 }
 
+/// Scores the expected value of acquiring missing information before selection.
+pub type ValueOfInformationScore {
+  ValueOfInformationScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required observation_id for deterministic planner evaluation.
+    observation_id: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
 /// Receipted realized customer value derived from observed consequences.
 pub type ValueRealization {
   ValueRealization(
@@ -6026,6 +7314,18 @@ pub type VulnerabilityScanEvidence {
     vulnerability_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Refuses selections that would exceed the admitted work-in-process ceiling.
+pub type WipLimitGate {
+  WipLimitGate(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required wip_limit for deterministic planner evaluation.
+    wip_limit: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
   )
 }
 

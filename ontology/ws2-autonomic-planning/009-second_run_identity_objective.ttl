@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-009 — second_run_identity_objective
+b4p:second_run_identity_objective_rt a bpm:RecordType ;
+    bpm:recordName "second_run_identity_objective" ;
+    bpm:recordDoc "Makes byte-identical second manufacture a first-class planning objective." ;
+    bpm:hasField b4p:second_run_identity_objective_subject_id_f,
+                 b4p:second_run_identity_objective_first_tree_hash_f,
+                 b4p:second_run_identity_objective_second_tree_hash_f .
+
+b4p:second_run_identity_objective_subject_id_f a bpm:Field ;
+    bpm:fieldName "subject_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required subject_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:second_run_identity_objective_first_tree_hash_f a bpm:Field ;
+    bpm:fieldName "first_tree_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required first_tree_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:second_run_identity_objective_second_tree_hash_f a bpm:Field ;
+    bpm:fieldName "second_tree_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required second_tree_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

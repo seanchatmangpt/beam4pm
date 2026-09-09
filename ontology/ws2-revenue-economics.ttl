@@ -1,0 +1,103 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2 revenue-economics ontology extension.
+# Canonical manufacturing input: imported by ggen.toml and projected by ggen.
+
+# WS2-REV-057 — rework_cost
+bpm:rework_cost_rt a bpm:RecordType ;
+    bpm:recordName "rework_cost" ;
+    bpm:recordDoc "One observed process case with quantified retry/rework loop count and weighted cost evidence." ;
+    bpm:hasField bpm:rework_cost_case_id_f ,
+                 bpm:rework_cost_loop_count_f ,
+                 bpm:rework_cost_weighted_cost_f .
+
+bpm:rework_cost_case_id_f a bpm:Field ;
+    bpm:fieldName "case_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact process-case identity carrying the observed rework." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:rework_cost_loop_count_f a bpm:Field ;
+    bpm:fieldName "loop_count" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Observed count of retry/rework loop markers for this case." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:rework_cost_weighted_cost_f a bpm:Field ;
+    bpm:fieldName "weighted_cost" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed case amount weighted by the admitted rework-loop rule; units are inherited from the admitted source evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+# WS2-REV-058 — leakage_finding
+bpm:leakage_finding_rt a bpm:RecordType ;
+    bpm:recordName "leakage_finding" ;
+    bpm:recordDoc "One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk." ;
+    bpm:hasField bpm:leakage_finding_case_id_f ,
+                 bpm:leakage_finding_fitness_f ,
+                 bpm:leakage_finding_precision_f ,
+                 bpm:leakage_finding_amount_at_risk_f .
+
+bpm:leakage_finding_case_id_f a bpm:Field ;
+    bpm:fieldName "case_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact process-case identity that deviated from the admitted reference model." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:leakage_finding_fitness_f a bpm:Field ;
+    bpm:fieldName "fitness" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed conformance fitness for this case." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:leakage_finding_precision_f a bpm:Field ;
+    bpm:fieldName "precision" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed conformance precision for this case against the admitted model." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:leakage_finding_amount_at_risk_f a bpm:Field ;
+    bpm:fieldName "amount_at_risk" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero." ;
+    bpm:fieldRequired "false" ; bpm:fieldOrder 4 .
+
+# WS2-REV-059 — value_receipt
+bpm:value_receipt_rt a bpm:RecordType ;
+    bpm:recordName "value_receipt" ;
+    bpm:recordDoc "Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence." ;
+    bpm:hasField bpm:value_receipt_value_receipt_id_f ,
+                 bpm:value_receipt_account_id_f ,
+                 bpm:value_receipt_metric_name_f ,
+                 bpm:value_receipt_baseline_value_f ,
+                 bpm:value_receipt_observed_value_f ,
+                 bpm:value_receipt_evidence_digest_f ,
+                 bpm:value_receipt_observed_at_f .
+
+bpm:value_receipt_value_receipt_id_f a bpm:Field ;
+    bpm:fieldName "value_receipt_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this before/after value receipt." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:value_receipt_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Customer or enterprise account whose measured value is receipted." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:value_receipt_metric_name_f a bpm:Field ;
+    bpm:fieldName "metric_name" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Canonical metric identity used for both baseline and observed values." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:value_receipt_baseline_value_f a bpm:Field ;
+    bpm:fieldName "baseline_value" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Admitted baseline value before the measured change or observation window." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:value_receipt_observed_value_f a bpm:Field ;
+    bpm:fieldName "observed_value" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed value after the measured change or observation window." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+bpm:value_receipt_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence supporting the baseline and observed consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 6 .
+
+bpm:value_receipt_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant the receipted value consequence was observed." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 7 .

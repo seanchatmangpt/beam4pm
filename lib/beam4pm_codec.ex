@@ -87,6 +87,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.AdmissibleActionSet{} = r) do
+    to_known_map([
+      {"state_id", r.state_id, :passthrough},
+      {"constraint_hash", r.constraint_hash, :passthrough},
+      {"action_set_hash", r.action_set_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.AdoptionMilestone{} = r) do
     to_known_map([
       {"adoption_milestone_id", r.adoption_milestone_id, :passthrough},
@@ -94,6 +102,14 @@ defmodule BeamPM.Codec do
       {"milestone_name", r.milestone_name, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AgentAssignment{} = r) do
+    to_known_map([
+      {"agent_id", r.agent_id, :passthrough},
+      {"policy_id", r.policy_id, :passthrough},
+      {"assignment_hash", r.assignment_hash, :passthrough}
     ])
   end
 
@@ -188,6 +204,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.AstarPlanCandidate{} = r) do
+    to_known_map([
+      {"plan_id", r.plan_id, :passthrough},
+      {"heuristic_id", r.heuristic_id, :passthrough},
+      {"path_hash", r.path_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.AttestationVerificationEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -206,12 +230,470 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.AuthorityCeiling{} = r) do
+    to_known_map([
+      {"action_id", r.action_id, :passthrough},
+      {"grant_id", r.grant_id, :passthrough},
+      {"ceiling", r.ceiling, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicActuationReceipt{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicActuationReplay{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicActuationSelection{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicAuthorityAdmission{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicAuthorityEscalation{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicBackpressureAdmission{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCallerLocalBinding{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCanaryAdmission{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCancellationReceipt{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCanonicalRepairRoute{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCapabilityToken{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCircuitBreakerTransition{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCompensationVerification{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCrashRecovery{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCrossConsumerReceiptRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicDeterministicReceiptReplay{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicFailureClassification{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicForgedReceiptRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicGeneratedSurfaceRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicIdempotenceFence{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicIncidentRecovery{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicLeastAuthorityGrant{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicModelAuthorityRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicMutablePackRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicOutputOwnershipCheck{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicPackShaAuthority{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicPlanConstruction{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicPlannerAuthorityRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRcaHypothesis{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicReceiptAuthorityBinding{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicReceiptChainLink{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicReceiptCompletenessCheck{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicReceiptSubjectBinding{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRepairReexecution{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRepairSelection{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicReplayDivergenceRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRetryBackoff{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRetryBudget{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRollbackTransition{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicSagaCompensation{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicSecondRunIdentity{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicSelfHealingCompletionReceipt{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicStaleActionRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicStaleReceiptRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.AutonomicStateVector{} = r) do
     to_known_map([
       {"state_vector_id", r.state_vector_id, :passthrough},
       {"subject_id", r.subject_id, :passthrough},
       {"dimension_digest", r.dimension_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicSubjectCompareAndSwap{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicSupervisorRestart{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicTimeoutBudget{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicTransitionExecution{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicTransitionVerification{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicUpgradeTransition{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
     ])
   end
 
@@ -248,6 +730,14 @@ defmodule BeamPM.Codec do
       {"baseline_value", r.baseline_value, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.BeamSearchCandidate{} = r) do
+    to_known_map([
+      {"plan_id", r.plan_id, :passthrough},
+      {"beam_width", r.beam_width, :passthrough},
+      {"frontier_hash", r.frontier_hash, :passthrough}
     ])
   end
 
@@ -373,6 +863,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.CallerLocalConsumer{} = r) do
+    to_known_map([
+      {"consumer_id", r.consumer_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"consumer_hash", r.consumer_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.CallerLocalCrownIdentity{} = r) do
     to_known_map([
       {"propagation_id", r.propagation_id, :passthrough},
@@ -436,6 +934,14 @@ defmodule BeamPM.Codec do
       {"required_capability_id", r.required_capability_id, :passthrough},
       {"gap_type", r.gap_type, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CapsuleAvailability{} = r) do
+    to_known_map([
+      {"capsule_id", r.capsule_id, :passthrough},
+      {"capsule_digest", r.capsule_digest, :passthrough},
+      {"availability", r.availability, :passthrough}
     ])
   end
 
@@ -698,6 +1204,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ConsumerEquivalenceProof{} = r) do
+    to_known_map([
+      {"consumer_set_id", r.consumer_set_id, :passthrough},
+      {"equivalence_proof_hash", r.equivalence_proof_hash, :passthrough},
+      {"standing", r.standing, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ConsumerPackPinObservation{} = r) do
     to_known_map([
       {"consumer_repository_id", r.consumer_repository_id, :passthrough},
@@ -762,11 +1276,27 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.CostOfDelayScore{} = r) do
+    to_known_map([
+      {"option_id", r.option_id, :passthrough},
+      {"horizon", r.horizon, :passthrough},
+      {"score", r.score, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.CostToServeMeasurement{} = r) do
     to_known_map([
       {"tenant_id", r.tenant_id, :passthrough},
       {"billing_period_id", r.billing_period_id, :passthrough},
       {"measurement_hash", r.measurement_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.CounterfactualFrontier{} = r) do
+    to_known_map([
+      {"option_set_id", r.option_set_id, :passthrough},
+      {"world_model_hash", r.world_model_hash, :passthrough},
+      {"frontier_hash", r.frontier_hash, :passthrough}
     ])
   end
 
@@ -1387,6 +1917,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.DependencyDag{} = r) do
+    to_known_map([
+      {"dag_id", r.dag_id, :passthrough},
+      {"node_set_hash", r.node_set_hash, :passthrough},
+      {"edge_set_hash", r.edge_set_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.DependencyInventoryEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -1457,6 +1995,22 @@ defmodule BeamPM.Codec do
       {"expected_value", r.expected_value, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.DominanceWitness{} = r) do
+    to_known_map([
+      {"dominant_option_id", r.dominant_option_id, :passthrough},
+      {"dominated_option_id", r.dominated_option_id, :passthrough},
+      {"witness_hash", r.witness_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.DynamicReplanTrigger{} = r) do
+    to_known_map([
+      {"plan_id", r.plan_id, :passthrough},
+      {"event_id", r.event_id, :passthrough},
+      {"trigger_hash", r.trigger_hash, :passthrough}
     ])
   end
 
@@ -1549,6 +2103,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.EntropyReductionScore{} = r) do
+    to_known_map([
+      {"action_id", r.action_id, :passthrough},
+      {"prior_entropy", r.prior_entropy, :passthrough},
+      {"expected_posterior_entropy", r.expected_posterior_entropy, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.EnvironmentFailureSeparation{} = r) do
     to_known_map([
       {"assessment_id", r.assessment_id, :passthrough},
@@ -1612,6 +2174,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.EventTriggeredPlanning{} = r) do
+    to_known_map([
+      {"event_id", r.event_id, :passthrough},
+      {"world_state_hash", r.world_state_hash, :passthrough},
+      {"episode_id", r.episode_id, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.EventType{} = r) do
     to_known_map([
       {"type_name", r.type_name, :passthrough},
@@ -1635,6 +2205,14 @@ defmodule BeamPM.Codec do
       {"feature_digest", r.feature_digest, :passthrough},
       {"label_id", r.label_id, :passthrough},
       {"provenance_digest", r.provenance_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ExactSubjectBinding{} = r) do
+    to_known_map([
+      {"subject_id", r.subject_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"binding_hash", r.binding_hash, :passthrough}
     ])
   end
 
@@ -1786,6 +2364,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.GeneratedSourceRoute{} = r) do
+    to_known_map([
+      {"projection_id", r.projection_id, :passthrough},
+      {"source_coordinate", r.source_coordinate, :passthrough},
+      {"route", r.route, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.HeuristicArc{} = r) do
     to_known_map([
       {"source_activity", r.source_activity, :passthrough},
@@ -1811,6 +2397,14 @@ defmodule BeamPM.Codec do
       {"prior_priority", r.prior_priority, :passthrough},
       {"new_priority", r.new_priority, :passthrough},
       {"payoff_evidence_digest", r.payoff_evidence_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ImmutablePackSelection{} = r) do
+    to_known_map([
+      {"pack_id", r.pack_id, :passthrough},
+      {"pack_sha", r.pack_sha, :passthrough},
+      {"selection_hash", r.selection_hash, :passthrough}
     ])
   end
 
@@ -1904,6 +2498,14 @@ defmodule BeamPM.Codec do
       {"billing_account_id", r.billing_account_id, :passthrough},
       {"cadence", r.cadence, :atom},
       {"next_invoice_at", r.next_invoice_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.IrreversibilityBudget{} = r) do
+    to_known_map([
+      {"episode_id", r.episode_id, :passthrough},
+      {"budget", r.budget, :passthrough},
+      {"consumed", r.consumed, :passthrough}
     ])
   end
 
@@ -2009,6 +2611,22 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.MctsPlanCandidate{} = r) do
+    to_known_map([
+      {"plan_id", r.plan_id, :passthrough},
+      {"seed", r.seed, :passthrough},
+      {"rollout_hash", r.rollout_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.MetaRouter{} = r) do
+    to_known_map([
+      {"portfolio_id", r.portfolio_id, :passthrough},
+      {"observation_hash", r.observation_hash, :passthrough},
+      {"selected_planner_id", r.selected_planner_id, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.MeteredUsageSample{} = r) do
     to_known_map([
       {"tenant_id", r.tenant_id, :passthrough},
@@ -2062,6 +2680,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.MutualInformationScore{} = r) do
+    to_known_map([
+      {"observation_id", r.observation_id, :passthrough},
+      {"target_state_id", r.target_state_id, :passthrough},
+      {"score", r.score, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.NegativeFixtureGeneration{} = r) do
     to_known_map([
       {"fixture_id", r.fixture_id, :passthrough},
@@ -2069,6 +2695,14 @@ defmodule BeamPM.Codec do
       {"invariant_id", r.invariant_id, :passthrough},
       {"generated_input_digest", r.generated_input_digest, :passthrough},
       {"expected_refusal_code", r.expected_refusal_code, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.NextLawfulActuation{} = r) do
+    to_known_map([
+      {"episode_id", r.episode_id, :passthrough},
+      {"selected_action_id", r.selected_action_id, :passthrough},
+      {"selection_receipt_hash", r.selection_receipt_hash, :passthrough}
     ])
   end
 
@@ -2108,6 +2742,14 @@ defmodule BeamPM.Codec do
       {"nearest_prior_distance", r.nearest_prior_distance, :passthrough},
       {"reward", r.reward, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.NoveltyScore{} = r) do
+    to_known_map([
+      {"option_id", r.option_id, :passthrough},
+      {"reference_set_hash", r.reference_set_hash, :passthrough},
+      {"score", r.score, :passthrough}
     ])
   end
 
@@ -2280,6 +2922,22 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.OptimizationPlanCandidate{} = r) do
+    to_known_map([
+      {"plan_id", r.plan_id, :passthrough},
+      {"objective_id", r.objective_id, :passthrough},
+      {"solver_receipt_hash", r.solver_receipt_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.OptionGeneration{} = r) do
+    to_known_map([
+      {"state_id", r.state_id, :passthrough},
+      {"generator_id", r.generator_id, :passthrough},
+      {"option_set_hash", r.option_set_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.OrderFormAdmission{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -2299,6 +2957,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.OrthogonalityScore{} = r) do
+    to_known_map([
+      {"left_option_id", r.left_option_id, :passthrough},
+      {"right_option_id", r.right_option_id, :passthrough},
+      {"score", r.score, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.OutcomeLabel{} = r) do
     to_known_map([
       {"label_id", r.label_id, :passthrough},
@@ -2306,6 +2972,14 @@ defmodule BeamPM.Codec do
       {"outcome_class", r.outcome_class, :passthrough},
       {"confidence_basis", r.confidence_basis, :passthrough},
       {"independent_evidence_digest", r.independent_evidence_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.OutputOwnershipGate{} = r) do
+    to_known_map([
+      {"subject_id", r.subject_id, :passthrough},
+      {"ownership_manifest_hash", r.ownership_manifest_hash, :passthrough},
+      {"standing", r.standing, :passthrough}
     ])
   end
 
@@ -2332,6 +3006,14 @@ defmodule BeamPM.Codec do
       {"tenant_id", r.tenant_id, :passthrough},
       {"workload_id", r.workload_id, :passthrough},
       {"outcome_receipt_hash", r.outcome_receipt_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ParetoFilter{} = r) do
+    to_known_map([
+      {"option_set_id", r.option_set_id, :passthrough},
+      {"objective_set_hash", r.objective_set_hash, :passthrough},
+      {"pareto_set_hash", r.pareto_set_hash, :passthrough}
     ])
   end
 
@@ -2400,6 +3082,38 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.PlanLineage{} = r) do
+    to_known_map([
+      {"plan_id", r.plan_id, :passthrough},
+      {"parent_plan_id", r.parent_plan_id, :passthrough},
+      {"lineage_hash", r.lineage_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PlanMemory{} = r) do
+    to_known_map([
+      {"plan_id", r.plan_id, :passthrough},
+      {"evidence_hash", r.evidence_hash, :passthrough},
+      {"memory_hash", r.memory_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PlannerCapabilityProfile{} = r) do
+    to_known_map([
+      {"planner_id", r.planner_id, :passthrough},
+      {"capability_set", r.capability_set, :passthrough},
+      {"profile_hash", r.profile_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PlannerIdentity{} = r) do
+    to_known_map([
+      {"planner_id", r.planner_id, :passthrough},
+      {"planner_kind", r.planner_kind, :passthrough},
+      {"identity_hash", r.identity_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.PlannerPayoffObservation{} = r) do
     to_known_map([
       {"observation_id", r.observation_id, :passthrough},
@@ -2419,6 +3133,14 @@ defmodule BeamPM.Codec do
       {"challenger_policy_id", r.challenger_policy_id, :passthrough},
       {"payoff_delta", r.payoff_delta, :passthrough},
       {"winner_evidence_digest", r.winner_evidence_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PlannerPortfolio{} = r) do
+    to_known_map([
+      {"portfolio_id", r.portfolio_id, :passthrough},
+      {"planner_ids", r.planner_ids, :passthrough},
+      {"diversity_hash", r.diversity_hash, :passthrough}
     ])
   end
 
@@ -2488,6 +3210,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.PolicyBinding{} = r) do
+    to_known_map([
+      {"policy_id", r.policy_id, :passthrough},
+      {"planner_id", r.planner_id, :passthrough},
+      {"policy_hash", r.policy_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.PolicyDecision{} = r) do
     to_known_map([
       {"decision_id", r.decision_id, :passthrough},
@@ -2536,6 +3266,22 @@ defmodule BeamPM.Codec do
     to_known_map([
       {"from_index", r.from_index, :passthrough},
       {"to_index", r.to_index, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PowlProjection{} = r) do
+    to_known_map([
+      {"plan_id", r.plan_id, :passthrough},
+      {"powl_hash", r.powl_hash, :passthrough},
+      {"projection_receipt_hash", r.projection_receipt_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PpddlProjection{} = r) do
+    to_known_map([
+      {"plan_id", r.plan_id, :passthrough},
+      {"domain_hash", r.domain_hash, :passthrough},
+      {"problem_hash", r.problem_hash, :passthrough}
     ])
   end
 
@@ -2665,6 +3411,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.PropagationScore{} = r) do
+    to_known_map([
+      {"option_id", r.option_id, :passthrough},
+      {"graph_hash", r.graph_hash, :passthrough},
+      {"score", r.score, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ProvenanceBindingEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -2680,6 +3434,14 @@ defmodule BeamPM.Codec do
       {"source_capsule_digest", r.source_capsule_digest, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"binding_status", r.binding_status, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.PsroPopulation{} = r) do
+    to_known_map([
+      {"population_id", r.population_id, :passthrough},
+      {"policy_ids", r.policy_ids, :passthrough},
+      {"population_hash", r.population_hash, :passthrough}
     ])
   end
 
@@ -2744,6 +3506,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ReachabilityAnalysis{} = r) do
+    to_known_map([
+      {"state_id", r.state_id, :passthrough},
+      {"goal_id", r.goal_id, :passthrough},
+      {"reachability_proof_hash", r.reachability_proof_hash, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ReceiptLearningCompilation{} = r) do
     to_known_map([
       {"compilation_id", r.compilation_id, :passthrough},
@@ -2768,6 +3538,14 @@ defmodule BeamPM.Codec do
       {"tenant_id", r.tenant_id, :passthrough},
       {"receipt_id", r.receipt_id, :passthrough},
       {"replay_request_hash", r.replay_request_hash, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ReceiptRequiredGate{} = r) do
+    to_known_map([
+      {"action_id", r.action_id, :passthrough},
+      {"receipt_contract_id", r.receipt_contract_id, :passthrough},
+      {"standing", r.standing, :passthrough}
     ])
   end
 
@@ -2990,6 +3768,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ReserveWorkPromotion{} = r) do
+    to_known_map([
+      {"blocked_work_id", r.blocked_work_id, :passthrough},
+      {"reserve_set_hash", r.reserve_set_hash, :passthrough},
+      {"promoted_work_id", r.promoted_work_id, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ResidencyEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -3004,6 +3790,14 @@ defmodule BeamPM.Codec do
       {"resource_id", r.resource_id, :passthrough},
       {"activity", r.activity, :passthrough},
       {"event_id", r.event_id, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ResourceCapacityPlan{} = r) do
+    to_known_map([
+      {"episode_id", r.episode_id, :passthrough},
+      {"resource_pool_hash", r.resource_pool_hash, :passthrough},
+      {"allocation_hash", r.allocation_hash, :passthrough}
     ])
   end
 
@@ -3042,12 +3836,28 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ReversibilityWeight{} = r) do
+    to_known_map([
+      {"action_id", r.action_id, :passthrough},
+      {"rollback_id", r.rollback_id, :passthrough},
+      {"weight", r.weight, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.RfpResponseEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
       {"subject_sha", r.subject_sha, :passthrough},
       {"answer_set_hash", r.answer_set_hash, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.RoleCompatibility{} = r) do
+    to_known_map([
+      {"role_id", r.role_id, :passthrough},
+      {"policy_id", r.policy_id, :passthrough},
+      {"compatibility", r.compatibility, :passthrough}
     ])
   end
 
@@ -3168,6 +3978,14 @@ defmodule BeamPM.Codec do
       {"second_tree_digest", r.second_tree_digest, :passthrough},
       {"byte_identity", r.byte_identity, :passthrough},
       {"receipt_digest", r.receipt_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.SecondRunIdentityObjective{} = r) do
+    to_known_map([
+      {"subject_id", r.subject_id, :passthrough},
+      {"first_tree_hash", r.first_tree_hash, :passthrough},
+      {"second_tree_hash", r.second_tree_hash, :passthrough}
     ])
   end
 
@@ -3348,6 +4166,14 @@ defmodule BeamPM.Codec do
       {"stakeholder_count", r.stakeholder_count, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.StalePlanRefusal{} = r) do
+    to_known_map([
+      {"plan_id", r.plan_id, :passthrough},
+      {"admitted_preimage_hash", r.admitted_preimage_hash, :passthrough},
+      {"observed_preimage_hash", r.observed_preimage_hash, :passthrough}
     ])
   end
 
@@ -3679,6 +4505,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.UncertaintyAwareSelection{} = r) do
+    to_known_map([
+      {"option_set_id", r.option_set_id, :passthrough},
+      {"uncertainty_model_hash", r.uncertainty_model_hash, :passthrough},
+      {"selected_option_id", r.selected_option_id, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.UncertaintyObservation{} = r) do
     to_known_map([
       {"observation_id", r.observation_id, :passthrough},
@@ -3799,6 +4633,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ValueOfInformationScore{} = r) do
+    to_known_map([
+      {"option_id", r.option_id, :passthrough},
+      {"observation_id", r.observation_id, :passthrough},
+      {"score", r.score, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ValueRealization{} = r) do
     to_known_map([
       {"value_realization_id", r.value_realization_id, :passthrough},
@@ -3879,6 +4721,14 @@ defmodule BeamPM.Codec do
       {"subject_sha", r.subject_sha, :passthrough},
       {"vulnerability_count", r.vulnerability_count, :passthrough},
       {"observed_result", r.observed_result, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.WipLimitGate{} = r) do
+    to_known_map([
+      {"episode_id", r.episode_id, :passthrough},
+      {"wip_limit", r.wip_limit, :passthrough},
+      {"standing", r.standing, :passthrough}
     ])
   end
 
@@ -4074,6 +4924,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:admissible_action_set, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"state_id", :state_id, :passthrough},
+        {"constraint_hash", :constraint_hash, :passthrough},
+        {"action_set_hash", :action_set_hash, :passthrough}
+      ],
+      &BeamPM.Types.AdmissibleActionSet.new/1
+    )
+  end
+
   def from_map(:adoption_milestone, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4085,6 +4947,18 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.AdoptionMilestone.new/1
+    )
+  end
+
+  def from_map(:agent_assignment, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"agent_id", :agent_id, :passthrough},
+        {"policy_id", :policy_id, :passthrough},
+        {"assignment_hash", :assignment_hash, :passthrough}
+      ],
+      &BeamPM.Types.AgentAssignment.new/1
     )
   end
 
@@ -4219,6 +5093,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:astar_plan_candidate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"plan_id", :plan_id, :passthrough},
+        {"heuristic_id", :heuristic_id, :passthrough},
+        {"path_hash", :path_hash, :passthrough}
+      ],
+      &BeamPM.Types.AstarPlanCandidate.new/1
+    )
+  end
+
   def from_map(:attestation_verification_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4245,6 +5131,590 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:authority_ceiling, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"action_id", :action_id, :passthrough},
+        {"grant_id", :grant_id, :passthrough},
+        {"ceiling", :ceiling, :passthrough}
+      ],
+      &BeamPM.Types.AuthorityCeiling.new/1
+    )
+  end
+
+  def from_map(:autonomic_actuation_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicActuationReceipt.new/1
+    )
+  end
+
+  def from_map(:autonomic_actuation_replay, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicActuationReplay.new/1
+    )
+  end
+
+  def from_map(:autonomic_actuation_selection, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicActuationSelection.new/1
+    )
+  end
+
+  def from_map(:autonomic_authority_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicAuthorityAdmission.new/1
+    )
+  end
+
+  def from_map(:autonomic_authority_escalation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicAuthorityEscalation.new/1
+    )
+  end
+
+  def from_map(:autonomic_backpressure_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicBackpressureAdmission.new/1
+    )
+  end
+
+  def from_map(:autonomic_caller_local_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCallerLocalBinding.new/1
+    )
+  end
+
+  def from_map(:autonomic_canary_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCanaryAdmission.new/1
+    )
+  end
+
+  def from_map(:autonomic_cancellation_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCancellationReceipt.new/1
+    )
+  end
+
+  def from_map(:autonomic_canonical_repair_route, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCanonicalRepairRoute.new/1
+    )
+  end
+
+  def from_map(:autonomic_capability_token, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCapabilityToken.new/1
+    )
+  end
+
+  def from_map(:autonomic_circuit_breaker_transition, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCircuitBreakerTransition.new/1
+    )
+  end
+
+  def from_map(:autonomic_compensation_verification, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCompensationVerification.new/1
+    )
+  end
+
+  def from_map(:autonomic_crash_recovery, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCrashRecovery.new/1
+    )
+  end
+
+  def from_map(:autonomic_cross_consumer_receipt_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCrossConsumerReceiptRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_deterministic_receipt_replay, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicDeterministicReceiptReplay.new/1
+    )
+  end
+
+  def from_map(:autonomic_failure_classification, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicFailureClassification.new/1
+    )
+  end
+
+  def from_map(:autonomic_forged_receipt_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicForgedReceiptRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_generated_surface_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicGeneratedSurfaceRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_idempotence_fence, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicIdempotenceFence.new/1
+    )
+  end
+
+  def from_map(:autonomic_incident_recovery, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicIncidentRecovery.new/1
+    )
+  end
+
+  def from_map(:autonomic_least_authority_grant, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicLeastAuthorityGrant.new/1
+    )
+  end
+
+  def from_map(:autonomic_model_authority_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicModelAuthorityRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_mutable_pack_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicMutablePackRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_output_ownership_check, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicOutputOwnershipCheck.new/1
+    )
+  end
+
+  def from_map(:autonomic_pack_sha_authority, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicPackShaAuthority.new/1
+    )
+  end
+
+  def from_map(:autonomic_plan_construction, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicPlanConstruction.new/1
+    )
+  end
+
+  def from_map(:autonomic_planner_authority_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicPlannerAuthorityRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_rca_hypothesis, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRcaHypothesis.new/1
+    )
+  end
+
+  def from_map(:autonomic_receipt_authority_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicReceiptAuthorityBinding.new/1
+    )
+  end
+
+  def from_map(:autonomic_receipt_chain_link, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicReceiptChainLink.new/1
+    )
+  end
+
+  def from_map(:autonomic_receipt_completeness_check, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicReceiptCompletenessCheck.new/1
+    )
+  end
+
+  def from_map(:autonomic_receipt_subject_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicReceiptSubjectBinding.new/1
+    )
+  end
+
+  def from_map(:autonomic_repair_reexecution, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRepairReexecution.new/1
+    )
+  end
+
+  def from_map(:autonomic_repair_selection, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRepairSelection.new/1
+    )
+  end
+
+  def from_map(:autonomic_replay_divergence_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicReplayDivergenceRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_retry_backoff, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRetryBackoff.new/1
+    )
+  end
+
+  def from_map(:autonomic_retry_budget, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRetryBudget.new/1
+    )
+  end
+
+  def from_map(:autonomic_rollback_transition, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRollbackTransition.new/1
+    )
+  end
+
+  def from_map(:autonomic_saga_compensation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicSagaCompensation.new/1
+    )
+  end
+
+  def from_map(:autonomic_second_run_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicSecondRunIdentity.new/1
+    )
+  end
+
+  def from_map(:autonomic_self_healing_completion_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicSelfHealingCompletionReceipt.new/1
+    )
+  end
+
+  def from_map(:autonomic_stale_action_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicStaleActionRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_stale_receipt_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicStaleReceiptRefusal.new/1
+    )
+  end
+
   def from_map(:autonomic_state_vector, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4255,6 +5725,84 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.AutonomicStateVector.new/1
+    )
+  end
+
+  def from_map(:autonomic_subject_compare_and_swap, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicSubjectCompareAndSwap.new/1
+    )
+  end
+
+  def from_map(:autonomic_supervisor_restart, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicSupervisorRestart.new/1
+    )
+  end
+
+  def from_map(:autonomic_timeout_budget, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicTimeoutBudget.new/1
+    )
+  end
+
+  def from_map(:autonomic_transition_execution, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicTransitionExecution.new/1
+    )
+  end
+
+  def from_map(:autonomic_transition_verification, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicTransitionVerification.new/1
+    )
+  end
+
+  def from_map(:autonomic_upgrade_transition, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicUpgradeTransition.new/1
     )
   end
 
@@ -4307,6 +5855,18 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.BaselineMetric.new/1
+    )
+  end
+
+  def from_map(:beam_search_candidate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"plan_id", :plan_id, :passthrough},
+        {"beam_width", :beam_width, :passthrough},
+        {"frontier_hash", :frontier_hash, :passthrough}
+      ],
+      &BeamPM.Types.BeamSearchCandidate.new/1
     )
   end
 
@@ -4488,6 +6048,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:caller_local_consumer, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"consumer_id", :consumer_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"consumer_hash", :consumer_hash, :passthrough}
+      ],
+      &BeamPM.Types.CallerLocalConsumer.new/1
+    )
+  end
+
   def from_map(:caller_local_crown_identity, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4579,6 +6151,18 @@ defmodule BeamPM.Codec do
         {"evidence_digest", :evidence_digest, :passthrough}
       ],
       &BeamPM.Types.CapabilityGapLearning.new/1
+    )
+  end
+
+  def from_map(:capsule_availability, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"capsule_id", :capsule_id, :passthrough},
+        {"capsule_digest", :capsule_digest, :passthrough},
+        {"availability", :availability, :passthrough}
+      ],
+      &BeamPM.Types.CapsuleAvailability.new/1
     )
   end
 
@@ -4957,6 +6541,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:consumer_equivalence_proof, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"consumer_set_id", :consumer_set_id, :passthrough},
+        {"equivalence_proof_hash", :equivalence_proof_hash, :passthrough},
+        {"standing", :standing, :passthrough}
+      ],
+      &BeamPM.Types.ConsumerEquivalenceProof.new/1
+    )
+  end
+
   def from_map(:consumer_pack_pin_observation, m) when is_map(m) do
     from_known_fields(
       m,
@@ -5049,6 +6645,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:cost_of_delay_score, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"option_id", :option_id, :passthrough},
+        {"horizon", :horizon, :passthrough},
+        {"score", :score, :passthrough}
+      ],
+      &BeamPM.Types.CostOfDelayScore.new/1
+    )
+  end
+
   def from_map(:cost_to_serve_measurement, m) when is_map(m) do
     from_known_fields(
       m,
@@ -5058,6 +6666,18 @@ defmodule BeamPM.Codec do
         {"measurement_hash", :measurement_hash, :passthrough}
       ],
       &BeamPM.Types.CostToServeMeasurement.new/1
+    )
+  end
+
+  def from_map(:counterfactual_frontier, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"option_set_id", :option_set_id, :passthrough},
+        {"world_model_hash", :world_model_hash, :passthrough},
+        {"frontier_hash", :frontier_hash, :passthrough}
+      ],
+      &BeamPM.Types.CounterfactualFrontier.new/1
     )
   end
 
@@ -5950,6 +7570,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:dependency_dag, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"dag_id", :dag_id, :passthrough},
+        {"node_set_hash", :node_set_hash, :passthrough},
+        {"edge_set_hash", :edge_set_hash, :passthrough}
+      ],
+      &BeamPM.Types.DependencyDag.new/1
+    )
+  end
+
   def from_map(:dependency_inventory_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -6052,6 +7684,30 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.DiscoveryHypothesis.new/1
+    )
+  end
+
+  def from_map(:dominance_witness, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"dominant_option_id", :dominant_option_id, :passthrough},
+        {"dominated_option_id", :dominated_option_id, :passthrough},
+        {"witness_hash", :witness_hash, :passthrough}
+      ],
+      &BeamPM.Types.DominanceWitness.new/1
+    )
+  end
+
+  def from_map(:dynamic_replan_trigger, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"plan_id", :plan_id, :passthrough},
+        {"event_id", :event_id, :passthrough},
+        {"trigger_hash", :trigger_hash, :passthrough}
+      ],
+      &BeamPM.Types.DynamicReplanTrigger.new/1
     )
   end
 
@@ -6184,6 +7840,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:entropy_reduction_score, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"action_id", :action_id, :passthrough},
+        {"prior_entropy", :prior_entropy, :passthrough},
+        {"expected_posterior_entropy", :expected_posterior_entropy, :passthrough}
+      ],
+      &BeamPM.Types.EntropyReductionScore.new/1
+    )
+  end
+
   def from_map(:environment_failure_separation, m) when is_map(m) do
     from_known_fields(
       m,
@@ -6275,6 +7943,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:event_triggered_planning, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"event_id", :event_id, :passthrough},
+        {"world_state_hash", :world_state_hash, :passthrough},
+        {"episode_id", :episode_id, :passthrough}
+      ],
+      &BeamPM.Types.EventTriggeredPlanning.new/1
+    )
+  end
+
   def from_map(:event_type, m) when is_map(m) do
     from_known_fields(
       m,
@@ -6310,6 +7990,18 @@ defmodule BeamPM.Codec do
         {"provenance_digest", :provenance_digest, :passthrough}
       ],
       &BeamPM.Types.EvidenceTrainingSample.new/1
+    )
+  end
+
+  def from_map(:exact_subject_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"subject_id", :subject_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"binding_hash", :binding_hash, :passthrough}
+      ],
+      &BeamPM.Types.ExactSubjectBinding.new/1
     )
   end
 
@@ -6521,6 +8213,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:generated_source_route, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"projection_id", :projection_id, :passthrough},
+        {"source_coordinate", :source_coordinate, :passthrough},
+        {"route", :route, :passthrough}
+      ],
+      &BeamPM.Types.GeneratedSourceRoute.new/1
+    )
+  end
+
   def from_map(:heuristic_arc, m) when is_map(m) do
     from_known_fields(
       m,
@@ -6558,6 +8262,18 @@ defmodule BeamPM.Codec do
         {"payoff_evidence_digest", :payoff_evidence_digest, :passthrough}
       ],
       &BeamPM.Types.HypothesisPriorityUpdate.new/1
+    )
+  end
+
+  def from_map(:immutable_pack_selection, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"pack_id", :pack_id, :passthrough},
+        {"pack_sha", :pack_sha, :passthrough},
+        {"selection_hash", :selection_hash, :passthrough}
+      ],
+      &BeamPM.Types.ImmutablePackSelection.new/1
     )
   end
 
@@ -6695,6 +8411,18 @@ defmodule BeamPM.Codec do
         {"next_invoice_at", :next_invoice_at, :passthrough}
       ],
       &BeamPM.Types.InvoiceSchedule.new/1
+    )
+  end
+
+  def from_map(:irreversibility_budget, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"episode_id", :episode_id, :passthrough},
+        {"budget", :budget, :passthrough},
+        {"consumed", :consumed, :passthrough}
+      ],
+      &BeamPM.Types.IrreversibilityBudget.new/1
     )
   end
 
@@ -6848,6 +8576,30 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:mcts_plan_candidate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"plan_id", :plan_id, :passthrough},
+        {"seed", :seed, :passthrough},
+        {"rollout_hash", :rollout_hash, :passthrough}
+      ],
+      &BeamPM.Types.MctsPlanCandidate.new/1
+    )
+  end
+
+  def from_map(:meta_router, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"portfolio_id", :portfolio_id, :passthrough},
+        {"observation_hash", :observation_hash, :passthrough},
+        {"selected_planner_id", :selected_planner_id, :passthrough}
+      ],
+      &BeamPM.Types.MetaRouter.new/1
+    )
+  end
+
   def from_map(:metered_usage_sample, m) when is_map(m) do
     from_known_fields(
       m,
@@ -6925,6 +8677,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:mutual_information_score, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"observation_id", :observation_id, :passthrough},
+        {"target_state_id", :target_state_id, :passthrough},
+        {"score", :score, :passthrough}
+      ],
+      &BeamPM.Types.MutualInformationScore.new/1
+    )
+  end
+
   def from_map(:negative_fixture_generation, m) when is_map(m) do
     from_known_fields(
       m,
@@ -6936,6 +8700,18 @@ defmodule BeamPM.Codec do
         {"expected_refusal_code", :expected_refusal_code, :passthrough}
       ],
       &BeamPM.Types.NegativeFixtureGeneration.new/1
+    )
+  end
+
+  def from_map(:next_lawful_actuation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"episode_id", :episode_id, :passthrough},
+        {"selected_action_id", :selected_action_id, :passthrough},
+        {"selection_receipt_hash", :selection_receipt_hash, :passthrough}
+      ],
+      &BeamPM.Types.NextLawfulActuation.new/1
     )
   end
 
@@ -6991,6 +8767,18 @@ defmodule BeamPM.Codec do
         {"evidence_digest", :evidence_digest, :passthrough}
       ],
       &BeamPM.Types.NoveltyReward.new/1
+    )
+  end
+
+  def from_map(:novelty_score, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"option_id", :option_id, :passthrough},
+        {"reference_set_hash", :reference_set_hash, :passthrough},
+        {"score", :score, :passthrough}
+      ],
+      &BeamPM.Types.NoveltyScore.new/1
     )
   end
 
@@ -7239,6 +9027,30 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:optimization_plan_candidate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"plan_id", :plan_id, :passthrough},
+        {"objective_id", :objective_id, :passthrough},
+        {"solver_receipt_hash", :solver_receipt_hash, :passthrough}
+      ],
+      &BeamPM.Types.OptimizationPlanCandidate.new/1
+    )
+  end
+
+  def from_map(:option_generation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"state_id", :state_id, :passthrough},
+        {"generator_id", :generator_id, :passthrough},
+        {"option_set_hash", :option_set_hash, :passthrough}
+      ],
+      &BeamPM.Types.OptionGeneration.new/1
+    )
+  end
+
   def from_map(:order_form_admission, m) when is_map(m) do
     from_known_fields(
       m,
@@ -7266,6 +9078,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:orthogonality_score, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"left_option_id", :left_option_id, :passthrough},
+        {"right_option_id", :right_option_id, :passthrough},
+        {"score", :score, :passthrough}
+      ],
+      &BeamPM.Types.OrthogonalityScore.new/1
+    )
+  end
+
   def from_map(:outcome_label, m) when is_map(m) do
     from_known_fields(
       m,
@@ -7277,6 +9101,18 @@ defmodule BeamPM.Codec do
         {"independent_evidence_digest", :independent_evidence_digest, :passthrough}
       ],
       &BeamPM.Types.OutcomeLabel.new/1
+    )
+  end
+
+  def from_map(:output_ownership_gate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"subject_id", :subject_id, :passthrough},
+        {"ownership_manifest_hash", :ownership_manifest_hash, :passthrough},
+        {"standing", :standing, :passthrough}
+      ],
+      &BeamPM.Types.OutputOwnershipGate.new/1
     )
   end
 
@@ -7315,6 +9151,18 @@ defmodule BeamPM.Codec do
         {"outcome_receipt_hash", :outcome_receipt_hash, :passthrough}
       ],
       &BeamPM.Types.PaidWorkloadOutcomeReceipt.new/1
+    )
+  end
+
+  def from_map(:pareto_filter, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"option_set_id", :option_set_id, :passthrough},
+        {"objective_set_hash", :objective_set_hash, :passthrough},
+        {"pareto_set_hash", :pareto_set_hash, :passthrough}
+      ],
+      &BeamPM.Types.ParetoFilter.new/1
     )
   end
 
@@ -7415,6 +9263,54 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:plan_lineage, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"plan_id", :plan_id, :passthrough},
+        {"parent_plan_id", :parent_plan_id, :passthrough},
+        {"lineage_hash", :lineage_hash, :passthrough}
+      ],
+      &BeamPM.Types.PlanLineage.new/1
+    )
+  end
+
+  def from_map(:plan_memory, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"plan_id", :plan_id, :passthrough},
+        {"evidence_hash", :evidence_hash, :passthrough},
+        {"memory_hash", :memory_hash, :passthrough}
+      ],
+      &BeamPM.Types.PlanMemory.new/1
+    )
+  end
+
+  def from_map(:planner_capability_profile, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"planner_id", :planner_id, :passthrough},
+        {"capability_set", :capability_set, :passthrough},
+        {"profile_hash", :profile_hash, :passthrough}
+      ],
+      &BeamPM.Types.PlannerCapabilityProfile.new/1
+    )
+  end
+
+  def from_map(:planner_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"planner_id", :planner_id, :passthrough},
+        {"planner_kind", :planner_kind, :passthrough},
+        {"identity_hash", :identity_hash, :passthrough}
+      ],
+      &BeamPM.Types.PlannerIdentity.new/1
+    )
+  end
+
   def from_map(:planner_payoff_observation, m) when is_map(m) do
     from_known_fields(
       m,
@@ -7442,6 +9338,18 @@ defmodule BeamPM.Codec do
         {"winner_evidence_digest", :winner_evidence_digest, :passthrough}
       ],
       &BeamPM.Types.PlannerPolicyComparison.new/1
+    )
+  end
+
+  def from_map(:planner_portfolio, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"portfolio_id", :portfolio_id, :passthrough},
+        {"planner_ids", :planner_ids, :passthrough},
+        {"diversity_hash", :diversity_hash, :passthrough}
+      ],
+      &BeamPM.Types.PlannerPortfolio.new/1
     )
   end
 
@@ -7539,6 +9447,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:policy_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"policy_id", :policy_id, :passthrough},
+        {"planner_id", :planner_id, :passthrough},
+        {"policy_hash", :policy_hash, :passthrough}
+      ],
+      &BeamPM.Types.PolicyBinding.new/1
+    )
+  end
+
   def from_map(:policy_decision, m) when is_map(m) do
     from_known_fields(
       m,
@@ -7611,6 +9531,30 @@ defmodule BeamPM.Codec do
         {"to_index", :to_index, :passthrough}
       ],
       &BeamPM.Types.PowlPartialOrderEdge.new/1
+    )
+  end
+
+  def from_map(:powl_projection, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"plan_id", :plan_id, :passthrough},
+        {"powl_hash", :powl_hash, :passthrough},
+        {"projection_receipt_hash", :projection_receipt_hash, :passthrough}
+      ],
+      &BeamPM.Types.PowlProjection.new/1
+    )
+  end
+
+  def from_map(:ppddl_projection, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"plan_id", :plan_id, :passthrough},
+        {"domain_hash", :domain_hash, :passthrough},
+        {"problem_hash", :problem_hash, :passthrough}
+      ],
+      &BeamPM.Types.PpddlProjection.new/1
     )
   end
 
@@ -7796,6 +9740,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:propagation_score, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"option_id", :option_id, :passthrough},
+        {"graph_hash", :graph_hash, :passthrough},
+        {"score", :score, :passthrough}
+      ],
+      &BeamPM.Types.PropagationScore.new/1
+    )
+  end
+
   def from_map(:provenance_binding_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -7819,6 +9775,18 @@ defmodule BeamPM.Codec do
         {"binding_status", :binding_status, :passthrough}
       ],
       &BeamPM.Types.ProvenanceBindingObservation.new/1
+    )
+  end
+
+  def from_map(:psro_population, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"population_id", :population_id, :passthrough},
+        {"policy_ids", :policy_ids, :passthrough},
+        {"population_hash", :population_hash, :passthrough}
+      ],
+      &BeamPM.Types.PsroPopulation.new/1
     )
   end
 
@@ -7911,6 +9879,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:reachability_analysis, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"state_id", :state_id, :passthrough},
+        {"goal_id", :goal_id, :passthrough},
+        {"reachability_proof_hash", :reachability_proof_hash, :passthrough}
+      ],
+      &BeamPM.Types.ReachabilityAnalysis.new/1
+    )
+  end
+
   def from_map(:receipt_learning_compilation, m) when is_map(m) do
     from_known_fields(
       m,
@@ -7947,6 +9927,18 @@ defmodule BeamPM.Codec do
         {"replay_request_hash", :replay_request_hash, :passthrough}
       ],
       &BeamPM.Types.ReceiptReplayRequest.new/1
+    )
+  end
+
+  def from_map(:receipt_required_gate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"action_id", :action_id, :passthrough},
+        {"receipt_contract_id", :receipt_contract_id, :passthrough},
+        {"standing", :standing, :passthrough}
+      ],
+      &BeamPM.Types.ReceiptRequiredGate.new/1
     )
   end
 
@@ -8265,6 +10257,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:reserve_work_promotion, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"blocked_work_id", :blocked_work_id, :passthrough},
+        {"reserve_set_hash", :reserve_set_hash, :passthrough},
+        {"promoted_work_id", :promoted_work_id, :passthrough}
+      ],
+      &BeamPM.Types.ReserveWorkPromotion.new/1
+    )
+  end
+
   def from_map(:residency_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -8287,6 +10291,18 @@ defmodule BeamPM.Codec do
         {"event_id", :event_id, :passthrough}
       ],
       &BeamPM.Types.ResourceAllocation.new/1
+    )
+  end
+
+  def from_map(:resource_capacity_plan, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"episode_id", :episode_id, :passthrough},
+        {"resource_pool_hash", :resource_pool_hash, :passthrough},
+        {"allocation_hash", :allocation_hash, :passthrough}
+      ],
+      &BeamPM.Types.ResourceCapacityPlan.new/1
     )
   end
 
@@ -8341,6 +10357,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:reversibility_weight, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"action_id", :action_id, :passthrough},
+        {"rollback_id", :rollback_id, :passthrough},
+        {"weight", :weight, :passthrough}
+      ],
+      &BeamPM.Types.ReversibilityWeight.new/1
+    )
+  end
+
   def from_map(:rfp_response_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -8351,6 +10379,18 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.RfpResponseEvidence.new/1
+    )
+  end
+
+  def from_map(:role_compatibility, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"role_id", :role_id, :passthrough},
+        {"policy_id", :policy_id, :passthrough},
+        {"compatibility", :compatibility, :passthrough}
+      ],
+      &BeamPM.Types.RoleCompatibility.new/1
     )
   end
 
@@ -8523,6 +10563,18 @@ defmodule BeamPM.Codec do
         {"receipt_digest", :receipt_digest, :passthrough}
       ],
       &BeamPM.Types.SecondPassByteIdentityObservation.new/1
+    )
+  end
+
+  def from_map(:second_run_identity_objective, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"subject_id", :subject_id, :passthrough},
+        {"first_tree_hash", :first_tree_hash, :passthrough},
+        {"second_tree_hash", :second_tree_hash, :passthrough}
+      ],
+      &BeamPM.Types.SecondRunIdentityObjective.new/1
     )
   end
 
@@ -8783,6 +10835,18 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.StakeholderMap.new/1
+    )
+  end
+
+  def from_map(:stale_plan_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"plan_id", :plan_id, :passthrough},
+        {"admitted_preimage_hash", :admitted_preimage_hash, :passthrough},
+        {"observed_preimage_hash", :observed_preimage_hash, :passthrough}
+      ],
+      &BeamPM.Types.StalePlanRefusal.new/1
     )
   end
 
@@ -9262,6 +11326,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:uncertainty_aware_selection, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"option_set_id", :option_set_id, :passthrough},
+        {"uncertainty_model_hash", :uncertainty_model_hash, :passthrough},
+        {"selected_option_id", :selected_option_id, :passthrough}
+      ],
+      &BeamPM.Types.UncertaintyAwareSelection.new/1
+    )
+  end
+
   def from_map(:uncertainty_observation, m) when is_map(m) do
     from_known_fields(
       m,
@@ -9434,6 +11510,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:value_of_information_score, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"option_id", :option_id, :passthrough},
+        {"observation_id", :observation_id, :passthrough},
+        {"score", :score, :passthrough}
+      ],
+      &BeamPM.Types.ValueOfInformationScore.new/1
+    )
+  end
+
   def from_map(:value_realization, m) when is_map(m) do
     from_known_fields(
       m,
@@ -9550,6 +11638,18 @@ defmodule BeamPM.Codec do
         {"observed_result", :observed_result, :atom}
       ],
       &BeamPM.Types.VulnerabilityScanEvidence.new/1
+    )
+  end
+
+  def from_map(:wip_limit_gate, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"episode_id", :episode_id, :passthrough},
+        {"wip_limit", :wip_limit, :passthrough},
+        {"standing", :standing, :passthrough}
+      ],
+      &BeamPM.Types.WipLimitGate.new/1
     )
   end
 
