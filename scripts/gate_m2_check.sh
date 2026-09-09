@@ -188,8 +188,29 @@ ggen sync run
 # SECOND engine (ggen_igniter, mix ggen_igniter.sync), not by the Rust ggen
 # binary. receipt_chain_sync.sh renders beam4pm_receipt_chain.ex first, then
 # re-runs the dependent actuation/governor families in dependency order.
-bash scripts/igniter_sync.sh
+# OCEL v2 network ingestion router (lib/beam4pm_ocel_ingest.ex + its test),
+# manufactured by the ggen_igniter engine from the admitted
+# bpmi:AdmittedIngestRoute graph. Must run BEFORE igniter_sync.sh: that
+# script's own internal `mix test` boots BeamPM.Application, which starts a
+# real Bandit listener on this router module -- if the router hasn't been
+# regenerated yet (deleted in pass 3, not yet rewritten), the app fails to
+# boot and the whole gate run aborts.
+bash scripts/ocel_ingest_sync.sh
+
+# receipt_chain_sync.sh renders beam4pm_receipt_chain.ex, which is fully
+# static (no ontology/graph bindings, no dependency on igniter's Ash
+# resources -- see the script's own header comment). Must also run BEFORE
+# igniter_sync.sh: the hand-written lib/beam4pm_contracts.ex (BeamPM.Contracts
+# .manifest/0) calls BeamPM.ReceiptChain.hash_file!/1 at runtime, and
+# igniter_sync.sh's own internal `mix test` exercises test/
+# beam4pm_contracts_test.exs -- if beam4pm_receipt_chain.ex hasn't been
+# regenerated yet (deleted in pass 3), that test suite fails with
+# "function BeamPM.ReceiptChain.hash_file!/1 is undefined". Real ordering bug
+# GATE M2 caught for real once beam4pm_contracts.ex started depending on
+# ReceiptChain across the module boundary.
 bash scripts/receipt_chain_sync.sh
+
+bash scripts/igniter_sync.sh
 
 # RF1/RF2/RF3 function-surface Reactor validation families are independent.
 source scripts/env/rust4pm_reactor_env.sh
