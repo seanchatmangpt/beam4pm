@@ -105,6 +105,18 @@ pub type AddOnBundle {
   )
 }
 
+/// Computes all actions currently permitted by state, constraints, and authority.
+pub type AdmissibleActionSet {
+  AdmissibleActionSet(
+    /// Required state_id for this bounded planner contract.
+    state_id: String,
+    /// Required constraint_hash for deterministic planner evaluation.
+    constraint_hash: String,
+    /// Required action_set_hash preserving evidence and falsifiability.
+    action_set_hash: String,
+  )
+}
+
 /// Receipted customer adoption milestone tied to observable use.
 pub type AdoptionMilestone {
   AdoptionMilestone(
@@ -118,6 +130,18 @@ pub type AdoptionMilestone {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Assigns an admitted policy to an agent without transferring authority.
+pub type AgentAssignment {
+  AgentAssignment(
+    /// Required agent_id for this bounded planner contract.
+    agent_id: String,
+    /// Required policy_id for deterministic planner evaluation.
+    policy_id: String,
+    /// Required assignment_hash preserving evidence and falsifiability.
+    assignment_hash: String,
   )
 }
 
@@ -142,6 +166,20 @@ pub type AnnualSubscription {
     seat_count: Int,
     /// Annual renewal instant.
     renews_at: String,
+  )
+}
+
+/// Scores an observed subject against an exact baseline digest.
+pub type AnomalyDetectionObservation {
+  AnomalyDetectionObservation(
+    /// Observed subject identity.
+    subject_id: String,
+    /// Exact anomaly baseline digest.
+    baseline_digest: String,
+    /// Current observation digest.
+    observation_digest: String,
+    /// Computed anomaly score.
+    anomaly_score: Float,
   )
 }
 
@@ -203,6 +241,32 @@ pub type ArtifactDigestEvidence {
   )
 }
 
+/// Binds a produced artifact digest to its exact producer run.
+pub type ArtifactDigestObservation {
+  ArtifactDigestObservation(
+    /// Stable artifact identity.
+    artifact_id: String,
+    /// Observed artifact content digest.
+    artifact_sha256: String,
+    /// Exact producer workflow run.
+    producer_run_id: String,
+    /// Timestamp of artifact observation.
+    observed_at: String,
+  )
+}
+
+/// Represents an A-star plan with admissible heuristic and exact state lineage.
+pub type AstarPlanCandidate {
+  AstarPlanCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required heuristic_id for deterministic planner evaluation.
+    heuristic_id: String,
+    /// Required path_hash preserving evidence and falsifiability.
+    path_hash: String,
+  )
+}
+
 /// Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
 pub type AttestationVerificationEvidence {
   AttestationVerificationEvidence(
@@ -228,6 +292,32 @@ pub type AuditChainEvidence {
     previous_receipt_hash: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Caps every candidate action at the exact authority grant available to its subject.
+pub type AuthorityCeiling {
+  AuthorityCeiling(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required grant_id for deterministic planner evaluation.
+    grant_id: String,
+    /// Required ceiling preserving evidence and falsifiability.
+    ceiling: String,
+  )
+}
+
+/// Encodes decision-relevant observed dimensions for one exact subject.
+pub type AutonomicStateVector {
+  AutonomicStateVector(
+    /// Stable state-vector identity.
+    state_vector_id: String,
+    /// Exact observed subject identity.
+    subject_id: String,
+    /// Digest of ordered state dimensions.
+    dimension_digest: String,
+    /// Timestamp of state-vector encoding.
+    observed_at: String,
   )
 }
 
@@ -284,6 +374,46 @@ pub type BaselineMetric {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Represents a bounded beam-search plan with explicit width and frontier.
+pub type BeamSearchCandidate {
+  BeamSearchCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required beam_width for deterministic planner evaluation.
+    beam_width: String,
+    /// Required frontier_hash preserving evidence and falsifiability.
+    frontier_hash: String,
+  )
+}
+
+/// Captures a posterior belief state and explicit uncertainty standing.
+pub type BeliefStateSnapshot {
+  BeliefStateSnapshot(
+    /// Stable belief-state identity.
+    belief_state_id: String,
+    /// Exact subject of belief.
+    subject_id: String,
+    /// Digest of posterior state.
+    posterior_digest: String,
+    /// Machine-readable uncertainty standing.
+    uncertainty_status: String,
+  )
+}
+
+/// Binds prior belief, new evidence, update rule, and posterior belief.
+pub type BeliefStateUpdate {
+  BeliefStateUpdate(
+    /// Prior belief-state identity.
+    prior_belief_id: String,
+    /// Digest of newly admitted evidence.
+    evidence_digest: String,
+    /// Resulting belief-state identity.
+    posterior_belief_id: String,
+    /// Deterministic belief update rule.
+    update_rule: String,
   )
 }
 
@@ -433,6 +563,46 @@ pub type BuyingCommittee {
   )
 }
 
+/// Proves a reusable rail executed from the consumer's own exact checkout.
+pub type CallerLocalCheckoutObservation {
+  CallerLocalCheckoutObservation(
+    /// Stable consumer repository identity.
+    consumer_repository_id: String,
+    /// Exact caller-local checkout commit.
+    checkout_sha: String,
+    /// Observed caller-local execution path.
+    checkout_path: String,
+    /// Digest binding execution to checkout.
+    evidence_digest: String,
+  )
+}
+
+/// Preserves each caller-local consumer as an independently planned exact subject.
+pub type CallerLocalConsumer {
+  CallerLocalConsumer(
+    /// Required consumer_id for this bounded planner contract.
+    consumer_id: String,
+    /// Required subject_sha for deterministic planner evaluation.
+    subject_sha: String,
+    /// Required consumer_hash preserving evidence and falsifiability.
+    consumer_hash: String,
+  )
+}
+
+/// Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused.
+pub type CallerLocalCrownIdentity {
+  CallerLocalCrownIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact caller-local consumer commit SHA that must be requalified.
+    consumer_subject_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
 /// Receipted enterprise canary decision based on an observed rollout consequence.
 pub type CanaryDecision {
   CanaryDecision(
@@ -463,6 +633,20 @@ pub type CanaryEvidence {
   )
 }
 
+/// Encodes whether a repository path is an authorized canonical manufacturing input.
+pub type CanonicalSourceAuthorityObservation {
+  CanonicalSourceAuthorityObservation(
+    /// Observed repository path.
+    source_path: String,
+    /// Classified source authority.
+    authority_class: String,
+    /// Whether mutation is admitted at this boundary.
+    mutation_allowed: Bool,
+    /// Digest of authority evidence.
+    evidence_digest: String,
+  )
+}
+
 /// Named capability bundle with constituent capability identities.
 pub type CapabilityBundle {
   CapabilityBundle(
@@ -490,6 +674,18 @@ pub type CapabilityGap {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Records whether the exact validation capsule is available before qualification.
+pub type CapsuleAvailability {
+  CapsuleAvailability(
+    /// Required capsule_id for this bounded planner contract.
+    capsule_id: String,
+    /// Required capsule_digest for deterministic planner evaluation.
+    capsule_digest: String,
+    /// Required availability preserving evidence and falsifiability.
+    availability: String,
   )
 }
 
@@ -531,6 +727,20 @@ pub type CatalogRelease {
   )
 }
 
+/// Binds a candidate cause to effect with explicit causal evidence.
+pub type CausalLineageObservation {
+  CausalLineageObservation(
+    /// Candidate causal observation.
+    cause_observation_id: String,
+    /// Observed effect identity.
+    effect_observation_id: String,
+    /// Declared causal inference basis.
+    causal_basis: String,
+    /// Digest of causal evidence.
+    evidence_digest: String,
+  )
+}
+
 /// Executable change-control evidence binding an exact subject to the approved request governing its mutation.
 pub type ChangeControlEvidence {
   ChangeControlEvidence(
@@ -554,6 +764,20 @@ pub type ChangeOrderAuthority {
     authority_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     evidence_hash: String,
+  )
+}
+
+/// Infers the exact changed surface between two repository trees.
+pub type ChangedSurfaceInference {
+  ChangedSurfaceInference(
+    /// Prior repository tree identity.
+    prior_tree_sha: String,
+    /// Current repository tree identity.
+    current_tree_sha: String,
+    /// Digest of normalized changed paths.
+    changed_surface_digest: String,
+    /// Machine-readable inference standing.
+    inference_status: String,
   )
 }
 
@@ -723,6 +947,20 @@ pub type CommercialValueRealization {
   )
 }
 
+/// Projects commit check state into a machine-readable exact-subject observation.
+pub type CommitCheckStateObservation {
+  CommitCheckStateObservation(
+    /// Exact checked commit.
+    commit_sha: String,
+    /// Stable check context name.
+    check_name: String,
+    /// Observed check status.
+    check_status: String,
+    /// Timestamp of check observation.
+    observed_at: String,
+  )
+}
+
 /// Term commitment with amount, currency, and expiration.
 pub type CommittedSpend {
   CommittedSpend(
@@ -803,6 +1041,46 @@ pub type ConformanceResult {
   )
 }
 
+/// Invalidates affected belief state automatically after a consequential transition.
+pub type ConsequentialStateInvalidation {
+  ConsequentialStateInvalidation(
+    /// Consequential transition identity.
+    transition_id: String,
+    /// Digest of state invalidated by transition.
+    affected_state_digest: String,
+    /// Typed invalidation reason.
+    invalidation_reason: String,
+    /// Timestamp invalidation became effective.
+    invalidated_at: String,
+  )
+}
+
+/// Admits central-surrogate planning only after explicit consumer-equivalence proof.
+pub type ConsumerEquivalenceProof {
+  ConsumerEquivalenceProof(
+    /// Required consumer_set_id for this bounded planner contract.
+    consumer_set_id: String,
+    /// Required equivalence_proof_hash for deterministic planner evaluation.
+    equivalence_proof_hash: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
+  )
+}
+
+/// Proves a consumer used an exact immutable marketplace pack SHA.
+pub type ConsumerPackPinObservation {
+  ConsumerPackPinObservation(
+    /// Stable consumer identity.
+    consumer_repository_id: String,
+    /// Consumed validation-pack identity.
+    pack_id: String,
+    /// Exact immutable pack commit.
+    pack_sha: String,
+    /// Digest of caller-local pin evidence.
+    evidence_digest: String,
+  )
+}
+
 /// Shared enterprise consumption pool with unit and balance.
 pub type ConsumptionPool {
   ConsumptionPool(
@@ -831,6 +1109,34 @@ pub type ConsumptionSubscription {
   )
 }
 
+/// Resolves a mutable container tag to an immutable multi-platform manifest digest.
+pub type ContainerManifestDigestObservation {
+  ContainerManifestDigestObservation(
+    /// Container repository identity.
+    image_repository: String,
+    /// Observed mutable tag.
+    tag: String,
+    /// Resolved immutable manifest-index digest.
+    index_digest: String,
+    /// Timestamp of registry resolution.
+    observed_at: String,
+  )
+}
+
+/// Resolves a manifest index to one exact platform image digest.
+pub type ContainerPlatformDigestObservation {
+  ContainerPlatformDigestObservation(
+    /// Parent manifest-index digest.
+    index_digest: String,
+    /// Normalized operating-system and architecture.
+    platform: String,
+    /// Exact platform image digest.
+    platform_digest: String,
+    /// Timestamp of platform resolution.
+    observed_at: String,
+  )
+}
+
 /// Requires the counterparty that will sign the agreement, separating contractual authority from account interest.
 pub type ContractingEntityIdentity {
   ContractingEntityIdentity(
@@ -843,6 +1149,18 @@ pub type ContractingEntityIdentity {
   )
 }
 
+/// Scores delay cost for an option without overriding explicit authority.
+pub type CostOfDelayScore {
+  CostOfDelayScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required horizon for deterministic planner evaluation.
+    horizon: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
 /// Records attributable runtime cost-to-serve for a paid tenant and billing period.
 pub type CostToServeMeasurement {
   CostToServeMeasurement(
@@ -852,6 +1170,18 @@ pub type CostToServeMeasurement {
     billing_period_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     measurement_hash: String,
+  )
+}
+
+/// Preserves counterfactual futures for every nondominated option.
+pub type CounterfactualFrontier {
+  CounterfactualFrontier(
+    /// Required option_set_id for this bounded planner contract.
+    option_set_id: String,
+    /// Required world_model_hash for deterministic planner evaluation.
+    world_model_hash: String,
+    /// Required frontier_hash preserving evidence and falsifiability.
+    frontier_hash: String,
   )
 }
 
@@ -895,6 +1225,692 @@ pub type CrossSellFit {
   )
 }
 
+/// Requires every gate applicable to the changed subject before declaring the crown alive.
+pub type CrownApplicableGateCoverage {
+  CrownApplicableGateCoverage(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the normalized applicable gate set and results.
+    applicable_gate_set_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Proves the published artifact can be pulled back from its distribution boundary byte-for-byte.
+pub type CrownArtifactPullbackSmoke {
+  CrownArtifactPullbackSmoke(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest observed after artifact pullback.
+    pullback_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires an admitted signer identity for every propagated supply-chain attestation.
+pub type CrownAttestationSigner {
+  CrownAttestationSigner(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Verified identity that signed the attestation.
+    signer_identity: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Receipts autonomous downstream requalification and immutable crown republication.
+pub type CrownAutonomicRepublish {
+  CrownAutonomicRepublish(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact digest of the republished downstream crown.
+    republished_crown_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds source capsule, validation pack, execution mode, and toolchain as one evidence identity.
+pub type CrownCapsuleToolchain {
+  CrownCapsuleToolchain(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the exact capsule toolchain closure.
+    toolchain_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Authorizes promotion only when the observed prior crown equals the compare-and-swap expectation.
+pub type CrownCasPromotion {
+  CrownCasPromotion(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Expected previously promoted crown digest.
+    expected_previous_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Separates irrelevant checks from exact-subject qualification without hiding required evidence.
+pub type CrownCheckRelevance {
+  CrownCheckRelevance(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest proving check relevance classification.
+    relevance_proof_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Observes the exact child publication execution before its crown can propagate further.
+pub type CrownChildPublishObservation {
+  CrownChildPublishObservation(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact workflow run identity that published the child crown.
+    child_publish_run_id: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires a real downstream consumer smoke consequence for the exact propagated crown.
+pub type CrownConsumerSmoke {
+  CrownConsumerSmoke(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the exact-consumer smoke receipt.
+    consumer_smoke_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Produces a deterministic proof that every admitted consumer holds the expected crown.
+pub type CrownConvergenceProof {
+  CrownConvergenceProof(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the ecosystem convergence proof.
+    convergence_proof_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Captures the keyless signing certificate identity admitted for the exact crown digest.
+pub type CrownCosignCertificate {
+  CrownCosignCertificate(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Verified Cosign certificate identity.
+    certificate_identity: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Observes the exact downstream default-branch head before selecting a reconciliation candidate.
+pub type CrownDefaultHeadSensor {
+  CrownDefaultHeadSensor(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Observed immutable default-branch head SHA.
+    default_head_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Declares one exact upstream-to-downstream propagation edge in the ecosystem graph.
+pub type CrownDependencyEdge {
+  CrownDependencyEdge(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact downstream consumer repository identity.
+    downstream_consumer_id: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Records whether qualification ran locally, in a capsule, or on a hosted runner.
+pub type CrownExecutionMode {
+  CrownExecutionMode(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Admitted execution-mode identifier.
+    execution_mode: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires every admitted upstream parent crown before a fan-in consumer can converge.
+pub type CrownFaninConvergence {
+  CrownFaninConvergence(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the complete admitted fan-in crown set.
+    fanin_set_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds parallel downstream propagation to one deterministic admitted consumer set.
+pub type CrownFanoutBatch {
+  CrownFanoutBatch(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the sorted fan-out consumer set.
+    fanout_set_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Receipts SELECT, CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, and RECEIPT as ordered phases.
+pub type CrownFederatedPhaseReceipt {
+  CrownFederatedPhaseReceipt(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the selected qualified propagation option.
+    selected_option_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Defines the deterministic deadline after which a crown cannot be promoted without requalification.
+pub type CrownFreshnessWindow {
+  CrownFreshnessWindow(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// UTC freshness deadline admitted by policy.
+    fresh_until: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Routes drift in a generated projection back to its declared canonical semantic source.
+pub type CrownGeneratedSourceOwnership {
+  CrownGeneratedSourceOwnership(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Canonical non-generated source path authorized to repair the projection.
+    canonical_source_path: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Reconciles a consumer gitlink to the exact admitted dependency commit.
+pub type CrownGitlinkReconciliation {
+  CrownGitlinkReconciliation(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact submodule gitlink commit SHA.
+    gitlink_commit_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Admits only artifact tags derived from an exact immutable source SHA.
+pub type CrownImmutableShaTag {
+  CrownImmutableShaTag(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Immutable source-derived artifact tag.
+    immutable_tag: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Selects an immutable previously qualified crown for autonomous rollback.
+pub type CrownKnownGoodRollback {
+  CrownKnownGoodRollback(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact prior known-good crown digest.
+    rollback_crown_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Records exact end-to-end propagation latency for freshness and SLO decisions.
+pub type CrownLatencyObservation {
+  CrownLatencyObservation(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Observed propagation latency in milliseconds.
+    latency_millis: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Reconciles a downstream lock entry to the exact admitted upstream commit.
+pub type CrownLockReconciliation {
+  CrownLockReconciliation(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact commit SHA encoded in the reconciled lock.
+    lock_commit_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds propagation to the exact deterministic manufacturer executable identity.
+pub type CrownManufacturerIdentity {
+  CrownManufacturerIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the admitted GGen manufacturer binary.
+    manufacturer_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires every consumed marketplace pack to resolve to an immutable Git commit before manufacture.
+pub type CrownMarketplacePackPin {
+  CrownMarketplacePackPin(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact immutable marketplace pack commit SHA.
+    pack_commit_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires the crown manifest to contain the admitted architecture and operating-system set.
+pub type CrownMultiarchPlatformSet {
+  CrownMultiarchPlatformSet(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the normalized admitted platform set.
+    platform_set_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds a propagated crown to its exact OCI multi-architecture index digest.
+pub type CrownOciManifestBinding {
+  CrownOciManifestBinding(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact OCI index digest selected for propagation.
+    oci_index_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Reconciles package resolution to an immutable version and content digest.
+pub type CrownPackagePinReconciliation {
+  CrownPackagePinReconciliation(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the exact resolved package version.
+    package_version_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Persists exact completed propagation edges for safe recovery after partial failure.
+pub type CrownPartialCheckpoint {
+  CrownPartialCheckpoint(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the completed-edge checkpoint.
+    checkpoint_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Refuses false ALIVE when a required qualification gate was path-skipped.
+pub type CrownPathSkipRefusal {
+  CrownPathSkipRefusal(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Identity of the required gate that was skipped.
+    skipped_gate_id: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds autonomous propagation selection to the exact admitted planner identity.
+pub type CrownPlannerIdentity {
+  CrownPlannerIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the planner that selected the propagation action.
+    planner_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds process-intelligence evidence to the exact Beam4PM computation identity.
+pub type CrownProcessRuntimeIdentity {
+  CrownProcessRuntimeIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the process-intelligence runtime subject.
+    process_runtime_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Records the conflicting prior digest when a concurrent promotion wins the race.
+pub type CrownPromotionRace {
+  CrownPromotionRace(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Observed prior crown digest at the failed CAS boundary.
+    observed_previous_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds build provenance to the exact source, builder, and published artifact identities.
+pub type CrownProvenanceBinding {
+  CrownProvenanceBinding(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of exact-subject build provenance.
+    provenance_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Propagates receipt lineage together with the declared owner of every manufactured output.
+pub type CrownReceiptOutputOwnership {
+  CrownReceiptOutputOwnership(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Declared owner identity for the manufactured output set.
+    output_owner: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Proves recursive ecosystem propagation reached a stable exact-crown fixed point.
+pub type CrownRecursiveFixedPoint {
+  CrownRecursiveFixedPoint(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the converged ecosystem crown assignment.
+    fixed_point_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds resumed propagation to its checkpoint and current dependency graph.
+pub type CrownResumeToken {
+  CrownResumeToken(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the validated resume token.
+    resume_token_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds the propagated artifact to the exact runtime used for qualification.
+pub type CrownRuntimeIdentity {
+  CrownRuntimeIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the admitted runtime environment.
+    runtime_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds a retained software bill of materials to the exact published crown subject.
+pub type CrownSbomSubjectBinding {
+  CrownSbomSubjectBinding(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the SBOM whose subject is the exact crown.
+    sbom_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Proves a second lawful GGen sync is byte-identical to the first manufactured output set.
+pub type CrownSecondPassIdentity {
+  CrownSecondPassIdentity(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the complete second-pass output set.
+    second_pass_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Requires a retained security scan report bound to the exact crown artifact digest.
+pub type CrownSecurityScan {
+  CrownSecurityScan(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the exact-artifact vulnerability scan report.
+    scan_report_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds validation to the exact ggen-ecosystem source capsule and image identity.
+pub type CrownSourceCapsule {
+  CrownSourceCapsule(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact source capsule or reproducible image digest.
+    capsule_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Records crown age so stale subjects are typed and refused without actuation.
+pub type CrownStaleRefusal {
+  CrownStaleRefusal(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Observed crown age in seconds at the decision boundary.
+    observed_age_seconds: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Records the executable supply-chain policy decision that admitted or refused the crown.
+pub type CrownSupplyChainPolicy {
+  CrownSupplyChainPolicy(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the exact policy input and decision.
+    policy_decision_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Orders crown propagation so dependencies qualify before their consumers.
+pub type CrownTopologicalOrder {
+  CrownTopologicalOrder(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Deterministic topological rank for this propagation node.
+    topological_rank: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Pins the executable validation pack to an immutable marketplace commit.
+pub type CrownValidationPack {
+  CrownValidationPack(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact validation-pack Git commit SHA.
+    validation_pack_sha: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Binds a qualification receipt to the exact workflow execution and attempt.
+pub type CrownWorkflowRunReceipt {
+  CrownWorkflowRunReceipt(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Exact hosted workflow run and attempt identity.
+    workflow_run_id: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
+/// Proves every propagation write belongs to a retained authorized receipt.
+pub type CrownZeroUnreceiptedWrites {
+  CrownZeroUnreceiptedWrites(
+    /// Unique autonomic propagation attempt identity.
+    propagation_id: String,
+    /// Exact admitted Git subject SHA.
+    subject_sha: String,
+    /// Digest of the complete authorized write set.
+    write_set_digest: String,
+    /// Immutable digest of this capability's exact-subject qualification receipt.
+    receipt_digest: String,
+  )
+}
+
 /// Cumulative customer-health observation across usage, outcomes, and support.
 pub type CustomerHealth {
   CustomerHealth(
@@ -922,6 +1938,20 @@ pub type CustomerManagedKeyEvidence {
     key_identifier: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Normalizes a customer signal into typed, digest-bound evidence.
+pub type CustomerSignalObservation {
+  CustomerSignalObservation(
+    /// Stable customer identity.
+    customer_id: String,
+    /// Normalized customer signal type.
+    signal_type: String,
+    /// Immutable customer signal digest.
+    signal_digest: String,
+    /// Timestamp customer signal was observed.
+    observed_at: String,
   )
 }
 
@@ -1005,6 +2035,20 @@ pub type DealDeskPacket {
   )
 }
 
+/// Compresses high-dimensional state into a bounded actionable delta with loss bound.
+pub type DecisionCompressionObservation {
+  DecisionCompressionObservation(
+    /// Stable compression operation identity.
+    compression_id: String,
+    /// Digest of high-dimensional input state.
+    input_state_digest: String,
+    /// Digest of compressed delta.
+    output_delta_digest: String,
+    /// Declared information-loss bound.
+    loss_bound: String,
+  )
+}
+
 /// Executable deletion evidence binding an exact subject to a verifiable deletion receipt.
 pub type DeletionProofEvidence {
   DeletionProofEvidence(
@@ -1051,6 +2095,18 @@ pub type DemoScenario {
   )
 }
 
+/// Represents action dependencies as an acyclic exact-subject graph.
+pub type DependencyDag {
+  DependencyDag(
+    /// Required dag_id for this bounded planner contract.
+    dag_id: String,
+    /// Required node_set_hash for deterministic planner evaluation.
+    node_set_hash: String,
+    /// Required edge_set_hash preserving evidence and falsifiability.
+    edge_set_hash: String,
+  )
+}
+
 /// Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.
 pub type DependencyInventoryEvidence {
   DependencyInventoryEvidence(
@@ -1062,6 +2118,20 @@ pub type DependencyInventoryEvidence {
     dependency_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Compares a declared dependency ref with its immutable resolved commit.
+pub type DependencyPinObservation {
+  DependencyPinObservation(
+    /// Stable dependency identity.
+    dependency_id: String,
+    /// Declared dependency reference.
+    declared_ref: String,
+    /// Resolved immutable commit.
+    resolved_sha: String,
+    /// Timestamp of resolution.
+    observed_at: String,
   )
 }
 
@@ -1148,6 +2218,30 @@ pub type DiscoveryHypothesis {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Records the exact objective evidence proving one option dominates another.
+pub type DominanceWitness {
+  DominanceWitness(
+    /// Required dominant_option_id for this bounded planner contract.
+    dominant_option_id: String,
+    /// Required dominated_option_id for deterministic planner evaluation.
+    dominated_option_id: String,
+    /// Required witness_hash preserving evidence and falsifiability.
+    witness_hash: String,
+  )
+}
+
+/// Triggers replanning when observed state invalidates a plan assumption.
+pub type DynamicReplanTrigger {
+  DynamicReplanTrigger(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required event_id for deterministic planner evaluation.
+    event_id: String,
+    /// Required trigger_hash preserving evidence and falsifiability.
+    trigger_hash: String,
   )
 }
 
@@ -1289,6 +2383,18 @@ pub type EntitlementState {
   )
 }
 
+/// Measures expected uncertainty reduction from a bounded observation action.
+pub type EntropyReductionScore {
+  EntropyReductionScore(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required prior_entropy for deterministic planner evaluation.
+    prior_entropy: String,
+    /// Required expected_posterior_entropy preserving evidence and falsifiability.
+    expected_posterior_entropy: String,
+  )
+}
+
 /// Binds paid workload execution to an immutable production environment identity.
 pub type EnvironmentIdentity {
   EnvironmentIdentity(
@@ -1312,6 +2418,20 @@ pub type EnvironmentProfile {
     region: String,
     /// Canonical configuration digest.
     configuration_hash: String,
+  )
+}
+
+/// Normalizes deployment-environment evidence without human polling.
+pub type EnvironmentSignalObservation {
+  EnvironmentSignalObservation(
+    /// Stable environment identity.
+    environment_id: String,
+    /// Normalized environment signal type.
+    signal_type: String,
+    /// Immutable environment signal digest.
+    signal_digest: String,
+    /// Timestamp environment signal was observed.
+    observed_at: String,
   )
 }
 
@@ -1339,6 +2459,18 @@ pub type EventLog {
   )
 }
 
+/// Creates a bounded planning episode from an admitted world event.
+pub type EventTriggeredPlanning {
+  EventTriggeredPlanning(
+    /// Required event_id for this bounded planner contract.
+    event_id: String,
+    /// Required world_state_hash for deterministic planner evaluation.
+    world_state_hash: String,
+    /// Required episode_id preserving evidence and falsifiability.
+    episode_id: String,
+  )
+}
+
 /// A declared OCEL event type and its attribute schema.
 pub type EventType {
   EventType(
@@ -1360,6 +2492,18 @@ pub type EvidenceFreshnessEvidence {
     observed_at: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Binds every plan to one immutable repository/ref/SHA subject.
+pub type ExactSubjectBinding {
+  ExactSubjectBinding(
+    /// Required subject_id for this bounded planner contract.
+    subject_id: String,
+    /// Required subject_sha for deterministic planner evaluation.
+    subject_sha: String,
+    /// Required binding_hash preserving evidence and falsifiability.
+    binding_hash: String,
   )
 }
 
@@ -1493,6 +2637,32 @@ pub type FundingApprovalChain {
   )
 }
 
+/// Classifies a path as generated or source-owned using its explicit provenance marker.
+pub type GeneratedOutputOwnershipObservation {
+  GeneratedOutputOwnershipObservation(
+    /// Observed repository path.
+    output_path: String,
+    /// Observed provenance marker.
+    ownership_marker: String,
+    /// Digest of canonical inputs that own the output.
+    source_input_digest: String,
+    /// Machine-readable ownership standing.
+    standing: String,
+  )
+}
+
+/// Routes generated-projection defects to canonical semantic source or an independent rail.
+pub type GeneratedSourceRoute {
+  GeneratedSourceRoute(
+    /// Required projection_id for this bounded planner contract.
+    projection_id: String,
+    /// Required source_coordinate for deterministic planner evaluation.
+    source_coordinate: String,
+    /// Required route preserving evidence and falsifiability.
+    route: String,
+  )
+}
+
 /// One dependency-scored candidate arc considered during heuristic-net discovery.
 pub type HeuristicArc {
   HeuristicArc(
@@ -1502,6 +2672,18 @@ pub type HeuristicArc {
     target_activity: String,
     /// The computed dependency/confidence score for this candidate arc.
     dependency_measure: Float,
+  )
+}
+
+/// Selects a marketplace pack only by exact immutable commit SHA.
+pub type ImmutablePackSelection {
+  ImmutablePackSelection(
+    /// Required pack_id for this bounded planner contract.
+    pack_id: String,
+    /// Required pack_sha for deterministic planner evaluation.
+    pack_sha: String,
+    /// Required selection_hash preserving evidence and falsifiability.
+    selection_hash: String,
   )
 }
 
@@ -1564,6 +2746,20 @@ pub type IndemnityScopeAdmission {
     indemnity_scope_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Partitions a state vector by a decision-relevant information key.
+pub type InformationPartitionObservation {
+  InformationPartitionObservation(
+    /// Stable information partition identity.
+    partition_id: String,
+    /// Source state-vector identity.
+    state_vector_id: String,
+    /// Decision-relevant partition key.
+    partition_key: String,
+    /// Digest of partition contents.
+    information_digest: String,
   )
 }
 
@@ -1630,6 +2826,18 @@ pub type InvoiceSchedule {
     cadence: String,
     /// Next scheduled invoice instant.
     next_invoice_at: String,
+  )
+}
+
+/// Limits irreversible commitments within one bounded planning episode.
+pub type IrreversibilityBudget {
+  IrreversibilityBudget(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required budget for deterministic planner evaluation.
+    budget: String,
+    /// Required consumed preserving evidence and falsifiability.
+    consumed: String,
   )
 }
 
@@ -1719,6 +2927,48 @@ pub type LogTrace {
   )
 }
 
+/// Emits the compressed state change and recommended next autonomic action.
+pub type MachineActionableDelta {
+  MachineActionableDelta(
+    /// Exact changed subject identity.
+    subject_id: String,
+    /// Prior admitted state digest.
+    prior_state_digest: String,
+    /// Digest of machine-actionable delta.
+    delta_digest: String,
+    /// Bounded next action for the control plane.
+    recommended_action: String,
+  )
+}
+
+/// Observes whether real manufacture emitted a receipt for the exact subject.
+pub type ManufactureReceiptPresenceObservation {
+  ManufactureReceiptPresenceObservation(
+    /// Exact manufactured subject.
+    subject_sha: String,
+    /// Stable manufacture receipt identity.
+    receipt_id: String,
+    /// Immutable receipt content digest.
+    receipt_digest: String,
+    /// Timestamp receipt was observed.
+    observed_at: String,
+  )
+}
+
+/// Records independent verification of receipt subject, digest, and verifier identity.
+pub type ManufactureReceiptValidityObservation {
+  ManufactureReceiptValidityObservation(
+    /// Immutable receipt digest.
+    receipt_digest: String,
+    /// Exact subject claimed by receipt.
+    subject_sha: String,
+    /// Machine-readable verification result.
+    verification_status: String,
+    /// Exact verifier implementation identity.
+    verifier_identity: String,
+  )
+}
+
 /// Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
 pub type MasterServiceAgreementState {
   MasterServiceAgreementState(
@@ -1728,6 +2978,30 @@ pub type MasterServiceAgreementState {
     agreement_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     agreement_state: String,
+  )
+}
+
+/// Represents a seeded Monte Carlo tree-search plan and its rollout evidence.
+pub type MctsPlanCandidate {
+  MctsPlanCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required seed for deterministic planner evaluation.
+    seed: String,
+    /// Required rollout_hash preserving evidence and falsifiability.
+    rollout_hash: String,
+  )
+}
+
+/// Selects a planner from a portfolio using observed problem characteristics.
+pub type MetaRouter {
+  MetaRouter(
+    /// Required portfolio_id for this bounded planner contract.
+    portfolio_id: String,
+    /// Required observation_hash for deterministic planner evaluation.
+    observation_hash: String,
+    /// Required selected_planner_id preserving evidence and falsifiability.
+    selected_planner_id: String,
   )
 }
 
@@ -1813,6 +3087,30 @@ pub type MutableIdentityRefusalEvidence {
   )
 }
 
+/// Ranks observations by expected mutual information with decision-relevant state.
+pub type MutualInformationScore {
+  MutualInformationScore(
+    /// Required observation_id for this bounded planner contract.
+    observation_id: String,
+    /// Required target_state_id for deterministic planner evaluation.
+    target_state_id: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
+/// Selects the next bounded action from scored admissible options without human micro-scheduling.
+pub type NextLawfulActuation {
+  NextLawfulActuation(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required selected_action_id for deterministic planner evaluation.
+    selected_action_id: String,
+    /// Required selection_receipt_hash preserving evidence and falsifiability.
+    selection_receipt_hash: String,
+  )
+}
+
 /// Records the exact node failure and observed failover consequence for a paid service.
 pub type NodeFailoverEvent {
   NodeFailoverEvent(
@@ -1822,6 +3120,32 @@ pub type NodeFailoverEvent {
     node_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     failover_hash: String,
+  )
+}
+
+/// Normalizes a source event into stable identity, type, and event time.
+pub type NormalizedEventObservation {
+  NormalizedEventObservation(
+    /// Originating system identity.
+    source_system: String,
+    /// Stable source event identity.
+    event_id: String,
+    /// Normalized event type.
+    event_type: String,
+    /// Normalized event timestamp.
+    event_time: String,
+  )
+}
+
+/// Rewards options that expand the lawful reachable capability frontier.
+pub type NoveltyScore {
+  NoveltyScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required reference_set_hash for deterministic planner evaluation.
+    reference_set_hash: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
   )
 }
 
@@ -1880,6 +3204,62 @@ pub type ObjectionResolution {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Records an executable accept-or-duplicate decision for an observation digest.
+pub type ObservationDeduplicationDecision {
+  ObservationDeduplicationDecision(
+    /// Observed event identity.
+    event_id: String,
+    /// Canonical event digest.
+    event_digest: String,
+    /// Deterministic deduplication key.
+    dedup_key: String,
+    /// Machine-readable deduplication decision.
+    decision: String,
+  )
+}
+
+/// Records entropy of a state vector using an explicit estimation method.
+pub type ObservationEntropyEstimate {
+  ObservationEntropyEstimate(
+    /// Measured state-vector identity.
+    state_vector_id: String,
+    /// Named entropy estimation method.
+    entropy_method: String,
+    /// Observed entropy estimate.
+    entropy_value: Float,
+    /// Timestamp of entropy estimation.
+    observed_at: String,
+  )
+}
+
+/// Evaluates an observation against an explicit freshness deadline.
+pub type ObservationFreshnessAssessment {
+  ObservationFreshnessAssessment(
+    /// Stable observation identity.
+    observation_id: String,
+    /// Time observation was produced.
+    observed_at: String,
+    /// Latest acceptable observation time.
+    freshness_deadline: String,
+    /// Machine-readable freshness standing.
+    freshness_status: String,
+  )
+}
+
+/// Invalidates stale state and declares whether replacement evidence is required.
+pub type ObservationStalenessInvalidation {
+  ObservationStalenessInvalidation(
+    /// Stale observation identity.
+    observation_id: String,
+    /// Time invalidation became effective.
+    invalidated_at: String,
+    /// Typed reason for invalidation.
+    staleness_reason: String,
+    /// Whether new evidence must be acquired.
+    replacement_required: Bool,
   )
 }
 
@@ -2013,6 +3393,30 @@ pub type OpportunityValueRange {
   )
 }
 
+/// Represents an optimization-derived plan with objective and solver receipt.
+pub type OptimizationPlanCandidate {
+  OptimizationPlanCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required objective_id for deterministic planner evaluation.
+    objective_id: String,
+    /// Required solver_receipt_hash preserving evidence and falsifiability.
+    solver_receipt_hash: String,
+  )
+}
+
+/// Generates a reversible DfCM option set without premature selection.
+pub type OptionGeneration {
+  OptionGeneration(
+    /// Required state_id for this bounded planner contract.
+    state_id: String,
+    /// Required generator_id for deterministic planner evaluation.
+    generator_id: String,
+    /// Required option_set_hash preserving evidence and falsifiability.
+    option_set_hash: String,
+  )
+}
+
 /// Admits the exact order form that expresses the buyer's priced scope and authorized terms.
 pub type OrderFormAdmission {
   OrderFormAdmission(
@@ -2022,6 +3426,30 @@ pub type OrderFormAdmission {
     order_form_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Measures semantic independence between candidate work items.
+pub type OrthogonalityScore {
+  OrthogonalityScore(
+    /// Required left_option_id for this bounded planner contract.
+    left_option_id: String,
+    /// Required right_option_id for deterministic planner evaluation.
+    right_option_id: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
+/// Refuses manufacture promotion until every output path has admitted ownership.
+pub type OutputOwnershipGate {
+  OutputOwnershipGate(
+    /// Required subject_id for this bounded planner contract.
+    subject_id: String,
+    /// Required ownership_manifest_hash for deterministic planner evaluation.
+    ownership_manifest_hash: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
   )
 }
 
@@ -2039,6 +3467,20 @@ pub type OveragePolicy {
   )
 }
 
+/// Observes a package version together with its immutable distribution digest.
+pub type PackageReleaseObservation {
+  PackageReleaseObservation(
+    /// Stable package identity.
+    package_id: String,
+    /// Observed published version.
+    version: String,
+    /// Immutable package content digest.
+    immutable_digest: String,
+    /// Timestamp of package observation.
+    observed_at: String,
+  )
+}
+
 /// Produces the terminal receipt proving a paid workload delivered its admitted business outcome.
 pub type PaidWorkloadOutcomeReceipt {
   PaidWorkloadOutcomeReceipt(
@@ -2048,6 +3490,18 @@ pub type PaidWorkloadOutcomeReceipt {
     workload_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     outcome_receipt_hash: String,
+  )
+}
+
+/// Removes strictly dominated options while preserving incomparable alternatives.
+pub type ParetoFilter {
+  ParetoFilter(
+    /// Required option_set_id for this bounded planner contract.
+    option_set_id: String,
+    /// Required objective_set_hash for deterministic planner evaluation.
+    objective_set_hash: String,
+    /// Required pareto_set_hash preserving evidence and falsifiability.
+    pareto_set_hash: String,
   )
 }
 
@@ -2149,6 +3603,66 @@ pub type PetriTransition {
   )
 }
 
+/// Tracks derivation, repair, and supersession across plan generations.
+pub type PlanLineage {
+  PlanLineage(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required parent_plan_id for deterministic planner evaluation.
+    parent_plan_id: String,
+    /// Required lineage_hash preserving evidence and falsifiability.
+    lineage_hash: String,
+  )
+}
+
+/// Stores reusable plan evidence without converting historical success into current authority.
+pub type PlanMemory {
+  PlanMemory(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required evidence_hash for deterministic planner evaluation.
+    evidence_hash: String,
+    /// Required memory_hash preserving evidence and falsifiability.
+    memory_hash: String,
+  )
+}
+
+/// Declares the problem features and guarantees supported by one planner.
+pub type PlannerCapabilityProfile {
+  PlannerCapabilityProfile(
+    /// Required planner_id for this bounded planner contract.
+    planner_id: String,
+    /// Required capability_set for deterministic planner evaluation.
+    capability_set: String,
+    /// Required profile_hash preserving evidence and falsifiability.
+    profile_hash: String,
+  )
+}
+
+/// Separates planner identity from policy, role, agent, and authority identities.
+pub type PlannerIdentity {
+  PlannerIdentity(
+    /// Required planner_id for this bounded planner contract.
+    planner_id: String,
+    /// Required planner_kind for deterministic planner evaluation.
+    planner_kind: String,
+    /// Required identity_hash preserving evidence and falsifiability.
+    identity_hash: String,
+  )
+}
+
+/// Preserves a diverse set of planners for one bounded planning episode.
+pub type PlannerPortfolio {
+  PlannerPortfolio(
+    /// Required portfolio_id for this bounded planner contract.
+    portfolio_id: String,
+    /// Required planner_ids for deterministic planner evaluation.
+    planner_ids: String,
+    /// Required diversity_hash preserving evidence and falsifiability.
+    diversity_hash: String,
+  )
+}
+
 /// One PDDL-style planning action with its preconditions and effects.
 pub type PlanningAction {
   PlanningAction(
@@ -2235,6 +3749,18 @@ pub type PocTimeline {
   )
 }
 
+/// Binds one planner to parameters, objective, observations, and action projection.
+pub type PolicyBinding {
+  PolicyBinding(
+    /// Required policy_id for this bounded planner contract.
+    policy_id: String,
+    /// Required planner_id for deterministic planner evaluation.
+    planner_id: String,
+    /// Required policy_hash preserving evidence and falsifiability.
+    policy_hash: String,
+  )
+}
+
 /// One admission/authority policy decision recorded for an attempted action.
 pub type PolicyDecision {
   PolicyDecision(
@@ -2292,6 +3818,30 @@ pub type PowlPartialOrderEdge {
     from_index: Int,
     /// Index into the parent PartialOrderNode's children that must happen after from_index.
     to_index: Int,
+  )
+}
+
+/// Binds a plan candidate to an exact POWL process-plan projection.
+pub type PowlProjection {
+  PowlProjection(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required powl_hash for deterministic planner evaluation.
+    powl_hash: String,
+    /// Required projection_receipt_hash preserving evidence and falsifiability.
+    projection_receipt_hash: String,
+  )
+}
+
+/// Binds a plan candidate to an exact PPDDL problem/domain projection.
+pub type PpddlProjection {
+  PpddlProjection(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required domain_hash for deterministic planner evaluation.
+    domain_hash: String,
+    /// Required problem_hash preserving evidence and falsifiability.
+    problem_hash: String,
   )
 }
 
@@ -2455,6 +4005,18 @@ pub type ProofOfValueExitGate {
   )
 }
 
+/// Scores downstream consequences across the dependency and capability graph.
+pub type PropagationScore {
+  PropagationScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required graph_hash for deterministic planner evaluation.
+    graph_hash: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
 /// Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
 pub type ProvenanceBindingEvidence {
   ProvenanceBindingEvidence(
@@ -2466,6 +4028,32 @@ pub type ProvenanceBindingEvidence {
     builder_identity: String,
     /// Observed verification consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Binds observation, source capsule, and evidence digest into one provenance fact.
+pub type ProvenanceBindingObservation {
+  ProvenanceBindingObservation(
+    /// Stable observation identity.
+    observation_id: String,
+    /// Exact source capsule digest.
+    source_capsule_digest: String,
+    /// Immutable supporting evidence digest.
+    evidence_digest: String,
+    /// Machine-readable provenance standing.
+    binding_status: String,
+  )
+}
+
+/// Maintains a population of policies and response oracles for meta-routing.
+pub type PsroPopulation {
+  PsroPopulation(
+    /// Required population_id for this bounded planner contract.
+    population_id: String,
+    /// Required policy_ids for deterministic planner evaluation.
+    policy_ids: String,
+    /// Required population_hash preserving evidence and falsifiability.
+    population_hash: String,
   )
 }
 
@@ -2547,6 +4135,18 @@ pub type RampCommitment {
   )
 }
 
+/// Determines whether an admitted goal remains reachable from current state.
+pub type ReachabilityAnalysis {
+  ReachabilityAnalysis(
+    /// Required state_id for this bounded planner contract.
+    state_id: String,
+    /// Required goal_id for deterministic planner evaluation.
+    goal_id: String,
+    /// Required reachability_proof_hash preserving evidence and falsifiability.
+    reachability_proof_hash: String,
+  )
+}
+
 /// Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt.
 pub type ReceiptReplayEvidence {
   ReceiptReplayEvidence(
@@ -2570,6 +4170,18 @@ pub type ReceiptReplayRequest {
     receipt_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     replay_request_hash: String,
+  )
+}
+
+/// Prevents any actuation candidate from becoming selectable without a verifiable receipt plan.
+pub type ReceiptRequiredGate {
+  ReceiptRequiredGate(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required receipt_contract_id for deterministic planner evaluation.
+    receipt_contract_id: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
   )
 }
 
@@ -2646,6 +4258,20 @@ pub type RecoveryTimeReceipt {
     incident_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     recovery_hash: String,
+  )
+}
+
+/// Emits REFUSED with exact authority boundary and evidence.
+pub type RefusalBoundaryObservation {
+  RefusalBoundaryObservation(
+    /// Exact refused subject identity.
+    subject_id: String,
+    /// Typed refusal reason.
+    refusal_code: String,
+    /// Boundary that denied the action.
+    authority_boundary: String,
+    /// Digest supporting refusal.
+    evidence_digest: String,
   )
 }
 
@@ -2749,6 +4375,62 @@ pub type ReplayEnvironmentIdentity {
   )
 }
 
+/// Records mechanically observed ancestry between repository commits so containment never requires human reconstruction.
+pub type RepositoryAncestryObservation {
+  RepositoryAncestryObservation(
+    /// Candidate ancestor commit.
+    ancestor_sha: String,
+    /// Candidate descendant commit.
+    descendant_sha: String,
+    /// Observed ancestry relation.
+    relation: String,
+    /// Digest of the mechanical ancestry evidence.
+    evidence_digest: String,
+  )
+}
+
+/// Observes a repository default branch and its exact head so autonomic state can invalidate on branch drift.
+pub type RepositoryDefaultBranchObservation {
+  RepositoryDefaultBranchObservation(
+    /// Stable repository identity observed by the sensor.
+    repository_id: String,
+    /// Observed default branch name.
+    default_branch: String,
+    /// Exact commit at the observed default-branch head.
+    head_sha: String,
+    /// Timestamp bounding the freshness of this observation.
+    observed_at: String,
+  )
+}
+
+/// Binds a repository observation to an exact branch head and prior head for autonomous change detection.
+pub type RepositoryExactHeadObservation {
+  RepositoryExactHeadObservation(
+    /// Stable repository identity.
+    repository_id: String,
+    /// Observed branch name.
+    branch_name: String,
+    /// Exact observed head commit.
+    head_sha: String,
+    /// Previously admitted head used to detect change.
+    previous_head_sha: String,
+  )
+}
+
+/// Captures caller-local repository worktree state and dirty-surface cardinality before manufacture.
+pub type RepositoryWorktreeStateObservation {
+  RepositoryWorktreeStateObservation(
+    /// Stable repository identity.
+    repository_id: String,
+    /// Digest of tracked caller-local worktree state.
+    worktree_hash: String,
+    /// Number of changed tracked paths.
+    dirty_path_count: Int,
+    /// Timestamp of worktree observation.
+    observed_at: String,
+  )
+}
+
 /// Executable reproducibility evidence binding an exact subject to the independently reproduced build digest.
 pub type ReproducibleBuildEvidence {
   ReproducibleBuildEvidence(
@@ -2777,6 +4459,18 @@ pub type ResellerAuthorization {
   )
 }
 
+/// Automatically promotes the highest-value lawful reserve when primary work blocks.
+pub type ReserveWorkPromotion {
+  ReserveWorkPromotion(
+    /// Required blocked_work_id for this bounded planner contract.
+    blocked_work_id: String,
+    /// Required reserve_set_hash for deterministic planner evaluation.
+    reserve_set_hash: String,
+    /// Required promoted_work_id preserving evidence and falsifiability.
+    promoted_work_id: String,
+  )
+}
+
 /// Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.
 pub type ResidencyEvidence {
   ResidencyEvidence(
@@ -2800,6 +4494,18 @@ pub type ResourceAllocation {
     activity: String,
     /// Identifier of the specific event occurrence.
     event_id: String,
+  )
+}
+
+/// Allocates finite compute, time, and concurrency capacity across lawful options.
+pub type ResourceCapacityPlan {
+  ResourceCapacityPlan(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required resource_pool_hash for deterministic planner evaluation.
+    resource_pool_hash: String,
+    /// Required allocation_hash preserving evidence and falsifiability.
+    allocation_hash: String,
   )
 }
 
@@ -2857,6 +4563,18 @@ pub type RevenueScheduleAssumption {
   )
 }
 
+/// Weights reversible actions above irreversible ones until evidence justifies commitment.
+pub type ReversibilityWeight {
+  ReversibilityWeight(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required rollback_id for deterministic planner evaluation.
+    rollback_id: String,
+    /// Required weight preserving evidence and falsifiability.
+    weight: String,
+  )
+}
+
 /// Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
 pub type RfpResponseEvidence {
   RfpResponseEvidence(
@@ -2868,6 +4586,18 @@ pub type RfpResponseEvidence {
     answer_set_hash: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Evaluates whether a policy is lawful for an assigned role in the current world.
+pub type RoleCompatibility {
+  RoleCompatibility(
+    /// Required role_id for this bounded planner contract.
+    role_id: String,
+    /// Required policy_id for deterministic planner evaluation.
+    policy_id: String,
+    /// Required compatibility preserving evidence and falsifiability.
+    compatibility: String,
   )
 }
 
@@ -2925,6 +4655,20 @@ pub type RollingUpgradePlan {
   )
 }
 
+/// Captures runtime health state with exact supporting evidence.
+pub type RuntimeHealthObservation {
+  RuntimeHealthObservation(
+    /// Stable runtime identity.
+    runtime_id: String,
+    /// Observed runtime health classification.
+    health_state: String,
+    /// Digest of runtime health evidence.
+    evidence_digest: String,
+    /// Timestamp health was observed.
+    observed_at: String,
+  )
+}
+
 /// Records an explicit runtime policy decision before paid workload actuation.
 pub type RuntimePolicyDecision {
   RuntimePolicyDecision(
@@ -2960,6 +4704,32 @@ pub type SbomInventoryEvidence {
     component_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Proves the second manufacture pass produced byte-identical owned outputs.
+pub type SecondPassByteIdentityObservation {
+  SecondPassByteIdentityObservation(
+    /// Digest after first manufacture pass.
+    first_tree_digest: String,
+    /// Digest after second manufacture pass.
+    second_tree_digest: String,
+    /// Whether the output trees are byte-identical.
+    byte_identity: Bool,
+    /// Receipt binding the replay result.
+    receipt_digest: String,
+  )
+}
+
+/// Makes byte-identical second manufacture a first-class planning objective.
+pub type SecondRunIdentityObjective {
+  SecondRunIdentityObjective(
+    /// Required subject_id for this bounded planner contract.
+    subject_id: String,
+    /// Required first_tree_hash for deterministic planner evaluation.
+    first_tree_hash: String,
+    /// Required second_tree_hash preserving evidence and falsifiability.
+    second_tree_hash: String,
   )
 }
 
@@ -3014,6 +4784,20 @@ pub type SecurityReadiness {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Classifies semantic change between prior and current canonical digests.
+pub type SemanticDriftObservation {
+  SemanticDriftObservation(
+    /// Observed semantic subject.
+    subject_id: String,
+    /// Prior canonical semantic digest.
+    prior_semantic_digest: String,
+    /// Current canonical semantic digest.
+    current_semantic_digest: String,
+    /// Machine-readable semantic drift class.
+    drift_class: String,
   )
 }
 
@@ -3211,6 +4995,18 @@ pub type StakeholderMap {
   )
 }
 
+/// Refuses execution when subject, pack, policy, or world identity has drifted.
+pub type StalePlanRefusal {
+  StalePlanRefusal(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required admitted_preimage_hash for deterministic planner evaluation.
+    admitted_preimage_hash: String,
+    /// Required observed_preimage_hash preserving evidence and falsifiability.
+    observed_preimage_hash: String,
+  )
+}
+
 /// Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window.
 pub type StaleReceiptRefusal {
   StaleReceiptRefusal(
@@ -3234,6 +5030,48 @@ pub type StaleSubjectRefusalEvidence {
     stale_sha: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Emits scoped ALIVE, PARTIAL_ALIVE, BLOCKED, UNKNOWN, or BUILD_BROKEN state.
+pub type StandingStateObservation {
+  StandingStateObservation(
+    /// Exact standing subject identity.
+    subject_id: String,
+    /// Machine-readable standing vocabulary value.
+    standing: String,
+    /// Digest supporting the standing.
+    evidence_digest: String,
+    /// Timestamp standing was observed.
+    observed_at: String,
+  )
+}
+
+/// Compares an exact gitlink with its declared dependency lock to expose submodule drift automatically.
+pub type SubmoduleLockObservation {
+  SubmoduleLockObservation(
+    /// Caller-local submodule path.
+    submodule_path: String,
+    /// Exact gitlink commit.
+    gitlink_sha: String,
+    /// Declared immutable lock commit.
+    lock_sha: String,
+    /// Timestamp of comparison.
+    observed_at: String,
+  )
+}
+
+/// Observes whether every gitlink has repository registration metadata before autonomous checkout.
+pub type SubmoduleRegistrationObservation {
+  SubmoduleRegistrationObservation(
+    /// Observed gitlink path.
+    submodule_path: String,
+    /// Registration standing for the gitlink.
+    registration_state: String,
+    /// Resolved immutable repository source.
+    repository_url: String,
+    /// Digest of registration evidence.
+    evidence_digest: String,
   )
 }
 
@@ -3413,6 +5251,20 @@ pub type TechnicalBlocker {
   )
 }
 
+/// Encodes observed ordering between two observations and its evidence basis.
+pub type TemporalOrderObservation {
+  TemporalOrderObservation(
+    /// Earlier observation identity.
+    earlier_observation_id: String,
+    /// Later observation identity.
+    later_observation_id: String,
+    /// Clock or sequence basis for ordering.
+    ordering_basis: String,
+    /// Digest of temporal evidence.
+    evidence_digest: String,
+  )
+}
+
 /// Commercial tenant bound to account, region, and edition.
 pub type TenantAccount {
   TenantAccount(
@@ -3543,6 +5395,20 @@ pub type ToolchainIdentity {
   )
 }
 
+/// Observes exact tool name, version, and executable bytes used for validation.
+pub type ToolchainIdentityObservation {
+  ToolchainIdentityObservation(
+    /// Observed tool identity.
+    tool_name: String,
+    /// Observed tool version.
+    tool_version: String,
+    /// Digest of executed tool bytes.
+    executable_digest: String,
+    /// Timestamp of toolchain observation.
+    observed_at: String,
+  )
+}
+
 /// Observed workforce training readiness for production adoption.
 pub type TrainingReadiness {
   TrainingReadiness(
@@ -3596,6 +5462,32 @@ pub type TypeEdge {
     qualifier: String,
     /// One of: e2o | o2o.
     direction: String,
+  )
+}
+
+/// Selects only when confidence and downside bounds satisfy explicit values.
+pub type UncertaintyAwareSelection {
+  UncertaintyAwareSelection(
+    /// Required option_set_id for this bounded planner contract.
+    option_set_id: String,
+    /// Required uncertainty_model_hash for deterministic planner evaluation.
+    uncertainty_model_hash: String,
+    /// Required selected_option_id preserving evidence and falsifiability.
+    selected_option_id: String,
+  )
+}
+
+/// Represents typed UNKNOWN uncertainty instead of manufacturing false certainty.
+pub type UncertaintyObservation {
+  UncertaintyObservation(
+    /// Observation with uncertainty.
+    observation_id: String,
+    /// Typed uncertainty classification.
+    uncertainty_kind: String,
+    /// Basis for any confidence estimate.
+    confidence_basis: String,
+    /// Machine-readable UNKNOWN-compatible standing.
+    standing: String,
   )
 }
 
@@ -3701,6 +5593,34 @@ pub type UsageSignal {
   )
 }
 
+/// Compares expected and observed capsule digests and emits typed drift.
+pub type ValidationCapsuleDriftObservation {
+  ValidationCapsuleDriftObservation(
+    /// Admitted capsule digest.
+    expected_digest: String,
+    /// Currently resolved capsule digest.
+    observed_digest: String,
+    /// Machine-readable capsule drift result.
+    drift_status: String,
+    /// Timestamp of digest comparison.
+    observed_at: String,
+  )
+}
+
+/// Binds source capsule, validation pack, execution mode, toolchain, and immutable image.
+pub type ValidationCapsuleIdentityObservation {
+  ValidationCapsuleIdentityObservation(
+    /// Capsule source repository.
+    capsule_repository: String,
+    /// Exact capsule source commit.
+    capsule_sha: String,
+    /// Observed capsule execution mode.
+    execution_mode: String,
+    /// Immutable platform image digest.
+    image_digest: String,
+  )
+}
+
 /// Measured pre-adoption business baseline for ROI comparison.
 pub type ValueBaseline {
   ValueBaseline(
@@ -3728,6 +5648,32 @@ pub type ValueDriver {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Estimates expected information gain and acquisition cost for a pending decision.
+pub type ValueOfInformationEstimate {
+  ValueOfInformationEstimate(
+    /// Decision requiring additional information.
+    decision_id: String,
+    /// Candidate evidence acquisition.
+    evidence_candidate_id: String,
+    /// Expected reduction in uncertainty.
+    expected_information_gain: Float,
+    /// Evidence acquisition cost basis.
+    cost_basis: String,
+  )
+}
+
+/// Scores the expected value of acquiring missing information before selection.
+pub type ValueOfInformationScore {
+  ValueOfInformationScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required observation_id for deterministic planner evaluation.
+    observation_id: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
   )
 }
 
@@ -3822,6 +5768,60 @@ pub type VulnerabilityScanEvidence {
     vulnerability_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Refuses selections that would exceed the admitted work-in-process ceiling.
+pub type WipLimitGate {
+  WipLimitGate(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required wip_limit for deterministic planner evaluation.
+    wip_limit: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
+  )
+}
+
+/// Binds a workflow definition to exact bytes and repository subject before trusting its runs.
+pub type WorkflowDefinitionDigestObservation {
+  WorkflowDefinitionDigestObservation(
+    /// Workflow source path.
+    workflow_path: String,
+    /// Digest of exact workflow bytes.
+    definition_sha256: String,
+    /// Repository commit containing the workflow.
+    source_sha: String,
+    /// Timestamp of workflow observation.
+    observed_at: String,
+  )
+}
+
+/// Observes a workflow job, runner identity, and conclusion inside an exact run.
+pub type WorkflowJobStateObservation {
+  WorkflowJobStateObservation(
+    /// Stable workflow-job identity.
+    job_id: String,
+    /// Owning workflow-run identity.
+    run_id: String,
+    /// Observed runner or capsule identity.
+    runner_identity: String,
+    /// Observed terminal job conclusion.
+    conclusion: String,
+  )
+}
+
+/// Observes a workflow run against its exact head and terminal conclusion.
+pub type WorkflowRunStateObservation {
+  WorkflowRunStateObservation(
+    /// Stable workflow-run identity.
+    run_id: String,
+    /// Stable workflow-definition identity.
+    workflow_id: String,
+    /// Exact subject commit executed.
+    head_sha: String,
+    /// Observed terminal run conclusion.
+    conclusion: String,
   )
 }
 

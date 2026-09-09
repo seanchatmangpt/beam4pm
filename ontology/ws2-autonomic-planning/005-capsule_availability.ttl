@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-005 — capsule_availability
+b4p:capsule_availability_rt a bpm:RecordType ;
+    bpm:recordName "capsule_availability" ;
+    bpm:recordDoc "Records whether the exact validation capsule is available before qualification." ;
+    bpm:hasField b4p:capsule_availability_capsule_id_f,
+                 b4p:capsule_availability_capsule_digest_f,
+                 b4p:capsule_availability_availability_f .
+
+b4p:capsule_availability_capsule_id_f a bpm:Field ;
+    bpm:fieldName "capsule_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required capsule_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:capsule_availability_capsule_digest_f a bpm:Field ;
+    bpm:fieldName "capsule_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required capsule_digest for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:capsule_availability_availability_f a bpm:Field ;
+    bpm:fieldName "availability" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required availability preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

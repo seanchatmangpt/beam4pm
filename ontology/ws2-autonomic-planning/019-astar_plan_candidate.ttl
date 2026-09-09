@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-019 — astar_plan_candidate
+b4p:astar_plan_candidate_rt a bpm:RecordType ;
+    bpm:recordName "astar_plan_candidate" ;
+    bpm:recordDoc "Represents an A-star plan with admissible heuristic and exact state lineage." ;
+    bpm:hasField b4p:astar_plan_candidate_plan_id_f,
+                 b4p:astar_plan_candidate_heuristic_id_f,
+                 b4p:astar_plan_candidate_path_hash_f .
+
+b4p:astar_plan_candidate_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required plan_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:astar_plan_candidate_heuristic_id_f a bpm:Field ;
+    bpm:fieldName "heuristic_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required heuristic_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:astar_plan_candidate_path_hash_f a bpm:Field ;
+    bpm:fieldName "path_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required path_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

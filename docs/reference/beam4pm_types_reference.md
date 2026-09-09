@@ -78,6 +78,16 @@
 | `capability_ids` | `list_string` | true | Additional capabilities. |
 | `status` | `atom` | true | Add-on lifecycle standing. |
 
+## admissible_action_set
+
+> Computes all actions currently permitted by state, constraints, and authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `state_id` | `string` | true | Required state_id for this bounded planner contract. |
+| `constraint_hash` | `string` | true | Required constraint_hash for deterministic planner evaluation. |
+| `action_set_hash` | `string` | true | Required action_set_hash preserving evidence and falsifiability. |
+
 ## adoption_milestone
 
 > Receipted customer adoption milestone tied to observable use.
@@ -89,6 +99,16 @@
 | `milestone_name` | `string` | true | Stable name of the achieved adoption milestone. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## agent_assignment
+
+> Assigns an admitted policy to an agent without transferring authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `agent_id` | `string` | true | Required agent_id for this bounded planner contract. |
+| `policy_id` | `string` | true | Required policy_id for deterministic planner evaluation. |
+| `assignment_hash` | `string` | true | Required assignment_hash preserving evidence and falsifiability. |
 
 ## alignment_move
 
@@ -109,6 +129,17 @@
 | `sku` | `string` | true | Subscribed SKU. |
 | `seat_count` | `integer` | true | Contracted seats. |
 | `renews_at` | `datetime` | true | Annual renewal instant. |
+
+## anomaly_detection_observation
+
+> Scores an observed subject against an exact baseline digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Observed subject identity. |
+| `baseline_digest` | `string` | true | Exact anomaly baseline digest. |
+| `observation_digest` | `string` | true | Current observation digest. |
+| `anomaly_score` | `float` | true | Computed anomaly score. |
 
 ## approval_separation_evidence
 
@@ -155,6 +186,27 @@
 | `digest` | `string` | true | Content digest observed for the admitted commercial artifact. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## artifact_digest_observation
+
+> Binds a produced artifact digest to its exact producer run.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `artifact_id` | `string` | true | Stable artifact identity. |
+| `artifact_sha256` | `string` | true | Observed artifact content digest. |
+| `producer_run_id` | `string` | true | Exact producer workflow run. |
+| `observed_at` | `datetime` | true | Timestamp of artifact observation. |
+
+## astar_plan_candidate
+
+> Represents an A-star plan with admissible heuristic and exact state lineage.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `heuristic_id` | `string` | true | Required heuristic_id for deterministic planner evaluation. |
+| `path_hash` | `string` | true | Required path_hash preserving evidence and falsifiability. |
+
 ## attestation_verification_evidence
 
 > Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
@@ -176,6 +228,27 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `previous_receipt_hash` | `string` | true | Hash of the preceding receipt in the observed audit chain. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## authority_ceiling
+
+> Caps every candidate action at the exact authority grant available to its subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `action_id` | `string` | true | Required action_id for this bounded planner contract. |
+| `grant_id` | `string` | true | Required grant_id for deterministic planner evaluation. |
+| `ceiling` | `string` | true | Required ceiling preserving evidence and falsifiability. |
+
+## autonomic_state_vector
+
+> Encodes decision-relevant observed dimensions for one exact subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `state_vector_id` | `string` | true | Stable state-vector identity. |
+| `subject_id` | `string` | true | Exact observed subject identity. |
+| `dimension_digest` | `string` | true | Digest of ordered state dimensions. |
+| `observed_at` | `datetime` | true | Timestamp of state-vector encoding. |
 
 ## availability_observation
 
@@ -220,6 +293,38 @@
 | `baseline_value` | `float` | true | Measured value before the intervention. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## beam_search_candidate
+
+> Represents a bounded beam-search plan with explicit width and frontier.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `beam_width` | `string` | true | Required beam_width for deterministic planner evaluation. |
+| `frontier_hash` | `string` | true | Required frontier_hash preserving evidence and falsifiability. |
+
+## belief_state_snapshot
+
+> Captures a posterior belief state and explicit uncertainty standing.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `belief_state_id` | `string` | true | Stable belief-state identity. |
+| `subject_id` | `string` | true | Exact subject of belief. |
+| `posterior_digest` | `string` | true | Digest of posterior state. |
+| `uncertainty_status` | `string` | true | Machine-readable uncertainty standing. |
+
+## belief_state_update
+
+> Binds prior belief, new evidence, update rule, and posterior belief.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `prior_belief_id` | `string` | true | Prior belief-state identity. |
+| `evidence_digest` | `string` | true | Digest of newly admitted evidence. |
+| `posterior_belief_id` | `string` | true | Resulting belief-state identity. |
+| `update_rule` | `string` | true | Deterministic belief update rule. |
 
 ## beneficial_owner_evidence
 
@@ -338,6 +443,38 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## caller_local_checkout_observation
+
+> Proves a reusable rail executed from the consumer's own exact checkout.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `consumer_repository_id` | `string` | true | Stable consumer repository identity. |
+| `checkout_sha` | `string` | true | Exact caller-local checkout commit. |
+| `checkout_path` | `string` | true | Observed caller-local execution path. |
+| `evidence_digest` | `string` | true | Digest binding execution to checkout. |
+
+## caller_local_consumer
+
+> Preserves each caller-local consumer as an independently planned exact subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `consumer_id` | `string` | true | Required consumer_id for this bounded planner contract. |
+| `subject_sha` | `string` | true | Required subject_sha for deterministic planner evaluation. |
+| `consumer_hash` | `string` | true | Required consumer_hash preserving evidence and falsifiability. |
+
+## caller_local_crown_identity
+
+> Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `consumer_subject_sha` | `string` | true | Exact caller-local consumer commit SHA that must be requalified. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
 ## canary_decision
 
 > Receipted enterprise canary decision based on an observed rollout consequence.
@@ -361,6 +498,17 @@
 | `canary_percentage` | `float` | true | Observed fraction of production traffic routed to the canary subject. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## canonical_source_authority_observation
+
+> Encodes whether a repository path is an authorized canonical manufacturing input.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `source_path` | `string` | true | Observed repository path. |
+| `authority_class` | `string` | true | Classified source authority. |
+| `mutation_allowed` | `boolean` | true | Whether mutation is admitted at this boundary. |
+| `evidence_digest` | `string` | true | Digest of authority evidence. |
+
 ## capability_bundle
 
 > Named capability bundle with constituent capability identities.
@@ -383,6 +531,16 @@
 | `gap_severity` | `string` | true | Observed severity of the capability gap. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## capsule_availability
+
+> Records whether the exact validation capsule is available before qualification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `capsule_id` | `string` | true | Required capsule_id for this bounded planner contract. |
+| `capsule_digest` | `string` | true | Required capsule_digest for deterministic planner evaluation. |
+| `availability` | `string` | true | Required availability preserving evidence and falsifiability. |
 
 ## capsule_identity
 
@@ -415,6 +573,17 @@
 | `sku_ids` | `list_string` | true | Published SKU identities. |
 | `effective_at` | `datetime` | true | Catalog activation instant. |
 
+## causal_lineage_observation
+
+> Binds a candidate cause to effect with explicit causal evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `cause_observation_id` | `string` | true | Candidate causal observation. |
+| `effect_observation_id` | `string` | true | Observed effect identity. |
+| `causal_basis` | `string` | true | Declared causal inference basis. |
+| `evidence_digest` | `string` | true | Digest of causal evidence. |
+
 ## change_control_evidence
 
 > Executable change-control evidence binding an exact subject to the approved request governing its mutation.
@@ -435,6 +604,17 @@
 | `opportunity_id` | `string` | true | Required change order authority input; omission is an executable typed refusal, never an inferred approval. |
 | `authority_id` | `string` | true | Required change order authority input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## changed_surface_inference
+
+> Infers the exact changed surface between two repository trees.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `prior_tree_sha` | `string` | true | Prior repository tree identity. |
+| `current_tree_sha` | `string` | true | Current repository tree identity. |
+| `changed_surface_digest` | `string` | true | Digest of normalized changed paths. |
+| `inference_status` | `string` | true | Machine-readable inference standing. |
 
 ## channel_agreement
 
@@ -567,6 +747,17 @@
 | `realized_value` | `float` | true | Observed post-adoption value. |
 | `measured_at` | `datetime` | true | Outcome measurement instant. |
 
+## commit_check_state_observation
+
+> Projects commit check state into a machine-readable exact-subject observation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `commit_sha` | `string` | true | Exact checked commit. |
+| `check_name` | `string` | true | Stable check context name. |
+| `check_status` | `string` | true | Observed check status. |
+| `observed_at` | `datetime` | true | Timestamp of check observation. |
+
 ## committed_spend
 
 > Term commitment with amount, currency, and expiration.
@@ -631,6 +822,38 @@
 | `fitness` | `float` | true | Fitness score in [0.0, 1.0]. |
 | `precision` | `float` | false | Optional precision score in [0.0, 1.0]. |
 
+## consequential_state_invalidation
+
+> Invalidates affected belief state automatically after a consequential transition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `transition_id` | `string` | true | Consequential transition identity. |
+| `affected_state_digest` | `string` | true | Digest of state invalidated by transition. |
+| `invalidation_reason` | `string` | true | Typed invalidation reason. |
+| `invalidated_at` | `datetime` | true | Timestamp invalidation became effective. |
+
+## consumer_equivalence_proof
+
+> Admits central-surrogate planning only after explicit consumer-equivalence proof.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `consumer_set_id` | `string` | true | Required consumer_set_id for this bounded planner contract. |
+| `equivalence_proof_hash` | `string` | true | Required equivalence_proof_hash for deterministic planner evaluation. |
+| `standing` | `string` | true | Required standing preserving evidence and falsifiability. |
+
+## consumer_pack_pin_observation
+
+> Proves a consumer used an exact immutable marketplace pack SHA.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `consumer_repository_id` | `string` | true | Stable consumer identity. |
+| `pack_id` | `string` | true | Consumed validation-pack identity. |
+| `pack_sha` | `string` | true | Exact immutable pack commit. |
+| `evidence_digest` | `string` | true | Digest of caller-local pin evidence. |
+
 ## consumption_pool
 
 > Shared enterprise consumption pool with unit and balance.
@@ -653,6 +876,28 @@
 | `plan_id` | `string` | true | Usage plan identity. |
 | `status` | `atom` | true | Subscription lifecycle standing. |
 
+## container_manifest_digest_observation
+
+> Resolves a mutable container tag to an immutable multi-platform manifest digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `image_repository` | `string` | true | Container repository identity. |
+| `tag` | `string` | true | Observed mutable tag. |
+| `index_digest` | `string` | true | Resolved immutable manifest-index digest. |
+| `observed_at` | `datetime` | true | Timestamp of registry resolution. |
+
+## container_platform_digest_observation
+
+> Resolves a manifest index to one exact platform image digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `index_digest` | `string` | true | Parent manifest-index digest. |
+| `platform` | `string` | true | Normalized operating-system and architecture. |
+| `platform_digest` | `string` | true | Exact platform image digest. |
+| `observed_at` | `datetime` | true | Timestamp of platform resolution. |
+
 ## contracting_entity_identity
 
 > Requires the counterparty that will sign the agreement, separating contractual authority from account interest.
@@ -663,6 +908,16 @@
 | `contracting_entity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
 | `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## cost_of_delay_score
+
+> Scores delay cost for an option without overriding explicit authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Required option_id for this bounded planner contract. |
+| `horizon` | `string` | true | Required horizon for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
 ## cost_to_serve_measurement
 
 > Records attributable runtime cost-to-serve for a paid tenant and billing period.
@@ -672,6 +927,16 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `billing_period_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `measurement_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## counterfactual_frontier
+
+> Preserves counterfactual futures for every nondominated option.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_set_id` | `string` | true | Required option_set_id for this bounded planner contract. |
+| `world_model_hash` | `string` | true | Required world_model_hash for deterministic planner evaluation. |
+| `frontier_hash` | `string` | true | Required frontier_hash preserving evidence and falsifiability. |
 
 ## crash_recovery_receipt
 
@@ -705,6 +970,545 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## crown_applicable_gate_coverage
+
+> Requires every gate applicable to the changed subject before declaring the crown alive.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `applicable_gate_set_digest` | `string` | true | Digest of the normalized applicable gate set and results. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_artifact_pullback_smoke
+
+> Proves the published artifact can be pulled back from its distribution boundary byte-for-byte.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `pullback_digest` | `string` | true | Digest observed after artifact pullback. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_attestation_signer
+
+> Requires an admitted signer identity for every propagated supply-chain attestation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `signer_identity` | `string` | true | Verified identity that signed the attestation. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_autonomic_republish
+
+> Receipts autonomous downstream requalification and immutable crown republication.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `republished_crown_digest` | `string` | true | Exact digest of the republished downstream crown. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_capsule_toolchain
+
+> Binds source capsule, validation pack, execution mode, and toolchain as one evidence identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `toolchain_digest` | `string` | true | Digest of the exact capsule toolchain closure. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_cas_promotion
+
+> Authorizes promotion only when the observed prior crown equals the compare-and-swap expectation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `expected_previous_digest` | `string` | true | Expected previously promoted crown digest. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_check_relevance
+
+> Separates irrelevant checks from exact-subject qualification without hiding required evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `relevance_proof_digest` | `string` | true | Digest proving check relevance classification. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_child_publish_observation
+
+> Observes the exact child publication execution before its crown can propagate further.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `child_publish_run_id` | `string` | true | Exact workflow run identity that published the child crown. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_consumer_smoke
+
+> Requires a real downstream consumer smoke consequence for the exact propagated crown.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `consumer_smoke_digest` | `string` | true | Digest of the exact-consumer smoke receipt. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_convergence_proof
+
+> Produces a deterministic proof that every admitted consumer holds the expected crown.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `convergence_proof_digest` | `string` | true | Digest of the ecosystem convergence proof. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_cosign_certificate
+
+> Captures the keyless signing certificate identity admitted for the exact crown digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `certificate_identity` | `string` | true | Verified Cosign certificate identity. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_default_head_sensor
+
+> Observes the exact downstream default-branch head before selecting a reconciliation candidate.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `default_head_sha` | `string` | true | Observed immutable default-branch head SHA. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_dependency_edge
+
+> Declares one exact upstream-to-downstream propagation edge in the ecosystem graph.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `downstream_consumer_id` | `string` | true | Exact downstream consumer repository identity. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_execution_mode
+
+> Records whether qualification ran locally, in a capsule, or on a hosted runner.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `execution_mode` | `string` | true | Admitted execution-mode identifier. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_fanin_convergence
+
+> Requires every admitted upstream parent crown before a fan-in consumer can converge.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `fanin_set_digest` | `string` | true | Digest of the complete admitted fan-in crown set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_fanout_batch
+
+> Binds parallel downstream propagation to one deterministic admitted consumer set.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `fanout_set_digest` | `string` | true | Digest of the sorted fan-out consumer set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_federated_phase_receipt
+
+> Receipts SELECT, CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, and RECEIPT as ordered phases.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `selected_option_digest` | `string` | true | Digest of the selected qualified propagation option. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_freshness_window
+
+> Defines the deterministic deadline after which a crown cannot be promoted without requalification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `fresh_until` | `string` | true | UTC freshness deadline admitted by policy. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_generated_source_ownership
+
+> Routes drift in a generated projection back to its declared canonical semantic source.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `canonical_source_path` | `string` | true | Canonical non-generated source path authorized to repair the projection. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_gitlink_reconciliation
+
+> Reconciles a consumer gitlink to the exact admitted dependency commit.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `gitlink_commit_sha` | `string` | true | Exact submodule gitlink commit SHA. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_immutable_sha_tag
+
+> Admits only artifact tags derived from an exact immutable source SHA.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `immutable_tag` | `string` | true | Immutable source-derived artifact tag. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_known_good_rollback
+
+> Selects an immutable previously qualified crown for autonomous rollback.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `rollback_crown_digest` | `string` | true | Exact prior known-good crown digest. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_latency_observation
+
+> Records exact end-to-end propagation latency for freshness and SLO decisions.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `latency_millis` | `string` | true | Observed propagation latency in milliseconds. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_lock_reconciliation
+
+> Reconciles a downstream lock entry to the exact admitted upstream commit.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `lock_commit_sha` | `string` | true | Exact commit SHA encoded in the reconciled lock. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_manufacturer_identity
+
+> Binds propagation to the exact deterministic manufacturer executable identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `manufacturer_digest` | `string` | true | Digest of the admitted GGen manufacturer binary. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_marketplace_pack_pin
+
+> Requires every consumed marketplace pack to resolve to an immutable Git commit before manufacture.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `pack_commit_sha` | `string` | true | Exact immutable marketplace pack commit SHA. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_multiarch_platform_set
+
+> Requires the crown manifest to contain the admitted architecture and operating-system set.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `platform_set_digest` | `string` | true | Digest of the normalized admitted platform set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_oci_manifest_binding
+
+> Binds a propagated crown to its exact OCI multi-architecture index digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `oci_index_digest` | `string` | true | Exact OCI index digest selected for propagation. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_package_pin_reconciliation
+
+> Reconciles package resolution to an immutable version and content digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `package_version_digest` | `string` | true | Digest of the exact resolved package version. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_partial_checkpoint
+
+> Persists exact completed propagation edges for safe recovery after partial failure.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `checkpoint_digest` | `string` | true | Digest of the completed-edge checkpoint. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_path_skip_refusal
+
+> Refuses false ALIVE when a required qualification gate was path-skipped.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `skipped_gate_id` | `string` | true | Identity of the required gate that was skipped. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_planner_identity
+
+> Binds autonomous propagation selection to the exact admitted planner identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `planner_digest` | `string` | true | Digest of the planner that selected the propagation action. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_process_runtime_identity
+
+> Binds process-intelligence evidence to the exact Beam4PM computation identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `process_runtime_digest` | `string` | true | Digest of the process-intelligence runtime subject. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_promotion_race
+
+> Records the conflicting prior digest when a concurrent promotion wins the race.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `observed_previous_digest` | `string` | true | Observed prior crown digest at the failed CAS boundary. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_provenance_binding
+
+> Binds build provenance to the exact source, builder, and published artifact identities.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `provenance_digest` | `string` | true | Digest of exact-subject build provenance. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_receipt_output_ownership
+
+> Propagates receipt lineage together with the declared owner of every manufactured output.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `output_owner` | `string` | true | Declared owner identity for the manufactured output set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_recursive_fixed_point
+
+> Proves recursive ecosystem propagation reached a stable exact-crown fixed point.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `fixed_point_digest` | `string` | true | Digest of the converged ecosystem crown assignment. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_resume_token
+
+> Binds resumed propagation to its checkpoint and current dependency graph.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `resume_token_digest` | `string` | true | Digest of the validated resume token. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_runtime_identity
+
+> Binds the propagated artifact to the exact runtime used for qualification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `runtime_digest` | `string` | true | Digest of the admitted runtime environment. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_sbom_subject_binding
+
+> Binds a retained software bill of materials to the exact published crown subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `sbom_digest` | `string` | true | Digest of the SBOM whose subject is the exact crown. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_second_pass_identity
+
+> Proves a second lawful GGen sync is byte-identical to the first manufactured output set.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `second_pass_digest` | `string` | true | Digest of the complete second-pass output set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_security_scan
+
+> Requires a retained security scan report bound to the exact crown artifact digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `scan_report_digest` | `string` | true | Digest of the exact-artifact vulnerability scan report. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_source_capsule
+
+> Binds validation to the exact ggen-ecosystem source capsule and image identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `capsule_digest` | `string` | true | Exact source capsule or reproducible image digest. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_stale_refusal
+
+> Records crown age so stale subjects are typed and refused without actuation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `observed_age_seconds` | `string` | true | Observed crown age in seconds at the decision boundary. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_supply_chain_policy
+
+> Records the executable supply-chain policy decision that admitted or refused the crown.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `policy_decision_digest` | `string` | true | Digest of the exact policy input and decision. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_topological_order
+
+> Orders crown propagation so dependencies qualify before their consumers.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `topological_rank` | `string` | true | Deterministic topological rank for this propagation node. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_validation_pack
+
+> Pins the executable validation pack to an immutable marketplace commit.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `validation_pack_sha` | `string` | true | Exact validation-pack Git commit SHA. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_workflow_run_receipt
+
+> Binds a qualification receipt to the exact workflow execution and attempt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `workflow_run_id` | `string` | true | Exact hosted workflow run and attempt identity. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
+## crown_zero_unreceipted_writes
+
+> Proves every propagation write belongs to a retained authorized receipt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `propagation_id` | `string` | true | Unique autonomic propagation attempt identity. |
+| `subject_sha` | `string` | true | Exact admitted Git subject SHA. |
+| `write_set_digest` | `string` | true | Digest of the complete authorized write set. |
+| `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
+
 ## customer_health
 
 > Cumulative customer-health observation across usage, outcomes, and support.
@@ -727,6 +1531,17 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `key_identifier` | `string` | true | Non-secret identifier of the customer-managed key observed at encryption. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## customer_signal_observation
+
+> Normalizes a customer signal into typed, digest-bound evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `customer_id` | `string` | true | Stable customer identity. |
+| `signal_type` | `string` | true | Normalized customer signal type. |
+| `signal_digest` | `string` | true | Immutable customer signal digest. |
+| `observed_at` | `datetime` | true | Timestamp customer signal was observed. |
 
 ## data_egress_evidence
 
@@ -792,6 +1607,17 @@
 | `packet_id` | `string` | true | Required deal desk packet input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## decision_compression_observation
+
+> Compresses high-dimensional state into a bounded actionable delta with loss bound.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `compression_id` | `string` | true | Stable compression operation identity. |
+| `input_state_digest` | `string` | true | Digest of high-dimensional input state. |
+| `output_delta_digest` | `string` | true | Digest of compressed delta. |
+| `loss_bound` | `string` | true | Declared information-loss bound. |
+
 ## deletion_proof_evidence
 
 > Executable deletion evidence binding an exact subject to a verifiable deletion receipt.
@@ -827,6 +1653,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## dependency_dag
+
+> Represents action dependencies as an acyclic exact-subject graph.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `dag_id` | `string` | true | Required dag_id for this bounded planner contract. |
+| `node_set_hash` | `string` | true | Required node_set_hash for deterministic planner evaluation. |
+| `edge_set_hash` | `string` | true | Required edge_set_hash preserving evidence and falsifiability. |
+
 ## dependency_inventory_evidence
 
 > Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.
@@ -837,6 +1673,17 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `dependency_count` | `integer` | true | Observed number of resolved direct and transitive dependencies. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## dependency_pin_observation
+
+> Compares a declared dependency ref with its immutable resolved commit.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `dependency_id` | `string` | true | Stable dependency identity. |
+| `declared_ref` | `string` | true | Declared dependency reference. |
+| `resolved_sha` | `string` | true | Resolved immutable commit. |
+| `observed_at` | `datetime` | true | Timestamp of resolution. |
 
 ## deployment_entitlement
 
@@ -904,6 +1751,26 @@
 | `expected_value` | `string` | true | Falsifiable value expectation stated by the customer. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## dominance_witness
+
+> Records the exact objective evidence proving one option dominates another.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `dominant_option_id` | `string` | true | Required dominant_option_id for this bounded planner contract. |
+| `dominated_option_id` | `string` | true | Required dominated_option_id for deterministic planner evaluation. |
+| `witness_hash` | `string` | true | Required witness_hash preserving evidence and falsifiability. |
+
+## dynamic_replan_trigger
+
+> Triggers replanning when observed state invalidates a plan assumption.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `event_id` | `string` | true | Required event_id for deterministic planner evaluation. |
+| `trigger_hash` | `string` | true | Required trigger_hash preserving evidence and falsifiability. |
 
 ## edition_definition
 
@@ -1014,6 +1881,16 @@
 | `last_applied_event_id` | `string` | true | The event_id of the single entitlement_event that produced this state. Second (tiebreak) component of the reconciliation watermark, and the audit link from a commercial state back to the exact provider notification that caused it. Required, never undefined: an entitlement_state may only be constructed by applying a real event, so there is no lawful state without a causing event id. |
 | `updated_at` | `datetime` | true | The effective_at of the last applied event -- NOT wall-clock ingestion time. First component of the reconciliation watermark. Defining it as provider effective time (a) makes the state a pure function of the event set, so the same events replayed in any order at any later date rebuild a byte-identical state, and (b) makes the strictly-greater-than admission test well-founded. A wall-clock updated_at would silently admit an out-of-order older event, because it always advances. |
 
+## entropy_reduction_score
+
+> Measures expected uncertainty reduction from a bounded observation action.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `action_id` | `string` | true | Required action_id for this bounded planner contract. |
+| `prior_entropy` | `string` | true | Required prior_entropy for deterministic planner evaluation. |
+| `expected_posterior_entropy` | `string` | true | Required expected_posterior_entropy preserving evidence and falsifiability. |
+
 ## environment_identity
 
 > Binds paid workload execution to an immutable production environment identity.
@@ -1035,6 +1912,17 @@
 | `region` | `string` | true | Target deployment region. |
 | `configuration_hash` | `string` | true | Canonical configuration digest. |
 
+## environment_signal_observation
+
+> Normalizes deployment-environment evidence without human polling.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `environment_id` | `string` | true | Stable environment identity. |
+| `signal_type` | `string` | true | Normalized environment signal type. |
+| `signal_digest` | `string` | true | Immutable environment signal digest. |
+| `observed_at` | `datetime` | true | Timestamp environment signal was observed. |
+
 ## error_budget_state
 
 > Captures the exact remaining error budget that governs paid-service release policy.
@@ -1055,6 +1943,16 @@
 | `name` | `string` | true | Human-readable log name. |
 | `description` | `string` | false | Optional free-text description of this log. |
 
+## event_triggered_planning
+
+> Creates a bounded planning episode from an admitted world event.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Required event_id for this bounded planner contract. |
+| `world_state_hash` | `string` | true | Required world_state_hash for deterministic planner evaluation. |
+| `episode_id` | `string` | true | Required episode_id preserving evidence and falsifiability. |
+
 ## event_type
 
 > A declared OCEL event type and its attribute schema.
@@ -1074,6 +1972,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `observed_at` | `datetime` | true | UTC instant at which the subject evidence was observed. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## exact_subject_binding
+
+> Binds every plan to one immutable repository/ref/SHA subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Required subject_id for this bounded planner contract. |
+| `subject_sha` | `string` | true | Required subject_sha for deterministic planner evaluation. |
+| `binding_hash` | `string` | true | Required binding_hash preserving evidence and falsifiability. |
 
 ## exception_authority
 
@@ -1176,6 +2084,27 @@
 | `approval_chain_id` | `string` | true | Required funding approval chain input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## generated_output_ownership_observation
+
+> Classifies a path as generated or source-owned using its explicit provenance marker.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `output_path` | `string` | true | Observed repository path. |
+| `ownership_marker` | `string` | true | Observed provenance marker. |
+| `source_input_digest` | `string` | true | Digest of canonical inputs that own the output. |
+| `standing` | `string` | true | Machine-readable ownership standing. |
+
+## generated_source_route
+
+> Routes generated-projection defects to canonical semantic source or an independent rail.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `projection_id` | `string` | true | Required projection_id for this bounded planner contract. |
+| `source_coordinate` | `string` | true | Required source_coordinate for deterministic planner evaluation. |
+| `route` | `string` | true | Required route preserving evidence and falsifiability. |
+
 ## heuristic_arc
 
 > One dependency-scored candidate arc considered during heuristic-net discovery.
@@ -1185,6 +2114,16 @@
 | `source_activity` | `string` | true | The candidate arc source activity. |
 | `target_activity` | `string` | true | The candidate arc target activity. |
 | `dependency_measure` | `float` | true | The computed dependency/confidence score for this candidate arc. |
+
+## immutable_pack_selection
+
+> Selects a marketplace pack only by exact immutable commit SHA.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `pack_id` | `string` | true | Required pack_id for this bounded planner contract. |
+| `pack_sha` | `string` | true | Required pack_sha for deterministic planner evaluation. |
+| `selection_hash` | `string` | true | Required selection_hash preserving evidence and falsifiability. |
 
 ## implementation_fee_admission
 
@@ -1236,6 +2175,17 @@
 | `opportunity_id` | `string` | true | Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval. |
 | `indemnity_scope_id` | `string` | true | Required indemnity scope admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## information_partition_observation
+
+> Partitions a state vector by a decision-relevant information key.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `partition_id` | `string` | true | Stable information partition identity. |
+| `state_vector_id` | `string` | true | Source state-vector identity. |
+| `partition_key` | `string` | true | Decision-relevant partition key. |
+| `information_digest` | `string` | true | Digest of partition contents. |
 
 ## insurance_requirement
 
@@ -1289,6 +2239,16 @@
 | `billing_account_id` | `string` | true | Bill-to account subject. |
 | `cadence` | `atom` | true | Invoice cadence. |
 | `next_invoice_at` | `datetime` | true | Next scheduled invoice instant. |
+
+## irreversibility_budget
+
+> Limits irreversible commitments within one bounded planning episode.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `episode_id` | `string` | true | Required episode_id for this bounded planner contract. |
+| `budget` | `string` | true | Required budget for deterministic planner evaluation. |
+| `consumed` | `string` | true | Required consumed preserving evidence and falsifiability. |
 
 ## k8s_object_ref
 
@@ -1361,6 +2321,39 @@
 | `case_id` | `string` | true | Identifier of the case this trace belongs to. |
 | `activity_sequence` | `list_string` | true | Ordered list of activity names observed for this case. |
 
+## machine_actionable_delta
+
+> Emits the compressed state change and recommended next autonomic action.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Exact changed subject identity. |
+| `prior_state_digest` | `string` | true | Prior admitted state digest. |
+| `delta_digest` | `string` | true | Digest of machine-actionable delta. |
+| `recommended_action` | `string` | true | Bounded next action for the control plane. |
+
+## manufacture_receipt_presence_observation
+
+> Observes whether real manufacture emitted a receipt for the exact subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_sha` | `string` | true | Exact manufactured subject. |
+| `receipt_id` | `string` | true | Stable manufacture receipt identity. |
+| `receipt_digest` | `string` | true | Immutable receipt content digest. |
+| `observed_at` | `datetime` | true | Timestamp receipt was observed. |
+
+## manufacture_receipt_validity_observation
+
+> Records independent verification of receipt subject, digest, and verifier identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `receipt_digest` | `string` | true | Immutable receipt digest. |
+| `subject_sha` | `string` | true | Exact subject claimed by receipt. |
+| `verification_status` | `string` | true | Machine-readable verification result. |
+| `verifier_identity` | `string` | true | Exact verifier implementation identity. |
+
 ## master_service_agreement_state
 
 > Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
@@ -1370,6 +2363,26 @@
 | `opportunity_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
 | `agreement_id` | `string` | true | Required master service agreement state input; omission is an executable typed refusal, never an inferred approval. |
 | `agreement_state` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## mcts_plan_candidate
+
+> Represents a seeded Monte Carlo tree-search plan and its rollout evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `seed` | `string` | true | Required seed for deterministic planner evaluation. |
+| `rollout_hash` | `string` | true | Required rollout_hash preserving evidence and falsifiability. |
+
+## meta_router
+
+> Selects a planner from a portfolio using observed problem characteristics.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `portfolio_id` | `string` | true | Required portfolio_id for this bounded planner contract. |
+| `observation_hash` | `string` | true | Required observation_hash for deterministic planner evaluation. |
+| `selected_planner_id` | `string` | true | Required selected_planner_id preserving evidence and falsifiability. |
 
 ## metered_usage_sample
 
@@ -1436,6 +2449,26 @@
 | `mutable_reference` | `string` | true | Mutable reference observed and refused before artifact admission. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## mutual_information_score
+
+> Ranks observations by expected mutual information with decision-relevant state.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `observation_id` | `string` | true | Required observation_id for this bounded planner contract. |
+| `target_state_id` | `string` | true | Required target_state_id for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
+## next_lawful_actuation
+
+> Selects the next bounded action from scored admissible options without human micro-scheduling.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `episode_id` | `string` | true | Required episode_id for this bounded planner contract. |
+| `selected_action_id` | `string` | true | Required selected_action_id for deterministic planner evaluation. |
+| `selection_receipt_hash` | `string` | true | Required selection_receipt_hash preserving evidence and falsifiability. |
+
 ## node_failover_event
 
 > Records the exact node failure and observed failover consequence for a paid service.
@@ -1445,6 +2478,27 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `node_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `failover_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## normalized_event_observation
+
+> Normalizes a source event into stable identity, type, and event time.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `source_system` | `string` | true | Originating system identity. |
+| `event_id` | `string` | true | Stable source event identity. |
+| `event_type` | `string` | true | Normalized event type. |
+| `event_time` | `datetime` | true | Normalized event timestamp. |
+
+## novelty_score
+
+> Rewards options that expand the lawful reachable capability frontier.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Required option_id for this bounded planner contract. |
+| `reference_set_hash` | `string` | true | Required reference_set_hash for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
 
 ## object_attribute_change
 
@@ -1490,6 +2544,50 @@
 | `resolution_status` | `string` | true | Observed resolution status. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## observation_deduplication_decision
+
+> Records an executable accept-or-duplicate decision for an observation digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Observed event identity. |
+| `event_digest` | `string` | true | Canonical event digest. |
+| `dedup_key` | `string` | true | Deterministic deduplication key. |
+| `decision` | `string` | true | Machine-readable deduplication decision. |
+
+## observation_entropy_estimate
+
+> Records entropy of a state vector using an explicit estimation method.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `state_vector_id` | `string` | true | Measured state-vector identity. |
+| `entropy_method` | `string` | true | Named entropy estimation method. |
+| `entropy_value` | `float` | true | Observed entropy estimate. |
+| `observed_at` | `datetime` | true | Timestamp of entropy estimation. |
+
+## observation_freshness_assessment
+
+> Evaluates an observation against an explicit freshness deadline.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `observation_id` | `string` | true | Stable observation identity. |
+| `observed_at` | `datetime` | true | Time observation was produced. |
+| `freshness_deadline` | `datetime` | true | Latest acceptable observation time. |
+| `freshness_status` | `string` | true | Machine-readable freshness standing. |
+
+## observation_staleness_invalidation
+
+> Invalidates stale state and declares whether replacement evidence is required.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `observation_id` | `string` | true | Stale observation identity. |
+| `invalidated_at` | `datetime` | true | Time invalidation became effective. |
+| `staleness_reason` | `string` | true | Typed reason for invalidation. |
+| `replacement_required` | `boolean` | true | Whether new evidence must be acquired. |
 
 ## oc_declare_constraint
 
@@ -1596,6 +2694,26 @@
 | `minimum_value` | `string` | true | Required opportunity value range input; omission is an executable typed refusal, never an inferred approval. |
 | `maximum_value` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## optimization_plan_candidate
+
+> Represents an optimization-derived plan with objective and solver receipt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `objective_id` | `string` | true | Required objective_id for deterministic planner evaluation. |
+| `solver_receipt_hash` | `string` | true | Required solver_receipt_hash preserving evidence and falsifiability. |
+
+## option_generation
+
+> Generates a reversible DfCM option set without premature selection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `state_id` | `string` | true | Required state_id for this bounded planner contract. |
+| `generator_id` | `string` | true | Required generator_id for deterministic planner evaluation. |
+| `option_set_hash` | `string` | true | Required option_set_hash preserving evidence and falsifiability. |
+
 ## order_form_admission
 
 > Admits the exact order form that expresses the buyer's priced scope and authorized terms.
@@ -1605,6 +2723,26 @@
 | `opportunity_id` | `string` | true | Required order form admission input; omission is an executable typed refusal, never an inferred approval. |
 | `order_form_id` | `string` | true | Required order form admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## orthogonality_score
+
+> Measures semantic independence between candidate work items.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `left_option_id` | `string` | true | Required left_option_id for this bounded planner contract. |
+| `right_option_id` | `string` | true | Required right_option_id for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
+## output_ownership_gate
+
+> Refuses manufacture promotion until every output path has admitted ownership.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Required subject_id for this bounded planner contract. |
+| `ownership_manifest_hash` | `string` | true | Required ownership_manifest_hash for deterministic planner evaluation. |
+| `standing` | `string` | true | Required standing preserving evidence and falsifiability. |
 
 ## overage_policy
 
@@ -1617,6 +2755,17 @@
 | `unit_price` | `float` | true | Price per overage unit. |
 | `behavior` | `atom` | true | Overage enforcement behavior. |
 
+## package_release_observation
+
+> Observes a package version together with its immutable distribution digest.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `package_id` | `string` | true | Stable package identity. |
+| `version` | `string` | true | Observed published version. |
+| `immutable_digest` | `string` | true | Immutable package content digest. |
+| `observed_at` | `datetime` | true | Timestamp of package observation. |
+
 ## paid_workload_outcome_receipt
 
 > Produces the terminal receipt proving a paid workload delivered its admitted business outcome.
@@ -1626,6 +2775,16 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `workload_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `outcome_receipt_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## pareto_filter
+
+> Removes strictly dominated options while preserving incomparable alternatives.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_set_id` | `string` | true | Required option_set_id for this bounded planner contract. |
+| `objective_set_hash` | `string` | true | Required objective_set_hash for deterministic planner evaluation. |
+| `pareto_set_hash` | `string` | true | Required pareto_set_hash preserving evidence and falsifiability. |
 
 ## path_schema
 
@@ -1708,6 +2867,56 @@
 | `transition_id` | `string` | true | Unique transition identifier. |
 | `label` | `string` | false | Optional human-readable/activity label (silent transition if absent). |
 
+## plan_lineage
+
+> Tracks derivation, repair, and supersession across plan generations.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `parent_plan_id` | `string` | true | Required parent_plan_id for deterministic planner evaluation. |
+| `lineage_hash` | `string` | true | Required lineage_hash preserving evidence and falsifiability. |
+
+## plan_memory
+
+> Stores reusable plan evidence without converting historical success into current authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `evidence_hash` | `string` | true | Required evidence_hash for deterministic planner evaluation. |
+| `memory_hash` | `string` | true | Required memory_hash preserving evidence and falsifiability. |
+
+## planner_capability_profile
+
+> Declares the problem features and guarantees supported by one planner.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `planner_id` | `string` | true | Required planner_id for this bounded planner contract. |
+| `capability_set` | `string` | true | Required capability_set for deterministic planner evaluation. |
+| `profile_hash` | `string` | true | Required profile_hash preserving evidence and falsifiability. |
+
+## planner_identity
+
+> Separates planner identity from policy, role, agent, and authority identities.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `planner_id` | `string` | true | Required planner_id for this bounded planner contract. |
+| `planner_kind` | `string` | true | Required planner_kind for deterministic planner evaluation. |
+| `identity_hash` | `string` | true | Required identity_hash preserving evidence and falsifiability. |
+
+## planner_portfolio
+
+> Preserves a diverse set of planners for one bounded planning episode.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `portfolio_id` | `string` | true | Required portfolio_id for this bounded planner contract. |
+| `planner_ids` | `string` | true | Required planner_ids for deterministic planner evaluation. |
+| `diversity_hash` | `string` | true | Required diversity_hash preserving evidence and falsifiability. |
+
 ## planning_action
 
 > One PDDL-style planning action with its preconditions and effects.
@@ -1775,6 +2984,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## policy_binding
+
+> Binds one planner to parameters, objective, observations, and action projection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `policy_id` | `string` | true | Required policy_id for this bounded planner contract. |
+| `planner_id` | `string` | true | Required planner_id for deterministic planner evaluation. |
+| `policy_hash` | `string` | true | Required policy_hash preserving evidence and falsifiability. |
+
 ## policy_decision
 
 > One admission/authority policy decision recorded for an attempted action.
@@ -1824,6 +3043,26 @@
 | --- | --- | --- | --- |
 | `from_index` | `integer` | true | Index into the parent PartialOrderNode's children that must happen first. |
 | `to_index` | `integer` | true | Index into the parent PartialOrderNode's children that must happen after from_index. |
+
+## powl_projection
+
+> Binds a plan candidate to an exact POWL process-plan projection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `powl_hash` | `string` | true | Required powl_hash for deterministic planner evaluation. |
+| `projection_receipt_hash` | `string` | true | Required projection_receipt_hash preserving evidence and falsifiability. |
+
+## ppddl_projection
+
+> Binds a plan candidate to an exact PPDDL problem/domain projection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `domain_hash` | `string` | true | Required domain_hash for deterministic planner evaluation. |
+| `problem_hash` | `string` | true | Required problem_hash preserving evidence and falsifiability. |
 
 ## pricing_basis_contract
 
@@ -1953,6 +3192,16 @@
 | `exit_gate_id` | `string` | true | Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## propagation_score
+
+> Scores downstream consequences across the dependency and capability graph.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Required option_id for this bounded planner contract. |
+| `graph_hash` | `string` | true | Required graph_hash for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
 ## provenance_binding_evidence
 
 > Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
@@ -1963,6 +3212,27 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `builder_identity` | `string` | true | Immutable identity of the builder that emitted the provenance. |
 | `observed_result` | `atom` | true | Observed verification consequence: verified or refused. |
+
+## provenance_binding_observation
+
+> Binds observation, source capsule, and evidence digest into one provenance fact.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `observation_id` | `string` | true | Stable observation identity. |
+| `source_capsule_digest` | `string` | true | Exact source capsule digest. |
+| `evidence_digest` | `string` | true | Immutable supporting evidence digest. |
+| `binding_status` | `string` | true | Machine-readable provenance standing. |
+
+## psro_population
+
+> Maintains a population of policies and response oracles for meta-routing.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `population_id` | `string` | true | Required population_id for this bounded planner contract. |
+| `policy_ids` | `string` | true | Required policy_ids for deterministic planner evaluation. |
+| `population_hash` | `string` | true | Required population_hash preserving evidence and falsifiability. |
 
 ## purchase_order_binding
 
@@ -2027,6 +3297,16 @@
 | `committed_amount` | `float` | true | Phase commitment amount. |
 | `effective_at` | `datetime` | true | Phase activation instant. |
 
+## reachability_analysis
+
+> Determines whether an admitted goal remains reachable from current state.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `state_id` | `string` | true | Required state_id for this bounded planner contract. |
+| `goal_id` | `string` | true | Required goal_id for deterministic planner evaluation. |
+| `reachability_proof_hash` | `string` | true | Required reachability_proof_hash preserving evidence and falsifiability. |
+
 ## receipt_replay_evidence
 
 > Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt.
@@ -2047,6 +3327,16 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `receipt_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `replay_request_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## receipt_required_gate
+
+> Prevents any actuation candidate from becoming selectable without a verifiable receipt plan.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `action_id` | `string` | true | Required action_id for this bounded planner contract. |
+| `receipt_contract_id` | `string` | true | Required receipt_contract_id for deterministic planner evaluation. |
+| `standing` | `string` | true | Required standing preserving evidence and falsifiability. |
 
 ## receipt_signature
 
@@ -2109,6 +3399,17 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `incident_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `recovery_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## refusal_boundary_observation
+
+> Emits REFUSED with exact authority boundary and evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Exact refused subject identity. |
+| `refusal_code` | `string` | true | Typed refusal reason. |
+| `authority_boundary` | `string` | true | Boundary that denied the action. |
+| `evidence_digest` | `string` | true | Digest supporting refusal. |
 
 ## remediation_sla_evidence
 
@@ -2188,6 +3489,50 @@
 | `environment_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## repository_ancestry_observation
+
+> Records mechanically observed ancestry between repository commits so containment never requires human reconstruction.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `ancestor_sha` | `string` | true | Candidate ancestor commit. |
+| `descendant_sha` | `string` | true | Candidate descendant commit. |
+| `relation` | `string` | true | Observed ancestry relation. |
+| `evidence_digest` | `string` | true | Digest of the mechanical ancestry evidence. |
+
+## repository_default_branch_observation
+
+> Observes a repository default branch and its exact head so autonomic state can invalidate on branch drift.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `repository_id` | `string` | true | Stable repository identity observed by the sensor. |
+| `default_branch` | `string` | true | Observed default branch name. |
+| `head_sha` | `string` | true | Exact commit at the observed default-branch head. |
+| `observed_at` | `datetime` | true | Timestamp bounding the freshness of this observation. |
+
+## repository_exact_head_observation
+
+> Binds a repository observation to an exact branch head and prior head for autonomous change detection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `repository_id` | `string` | true | Stable repository identity. |
+| `branch_name` | `string` | true | Observed branch name. |
+| `head_sha` | `string` | true | Exact observed head commit. |
+| `previous_head_sha` | `string` | true | Previously admitted head used to detect change. |
+
+## repository_worktree_state_observation
+
+> Captures caller-local repository worktree state and dirty-surface cardinality before manufacture.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `repository_id` | `string` | true | Stable repository identity. |
+| `worktree_hash` | `string` | true | Digest of tracked caller-local worktree state. |
+| `dirty_path_count` | `integer` | true | Number of changed tracked paths. |
+| `observed_at` | `datetime` | true | Timestamp of worktree observation. |
+
 ## reproducible_build_evidence
 
 > Executable reproducibility evidence binding an exact subject to the independently reproduced build digest.
@@ -2210,6 +3555,16 @@
 | `sku` | `string` | true | Authorized sellable SKU. |
 | `status` | `atom` | true | Authorization standing. |
 
+## reserve_work_promotion
+
+> Automatically promotes the highest-value lawful reserve when primary work blocks.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `blocked_work_id` | `string` | true | Required blocked_work_id for this bounded planner contract. |
+| `reserve_set_hash` | `string` | true | Required reserve_set_hash for deterministic planner evaluation. |
+| `promoted_work_id` | `string` | true | Required promoted_work_id preserving evidence and falsifiability. |
+
 ## residency_evidence
 
 > Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.
@@ -2230,6 +3585,16 @@
 | `resource_id` | `string` | true | Identifier of the assigned resource. |
 | `activity` | `string` | true | The activity the resource was assigned to. |
 | `event_id` | `string` | true | Identifier of the specific event occurrence. |
+
+## resource_capacity_plan
+
+> Allocates finite compute, time, and concurrency capacity across lawful options.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `episode_id` | `string` | true | Required episode_id for this bounded planner contract. |
+| `resource_pool_hash` | `string` | true | Required resource_pool_hash for deterministic planner evaluation. |
+| `allocation_hash` | `string` | true | Required allocation_hash preserving evidence and falsifiability. |
 
 ## retention_policy_evidence
 
@@ -2274,6 +3639,16 @@
 | `schedule_id` | `string` | true | Required revenue schedule assumption input; omission is an executable typed refusal, never an inferred approval. |
 | `assumption_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## reversibility_weight
+
+> Weights reversible actions above irreversible ones until evidence justifies commitment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `action_id` | `string` | true | Required action_id for this bounded planner contract. |
+| `rollback_id` | `string` | true | Required rollback_id for deterministic planner evaluation. |
+| `weight` | `string` | true | Required weight preserving evidence and falsifiability. |
+
 ## rfp_response_evidence
 
 > Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
@@ -2284,6 +3659,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `answer_set_hash` | `string` | true | Digest of the answer set derived from verified subject facts. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## role_compatibility
+
+> Evaluates whether a policy is lawful for an assigned role in the current world.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `role_id` | `string` | true | Required role_id for this bounded planner contract. |
+| `policy_id` | `string` | true | Required policy_id for deterministic planner evaluation. |
+| `compatibility` | `string` | true | Required compatibility preserving evidence and falsifiability. |
 
 ## rollback_checkpoint
 
@@ -2328,6 +3713,17 @@
 | `upgrade_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `plan_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## runtime_health_observation
+
+> Captures runtime health state with exact supporting evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `runtime_id` | `string` | true | Stable runtime identity. |
+| `health_state` | `string` | true | Observed runtime health classification. |
+| `evidence_digest` | `string` | true | Digest of runtime health evidence. |
+| `observed_at` | `datetime` | true | Timestamp health was observed. |
+
 ## runtime_policy_decision
 
 > Records an explicit runtime policy decision before paid workload actuation.
@@ -2358,6 +3754,27 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `component_count` | `integer` | true | Observed number of components in the parsed SBOM inventory. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## second_pass_byte_identity_observation
+
+> Proves the second manufacture pass produced byte-identical owned outputs.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `first_tree_digest` | `string` | true | Digest after first manufacture pass. |
+| `second_tree_digest` | `string` | true | Digest after second manufacture pass. |
+| `byte_identity` | `boolean` | true | Whether the output trees are byte-identical. |
+| `receipt_digest` | `string` | true | Receipt binding the replay result. |
+
+## second_run_identity_objective
+
+> Makes byte-identical second manufacture a first-class planning objective.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Required subject_id for this bounded planner contract. |
+| `first_tree_hash` | `string` | true | Required first_tree_hash for deterministic planner evaluation. |
+| `second_tree_hash` | `string` | true | Required second_tree_hash preserving evidence and falsifiability. |
 
 ## secret_boundary_evidence
 
@@ -2401,6 +3818,17 @@
 | `control_coverage` | `float` | true | Fraction of required controls with accepted evidence. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## semantic_drift_observation
+
+> Classifies semantic change between prior and current canonical digests.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Observed semantic subject. |
+| `prior_semantic_digest` | `string` | true | Prior canonical semantic digest. |
+| `current_semantic_digest` | `string` | true | Current canonical semantic digest. |
+| `drift_class` | `string` | true | Machine-readable semantic drift class. |
 
 ## service_credit
 
@@ -2555,6 +3983,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## stale_plan_refusal
+
+> Refuses execution when subject, pack, policy, or world identity has drifted.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
+| `admitted_preimage_hash` | `string` | true | Required admitted_preimage_hash for deterministic planner evaluation. |
+| `observed_preimage_hash` | `string` | true | Required observed_preimage_hash preserving evidence and falsifiability. |
+
 ## stale_receipt_refusal
 
 > Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window.
@@ -2575,6 +4013,39 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `stale_sha` | `string` | true | Stale subject SHA observed and refused by exact-head policy. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## standing_state_observation
+
+> Emits scoped ALIVE, PARTIAL_ALIVE, BLOCKED, UNKNOWN, or BUILD_BROKEN state.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_id` | `string` | true | Exact standing subject identity. |
+| `standing` | `string` | true | Machine-readable standing vocabulary value. |
+| `evidence_digest` | `string` | true | Digest supporting the standing. |
+| `observed_at` | `datetime` | true | Timestamp standing was observed. |
+
+## submodule_lock_observation
+
+> Compares an exact gitlink with its declared dependency lock to expose submodule drift automatically.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `submodule_path` | `string` | true | Caller-local submodule path. |
+| `gitlink_sha` | `string` | true | Exact gitlink commit. |
+| `lock_sha` | `string` | true | Declared immutable lock commit. |
+| `observed_at` | `datetime` | true | Timestamp of comparison. |
+
+## submodule_registration_observation
+
+> Observes whether every gitlink has repository registration metadata before autonomous checkout.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `submodule_path` | `string` | true | Observed gitlink path. |
+| `registration_state` | `string` | true | Registration standing for the gitlink. |
+| `repository_url` | `string` | true | Resolved immutable repository source. |
+| `evidence_digest` | `string` | true | Digest of registration evidence. |
 
 ## success_plan
 
@@ -2716,6 +4187,17 @@
 | `blocker_id` | `string` | true | Required technical blocker input; omission is an executable typed refusal, never an inferred approval. |
 | `refusal_code` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## temporal_order_observation
+
+> Encodes observed ordering between two observations and its evidence basis.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `earlier_observation_id` | `string` | true | Earlier observation identity. |
+| `later_observation_id` | `string` | true | Later observation identity. |
+| `ordering_basis` | `string` | true | Clock or sequence basis for ordering. |
+| `evidence_digest` | `string` | true | Digest of temporal evidence. |
+
 ## tenant_account
 
 > Commercial tenant bound to account, region, and edition.
@@ -2821,6 +4303,17 @@
 | `toolchain_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## toolchain_identity_observation
+
+> Observes exact tool name, version, and executable bytes used for validation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tool_name` | `string` | true | Observed tool identity. |
+| `tool_version` | `string` | true | Observed tool version. |
+| `executable_digest` | `string` | true | Digest of executed tool bytes. |
+| `observed_at` | `datetime` | true | Timestamp of toolchain observation. |
+
 ## training_readiness
 
 > Observed workforce training readiness for production adoption.
@@ -2864,6 +4357,27 @@
 | `target_type` | `string` | true | The edge target type name. |
 | `qualifier` | `string` | true | The relationship qualifier/role name for this edge. |
 | `direction` | `atom` | true | One of: e2o \| o2o. |
+
+## uncertainty_aware_selection
+
+> Selects only when confidence and downside bounds satisfy explicit values.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_set_id` | `string` | true | Required option_set_id for this bounded planner contract. |
+| `uncertainty_model_hash` | `string` | true | Required uncertainty_model_hash for deterministic planner evaluation. |
+| `selected_option_id` | `string` | true | Required selected_option_id preserving evidence and falsifiability. |
+
+## uncertainty_observation
+
+> Represents typed UNKNOWN uncertainty instead of manufacturing false certainty.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `observation_id` | `string` | true | Observation with uncertainty. |
+| `uncertainty_kind` | `string` | true | Typed uncertainty classification. |
+| `confidence_basis` | `string` | true | Basis for any confidence estimate. |
+| `standing` | `string` | true | Machine-readable UNKNOWN-compatible standing. |
 
 ## unsupported_capability_evidence
 
@@ -2944,6 +4458,28 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## validation_capsule_drift_observation
+
+> Compares expected and observed capsule digests and emits typed drift.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `expected_digest` | `string` | true | Admitted capsule digest. |
+| `observed_digest` | `string` | true | Currently resolved capsule digest. |
+| `drift_status` | `string` | true | Machine-readable capsule drift result. |
+| `observed_at` | `datetime` | true | Timestamp of digest comparison. |
+
+## validation_capsule_identity_observation
+
+> Binds source capsule, validation pack, execution mode, toolchain, and immutable image.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `capsule_repository` | `string` | true | Capsule source repository. |
+| `capsule_sha` | `string` | true | Exact capsule source commit. |
+| `execution_mode` | `string` | true | Observed capsule execution mode. |
+| `image_digest` | `string` | true | Immutable platform image digest. |
+
 ## value_baseline
 
 > Measured pre-adoption business baseline for ROI comparison.
@@ -2966,6 +4502,27 @@
 | `annual_value` | `float` | true | Observed annualized value in account currency. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## value_of_information_estimate
+
+> Estimates expected information gain and acquisition cost for a pending decision.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `decision_id` | `string` | true | Decision requiring additional information. |
+| `evidence_candidate_id` | `string` | true | Candidate evidence acquisition. |
+| `expected_information_gain` | `float` | true | Expected reduction in uncertainty. |
+| `cost_basis` | `string` | true | Evidence acquisition cost basis. |
+
+## value_of_information_score
+
+> Scores the expected value of acquiring missing information before selection.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Required option_id for this bounded planner contract. |
+| `observation_id` | `string` | true | Required observation_id for deterministic planner evaluation. |
+| `score` | `string` | true | Required score preserving evidence and falsifiability. |
 
 ## value_realization
 
@@ -3041,6 +4598,49 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `vulnerability_count` | `integer` | true | Observed count of admitted vulnerability findings. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## wip_limit_gate
+
+> Refuses selections that would exceed the admitted work-in-process ceiling.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `episode_id` | `string` | true | Required episode_id for this bounded planner contract. |
+| `wip_limit` | `string` | true | Required wip_limit for deterministic planner evaluation. |
+| `standing` | `string` | true | Required standing preserving evidence and falsifiability. |
+
+## workflow_definition_digest_observation
+
+> Binds a workflow definition to exact bytes and repository subject before trusting its runs.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `workflow_path` | `string` | true | Workflow source path. |
+| `definition_sha256` | `string` | true | Digest of exact workflow bytes. |
+| `source_sha` | `string` | true | Repository commit containing the workflow. |
+| `observed_at` | `datetime` | true | Timestamp of workflow observation. |
+
+## workflow_job_state_observation
+
+> Observes a workflow job, runner identity, and conclusion inside an exact run.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `job_id` | `string` | true | Stable workflow-job identity. |
+| `run_id` | `string` | true | Owning workflow-run identity. |
+| `runner_identity` | `string` | true | Observed runner or capsule identity. |
+| `conclusion` | `string` | true | Observed terminal job conclusion. |
+
+## workflow_run_state_observation
+
+> Observes a workflow run against its exact head and terminal conclusion.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `run_id` | `string` | true | Stable workflow-run identity. |
+| `workflow_id` | `string` | true | Stable workflow-definition identity. |
+| `head_sha` | `string` | true | Exact subject commit executed. |
+| `conclusion` | `string` | true | Observed terminal run conclusion. |
 
 ## workload_backpressure_signal
 

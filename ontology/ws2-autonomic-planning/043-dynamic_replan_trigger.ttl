@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-043 — dynamic_replan_trigger
+b4p:dynamic_replan_trigger_rt a bpm:RecordType ;
+    bpm:recordName "dynamic_replan_trigger" ;
+    bpm:recordDoc "Triggers replanning when observed state invalidates a plan assumption." ;
+    bpm:hasField b4p:dynamic_replan_trigger_plan_id_f,
+                 b4p:dynamic_replan_trigger_event_id_f,
+                 b4p:dynamic_replan_trigger_trigger_hash_f .
+
+b4p:dynamic_replan_trigger_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required plan_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:dynamic_replan_trigger_event_id_f a bpm:Field ;
+    bpm:fieldName "event_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required event_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:dynamic_replan_trigger_trigger_hash_f a bpm:Field ;
+    bpm:fieldName "trigger_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required trigger_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-010 — planner_identity
+b4p:planner_identity_rt a bpm:RecordType ;
+    bpm:recordName "planner_identity" ;
+    bpm:recordDoc "Separates planner identity from policy, role, agent, and authority identities." ;
+    bpm:hasField b4p:planner_identity_planner_id_f,
+                 b4p:planner_identity_planner_kind_f,
+                 b4p:planner_identity_identity_hash_f .
+
+b4p:planner_identity_planner_id_f a bpm:Field ;
+    bpm:fieldName "planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required planner_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_identity_planner_kind_f a bpm:Field ;
+    bpm:fieldName "planner_kind" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required planner_kind for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_identity_identity_hash_f a bpm:Field ;
+    bpm:fieldName "identity_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required identity_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

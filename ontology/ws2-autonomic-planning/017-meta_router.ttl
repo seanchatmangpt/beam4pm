@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-017 — meta_router
+b4p:meta_router_rt a bpm:RecordType ;
+    bpm:recordName "meta_router" ;
+    bpm:recordDoc "Selects a planner from a portfolio using observed problem characteristics." ;
+    bpm:hasField b4p:meta_router_portfolio_id_f,
+                 b4p:meta_router_observation_hash_f,
+                 b4p:meta_router_selected_planner_id_f .
+
+b4p:meta_router_portfolio_id_f a bpm:Field ;
+    bpm:fieldName "portfolio_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required portfolio_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:meta_router_observation_hash_f a bpm:Field ;
+    bpm:fieldName "observation_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required observation_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:meta_router_selected_planner_id_f a bpm:Field ;
+    bpm:fieldName "selected_planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required selected_planner_id preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

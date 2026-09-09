@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-016 — planner_capability_profile
+b4p:planner_capability_profile_rt a bpm:RecordType ;
+    bpm:recordName "planner_capability_profile" ;
+    bpm:recordDoc "Declares the problem features and guarantees supported by one planner." ;
+    bpm:hasField b4p:planner_capability_profile_planner_id_f,
+                 b4p:planner_capability_profile_capability_set_f,
+                 b4p:planner_capability_profile_profile_hash_f .
+
+b4p:planner_capability_profile_planner_id_f a bpm:Field ;
+    bpm:fieldName "planner_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required planner_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_capability_profile_capability_set_f a bpm:Field ;
+    bpm:fieldName "capability_set" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required capability_set for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_capability_profile_profile_hash_f a bpm:Field ;
+    bpm:fieldName "profile_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required profile_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
