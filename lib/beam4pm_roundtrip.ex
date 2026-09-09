@@ -4757,7 +4757,8 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.DfgEdge.new(%{
       source_activity: "sample_source_activity",
       target_activity: "sample_target_activity",
-      frequency: 42
+      frequency: 42,
+      edge_weight: 3.5
     })
   end
 
@@ -4765,7 +4766,8 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.DfgEdge.new(%{
       source_activity: "sample_source_activity",
       target_activity: "sample_target_activity",
-      frequency: 42
+      frequency: 42,
+      edge_weight: 3.5
     })
   end
 

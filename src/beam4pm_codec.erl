@@ -2222,7 +2222,8 @@ to_map(R) when element(1, R) =:= dfg_edge ->
     pairs_to_map([
         {<<"source_activity">>, plain, element(2, R)},
         {<<"target_activity">>, plain, element(3, R)},
-        {<<"frequency">>, plain, element(4, R)}
+        {<<"frequency">>, plain, element(4, R)},
+        {<<"edge_weight">>, plain, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= disaster_recovery_evidence ->
     pairs_to_map([
@@ -6388,7 +6389,8 @@ from_map(dfg_edge, Map) when is_map(Map) ->
     beam4pm_types:new_dfg_edge(take_known(Map, [
         {<<"source_activity">>, source_activity, plain},
         {<<"target_activity">>, target_activity, plain},
-        {<<"frequency">>, frequency, plain}
+        {<<"frequency">>, frequency, plain},
+        {<<"edge_weight">>, edge_weight, plain}
     ]));
 from_map(disaster_recovery_evidence, Map) when is_map(Map) ->
     beam4pm_types:new_disaster_recovery_evidence(take_known(Map, [

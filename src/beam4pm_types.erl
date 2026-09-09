@@ -9247,7 +9247,8 @@ new_developer_readiness(Map) ->
 -record(dfg_edge, {
     source_activity :: binary(), %% source_activity: The preceding activity name.
     target_activity :: binary(), %% target_activity: The following activity name.
-    frequency :: integer() %% frequency: Observed occurrence count of this edge.
+    frequency :: integer(), %% frequency: Observed occurrence count of this edge.
+    edge_weight :: float() %% edge_weight: Structural weight of this edge for what-if simulation (B4PM-1702).
 }).
 
 -type dfg_edge() :: #dfg_edge{}.
@@ -9263,11 +9264,16 @@ new_dfg_edge(Map) ->
     case maps:is_key(frequency, Map) of
         false -> {error, {missing_field, frequency}};
         true ->
+    case maps:is_key(edge_weight, Map) of
+        false -> {error, {missing_field, edge_weight}};
+        true ->
     {ok, #dfg_edge{
         source_activity = maps:get(source_activity, Map, undefined),
         target_activity = maps:get(target_activity, Map, undefined),
-        frequency = maps:get(frequency, Map, undefined)
+        frequency = maps:get(frequency, Map, undefined),
+        edge_weight = maps:get(edge_weight, Map, undefined)
     }}
+    end
     end
     end
     end.

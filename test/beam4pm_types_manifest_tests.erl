@@ -705,7 +705,7 @@ developer_readiness_fields_test() ->
     ?assertEqual([developer_readiness_id, account_id, developer_readiness_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(developer_readiness)).
 
 dfg_edge_fields_test() ->
-    ?assertEqual([source_activity, target_activity, frequency], beam4pm_types_manifest:fields(dfg_edge)).
+    ?assertEqual([source_activity, target_activity, frequency, edge_weight], beam4pm_types_manifest:fields(dfg_edge)).
 
 disaster_recovery_evidence_fields_test() ->
     ?assertEqual([evidence_id, subject_sha, recovered_at, observed_result], beam4pm_types_manifest:fields(disaster_recovery_evidence)).

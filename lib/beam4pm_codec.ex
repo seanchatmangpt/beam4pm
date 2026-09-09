@@ -2086,7 +2086,8 @@ defmodule BeamPM.Codec do
     to_known_map([
       {"source_activity", r.source_activity, :passthrough},
       {"target_activity", r.target_activity, :passthrough},
-      {"frequency", r.frequency, :passthrough}
+      {"frequency", r.frequency, :passthrough},
+      {"edge_weight", r.edge_weight, :passthrough}
     ])
   end
 
@@ -8349,7 +8350,8 @@ defmodule BeamPM.Codec do
       [
         {"source_activity", :source_activity, :passthrough},
         {"target_activity", :target_activity, :passthrough},
-        {"frequency", :frequency, :passthrough}
+        {"frequency", :frequency, :passthrough},
+        {"edge_weight", :edge_weight, :passthrough}
       ],
       &BeamPM.Types.DfgEdge.new/1
     )

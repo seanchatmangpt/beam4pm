@@ -243,7 +243,7 @@ fields(dependency_inventory_evidence) -> [evidence_id, subject_sha, dependency_c
 fields(dependency_pin_observation) -> [dependency_id, declared_ref, resolved_sha, observed_at];
 fields(deployment_entitlement) -> [entitlement_id, tenant_id, profile_id, valid_until];
 fields(developer_readiness) -> [developer_readiness_id, account_id, developer_readiness_score, evidence_digest, observed_at];
-fields(dfg_edge) -> [source_activity, target_activity, frequency];
+fields(dfg_edge) -> [source_activity, target_activity, frequency, edge_weight];
 fields(disaster_recovery_evidence) -> [evidence_id, subject_sha, recovered_at, observed_result];
 fields(discount_schedule) -> [schedule_id, threshold, discount_percent, currency];
 fields(discovery_hypothesis) -> [discovery_hypothesis_id, account_id, expected_value, evidence_digest, observed_at];

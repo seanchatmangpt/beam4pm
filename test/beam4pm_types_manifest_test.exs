@@ -923,7 +923,7 @@ defmodule BeamPM.Types.ManifestTest do
   end
 
   test "fields/1 returns the ordered field-name list for dfg_edge" do
-    assert BeamPM.Types.Manifest.fields(:dfg_edge) == [:source_activity, :target_activity, :frequency]
+    assert BeamPM.Types.Manifest.fields(:dfg_edge) == [:source_activity, :target_activity, :frequency, :edge_weight]
   end
 
   test "fields/1 returns the ordered field-name list for disaster_recovery_evidence" do

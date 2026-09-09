@@ -12,6 +12,7 @@ defmodule BeamPM.Ash.Resources.DfgEdge do
     attribute :source_activity, :string, public?: true, allow_nil?: false
     attribute :target_activity, :string, public?: true, allow_nil?: false
     attribute :frequency, :integer, public?: true, allow_nil?: false
+    attribute :edge_weight, :float, public?: true, allow_nil?: false
   end
 
   actions do

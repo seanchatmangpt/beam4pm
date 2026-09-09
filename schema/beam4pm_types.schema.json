@@ -5775,9 +5775,13 @@
         "frequency": {
           "type": "integer",
           "description": "Observed occurrence count of this edge."
+        },
+        "edge_weight": {
+          "type": "number",
+          "description": "Structural weight of this edge for what-if simulation (B4PM-1702)."
         }
       },
-      "required": ["source_activity", "target_activity", "frequency"
+      "required": ["source_activity", "target_activity", "frequency", "edge_weight"
       ]
 
     },

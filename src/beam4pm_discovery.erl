@@ -49,7 +49,8 @@
 -export([
     dfg_edge_source_activity/1,
     dfg_edge_target_activity/1,
-    dfg_edge_frequency/1
+    dfg_edge_frequency/1,
+    dfg_edge_edge_weight/1
 ]).
 
 -export([
@@ -94,10 +95,11 @@ log_trace_case_id({ log_trace, Value, _ }) -> Value.
 log_trace_activity_sequence({ log_trace, _, Value }) -> Value.
 
 %% Positional accessors for #dfg_edge: the tuple pattern is generated from the
-%% admitted field_order rows (3 fields), never hand-numbered.
-dfg_edge_source_activity({ dfg_edge, Value, _, _ }) -> Value.
-dfg_edge_target_activity({ dfg_edge, _, Value, _ }) -> Value.
-dfg_edge_frequency({ dfg_edge, _, _, Value }) -> Value.
+%% admitted field_order rows (4 fields), never hand-numbered.
+dfg_edge_source_activity({ dfg_edge, Value, _, _, _ }) -> Value.
+dfg_edge_target_activity({ dfg_edge, _, Value, _, _ }) -> Value.
+dfg_edge_frequency({ dfg_edge, _, _, Value, _ }) -> Value.
+dfg_edge_edge_weight({ dfg_edge, _, _, _, Value }) -> Value.
 
 %% Positional accessors for #conformance_result: the tuple pattern is generated from the
 %% admitted field_order rows (3 fields), never hand-numbered.
@@ -184,7 +186,8 @@ dfg_from_traces(Traces) ->
             {ok, Edge} = beam4pm_types:new_dfg_edge(
                 #{source_activity => Source,
                   target_activity => Target,
-                  frequency => Frequency}),
+                  frequency => Frequency,
+                  edge_weight => Frequency * 1.0}),
             Edge
         end,
         lists:sort(maps:to_list(Counts))).

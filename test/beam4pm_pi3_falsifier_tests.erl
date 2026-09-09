@@ -10,7 +10,7 @@
 %% surface (ocel_event carries
 %% 4
 %% admitted fields, dfg_edge carries
-%% 3).
+%% 4).
 %%
 %% Three halves, all Chicago-style over the REAL traces_from_events/2 +
 %% dfg_from_traces/1 + conformance/2 (no doubles anywhere):

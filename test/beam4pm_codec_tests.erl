@@ -6454,12 +6454,14 @@ dfg_edge_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_dfg_edge(#{
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
-        frequency => 42
+        frequency => 42,
+        edge_weight => 3.5
     }),
     Map = beam4pm_codec:to_map(Rec),
     ?assertEqual(<<"sample_source_activity">>, maps:get(<<"source_activity">>, Map)),
     ?assertEqual(<<"sample_target_activity">>, maps:get(<<"target_activity">>, Map)),
     ?assertEqual(42, maps:get(<<"frequency">>, Map)),
+    ?assertEqual(3.5, maps:get(<<"edge_weight">>, Map)),
     {ok, Rec2} = beam4pm_codec:from_map(dfg_edge,
         Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
     ?assertEqual(Rec, Rec2).
@@ -6468,7 +6470,8 @@ dfg_edge_json_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_dfg_edge(#{
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
-        frequency => 42
+        frequency => 42,
+        edge_weight => 3.5
     }),
     Json = beam4pm_codec:encode(Rec),
     ?assert(is_binary(Json)),

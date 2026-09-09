@@ -3238,6 +3238,8 @@ pub type DfgEdge {
     target_activity: String,
     /// Observed occurrence count of this edge.
     frequency: Int,
+    /// Structural weight of this edge for what-if simulation (B4PM-1702).
+    edge_weight: Float,
   )
 }
 

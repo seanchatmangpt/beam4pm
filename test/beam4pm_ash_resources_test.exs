@@ -3687,12 +3687,14 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       params: %{
           source_activity: "sample_x",
           target_activity: "sample_x",
-          frequency: 42
+          frequency: 42,
+          edge_weight: 3.5
       },
       expected: %{
           source_activity: "sample_x",
           target_activity: "sample_x",
-          frequency: 42
+          frequency: 42,
+          edge_weight: 3.5
       }
     },
     %{

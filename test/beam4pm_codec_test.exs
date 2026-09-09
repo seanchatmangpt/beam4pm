@@ -5996,19 +5996,22 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         source_activity: "sample_source_activity",
         target_activity: "sample_target_activity",
-        frequency: 42
+        frequency: 42,
+        edge_weight: 3.5
       },
       expected_map: %{
         "source_activity" => "sample_source_activity",
         "target_activity" => "sample_target_activity",
-        "frequency" => 42
+        "frequency" => 42,
+        "edge_weight" => 3.5
       },
       req_attrs: %{
         source_activity: "sample_source_activity",
         target_activity: "sample_target_activity",
-        frequency: 42
+        frequency: 42,
+        edge_weight: 3.5
       },
-      req_count: 3,
+      req_count: 4,
       opt_field_names: [],
       first_required: :source_activity
     },

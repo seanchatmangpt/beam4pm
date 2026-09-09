@@ -235,7 +235,7 @@ defmodule BeamPM.Types.Manifest do
   def fields(:dependency_pin_observation), do: [:dependency_id, :declared_ref, :resolved_sha, :observed_at]
   def fields(:deployment_entitlement), do: [:entitlement_id, :tenant_id, :profile_id, :valid_until]
   def fields(:developer_readiness), do: [:developer_readiness_id, :account_id, :developer_readiness_score, :evidence_digest, :observed_at]
-  def fields(:dfg_edge), do: [:source_activity, :target_activity, :frequency]
+  def fields(:dfg_edge), do: [:source_activity, :target_activity, :frequency, :edge_weight]
   def fields(:disaster_recovery_evidence), do: [:evidence_id, :subject_sha, :recovered_at, :observed_result]
   def fields(:discount_schedule), do: [:schedule_id, :threshold, :discount_percent, :currency]
   def fields(:discovery_hypothesis), do: [:discovery_hypothesis_id, :account_id, :expected_value, :evidence_digest, :observed_at]

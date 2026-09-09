@@ -2537,6 +2537,7 @@
 | `source_activity` | `string` | true | The preceding activity name. |
 | `target_activity` | `string` | true | The following activity name. |
 | `frequency` | `integer` | true | Observed occurrence count of this edge. |
+| `edge_weight` | `float` | true | Structural weight of this edge for what-if simulation (B4PM-1702). |
 
 ## disaster_recovery_evidence
 

@@ -3840,13 +3840,15 @@ sample(dfg_edge, full) ->
     beam4pm_types:new_dfg_edge(#{
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
-        frequency => 42
+        frequency => 42,
+        edge_weight => 3.5
     });
 sample(dfg_edge, minimal) ->
     beam4pm_types:new_dfg_edge(#{
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
-        frequency => 42
+        frequency => 42,
+        edge_weight => 3.5
     });
 sample(disaster_recovery_evidence, full) ->
     beam4pm_types:new_disaster_recovery_evidence(#{

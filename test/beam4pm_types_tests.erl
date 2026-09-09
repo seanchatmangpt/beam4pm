@@ -2539,7 +2539,8 @@ dfg_edge_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_dfg_edge(#{
         source_activity => <<"x">>,
         target_activity => <<"x">>,
-        frequency => 1
+        frequency => 1,
+        edge_weight => 1.0
     })).
 
 dfg_edge_missing_field_test() ->

@@ -11,6 +11,7 @@ One frequency-annotated directly-follows edge between two activities.
 | `source_activity` | `string` | yes | The preceding activity name. |
 | `target_activity` | `string` | yes | The following activity name. |
 | `frequency` | `integer` | yes | Observed occurrence count of this edge. |
+| `edge_weight` | `float` | yes | Structural weight of this edge for what-if simulation (B4PM-1702). |
 
 ## Constructors
 

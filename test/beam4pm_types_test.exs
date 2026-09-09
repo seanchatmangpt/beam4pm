@@ -2783,7 +2783,8 @@ defmodule BeamPM.Types.GeneratedTest do
       full_attrs: %{
         source_activity: "x",
         target_activity: "x",
-        frequency: 1
+        frequency: 1,
+        edge_weight: 1.0
       }
     },
 
