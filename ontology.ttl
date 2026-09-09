@@ -1067,6 +1067,16 @@ bpma:k8s_scale_down_aa a bpma:AdmittedActuation ;
     bpma:actionName "k8s_scale_down" ;
     bpma:gymOp "scale_down" .
 
+# B4PM-1705 regression fixture: a new admitted actuation, added solely to
+# prove BeamPM.Pro.CapabilityManifest.capabilities/0's :admitted_actuations
+# fact (and BeamPM.Pro.Compatibility.admitted_actuations/0,
+# BeamPM.Pro.License.licensable_actions/0) are bound live from this graph
+# (not hand-copied) -- expect "restart_worker -> restart" to appear in each
+# regenerated module after `mix ggen_igniter.sync`.
+bpma:restart_worker_aa a bpma:AdmittedActuation ;
+    bpma:actionName "restart_worker" ;
+    bpma:gymOp "restart" .
+
 # =============================================================================
 # beam4pm OCEL v2 network ingestion admission graph (independent runtime
 # capability -- beam4pm's own manufactured equivalent of ex4pm's retired
