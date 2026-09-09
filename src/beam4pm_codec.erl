@@ -270,6 +270,7 @@
     beam4pm_types:irreversibility_budget() |
     beam4pm_types:k8s_object_ref() |
     beam4pm_types:latency_budget_observation() |
+    beam4pm_types:leakage_finding() |
     beam4pm_types:least_authority_evidence() |
     beam4pm_types:legal_blocker() |
     beam4pm_types:liability_cap_admission() |
@@ -401,6 +402,7 @@
     beam4pm_types:revenue_contract_admission() |
     beam4pm_types:revenue_schedule_assumption() |
     beam4pm_types:reversibility_weight() |
+    beam4pm_types:rework_cost() |
     beam4pm_types:rfp_response_evidence() |
     beam4pm_types:role_compatibility() |
     beam4pm_types:rollback_checkpoint() |
@@ -482,6 +484,7 @@
     beam4pm_types:value_of_information_estimate() |
     beam4pm_types:value_of_information_score() |
     beam4pm_types:value_realization() |
+    beam4pm_types:value_receipt() |
     beam4pm_types:value_telemetry_sample() |
     beam4pm_types:vendor_registration_state() |
     beam4pm_types:vendor_risk_evidence() |
@@ -2282,6 +2285,13 @@ to_map(R) when element(1, R) =:= latency_budget_observation ->
         {<<"workload_id">>, plain, element(3, R)},
         {<<"observation_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= leakage_finding ->
+    pairs_to_map([
+        {<<"case_id">>, plain, element(2, R)},
+        {<<"fitness">>, plain, element(3, R)},
+        {<<"precision">>, plain, element(4, R)},
+        {<<"amount_at_risk">>, plain, element(5, R)}
+    ]);
 to_map(R) when element(1, R) =:= least_authority_evidence ->
     pairs_to_map([
         {<<"evidence_id">>, plain, element(2, R)},
@@ -3137,6 +3147,12 @@ to_map(R) when element(1, R) =:= reversibility_weight ->
         {<<"rollback_id">>, plain, element(3, R)},
         {<<"weight">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= rework_cost ->
+    pairs_to_map([
+        {<<"case_id">>, plain, element(2, R)},
+        {<<"loop_count">>, plain, element(3, R)},
+        {<<"weighted_cost">>, plain, element(4, R)}
+    ]);
 to_map(R) when element(1, R) =:= rfp_response_evidence ->
     pairs_to_map([
         {<<"evidence_id">>, plain, element(2, R)},
@@ -3686,6 +3702,16 @@ to_map(R) when element(1, R) =:= value_realization ->
         {<<"realized_value">>, plain, element(4, R)},
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= value_receipt ->
+    pairs_to_map([
+        {<<"value_receipt_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"metric_name">>, plain, element(4, R)},
+        {<<"baseline_value">>, plain, element(5, R)},
+        {<<"observed_value">>, plain, element(6, R)},
+        {<<"evidence_digest">>, plain, element(7, R)},
+        {<<"observed_at">>, plain, element(8, R)}
     ]);
 to_map(R) when element(1, R) =:= value_telemetry_sample ->
     pairs_to_map([
@@ -5584,6 +5610,13 @@ from_map(latency_budget_observation, Map) when is_map(Map) ->
         {<<"workload_id">>, workload_id, plain},
         {<<"observation_hash">>, observation_hash, plain}
     ]));
+from_map(leakage_finding, Map) when is_map(Map) ->
+    beam4pm_types:new_leakage_finding(take_known(Map, [
+        {<<"case_id">>, case_id, plain},
+        {<<"fitness">>, fitness, plain},
+        {<<"precision">>, precision, plain},
+        {<<"amount_at_risk">>, amount_at_risk, plain}
+    ]));
 from_map(least_authority_evidence, Map) when is_map(Map) ->
     beam4pm_types:new_least_authority_evidence(take_known(Map, [
         {<<"evidence_id">>, evidence_id, plain},
@@ -6439,6 +6472,12 @@ from_map(reversibility_weight, Map) when is_map(Map) ->
         {<<"rollback_id">>, rollback_id, plain},
         {<<"weight">>, weight, plain}
     ]));
+from_map(rework_cost, Map) when is_map(Map) ->
+    beam4pm_types:new_rework_cost(take_known(Map, [
+        {<<"case_id">>, case_id, plain},
+        {<<"loop_count">>, loop_count, plain},
+        {<<"weighted_cost">>, weighted_cost, plain}
+    ]));
 from_map(rfp_response_evidence, Map) when is_map(Map) ->
     beam4pm_types:new_rfp_response_evidence(take_known(Map, [
         {<<"evidence_id">>, evidence_id, plain},
@@ -6986,6 +7025,16 @@ from_map(value_realization, Map) when is_map(Map) ->
         {<<"value_realization_id">>, value_realization_id, plain},
         {<<"account_id">>, account_id, plain},
         {<<"realized_value">>, realized_value, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(value_receipt, Map) when is_map(Map) ->
+    beam4pm_types:new_value_receipt(take_known(Map, [
+        {<<"value_receipt_id">>, value_receipt_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"metric_name">>, metric_name, plain},
+        {<<"baseline_value">>, baseline_value, plain},
+        {<<"observed_value">>, observed_value, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
     ]));
