@@ -5,7 +5,7 @@
 %% generated/erlang/src (see rebar.config's src_dirs).
 {application, beam4pm,
  [{description, "beam4pm: BEAM-first process-mining substrate (ggen-manufactured types)."},
-  {vsn, "0.1.0"},
+  {vsn, "26.9.9"},
   {registered, []},
   {applications, [kernel, stdlib]},
   {env, []},
