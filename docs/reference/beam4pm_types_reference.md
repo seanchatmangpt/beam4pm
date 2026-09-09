@@ -91,6 +91,18 @@
 | `capability_ids` | `list_string` | true | Additional capabilities. |
 | `status` | `atom` | true | Add-on lifecycle standing. |
 
+## addon_activation
+
+> Receipted activation of a paid add-on.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `addon_activation_id` | `string` | true | Stable identity of this addon activation contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `addon_id` | `string` | true | Stable identity of the activated commercial add-on. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## admissible_action_set
 
 > Computes all actions currently permitted by state, constraints, and authority.
@@ -997,6 +1009,42 @@
 | `budget_period` | `string` | true | Required budget period alignment input; omission is an executable typed refusal, never an inferred approval. |
 | `alignment_result` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## bundle_conflict
+
+> Mutual exclusion between incompatible bundles.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `bundle_conflict_id` | `string` | true | Stable identity of this bundle conflict contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `conflicting_bundle_id` | `string` | true | Bundle whose simultaneous activation must be refused. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
+## bundle_dependency
+
+> Required dependency between sellable bundles.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `bundle_dependency_id` | `string` | true | Stable identity of this bundle dependency contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `required_bundle_id` | `string` | true | Bundle that must be entitled before this bundle can activate. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
+## burst_pricing_policy
+
+> Bounded burst-capacity premium.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `burst_pricing_policy_id` | `string` | true | Stable identity of this burst pricing policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `burst_multiplier` | `float` | true | Approved multiplier applied only above the included capacity. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## business_continuity_evidence
 
 > Executable continuity evidence binding an exact subject to the fallback operating mode actually entered.
@@ -1017,6 +1065,18 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `outcome_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `measurement_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## business_unit_allocation
+
+> Showback allocation to an enterprise business unit.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `business_unit_allocation_id` | `string` | true | Stable identity of this business unit allocation contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `business_unit_id` | `string` | true | Stable identity of the receiving business unit. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## buying_committee
 
@@ -1084,6 +1144,18 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `canary_percentage` | `float` | true | Observed fraction of production traffic routed to the canary subject. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## cancellation_policy
+
+> Contractual cancellation and notice policy.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `cancellation_policy_id` | `string` | true | Stable identity of this cancellation policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `notice_days` | `integer` | true | Required cancellation notice period in days. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## canonical_source_authority_observation
 
@@ -1260,6 +1332,18 @@
 | `cluster_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `quorum_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## co_term_policy
+
+> Co-termination policy for expansion purchases.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `co_term_policy_id` | `string` | true | Stable identity of this co term policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `coterm_date` | `datetime` | true | Contract end instant to which the expansion is aligned. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## commercial_approval
 
 > Commercial approval decision with exact subject and authority.
@@ -1402,6 +1486,18 @@
 | `schema_version` | `string` | true | Supported schema version. |
 | `api_version` | `string` | true | Supported API version. |
 
+## concurrency_pricing_policy
+
+> Concurrent-workload packaging dimension.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `concurrency_pricing_policy_id` | `string` | true | Stable identity of this concurrency pricing policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `included_concurrency` | `integer` | true | Concurrent workload units included in the purchased package. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## configuration_export
 
 > Receiptable export of deterministic enterprise configuration.
@@ -1533,6 +1629,18 @@
 | `contracting_entity_id` | `string` | true | Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval. |
 | `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## cost_center_allocation
+
+> Chargeback allocation to an enterprise cost center.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `cost_center_allocation_id` | `string` | true | Stable identity of this cost center allocation contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `cost_center_id` | `string` | true | Stable identity of the charged cost center. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## cost_latency_reliability_tradeoff
 
 > Evaluates candidate policy utility across cost, latency, and reliability without collapsing dimensions.
@@ -1598,6 +1706,18 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `crash_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `receipt_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## credit_expiry_policy
+
+> Deterministic expiration of prepaid commercial credits.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `credit_expiry_policy_id` | `string` | true | Stable identity of this credit expiry policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `expires_at` | `datetime` | true | Exact expiration instant for the admitted credit pool. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## credit_risk_admission
 
@@ -2160,6 +2280,18 @@
 | `write_set_digest` | `string` | true | Digest of the complete authorized write set. |
 | `receipt_digest` | `string` | true | Immutable digest of this capability's exact-subject qualification receipt. |
 
+## currency_policy
+
+> Allowed billing currency for an enterprise agreement.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `currency_policy_id` | `string` | true | Stable identity of this currency policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `currency_code` | `string` | true | ISO billing currency admitted for this account. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## curriculum_generation
 
 > Generates an ordered, diverse learning curriculum from admitted gaps and executable falsifiers.
@@ -2259,6 +2391,18 @@
 | `tenant_id` | `string` | true | Governed tenant. |
 | `allowed_regions` | `list_string` | true | Permitted data regions. |
 | `status` | `atom` | true | Residency policy standing. |
+
+## data_volume_pricing_policy
+
+> Data-volume commercial packaging dimension.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `data_volume_pricing_policy_id` | `string` | true | Stable identity of this data volume pricing policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `unit_gb_price` | `float` | true | Admitted unit price per processed gigabyte. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## deal_desk_packet
 
@@ -2459,6 +2603,42 @@
 | `bundle_ids` | `list_string` | true | Included capability bundles. |
 | `support_tier` | `string` | true | Default support tier. |
 
+## edition_downgrade_path
+
+> Controlled commercial edition downgrade path.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `edition_downgrade_path_id` | `string` | true | Stable identity of this edition downgrade path contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `target_edition_id` | `string` | true | Edition that may be reached after capability-loss admission. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
+## edition_upgrade_path
+
+> Admitted commercial edition upgrade path.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `edition_upgrade_path_id` | `string` | true | Stable identity of this edition upgrade path contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `target_edition_id` | `string` | true | Edition that may be reached without breaking contract compatibility. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
+## enterprise_agreement
+
+> Enterprise commercial umbrella agreement.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `enterprise_agreement_id` | `string` | true | Stable identity of this enterprise agreement contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `agreement_version` | `string` | true | Immutable semantic version of the governing agreement. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## enterprise_order
 
 > Accepted enterprise order binding account, quote, and standing.
@@ -2589,6 +2769,18 @@
 | `environment_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## environment_pricing_policy
+
+> Environment-count commercial packaging.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `environment_pricing_policy_id` | `string` | true | Stable identity of this environment pricing policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `environment_tier` | `string` | true | Purchased environment tier such as sandbox, nonproduction, or production. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## environment_profile
 
 > Deterministic environment profile for demo, POC, or production.
@@ -2662,6 +2854,18 @@
 | --- | --- | --- | --- |
 | `type_name` | `string` | true | The event type name. |
 | `attribute_names` | `list_string` | false | Optional declared attribute names for events of this type (name-only; per-attribute value types are not yet modeled). |
+
+## event_volume_pricing_policy
+
+> Event-volume commercial packaging dimension.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_volume_pricing_policy_id` | `string` | true | Stable identity of this event volume pricing policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `unit_event_price` | `float` | true | Admitted unit price per event billing unit. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## evidence_freshness_evidence
 
@@ -2851,6 +3055,18 @@
 | `approval_chain_id` | `string` | true | Required funding approval chain input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## fx_conversion_policy
+
+> Evidence-bound foreign-exchange conversion policy.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `fx_conversion_policy_id` | `string` | true | Stable identity of this fx conversion policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `rate_source` | `string` | true | Immutable identity of the admitted FX rate source. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## generated_hypothesis
 
 > Generates a testable backlog hypothesis from an admitted capability gap.
@@ -3032,6 +3248,18 @@
 | `invoice_entity_id` | `string` | true | Required invoice entity identity input; omission is an executable typed refusal, never an inferred approval. |
 | `identity_evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## invoice_line_item
+
+> Auditable commercial invoice line.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `invoice_line_item_id` | `string` | true | Stable identity of this invoice line item contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `line_amount` | `float` | true | Observed amount for this exact invoice line. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## invoice_schedule
 
 > Deterministic invoicing cadence for a billing account.
@@ -3063,6 +3291,18 @@
 | `name` | `string` | true | The object name. |
 | `namespace` | `string` | false | Optional object namespace (absent for cluster-scoped kinds such as Node, PersistentVolume, ClusterRole, or Namespace itself). |
 
+## late_arriving_usage
+
+> Admission of usage received after its billing window.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `late_arriving_usage_id` | `string` | true | Stable identity of this late arriving usage contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `occurred_at` | `datetime` | true | Original occurrence instant for the delayed usage. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## latency_budget_observation
 
 > Records an observed runtime latency against the admitted paid-service latency budget.
@@ -3072,6 +3312,17 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `workload_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `observation_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## leakage_finding
+
+> One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `case_id` | `string` | true | Exact process-case identity that deviated from the admitted reference model. |
+| `fitness` | `float` | true | Observed conformance fitness for this case. |
+| `precision` | `float` | true | Observed conformance precision for this case against the admitted model. |
+| `amount_at_risk` | `float` | false | Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero. |
 
 ## learning_episode
 
@@ -3169,6 +3420,18 @@
 | `verification_status` | `string` | true | Machine-readable verification result. |
 | `verifier_identity` | `string` | true | Exact verifier implementation identity. |
 
+## master_service_agreement_binding
+
+> Exact MSA binding for an order.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `master_service_agreement_binding_id` | `string` | true | Stable identity of this master service agreement binding contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `msa_digest` | `string` | true | Content digest of the governing master service agreement. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## master_service_agreement_state
 
 > Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
@@ -3198,6 +3461,42 @@
 | `portfolio_id` | `string` | true | Required portfolio_id for this bounded planner contract. |
 | `observation_hash` | `string` | true | Required observation_hash for deterministic planner evaluation. |
 | `selected_planner_id` | `string` | true | Required selected_planner_id preserving evidence and falsifiability. |
+
+## meter_definition
+
+> Immutable billable-meter definition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `meter_definition_id` | `string` | true | Stable identity of this meter definition contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `meter_name` | `string` | true | Stable buyer-visible identity of the commercial meter. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
+## meter_dimension
+
+> Typed dimension attached to a commercial meter.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `meter_dimension_id` | `string` | true | Stable identity of this meter dimension contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `dimension_name` | `string` | true | Stable dimension identity used for pricing and reporting. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
+## meter_rollup
+
+> Deterministic rollup policy for metered observations.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `meter_rollup_id` | `string` | true | Stable identity of this meter rollup contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `rollup_function` | `string` | true | Admitted aggregation function identity. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## metered_usage_sample
 
@@ -3231,6 +3530,18 @@
 | `migration_effort_days` | `integer` | true | Estimated engineering days for the admitted migration. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## minimum_commitment_schedule
+
+> Time-phased minimum-spend commitment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `minimum_commitment_schedule_id` | `string` | true | Stable identity of this minimum commitment schedule contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `committed_amount` | `float` | true | Commercially admitted minimum amount for the schedule window. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## minimum_term_admission
 
@@ -3319,6 +3630,18 @@
 | `node_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `failover_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## nonproduction_discount_policy
+
+> Explicit discount for nonproduction capacity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `nonproduction_discount_policy_id` | `string` | true | Stable identity of this nonproduction discount policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `discount_percent` | `float` | true | Approved nonproduction discount percentage. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## normalized_event_observation
 
 > Normalizes a source event into stable identity, type, and event time.
@@ -3373,6 +3696,18 @@
 | --- | --- | --- | --- |
 | `type_name` | `string` | true | The object type name. |
 | `attribute_names` | `list_string` | false | Optional declared attribute names for objects of this type (name-only; per-attribute value types are not yet modeled). |
+
+## object_volume_pricing_policy
+
+> Object-volume commercial packaging dimension.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `object_volume_pricing_policy_id` | `string` | true | Stable identity of this object volume pricing policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `unit_object_price` | `float` | true | Admitted unit price per object billing unit. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## objection
 
@@ -3590,6 +3925,18 @@
 | `order_form_id` | `string` | true | Required order form admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## order_form_version
+
+> Immutable commercial order-form version.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `order_form_version_id` | `string` | true | Stable identity of this order form version contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `order_form_digest` | `string` | true | Content digest of the accepted order form. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## orthogonality_reward
 
 > Scores independent semantic coverage against the full comparison set.
@@ -3634,6 +3981,18 @@
 | `subject_id` | `string` | true | Required subject_id for this bounded planner contract. |
 | `ownership_manifest_hash` | `string` | true | Required ownership_manifest_hash for deterministic planner evaluation. |
 | `standing` | `string` | true | Required standing preserving evidence and falsifiability. |
+
+## overage_invoice
+
+> Invoice consequence for measured overage.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `overage_invoice_id` | `string` | true | Stable identity of this overage invoice contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `overage_amount` | `float` | true | Observed overage amount after admitted aggregation. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## overage_policy
 
@@ -4007,6 +4366,42 @@
 | `domain_hash` | `string` | true | Required domain_hash for deterministic planner evaluation. |
 | `problem_hash` | `string` | true | Required problem_hash preserving evidence and falsifiability. |
 
+## premium_connector_pricing
+
+> Paid integration-connector add-on.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `premium_connector_pricing_id` | `string` | true | Stable identity of this premium connector pricing contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `connector_id` | `string` | true | Stable identity of the separately priced connector. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
+## prepaid_credit_balance
+
+> Receipted prepaid-credit balance.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `prepaid_credit_balance_id` | `string` | true | Stable identity of this prepaid credit balance contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `remaining_credit` | `float` | true | Observed remaining prepaid credit after admitted usage. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
+## price_book_version
+
+> Immutable enterprise price-book release.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `price_book_version_id` | `string` | true | Stable identity of this price book version contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `version` | `string` | true | Buyer-visible semantic version of the admitted price book. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## pricing_basis_contract
 
 > Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
@@ -4059,6 +4454,18 @@
 | `variant_id` | `string` | true | Unique variant identifier. |
 | `activity_sequence` | `list_string` | true | Ordered list of activity names making up this variant. |
 | `frequency` | `integer` | true | Number of traces observed with exactly this activity sequence. |
+
+## process_volume_pricing_policy
+
+> Process-model commercial packaging dimension.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `process_volume_pricing_policy_id` | `string` | true | Stable identity of this process volume pricing policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `unit_process_price` | `float` | true | Admitted unit price per managed process. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## procurement_acceptance_evidence
 
@@ -4161,6 +4568,18 @@
 | `exit_gate_id` | `string` | true | Required proof of value exit gate input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## proof_of_value_package
+
+> Paid proof-of-value package with measurable exit criterion.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `proof_of_value_package_id` | `string` | true | Stable identity of this proof of value package contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `success_metric` | `string` | true | Canonical metric that determines proof-of-value acceptance. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## propagation_score
 
 > Scores downstream consequences across the dependency and capability graph.
@@ -4170,6 +4589,18 @@
 | `option_id` | `string` | true | Required option_id for this bounded planner contract. |
 | `graph_hash` | `string` | true | Required graph_hash for deterministic planner evaluation. |
 | `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
+## proration_policy
+
+> Deterministic mid-term proration policy.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `proration_policy_id` | `string` | true | Stable identity of this proration policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `proration_method` | `string` | true | Admitted algorithm identity for partial-period charges. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## provenance_binding_evidence
 
@@ -4244,6 +4675,30 @@
 | `depth` | `integer` | true | Observed queue depth at this point in time. |
 | `observed_at` | `datetime` | true | ISO8601 timestamp of this observation. |
 
+## quota_burst_allowance
+
+> Purchased temporary quota burst allowance.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `quota_burst_allowance_id` | `string` | true | Stable identity of this quota burst allowance contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `burst_units` | `float` | true | Additional units admitted above the contracted quota. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
+## quota_override
+
+> Explicitly authorized quota override.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `quota_override_id` | `string` | true | Stable identity of this quota override contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `override_units` | `float` | true | Authorized replacement quota for the bounded window. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## quota_policy
 
 > Enforceable quota limit over a named measurement window.
@@ -4265,6 +4720,18 @@
 | `phase` | `integer` | true | Ordered ramp phase. |
 | `committed_amount` | `float` | true | Phase commitment amount. |
 | `effective_at` | `datetime` | true | Phase activation instant. |
+
+## rate_card_entry
+
+> Sellable unit price bound to an immutable price book.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `rate_card_entry_id` | `string` | true | Stable identity of this rate card entry contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `unit_price` | `float` | true | Admitted unit price; currency is supplied by the linked currency policy. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## rate_distortion_budget
 
@@ -4393,6 +4860,18 @@
 | `incident_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `recovery_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## refund_policy
+
+> Deterministic refund eligibility policy.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `refund_policy_id` | `string` | true | Stable identity of this refund policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `refund_method` | `string` | true | Admitted method used to calculate a refund. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## refusal_boundary_observation
 
 > Emits REFUSED with exact authority boundary and evidence.
@@ -4415,6 +4894,18 @@
 | `limit` | `float` | true | Numeric refusal boundary. |
 | `metric_id` | `string` | true | Metric compared to the boundary. |
 | `authority_binding` | `string` | true | Authority that alone may revise the threshold. |
+
+## region_pricing_policy
+
+> Deployment-region commercial adjustment.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `region_pricing_policy_id` | `string` | true | Stable identity of this region pricing policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `region_code` | `string` | true | Exact cloud or sovereign region governed by this price policy. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## regression_detector
 
@@ -4650,6 +5141,18 @@
 | `retention_days` | `integer` | true | Enforced number of days before lifecycle expiry. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## retention_pricing_policy
+
+> Retention-duration commercial packaging.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `retention_pricing_policy_id` | `string` | true | Stable identity of this retention pricing policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `retention_days` | `integer` | true | Purchased evidence and event-data retention period in days. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## revenue_attribution
 
 > Receipted revenue attribution bound to exact enterprise evidence.
@@ -4691,6 +5194,16 @@
 | `action_id` | `string` | true | Required action_id for this bounded planner contract. |
 | `rollback_id` | `string` | true | Required rollback_id for deterministic planner evaluation. |
 | `weight` | `string` | true | Required weight preserving evidence and falsifiability. |
+
+## rework_cost
+
+> One observed process case with quantified retry/rework loop count and weighted cost evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `case_id` | `string` | true | Exact process-case identity carrying the observed rework. |
+| `loop_count` | `integer` | true | Observed count of retry/rework loop markers for this case. |
+| `weighted_cost` | `float` | true | Observed case amount weighted by the admitted rework-loop rule; units are inherited from the admitted source evidence. |
 
 ## rfp_response_evidence
 
@@ -4824,6 +5337,18 @@
 | `screening_id` | `string` | true | Required sanctions screening result input; omission is an executable typed refusal, never an inferred approval. |
 | `screening_result` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## sandbox_entitlement
+
+> Nonproduction sandbox entitlement with a hard ceiling.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `sandbox_entitlement_id` | `string` | true | Stable identity of this sandbox entitlement contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `sandbox_limit` | `integer` | true | Maximum purchased sandbox environments. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## saturation_detection
 
 > Detects diminishing learning returns from measured gain, novelty, and coverage evidence.
@@ -4847,6 +5372,18 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `component_count` | `integer` | true | Observed number of components in the parsed SBOM inventory. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## seat_pricing_policy
+
+> Named-seat enterprise packaging dimension.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `seat_pricing_policy_id` | `string` | true | Stable identity of this seat pricing policy contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `seat_price` | `float` | true | Admitted unit price for one named enterprise seat. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## second_pass_byte_identity_observation
 
@@ -4956,6 +5493,18 @@
 | `opportunity_id` | `string` | true | Required service credit admission input; omission is an executable typed refusal, never an inferred approval. |
 | `service_credit_id` | `string` | true | Required service credit admission input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## service_credit_ledger
+
+> Auditable customer service-credit balance.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `service_credit_ledger_id` | `string` | true | Stable identity of this service credit ledger contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `credit_amount` | `float` | true | Observed service-credit amount after an admitted SLO consequence. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## service_health_snapshot
 
@@ -5076,6 +5625,18 @@
 | `fit_score` | `float` | true | Fraction of admitted requirements satisfied. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## spend_drawdown
+
+> Observed consumption against committed spend.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `spend_drawdown_id` | `string` | true | Stable identity of this spend drawdown contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `consumed_amount` | `float` | true | Amount actually drawn from the committed-spend balance. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## stakeholder_map
 
@@ -5308,6 +5869,18 @@
 | `tax_jurisdiction` | `string` | true | Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
 
+## tax_jurisdiction_rule
+
+> Tax jurisdiction routing for a contracting entity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `tax_jurisdiction_rule_id` | `string` | true | Stable identity of this tax jurisdiction rule contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `jurisdiction_code` | `string` | true | Admitted tax jurisdiction code for invoice treatment. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## technical_blocker
 
 > Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.
@@ -5479,6 +6052,18 @@
 | `last_subject_sha` | `string` | true | Exact final subject in the window. |
 | `episode_count` | `integer` | true | Number of admitted episodes in the window. |
 
+## trial_entitlement
+
+> Time-bounded enterprise trial entitlement.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `trial_entitlement_id` | `string` | true | Stable identity of this trial entitlement contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `trial_expires_at` | `datetime` | true | Exact instant at which trial capability must be refused. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## true_up_policy
 
 > End-of-period reconciliation policy for committed consumption.
@@ -5522,6 +6107,18 @@
 | `confidence_basis` | `string` | true | Basis for any confidence estimate. |
 | `standing` | `string` | true | Machine-readable UNKNOWN-compatible standing. |
 
+## unit_economics_snapshot
+
+> Evidence-bound gross-margin snapshot.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `unit_economics_snapshot_id` | `string` | true | Stable identity of this unit economics snapshot contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `gross_margin` | `float` | true | Observed gross margin derived from admitted revenue and cost evidence. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
 ## unsupported_capability_evidence
 
 > Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses.
@@ -5555,6 +6152,30 @@
 | `upsell_score` | `float` | true | Observed upsell-readiness score. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## usage_aggregation_window
+
+> Deterministic usage aggregation window.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `usage_aggregation_window_id` | `string` | true | Stable identity of this usage aggregation window contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `window_seconds` | `integer` | true | Exact billing aggregation window in seconds. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
+
+## usage_correction
+
+> Receipted correction to previously reported usage.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `usage_correction_id` | `string` | true | Stable identity of this usage correction contract. |
+| `account_id` | `string` | true | Enterprise account governed by this commercial contract. |
+| `corrected_quantity` | `float` | true | Replacement usage quantity bound to correction evidence. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence admitting this commercial consequence. |
+| `effective_at` | `datetime` | true | ISO8601 instant at which this contract becomes effective. |
 
 ## usage_event
 
@@ -5691,6 +6312,20 @@
 | `realized_value` | `float` | true | Observed value after the episode. |
 | `evidence_digest` | `string` | true | Independent outcome evidence. |
 | `policy_id` | `string` | true | Policy associated with the outcome. |
+
+## value_receipt
+
+> Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `value_receipt_id` | `string` | true | Stable identity of this before/after value receipt. |
+| `account_id` | `string` | true | Customer or enterprise account whose measured value is receipted. |
+| `metric_name` | `string` | true | Canonical metric identity used for both baseline and observed values. |
+| `baseline_value` | `float` | true | Admitted baseline value before the measured change or observation window. |
+| `observed_value` | `float` | true | Observed value after the measured change or observation window. |
+| `evidence_digest` | `string` | true | Digest of the exact evidence supporting the baseline and observed consequence. |
+| `observed_at` | `datetime` | true | ISO8601 instant the receipted value consequence was observed. |
 
 ## value_telemetry_sample
 

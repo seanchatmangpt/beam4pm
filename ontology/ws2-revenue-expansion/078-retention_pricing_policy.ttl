@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-078 — retention_pricing_policy
+bpm:retention_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "retention_pricing_policy" ;
+    bpm:recordDoc "Retention-duration commercial packaging." ;
+    bpm:hasField bpm:retention_pricing_policy_retention_pricing_policy_id_f,
+                 bpm:retention_pricing_policy_account_id_f,
+                 bpm:retention_pricing_policy_retention_days_f,
+                 bpm:retention_pricing_policy_evidence_digest_f,
+                 bpm:retention_pricing_policy_effective_at_f .
+
+bpm:retention_pricing_policy_retention_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "retention_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this retention pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:retention_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:retention_pricing_policy_retention_days_f a bpm:Field ;
+    bpm:fieldName "retention_days" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Purchased evidence and event-data retention period in days." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:retention_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:retention_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .

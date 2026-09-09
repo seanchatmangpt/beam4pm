@@ -17,6 +17,7 @@ defmodule BeamPM.Roundtrip do
     :action_pin_evidence,
     :activation_event,
     :add_on_bundle,
+    :addon_activation,
     :admissible_action_set,
     :adoption_milestone,
     :agent_assignment,
@@ -100,14 +101,19 @@ defmodule BeamPM.Roundtrip do
     :brce_actuation_receipt,
     :brce_actuation_request,
     :budget_period_alignment,
+    :bundle_conflict,
+    :bundle_dependency,
+    :burst_pricing_policy,
     :business_continuity_evidence,
     :business_outcome_measurement,
+    :business_unit_allocation,
     :buying_committee,
     :caller_local_checkout_observation,
     :caller_local_consumer,
     :caller_local_crown_identity,
     :canary_decision,
     :canary_evidence,
+    :cancellation_policy,
     :canonical_source_authority_observation,
     :capability_bundle,
     :capability_gap,
@@ -124,6 +130,7 @@ defmodule BeamPM.Roundtrip do
     :channel_agreement,
     :chargeback_rule,
     :cluster_quorum_state,
+    :co_term_policy,
     :commercial_approval,
     :commercial_artifact_crown_evidence,
     :commercial_exception,
@@ -137,6 +144,7 @@ defmodule BeamPM.Roundtrip do
     :committed_spend,
     :committed_spend_admission,
     :compatibility_contract,
+    :concurrency_pricing_policy,
     :configuration_export,
     :configuration_import,
     :conformance_result,
@@ -149,12 +157,14 @@ defmodule BeamPM.Roundtrip do
     :container_manifest_digest_observation,
     :container_platform_digest_observation,
     :contracting_entity_identity,
+    :cost_center_allocation,
     :cost_latency_reliability_tradeoff,
     :cost_of_delay_score,
     :cost_to_serve_measurement,
     :counterfactual_frontier,
     :counterfactual_replay,
     :crash_recovery_receipt,
+    :credit_expiry_policy,
     :credit_risk_admission,
     :cross_sell_fit,
     :crown_applicable_gate_coverage,
@@ -206,6 +216,7 @@ defmodule BeamPM.Roundtrip do
     :crown_validation_pack,
     :crown_workflow_run_receipt,
     :crown_zero_unreceipted_writes,
+    :currency_policy,
     :curriculum_generation,
     :customer_health,
     :customer_managed_key_evidence,
@@ -215,6 +226,7 @@ defmodule BeamPM.Roundtrip do
     :data_processing_addendum_state,
     :data_readiness,
     :data_residency_policy,
+    :data_volume_pricing_policy,
     :deal_desk_packet,
     :decision_compression_observation,
     :decision_information_preservation,
@@ -233,6 +245,9 @@ defmodule BeamPM.Roundtrip do
     :dominance_witness,
     :dynamic_replan_trigger,
     :edition_definition,
+    :edition_downgrade_path,
+    :edition_upgrade_path,
+    :enterprise_agreement,
     :enterprise_order,
     :enterprise_order_line,
     :entitlement_denial_receipt,
@@ -245,6 +260,7 @@ defmodule BeamPM.Roundtrip do
     :entropy_reduction_score,
     :environment_failure_separation,
     :environment_identity,
+    :environment_pricing_policy,
     :environment_profile,
     :environment_signal_observation,
     :error_budget_state,
@@ -252,6 +268,7 @@ defmodule BeamPM.Roundtrip do
     :event_log,
     :event_triggered_planning,
     :event_type,
+    :event_volume_pricing_policy,
     :evidence_freshness_evidence,
     :evidence_training_sample,
     :exact_subject_binding,
@@ -268,6 +285,7 @@ defmodule BeamPM.Roundtrip do
     :federated_dogfood_learning_crown,
     :forged_receipt_refusal,
     :funding_approval_chain,
+    :fx_conversion_policy,
     :generated_hypothesis,
     :generated_output_ownership_observation,
     :generated_source_route,
@@ -285,10 +303,13 @@ defmodule BeamPM.Roundtrip do
     :integration_readiness,
     :integration_scope_admission,
     :invoice_entity_identity,
+    :invoice_line_item,
     :invoice_schedule,
     :irreversibility_budget,
     :k8s_object_ref,
+    :late_arriving_usage,
     :latency_budget_observation,
+    :leakage_finding,
     :learning_episode,
     :least_authority_evidence,
     :legal_blocker,
@@ -298,12 +319,17 @@ defmodule BeamPM.Roundtrip do
     :machine_actionable_delta,
     :manufacture_receipt_presence_observation,
     :manufacture_receipt_validity_observation,
+    :master_service_agreement_binding,
     :master_service_agreement_state,
     :mcts_plan_candidate,
     :meta_router,
+    :meter_definition,
+    :meter_dimension,
+    :meter_rollup,
     :metered_usage_sample,
     :migration_contract,
     :migration_readiness,
+    :minimum_commitment_schedule,
     :minimum_term_admission,
     :multiarch_evidence,
     :mutable_identity_refusal_evidence,
@@ -312,11 +338,13 @@ defmodule BeamPM.Roundtrip do
     :next_lawful_actuation,
     :no_authority_learning_guard,
     :node_failover_event,
+    :nonproduction_discount_policy,
     :normalized_event_observation,
     :novelty_reward,
     :novelty_score,
     :object_attribute_change,
     :object_type,
+    :object_volume_pricing_policy,
     :objection,
     :objection_resolution,
     :observation_deduplication_decision,
@@ -337,10 +365,12 @@ defmodule BeamPM.Roundtrip do
     :optimization_plan_candidate,
     :option_generation,
     :order_form_admission,
+    :order_form_version,
     :orthogonality_reward,
     :orthogonality_score,
     :outcome_label,
     :output_ownership_gate,
+    :overage_invoice,
     :overage_policy,
     :package_release_observation,
     :paid_workload_outcome_receipt,
@@ -376,11 +406,15 @@ defmodule BeamPM.Roundtrip do
     :powl_partial_order_edge,
     :powl_projection,
     :ppddl_projection,
+    :premium_connector_pricing,
+    :prepaid_credit_balance,
+    :price_book_version,
     :pricing_basis_contract,
     :privacy_classification_evidence,
     :private_offer,
     :private_registry_evidence,
     :process_variant,
+    :process_volume_pricing_policy,
     :procurement_acceptance_evidence,
     :procurement_blocker,
     :procurement_channel_selection,
@@ -390,7 +424,9 @@ defmodule BeamPM.Roundtrip do
     :promotion_threshold,
     :proof_of_value_budget,
     :proof_of_value_exit_gate,
+    :proof_of_value_package,
     :propagation_score,
+    :proration_policy,
     :provenance_binding_evidence,
     :provenance_binding_observation,
     :psro_population,
@@ -398,8 +434,11 @@ defmodule BeamPM.Roundtrip do
     :purchase_order_requirement,
     :purchasing_entity_identity,
     :queue_snapshot,
+    :quota_burst_allowance,
+    :quota_override,
     :quota_policy,
     :ramp_commitment,
+    :rate_card_entry,
     :rate_distortion_budget,
     :reachability_analysis,
     :receipt_learning_compilation,
@@ -412,8 +451,10 @@ defmodule BeamPM.Roundtrip do
     :recovery_plan,
     :recovery_point_receipt,
     :recovery_time_receipt,
+    :refund_policy,
     :refusal_boundary_observation,
     :refusal_threshold,
+    :region_pricing_policy,
     :regression_detector,
     :regression_refusal,
     :remediation_sla_evidence,
@@ -435,10 +476,12 @@ defmodule BeamPM.Roundtrip do
     :resource_allocation,
     :resource_capacity_plan,
     :retention_policy_evidence,
+    :retention_pricing_policy,
     :revenue_attribution,
     :revenue_contract_admission,
     :revenue_schedule_assumption,
     :reversibility_weight,
+    :rework_cost,
     :rfp_response_evidence,
     :role_compatibility,
     :rollback_checkpoint,
@@ -451,8 +494,10 @@ defmodule BeamPM.Roundtrip do
     :runtime_health_observation,
     :runtime_policy_decision,
     :sanctions_screening_result,
+    :sandbox_entitlement,
     :saturation_detection,
     :sbom_inventory_evidence,
+    :seat_pricing_policy,
     :second_pass_byte_identity_observation,
     :second_run_identity_objective,
     :secret_boundary_evidence,
@@ -463,6 +508,7 @@ defmodule BeamPM.Roundtrip do
     :semantic_drift_observation,
     :service_credit,
     :service_credit_admission,
+    :service_credit_ledger,
     :service_health_snapshot,
     :service_level_objective,
     :service_slo_contract,
@@ -474,6 +520,7 @@ defmodule BeamPM.Roundtrip do
     :sla_offer_admission,
     :sojourn_time,
     :solution_fit,
+    :spend_drawdown,
     :stakeholder_map,
     :stale_plan_refusal,
     :stale_receipt_refusal,
@@ -495,6 +542,7 @@ defmodule BeamPM.Roundtrip do
     :sync_time,
     :target_metric,
     :tax_jurisdiction_evidence,
+    :tax_jurisdiction_rule,
     :technical_blocker,
     :temporal_order_observation,
     :tenant_account,
@@ -511,13 +559,17 @@ defmodule BeamPM.Roundtrip do
     :training_readiness,
     :training_scope_admission,
     :trajectory_window,
+    :trial_entitlement,
     :true_up_policy,
     :type_edge,
     :uncertainty_aware_selection,
     :uncertainty_observation,
+    :unit_economics_snapshot,
     :unsupported_capability_evidence,
     :upgrade_evidence,
     :upsell_readiness,
+    :usage_aggregation_window,
+    :usage_correction,
     :usage_event,
     :usage_plan,
     :usage_reconciliation_receipt,
@@ -530,6 +582,7 @@ defmodule BeamPM.Roundtrip do
     :value_of_information_score,
     :value_realization,
     :value_realization_feedback,
+    :value_receipt,
     :value_telemetry_sample,
     :vendor_registration_state,
     :vendor_risk_evidence,
@@ -705,6 +758,26 @@ defmodule BeamPM.Roundtrip do
       name: "sample_name",
       capability_ids: ["alpha", "beta"],
       status: :sample_atom
+    })
+  end
+
+  def sample(:addon_activation, :full) do
+    BeamPM.Types.AddonActivation.new(%{
+      addon_activation_id: "sample_addon_activation_id",
+      account_id: "sample_account_id",
+      addon_id: "sample_addon_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:addon_activation, :minimal) do
+    BeamPM.Types.AddonActivation.new(%{
+      addon_activation_id: "sample_addon_activation_id",
+      account_id: "sample_account_id",
+      addon_id: "sample_addon_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -2188,6 +2261,66 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:bundle_conflict, :full) do
+    BeamPM.Types.BundleConflict.new(%{
+      bundle_conflict_id: "sample_bundle_conflict_id",
+      account_id: "sample_account_id",
+      conflicting_bundle_id: "sample_conflicting_bundle_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:bundle_conflict, :minimal) do
+    BeamPM.Types.BundleConflict.new(%{
+      bundle_conflict_id: "sample_bundle_conflict_id",
+      account_id: "sample_account_id",
+      conflicting_bundle_id: "sample_conflicting_bundle_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:bundle_dependency, :full) do
+    BeamPM.Types.BundleDependency.new(%{
+      bundle_dependency_id: "sample_bundle_dependency_id",
+      account_id: "sample_account_id",
+      required_bundle_id: "sample_required_bundle_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:bundle_dependency, :minimal) do
+    BeamPM.Types.BundleDependency.new(%{
+      bundle_dependency_id: "sample_bundle_dependency_id",
+      account_id: "sample_account_id",
+      required_bundle_id: "sample_required_bundle_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:burst_pricing_policy, :full) do
+    BeamPM.Types.BurstPricingPolicy.new(%{
+      burst_pricing_policy_id: "sample_burst_pricing_policy_id",
+      account_id: "sample_account_id",
+      burst_multiplier: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:burst_pricing_policy, :minimal) do
+    BeamPM.Types.BurstPricingPolicy.new(%{
+      burst_pricing_policy_id: "sample_burst_pricing_policy_id",
+      account_id: "sample_account_id",
+      burst_multiplier: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:business_continuity_evidence, :full) do
     BeamPM.Types.BusinessContinuityEvidence.new(%{
       evidence_id: "sample_evidence_id",
@@ -2219,6 +2352,26 @@ defmodule BeamPM.Roundtrip do
       tenant_id: "sample_tenant_id",
       outcome_id: "sample_outcome_id",
       measurement_hash: "sample_measurement_hash"
+    })
+  end
+
+  def sample(:business_unit_allocation, :full) do
+    BeamPM.Types.BusinessUnitAllocation.new(%{
+      business_unit_allocation_id: "sample_business_unit_allocation_id",
+      account_id: "sample_account_id",
+      business_unit_id: "sample_business_unit_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:business_unit_allocation, :minimal) do
+    BeamPM.Types.BusinessUnitAllocation.new(%{
+      business_unit_allocation_id: "sample_business_unit_allocation_id",
+      account_id: "sample_account_id",
+      business_unit_id: "sample_business_unit_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -2329,6 +2482,26 @@ defmodule BeamPM.Roundtrip do
       subject_sha: "sample_subject_sha",
       canary_percentage: 3.5,
       observed_result: :sample_atom
+    })
+  end
+
+  def sample(:cancellation_policy, :full) do
+    BeamPM.Types.CancellationPolicy.new(%{
+      cancellation_policy_id: "sample_cancellation_policy_id",
+      account_id: "sample_account_id",
+      notice_days: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:cancellation_policy, :minimal) do
+    BeamPM.Types.CancellationPolicy.new(%{
+      cancellation_policy_id: "sample_cancellation_policy_id",
+      account_id: "sample_account_id",
+      notice_days: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -2617,6 +2790,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:co_term_policy, :full) do
+    BeamPM.Types.CoTermPolicy.new(%{
+      co_term_policy_id: "sample_co_term_policy_id",
+      account_id: "sample_account_id",
+      coterm_date: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:co_term_policy, :minimal) do
+    BeamPM.Types.CoTermPolicy.new(%{
+      co_term_policy_id: "sample_co_term_policy_id",
+      account_id: "sample_account_id",
+      coterm_date: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:commercial_approval, :full) do
     BeamPM.Types.CommercialApproval.new(%{
       approval_id: "sample_approval_id",
@@ -2849,6 +3042,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:concurrency_pricing_policy, :full) do
+    BeamPM.Types.ConcurrencyPricingPolicy.new(%{
+      concurrency_pricing_policy_id: "sample_concurrency_pricing_policy_id",
+      account_id: "sample_account_id",
+      included_concurrency: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:concurrency_pricing_policy, :minimal) do
+    BeamPM.Types.ConcurrencyPricingPolicy.new(%{
+      concurrency_pricing_policy_id: "sample_concurrency_pricing_policy_id",
+      account_id: "sample_account_id",
+      included_concurrency: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:configuration_export, :full) do
     BeamPM.Types.ConfigurationExport.new(%{
       export_id: "sample_export_id",
@@ -3062,6 +3275,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:cost_center_allocation, :full) do
+    BeamPM.Types.CostCenterAllocation.new(%{
+      cost_center_allocation_id: "sample_cost_center_allocation_id",
+      account_id: "sample_account_id",
+      cost_center_id: "sample_cost_center_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:cost_center_allocation, :minimal) do
+    BeamPM.Types.CostCenterAllocation.new(%{
+      cost_center_allocation_id: "sample_cost_center_allocation_id",
+      account_id: "sample_account_id",
+      cost_center_id: "sample_cost_center_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:cost_latency_reliability_tradeoff, :full) do
     BeamPM.Types.CostLatencyReliabilityTradeoff.new(%{
       assessment_id: "sample_assessment_id",
@@ -3167,6 +3400,26 @@ defmodule BeamPM.Roundtrip do
       tenant_id: "sample_tenant_id",
       crash_id: "sample_crash_id",
       receipt_hash: "sample_receipt_hash"
+    })
+  end
+
+  def sample(:credit_expiry_policy, :full) do
+    BeamPM.Types.CreditExpiryPolicy.new(%{
+      credit_expiry_policy_id: "sample_credit_expiry_policy_id",
+      account_id: "sample_account_id",
+      expires_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:credit_expiry_policy, :minimal) do
+    BeamPM.Types.CreditExpiryPolicy.new(%{
+      credit_expiry_policy_id: "sample_credit_expiry_policy_id",
+      account_id: "sample_account_id",
+      expires_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -4088,6 +4341,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:currency_policy, :full) do
+    BeamPM.Types.CurrencyPolicy.new(%{
+      currency_policy_id: "sample_currency_policy_id",
+      account_id: "sample_account_id",
+      currency_code: "sample_currency_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:currency_policy, :minimal) do
+    BeamPM.Types.CurrencyPolicy.new(%{
+      currency_policy_id: "sample_currency_policy_id",
+      account_id: "sample_account_id",
+      currency_code: "sample_currency_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:curriculum_generation, :full) do
     BeamPM.Types.CurriculumGeneration.new(%{
       curriculum_id: "sample_curriculum_id",
@@ -4249,6 +4522,26 @@ defmodule BeamPM.Roundtrip do
       tenant_id: "sample_tenant_id",
       allowed_regions: ["alpha", "beta"],
       status: :sample_atom
+    })
+  end
+
+  def sample(:data_volume_pricing_policy, :full) do
+    BeamPM.Types.DataVolumePricingPolicy.new(%{
+      data_volume_pricing_policy_id: "sample_data_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_gb_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:data_volume_pricing_policy, :minimal) do
+    BeamPM.Types.DataVolumePricingPolicy.new(%{
+      data_volume_pricing_policy_id: "sample_data_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_gb_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -4578,6 +4871,66 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:edition_downgrade_path, :full) do
+    BeamPM.Types.EditionDowngradePath.new(%{
+      edition_downgrade_path_id: "sample_edition_downgrade_path_id",
+      account_id: "sample_account_id",
+      target_edition_id: "sample_target_edition_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:edition_downgrade_path, :minimal) do
+    BeamPM.Types.EditionDowngradePath.new(%{
+      edition_downgrade_path_id: "sample_edition_downgrade_path_id",
+      account_id: "sample_account_id",
+      target_edition_id: "sample_target_edition_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:edition_upgrade_path, :full) do
+    BeamPM.Types.EditionUpgradePath.new(%{
+      edition_upgrade_path_id: "sample_edition_upgrade_path_id",
+      account_id: "sample_account_id",
+      target_edition_id: "sample_target_edition_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:edition_upgrade_path, :minimal) do
+    BeamPM.Types.EditionUpgradePath.new(%{
+      edition_upgrade_path_id: "sample_edition_upgrade_path_id",
+      account_id: "sample_account_id",
+      target_edition_id: "sample_target_edition_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:enterprise_agreement, :full) do
+    BeamPM.Types.EnterpriseAgreement.new(%{
+      enterprise_agreement_id: "sample_enterprise_agreement_id",
+      account_id: "sample_account_id",
+      agreement_version: "sample_agreement_version",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:enterprise_agreement, :minimal) do
+    BeamPM.Types.EnterpriseAgreement.new(%{
+      enterprise_agreement_id: "sample_enterprise_agreement_id",
+      account_id: "sample_account_id",
+      agreement_version: "sample_agreement_version",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:enterprise_order, :full) do
     BeamPM.Types.EnterpriseOrder.new(%{
       order_id: "sample_order_id",
@@ -4789,6 +5142,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:environment_pricing_policy, :full) do
+    BeamPM.Types.EnvironmentPricingPolicy.new(%{
+      environment_pricing_policy_id: "sample_environment_pricing_policy_id",
+      account_id: "sample_account_id",
+      environment_tier: "sample_environment_tier",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:environment_pricing_policy, :minimal) do
+    BeamPM.Types.EnvironmentPricingPolicy.new(%{
+      environment_pricing_policy_id: "sample_environment_pricing_policy_id",
+      account_id: "sample_account_id",
+      environment_tier: "sample_environment_tier",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:environment_profile, :full) do
     BeamPM.Types.EnvironmentProfile.new(%{
       profile_id: "sample_profile_id",
@@ -4904,6 +5277,26 @@ defmodule BeamPM.Roundtrip do
   def sample(:event_type, :minimal) do
     BeamPM.Types.EventType.new(%{
       type_name: "sample_type_name"
+    })
+  end
+
+  def sample(:event_volume_pricing_policy, :full) do
+    BeamPM.Types.EventVolumePricingPolicy.new(%{
+      event_volume_pricing_policy_id: "sample_event_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_event_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:event_volume_pricing_policy, :minimal) do
+    BeamPM.Types.EventVolumePricingPolicy.new(%{
+      event_volume_pricing_policy_id: "sample_event_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_event_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -5219,6 +5612,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:fx_conversion_policy, :full) do
+    BeamPM.Types.FxConversionPolicy.new(%{
+      fx_conversion_policy_id: "sample_fx_conversion_policy_id",
+      account_id: "sample_account_id",
+      rate_source: "sample_rate_source",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:fx_conversion_policy, :minimal) do
+    BeamPM.Types.FxConversionPolicy.new(%{
+      fx_conversion_policy_id: "sample_fx_conversion_policy_id",
+      account_id: "sample_account_id",
+      rate_source: "sample_rate_source",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:generated_hypothesis, :full) do
     BeamPM.Types.GeneratedHypothesis.new(%{
       hypothesis_id: "sample_hypothesis_id",
@@ -5513,6 +5926,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:invoice_line_item, :full) do
+    BeamPM.Types.InvoiceLineItem.new(%{
+      invoice_line_item_id: "sample_invoice_line_item_id",
+      account_id: "sample_account_id",
+      line_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:invoice_line_item, :minimal) do
+    BeamPM.Types.InvoiceLineItem.new(%{
+      invoice_line_item_id: "sample_invoice_line_item_id",
+      account_id: "sample_account_id",
+      line_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:invoice_schedule, :full) do
     BeamPM.Types.InvoiceSchedule.new(%{
       schedule_id: "sample_schedule_id",
@@ -5562,6 +5995,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:late_arriving_usage, :full) do
+    BeamPM.Types.LateArrivingUsage.new(%{
+      late_arriving_usage_id: "sample_late_arriving_usage_id",
+      account_id: "sample_account_id",
+      occurred_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:late_arriving_usage, :minimal) do
+    BeamPM.Types.LateArrivingUsage.new(%{
+      late_arriving_usage_id: "sample_late_arriving_usage_id",
+      account_id: "sample_account_id",
+      occurred_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:latency_budget_observation, :full) do
     BeamPM.Types.LatencyBudgetObservation.new(%{
       tenant_id: "sample_tenant_id",
@@ -5575,6 +6028,23 @@ defmodule BeamPM.Roundtrip do
       tenant_id: "sample_tenant_id",
       workload_id: "sample_workload_id",
       observation_hash: "sample_observation_hash"
+    })
+  end
+
+  def sample(:leakage_finding, :full) do
+    BeamPM.Types.LeakageFinding.new(%{
+      case_id: "sample_case_id",
+      fitness: 3.5,
+      precision: 3.5,
+      amount_at_risk: 3.5
+    })
+  end
+
+  def sample(:leakage_finding, :minimal) do
+    BeamPM.Types.LeakageFinding.new(%{
+      case_id: "sample_case_id",
+      fitness: 3.5,
+      precision: 3.5
     })
   end
 
@@ -5734,6 +6204,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:master_service_agreement_binding, :full) do
+    BeamPM.Types.MasterServiceAgreementBinding.new(%{
+      master_service_agreement_binding_id: "sample_master_service_agreement_binding_id",
+      account_id: "sample_account_id",
+      msa_digest: "sample_msa_digest",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:master_service_agreement_binding, :minimal) do
+    BeamPM.Types.MasterServiceAgreementBinding.new(%{
+      master_service_agreement_binding_id: "sample_master_service_agreement_binding_id",
+      account_id: "sample_account_id",
+      msa_digest: "sample_msa_digest",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:master_service_agreement_state, :full) do
     BeamPM.Types.MasterServiceAgreementState.new(%{
       opportunity_id: "sample_opportunity_id",
@@ -5779,6 +6269,66 @@ defmodule BeamPM.Roundtrip do
       portfolio_id: "sample_portfolio_id",
       observation_hash: "sample_observation_hash",
       selected_planner_id: "sample_selected_planner_id"
+    })
+  end
+
+  def sample(:meter_definition, :full) do
+    BeamPM.Types.MeterDefinition.new(%{
+      meter_definition_id: "sample_meter_definition_id",
+      account_id: "sample_account_id",
+      meter_name: "sample_meter_name",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:meter_definition, :minimal) do
+    BeamPM.Types.MeterDefinition.new(%{
+      meter_definition_id: "sample_meter_definition_id",
+      account_id: "sample_account_id",
+      meter_name: "sample_meter_name",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:meter_dimension, :full) do
+    BeamPM.Types.MeterDimension.new(%{
+      meter_dimension_id: "sample_meter_dimension_id",
+      account_id: "sample_account_id",
+      dimension_name: "sample_dimension_name",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:meter_dimension, :minimal) do
+    BeamPM.Types.MeterDimension.new(%{
+      meter_dimension_id: "sample_meter_dimension_id",
+      account_id: "sample_account_id",
+      dimension_name: "sample_dimension_name",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:meter_rollup, :full) do
+    BeamPM.Types.MeterRollup.new(%{
+      meter_rollup_id: "sample_meter_rollup_id",
+      account_id: "sample_account_id",
+      rollup_function: "sample_rollup_function",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:meter_rollup, :minimal) do
+    BeamPM.Types.MeterRollup.new(%{
+      meter_rollup_id: "sample_meter_rollup_id",
+      account_id: "sample_account_id",
+      rollup_function: "sample_rollup_function",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -5833,6 +6383,26 @@ defmodule BeamPM.Roundtrip do
       migration_effort_days: 42,
       evidence_digest: "sample_evidence_digest",
       observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:minimum_commitment_schedule, :full) do
+    BeamPM.Types.MinimumCommitmentSchedule.new(%{
+      minimum_commitment_schedule_id: "sample_minimum_commitment_schedule_id",
+      account_id: "sample_account_id",
+      committed_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:minimum_commitment_schedule, :minimal) do
+    BeamPM.Types.MinimumCommitmentSchedule.new(%{
+      minimum_commitment_schedule_id: "sample_minimum_commitment_schedule_id",
+      account_id: "sample_account_id",
+      committed_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -5978,6 +6548,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:nonproduction_discount_policy, :full) do
+    BeamPM.Types.NonproductionDiscountPolicy.new(%{
+      nonproduction_discount_policy_id: "sample_nonproduction_discount_policy_id",
+      account_id: "sample_account_id",
+      discount_percent: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:nonproduction_discount_policy, :minimal) do
+    BeamPM.Types.NonproductionDiscountPolicy.new(%{
+      nonproduction_discount_policy_id: "sample_nonproduction_discount_policy_id",
+      account_id: "sample_account_id",
+      discount_percent: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:normalized_event_observation, :full) do
     BeamPM.Types.NormalizedEventObservation.new(%{
       source_system: "sample_source_system",
@@ -6063,6 +6653,26 @@ defmodule BeamPM.Roundtrip do
   def sample(:object_type, :minimal) do
     BeamPM.Types.ObjectType.new(%{
       type_name: "sample_type_name"
+    })
+  end
+
+  def sample(:object_volume_pricing_policy, :full) do
+    BeamPM.Types.ObjectVolumePricingPolicy.new(%{
+      object_volume_pricing_policy_id: "sample_object_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_object_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:object_volume_pricing_policy, :minimal) do
+    BeamPM.Types.ObjectVolumePricingPolicy.new(%{
+      object_volume_pricing_policy_id: "sample_object_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_object_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -6415,6 +7025,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:order_form_version, :full) do
+    BeamPM.Types.OrderFormVersion.new(%{
+      order_form_version_id: "sample_order_form_version_id",
+      account_id: "sample_account_id",
+      order_form_digest: "sample_order_form_digest",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:order_form_version, :minimal) do
+    BeamPM.Types.OrderFormVersion.new(%{
+      order_form_version_id: "sample_order_form_version_id",
+      account_id: "sample_account_id",
+      order_form_digest: "sample_order_form_digest",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:orthogonality_reward, :full) do
     BeamPM.Types.OrthogonalityReward.new(%{
       reward_id: "sample_reward_id",
@@ -6486,6 +7116,26 @@ defmodule BeamPM.Roundtrip do
       subject_id: "sample_subject_id",
       ownership_manifest_hash: "sample_ownership_manifest_hash",
       standing: "sample_standing"
+    })
+  end
+
+  def sample(:overage_invoice, :full) do
+    BeamPM.Types.OverageInvoice.new(%{
+      overage_invoice_id: "sample_overage_invoice_id",
+      account_id: "sample_account_id",
+      overage_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:overage_invoice, :minimal) do
+    BeamPM.Types.OverageInvoice.new(%{
+      overage_invoice_id: "sample_overage_invoice_id",
+      account_id: "sample_account_id",
+      overage_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -7084,6 +7734,66 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:premium_connector_pricing, :full) do
+    BeamPM.Types.PremiumConnectorPricing.new(%{
+      premium_connector_pricing_id: "sample_premium_connector_pricing_id",
+      account_id: "sample_account_id",
+      connector_id: "sample_connector_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:premium_connector_pricing, :minimal) do
+    BeamPM.Types.PremiumConnectorPricing.new(%{
+      premium_connector_pricing_id: "sample_premium_connector_pricing_id",
+      account_id: "sample_account_id",
+      connector_id: "sample_connector_id",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:prepaid_credit_balance, :full) do
+    BeamPM.Types.PrepaidCreditBalance.new(%{
+      prepaid_credit_balance_id: "sample_prepaid_credit_balance_id",
+      account_id: "sample_account_id",
+      remaining_credit: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:prepaid_credit_balance, :minimal) do
+    BeamPM.Types.PrepaidCreditBalance.new(%{
+      prepaid_credit_balance_id: "sample_prepaid_credit_balance_id",
+      account_id: "sample_account_id",
+      remaining_credit: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:price_book_version, :full) do
+    BeamPM.Types.PriceBookVersion.new(%{
+      price_book_version_id: "sample_price_book_version_id",
+      account_id: "sample_account_id",
+      version: "sample_version",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:price_book_version, :minimal) do
+    BeamPM.Types.PriceBookVersion.new(%{
+      price_book_version_id: "sample_price_book_version_id",
+      account_id: "sample_account_id",
+      version: "sample_version",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:pricing_basis_contract, :full) do
     BeamPM.Types.PricingBasisContract.new(%{
       opportunity_id: "sample_opportunity_id",
@@ -7167,6 +7877,26 @@ defmodule BeamPM.Roundtrip do
       variant_id: "sample_variant_id",
       activity_sequence: ["alpha", "beta"],
       frequency: 42
+    })
+  end
+
+  def sample(:process_volume_pricing_policy, :full) do
+    BeamPM.Types.ProcessVolumePricingPolicy.new(%{
+      process_volume_pricing_policy_id: "sample_process_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_process_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:process_volume_pricing_policy, :minimal) do
+    BeamPM.Types.ProcessVolumePricingPolicy.new(%{
+      process_volume_pricing_policy_id: "sample_process_volume_pricing_policy_id",
+      account_id: "sample_account_id",
+      unit_process_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -7336,6 +8066,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:proof_of_value_package, :full) do
+    BeamPM.Types.ProofOfValuePackage.new(%{
+      proof_of_value_package_id: "sample_proof_of_value_package_id",
+      account_id: "sample_account_id",
+      success_metric: "sample_success_metric",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:proof_of_value_package, :minimal) do
+    BeamPM.Types.ProofOfValuePackage.new(%{
+      proof_of_value_package_id: "sample_proof_of_value_package_id",
+      account_id: "sample_account_id",
+      success_metric: "sample_success_metric",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:propagation_score, :full) do
     BeamPM.Types.PropagationScore.new(%{
       option_id: "sample_option_id",
@@ -7349,6 +8099,26 @@ defmodule BeamPM.Roundtrip do
       option_id: "sample_option_id",
       graph_hash: "sample_graph_hash",
       score: "sample_score"
+    })
+  end
+
+  def sample(:proration_policy, :full) do
+    BeamPM.Types.ProrationPolicy.new(%{
+      proration_policy_id: "sample_proration_policy_id",
+      account_id: "sample_account_id",
+      proration_method: "sample_proration_method",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:proration_policy, :minimal) do
+    BeamPM.Types.ProrationPolicy.new(%{
+      proration_policy_id: "sample_proration_policy_id",
+      account_id: "sample_account_id",
+      proration_method: "sample_proration_method",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -7470,6 +8240,46 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:quota_burst_allowance, :full) do
+    BeamPM.Types.QuotaBurstAllowance.new(%{
+      quota_burst_allowance_id: "sample_quota_burst_allowance_id",
+      account_id: "sample_account_id",
+      burst_units: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:quota_burst_allowance, :minimal) do
+    BeamPM.Types.QuotaBurstAllowance.new(%{
+      quota_burst_allowance_id: "sample_quota_burst_allowance_id",
+      account_id: "sample_account_id",
+      burst_units: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:quota_override, :full) do
+    BeamPM.Types.QuotaOverride.new(%{
+      quota_override_id: "sample_quota_override_id",
+      account_id: "sample_account_id",
+      override_units: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:quota_override, :minimal) do
+    BeamPM.Types.QuotaOverride.new(%{
+      quota_override_id: "sample_quota_override_id",
+      account_id: "sample_account_id",
+      override_units: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:quota_policy, :full) do
     BeamPM.Types.QuotaPolicy.new(%{
       quota_id: "sample_quota_id",
@@ -7502,6 +8312,26 @@ defmodule BeamPM.Roundtrip do
       ramp_id: "sample_ramp_id",
       phase: 42,
       committed_amount: 3.5,
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:rate_card_entry, :full) do
+    BeamPM.Types.RateCardEntry.new(%{
+      rate_card_entry_id: "sample_rate_card_entry_id",
+      account_id: "sample_account_id",
+      unit_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:rate_card_entry, :minimal) do
+    BeamPM.Types.RateCardEntry.new(%{
+      rate_card_entry_id: "sample_rate_card_entry_id",
+      account_id: "sample_account_id",
+      unit_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
       effective_at: "2026-08-29T12:00:00Z"
     })
   end
@@ -7712,6 +8542,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:refund_policy, :full) do
+    BeamPM.Types.RefundPolicy.new(%{
+      refund_policy_id: "sample_refund_policy_id",
+      account_id: "sample_account_id",
+      refund_method: "sample_refund_method",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:refund_policy, :minimal) do
+    BeamPM.Types.RefundPolicy.new(%{
+      refund_policy_id: "sample_refund_policy_id",
+      account_id: "sample_account_id",
+      refund_method: "sample_refund_method",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:refusal_boundary_observation, :full) do
     BeamPM.Types.RefusalBoundaryObservation.new(%{
       subject_id: "sample_subject_id",
@@ -7747,6 +8597,26 @@ defmodule BeamPM.Roundtrip do
       limit: 3.5,
       metric_id: "sample_metric_id",
       authority_binding: "sample_authority_binding"
+    })
+  end
+
+  def sample(:region_pricing_policy, :full) do
+    BeamPM.Types.RegionPricingPolicy.new(%{
+      region_pricing_policy_id: "sample_region_pricing_policy_id",
+      account_id: "sample_account_id",
+      region_code: "sample_region_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:region_pricing_policy, :minimal) do
+    BeamPM.Types.RegionPricingPolicy.new(%{
+      region_pricing_policy_id: "sample_region_pricing_policy_id",
+      account_id: "sample_account_id",
+      region_code: "sample_region_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -8134,6 +9004,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:retention_pricing_policy, :full) do
+    BeamPM.Types.RetentionPricingPolicy.new(%{
+      retention_pricing_policy_id: "sample_retention_pricing_policy_id",
+      account_id: "sample_account_id",
+      retention_days: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:retention_pricing_policy, :minimal) do
+    BeamPM.Types.RetentionPricingPolicy.new(%{
+      retention_pricing_policy_id: "sample_retention_pricing_policy_id",
+      account_id: "sample_account_id",
+      retention_days: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:revenue_attribution, :full) do
     BeamPM.Types.RevenueAttribution.new(%{
       revenue_attribution_id: "sample_revenue_attribution_id",
@@ -8199,6 +9089,22 @@ defmodule BeamPM.Roundtrip do
       action_id: "sample_action_id",
       rollback_id: "sample_rollback_id",
       weight: "sample_weight"
+    })
+  end
+
+  def sample(:rework_cost, :full) do
+    BeamPM.Types.ReworkCost.new(%{
+      case_id: "sample_case_id",
+      loop_count: 42,
+      weighted_cost: 3.5
+    })
+  end
+
+  def sample(:rework_cost, :minimal) do
+    BeamPM.Types.ReworkCost.new(%{
+      case_id: "sample_case_id",
+      loop_count: 42,
+      weighted_cost: 3.5
     })
   end
 
@@ -8418,6 +9324,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:sandbox_entitlement, :full) do
+    BeamPM.Types.SandboxEntitlement.new(%{
+      sandbox_entitlement_id: "sample_sandbox_entitlement_id",
+      account_id: "sample_account_id",
+      sandbox_limit: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:sandbox_entitlement, :minimal) do
+    BeamPM.Types.SandboxEntitlement.new(%{
+      sandbox_entitlement_id: "sample_sandbox_entitlement_id",
+      account_id: "sample_account_id",
+      sandbox_limit: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:saturation_detection, :full) do
     BeamPM.Types.SaturationDetection.new(%{
       detection_id: "sample_detection_id",
@@ -8455,6 +9381,26 @@ defmodule BeamPM.Roundtrip do
       subject_sha: "sample_subject_sha",
       component_count: 42,
       observed_result: :sample_atom
+    })
+  end
+
+  def sample(:seat_pricing_policy, :full) do
+    BeamPM.Types.SeatPricingPolicy.new(%{
+      seat_pricing_policy_id: "sample_seat_pricing_policy_id",
+      account_id: "sample_account_id",
+      seat_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:seat_pricing_policy, :minimal) do
+    BeamPM.Types.SeatPricingPolicy.new(%{
+      seat_pricing_policy_id: "sample_seat_pricing_policy_id",
+      account_id: "sample_account_id",
+      seat_price: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -8633,6 +9579,26 @@ defmodule BeamPM.Roundtrip do
       opportunity_id: "sample_opportunity_id",
       service_credit_id: "sample_service_credit_id",
       decision: "sample_decision"
+    })
+  end
+
+  def sample(:service_credit_ledger, :full) do
+    BeamPM.Types.ServiceCreditLedger.new(%{
+      service_credit_ledger_id: "sample_service_credit_ledger_id",
+      account_id: "sample_account_id",
+      credit_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:service_credit_ledger, :minimal) do
+    BeamPM.Types.ServiceCreditLedger.new(%{
+      service_credit_ledger_id: "sample_service_credit_ledger_id",
+      account_id: "sample_account_id",
+      credit_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -8828,6 +9794,26 @@ defmodule BeamPM.Roundtrip do
       fit_score: 3.5,
       evidence_digest: "sample_evidence_digest",
       observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:spend_drawdown, :full) do
+    BeamPM.Types.SpendDrawdown.new(%{
+      spend_drawdown_id: "sample_spend_drawdown_id",
+      account_id: "sample_account_id",
+      consumed_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:spend_drawdown, :minimal) do
+    BeamPM.Types.SpendDrawdown.new(%{
+      spend_drawdown_id: "sample_spend_drawdown_id",
+      account_id: "sample_account_id",
+      consumed_amount: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -9208,6 +10194,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:tax_jurisdiction_rule, :full) do
+    BeamPM.Types.TaxJurisdictionRule.new(%{
+      tax_jurisdiction_rule_id: "sample_tax_jurisdiction_rule_id",
+      account_id: "sample_account_id",
+      jurisdiction_code: "sample_jurisdiction_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:tax_jurisdiction_rule, :minimal) do
+    BeamPM.Types.TaxJurisdictionRule.new(%{
+      tax_jurisdiction_rule_id: "sample_tax_jurisdiction_rule_id",
+      account_id: "sample_account_id",
+      jurisdiction_code: "sample_jurisdiction_code",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:technical_blocker, :full) do
     BeamPM.Types.TechnicalBlocker.new(%{
       opportunity_id: "sample_opportunity_id",
@@ -9486,6 +10492,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:trial_entitlement, :full) do
+    BeamPM.Types.TrialEntitlement.new(%{
+      trial_entitlement_id: "sample_trial_entitlement_id",
+      account_id: "sample_account_id",
+      trial_expires_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:trial_entitlement, :minimal) do
+    BeamPM.Types.TrialEntitlement.new(%{
+      trial_entitlement_id: "sample_trial_entitlement_id",
+      account_id: "sample_account_id",
+      trial_expires_at: "2026-08-29T12:00:00Z",
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:true_up_policy, :full) do
     BeamPM.Types.TrueUpPolicy.new(%{
       policy_id: "sample_policy_id",
@@ -9556,6 +10582,26 @@ defmodule BeamPM.Roundtrip do
     })
   end
 
+  def sample(:unit_economics_snapshot, :full) do
+    BeamPM.Types.UnitEconomicsSnapshot.new(%{
+      unit_economics_snapshot_id: "sample_unit_economics_snapshot_id",
+      account_id: "sample_account_id",
+      gross_margin: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:unit_economics_snapshot, :minimal) do
+    BeamPM.Types.UnitEconomicsSnapshot.new(%{
+      unit_economics_snapshot_id: "sample_unit_economics_snapshot_id",
+      account_id: "sample_account_id",
+      gross_margin: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
   def sample(:unsupported_capability_evidence, :full) do
     BeamPM.Types.UnsupportedCapabilityEvidence.new(%{
       evidence_id: "sample_evidence_id",
@@ -9609,6 +10655,46 @@ defmodule BeamPM.Roundtrip do
       upsell_score: 3.5,
       evidence_digest: "sample_evidence_digest",
       observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:usage_aggregation_window, :full) do
+    BeamPM.Types.UsageAggregationWindow.new(%{
+      usage_aggregation_window_id: "sample_usage_aggregation_window_id",
+      account_id: "sample_account_id",
+      window_seconds: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:usage_aggregation_window, :minimal) do
+    BeamPM.Types.UsageAggregationWindow.new(%{
+      usage_aggregation_window_id: "sample_usage_aggregation_window_id",
+      account_id: "sample_account_id",
+      window_seconds: 42,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:usage_correction, :full) do
+    BeamPM.Types.UsageCorrection.new(%{
+      usage_correction_id: "sample_usage_correction_id",
+      account_id: "sample_account_id",
+      corrected_quantity: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:usage_correction, :minimal) do
+    BeamPM.Types.UsageCorrection.new(%{
+      usage_correction_id: "sample_usage_correction_id",
+      account_id: "sample_account_id",
+      corrected_quantity: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      effective_at: "2026-08-29T12:00:00Z"
     })
   end
 
@@ -9833,6 +10919,30 @@ defmodule BeamPM.Roundtrip do
       realized_value: 3.5,
       evidence_digest: "sample_evidence_digest",
       policy_id: "sample_policy_id"
+    })
+  end
+
+  def sample(:value_receipt, :full) do
+    BeamPM.Types.ValueReceipt.new(%{
+      value_receipt_id: "sample_value_receipt_id",
+      account_id: "sample_account_id",
+      metric_name: "sample_metric_name",
+      baseline_value: 3.5,
+      observed_value: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      observed_at: "2026-08-29T12:00:00Z"
+    })
+  end
+
+  def sample(:value_receipt, :minimal) do
+    BeamPM.Types.ValueReceipt.new(%{
+      value_receipt_id: "sample_value_receipt_id",
+      account_id: "sample_account_id",
+      metric_name: "sample_metric_name",
+      baseline_value: 3.5,
+      observed_value: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      observed_at: "2026-08-29T12:00:00Z"
     })
   end
 

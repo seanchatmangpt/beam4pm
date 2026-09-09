@@ -18,6 +18,7 @@
     beam4pm_types:action_pin_evidence() |
     beam4pm_types:activation_event() |
     beam4pm_types:add_on_bundle() |
+    beam4pm_types:addon_activation() |
     beam4pm_types:admissible_action_set() |
     beam4pm_types:adoption_milestone() |
     beam4pm_types:agent_assignment() |
@@ -101,14 +102,19 @@
     beam4pm_types:brce_actuation_receipt() |
     beam4pm_types:brce_actuation_request() |
     beam4pm_types:budget_period_alignment() |
+    beam4pm_types:bundle_conflict() |
+    beam4pm_types:bundle_dependency() |
+    beam4pm_types:burst_pricing_policy() |
     beam4pm_types:business_continuity_evidence() |
     beam4pm_types:business_outcome_measurement() |
+    beam4pm_types:business_unit_allocation() |
     beam4pm_types:buying_committee() |
     beam4pm_types:caller_local_checkout_observation() |
     beam4pm_types:caller_local_consumer() |
     beam4pm_types:caller_local_crown_identity() |
     beam4pm_types:canary_decision() |
     beam4pm_types:canary_evidence() |
+    beam4pm_types:cancellation_policy() |
     beam4pm_types:canonical_source_authority_observation() |
     beam4pm_types:capability_bundle() |
     beam4pm_types:capability_gap() |
@@ -125,6 +131,7 @@
     beam4pm_types:channel_agreement() |
     beam4pm_types:chargeback_rule() |
     beam4pm_types:cluster_quorum_state() |
+    beam4pm_types:co_term_policy() |
     beam4pm_types:commercial_approval() |
     beam4pm_types:commercial_artifact_crown_evidence() |
     beam4pm_types:commercial_exception() |
@@ -138,6 +145,7 @@
     beam4pm_types:committed_spend() |
     beam4pm_types:committed_spend_admission() |
     beam4pm_types:compatibility_contract() |
+    beam4pm_types:concurrency_pricing_policy() |
     beam4pm_types:configuration_export() |
     beam4pm_types:configuration_import() |
     beam4pm_types:conformance_result() |
@@ -150,12 +158,14 @@
     beam4pm_types:container_manifest_digest_observation() |
     beam4pm_types:container_platform_digest_observation() |
     beam4pm_types:contracting_entity_identity() |
+    beam4pm_types:cost_center_allocation() |
     beam4pm_types:cost_latency_reliability_tradeoff() |
     beam4pm_types:cost_of_delay_score() |
     beam4pm_types:cost_to_serve_measurement() |
     beam4pm_types:counterfactual_frontier() |
     beam4pm_types:counterfactual_replay() |
     beam4pm_types:crash_recovery_receipt() |
+    beam4pm_types:credit_expiry_policy() |
     beam4pm_types:credit_risk_admission() |
     beam4pm_types:cross_sell_fit() |
     beam4pm_types:crown_applicable_gate_coverage() |
@@ -207,6 +217,7 @@
     beam4pm_types:crown_validation_pack() |
     beam4pm_types:crown_workflow_run_receipt() |
     beam4pm_types:crown_zero_unreceipted_writes() |
+    beam4pm_types:currency_policy() |
     beam4pm_types:curriculum_generation() |
     beam4pm_types:customer_health() |
     beam4pm_types:customer_managed_key_evidence() |
@@ -216,6 +227,7 @@
     beam4pm_types:data_processing_addendum_state() |
     beam4pm_types:data_readiness() |
     beam4pm_types:data_residency_policy() |
+    beam4pm_types:data_volume_pricing_policy() |
     beam4pm_types:deal_desk_packet() |
     beam4pm_types:decision_compression_observation() |
     beam4pm_types:decision_information_preservation() |
@@ -234,6 +246,9 @@
     beam4pm_types:dominance_witness() |
     beam4pm_types:dynamic_replan_trigger() |
     beam4pm_types:edition_definition() |
+    beam4pm_types:edition_downgrade_path() |
+    beam4pm_types:edition_upgrade_path() |
+    beam4pm_types:enterprise_agreement() |
     beam4pm_types:enterprise_order() |
     beam4pm_types:enterprise_order_line() |
     beam4pm_types:entitlement_denial_receipt() |
@@ -246,6 +261,7 @@
     beam4pm_types:entropy_reduction_score() |
     beam4pm_types:environment_failure_separation() |
     beam4pm_types:environment_identity() |
+    beam4pm_types:environment_pricing_policy() |
     beam4pm_types:environment_profile() |
     beam4pm_types:environment_signal_observation() |
     beam4pm_types:error_budget_state() |
@@ -253,6 +269,7 @@
     beam4pm_types:event_log() |
     beam4pm_types:event_triggered_planning() |
     beam4pm_types:event_type() |
+    beam4pm_types:event_volume_pricing_policy() |
     beam4pm_types:evidence_freshness_evidence() |
     beam4pm_types:evidence_training_sample() |
     beam4pm_types:exact_subject_binding() |
@@ -269,6 +286,7 @@
     beam4pm_types:federated_dogfood_learning_crown() |
     beam4pm_types:forged_receipt_refusal() |
     beam4pm_types:funding_approval_chain() |
+    beam4pm_types:fx_conversion_policy() |
     beam4pm_types:generated_hypothesis() |
     beam4pm_types:generated_output_ownership_observation() |
     beam4pm_types:generated_source_route() |
@@ -286,10 +304,13 @@
     beam4pm_types:integration_readiness() |
     beam4pm_types:integration_scope_admission() |
     beam4pm_types:invoice_entity_identity() |
+    beam4pm_types:invoice_line_item() |
     beam4pm_types:invoice_schedule() |
     beam4pm_types:irreversibility_budget() |
     beam4pm_types:k8s_object_ref() |
+    beam4pm_types:late_arriving_usage() |
     beam4pm_types:latency_budget_observation() |
+    beam4pm_types:leakage_finding() |
     beam4pm_types:learning_episode() |
     beam4pm_types:least_authority_evidence() |
     beam4pm_types:legal_blocker() |
@@ -299,12 +320,17 @@
     beam4pm_types:machine_actionable_delta() |
     beam4pm_types:manufacture_receipt_presence_observation() |
     beam4pm_types:manufacture_receipt_validity_observation() |
+    beam4pm_types:master_service_agreement_binding() |
     beam4pm_types:master_service_agreement_state() |
     beam4pm_types:mcts_plan_candidate() |
     beam4pm_types:meta_router() |
+    beam4pm_types:meter_definition() |
+    beam4pm_types:meter_dimension() |
+    beam4pm_types:meter_rollup() |
     beam4pm_types:metered_usage_sample() |
     beam4pm_types:migration_contract() |
     beam4pm_types:migration_readiness() |
+    beam4pm_types:minimum_commitment_schedule() |
     beam4pm_types:minimum_term_admission() |
     beam4pm_types:multiarch_evidence() |
     beam4pm_types:mutable_identity_refusal_evidence() |
@@ -313,11 +339,13 @@
     beam4pm_types:next_lawful_actuation() |
     beam4pm_types:no_authority_learning_guard() |
     beam4pm_types:node_failover_event() |
+    beam4pm_types:nonproduction_discount_policy() |
     beam4pm_types:normalized_event_observation() |
     beam4pm_types:novelty_reward() |
     beam4pm_types:novelty_score() |
     beam4pm_types:object_attribute_change() |
     beam4pm_types:object_type() |
+    beam4pm_types:object_volume_pricing_policy() |
     beam4pm_types:objection() |
     beam4pm_types:objection_resolution() |
     beam4pm_types:observation_deduplication_decision() |
@@ -338,10 +366,12 @@
     beam4pm_types:optimization_plan_candidate() |
     beam4pm_types:option_generation() |
     beam4pm_types:order_form_admission() |
+    beam4pm_types:order_form_version() |
     beam4pm_types:orthogonality_reward() |
     beam4pm_types:orthogonality_score() |
     beam4pm_types:outcome_label() |
     beam4pm_types:output_ownership_gate() |
+    beam4pm_types:overage_invoice() |
     beam4pm_types:overage_policy() |
     beam4pm_types:package_release_observation() |
     beam4pm_types:paid_workload_outcome_receipt() |
@@ -377,11 +407,15 @@
     beam4pm_types:powl_partial_order_edge() |
     beam4pm_types:powl_projection() |
     beam4pm_types:ppddl_projection() |
+    beam4pm_types:premium_connector_pricing() |
+    beam4pm_types:prepaid_credit_balance() |
+    beam4pm_types:price_book_version() |
     beam4pm_types:pricing_basis_contract() |
     beam4pm_types:privacy_classification_evidence() |
     beam4pm_types:private_offer() |
     beam4pm_types:private_registry_evidence() |
     beam4pm_types:process_variant() |
+    beam4pm_types:process_volume_pricing_policy() |
     beam4pm_types:procurement_acceptance_evidence() |
     beam4pm_types:procurement_blocker() |
     beam4pm_types:procurement_channel_selection() |
@@ -391,7 +425,9 @@
     beam4pm_types:promotion_threshold() |
     beam4pm_types:proof_of_value_budget() |
     beam4pm_types:proof_of_value_exit_gate() |
+    beam4pm_types:proof_of_value_package() |
     beam4pm_types:propagation_score() |
+    beam4pm_types:proration_policy() |
     beam4pm_types:provenance_binding_evidence() |
     beam4pm_types:provenance_binding_observation() |
     beam4pm_types:psro_population() |
@@ -399,8 +435,11 @@
     beam4pm_types:purchase_order_requirement() |
     beam4pm_types:purchasing_entity_identity() |
     beam4pm_types:queue_snapshot() |
+    beam4pm_types:quota_burst_allowance() |
+    beam4pm_types:quota_override() |
     beam4pm_types:quota_policy() |
     beam4pm_types:ramp_commitment() |
+    beam4pm_types:rate_card_entry() |
     beam4pm_types:rate_distortion_budget() |
     beam4pm_types:reachability_analysis() |
     beam4pm_types:receipt_learning_compilation() |
@@ -413,8 +452,10 @@
     beam4pm_types:recovery_plan() |
     beam4pm_types:recovery_point_receipt() |
     beam4pm_types:recovery_time_receipt() |
+    beam4pm_types:refund_policy() |
     beam4pm_types:refusal_boundary_observation() |
     beam4pm_types:refusal_threshold() |
+    beam4pm_types:region_pricing_policy() |
     beam4pm_types:regression_detector() |
     beam4pm_types:regression_refusal() |
     beam4pm_types:remediation_sla_evidence() |
@@ -436,10 +477,12 @@
     beam4pm_types:resource_allocation() |
     beam4pm_types:resource_capacity_plan() |
     beam4pm_types:retention_policy_evidence() |
+    beam4pm_types:retention_pricing_policy() |
     beam4pm_types:revenue_attribution() |
     beam4pm_types:revenue_contract_admission() |
     beam4pm_types:revenue_schedule_assumption() |
     beam4pm_types:reversibility_weight() |
+    beam4pm_types:rework_cost() |
     beam4pm_types:rfp_response_evidence() |
     beam4pm_types:role_compatibility() |
     beam4pm_types:rollback_checkpoint() |
@@ -452,8 +495,10 @@
     beam4pm_types:runtime_health_observation() |
     beam4pm_types:runtime_policy_decision() |
     beam4pm_types:sanctions_screening_result() |
+    beam4pm_types:sandbox_entitlement() |
     beam4pm_types:saturation_detection() |
     beam4pm_types:sbom_inventory_evidence() |
+    beam4pm_types:seat_pricing_policy() |
     beam4pm_types:second_pass_byte_identity_observation() |
     beam4pm_types:second_run_identity_objective() |
     beam4pm_types:secret_boundary_evidence() |
@@ -464,6 +509,7 @@
     beam4pm_types:semantic_drift_observation() |
     beam4pm_types:service_credit() |
     beam4pm_types:service_credit_admission() |
+    beam4pm_types:service_credit_ledger() |
     beam4pm_types:service_health_snapshot() |
     beam4pm_types:service_level_objective() |
     beam4pm_types:service_slo_contract() |
@@ -475,6 +521,7 @@
     beam4pm_types:sla_offer_admission() |
     beam4pm_types:sojourn_time() |
     beam4pm_types:solution_fit() |
+    beam4pm_types:spend_drawdown() |
     beam4pm_types:stakeholder_map() |
     beam4pm_types:stale_plan_refusal() |
     beam4pm_types:stale_receipt_refusal() |
@@ -496,6 +543,7 @@
     beam4pm_types:sync_time() |
     beam4pm_types:target_metric() |
     beam4pm_types:tax_jurisdiction_evidence() |
+    beam4pm_types:tax_jurisdiction_rule() |
     beam4pm_types:technical_blocker() |
     beam4pm_types:temporal_order_observation() |
     beam4pm_types:tenant_account() |
@@ -512,13 +560,17 @@
     beam4pm_types:training_readiness() |
     beam4pm_types:training_scope_admission() |
     beam4pm_types:trajectory_window() |
+    beam4pm_types:trial_entitlement() |
     beam4pm_types:true_up_policy() |
     beam4pm_types:type_edge() |
     beam4pm_types:uncertainty_aware_selection() |
     beam4pm_types:uncertainty_observation() |
+    beam4pm_types:unit_economics_snapshot() |
     beam4pm_types:unsupported_capability_evidence() |
     beam4pm_types:upgrade_evidence() |
     beam4pm_types:upsell_readiness() |
+    beam4pm_types:usage_aggregation_window() |
+    beam4pm_types:usage_correction() |
     beam4pm_types:usage_event() |
     beam4pm_types:usage_plan() |
     beam4pm_types:usage_reconciliation_receipt() |
@@ -531,6 +583,7 @@
     beam4pm_types:value_of_information_score() |
     beam4pm_types:value_realization() |
     beam4pm_types:value_realization_feedback() |
+    beam4pm_types:value_receipt() |
     beam4pm_types:value_telemetry_sample() |
     beam4pm_types:vendor_registration_state() |
     beam4pm_types:vendor_risk_evidence() |
@@ -610,6 +663,14 @@ to_map(R) when element(1, R) =:= add_on_bundle ->
         {<<"name">>, plain, element(3, R)},
         {<<"capability_ids">>, plain, element(4, R)},
         {<<"status">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= addon_activation ->
+    pairs_to_map([
+        {<<"addon_activation_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"addon_id">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= admissible_action_set ->
     pairs_to_map([
@@ -1185,6 +1246,30 @@ to_map(R) when element(1, R) =:= budget_period_alignment ->
         {<<"budget_period">>, plain, element(3, R)},
         {<<"alignment_result">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= bundle_conflict ->
+    pairs_to_map([
+        {<<"bundle_conflict_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"conflicting_bundle_id">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= bundle_dependency ->
+    pairs_to_map([
+        {<<"bundle_dependency_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"required_bundle_id">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= burst_pricing_policy ->
+    pairs_to_map([
+        {<<"burst_pricing_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"burst_multiplier">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= business_continuity_evidence ->
     pairs_to_map([
         {<<"evidence_id">>, plain, element(2, R)},
@@ -1197,6 +1282,14 @@ to_map(R) when element(1, R) =:= business_outcome_measurement ->
         {<<"tenant_id">>, plain, element(2, R)},
         {<<"outcome_id">>, plain, element(3, R)},
         {<<"measurement_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= business_unit_allocation ->
+    pairs_to_map([
+        {<<"business_unit_allocation_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"business_unit_id">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= buying_committee ->
     pairs_to_map([
@@ -1240,6 +1333,14 @@ to_map(R) when element(1, R) =:= canary_evidence ->
         {<<"subject_sha">>, plain, element(3, R)},
         {<<"canary_percentage">>, plain, element(4, R)},
         {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= cancellation_policy ->
+    pairs_to_map([
+        {<<"cancellation_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"notice_days">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= canonical_source_authority_observation ->
     pairs_to_map([
@@ -1352,6 +1453,14 @@ to_map(R) when element(1, R) =:= cluster_quorum_state ->
         {<<"cluster_id">>, plain, element(3, R)},
         {<<"quorum_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= co_term_policy ->
+    pairs_to_map([
+        {<<"co_term_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"coterm_date">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= commercial_approval ->
     pairs_to_map([
         {<<"approval_id">>, plain, element(2, R)},
@@ -1442,6 +1551,14 @@ to_map(R) when element(1, R) =:= compatibility_contract ->
         {<<"schema_version">>, plain, element(4, R)},
         {<<"api_version">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= concurrency_pricing_policy ->
+    pairs_to_map([
+        {<<"concurrency_pricing_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"included_concurrency">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= configuration_export ->
     pairs_to_map([
         {<<"export_id">>, plain, element(2, R)},
@@ -1525,6 +1642,14 @@ to_map(R) when element(1, R) =:= contracting_entity_identity ->
         {<<"contracting_entity_id">>, plain, element(3, R)},
         {<<"identity_evidence_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= cost_center_allocation ->
+    pairs_to_map([
+        {<<"cost_center_allocation_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"cost_center_id">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= cost_latency_reliability_tradeoff ->
     pairs_to_map([
         {<<"assessment_id">>, plain, element(2, R)},
@@ -1566,6 +1691,14 @@ to_map(R) when element(1, R) =:= crash_recovery_receipt ->
         {<<"tenant_id">>, plain, element(2, R)},
         {<<"crash_id">>, plain, element(3, R)},
         {<<"receipt_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= credit_expiry_policy ->
+    pairs_to_map([
+        {<<"credit_expiry_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"expires_at">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= credit_risk_admission ->
     pairs_to_map([
@@ -1924,6 +2057,14 @@ to_map(R) when element(1, R) =:= crown_zero_unreceipted_writes ->
         {<<"write_set_digest">>, plain, element(4, R)},
         {<<"receipt_digest">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= currency_policy ->
+    pairs_to_map([
+        {<<"currency_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"currency_code">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= curriculum_generation ->
     pairs_to_map([
         {<<"curriculum_id">>, plain, element(2, R)},
@@ -1987,6 +2128,14 @@ to_map(R) when element(1, R) =:= data_residency_policy ->
         {<<"tenant_id">>, plain, element(3, R)},
         {<<"allowed_regions">>, plain, element(4, R)},
         {<<"status">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= data_volume_pricing_policy ->
+    pairs_to_map([
+        {<<"data_volume_pricing_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"unit_gb_price">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= deal_desk_packet ->
     pairs_to_map([
@@ -2115,6 +2264,30 @@ to_map(R) when element(1, R) =:= edition_definition ->
         {<<"bundle_ids">>, plain, element(4, R)},
         {<<"support_tier">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= edition_downgrade_path ->
+    pairs_to_map([
+        {<<"edition_downgrade_path_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"target_edition_id">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= edition_upgrade_path ->
+    pairs_to_map([
+        {<<"edition_upgrade_path_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"target_edition_id">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= enterprise_agreement ->
+    pairs_to_map([
+        {<<"enterprise_agreement_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"agreement_version">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= enterprise_order ->
     pairs_to_map([
         {<<"order_id">>, plain, element(2, R)},
@@ -2197,6 +2370,14 @@ to_map(R) when element(1, R) =:= environment_identity ->
         {<<"environment_id">>, plain, element(3, R)},
         {<<"identity_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= environment_pricing_policy ->
+    pairs_to_map([
+        {<<"environment_pricing_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"environment_tier">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= environment_profile ->
     pairs_to_map([
         {<<"profile_id">>, plain, element(2, R)},
@@ -2242,6 +2423,14 @@ to_map(R) when element(1, R) =:= event_type ->
     pairs_to_map([
         {<<"type_name">>, plain, element(2, R)},
         {<<"attribute_names">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= event_volume_pricing_policy ->
+    pairs_to_map([
+        {<<"event_volume_pricing_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"unit_event_price">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= evidence_freshness_evidence ->
     pairs_to_map([
@@ -2367,6 +2556,14 @@ to_map(R) when element(1, R) =:= funding_approval_chain ->
         {<<"approval_chain_id">>, plain, element(3, R)},
         {<<"evidence_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= fx_conversion_policy ->
+    pairs_to_map([
+        {<<"fx_conversion_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"rate_source">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= generated_hypothesis ->
     pairs_to_map([
         {<<"hypothesis_id">>, plain, element(2, R)},
@@ -2480,6 +2677,14 @@ to_map(R) when element(1, R) =:= invoice_entity_identity ->
         {<<"invoice_entity_id">>, plain, element(3, R)},
         {<<"identity_evidence_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= invoice_line_item ->
+    pairs_to_map([
+        {<<"invoice_line_item_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"line_amount">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= invoice_schedule ->
     pairs_to_map([
         {<<"schedule_id">>, plain, element(2, R)},
@@ -2499,11 +2704,26 @@ to_map(R) when element(1, R) =:= k8s_object_ref ->
         {<<"name">>, plain, element(3, R)},
         {<<"namespace">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= late_arriving_usage ->
+    pairs_to_map([
+        {<<"late_arriving_usage_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"occurred_at">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= latency_budget_observation ->
     pairs_to_map([
         {<<"tenant_id">>, plain, element(2, R)},
         {<<"workload_id">>, plain, element(3, R)},
         {<<"observation_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= leakage_finding ->
+    pairs_to_map([
+        {<<"case_id">>, plain, element(2, R)},
+        {<<"fitness">>, plain, element(3, R)},
+        {<<"precision">>, plain, element(4, R)},
+        {<<"amount_at_risk">>, plain, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= learning_episode ->
     pairs_to_map([
@@ -2565,6 +2785,14 @@ to_map(R) when element(1, R) =:= manufacture_receipt_validity_observation ->
         {<<"verification_status">>, plain, element(4, R)},
         {<<"verifier_identity">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= master_service_agreement_binding ->
+    pairs_to_map([
+        {<<"master_service_agreement_binding_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"msa_digest">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= master_service_agreement_state ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
@@ -2582,6 +2810,30 @@ to_map(R) when element(1, R) =:= meta_router ->
         {<<"portfolio_id">>, plain, element(2, R)},
         {<<"observation_hash">>, plain, element(3, R)},
         {<<"selected_planner_id">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= meter_definition ->
+    pairs_to_map([
+        {<<"meter_definition_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"meter_name">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= meter_dimension ->
+    pairs_to_map([
+        {<<"meter_dimension_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"dimension_name">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= meter_rollup ->
+    pairs_to_map([
+        {<<"meter_rollup_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"rollup_function">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= metered_usage_sample ->
     pairs_to_map([
@@ -2603,6 +2855,14 @@ to_map(R) when element(1, R) =:= migration_readiness ->
         {<<"migration_effort_days">>, plain, element(4, R)},
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= minimum_commitment_schedule ->
+    pairs_to_map([
+        {<<"minimum_commitment_schedule_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"committed_amount">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= minimum_term_admission ->
     pairs_to_map([
@@ -2659,6 +2919,14 @@ to_map(R) when element(1, R) =:= node_failover_event ->
         {<<"node_id">>, plain, element(3, R)},
         {<<"failover_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= nonproduction_discount_policy ->
+    pairs_to_map([
+        {<<"nonproduction_discount_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"discount_percent">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= normalized_event_observation ->
     pairs_to_map([
         {<<"source_system">>, plain, element(2, R)},
@@ -2693,6 +2961,14 @@ to_map(R) when element(1, R) =:= object_type ->
     pairs_to_map([
         {<<"type_name">>, plain, element(2, R)},
         {<<"attribute_names">>, plain, element(3, R)}
+    ]);
+to_map(R) when element(1, R) =:= object_volume_pricing_policy ->
+    pairs_to_map([
+        {<<"object_volume_pricing_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"unit_object_price">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= objection ->
     pairs_to_map([
@@ -2830,6 +3106,14 @@ to_map(R) when element(1, R) =:= order_form_admission ->
         {<<"order_form_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= order_form_version ->
+    pairs_to_map([
+        {<<"order_form_version_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"order_form_digest">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= orthogonality_reward ->
     pairs_to_map([
         {<<"reward_id">>, plain, element(2, R)},
@@ -2858,6 +3142,14 @@ to_map(R) when element(1, R) =:= output_ownership_gate ->
         {<<"subject_id">>, plain, element(2, R)},
         {<<"ownership_manifest_hash">>, plain, element(3, R)},
         {<<"standing">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= overage_invoice ->
+    pairs_to_map([
+        {<<"overage_invoice_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"overage_amount">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= overage_policy ->
     pairs_to_map([
@@ -3091,6 +3383,30 @@ to_map(R) when element(1, R) =:= ppddl_projection ->
         {<<"domain_hash">>, plain, element(3, R)},
         {<<"problem_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= premium_connector_pricing ->
+    pairs_to_map([
+        {<<"premium_connector_pricing_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"connector_id">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= prepaid_credit_balance ->
+    pairs_to_map([
+        {<<"prepaid_credit_balance_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"remaining_credit">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= price_book_version ->
+    pairs_to_map([
+        {<<"price_book_version_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"version">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= pricing_basis_contract ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
@@ -3123,6 +3439,14 @@ to_map(R) when element(1, R) =:= process_variant ->
         {<<"variant_id">>, plain, element(2, R)},
         {<<"activity_sequence">>, plain, element(3, R)},
         {<<"frequency">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= process_volume_pricing_policy ->
+    pairs_to_map([
+        {<<"process_volume_pricing_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"unit_process_price">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= procurement_acceptance_evidence ->
     pairs_to_map([
@@ -3189,11 +3513,27 @@ to_map(R) when element(1, R) =:= proof_of_value_exit_gate ->
         {<<"exit_gate_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= proof_of_value_package ->
+    pairs_to_map([
+        {<<"proof_of_value_package_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"success_metric">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= propagation_score ->
     pairs_to_map([
         {<<"option_id">>, plain, element(2, R)},
         {<<"graph_hash">>, plain, element(3, R)},
         {<<"score">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= proration_policy ->
+    pairs_to_map([
+        {<<"proration_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"proration_method">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= provenance_binding_evidence ->
     pairs_to_map([
@@ -3240,6 +3580,22 @@ to_map(R) when element(1, R) =:= queue_snapshot ->
         {<<"depth">>, plain, element(3, R)},
         {<<"observed_at">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= quota_burst_allowance ->
+    pairs_to_map([
+        {<<"quota_burst_allowance_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"burst_units">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= quota_override ->
+    pairs_to_map([
+        {<<"quota_override_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"override_units">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= quota_policy ->
     pairs_to_map([
         {<<"quota_id">>, plain, element(2, R)},
@@ -3253,6 +3609,14 @@ to_map(R) when element(1, R) =:= ramp_commitment ->
         {<<"phase">>, plain, element(3, R)},
         {<<"committed_amount">>, plain, element(4, R)},
         {<<"effective_at">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= rate_card_entry ->
+    pairs_to_map([
+        {<<"rate_card_entry_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"unit_price">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= rate_distortion_budget ->
     pairs_to_map([
@@ -3333,6 +3697,14 @@ to_map(R) when element(1, R) =:= recovery_time_receipt ->
         {<<"incident_id">>, plain, element(3, R)},
         {<<"recovery_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= refund_policy ->
+    pairs_to_map([
+        {<<"refund_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"refund_method">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= refusal_boundary_observation ->
     pairs_to_map([
         {<<"subject_id">>, plain, element(2, R)},
@@ -3347,6 +3719,14 @@ to_map(R) when element(1, R) =:= refusal_threshold ->
         {<<"limit">>, plain, element(4, R)},
         {<<"metric_id">>, plain, element(5, R)},
         {<<"authority_binding">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= region_pricing_policy ->
+    pairs_to_map([
+        {<<"region_pricing_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"region_code">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= regression_detector ->
     pairs_to_map([
@@ -3498,6 +3878,14 @@ to_map(R) when element(1, R) =:= retention_policy_evidence ->
         {<<"retention_days">>, plain, element(4, R)},
         {<<"observed_result">>, atom, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= retention_pricing_policy ->
+    pairs_to_map([
+        {<<"retention_pricing_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"retention_days">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= revenue_attribution ->
     pairs_to_map([
         {<<"revenue_attribution_id">>, plain, element(2, R)},
@@ -3523,6 +3911,12 @@ to_map(R) when element(1, R) =:= reversibility_weight ->
         {<<"action_id">>, plain, element(2, R)},
         {<<"rollback_id">>, plain, element(3, R)},
         {<<"weight">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= rework_cost ->
+    pairs_to_map([
+        {<<"case_id">>, plain, element(2, R)},
+        {<<"loop_count">>, plain, element(3, R)},
+        {<<"weighted_cost">>, plain, element(4, R)}
     ]);
 to_map(R) when element(1, R) =:= rfp_response_evidence ->
     pairs_to_map([
@@ -3608,6 +4002,14 @@ to_map(R) when element(1, R) =:= sanctions_screening_result ->
         {<<"screening_id">>, plain, element(3, R)},
         {<<"screening_result">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= sandbox_entitlement ->
+    pairs_to_map([
+        {<<"sandbox_entitlement_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"sandbox_limit">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= saturation_detection ->
     pairs_to_map([
         {<<"detection_id">>, plain, element(2, R)},
@@ -3623,6 +4025,14 @@ to_map(R) when element(1, R) =:= sbom_inventory_evidence ->
         {<<"subject_sha">>, plain, element(3, R)},
         {<<"component_count">>, plain, element(4, R)},
         {<<"observed_result">>, atom, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= seat_pricing_policy ->
+    pairs_to_map([
+        {<<"seat_pricing_policy_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"seat_price">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= second_pass_byte_identity_observation ->
     pairs_to_map([
@@ -3692,6 +4102,14 @@ to_map(R) when element(1, R) =:= service_credit_admission ->
         {<<"opportunity_id">>, plain, element(2, R)},
         {<<"service_credit_id">>, plain, element(3, R)},
         {<<"decision">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= service_credit_ledger ->
+    pairs_to_map([
+        {<<"service_credit_ledger_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"credit_amount">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= service_health_snapshot ->
     pairs_to_map([
@@ -3768,6 +4186,14 @@ to_map(R) when element(1, R) =:= solution_fit ->
         {<<"fit_score">>, plain, element(4, R)},
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= spend_drawdown ->
+    pairs_to_map([
+        {<<"spend_drawdown_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"consumed_amount">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= stakeholder_map ->
     pairs_to_map([
@@ -3916,6 +4342,14 @@ to_map(R) when element(1, R) =:= tax_jurisdiction_evidence ->
         {<<"tax_jurisdiction">>, plain, element(3, R)},
         {<<"evidence_hash">>, plain, element(4, R)}
     ]);
+to_map(R) when element(1, R) =:= tax_jurisdiction_rule ->
+    pairs_to_map([
+        {<<"tax_jurisdiction_rule_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"jurisdiction_code">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= technical_blocker ->
     pairs_to_map([
         {<<"opportunity_id">>, plain, element(2, R)},
@@ -4023,6 +4457,14 @@ to_map(R) when element(1, R) =:= trajectory_window ->
         {<<"last_subject_sha">>, plain, element(5, R)},
         {<<"episode_count">>, plain, element(6, R)}
     ]);
+to_map(R) when element(1, R) =:= trial_entitlement ->
+    pairs_to_map([
+        {<<"trial_entitlement_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"trial_expires_at">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= true_up_policy ->
     pairs_to_map([
         {<<"policy_id">>, plain, element(2, R)},
@@ -4050,6 +4492,14 @@ to_map(R) when element(1, R) =:= uncertainty_observation ->
         {<<"confidence_basis">>, plain, element(4, R)},
         {<<"standing">>, plain, element(5, R)}
     ]);
+to_map(R) when element(1, R) =:= unit_economics_snapshot ->
+    pairs_to_map([
+        {<<"unit_economics_snapshot_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"gross_margin">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
 to_map(R) when element(1, R) =:= unsupported_capability_evidence ->
     pairs_to_map([
         {<<"evidence_id">>, plain, element(2, R)},
@@ -4071,6 +4521,22 @@ to_map(R) when element(1, R) =:= upsell_readiness ->
         {<<"upsell_score">>, plain, element(4, R)},
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= usage_aggregation_window ->
+    pairs_to_map([
+        {<<"usage_aggregation_window_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"window_seconds">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= usage_correction ->
+    pairs_to_map([
+        {<<"usage_correction_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"corrected_quantity">>, plain, element(4, R)},
+        {<<"evidence_digest">>, plain, element(5, R)},
+        {<<"effective_at">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= usage_event ->
     pairs_to_map([
@@ -4159,6 +4625,16 @@ to_map(R) when element(1, R) =:= value_realization_feedback ->
         {<<"realized_value">>, plain, element(5, R)},
         {<<"evidence_digest">>, plain, element(6, R)},
         {<<"policy_id">>, plain, element(7, R)}
+    ]);
+to_map(R) when element(1, R) =:= value_receipt ->
+    pairs_to_map([
+        {<<"value_receipt_id">>, plain, element(2, R)},
+        {<<"account_id">>, plain, element(3, R)},
+        {<<"metric_name">>, plain, element(4, R)},
+        {<<"baseline_value">>, plain, element(5, R)},
+        {<<"observed_value">>, plain, element(6, R)},
+        {<<"evidence_digest">>, plain, element(7, R)},
+        {<<"observed_at">>, plain, element(8, R)}
     ]);
 to_map(R) when element(1, R) =:= value_telemetry_sample ->
     pairs_to_map([
@@ -4344,6 +4820,14 @@ from_map(add_on_bundle, Map) when is_map(Map) ->
         {<<"name">>, name, plain},
         {<<"capability_ids">>, capability_ids, plain},
         {<<"status">>, status, atom}
+    ]));
+from_map(addon_activation, Map) when is_map(Map) ->
+    beam4pm_types:new_addon_activation(take_known(Map, [
+        {<<"addon_activation_id">>, addon_activation_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"addon_id">>, addon_id, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(admissible_action_set, Map) when is_map(Map) ->
     beam4pm_types:new_admissible_action_set(take_known(Map, [
@@ -4919,6 +5403,30 @@ from_map(budget_period_alignment, Map) when is_map(Map) ->
         {<<"budget_period">>, budget_period, plain},
         {<<"alignment_result">>, alignment_result, plain}
     ]));
+from_map(bundle_conflict, Map) when is_map(Map) ->
+    beam4pm_types:new_bundle_conflict(take_known(Map, [
+        {<<"bundle_conflict_id">>, bundle_conflict_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"conflicting_bundle_id">>, conflicting_bundle_id, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(bundle_dependency, Map) when is_map(Map) ->
+    beam4pm_types:new_bundle_dependency(take_known(Map, [
+        {<<"bundle_dependency_id">>, bundle_dependency_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"required_bundle_id">>, required_bundle_id, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(burst_pricing_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_burst_pricing_policy(take_known(Map, [
+        {<<"burst_pricing_policy_id">>, burst_pricing_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"burst_multiplier">>, burst_multiplier, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(business_continuity_evidence, Map) when is_map(Map) ->
     beam4pm_types:new_business_continuity_evidence(take_known(Map, [
         {<<"evidence_id">>, evidence_id, plain},
@@ -4931,6 +5439,14 @@ from_map(business_outcome_measurement, Map) when is_map(Map) ->
         {<<"tenant_id">>, tenant_id, plain},
         {<<"outcome_id">>, outcome_id, plain},
         {<<"measurement_hash">>, measurement_hash, plain}
+    ]));
+from_map(business_unit_allocation, Map) when is_map(Map) ->
+    beam4pm_types:new_business_unit_allocation(take_known(Map, [
+        {<<"business_unit_allocation_id">>, business_unit_allocation_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"business_unit_id">>, business_unit_id, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(buying_committee, Map) when is_map(Map) ->
     beam4pm_types:new_buying_committee(take_known(Map, [
@@ -4974,6 +5490,14 @@ from_map(canary_evidence, Map) when is_map(Map) ->
         {<<"subject_sha">>, subject_sha, plain},
         {<<"canary_percentage">>, canary_percentage, plain},
         {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(cancellation_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_cancellation_policy(take_known(Map, [
+        {<<"cancellation_policy_id">>, cancellation_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"notice_days">>, notice_days, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(canonical_source_authority_observation, Map) when is_map(Map) ->
     beam4pm_types:new_canonical_source_authority_observation(take_known(Map, [
@@ -5086,6 +5610,14 @@ from_map(cluster_quorum_state, Map) when is_map(Map) ->
         {<<"cluster_id">>, cluster_id, plain},
         {<<"quorum_hash">>, quorum_hash, plain}
     ]));
+from_map(co_term_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_co_term_policy(take_known(Map, [
+        {<<"co_term_policy_id">>, co_term_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"coterm_date">>, coterm_date, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(commercial_approval, Map) when is_map(Map) ->
     beam4pm_types:new_commercial_approval(take_known(Map, [
         {<<"approval_id">>, approval_id, plain},
@@ -5176,6 +5708,14 @@ from_map(compatibility_contract, Map) when is_map(Map) ->
         {<<"schema_version">>, schema_version, plain},
         {<<"api_version">>, api_version, plain}
     ]));
+from_map(concurrency_pricing_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_concurrency_pricing_policy(take_known(Map, [
+        {<<"concurrency_pricing_policy_id">>, concurrency_pricing_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"included_concurrency">>, included_concurrency, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(configuration_export, Map) when is_map(Map) ->
     beam4pm_types:new_configuration_export(take_known(Map, [
         {<<"export_id">>, export_id, plain},
@@ -5259,6 +5799,14 @@ from_map(contracting_entity_identity, Map) when is_map(Map) ->
         {<<"contracting_entity_id">>, contracting_entity_id, plain},
         {<<"identity_evidence_hash">>, identity_evidence_hash, plain}
     ]));
+from_map(cost_center_allocation, Map) when is_map(Map) ->
+    beam4pm_types:new_cost_center_allocation(take_known(Map, [
+        {<<"cost_center_allocation_id">>, cost_center_allocation_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"cost_center_id">>, cost_center_id, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(cost_latency_reliability_tradeoff, Map) when is_map(Map) ->
     beam4pm_types:new_cost_latency_reliability_tradeoff(take_known(Map, [
         {<<"assessment_id">>, assessment_id, plain},
@@ -5300,6 +5848,14 @@ from_map(crash_recovery_receipt, Map) when is_map(Map) ->
         {<<"tenant_id">>, tenant_id, plain},
         {<<"crash_id">>, crash_id, plain},
         {<<"receipt_hash">>, receipt_hash, plain}
+    ]));
+from_map(credit_expiry_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_credit_expiry_policy(take_known(Map, [
+        {<<"credit_expiry_policy_id">>, credit_expiry_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"expires_at">>, expires_at, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(credit_risk_admission, Map) when is_map(Map) ->
     beam4pm_types:new_credit_risk_admission(take_known(Map, [
@@ -5658,6 +6214,14 @@ from_map(crown_zero_unreceipted_writes, Map) when is_map(Map) ->
         {<<"write_set_digest">>, write_set_digest, plain},
         {<<"receipt_digest">>, receipt_digest, plain}
     ]));
+from_map(currency_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_currency_policy(take_known(Map, [
+        {<<"currency_policy_id">>, currency_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"currency_code">>, currency_code, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(curriculum_generation, Map) when is_map(Map) ->
     beam4pm_types:new_curriculum_generation(take_known(Map, [
         {<<"curriculum_id">>, curriculum_id, plain},
@@ -5721,6 +6285,14 @@ from_map(data_residency_policy, Map) when is_map(Map) ->
         {<<"tenant_id">>, tenant_id, plain},
         {<<"allowed_regions">>, allowed_regions, plain},
         {<<"status">>, status, atom}
+    ]));
+from_map(data_volume_pricing_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_data_volume_pricing_policy(take_known(Map, [
+        {<<"data_volume_pricing_policy_id">>, data_volume_pricing_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"unit_gb_price">>, unit_gb_price, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(deal_desk_packet, Map) when is_map(Map) ->
     beam4pm_types:new_deal_desk_packet(take_known(Map, [
@@ -5849,6 +6421,30 @@ from_map(edition_definition, Map) when is_map(Map) ->
         {<<"bundle_ids">>, bundle_ids, plain},
         {<<"support_tier">>, support_tier, plain}
     ]));
+from_map(edition_downgrade_path, Map) when is_map(Map) ->
+    beam4pm_types:new_edition_downgrade_path(take_known(Map, [
+        {<<"edition_downgrade_path_id">>, edition_downgrade_path_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"target_edition_id">>, target_edition_id, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(edition_upgrade_path, Map) when is_map(Map) ->
+    beam4pm_types:new_edition_upgrade_path(take_known(Map, [
+        {<<"edition_upgrade_path_id">>, edition_upgrade_path_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"target_edition_id">>, target_edition_id, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(enterprise_agreement, Map) when is_map(Map) ->
+    beam4pm_types:new_enterprise_agreement(take_known(Map, [
+        {<<"enterprise_agreement_id">>, enterprise_agreement_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"agreement_version">>, agreement_version, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(enterprise_order, Map) when is_map(Map) ->
     beam4pm_types:new_enterprise_order(take_known(Map, [
         {<<"order_id">>, order_id, plain},
@@ -5931,6 +6527,14 @@ from_map(environment_identity, Map) when is_map(Map) ->
         {<<"environment_id">>, environment_id, plain},
         {<<"identity_hash">>, identity_hash, plain}
     ]));
+from_map(environment_pricing_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_environment_pricing_policy(take_known(Map, [
+        {<<"environment_pricing_policy_id">>, environment_pricing_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"environment_tier">>, environment_tier, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(environment_profile, Map) when is_map(Map) ->
     beam4pm_types:new_environment_profile(take_known(Map, [
         {<<"profile_id">>, profile_id, plain},
@@ -5976,6 +6580,14 @@ from_map(event_type, Map) when is_map(Map) ->
     beam4pm_types:new_event_type(take_known(Map, [
         {<<"type_name">>, type_name, plain},
         {<<"attribute_names">>, attribute_names, plain}
+    ]));
+from_map(event_volume_pricing_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_event_volume_pricing_policy(take_known(Map, [
+        {<<"event_volume_pricing_policy_id">>, event_volume_pricing_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"unit_event_price">>, unit_event_price, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(evidence_freshness_evidence, Map) when is_map(Map) ->
     beam4pm_types:new_evidence_freshness_evidence(take_known(Map, [
@@ -6101,6 +6713,14 @@ from_map(funding_approval_chain, Map) when is_map(Map) ->
         {<<"approval_chain_id">>, approval_chain_id, plain},
         {<<"evidence_hash">>, evidence_hash, plain}
     ]));
+from_map(fx_conversion_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_fx_conversion_policy(take_known(Map, [
+        {<<"fx_conversion_policy_id">>, fx_conversion_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"rate_source">>, rate_source, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(generated_hypothesis, Map) when is_map(Map) ->
     beam4pm_types:new_generated_hypothesis(take_known(Map, [
         {<<"hypothesis_id">>, hypothesis_id, plain},
@@ -6214,6 +6834,14 @@ from_map(invoice_entity_identity, Map) when is_map(Map) ->
         {<<"invoice_entity_id">>, invoice_entity_id, plain},
         {<<"identity_evidence_hash">>, identity_evidence_hash, plain}
     ]));
+from_map(invoice_line_item, Map) when is_map(Map) ->
+    beam4pm_types:new_invoice_line_item(take_known(Map, [
+        {<<"invoice_line_item_id">>, invoice_line_item_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"line_amount">>, line_amount, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(invoice_schedule, Map) when is_map(Map) ->
     beam4pm_types:new_invoice_schedule(take_known(Map, [
         {<<"schedule_id">>, schedule_id, plain},
@@ -6233,11 +6861,26 @@ from_map(k8s_object_ref, Map) when is_map(Map) ->
         {<<"name">>, name, plain},
         {<<"namespace">>, namespace, plain}
     ]));
+from_map(late_arriving_usage, Map) when is_map(Map) ->
+    beam4pm_types:new_late_arriving_usage(take_known(Map, [
+        {<<"late_arriving_usage_id">>, late_arriving_usage_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"occurred_at">>, occurred_at, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(latency_budget_observation, Map) when is_map(Map) ->
     beam4pm_types:new_latency_budget_observation(take_known(Map, [
         {<<"tenant_id">>, tenant_id, plain},
         {<<"workload_id">>, workload_id, plain},
         {<<"observation_hash">>, observation_hash, plain}
+    ]));
+from_map(leakage_finding, Map) when is_map(Map) ->
+    beam4pm_types:new_leakage_finding(take_known(Map, [
+        {<<"case_id">>, case_id, plain},
+        {<<"fitness">>, fitness, plain},
+        {<<"precision">>, precision, plain},
+        {<<"amount_at_risk">>, amount_at_risk, plain}
     ]));
 from_map(learning_episode, Map) when is_map(Map) ->
     beam4pm_types:new_learning_episode(take_known(Map, [
@@ -6299,6 +6942,14 @@ from_map(manufacture_receipt_validity_observation, Map) when is_map(Map) ->
         {<<"verification_status">>, verification_status, plain},
         {<<"verifier_identity">>, verifier_identity, plain}
     ]));
+from_map(master_service_agreement_binding, Map) when is_map(Map) ->
+    beam4pm_types:new_master_service_agreement_binding(take_known(Map, [
+        {<<"master_service_agreement_binding_id">>, master_service_agreement_binding_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"msa_digest">>, msa_digest, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(master_service_agreement_state, Map) when is_map(Map) ->
     beam4pm_types:new_master_service_agreement_state(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
@@ -6316,6 +6967,30 @@ from_map(meta_router, Map) when is_map(Map) ->
         {<<"portfolio_id">>, portfolio_id, plain},
         {<<"observation_hash">>, observation_hash, plain},
         {<<"selected_planner_id">>, selected_planner_id, plain}
+    ]));
+from_map(meter_definition, Map) when is_map(Map) ->
+    beam4pm_types:new_meter_definition(take_known(Map, [
+        {<<"meter_definition_id">>, meter_definition_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"meter_name">>, meter_name, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(meter_dimension, Map) when is_map(Map) ->
+    beam4pm_types:new_meter_dimension(take_known(Map, [
+        {<<"meter_dimension_id">>, meter_dimension_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"dimension_name">>, dimension_name, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(meter_rollup, Map) when is_map(Map) ->
+    beam4pm_types:new_meter_rollup(take_known(Map, [
+        {<<"meter_rollup_id">>, meter_rollup_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"rollup_function">>, rollup_function, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(metered_usage_sample, Map) when is_map(Map) ->
     beam4pm_types:new_metered_usage_sample(take_known(Map, [
@@ -6337,6 +7012,14 @@ from_map(migration_readiness, Map) when is_map(Map) ->
         {<<"migration_effort_days">>, migration_effort_days, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(minimum_commitment_schedule, Map) when is_map(Map) ->
+    beam4pm_types:new_minimum_commitment_schedule(take_known(Map, [
+        {<<"minimum_commitment_schedule_id">>, minimum_commitment_schedule_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"committed_amount">>, committed_amount, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(minimum_term_admission, Map) when is_map(Map) ->
     beam4pm_types:new_minimum_term_admission(take_known(Map, [
@@ -6393,6 +7076,14 @@ from_map(node_failover_event, Map) when is_map(Map) ->
         {<<"node_id">>, node_id, plain},
         {<<"failover_hash">>, failover_hash, plain}
     ]));
+from_map(nonproduction_discount_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_nonproduction_discount_policy(take_known(Map, [
+        {<<"nonproduction_discount_policy_id">>, nonproduction_discount_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"discount_percent">>, discount_percent, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(normalized_event_observation, Map) when is_map(Map) ->
     beam4pm_types:new_normalized_event_observation(take_known(Map, [
         {<<"source_system">>, source_system, plain},
@@ -6427,6 +7118,14 @@ from_map(object_type, Map) when is_map(Map) ->
     beam4pm_types:new_object_type(take_known(Map, [
         {<<"type_name">>, type_name, plain},
         {<<"attribute_names">>, attribute_names, plain}
+    ]));
+from_map(object_volume_pricing_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_object_volume_pricing_policy(take_known(Map, [
+        {<<"object_volume_pricing_policy_id">>, object_volume_pricing_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"unit_object_price">>, unit_object_price, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(objection, Map) when is_map(Map) ->
     beam4pm_types:new_objection(take_known(Map, [
@@ -6564,6 +7263,14 @@ from_map(order_form_admission, Map) when is_map(Map) ->
         {<<"order_form_id">>, order_form_id, plain},
         {<<"decision">>, decision, plain}
     ]));
+from_map(order_form_version, Map) when is_map(Map) ->
+    beam4pm_types:new_order_form_version(take_known(Map, [
+        {<<"order_form_version_id">>, order_form_version_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"order_form_digest">>, order_form_digest, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(orthogonality_reward, Map) when is_map(Map) ->
     beam4pm_types:new_orthogonality_reward(take_known(Map, [
         {<<"reward_id">>, reward_id, plain},
@@ -6592,6 +7299,14 @@ from_map(output_ownership_gate, Map) when is_map(Map) ->
         {<<"subject_id">>, subject_id, plain},
         {<<"ownership_manifest_hash">>, ownership_manifest_hash, plain},
         {<<"standing">>, standing, plain}
+    ]));
+from_map(overage_invoice, Map) when is_map(Map) ->
+    beam4pm_types:new_overage_invoice(take_known(Map, [
+        {<<"overage_invoice_id">>, overage_invoice_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"overage_amount">>, overage_amount, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(overage_policy, Map) when is_map(Map) ->
     beam4pm_types:new_overage_policy(take_known(Map, [
@@ -6825,6 +7540,30 @@ from_map(ppddl_projection, Map) when is_map(Map) ->
         {<<"domain_hash">>, domain_hash, plain},
         {<<"problem_hash">>, problem_hash, plain}
     ]));
+from_map(premium_connector_pricing, Map) when is_map(Map) ->
+    beam4pm_types:new_premium_connector_pricing(take_known(Map, [
+        {<<"premium_connector_pricing_id">>, premium_connector_pricing_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"connector_id">>, connector_id, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(prepaid_credit_balance, Map) when is_map(Map) ->
+    beam4pm_types:new_prepaid_credit_balance(take_known(Map, [
+        {<<"prepaid_credit_balance_id">>, prepaid_credit_balance_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"remaining_credit">>, remaining_credit, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(price_book_version, Map) when is_map(Map) ->
+    beam4pm_types:new_price_book_version(take_known(Map, [
+        {<<"price_book_version_id">>, price_book_version_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"version">>, version, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(pricing_basis_contract, Map) when is_map(Map) ->
     beam4pm_types:new_pricing_basis_contract(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
@@ -6857,6 +7596,14 @@ from_map(process_variant, Map) when is_map(Map) ->
         {<<"variant_id">>, variant_id, plain},
         {<<"activity_sequence">>, activity_sequence, plain},
         {<<"frequency">>, frequency, plain}
+    ]));
+from_map(process_volume_pricing_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_process_volume_pricing_policy(take_known(Map, [
+        {<<"process_volume_pricing_policy_id">>, process_volume_pricing_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"unit_process_price">>, unit_process_price, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(procurement_acceptance_evidence, Map) when is_map(Map) ->
     beam4pm_types:new_procurement_acceptance_evidence(take_known(Map, [
@@ -6923,11 +7670,27 @@ from_map(proof_of_value_exit_gate, Map) when is_map(Map) ->
         {<<"exit_gate_id">>, exit_gate_id, plain},
         {<<"decision">>, decision, plain}
     ]));
+from_map(proof_of_value_package, Map) when is_map(Map) ->
+    beam4pm_types:new_proof_of_value_package(take_known(Map, [
+        {<<"proof_of_value_package_id">>, proof_of_value_package_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"success_metric">>, success_metric, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(propagation_score, Map) when is_map(Map) ->
     beam4pm_types:new_propagation_score(take_known(Map, [
         {<<"option_id">>, option_id, plain},
         {<<"graph_hash">>, graph_hash, plain},
         {<<"score">>, score, plain}
+    ]));
+from_map(proration_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_proration_policy(take_known(Map, [
+        {<<"proration_policy_id">>, proration_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"proration_method">>, proration_method, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(provenance_binding_evidence, Map) when is_map(Map) ->
     beam4pm_types:new_provenance_binding_evidence(take_known(Map, [
@@ -6974,6 +7737,22 @@ from_map(queue_snapshot, Map) when is_map(Map) ->
         {<<"depth">>, depth, plain},
         {<<"observed_at">>, observed_at, plain}
     ]));
+from_map(quota_burst_allowance, Map) when is_map(Map) ->
+    beam4pm_types:new_quota_burst_allowance(take_known(Map, [
+        {<<"quota_burst_allowance_id">>, quota_burst_allowance_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"burst_units">>, burst_units, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(quota_override, Map) when is_map(Map) ->
+    beam4pm_types:new_quota_override(take_known(Map, [
+        {<<"quota_override_id">>, quota_override_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"override_units">>, override_units, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(quota_policy, Map) when is_map(Map) ->
     beam4pm_types:new_quota_policy(take_known(Map, [
         {<<"quota_id">>, quota_id, plain},
@@ -6986,6 +7765,14 @@ from_map(ramp_commitment, Map) when is_map(Map) ->
         {<<"ramp_id">>, ramp_id, plain},
         {<<"phase">>, phase, plain},
         {<<"committed_amount">>, committed_amount, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(rate_card_entry, Map) when is_map(Map) ->
+    beam4pm_types:new_rate_card_entry(take_known(Map, [
+        {<<"rate_card_entry_id">>, rate_card_entry_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"unit_price">>, unit_price, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
         {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(rate_distortion_budget, Map) when is_map(Map) ->
@@ -7067,6 +7854,14 @@ from_map(recovery_time_receipt, Map) when is_map(Map) ->
         {<<"incident_id">>, incident_id, plain},
         {<<"recovery_hash">>, recovery_hash, plain}
     ]));
+from_map(refund_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_refund_policy(take_known(Map, [
+        {<<"refund_policy_id">>, refund_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"refund_method">>, refund_method, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(refusal_boundary_observation, Map) when is_map(Map) ->
     beam4pm_types:new_refusal_boundary_observation(take_known(Map, [
         {<<"subject_id">>, subject_id, plain},
@@ -7081,6 +7876,14 @@ from_map(refusal_threshold, Map) when is_map(Map) ->
         {<<"limit">>, limit, plain},
         {<<"metric_id">>, metric_id, plain},
         {<<"authority_binding">>, authority_binding, plain}
+    ]));
+from_map(region_pricing_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_region_pricing_policy(take_known(Map, [
+        {<<"region_pricing_policy_id">>, region_pricing_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"region_code">>, region_code, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(regression_detector, Map) when is_map(Map) ->
     beam4pm_types:new_regression_detector(take_known(Map, [
@@ -7232,6 +8035,14 @@ from_map(retention_policy_evidence, Map) when is_map(Map) ->
         {<<"retention_days">>, retention_days, plain},
         {<<"observed_result">>, observed_result, atom}
     ]));
+from_map(retention_pricing_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_retention_pricing_policy(take_known(Map, [
+        {<<"retention_pricing_policy_id">>, retention_pricing_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"retention_days">>, retention_days, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(revenue_attribution, Map) when is_map(Map) ->
     beam4pm_types:new_revenue_attribution(take_known(Map, [
         {<<"revenue_attribution_id">>, revenue_attribution_id, plain},
@@ -7257,6 +8068,12 @@ from_map(reversibility_weight, Map) when is_map(Map) ->
         {<<"action_id">>, action_id, plain},
         {<<"rollback_id">>, rollback_id, plain},
         {<<"weight">>, weight, plain}
+    ]));
+from_map(rework_cost, Map) when is_map(Map) ->
+    beam4pm_types:new_rework_cost(take_known(Map, [
+        {<<"case_id">>, case_id, plain},
+        {<<"loop_count">>, loop_count, plain},
+        {<<"weighted_cost">>, weighted_cost, plain}
     ]));
 from_map(rfp_response_evidence, Map) when is_map(Map) ->
     beam4pm_types:new_rfp_response_evidence(take_known(Map, [
@@ -7342,6 +8159,14 @@ from_map(sanctions_screening_result, Map) when is_map(Map) ->
         {<<"screening_id">>, screening_id, plain},
         {<<"screening_result">>, screening_result, plain}
     ]));
+from_map(sandbox_entitlement, Map) when is_map(Map) ->
+    beam4pm_types:new_sandbox_entitlement(take_known(Map, [
+        {<<"sandbox_entitlement_id">>, sandbox_entitlement_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"sandbox_limit">>, sandbox_limit, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(saturation_detection, Map) when is_map(Map) ->
     beam4pm_types:new_saturation_detection(take_known(Map, [
         {<<"detection_id">>, detection_id, plain},
@@ -7357,6 +8182,14 @@ from_map(sbom_inventory_evidence, Map) when is_map(Map) ->
         {<<"subject_sha">>, subject_sha, plain},
         {<<"component_count">>, component_count, plain},
         {<<"observed_result">>, observed_result, atom}
+    ]));
+from_map(seat_pricing_policy, Map) when is_map(Map) ->
+    beam4pm_types:new_seat_pricing_policy(take_known(Map, [
+        {<<"seat_pricing_policy_id">>, seat_pricing_policy_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"seat_price">>, seat_price, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(second_pass_byte_identity_observation, Map) when is_map(Map) ->
     beam4pm_types:new_second_pass_byte_identity_observation(take_known(Map, [
@@ -7426,6 +8259,14 @@ from_map(service_credit_admission, Map) when is_map(Map) ->
         {<<"opportunity_id">>, opportunity_id, plain},
         {<<"service_credit_id">>, service_credit_id, plain},
         {<<"decision">>, decision, plain}
+    ]));
+from_map(service_credit_ledger, Map) when is_map(Map) ->
+    beam4pm_types:new_service_credit_ledger(take_known(Map, [
+        {<<"service_credit_ledger_id">>, service_credit_ledger_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"credit_amount">>, credit_amount, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(service_health_snapshot, Map) when is_map(Map) ->
     beam4pm_types:new_service_health_snapshot(take_known(Map, [
@@ -7502,6 +8343,14 @@ from_map(solution_fit, Map) when is_map(Map) ->
         {<<"fit_score">>, fit_score, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(spend_drawdown, Map) when is_map(Map) ->
+    beam4pm_types:new_spend_drawdown(take_known(Map, [
+        {<<"spend_drawdown_id">>, spend_drawdown_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"consumed_amount">>, consumed_amount, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(stakeholder_map, Map) when is_map(Map) ->
     beam4pm_types:new_stakeholder_map(take_known(Map, [
@@ -7650,6 +8499,14 @@ from_map(tax_jurisdiction_evidence, Map) when is_map(Map) ->
         {<<"tax_jurisdiction">>, tax_jurisdiction, plain},
         {<<"evidence_hash">>, evidence_hash, plain}
     ]));
+from_map(tax_jurisdiction_rule, Map) when is_map(Map) ->
+    beam4pm_types:new_tax_jurisdiction_rule(take_known(Map, [
+        {<<"tax_jurisdiction_rule_id">>, tax_jurisdiction_rule_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"jurisdiction_code">>, jurisdiction_code, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(technical_blocker, Map) when is_map(Map) ->
     beam4pm_types:new_technical_blocker(take_known(Map, [
         {<<"opportunity_id">>, opportunity_id, plain},
@@ -7757,6 +8614,14 @@ from_map(trajectory_window, Map) when is_map(Map) ->
         {<<"last_subject_sha">>, last_subject_sha, plain},
         {<<"episode_count">>, episode_count, plain}
     ]));
+from_map(trial_entitlement, Map) when is_map(Map) ->
+    beam4pm_types:new_trial_entitlement(take_known(Map, [
+        {<<"trial_entitlement_id">>, trial_entitlement_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"trial_expires_at">>, trial_expires_at, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(true_up_policy, Map) when is_map(Map) ->
     beam4pm_types:new_true_up_policy(take_known(Map, [
         {<<"policy_id">>, policy_id, plain},
@@ -7784,6 +8649,14 @@ from_map(uncertainty_observation, Map) when is_map(Map) ->
         {<<"confidence_basis">>, confidence_basis, plain},
         {<<"standing">>, standing, plain}
     ]));
+from_map(unit_economics_snapshot, Map) when is_map(Map) ->
+    beam4pm_types:new_unit_economics_snapshot(take_known(Map, [
+        {<<"unit_economics_snapshot_id">>, unit_economics_snapshot_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"gross_margin">>, gross_margin, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
 from_map(unsupported_capability_evidence, Map) when is_map(Map) ->
     beam4pm_types:new_unsupported_capability_evidence(take_known(Map, [
         {<<"evidence_id">>, evidence_id, plain},
@@ -7805,6 +8678,22 @@ from_map(upsell_readiness, Map) when is_map(Map) ->
         {<<"upsell_score">>, upsell_score, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(usage_aggregation_window, Map) when is_map(Map) ->
+    beam4pm_types:new_usage_aggregation_window(take_known(Map, [
+        {<<"usage_aggregation_window_id">>, usage_aggregation_window_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"window_seconds">>, window_seconds, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
+    ]));
+from_map(usage_correction, Map) when is_map(Map) ->
+    beam4pm_types:new_usage_correction(take_known(Map, [
+        {<<"usage_correction_id">>, usage_correction_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"corrected_quantity">>, corrected_quantity, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"effective_at">>, effective_at, plain}
     ]));
 from_map(usage_event, Map) when is_map(Map) ->
     beam4pm_types:new_usage_event(take_known(Map, [
@@ -7893,6 +8782,16 @@ from_map(value_realization_feedback, Map) when is_map(Map) ->
         {<<"realized_value">>, realized_value, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"policy_id">>, policy_id, plain}
+    ]));
+from_map(value_receipt, Map) when is_map(Map) ->
+    beam4pm_types:new_value_receipt(take_known(Map, [
+        {<<"value_receipt_id">>, value_receipt_id, plain},
+        {<<"account_id">>, account_id, plain},
+        {<<"metric_name">>, metric_name, plain},
+        {<<"baseline_value">>, baseline_value, plain},
+        {<<"observed_value">>, observed_value, plain},
+        {<<"evidence_digest">>, evidence_digest, plain},
+        {<<"observed_at">>, observed_at, plain}
     ]));
 from_map(value_telemetry_sample, Map) when is_map(Map) ->
     beam4pm_types:new_value_telemetry_sample(take_known(Map, [

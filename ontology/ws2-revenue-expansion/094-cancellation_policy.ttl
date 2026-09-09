@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-094 — cancellation_policy
+bpm:cancellation_policy_rt a bpm:RecordType ;
+    bpm:recordName "cancellation_policy" ;
+    bpm:recordDoc "Contractual cancellation and notice policy." ;
+    bpm:hasField bpm:cancellation_policy_cancellation_policy_id_f,
+                 bpm:cancellation_policy_account_id_f,
+                 bpm:cancellation_policy_notice_days_f,
+                 bpm:cancellation_policy_evidence_digest_f,
+                 bpm:cancellation_policy_effective_at_f .
+
+bpm:cancellation_policy_cancellation_policy_id_f a bpm:Field ;
+    bpm:fieldName "cancellation_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this cancellation policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:cancellation_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:cancellation_policy_notice_days_f a bpm:Field ;
+    bpm:fieldName "notice_days" ; bpm:fieldType "integer" ;
+    bpm:fieldDoc "Required cancellation notice period in days." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:cancellation_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:cancellation_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .

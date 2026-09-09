@@ -123,6 +123,22 @@ pub type AddOnBundle {
   )
 }
 
+/// Receipted activation of a paid add-on.
+pub type AddonActivation {
+  AddonActivation(
+    /// Stable identity of this addon activation contract.
+    addon_activation_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable identity of the activated commercial add-on.
+    addon_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Computes all actions currently permitted by state, constraints, and authority.
 pub type AdmissibleActionSet {
   AdmissibleActionSet(
@@ -1271,6 +1287,54 @@ pub type BudgetPeriodAlignment {
   )
 }
 
+/// Mutual exclusion between incompatible bundles.
+pub type BundleConflict {
+  BundleConflict(
+    /// Stable identity of this bundle conflict contract.
+    bundle_conflict_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Bundle whose simultaneous activation must be refused.
+    conflicting_bundle_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Required dependency between sellable bundles.
+pub type BundleDependency {
+  BundleDependency(
+    /// Stable identity of this bundle dependency contract.
+    bundle_dependency_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Bundle that must be entitled before this bundle can activate.
+    required_bundle_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Bounded burst-capacity premium.
+pub type BurstPricingPolicy {
+  BurstPricingPolicy(
+    /// Stable identity of this burst pricing policy contract.
+    burst_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Approved multiplier applied only above the included capacity.
+    burst_multiplier: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Executable continuity evidence binding an exact subject to the fallback operating mode actually entered.
 pub type BusinessContinuityEvidence {
   BusinessContinuityEvidence(
@@ -1294,6 +1358,22 @@ pub type BusinessOutcomeMeasurement {
     outcome_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     measurement_hash: String,
+  )
+}
+
+/// Showback allocation to an enterprise business unit.
+pub type BusinessUnitAllocation {
+  BusinessUnitAllocation(
+    /// Stable identity of this business unit allocation contract.
+    business_unit_allocation_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable identity of the receiving business unit.
+    business_unit_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -1380,6 +1460,22 @@ pub type CanaryEvidence {
     canary_percentage: Float,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Contractual cancellation and notice policy.
+pub type CancellationPolicy {
+  CancellationPolicy(
+    /// Stable identity of this cancellation policy contract.
+    cancellation_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Required cancellation notice period in days.
+    notice_days: Int,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -1605,6 +1701,22 @@ pub type ClusterQuorumState {
   )
 }
 
+/// Co-termination policy for expansion purchases.
+pub type CoTermPolicy {
+  CoTermPolicy(
+    /// Stable identity of this co term policy contract.
+    co_term_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Contract end instant to which the expansion is aligned.
+    coterm_date: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Commercial approval decision with exact subject and authority.
 pub type CommercialApproval {
   CommercialApproval(
@@ -1785,6 +1897,22 @@ pub type CompatibilityContract {
   )
 }
 
+/// Concurrent-workload packaging dimension.
+pub type ConcurrencyPricingPolicy {
+  ConcurrencyPricingPolicy(
+    /// Stable identity of this concurrency pricing policy contract.
+    concurrency_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Concurrent workload units included in the purchased package.
+    included_concurrency: Int,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Receiptable export of deterministic enterprise configuration.
 pub type ConfigurationExport {
   ConfigurationExport(
@@ -1951,6 +2079,22 @@ pub type ContractingEntityIdentity {
   )
 }
 
+/// Chargeback allocation to an enterprise cost center.
+pub type CostCenterAllocation {
+  CostCenterAllocation(
+    /// Stable identity of this cost center allocation contract.
+    cost_center_allocation_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable identity of the charged cost center.
+    cost_center_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Evaluates candidate policy utility across cost, latency, and reliability without collapsing dimensions.
 pub type CostLatencyReliabilityTradeoff {
   CostLatencyReliabilityTradeoff(
@@ -2032,6 +2176,22 @@ pub type CrashRecoveryReceipt {
     crash_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     receipt_hash: String,
+  )
+}
+
+/// Deterministic expiration of prepaid commercial credits.
+pub type CreditExpiryPolicy {
+  CreditExpiryPolicy(
+    /// Stable identity of this credit expiry policy contract.
+    credit_expiry_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Exact expiration instant for the admitted credit pool.
+    expires_at: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -2749,6 +2909,22 @@ pub type CrownZeroUnreceiptedWrites {
   )
 }
 
+/// Allowed billing currency for an enterprise agreement.
+pub type CurrencyPolicy {
+  CurrencyPolicy(
+    /// Stable identity of this currency policy contract.
+    currency_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// ISO billing currency admitted for this account.
+    currency_code: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Generates an ordered, diverse learning curriculum from admitted gaps and executable falsifiers.
 pub type CurriculumGeneration {
   CurriculumGeneration(
@@ -2874,6 +3050,22 @@ pub type DataResidencyPolicy {
     allowed_regions: List(String),
     /// Residency policy standing.
     status: String,
+  )
+}
+
+/// Data-volume commercial packaging dimension.
+pub type DataVolumePricingPolicy {
+  DataVolumePricingPolicy(
+    /// Stable identity of this data volume pricing policy contract.
+    data_volume_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price per processed gigabyte.
+    unit_gb_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -3131,6 +3323,54 @@ pub type EditionDefinition {
   )
 }
 
+/// Controlled commercial edition downgrade path.
+pub type EditionDowngradePath {
+  EditionDowngradePath(
+    /// Stable identity of this edition downgrade path contract.
+    edition_downgrade_path_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Edition that may be reached after capability-loss admission.
+    target_edition_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Admitted commercial edition upgrade path.
+pub type EditionUpgradePath {
+  EditionUpgradePath(
+    /// Stable identity of this edition upgrade path contract.
+    edition_upgrade_path_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Edition that may be reached without breaking contract compatibility.
+    target_edition_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Enterprise commercial umbrella agreement.
+pub type EnterpriseAgreement {
+  EnterpriseAgreement(
+    /// Stable identity of this enterprise agreement contract.
+    enterprise_agreement_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Immutable semantic version of the governing agreement.
+    agreement_version: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Accepted enterprise order binding account, quote, and standing.
 pub type EnterpriseOrder {
   EnterpriseOrder(
@@ -3295,6 +3535,22 @@ pub type EnvironmentIdentity {
   )
 }
 
+/// Environment-count commercial packaging.
+pub type EnvironmentPricingPolicy {
+  EnvironmentPricingPolicy(
+    /// Stable identity of this environment pricing policy contract.
+    environment_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Purchased environment tier such as sandbox, nonproduction, or production.
+    environment_tier: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Deterministic environment profile for demo, POC, or production.
 pub type EnvironmentProfile {
   EnvironmentProfile(
@@ -3384,6 +3640,22 @@ pub type EventType {
     type_name: String,
     /// Optional declared attribute names for events of this type (name-only; per-attribute value types are not yet modeled).
     attribute_names: option.Option(List(String)),
+  )
+}
+
+/// Event-volume commercial packaging dimension.
+pub type EventVolumePricingPolicy {
+  EventVolumePricingPolicy(
+    /// Stable identity of this event volume pricing policy contract.
+    event_volume_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price per event billing unit.
+    unit_event_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -3635,6 +3907,22 @@ pub type FundingApprovalChain {
   )
 }
 
+/// Evidence-bound foreign-exchange conversion policy.
+pub type FxConversionPolicy {
+  FxConversionPolicy(
+    /// Stable identity of this fx conversion policy contract.
+    fx_conversion_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Immutable identity of the admitted FX rate source.
+    rate_source: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Generates a testable backlog hypothesis from an admitted capability gap.
 pub type GeneratedHypothesis {
   GeneratedHypothesis(
@@ -3861,6 +4149,22 @@ pub type InvoiceEntityIdentity {
   )
 }
 
+/// Auditable commercial invoice line.
+pub type InvoiceLineItem {
+  InvoiceLineItem(
+    /// Stable identity of this invoice line item contract.
+    invoice_line_item_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Observed amount for this exact invoice line.
+    line_amount: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Deterministic invoicing cadence for a billing account.
 pub type InvoiceSchedule {
   InvoiceSchedule(
@@ -3899,6 +4203,22 @@ pub type K8SObjectRef {
   )
 }
 
+/// Admission of usage received after its billing window.
+pub type LateArrivingUsage {
+  LateArrivingUsage(
+    /// Stable identity of this late arriving usage contract.
+    late_arriving_usage_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Original occurrence instant for the delayed usage.
+    occurred_at: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Records an observed runtime latency against the admitted paid-service latency budget.
 pub type LatencyBudgetObservation {
   LatencyBudgetObservation(
@@ -3908,6 +4228,20 @@ pub type LatencyBudgetObservation {
     workload_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     observation_hash: String,
+  )
+}
+
+/// One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk.
+pub type LeakageFinding {
+  LeakageFinding(
+    /// Exact process-case identity that deviated from the admitted reference model.
+    case_id: String,
+    /// Observed conformance fitness for this case.
+    fitness: Float,
+    /// Observed conformance precision for this case against the admitted model.
+    precision: Float,
+    /// Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero.
+    amount_at_risk: option.Option(Float),
   )
 }
 
@@ -4031,6 +4365,22 @@ pub type ManufactureReceiptValidityObservation {
   )
 }
 
+/// Exact MSA binding for an order.
+pub type MasterServiceAgreementBinding {
+  MasterServiceAgreementBinding(
+    /// Stable identity of this master service agreement binding contract.
+    master_service_agreement_binding_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Content digest of the governing master service agreement.
+    msa_digest: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
 pub type MasterServiceAgreementState {
   MasterServiceAgreementState(
@@ -4064,6 +4414,54 @@ pub type MetaRouter {
     observation_hash: String,
     /// Required selected_planner_id preserving evidence and falsifiability.
     selected_planner_id: String,
+  )
+}
+
+/// Immutable billable-meter definition.
+pub type MeterDefinition {
+  MeterDefinition(
+    /// Stable identity of this meter definition contract.
+    meter_definition_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable buyer-visible identity of the commercial meter.
+    meter_name: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Typed dimension attached to a commercial meter.
+pub type MeterDimension {
+  MeterDimension(
+    /// Stable identity of this meter dimension contract.
+    meter_dimension_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable dimension identity used for pricing and reporting.
+    dimension_name: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Deterministic rollup policy for metered observations.
+pub type MeterRollup {
+  MeterRollup(
+    /// Stable identity of this meter rollup contract.
+    meter_rollup_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted aggregation function identity.
+    rollup_function: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -4106,6 +4504,22 @@ pub type MigrationReadiness {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Time-phased minimum-spend commitment.
+pub type MinimumCommitmentSchedule {
+  MinimumCommitmentSchedule(
+    /// Stable identity of this minimum commitment schedule contract.
+    minimum_commitment_schedule_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Commercially admitted minimum amount for the schedule window.
+    committed_amount: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -4219,6 +4633,22 @@ pub type NodeFailoverEvent {
   )
 }
 
+/// Explicit discount for nonproduction capacity.
+pub type NonproductionDiscountPolicy {
+  NonproductionDiscountPolicy(
+    /// Stable identity of this nonproduction discount policy contract.
+    nonproduction_discount_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Approved nonproduction discount percentage.
+    discount_percent: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Normalizes a source event into stable identity, type, and event time.
 pub type NormalizedEventObservation {
   NormalizedEventObservation(
@@ -4286,6 +4716,22 @@ pub type ObjectType {
     type_name: String,
     /// Optional declared attribute names for objects of this type (name-only; per-attribute value types are not yet modeled).
     attribute_names: option.Option(List(String)),
+  )
+}
+
+/// Object-volume commercial packaging dimension.
+pub type ObjectVolumePricingPolicy {
+  ObjectVolumePricingPolicy(
+    /// Stable identity of this object volume pricing policy contract.
+    object_volume_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price per object billing unit.
+    unit_object_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -4561,6 +5007,22 @@ pub type OrderFormAdmission {
   )
 }
 
+/// Immutable commercial order-form version.
+pub type OrderFormVersion {
+  OrderFormVersion(
+    /// Stable identity of this order form version contract.
+    order_form_version_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Content digest of the accepted order form.
+    order_form_digest: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Scores independent semantic coverage against the full comparison set.
 pub type OrthogonalityReward {
   OrthogonalityReward(
@@ -4616,6 +5078,22 @@ pub type OutputOwnershipGate {
     ownership_manifest_hash: String,
     /// Required standing preserving evidence and falsifiability.
     standing: String,
+  )
+}
+
+/// Invoice consequence for measured overage.
+pub type OverageInvoice {
+  OverageInvoice(
+    /// Stable identity of this overage invoice contract.
+    overage_invoice_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Observed overage amount after admitted aggregation.
+    overage_amount: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -5083,6 +5561,54 @@ pub type PpddlProjection {
   )
 }
 
+/// Paid integration-connector add-on.
+pub type PremiumConnectorPricing {
+  PremiumConnectorPricing(
+    /// Stable identity of this premium connector pricing contract.
+    premium_connector_pricing_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable identity of the separately priced connector.
+    connector_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Receipted prepaid-credit balance.
+pub type PrepaidCreditBalance {
+  PrepaidCreditBalance(
+    /// Stable identity of this prepaid credit balance contract.
+    prepaid_credit_balance_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Observed remaining prepaid credit after admitted usage.
+    remaining_credit: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Immutable enterprise price-book release.
+pub type PriceBookVersion {
+  PriceBookVersion(
+    /// Stable identity of this price book version contract.
+    price_book_version_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Buyer-visible semantic version of the admitted price book.
+    version: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
 pub type PricingBasisContract {
   PricingBasisContract(
@@ -5146,6 +5672,22 @@ pub type ProcessVariant {
     activity_sequence: List(String),
     /// Number of traces observed with exactly this activity sequence.
     frequency: Int,
+  )
+}
+
+/// Process-model commercial packaging dimension.
+pub type ProcessVolumePricingPolicy {
+  ProcessVolumePricingPolicy(
+    /// Stable identity of this process volume pricing policy contract.
+    process_volume_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price per managed process.
+    unit_process_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -5279,6 +5821,22 @@ pub type ProofOfValueExitGate {
   )
 }
 
+/// Paid proof-of-value package with measurable exit criterion.
+pub type ProofOfValuePackage {
+  ProofOfValuePackage(
+    /// Stable identity of this proof of value package contract.
+    proof_of_value_package_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Canonical metric that determines proof-of-value acceptance.
+    success_metric: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Scores downstream consequences across the dependency and capability graph.
 pub type PropagationScore {
   PropagationScore(
@@ -5288,6 +5846,22 @@ pub type PropagationScore {
     graph_hash: String,
     /// Required score preserving evidence and falsifiability.
     score: String,
+  )
+}
+
+/// Deterministic mid-term proration policy.
+pub type ProrationPolicy {
+  ProrationPolicy(
+    /// Stable identity of this proration policy contract.
+    proration_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted algorithm identity for partial-period charges.
+    proration_method: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -5381,6 +5955,38 @@ pub type QueueSnapshot {
   )
 }
 
+/// Purchased temporary quota burst allowance.
+pub type QuotaBurstAllowance {
+  QuotaBurstAllowance(
+    /// Stable identity of this quota burst allowance contract.
+    quota_burst_allowance_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Additional units admitted above the contracted quota.
+    burst_units: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Explicitly authorized quota override.
+pub type QuotaOverride {
+  QuotaOverride(
+    /// Stable identity of this quota override contract.
+    quota_override_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Authorized replacement quota for the bounded window.
+    override_units: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Enforceable quota limit over a named measurement window.
 pub type QuotaPolicy {
   QuotaPolicy(
@@ -5405,6 +6011,22 @@ pub type RampCommitment {
     /// Phase commitment amount.
     committed_amount: Float,
     /// Phase activation instant.
+    effective_at: String,
+  )
+}
+
+/// Sellable unit price bound to an immutable price book.
+pub type RateCardEntry {
+  RateCardEntry(
+    /// Stable identity of this rate card entry contract.
+    rate_card_entry_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price; currency is supplied by the linked currency policy.
+    unit_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
     effective_at: String,
   )
 }
@@ -5567,6 +6189,22 @@ pub type RecoveryTimeReceipt {
   )
 }
 
+/// Deterministic refund eligibility policy.
+pub type RefundPolicy {
+  RefundPolicy(
+    /// Stable identity of this refund policy contract.
+    refund_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted method used to calculate a refund.
+    refund_method: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Emits REFUSED with exact authority boundary and evidence.
 pub type RefusalBoundaryObservation {
   RefusalBoundaryObservation(
@@ -5594,6 +6232,22 @@ pub type RefusalThreshold {
     metric_id: String,
     /// Authority that alone may revise the threshold.
     authority_binding: String,
+  )
+}
+
+/// Deployment-region commercial adjustment.
+pub type RegionPricingPolicy {
+  RegionPricingPolicy(
+    /// Stable identity of this region pricing policy contract.
+    region_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Exact cloud or sovereign region governed by this price policy.
+    region_code: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -5897,6 +6551,22 @@ pub type RetentionPolicyEvidence {
   )
 }
 
+/// Retention-duration commercial packaging.
+pub type RetentionPricingPolicy {
+  RetentionPricingPolicy(
+    /// Stable identity of this retention pricing policy contract.
+    retention_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Purchased evidence and event-data retention period in days.
+    retention_days: Int,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Receipted revenue attribution bound to exact enterprise evidence.
 pub type RevenueAttribution {
   RevenueAttribution(
@@ -5946,6 +6616,18 @@ pub type ReversibilityWeight {
     rollback_id: String,
     /// Required weight preserving evidence and falsifiability.
     weight: String,
+  )
+}
+
+/// One observed process case with quantified retry/rework loop count and weighted cost evidence.
+pub type ReworkCost {
+  ReworkCost(
+    /// Exact process-case identity carrying the observed rework.
+    case_id: String,
+    /// Observed count of retry/rework loop markers for this case.
+    loop_count: Int,
+    /// Observed case amount weighted by the admitted rework-loop rule; units are inherited from the admitted source evidence.
+    weighted_cost: Float,
   )
 }
 
@@ -6117,6 +6799,22 @@ pub type SanctionsScreeningResult {
   )
 }
 
+/// Nonproduction sandbox entitlement with a hard ceiling.
+pub type SandboxEntitlement {
+  SandboxEntitlement(
+    /// Stable identity of this sandbox entitlement contract.
+    sandbox_entitlement_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Maximum purchased sandbox environments.
+    sandbox_limit: Int,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Detects diminishing learning returns from measured gain, novelty, and coverage evidence.
 pub type SaturationDetection {
   SaturationDetection(
@@ -6146,6 +6844,22 @@ pub type SbomInventoryEvidence {
     component_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Named-seat enterprise packaging dimension.
+pub type SeatPricingPolicy {
+  SeatPricingPolicy(
+    /// Stable identity of this seat pricing policy contract.
+    seat_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price for one named enterprise seat.
+    seat_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -6284,6 +6998,22 @@ pub type ServiceCreditAdmission {
     service_credit_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Auditable customer service-credit balance.
+pub type ServiceCreditLedger {
+  ServiceCreditLedger(
+    /// Stable identity of this service credit ledger contract.
+    service_credit_ledger_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Observed service-credit amount after an admitted SLO consequence.
+    credit_amount: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -6436,6 +7166,22 @@ pub type SolutionFit {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Observed consumption against committed spend.
+pub type SpendDrawdown {
+  SpendDrawdown(
+    /// Stable identity of this spend drawdown contract.
+    spend_drawdown_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Amount actually drawn from the committed-spend balance.
+    consumed_amount: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -6733,6 +7479,22 @@ pub type TaxJurisdictionEvidence {
   )
 }
 
+/// Tax jurisdiction routing for a contracting entity.
+pub type TaxJurisdictionRule {
+  TaxJurisdictionRule(
+    /// Stable identity of this tax jurisdiction rule contract.
+    tax_jurisdiction_rule_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted tax jurisdiction code for invoice treatment.
+    jurisdiction_code: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Encodes an unresolved architecture or integration blocker as a typed refusal before commercial acceptance.
 pub type TechnicalBlocker {
   TechnicalBlocker(
@@ -6947,6 +7709,22 @@ pub type TrajectoryWindow {
   )
 }
 
+/// Time-bounded enterprise trial entitlement.
+pub type TrialEntitlement {
+  TrialEntitlement(
+    /// Stable identity of this trial entitlement contract.
+    trial_entitlement_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Exact instant at which trial capability must be refused.
+    trial_expires_at: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// End-of-period reconciliation policy for committed consumption.
 pub type TrueUpPolicy {
   TrueUpPolicy(
@@ -7001,6 +7779,22 @@ pub type UncertaintyObservation {
   )
 }
 
+/// Evidence-bound gross-margin snapshot.
+pub type UnitEconomicsSnapshot {
+  UnitEconomicsSnapshot(
+    /// Stable identity of this unit economics snapshot contract.
+    unit_economics_snapshot_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Observed gross margin derived from admitted revenue and cost evidence.
+    gross_margin: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses.
 pub type UnsupportedCapabilityEvidence {
   UnsupportedCapabilityEvidence(
@@ -7042,6 +7836,38 @@ pub type UpsellReadiness {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Deterministic usage aggregation window.
+pub type UsageAggregationWindow {
+  UsageAggregationWindow(
+    /// Stable identity of this usage aggregation window contract.
+    usage_aggregation_window_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Exact billing aggregation window in seconds.
+    window_seconds: Int,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Receipted correction to previously reported usage.
+pub type UsageCorrection {
+  UsageCorrection(
+    /// Stable identity of this usage correction contract.
+    usage_correction_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Replacement usage quantity bound to correction evidence.
+    corrected_quantity: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -7218,6 +8044,26 @@ pub type ValueRealizationFeedback {
     evidence_digest: String,
     /// Policy associated with the outcome.
     policy_id: String,
+  )
+}
+
+/// Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.
+pub type ValueReceipt {
+  ValueReceipt(
+    /// Stable identity of this before/after value receipt.
+    value_receipt_id: String,
+    /// Customer or enterprise account whose measured value is receipted.
+    account_id: String,
+    /// Canonical metric identity used for both baseline and observed values.
+    metric_name: String,
+    /// Admitted baseline value before the measured change or observation window.
+    baseline_value: Float,
+    /// Observed value after the measured change or observation window.
+    observed_value: Float,
+    /// Digest of the exact evidence supporting the baseline and observed consequence.
+    evidence_digest: String,
+    /// ISO8601 instant the receipted value consequence was observed.
+    observed_at: String,
   )
 }
 

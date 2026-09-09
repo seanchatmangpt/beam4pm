@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-109 — unit_economics_snapshot
+bpm:unit_economics_snapshot_rt a bpm:RecordType ;
+    bpm:recordName "unit_economics_snapshot" ;
+    bpm:recordDoc "Evidence-bound gross-margin snapshot." ;
+    bpm:hasField bpm:unit_economics_snapshot_unit_economics_snapshot_id_f,
+                 bpm:unit_economics_snapshot_account_id_f,
+                 bpm:unit_economics_snapshot_gross_margin_f,
+                 bpm:unit_economics_snapshot_evidence_digest_f,
+                 bpm:unit_economics_snapshot_effective_at_f .
+
+bpm:unit_economics_snapshot_unit_economics_snapshot_id_f a bpm:Field ;
+    bpm:fieldName "unit_economics_snapshot_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this unit economics snapshot contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:unit_economics_snapshot_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:unit_economics_snapshot_gross_margin_f a bpm:Field ;
+    bpm:fieldName "gross_margin" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Observed gross margin derived from admitted revenue and cost evidence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:unit_economics_snapshot_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:unit_economics_snapshot_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
