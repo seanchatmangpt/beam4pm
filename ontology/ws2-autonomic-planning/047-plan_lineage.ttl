@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-047 — plan_lineage
+b4p:plan_lineage_rt a bpm:RecordType ;
+    bpm:recordName "plan_lineage" ;
+    bpm:recordDoc "Tracks derivation, repair, and supersession across plan generations." ;
+    bpm:hasField b4p:plan_lineage_plan_id_f,
+                 b4p:plan_lineage_parent_plan_id_f,
+                 b4p:plan_lineage_lineage_hash_f .
+
+b4p:plan_lineage_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required plan_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:plan_lineage_parent_plan_id_f a bpm:Field ;
+    bpm:fieldName "parent_plan_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required parent_plan_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:plan_lineage_lineage_hash_f a bpm:Field ;
+    bpm:fieldName "lineage_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required lineage_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

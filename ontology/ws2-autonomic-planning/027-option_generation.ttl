@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-027 — option_generation
+b4p:option_generation_rt a bpm:RecordType ;
+    bpm:recordName "option_generation" ;
+    bpm:recordDoc "Generates a reversible DfCM option set without premature selection." ;
+    bpm:hasField b4p:option_generation_state_id_f,
+                 b4p:option_generation_generator_id_f,
+                 b4p:option_generation_option_set_hash_f .
+
+b4p:option_generation_state_id_f a bpm:Field ;
+    bpm:fieldName "state_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required state_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:option_generation_generator_id_f a bpm:Field ;
+    bpm:fieldName "generator_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required generator_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:option_generation_option_set_hash_f a bpm:Field ;
+    bpm:fieldName "option_set_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required option_set_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

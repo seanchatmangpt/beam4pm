@@ -10,19 +10,79 @@
     new_action_pin_evidence/1,
     new_activation_event/1,
     new_add_on_bundle/1,
+    new_admissible_action_set/1,
     new_adoption_milestone/1,
+    new_agent_assignment/1,
     new_alignment_move/1,
     new_annual_subscription/1,
+    new_anomaly_detection_observation/1,
     new_approval_separation_evidence/1,
     new_architecture_readiness/1,
     new_architecture_review_evidence/1,
     new_artifact_digest_evidence/1,
+    new_artifact_digest_observation/1,
+    new_astar_plan_candidate/1,
     new_attestation_verification_evidence/1,
     new_audit_chain_evidence/1,
+    new_authority_ceiling/1,
+    new_autonomic_actuation_receipt/1,
+    new_autonomic_actuation_replay/1,
+    new_autonomic_actuation_selection/1,
+    new_autonomic_authority_admission/1,
+    new_autonomic_authority_escalation/1,
+    new_autonomic_backpressure_admission/1,
+    new_autonomic_caller_local_binding/1,
+    new_autonomic_canary_admission/1,
+    new_autonomic_cancellation_receipt/1,
+    new_autonomic_canonical_repair_route/1,
+    new_autonomic_capability_token/1,
+    new_autonomic_circuit_breaker_transition/1,
+    new_autonomic_compensation_verification/1,
+    new_autonomic_crash_recovery/1,
+    new_autonomic_cross_consumer_receipt_refusal/1,
+    new_autonomic_deterministic_receipt_replay/1,
+    new_autonomic_failure_classification/1,
+    new_autonomic_forged_receipt_refusal/1,
+    new_autonomic_generated_surface_refusal/1,
+    new_autonomic_idempotence_fence/1,
+    new_autonomic_incident_recovery/1,
+    new_autonomic_least_authority_grant/1,
+    new_autonomic_model_authority_refusal/1,
+    new_autonomic_mutable_pack_refusal/1,
+    new_autonomic_output_ownership_check/1,
+    new_autonomic_pack_sha_authority/1,
+    new_autonomic_plan_construction/1,
+    new_autonomic_planner_authority_refusal/1,
+    new_autonomic_rca_hypothesis/1,
+    new_autonomic_receipt_authority_binding/1,
+    new_autonomic_receipt_chain_link/1,
+    new_autonomic_receipt_completeness_check/1,
+    new_autonomic_receipt_subject_binding/1,
+    new_autonomic_repair_reexecution/1,
+    new_autonomic_repair_selection/1,
+    new_autonomic_replay_divergence_refusal/1,
+    new_autonomic_retry_backoff/1,
+    new_autonomic_retry_budget/1,
+    new_autonomic_rollback_transition/1,
+    new_autonomic_saga_compensation/1,
+    new_autonomic_second_run_identity/1,
+    new_autonomic_self_healing_completion_receipt/1,
+    new_autonomic_stale_action_refusal/1,
+    new_autonomic_stale_receipt_refusal/1,
+    new_autonomic_state_vector/1,
+    new_autonomic_subject_compare_and_swap/1,
+    new_autonomic_supervisor_restart/1,
+    new_autonomic_timeout_budget/1,
+    new_autonomic_transition_execution/1,
+    new_autonomic_transition_verification/1,
+    new_autonomic_upgrade_transition/1,
     new_availability_observation/1,
     new_availability_slo_evidence/1,
     new_backup_restore_evidence/1,
     new_baseline_metric/1,
+    new_beam_search_candidate/1,
+    new_belief_state_snapshot/1,
+    new_belief_state_update/1,
     new_beneficial_owner_evidence/1,
     new_billable_usage_identity/1,
     new_billing_account/1,
@@ -34,15 +94,22 @@
     new_business_continuity_evidence/1,
     new_business_outcome_measurement/1,
     new_buying_committee/1,
+    new_caller_local_checkout_observation/1,
+    new_caller_local_consumer/1,
+    new_caller_local_crown_identity/1,
     new_canary_decision/1,
     new_canary_evidence/1,
+    new_canonical_source_authority_observation/1,
     new_capability_bundle/1,
     new_capability_gap/1,
+    new_capsule_availability/1,
     new_capsule_identity/1,
     new_case_stats/1,
     new_catalog_release/1,
+    new_causal_lineage_observation/1,
     new_change_control_evidence/1,
     new_change_order_authority/1,
+    new_changed_surface_inference/1,
     new_channel_agreement/1,
     new_chargeback_rule/1,
     new_cluster_quorum_state/1,
@@ -55,37 +122,100 @@
     new_commercial_quote/1,
     new_commercial_quote_line/1,
     new_commercial_value_realization/1,
+    new_commit_check_state_observation/1,
     new_committed_spend/1,
     new_committed_spend_admission/1,
     new_compatibility_contract/1,
     new_configuration_export/1,
     new_configuration_import/1,
     new_conformance_result/1,
+    new_consequential_state_invalidation/1,
+    new_consumer_equivalence_proof/1,
+    new_consumer_pack_pin_observation/1,
     new_consumption_pool/1,
     new_consumption_subscription/1,
+    new_container_manifest_digest_observation/1,
+    new_container_platform_digest_observation/1,
     new_contracting_entity_identity/1,
+    new_cost_of_delay_score/1,
     new_cost_to_serve_measurement/1,
+    new_counterfactual_frontier/1,
     new_crash_recovery_receipt/1,
     new_credit_risk_admission/1,
     new_cross_sell_fit/1,
+    new_crown_applicable_gate_coverage/1,
+    new_crown_artifact_pullback_smoke/1,
+    new_crown_attestation_signer/1,
+    new_crown_autonomic_republish/1,
+    new_crown_capsule_toolchain/1,
+    new_crown_cas_promotion/1,
+    new_crown_check_relevance/1,
+    new_crown_child_publish_observation/1,
+    new_crown_consumer_smoke/1,
+    new_crown_convergence_proof/1,
+    new_crown_cosign_certificate/1,
+    new_crown_default_head_sensor/1,
+    new_crown_dependency_edge/1,
+    new_crown_execution_mode/1,
+    new_crown_fanin_convergence/1,
+    new_crown_fanout_batch/1,
+    new_crown_federated_phase_receipt/1,
+    new_crown_freshness_window/1,
+    new_crown_generated_source_ownership/1,
+    new_crown_gitlink_reconciliation/1,
+    new_crown_immutable_sha_tag/1,
+    new_crown_known_good_rollback/1,
+    new_crown_latency_observation/1,
+    new_crown_lock_reconciliation/1,
+    new_crown_manufacturer_identity/1,
+    new_crown_marketplace_pack_pin/1,
+    new_crown_multiarch_platform_set/1,
+    new_crown_oci_manifest_binding/1,
+    new_crown_package_pin_reconciliation/1,
+    new_crown_partial_checkpoint/1,
+    new_crown_path_skip_refusal/1,
+    new_crown_planner_identity/1,
+    new_crown_process_runtime_identity/1,
+    new_crown_promotion_race/1,
+    new_crown_provenance_binding/1,
+    new_crown_receipt_output_ownership/1,
+    new_crown_recursive_fixed_point/1,
+    new_crown_resume_token/1,
+    new_crown_runtime_identity/1,
+    new_crown_sbom_subject_binding/1,
+    new_crown_second_pass_identity/1,
+    new_crown_security_scan/1,
+    new_crown_source_capsule/1,
+    new_crown_stale_refusal/1,
+    new_crown_supply_chain_policy/1,
+    new_crown_topological_order/1,
+    new_crown_validation_pack/1,
+    new_crown_workflow_run_receipt/1,
+    new_crown_zero_unreceipted_writes/1,
     new_customer_health/1,
     new_customer_managed_key_evidence/1,
+    new_customer_signal_observation/1,
     new_data_egress_evidence/1,
     new_data_migration_scope_admission/1,
     new_data_processing_addendum_state/1,
     new_data_readiness/1,
     new_data_residency_policy/1,
     new_deal_desk_packet/1,
+    new_decision_compression_observation/1,
     new_deletion_proof_evidence/1,
     new_demo_run/1,
     new_demo_scenario/1,
+    new_dependency_dag/1,
     new_dependency_inventory_evidence/1,
+    new_dependency_pin_observation/1,
     new_deployment_entitlement/1,
     new_developer_readiness/1,
     new_dfg_edge/1,
     new_disaster_recovery_evidence/1,
     new_discount_schedule/1,
     new_discovery_hypothesis/1,
+    new_dominance_witness/1,
+    new_dynamic_replan_trigger/1,
     new_edition_definition/1,
     new_enterprise_order/1,
     new_enterprise_order_line/1,
@@ -96,12 +226,16 @@
     new_entitlement_revocation/1,
     new_entitlement_runtime_check/1,
     new_entitlement_state/1,
+    new_entropy_reduction_score/1,
     new_environment_identity/1,
     new_environment_profile/1,
+    new_environment_signal_observation/1,
     new_error_budget_state/1,
     new_event_log/1,
+    new_event_triggered_planning/1,
     new_event_type/1,
     new_evidence_freshness_evidence/1,
+    new_exact_subject_binding/1,
     new_exception_authority/1,
     new_executive_business_review/1,
     new_executive_sponsor/1,
@@ -111,36 +245,55 @@
     new_expansion_signal/1,
     new_forged_receipt_refusal/1,
     new_funding_approval_chain/1,
+    new_generated_output_ownership_observation/1,
+    new_generated_source_route/1,
     new_heuristic_arc/1,
+    new_immutable_pack_selection/1,
     new_implementation_fee_admission/1,
     new_incident_acknowledgement/1,
     new_incident_detection_event/1,
     new_incident_response_evidence/1,
     new_indemnity_scope_admission/1,
+    new_information_partition_observation/1,
     new_insurance_requirement/1,
     new_integration_readiness/1,
     new_integration_scope_admission/1,
     new_invoice_entity_identity/1,
     new_invoice_schedule/1,
+    new_irreversibility_budget/1,
     new_k8s_object_ref/1,
     new_latency_budget_observation/1,
+    new_leakage_finding/1,
     new_least_authority_evidence/1,
     new_legal_blocker/1,
     new_liability_cap_admission/1,
     new_license_evidence/1,
     new_log_trace/1,
+    new_machine_actionable_delta/1,
+    new_manufacture_receipt_presence_observation/1,
+    new_manufacture_receipt_validity_observation/1,
     new_master_service_agreement_state/1,
+    new_mcts_plan_candidate/1,
+    new_meta_router/1,
     new_metered_usage_sample/1,
     new_migration_contract/1,
     new_migration_readiness/1,
     new_minimum_term_admission/1,
     new_multiarch_evidence/1,
     new_mutable_identity_refusal_evidence/1,
+    new_mutual_information_score/1,
+    new_next_lawful_actuation/1,
     new_node_failover_event/1,
+    new_normalized_event_observation/1,
+    new_novelty_score/1,
     new_object_attribute_change/1,
     new_object_type/1,
     new_objection/1,
     new_objection_resolution/1,
+    new_observation_deduplication_decision/1,
+    new_observation_entropy_estimate/1,
+    new_observation_freshness_assessment/1,
+    new_observation_staleness_invalidation/1,
     new_oc_declare_constraint/1,
     new_ocel_attribute/1,
     new_ocel_event/1,
@@ -151,9 +304,15 @@
     new_operator_readiness/1,
     new_opportunity_currency_contract/1,
     new_opportunity_value_range/1,
+    new_optimization_plan_candidate/1,
+    new_option_generation/1,
     new_order_form_admission/1,
+    new_orthogonality_score/1,
+    new_output_ownership_gate/1,
     new_overage_policy/1,
+    new_package_release_observation/1,
     new_paid_workload_outcome_receipt/1,
+    new_pareto_filter/1,
     new_path_schema/1,
     new_path_schema_query/1,
     new_payment_terms/1,
@@ -162,17 +321,25 @@
     new_petri_arc/1,
     new_petri_place/1,
     new_petri_transition/1,
+    new_plan_lineage/1,
+    new_plan_memory/1,
+    new_planner_capability_profile/1,
+    new_planner_identity/1,
+    new_planner_portfolio/1,
     new_planning_action/1,
     new_planning_state/1,
     new_poc_exit_criteria/1,
     new_poc_risk/1,
     new_poc_scope/1,
     new_poc_timeline/1,
+    new_policy_binding/1,
     new_policy_decision/1,
     new_powl_choice_graph_edge/1,
     new_powl_freq/1,
     new_powl_leaf/1,
     new_powl_partial_order_edge/1,
+    new_powl_projection/1,
+    new_ppddl_projection/1,
     new_pricing_basis_contract/1,
     new_privacy_classification_evidence/1,
     new_private_offer/1,
@@ -185,21 +352,27 @@
     new_production_readiness/1,
     new_proof_of_value_budget/1,
     new_proof_of_value_exit_gate/1,
+    new_propagation_score/1,
     new_provenance_binding_evidence/1,
+    new_provenance_binding_observation/1,
+    new_psro_population/1,
     new_purchase_order_binding/1,
     new_purchase_order_requirement/1,
     new_purchasing_entity_identity/1,
     new_queue_snapshot/1,
     new_quota_policy/1,
     new_ramp_commitment/1,
+    new_reachability_analysis/1,
     new_receipt_replay_evidence/1,
     new_receipt_replay_request/1,
+    new_receipt_required_gate/1,
     new_receipt_signature/1,
     new_receipt_subject_binding/1,
     new_receipt_verification/1,
     new_recovery_plan/1,
     new_recovery_point_receipt/1,
     new_recovery_time_receipt/1,
+    new_refusal_boundary_observation/1,
     new_remediation_sla_evidence/1,
     new_renewal_evidence/1,
     new_renewal_health/1,
@@ -207,26 +380,39 @@
     new_renewal_risk/1,
     new_renewal_term_admission/1,
     new_replay_environment_identity/1,
+    new_repository_ancestry_observation/1,
+    new_repository_default_branch_observation/1,
+    new_repository_exact_head_observation/1,
+    new_repository_worktree_state_observation/1,
     new_reproducible_build_evidence/1,
     new_reseller_authorization/1,
+    new_reserve_work_promotion/1,
     new_residency_evidence/1,
     new_resource_allocation/1,
+    new_resource_capacity_plan/1,
     new_retention_policy_evidence/1,
     new_revenue_attribution/1,
     new_revenue_contract_admission/1,
     new_revenue_schedule_assumption/1,
+    new_reversibility_weight/1,
+    new_rework_cost/1,
     new_rfp_response_evidence/1,
+    new_role_compatibility/1,
     new_rollback_checkpoint/1,
     new_rollback_decision/1,
     new_rollback_evidence/1,
     new_rolling_upgrade_plan/1,
+    new_runtime_health_observation/1,
     new_runtime_policy_decision/1,
     new_sanctions_screening_result/1,
     new_sbom_inventory_evidence/1,
+    new_second_pass_byte_identity_observation/1,
+    new_second_run_identity_objective/1,
     new_secret_boundary_evidence/1,
     new_security_addendum_state/1,
     new_security_blocker/1,
     new_security_readiness/1,
+    new_semantic_drift_observation/1,
     new_service_credit/1,
     new_service_credit_admission/1,
     new_service_health_snapshot/1,
@@ -240,8 +426,12 @@
     new_sojourn_time/1,
     new_solution_fit/1,
     new_stakeholder_map/1,
+    new_stale_plan_refusal/1,
     new_stale_receipt_refusal/1,
     new_stale_subject_refusal_evidence/1,
+    new_standing_state_observation/1,
+    new_submodule_lock_observation/1,
+    new_submodule_registration_observation/1,
     new_success_plan/1,
     new_supervisor_restart_policy/1,
     new_support_contract/1,
@@ -255,6 +445,7 @@
     new_target_metric/1,
     new_tax_jurisdiction_evidence/1,
     new_technical_blocker/1,
+    new_temporal_order_observation/1,
     new_tenant_account/1,
     new_tenant_data_partition/1,
     new_tenant_key_scope/1,
@@ -265,10 +456,13 @@
     new_termination_right_admission/1,
     new_time_to_value/1,
     new_toolchain_identity/1,
+    new_toolchain_identity_observation/1,
     new_training_readiness/1,
     new_training_scope_admission/1,
     new_true_up_policy/1,
     new_type_edge/1,
+    new_uncertainty_aware_selection/1,
+    new_uncertainty_observation/1,
     new_unsupported_capability_evidence/1,
     new_upgrade_evidence/1,
     new_upsell_readiness/1,
@@ -276,15 +470,24 @@
     new_usage_plan/1,
     new_usage_reconciliation_receipt/1,
     new_usage_signal/1,
+    new_validation_capsule_drift_observation/1,
+    new_validation_capsule_identity_observation/1,
     new_value_baseline/1,
     new_value_driver/1,
+    new_value_of_information_estimate/1,
+    new_value_of_information_score/1,
     new_value_realization/1,
+    new_value_receipt/1,
     new_value_telemetry_sample/1,
     new_vendor_registration_state/1,
     new_vendor_risk_evidence/1,
     new_version_lifecycle_evidence/1,
     new_volume_tier_admission/1,
     new_vulnerability_scan_evidence/1,
+    new_wip_limit_gate/1,
+    new_workflow_definition_digest_observation/1,
+    new_workflow_job_state_observation/1,
+    new_workflow_run_state_observation/1,
     new_workload_backpressure_signal/1,
     new_workload_cancellation_receipt/1,
     new_workload_execution_identity/1,
@@ -302,19 +505,79 @@
     action_pin_evidence/0,
     activation_event/0,
     add_on_bundle/0,
+    admissible_action_set/0,
     adoption_milestone/0,
+    agent_assignment/0,
     alignment_move/0,
     annual_subscription/0,
+    anomaly_detection_observation/0,
     approval_separation_evidence/0,
     architecture_readiness/0,
     architecture_review_evidence/0,
     artifact_digest_evidence/0,
+    artifact_digest_observation/0,
+    astar_plan_candidate/0,
     attestation_verification_evidence/0,
     audit_chain_evidence/0,
+    authority_ceiling/0,
+    autonomic_actuation_receipt/0,
+    autonomic_actuation_replay/0,
+    autonomic_actuation_selection/0,
+    autonomic_authority_admission/0,
+    autonomic_authority_escalation/0,
+    autonomic_backpressure_admission/0,
+    autonomic_caller_local_binding/0,
+    autonomic_canary_admission/0,
+    autonomic_cancellation_receipt/0,
+    autonomic_canonical_repair_route/0,
+    autonomic_capability_token/0,
+    autonomic_circuit_breaker_transition/0,
+    autonomic_compensation_verification/0,
+    autonomic_crash_recovery/0,
+    autonomic_cross_consumer_receipt_refusal/0,
+    autonomic_deterministic_receipt_replay/0,
+    autonomic_failure_classification/0,
+    autonomic_forged_receipt_refusal/0,
+    autonomic_generated_surface_refusal/0,
+    autonomic_idempotence_fence/0,
+    autonomic_incident_recovery/0,
+    autonomic_least_authority_grant/0,
+    autonomic_model_authority_refusal/0,
+    autonomic_mutable_pack_refusal/0,
+    autonomic_output_ownership_check/0,
+    autonomic_pack_sha_authority/0,
+    autonomic_plan_construction/0,
+    autonomic_planner_authority_refusal/0,
+    autonomic_rca_hypothesis/0,
+    autonomic_receipt_authority_binding/0,
+    autonomic_receipt_chain_link/0,
+    autonomic_receipt_completeness_check/0,
+    autonomic_receipt_subject_binding/0,
+    autonomic_repair_reexecution/0,
+    autonomic_repair_selection/0,
+    autonomic_replay_divergence_refusal/0,
+    autonomic_retry_backoff/0,
+    autonomic_retry_budget/0,
+    autonomic_rollback_transition/0,
+    autonomic_saga_compensation/0,
+    autonomic_second_run_identity/0,
+    autonomic_self_healing_completion_receipt/0,
+    autonomic_stale_action_refusal/0,
+    autonomic_stale_receipt_refusal/0,
+    autonomic_state_vector/0,
+    autonomic_subject_compare_and_swap/0,
+    autonomic_supervisor_restart/0,
+    autonomic_timeout_budget/0,
+    autonomic_transition_execution/0,
+    autonomic_transition_verification/0,
+    autonomic_upgrade_transition/0,
     availability_observation/0,
     availability_slo_evidence/0,
     backup_restore_evidence/0,
     baseline_metric/0,
+    beam_search_candidate/0,
+    belief_state_snapshot/0,
+    belief_state_update/0,
     beneficial_owner_evidence/0,
     billable_usage_identity/0,
     billing_account/0,
@@ -326,15 +589,22 @@
     business_continuity_evidence/0,
     business_outcome_measurement/0,
     buying_committee/0,
+    caller_local_checkout_observation/0,
+    caller_local_consumer/0,
+    caller_local_crown_identity/0,
     canary_decision/0,
     canary_evidence/0,
+    canonical_source_authority_observation/0,
     capability_bundle/0,
     capability_gap/0,
+    capsule_availability/0,
     capsule_identity/0,
     case_stats/0,
     catalog_release/0,
+    causal_lineage_observation/0,
     change_control_evidence/0,
     change_order_authority/0,
+    changed_surface_inference/0,
     channel_agreement/0,
     chargeback_rule/0,
     cluster_quorum_state/0,
@@ -347,37 +617,100 @@
     commercial_quote/0,
     commercial_quote_line/0,
     commercial_value_realization/0,
+    commit_check_state_observation/0,
     committed_spend/0,
     committed_spend_admission/0,
     compatibility_contract/0,
     configuration_export/0,
     configuration_import/0,
     conformance_result/0,
+    consequential_state_invalidation/0,
+    consumer_equivalence_proof/0,
+    consumer_pack_pin_observation/0,
     consumption_pool/0,
     consumption_subscription/0,
+    container_manifest_digest_observation/0,
+    container_platform_digest_observation/0,
     contracting_entity_identity/0,
+    cost_of_delay_score/0,
     cost_to_serve_measurement/0,
+    counterfactual_frontier/0,
     crash_recovery_receipt/0,
     credit_risk_admission/0,
     cross_sell_fit/0,
+    crown_applicable_gate_coverage/0,
+    crown_artifact_pullback_smoke/0,
+    crown_attestation_signer/0,
+    crown_autonomic_republish/0,
+    crown_capsule_toolchain/0,
+    crown_cas_promotion/0,
+    crown_check_relevance/0,
+    crown_child_publish_observation/0,
+    crown_consumer_smoke/0,
+    crown_convergence_proof/0,
+    crown_cosign_certificate/0,
+    crown_default_head_sensor/0,
+    crown_dependency_edge/0,
+    crown_execution_mode/0,
+    crown_fanin_convergence/0,
+    crown_fanout_batch/0,
+    crown_federated_phase_receipt/0,
+    crown_freshness_window/0,
+    crown_generated_source_ownership/0,
+    crown_gitlink_reconciliation/0,
+    crown_immutable_sha_tag/0,
+    crown_known_good_rollback/0,
+    crown_latency_observation/0,
+    crown_lock_reconciliation/0,
+    crown_manufacturer_identity/0,
+    crown_marketplace_pack_pin/0,
+    crown_multiarch_platform_set/0,
+    crown_oci_manifest_binding/0,
+    crown_package_pin_reconciliation/0,
+    crown_partial_checkpoint/0,
+    crown_path_skip_refusal/0,
+    crown_planner_identity/0,
+    crown_process_runtime_identity/0,
+    crown_promotion_race/0,
+    crown_provenance_binding/0,
+    crown_receipt_output_ownership/0,
+    crown_recursive_fixed_point/0,
+    crown_resume_token/0,
+    crown_runtime_identity/0,
+    crown_sbom_subject_binding/0,
+    crown_second_pass_identity/0,
+    crown_security_scan/0,
+    crown_source_capsule/0,
+    crown_stale_refusal/0,
+    crown_supply_chain_policy/0,
+    crown_topological_order/0,
+    crown_validation_pack/0,
+    crown_workflow_run_receipt/0,
+    crown_zero_unreceipted_writes/0,
     customer_health/0,
     customer_managed_key_evidence/0,
+    customer_signal_observation/0,
     data_egress_evidence/0,
     data_migration_scope_admission/0,
     data_processing_addendum_state/0,
     data_readiness/0,
     data_residency_policy/0,
     deal_desk_packet/0,
+    decision_compression_observation/0,
     deletion_proof_evidence/0,
     demo_run/0,
     demo_scenario/0,
+    dependency_dag/0,
     dependency_inventory_evidence/0,
+    dependency_pin_observation/0,
     deployment_entitlement/0,
     developer_readiness/0,
     dfg_edge/0,
     disaster_recovery_evidence/0,
     discount_schedule/0,
     discovery_hypothesis/0,
+    dominance_witness/0,
+    dynamic_replan_trigger/0,
     edition_definition/0,
     enterprise_order/0,
     enterprise_order_line/0,
@@ -388,12 +721,16 @@
     entitlement_revocation/0,
     entitlement_runtime_check/0,
     entitlement_state/0,
+    entropy_reduction_score/0,
     environment_identity/0,
     environment_profile/0,
+    environment_signal_observation/0,
     error_budget_state/0,
     event_log/0,
+    event_triggered_planning/0,
     event_type/0,
     evidence_freshness_evidence/0,
+    exact_subject_binding/0,
     exception_authority/0,
     executive_business_review/0,
     executive_sponsor/0,
@@ -403,36 +740,55 @@
     expansion_signal/0,
     forged_receipt_refusal/0,
     funding_approval_chain/0,
+    generated_output_ownership_observation/0,
+    generated_source_route/0,
     heuristic_arc/0,
+    immutable_pack_selection/0,
     implementation_fee_admission/0,
     incident_acknowledgement/0,
     incident_detection_event/0,
     incident_response_evidence/0,
     indemnity_scope_admission/0,
+    information_partition_observation/0,
     insurance_requirement/0,
     integration_readiness/0,
     integration_scope_admission/0,
     invoice_entity_identity/0,
     invoice_schedule/0,
+    irreversibility_budget/0,
     k8s_object_ref/0,
     latency_budget_observation/0,
+    leakage_finding/0,
     least_authority_evidence/0,
     legal_blocker/0,
     liability_cap_admission/0,
     license_evidence/0,
     log_trace/0,
+    machine_actionable_delta/0,
+    manufacture_receipt_presence_observation/0,
+    manufacture_receipt_validity_observation/0,
     master_service_agreement_state/0,
+    mcts_plan_candidate/0,
+    meta_router/0,
     metered_usage_sample/0,
     migration_contract/0,
     migration_readiness/0,
     minimum_term_admission/0,
     multiarch_evidence/0,
     mutable_identity_refusal_evidence/0,
+    mutual_information_score/0,
+    next_lawful_actuation/0,
     node_failover_event/0,
+    normalized_event_observation/0,
+    novelty_score/0,
     object_attribute_change/0,
     object_type/0,
     objection/0,
     objection_resolution/0,
+    observation_deduplication_decision/0,
+    observation_entropy_estimate/0,
+    observation_freshness_assessment/0,
+    observation_staleness_invalidation/0,
     oc_declare_constraint/0,
     ocel_attribute/0,
     ocel_event/0,
@@ -443,9 +799,15 @@
     operator_readiness/0,
     opportunity_currency_contract/0,
     opportunity_value_range/0,
+    optimization_plan_candidate/0,
+    option_generation/0,
     order_form_admission/0,
+    orthogonality_score/0,
+    output_ownership_gate/0,
     overage_policy/0,
+    package_release_observation/0,
     paid_workload_outcome_receipt/0,
+    pareto_filter/0,
     path_schema/0,
     path_schema_query/0,
     payment_terms/0,
@@ -454,17 +816,25 @@
     petri_arc/0,
     petri_place/0,
     petri_transition/0,
+    plan_lineage/0,
+    plan_memory/0,
+    planner_capability_profile/0,
+    planner_identity/0,
+    planner_portfolio/0,
     planning_action/0,
     planning_state/0,
     poc_exit_criteria/0,
     poc_risk/0,
     poc_scope/0,
     poc_timeline/0,
+    policy_binding/0,
     policy_decision/0,
     powl_choice_graph_edge/0,
     powl_freq/0,
     powl_leaf/0,
     powl_partial_order_edge/0,
+    powl_projection/0,
+    ppddl_projection/0,
     pricing_basis_contract/0,
     privacy_classification_evidence/0,
     private_offer/0,
@@ -477,21 +847,27 @@
     production_readiness/0,
     proof_of_value_budget/0,
     proof_of_value_exit_gate/0,
+    propagation_score/0,
     provenance_binding_evidence/0,
+    provenance_binding_observation/0,
+    psro_population/0,
     purchase_order_binding/0,
     purchase_order_requirement/0,
     purchasing_entity_identity/0,
     queue_snapshot/0,
     quota_policy/0,
     ramp_commitment/0,
+    reachability_analysis/0,
     receipt_replay_evidence/0,
     receipt_replay_request/0,
+    receipt_required_gate/0,
     receipt_signature/0,
     receipt_subject_binding/0,
     receipt_verification/0,
     recovery_plan/0,
     recovery_point_receipt/0,
     recovery_time_receipt/0,
+    refusal_boundary_observation/0,
     remediation_sla_evidence/0,
     renewal_evidence/0,
     renewal_health/0,
@@ -499,26 +875,39 @@
     renewal_risk/0,
     renewal_term_admission/0,
     replay_environment_identity/0,
+    repository_ancestry_observation/0,
+    repository_default_branch_observation/0,
+    repository_exact_head_observation/0,
+    repository_worktree_state_observation/0,
     reproducible_build_evidence/0,
     reseller_authorization/0,
+    reserve_work_promotion/0,
     residency_evidence/0,
     resource_allocation/0,
+    resource_capacity_plan/0,
     retention_policy_evidence/0,
     revenue_attribution/0,
     revenue_contract_admission/0,
     revenue_schedule_assumption/0,
+    reversibility_weight/0,
+    rework_cost/0,
     rfp_response_evidence/0,
+    role_compatibility/0,
     rollback_checkpoint/0,
     rollback_decision/0,
     rollback_evidence/0,
     rolling_upgrade_plan/0,
+    runtime_health_observation/0,
     runtime_policy_decision/0,
     sanctions_screening_result/0,
     sbom_inventory_evidence/0,
+    second_pass_byte_identity_observation/0,
+    second_run_identity_objective/0,
     secret_boundary_evidence/0,
     security_addendum_state/0,
     security_blocker/0,
     security_readiness/0,
+    semantic_drift_observation/0,
     service_credit/0,
     service_credit_admission/0,
     service_health_snapshot/0,
@@ -532,8 +921,12 @@
     sojourn_time/0,
     solution_fit/0,
     stakeholder_map/0,
+    stale_plan_refusal/0,
     stale_receipt_refusal/0,
     stale_subject_refusal_evidence/0,
+    standing_state_observation/0,
+    submodule_lock_observation/0,
+    submodule_registration_observation/0,
     success_plan/0,
     supervisor_restart_policy/0,
     support_contract/0,
@@ -547,6 +940,7 @@
     target_metric/0,
     tax_jurisdiction_evidence/0,
     technical_blocker/0,
+    temporal_order_observation/0,
     tenant_account/0,
     tenant_data_partition/0,
     tenant_key_scope/0,
@@ -557,10 +951,13 @@
     termination_right_admission/0,
     time_to_value/0,
     toolchain_identity/0,
+    toolchain_identity_observation/0,
     training_readiness/0,
     training_scope_admission/0,
     true_up_policy/0,
     type_edge/0,
+    uncertainty_aware_selection/0,
+    uncertainty_observation/0,
     unsupported_capability_evidence/0,
     upgrade_evidence/0,
     upsell_readiness/0,
@@ -568,15 +965,24 @@
     usage_plan/0,
     usage_reconciliation_receipt/0,
     usage_signal/0,
+    validation_capsule_drift_observation/0,
+    validation_capsule_identity_observation/0,
     value_baseline/0,
     value_driver/0,
+    value_of_information_estimate/0,
+    value_of_information_score/0,
     value_realization/0,
+    value_receipt/0,
     value_telemetry_sample/0,
     vendor_registration_state/0,
     vendor_risk_evidence/0,
     version_lifecycle_evidence/0,
     volume_tier_admission/0,
     vulnerability_scan_evidence/0,
+    wip_limit_gate/0,
+    workflow_definition_digest_observation/0,
+    workflow_job_state_observation/0,
+    workflow_run_state_observation/0,
     workload_backpressure_signal/0,
     workload_cancellation_receipt/0,
     workload_execution_identity/0,
@@ -825,6 +1231,35 @@ new_add_on_bundle(Map) ->
     end
     end.
 
+%% Computes all actions currently permitted by state, constraints, and authority.
+-record(admissible_action_set, {
+    state_id :: binary(), %% state_id: Required state_id for this bounded planner contract.
+    constraint_hash :: binary(), %% constraint_hash: Required constraint_hash for deterministic planner evaluation.
+    action_set_hash :: binary() %% action_set_hash: Required action_set_hash preserving evidence and falsifiability.
+}).
+
+-type admissible_action_set() :: #admissible_action_set{}.
+
+-spec new_admissible_action_set(map()) -> {ok, admissible_action_set()} | {error, {missing_field, atom()}}.
+new_admissible_action_set(Map) ->
+    case maps:is_key(state_id, Map) of
+        false -> {error, {missing_field, state_id}};
+        true ->
+    case maps:is_key(constraint_hash, Map) of
+        false -> {error, {missing_field, constraint_hash}};
+        true ->
+    case maps:is_key(action_set_hash, Map) of
+        false -> {error, {missing_field, action_set_hash}};
+        true ->
+    {ok, #admissible_action_set{
+        state_id = maps:get(state_id, Map, undefined),
+        constraint_hash = maps:get(constraint_hash, Map, undefined),
+        action_set_hash = maps:get(action_set_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Receipted customer adoption milestone tied to observable use.
 -record(adoption_milestone, {
     adoption_milestone_id :: binary(), %% adoption_milestone_id: Stable identity of this adoption milestone observation.
@@ -862,6 +1297,35 @@ new_adoption_milestone(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Assigns an admitted policy to an agent without transferring authority.
+-record(agent_assignment, {
+    agent_id :: binary(), %% agent_id: Required agent_id for this bounded planner contract.
+    policy_id :: binary(), %% policy_id: Required policy_id for deterministic planner evaluation.
+    assignment_hash :: binary() %% assignment_hash: Required assignment_hash preserving evidence and falsifiability.
+}).
+
+-type agent_assignment() :: #agent_assignment{}.
+
+-spec new_agent_assignment(map()) -> {ok, agent_assignment()} | {error, {missing_field, atom()}}.
+new_agent_assignment(Map) ->
+    case maps:is_key(agent_id, Map) of
+        false -> {error, {missing_field, agent_id}};
+        true ->
+    case maps:is_key(policy_id, Map) of
+        false -> {error, {missing_field, policy_id}};
+        true ->
+    case maps:is_key(assignment_hash, Map) of
+        false -> {error, {missing_field, assignment_hash}};
+        true ->
+    {ok, #agent_assignment{
+        agent_id = maps:get(agent_id, Map, undefined),
+        policy_id = maps:get(policy_id, Map, undefined),
+        assignment_hash = maps:get(assignment_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -918,6 +1382,41 @@ new_annual_subscription(Map) ->
         sku = maps:get(sku, Map, undefined),
         seat_count = maps:get(seat_count, Map, undefined),
         renews_at = maps:get(renews_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Scores an observed subject against an exact baseline digest.
+-record(anomaly_detection_observation, {
+    subject_id :: binary(), %% subject_id: Observed subject identity.
+    baseline_digest :: binary(), %% baseline_digest: Exact anomaly baseline digest.
+    observation_digest :: binary(), %% observation_digest: Current observation digest.
+    anomaly_score :: float() %% anomaly_score: Computed anomaly score.
+}).
+
+-type anomaly_detection_observation() :: #anomaly_detection_observation{}.
+
+-spec new_anomaly_detection_observation(map()) -> {ok, anomaly_detection_observation()} | {error, {missing_field, atom()}}.
+new_anomaly_detection_observation(Map) ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(baseline_digest, Map) of
+        false -> {error, {missing_field, baseline_digest}};
+        true ->
+    case maps:is_key(observation_digest, Map) of
+        false -> {error, {missing_field, observation_digest}};
+        true ->
+    case maps:is_key(anomaly_score, Map) of
+        false -> {error, {missing_field, anomaly_score}};
+        true ->
+    {ok, #anomaly_detection_observation{
+        subject_id = maps:get(subject_id, Map, undefined),
+        baseline_digest = maps:get(baseline_digest, Map, undefined),
+        observation_digest = maps:get(observation_digest, Map, undefined),
+        anomaly_score = maps:get(anomaly_score, Map, undefined)
     }}
     end
     end
@@ -1070,6 +1569,70 @@ new_artifact_digest_evidence(Map) ->
     end
     end.
 
+%% Binds a produced artifact digest to its exact producer run.
+-record(artifact_digest_observation, {
+    artifact_id :: binary(), %% artifact_id: Stable artifact identity.
+    artifact_sha256 :: binary(), %% artifact_sha256: Observed artifact content digest.
+    producer_run_id :: binary(), %% producer_run_id: Exact producer workflow run.
+    observed_at :: binary() %% observed_at: Timestamp of artifact observation.
+}).
+
+-type artifact_digest_observation() :: #artifact_digest_observation{}.
+
+-spec new_artifact_digest_observation(map()) -> {ok, artifact_digest_observation()} | {error, {missing_field, atom()}}.
+new_artifact_digest_observation(Map) ->
+    case maps:is_key(artifact_id, Map) of
+        false -> {error, {missing_field, artifact_id}};
+        true ->
+    case maps:is_key(artifact_sha256, Map) of
+        false -> {error, {missing_field, artifact_sha256}};
+        true ->
+    case maps:is_key(producer_run_id, Map) of
+        false -> {error, {missing_field, producer_run_id}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #artifact_digest_observation{
+        artifact_id = maps:get(artifact_id, Map, undefined),
+        artifact_sha256 = maps:get(artifact_sha256, Map, undefined),
+        producer_run_id = maps:get(producer_run_id, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Represents an A-star plan with admissible heuristic and exact state lineage.
+-record(astar_plan_candidate, {
+    plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
+    heuristic_id :: binary(), %% heuristic_id: Required heuristic_id for deterministic planner evaluation.
+    path_hash :: binary() %% path_hash: Required path_hash preserving evidence and falsifiability.
+}).
+
+-type astar_plan_candidate() :: #astar_plan_candidate{}.
+
+-spec new_astar_plan_candidate(map()) -> {ok, astar_plan_candidate()} | {error, {missing_field, atom()}}.
+new_astar_plan_candidate(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(heuristic_id, Map) of
+        false -> {error, {missing_field, heuristic_id}};
+        true ->
+    case maps:is_key(path_hash, Map) of
+        false -> {error, {missing_field, path_hash}};
+        true ->
+    {ok, #astar_plan_candidate{
+        plan_id = maps:get(plan_id, Map, undefined),
+        heuristic_id = maps:get(heuristic_id, Map, undefined),
+        path_hash = maps:get(path_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
 -record(attestation_verification_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this attestation verification observation.
@@ -1134,6 +1697,1820 @@ new_audit_chain_evidence(Map) ->
         subject_sha = maps:get(subject_sha, Map, undefined),
         previous_receipt_hash = maps:get(previous_receipt_hash, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Caps every candidate action at the exact authority grant available to its subject.
+-record(authority_ceiling, {
+    action_id :: binary(), %% action_id: Required action_id for this bounded planner contract.
+    grant_id :: binary(), %% grant_id: Required grant_id for deterministic planner evaluation.
+    ceiling :: binary() %% ceiling: Required ceiling preserving evidence and falsifiability.
+}).
+
+-type authority_ceiling() :: #authority_ceiling{}.
+
+-spec new_authority_ceiling(map()) -> {ok, authority_ceiling()} | {error, {missing_field, atom()}}.
+new_authority_ceiling(Map) ->
+    case maps:is_key(action_id, Map) of
+        false -> {error, {missing_field, action_id}};
+        true ->
+    case maps:is_key(grant_id, Map) of
+        false -> {error, {missing_field, grant_id}};
+        true ->
+    case maps:is_key(ceiling, Map) of
+        false -> {error, {missing_field, ceiling}};
+        true ->
+    {ok, #authority_ceiling{
+        action_id = maps:get(action_id, Map, undefined),
+        grant_id = maps:get(grant_id, Map, undefined),
+        ceiling = maps:get(ceiling, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Produces a complete deterministic receipt for one authorized actuation.
+-record(autonomic_actuation_receipt, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_actuation_receipt() :: #autonomic_actuation_receipt{}.
+
+-spec new_autonomic_actuation_receipt(map()) -> {ok, autonomic_actuation_receipt()} | {error, {missing_field, atom()}}.
+new_autonomic_actuation_receipt(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_actuation_receipt{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Replays an actuation receipt against the same exact subject without repeating consequences.
+-record(autonomic_actuation_replay, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_actuation_replay() :: #autonomic_actuation_replay{}.
+
+-spec new_autonomic_actuation_replay(map()) -> {ok, autonomic_actuation_replay()} | {error, {missing_field, atom()}}.
+new_autonomic_actuation_replay(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_actuation_replay{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Selects one bounded actuation candidate while preserving the exact decision subject and admitted authority.
+-record(autonomic_actuation_selection, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_actuation_selection() :: #autonomic_actuation_selection{}.
+
+-spec new_autonomic_actuation_selection(map()) -> {ok, autonomic_actuation_selection()} | {error, {missing_field, atom()}}.
+new_autonomic_actuation_selection(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_actuation_selection{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Admits or refuses authority for one consequential transition using an immutable authority receipt.
+-record(autonomic_authority_admission, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_authority_admission() :: #autonomic_authority_admission{}.
+
+-spec new_autonomic_authority_admission(map()) -> {ok, autonomic_authority_admission()} | {error, {missing_field, atom()}}.
+new_autonomic_authority_admission(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_authority_admission{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Emits a machine-readable escalation only when the remaining boundary is irreducible by admitted authority.
+-record(autonomic_authority_escalation, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_authority_escalation() :: #autonomic_authority_escalation{}.
+
+-spec new_autonomic_authority_escalation(map()) -> {ok, autonomic_authority_escalation()} | {error, {missing_field, atom()}}.
+new_autonomic_authority_escalation(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_authority_escalation{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses new consequential work when admitted queue or inflight capacity is exhausted.
+-record(autonomic_backpressure_admission, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_backpressure_admission() :: #autonomic_backpressure_admission{}.
+
+-spec new_autonomic_backpressure_admission(map()) -> {ok, autonomic_backpressure_admission()} | {error, {missing_field, atom()}}.
+new_autonomic_backpressure_admission(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_backpressure_admission{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds actuation to the exact consumer checkout rather than a central surrogate.
+-record(autonomic_caller_local_binding, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_caller_local_binding() :: #autonomic_caller_local_binding{}.
+
+-spec new_autonomic_caller_local_binding(map()) -> {ok, autonomic_caller_local_binding()} | {error, {missing_field, atom()}}.
+new_autonomic_caller_local_binding(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_caller_local_binding{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Admits a bounded canary transition and refuses fleet-wide expansion without verified evidence.
+-record(autonomic_canary_admission, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_canary_admission() :: #autonomic_canary_admission{}.
+
+-spec new_autonomic_canary_admission(map()) -> {ok, autonomic_canary_admission()} | {error, {missing_field, atom()}}.
+new_autonomic_canary_admission(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_canary_admission{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Produces a deterministic receipt proving cancellation and the resulting bounded state.
+-record(autonomic_cancellation_receipt, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_cancellation_receipt() :: #autonomic_cancellation_receipt{}.
+
+-spec new_autonomic_cancellation_receipt(map()) -> {ok, autonomic_cancellation_receipt()} | {error, {missing_field, atom()}}.
+new_autonomic_cancellation_receipt(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_cancellation_receipt{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Routes a generated-surface defect to its canonical semantic source or independent qualification rail.
+-record(autonomic_canonical_repair_route, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_canonical_repair_route() :: #autonomic_canonical_repair_route{}.
+
+-spec new_autonomic_canonical_repair_route(map()) -> {ok, autonomic_canonical_repair_route()} | {error, {missing_field, atom()}}.
+new_autonomic_canonical_repair_route(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_canonical_repair_route{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Scopes actuation authority to one capability, subject, and bounded transition.
+-record(autonomic_capability_token, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_capability_token() :: #autonomic_capability_token{}.
+
+-spec new_autonomic_capability_token(map()) -> {ok, autonomic_capability_token()} | {error, {missing_field, atom()}}.
+new_autonomic_capability_token(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_capability_token{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Opens, probes, and closes a circuit using receipted health state transitions.
+-record(autonomic_circuit_breaker_transition, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_circuit_breaker_transition() :: #autonomic_circuit_breaker_transition{}.
+
+-spec new_autonomic_circuit_breaker_transition(map()) -> {ok, autonomic_circuit_breaker_transition()} | {error, {missing_field, atom()}}.
+new_autonomic_circuit_breaker_transition(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_circuit_breaker_transition{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Verifies compensation restored the admitted recovery state without hiding partial effects.
+-record(autonomic_compensation_verification, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_compensation_verification() :: #autonomic_compensation_verification{}.
+
+-spec new_autonomic_compensation_verification(map()) -> {ok, autonomic_compensation_verification()} | {error, {missing_field, atom()}}.
+new_autonomic_compensation_verification(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_compensation_verification{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Resumes a receipted transition after process crash from the last verified state boundary.
+-record(autonomic_crash_recovery, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_crash_recovery() :: #autonomic_crash_recovery{}.
+
+-spec new_autonomic_crash_recovery(map()) -> {ok, autonomic_crash_recovery()} | {error, {missing_field, atom()}}.
+new_autonomic_crash_recovery(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_crash_recovery{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses reuse of an actuation receipt across distinct caller-local consumer subjects.
+-record(autonomic_cross_consumer_receipt_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_cross_consumer_receipt_refusal() :: #autonomic_cross_consumer_receipt_refusal{}.
+
+-spec new_autonomic_cross_consumer_receipt_refusal(map()) -> {ok, autonomic_cross_consumer_receipt_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_cross_consumer_receipt_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_cross_consumer_receipt_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Recomputes receipt identity deterministically without reapplying the original consequence.
+-record(autonomic_deterministic_receipt_replay, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_deterministic_receipt_replay() :: #autonomic_deterministic_receipt_replay{}.
+
+-spec new_autonomic_deterministic_receipt_replay(map()) -> {ok, autonomic_deterministic_receipt_replay()} | {error, {missing_field, atom()}}.
+new_autonomic_deterministic_receipt_replay(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_deterministic_receipt_replay{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Classifies execution failures as subject, authority, capsule, dependency, transient, or irreducible boundary.
+-record(autonomic_failure_classification, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_failure_classification() :: #autonomic_failure_classification{}.
+
+-spec new_autonomic_failure_classification(map()) -> {ok, autonomic_failure_classification()} | {error, {missing_field, atom()}}.
+new_autonomic_failure_classification(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_failure_classification{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses receipts whose claimed transition identity fails deterministic verification.
+-record(autonomic_forged_receipt_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_forged_receipt_refusal() :: #autonomic_forged_receipt_refusal{}.
+
+-spec new_autonomic_forged_receipt_refusal(map()) -> {ok, autonomic_forged_receipt_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_forged_receipt_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_forged_receipt_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses direct mutation of generator-owned workflows and projections.
+-record(autonomic_generated_surface_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_generated_surface_refusal() :: #autonomic_generated_surface_refusal{}.
+
+-spec new_autonomic_generated_surface_refusal(map()) -> {ok, autonomic_generated_surface_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_generated_surface_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_generated_surface_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Prevents duplicate execution of an already receipted actuation identity.
+-record(autonomic_idempotence_fence, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_idempotence_fence() :: #autonomic_idempotence_fence{}.
+
+-spec new_autonomic_idempotence_fence(map()) -> {ok, autonomic_idempotence_fence()} | {error, {missing_field, atom()}}.
+new_autonomic_idempotence_fence(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_idempotence_fence{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Coordinates automatic incident recovery through verified transitions and deterministic receipts.
+-record(autonomic_incident_recovery, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_incident_recovery() :: #autonomic_incident_recovery{}.
+
+-spec new_autonomic_incident_recovery(map()) -> {ok, autonomic_incident_recovery()} | {error, {missing_field, atom()}}.
+new_autonomic_incident_recovery(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_incident_recovery{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Encodes the least authority sufficient for exactly one admitted actuation.
+-record(autonomic_least_authority_grant, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_least_authority_grant() :: #autonomic_least_authority_grant{}.
+
+-spec new_autonomic_least_authority_grant(map()) -> {ok, autonomic_least_authority_grant()} | {error, {missing_field, atom()}}.
+new_autonomic_least_authority_grant(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_least_authority_grant{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses model-produced intent as ambient authority for a consequential transition.
+-record(autonomic_model_authority_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_model_authority_refusal() :: #autonomic_model_authority_refusal{}.
+
+-spec new_autonomic_model_authority_refusal(map()) -> {ok, autonomic_model_authority_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_model_authority_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_model_authority_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses actuation when a marketplace pack is selected by mutable tag or branch.
+-record(autonomic_mutable_pack_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_mutable_pack_refusal() :: #autonomic_mutable_pack_refusal{}.
+
+-spec new_autonomic_mutable_pack_refusal(map()) -> {ok, autonomic_mutable_pack_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_mutable_pack_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_mutable_pack_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Verifies that every written output is owned by the admitted manufacturing plan.
+-record(autonomic_output_ownership_check, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_output_ownership_check() :: #autonomic_output_ownership_check{}.
+
+-spec new_autonomic_output_ownership_check(map()) -> {ok, autonomic_output_ownership_check()} | {error, {missing_field, atom()}}.
+new_autonomic_output_ownership_check(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_output_ownership_check{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires an exact immutable marketplace pack SHA before construction or execution.
+-record(autonomic_pack_sha_authority, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_pack_sha_authority() :: #autonomic_pack_sha_authority{}.
+
+-spec new_autonomic_pack_sha_authority(map()) -> {ok, autonomic_pack_sha_authority()} | {error, {missing_field, atom()}}.
+new_autonomic_pack_sha_authority(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_pack_sha_authority{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Constructs an executable actuation plan bound to the exact caller-local subject.
+-record(autonomic_plan_construction, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_plan_construction() :: #autonomic_plan_construction{}.
+
+-spec new_autonomic_plan_construction(map()) -> {ok, autonomic_plan_construction()} | {error, {missing_field, atom()}}.
+new_autonomic_plan_construction(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_plan_construction{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses planner output as authority unless a separate admitted authority receipt is present.
+-record(autonomic_planner_authority_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_planner_authority_refusal() :: #autonomic_planner_authority_refusal{}.
+
+-spec new_autonomic_planner_authority_refusal(map()) -> {ok, autonomic_planner_authority_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_planner_authority_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_planner_authority_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Generates a bounded machine-actionable root-cause hypothesis from failed actuation evidence.
+-record(autonomic_rca_hypothesis, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_rca_hypothesis() :: #autonomic_rca_hypothesis{}.
+
+-spec new_autonomic_rca_hypothesis(map()) -> {ok, autonomic_rca_hypothesis()} | {error, {missing_field, atom()}}.
+new_autonomic_rca_hypothesis(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_rca_hypothesis{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds a receipt to the exact authority admission used for the transition.
+-record(autonomic_receipt_authority_binding, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_receipt_authority_binding() :: #autonomic_receipt_authority_binding{}.
+
+-spec new_autonomic_receipt_authority_binding(map()) -> {ok, autonomic_receipt_authority_binding()} | {error, {missing_field, atom()}}.
+new_autonomic_receipt_authority_binding(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_receipt_authority_binding{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Links each consequential transition receipt to its verified predecessor receipt.
+-record(autonomic_receipt_chain_link, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_receipt_chain_link() :: #autonomic_receipt_chain_link{}.
+
+-spec new_autonomic_receipt_chain_link(map()) -> {ok, autonomic_receipt_chain_link()} | {error, {missing_field, atom()}}.
+new_autonomic_receipt_chain_link(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_receipt_chain_link{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses any actuation receipt missing subject, authority, before-state, after-state, or result identity.
+-record(autonomic_receipt_completeness_check, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_receipt_completeness_check() :: #autonomic_receipt_completeness_check{}.
+
+-spec new_autonomic_receipt_completeness_check(map()) -> {ok, autonomic_receipt_completeness_check()} | {error, {missing_field, atom()}}.
+new_autonomic_receipt_completeness_check(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_receipt_completeness_check{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Cryptographically binds an actuation receipt to the exact caller-local subject SHA.
+-record(autonomic_receipt_subject_binding, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_receipt_subject_binding() :: #autonomic_receipt_subject_binding{}.
+
+-spec new_autonomic_receipt_subject_binding(map()) -> {ok, autonomic_receipt_subject_binding()} | {error, {missing_field, atom()}}.
+new_autonomic_receipt_subject_binding(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_receipt_subject_binding{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Re-executes a repaired actuation from the last verified state with a linked receipt.
+-record(autonomic_repair_reexecution, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_repair_reexecution() :: #autonomic_repair_reexecution{}.
+
+-spec new_autonomic_repair_reexecution(map()) -> {ok, autonomic_repair_reexecution()} | {error, {missing_field, atom()}}.
+new_autonomic_repair_reexecution(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_repair_reexecution{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Selects a least-change repair whose authority and affected surface remain explicitly bounded.
+-record(autonomic_repair_selection, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_repair_selection() :: #autonomic_repair_selection{}.
+
+-spec new_autonomic_repair_selection(map()) -> {ok, autonomic_repair_selection()} | {error, {missing_field, atom()}}.
+new_autonomic_repair_selection(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_repair_selection{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses replay when recomputed state or receipt identity diverges from the admitted evidence.
+-record(autonomic_replay_divergence_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_replay_divergence_refusal() :: #autonomic_replay_divergence_refusal{}.
+
+-spec new_autonomic_replay_divergence_refusal(map()) -> {ok, autonomic_replay_divergence_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_replay_divergence_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_replay_divergence_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Schedules bounded retry delay without widening the original authority or subject.
+-record(autonomic_retry_backoff, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_retry_backoff() :: #autonomic_retry_backoff{}.
+
+-spec new_autonomic_retry_backoff(map()) -> {ok, autonomic_retry_backoff()} | {error, {missing_field, atom()}}.
+new_autonomic_retry_backoff(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_retry_backoff{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Bounds recoverable actuation retries by explicit count and authority scope.
+-record(autonomic_retry_budget, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_retry_budget() :: #autonomic_retry_budget{}.
+
+-spec new_autonomic_retry_budget(map()) -> {ok, autonomic_retry_budget()} | {error, {missing_field, atom()}}.
+new_autonomic_retry_budget(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_retry_budget{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Restores an exact admitted prior state when forward repair cannot safely complete.
+-record(autonomic_rollback_transition, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_rollback_transition() :: #autonomic_rollback_transition{}.
+
+-spec new_autonomic_rollback_transition(map()) -> {ok, autonomic_rollback_transition()} | {error, {missing_field, atom()}}.
+new_autonomic_rollback_transition(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_rollback_transition{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Constructs a compensating transition for a partially completed multi-step actuation.
+-record(autonomic_saga_compensation, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_saga_compensation() :: #autonomic_saga_compensation{}.
+
+-spec new_autonomic_saga_compensation(map()) -> {ok, autonomic_saga_compensation()} | {error, {missing_field, atom()}}.
+new_autonomic_saga_compensation(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_saga_compensation{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves a second manufacture or sync produces byte-identical owned outputs.
+-record(autonomic_second_run_identity, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_second_run_identity() :: #autonomic_second_run_identity{}.
+
+-spec new_autonomic_second_run_identity(map()) -> {ok, autonomic_second_run_identity()} | {error, {missing_field, atom()}}.
+new_autonomic_second_run_identity(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_second_run_identity{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves the full select, authorize, execute, verify, repair, replay, and containment loop completed.
+-record(autonomic_self_healing_completion_receipt, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_self_healing_completion_receipt() :: #autonomic_self_healing_completion_receipt{}.
+
+-spec new_autonomic_self_healing_completion_receipt(map()) -> {ok, autonomic_self_healing_completion_receipt()} | {error, {missing_field, atom()}}.
+new_autonomic_self_healing_completion_receipt(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_self_healing_completion_receipt{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses a queued action whose subject, authority, or expected before-state became stale.
+-record(autonomic_stale_action_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_stale_action_refusal() :: #autonomic_stale_action_refusal{}.
+
+-spec new_autonomic_stale_action_refusal(map()) -> {ok, autonomic_stale_action_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_stale_action_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_stale_action_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses receipts whose subject or before-state no longer matches the admitted transition.
+-record(autonomic_stale_receipt_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_stale_receipt_refusal() :: #autonomic_stale_receipt_refusal{}.
+
+-spec new_autonomic_stale_receipt_refusal(map()) -> {ok, autonomic_stale_receipt_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_stale_receipt_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_stale_receipt_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Encodes decision-relevant observed dimensions for one exact subject.
+-record(autonomic_state_vector, {
+    state_vector_id :: binary(), %% state_vector_id: Stable state-vector identity.
+    subject_id :: binary(), %% subject_id: Exact observed subject identity.
+    dimension_digest :: binary(), %% dimension_digest: Digest of ordered state dimensions.
+    observed_at :: binary() %% observed_at: Timestamp of state-vector encoding.
+}).
+
+-type autonomic_state_vector() :: #autonomic_state_vector{}.
+
+-spec new_autonomic_state_vector(map()) -> {ok, autonomic_state_vector()} | {error, {missing_field, atom()}}.
+new_autonomic_state_vector(Map) ->
+    case maps:is_key(state_vector_id, Map) of
+        false -> {error, {missing_field, state_vector_id}};
+        true ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(dimension_digest, Map) of
+        false -> {error, {missing_field, dimension_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #autonomic_state_vector{
+        state_vector_id = maps:get(state_vector_id, Map, undefined),
+        subject_id = maps:get(subject_id, Map, undefined),
+        dimension_digest = maps:get(dimension_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses an actuation unless the observed subject SHA equals the admitted expected SHA.
+-record(autonomic_subject_compare_and_swap, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_subject_compare_and_swap() :: #autonomic_subject_compare_and_swap{}.
+
+-spec new_autonomic_subject_compare_and_swap(map()) -> {ok, autonomic_subject_compare_and_swap()} | {error, {missing_field, atom()}}.
+new_autonomic_subject_compare_and_swap(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_subject_compare_and_swap{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Restarts a failed actuation worker under bounded BEAM supervision semantics.
+-record(autonomic_supervisor_restart, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_supervisor_restart() :: #autonomic_supervisor_restart{}.
+
+-spec new_autonomic_supervisor_restart(map()) -> {ok, autonomic_supervisor_restart()} | {error, {missing_field, atom()}}.
+new_autonomic_supervisor_restart(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_supervisor_restart{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Cancels an unfinished actuation when its admitted execution budget expires.
+-record(autonomic_timeout_budget, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_timeout_budget() :: #autonomic_timeout_budget{}.
+
+-spec new_autonomic_timeout_budget(map()) -> {ok, autonomic_timeout_budget()} | {error, {missing_field, atom()}}.
+new_autonomic_timeout_budget(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_timeout_budget{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records execution of one admitted state transition without granting ambient planner authority.
+-record(autonomic_transition_execution, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_transition_execution() :: #autonomic_transition_execution{}.
+
+-spec new_autonomic_transition_execution(map()) -> {ok, autonomic_transition_execution()} | {error, {missing_field, atom()}}.
+new_autonomic_transition_execution(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_transition_execution{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Verifies the exact before and after state digests for a completed consequential transition.
+-record(autonomic_transition_verification, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_transition_verification() :: #autonomic_transition_verification{}.
+
+-spec new_autonomic_transition_verification(map()) -> {ok, autonomic_transition_verification()} | {error, {missing_field, atom()}}.
+new_autonomic_transition_verification(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_transition_verification{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executes a version upgrade against exact capsule, pack, and subject identities with rollback evidence.
+-record(autonomic_upgrade_transition, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_upgrade_transition() :: #autonomic_upgrade_transition{}.
+
+-spec new_autonomic_upgrade_transition(map()) -> {ok, autonomic_upgrade_transition()} | {error, {missing_field, atom()}}.
+new_autonomic_upgrade_transition(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_upgrade_transition{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
     }}
     end
     end
@@ -1275,6 +3652,105 @@ new_baseline_metric(Map) ->
         observed_at = maps:get(observed_at, Map, undefined)
     }}
     end
+    end
+    end
+    end
+    end.
+
+%% Represents a bounded beam-search plan with explicit width and frontier.
+-record(beam_search_candidate, {
+    plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
+    beam_width :: binary(), %% beam_width: Required beam_width for deterministic planner evaluation.
+    frontier_hash :: binary() %% frontier_hash: Required frontier_hash preserving evidence and falsifiability.
+}).
+
+-type beam_search_candidate() :: #beam_search_candidate{}.
+
+-spec new_beam_search_candidate(map()) -> {ok, beam_search_candidate()} | {error, {missing_field, atom()}}.
+new_beam_search_candidate(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(beam_width, Map) of
+        false -> {error, {missing_field, beam_width}};
+        true ->
+    case maps:is_key(frontier_hash, Map) of
+        false -> {error, {missing_field, frontier_hash}};
+        true ->
+    {ok, #beam_search_candidate{
+        plan_id = maps:get(plan_id, Map, undefined),
+        beam_width = maps:get(beam_width, Map, undefined),
+        frontier_hash = maps:get(frontier_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Captures a posterior belief state and explicit uncertainty standing.
+-record(belief_state_snapshot, {
+    belief_state_id :: binary(), %% belief_state_id: Stable belief-state identity.
+    subject_id :: binary(), %% subject_id: Exact subject of belief.
+    posterior_digest :: binary(), %% posterior_digest: Digest of posterior state.
+    uncertainty_status :: binary() %% uncertainty_status: Machine-readable uncertainty standing.
+}).
+
+-type belief_state_snapshot() :: #belief_state_snapshot{}.
+
+-spec new_belief_state_snapshot(map()) -> {ok, belief_state_snapshot()} | {error, {missing_field, atom()}}.
+new_belief_state_snapshot(Map) ->
+    case maps:is_key(belief_state_id, Map) of
+        false -> {error, {missing_field, belief_state_id}};
+        true ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(posterior_digest, Map) of
+        false -> {error, {missing_field, posterior_digest}};
+        true ->
+    case maps:is_key(uncertainty_status, Map) of
+        false -> {error, {missing_field, uncertainty_status}};
+        true ->
+    {ok, #belief_state_snapshot{
+        belief_state_id = maps:get(belief_state_id, Map, undefined),
+        subject_id = maps:get(subject_id, Map, undefined),
+        posterior_digest = maps:get(posterior_digest, Map, undefined),
+        uncertainty_status = maps:get(uncertainty_status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds prior belief, new evidence, update rule, and posterior belief.
+-record(belief_state_update, {
+    prior_belief_id :: binary(), %% prior_belief_id: Prior belief-state identity.
+    evidence_digest :: binary(), %% evidence_digest: Digest of newly admitted evidence.
+    posterior_belief_id :: binary(), %% posterior_belief_id: Resulting belief-state identity.
+    update_rule :: binary() %% update_rule: Deterministic belief update rule.
+}).
+
+-type belief_state_update() :: #belief_state_update{}.
+
+-spec new_belief_state_update(map()) -> {ok, belief_state_update()} | {error, {missing_field, atom()}}.
+new_belief_state_update(Map) ->
+    case maps:is_key(prior_belief_id, Map) of
+        false -> {error, {missing_field, prior_belief_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(posterior_belief_id, Map) of
+        false -> {error, {missing_field, posterior_belief_id}};
+        true ->
+    case maps:is_key(update_rule, Map) of
+        false -> {error, {missing_field, update_rule}};
+        true ->
+    {ok, #belief_state_update{
+        prior_belief_id = maps:get(prior_belief_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        posterior_belief_id = maps:get(posterior_belief_id, Map, undefined),
+        update_rule = maps:get(update_rule, Map, undefined)
+    }}
     end
     end
     end
@@ -1641,6 +4117,105 @@ new_buying_committee(Map) ->
     end
     end.
 
+%% Proves a reusable rail executed from the consumer's own exact checkout.
+-record(caller_local_checkout_observation, {
+    consumer_repository_id :: binary(), %% consumer_repository_id: Stable consumer repository identity.
+    checkout_sha :: binary(), %% checkout_sha: Exact caller-local checkout commit.
+    checkout_path :: binary(), %% checkout_path: Observed caller-local execution path.
+    evidence_digest :: binary() %% evidence_digest: Digest binding execution to checkout.
+}).
+
+-type caller_local_checkout_observation() :: #caller_local_checkout_observation{}.
+
+-spec new_caller_local_checkout_observation(map()) -> {ok, caller_local_checkout_observation()} | {error, {missing_field, atom()}}.
+new_caller_local_checkout_observation(Map) ->
+    case maps:is_key(consumer_repository_id, Map) of
+        false -> {error, {missing_field, consumer_repository_id}};
+        true ->
+    case maps:is_key(checkout_sha, Map) of
+        false -> {error, {missing_field, checkout_sha}};
+        true ->
+    case maps:is_key(checkout_path, Map) of
+        false -> {error, {missing_field, checkout_path}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #caller_local_checkout_observation{
+        consumer_repository_id = maps:get(consumer_repository_id, Map, undefined),
+        checkout_sha = maps:get(checkout_sha, Map, undefined),
+        checkout_path = maps:get(checkout_path, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Preserves each caller-local consumer as an independently planned exact subject.
+-record(caller_local_consumer, {
+    consumer_id :: binary(), %% consumer_id: Required consumer_id for this bounded planner contract.
+    subject_sha :: binary(), %% subject_sha: Required subject_sha for deterministic planner evaluation.
+    consumer_hash :: binary() %% consumer_hash: Required consumer_hash preserving evidence and falsifiability.
+}).
+
+-type caller_local_consumer() :: #caller_local_consumer{}.
+
+-spec new_caller_local_consumer(map()) -> {ok, caller_local_consumer()} | {error, {missing_field, atom()}}.
+new_caller_local_consumer(Map) ->
+    case maps:is_key(consumer_id, Map) of
+        false -> {error, {missing_field, consumer_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(consumer_hash, Map) of
+        false -> {error, {missing_field, consumer_hash}};
+        true ->
+    {ok, #caller_local_consumer{
+        consumer_id = maps:get(consumer_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        consumer_hash = maps:get(consumer_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused.
+-record(caller_local_crown_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    consumer_subject_sha :: binary(), %% consumer_subject_sha: Exact caller-local consumer commit SHA that must be requalified.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type caller_local_crown_identity() :: #caller_local_crown_identity{}.
+
+-spec new_caller_local_crown_identity(map()) -> {ok, caller_local_crown_identity()} | {error, {missing_field, atom()}}.
+new_caller_local_crown_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(consumer_subject_sha, Map) of
+        false -> {error, {missing_field, consumer_subject_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #caller_local_crown_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        consumer_subject_sha = maps:get(consumer_subject_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Receipted enterprise canary decision based on an observed rollout consequence.
 -record(canary_decision, {
     canary_decision_id :: binary(), %% canary_decision_id: Stable identity of this canary decision observation.
@@ -1711,6 +4286,41 @@ new_canary_evidence(Map) ->
         subject_sha = maps:get(subject_sha, Map, undefined),
         canary_percentage = maps:get(canary_percentage, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Encodes whether a repository path is an authorized canonical manufacturing input.
+-record(canonical_source_authority_observation, {
+    source_path :: binary(), %% source_path: Observed repository path.
+    authority_class :: binary(), %% authority_class: Classified source authority.
+    mutation_allowed :: boolean(), %% mutation_allowed: Whether mutation is admitted at this boundary.
+    evidence_digest :: binary() %% evidence_digest: Digest of authority evidence.
+}).
+
+-type canonical_source_authority_observation() :: #canonical_source_authority_observation{}.
+
+-spec new_canonical_source_authority_observation(map()) -> {ok, canonical_source_authority_observation()} | {error, {missing_field, atom()}}.
+new_canonical_source_authority_observation(Map) ->
+    case maps:is_key(source_path, Map) of
+        false -> {error, {missing_field, source_path}};
+        true ->
+    case maps:is_key(authority_class, Map) of
+        false -> {error, {missing_field, authority_class}};
+        true ->
+    case maps:is_key(mutation_allowed, Map) of
+        false -> {error, {missing_field, mutation_allowed}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #canonical_source_authority_observation{
+        source_path = maps:get(source_path, Map, undefined),
+        authority_class = maps:get(authority_class, Map, undefined),
+        mutation_allowed = maps:get(mutation_allowed, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
     }}
     end
     end
@@ -1789,6 +4399,35 @@ new_capability_gap(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Records whether the exact validation capsule is available before qualification.
+-record(capsule_availability, {
+    capsule_id :: binary(), %% capsule_id: Required capsule_id for this bounded planner contract.
+    capsule_digest :: binary(), %% capsule_digest: Required capsule_digest for deterministic planner evaluation.
+    availability :: binary() %% availability: Required availability preserving evidence and falsifiability.
+}).
+
+-type capsule_availability() :: #capsule_availability{}.
+
+-spec new_capsule_availability(map()) -> {ok, capsule_availability()} | {error, {missing_field, atom()}}.
+new_capsule_availability(Map) ->
+    case maps:is_key(capsule_id, Map) of
+        false -> {error, {missing_field, capsule_id}};
+        true ->
+    case maps:is_key(capsule_digest, Map) of
+        false -> {error, {missing_field, capsule_digest}};
+        true ->
+    case maps:is_key(availability, Map) of
+        false -> {error, {missing_field, availability}};
+        true ->
+    {ok, #capsule_availability{
+        capsule_id = maps:get(capsule_id, Map, undefined),
+        capsule_digest = maps:get(capsule_digest, Map, undefined),
+        availability = maps:get(availability, Map, undefined)
+    }}
     end
     end
     end.
@@ -1882,6 +4521,41 @@ new_catalog_release(Map) ->
     end
     end.
 
+%% Binds a candidate cause to effect with explicit causal evidence.
+-record(causal_lineage_observation, {
+    cause_observation_id :: binary(), %% cause_observation_id: Candidate causal observation.
+    effect_observation_id :: binary(), %% effect_observation_id: Observed effect identity.
+    causal_basis :: binary(), %% causal_basis: Declared causal inference basis.
+    evidence_digest :: binary() %% evidence_digest: Digest of causal evidence.
+}).
+
+-type causal_lineage_observation() :: #causal_lineage_observation{}.
+
+-spec new_causal_lineage_observation(map()) -> {ok, causal_lineage_observation()} | {error, {missing_field, atom()}}.
+new_causal_lineage_observation(Map) ->
+    case maps:is_key(cause_observation_id, Map) of
+        false -> {error, {missing_field, cause_observation_id}};
+        true ->
+    case maps:is_key(effect_observation_id, Map) of
+        false -> {error, {missing_field, effect_observation_id}};
+        true ->
+    case maps:is_key(causal_basis, Map) of
+        false -> {error, {missing_field, causal_basis}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #causal_lineage_observation{
+        cause_observation_id = maps:get(cause_observation_id, Map, undefined),
+        effect_observation_id = maps:get(effect_observation_id, Map, undefined),
+        causal_basis = maps:get(causal_basis, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Executable change-control evidence binding an exact subject to the approved request governing its mutation.
 -record(change_control_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this change-control observation.
@@ -1942,6 +4616,41 @@ new_change_order_authority(Map) ->
         authority_id = maps:get(authority_id, Map, undefined),
         evidence_hash = maps:get(evidence_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Infers the exact changed surface between two repository trees.
+-record(changed_surface_inference, {
+    prior_tree_sha :: binary(), %% prior_tree_sha: Prior repository tree identity.
+    current_tree_sha :: binary(), %% current_tree_sha: Current repository tree identity.
+    changed_surface_digest :: binary(), %% changed_surface_digest: Digest of normalized changed paths.
+    inference_status :: binary() %% inference_status: Machine-readable inference standing.
+}).
+
+-type changed_surface_inference() :: #changed_surface_inference{}.
+
+-spec new_changed_surface_inference(map()) -> {ok, changed_surface_inference()} | {error, {missing_field, atom()}}.
+new_changed_surface_inference(Map) ->
+    case maps:is_key(prior_tree_sha, Map) of
+        false -> {error, {missing_field, prior_tree_sha}};
+        true ->
+    case maps:is_key(current_tree_sha, Map) of
+        false -> {error, {missing_field, current_tree_sha}};
+        true ->
+    case maps:is_key(changed_surface_digest, Map) of
+        false -> {error, {missing_field, changed_surface_digest}};
+        true ->
+    case maps:is_key(inference_status, Map) of
+        false -> {error, {missing_field, inference_status}};
+        true ->
+    {ok, #changed_surface_inference{
+        prior_tree_sha = maps:get(prior_tree_sha, Map, undefined),
+        current_tree_sha = maps:get(current_tree_sha, Map, undefined),
+        changed_surface_digest = maps:get(changed_surface_digest, Map, undefined),
+        inference_status = maps:get(inference_status, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -2360,6 +5069,41 @@ new_commercial_value_realization(Map) ->
     end
     end.
 
+%% Projects commit check state into a machine-readable exact-subject observation.
+-record(commit_check_state_observation, {
+    commit_sha :: binary(), %% commit_sha: Exact checked commit.
+    check_name :: binary(), %% check_name: Stable check context name.
+    check_status :: binary(), %% check_status: Observed check status.
+    observed_at :: binary() %% observed_at: Timestamp of check observation.
+}).
+
+-type commit_check_state_observation() :: #commit_check_state_observation{}.
+
+-spec new_commit_check_state_observation(map()) -> {ok, commit_check_state_observation()} | {error, {missing_field, atom()}}.
+new_commit_check_state_observation(Map) ->
+    case maps:is_key(commit_sha, Map) of
+        false -> {error, {missing_field, commit_sha}};
+        true ->
+    case maps:is_key(check_name, Map) of
+        false -> {error, {missing_field, check_name}};
+        true ->
+    case maps:is_key(check_status, Map) of
+        false -> {error, {missing_field, check_status}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #commit_check_state_observation{
+        commit_sha = maps:get(commit_sha, Map, undefined),
+        check_name = maps:get(check_name, Map, undefined),
+        check_status = maps:get(check_status, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Term commitment with amount, currency, and expiration.
 -record(committed_spend, {
     commitment_id :: binary(), %% commitment_id: Stable commitment identity.
@@ -2554,6 +5298,105 @@ new_conformance_result(Map) ->
     end
     end.
 
+%% Invalidates affected belief state automatically after a consequential transition.
+-record(consequential_state_invalidation, {
+    transition_id :: binary(), %% transition_id: Consequential transition identity.
+    affected_state_digest :: binary(), %% affected_state_digest: Digest of state invalidated by transition.
+    invalidation_reason :: binary(), %% invalidation_reason: Typed invalidation reason.
+    invalidated_at :: binary() %% invalidated_at: Timestamp invalidation became effective.
+}).
+
+-type consequential_state_invalidation() :: #consequential_state_invalidation{}.
+
+-spec new_consequential_state_invalidation(map()) -> {ok, consequential_state_invalidation()} | {error, {missing_field, atom()}}.
+new_consequential_state_invalidation(Map) ->
+    case maps:is_key(transition_id, Map) of
+        false -> {error, {missing_field, transition_id}};
+        true ->
+    case maps:is_key(affected_state_digest, Map) of
+        false -> {error, {missing_field, affected_state_digest}};
+        true ->
+    case maps:is_key(invalidation_reason, Map) of
+        false -> {error, {missing_field, invalidation_reason}};
+        true ->
+    case maps:is_key(invalidated_at, Map) of
+        false -> {error, {missing_field, invalidated_at}};
+        true ->
+    {ok, #consequential_state_invalidation{
+        transition_id = maps:get(transition_id, Map, undefined),
+        affected_state_digest = maps:get(affected_state_digest, Map, undefined),
+        invalidation_reason = maps:get(invalidation_reason, Map, undefined),
+        invalidated_at = maps:get(invalidated_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Admits central-surrogate planning only after explicit consumer-equivalence proof.
+-record(consumer_equivalence_proof, {
+    consumer_set_id :: binary(), %% consumer_set_id: Required consumer_set_id for this bounded planner contract.
+    equivalence_proof_hash :: binary(), %% equivalence_proof_hash: Required equivalence_proof_hash for deterministic planner evaluation.
+    standing :: binary() %% standing: Required standing preserving evidence and falsifiability.
+}).
+
+-type consumer_equivalence_proof() :: #consumer_equivalence_proof{}.
+
+-spec new_consumer_equivalence_proof(map()) -> {ok, consumer_equivalence_proof()} | {error, {missing_field, atom()}}.
+new_consumer_equivalence_proof(Map) ->
+    case maps:is_key(consumer_set_id, Map) of
+        false -> {error, {missing_field, consumer_set_id}};
+        true ->
+    case maps:is_key(equivalence_proof_hash, Map) of
+        false -> {error, {missing_field, equivalence_proof_hash}};
+        true ->
+    case maps:is_key(standing, Map) of
+        false -> {error, {missing_field, standing}};
+        true ->
+    {ok, #consumer_equivalence_proof{
+        consumer_set_id = maps:get(consumer_set_id, Map, undefined),
+        equivalence_proof_hash = maps:get(equivalence_proof_hash, Map, undefined),
+        standing = maps:get(standing, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Proves a consumer used an exact immutable marketplace pack SHA.
+-record(consumer_pack_pin_observation, {
+    consumer_repository_id :: binary(), %% consumer_repository_id: Stable consumer identity.
+    pack_id :: binary(), %% pack_id: Consumed validation-pack identity.
+    pack_sha :: binary(), %% pack_sha: Exact immutable pack commit.
+    evidence_digest :: binary() %% evidence_digest: Digest of caller-local pin evidence.
+}).
+
+-type consumer_pack_pin_observation() :: #consumer_pack_pin_observation{}.
+
+-spec new_consumer_pack_pin_observation(map()) -> {ok, consumer_pack_pin_observation()} | {error, {missing_field, atom()}}.
+new_consumer_pack_pin_observation(Map) ->
+    case maps:is_key(consumer_repository_id, Map) of
+        false -> {error, {missing_field, consumer_repository_id}};
+        true ->
+    case maps:is_key(pack_id, Map) of
+        false -> {error, {missing_field, pack_id}};
+        true ->
+    case maps:is_key(pack_sha, Map) of
+        false -> {error, {missing_field, pack_sha}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #consumer_pack_pin_observation{
+        consumer_repository_id = maps:get(consumer_repository_id, Map, undefined),
+        pack_id = maps:get(pack_id, Map, undefined),
+        pack_sha = maps:get(pack_sha, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Shared enterprise consumption pool with unit and balance.
 -record(consumption_pool, {
     pool_id :: binary(), %% pool_id: Stable pool identity.
@@ -2624,6 +5467,76 @@ new_consumption_subscription(Map) ->
     end
     end.
 
+%% Resolves a mutable container tag to an immutable multi-platform manifest digest.
+-record(container_manifest_digest_observation, {
+    image_repository :: binary(), %% image_repository: Container repository identity.
+    tag :: binary(), %% tag: Observed mutable tag.
+    index_digest :: binary(), %% index_digest: Resolved immutable manifest-index digest.
+    observed_at :: binary() %% observed_at: Timestamp of registry resolution.
+}).
+
+-type container_manifest_digest_observation() :: #container_manifest_digest_observation{}.
+
+-spec new_container_manifest_digest_observation(map()) -> {ok, container_manifest_digest_observation()} | {error, {missing_field, atom()}}.
+new_container_manifest_digest_observation(Map) ->
+    case maps:is_key(image_repository, Map) of
+        false -> {error, {missing_field, image_repository}};
+        true ->
+    case maps:is_key(tag, Map) of
+        false -> {error, {missing_field, tag}};
+        true ->
+    case maps:is_key(index_digest, Map) of
+        false -> {error, {missing_field, index_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #container_manifest_digest_observation{
+        image_repository = maps:get(image_repository, Map, undefined),
+        tag = maps:get(tag, Map, undefined),
+        index_digest = maps:get(index_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Resolves a manifest index to one exact platform image digest.
+-record(container_platform_digest_observation, {
+    index_digest :: binary(), %% index_digest: Parent manifest-index digest.
+    platform :: binary(), %% platform: Normalized operating-system and architecture.
+    platform_digest :: binary(), %% platform_digest: Exact platform image digest.
+    observed_at :: binary() %% observed_at: Timestamp of platform resolution.
+}).
+
+-type container_platform_digest_observation() :: #container_platform_digest_observation{}.
+
+-spec new_container_platform_digest_observation(map()) -> {ok, container_platform_digest_observation()} | {error, {missing_field, atom()}}.
+new_container_platform_digest_observation(Map) ->
+    case maps:is_key(index_digest, Map) of
+        false -> {error, {missing_field, index_digest}};
+        true ->
+    case maps:is_key(platform, Map) of
+        false -> {error, {missing_field, platform}};
+        true ->
+    case maps:is_key(platform_digest, Map) of
+        false -> {error, {missing_field, platform_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #container_platform_digest_observation{
+        index_digest = maps:get(index_digest, Map, undefined),
+        platform = maps:get(platform, Map, undefined),
+        platform_digest = maps:get(platform_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Requires the counterparty that will sign the agreement, separating contractual authority from account interest.
 -record(contracting_entity_identity, {
     opportunity_id :: binary(), %% opportunity_id: Required contracting entity identity input; omission is an executable typed refusal, never an inferred approval.
@@ -2653,6 +5566,35 @@ new_contracting_entity_identity(Map) ->
     end
     end.
 
+%% Scores delay cost for an option without overriding explicit authority.
+-record(cost_of_delay_score, {
+    option_id :: binary(), %% option_id: Required option_id for this bounded planner contract.
+    horizon :: binary(), %% horizon: Required horizon for deterministic planner evaluation.
+    score :: binary() %% score: Required score preserving evidence and falsifiability.
+}).
+
+-type cost_of_delay_score() :: #cost_of_delay_score{}.
+
+-spec new_cost_of_delay_score(map()) -> {ok, cost_of_delay_score()} | {error, {missing_field, atom()}}.
+new_cost_of_delay_score(Map) ->
+    case maps:is_key(option_id, Map) of
+        false -> {error, {missing_field, option_id}};
+        true ->
+    case maps:is_key(horizon, Map) of
+        false -> {error, {missing_field, horizon}};
+        true ->
+    case maps:is_key(score, Map) of
+        false -> {error, {missing_field, score}};
+        true ->
+    {ok, #cost_of_delay_score{
+        option_id = maps:get(option_id, Map, undefined),
+        horizon = maps:get(horizon, Map, undefined),
+        score = maps:get(score, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Records attributable runtime cost-to-serve for a paid tenant and billing period.
 -record(cost_to_serve_measurement, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -2677,6 +5619,35 @@ new_cost_to_serve_measurement(Map) ->
         tenant_id = maps:get(tenant_id, Map, undefined),
         billing_period_id = maps:get(billing_period_id, Map, undefined),
         measurement_hash = maps:get(measurement_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Preserves counterfactual futures for every nondominated option.
+-record(counterfactual_frontier, {
+    option_set_id :: binary(), %% option_set_id: Required option_set_id for this bounded planner contract.
+    world_model_hash :: binary(), %% world_model_hash: Required world_model_hash for deterministic planner evaluation.
+    frontier_hash :: binary() %% frontier_hash: Required frontier_hash preserving evidence and falsifiability.
+}).
+
+-type counterfactual_frontier() :: #counterfactual_frontier{}.
+
+-spec new_counterfactual_frontier(map()) -> {ok, counterfactual_frontier()} | {error, {missing_field, atom()}}.
+new_counterfactual_frontier(Map) ->
+    case maps:is_key(option_set_id, Map) of
+        false -> {error, {missing_field, option_set_id}};
+        true ->
+    case maps:is_key(world_model_hash, Map) of
+        false -> {error, {missing_field, world_model_hash}};
+        true ->
+    case maps:is_key(frontier_hash, Map) of
+        false -> {error, {missing_field, frontier_hash}};
+        true ->
+    {ok, #counterfactual_frontier{
+        option_set_id = maps:get(option_set_id, Map, undefined),
+        world_model_hash = maps:get(world_model_hash, Map, undefined),
+        frontier_hash = maps:get(frontier_hash, Map, undefined)
     }}
     end
     end
@@ -2781,6 +5752,1721 @@ new_cross_sell_fit(Map) ->
     end
     end.
 
+%% Requires every gate applicable to the changed subject before declaring the crown alive.
+-record(crown_applicable_gate_coverage, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    applicable_gate_set_digest :: binary(), %% applicable_gate_set_digest: Digest of the normalized applicable gate set and results.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_applicable_gate_coverage() :: #crown_applicable_gate_coverage{}.
+
+-spec new_crown_applicable_gate_coverage(map()) -> {ok, crown_applicable_gate_coverage()} | {error, {missing_field, atom()}}.
+new_crown_applicable_gate_coverage(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(applicable_gate_set_digest, Map) of
+        false -> {error, {missing_field, applicable_gate_set_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_applicable_gate_coverage{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        applicable_gate_set_digest = maps:get(applicable_gate_set_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves the published artifact can be pulled back from its distribution boundary byte-for-byte.
+-record(crown_artifact_pullback_smoke, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    pullback_digest :: binary(), %% pullback_digest: Digest observed after artifact pullback.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_artifact_pullback_smoke() :: #crown_artifact_pullback_smoke{}.
+
+-spec new_crown_artifact_pullback_smoke(map()) -> {ok, crown_artifact_pullback_smoke()} | {error, {missing_field, atom()}}.
+new_crown_artifact_pullback_smoke(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(pullback_digest, Map) of
+        false -> {error, {missing_field, pullback_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_artifact_pullback_smoke{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        pullback_digest = maps:get(pullback_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires an admitted signer identity for every propagated supply-chain attestation.
+-record(crown_attestation_signer, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    signer_identity :: binary(), %% signer_identity: Verified identity that signed the attestation.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_attestation_signer() :: #crown_attestation_signer{}.
+
+-spec new_crown_attestation_signer(map()) -> {ok, crown_attestation_signer()} | {error, {missing_field, atom()}}.
+new_crown_attestation_signer(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(signer_identity, Map) of
+        false -> {error, {missing_field, signer_identity}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_attestation_signer{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        signer_identity = maps:get(signer_identity, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Receipts autonomous downstream requalification and immutable crown republication.
+-record(crown_autonomic_republish, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    republished_crown_digest :: binary(), %% republished_crown_digest: Exact digest of the republished downstream crown.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_autonomic_republish() :: #crown_autonomic_republish{}.
+
+-spec new_crown_autonomic_republish(map()) -> {ok, crown_autonomic_republish()} | {error, {missing_field, atom()}}.
+new_crown_autonomic_republish(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(republished_crown_digest, Map) of
+        false -> {error, {missing_field, republished_crown_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_autonomic_republish{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        republished_crown_digest = maps:get(republished_crown_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds source capsule, validation pack, execution mode, and toolchain as one evidence identity.
+-record(crown_capsule_toolchain, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    toolchain_digest :: binary(), %% toolchain_digest: Digest of the exact capsule toolchain closure.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_capsule_toolchain() :: #crown_capsule_toolchain{}.
+
+-spec new_crown_capsule_toolchain(map()) -> {ok, crown_capsule_toolchain()} | {error, {missing_field, atom()}}.
+new_crown_capsule_toolchain(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(toolchain_digest, Map) of
+        false -> {error, {missing_field, toolchain_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_capsule_toolchain{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        toolchain_digest = maps:get(toolchain_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Authorizes promotion only when the observed prior crown equals the compare-and-swap expectation.
+-record(crown_cas_promotion, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    expected_previous_digest :: binary(), %% expected_previous_digest: Expected previously promoted crown digest.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_cas_promotion() :: #crown_cas_promotion{}.
+
+-spec new_crown_cas_promotion(map()) -> {ok, crown_cas_promotion()} | {error, {missing_field, atom()}}.
+new_crown_cas_promotion(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(expected_previous_digest, Map) of
+        false -> {error, {missing_field, expected_previous_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_cas_promotion{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        expected_previous_digest = maps:get(expected_previous_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Separates irrelevant checks from exact-subject qualification without hiding required evidence.
+-record(crown_check_relevance, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    relevance_proof_digest :: binary(), %% relevance_proof_digest: Digest proving check relevance classification.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_check_relevance() :: #crown_check_relevance{}.
+
+-spec new_crown_check_relevance(map()) -> {ok, crown_check_relevance()} | {error, {missing_field, atom()}}.
+new_crown_check_relevance(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(relevance_proof_digest, Map) of
+        false -> {error, {missing_field, relevance_proof_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_check_relevance{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        relevance_proof_digest = maps:get(relevance_proof_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Observes the exact child publication execution before its crown can propagate further.
+-record(crown_child_publish_observation, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    child_publish_run_id :: binary(), %% child_publish_run_id: Exact workflow run identity that published the child crown.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_child_publish_observation() :: #crown_child_publish_observation{}.
+
+-spec new_crown_child_publish_observation(map()) -> {ok, crown_child_publish_observation()} | {error, {missing_field, atom()}}.
+new_crown_child_publish_observation(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(child_publish_run_id, Map) of
+        false -> {error, {missing_field, child_publish_run_id}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_child_publish_observation{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        child_publish_run_id = maps:get(child_publish_run_id, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires a real downstream consumer smoke consequence for the exact propagated crown.
+-record(crown_consumer_smoke, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    consumer_smoke_digest :: binary(), %% consumer_smoke_digest: Digest of the exact-consumer smoke receipt.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_consumer_smoke() :: #crown_consumer_smoke{}.
+
+-spec new_crown_consumer_smoke(map()) -> {ok, crown_consumer_smoke()} | {error, {missing_field, atom()}}.
+new_crown_consumer_smoke(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(consumer_smoke_digest, Map) of
+        false -> {error, {missing_field, consumer_smoke_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_consumer_smoke{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        consumer_smoke_digest = maps:get(consumer_smoke_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Produces a deterministic proof that every admitted consumer holds the expected crown.
+-record(crown_convergence_proof, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    convergence_proof_digest :: binary(), %% convergence_proof_digest: Digest of the ecosystem convergence proof.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_convergence_proof() :: #crown_convergence_proof{}.
+
+-spec new_crown_convergence_proof(map()) -> {ok, crown_convergence_proof()} | {error, {missing_field, atom()}}.
+new_crown_convergence_proof(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(convergence_proof_digest, Map) of
+        false -> {error, {missing_field, convergence_proof_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_convergence_proof{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        convergence_proof_digest = maps:get(convergence_proof_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Captures the keyless signing certificate identity admitted for the exact crown digest.
+-record(crown_cosign_certificate, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    certificate_identity :: binary(), %% certificate_identity: Verified Cosign certificate identity.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_cosign_certificate() :: #crown_cosign_certificate{}.
+
+-spec new_crown_cosign_certificate(map()) -> {ok, crown_cosign_certificate()} | {error, {missing_field, atom()}}.
+new_crown_cosign_certificate(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(certificate_identity, Map) of
+        false -> {error, {missing_field, certificate_identity}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_cosign_certificate{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        certificate_identity = maps:get(certificate_identity, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Observes the exact downstream default-branch head before selecting a reconciliation candidate.
+-record(crown_default_head_sensor, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    default_head_sha :: binary(), %% default_head_sha: Observed immutable default-branch head SHA.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_default_head_sensor() :: #crown_default_head_sensor{}.
+
+-spec new_crown_default_head_sensor(map()) -> {ok, crown_default_head_sensor()} | {error, {missing_field, atom()}}.
+new_crown_default_head_sensor(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(default_head_sha, Map) of
+        false -> {error, {missing_field, default_head_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_default_head_sensor{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        default_head_sha = maps:get(default_head_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Declares one exact upstream-to-downstream propagation edge in the ecosystem graph.
+-record(crown_dependency_edge, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    downstream_consumer_id :: binary(), %% downstream_consumer_id: Exact downstream consumer repository identity.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_dependency_edge() :: #crown_dependency_edge{}.
+
+-spec new_crown_dependency_edge(map()) -> {ok, crown_dependency_edge()} | {error, {missing_field, atom()}}.
+new_crown_dependency_edge(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(downstream_consumer_id, Map) of
+        false -> {error, {missing_field, downstream_consumer_id}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_dependency_edge{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        downstream_consumer_id = maps:get(downstream_consumer_id, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records whether qualification ran locally, in a capsule, or on a hosted runner.
+-record(crown_execution_mode, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    execution_mode :: binary(), %% execution_mode: Admitted execution-mode identifier.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_execution_mode() :: #crown_execution_mode{}.
+
+-spec new_crown_execution_mode(map()) -> {ok, crown_execution_mode()} | {error, {missing_field, atom()}}.
+new_crown_execution_mode(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(execution_mode, Map) of
+        false -> {error, {missing_field, execution_mode}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_execution_mode{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        execution_mode = maps:get(execution_mode, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires every admitted upstream parent crown before a fan-in consumer can converge.
+-record(crown_fanin_convergence, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    fanin_set_digest :: binary(), %% fanin_set_digest: Digest of the complete admitted fan-in crown set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_fanin_convergence() :: #crown_fanin_convergence{}.
+
+-spec new_crown_fanin_convergence(map()) -> {ok, crown_fanin_convergence()} | {error, {missing_field, atom()}}.
+new_crown_fanin_convergence(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(fanin_set_digest, Map) of
+        false -> {error, {missing_field, fanin_set_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_fanin_convergence{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        fanin_set_digest = maps:get(fanin_set_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds parallel downstream propagation to one deterministic admitted consumer set.
+-record(crown_fanout_batch, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    fanout_set_digest :: binary(), %% fanout_set_digest: Digest of the sorted fan-out consumer set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_fanout_batch() :: #crown_fanout_batch{}.
+
+-spec new_crown_fanout_batch(map()) -> {ok, crown_fanout_batch()} | {error, {missing_field, atom()}}.
+new_crown_fanout_batch(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(fanout_set_digest, Map) of
+        false -> {error, {missing_field, fanout_set_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_fanout_batch{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        fanout_set_digest = maps:get(fanout_set_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Receipts SELECT, CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, and RECEIPT as ordered phases.
+-record(crown_federated_phase_receipt, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    selected_option_digest :: binary(), %% selected_option_digest: Digest of the selected qualified propagation option.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_federated_phase_receipt() :: #crown_federated_phase_receipt{}.
+
+-spec new_crown_federated_phase_receipt(map()) -> {ok, crown_federated_phase_receipt()} | {error, {missing_field, atom()}}.
+new_crown_federated_phase_receipt(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(selected_option_digest, Map) of
+        false -> {error, {missing_field, selected_option_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_federated_phase_receipt{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        selected_option_digest = maps:get(selected_option_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Defines the deterministic deadline after which a crown cannot be promoted without requalification.
+-record(crown_freshness_window, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    fresh_until :: binary(), %% fresh_until: UTC freshness deadline admitted by policy.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_freshness_window() :: #crown_freshness_window{}.
+
+-spec new_crown_freshness_window(map()) -> {ok, crown_freshness_window()} | {error, {missing_field, atom()}}.
+new_crown_freshness_window(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(fresh_until, Map) of
+        false -> {error, {missing_field, fresh_until}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_freshness_window{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        fresh_until = maps:get(fresh_until, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Routes drift in a generated projection back to its declared canonical semantic source.
+-record(crown_generated_source_ownership, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    canonical_source_path :: binary(), %% canonical_source_path: Canonical non-generated source path authorized to repair the projection.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_generated_source_ownership() :: #crown_generated_source_ownership{}.
+
+-spec new_crown_generated_source_ownership(map()) -> {ok, crown_generated_source_ownership()} | {error, {missing_field, atom()}}.
+new_crown_generated_source_ownership(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(canonical_source_path, Map) of
+        false -> {error, {missing_field, canonical_source_path}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_generated_source_ownership{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        canonical_source_path = maps:get(canonical_source_path, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Reconciles a consumer gitlink to the exact admitted dependency commit.
+-record(crown_gitlink_reconciliation, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    gitlink_commit_sha :: binary(), %% gitlink_commit_sha: Exact submodule gitlink commit SHA.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_gitlink_reconciliation() :: #crown_gitlink_reconciliation{}.
+
+-spec new_crown_gitlink_reconciliation(map()) -> {ok, crown_gitlink_reconciliation()} | {error, {missing_field, atom()}}.
+new_crown_gitlink_reconciliation(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(gitlink_commit_sha, Map) of
+        false -> {error, {missing_field, gitlink_commit_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_gitlink_reconciliation{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        gitlink_commit_sha = maps:get(gitlink_commit_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Admits only artifact tags derived from an exact immutable source SHA.
+-record(crown_immutable_sha_tag, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    immutable_tag :: binary(), %% immutable_tag: Immutable source-derived artifact tag.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_immutable_sha_tag() :: #crown_immutable_sha_tag{}.
+
+-spec new_crown_immutable_sha_tag(map()) -> {ok, crown_immutable_sha_tag()} | {error, {missing_field, atom()}}.
+new_crown_immutable_sha_tag(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(immutable_tag, Map) of
+        false -> {error, {missing_field, immutable_tag}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_immutable_sha_tag{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        immutable_tag = maps:get(immutable_tag, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Selects an immutable previously qualified crown for autonomous rollback.
+-record(crown_known_good_rollback, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    rollback_crown_digest :: binary(), %% rollback_crown_digest: Exact prior known-good crown digest.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_known_good_rollback() :: #crown_known_good_rollback{}.
+
+-spec new_crown_known_good_rollback(map()) -> {ok, crown_known_good_rollback()} | {error, {missing_field, atom()}}.
+new_crown_known_good_rollback(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(rollback_crown_digest, Map) of
+        false -> {error, {missing_field, rollback_crown_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_known_good_rollback{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        rollback_crown_digest = maps:get(rollback_crown_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records exact end-to-end propagation latency for freshness and SLO decisions.
+-record(crown_latency_observation, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    latency_millis :: binary(), %% latency_millis: Observed propagation latency in milliseconds.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_latency_observation() :: #crown_latency_observation{}.
+
+-spec new_crown_latency_observation(map()) -> {ok, crown_latency_observation()} | {error, {missing_field, atom()}}.
+new_crown_latency_observation(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(latency_millis, Map) of
+        false -> {error, {missing_field, latency_millis}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_latency_observation{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        latency_millis = maps:get(latency_millis, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Reconciles a downstream lock entry to the exact admitted upstream commit.
+-record(crown_lock_reconciliation, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    lock_commit_sha :: binary(), %% lock_commit_sha: Exact commit SHA encoded in the reconciled lock.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_lock_reconciliation() :: #crown_lock_reconciliation{}.
+
+-spec new_crown_lock_reconciliation(map()) -> {ok, crown_lock_reconciliation()} | {error, {missing_field, atom()}}.
+new_crown_lock_reconciliation(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(lock_commit_sha, Map) of
+        false -> {error, {missing_field, lock_commit_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_lock_reconciliation{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        lock_commit_sha = maps:get(lock_commit_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds propagation to the exact deterministic manufacturer executable identity.
+-record(crown_manufacturer_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    manufacturer_digest :: binary(), %% manufacturer_digest: Digest of the admitted GGen manufacturer binary.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_manufacturer_identity() :: #crown_manufacturer_identity{}.
+
+-spec new_crown_manufacturer_identity(map()) -> {ok, crown_manufacturer_identity()} | {error, {missing_field, atom()}}.
+new_crown_manufacturer_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(manufacturer_digest, Map) of
+        false -> {error, {missing_field, manufacturer_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_manufacturer_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        manufacturer_digest = maps:get(manufacturer_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires every consumed marketplace pack to resolve to an immutable Git commit before manufacture.
+-record(crown_marketplace_pack_pin, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    pack_commit_sha :: binary(), %% pack_commit_sha: Exact immutable marketplace pack commit SHA.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_marketplace_pack_pin() :: #crown_marketplace_pack_pin{}.
+
+-spec new_crown_marketplace_pack_pin(map()) -> {ok, crown_marketplace_pack_pin()} | {error, {missing_field, atom()}}.
+new_crown_marketplace_pack_pin(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(pack_commit_sha, Map) of
+        false -> {error, {missing_field, pack_commit_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_marketplace_pack_pin{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        pack_commit_sha = maps:get(pack_commit_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires the crown manifest to contain the admitted architecture and operating-system set.
+-record(crown_multiarch_platform_set, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    platform_set_digest :: binary(), %% platform_set_digest: Digest of the normalized admitted platform set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_multiarch_platform_set() :: #crown_multiarch_platform_set{}.
+
+-spec new_crown_multiarch_platform_set(map()) -> {ok, crown_multiarch_platform_set()} | {error, {missing_field, atom()}}.
+new_crown_multiarch_platform_set(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(platform_set_digest, Map) of
+        false -> {error, {missing_field, platform_set_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_multiarch_platform_set{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        platform_set_digest = maps:get(platform_set_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds a propagated crown to its exact OCI multi-architecture index digest.
+-record(crown_oci_manifest_binding, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    oci_index_digest :: binary(), %% oci_index_digest: Exact OCI index digest selected for propagation.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_oci_manifest_binding() :: #crown_oci_manifest_binding{}.
+
+-spec new_crown_oci_manifest_binding(map()) -> {ok, crown_oci_manifest_binding()} | {error, {missing_field, atom()}}.
+new_crown_oci_manifest_binding(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(oci_index_digest, Map) of
+        false -> {error, {missing_field, oci_index_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_oci_manifest_binding{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        oci_index_digest = maps:get(oci_index_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Reconciles package resolution to an immutable version and content digest.
+-record(crown_package_pin_reconciliation, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    package_version_digest :: binary(), %% package_version_digest: Digest of the exact resolved package version.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_package_pin_reconciliation() :: #crown_package_pin_reconciliation{}.
+
+-spec new_crown_package_pin_reconciliation(map()) -> {ok, crown_package_pin_reconciliation()} | {error, {missing_field, atom()}}.
+new_crown_package_pin_reconciliation(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(package_version_digest, Map) of
+        false -> {error, {missing_field, package_version_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_package_pin_reconciliation{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        package_version_digest = maps:get(package_version_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Persists exact completed propagation edges for safe recovery after partial failure.
+-record(crown_partial_checkpoint, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    checkpoint_digest :: binary(), %% checkpoint_digest: Digest of the completed-edge checkpoint.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_partial_checkpoint() :: #crown_partial_checkpoint{}.
+
+-spec new_crown_partial_checkpoint(map()) -> {ok, crown_partial_checkpoint()} | {error, {missing_field, atom()}}.
+new_crown_partial_checkpoint(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(checkpoint_digest, Map) of
+        false -> {error, {missing_field, checkpoint_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_partial_checkpoint{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        checkpoint_digest = maps:get(checkpoint_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses false ALIVE when a required qualification gate was path-skipped.
+-record(crown_path_skip_refusal, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    skipped_gate_id :: binary(), %% skipped_gate_id: Identity of the required gate that was skipped.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_path_skip_refusal() :: #crown_path_skip_refusal{}.
+
+-spec new_crown_path_skip_refusal(map()) -> {ok, crown_path_skip_refusal()} | {error, {missing_field, atom()}}.
+new_crown_path_skip_refusal(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(skipped_gate_id, Map) of
+        false -> {error, {missing_field, skipped_gate_id}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_path_skip_refusal{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        skipped_gate_id = maps:get(skipped_gate_id, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds autonomous propagation selection to the exact admitted planner identity.
+-record(crown_planner_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    planner_digest :: binary(), %% planner_digest: Digest of the planner that selected the propagation action.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_planner_identity() :: #crown_planner_identity{}.
+
+-spec new_crown_planner_identity(map()) -> {ok, crown_planner_identity()} | {error, {missing_field, atom()}}.
+new_crown_planner_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(planner_digest, Map) of
+        false -> {error, {missing_field, planner_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_planner_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        planner_digest = maps:get(planner_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds process-intelligence evidence to the exact Beam4PM computation identity.
+-record(crown_process_runtime_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    process_runtime_digest :: binary(), %% process_runtime_digest: Digest of the process-intelligence runtime subject.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_process_runtime_identity() :: #crown_process_runtime_identity{}.
+
+-spec new_crown_process_runtime_identity(map()) -> {ok, crown_process_runtime_identity()} | {error, {missing_field, atom()}}.
+new_crown_process_runtime_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(process_runtime_digest, Map) of
+        false -> {error, {missing_field, process_runtime_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_process_runtime_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        process_runtime_digest = maps:get(process_runtime_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records the conflicting prior digest when a concurrent promotion wins the race.
+-record(crown_promotion_race, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    observed_previous_digest :: binary(), %% observed_previous_digest: Observed prior crown digest at the failed CAS boundary.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_promotion_race() :: #crown_promotion_race{}.
+
+-spec new_crown_promotion_race(map()) -> {ok, crown_promotion_race()} | {error, {missing_field, atom()}}.
+new_crown_promotion_race(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(observed_previous_digest, Map) of
+        false -> {error, {missing_field, observed_previous_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_promotion_race{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        observed_previous_digest = maps:get(observed_previous_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds build provenance to the exact source, builder, and published artifact identities.
+-record(crown_provenance_binding, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    provenance_digest :: binary(), %% provenance_digest: Digest of exact-subject build provenance.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_provenance_binding() :: #crown_provenance_binding{}.
+
+-spec new_crown_provenance_binding(map()) -> {ok, crown_provenance_binding()} | {error, {missing_field, atom()}}.
+new_crown_provenance_binding(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(provenance_digest, Map) of
+        false -> {error, {missing_field, provenance_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_provenance_binding{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        provenance_digest = maps:get(provenance_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Propagates receipt lineage together with the declared owner of every manufactured output.
+-record(crown_receipt_output_ownership, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    output_owner :: binary(), %% output_owner: Declared owner identity for the manufactured output set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_receipt_output_ownership() :: #crown_receipt_output_ownership{}.
+
+-spec new_crown_receipt_output_ownership(map()) -> {ok, crown_receipt_output_ownership()} | {error, {missing_field, atom()}}.
+new_crown_receipt_output_ownership(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(output_owner, Map) of
+        false -> {error, {missing_field, output_owner}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_receipt_output_ownership{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        output_owner = maps:get(output_owner, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves recursive ecosystem propagation reached a stable exact-crown fixed point.
+-record(crown_recursive_fixed_point, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    fixed_point_digest :: binary(), %% fixed_point_digest: Digest of the converged ecosystem crown assignment.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_recursive_fixed_point() :: #crown_recursive_fixed_point{}.
+
+-spec new_crown_recursive_fixed_point(map()) -> {ok, crown_recursive_fixed_point()} | {error, {missing_field, atom()}}.
+new_crown_recursive_fixed_point(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(fixed_point_digest, Map) of
+        false -> {error, {missing_field, fixed_point_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_recursive_fixed_point{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        fixed_point_digest = maps:get(fixed_point_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds resumed propagation to its checkpoint and current dependency graph.
+-record(crown_resume_token, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    resume_token_digest :: binary(), %% resume_token_digest: Digest of the validated resume token.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_resume_token() :: #crown_resume_token{}.
+
+-spec new_crown_resume_token(map()) -> {ok, crown_resume_token()} | {error, {missing_field, atom()}}.
+new_crown_resume_token(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(resume_token_digest, Map) of
+        false -> {error, {missing_field, resume_token_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_resume_token{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        resume_token_digest = maps:get(resume_token_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds the propagated artifact to the exact runtime used for qualification.
+-record(crown_runtime_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    runtime_digest :: binary(), %% runtime_digest: Digest of the admitted runtime environment.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_runtime_identity() :: #crown_runtime_identity{}.
+
+-spec new_crown_runtime_identity(map()) -> {ok, crown_runtime_identity()} | {error, {missing_field, atom()}}.
+new_crown_runtime_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(runtime_digest, Map) of
+        false -> {error, {missing_field, runtime_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_runtime_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        runtime_digest = maps:get(runtime_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds a retained software bill of materials to the exact published crown subject.
+-record(crown_sbom_subject_binding, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    sbom_digest :: binary(), %% sbom_digest: Digest of the SBOM whose subject is the exact crown.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_sbom_subject_binding() :: #crown_sbom_subject_binding{}.
+
+-spec new_crown_sbom_subject_binding(map()) -> {ok, crown_sbom_subject_binding()} | {error, {missing_field, atom()}}.
+new_crown_sbom_subject_binding(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(sbom_digest, Map) of
+        false -> {error, {missing_field, sbom_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_sbom_subject_binding{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        sbom_digest = maps:get(sbom_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves a second lawful GGen sync is byte-identical to the first manufactured output set.
+-record(crown_second_pass_identity, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    second_pass_digest :: binary(), %% second_pass_digest: Digest of the complete second-pass output set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_second_pass_identity() :: #crown_second_pass_identity{}.
+
+-spec new_crown_second_pass_identity(map()) -> {ok, crown_second_pass_identity()} | {error, {missing_field, atom()}}.
+new_crown_second_pass_identity(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(second_pass_digest, Map) of
+        false -> {error, {missing_field, second_pass_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_second_pass_identity{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        second_pass_digest = maps:get(second_pass_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires a retained security scan report bound to the exact crown artifact digest.
+-record(crown_security_scan, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    scan_report_digest :: binary(), %% scan_report_digest: Digest of the exact-artifact vulnerability scan report.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_security_scan() :: #crown_security_scan{}.
+
+-spec new_crown_security_scan(map()) -> {ok, crown_security_scan()} | {error, {missing_field, atom()}}.
+new_crown_security_scan(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(scan_report_digest, Map) of
+        false -> {error, {missing_field, scan_report_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_security_scan{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        scan_report_digest = maps:get(scan_report_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds validation to the exact ggen-ecosystem source capsule and image identity.
+-record(crown_source_capsule, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    capsule_digest :: binary(), %% capsule_digest: Exact source capsule or reproducible image digest.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_source_capsule() :: #crown_source_capsule{}.
+
+-spec new_crown_source_capsule(map()) -> {ok, crown_source_capsule()} | {error, {missing_field, atom()}}.
+new_crown_source_capsule(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(capsule_digest, Map) of
+        false -> {error, {missing_field, capsule_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_source_capsule{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        capsule_digest = maps:get(capsule_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records crown age so stale subjects are typed and refused without actuation.
+-record(crown_stale_refusal, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    observed_age_seconds :: binary(), %% observed_age_seconds: Observed crown age in seconds at the decision boundary.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_stale_refusal() :: #crown_stale_refusal{}.
+
+-spec new_crown_stale_refusal(map()) -> {ok, crown_stale_refusal()} | {error, {missing_field, atom()}}.
+new_crown_stale_refusal(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(observed_age_seconds, Map) of
+        false -> {error, {missing_field, observed_age_seconds}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_stale_refusal{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        observed_age_seconds = maps:get(observed_age_seconds, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records the executable supply-chain policy decision that admitted or refused the crown.
+-record(crown_supply_chain_policy, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    policy_decision_digest :: binary(), %% policy_decision_digest: Digest of the exact policy input and decision.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_supply_chain_policy() :: #crown_supply_chain_policy{}.
+
+-spec new_crown_supply_chain_policy(map()) -> {ok, crown_supply_chain_policy()} | {error, {missing_field, atom()}}.
+new_crown_supply_chain_policy(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(policy_decision_digest, Map) of
+        false -> {error, {missing_field, policy_decision_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_supply_chain_policy{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        policy_decision_digest = maps:get(policy_decision_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Orders crown propagation so dependencies qualify before their consumers.
+-record(crown_topological_order, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    topological_rank :: binary(), %% topological_rank: Deterministic topological rank for this propagation node.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_topological_order() :: #crown_topological_order{}.
+
+-spec new_crown_topological_order(map()) -> {ok, crown_topological_order()} | {error, {missing_field, atom()}}.
+new_crown_topological_order(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(topological_rank, Map) of
+        false -> {error, {missing_field, topological_rank}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_topological_order{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        topological_rank = maps:get(topological_rank, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Pins the executable validation pack to an immutable marketplace commit.
+-record(crown_validation_pack, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    validation_pack_sha :: binary(), %% validation_pack_sha: Exact validation-pack Git commit SHA.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_validation_pack() :: #crown_validation_pack{}.
+
+-spec new_crown_validation_pack(map()) -> {ok, crown_validation_pack()} | {error, {missing_field, atom()}}.
+new_crown_validation_pack(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(validation_pack_sha, Map) of
+        false -> {error, {missing_field, validation_pack_sha}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_validation_pack{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        validation_pack_sha = maps:get(validation_pack_sha, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds a qualification receipt to the exact workflow execution and attempt.
+-record(crown_workflow_run_receipt, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    workflow_run_id :: binary(), %% workflow_run_id: Exact hosted workflow run and attempt identity.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_workflow_run_receipt() :: #crown_workflow_run_receipt{}.
+
+-spec new_crown_workflow_run_receipt(map()) -> {ok, crown_workflow_run_receipt()} | {error, {missing_field, atom()}}.
+new_crown_workflow_run_receipt(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(workflow_run_id, Map) of
+        false -> {error, {missing_field, workflow_run_id}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_workflow_run_receipt{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        workflow_run_id = maps:get(workflow_run_id, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves every propagation write belongs to a retained authorized receipt.
+-record(crown_zero_unreceipted_writes, {
+    propagation_id :: binary(), %% propagation_id: Unique autonomic propagation attempt identity.
+    subject_sha :: binary(), %% subject_sha: Exact admitted Git subject SHA.
+    write_set_digest :: binary(), %% write_set_digest: Digest of the complete authorized write set.
+    receipt_digest :: binary() %% receipt_digest: Immutable digest of this capability's exact-subject qualification receipt.
+}).
+
+-type crown_zero_unreceipted_writes() :: #crown_zero_unreceipted_writes{}.
+
+-spec new_crown_zero_unreceipted_writes(map()) -> {ok, crown_zero_unreceipted_writes()} | {error, {missing_field, atom()}}.
+new_crown_zero_unreceipted_writes(Map) ->
+    case maps:is_key(propagation_id, Map) of
+        false -> {error, {missing_field, propagation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(write_set_digest, Map) of
+        false -> {error, {missing_field, write_set_digest}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #crown_zero_unreceipted_writes{
+        propagation_id = maps:get(propagation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        write_set_digest = maps:get(write_set_digest, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Cumulative customer-health observation across usage, outcomes, and support.
 -record(customer_health, {
     customer_health_id :: binary(), %% customer_health_id: Stable identity of this customer health observation.
@@ -2851,6 +7537,41 @@ new_customer_managed_key_evidence(Map) ->
         subject_sha = maps:get(subject_sha, Map, undefined),
         key_identifier = maps:get(key_identifier, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Normalizes a customer signal into typed, digest-bound evidence.
+-record(customer_signal_observation, {
+    customer_id :: binary(), %% customer_id: Stable customer identity.
+    signal_type :: binary(), %% signal_type: Normalized customer signal type.
+    signal_digest :: binary(), %% signal_digest: Immutable customer signal digest.
+    observed_at :: binary() %% observed_at: Timestamp customer signal was observed.
+}).
+
+-type customer_signal_observation() :: #customer_signal_observation{}.
+
+-spec new_customer_signal_observation(map()) -> {ok, customer_signal_observation()} | {error, {missing_field, atom()}}.
+new_customer_signal_observation(Map) ->
+    case maps:is_key(customer_id, Map) of
+        false -> {error, {missing_field, customer_id}};
+        true ->
+    case maps:is_key(signal_type, Map) of
+        false -> {error, {missing_field, signal_type}};
+        true ->
+    case maps:is_key(signal_digest, Map) of
+        false -> {error, {missing_field, signal_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #customer_signal_observation{
+        customer_id = maps:get(customer_id, Map, undefined),
+        signal_type = maps:get(signal_type, Map, undefined),
+        signal_digest = maps:get(signal_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
     }}
     end
     end
@@ -3055,6 +7776,41 @@ new_deal_desk_packet(Map) ->
     end
     end.
 
+%% Compresses high-dimensional state into a bounded actionable delta with loss bound.
+-record(decision_compression_observation, {
+    compression_id :: binary(), %% compression_id: Stable compression operation identity.
+    input_state_digest :: binary(), %% input_state_digest: Digest of high-dimensional input state.
+    output_delta_digest :: binary(), %% output_delta_digest: Digest of compressed delta.
+    loss_bound :: binary() %% loss_bound: Declared information-loss bound.
+}).
+
+-type decision_compression_observation() :: #decision_compression_observation{}.
+
+-spec new_decision_compression_observation(map()) -> {ok, decision_compression_observation()} | {error, {missing_field, atom()}}.
+new_decision_compression_observation(Map) ->
+    case maps:is_key(compression_id, Map) of
+        false -> {error, {missing_field, compression_id}};
+        true ->
+    case maps:is_key(input_state_digest, Map) of
+        false -> {error, {missing_field, input_state_digest}};
+        true ->
+    case maps:is_key(output_delta_digest, Map) of
+        false -> {error, {missing_field, output_delta_digest}};
+        true ->
+    case maps:is_key(loss_bound, Map) of
+        false -> {error, {missing_field, loss_bound}};
+        true ->
+    {ok, #decision_compression_observation{
+        compression_id = maps:get(compression_id, Map, undefined),
+        input_state_digest = maps:get(input_state_digest, Map, undefined),
+        output_delta_digest = maps:get(output_delta_digest, Map, undefined),
+        loss_bound = maps:get(loss_bound, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Executable deletion evidence binding an exact subject to a verifiable deletion receipt.
 -record(deletion_proof_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this deletion-proof observation.
@@ -3172,6 +7928,35 @@ new_demo_scenario(Map) ->
     end
     end.
 
+%% Represents action dependencies as an acyclic exact-subject graph.
+-record(dependency_dag, {
+    dag_id :: binary(), %% dag_id: Required dag_id for this bounded planner contract.
+    node_set_hash :: binary(), %% node_set_hash: Required node_set_hash for deterministic planner evaluation.
+    edge_set_hash :: binary() %% edge_set_hash: Required edge_set_hash preserving evidence and falsifiability.
+}).
+
+-type dependency_dag() :: #dependency_dag{}.
+
+-spec new_dependency_dag(map()) -> {ok, dependency_dag()} | {error, {missing_field, atom()}}.
+new_dependency_dag(Map) ->
+    case maps:is_key(dag_id, Map) of
+        false -> {error, {missing_field, dag_id}};
+        true ->
+    case maps:is_key(node_set_hash, Map) of
+        false -> {error, {missing_field, node_set_hash}};
+        true ->
+    case maps:is_key(edge_set_hash, Map) of
+        false -> {error, {missing_field, edge_set_hash}};
+        true ->
+    {ok, #dependency_dag{
+        dag_id = maps:get(dag_id, Map, undefined),
+        node_set_hash = maps:get(node_set_hash, Map, undefined),
+        edge_set_hash = maps:get(edge_set_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.
 -record(dependency_inventory_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this dependency inventory observation.
@@ -3201,6 +7986,41 @@ new_dependency_inventory_evidence(Map) ->
         subject_sha = maps:get(subject_sha, Map, undefined),
         dependency_count = maps:get(dependency_count, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Compares a declared dependency ref with its immutable resolved commit.
+-record(dependency_pin_observation, {
+    dependency_id :: binary(), %% dependency_id: Stable dependency identity.
+    declared_ref :: binary(), %% declared_ref: Declared dependency reference.
+    resolved_sha :: binary(), %% resolved_sha: Resolved immutable commit.
+    observed_at :: binary() %% observed_at: Timestamp of resolution.
+}).
+
+-type dependency_pin_observation() :: #dependency_pin_observation{}.
+
+-spec new_dependency_pin_observation(map()) -> {ok, dependency_pin_observation()} | {error, {missing_field, atom()}}.
+new_dependency_pin_observation(Map) ->
+    case maps:is_key(dependency_id, Map) of
+        false -> {error, {missing_field, dependency_id}};
+        true ->
+    case maps:is_key(declared_ref, Map) of
+        false -> {error, {missing_field, declared_ref}};
+        true ->
+    case maps:is_key(resolved_sha, Map) of
+        false -> {error, {missing_field, resolved_sha}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #dependency_pin_observation{
+        dependency_id = maps:get(dependency_id, Map, undefined),
+        declared_ref = maps:get(declared_ref, Map, undefined),
+        resolved_sha = maps:get(resolved_sha, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
     }}
     end
     end
@@ -3419,6 +8239,64 @@ new_discovery_hypothesis(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Records the exact objective evidence proving one option dominates another.
+-record(dominance_witness, {
+    dominant_option_id :: binary(), %% dominant_option_id: Required dominant_option_id for this bounded planner contract.
+    dominated_option_id :: binary(), %% dominated_option_id: Required dominated_option_id for deterministic planner evaluation.
+    witness_hash :: binary() %% witness_hash: Required witness_hash preserving evidence and falsifiability.
+}).
+
+-type dominance_witness() :: #dominance_witness{}.
+
+-spec new_dominance_witness(map()) -> {ok, dominance_witness()} | {error, {missing_field, atom()}}.
+new_dominance_witness(Map) ->
+    case maps:is_key(dominant_option_id, Map) of
+        false -> {error, {missing_field, dominant_option_id}};
+        true ->
+    case maps:is_key(dominated_option_id, Map) of
+        false -> {error, {missing_field, dominated_option_id}};
+        true ->
+    case maps:is_key(witness_hash, Map) of
+        false -> {error, {missing_field, witness_hash}};
+        true ->
+    {ok, #dominance_witness{
+        dominant_option_id = maps:get(dominant_option_id, Map, undefined),
+        dominated_option_id = maps:get(dominated_option_id, Map, undefined),
+        witness_hash = maps:get(witness_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Triggers replanning when observed state invalidates a plan assumption.
+-record(dynamic_replan_trigger, {
+    plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
+    event_id :: binary(), %% event_id: Required event_id for deterministic planner evaluation.
+    trigger_hash :: binary() %% trigger_hash: Required trigger_hash preserving evidence and falsifiability.
+}).
+
+-type dynamic_replan_trigger() :: #dynamic_replan_trigger{}.
+
+-spec new_dynamic_replan_trigger(map()) -> {ok, dynamic_replan_trigger()} | {error, {missing_field, atom()}}.
+new_dynamic_replan_trigger(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(trigger_hash, Map) of
+        false -> {error, {missing_field, trigger_hash}};
+        true ->
+    {ok, #dynamic_replan_trigger{
+        plan_id = maps:get(plan_id, Map, undefined),
+        event_id = maps:get(event_id, Map, undefined),
+        trigger_hash = maps:get(trigger_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -3763,6 +8641,35 @@ new_entitlement_state(Map) ->
     end
     end.
 
+%% Measures expected uncertainty reduction from a bounded observation action.
+-record(entropy_reduction_score, {
+    action_id :: binary(), %% action_id: Required action_id for this bounded planner contract.
+    prior_entropy :: binary(), %% prior_entropy: Required prior_entropy for deterministic planner evaluation.
+    expected_posterior_entropy :: binary() %% expected_posterior_entropy: Required expected_posterior_entropy preserving evidence and falsifiability.
+}).
+
+-type entropy_reduction_score() :: #entropy_reduction_score{}.
+
+-spec new_entropy_reduction_score(map()) -> {ok, entropy_reduction_score()} | {error, {missing_field, atom()}}.
+new_entropy_reduction_score(Map) ->
+    case maps:is_key(action_id, Map) of
+        false -> {error, {missing_field, action_id}};
+        true ->
+    case maps:is_key(prior_entropy, Map) of
+        false -> {error, {missing_field, prior_entropy}};
+        true ->
+    case maps:is_key(expected_posterior_entropy, Map) of
+        false -> {error, {missing_field, expected_posterior_entropy}};
+        true ->
+    {ok, #entropy_reduction_score{
+        action_id = maps:get(action_id, Map, undefined),
+        prior_entropy = maps:get(prior_entropy, Map, undefined),
+        expected_posterior_entropy = maps:get(expected_posterior_entropy, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Binds paid workload execution to an immutable production environment identity.
 -record(environment_identity, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -3827,6 +8734,41 @@ new_environment_profile(Map) ->
     end
     end.
 
+%% Normalizes deployment-environment evidence without human polling.
+-record(environment_signal_observation, {
+    environment_id :: binary(), %% environment_id: Stable environment identity.
+    signal_type :: binary(), %% signal_type: Normalized environment signal type.
+    signal_digest :: binary(), %% signal_digest: Immutable environment signal digest.
+    observed_at :: binary() %% observed_at: Timestamp environment signal was observed.
+}).
+
+-type environment_signal_observation() :: #environment_signal_observation{}.
+
+-spec new_environment_signal_observation(map()) -> {ok, environment_signal_observation()} | {error, {missing_field, atom()}}.
+new_environment_signal_observation(Map) ->
+    case maps:is_key(environment_id, Map) of
+        false -> {error, {missing_field, environment_id}};
+        true ->
+    case maps:is_key(signal_type, Map) of
+        false -> {error, {missing_field, signal_type}};
+        true ->
+    case maps:is_key(signal_digest, Map) of
+        false -> {error, {missing_field, signal_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #environment_signal_observation{
+        environment_id = maps:get(environment_id, Map, undefined),
+        signal_type = maps:get(signal_type, Map, undefined),
+        signal_digest = maps:get(signal_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Captures the exact remaining error budget that governs paid-service release policy.
 -record(error_budget_state, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -3881,6 +8823,35 @@ new_event_log(Map) ->
     end
     end.
 
+%% Creates a bounded planning episode from an admitted world event.
+-record(event_triggered_planning, {
+    event_id :: binary(), %% event_id: Required event_id for this bounded planner contract.
+    world_state_hash :: binary(), %% world_state_hash: Required world_state_hash for deterministic planner evaluation.
+    episode_id :: binary() %% episode_id: Required episode_id preserving evidence and falsifiability.
+}).
+
+-type event_triggered_planning() :: #event_triggered_planning{}.
+
+-spec new_event_triggered_planning(map()) -> {ok, event_triggered_planning()} | {error, {missing_field, atom()}}.
+new_event_triggered_planning(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(world_state_hash, Map) of
+        false -> {error, {missing_field, world_state_hash}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #event_triggered_planning{
+        event_id = maps:get(event_id, Map, undefined),
+        world_state_hash = maps:get(world_state_hash, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% A declared OCEL event type and its attribute schema.
 -record(event_type, {
     type_name :: binary(), %% type_name: The event type name.
@@ -3931,6 +8902,35 @@ new_evidence_freshness_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Binds every plan to one immutable repository/ref/SHA subject.
+-record(exact_subject_binding, {
+    subject_id :: binary(), %% subject_id: Required subject_id for this bounded planner contract.
+    subject_sha :: binary(), %% subject_sha: Required subject_sha for deterministic planner evaluation.
+    binding_hash :: binary() %% binding_hash: Required binding_hash preserving evidence and falsifiability.
+}).
+
+-type exact_subject_binding() :: #exact_subject_binding{}.
+
+-spec new_exact_subject_binding(map()) -> {ok, exact_subject_binding()} | {error, {missing_field, atom()}}.
+new_exact_subject_binding(Map) ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(binding_hash, Map) of
+        false -> {error, {missing_field, binding_hash}};
+        true ->
+    {ok, #exact_subject_binding{
+        subject_id = maps:get(subject_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        binding_hash = maps:get(binding_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -4262,6 +9262,70 @@ new_funding_approval_chain(Map) ->
     end
     end.
 
+%% Classifies a path as generated or source-owned using its explicit provenance marker.
+-record(generated_output_ownership_observation, {
+    output_path :: binary(), %% output_path: Observed repository path.
+    ownership_marker :: binary(), %% ownership_marker: Observed provenance marker.
+    source_input_digest :: binary(), %% source_input_digest: Digest of canonical inputs that own the output.
+    standing :: binary() %% standing: Machine-readable ownership standing.
+}).
+
+-type generated_output_ownership_observation() :: #generated_output_ownership_observation{}.
+
+-spec new_generated_output_ownership_observation(map()) -> {ok, generated_output_ownership_observation()} | {error, {missing_field, atom()}}.
+new_generated_output_ownership_observation(Map) ->
+    case maps:is_key(output_path, Map) of
+        false -> {error, {missing_field, output_path}};
+        true ->
+    case maps:is_key(ownership_marker, Map) of
+        false -> {error, {missing_field, ownership_marker}};
+        true ->
+    case maps:is_key(source_input_digest, Map) of
+        false -> {error, {missing_field, source_input_digest}};
+        true ->
+    case maps:is_key(standing, Map) of
+        false -> {error, {missing_field, standing}};
+        true ->
+    {ok, #generated_output_ownership_observation{
+        output_path = maps:get(output_path, Map, undefined),
+        ownership_marker = maps:get(ownership_marker, Map, undefined),
+        source_input_digest = maps:get(source_input_digest, Map, undefined),
+        standing = maps:get(standing, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Routes generated-projection defects to canonical semantic source or an independent rail.
+-record(generated_source_route, {
+    projection_id :: binary(), %% projection_id: Required projection_id for this bounded planner contract.
+    source_coordinate :: binary(), %% source_coordinate: Required source_coordinate for deterministic planner evaluation.
+    route :: binary() %% route: Required route preserving evidence and falsifiability.
+}).
+
+-type generated_source_route() :: #generated_source_route{}.
+
+-spec new_generated_source_route(map()) -> {ok, generated_source_route()} | {error, {missing_field, atom()}}.
+new_generated_source_route(Map) ->
+    case maps:is_key(projection_id, Map) of
+        false -> {error, {missing_field, projection_id}};
+        true ->
+    case maps:is_key(source_coordinate, Map) of
+        false -> {error, {missing_field, source_coordinate}};
+        true ->
+    case maps:is_key(route, Map) of
+        false -> {error, {missing_field, route}};
+        true ->
+    {ok, #generated_source_route{
+        projection_id = maps:get(projection_id, Map, undefined),
+        source_coordinate = maps:get(source_coordinate, Map, undefined),
+        route = maps:get(route, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% One dependency-scored candidate arc considered during heuristic-net discovery.
 -record(heuristic_arc, {
     source_activity :: binary(), %% source_activity: The candidate arc source activity.
@@ -4286,6 +9350,35 @@ new_heuristic_arc(Map) ->
         source_activity = maps:get(source_activity, Map, undefined),
         target_activity = maps:get(target_activity, Map, undefined),
         dependency_measure = maps:get(dependency_measure, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Selects a marketplace pack only by exact immutable commit SHA.
+-record(immutable_pack_selection, {
+    pack_id :: binary(), %% pack_id: Required pack_id for this bounded planner contract.
+    pack_sha :: binary(), %% pack_sha: Required pack_sha for deterministic planner evaluation.
+    selection_hash :: binary() %% selection_hash: Required selection_hash preserving evidence and falsifiability.
+}).
+
+-type immutable_pack_selection() :: #immutable_pack_selection{}.
+
+-spec new_immutable_pack_selection(map()) -> {ok, immutable_pack_selection()} | {error, {missing_field, atom()}}.
+new_immutable_pack_selection(Map) ->
+    case maps:is_key(pack_id, Map) of
+        false -> {error, {missing_field, pack_id}};
+        true ->
+    case maps:is_key(pack_sha, Map) of
+        false -> {error, {missing_field, pack_sha}};
+        true ->
+    case maps:is_key(selection_hash, Map) of
+        false -> {error, {missing_field, selection_hash}};
+        true ->
+    {ok, #immutable_pack_selection{
+        pack_id = maps:get(pack_id, Map, undefined),
+        pack_sha = maps:get(pack_sha, Map, undefined),
+        selection_hash = maps:get(selection_hash, Map, undefined)
     }}
     end
     end
@@ -4438,6 +9531,41 @@ new_indemnity_scope_admission(Map) ->
         indemnity_scope_id = maps:get(indemnity_scope_id, Map, undefined),
         decision = maps:get(decision, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Partitions a state vector by a decision-relevant information key.
+-record(information_partition_observation, {
+    partition_id :: binary(), %% partition_id: Stable information partition identity.
+    state_vector_id :: binary(), %% state_vector_id: Source state-vector identity.
+    partition_key :: binary(), %% partition_key: Decision-relevant partition key.
+    information_digest :: binary() %% information_digest: Digest of partition contents.
+}).
+
+-type information_partition_observation() :: #information_partition_observation{}.
+
+-spec new_information_partition_observation(map()) -> {ok, information_partition_observation()} | {error, {missing_field, atom()}}.
+new_information_partition_observation(Map) ->
+    case maps:is_key(partition_id, Map) of
+        false -> {error, {missing_field, partition_id}};
+        true ->
+    case maps:is_key(state_vector_id, Map) of
+        false -> {error, {missing_field, state_vector_id}};
+        true ->
+    case maps:is_key(partition_key, Map) of
+        false -> {error, {missing_field, partition_key}};
+        true ->
+    case maps:is_key(information_digest, Map) of
+        false -> {error, {missing_field, information_digest}};
+        true ->
+    {ok, #information_partition_observation{
+        partition_id = maps:get(partition_id, Map, undefined),
+        state_vector_id = maps:get(state_vector_id, Map, undefined),
+        partition_key = maps:get(partition_key, Map, undefined),
+        information_digest = maps:get(information_digest, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -4605,6 +9733,35 @@ new_invoice_schedule(Map) ->
     end
     end.
 
+%% Limits irreversible commitments within one bounded planning episode.
+-record(irreversibility_budget, {
+    episode_id :: binary(), %% episode_id: Required episode_id for this bounded planner contract.
+    budget :: binary(), %% budget: Required budget for deterministic planner evaluation.
+    consumed :: binary() %% consumed: Required consumed preserving evidence and falsifiability.
+}).
+
+-type irreversibility_budget() :: #irreversibility_budget{}.
+
+-spec new_irreversibility_budget(map()) -> {ok, irreversibility_budget()} | {error, {missing_field, atom()}}.
+new_irreversibility_budget(Map) ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    case maps:is_key(budget, Map) of
+        false -> {error, {missing_field, budget}};
+        true ->
+    case maps:is_key(consumed, Map) of
+        false -> {error, {missing_field, consumed}};
+        true ->
+    {ok, #irreversibility_budget{
+        episode_id = maps:get(episode_id, Map, undefined),
+        budget = maps:get(budget, Map, undefined),
+        consumed = maps:get(consumed, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% A reference to one Kubernetes object observed in the runtime topology.
 -record(k8s_object_ref, {
     kind :: binary(), %% kind: The Kubernetes object kind (e.g. Pod, Deployment).
@@ -4654,6 +9811,37 @@ new_latency_budget_observation(Map) ->
         tenant_id = maps:get(tenant_id, Map, undefined),
         workload_id = maps:get(workload_id, Map, undefined),
         observation_hash = maps:get(observation_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk.
+-record(leakage_finding, {
+    case_id :: binary(), %% case_id: Exact process-case identity that deviated from the admitted reference model.
+    fitness :: float(), %% fitness: Observed conformance fitness for this case.
+    precision :: float(), %% precision: Observed conformance precision for this case against the admitted model.
+    amount_at_risk :: float() | undefined %% amount_at_risk: Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero.
+}).
+
+-type leakage_finding() :: #leakage_finding{}.
+
+-spec new_leakage_finding(map()) -> {ok, leakage_finding()} | {error, {missing_field, atom()}}.
+new_leakage_finding(Map) ->
+    case maps:is_key(case_id, Map) of
+        false -> {error, {missing_field, case_id}};
+        true ->
+    case maps:is_key(fitness, Map) of
+        false -> {error, {missing_field, fitness}};
+        true ->
+    case maps:is_key(precision, Map) of
+        false -> {error, {missing_field, precision}};
+        true ->
+    {ok, #leakage_finding{
+        case_id = maps:get(case_id, Map, undefined),
+        fitness = maps:get(fitness, Map, undefined),
+        precision = maps:get(precision, Map, undefined),
+        amount_at_risk = maps:get(amount_at_risk, Map, undefined)
     }}
     end
     end
@@ -4810,6 +9998,111 @@ new_log_trace(Map) ->
     end
     end.
 
+%% Emits the compressed state change and recommended next autonomic action.
+-record(machine_actionable_delta, {
+    subject_id :: binary(), %% subject_id: Exact changed subject identity.
+    prior_state_digest :: binary(), %% prior_state_digest: Prior admitted state digest.
+    delta_digest :: binary(), %% delta_digest: Digest of machine-actionable delta.
+    recommended_action :: binary() %% recommended_action: Bounded next action for the control plane.
+}).
+
+-type machine_actionable_delta() :: #machine_actionable_delta{}.
+
+-spec new_machine_actionable_delta(map()) -> {ok, machine_actionable_delta()} | {error, {missing_field, atom()}}.
+new_machine_actionable_delta(Map) ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(prior_state_digest, Map) of
+        false -> {error, {missing_field, prior_state_digest}};
+        true ->
+    case maps:is_key(delta_digest, Map) of
+        false -> {error, {missing_field, delta_digest}};
+        true ->
+    case maps:is_key(recommended_action, Map) of
+        false -> {error, {missing_field, recommended_action}};
+        true ->
+    {ok, #machine_actionable_delta{
+        subject_id = maps:get(subject_id, Map, undefined),
+        prior_state_digest = maps:get(prior_state_digest, Map, undefined),
+        delta_digest = maps:get(delta_digest, Map, undefined),
+        recommended_action = maps:get(recommended_action, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Observes whether real manufacture emitted a receipt for the exact subject.
+-record(manufacture_receipt_presence_observation, {
+    subject_sha :: binary(), %% subject_sha: Exact manufactured subject.
+    receipt_id :: binary(), %% receipt_id: Stable manufacture receipt identity.
+    receipt_digest :: binary(), %% receipt_digest: Immutable receipt content digest.
+    observed_at :: binary() %% observed_at: Timestamp receipt was observed.
+}).
+
+-type manufacture_receipt_presence_observation() :: #manufacture_receipt_presence_observation{}.
+
+-spec new_manufacture_receipt_presence_observation(map()) -> {ok, manufacture_receipt_presence_observation()} | {error, {missing_field, atom()}}.
+new_manufacture_receipt_presence_observation(Map) ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(receipt_id, Map) of
+        false -> {error, {missing_field, receipt_id}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #manufacture_receipt_presence_observation{
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        receipt_id = maps:get(receipt_id, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records independent verification of receipt subject, digest, and verifier identity.
+-record(manufacture_receipt_validity_observation, {
+    receipt_digest :: binary(), %% receipt_digest: Immutable receipt digest.
+    subject_sha :: binary(), %% subject_sha: Exact subject claimed by receipt.
+    verification_status :: binary(), %% verification_status: Machine-readable verification result.
+    verifier_identity :: binary() %% verifier_identity: Exact verifier implementation identity.
+}).
+
+-type manufacture_receipt_validity_observation() :: #manufacture_receipt_validity_observation{}.
+
+-spec new_manufacture_receipt_validity_observation(map()) -> {ok, manufacture_receipt_validity_observation()} | {error, {missing_field, atom()}}.
+new_manufacture_receipt_validity_observation(Map) ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(verification_status, Map) of
+        false -> {error, {missing_field, verification_status}};
+        true ->
+    case maps:is_key(verifier_identity, Map) of
+        false -> {error, {missing_field, verifier_identity}};
+        true ->
+    {ok, #manufacture_receipt_validity_observation{
+        receipt_digest = maps:get(receipt_digest, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        verification_status = maps:get(verification_status, Map, undefined),
+        verifier_identity = maps:get(verifier_identity, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
 -record(master_service_agreement_state, {
     opportunity_id :: binary(), %% opportunity_id: Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
@@ -4834,6 +10127,64 @@ new_master_service_agreement_state(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         agreement_id = maps:get(agreement_id, Map, undefined),
         agreement_state = maps:get(agreement_state, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Represents a seeded Monte Carlo tree-search plan and its rollout evidence.
+-record(mcts_plan_candidate, {
+    plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
+    seed :: binary(), %% seed: Required seed for deterministic planner evaluation.
+    rollout_hash :: binary() %% rollout_hash: Required rollout_hash preserving evidence and falsifiability.
+}).
+
+-type mcts_plan_candidate() :: #mcts_plan_candidate{}.
+
+-spec new_mcts_plan_candidate(map()) -> {ok, mcts_plan_candidate()} | {error, {missing_field, atom()}}.
+new_mcts_plan_candidate(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(seed, Map) of
+        false -> {error, {missing_field, seed}};
+        true ->
+    case maps:is_key(rollout_hash, Map) of
+        false -> {error, {missing_field, rollout_hash}};
+        true ->
+    {ok, #mcts_plan_candidate{
+        plan_id = maps:get(plan_id, Map, undefined),
+        seed = maps:get(seed, Map, undefined),
+        rollout_hash = maps:get(rollout_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Selects a planner from a portfolio using observed problem characteristics.
+-record(meta_router, {
+    portfolio_id :: binary(), %% portfolio_id: Required portfolio_id for this bounded planner contract.
+    observation_hash :: binary(), %% observation_hash: Required observation_hash for deterministic planner evaluation.
+    selected_planner_id :: binary() %% selected_planner_id: Required selected_planner_id preserving evidence and falsifiability.
+}).
+
+-type meta_router() :: #meta_router{}.
+
+-spec new_meta_router(map()) -> {ok, meta_router()} | {error, {missing_field, atom()}}.
+new_meta_router(Map) ->
+    case maps:is_key(portfolio_id, Map) of
+        false -> {error, {missing_field, portfolio_id}};
+        true ->
+    case maps:is_key(observation_hash, Map) of
+        false -> {error, {missing_field, observation_hash}};
+        true ->
+    case maps:is_key(selected_planner_id, Map) of
+        false -> {error, {missing_field, selected_planner_id}};
+        true ->
+    {ok, #meta_router{
+        portfolio_id = maps:get(portfolio_id, Map, undefined),
+        observation_hash = maps:get(observation_hash, Map, undefined),
+        selected_planner_id = maps:get(selected_planner_id, Map, undefined)
     }}
     end
     end
@@ -5043,6 +10394,64 @@ new_mutable_identity_refusal_evidence(Map) ->
     end
     end.
 
+%% Ranks observations by expected mutual information with decision-relevant state.
+-record(mutual_information_score, {
+    observation_id :: binary(), %% observation_id: Required observation_id for this bounded planner contract.
+    target_state_id :: binary(), %% target_state_id: Required target_state_id for deterministic planner evaluation.
+    score :: binary() %% score: Required score preserving evidence and falsifiability.
+}).
+
+-type mutual_information_score() :: #mutual_information_score{}.
+
+-spec new_mutual_information_score(map()) -> {ok, mutual_information_score()} | {error, {missing_field, atom()}}.
+new_mutual_information_score(Map) ->
+    case maps:is_key(observation_id, Map) of
+        false -> {error, {missing_field, observation_id}};
+        true ->
+    case maps:is_key(target_state_id, Map) of
+        false -> {error, {missing_field, target_state_id}};
+        true ->
+    case maps:is_key(score, Map) of
+        false -> {error, {missing_field, score}};
+        true ->
+    {ok, #mutual_information_score{
+        observation_id = maps:get(observation_id, Map, undefined),
+        target_state_id = maps:get(target_state_id, Map, undefined),
+        score = maps:get(score, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Selects the next bounded action from scored admissible options without human micro-scheduling.
+-record(next_lawful_actuation, {
+    episode_id :: binary(), %% episode_id: Required episode_id for this bounded planner contract.
+    selected_action_id :: binary(), %% selected_action_id: Required selected_action_id for deterministic planner evaluation.
+    selection_receipt_hash :: binary() %% selection_receipt_hash: Required selection_receipt_hash preserving evidence and falsifiability.
+}).
+
+-type next_lawful_actuation() :: #next_lawful_actuation{}.
+
+-spec new_next_lawful_actuation(map()) -> {ok, next_lawful_actuation()} | {error, {missing_field, atom()}}.
+new_next_lawful_actuation(Map) ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    case maps:is_key(selected_action_id, Map) of
+        false -> {error, {missing_field, selected_action_id}};
+        true ->
+    case maps:is_key(selection_receipt_hash, Map) of
+        false -> {error, {missing_field, selection_receipt_hash}};
+        true ->
+    {ok, #next_lawful_actuation{
+        episode_id = maps:get(episode_id, Map, undefined),
+        selected_action_id = maps:get(selected_action_id, Map, undefined),
+        selection_receipt_hash = maps:get(selection_receipt_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Records the exact node failure and observed failover consequence for a paid service.
 -record(node_failover_event, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -5067,6 +10476,70 @@ new_node_failover_event(Map) ->
         tenant_id = maps:get(tenant_id, Map, undefined),
         node_id = maps:get(node_id, Map, undefined),
         failover_hash = maps:get(failover_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Normalizes a source event into stable identity, type, and event time.
+-record(normalized_event_observation, {
+    source_system :: binary(), %% source_system: Originating system identity.
+    event_id :: binary(), %% event_id: Stable source event identity.
+    event_type :: binary(), %% event_type: Normalized event type.
+    event_time :: binary() %% event_time: Normalized event timestamp.
+}).
+
+-type normalized_event_observation() :: #normalized_event_observation{}.
+
+-spec new_normalized_event_observation(map()) -> {ok, normalized_event_observation()} | {error, {missing_field, atom()}}.
+new_normalized_event_observation(Map) ->
+    case maps:is_key(source_system, Map) of
+        false -> {error, {missing_field, source_system}};
+        true ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_type, Map) of
+        false -> {error, {missing_field, event_type}};
+        true ->
+    case maps:is_key(event_time, Map) of
+        false -> {error, {missing_field, event_time}};
+        true ->
+    {ok, #normalized_event_observation{
+        source_system = maps:get(source_system, Map, undefined),
+        event_id = maps:get(event_id, Map, undefined),
+        event_type = maps:get(event_type, Map, undefined),
+        event_time = maps:get(event_time, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Rewards options that expand the lawful reachable capability frontier.
+-record(novelty_score, {
+    option_id :: binary(), %% option_id: Required option_id for this bounded planner contract.
+    reference_set_hash :: binary(), %% reference_set_hash: Required reference_set_hash for deterministic planner evaluation.
+    score :: binary() %% score: Required score preserving evidence and falsifiability.
+}).
+
+-type novelty_score() :: #novelty_score{}.
+
+-spec new_novelty_score(map()) -> {ok, novelty_score()} | {error, {missing_field, atom()}}.
+new_novelty_score(Map) ->
+    case maps:is_key(option_id, Map) of
+        false -> {error, {missing_field, option_id}};
+        true ->
+    case maps:is_key(reference_set_hash, Map) of
+        false -> {error, {missing_field, reference_set_hash}};
+        true ->
+    case maps:is_key(score, Map) of
+        false -> {error, {missing_field, score}};
+        true ->
+    {ok, #novelty_score{
+        option_id = maps:get(option_id, Map, undefined),
+        reference_set_hash = maps:get(reference_set_hash, Map, undefined),
+        score = maps:get(score, Map, undefined)
     }}
     end
     end
@@ -5205,6 +10678,146 @@ new_objection_resolution(Map) ->
         observed_at = maps:get(observed_at, Map, undefined)
     }}
     end
+    end
+    end
+    end
+    end.
+
+%% Records an executable accept-or-duplicate decision for an observation digest.
+-record(observation_deduplication_decision, {
+    event_id :: binary(), %% event_id: Observed event identity.
+    event_digest :: binary(), %% event_digest: Canonical event digest.
+    dedup_key :: binary(), %% dedup_key: Deterministic deduplication key.
+    decision :: binary() %% decision: Machine-readable deduplication decision.
+}).
+
+-type observation_deduplication_decision() :: #observation_deduplication_decision{}.
+
+-spec new_observation_deduplication_decision(map()) -> {ok, observation_deduplication_decision()} | {error, {missing_field, atom()}}.
+new_observation_deduplication_decision(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(event_digest, Map) of
+        false -> {error, {missing_field, event_digest}};
+        true ->
+    case maps:is_key(dedup_key, Map) of
+        false -> {error, {missing_field, dedup_key}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #observation_deduplication_decision{
+        event_id = maps:get(event_id, Map, undefined),
+        event_digest = maps:get(event_digest, Map, undefined),
+        dedup_key = maps:get(dedup_key, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records entropy of a state vector using an explicit estimation method.
+-record(observation_entropy_estimate, {
+    state_vector_id :: binary(), %% state_vector_id: Measured state-vector identity.
+    entropy_method :: binary(), %% entropy_method: Named entropy estimation method.
+    entropy_value :: float(), %% entropy_value: Observed entropy estimate.
+    observed_at :: binary() %% observed_at: Timestamp of entropy estimation.
+}).
+
+-type observation_entropy_estimate() :: #observation_entropy_estimate{}.
+
+-spec new_observation_entropy_estimate(map()) -> {ok, observation_entropy_estimate()} | {error, {missing_field, atom()}}.
+new_observation_entropy_estimate(Map) ->
+    case maps:is_key(state_vector_id, Map) of
+        false -> {error, {missing_field, state_vector_id}};
+        true ->
+    case maps:is_key(entropy_method, Map) of
+        false -> {error, {missing_field, entropy_method}};
+        true ->
+    case maps:is_key(entropy_value, Map) of
+        false -> {error, {missing_field, entropy_value}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #observation_entropy_estimate{
+        state_vector_id = maps:get(state_vector_id, Map, undefined),
+        entropy_method = maps:get(entropy_method, Map, undefined),
+        entropy_value = maps:get(entropy_value, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Evaluates an observation against an explicit freshness deadline.
+-record(observation_freshness_assessment, {
+    observation_id :: binary(), %% observation_id: Stable observation identity.
+    observed_at :: binary(), %% observed_at: Time observation was produced.
+    freshness_deadline :: binary(), %% freshness_deadline: Latest acceptable observation time.
+    freshness_status :: binary() %% freshness_status: Machine-readable freshness standing.
+}).
+
+-type observation_freshness_assessment() :: #observation_freshness_assessment{}.
+
+-spec new_observation_freshness_assessment(map()) -> {ok, observation_freshness_assessment()} | {error, {missing_field, atom()}}.
+new_observation_freshness_assessment(Map) ->
+    case maps:is_key(observation_id, Map) of
+        false -> {error, {missing_field, observation_id}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    case maps:is_key(freshness_deadline, Map) of
+        false -> {error, {missing_field, freshness_deadline}};
+        true ->
+    case maps:is_key(freshness_status, Map) of
+        false -> {error, {missing_field, freshness_status}};
+        true ->
+    {ok, #observation_freshness_assessment{
+        observation_id = maps:get(observation_id, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined),
+        freshness_deadline = maps:get(freshness_deadline, Map, undefined),
+        freshness_status = maps:get(freshness_status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Invalidates stale state and declares whether replacement evidence is required.
+-record(observation_staleness_invalidation, {
+    observation_id :: binary(), %% observation_id: Stale observation identity.
+    invalidated_at :: binary(), %% invalidated_at: Time invalidation became effective.
+    staleness_reason :: binary(), %% staleness_reason: Typed reason for invalidation.
+    replacement_required :: boolean() %% replacement_required: Whether new evidence must be acquired.
+}).
+
+-type observation_staleness_invalidation() :: #observation_staleness_invalidation{}.
+
+-spec new_observation_staleness_invalidation(map()) -> {ok, observation_staleness_invalidation()} | {error, {missing_field, atom()}}.
+new_observation_staleness_invalidation(Map) ->
+    case maps:is_key(observation_id, Map) of
+        false -> {error, {missing_field, observation_id}};
+        true ->
+    case maps:is_key(invalidated_at, Map) of
+        false -> {error, {missing_field, invalidated_at}};
+        true ->
+    case maps:is_key(staleness_reason, Map) of
+        false -> {error, {missing_field, staleness_reason}};
+        true ->
+    case maps:is_key(replacement_required, Map) of
+        false -> {error, {missing_field, replacement_required}};
+        true ->
+    {ok, #observation_staleness_invalidation{
+        observation_id = maps:get(observation_id, Map, undefined),
+        invalidated_at = maps:get(invalidated_at, Map, undefined),
+        staleness_reason = maps:get(staleness_reason, Map, undefined),
+        replacement_required = maps:get(replacement_required, Map, undefined)
+    }}
     end
     end
     end
@@ -5518,6 +11131,64 @@ new_opportunity_value_range(Map) ->
     end
     end.
 
+%% Represents an optimization-derived plan with objective and solver receipt.
+-record(optimization_plan_candidate, {
+    plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
+    objective_id :: binary(), %% objective_id: Required objective_id for deterministic planner evaluation.
+    solver_receipt_hash :: binary() %% solver_receipt_hash: Required solver_receipt_hash preserving evidence and falsifiability.
+}).
+
+-type optimization_plan_candidate() :: #optimization_plan_candidate{}.
+
+-spec new_optimization_plan_candidate(map()) -> {ok, optimization_plan_candidate()} | {error, {missing_field, atom()}}.
+new_optimization_plan_candidate(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(objective_id, Map) of
+        false -> {error, {missing_field, objective_id}};
+        true ->
+    case maps:is_key(solver_receipt_hash, Map) of
+        false -> {error, {missing_field, solver_receipt_hash}};
+        true ->
+    {ok, #optimization_plan_candidate{
+        plan_id = maps:get(plan_id, Map, undefined),
+        objective_id = maps:get(objective_id, Map, undefined),
+        solver_receipt_hash = maps:get(solver_receipt_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Generates a reversible DfCM option set without premature selection.
+-record(option_generation, {
+    state_id :: binary(), %% state_id: Required state_id for this bounded planner contract.
+    generator_id :: binary(), %% generator_id: Required generator_id for deterministic planner evaluation.
+    option_set_hash :: binary() %% option_set_hash: Required option_set_hash preserving evidence and falsifiability.
+}).
+
+-type option_generation() :: #option_generation{}.
+
+-spec new_option_generation(map()) -> {ok, option_generation()} | {error, {missing_field, atom()}}.
+new_option_generation(Map) ->
+    case maps:is_key(state_id, Map) of
+        false -> {error, {missing_field, state_id}};
+        true ->
+    case maps:is_key(generator_id, Map) of
+        false -> {error, {missing_field, generator_id}};
+        true ->
+    case maps:is_key(option_set_hash, Map) of
+        false -> {error, {missing_field, option_set_hash}};
+        true ->
+    {ok, #option_generation{
+        state_id = maps:get(state_id, Map, undefined),
+        generator_id = maps:get(generator_id, Map, undefined),
+        option_set_hash = maps:get(option_set_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Admits the exact order form that expresses the buyer's priced scope and authorized terms.
 -record(order_form_admission, {
     opportunity_id :: binary(), %% opportunity_id: Required order form admission input; omission is an executable typed refusal, never an inferred approval.
@@ -5542,6 +11213,64 @@ new_order_form_admission(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         order_form_id = maps:get(order_form_id, Map, undefined),
         decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Measures semantic independence between candidate work items.
+-record(orthogonality_score, {
+    left_option_id :: binary(), %% left_option_id: Required left_option_id for this bounded planner contract.
+    right_option_id :: binary(), %% right_option_id: Required right_option_id for deterministic planner evaluation.
+    score :: binary() %% score: Required score preserving evidence and falsifiability.
+}).
+
+-type orthogonality_score() :: #orthogonality_score{}.
+
+-spec new_orthogonality_score(map()) -> {ok, orthogonality_score()} | {error, {missing_field, atom()}}.
+new_orthogonality_score(Map) ->
+    case maps:is_key(left_option_id, Map) of
+        false -> {error, {missing_field, left_option_id}};
+        true ->
+    case maps:is_key(right_option_id, Map) of
+        false -> {error, {missing_field, right_option_id}};
+        true ->
+    case maps:is_key(score, Map) of
+        false -> {error, {missing_field, score}};
+        true ->
+    {ok, #orthogonality_score{
+        left_option_id = maps:get(left_option_id, Map, undefined),
+        right_option_id = maps:get(right_option_id, Map, undefined),
+        score = maps:get(score, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Refuses manufacture promotion until every output path has admitted ownership.
+-record(output_ownership_gate, {
+    subject_id :: binary(), %% subject_id: Required subject_id for this bounded planner contract.
+    ownership_manifest_hash :: binary(), %% ownership_manifest_hash: Required ownership_manifest_hash for deterministic planner evaluation.
+    standing :: binary() %% standing: Required standing preserving evidence and falsifiability.
+}).
+
+-type output_ownership_gate() :: #output_ownership_gate{}.
+
+-spec new_output_ownership_gate(map()) -> {ok, output_ownership_gate()} | {error, {missing_field, atom()}}.
+new_output_ownership_gate(Map) ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(ownership_manifest_hash, Map) of
+        false -> {error, {missing_field, ownership_manifest_hash}};
+        true ->
+    case maps:is_key(standing, Map) of
+        false -> {error, {missing_field, standing}};
+        true ->
+    {ok, #output_ownership_gate{
+        subject_id = maps:get(subject_id, Map, undefined),
+        ownership_manifest_hash = maps:get(ownership_manifest_hash, Map, undefined),
+        standing = maps:get(standing, Map, undefined)
     }}
     end
     end
@@ -5582,6 +11311,41 @@ new_overage_policy(Map) ->
     end
     end.
 
+%% Observes a package version together with its immutable distribution digest.
+-record(package_release_observation, {
+    package_id :: binary(), %% package_id: Stable package identity.
+    version :: binary(), %% version: Observed published version.
+    immutable_digest :: binary(), %% immutable_digest: Immutable package content digest.
+    observed_at :: binary() %% observed_at: Timestamp of package observation.
+}).
+
+-type package_release_observation() :: #package_release_observation{}.
+
+-spec new_package_release_observation(map()) -> {ok, package_release_observation()} | {error, {missing_field, atom()}}.
+new_package_release_observation(Map) ->
+    case maps:is_key(package_id, Map) of
+        false -> {error, {missing_field, package_id}};
+        true ->
+    case maps:is_key(version, Map) of
+        false -> {error, {missing_field, version}};
+        true ->
+    case maps:is_key(immutable_digest, Map) of
+        false -> {error, {missing_field, immutable_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #package_release_observation{
+        package_id = maps:get(package_id, Map, undefined),
+        version = maps:get(version, Map, undefined),
+        immutable_digest = maps:get(immutable_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Produces the terminal receipt proving a paid workload delivered its admitted business outcome.
 -record(paid_workload_outcome_receipt, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -5606,6 +11370,35 @@ new_paid_workload_outcome_receipt(Map) ->
         tenant_id = maps:get(tenant_id, Map, undefined),
         workload_id = maps:get(workload_id, Map, undefined),
         outcome_receipt_hash = maps:get(outcome_receipt_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Removes strictly dominated options while preserving incomparable alternatives.
+-record(pareto_filter, {
+    option_set_id :: binary(), %% option_set_id: Required option_set_id for this bounded planner contract.
+    objective_set_hash :: binary(), %% objective_set_hash: Required objective_set_hash for deterministic planner evaluation.
+    pareto_set_hash :: binary() %% pareto_set_hash: Required pareto_set_hash preserving evidence and falsifiability.
+}).
+
+-type pareto_filter() :: #pareto_filter{}.
+
+-spec new_pareto_filter(map()) -> {ok, pareto_filter()} | {error, {missing_field, atom()}}.
+new_pareto_filter(Map) ->
+    case maps:is_key(option_set_id, Map) of
+        false -> {error, {missing_field, option_set_id}};
+        true ->
+    case maps:is_key(objective_set_hash, Map) of
+        false -> {error, {missing_field, objective_set_hash}};
+        true ->
+    case maps:is_key(pareto_set_hash, Map) of
+        false -> {error, {missing_field, pareto_set_hash}};
+        true ->
+    {ok, #pareto_filter{
+        option_set_id = maps:get(option_set_id, Map, undefined),
+        objective_set_hash = maps:get(objective_set_hash, Map, undefined),
+        pareto_set_hash = maps:get(pareto_set_hash, Map, undefined)
     }}
     end
     end
@@ -5845,6 +11638,151 @@ new_petri_transition(Map) ->
     }}
     end.
 
+%% Tracks derivation, repair, and supersession across plan generations.
+-record(plan_lineage, {
+    plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
+    parent_plan_id :: binary(), %% parent_plan_id: Required parent_plan_id for deterministic planner evaluation.
+    lineage_hash :: binary() %% lineage_hash: Required lineage_hash preserving evidence and falsifiability.
+}).
+
+-type plan_lineage() :: #plan_lineage{}.
+
+-spec new_plan_lineage(map()) -> {ok, plan_lineage()} | {error, {missing_field, atom()}}.
+new_plan_lineage(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(parent_plan_id, Map) of
+        false -> {error, {missing_field, parent_plan_id}};
+        true ->
+    case maps:is_key(lineage_hash, Map) of
+        false -> {error, {missing_field, lineage_hash}};
+        true ->
+    {ok, #plan_lineage{
+        plan_id = maps:get(plan_id, Map, undefined),
+        parent_plan_id = maps:get(parent_plan_id, Map, undefined),
+        lineage_hash = maps:get(lineage_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Stores reusable plan evidence without converting historical success into current authority.
+-record(plan_memory, {
+    plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
+    evidence_hash :: binary(), %% evidence_hash: Required evidence_hash for deterministic planner evaluation.
+    memory_hash :: binary() %% memory_hash: Required memory_hash preserving evidence and falsifiability.
+}).
+
+-type plan_memory() :: #plan_memory{}.
+
+-spec new_plan_memory(map()) -> {ok, plan_memory()} | {error, {missing_field, atom()}}.
+new_plan_memory(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(evidence_hash, Map) of
+        false -> {error, {missing_field, evidence_hash}};
+        true ->
+    case maps:is_key(memory_hash, Map) of
+        false -> {error, {missing_field, memory_hash}};
+        true ->
+    {ok, #plan_memory{
+        plan_id = maps:get(plan_id, Map, undefined),
+        evidence_hash = maps:get(evidence_hash, Map, undefined),
+        memory_hash = maps:get(memory_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Declares the problem features and guarantees supported by one planner.
+-record(planner_capability_profile, {
+    planner_id :: binary(), %% planner_id: Required planner_id for this bounded planner contract.
+    capability_set :: binary(), %% capability_set: Required capability_set for deterministic planner evaluation.
+    profile_hash :: binary() %% profile_hash: Required profile_hash preserving evidence and falsifiability.
+}).
+
+-type planner_capability_profile() :: #planner_capability_profile{}.
+
+-spec new_planner_capability_profile(map()) -> {ok, planner_capability_profile()} | {error, {missing_field, atom()}}.
+new_planner_capability_profile(Map) ->
+    case maps:is_key(planner_id, Map) of
+        false -> {error, {missing_field, planner_id}};
+        true ->
+    case maps:is_key(capability_set, Map) of
+        false -> {error, {missing_field, capability_set}};
+        true ->
+    case maps:is_key(profile_hash, Map) of
+        false -> {error, {missing_field, profile_hash}};
+        true ->
+    {ok, #planner_capability_profile{
+        planner_id = maps:get(planner_id, Map, undefined),
+        capability_set = maps:get(capability_set, Map, undefined),
+        profile_hash = maps:get(profile_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Separates planner identity from policy, role, agent, and authority identities.
+-record(planner_identity, {
+    planner_id :: binary(), %% planner_id: Required planner_id for this bounded planner contract.
+    planner_kind :: binary(), %% planner_kind: Required planner_kind for deterministic planner evaluation.
+    identity_hash :: binary() %% identity_hash: Required identity_hash preserving evidence and falsifiability.
+}).
+
+-type planner_identity() :: #planner_identity{}.
+
+-spec new_planner_identity(map()) -> {ok, planner_identity()} | {error, {missing_field, atom()}}.
+new_planner_identity(Map) ->
+    case maps:is_key(planner_id, Map) of
+        false -> {error, {missing_field, planner_id}};
+        true ->
+    case maps:is_key(planner_kind, Map) of
+        false -> {error, {missing_field, planner_kind}};
+        true ->
+    case maps:is_key(identity_hash, Map) of
+        false -> {error, {missing_field, identity_hash}};
+        true ->
+    {ok, #planner_identity{
+        planner_id = maps:get(planner_id, Map, undefined),
+        planner_kind = maps:get(planner_kind, Map, undefined),
+        identity_hash = maps:get(identity_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Preserves a diverse set of planners for one bounded planning episode.
+-record(planner_portfolio, {
+    portfolio_id :: binary(), %% portfolio_id: Required portfolio_id for this bounded planner contract.
+    planner_ids :: binary(), %% planner_ids: Required planner_ids for deterministic planner evaluation.
+    diversity_hash :: binary() %% diversity_hash: Required diversity_hash preserving evidence and falsifiability.
+}).
+
+-type planner_portfolio() :: #planner_portfolio{}.
+
+-spec new_planner_portfolio(map()) -> {ok, planner_portfolio()} | {error, {missing_field, atom()}}.
+new_planner_portfolio(Map) ->
+    case maps:is_key(portfolio_id, Map) of
+        false -> {error, {missing_field, portfolio_id}};
+        true ->
+    case maps:is_key(planner_ids, Map) of
+        false -> {error, {missing_field, planner_ids}};
+        true ->
+    case maps:is_key(diversity_hash, Map) of
+        false -> {error, {missing_field, diversity_hash}};
+        true ->
+    {ok, #planner_portfolio{
+        portfolio_id = maps:get(portfolio_id, Map, undefined),
+        planner_ids = maps:get(planner_ids, Map, undefined),
+        diversity_hash = maps:get(diversity_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% One PDDL-style planning action with its preconditions and effects.
 -record(planning_action, {
     action_name :: binary(), %% action_name: The action name.
@@ -6053,6 +11991,35 @@ new_poc_timeline(Map) ->
     end
     end.
 
+%% Binds one planner to parameters, objective, observations, and action projection.
+-record(policy_binding, {
+    policy_id :: binary(), %% policy_id: Required policy_id for this bounded planner contract.
+    planner_id :: binary(), %% planner_id: Required planner_id for deterministic planner evaluation.
+    policy_hash :: binary() %% policy_hash: Required policy_hash preserving evidence and falsifiability.
+}).
+
+-type policy_binding() :: #policy_binding{}.
+
+-spec new_policy_binding(map()) -> {ok, policy_binding()} | {error, {missing_field, atom()}}.
+new_policy_binding(Map) ->
+    case maps:is_key(policy_id, Map) of
+        false -> {error, {missing_field, policy_id}};
+        true ->
+    case maps:is_key(planner_id, Map) of
+        false -> {error, {missing_field, planner_id}};
+        true ->
+    case maps:is_key(policy_hash, Map) of
+        false -> {error, {missing_field, policy_hash}};
+        true ->
+    {ok, #policy_binding{
+        policy_id = maps:get(policy_id, Map, undefined),
+        planner_id = maps:get(planner_id, Map, undefined),
+        policy_hash = maps:get(policy_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% One admission/authority policy decision recorded for an attempted action.
 -record(policy_decision, {
     decision_id :: binary(), %% decision_id: Unique decision identifier.
@@ -6171,6 +12138,64 @@ new_powl_partial_order_edge(Map) ->
         from_index = maps:get(from_index, Map, undefined),
         to_index = maps:get(to_index, Map, undefined)
     }}
+    end
+    end.
+
+%% Binds a plan candidate to an exact POWL process-plan projection.
+-record(powl_projection, {
+    plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
+    powl_hash :: binary(), %% powl_hash: Required powl_hash for deterministic planner evaluation.
+    projection_receipt_hash :: binary() %% projection_receipt_hash: Required projection_receipt_hash preserving evidence and falsifiability.
+}).
+
+-type powl_projection() :: #powl_projection{}.
+
+-spec new_powl_projection(map()) -> {ok, powl_projection()} | {error, {missing_field, atom()}}.
+new_powl_projection(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(powl_hash, Map) of
+        false -> {error, {missing_field, powl_hash}};
+        true ->
+    case maps:is_key(projection_receipt_hash, Map) of
+        false -> {error, {missing_field, projection_receipt_hash}};
+        true ->
+    {ok, #powl_projection{
+        plan_id = maps:get(plan_id, Map, undefined),
+        powl_hash = maps:get(powl_hash, Map, undefined),
+        projection_receipt_hash = maps:get(projection_receipt_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds a plan candidate to an exact PPDDL problem/domain projection.
+-record(ppddl_projection, {
+    plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
+    domain_hash :: binary(), %% domain_hash: Required domain_hash for deterministic planner evaluation.
+    problem_hash :: binary() %% problem_hash: Required problem_hash preserving evidence and falsifiability.
+}).
+
+-type ppddl_projection() :: #ppddl_projection{}.
+
+-spec new_ppddl_projection(map()) -> {ok, ppddl_projection()} | {error, {missing_field, atom()}}.
+new_ppddl_projection(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(domain_hash, Map) of
+        false -> {error, {missing_field, domain_hash}};
+        true ->
+    case maps:is_key(problem_hash, Map) of
+        false -> {error, {missing_field, problem_hash}};
+        true ->
+    {ok, #ppddl_projection{
+        plan_id = maps:get(plan_id, Map, undefined),
+        domain_hash = maps:get(domain_hash, Map, undefined),
+        problem_hash = maps:get(problem_hash, Map, undefined)
+    }}
+    end
     end
     end.
 
@@ -6570,6 +12595,35 @@ new_proof_of_value_exit_gate(Map) ->
     end
     end.
 
+%% Scores downstream consequences across the dependency and capability graph.
+-record(propagation_score, {
+    option_id :: binary(), %% option_id: Required option_id for this bounded planner contract.
+    graph_hash :: binary(), %% graph_hash: Required graph_hash for deterministic planner evaluation.
+    score :: binary() %% score: Required score preserving evidence and falsifiability.
+}).
+
+-type propagation_score() :: #propagation_score{}.
+
+-spec new_propagation_score(map()) -> {ok, propagation_score()} | {error, {missing_field, atom()}}.
+new_propagation_score(Map) ->
+    case maps:is_key(option_id, Map) of
+        false -> {error, {missing_field, option_id}};
+        true ->
+    case maps:is_key(graph_hash, Map) of
+        false -> {error, {missing_field, graph_hash}};
+        true ->
+    case maps:is_key(score, Map) of
+        false -> {error, {missing_field, score}};
+        true ->
+    {ok, #propagation_score{
+        option_id = maps:get(option_id, Map, undefined),
+        graph_hash = maps:get(graph_hash, Map, undefined),
+        score = maps:get(score, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
 -record(provenance_binding_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this provenance observation.
@@ -6601,6 +12655,70 @@ new_provenance_binding_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Binds observation, source capsule, and evidence digest into one provenance fact.
+-record(provenance_binding_observation, {
+    observation_id :: binary(), %% observation_id: Stable observation identity.
+    source_capsule_digest :: binary(), %% source_capsule_digest: Exact source capsule digest.
+    evidence_digest :: binary(), %% evidence_digest: Immutable supporting evidence digest.
+    binding_status :: binary() %% binding_status: Machine-readable provenance standing.
+}).
+
+-type provenance_binding_observation() :: #provenance_binding_observation{}.
+
+-spec new_provenance_binding_observation(map()) -> {ok, provenance_binding_observation()} | {error, {missing_field, atom()}}.
+new_provenance_binding_observation(Map) ->
+    case maps:is_key(observation_id, Map) of
+        false -> {error, {missing_field, observation_id}};
+        true ->
+    case maps:is_key(source_capsule_digest, Map) of
+        false -> {error, {missing_field, source_capsule_digest}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(binding_status, Map) of
+        false -> {error, {missing_field, binding_status}};
+        true ->
+    {ok, #provenance_binding_observation{
+        observation_id = maps:get(observation_id, Map, undefined),
+        source_capsule_digest = maps:get(source_capsule_digest, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        binding_status = maps:get(binding_status, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Maintains a population of policies and response oracles for meta-routing.
+-record(psro_population, {
+    population_id :: binary(), %% population_id: Required population_id for this bounded planner contract.
+    policy_ids :: binary(), %% policy_ids: Required policy_ids for deterministic planner evaluation.
+    population_hash :: binary() %% population_hash: Required population_hash preserving evidence and falsifiability.
+}).
+
+-type psro_population() :: #psro_population{}.
+
+-spec new_psro_population(map()) -> {ok, psro_population()} | {error, {missing_field, atom()}}.
+new_psro_population(Map) ->
+    case maps:is_key(population_id, Map) of
+        false -> {error, {missing_field, population_id}};
+        true ->
+    case maps:is_key(policy_ids, Map) of
+        false -> {error, {missing_field, policy_ids}};
+        true ->
+    case maps:is_key(population_hash, Map) of
+        false -> {error, {missing_field, population_hash}};
+        true ->
+    {ok, #psro_population{
+        population_id = maps:get(population_id, Map, undefined),
+        policy_ids = maps:get(policy_ids, Map, undefined),
+        population_hash = maps:get(population_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -6797,6 +12915,35 @@ new_ramp_commitment(Map) ->
     end
     end.
 
+%% Determines whether an admitted goal remains reachable from current state.
+-record(reachability_analysis, {
+    state_id :: binary(), %% state_id: Required state_id for this bounded planner contract.
+    goal_id :: binary(), %% goal_id: Required goal_id for deterministic planner evaluation.
+    reachability_proof_hash :: binary() %% reachability_proof_hash: Required reachability_proof_hash preserving evidence and falsifiability.
+}).
+
+-type reachability_analysis() :: #reachability_analysis{}.
+
+-spec new_reachability_analysis(map()) -> {ok, reachability_analysis()} | {error, {missing_field, atom()}}.
+new_reachability_analysis(Map) ->
+    case maps:is_key(state_id, Map) of
+        false -> {error, {missing_field, state_id}};
+        true ->
+    case maps:is_key(goal_id, Map) of
+        false -> {error, {missing_field, goal_id}};
+        true ->
+    case maps:is_key(reachability_proof_hash, Map) of
+        false -> {error, {missing_field, reachability_proof_hash}};
+        true ->
+    {ok, #reachability_analysis{
+        state_id = maps:get(state_id, Map, undefined),
+        goal_id = maps:get(goal_id, Map, undefined),
+        reachability_proof_hash = maps:get(reachability_proof_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt.
 -record(receipt_replay_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this receipt-replay observation.
@@ -6856,6 +13003,35 @@ new_receipt_replay_request(Map) ->
         tenant_id = maps:get(tenant_id, Map, undefined),
         receipt_id = maps:get(receipt_id, Map, undefined),
         replay_request_hash = maps:get(replay_request_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Prevents any actuation candidate from becoming selectable without a verifiable receipt plan.
+-record(receipt_required_gate, {
+    action_id :: binary(), %% action_id: Required action_id for this bounded planner contract.
+    receipt_contract_id :: binary(), %% receipt_contract_id: Required receipt_contract_id for deterministic planner evaluation.
+    standing :: binary() %% standing: Required standing preserving evidence and falsifiability.
+}).
+
+-type receipt_required_gate() :: #receipt_required_gate{}.
+
+-spec new_receipt_required_gate(map()) -> {ok, receipt_required_gate()} | {error, {missing_field, atom()}}.
+new_receipt_required_gate(Map) ->
+    case maps:is_key(action_id, Map) of
+        false -> {error, {missing_field, action_id}};
+        true ->
+    case maps:is_key(receipt_contract_id, Map) of
+        false -> {error, {missing_field, receipt_contract_id}};
+        true ->
+    case maps:is_key(standing, Map) of
+        false -> {error, {missing_field, standing}};
+        true ->
+    {ok, #receipt_required_gate{
+        action_id = maps:get(action_id, Map, undefined),
+        receipt_contract_id = maps:get(receipt_contract_id, Map, undefined),
+        standing = maps:get(standing, Map, undefined)
     }}
     end
     end
@@ -7043,6 +13219,41 @@ new_recovery_time_receipt(Map) ->
         incident_id = maps:get(incident_id, Map, undefined),
         recovery_hash = maps:get(recovery_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Emits REFUSED with exact authority boundary and evidence.
+-record(refusal_boundary_observation, {
+    subject_id :: binary(), %% subject_id: Exact refused subject identity.
+    refusal_code :: binary(), %% refusal_code: Typed refusal reason.
+    authority_boundary :: binary(), %% authority_boundary: Boundary that denied the action.
+    evidence_digest :: binary() %% evidence_digest: Digest supporting refusal.
+}).
+
+-type refusal_boundary_observation() :: #refusal_boundary_observation{}.
+
+-spec new_refusal_boundary_observation(map()) -> {ok, refusal_boundary_observation()} | {error, {missing_field, atom()}}.
+new_refusal_boundary_observation(Map) ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    case maps:is_key(authority_boundary, Map) of
+        false -> {error, {missing_field, authority_boundary}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #refusal_boundary_observation{
+        subject_id = maps:get(subject_id, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined),
+        authority_boundary = maps:get(authority_boundary, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
     end
     end
     end.
@@ -7298,6 +13509,146 @@ new_replay_environment_identity(Map) ->
     end
     end.
 
+%% Records mechanically observed ancestry between repository commits so containment never requires human reconstruction.
+-record(repository_ancestry_observation, {
+    ancestor_sha :: binary(), %% ancestor_sha: Candidate ancestor commit.
+    descendant_sha :: binary(), %% descendant_sha: Candidate descendant commit.
+    relation :: binary(), %% relation: Observed ancestry relation.
+    evidence_digest :: binary() %% evidence_digest: Digest of the mechanical ancestry evidence.
+}).
+
+-type repository_ancestry_observation() :: #repository_ancestry_observation{}.
+
+-spec new_repository_ancestry_observation(map()) -> {ok, repository_ancestry_observation()} | {error, {missing_field, atom()}}.
+new_repository_ancestry_observation(Map) ->
+    case maps:is_key(ancestor_sha, Map) of
+        false -> {error, {missing_field, ancestor_sha}};
+        true ->
+    case maps:is_key(descendant_sha, Map) of
+        false -> {error, {missing_field, descendant_sha}};
+        true ->
+    case maps:is_key(relation, Map) of
+        false -> {error, {missing_field, relation}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #repository_ancestry_observation{
+        ancestor_sha = maps:get(ancestor_sha, Map, undefined),
+        descendant_sha = maps:get(descendant_sha, Map, undefined),
+        relation = maps:get(relation, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Observes a repository default branch and its exact head so autonomic state can invalidate on branch drift.
+-record(repository_default_branch_observation, {
+    repository_id :: binary(), %% repository_id: Stable repository identity observed by the sensor.
+    default_branch :: binary(), %% default_branch: Observed default branch name.
+    head_sha :: binary(), %% head_sha: Exact commit at the observed default-branch head.
+    observed_at :: binary() %% observed_at: Timestamp bounding the freshness of this observation.
+}).
+
+-type repository_default_branch_observation() :: #repository_default_branch_observation{}.
+
+-spec new_repository_default_branch_observation(map()) -> {ok, repository_default_branch_observation()} | {error, {missing_field, atom()}}.
+new_repository_default_branch_observation(Map) ->
+    case maps:is_key(repository_id, Map) of
+        false -> {error, {missing_field, repository_id}};
+        true ->
+    case maps:is_key(default_branch, Map) of
+        false -> {error, {missing_field, default_branch}};
+        true ->
+    case maps:is_key(head_sha, Map) of
+        false -> {error, {missing_field, head_sha}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #repository_default_branch_observation{
+        repository_id = maps:get(repository_id, Map, undefined),
+        default_branch = maps:get(default_branch, Map, undefined),
+        head_sha = maps:get(head_sha, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds a repository observation to an exact branch head and prior head for autonomous change detection.
+-record(repository_exact_head_observation, {
+    repository_id :: binary(), %% repository_id: Stable repository identity.
+    branch_name :: binary(), %% branch_name: Observed branch name.
+    head_sha :: binary(), %% head_sha: Exact observed head commit.
+    previous_head_sha :: binary() %% previous_head_sha: Previously admitted head used to detect change.
+}).
+
+-type repository_exact_head_observation() :: #repository_exact_head_observation{}.
+
+-spec new_repository_exact_head_observation(map()) -> {ok, repository_exact_head_observation()} | {error, {missing_field, atom()}}.
+new_repository_exact_head_observation(Map) ->
+    case maps:is_key(repository_id, Map) of
+        false -> {error, {missing_field, repository_id}};
+        true ->
+    case maps:is_key(branch_name, Map) of
+        false -> {error, {missing_field, branch_name}};
+        true ->
+    case maps:is_key(head_sha, Map) of
+        false -> {error, {missing_field, head_sha}};
+        true ->
+    case maps:is_key(previous_head_sha, Map) of
+        false -> {error, {missing_field, previous_head_sha}};
+        true ->
+    {ok, #repository_exact_head_observation{
+        repository_id = maps:get(repository_id, Map, undefined),
+        branch_name = maps:get(branch_name, Map, undefined),
+        head_sha = maps:get(head_sha, Map, undefined),
+        previous_head_sha = maps:get(previous_head_sha, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Captures caller-local repository worktree state and dirty-surface cardinality before manufacture.
+-record(repository_worktree_state_observation, {
+    repository_id :: binary(), %% repository_id: Stable repository identity.
+    worktree_hash :: binary(), %% worktree_hash: Digest of tracked caller-local worktree state.
+    dirty_path_count :: integer(), %% dirty_path_count: Number of changed tracked paths.
+    observed_at :: binary() %% observed_at: Timestamp of worktree observation.
+}).
+
+-type repository_worktree_state_observation() :: #repository_worktree_state_observation{}.
+
+-spec new_repository_worktree_state_observation(map()) -> {ok, repository_worktree_state_observation()} | {error, {missing_field, atom()}}.
+new_repository_worktree_state_observation(Map) ->
+    case maps:is_key(repository_id, Map) of
+        false -> {error, {missing_field, repository_id}};
+        true ->
+    case maps:is_key(worktree_hash, Map) of
+        false -> {error, {missing_field, worktree_hash}};
+        true ->
+    case maps:is_key(dirty_path_count, Map) of
+        false -> {error, {missing_field, dirty_path_count}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #repository_worktree_state_observation{
+        repository_id = maps:get(repository_id, Map, undefined),
+        worktree_hash = maps:get(worktree_hash, Map, undefined),
+        dirty_path_count = maps:get(dirty_path_count, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Executable reproducibility evidence binding an exact subject to the independently reproduced build digest.
 -record(reproducible_build_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this reproducible-build observation.
@@ -7368,6 +13719,35 @@ new_reseller_authorization(Map) ->
     end
     end.
 
+%% Automatically promotes the highest-value lawful reserve when primary work blocks.
+-record(reserve_work_promotion, {
+    blocked_work_id :: binary(), %% blocked_work_id: Required blocked_work_id for this bounded planner contract.
+    reserve_set_hash :: binary(), %% reserve_set_hash: Required reserve_set_hash for deterministic planner evaluation.
+    promoted_work_id :: binary() %% promoted_work_id: Required promoted_work_id preserving evidence and falsifiability.
+}).
+
+-type reserve_work_promotion() :: #reserve_work_promotion{}.
+
+-spec new_reserve_work_promotion(map()) -> {ok, reserve_work_promotion()} | {error, {missing_field, atom()}}.
+new_reserve_work_promotion(Map) ->
+    case maps:is_key(blocked_work_id, Map) of
+        false -> {error, {missing_field, blocked_work_id}};
+        true ->
+    case maps:is_key(reserve_set_hash, Map) of
+        false -> {error, {missing_field, reserve_set_hash}};
+        true ->
+    case maps:is_key(promoted_work_id, Map) of
+        false -> {error, {missing_field, promoted_work_id}};
+        true ->
+    {ok, #reserve_work_promotion{
+        blocked_work_id = maps:get(blocked_work_id, Map, undefined),
+        reserve_set_hash = maps:get(reserve_set_hash, Map, undefined),
+        promoted_work_id = maps:get(promoted_work_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.
 -record(residency_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this data-residency observation.
@@ -7427,6 +13807,35 @@ new_resource_allocation(Map) ->
         resource_id = maps:get(resource_id, Map, undefined),
         activity = maps:get(activity, Map, undefined),
         event_id = maps:get(event_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Allocates finite compute, time, and concurrency capacity across lawful options.
+-record(resource_capacity_plan, {
+    episode_id :: binary(), %% episode_id: Required episode_id for this bounded planner contract.
+    resource_pool_hash :: binary(), %% resource_pool_hash: Required resource_pool_hash for deterministic planner evaluation.
+    allocation_hash :: binary() %% allocation_hash: Required allocation_hash preserving evidence and falsifiability.
+}).
+
+-type resource_capacity_plan() :: #resource_capacity_plan{}.
+
+-spec new_resource_capacity_plan(map()) -> {ok, resource_capacity_plan()} | {error, {missing_field, atom()}}.
+new_resource_capacity_plan(Map) ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    case maps:is_key(resource_pool_hash, Map) of
+        false -> {error, {missing_field, resource_pool_hash}};
+        true ->
+    case maps:is_key(allocation_hash, Map) of
+        false -> {error, {missing_field, allocation_hash}};
+        true ->
+    {ok, #resource_capacity_plan{
+        episode_id = maps:get(episode_id, Map, undefined),
+        resource_pool_hash = maps:get(resource_pool_hash, Map, undefined),
+        allocation_hash = maps:get(allocation_hash, Map, undefined)
     }}
     end
     end
@@ -7566,6 +13975,64 @@ new_revenue_schedule_assumption(Map) ->
     end
     end.
 
+%% Weights reversible actions above irreversible ones until evidence justifies commitment.
+-record(reversibility_weight, {
+    action_id :: binary(), %% action_id: Required action_id for this bounded planner contract.
+    rollback_id :: binary(), %% rollback_id: Required rollback_id for deterministic planner evaluation.
+    weight :: binary() %% weight: Required weight preserving evidence and falsifiability.
+}).
+
+-type reversibility_weight() :: #reversibility_weight{}.
+
+-spec new_reversibility_weight(map()) -> {ok, reversibility_weight()} | {error, {missing_field, atom()}}.
+new_reversibility_weight(Map) ->
+    case maps:is_key(action_id, Map) of
+        false -> {error, {missing_field, action_id}};
+        true ->
+    case maps:is_key(rollback_id, Map) of
+        false -> {error, {missing_field, rollback_id}};
+        true ->
+    case maps:is_key(weight, Map) of
+        false -> {error, {missing_field, weight}};
+        true ->
+    {ok, #reversibility_weight{
+        action_id = maps:get(action_id, Map, undefined),
+        rollback_id = maps:get(rollback_id, Map, undefined),
+        weight = maps:get(weight, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% One observed process case with quantified retry/rework loop count and weighted cost evidence.
+-record(rework_cost, {
+    case_id :: binary(), %% case_id: Exact process-case identity carrying the observed rework.
+    loop_count :: integer(), %% loop_count: Observed count of retry/rework loop markers for this case.
+    weighted_cost :: float() %% weighted_cost: Observed case amount weighted by the admitted rework-loop rule; units are inherited from the admitted source evidence.
+}).
+
+-type rework_cost() :: #rework_cost{}.
+
+-spec new_rework_cost(map()) -> {ok, rework_cost()} | {error, {missing_field, atom()}}.
+new_rework_cost(Map) ->
+    case maps:is_key(case_id, Map) of
+        false -> {error, {missing_field, case_id}};
+        true ->
+    case maps:is_key(loop_count, Map) of
+        false -> {error, {missing_field, loop_count}};
+        true ->
+    case maps:is_key(weighted_cost, Map) of
+        false -> {error, {missing_field, weighted_cost}};
+        true ->
+    {ok, #rework_cost{
+        case_id = maps:get(case_id, Map, undefined),
+        loop_count = maps:get(loop_count, Map, undefined),
+        weighted_cost = maps:get(weighted_cost, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
 -record(rfp_response_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this RFP-response observation.
@@ -7597,6 +14064,35 @@ new_rfp_response_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Evaluates whether a policy is lawful for an assigned role in the current world.
+-record(role_compatibility, {
+    role_id :: binary(), %% role_id: Required role_id for this bounded planner contract.
+    policy_id :: binary(), %% policy_id: Required policy_id for deterministic planner evaluation.
+    compatibility :: binary() %% compatibility: Required compatibility preserving evidence and falsifiability.
+}).
+
+-type role_compatibility() :: #role_compatibility{}.
+
+-spec new_role_compatibility(map()) -> {ok, role_compatibility()} | {error, {missing_field, atom()}}.
+new_role_compatibility(Map) ->
+    case maps:is_key(role_id, Map) of
+        false -> {error, {missing_field, role_id}};
+        true ->
+    case maps:is_key(policy_id, Map) of
+        false -> {error, {missing_field, policy_id}};
+        true ->
+    case maps:is_key(compatibility, Map) of
+        false -> {error, {missing_field, compatibility}};
+        true ->
+    {ok, #role_compatibility{
+        role_id = maps:get(role_id, Map, undefined),
+        policy_id = maps:get(policy_id, Map, undefined),
+        compatibility = maps:get(compatibility, Map, undefined)
+    }}
     end
     end
     end.
@@ -7735,6 +14231,41 @@ new_rolling_upgrade_plan(Map) ->
     end
     end.
 
+%% Captures runtime health state with exact supporting evidence.
+-record(runtime_health_observation, {
+    runtime_id :: binary(), %% runtime_id: Stable runtime identity.
+    health_state :: binary(), %% health_state: Observed runtime health classification.
+    evidence_digest :: binary(), %% evidence_digest: Digest of runtime health evidence.
+    observed_at :: binary() %% observed_at: Timestamp health was observed.
+}).
+
+-type runtime_health_observation() :: #runtime_health_observation{}.
+
+-spec new_runtime_health_observation(map()) -> {ok, runtime_health_observation()} | {error, {missing_field, atom()}}.
+new_runtime_health_observation(Map) ->
+    case maps:is_key(runtime_id, Map) of
+        false -> {error, {missing_field, runtime_id}};
+        true ->
+    case maps:is_key(health_state, Map) of
+        false -> {error, {missing_field, health_state}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #runtime_health_observation{
+        runtime_id = maps:get(runtime_id, Map, undefined),
+        health_state = maps:get(health_state, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Records an explicit runtime policy decision before paid workload actuation.
 -record(runtime_policy_decision, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -7824,6 +14355,70 @@ new_sbom_inventory_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Proves the second manufacture pass produced byte-identical owned outputs.
+-record(second_pass_byte_identity_observation, {
+    first_tree_digest :: binary(), %% first_tree_digest: Digest after first manufacture pass.
+    second_tree_digest :: binary(), %% second_tree_digest: Digest after second manufacture pass.
+    byte_identity :: boolean(), %% byte_identity: Whether the output trees are byte-identical.
+    receipt_digest :: binary() %% receipt_digest: Receipt binding the replay result.
+}).
+
+-type second_pass_byte_identity_observation() :: #second_pass_byte_identity_observation{}.
+
+-spec new_second_pass_byte_identity_observation(map()) -> {ok, second_pass_byte_identity_observation()} | {error, {missing_field, atom()}}.
+new_second_pass_byte_identity_observation(Map) ->
+    case maps:is_key(first_tree_digest, Map) of
+        false -> {error, {missing_field, first_tree_digest}};
+        true ->
+    case maps:is_key(second_tree_digest, Map) of
+        false -> {error, {missing_field, second_tree_digest}};
+        true ->
+    case maps:is_key(byte_identity, Map) of
+        false -> {error, {missing_field, byte_identity}};
+        true ->
+    case maps:is_key(receipt_digest, Map) of
+        false -> {error, {missing_field, receipt_digest}};
+        true ->
+    {ok, #second_pass_byte_identity_observation{
+        first_tree_digest = maps:get(first_tree_digest, Map, undefined),
+        second_tree_digest = maps:get(second_tree_digest, Map, undefined),
+        byte_identity = maps:get(byte_identity, Map, undefined),
+        receipt_digest = maps:get(receipt_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Makes byte-identical second manufacture a first-class planning objective.
+-record(second_run_identity_objective, {
+    subject_id :: binary(), %% subject_id: Required subject_id for this bounded planner contract.
+    first_tree_hash :: binary(), %% first_tree_hash: Required first_tree_hash for deterministic planner evaluation.
+    second_tree_hash :: binary() %% second_tree_hash: Required second_tree_hash preserving evidence and falsifiability.
+}).
+
+-type second_run_identity_objective() :: #second_run_identity_objective{}.
+
+-spec new_second_run_identity_objective(map()) -> {ok, second_run_identity_objective()} | {error, {missing_field, atom()}}.
+new_second_run_identity_objective(Map) ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(first_tree_hash, Map) of
+        false -> {error, {missing_field, first_tree_hash}};
+        true ->
+    case maps:is_key(second_tree_hash, Map) of
+        false -> {error, {missing_field, second_tree_hash}};
+        true ->
+    {ok, #second_run_identity_objective{
+        subject_id = maps:get(subject_id, Map, undefined),
+        first_tree_hash = maps:get(first_tree_hash, Map, undefined),
+        second_tree_hash = maps:get(second_tree_hash, Map, undefined)
+    }}
     end
     end
     end.
@@ -7957,6 +14552,41 @@ new_security_readiness(Map) ->
         observed_at = maps:get(observed_at, Map, undefined)
     }}
     end
+    end
+    end
+    end
+    end.
+
+%% Classifies semantic change between prior and current canonical digests.
+-record(semantic_drift_observation, {
+    subject_id :: binary(), %% subject_id: Observed semantic subject.
+    prior_semantic_digest :: binary(), %% prior_semantic_digest: Prior canonical semantic digest.
+    current_semantic_digest :: binary(), %% current_semantic_digest: Current canonical semantic digest.
+    drift_class :: binary() %% drift_class: Machine-readable semantic drift class.
+}).
+
+-type semantic_drift_observation() :: #semantic_drift_observation{}.
+
+-spec new_semantic_drift_observation(map()) -> {ok, semantic_drift_observation()} | {error, {missing_field, atom()}}.
+new_semantic_drift_observation(Map) ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(prior_semantic_digest, Map) of
+        false -> {error, {missing_field, prior_semantic_digest}};
+        true ->
+    case maps:is_key(current_semantic_digest, Map) of
+        false -> {error, {missing_field, current_semantic_digest}};
+        true ->
+    case maps:is_key(drift_class, Map) of
+        false -> {error, {missing_field, drift_class}};
+        true ->
+    {ok, #semantic_drift_observation{
+        subject_id = maps:get(subject_id, Map, undefined),
+        prior_semantic_digest = maps:get(prior_semantic_digest, Map, undefined),
+        current_semantic_digest = maps:get(current_semantic_digest, Map, undefined),
+        drift_class = maps:get(drift_class, Map, undefined)
+    }}
     end
     end
     end
@@ -8395,6 +15025,35 @@ new_stakeholder_map(Map) ->
     end
     end.
 
+%% Refuses execution when subject, pack, policy, or world identity has drifted.
+-record(stale_plan_refusal, {
+    plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
+    admitted_preimage_hash :: binary(), %% admitted_preimage_hash: Required admitted_preimage_hash for deterministic planner evaluation.
+    observed_preimage_hash :: binary() %% observed_preimage_hash: Required observed_preimage_hash preserving evidence and falsifiability.
+}).
+
+-type stale_plan_refusal() :: #stale_plan_refusal{}.
+
+-spec new_stale_plan_refusal(map()) -> {ok, stale_plan_refusal()} | {error, {missing_field, atom()}}.
+new_stale_plan_refusal(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(admitted_preimage_hash, Map) of
+        false -> {error, {missing_field, admitted_preimage_hash}};
+        true ->
+    case maps:is_key(observed_preimage_hash, Map) of
+        false -> {error, {missing_field, observed_preimage_hash}};
+        true ->
+    {ok, #stale_plan_refusal{
+        plan_id = maps:get(plan_id, Map, undefined),
+        admitted_preimage_hash = maps:get(admitted_preimage_hash, Map, undefined),
+        observed_preimage_hash = maps:get(observed_preimage_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Produces typed refusal evidence when a runtime receipt is outside its admitted freshness window.
 -record(stale_receipt_refusal, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -8453,6 +15112,111 @@ new_stale_subject_refusal_evidence(Map) ->
         subject_sha = maps:get(subject_sha, Map, undefined),
         stale_sha = maps:get(stale_sha, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Emits scoped ALIVE, PARTIAL_ALIVE, BLOCKED, UNKNOWN, or BUILD_BROKEN state.
+-record(standing_state_observation, {
+    subject_id :: binary(), %% subject_id: Exact standing subject identity.
+    standing :: binary(), %% standing: Machine-readable standing vocabulary value.
+    evidence_digest :: binary(), %% evidence_digest: Digest supporting the standing.
+    observed_at :: binary() %% observed_at: Timestamp standing was observed.
+}).
+
+-type standing_state_observation() :: #standing_state_observation{}.
+
+-spec new_standing_state_observation(map()) -> {ok, standing_state_observation()} | {error, {missing_field, atom()}}.
+new_standing_state_observation(Map) ->
+    case maps:is_key(subject_id, Map) of
+        false -> {error, {missing_field, subject_id}};
+        true ->
+    case maps:is_key(standing, Map) of
+        false -> {error, {missing_field, standing}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #standing_state_observation{
+        subject_id = maps:get(subject_id, Map, undefined),
+        standing = maps:get(standing, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Compares an exact gitlink with its declared dependency lock to expose submodule drift automatically.
+-record(submodule_lock_observation, {
+    submodule_path :: binary(), %% submodule_path: Caller-local submodule path.
+    gitlink_sha :: binary(), %% gitlink_sha: Exact gitlink commit.
+    lock_sha :: binary(), %% lock_sha: Declared immutable lock commit.
+    observed_at :: binary() %% observed_at: Timestamp of comparison.
+}).
+
+-type submodule_lock_observation() :: #submodule_lock_observation{}.
+
+-spec new_submodule_lock_observation(map()) -> {ok, submodule_lock_observation()} | {error, {missing_field, atom()}}.
+new_submodule_lock_observation(Map) ->
+    case maps:is_key(submodule_path, Map) of
+        false -> {error, {missing_field, submodule_path}};
+        true ->
+    case maps:is_key(gitlink_sha, Map) of
+        false -> {error, {missing_field, gitlink_sha}};
+        true ->
+    case maps:is_key(lock_sha, Map) of
+        false -> {error, {missing_field, lock_sha}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #submodule_lock_observation{
+        submodule_path = maps:get(submodule_path, Map, undefined),
+        gitlink_sha = maps:get(gitlink_sha, Map, undefined),
+        lock_sha = maps:get(lock_sha, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Observes whether every gitlink has repository registration metadata before autonomous checkout.
+-record(submodule_registration_observation, {
+    submodule_path :: binary(), %% submodule_path: Observed gitlink path.
+    registration_state :: binary(), %% registration_state: Registration standing for the gitlink.
+    repository_url :: binary(), %% repository_url: Resolved immutable repository source.
+    evidence_digest :: binary() %% evidence_digest: Digest of registration evidence.
+}).
+
+-type submodule_registration_observation() :: #submodule_registration_observation{}.
+
+-spec new_submodule_registration_observation(map()) -> {ok, submodule_registration_observation()} | {error, {missing_field, atom()}}.
+new_submodule_registration_observation(Map) ->
+    case maps:is_key(submodule_path, Map) of
+        false -> {error, {missing_field, submodule_path}};
+        true ->
+    case maps:is_key(registration_state, Map) of
+        false -> {error, {missing_field, registration_state}};
+        true ->
+    case maps:is_key(repository_url, Map) of
+        false -> {error, {missing_field, repository_url}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #submodule_registration_observation{
+        submodule_path = maps:get(submodule_path, Map, undefined),
+        registration_state = maps:get(registration_state, Map, undefined),
+        repository_url = maps:get(repository_url, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
     }}
     end
     end
@@ -8892,6 +15656,41 @@ new_technical_blocker(Map) ->
     end
     end.
 
+%% Encodes observed ordering between two observations and its evidence basis.
+-record(temporal_order_observation, {
+    earlier_observation_id :: binary(), %% earlier_observation_id: Earlier observation identity.
+    later_observation_id :: binary(), %% later_observation_id: Later observation identity.
+    ordering_basis :: binary(), %% ordering_basis: Clock or sequence basis for ordering.
+    evidence_digest :: binary() %% evidence_digest: Digest of temporal evidence.
+}).
+
+-type temporal_order_observation() :: #temporal_order_observation{}.
+
+-spec new_temporal_order_observation(map()) -> {ok, temporal_order_observation()} | {error, {missing_field, atom()}}.
+new_temporal_order_observation(Map) ->
+    case maps:is_key(earlier_observation_id, Map) of
+        false -> {error, {missing_field, earlier_observation_id}};
+        true ->
+    case maps:is_key(later_observation_id, Map) of
+        false -> {error, {missing_field, later_observation_id}};
+        true ->
+    case maps:is_key(ordering_basis, Map) of
+        false -> {error, {missing_field, ordering_basis}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #temporal_order_observation{
+        earlier_observation_id = maps:get(earlier_observation_id, Map, undefined),
+        later_observation_id = maps:get(later_observation_id, Map, undefined),
+        ordering_basis = maps:get(ordering_basis, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Commercial tenant bound to account, region, and edition.
 -record(tenant_account, {
     tenant_id :: binary(), %% tenant_id: Stable tenant identity.
@@ -9212,6 +16011,41 @@ new_toolchain_identity(Map) ->
     end
     end.
 
+%% Observes exact tool name, version, and executable bytes used for validation.
+-record(toolchain_identity_observation, {
+    tool_name :: binary(), %% tool_name: Observed tool identity.
+    tool_version :: binary(), %% tool_version: Observed tool version.
+    executable_digest :: binary(), %% executable_digest: Digest of executed tool bytes.
+    observed_at :: binary() %% observed_at: Timestamp of toolchain observation.
+}).
+
+-type toolchain_identity_observation() :: #toolchain_identity_observation{}.
+
+-spec new_toolchain_identity_observation(map()) -> {ok, toolchain_identity_observation()} | {error, {missing_field, atom()}}.
+new_toolchain_identity_observation(Map) ->
+    case maps:is_key(tool_name, Map) of
+        false -> {error, {missing_field, tool_name}};
+        true ->
+    case maps:is_key(tool_version, Map) of
+        false -> {error, {missing_field, tool_version}};
+        true ->
+    case maps:is_key(executable_digest, Map) of
+        false -> {error, {missing_field, executable_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #toolchain_identity_observation{
+        tool_name = maps:get(tool_name, Map, undefined),
+        tool_version = maps:get(tool_version, Map, undefined),
+        executable_digest = maps:get(executable_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Observed workforce training readiness for production adoption.
 -record(training_readiness, {
     training_readiness_id :: binary(), %% training_readiness_id: Stable identity of this training readiness observation.
@@ -9346,6 +16180,70 @@ new_type_edge(Map) ->
         target_type = maps:get(target_type, Map, undefined),
         qualifier = maps:get(qualifier, Map, undefined),
         direction = maps:get(direction, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Selects only when confidence and downside bounds satisfy explicit values.
+-record(uncertainty_aware_selection, {
+    option_set_id :: binary(), %% option_set_id: Required option_set_id for this bounded planner contract.
+    uncertainty_model_hash :: binary(), %% uncertainty_model_hash: Required uncertainty_model_hash for deterministic planner evaluation.
+    selected_option_id :: binary() %% selected_option_id: Required selected_option_id preserving evidence and falsifiability.
+}).
+
+-type uncertainty_aware_selection() :: #uncertainty_aware_selection{}.
+
+-spec new_uncertainty_aware_selection(map()) -> {ok, uncertainty_aware_selection()} | {error, {missing_field, atom()}}.
+new_uncertainty_aware_selection(Map) ->
+    case maps:is_key(option_set_id, Map) of
+        false -> {error, {missing_field, option_set_id}};
+        true ->
+    case maps:is_key(uncertainty_model_hash, Map) of
+        false -> {error, {missing_field, uncertainty_model_hash}};
+        true ->
+    case maps:is_key(selected_option_id, Map) of
+        false -> {error, {missing_field, selected_option_id}};
+        true ->
+    {ok, #uncertainty_aware_selection{
+        option_set_id = maps:get(option_set_id, Map, undefined),
+        uncertainty_model_hash = maps:get(uncertainty_model_hash, Map, undefined),
+        selected_option_id = maps:get(selected_option_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Represents typed UNKNOWN uncertainty instead of manufacturing false certainty.
+-record(uncertainty_observation, {
+    observation_id :: binary(), %% observation_id: Observation with uncertainty.
+    uncertainty_kind :: binary(), %% uncertainty_kind: Typed uncertainty classification.
+    confidence_basis :: binary(), %% confidence_basis: Basis for any confidence estimate.
+    standing :: binary() %% standing: Machine-readable UNKNOWN-compatible standing.
+}).
+
+-type uncertainty_observation() :: #uncertainty_observation{}.
+
+-spec new_uncertainty_observation(map()) -> {ok, uncertainty_observation()} | {error, {missing_field, atom()}}.
+new_uncertainty_observation(Map) ->
+    case maps:is_key(observation_id, Map) of
+        false -> {error, {missing_field, observation_id}};
+        true ->
+    case maps:is_key(uncertainty_kind, Map) of
+        false -> {error, {missing_field, uncertainty_kind}};
+        true ->
+    case maps:is_key(confidence_basis, Map) of
+        false -> {error, {missing_field, confidence_basis}};
+        true ->
+    case maps:is_key(standing, Map) of
+        false -> {error, {missing_field, standing}};
+        true ->
+    {ok, #uncertainty_observation{
+        observation_id = maps:get(observation_id, Map, undefined),
+        uncertainty_kind = maps:get(uncertainty_kind, Map, undefined),
+        confidence_basis = maps:get(confidence_basis, Map, undefined),
+        standing = maps:get(standing, Map, undefined)
     }}
     end
     end
@@ -9609,6 +16507,76 @@ new_usage_signal(Map) ->
     end
     end.
 
+%% Compares expected and observed capsule digests and emits typed drift.
+-record(validation_capsule_drift_observation, {
+    expected_digest :: binary(), %% expected_digest: Admitted capsule digest.
+    observed_digest :: binary(), %% observed_digest: Currently resolved capsule digest.
+    drift_status :: binary(), %% drift_status: Machine-readable capsule drift result.
+    observed_at :: binary() %% observed_at: Timestamp of digest comparison.
+}).
+
+-type validation_capsule_drift_observation() :: #validation_capsule_drift_observation{}.
+
+-spec new_validation_capsule_drift_observation(map()) -> {ok, validation_capsule_drift_observation()} | {error, {missing_field, atom()}}.
+new_validation_capsule_drift_observation(Map) ->
+    case maps:is_key(expected_digest, Map) of
+        false -> {error, {missing_field, expected_digest}};
+        true ->
+    case maps:is_key(observed_digest, Map) of
+        false -> {error, {missing_field, observed_digest}};
+        true ->
+    case maps:is_key(drift_status, Map) of
+        false -> {error, {missing_field, drift_status}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #validation_capsule_drift_observation{
+        expected_digest = maps:get(expected_digest, Map, undefined),
+        observed_digest = maps:get(observed_digest, Map, undefined),
+        drift_status = maps:get(drift_status, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds source capsule, validation pack, execution mode, toolchain, and immutable image.
+-record(validation_capsule_identity_observation, {
+    capsule_repository :: binary(), %% capsule_repository: Capsule source repository.
+    capsule_sha :: binary(), %% capsule_sha: Exact capsule source commit.
+    execution_mode :: binary(), %% execution_mode: Observed capsule execution mode.
+    image_digest :: binary() %% image_digest: Immutable platform image digest.
+}).
+
+-type validation_capsule_identity_observation() :: #validation_capsule_identity_observation{}.
+
+-spec new_validation_capsule_identity_observation(map()) -> {ok, validation_capsule_identity_observation()} | {error, {missing_field, atom()}}.
+new_validation_capsule_identity_observation(Map) ->
+    case maps:is_key(capsule_repository, Map) of
+        false -> {error, {missing_field, capsule_repository}};
+        true ->
+    case maps:is_key(capsule_sha, Map) of
+        false -> {error, {missing_field, capsule_sha}};
+        true ->
+    case maps:is_key(execution_mode, Map) of
+        false -> {error, {missing_field, execution_mode}};
+        true ->
+    case maps:is_key(image_digest, Map) of
+        false -> {error, {missing_field, image_digest}};
+        true ->
+    {ok, #validation_capsule_identity_observation{
+        capsule_repository = maps:get(capsule_repository, Map, undefined),
+        capsule_sha = maps:get(capsule_sha, Map, undefined),
+        execution_mode = maps:get(execution_mode, Map, undefined),
+        image_digest = maps:get(image_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Measured pre-adoption business baseline for ROI comparison.
 -record(value_baseline, {
     baseline_id :: binary(), %% baseline_id: Stable baseline identity.
@@ -9685,6 +16653,70 @@ new_value_driver(Map) ->
     end
     end.
 
+%% Estimates expected information gain and acquisition cost for a pending decision.
+-record(value_of_information_estimate, {
+    decision_id :: binary(), %% decision_id: Decision requiring additional information.
+    evidence_candidate_id :: binary(), %% evidence_candidate_id: Candidate evidence acquisition.
+    expected_information_gain :: float(), %% expected_information_gain: Expected reduction in uncertainty.
+    cost_basis :: binary() %% cost_basis: Evidence acquisition cost basis.
+}).
+
+-type value_of_information_estimate() :: #value_of_information_estimate{}.
+
+-spec new_value_of_information_estimate(map()) -> {ok, value_of_information_estimate()} | {error, {missing_field, atom()}}.
+new_value_of_information_estimate(Map) ->
+    case maps:is_key(decision_id, Map) of
+        false -> {error, {missing_field, decision_id}};
+        true ->
+    case maps:is_key(evidence_candidate_id, Map) of
+        false -> {error, {missing_field, evidence_candidate_id}};
+        true ->
+    case maps:is_key(expected_information_gain, Map) of
+        false -> {error, {missing_field, expected_information_gain}};
+        true ->
+    case maps:is_key(cost_basis, Map) of
+        false -> {error, {missing_field, cost_basis}};
+        true ->
+    {ok, #value_of_information_estimate{
+        decision_id = maps:get(decision_id, Map, undefined),
+        evidence_candidate_id = maps:get(evidence_candidate_id, Map, undefined),
+        expected_information_gain = maps:get(expected_information_gain, Map, undefined),
+        cost_basis = maps:get(cost_basis, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Scores the expected value of acquiring missing information before selection.
+-record(value_of_information_score, {
+    option_id :: binary(), %% option_id: Required option_id for this bounded planner contract.
+    observation_id :: binary(), %% observation_id: Required observation_id for deterministic planner evaluation.
+    score :: binary() %% score: Required score preserving evidence and falsifiability.
+}).
+
+-type value_of_information_score() :: #value_of_information_score{}.
+
+-spec new_value_of_information_score(map()) -> {ok, value_of_information_score()} | {error, {missing_field, atom()}}.
+new_value_of_information_score(Map) ->
+    case maps:is_key(option_id, Map) of
+        false -> {error, {missing_field, option_id}};
+        true ->
+    case maps:is_key(observation_id, Map) of
+        false -> {error, {missing_field, observation_id}};
+        true ->
+    case maps:is_key(score, Map) of
+        false -> {error, {missing_field, score}};
+        true ->
+    {ok, #value_of_information_score{
+        option_id = maps:get(option_id, Map, undefined),
+        observation_id = maps:get(observation_id, Map, undefined),
+        score = maps:get(score, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Receipted realized customer value derived from observed consequences.
 -record(value_realization, {
     value_realization_id :: binary(), %% value_realization_id: Stable identity of this value realization observation.
@@ -9720,6 +16752,59 @@ new_value_realization(Map) ->
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
     }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.
+-record(value_receipt, {
+    value_receipt_id :: binary(), %% value_receipt_id: Stable identity of this before/after value receipt.
+    account_id :: binary(), %% account_id: Customer or enterprise account whose measured value is receipted.
+    metric_name :: binary(), %% metric_name: Canonical metric identity used for both baseline and observed values.
+    baseline_value :: float(), %% baseline_value: Admitted baseline value before the measured change or observation window.
+    observed_value :: float(), %% observed_value: Observed value after the measured change or observation window.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting the baseline and observed consequence.
+    observed_at :: binary() %% observed_at: ISO8601 instant the receipted value consequence was observed.
+}).
+
+-type value_receipt() :: #value_receipt{}.
+
+-spec new_value_receipt(map()) -> {ok, value_receipt()} | {error, {missing_field, atom()}}.
+new_value_receipt(Map) ->
+    case maps:is_key(value_receipt_id, Map) of
+        false -> {error, {missing_field, value_receipt_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(metric_name, Map) of
+        false -> {error, {missing_field, metric_name}};
+        true ->
+    case maps:is_key(baseline_value, Map) of
+        false -> {error, {missing_field, baseline_value}};
+        true ->
+    case maps:is_key(observed_value, Map) of
+        false -> {error, {missing_field, observed_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #value_receipt{
+        value_receipt_id = maps:get(value_receipt_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        metric_name = maps:get(metric_name, Map, undefined),
+        baseline_value = maps:get(baseline_value, Map, undefined),
+        observed_value = maps:get(observed_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end
@@ -9912,6 +16997,140 @@ new_vulnerability_scan_evidence(Map) ->
         subject_sha = maps:get(subject_sha, Map, undefined),
         vulnerability_count = maps:get(vulnerability_count, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses selections that would exceed the admitted work-in-process ceiling.
+-record(wip_limit_gate, {
+    episode_id :: binary(), %% episode_id: Required episode_id for this bounded planner contract.
+    wip_limit :: binary(), %% wip_limit: Required wip_limit for deterministic planner evaluation.
+    standing :: binary() %% standing: Required standing preserving evidence and falsifiability.
+}).
+
+-type wip_limit_gate() :: #wip_limit_gate{}.
+
+-spec new_wip_limit_gate(map()) -> {ok, wip_limit_gate()} | {error, {missing_field, atom()}}.
+new_wip_limit_gate(Map) ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    case maps:is_key(wip_limit, Map) of
+        false -> {error, {missing_field, wip_limit}};
+        true ->
+    case maps:is_key(standing, Map) of
+        false -> {error, {missing_field, standing}};
+        true ->
+    {ok, #wip_limit_gate{
+        episode_id = maps:get(episode_id, Map, undefined),
+        wip_limit = maps:get(wip_limit, Map, undefined),
+        standing = maps:get(standing, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds a workflow definition to exact bytes and repository subject before trusting its runs.
+-record(workflow_definition_digest_observation, {
+    workflow_path :: binary(), %% workflow_path: Workflow source path.
+    definition_sha256 :: binary(), %% definition_sha256: Digest of exact workflow bytes.
+    source_sha :: binary(), %% source_sha: Repository commit containing the workflow.
+    observed_at :: binary() %% observed_at: Timestamp of workflow observation.
+}).
+
+-type workflow_definition_digest_observation() :: #workflow_definition_digest_observation{}.
+
+-spec new_workflow_definition_digest_observation(map()) -> {ok, workflow_definition_digest_observation()} | {error, {missing_field, atom()}}.
+new_workflow_definition_digest_observation(Map) ->
+    case maps:is_key(workflow_path, Map) of
+        false -> {error, {missing_field, workflow_path}};
+        true ->
+    case maps:is_key(definition_sha256, Map) of
+        false -> {error, {missing_field, definition_sha256}};
+        true ->
+    case maps:is_key(source_sha, Map) of
+        false -> {error, {missing_field, source_sha}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #workflow_definition_digest_observation{
+        workflow_path = maps:get(workflow_path, Map, undefined),
+        definition_sha256 = maps:get(definition_sha256, Map, undefined),
+        source_sha = maps:get(source_sha, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Observes a workflow job, runner identity, and conclusion inside an exact run.
+-record(workflow_job_state_observation, {
+    job_id :: binary(), %% job_id: Stable workflow-job identity.
+    run_id :: binary(), %% run_id: Owning workflow-run identity.
+    runner_identity :: binary(), %% runner_identity: Observed runner or capsule identity.
+    conclusion :: binary() %% conclusion: Observed terminal job conclusion.
+}).
+
+-type workflow_job_state_observation() :: #workflow_job_state_observation{}.
+
+-spec new_workflow_job_state_observation(map()) -> {ok, workflow_job_state_observation()} | {error, {missing_field, atom()}}.
+new_workflow_job_state_observation(Map) ->
+    case maps:is_key(job_id, Map) of
+        false -> {error, {missing_field, job_id}};
+        true ->
+    case maps:is_key(run_id, Map) of
+        false -> {error, {missing_field, run_id}};
+        true ->
+    case maps:is_key(runner_identity, Map) of
+        false -> {error, {missing_field, runner_identity}};
+        true ->
+    case maps:is_key(conclusion, Map) of
+        false -> {error, {missing_field, conclusion}};
+        true ->
+    {ok, #workflow_job_state_observation{
+        job_id = maps:get(job_id, Map, undefined),
+        run_id = maps:get(run_id, Map, undefined),
+        runner_identity = maps:get(runner_identity, Map, undefined),
+        conclusion = maps:get(conclusion, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Observes a workflow run against its exact head and terminal conclusion.
+-record(workflow_run_state_observation, {
+    run_id :: binary(), %% run_id: Stable workflow-run identity.
+    workflow_id :: binary(), %% workflow_id: Stable workflow-definition identity.
+    head_sha :: binary(), %% head_sha: Exact subject commit executed.
+    conclusion :: binary() %% conclusion: Observed terminal run conclusion.
+}).
+
+-type workflow_run_state_observation() :: #workflow_run_state_observation{}.
+
+-spec new_workflow_run_state_observation(map()) -> {ok, workflow_run_state_observation()} | {error, {missing_field, atom()}}.
+new_workflow_run_state_observation(Map) ->
+    case maps:is_key(run_id, Map) of
+        false -> {error, {missing_field, run_id}};
+        true ->
+    case maps:is_key(workflow_id, Map) of
+        false -> {error, {missing_field, workflow_id}};
+        true ->
+    case maps:is_key(head_sha, Map) of
+        false -> {error, {missing_field, head_sha}};
+        true ->
+    case maps:is_key(conclusion, Map) of
+        false -> {error, {missing_field, conclusion}};
+        true ->
+    {ok, #workflow_run_state_observation{
+        run_id = maps:get(run_id, Map, undefined),
+        workflow_id = maps:get(workflow_id, Map, undefined),
+        head_sha = maps:get(head_sha, Map, undefined),
+        conclusion = maps:get(conclusion, Map, undefined)
     }}
     end
     end

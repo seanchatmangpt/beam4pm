@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-041 — resource_capacity_plan
+b4p:resource_capacity_plan_rt a bpm:RecordType ;
+    bpm:recordName "resource_capacity_plan" ;
+    bpm:recordDoc "Allocates finite compute, time, and concurrency capacity across lawful options." ;
+    bpm:hasField b4p:resource_capacity_plan_episode_id_f,
+                 b4p:resource_capacity_plan_resource_pool_hash_f,
+                 b4p:resource_capacity_plan_allocation_hash_f .
+
+b4p:resource_capacity_plan_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required episode_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:resource_capacity_plan_resource_pool_hash_f a bpm:Field ;
+    bpm:fieldName "resource_pool_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required resource_pool_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:resource_capacity_plan_allocation_hash_f a bpm:Field ;
+    bpm:fieldName "allocation_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required allocation_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

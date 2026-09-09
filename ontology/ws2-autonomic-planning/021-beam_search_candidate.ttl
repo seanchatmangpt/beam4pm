@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-021 — beam_search_candidate
+b4p:beam_search_candidate_rt a bpm:RecordType ;
+    bpm:recordName "beam_search_candidate" ;
+    bpm:recordDoc "Represents a bounded beam-search plan with explicit width and frontier." ;
+    bpm:hasField b4p:beam_search_candidate_plan_id_f,
+                 b4p:beam_search_candidate_beam_width_f,
+                 b4p:beam_search_candidate_frontier_hash_f .
+
+b4p:beam_search_candidate_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required plan_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:beam_search_candidate_beam_width_f a bpm:Field ;
+    bpm:fieldName "beam_width" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required beam_width for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:beam_search_candidate_frontier_hash_f a bpm:Field ;
+    bpm:fieldName "frontier_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required frontier_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-008 — receipt_required_gate
+b4p:receipt_required_gate_rt a bpm:RecordType ;
+    bpm:recordName "receipt_required_gate" ;
+    bpm:recordDoc "Prevents any actuation candidate from becoming selectable without a verifiable receipt plan." ;
+    bpm:hasField b4p:receipt_required_gate_action_id_f,
+                 b4p:receipt_required_gate_receipt_contract_id_f,
+                 b4p:receipt_required_gate_standing_f .
+
+b4p:receipt_required_gate_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required action_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:receipt_required_gate_receipt_contract_id_f a bpm:Field ;
+    bpm:fieldName "receipt_contract_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required receipt_contract_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:receipt_required_gate_standing_f a bpm:Field ;
+    bpm:fieldName "standing" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required standing preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

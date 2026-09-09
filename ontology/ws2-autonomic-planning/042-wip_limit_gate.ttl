@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-042 — wip_limit_gate
+b4p:wip_limit_gate_rt a bpm:RecordType ;
+    bpm:recordName "wip_limit_gate" ;
+    bpm:recordDoc "Refuses selections that would exceed the admitted work-in-process ceiling." ;
+    bpm:hasField b4p:wip_limit_gate_episode_id_f,
+                 b4p:wip_limit_gate_wip_limit_f,
+                 b4p:wip_limit_gate_standing_f .
+
+b4p:wip_limit_gate_episode_id_f a bpm:Field ;
+    bpm:fieldName "episode_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required episode_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:wip_limit_gate_wip_limit_f a bpm:Field ;
+    bpm:fieldName "wip_limit" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required wip_limit for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:wip_limit_gate_standing_f a bpm:Field ;
+    bpm:fieldName "standing" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required standing preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

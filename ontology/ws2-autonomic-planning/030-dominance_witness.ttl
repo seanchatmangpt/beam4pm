@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-030 — dominance_witness
+b4p:dominance_witness_rt a bpm:RecordType ;
+    bpm:recordName "dominance_witness" ;
+    bpm:recordDoc "Records the exact objective evidence proving one option dominates another." ;
+    bpm:hasField b4p:dominance_witness_dominant_option_id_f,
+                 b4p:dominance_witness_dominated_option_id_f,
+                 b4p:dominance_witness_witness_hash_f .
+
+b4p:dominance_witness_dominant_option_id_f a bpm:Field ;
+    bpm:fieldName "dominant_option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required dominant_option_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:dominance_witness_dominated_option_id_f a bpm:Field ;
+    bpm:fieldName "dominated_option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required dominated_option_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:dominance_witness_witness_hash_f a bpm:Field ;
+    bpm:fieldName "witness_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required witness_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

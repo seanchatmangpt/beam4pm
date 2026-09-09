@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-013 — agent_assignment
+b4p:agent_assignment_rt a bpm:RecordType ;
+    bpm:recordName "agent_assignment" ;
+    bpm:recordDoc "Assigns an admitted policy to an agent without transferring authority." ;
+    bpm:hasField b4p:agent_assignment_agent_id_f,
+                 b4p:agent_assignment_policy_id_f,
+                 b4p:agent_assignment_assignment_hash_f .
+
+b4p:agent_assignment_agent_id_f a bpm:Field ;
+    bpm:fieldName "agent_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required agent_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:agent_assignment_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required policy_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:agent_assignment_assignment_hash_f a bpm:Field ;
+    bpm:fieldName "assignment_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required assignment_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
