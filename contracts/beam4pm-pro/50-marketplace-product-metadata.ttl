@@ -1,0 +1,12 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:MarketplaceProductMetadata a pro:CapabilityContract ;
+ dct:identifier "WS2-REV-051" ; dct:title "Provider-neutral marketplace product metadata" ;
+ pro:requiredEvidence "an admitted catalog release and SKU/capability identity map deterministically to provider-neutral listing title, description, support metadata, localization identity, schema version and provider product identity without changing product semantics" ;
+ pro:acceptanceCrown "same admitted commercial identity produces byte-stable metadata; provider-assigned product identifiers are preserved rather than inferred; missing catalog or SKU identity refuses" ;
+ pro:providerNeutral true ; pro:providerAssignedIdentityRequired true ;
+ pro:authorityCeiling "CONSTRUCT" ;
+ pro:refusalCode "REFUSED[MARKETPLACE_PRODUCT_IDENTITY_UNADMITTED]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .

@@ -1,0 +1,12 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:MarketplacePricingDimension a pro:CapabilityContract ;
+ dct:identifier "WS2-REV-052" ; dct:title "Provider-neutral marketplace pricing dimension" ;
+ pro:requiredEvidence "each admitted commercial meter, usage plan, quota basis or consumption pool maps to a provider dimension code, normalized unit, aggregation rule, pricing model and version while preserving the internal metering identity" ;
+ pro:acceptanceCrown "dimension mapping is deterministic across replay; unknown provider dimensions refuse; monetary price values remain explicit external commercial inputs and are never fabricated from usage telemetry" ;
+ pro:externalPriceInputRequired true ; pro:providerNeutral true ;
+ pro:authorityCeiling "CONSTRUCT" ;
+ pro:refusalCode "REFUSED[PRICING_DIMENSION_UNADMITTED]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/05-pricing-packaging-unit-economics.md> .

@@ -15,7 +15,7 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(489, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(492, length(beam4pm_types_manifest:record_names())).
 
 account_discovery_fields_test() ->
     ?assertEqual([account_discovery_id, account_id, discovery_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(account_discovery)).
@@ -797,6 +797,9 @@ k8s_object_ref_fields_test() ->
 latency_budget_observation_fields_test() ->
     ?assertEqual([tenant_id, workload_id, observation_hash], beam4pm_types_manifest:fields(latency_budget_observation)).
 
+leakage_finding_fields_test() ->
+    ?assertEqual([case_id, fitness, precision, amount_at_risk], beam4pm_types_manifest:fields(leakage_finding)).
+
 least_authority_evidence_fields_test() ->
     ?assertEqual([evidence_id, subject_sha, granted_permissions, observed_result], beam4pm_types_manifest:fields(least_authority_evidence)).
 
@@ -1190,6 +1193,9 @@ revenue_schedule_assumption_fields_test() ->
 reversibility_weight_fields_test() ->
     ?assertEqual([action_id, rollback_id, weight], beam4pm_types_manifest:fields(reversibility_weight)).
 
+rework_cost_fields_test() ->
+    ?assertEqual([case_id, loop_count, weighted_cost], beam4pm_types_manifest:fields(rework_cost)).
+
 rfp_response_evidence_fields_test() ->
     ?assertEqual([evidence_id, subject_sha, answer_set_hash, observed_result], beam4pm_types_manifest:fields(rfp_response_evidence)).
 
@@ -1432,6 +1438,9 @@ value_of_information_score_fields_test() ->
 
 value_realization_fields_test() ->
     ?assertEqual([value_realization_id, account_id, realized_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(value_realization)).
+
+value_receipt_fields_test() ->
+    ?assertEqual([value_receipt_id, account_id, metric_name, baseline_value, observed_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(value_receipt)).
 
 value_telemetry_sample_fields_test() ->
     ?assertEqual([tenant_id, outcome_id, telemetry_hash], beam4pm_types_manifest:fields(value_telemetry_sample)).

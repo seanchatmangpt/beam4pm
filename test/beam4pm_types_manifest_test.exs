@@ -3,7 +3,7 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 489
+    assert length(BeamPM.Types.Manifest.record_names()) == 492
   end
 
   test "fields/1 returns the ordered field-name list for account_discovery" do
@@ -1046,6 +1046,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:latency_budget_observation) == [:tenant_id, :workload_id, :observation_hash]
   end
 
+  test "fields/1 returns the ordered field-name list for leakage_finding" do
+    assert BeamPM.Types.Manifest.fields(:leakage_finding) == [:case_id, :fitness, :precision, :amount_at_risk]
+  end
+
   test "fields/1 returns the ordered field-name list for least_authority_evidence" do
     assert BeamPM.Types.Manifest.fields(:least_authority_evidence) == [:evidence_id, :subject_sha, :granted_permissions, :observed_result]
   end
@@ -1570,6 +1574,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:reversibility_weight) == [:action_id, :rollback_id, :weight]
   end
 
+  test "fields/1 returns the ordered field-name list for rework_cost" do
+    assert BeamPM.Types.Manifest.fields(:rework_cost) == [:case_id, :loop_count, :weighted_cost]
+  end
+
   test "fields/1 returns the ordered field-name list for rfp_response_evidence" do
     assert BeamPM.Types.Manifest.fields(:rfp_response_evidence) == [:evidence_id, :subject_sha, :answer_set_hash, :observed_result]
   end
@@ -1892,6 +1900,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for value_realization" do
     assert BeamPM.Types.Manifest.fields(:value_realization) == [:value_realization_id, :account_id, :realized_value, :evidence_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for value_receipt" do
+    assert BeamPM.Types.Manifest.fields(:value_receipt) == [:value_receipt_id, :account_id, :metric_name, :baseline_value, :observed_value, :evidence_digest, :observed_at]
   end
 
   test "fields/1 returns the ordered field-name list for value_telemetry_sample" do
