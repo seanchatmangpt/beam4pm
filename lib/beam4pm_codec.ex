@@ -2725,6 +2725,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.LeakageFinding{} = r) do
+    to_known_map([
+      {"case_id", r.case_id, :passthrough},
+      {"fitness", r.fitness, :passthrough},
+      {"precision", r.precision, :passthrough},
+      {"amount_at_risk", r.amount_at_risk, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.LearningEpisode{} = r) do
     to_known_map([
       {"episode_id", r.episode_id, :passthrough},
@@ -4254,6 +4263,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ReworkCost{} = r) do
+    to_known_map([
+      {"case_id", r.case_id, :passthrough},
+      {"loop_count", r.loop_count, :passthrough},
+      {"weighted_cost", r.weighted_cost, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.RfpResponseEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -5159,6 +5176,18 @@ defmodule BeamPM.Codec do
       {"realized_value", r.realized_value, :passthrough},
       {"evidence_digest", r.evidence_digest, :passthrough},
       {"policy_id", r.policy_id, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.ValueReceipt{} = r) do
+    to_known_map([
+      {"value_receipt_id", r.value_receipt_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"metric_name", r.metric_name, :passthrough},
+      {"baseline_value", r.baseline_value, :passthrough},
+      {"observed_value", r.observed_value, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
     ])
   end
 
@@ -9230,6 +9259,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:leakage_finding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"case_id", :case_id, :passthrough},
+        {"fitness", :fitness, :passthrough},
+        {"precision", :precision, :passthrough},
+        {"amount_at_risk", :amount_at_risk, :passthrough}
+      ],
+      &BeamPM.Types.LeakageFinding.new/1
+    )
+  end
+
   def from_map(:learning_episode, m) when is_map(m) do
     from_known_fields(
       m,
@@ -11443,6 +11485,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:rework_cost, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"case_id", :case_id, :passthrough},
+        {"loop_count", :loop_count, :passthrough},
+        {"weighted_cost", :weighted_cost, :passthrough}
+      ],
+      &BeamPM.Types.ReworkCost.new/1
+    )
+  end
+
   def from_map(:rfp_response_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -12748,6 +12802,22 @@ defmodule BeamPM.Codec do
         {"policy_id", :policy_id, :passthrough}
       ],
       &BeamPM.Types.ValueRealizationFeedback.new/1
+    )
+  end
+
+  def from_map(:value_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"value_receipt_id", :value_receipt_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"metric_name", :metric_name, :passthrough},
+        {"baseline_value", :baseline_value, :passthrough},
+        {"observed_value", :observed_value, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.ValueReceipt.new/1
     )
   end
 
