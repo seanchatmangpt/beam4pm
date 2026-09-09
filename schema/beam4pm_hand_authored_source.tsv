@@ -8,11 +8,13 @@ docs/reference/discovery-and-conformance-api.md	reference_evidence	false	-	-	bas
 docs/reference/infra-beamops-first-principles.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/rust4pm-wasm-beam.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/scripts.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
+lib/beam4pm_ocel.ex	native_engine_facade	true	b13c73e4795591e69437cbea3f62a346ae3337093baaf7046737f1e5e29541dc	2026-12-31	mix test test/beam4pm_ocel_test.exs	-
 src/beam4pm.app.src	manufacturing_input	false	-	-	rebar3 compile	-
 test/beam4pm_actuation_k8s_test.exs	hand_authored_qualification	true	97ba6c240362e5b5ff7fe5f9ccca23132504ece34a38d075cf10e85a6051723e	2026-12-31	mix test test/beam4pm_actuation_k8s_test.exs	cmd:kubectl --context kind-ex4pm cluster-info
 test/beam4pm_ash_ai_tools_test.exs	hand_authored_qualification	true	b658dbbdcaa4c5585ee1d7b4b1dc80c059a40535157960386363e383b924dfd3	2026-12-31	mix test test/beam4pm_ash_ai_tools_test.exs	-
 test/beam4pm_ferroplan_facades_test.exs	hand_authored_qualification	true	9ad4f8658075e3804384a02b6c2ee550a235fd7e75615acf9838b285c9533e34	2026-12-31	mix test test/beam4pm_ferroplan_facades_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_ferroplan_test.exs	hand_authored_qualification	true	b03146d3354196f6437636d25c2b4e9b72eaa1f9984431f2bf2650d014f979ca	2026-12-31	mix test test/beam4pm_ferroplan_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
+test/beam4pm_ocel_test.exs	hand_authored_qualification	true	617803cd819d0a796b2b84696793731d01277cf19ec16bba978de71a49896c55	2026-12-31	mix test test/beam4pm_ocel_test.exs	-
 test/beam4pm_pddl_projection_test.exs	hand_authored_qualification	true	502a9e21d78964945ad6206ef74c89b37cb238728049263e766d90481741d58c	2026-12-31	mix test test/beam4pm_pddl_projection_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_petgraph_facades_test.exs	hand_authored_qualification	true	e25ecc316a71c003861a1aafc33efb1b3e011c80b56f29f8abfed18885586e37	2026-12-31	mix test test/beam4pm_petgraph_facades_test.exs	native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm
 test/beam4pm_petgraph_test.exs	hand_authored_qualification	true	2516d9f57b9b99562fa9d460fd738721d8ec96ddcae0e9cfa7d27cb94f31f440	2026-12-31	mix test test/beam4pm_petgraph_test.exs	native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm

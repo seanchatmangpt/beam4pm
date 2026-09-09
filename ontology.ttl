@@ -8463,7 +8463,29 @@ b4p:paid_workload_outcome_receipt_outcome_receipt_hash_f a bpm:Field ;
 # pack (not lowered to 0 in this bounded change) -- lowering it is a separate,
 # reviewable vendor-pack edit, not bundled into this consumer-side sunset.
 
+bap:hand_authored_lib_beam4pm_ocel a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_ocel.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "General OCEL 2.0 JSON encode/1 decode/1 pair (docs/jira roadmap gap: today real OCEL 2.0 encode/decode only exists inside the RF3 Rust oracle via two fixed wire ops, not a general pair). Built entirely on the already-generated BeamPM.Types.OcelEvent/OcelObject structs and the already-generated BeamPM.Codec.to_map/1 from_map/2 (read-only calls, no generated file touched). Admitted under the native_engine_facade kind for lack of a closer-fitting closed-vocabulary kind (this is not a wasm native-engine facade; it is hand-authored lib/ domain logic not yet templated) -- the vendored pack's bpm:AuthorshipKind vocabulary has no dedicated general-lib-module kind yet, and adding one is an out-of-scope vendor-pack edit." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ocel_test.exs" ;
+    bpm:contentSha256 "b13c73e4795591e69437cbea3f62a346ae3337093baaf7046737f1e5e29541dc" ;
+    bpm:admittedAtCommit "c89d973" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Propose a dedicated hand_authored_lib_module (or similar) AuthorshipKind upstream in the vendored beam4pm-process-model-pack, or admit bpm:RecordType-level OCEL envelope facts and manufacture this codec from a pack template; then delete this admission." .
+
 # -- hand_authored_qualification (14; counted as debt) -----------------------
+
+bap:hand_authored_test_ocel a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_ocel_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Chicago round-trip qualification of the new hand-authored BeamPM.Ocel.encode/1 decode/1 pair (lib/beam4pm_ocel.ex, itself admitted below): real BeamPM.Types.OcelEvent.new/1 / OcelObject.new/1 constructors, real encode/decode calls, assertions on real returned struct fields. Hand-written because it exercises a hand-authored module rather than a manufactured record type, so no beam4pm_types_test.exs.eex-style template applies." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_ocel_test.exs" ;
+    bpm:contentSha256 "617803cd819d0a796b2b84696793731d01277cf19ec16bba978de71a49896c55" ;
+    bpm:admittedAtCommit "c89d973" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If lib/beam4pm_ocel.ex is later migrated into ontology-fact-driven generation, render its qualification test from the matching pack template as well; then delete this admission." .
 
 bap:hand_authored_test_actuation_k8s a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_actuation_k8s_test.exs" ;
