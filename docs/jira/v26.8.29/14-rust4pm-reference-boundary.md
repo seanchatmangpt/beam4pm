@@ -5,6 +5,35 @@
 `UNKNOWN` — this is an admission worklist, not evidence that any concept below has been modeled,
 generated or executed. Nothing here authorizes porting.
 
+## Doctrine update: rust4pm is no longer reference-only for POWL
+
+The "reference-ingestion only, never a source to port" rule below still governs how rust4pm feeds
+`ontology.ttl`/ggen. It no longer describes beam4pm's full relationship to rust4pm: as of this
+update, `native/rust4pm-wasm` and `qualification/rust4pm-oracle` depend on
+`https://github.com/seanchatmangpt/rust4pm` — a fork of `aarkue/rust4pm@0.6.2` — rather than the
+crates.io release, because upstream `process_mining` has strong OCEL 2.0 support (JSON/XML/SQLite/
+DuckDB) but no POWL (Partially Ordered Workflow Language) representation or discovery algorithm.
+The fork adds `core::process_models::case_centric::powl` — `Powl`/`PowlNode`/`PartialOrderNode`
+(POWL 1.0's generalized-concurrency construct) **and** `ChoiceGraphNode`/`ChoiceGraphEndpoint`
+(the construct that actually makes this POWL __2.0__, not 1.0: a directed graph over children plus
+artificial start/end boundary nodes, permitting cycles, unifying the block-structured
+`ExclusiveChoice` and `Loop` operators into one construct — Def. 3.6-3.9 of Kourani, Park & van der
+Aalst, "Hierarchical Decomposition of Separable Workflow-Nets", arXiv:2602.15739v3, the paper at
+`/Users/sac/Documents/Papers/workflow/Hierarchical Decomposition of Separable Workflow-Nets .pdf`)
+— both translating to `PetriNet`. `discovery::case_centric::powl::discover_powl` implements the
+partial-order base case of choice-graph inductive mining (<https://arxiv.org/abs/2505.07052>) and
+wraps any self-looping activity in a genuine `ChoiceGraphNode::self_looping` cyclic graph, not a
+block-structured `Loop` operator — exposed through the wasm engine's `dispatch()` as a new
+`discover_powl` op. This is a real, hand-authored Rust dependency now — same tier as
+`native/rf1-dfg-oracle` — not observational evidence for ggen. See the fork's commit history
+(`af644f0` adds the `PartialOrder`-only module, `67d0f7e` adds a runnable `powl_demo` example,
+`89a6a30` adds `ChoiceGraphNode` — the commit that makes this genuinely POWL 2.0) for what was
+added.
+
+Everything below this point still describes the *ontology-admission* posture for concepts other
+than POWL, and for POWL's own eventual admission into `O*` if beam4pm later wants POWL results to
+flow through the generated Erlang/Elixir/Gleam type projections (not yet done).
+
 ## Purpose
 
 `03-architecture-and-ggen-manufacturing.md` states the reference-ingestion rule: Rust4PM's public

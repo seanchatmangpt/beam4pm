@@ -129,7 +129,10 @@ defmodule BeamPM.Rust4PMFacadesTest do
       assert pid == ctx.engine_pid
     end
 
-    test "import_xes: same wire shape, fresh handle, identical stats to the elixir import", ctx do
+    test "import_xes, import_xes_path, import_xes_gz: all land on identical, facade-parity logs",
+         ctx do
+      # import_xes: same wire shape, fresh handle, identical stats to the
+      # elixir import.
       assert {:ok, %{"handle" => erl_h}} = :beam4pm_rust4pm.import_xes(ctx.xes_content)
       assert is_integer(erl_h)
       assert erl_h != ctx.log_h
@@ -148,9 +151,10 @@ defmodule BeamPM.Rust4PMFacadesTest do
       assert erl_stats["num_activities"] == 8
 
       assert {:ok, %{"freed" => true}} = :beam4pm_rust4pm.free_log(erl_h)
-    end
 
-    test "import_xes_path and import_xes_gz land on identical logs", ctx do
+      # import_xes_path and import_xes_gz: the identical underlying
+      # property (stats parity against the elixir-imported baseline) over
+      # two more log-import entry points.
       assert {:ok, %{"handle" => path_h}} =
                :beam4pm_rust4pm.import_xes_path(@running_example_xes)
 

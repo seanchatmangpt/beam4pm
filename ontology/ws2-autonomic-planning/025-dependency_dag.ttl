@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-025 — dependency_dag
+b4p:dependency_dag_rt a bpm:RecordType ;
+    bpm:recordName "dependency_dag" ;
+    bpm:recordDoc "Represents action dependencies as an acyclic exact-subject graph." ;
+    bpm:hasField b4p:dependency_dag_dag_id_f,
+                 b4p:dependency_dag_node_set_hash_f,
+                 b4p:dependency_dag_edge_set_hash_f .
+
+b4p:dependency_dag_dag_id_f a bpm:Field ;
+    bpm:fieldName "dag_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required dag_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:dependency_dag_node_set_hash_f a bpm:Field ;
+    bpm:fieldName "node_set_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required node_set_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:dependency_dag_edge_set_hash_f a bpm:Field ;
+    bpm:fieldName "edge_set_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required edge_set_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

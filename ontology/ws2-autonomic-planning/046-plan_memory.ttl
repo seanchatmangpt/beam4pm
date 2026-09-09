@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-046 — plan_memory
+b4p:plan_memory_rt a bpm:RecordType ;
+    bpm:recordName "plan_memory" ;
+    bpm:recordDoc "Stores reusable plan evidence without converting historical success into current authority." ;
+    bpm:hasField b4p:plan_memory_plan_id_f,
+                 b4p:plan_memory_evidence_hash_f,
+                 b4p:plan_memory_memory_hash_f .
+
+b4p:plan_memory_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required plan_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:plan_memory_evidence_hash_f a bpm:Field ;
+    bpm:fieldName "evidence_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required evidence_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:plan_memory_memory_hash_f a bpm:Field ;
+    bpm:fieldName "memory_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required memory_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

@@ -2,8 +2,10 @@
 #
 # ggen v26.8.28 accepts one ontology source only. beam4pm keeps the large
 # historical root ontology stable and composes bounded canonical fragments
-# into that source only inside the ephemeral Actions workspace. The root file
-# is restored before the generated consequence is diffed.
+# from ontology/**/*.ttl into that source only inside the ephemeral Actions
+# workspace. The root file is restored before the generated consequence is
+# diffed. This makes fragment composition reusable for every admitted domain
+# extension rather than creating one workflow per workstream.
 name: beam4pm Manufacture (ggen-ecosystem rail)
 
 on:
@@ -60,7 +62,7 @@ jobs:
     needs: resolve
     runs-on: ubuntu-24.04
     timeout-minutes: 20
-    name: Deterministic price-to-cash manufacture
+    name: Deterministic composed-ontology manufacture
     container:
       image: ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28
     steps:
@@ -103,12 +105,22 @@ jobs:
           Path(os.environ['RUNNER_TEMP'], 'beam4pm-manufacture', 'packs.json').write_text(json.dumps(admitted, indent=2, sort_keys=True) + '\n')
           PY
 
-      - name: Bind authoritative ontology input
+      - name: Compose canonical ontology fragments for v26.8.28
         shell: bash
         run: |
           set -euo pipefail
           evidence="$RUNNER_TEMP/beam4pm-manufacture"
-          sha256sum ontology.ttl > "$evidence/ontology-inputs.sha256"
+          cp ontology.ttl "$evidence/ontology.ttl.original"
+          mapfile -t fragments < <(find ontology -type f -name '*.ttl' -print 2>/dev/null | LC_ALL=C sort)
+          {
+            sha256sum ontology.ttl
+            for fragment in "${fragments[@]}"; do sha256sum "$fragment"; done
+          } > "$evidence/ontology-inputs.sha256"
+          for fragment in "${fragments[@]}"; do
+            printf '\n\n# ---- composed canonical fragment: %s ----\n' "$fragment" >> ontology.ttl
+            cat "$fragment" >> ontology.ttl
+          done
+          echo "ALIVE: composed ${#fragments[@]} canonical ontology fragment(s)"
 
       - name: Delete only prior-receipted primary ggen outputs
         shell: bash
@@ -215,6 +227,8 @@ jobs:
         run: |
           set -euo pipefail
           evidence="$RUNNER_TEMP/beam4pm-manufacture"
+          cp "$evidence/ontology.ttl.original" ontology.ttl
+          rm -f "$evidence/ontology.ttl.original"
           if [[ -f .ggen-v2/receipt.json ]]; then cp .ggen-v2/receipt.json "$evidence/ggen-receipt.json"; fi
           if [[ -f ggen.lock ]]; then cp ggen.lock "$evidence/ggen.lock"; fi
           rm -rf .ggen-v2
@@ -234,7 +248,7 @@ jobs:
                       h.update(chunk)
               return h.hexdigest()
           receipt = {
-              'schema': 'https://beam4pm.dev/receipts/price-to-cash-ggen-sync/v1',
+              'schema': 'https://beam4pm.dev/receipts/composed-ggen-sync/v2',
               'repository': os.environ['GITHUB_REPOSITORY'],
               'source_sha': os.environ['CANDIDATE_SHA'],
               'run_id': os.environ['GITHUB_RUN_ID'],

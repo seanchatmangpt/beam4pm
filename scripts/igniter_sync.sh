@@ -28,23 +28,74 @@ IGN="$PACK/igniter"
 
 mix deps.get
 
-# 1. Ash resources + domain: 31 Ash.Resource modules (ETS data layer,
-#    uuid_primary_key :id, ontology-derived attributes) + BeamPM.Ash.Domain.
-mix ggen_igniter.sync \
-  --ontology ontology.ttl \
-  --query records="$IGN/queries/records.rq" \
-  --query fields="$IGN/queries/fields.rq" \
-  --template "$IGN/templates/beam4pm_ash.ex.eex" \
-  --out lib/beam4pm_ash.ex
+# 0. Remove the former monolithic outputs BEFORE any split-template sync
+#    below runs. Order is load-bearing, not cosmetic: real-run evidence
+#    2026-09-02 showed that if lib/beam4pm_ash.ex (old, defines all 289
+#    resource modules) is still on disk while step 1b's reactor-pipelined
+#    sync does its own internal `mix compile` build-verification, Elixir's
+#    parallel compiler hard-fails ("cannot define module
+#    BeamPM.Ash.Resources.AdoptionMilestone because it is currently being
+#    defined in lib/beam4pm_ash/resources/adoption_milestone.ex:3") because
+#    the old monolith and the new per-resource files under
+#    lib/beam4pm_ash/resources/ would define the same module names in the
+#    same compile pass. Deleting first (both are pure regeneration targets
+#    of the templates below -- never hand-edited) avoids that collision
+#    entirely, same as deleting a file being renamed before writing its
+#    replacement.
+rm -f lib/beam4pm_ash.ex test/beam4pm_ash_test.exs
 
-# 2. Chicago ExUnit CRUD suite: one real Ash.create!/Ash.read! round-trip
-#    per admitted record type, deterministic sample values, no mocks.
+# 1a. Ash resources: one Ash.Resource module PER admitted bpm:RecordType row
+#     (ETS data layer, uuid_primary_key :id, ontology-derived attributes),
+#     one file per resource under lib/beam4pm_ash/resources/. Split out of
+#     the former single lib/beam4pm_ash.ex monolith 2026-09-02: a measured
+#     synthetic reproduction at matching scale (N=289) showed a
+#     single-resource edit forces a ~60s recompile of one monolithic file
+#     vs. ~0.9-1.8s per resource file here -- a real, bounded compile-speed
+#     win. `--on-stale prune` really deletes any resource file left over
+#     from a record removed from ontology.ttl since the last sync (so the
+#     directory never accumulates orphans as the admitted record set
+#     changes), while still writing this run's outputs first.
 mix ggen_igniter.sync \
   --ontology ontology.ttl \
   --query records="$IGN/queries/records.rq" \
   --query fields="$IGN/queries/fields.rq" \
-  --template "$IGN/templates/beam4pm_ash_test.exs.eex" \
-  --out test/beam4pm_ash_test.exs
+  --for-each records \
+  --on-stale prune \
+  --template "$IGN/templates/beam4pm_ash_resource.ex.eex" \
+  --out "lib/beam4pm_ash/resources/<%= record_name %>.ex"
+
+# 1b. BeamPM.Ash.Domain (registers every resource from 1a by name) plus the
+#     static BeamPM.Autonomy.Kernel module -- neither has a per-record
+#     shape, so both stay single-output like the pre-split monolith.
+mix ggen_igniter.sync \
+  --ontology ontology.ttl \
+  --query records="$IGN/queries/records.rq" \
+  --template "$IGN/templates/beam4pm_ash_domain.ex.eex" \
+  --out lib/beam4pm_ash_domain.ex
+
+# 2a. Chicago ExUnit CRUD suite: one real Ash.create!/Ash.read! round-trip
+#     per admitted record type, deterministic sample values, no mocks -- one
+#     test file per resource under test/beam4pm_ash/resources/, split for
+#     the same marginal-compile-cost reason as 1a. mix's default
+#     test_paths ["test"] recurses, and test/test_helper.exs (unchanged)
+#     already covers this nested directory, so no new test_helper is
+#     needed. `--on-stale prune` mirrors 1a.
+mix ggen_igniter.sync \
+  --ontology ontology.ttl \
+  --query records="$IGN/queries/records.rq" \
+  --query fields="$IGN/queries/fields.rq" \
+  --for-each records \
+  --on-stale prune \
+  --template "$IGN/templates/beam4pm_ash_resource_test.exs.eex" \
+  --out "test/beam4pm_ash/resources/<%= record_name %>_test.exs"
+
+# 2b. BeamPM.AutonomyKernelGeneratedTest: static, no per-record shape, so it
+#     stays a single output file like the pre-split monolith test.
+mix ggen_igniter.sync \
+  --ontology ontology.ttl \
+  --query records="$IGN/queries/records.rq" \
+  --template "$IGN/templates/beam4pm_ash_kernel_test.exs.eex" \
+  --out test/beam4pm_ash_kernel_test.exs
 
 # 3. (optional) Cross-engine identity probe: the EEx-rendered manifest must
 #    be byte-identical to the Rust-ggen/Tera-manufactured

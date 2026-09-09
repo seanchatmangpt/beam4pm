@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-007 — output_ownership_gate
+b4p:output_ownership_gate_rt a bpm:RecordType ;
+    bpm:recordName "output_ownership_gate" ;
+    bpm:recordDoc "Refuses manufacture promotion until every output path has admitted ownership." ;
+    bpm:hasField b4p:output_ownership_gate_subject_id_f,
+                 b4p:output_ownership_gate_ownership_manifest_hash_f,
+                 b4p:output_ownership_gate_standing_f .
+
+b4p:output_ownership_gate_subject_id_f a bpm:Field ;
+    bpm:fieldName "subject_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required subject_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:output_ownership_gate_ownership_manifest_hash_f a bpm:Field ;
+    bpm:fieldName "ownership_manifest_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required ownership_manifest_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:output_ownership_gate_standing_f a bpm:Field ;
+    bpm:fieldName "standing" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required standing preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

@@ -37,6 +37,12 @@ Owns the canonical process/event model and generated BEAM-facing projections: Er
 
 Adds zero-config discovery, OpenTelemetry/Weaver integration, Kubernetes topology, eBPF/zero-code observation, continuous process inference, living process twins, anomaly/conformance analysis, WIP/throughput/bottleneck analysis, planning/optimization, enterprise governance, BRCE actuation, receipts/replay, fleet management, air-gap operations, supportability, and cloud marketplace packaging.
 
+Three named commercial tiers, per the 2026-08-31 deep-research synthesis against Celonis/PM4Py/Apromore/ProM feature sets (17 claims verified by 3-vote adversarial check; see `docs/jira/v26.8.29/22-pro-capability-tiers.md` for the full sourced findings):
+
+- **Analytical tier** (table-stakes parity): discovery, conformance (token-replay + alignments), fitness/precision/generalization/simplicity, filtering, case stats — `BeamPM.Discovery`, `BeamPM.Precision`.
+- **Object-centric tier** (flagship differentiator): `BeamPM.Pro.OcpmDiscovery` — per-event object-type interaction sets and per-object-type activity frequency over OCEL data, the structural primitive every downstream OCPM algorithm (object graphs, divergence/convergence detection) is built from. Deliberately does not yet implement object-centric Petri net synthesis or divergence-free log transformation (see the module's `gaps/0`).
+- **Prescriptive tier** (act on insights, validated by Celonis Action Engine / ML Workbench as a separately-monetized capability): `BeamPM.Actuation` + `BeamPM.ProcessGovernor` (governed actuation on inferred process state) and `BeamPM.Pro.Simulation` (what-if analysis over a discovered DFG — edge add/remove, real BFS reachability, real DFS cycle detection — before committing to a process change; does not yet implement discrete-event/throughput simulation, see the module's `gaps/0`).
+
 ## Revenue thesis
 
 `beam4pm_pro` is the commercial front door because it can sell an observable consequence before asking the customer to adopt the rest of the architecture:

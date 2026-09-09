@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-012 — role_compatibility
+b4p:role_compatibility_rt a bpm:RecordType ;
+    bpm:recordName "role_compatibility" ;
+    bpm:recordDoc "Evaluates whether a policy is lawful for an assigned role in the current world." ;
+    bpm:hasField b4p:role_compatibility_role_id_f,
+                 b4p:role_compatibility_policy_id_f,
+                 b4p:role_compatibility_compatibility_f .
+
+b4p:role_compatibility_role_id_f a bpm:Field ;
+    bpm:fieldName "role_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required role_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:role_compatibility_policy_id_f a bpm:Field ;
+    bpm:fieldName "policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required policy_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:role_compatibility_compatibility_f a bpm:Field ;
+    bpm:fieldName "compatibility" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required compatibility preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

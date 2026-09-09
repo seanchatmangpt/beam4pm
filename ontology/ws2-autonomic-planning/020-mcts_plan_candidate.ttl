@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-020 — mcts_plan_candidate
+b4p:mcts_plan_candidate_rt a bpm:RecordType ;
+    bpm:recordName "mcts_plan_candidate" ;
+    bpm:recordDoc "Represents a seeded Monte Carlo tree-search plan and its rollout evidence." ;
+    bpm:hasField b4p:mcts_plan_candidate_plan_id_f,
+                 b4p:mcts_plan_candidate_seed_f,
+                 b4p:mcts_plan_candidate_rollout_hash_f .
+
+b4p:mcts_plan_candidate_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required plan_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:mcts_plan_candidate_seed_f a bpm:Field ;
+    bpm:fieldName "seed" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required seed for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:mcts_plan_candidate_rollout_hash_f a bpm:Field ;
+    bpm:fieldName "rollout_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required rollout_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

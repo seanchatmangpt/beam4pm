@@ -41,6 +41,43 @@ here and several would not compile for `wasm32-wasip1`. With features off,
 both native and `wasm32-wasip1` release builds succeed with no further feature
 gymnastics (verified 2026-08-29, rustc 1.97.0, wasmtime 48.0.1).
 
+## POWL differential testing (added on feature/rust4pm-powl-fork)
+
+The oracle also exposes the fork's real POWL (Partially Ordered Workflow
+Language) discovery, `process_mining::discovery::case_centric::powl::discover_powl`,
+selected via an `"op": "powl"` field in the same wire input shape (omitted or
+`"dfg"` keeps the original DFG-only behavior for backward compatibility).
+Output is the `Powl` struct serialized as-is (it derives `Serialize` in the
+fork) under a top-level `"powl"` key — real discovery output, not a
+projection or stub. See the full wire contract restated at the top of
+`src/main.rs`.
+
+`testdata/concurrent_bc_events.json` exercises genuine concurrency: two
+traces `[a,b,c]` and `[a,c,b]`. Real run:
+
+```bash
+cargo build --release
+python3 -c 'import json;d=json.load(open("testdata/concurrent_bc_events.json"));d["op"]="powl";print(json.dumps(d))' \
+  | ./target/release/rust4pm-oracle
+```
+
+produced (verified 2026-09-01):
+
+```json
+{"powl":{"root":{"PartialOrder":{"children":[{"Leaf":{"activity_label":{"Activity":"a"}}},{"Leaf":{"activity_label":{"Activity":"b"}}},{"Leaf":{"activity_label":{"Activity":"c"}}}],"order":[[0,1],[0,2]]}}}}
+```
+
+`a` precedes both `b` and `c` (`order` edges `[0,1]`, `[0,2]`); no edge
+exists between `b` and `c` — the discovered model correctly leaves them
+unordered rather than forcing a false directly-follows relation between
+them.
+
+`cargo test --release` runs two real subprocess integration tests
+(`src/main.rs`'s `#[cfg(test)] mod tests`) that spawn the actual built
+binary against `testdata/seeded_8_events.json` (op `dfg`) and
+`testdata/concurrent_bc_events.json` (op `powl`) and assert on the real
+stdout — no mocking of the wire contract.
+
 ## Wire contract (FIXED — all streams code against this)
 
 stdin — one JSON object:

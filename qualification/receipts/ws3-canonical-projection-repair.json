@@ -1,0 +1,40 @@
+{
+  "schema": "beam4pm.ws3.canonical_projection_repair_receipt.v1",
+  "workstream": "WS3_AUTONOMIC_ACTUATION_50",
+  "semantic_head": "269b212af569dce0aa4c6d760a6e8d284851478c",
+  "integrated_head": "ae1be4bd324f3d42206152832a53bb80330dc21f",
+  "rust_projection_head": "d3740e90b42bc78ec91e23cfcb2f4f01b7d7e0c5",
+  "dfcm_head": "c54ae244104e43f459b43d4a4e5a212044fa9d66",
+  "repair_authority_head": "c5aab9d941deb880e38ce78d2087f3d3d256747b",
+  "manufactured_head": "7779b35b7295c834ecaf39f67f887cb280510140",
+  "repair_run": {
+    "id": 34193516942,
+    "attempt": 2,
+    "job_id": 102101850347,
+    "conclusion": "success",
+    "url": "https://github.com/seanchatmangpt/beam4pm/actions/runs/34193516942/attempts/2"
+  },
+  "subject": {
+    "repository": "seanchatmangpt/beam4pm",
+    "branch": "automation/ws3-actuation-20260907-0635",
+    "caller_local": true
+  },
+  "capsule": {
+    "source_repository": "seanchatmangpt/ggen-ecosystem",
+    "source_sha": "d17d62a30a841ddc6c4bbf317683be87f9c2234c",
+    "image": "ghcr.io/seanchatmangpt/ggen-ecosystem:v26.8.28",
+    "image_index_digest": "sha256:c9ff7e414e0a176df2045c1ea84bd75b6b2fabc7227510b68e6044de067610c8",
+    "amd64_manifest_digest": "sha256:3942426d56fba13f9994b35d805b61a7cbc0b7204058a34b80c382fbae0c861a",
+    "ggen_layer_digest": "sha256:41636dca42b37d17f5893693f25fbb94cc1959a13c35ad8a0991d405cf350733",
+    "ggen_release_digest": "sha256:ccb9fe78ef0c84d8b240b45beb6e73f47e2c930d5db3efcf9a0e58dfe071d313"
+  },
+  "validation_pack_sha": "f6783b05ab2b11ebad318a85679180f3cce809f3",
+  "manufacture": {
+    "lawful_ggen_sync": true,
+    "generated_surface_direct_edit": false,
+    "transport_workflow_removed": true,
+    "transport_hook_removed": true,
+    "projected_capabilities": 50,
+    "outcome": "verified"
+  }
+}

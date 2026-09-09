@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-024 — powl_projection
+b4p:powl_projection_rt a bpm:RecordType ;
+    bpm:recordName "powl_projection" ;
+    bpm:recordDoc "Binds a plan candidate to an exact POWL process-plan projection." ;
+    bpm:hasField b4p:powl_projection_plan_id_f,
+                 b4p:powl_projection_powl_hash_f,
+                 b4p:powl_projection_projection_receipt_hash_f .
+
+b4p:powl_projection_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required plan_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:powl_projection_powl_hash_f a bpm:Field ;
+    bpm:fieldName "powl_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required powl_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:powl_projection_projection_receipt_hash_f a bpm:Field ;
+    bpm:fieldName "projection_receipt_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required projection_receipt_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
