@@ -9,6 +9,24 @@
 import gleam/dict
 import gleam/option
 
+/// Refuses adaptive changes that weaken the pre-existing acceptance contract.
+pub type AcceptanceCriteriaNonweakening {
+  AcceptanceCriteriaNonweakening(
+    /// Stable non-weakening assessment identity.
+    assessment_id: String,
+    /// Acceptance contract protected.
+    acceptance_contract_id: String,
+    /// Digest of current criteria.
+    prior_digest: String,
+    /// Digest of proposed criteria.
+    candidate_digest: String,
+    /// Equivalent, stronger, or weaker comparison.
+    strength_result: String,
+    /// Typed refusal when weakening is detected.
+    refusal_code: String,
+  )
+}
+
 /// Receipted enterprise account-discovery outcome that binds qualification evidence to a measurable discovery score.
 pub type AccountDiscovery {
   AccountDiscovery(
@@ -105,6 +123,22 @@ pub type AddOnBundle {
   )
 }
 
+/// Receipted activation of a paid add-on.
+pub type AddonActivation {
+  AddonActivation(
+    /// Stable identity of this addon activation contract.
+    addon_activation_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable identity of the activated commercial add-on.
+    addon_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Computes all actions currently permitted by state, constraints, and authority.
 pub type AdmissibleActionSet {
   AdmissibleActionSet(
@@ -180,6 +214,38 @@ pub type AnomalyDetectionObservation {
     observation_digest: String,
     /// Computed anomaly score.
     anomaly_score: Float,
+  )
+}
+
+/// Refuses a candidate action that recreates a confirmed failure signature.
+pub type AntiRepeatRefusal {
+  AntiRepeatRefusal(
+    /// Stable anti-repeat refusal identity.
+    refusal_id: String,
+    /// Candidate action refused.
+    candidate_action_id: String,
+    /// Confirmed failure signature matched.
+    matching_signature_id: String,
+    /// Measured recurrence risk.
+    recurrence_risk: Float,
+    /// Whether selection must produce a different option.
+    alternative_required: Bool,
+  )
+}
+
+/// Compiles a confirmed failure pattern into durable anti-repeat memory.
+pub type AntiRepeatSignature {
+  AntiRepeatSignature(
+    /// Stable anti-repeat signature identity.
+    signature_id: String,
+    /// Confirmed failure class.
+    failure_class: String,
+    /// Digest of decision-relevant causal features.
+    causal_features_digest: String,
+    /// Repair family that addressed the failure.
+    repair_family: String,
+    /// First preserved episode exhibiting the pattern.
+    first_seen_episode: String,
   )
 }
 
@@ -1221,6 +1287,54 @@ pub type BudgetPeriodAlignment {
   )
 }
 
+/// Mutual exclusion between incompatible bundles.
+pub type BundleConflict {
+  BundleConflict(
+    /// Stable identity of this bundle conflict contract.
+    bundle_conflict_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Bundle whose simultaneous activation must be refused.
+    conflicting_bundle_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Required dependency between sellable bundles.
+pub type BundleDependency {
+  BundleDependency(
+    /// Stable identity of this bundle dependency contract.
+    bundle_dependency_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Bundle that must be entitled before this bundle can activate.
+    required_bundle_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Bounded burst-capacity premium.
+pub type BurstPricingPolicy {
+  BurstPricingPolicy(
+    /// Stable identity of this burst pricing policy contract.
+    burst_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Approved multiplier applied only above the included capacity.
+    burst_multiplier: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Executable continuity evidence binding an exact subject to the fallback operating mode actually entered.
 pub type BusinessContinuityEvidence {
   BusinessContinuityEvidence(
@@ -1244,6 +1358,22 @@ pub type BusinessOutcomeMeasurement {
     outcome_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     measurement_hash: String,
+  )
+}
+
+/// Showback allocation to an enterprise business unit.
+pub type BusinessUnitAllocation {
+  BusinessUnitAllocation(
+    /// Stable identity of this business unit allocation contract.
+    business_unit_allocation_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable identity of the receiving business unit.
+    business_unit_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -1333,6 +1463,22 @@ pub type CanaryEvidence {
   )
 }
 
+/// Contractual cancellation and notice policy.
+pub type CancellationPolicy {
+  CancellationPolicy(
+    /// Stable identity of this cancellation policy contract.
+    cancellation_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Required cancellation notice period in days.
+    notice_days: Int,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Encodes whether a repository path is an authorized canonical manufacturing input.
 pub type CanonicalSourceAuthorityObservation {
   CanonicalSourceAuthorityObservation(
@@ -1374,6 +1520,22 @@ pub type CapabilityGap {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Converts observed missing capability evidence into a bounded learning signal.
+pub type CapabilityGapLearning {
+  CapabilityGapLearning(
+    /// Stable capability-gap learning identity.
+    learning_id: String,
+    /// Capability actually observed.
+    observed_capability_id: String,
+    /// Capability required by the admitted objective.
+    required_capability_id: String,
+    /// Typed semantic, execution, evidence, or authority gap.
+    gap_type: String,
+    /// Digest proving the gap.
+    evidence_digest: String,
   )
 }
 
@@ -1438,6 +1600,24 @@ pub type CausalLineageObservation {
     causal_basis: String,
     /// Digest of causal evidence.
     evidence_digest: String,
+  )
+}
+
+/// Evaluates a challenger on a fixed episode set and preserves a refusal outcome.
+pub type ChallengerCandidateEvaluation {
+  ChallengerCandidateEvaluation(
+    /// Stable challenger evaluation identity.
+    evaluation_id: String,
+    /// Challenger policy under evaluation.
+    challenger_policy_id: String,
+    /// Digest of the immutable evaluation episode set.
+    episode_set_digest: String,
+    /// Explicit evaluation seed.
+    evaluation_seed: String,
+    /// Observed challenger score.
+    score: Float,
+    /// Typed refusal or admitted result.
+    refusal_code: String,
   )
 }
 
@@ -1518,6 +1698,22 @@ pub type ClusterQuorumState {
     cluster_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     quorum_hash: String,
+  )
+}
+
+/// Co-termination policy for expansion purchases.
+pub type CoTermPolicy {
+  CoTermPolicy(
+    /// Stable identity of this co term policy contract.
+    co_term_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Contract end instant to which the expansion is aligned.
+    coterm_date: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -1701,6 +1897,22 @@ pub type CompatibilityContract {
   )
 }
 
+/// Concurrent-workload packaging dimension.
+pub type ConcurrencyPricingPolicy {
+  ConcurrencyPricingPolicy(
+    /// Stable identity of this concurrency pricing policy contract.
+    concurrency_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Concurrent workload units included in the purchased package.
+    included_concurrency: Int,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Receiptable export of deterministic enterprise configuration.
 pub type ConfigurationExport {
   ConfigurationExport(
@@ -1752,6 +1964,24 @@ pub type ConsequentialStateInvalidation {
     invalidation_reason: String,
     /// Timestamp invalidation became effective.
     invalidated_at: String,
+  )
+}
+
+/// Refuses transfer of caller-local learning to another consumer without equivalence evidence.
+pub type ConsumerEquivalenceLearningGuard {
+  ConsumerEquivalenceLearningGuard(
+    /// Stable consumer-equivalence guard identity.
+    guard_id: String,
+    /// Consumer where evidence was observed.
+    source_consumer_id: String,
+    /// Consumer proposed for generalization.
+    target_consumer_id: String,
+    /// Digest proving relevant consumer equivalence.
+    equivalence_evidence_digest: String,
+    /// TRANSFER or REFUSE decision.
+    decision: String,
+    /// Typed reason when equivalence is absent.
+    refusal_code: String,
   )
 }
 
@@ -1849,6 +2079,40 @@ pub type ContractingEntityIdentity {
   )
 }
 
+/// Chargeback allocation to an enterprise cost center.
+pub type CostCenterAllocation {
+  CostCenterAllocation(
+    /// Stable identity of this cost center allocation contract.
+    cost_center_allocation_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable identity of the charged cost center.
+    cost_center_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Evaluates candidate policy utility across cost, latency, and reliability without collapsing dimensions.
+pub type CostLatencyReliabilityTradeoff {
+  CostLatencyReliabilityTradeoff(
+    /// Stable tradeoff assessment identity.
+    assessment_id: String,
+    /// Candidate policy evaluated.
+    candidate_policy_id: String,
+    /// Normalized execution cost.
+    cost_score: Float,
+    /// Normalized execution latency.
+    latency_score: Float,
+    /// Observed reliability.
+    reliability_score: Float,
+    /// Objective-bound aggregate utility.
+    utility_score: Float,
+  )
+}
+
 /// Scores delay cost for an option without overriding explicit authority.
 pub type CostOfDelayScore {
   CostOfDelayScore(
@@ -1885,6 +2149,24 @@ pub type CounterfactualFrontier {
   )
 }
 
+/// Replays an episode under one declared intervention to compare the observed and counterfactual outcomes.
+pub type CounterfactualReplay {
+  CounterfactualReplay(
+    /// Stable counterfactual replay identity.
+    replay_id: String,
+    /// Observed episode used as baseline.
+    source_episode_id: String,
+    /// Digest of the single counterfactual intervention.
+    intervention_digest: String,
+    /// Explicit deterministic replay seed.
+    seed: String,
+    /// Counterfactual outcome produced.
+    predicted_outcome: String,
+    /// Digest comparing observed and counterfactual traces.
+    comparison_digest: String,
+  )
+}
+
 /// Produces replayable evidence that a runtime crash reached a verified recovery consequence.
 pub type CrashRecoveryReceipt {
   CrashRecoveryReceipt(
@@ -1894,6 +2176,22 @@ pub type CrashRecoveryReceipt {
     crash_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     receipt_hash: String,
+  )
+}
+
+/// Deterministic expiration of prepaid commercial credits.
+pub type CreditExpiryPolicy {
+  CreditExpiryPolicy(
+    /// Stable identity of this credit expiry policy contract.
+    credit_expiry_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Exact expiration instant for the admitted credit pool.
+    expires_at: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -2611,6 +2909,38 @@ pub type CrownZeroUnreceiptedWrites {
   )
 }
 
+/// Allowed billing currency for an enterprise agreement.
+pub type CurrencyPolicy {
+  CurrencyPolicy(
+    /// Stable identity of this currency policy contract.
+    currency_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// ISO billing currency admitted for this account.
+    currency_code: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Generates an ordered, diverse learning curriculum from admitted gaps and executable falsifiers.
+pub type CurriculumGeneration {
+  CurriculumGeneration(
+    /// Stable generated curriculum identity.
+    curriculum_id: String,
+    /// Digest of admitted capability gaps.
+    source_gap_set_digest: String,
+    /// Digest of ordered hypothesis identities.
+    ordered_hypotheses_digest: String,
+    /// Semantic diversity across the curriculum.
+    diversity_score: Float,
+    /// Share of hypotheses with executable falsifiers.
+    falsifier_coverage: Float,
+  )
+}
+
 /// Cumulative customer-health observation across usage, outcomes, and support.
 pub type CustomerHealth {
   CustomerHealth(
@@ -2723,6 +3053,22 @@ pub type DataResidencyPolicy {
   )
 }
 
+/// Data-volume commercial packaging dimension.
+pub type DataVolumePricingPolicy {
+  DataVolumePricingPolicy(
+    /// Stable identity of this data volume pricing policy contract.
+    data_volume_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price per processed gigabyte.
+    unit_gb_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Binds cross-functional deal-desk approval evidence into one replayable packet identity.
 pub type DealDeskPacket {
   DealDeskPacket(
@@ -2746,6 +3092,24 @@ pub type DecisionCompressionObservation {
     output_delta_digest: String,
     /// Declared information-loss bound.
     loss_bound: String,
+  )
+}
+
+/// Proves an adaptive projection preserves the distinctions required by a decision.
+pub type DecisionInformationPreservation {
+  DecisionInformationPreservation(
+    /// Stable preservation proof identity.
+    preservation_id: String,
+    /// Decision whose information is protected.
+    decision_id: String,
+    /// Digest of source information partitions.
+    source_partition_digest: String,
+    /// Digest of the adaptive projection.
+    projection_digest: String,
+    /// Digest of decision questions still answerable.
+    preserved_question_set_digest: String,
+    /// Measured decision-information loss.
+    loss_score: Float,
   )
 }
 
@@ -2959,6 +3323,54 @@ pub type EditionDefinition {
   )
 }
 
+/// Controlled commercial edition downgrade path.
+pub type EditionDowngradePath {
+  EditionDowngradePath(
+    /// Stable identity of this edition downgrade path contract.
+    edition_downgrade_path_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Edition that may be reached after capability-loss admission.
+    target_edition_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Admitted commercial edition upgrade path.
+pub type EditionUpgradePath {
+  EditionUpgradePath(
+    /// Stable identity of this edition upgrade path contract.
+    edition_upgrade_path_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Edition that may be reached without breaking contract compatibility.
+    target_edition_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Enterprise commercial umbrella agreement.
+pub type EnterpriseAgreement {
+  EnterpriseAgreement(
+    /// Stable identity of this enterprise agreement contract.
+    enterprise_agreement_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Immutable semantic version of the governing agreement.
+    agreement_version: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Accepted enterprise order binding account, quote, and standing.
 pub type EnterpriseOrder {
   EnterpriseOrder(
@@ -3095,6 +3507,22 @@ pub type EntropyReductionScore {
   )
 }
 
+/// Separates capsule or toolchain failure from subject failure before policy learning can update.
+pub type EnvironmentFailureSeparation {
+  EnvironmentFailureSeparation(
+    /// Stable separation assessment identity.
+    assessment_id: String,
+    /// Exact subject that was under evaluation.
+    exact_subject_sha: String,
+    /// Exact validation capsule identity.
+    capsule_digest: String,
+    /// Observed environment failure signal.
+    failure_signal: String,
+    /// Evidence basis for environment classification.
+    classification_basis: String,
+  )
+}
+
 /// Binds paid workload execution to an immutable production environment identity.
 pub type EnvironmentIdentity {
   EnvironmentIdentity(
@@ -3104,6 +3532,22 @@ pub type EnvironmentIdentity {
     environment_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     identity_hash: String,
+  )
+}
+
+/// Environment-count commercial packaging.
+pub type EnvironmentPricingPolicy {
+  EnvironmentPricingPolicy(
+    /// Stable identity of this environment pricing policy contract.
+    environment_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Purchased environment tier such as sandbox, nonproduction, or production.
+    environment_tier: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -3147,6 +3591,24 @@ pub type ErrorBudgetState {
   )
 }
 
+/// Refuses evaluation evidence whose result is not cryptographically bound to its declared seed.
+pub type EvaluationSeedBinding {
+  EvaluationSeedBinding(
+    /// Stable seed-binding identity.
+    binding_id: String,
+    /// Evaluation whose seed is bound.
+    evaluation_id: String,
+    /// Declared deterministic seed.
+    seed: String,
+    /// Digest of the seeded result.
+    result_digest: String,
+    /// Digest of seed provenance.
+    source_digest: String,
+    /// Whether replay reproduced the result exactly.
+    deterministic: Bool,
+  )
+}
+
 /// A named collection of events forming one process-mining log.
 pub type EventLog {
   EventLog(
@@ -3181,6 +3643,22 @@ pub type EventType {
   )
 }
 
+/// Event-volume commercial packaging dimension.
+pub type EventVolumePricingPolicy {
+  EventVolumePricingPolicy(
+    /// Stable identity of this event volume pricing policy contract.
+    event_volume_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price per event billing unit.
+    unit_event_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Executable freshness evidence binding an exact subject to the observation instant used by policy.
 pub type EvidenceFreshnessEvidence {
   EvidenceFreshnessEvidence(
@@ -3192,6 +3670,22 @@ pub type EvidenceFreshnessEvidence {
     observed_at: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Transforms admitted episode evidence into a provenance-bound training sample while refusing evidence-free labels.
+pub type EvidenceTrainingSample {
+  EvidenceTrainingSample(
+    /// Stable training sample identity.
+    sample_id: String,
+    /// Source learning episode identity.
+    episode_id: String,
+    /// Digest of the decision-relevant feature projection.
+    feature_digest: String,
+    /// Outcome or failure label identity.
+    label_id: String,
+    /// Immutable provenance proving how the sample was derived.
+    provenance_digest: String,
   )
 }
 
@@ -3313,6 +3807,82 @@ pub type ExpansionSignal {
   )
 }
 
+/// Receipts an experiment result with exact subject, evidence, and bounded learning authority.
+pub type ExperimentLearningReceipt {
+  ExperimentLearningReceipt(
+    /// Stable experiment-learning receipt identity.
+    receipt_id: String,
+    /// Experiment producing the learning.
+    experiment_id: String,
+    /// Exact evaluated Git subject.
+    exact_subject_sha: String,
+    /// Digest of experiment evidence.
+    evidence_digest: String,
+    /// Digest of the learned result.
+    result_digest: String,
+    /// Boundary excluding consequential DO authority.
+    authority_ceiling: String,
+  )
+}
+
+/// Retains failed challenger evidence as reusable learning rather than deleting inconvenient results.
+pub type FailedChallengerRetention {
+  FailedChallengerRetention(
+    /// Stable failed-challenger retention identity.
+    retention_id: String,
+    /// Failed challenger evaluation retained.
+    challenger_evaluation_id: String,
+    /// Digest of preserved failure evidence.
+    failure_evidence_digest: String,
+    /// Timestamp evidence entered durable memory.
+    retained_at: String,
+    /// Whether changed conditions may justify reevaluation.
+    eligible_for_future: Bool,
+  )
+}
+
+/// Classifies a preserved failure by causal scope so failed challengers remain usable learning evidence.
+pub type FailureLabel {
+  FailureLabel(
+    /// Stable failure evidence identity.
+    failure_id: String,
+    /// Episode in which the failure occurred.
+    episode_id: String,
+    /// Typed subject, environment, policy, or authority failure class.
+    failure_class: String,
+    /// Smallest supported causal boundary.
+    causal_scope: String,
+    /// Digest proving the failed evidence was retained.
+    preserved_evidence_digest: String,
+  )
+}
+
+/// Receipts SELECT through CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, ownership verification, and second-pass identity for one exact caller-local consumer.
+pub type FederatedDogfoodLearningCrown {
+  FederatedDogfoodLearningCrown(
+    /// Stable federated dogfood crown identity.
+    crown_id: String,
+    /// Exact beam4pm subject qualified.
+    exact_subject_sha: String,
+    /// Caller-local consumer identity.
+    consumer_id: String,
+    /// Immutable marketplace pack commit.
+    pack_sha: String,
+    /// Exact ggen-ecosystem container digest.
+    capsule_digest: String,
+    /// Digest of verified manufacture receipt.
+    manufacture_receipt_digest: String,
+    /// Digest proving generated output ownership.
+    ownership_verification_digest: String,
+    /// Digest proving byte-identical second sync.
+    second_pass_identity_digest: String,
+    /// SELECT-CONSTRUCT-DRY_RUN_MANUFACTURE-QUALIFY-RECEIPT sequence.
+    workflow_sequence: String,
+    /// Boundary guaranteeing zero unreceipted DO authority.
+    authority_ceiling: String,
+  )
+}
+
 /// Produces typed refusal evidence when a runtime receipt signature or subject binding is forged.
 pub type ForgedReceiptRefusal {
   ForgedReceiptRefusal(
@@ -3334,6 +3904,38 @@ pub type FundingApprovalChain {
     approval_chain_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     evidence_hash: String,
+  )
+}
+
+/// Evidence-bound foreign-exchange conversion policy.
+pub type FxConversionPolicy {
+  FxConversionPolicy(
+    /// Stable identity of this fx conversion policy contract.
+    fx_conversion_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Immutable identity of the admitted FX rate source.
+    rate_source: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Generates a testable backlog hypothesis from an admitted capability gap.
+pub type GeneratedHypothesis {
+  GeneratedHypothesis(
+    /// Stable generated hypothesis identity.
+    hypothesis_id: String,
+    /// Capability gap that generated the hypothesis.
+    source_gap_id: String,
+    /// Proposed independent capability.
+    candidate_capability: String,
+    /// Bounded expected objective value.
+    expected_value: Float,
+    /// Executable condition that can disprove the hypothesis.
+    falsifier_contract: String,
   )
 }
 
@@ -3372,6 +3974,38 @@ pub type HeuristicArc {
     target_activity: String,
     /// The computed dependency/confidence score for this candidate arc.
     dependency_measure: Float,
+  )
+}
+
+/// Replays a historical episode against an exact ancestor and preserves any seeded divergence.
+pub type HistoricalEpisodeReplay {
+  HistoricalEpisodeReplay(
+    /// Stable historical replay identity.
+    replay_id: String,
+    /// Historical episode being replayed.
+    episode_id: String,
+    /// Exact historical subject commit.
+    historical_subject_sha: String,
+    /// Explicit deterministic evaluation seed.
+    replay_seed: String,
+    /// Observed divergence or exact-match result.
+    divergence_code: String,
+  )
+}
+
+/// Updates hypothesis priority from realized evidence while retaining the prior ranking.
+pub type HypothesisPriorityUpdate {
+  HypothesisPriorityUpdate(
+    /// Stable priority update identity.
+    update_id: String,
+    /// Hypothesis being reprioritized.
+    hypothesis_id: String,
+    /// Priority before learning.
+    prior_priority: Float,
+    /// Evidence-updated priority.
+    new_priority: Float,
+    /// Digest supporting the update.
+    payoff_evidence_digest: String,
   )
 }
 
@@ -3515,6 +4149,22 @@ pub type InvoiceEntityIdentity {
   )
 }
 
+/// Auditable commercial invoice line.
+pub type InvoiceLineItem {
+  InvoiceLineItem(
+    /// Stable identity of this invoice line item contract.
+    invoice_line_item_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Observed amount for this exact invoice line.
+    line_amount: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Deterministic invoicing cadence for a billing account.
 pub type InvoiceSchedule {
   InvoiceSchedule(
@@ -3553,6 +4203,22 @@ pub type K8SObjectRef {
   )
 }
 
+/// Admission of usage received after its billing window.
+pub type LateArrivingUsage {
+  LateArrivingUsage(
+    /// Stable identity of this late arriving usage contract.
+    late_arriving_usage_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Original occurrence instant for the delayed usage.
+    occurred_at: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Records an observed runtime latency against the admitted paid-service latency budget.
 pub type LatencyBudgetObservation {
   LatencyBudgetObservation(
@@ -3576,6 +4242,22 @@ pub type LeakageFinding {
     precision: Float,
     /// Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero.
     amount_at_risk: option.Option(Float),
+  )
+}
+
+/// Compiles one exact-subject execution episode into bounded learning evidence without granting actuation authority.
+pub type LearningEpisode {
+  LearningEpisode(
+    /// Stable learning episode identity.
+    episode_id: String,
+    /// Exact Git subject observed by the episode.
+    exact_subject_sha: String,
+    /// Digest binding the episode to immutable evidence.
+    evidence_digest: String,
+    /// Observed success, refusal, or failure outcome.
+    outcome: String,
+    /// Maximum authority learning may influence; DO authority remains excluded.
+    authority_ceiling: String,
   )
 }
 
@@ -3683,6 +4365,22 @@ pub type ManufactureReceiptValidityObservation {
   )
 }
 
+/// Exact MSA binding for an order.
+pub type MasterServiceAgreementBinding {
+  MasterServiceAgreementBinding(
+    /// Stable identity of this master service agreement binding contract.
+    master_service_agreement_binding_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Content digest of the governing master service agreement.
+    msa_digest: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
 pub type MasterServiceAgreementState {
   MasterServiceAgreementState(
@@ -3716,6 +4414,54 @@ pub type MetaRouter {
     observation_hash: String,
     /// Required selected_planner_id preserving evidence and falsifiability.
     selected_planner_id: String,
+  )
+}
+
+/// Immutable billable-meter definition.
+pub type MeterDefinition {
+  MeterDefinition(
+    /// Stable identity of this meter definition contract.
+    meter_definition_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable buyer-visible identity of the commercial meter.
+    meter_name: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Typed dimension attached to a commercial meter.
+pub type MeterDimension {
+  MeterDimension(
+    /// Stable identity of this meter dimension contract.
+    meter_dimension_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable dimension identity used for pricing and reporting.
+    dimension_name: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Deterministic rollup policy for metered observations.
+pub type MeterRollup {
+  MeterRollup(
+    /// Stable identity of this meter rollup contract.
+    meter_rollup_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted aggregation function identity.
+    rollup_function: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -3758,6 +4504,22 @@ pub type MigrationReadiness {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Time-phased minimum-spend commitment.
+pub type MinimumCommitmentSchedule {
+  MinimumCommitmentSchedule(
+    /// Stable identity of this minimum commitment schedule contract.
+    minimum_commitment_schedule_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Commercially admitted minimum amount for the schedule window.
+    committed_amount: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -3813,6 +4575,22 @@ pub type MutualInformationScore {
   )
 }
 
+/// Generates a falsifying fixture from a preserved failure and binds the expected refusal.
+pub type NegativeFixtureGeneration {
+  NegativeFixtureGeneration(
+    /// Stable generated fixture identity.
+    fixture_id: String,
+    /// Preserved failure used as source.
+    source_failure_id: String,
+    /// Invariant challenged by the fixture.
+    invariant_id: String,
+    /// Digest of deterministic negative input.
+    generated_input_digest: String,
+    /// Exact refusal required for success.
+    expected_refusal_code: String,
+  )
+}
+
 /// Selects the next bounded action from scored admissible options without human micro-scheduling.
 pub type NextLawfulActuation {
   NextLawfulActuation(
@@ -3822,6 +4600,24 @@ pub type NextLawfulActuation {
     selected_action_id: String,
     /// Required selection_receipt_hash preserving evidence and falsifiability.
     selection_receipt_hash: String,
+  )
+}
+
+/// Refuses any learned update that would expand consequential authority.
+pub type NoAuthorityLearningGuard {
+  NoAuthorityLearningGuard(
+    /// Stable no-authority guard identity.
+    guard_id: String,
+    /// Learned update under review.
+    candidate_update_id: String,
+    /// Existing admitted authority.
+    current_authority: String,
+    /// Authority implied by the update.
+    requested_authority: String,
+    /// ADMIT or REFUSE guard decision.
+    decision: String,
+    /// Evidence supporting the authority comparison.
+    evidence_digest: String,
   )
 }
 
@@ -3837,6 +4633,22 @@ pub type NodeFailoverEvent {
   )
 }
 
+/// Explicit discount for nonproduction capacity.
+pub type NonproductionDiscountPolicy {
+  NonproductionDiscountPolicy(
+    /// Stable identity of this nonproduction discount policy contract.
+    nonproduction_discount_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Approved nonproduction discount percentage.
+    discount_percent: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Normalizes a source event into stable identity, type, and event time.
 pub type NormalizedEventObservation {
   NormalizedEventObservation(
@@ -3848,6 +4660,24 @@ pub type NormalizedEventObservation {
     event_type: String,
     /// Normalized event timestamp.
     event_time: String,
+  )
+}
+
+/// Rewards only measured distance from prior admitted hypotheses to resist repetitive backlog generation.
+pub type NoveltyReward {
+  NoveltyReward(
+    /// Stable novelty reward identity.
+    reward_id: String,
+    /// Candidate hypothesis identity.
+    hypothesis_id: String,
+    /// Digest of semantic features.
+    feature_vector_digest: String,
+    /// Distance to nearest admitted prior hypothesis.
+    nearest_prior_distance: Float,
+    /// Bounded novelty reward.
+    reward: Float,
+    /// Evidence supporting the distance calculation.
+    evidence_digest: String,
   )
 }
 
@@ -3886,6 +4716,22 @@ pub type ObjectType {
     type_name: String,
     /// Optional declared attribute names for objects of this type (name-only; per-attribute value types are not yet modeled).
     attribute_names: option.Option(List(String)),
+  )
+}
+
+/// Object-volume commercial packaging dimension.
+pub type ObjectVolumePricingPolicy {
+  ObjectVolumePricingPolicy(
+    /// Stable identity of this object volume pricing policy contract.
+    object_volume_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price per object billing unit.
+    unit_object_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -3960,6 +4806,24 @@ pub type ObservationFreshnessAssessment {
     freshness_deadline: String,
     /// Machine-readable freshness standing.
     freshness_status: String,
+  )
+}
+
+/// Updates future observation shape from an admitted gap while preserving an explicit authority ceiling.
+pub type ObservationProjectionUpdate {
+  ObservationProjectionUpdate(
+    /// Stable observation update identity.
+    update_id: String,
+    /// Projection being adapted.
+    projection_id: String,
+    /// Digest of the prior projection.
+    prior_digest: String,
+    /// Digest of the candidate projection.
+    new_digest: String,
+    /// Admitted capability gap causing the update.
+    triggering_gap_id: String,
+    /// Boundary excluding consequential actuation authority.
+    authority_ceiling: String,
   )
 }
 
@@ -4143,6 +5007,40 @@ pub type OrderFormAdmission {
   )
 }
 
+/// Immutable commercial order-form version.
+pub type OrderFormVersion {
+  OrderFormVersion(
+    /// Stable identity of this order form version contract.
+    order_form_version_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Content digest of the accepted order form.
+    order_form_digest: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Scores independent semantic coverage against the full comparison set.
+pub type OrthogonalityReward {
+  OrthogonalityReward(
+    /// Stable orthogonality reward identity.
+    reward_id: String,
+    /// Candidate capability identity.
+    candidate_id: String,
+    /// Digest of capabilities compared.
+    comparison_set_digest: String,
+    /// Minimum distance from any prior capability.
+    minimum_semantic_distance: Float,
+    /// Bounded orthogonality reward.
+    reward: Float,
+    /// Digest proving distinct execution semantics.
+    independence_evidence_digest: String,
+  )
+}
+
 /// Measures semantic independence between candidate work items.
 pub type OrthogonalityScore {
   OrthogonalityScore(
@@ -4155,6 +5053,22 @@ pub type OrthogonalityScore {
   )
 }
 
+/// Assigns an evidence-backed outcome class without allowing self-reported success to confirm itself.
+pub type OutcomeLabel {
+  OutcomeLabel(
+    /// Stable outcome label identity.
+    label_id: String,
+    /// Exact episode being labeled.
+    episode_id: String,
+    /// Observed outcome class.
+    outcome_class: String,
+    /// Independent basis for label confidence.
+    confidence_basis: String,
+    /// Digest of evidence outside the candidate policy claim.
+    independent_evidence_digest: String,
+  )
+}
+
 /// Refuses manufacture promotion until every output path has admitted ownership.
 pub type OutputOwnershipGate {
   OutputOwnershipGate(
@@ -4164,6 +5078,22 @@ pub type OutputOwnershipGate {
     ownership_manifest_hash: String,
     /// Required standing preserving evidence and falsifiability.
     standing: String,
+  )
+}
+
+/// Invoice consequence for measured overage.
+pub type OverageInvoice {
+  OverageInvoice(
+    /// Stable identity of this overage invoice contract.
+    overage_invoice_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Observed overage amount after admitted aggregation.
+    overage_amount: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -4365,6 +5295,42 @@ pub type PlannerIdentity {
   )
 }
 
+/// Records objective-specific planner payoff from independent episode evidence.
+pub type PlannerPayoffObservation {
+  PlannerPayoffObservation(
+    /// Stable planner payoff observation identity.
+    observation_id: String,
+    /// Planner whose realized payoff is measured.
+    planner_id: String,
+    /// Objective used for evaluation.
+    objective_id: String,
+    /// Observed numeric payoff.
+    payoff: Float,
+    /// Independent evidence supporting the payoff.
+    evidence_digest: String,
+    /// Episode that realized the payoff.
+    episode_id: String,
+  )
+}
+
+/// Compares incumbent and challenger policies under one planner and one admitted objective.
+pub type PlannerPolicyComparison {
+  PlannerPolicyComparison(
+    /// Stable comparison identity.
+    comparison_id: String,
+    /// Planner held constant for comparison.
+    planner_id: String,
+    /// Incumbent policy identity.
+    incumbent_policy_id: String,
+    /// Challenger policy identity.
+    challenger_policy_id: String,
+    /// Challenger minus incumbent payoff.
+    payoff_delta: Float,
+    /// Digest proving the selected winner.
+    winner_evidence_digest: String,
+  )
+}
+
 /// Preserves a diverse set of planners for one bounded planning episode.
 pub type PlannerPortfolio {
   PlannerPortfolio(
@@ -4374,6 +5340,24 @@ pub type PlannerPortfolio {
     planner_ids: String,
     /// Required diversity_hash preserving evidence and falsifiability.
     diversity_hash: String,
+  )
+}
+
+/// Routes future planning to a better-supported planner with a declared rollback policy.
+pub type PlannerRoutingUpdate {
+  PlannerRoutingUpdate(
+    /// Stable planner-routing update identity.
+    update_id: String,
+    /// Planning route being adapted.
+    route_id: String,
+    /// Previously selected planner.
+    prior_planner_id: String,
+    /// Evidence-selected future planner.
+    selected_planner_id: String,
+    /// Digest of comparative payoff evidence.
+    payoff_basis_digest: String,
+    /// Policy restoring the prior route on regression.
+    rollback_policy_id: String,
   )
 }
 
@@ -4487,6 +5471,24 @@ pub type PolicyDecision {
   )
 }
 
+/// Records bounded policy payoff separately from planner identity and parameters.
+pub type PolicyPayoffObservation {
+  PolicyPayoffObservation(
+    /// Stable policy payoff observation identity.
+    observation_id: String,
+    /// Exact policy identity.
+    policy_id: String,
+    /// Digest of bounded policy parameters.
+    parameter_digest: String,
+    /// Objective used to score the policy.
+    objective_id: String,
+    /// Observed numeric policy payoff.
+    payoff: Float,
+    /// Independent evidence supporting the payoff.
+    evidence_digest: String,
+  )
+}
+
 /// One directed edge of a ChoiceGraphNode.edges set over ChoiceGraphEndpoint (Start | Child(usize) | End); may be cyclic (a self-loop Child(i)->Child(i) is a POWL 1.0-style loop over a single child, generalized).
 pub type PowlChoiceGraphEdge {
   PowlChoiceGraphEdge(
@@ -4559,6 +5561,54 @@ pub type PpddlProjection {
   )
 }
 
+/// Paid integration-connector add-on.
+pub type PremiumConnectorPricing {
+  PremiumConnectorPricing(
+    /// Stable identity of this premium connector pricing contract.
+    premium_connector_pricing_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Stable identity of the separately priced connector.
+    connector_id: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Receipted prepaid-credit balance.
+pub type PrepaidCreditBalance {
+  PrepaidCreditBalance(
+    /// Stable identity of this prepaid credit balance contract.
+    prepaid_credit_balance_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Observed remaining prepaid credit after admitted usage.
+    remaining_credit: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Immutable enterprise price-book release.
+pub type PriceBookVersion {
+  PriceBookVersion(
+    /// Stable identity of this price book version contract.
+    price_book_version_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Buyer-visible semantic version of the admitted price book.
+    version: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Binds the opportunity to an exact pricing basis and evidence identity before quote construction.
 pub type PricingBasisContract {
   PricingBasisContract(
@@ -4622,6 +5672,22 @@ pub type ProcessVariant {
     activity_sequence: List(String),
     /// Number of traces observed with exactly this activity sequence.
     frequency: Int,
+  )
+}
+
+/// Process-model commercial packaging dimension.
+pub type ProcessVolumePricingPolicy {
+  ProcessVolumePricingPolicy(
+    /// Stable identity of this process volume pricing policy contract.
+    process_volume_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price per managed process.
+    unit_process_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -4695,6 +5761,42 @@ pub type ProductionReadiness {
   )
 }
 
+/// Promotes or refuses a challenger by applying a pre-existing threshold to independent evidence.
+pub type PromotionDecision {
+  PromotionDecision(
+    /// Stable promotion decision identity.
+    decision_id: String,
+    /// Candidate policy considered.
+    candidate_policy_id: String,
+    /// Immutable threshold applied.
+    threshold_id: String,
+    /// Digest of independent evaluation evidence.
+    evidence_set_digest: String,
+    /// PROMOTE or REFUSE result.
+    decision: String,
+    /// Typed reason when promotion is refused.
+    refusal_code: String,
+  )
+}
+
+/// Defines immutable minimum evidence and payoff conditions for challenger promotion.
+pub type PromotionThreshold {
+  PromotionThreshold(
+    /// Stable promotion threshold identity.
+    threshold_id: String,
+    /// Objective governed by the threshold.
+    objective_id: String,
+    /// Minimum challenger payoff.
+    minimum_payoff: Float,
+    /// Maximum admissible regression.
+    maximum_regression: Float,
+    /// Minimum independent evidence count.
+    minimum_evidence_count: Int,
+    /// Authority that owns threshold changes.
+    authority_binding: String,
+  )
+}
+
 /// Qualifies whether a proof-of-value has an actual budget and decision rather than free-pilot ambiguity.
 pub type ProofOfValueBudget {
   ProofOfValueBudget(
@@ -4719,6 +5821,22 @@ pub type ProofOfValueExitGate {
   )
 }
 
+/// Paid proof-of-value package with measurable exit criterion.
+pub type ProofOfValuePackage {
+  ProofOfValuePackage(
+    /// Stable identity of this proof of value package contract.
+    proof_of_value_package_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Canonical metric that determines proof-of-value acceptance.
+    success_metric: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Scores downstream consequences across the dependency and capability graph.
 pub type PropagationScore {
   PropagationScore(
@@ -4728,6 +5846,22 @@ pub type PropagationScore {
     graph_hash: String,
     /// Required score preserving evidence and falsifiability.
     score: String,
+  )
+}
+
+/// Deterministic mid-term proration policy.
+pub type ProrationPolicy {
+  ProrationPolicy(
+    /// Stable identity of this proration policy contract.
+    proration_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted algorithm identity for partial-period charges.
+    proration_method: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -4821,6 +5955,38 @@ pub type QueueSnapshot {
   )
 }
 
+/// Purchased temporary quota burst allowance.
+pub type QuotaBurstAllowance {
+  QuotaBurstAllowance(
+    /// Stable identity of this quota burst allowance contract.
+    quota_burst_allowance_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Additional units admitted above the contracted quota.
+    burst_units: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Explicitly authorized quota override.
+pub type QuotaOverride {
+  QuotaOverride(
+    /// Stable identity of this quota override contract.
+    quota_override_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Authorized replacement quota for the bounded window.
+    override_units: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Enforceable quota limit over a named measurement window.
 pub type QuotaPolicy {
   QuotaPolicy(
@@ -4849,6 +6015,38 @@ pub type RampCommitment {
   )
 }
 
+/// Sellable unit price bound to an immutable price book.
+pub type RateCardEntry {
+  RateCardEntry(
+    /// Stable identity of this rate card entry contract.
+    rate_card_entry_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price; currency is supplied by the linked currency policy.
+    unit_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Bounds observation compression by maximum decision-relevant information distortion.
+pub type RateDistortionBudget {
+  RateDistortionBudget(
+    /// Stable rate-distortion budget identity.
+    budget_id: String,
+    /// Decision protected by the budget.
+    decision_id: String,
+    /// Information present before compression.
+    source_information_bits: Float,
+    /// Information retained after projection.
+    retained_information_bits: Float,
+    /// Maximum admitted decision distortion.
+    maximum_distortion: Float,
+  )
+}
+
 /// Determines whether an admitted goal remains reachable from current state.
 pub type ReachabilityAnalysis {
   ReachabilityAnalysis(
@@ -4858,6 +6056,22 @@ pub type ReachabilityAnalysis {
     goal_id: String,
     /// Required reachability_proof_hash preserving evidence and falsifiability.
     reachability_proof_hash: String,
+  )
+}
+
+/// Compiles only verified receipt-chain members into a deterministic learning corpus.
+pub type ReceiptLearningCompilation {
+  ReceiptLearningCompilation(
+    /// Stable receipt compilation identity.
+    compilation_id: String,
+    /// Digest of the admitted receipt chain head.
+    receipt_chain_head: String,
+    /// Number of verified receipts admitted.
+    admitted_receipt_count: Int,
+    /// Number of receipts refused by validation.
+    rejected_receipt_count: Int,
+    /// Digest of the compiled learning corpus.
+    learning_digest: String,
   )
 }
 
@@ -4975,6 +6189,22 @@ pub type RecoveryTimeReceipt {
   )
 }
 
+/// Deterministic refund eligibility policy.
+pub type RefundPolicy {
+  RefundPolicy(
+    /// Stable identity of this refund policy contract.
+    refund_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted method used to calculate a refund.
+    refund_method: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Emits REFUSED with exact authority boundary and evidence.
 pub type RefusalBoundaryObservation {
   RefusalBoundaryObservation(
@@ -4986,6 +6216,74 @@ pub type RefusalBoundaryObservation {
     authority_boundary: String,
     /// Digest supporting refusal.
     evidence_digest: String,
+  )
+}
+
+/// Defines an immutable evidence boundary that forces policy refusal when crossed.
+pub type RefusalThreshold {
+  RefusalThreshold(
+    /// Stable refusal threshold identity.
+    threshold_id: String,
+    /// Failure or risk class governed.
+    refusal_class: String,
+    /// Numeric refusal boundary.
+    limit: Float,
+    /// Metric compared to the boundary.
+    metric_id: String,
+    /// Authority that alone may revise the threshold.
+    authority_binding: String,
+  )
+}
+
+/// Deployment-region commercial adjustment.
+pub type RegionPricingPolicy {
+  RegionPricingPolicy(
+    /// Stable identity of this region pricing policy contract.
+    region_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Exact cloud or sovereign region governed by this price policy.
+    region_code: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Detects candidate regression against a fixed baseline and metric before promotion.
+pub type RegressionDetector {
+  RegressionDetector(
+    /// Stable regression detection identity.
+    detection_id: String,
+    /// Admitted baseline policy.
+    baseline_policy_id: String,
+    /// Candidate policy under test.
+    candidate_policy_id: String,
+    /// Metric defining regression.
+    metric_id: String,
+    /// Measured candidate regression.
+    regression_delta: Float,
+    /// Independent comparison evidence.
+    evidence_digest: String,
+  )
+}
+
+/// Refuses promotion when observed regression exceeds the immutable acceptance threshold.
+pub type RegressionRefusal {
+  RegressionRefusal(
+    /// Stable regression refusal identity.
+    refusal_id: String,
+    /// Candidate refused promotion.
+    candidate_policy_id: String,
+    /// Supporting regression detection.
+    regression_detection_id: String,
+    /// Maximum admitted regression.
+    acceptance_threshold: Float,
+    /// Measured regression.
+    observed_regression: Float,
+    /// Boundary preventing self-override of refusal.
+    authority_ceiling: String,
   )
 }
 
@@ -5074,6 +6372,22 @@ pub type RenewalTermAdmission {
     renewal_term: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Measures whether a repair reduced the target failure over a fixed evaluation window.
+pub type RepairEffectivenessMeasurement {
+  RepairEffectivenessMeasurement(
+    /// Stable repair measurement identity.
+    measurement_id: String,
+    /// Repair being evaluated.
+    repair_id: String,
+    /// Pre-repair failure rate.
+    baseline_failure_rate: Float,
+    /// Post-repair failure rate.
+    post_repair_failure_rate: Float,
+    /// Digest of the compared episode windows.
+    evaluation_window_digest: String,
   )
 }
 
@@ -5237,6 +6551,22 @@ pub type RetentionPolicyEvidence {
   )
 }
 
+/// Retention-duration commercial packaging.
+pub type RetentionPricingPolicy {
+  RetentionPricingPolicy(
+    /// Stable identity of this retention pricing policy contract.
+    retention_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Purchased evidence and event-data retention period in days.
+    retention_days: Int,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Receipted revenue attribution bound to exact enterprise evidence.
 pub type RevenueAttribution {
   RevenueAttribution(
@@ -5369,6 +6699,24 @@ pub type RollbackEvidence {
   )
 }
 
+/// Learns whether rollback restored admitted state without treating rollback completion as success by itself.
+pub type RollbackOutcomeLearning {
+  RollbackOutcomeLearning(
+    /// Stable rollback learning identity.
+    learning_id: String,
+    /// Rollback transition evaluated.
+    rollback_id: String,
+    /// State digest before rollback.
+    pre_rollback_state_digest: String,
+    /// State digest after rollback.
+    post_rollback_state_digest: String,
+    /// Measured degree of state restoration.
+    recovery_score: Float,
+    /// Independent recovery evidence.
+    evidence_digest: String,
+  )
+}
+
 /// Admits an identified rolling upgrade plan with deterministic production evidence.
 pub type RollingUpgradePlan {
   RollingUpgradePlan(
@@ -5378,6 +6726,38 @@ pub type RollingUpgradePlan {
     upgrade_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     plan_hash: String,
+  )
+}
+
+/// Stores a reusable root-cause pattern only after independent reproduction.
+pub type RootCausePattern {
+  RootCausePattern(
+    /// Stable root-cause pattern identity.
+    pattern_id: String,
+    /// Failure class explained by the pattern.
+    failure_class: String,
+    /// Digest of the causal graph.
+    causal_graph_digest: String,
+    /// Independent reproducer evidence.
+    confirmed_reproducer_digest: String,
+    /// Bounded scope where reuse is admissible.
+    reusable_scope: String,
+  )
+}
+
+/// Admits or refuses reuse of a historical root cause using measured similarity evidence.
+pub type RootCauseReuseDecision {
+  RootCauseReuseDecision(
+    /// Stable reuse decision identity.
+    decision_id: String,
+    /// Historical root-cause pattern considered.
+    pattern_id: String,
+    /// Current failure being diagnosed.
+    current_failure_id: String,
+    /// Measured causal similarity.
+    similarity_score: Float,
+    /// Evidence proving or refusing applicability.
+    applicability_evidence_digest: String,
   )
 }
 
@@ -5419,6 +6799,40 @@ pub type SanctionsScreeningResult {
   )
 }
 
+/// Nonproduction sandbox entitlement with a hard ceiling.
+pub type SandboxEntitlement {
+  SandboxEntitlement(
+    /// Stable identity of this sandbox entitlement contract.
+    sandbox_entitlement_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Maximum purchased sandbox environments.
+    sandbox_limit: Int,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Detects diminishing learning returns from measured gain, novelty, and coverage evidence.
+pub type SaturationDetection {
+  SaturationDetection(
+    /// Stable saturation detection identity.
+    detection_id: String,
+    /// Curriculum being measured.
+    curriculum_id: String,
+    /// Recent objective improvement.
+    recent_gain: Float,
+    /// Trend in marginal learning gain.
+    gain_slope: Float,
+    /// Minimum admitted novelty.
+    novelty_floor: Float,
+    /// Digest of evaluated capability coverage.
+    coverage_digest: String,
+  )
+}
+
 /// Executable SBOM evidence binding an exact commercial subject to the observed component inventory cardinality.
 pub type SbomInventoryEvidence {
   SbomInventoryEvidence(
@@ -5430,6 +6844,22 @@ pub type SbomInventoryEvidence {
     component_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Named-seat enterprise packaging dimension.
+pub type SeatPricingPolicy {
+  SeatPricingPolicy(
+    /// Stable identity of this seat pricing policy contract.
+    seat_pricing_policy_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted unit price for one named enterprise seat.
+    seat_price: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -5513,6 +6943,24 @@ pub type SecurityReadiness {
   )
 }
 
+/// Produces a reproducible policy evaluation bound to an explicit seed and dataset.
+pub type SeededEvaluation {
+  SeededEvaluation(
+    /// Stable seeded evaluation identity.
+    evaluation_id: String,
+    /// Explicit deterministic seed.
+    seed: String,
+    /// Immutable evaluation dataset digest.
+    dataset_digest: String,
+    /// Policy evaluated.
+    policy_id: String,
+    /// Observed evaluation score.
+    score: Float,
+    /// Digest of deterministic replay output.
+    replay_digest: String,
+  )
+}
+
 /// Classifies semantic change between prior and current canonical digests.
 pub type SemanticDriftObservation {
   SemanticDriftObservation(
@@ -5550,6 +6998,22 @@ pub type ServiceCreditAdmission {
     service_credit_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Auditable customer service-credit balance.
+pub type ServiceCreditLedger {
+  ServiceCreditLedger(
+    /// Stable identity of this service credit ledger contract.
+    service_credit_ledger_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Observed service-credit amount after an admitted SLO consequence.
+    credit_amount: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -5602,6 +7066,24 @@ pub type ServiceSpan {
     duration_ms: Int,
     /// Optional identifier of the parent span.
     parent_span_id: option.Option(String),
+  )
+}
+
+/// Runs a challenger in observation-only shadow mode with no consequential DO authority.
+pub type ShadowChallengerExecution {
+  ShadowChallengerExecution(
+    /// Stable shadow execution identity.
+    execution_id: String,
+    /// Live incumbent policy identity.
+    incumbent_policy_id: String,
+    /// Shadow challenger policy identity.
+    challenger_policy_id: String,
+    /// Digest of identical inputs supplied to both policies.
+    shared_observation_digest: String,
+    /// Receipt proving challenger execution remained shadow-only.
+    shadow_receipt_digest: String,
+    /// Authority mode, required to remain non-consequential.
+    authority_mode: String,
   )
 }
 
@@ -5687,6 +7169,22 @@ pub type SolutionFit {
   )
 }
 
+/// Observed consumption against committed spend.
+pub type SpendDrawdown {
+  SpendDrawdown(
+    /// Stable identity of this spend drawdown contract.
+    spend_drawdown_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Amount actually drawn from the committed-spend balance.
+    consumed_amount: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Executable stakeholder-coverage contract for a qualified enterprise evaluation.
 pub type StakeholderMap {
   StakeholderMap(
@@ -5752,6 +7250,40 @@ pub type StandingStateObservation {
     evidence_digest: String,
     /// Timestamp standing was observed.
     observed_at: String,
+  )
+}
+
+/// Stops further experiments only when an immutable evidence window satisfies a declared criterion.
+pub type StoppingCriterion {
+  StoppingCriterion(
+    /// Stable stopping criterion identity.
+    criterion_id: String,
+    /// Objective governed by stopping.
+    objective_id: String,
+    /// Minimum gain required to continue.
+    minimum_gain: Float,
+    /// Maximum bounded experiment count.
+    maximum_episodes: Int,
+    /// Digest of evidence used to stop.
+    evidence_window_digest: String,
+    /// Authority that owns criterion changes.
+    authority_binding: String,
+  )
+}
+
+/// Attributes a failure to the exact subject only after the validation capsule is independently admitted.
+pub type SubjectFailureSeparation {
+  SubjectFailureSeparation(
+    /// Stable subject-failure assessment identity.
+    assessment_id: String,
+    /// Exact subject that reproduced the failure.
+    exact_subject_sha: String,
+    /// Independent standing of the validation capsule.
+    capsule_standing: String,
+    /// Typed failure attributed to the subject.
+    subject_failure_code: String,
+    /// Digest of an independent reproducer.
+    independent_reproducer_digest: String,
   )
 }
 
@@ -5944,6 +7476,22 @@ pub type TaxJurisdictionEvidence {
     tax_jurisdiction: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     evidence_hash: String,
+  )
+}
+
+/// Tax jurisdiction routing for a contracting entity.
+pub type TaxJurisdictionRule {
+  TaxJurisdictionRule(
+    /// Stable identity of this tax jurisdiction rule contract.
+    tax_jurisdiction_rule_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Admitted tax jurisdiction code for invoice treatment.
+    jurisdiction_code: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -6145,6 +7693,38 @@ pub type TrainingScopeAdmission {
   )
 }
 
+/// Bounds a software-manufacturing trajectory by exact endpoints so learning cannot silently mix histories.
+pub type TrajectoryWindow {
+  TrajectoryWindow(
+    /// Stable trajectory window identity.
+    window_id: String,
+    /// Caller-local repository identity.
+    repository_id: String,
+    /// Exact first subject in the window.
+    first_subject_sha: String,
+    /// Exact final subject in the window.
+    last_subject_sha: String,
+    /// Number of admitted episodes in the window.
+    episode_count: Int,
+  )
+}
+
+/// Time-bounded enterprise trial entitlement.
+pub type TrialEntitlement {
+  TrialEntitlement(
+    /// Stable identity of this trial entitlement contract.
+    trial_entitlement_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Exact instant at which trial capability must be refused.
+    trial_expires_at: String,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// End-of-period reconciliation policy for committed consumption.
 pub type TrueUpPolicy {
   TrueUpPolicy(
@@ -6199,6 +7779,22 @@ pub type UncertaintyObservation {
   )
 }
 
+/// Evidence-bound gross-margin snapshot.
+pub type UnitEconomicsSnapshot {
+  UnitEconomicsSnapshot(
+    /// Stable identity of this unit economics snapshot contract.
+    unit_economics_snapshot_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Observed gross margin derived from admitted revenue and cost evidence.
+    gross_margin: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
 /// Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses.
 pub type UnsupportedCapabilityEvidence {
   UnsupportedCapabilityEvidence(
@@ -6240,6 +7836,38 @@ pub type UpsellReadiness {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Deterministic usage aggregation window.
+pub type UsageAggregationWindow {
+  UsageAggregationWindow(
+    /// Stable identity of this usage aggregation window contract.
+    usage_aggregation_window_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Exact billing aggregation window in seconds.
+    window_seconds: Int,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
+  )
+}
+
+/// Receipted correction to previously reported usage.
+pub type UsageCorrection {
+  UsageCorrection(
+    /// Stable identity of this usage correction contract.
+    usage_correction_id: String,
+    /// Enterprise account governed by this commercial contract.
+    account_id: String,
+    /// Replacement usage quantity bound to correction evidence.
+    corrected_quantity: Float,
+    /// Digest of the exact evidence admitting this commercial consequence.
+    evidence_digest: String,
+    /// ISO8601 instant at which this contract becomes effective.
+    effective_at: String,
   )
 }
 
@@ -6401,6 +8029,24 @@ pub type ValueRealization {
   )
 }
 
+/// Feeds independently measured realized value back into future policy ranking.
+pub type ValueRealizationFeedback {
+  ValueRealizationFeedback(
+    /// Stable value feedback identity.
+    feedback_id: String,
+    /// Value objective being measured.
+    objective_id: String,
+    /// Value before the policy episode.
+    baseline_value: Float,
+    /// Observed value after the episode.
+    realized_value: Float,
+    /// Independent outcome evidence.
+    evidence_digest: String,
+    /// Policy associated with the outcome.
+    policy_id: String,
+  )
+}
+
 /// Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.
 pub type ValueReceipt {
   ValueReceipt(
@@ -6456,6 +8102,24 @@ pub type VendorRiskEvidence {
     risk_score: Float,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Raises or lowers verification depth from observed risk without weakening the immutable minimum court.
+pub type VerificationDepthUpdate {
+  VerificationDepthUpdate(
+    /// Stable verification-depth update identity.
+    update_id: String,
+    /// Verifier whose depth is adapted.
+    verifier_id: String,
+    /// Prior verification depth.
+    prior_depth: Int,
+    /// Risk-adjusted verification depth.
+    new_depth: Int,
+    /// Digest of observed risk evidence.
+    risk_signal_digest: String,
+    /// Immutable minimum acceptance depth.
+    minimum_depth: Int,
   )
 }
 

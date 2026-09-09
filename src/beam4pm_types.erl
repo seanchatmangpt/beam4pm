@@ -3,6 +3,7 @@
 -module(beam4pm_types).
 
 -export([
+    new_acceptance_criteria_nonweakening/1,
     new_account_discovery/1,
     new_account_master_match/1,
     new_account_parent_scope/1,
@@ -10,12 +11,15 @@
     new_action_pin_evidence/1,
     new_activation_event/1,
     new_add_on_bundle/1,
+    new_addon_activation/1,
     new_admissible_action_set/1,
     new_adoption_milestone/1,
     new_agent_assignment/1,
     new_alignment_move/1,
     new_annual_subscription/1,
     new_anomaly_detection_observation/1,
+    new_anti_repeat_refusal/1,
+    new_anti_repeat_signature/1,
     new_approval_separation_evidence/1,
     new_architecture_readiness/1,
     new_architecture_review_evidence/1,
@@ -91,28 +95,36 @@
     new_brce_actuation_receipt/1,
     new_brce_actuation_request/1,
     new_budget_period_alignment/1,
+    new_bundle_conflict/1,
+    new_bundle_dependency/1,
+    new_burst_pricing_policy/1,
     new_business_continuity_evidence/1,
     new_business_outcome_measurement/1,
+    new_business_unit_allocation/1,
     new_buying_committee/1,
     new_caller_local_checkout_observation/1,
     new_caller_local_consumer/1,
     new_caller_local_crown_identity/1,
     new_canary_decision/1,
     new_canary_evidence/1,
+    new_cancellation_policy/1,
     new_canonical_source_authority_observation/1,
     new_capability_bundle/1,
     new_capability_gap/1,
+    new_capability_gap_learning/1,
     new_capsule_availability/1,
     new_capsule_identity/1,
     new_case_stats/1,
     new_catalog_release/1,
     new_causal_lineage_observation/1,
+    new_challenger_candidate_evaluation/1,
     new_change_control_evidence/1,
     new_change_order_authority/1,
     new_changed_surface_inference/1,
     new_channel_agreement/1,
     new_chargeback_rule/1,
     new_cluster_quorum_state/1,
+    new_co_term_policy/1,
     new_commercial_approval/1,
     new_commercial_artifact_crown_evidence/1,
     new_commercial_exception/1,
@@ -126,10 +138,12 @@
     new_committed_spend/1,
     new_committed_spend_admission/1,
     new_compatibility_contract/1,
+    new_concurrency_pricing_policy/1,
     new_configuration_export/1,
     new_configuration_import/1,
     new_conformance_result/1,
     new_consequential_state_invalidation/1,
+    new_consumer_equivalence_learning_guard/1,
     new_consumer_equivalence_proof/1,
     new_consumer_pack_pin_observation/1,
     new_consumption_pool/1,
@@ -137,10 +151,14 @@
     new_container_manifest_digest_observation/1,
     new_container_platform_digest_observation/1,
     new_contracting_entity_identity/1,
+    new_cost_center_allocation/1,
+    new_cost_latency_reliability_tradeoff/1,
     new_cost_of_delay_score/1,
     new_cost_to_serve_measurement/1,
     new_counterfactual_frontier/1,
+    new_counterfactual_replay/1,
     new_crash_recovery_receipt/1,
+    new_credit_expiry_policy/1,
     new_credit_risk_admission/1,
     new_cross_sell_fit/1,
     new_crown_applicable_gate_coverage/1,
@@ -192,6 +210,8 @@
     new_crown_validation_pack/1,
     new_crown_workflow_run_receipt/1,
     new_crown_zero_unreceipted_writes/1,
+    new_currency_policy/1,
+    new_curriculum_generation/1,
     new_customer_health/1,
     new_customer_managed_key_evidence/1,
     new_customer_signal_observation/1,
@@ -200,8 +220,10 @@
     new_data_processing_addendum_state/1,
     new_data_readiness/1,
     new_data_residency_policy/1,
+    new_data_volume_pricing_policy/1,
     new_deal_desk_packet/1,
     new_decision_compression_observation/1,
+    new_decision_information_preservation/1,
     new_deletion_proof_evidence/1,
     new_demo_run/1,
     new_demo_scenario/1,
@@ -217,6 +239,9 @@
     new_dominance_witness/1,
     new_dynamic_replan_trigger/1,
     new_edition_definition/1,
+    new_edition_downgrade_path/1,
+    new_edition_upgrade_path/1,
+    new_enterprise_agreement/1,
     new_enterprise_order/1,
     new_enterprise_order_line/1,
     new_entitlement_denial_receipt/1,
@@ -227,14 +252,19 @@
     new_entitlement_runtime_check/1,
     new_entitlement_state/1,
     new_entropy_reduction_score/1,
+    new_environment_failure_separation/1,
     new_environment_identity/1,
+    new_environment_pricing_policy/1,
     new_environment_profile/1,
     new_environment_signal_observation/1,
     new_error_budget_state/1,
+    new_evaluation_seed_binding/1,
     new_event_log/1,
     new_event_triggered_planning/1,
     new_event_type/1,
+    new_event_volume_pricing_policy/1,
     new_evidence_freshness_evidence/1,
+    new_evidence_training_sample/1,
     new_exact_subject_binding/1,
     new_exception_authority/1,
     new_executive_business_review/1,
@@ -243,11 +273,19 @@
     new_expansion_option/1,
     new_expansion_receipt/1,
     new_expansion_signal/1,
+    new_experiment_learning_receipt/1,
+    new_failed_challenger_retention/1,
+    new_failure_label/1,
+    new_federated_dogfood_learning_crown/1,
     new_forged_receipt_refusal/1,
     new_funding_approval_chain/1,
+    new_fx_conversion_policy/1,
+    new_generated_hypothesis/1,
     new_generated_output_ownership_observation/1,
     new_generated_source_route/1,
     new_heuristic_arc/1,
+    new_historical_episode_replay/1,
+    new_hypothesis_priority_update/1,
     new_immutable_pack_selection/1,
     new_implementation_fee_admission/1,
     new_incident_acknowledgement/1,
@@ -259,11 +297,14 @@
     new_integration_readiness/1,
     new_integration_scope_admission/1,
     new_invoice_entity_identity/1,
+    new_invoice_line_item/1,
     new_invoice_schedule/1,
     new_irreversibility_budget/1,
     new_k8s_object_ref/1,
+    new_late_arriving_usage/1,
     new_latency_budget_observation/1,
     new_leakage_finding/1,
+    new_learning_episode/1,
     new_least_authority_evidence/1,
     new_legal_blocker/1,
     new_liability_cap_admission/1,
@@ -272,27 +313,38 @@
     new_machine_actionable_delta/1,
     new_manufacture_receipt_presence_observation/1,
     new_manufacture_receipt_validity_observation/1,
+    new_master_service_agreement_binding/1,
     new_master_service_agreement_state/1,
     new_mcts_plan_candidate/1,
     new_meta_router/1,
+    new_meter_definition/1,
+    new_meter_dimension/1,
+    new_meter_rollup/1,
     new_metered_usage_sample/1,
     new_migration_contract/1,
     new_migration_readiness/1,
+    new_minimum_commitment_schedule/1,
     new_minimum_term_admission/1,
     new_multiarch_evidence/1,
     new_mutable_identity_refusal_evidence/1,
     new_mutual_information_score/1,
+    new_negative_fixture_generation/1,
     new_next_lawful_actuation/1,
+    new_no_authority_learning_guard/1,
     new_node_failover_event/1,
+    new_nonproduction_discount_policy/1,
     new_normalized_event_observation/1,
+    new_novelty_reward/1,
     new_novelty_score/1,
     new_object_attribute_change/1,
     new_object_type/1,
+    new_object_volume_pricing_policy/1,
     new_objection/1,
     new_objection_resolution/1,
     new_observation_deduplication_decision/1,
     new_observation_entropy_estimate/1,
     new_observation_freshness_assessment/1,
+    new_observation_projection_update/1,
     new_observation_staleness_invalidation/1,
     new_oc_declare_constraint/1,
     new_ocel_attribute/1,
@@ -307,8 +359,12 @@
     new_optimization_plan_candidate/1,
     new_option_generation/1,
     new_order_form_admission/1,
+    new_order_form_version/1,
+    new_orthogonality_reward/1,
     new_orthogonality_score/1,
+    new_outcome_label/1,
     new_output_ownership_gate/1,
+    new_overage_invoice/1,
     new_overage_policy/1,
     new_package_release_observation/1,
     new_paid_workload_outcome_receipt/1,
@@ -325,7 +381,10 @@
     new_plan_memory/1,
     new_planner_capability_profile/1,
     new_planner_identity/1,
+    new_planner_payoff_observation/1,
+    new_planner_policy_comparison/1,
     new_planner_portfolio/1,
+    new_planner_routing_update/1,
     new_planning_action/1,
     new_planning_state/1,
     new_poc_exit_criteria/1,
@@ -334,25 +393,34 @@
     new_poc_timeline/1,
     new_policy_binding/1,
     new_policy_decision/1,
+    new_policy_payoff_observation/1,
     new_powl_choice_graph_edge/1,
     new_powl_freq/1,
     new_powl_leaf/1,
     new_powl_partial_order_edge/1,
     new_powl_projection/1,
     new_ppddl_projection/1,
+    new_premium_connector_pricing/1,
+    new_prepaid_credit_balance/1,
+    new_price_book_version/1,
     new_pricing_basis_contract/1,
     new_privacy_classification_evidence/1,
     new_private_offer/1,
     new_private_registry_evidence/1,
     new_process_variant/1,
+    new_process_volume_pricing_policy/1,
     new_procurement_acceptance_evidence/1,
     new_procurement_blocker/1,
     new_procurement_channel_selection/1,
     new_procurement_readiness/1,
     new_production_readiness/1,
+    new_promotion_decision/1,
+    new_promotion_threshold/1,
     new_proof_of_value_budget/1,
     new_proof_of_value_exit_gate/1,
+    new_proof_of_value_package/1,
     new_propagation_score/1,
+    new_proration_policy/1,
     new_provenance_binding_evidence/1,
     new_provenance_binding_observation/1,
     new_psro_population/1,
@@ -360,9 +428,14 @@
     new_purchase_order_requirement/1,
     new_purchasing_entity_identity/1,
     new_queue_snapshot/1,
+    new_quota_burst_allowance/1,
+    new_quota_override/1,
     new_quota_policy/1,
     new_ramp_commitment/1,
+    new_rate_card_entry/1,
+    new_rate_distortion_budget/1,
     new_reachability_analysis/1,
+    new_receipt_learning_compilation/1,
     new_receipt_replay_evidence/1,
     new_receipt_replay_request/1,
     new_receipt_required_gate/1,
@@ -372,13 +445,19 @@
     new_recovery_plan/1,
     new_recovery_point_receipt/1,
     new_recovery_time_receipt/1,
+    new_refund_policy/1,
     new_refusal_boundary_observation/1,
+    new_refusal_threshold/1,
+    new_region_pricing_policy/1,
+    new_regression_detector/1,
+    new_regression_refusal/1,
     new_remediation_sla_evidence/1,
     new_renewal_evidence/1,
     new_renewal_health/1,
     new_renewal_option/1,
     new_renewal_risk/1,
     new_renewal_term_admission/1,
+    new_repair_effectiveness_measurement/1,
     new_replay_environment_identity/1,
     new_repository_ancestry_observation/1,
     new_repository_default_branch_observation/1,
@@ -391,6 +470,7 @@
     new_resource_allocation/1,
     new_resource_capacity_plan/1,
     new_retention_policy_evidence/1,
+    new_retention_pricing_policy/1,
     new_revenue_attribution/1,
     new_revenue_contract_admission/1,
     new_revenue_schedule_assumption/1,
@@ -401,35 +481,47 @@
     new_rollback_checkpoint/1,
     new_rollback_decision/1,
     new_rollback_evidence/1,
+    new_rollback_outcome_learning/1,
     new_rolling_upgrade_plan/1,
+    new_root_cause_pattern/1,
+    new_root_cause_reuse_decision/1,
     new_runtime_health_observation/1,
     new_runtime_policy_decision/1,
     new_sanctions_screening_result/1,
+    new_sandbox_entitlement/1,
+    new_saturation_detection/1,
     new_sbom_inventory_evidence/1,
+    new_seat_pricing_policy/1,
     new_second_pass_byte_identity_observation/1,
     new_second_run_identity_objective/1,
     new_secret_boundary_evidence/1,
     new_security_addendum_state/1,
     new_security_blocker/1,
     new_security_readiness/1,
+    new_seeded_evaluation/1,
     new_semantic_drift_observation/1,
     new_service_credit/1,
     new_service_credit_admission/1,
+    new_service_credit_ledger/1,
     new_service_health_snapshot/1,
     new_service_level_objective/1,
     new_service_slo_contract/1,
     new_service_span/1,
+    new_shadow_challenger_execution/1,
     new_showback_allocation/1,
     new_signature_evidence/1,
     new_sku_definition/1,
     new_sla_offer_admission/1,
     new_sojourn_time/1,
     new_solution_fit/1,
+    new_spend_drawdown/1,
     new_stakeholder_map/1,
     new_stale_plan_refusal/1,
     new_stale_receipt_refusal/1,
     new_stale_subject_refusal_evidence/1,
     new_standing_state_observation/1,
+    new_stopping_criterion/1,
+    new_subject_failure_separation/1,
     new_submodule_lock_observation/1,
     new_submodule_registration_observation/1,
     new_success_plan/1,
@@ -444,6 +536,7 @@
     new_sync_time/1,
     new_target_metric/1,
     new_tax_jurisdiction_evidence/1,
+    new_tax_jurisdiction_rule/1,
     new_technical_blocker/1,
     new_temporal_order_observation/1,
     new_tenant_account/1,
@@ -459,13 +552,18 @@
     new_toolchain_identity_observation/1,
     new_training_readiness/1,
     new_training_scope_admission/1,
+    new_trajectory_window/1,
+    new_trial_entitlement/1,
     new_true_up_policy/1,
     new_type_edge/1,
     new_uncertainty_aware_selection/1,
     new_uncertainty_observation/1,
+    new_unit_economics_snapshot/1,
     new_unsupported_capability_evidence/1,
     new_upgrade_evidence/1,
     new_upsell_readiness/1,
+    new_usage_aggregation_window/1,
+    new_usage_correction/1,
     new_usage_event/1,
     new_usage_plan/1,
     new_usage_reconciliation_receipt/1,
@@ -477,10 +575,12 @@
     new_value_of_information_estimate/1,
     new_value_of_information_score/1,
     new_value_realization/1,
+    new_value_realization_feedback/1,
     new_value_receipt/1,
     new_value_telemetry_sample/1,
     new_vendor_registration_state/1,
     new_vendor_risk_evidence/1,
+    new_verification_depth_update/1,
     new_version_lifecycle_evidence/1,
     new_volume_tier_admission/1,
     new_vulnerability_scan_evidence/1,
@@ -498,6 +598,7 @@
 ]).
 
 -export_type([
+    acceptance_criteria_nonweakening/0,
     account_discovery/0,
     account_master_match/0,
     account_parent_scope/0,
@@ -505,12 +606,15 @@
     action_pin_evidence/0,
     activation_event/0,
     add_on_bundle/0,
+    addon_activation/0,
     admissible_action_set/0,
     adoption_milestone/0,
     agent_assignment/0,
     alignment_move/0,
     annual_subscription/0,
     anomaly_detection_observation/0,
+    anti_repeat_refusal/0,
+    anti_repeat_signature/0,
     approval_separation_evidence/0,
     architecture_readiness/0,
     architecture_review_evidence/0,
@@ -586,28 +690,36 @@
     brce_actuation_receipt/0,
     brce_actuation_request/0,
     budget_period_alignment/0,
+    bundle_conflict/0,
+    bundle_dependency/0,
+    burst_pricing_policy/0,
     business_continuity_evidence/0,
     business_outcome_measurement/0,
+    business_unit_allocation/0,
     buying_committee/0,
     caller_local_checkout_observation/0,
     caller_local_consumer/0,
     caller_local_crown_identity/0,
     canary_decision/0,
     canary_evidence/0,
+    cancellation_policy/0,
     canonical_source_authority_observation/0,
     capability_bundle/0,
     capability_gap/0,
+    capability_gap_learning/0,
     capsule_availability/0,
     capsule_identity/0,
     case_stats/0,
     catalog_release/0,
     causal_lineage_observation/0,
+    challenger_candidate_evaluation/0,
     change_control_evidence/0,
     change_order_authority/0,
     changed_surface_inference/0,
     channel_agreement/0,
     chargeback_rule/0,
     cluster_quorum_state/0,
+    co_term_policy/0,
     commercial_approval/0,
     commercial_artifact_crown_evidence/0,
     commercial_exception/0,
@@ -621,10 +733,12 @@
     committed_spend/0,
     committed_spend_admission/0,
     compatibility_contract/0,
+    concurrency_pricing_policy/0,
     configuration_export/0,
     configuration_import/0,
     conformance_result/0,
     consequential_state_invalidation/0,
+    consumer_equivalence_learning_guard/0,
     consumer_equivalence_proof/0,
     consumer_pack_pin_observation/0,
     consumption_pool/0,
@@ -632,10 +746,14 @@
     container_manifest_digest_observation/0,
     container_platform_digest_observation/0,
     contracting_entity_identity/0,
+    cost_center_allocation/0,
+    cost_latency_reliability_tradeoff/0,
     cost_of_delay_score/0,
     cost_to_serve_measurement/0,
     counterfactual_frontier/0,
+    counterfactual_replay/0,
     crash_recovery_receipt/0,
+    credit_expiry_policy/0,
     credit_risk_admission/0,
     cross_sell_fit/0,
     crown_applicable_gate_coverage/0,
@@ -687,6 +805,8 @@
     crown_validation_pack/0,
     crown_workflow_run_receipt/0,
     crown_zero_unreceipted_writes/0,
+    currency_policy/0,
+    curriculum_generation/0,
     customer_health/0,
     customer_managed_key_evidence/0,
     customer_signal_observation/0,
@@ -695,8 +815,10 @@
     data_processing_addendum_state/0,
     data_readiness/0,
     data_residency_policy/0,
+    data_volume_pricing_policy/0,
     deal_desk_packet/0,
     decision_compression_observation/0,
+    decision_information_preservation/0,
     deletion_proof_evidence/0,
     demo_run/0,
     demo_scenario/0,
@@ -712,6 +834,9 @@
     dominance_witness/0,
     dynamic_replan_trigger/0,
     edition_definition/0,
+    edition_downgrade_path/0,
+    edition_upgrade_path/0,
+    enterprise_agreement/0,
     enterprise_order/0,
     enterprise_order_line/0,
     entitlement_denial_receipt/0,
@@ -722,14 +847,19 @@
     entitlement_runtime_check/0,
     entitlement_state/0,
     entropy_reduction_score/0,
+    environment_failure_separation/0,
     environment_identity/0,
+    environment_pricing_policy/0,
     environment_profile/0,
     environment_signal_observation/0,
     error_budget_state/0,
+    evaluation_seed_binding/0,
     event_log/0,
     event_triggered_planning/0,
     event_type/0,
+    event_volume_pricing_policy/0,
     evidence_freshness_evidence/0,
+    evidence_training_sample/0,
     exact_subject_binding/0,
     exception_authority/0,
     executive_business_review/0,
@@ -738,11 +868,19 @@
     expansion_option/0,
     expansion_receipt/0,
     expansion_signal/0,
+    experiment_learning_receipt/0,
+    failed_challenger_retention/0,
+    failure_label/0,
+    federated_dogfood_learning_crown/0,
     forged_receipt_refusal/0,
     funding_approval_chain/0,
+    fx_conversion_policy/0,
+    generated_hypothesis/0,
     generated_output_ownership_observation/0,
     generated_source_route/0,
     heuristic_arc/0,
+    historical_episode_replay/0,
+    hypothesis_priority_update/0,
     immutable_pack_selection/0,
     implementation_fee_admission/0,
     incident_acknowledgement/0,
@@ -754,11 +892,14 @@
     integration_readiness/0,
     integration_scope_admission/0,
     invoice_entity_identity/0,
+    invoice_line_item/0,
     invoice_schedule/0,
     irreversibility_budget/0,
     k8s_object_ref/0,
+    late_arriving_usage/0,
     latency_budget_observation/0,
     leakage_finding/0,
+    learning_episode/0,
     least_authority_evidence/0,
     legal_blocker/0,
     liability_cap_admission/0,
@@ -767,27 +908,38 @@
     machine_actionable_delta/0,
     manufacture_receipt_presence_observation/0,
     manufacture_receipt_validity_observation/0,
+    master_service_agreement_binding/0,
     master_service_agreement_state/0,
     mcts_plan_candidate/0,
     meta_router/0,
+    meter_definition/0,
+    meter_dimension/0,
+    meter_rollup/0,
     metered_usage_sample/0,
     migration_contract/0,
     migration_readiness/0,
+    minimum_commitment_schedule/0,
     minimum_term_admission/0,
     multiarch_evidence/0,
     mutable_identity_refusal_evidence/0,
     mutual_information_score/0,
+    negative_fixture_generation/0,
     next_lawful_actuation/0,
+    no_authority_learning_guard/0,
     node_failover_event/0,
+    nonproduction_discount_policy/0,
     normalized_event_observation/0,
+    novelty_reward/0,
     novelty_score/0,
     object_attribute_change/0,
     object_type/0,
+    object_volume_pricing_policy/0,
     objection/0,
     objection_resolution/0,
     observation_deduplication_decision/0,
     observation_entropy_estimate/0,
     observation_freshness_assessment/0,
+    observation_projection_update/0,
     observation_staleness_invalidation/0,
     oc_declare_constraint/0,
     ocel_attribute/0,
@@ -802,8 +954,12 @@
     optimization_plan_candidate/0,
     option_generation/0,
     order_form_admission/0,
+    order_form_version/0,
+    orthogonality_reward/0,
     orthogonality_score/0,
+    outcome_label/0,
     output_ownership_gate/0,
+    overage_invoice/0,
     overage_policy/0,
     package_release_observation/0,
     paid_workload_outcome_receipt/0,
@@ -820,7 +976,10 @@
     plan_memory/0,
     planner_capability_profile/0,
     planner_identity/0,
+    planner_payoff_observation/0,
+    planner_policy_comparison/0,
     planner_portfolio/0,
+    planner_routing_update/0,
     planning_action/0,
     planning_state/0,
     poc_exit_criteria/0,
@@ -829,25 +988,34 @@
     poc_timeline/0,
     policy_binding/0,
     policy_decision/0,
+    policy_payoff_observation/0,
     powl_choice_graph_edge/0,
     powl_freq/0,
     powl_leaf/0,
     powl_partial_order_edge/0,
     powl_projection/0,
     ppddl_projection/0,
+    premium_connector_pricing/0,
+    prepaid_credit_balance/0,
+    price_book_version/0,
     pricing_basis_contract/0,
     privacy_classification_evidence/0,
     private_offer/0,
     private_registry_evidence/0,
     process_variant/0,
+    process_volume_pricing_policy/0,
     procurement_acceptance_evidence/0,
     procurement_blocker/0,
     procurement_channel_selection/0,
     procurement_readiness/0,
     production_readiness/0,
+    promotion_decision/0,
+    promotion_threshold/0,
     proof_of_value_budget/0,
     proof_of_value_exit_gate/0,
+    proof_of_value_package/0,
     propagation_score/0,
+    proration_policy/0,
     provenance_binding_evidence/0,
     provenance_binding_observation/0,
     psro_population/0,
@@ -855,9 +1023,14 @@
     purchase_order_requirement/0,
     purchasing_entity_identity/0,
     queue_snapshot/0,
+    quota_burst_allowance/0,
+    quota_override/0,
     quota_policy/0,
     ramp_commitment/0,
+    rate_card_entry/0,
+    rate_distortion_budget/0,
     reachability_analysis/0,
+    receipt_learning_compilation/0,
     receipt_replay_evidence/0,
     receipt_replay_request/0,
     receipt_required_gate/0,
@@ -867,13 +1040,19 @@
     recovery_plan/0,
     recovery_point_receipt/0,
     recovery_time_receipt/0,
+    refund_policy/0,
     refusal_boundary_observation/0,
+    refusal_threshold/0,
+    region_pricing_policy/0,
+    regression_detector/0,
+    regression_refusal/0,
     remediation_sla_evidence/0,
     renewal_evidence/0,
     renewal_health/0,
     renewal_option/0,
     renewal_risk/0,
     renewal_term_admission/0,
+    repair_effectiveness_measurement/0,
     replay_environment_identity/0,
     repository_ancestry_observation/0,
     repository_default_branch_observation/0,
@@ -886,6 +1065,7 @@
     resource_allocation/0,
     resource_capacity_plan/0,
     retention_policy_evidence/0,
+    retention_pricing_policy/0,
     revenue_attribution/0,
     revenue_contract_admission/0,
     revenue_schedule_assumption/0,
@@ -896,35 +1076,47 @@
     rollback_checkpoint/0,
     rollback_decision/0,
     rollback_evidence/0,
+    rollback_outcome_learning/0,
     rolling_upgrade_plan/0,
+    root_cause_pattern/0,
+    root_cause_reuse_decision/0,
     runtime_health_observation/0,
     runtime_policy_decision/0,
     sanctions_screening_result/0,
+    sandbox_entitlement/0,
+    saturation_detection/0,
     sbom_inventory_evidence/0,
+    seat_pricing_policy/0,
     second_pass_byte_identity_observation/0,
     second_run_identity_objective/0,
     secret_boundary_evidence/0,
     security_addendum_state/0,
     security_blocker/0,
     security_readiness/0,
+    seeded_evaluation/0,
     semantic_drift_observation/0,
     service_credit/0,
     service_credit_admission/0,
+    service_credit_ledger/0,
     service_health_snapshot/0,
     service_level_objective/0,
     service_slo_contract/0,
     service_span/0,
+    shadow_challenger_execution/0,
     showback_allocation/0,
     signature_evidence/0,
     sku_definition/0,
     sla_offer_admission/0,
     sojourn_time/0,
     solution_fit/0,
+    spend_drawdown/0,
     stakeholder_map/0,
     stale_plan_refusal/0,
     stale_receipt_refusal/0,
     stale_subject_refusal_evidence/0,
     standing_state_observation/0,
+    stopping_criterion/0,
+    subject_failure_separation/0,
     submodule_lock_observation/0,
     submodule_registration_observation/0,
     success_plan/0,
@@ -939,6 +1131,7 @@
     sync_time/0,
     target_metric/0,
     tax_jurisdiction_evidence/0,
+    tax_jurisdiction_rule/0,
     technical_blocker/0,
     temporal_order_observation/0,
     tenant_account/0,
@@ -954,13 +1147,18 @@
     toolchain_identity_observation/0,
     training_readiness/0,
     training_scope_admission/0,
+    trajectory_window/0,
+    trial_entitlement/0,
     true_up_policy/0,
     type_edge/0,
     uncertainty_aware_selection/0,
     uncertainty_observation/0,
+    unit_economics_snapshot/0,
     unsupported_capability_evidence/0,
     upgrade_evidence/0,
     upsell_readiness/0,
+    usage_aggregation_window/0,
+    usage_correction/0,
     usage_event/0,
     usage_plan/0,
     usage_reconciliation_receipt/0,
@@ -972,10 +1170,12 @@
     value_of_information_estimate/0,
     value_of_information_score/0,
     value_realization/0,
+    value_realization_feedback/0,
     value_receipt/0,
     value_telemetry_sample/0,
     vendor_registration_state/0,
     vendor_risk_evidence/0,
+    verification_depth_update/0,
     version_lifecycle_evidence/0,
     volume_tier_admission/0,
     vulnerability_scan_evidence/0,
@@ -991,6 +1191,53 @@
     workload_retry_policy/0,
     workload_timeout_budget/0
 ]).
+
+%% Refuses adaptive changes that weaken the pre-existing acceptance contract.
+-record(acceptance_criteria_nonweakening, {
+    assessment_id :: binary(), %% assessment_id: Stable non-weakening assessment identity.
+    acceptance_contract_id :: binary(), %% acceptance_contract_id: Acceptance contract protected.
+    prior_digest :: binary(), %% prior_digest: Digest of current criteria.
+    candidate_digest :: binary(), %% candidate_digest: Digest of proposed criteria.
+    strength_result :: binary(), %% strength_result: Equivalent, stronger, or weaker comparison.
+    refusal_code :: binary() %% refusal_code: Typed refusal when weakening is detected.
+}).
+
+-type acceptance_criteria_nonweakening() :: #acceptance_criteria_nonweakening{}.
+
+-spec new_acceptance_criteria_nonweakening(map()) -> {ok, acceptance_criteria_nonweakening()} | {error, {missing_field, atom()}}.
+new_acceptance_criteria_nonweakening(Map) ->
+    case maps:is_key(assessment_id, Map) of
+        false -> {error, {missing_field, assessment_id}};
+        true ->
+    case maps:is_key(acceptance_contract_id, Map) of
+        false -> {error, {missing_field, acceptance_contract_id}};
+        true ->
+    case maps:is_key(prior_digest, Map) of
+        false -> {error, {missing_field, prior_digest}};
+        true ->
+    case maps:is_key(candidate_digest, Map) of
+        false -> {error, {missing_field, candidate_digest}};
+        true ->
+    case maps:is_key(strength_result, Map) of
+        false -> {error, {missing_field, strength_result}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #acceptance_criteria_nonweakening{
+        assessment_id = maps:get(assessment_id, Map, undefined),
+        acceptance_contract_id = maps:get(acceptance_contract_id, Map, undefined),
+        prior_digest = maps:get(prior_digest, Map, undefined),
+        candidate_digest = maps:get(candidate_digest, Map, undefined),
+        strength_result = maps:get(strength_result, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
 
 %% Receipted enterprise account-discovery outcome that binds qualification evidence to a measurable discovery score.
 -record(account_discovery, {
@@ -1231,6 +1478,47 @@ new_add_on_bundle(Map) ->
     end
     end.
 
+%% Receipted activation of a paid add-on.
+-record(addon_activation, {
+    addon_activation_id :: binary(), %% addon_activation_id: Stable identity of this addon activation contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    addon_id :: binary(), %% addon_id: Stable identity of the activated commercial add-on.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type addon_activation() :: #addon_activation{}.
+
+-spec new_addon_activation(map()) -> {ok, addon_activation()} | {error, {missing_field, atom()}}.
+new_addon_activation(Map) ->
+    case maps:is_key(addon_activation_id, Map) of
+        false -> {error, {missing_field, addon_activation_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(addon_id, Map) of
+        false -> {error, {missing_field, addon_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #addon_activation{
+        addon_activation_id = maps:get(addon_activation_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        addon_id = maps:get(addon_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Computes all actions currently permitted by state, constraints, and authority.
 -record(admissible_action_set, {
     state_id :: binary(), %% state_id: Required state_id for this bounded planner contract.
@@ -1418,6 +1706,88 @@ new_anomaly_detection_observation(Map) ->
         observation_digest = maps:get(observation_digest, Map, undefined),
         anomaly_score = maps:get(anomaly_score, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Refuses a candidate action that recreates a confirmed failure signature.
+-record(anti_repeat_refusal, {
+    refusal_id :: binary(), %% refusal_id: Stable anti-repeat refusal identity.
+    candidate_action_id :: binary(), %% candidate_action_id: Candidate action refused.
+    matching_signature_id :: binary(), %% matching_signature_id: Confirmed failure signature matched.
+    recurrence_risk :: float(), %% recurrence_risk: Measured recurrence risk.
+    alternative_required :: boolean() %% alternative_required: Whether selection must produce a different option.
+}).
+
+-type anti_repeat_refusal() :: #anti_repeat_refusal{}.
+
+-spec new_anti_repeat_refusal(map()) -> {ok, anti_repeat_refusal()} | {error, {missing_field, atom()}}.
+new_anti_repeat_refusal(Map) ->
+    case maps:is_key(refusal_id, Map) of
+        false -> {error, {missing_field, refusal_id}};
+        true ->
+    case maps:is_key(candidate_action_id, Map) of
+        false -> {error, {missing_field, candidate_action_id}};
+        true ->
+    case maps:is_key(matching_signature_id, Map) of
+        false -> {error, {missing_field, matching_signature_id}};
+        true ->
+    case maps:is_key(recurrence_risk, Map) of
+        false -> {error, {missing_field, recurrence_risk}};
+        true ->
+    case maps:is_key(alternative_required, Map) of
+        false -> {error, {missing_field, alternative_required}};
+        true ->
+    {ok, #anti_repeat_refusal{
+        refusal_id = maps:get(refusal_id, Map, undefined),
+        candidate_action_id = maps:get(candidate_action_id, Map, undefined),
+        matching_signature_id = maps:get(matching_signature_id, Map, undefined),
+        recurrence_risk = maps:get(recurrence_risk, Map, undefined),
+        alternative_required = maps:get(alternative_required, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Compiles a confirmed failure pattern into durable anti-repeat memory.
+-record(anti_repeat_signature, {
+    signature_id :: binary(), %% signature_id: Stable anti-repeat signature identity.
+    failure_class :: binary(), %% failure_class: Confirmed failure class.
+    causal_features_digest :: binary(), %% causal_features_digest: Digest of decision-relevant causal features.
+    repair_family :: binary(), %% repair_family: Repair family that addressed the failure.
+    first_seen_episode :: binary() %% first_seen_episode: First preserved episode exhibiting the pattern.
+}).
+
+-type anti_repeat_signature() :: #anti_repeat_signature{}.
+
+-spec new_anti_repeat_signature(map()) -> {ok, anti_repeat_signature()} | {error, {missing_field, atom()}}.
+new_anti_repeat_signature(Map) ->
+    case maps:is_key(signature_id, Map) of
+        false -> {error, {missing_field, signature_id}};
+        true ->
+    case maps:is_key(failure_class, Map) of
+        false -> {error, {missing_field, failure_class}};
+        true ->
+    case maps:is_key(causal_features_digest, Map) of
+        false -> {error, {missing_field, causal_features_digest}};
+        true ->
+    case maps:is_key(repair_family, Map) of
+        false -> {error, {missing_field, repair_family}};
+        true ->
+    case maps:is_key(first_seen_episode, Map) of
+        false -> {error, {missing_field, first_seen_episode}};
+        true ->
+    {ok, #anti_repeat_signature{
+        signature_id = maps:get(signature_id, Map, undefined),
+        failure_class = maps:get(failure_class, Map, undefined),
+        causal_features_digest = maps:get(causal_features_digest, Map, undefined),
+        repair_family = maps:get(repair_family, Map, undefined),
+        first_seen_episode = maps:get(first_seen_episode, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -4012,6 +4382,129 @@ new_budget_period_alignment(Map) ->
     end
     end.
 
+%% Mutual exclusion between incompatible bundles.
+-record(bundle_conflict, {
+    bundle_conflict_id :: binary(), %% bundle_conflict_id: Stable identity of this bundle conflict contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    conflicting_bundle_id :: binary(), %% conflicting_bundle_id: Bundle whose simultaneous activation must be refused.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type bundle_conflict() :: #bundle_conflict{}.
+
+-spec new_bundle_conflict(map()) -> {ok, bundle_conflict()} | {error, {missing_field, atom()}}.
+new_bundle_conflict(Map) ->
+    case maps:is_key(bundle_conflict_id, Map) of
+        false -> {error, {missing_field, bundle_conflict_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(conflicting_bundle_id, Map) of
+        false -> {error, {missing_field, conflicting_bundle_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #bundle_conflict{
+        bundle_conflict_id = maps:get(bundle_conflict_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        conflicting_bundle_id = maps:get(conflicting_bundle_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Required dependency between sellable bundles.
+-record(bundle_dependency, {
+    bundle_dependency_id :: binary(), %% bundle_dependency_id: Stable identity of this bundle dependency contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    required_bundle_id :: binary(), %% required_bundle_id: Bundle that must be entitled before this bundle can activate.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type bundle_dependency() :: #bundle_dependency{}.
+
+-spec new_bundle_dependency(map()) -> {ok, bundle_dependency()} | {error, {missing_field, atom()}}.
+new_bundle_dependency(Map) ->
+    case maps:is_key(bundle_dependency_id, Map) of
+        false -> {error, {missing_field, bundle_dependency_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(required_bundle_id, Map) of
+        false -> {error, {missing_field, required_bundle_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #bundle_dependency{
+        bundle_dependency_id = maps:get(bundle_dependency_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        required_bundle_id = maps:get(required_bundle_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Bounded burst-capacity premium.
+-record(burst_pricing_policy, {
+    burst_pricing_policy_id :: binary(), %% burst_pricing_policy_id: Stable identity of this burst pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    burst_multiplier :: float(), %% burst_multiplier: Approved multiplier applied only above the included capacity.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type burst_pricing_policy() :: #burst_pricing_policy{}.
+
+-spec new_burst_pricing_policy(map()) -> {ok, burst_pricing_policy()} | {error, {missing_field, atom()}}.
+new_burst_pricing_policy(Map) ->
+    case maps:is_key(burst_pricing_policy_id, Map) of
+        false -> {error, {missing_field, burst_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(burst_multiplier, Map) of
+        false -> {error, {missing_field, burst_multiplier}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #burst_pricing_policy{
+        burst_pricing_policy_id = maps:get(burst_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        burst_multiplier = maps:get(burst_multiplier, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Executable continuity evidence binding an exact subject to the fallback operating mode actually entered.
 -record(business_continuity_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this business-continuity observation.
@@ -4072,6 +4565,47 @@ new_business_outcome_measurement(Map) ->
         outcome_id = maps:get(outcome_id, Map, undefined),
         measurement_hash = maps:get(measurement_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Showback allocation to an enterprise business unit.
+-record(business_unit_allocation, {
+    business_unit_allocation_id :: binary(), %% business_unit_allocation_id: Stable identity of this business unit allocation contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    business_unit_id :: binary(), %% business_unit_id: Stable identity of the receiving business unit.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type business_unit_allocation() :: #business_unit_allocation{}.
+
+-spec new_business_unit_allocation(map()) -> {ok, business_unit_allocation()} | {error, {missing_field, atom()}}.
+new_business_unit_allocation(Map) ->
+    case maps:is_key(business_unit_allocation_id, Map) of
+        false -> {error, {missing_field, business_unit_allocation_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(business_unit_id, Map) of
+        false -> {error, {missing_field, business_unit_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #business_unit_allocation{
+        business_unit_allocation_id = maps:get(business_unit_allocation_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        business_unit_id = maps:get(business_unit_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -4292,6 +4826,47 @@ new_canary_evidence(Map) ->
     end
     end.
 
+%% Contractual cancellation and notice policy.
+-record(cancellation_policy, {
+    cancellation_policy_id :: binary(), %% cancellation_policy_id: Stable identity of this cancellation policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    notice_days :: integer(), %% notice_days: Required cancellation notice period in days.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type cancellation_policy() :: #cancellation_policy{}.
+
+-spec new_cancellation_policy(map()) -> {ok, cancellation_policy()} | {error, {missing_field, atom()}}.
+new_cancellation_policy(Map) ->
+    case maps:is_key(cancellation_policy_id, Map) of
+        false -> {error, {missing_field, cancellation_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(notice_days, Map) of
+        false -> {error, {missing_field, notice_days}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #cancellation_policy{
+        cancellation_policy_id = maps:get(cancellation_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        notice_days = maps:get(notice_days, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Encodes whether a repository path is an authorized canonical manufacturing input.
 -record(canonical_source_authority_observation, {
     source_path :: binary(), %% source_path: Observed repository path.
@@ -4396,6 +4971,47 @@ new_capability_gap(Map) ->
         gap_severity = maps:get(gap_severity, Map, undefined),
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Converts observed missing capability evidence into a bounded learning signal.
+-record(capability_gap_learning, {
+    learning_id :: binary(), %% learning_id: Stable capability-gap learning identity.
+    observed_capability_id :: binary(), %% observed_capability_id: Capability actually observed.
+    required_capability_id :: binary(), %% required_capability_id: Capability required by the admitted objective.
+    gap_type :: binary(), %% gap_type: Typed semantic, execution, evidence, or authority gap.
+    evidence_digest :: binary() %% evidence_digest: Digest proving the gap.
+}).
+
+-type capability_gap_learning() :: #capability_gap_learning{}.
+
+-spec new_capability_gap_learning(map()) -> {ok, capability_gap_learning()} | {error, {missing_field, atom()}}.
+new_capability_gap_learning(Map) ->
+    case maps:is_key(learning_id, Map) of
+        false -> {error, {missing_field, learning_id}};
+        true ->
+    case maps:is_key(observed_capability_id, Map) of
+        false -> {error, {missing_field, observed_capability_id}};
+        true ->
+    case maps:is_key(required_capability_id, Map) of
+        false -> {error, {missing_field, required_capability_id}};
+        true ->
+    case maps:is_key(gap_type, Map) of
+        false -> {error, {missing_field, gap_type}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #capability_gap_learning{
+        learning_id = maps:get(learning_id, Map, undefined),
+        observed_capability_id = maps:get(observed_capability_id, Map, undefined),
+        required_capability_id = maps:get(required_capability_id, Map, undefined),
+        gap_type = maps:get(gap_type, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
     }}
     end
     end
@@ -4551,6 +5167,53 @@ new_causal_lineage_observation(Map) ->
         causal_basis = maps:get(causal_basis, Map, undefined),
         evidence_digest = maps:get(evidence_digest, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Evaluates a challenger on a fixed episode set and preserves a refusal outcome.
+-record(challenger_candidate_evaluation, {
+    evaluation_id :: binary(), %% evaluation_id: Stable challenger evaluation identity.
+    challenger_policy_id :: binary(), %% challenger_policy_id: Challenger policy under evaluation.
+    episode_set_digest :: binary(), %% episode_set_digest: Digest of the immutable evaluation episode set.
+    evaluation_seed :: binary(), %% evaluation_seed: Explicit evaluation seed.
+    score :: float(), %% score: Observed challenger score.
+    refusal_code :: binary() %% refusal_code: Typed refusal or admitted result.
+}).
+
+-type challenger_candidate_evaluation() :: #challenger_candidate_evaluation{}.
+
+-spec new_challenger_candidate_evaluation(map()) -> {ok, challenger_candidate_evaluation()} | {error, {missing_field, atom()}}.
+new_challenger_candidate_evaluation(Map) ->
+    case maps:is_key(evaluation_id, Map) of
+        false -> {error, {missing_field, evaluation_id}};
+        true ->
+    case maps:is_key(challenger_policy_id, Map) of
+        false -> {error, {missing_field, challenger_policy_id}};
+        true ->
+    case maps:is_key(episode_set_digest, Map) of
+        false -> {error, {missing_field, episode_set_digest}};
+        true ->
+    case maps:is_key(evaluation_seed, Map) of
+        false -> {error, {missing_field, evaluation_seed}};
+        true ->
+    case maps:is_key(score, Map) of
+        false -> {error, {missing_field, score}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #challenger_candidate_evaluation{
+        evaluation_id = maps:get(evaluation_id, Map, undefined),
+        challenger_policy_id = maps:get(challenger_policy_id, Map, undefined),
+        episode_set_digest = maps:get(episode_set_digest, Map, undefined),
+        evaluation_seed = maps:get(evaluation_seed, Map, undefined),
+        score = maps:get(score, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end
@@ -4750,6 +5413,47 @@ new_cluster_quorum_state(Map) ->
         cluster_id = maps:get(cluster_id, Map, undefined),
         quorum_hash = maps:get(quorum_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Co-termination policy for expansion purchases.
+-record(co_term_policy, {
+    co_term_policy_id :: binary(), %% co_term_policy_id: Stable identity of this co term policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    coterm_date :: binary(), %% coterm_date: Contract end instant to which the expansion is aligned.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type co_term_policy() :: #co_term_policy{}.
+
+-spec new_co_term_policy(map()) -> {ok, co_term_policy()} | {error, {missing_field, atom()}}.
+new_co_term_policy(Map) ->
+    case maps:is_key(co_term_policy_id, Map) of
+        false -> {error, {missing_field, co_term_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(coterm_date, Map) of
+        false -> {error, {missing_field, coterm_date}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #co_term_policy{
+        co_term_policy_id = maps:get(co_term_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        coterm_date = maps:get(coterm_date, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -5203,6 +5907,47 @@ new_compatibility_contract(Map) ->
     end
     end.
 
+%% Concurrent-workload packaging dimension.
+-record(concurrency_pricing_policy, {
+    concurrency_pricing_policy_id :: binary(), %% concurrency_pricing_policy_id: Stable identity of this concurrency pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    included_concurrency :: integer(), %% included_concurrency: Concurrent workload units included in the purchased package.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type concurrency_pricing_policy() :: #concurrency_pricing_policy{}.
+
+-spec new_concurrency_pricing_policy(map()) -> {ok, concurrency_pricing_policy()} | {error, {missing_field, atom()}}.
+new_concurrency_pricing_policy(Map) ->
+    case maps:is_key(concurrency_pricing_policy_id, Map) of
+        false -> {error, {missing_field, concurrency_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(included_concurrency, Map) of
+        false -> {error, {missing_field, included_concurrency}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #concurrency_pricing_policy{
+        concurrency_pricing_policy_id = maps:get(concurrency_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        included_concurrency = maps:get(included_concurrency, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Receiptable export of deterministic enterprise configuration.
 -record(configuration_export, {
     export_id :: binary(), %% export_id: Stable export identity.
@@ -5328,6 +6073,53 @@ new_consequential_state_invalidation(Map) ->
         invalidation_reason = maps:get(invalidation_reason, Map, undefined),
         invalidated_at = maps:get(invalidated_at, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Refuses transfer of caller-local learning to another consumer without equivalence evidence.
+-record(consumer_equivalence_learning_guard, {
+    guard_id :: binary(), %% guard_id: Stable consumer-equivalence guard identity.
+    source_consumer_id :: binary(), %% source_consumer_id: Consumer where evidence was observed.
+    target_consumer_id :: binary(), %% target_consumer_id: Consumer proposed for generalization.
+    equivalence_evidence_digest :: binary(), %% equivalence_evidence_digest: Digest proving relevant consumer equivalence.
+    decision :: binary(), %% decision: TRANSFER or REFUSE decision.
+    refusal_code :: binary() %% refusal_code: Typed reason when equivalence is absent.
+}).
+
+-type consumer_equivalence_learning_guard() :: #consumer_equivalence_learning_guard{}.
+
+-spec new_consumer_equivalence_learning_guard(map()) -> {ok, consumer_equivalence_learning_guard()} | {error, {missing_field, atom()}}.
+new_consumer_equivalence_learning_guard(Map) ->
+    case maps:is_key(guard_id, Map) of
+        false -> {error, {missing_field, guard_id}};
+        true ->
+    case maps:is_key(source_consumer_id, Map) of
+        false -> {error, {missing_field, source_consumer_id}};
+        true ->
+    case maps:is_key(target_consumer_id, Map) of
+        false -> {error, {missing_field, target_consumer_id}};
+        true ->
+    case maps:is_key(equivalence_evidence_digest, Map) of
+        false -> {error, {missing_field, equivalence_evidence_digest}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #consumer_equivalence_learning_guard{
+        guard_id = maps:get(guard_id, Map, undefined),
+        source_consumer_id = maps:get(source_consumer_id, Map, undefined),
+        target_consumer_id = maps:get(target_consumer_id, Map, undefined),
+        equivalence_evidence_digest = maps:get(equivalence_evidence_digest, Map, undefined),
+        decision = maps:get(decision, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end
@@ -5566,6 +6358,94 @@ new_contracting_entity_identity(Map) ->
     end
     end.
 
+%% Chargeback allocation to an enterprise cost center.
+-record(cost_center_allocation, {
+    cost_center_allocation_id :: binary(), %% cost_center_allocation_id: Stable identity of this cost center allocation contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    cost_center_id :: binary(), %% cost_center_id: Stable identity of the charged cost center.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type cost_center_allocation() :: #cost_center_allocation{}.
+
+-spec new_cost_center_allocation(map()) -> {ok, cost_center_allocation()} | {error, {missing_field, atom()}}.
+new_cost_center_allocation(Map) ->
+    case maps:is_key(cost_center_allocation_id, Map) of
+        false -> {error, {missing_field, cost_center_allocation_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(cost_center_id, Map) of
+        false -> {error, {missing_field, cost_center_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #cost_center_allocation{
+        cost_center_allocation_id = maps:get(cost_center_allocation_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        cost_center_id = maps:get(cost_center_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Evaluates candidate policy utility across cost, latency, and reliability without collapsing dimensions.
+-record(cost_latency_reliability_tradeoff, {
+    assessment_id :: binary(), %% assessment_id: Stable tradeoff assessment identity.
+    candidate_policy_id :: binary(), %% candidate_policy_id: Candidate policy evaluated.
+    cost_score :: float(), %% cost_score: Normalized execution cost.
+    latency_score :: float(), %% latency_score: Normalized execution latency.
+    reliability_score :: float(), %% reliability_score: Observed reliability.
+    utility_score :: float() %% utility_score: Objective-bound aggregate utility.
+}).
+
+-type cost_latency_reliability_tradeoff() :: #cost_latency_reliability_tradeoff{}.
+
+-spec new_cost_latency_reliability_tradeoff(map()) -> {ok, cost_latency_reliability_tradeoff()} | {error, {missing_field, atom()}}.
+new_cost_latency_reliability_tradeoff(Map) ->
+    case maps:is_key(assessment_id, Map) of
+        false -> {error, {missing_field, assessment_id}};
+        true ->
+    case maps:is_key(candidate_policy_id, Map) of
+        false -> {error, {missing_field, candidate_policy_id}};
+        true ->
+    case maps:is_key(cost_score, Map) of
+        false -> {error, {missing_field, cost_score}};
+        true ->
+    case maps:is_key(latency_score, Map) of
+        false -> {error, {missing_field, latency_score}};
+        true ->
+    case maps:is_key(reliability_score, Map) of
+        false -> {error, {missing_field, reliability_score}};
+        true ->
+    case maps:is_key(utility_score, Map) of
+        false -> {error, {missing_field, utility_score}};
+        true ->
+    {ok, #cost_latency_reliability_tradeoff{
+        assessment_id = maps:get(assessment_id, Map, undefined),
+        candidate_policy_id = maps:get(candidate_policy_id, Map, undefined),
+        cost_score = maps:get(cost_score, Map, undefined),
+        latency_score = maps:get(latency_score, Map, undefined),
+        reliability_score = maps:get(reliability_score, Map, undefined),
+        utility_score = maps:get(utility_score, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Scores delay cost for an option without overriding explicit authority.
 -record(cost_of_delay_score, {
     option_id :: binary(), %% option_id: Required option_id for this bounded planner contract.
@@ -5653,6 +6533,53 @@ new_counterfactual_frontier(Map) ->
     end
     end.
 
+%% Replays an episode under one declared intervention to compare the observed and counterfactual outcomes.
+-record(counterfactual_replay, {
+    replay_id :: binary(), %% replay_id: Stable counterfactual replay identity.
+    source_episode_id :: binary(), %% source_episode_id: Observed episode used as baseline.
+    intervention_digest :: binary(), %% intervention_digest: Digest of the single counterfactual intervention.
+    seed :: binary(), %% seed: Explicit deterministic replay seed.
+    predicted_outcome :: binary(), %% predicted_outcome: Counterfactual outcome produced.
+    comparison_digest :: binary() %% comparison_digest: Digest comparing observed and counterfactual traces.
+}).
+
+-type counterfactual_replay() :: #counterfactual_replay{}.
+
+-spec new_counterfactual_replay(map()) -> {ok, counterfactual_replay()} | {error, {missing_field, atom()}}.
+new_counterfactual_replay(Map) ->
+    case maps:is_key(replay_id, Map) of
+        false -> {error, {missing_field, replay_id}};
+        true ->
+    case maps:is_key(source_episode_id, Map) of
+        false -> {error, {missing_field, source_episode_id}};
+        true ->
+    case maps:is_key(intervention_digest, Map) of
+        false -> {error, {missing_field, intervention_digest}};
+        true ->
+    case maps:is_key(seed, Map) of
+        false -> {error, {missing_field, seed}};
+        true ->
+    case maps:is_key(predicted_outcome, Map) of
+        false -> {error, {missing_field, predicted_outcome}};
+        true ->
+    case maps:is_key(comparison_digest, Map) of
+        false -> {error, {missing_field, comparison_digest}};
+        true ->
+    {ok, #counterfactual_replay{
+        replay_id = maps:get(replay_id, Map, undefined),
+        source_episode_id = maps:get(source_episode_id, Map, undefined),
+        intervention_digest = maps:get(intervention_digest, Map, undefined),
+        seed = maps:get(seed, Map, undefined),
+        predicted_outcome = maps:get(predicted_outcome, Map, undefined),
+        comparison_digest = maps:get(comparison_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Produces replayable evidence that a runtime crash reached a verified recovery consequence.
 -record(crash_recovery_receipt, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -5678,6 +6605,47 @@ new_crash_recovery_receipt(Map) ->
         crash_id = maps:get(crash_id, Map, undefined),
         receipt_hash = maps:get(receipt_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Deterministic expiration of prepaid commercial credits.
+-record(credit_expiry_policy, {
+    credit_expiry_policy_id :: binary(), %% credit_expiry_policy_id: Stable identity of this credit expiry policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    expires_at :: binary(), %% expires_at: Exact expiration instant for the admitted credit pool.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type credit_expiry_policy() :: #credit_expiry_policy{}.
+
+-spec new_credit_expiry_policy(map()) -> {ok, credit_expiry_policy()} | {error, {missing_field, atom()}}.
+new_credit_expiry_policy(Map) ->
+    case maps:is_key(credit_expiry_policy_id, Map) of
+        false -> {error, {missing_field, credit_expiry_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(expires_at, Map) of
+        false -> {error, {missing_field, expires_at}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #credit_expiry_policy{
+        credit_expiry_policy_id = maps:get(credit_expiry_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        expires_at = maps:get(expires_at, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -7467,6 +8435,88 @@ new_crown_zero_unreceipted_writes(Map) ->
     end
     end.
 
+%% Allowed billing currency for an enterprise agreement.
+-record(currency_policy, {
+    currency_policy_id :: binary(), %% currency_policy_id: Stable identity of this currency policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    currency_code :: binary(), %% currency_code: ISO billing currency admitted for this account.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type currency_policy() :: #currency_policy{}.
+
+-spec new_currency_policy(map()) -> {ok, currency_policy()} | {error, {missing_field, atom()}}.
+new_currency_policy(Map) ->
+    case maps:is_key(currency_policy_id, Map) of
+        false -> {error, {missing_field, currency_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(currency_code, Map) of
+        false -> {error, {missing_field, currency_code}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #currency_policy{
+        currency_policy_id = maps:get(currency_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        currency_code = maps:get(currency_code, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Generates an ordered, diverse learning curriculum from admitted gaps and executable falsifiers.
+-record(curriculum_generation, {
+    curriculum_id :: binary(), %% curriculum_id: Stable generated curriculum identity.
+    source_gap_set_digest :: binary(), %% source_gap_set_digest: Digest of admitted capability gaps.
+    ordered_hypotheses_digest :: binary(), %% ordered_hypotheses_digest: Digest of ordered hypothesis identities.
+    diversity_score :: float(), %% diversity_score: Semantic diversity across the curriculum.
+    falsifier_coverage :: float() %% falsifier_coverage: Share of hypotheses with executable falsifiers.
+}).
+
+-type curriculum_generation() :: #curriculum_generation{}.
+
+-spec new_curriculum_generation(map()) -> {ok, curriculum_generation()} | {error, {missing_field, atom()}}.
+new_curriculum_generation(Map) ->
+    case maps:is_key(curriculum_id, Map) of
+        false -> {error, {missing_field, curriculum_id}};
+        true ->
+    case maps:is_key(source_gap_set_digest, Map) of
+        false -> {error, {missing_field, source_gap_set_digest}};
+        true ->
+    case maps:is_key(ordered_hypotheses_digest, Map) of
+        false -> {error, {missing_field, ordered_hypotheses_digest}};
+        true ->
+    case maps:is_key(diversity_score, Map) of
+        false -> {error, {missing_field, diversity_score}};
+        true ->
+    case maps:is_key(falsifier_coverage, Map) of
+        false -> {error, {missing_field, falsifier_coverage}};
+        true ->
+    {ok, #curriculum_generation{
+        curriculum_id = maps:get(curriculum_id, Map, undefined),
+        source_gap_set_digest = maps:get(source_gap_set_digest, Map, undefined),
+        ordered_hypotheses_digest = maps:get(ordered_hypotheses_digest, Map, undefined),
+        diversity_score = maps:get(diversity_score, Map, undefined),
+        falsifier_coverage = maps:get(falsifier_coverage, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Cumulative customer-health observation across usage, outcomes, and support.
 -record(customer_health, {
     customer_health_id :: binary(), %% customer_health_id: Stable identity of this customer health observation.
@@ -7747,6 +8797,47 @@ new_data_residency_policy(Map) ->
     end
     end.
 
+%% Data-volume commercial packaging dimension.
+-record(data_volume_pricing_policy, {
+    data_volume_pricing_policy_id :: binary(), %% data_volume_pricing_policy_id: Stable identity of this data volume pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    unit_gb_price :: float(), %% unit_gb_price: Admitted unit price per processed gigabyte.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type data_volume_pricing_policy() :: #data_volume_pricing_policy{}.
+
+-spec new_data_volume_pricing_policy(map()) -> {ok, data_volume_pricing_policy()} | {error, {missing_field, atom()}}.
+new_data_volume_pricing_policy(Map) ->
+    case maps:is_key(data_volume_pricing_policy_id, Map) of
+        false -> {error, {missing_field, data_volume_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit_gb_price, Map) of
+        false -> {error, {missing_field, unit_gb_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #data_volume_pricing_policy{
+        data_volume_pricing_policy_id = maps:get(data_volume_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit_gb_price = maps:get(unit_gb_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Binds cross-functional deal-desk approval evidence into one replayable packet identity.
 -record(deal_desk_packet, {
     opportunity_id :: binary(), %% opportunity_id: Required deal desk packet input; omission is an executable typed refusal, never an inferred approval.
@@ -7806,6 +8897,53 @@ new_decision_compression_observation(Map) ->
         output_delta_digest = maps:get(output_delta_digest, Map, undefined),
         loss_bound = maps:get(loss_bound, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Proves an adaptive projection preserves the distinctions required by a decision.
+-record(decision_information_preservation, {
+    preservation_id :: binary(), %% preservation_id: Stable preservation proof identity.
+    decision_id :: binary(), %% decision_id: Decision whose information is protected.
+    source_partition_digest :: binary(), %% source_partition_digest: Digest of source information partitions.
+    projection_digest :: binary(), %% projection_digest: Digest of the adaptive projection.
+    preserved_question_set_digest :: binary(), %% preserved_question_set_digest: Digest of decision questions still answerable.
+    loss_score :: float() %% loss_score: Measured decision-information loss.
+}).
+
+-type decision_information_preservation() :: #decision_information_preservation{}.
+
+-spec new_decision_information_preservation(map()) -> {ok, decision_information_preservation()} | {error, {missing_field, atom()}}.
+new_decision_information_preservation(Map) ->
+    case maps:is_key(preservation_id, Map) of
+        false -> {error, {missing_field, preservation_id}};
+        true ->
+    case maps:is_key(decision_id, Map) of
+        false -> {error, {missing_field, decision_id}};
+        true ->
+    case maps:is_key(source_partition_digest, Map) of
+        false -> {error, {missing_field, source_partition_digest}};
+        true ->
+    case maps:is_key(projection_digest, Map) of
+        false -> {error, {missing_field, projection_digest}};
+        true ->
+    case maps:is_key(preserved_question_set_digest, Map) of
+        false -> {error, {missing_field, preserved_question_set_digest}};
+        true ->
+    case maps:is_key(loss_score, Map) of
+        false -> {error, {missing_field, loss_score}};
+        true ->
+    {ok, #decision_information_preservation{
+        preservation_id = maps:get(preservation_id, Map, undefined),
+        decision_id = maps:get(decision_id, Map, undefined),
+        source_partition_digest = maps:get(source_partition_digest, Map, undefined),
+        projection_digest = maps:get(projection_digest, Map, undefined),
+        preserved_question_set_digest = maps:get(preserved_question_set_digest, Map, undefined),
+        loss_score = maps:get(loss_score, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end
@@ -8336,6 +9474,129 @@ new_edition_definition(Map) ->
     end
     end.
 
+%% Controlled commercial edition downgrade path.
+-record(edition_downgrade_path, {
+    edition_downgrade_path_id :: binary(), %% edition_downgrade_path_id: Stable identity of this edition downgrade path contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    target_edition_id :: binary(), %% target_edition_id: Edition that may be reached after capability-loss admission.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type edition_downgrade_path() :: #edition_downgrade_path{}.
+
+-spec new_edition_downgrade_path(map()) -> {ok, edition_downgrade_path()} | {error, {missing_field, atom()}}.
+new_edition_downgrade_path(Map) ->
+    case maps:is_key(edition_downgrade_path_id, Map) of
+        false -> {error, {missing_field, edition_downgrade_path_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(target_edition_id, Map) of
+        false -> {error, {missing_field, target_edition_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #edition_downgrade_path{
+        edition_downgrade_path_id = maps:get(edition_downgrade_path_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        target_edition_id = maps:get(target_edition_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Admitted commercial edition upgrade path.
+-record(edition_upgrade_path, {
+    edition_upgrade_path_id :: binary(), %% edition_upgrade_path_id: Stable identity of this edition upgrade path contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    target_edition_id :: binary(), %% target_edition_id: Edition that may be reached without breaking contract compatibility.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type edition_upgrade_path() :: #edition_upgrade_path{}.
+
+-spec new_edition_upgrade_path(map()) -> {ok, edition_upgrade_path()} | {error, {missing_field, atom()}}.
+new_edition_upgrade_path(Map) ->
+    case maps:is_key(edition_upgrade_path_id, Map) of
+        false -> {error, {missing_field, edition_upgrade_path_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(target_edition_id, Map) of
+        false -> {error, {missing_field, target_edition_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #edition_upgrade_path{
+        edition_upgrade_path_id = maps:get(edition_upgrade_path_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        target_edition_id = maps:get(target_edition_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Enterprise commercial umbrella agreement.
+-record(enterprise_agreement, {
+    enterprise_agreement_id :: binary(), %% enterprise_agreement_id: Stable identity of this enterprise agreement contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    agreement_version :: binary(), %% agreement_version: Immutable semantic version of the governing agreement.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type enterprise_agreement() :: #enterprise_agreement{}.
+
+-spec new_enterprise_agreement(map()) -> {ok, enterprise_agreement()} | {error, {missing_field, atom()}}.
+new_enterprise_agreement(Map) ->
+    case maps:is_key(enterprise_agreement_id, Map) of
+        false -> {error, {missing_field, enterprise_agreement_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(agreement_version, Map) of
+        false -> {error, {missing_field, agreement_version}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #enterprise_agreement{
+        enterprise_agreement_id = maps:get(enterprise_agreement_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        agreement_version = maps:get(agreement_version, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Accepted enterprise order binding account, quote, and standing.
 -record(enterprise_order, {
     order_id :: binary(), %% order_id: Stable enterprise order identity.
@@ -8670,6 +9931,47 @@ new_entropy_reduction_score(Map) ->
     end
     end.
 
+%% Separates capsule or toolchain failure from subject failure before policy learning can update.
+-record(environment_failure_separation, {
+    assessment_id :: binary(), %% assessment_id: Stable separation assessment identity.
+    exact_subject_sha :: binary(), %% exact_subject_sha: Exact subject that was under evaluation.
+    capsule_digest :: binary(), %% capsule_digest: Exact validation capsule identity.
+    failure_signal :: binary(), %% failure_signal: Observed environment failure signal.
+    classification_basis :: binary() %% classification_basis: Evidence basis for environment classification.
+}).
+
+-type environment_failure_separation() :: #environment_failure_separation{}.
+
+-spec new_environment_failure_separation(map()) -> {ok, environment_failure_separation()} | {error, {missing_field, atom()}}.
+new_environment_failure_separation(Map) ->
+    case maps:is_key(assessment_id, Map) of
+        false -> {error, {missing_field, assessment_id}};
+        true ->
+    case maps:is_key(exact_subject_sha, Map) of
+        false -> {error, {missing_field, exact_subject_sha}};
+        true ->
+    case maps:is_key(capsule_digest, Map) of
+        false -> {error, {missing_field, capsule_digest}};
+        true ->
+    case maps:is_key(failure_signal, Map) of
+        false -> {error, {missing_field, failure_signal}};
+        true ->
+    case maps:is_key(classification_basis, Map) of
+        false -> {error, {missing_field, classification_basis}};
+        true ->
+    {ok, #environment_failure_separation{
+        assessment_id = maps:get(assessment_id, Map, undefined),
+        exact_subject_sha = maps:get(exact_subject_sha, Map, undefined),
+        capsule_digest = maps:get(capsule_digest, Map, undefined),
+        failure_signal = maps:get(failure_signal, Map, undefined),
+        classification_basis = maps:get(classification_basis, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Binds paid workload execution to an immutable production environment identity.
 -record(environment_identity, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -8695,6 +9997,47 @@ new_environment_identity(Map) ->
         environment_id = maps:get(environment_id, Map, undefined),
         identity_hash = maps:get(identity_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Environment-count commercial packaging.
+-record(environment_pricing_policy, {
+    environment_pricing_policy_id :: binary(), %% environment_pricing_policy_id: Stable identity of this environment pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    environment_tier :: binary(), %% environment_tier: Purchased environment tier such as sandbox, nonproduction, or production.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type environment_pricing_policy() :: #environment_pricing_policy{}.
+
+-spec new_environment_pricing_policy(map()) -> {ok, environment_pricing_policy()} | {error, {missing_field, atom()}}.
+new_environment_pricing_policy(Map) ->
+    case maps:is_key(environment_pricing_policy_id, Map) of
+        false -> {error, {missing_field, environment_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(environment_tier, Map) of
+        false -> {error, {missing_field, environment_tier}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #environment_pricing_policy{
+        environment_pricing_policy_id = maps:get(environment_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        environment_tier = maps:get(environment_tier, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -8798,6 +10141,53 @@ new_error_budget_state(Map) ->
     end
     end.
 
+%% Refuses evaluation evidence whose result is not cryptographically bound to its declared seed.
+-record(evaluation_seed_binding, {
+    binding_id :: binary(), %% binding_id: Stable seed-binding identity.
+    evaluation_id :: binary(), %% evaluation_id: Evaluation whose seed is bound.
+    seed :: binary(), %% seed: Declared deterministic seed.
+    result_digest :: binary(), %% result_digest: Digest of the seeded result.
+    source_digest :: binary(), %% source_digest: Digest of seed provenance.
+    deterministic :: boolean() %% deterministic: Whether replay reproduced the result exactly.
+}).
+
+-type evaluation_seed_binding() :: #evaluation_seed_binding{}.
+
+-spec new_evaluation_seed_binding(map()) -> {ok, evaluation_seed_binding()} | {error, {missing_field, atom()}}.
+new_evaluation_seed_binding(Map) ->
+    case maps:is_key(binding_id, Map) of
+        false -> {error, {missing_field, binding_id}};
+        true ->
+    case maps:is_key(evaluation_id, Map) of
+        false -> {error, {missing_field, evaluation_id}};
+        true ->
+    case maps:is_key(seed, Map) of
+        false -> {error, {missing_field, seed}};
+        true ->
+    case maps:is_key(result_digest, Map) of
+        false -> {error, {missing_field, result_digest}};
+        true ->
+    case maps:is_key(source_digest, Map) of
+        false -> {error, {missing_field, source_digest}};
+        true ->
+    case maps:is_key(deterministic, Map) of
+        false -> {error, {missing_field, deterministic}};
+        true ->
+    {ok, #evaluation_seed_binding{
+        binding_id = maps:get(binding_id, Map, undefined),
+        evaluation_id = maps:get(evaluation_id, Map, undefined),
+        seed = maps:get(seed, Map, undefined),
+        result_digest = maps:get(result_digest, Map, undefined),
+        source_digest = maps:get(source_digest, Map, undefined),
+        deterministic = maps:get(deterministic, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% A named collection of events forming one process-mining log.
 -record(event_log, {
     log_id :: binary(), %% log_id: Unique log identifier.
@@ -8871,6 +10261,47 @@ new_event_type(Map) ->
     }}
     end.
 
+%% Event-volume commercial packaging dimension.
+-record(event_volume_pricing_policy, {
+    event_volume_pricing_policy_id :: binary(), %% event_volume_pricing_policy_id: Stable identity of this event volume pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    unit_event_price :: float(), %% unit_event_price: Admitted unit price per event billing unit.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type event_volume_pricing_policy() :: #event_volume_pricing_policy{}.
+
+-spec new_event_volume_pricing_policy(map()) -> {ok, event_volume_pricing_policy()} | {error, {missing_field, atom()}}.
+new_event_volume_pricing_policy(Map) ->
+    case maps:is_key(event_volume_pricing_policy_id, Map) of
+        false -> {error, {missing_field, event_volume_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit_event_price, Map) of
+        false -> {error, {missing_field, unit_event_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #event_volume_pricing_policy{
+        event_volume_pricing_policy_id = maps:get(event_volume_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit_event_price = maps:get(unit_event_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Executable freshness evidence binding an exact subject to the observation instant used by policy.
 -record(evidence_freshness_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this evidence-freshness observation.
@@ -8901,6 +10332,47 @@ new_evidence_freshness_evidence(Map) ->
         observed_at = maps:get(observed_at, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Transforms admitted episode evidence into a provenance-bound training sample while refusing evidence-free labels.
+-record(evidence_training_sample, {
+    sample_id :: binary(), %% sample_id: Stable training sample identity.
+    episode_id :: binary(), %% episode_id: Source learning episode identity.
+    feature_digest :: binary(), %% feature_digest: Digest of the decision-relevant feature projection.
+    label_id :: binary(), %% label_id: Outcome or failure label identity.
+    provenance_digest :: binary() %% provenance_digest: Immutable provenance proving how the sample was derived.
+}).
+
+-type evidence_training_sample() :: #evidence_training_sample{}.
+
+-spec new_evidence_training_sample(map()) -> {ok, evidence_training_sample()} | {error, {missing_field, atom()}}.
+new_evidence_training_sample(Map) ->
+    case maps:is_key(sample_id, Map) of
+        false -> {error, {missing_field, sample_id}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    case maps:is_key(feature_digest, Map) of
+        false -> {error, {missing_field, feature_digest}};
+        true ->
+    case maps:is_key(label_id, Map) of
+        false -> {error, {missing_field, label_id}};
+        true ->
+    case maps:is_key(provenance_digest, Map) of
+        false -> {error, {missing_field, provenance_digest}};
+        true ->
+    {ok, #evidence_training_sample{
+        sample_id = maps:get(sample_id, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        feature_digest = maps:get(feature_digest, Map, undefined),
+        label_id = maps:get(label_id, Map, undefined),
+        provenance_digest = maps:get(provenance_digest, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -9204,6 +10676,206 @@ new_expansion_signal(Map) ->
     end
     end.
 
+%% Receipts an experiment result with exact subject, evidence, and bounded learning authority.
+-record(experiment_learning_receipt, {
+    receipt_id :: binary(), %% receipt_id: Stable experiment-learning receipt identity.
+    experiment_id :: binary(), %% experiment_id: Experiment producing the learning.
+    exact_subject_sha :: binary(), %% exact_subject_sha: Exact evaluated Git subject.
+    evidence_digest :: binary(), %% evidence_digest: Digest of experiment evidence.
+    result_digest :: binary(), %% result_digest: Digest of the learned result.
+    authority_ceiling :: binary() %% authority_ceiling: Boundary excluding consequential DO authority.
+}).
+
+-type experiment_learning_receipt() :: #experiment_learning_receipt{}.
+
+-spec new_experiment_learning_receipt(map()) -> {ok, experiment_learning_receipt()} | {error, {missing_field, atom()}}.
+new_experiment_learning_receipt(Map) ->
+    case maps:is_key(receipt_id, Map) of
+        false -> {error, {missing_field, receipt_id}};
+        true ->
+    case maps:is_key(experiment_id, Map) of
+        false -> {error, {missing_field, experiment_id}};
+        true ->
+    case maps:is_key(exact_subject_sha, Map) of
+        false -> {error, {missing_field, exact_subject_sha}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(result_digest, Map) of
+        false -> {error, {missing_field, result_digest}};
+        true ->
+    case maps:is_key(authority_ceiling, Map) of
+        false -> {error, {missing_field, authority_ceiling}};
+        true ->
+    {ok, #experiment_learning_receipt{
+        receipt_id = maps:get(receipt_id, Map, undefined),
+        experiment_id = maps:get(experiment_id, Map, undefined),
+        exact_subject_sha = maps:get(exact_subject_sha, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        result_digest = maps:get(result_digest, Map, undefined),
+        authority_ceiling = maps:get(authority_ceiling, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
+%% Retains failed challenger evidence as reusable learning rather than deleting inconvenient results.
+-record(failed_challenger_retention, {
+    retention_id :: binary(), %% retention_id: Stable failed-challenger retention identity.
+    challenger_evaluation_id :: binary(), %% challenger_evaluation_id: Failed challenger evaluation retained.
+    failure_evidence_digest :: binary(), %% failure_evidence_digest: Digest of preserved failure evidence.
+    retained_at :: binary(), %% retained_at: Timestamp evidence entered durable memory.
+    eligible_for_future :: boolean() %% eligible_for_future: Whether changed conditions may justify reevaluation.
+}).
+
+-type failed_challenger_retention() :: #failed_challenger_retention{}.
+
+-spec new_failed_challenger_retention(map()) -> {ok, failed_challenger_retention()} | {error, {missing_field, atom()}}.
+new_failed_challenger_retention(Map) ->
+    case maps:is_key(retention_id, Map) of
+        false -> {error, {missing_field, retention_id}};
+        true ->
+    case maps:is_key(challenger_evaluation_id, Map) of
+        false -> {error, {missing_field, challenger_evaluation_id}};
+        true ->
+    case maps:is_key(failure_evidence_digest, Map) of
+        false -> {error, {missing_field, failure_evidence_digest}};
+        true ->
+    case maps:is_key(retained_at, Map) of
+        false -> {error, {missing_field, retained_at}};
+        true ->
+    case maps:is_key(eligible_for_future, Map) of
+        false -> {error, {missing_field, eligible_for_future}};
+        true ->
+    {ok, #failed_challenger_retention{
+        retention_id = maps:get(retention_id, Map, undefined),
+        challenger_evaluation_id = maps:get(challenger_evaluation_id, Map, undefined),
+        failure_evidence_digest = maps:get(failure_evidence_digest, Map, undefined),
+        retained_at = maps:get(retained_at, Map, undefined),
+        eligible_for_future = maps:get(eligible_for_future, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Classifies a preserved failure by causal scope so failed challengers remain usable learning evidence.
+-record(failure_label, {
+    failure_id :: binary(), %% failure_id: Stable failure evidence identity.
+    episode_id :: binary(), %% episode_id: Episode in which the failure occurred.
+    failure_class :: binary(), %% failure_class: Typed subject, environment, policy, or authority failure class.
+    causal_scope :: binary(), %% causal_scope: Smallest supported causal boundary.
+    preserved_evidence_digest :: binary() %% preserved_evidence_digest: Digest proving the failed evidence was retained.
+}).
+
+-type failure_label() :: #failure_label{}.
+
+-spec new_failure_label(map()) -> {ok, failure_label()} | {error, {missing_field, atom()}}.
+new_failure_label(Map) ->
+    case maps:is_key(failure_id, Map) of
+        false -> {error, {missing_field, failure_id}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    case maps:is_key(failure_class, Map) of
+        false -> {error, {missing_field, failure_class}};
+        true ->
+    case maps:is_key(causal_scope, Map) of
+        false -> {error, {missing_field, causal_scope}};
+        true ->
+    case maps:is_key(preserved_evidence_digest, Map) of
+        false -> {error, {missing_field, preserved_evidence_digest}};
+        true ->
+    {ok, #failure_label{
+        failure_id = maps:get(failure_id, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        failure_class = maps:get(failure_class, Map, undefined),
+        causal_scope = maps:get(causal_scope, Map, undefined),
+        preserved_evidence_digest = maps:get(preserved_evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipts SELECT through CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, ownership verification, and second-pass identity for one exact caller-local consumer.
+-record(federated_dogfood_learning_crown, {
+    crown_id :: binary(), %% crown_id: Stable federated dogfood crown identity.
+    exact_subject_sha :: binary(), %% exact_subject_sha: Exact beam4pm subject qualified.
+    consumer_id :: binary(), %% consumer_id: Caller-local consumer identity.
+    pack_sha :: binary(), %% pack_sha: Immutable marketplace pack commit.
+    capsule_digest :: binary(), %% capsule_digest: Exact ggen-ecosystem container digest.
+    manufacture_receipt_digest :: binary(), %% manufacture_receipt_digest: Digest of verified manufacture receipt.
+    ownership_verification_digest :: binary(), %% ownership_verification_digest: Digest proving generated output ownership.
+    second_pass_identity_digest :: binary(), %% second_pass_identity_digest: Digest proving byte-identical second sync.
+    workflow_sequence :: binary(), %% workflow_sequence: SELECT-CONSTRUCT-DRY_RUN_MANUFACTURE-QUALIFY-RECEIPT sequence.
+    authority_ceiling :: binary() %% authority_ceiling: Boundary guaranteeing zero unreceipted DO authority.
+}).
+
+-type federated_dogfood_learning_crown() :: #federated_dogfood_learning_crown{}.
+
+-spec new_federated_dogfood_learning_crown(map()) -> {ok, federated_dogfood_learning_crown()} | {error, {missing_field, atom()}}.
+new_federated_dogfood_learning_crown(Map) ->
+    case maps:is_key(crown_id, Map) of
+        false -> {error, {missing_field, crown_id}};
+        true ->
+    case maps:is_key(exact_subject_sha, Map) of
+        false -> {error, {missing_field, exact_subject_sha}};
+        true ->
+    case maps:is_key(consumer_id, Map) of
+        false -> {error, {missing_field, consumer_id}};
+        true ->
+    case maps:is_key(pack_sha, Map) of
+        false -> {error, {missing_field, pack_sha}};
+        true ->
+    case maps:is_key(capsule_digest, Map) of
+        false -> {error, {missing_field, capsule_digest}};
+        true ->
+    case maps:is_key(manufacture_receipt_digest, Map) of
+        false -> {error, {missing_field, manufacture_receipt_digest}};
+        true ->
+    case maps:is_key(ownership_verification_digest, Map) of
+        false -> {error, {missing_field, ownership_verification_digest}};
+        true ->
+    case maps:is_key(second_pass_identity_digest, Map) of
+        false -> {error, {missing_field, second_pass_identity_digest}};
+        true ->
+    case maps:is_key(workflow_sequence, Map) of
+        false -> {error, {missing_field, workflow_sequence}};
+        true ->
+    case maps:is_key(authority_ceiling, Map) of
+        false -> {error, {missing_field, authority_ceiling}};
+        true ->
+    {ok, #federated_dogfood_learning_crown{
+        crown_id = maps:get(crown_id, Map, undefined),
+        exact_subject_sha = maps:get(exact_subject_sha, Map, undefined),
+        consumer_id = maps:get(consumer_id, Map, undefined),
+        pack_sha = maps:get(pack_sha, Map, undefined),
+        capsule_digest = maps:get(capsule_digest, Map, undefined),
+        manufacture_receipt_digest = maps:get(manufacture_receipt_digest, Map, undefined),
+        ownership_verification_digest = maps:get(ownership_verification_digest, Map, undefined),
+        second_pass_identity_digest = maps:get(second_pass_identity_digest, Map, undefined),
+        workflow_sequence = maps:get(workflow_sequence, Map, undefined),
+        authority_ceiling = maps:get(authority_ceiling, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Produces typed refusal evidence when a runtime receipt signature or subject binding is forged.
 -record(forged_receipt_refusal, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -9258,6 +10930,88 @@ new_funding_approval_chain(Map) ->
         approval_chain_id = maps:get(approval_chain_id, Map, undefined),
         evidence_hash = maps:get(evidence_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Evidence-bound foreign-exchange conversion policy.
+-record(fx_conversion_policy, {
+    fx_conversion_policy_id :: binary(), %% fx_conversion_policy_id: Stable identity of this fx conversion policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    rate_source :: binary(), %% rate_source: Immutable identity of the admitted FX rate source.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type fx_conversion_policy() :: #fx_conversion_policy{}.
+
+-spec new_fx_conversion_policy(map()) -> {ok, fx_conversion_policy()} | {error, {missing_field, atom()}}.
+new_fx_conversion_policy(Map) ->
+    case maps:is_key(fx_conversion_policy_id, Map) of
+        false -> {error, {missing_field, fx_conversion_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(rate_source, Map) of
+        false -> {error, {missing_field, rate_source}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #fx_conversion_policy{
+        fx_conversion_policy_id = maps:get(fx_conversion_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        rate_source = maps:get(rate_source, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Generates a testable backlog hypothesis from an admitted capability gap.
+-record(generated_hypothesis, {
+    hypothesis_id :: binary(), %% hypothesis_id: Stable generated hypothesis identity.
+    source_gap_id :: binary(), %% source_gap_id: Capability gap that generated the hypothesis.
+    candidate_capability :: binary(), %% candidate_capability: Proposed independent capability.
+    expected_value :: float(), %% expected_value: Bounded expected objective value.
+    falsifier_contract :: binary() %% falsifier_contract: Executable condition that can disprove the hypothesis.
+}).
+
+-type generated_hypothesis() :: #generated_hypothesis{}.
+
+-spec new_generated_hypothesis(map()) -> {ok, generated_hypothesis()} | {error, {missing_field, atom()}}.
+new_generated_hypothesis(Map) ->
+    case maps:is_key(hypothesis_id, Map) of
+        false -> {error, {missing_field, hypothesis_id}};
+        true ->
+    case maps:is_key(source_gap_id, Map) of
+        false -> {error, {missing_field, source_gap_id}};
+        true ->
+    case maps:is_key(candidate_capability, Map) of
+        false -> {error, {missing_field, candidate_capability}};
+        true ->
+    case maps:is_key(expected_value, Map) of
+        false -> {error, {missing_field, expected_value}};
+        true ->
+    case maps:is_key(falsifier_contract, Map) of
+        false -> {error, {missing_field, falsifier_contract}};
+        true ->
+    {ok, #generated_hypothesis{
+        hypothesis_id = maps:get(hypothesis_id, Map, undefined),
+        source_gap_id = maps:get(source_gap_id, Map, undefined),
+        candidate_capability = maps:get(candidate_capability, Map, undefined),
+        expected_value = maps:get(expected_value, Map, undefined),
+        falsifier_contract = maps:get(falsifier_contract, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -9351,6 +11105,88 @@ new_heuristic_arc(Map) ->
         target_activity = maps:get(target_activity, Map, undefined),
         dependency_measure = maps:get(dependency_measure, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Replays a historical episode against an exact ancestor and preserves any seeded divergence.
+-record(historical_episode_replay, {
+    replay_id :: binary(), %% replay_id: Stable historical replay identity.
+    episode_id :: binary(), %% episode_id: Historical episode being replayed.
+    historical_subject_sha :: binary(), %% historical_subject_sha: Exact historical subject commit.
+    replay_seed :: binary(), %% replay_seed: Explicit deterministic evaluation seed.
+    divergence_code :: binary() %% divergence_code: Observed divergence or exact-match result.
+}).
+
+-type historical_episode_replay() :: #historical_episode_replay{}.
+
+-spec new_historical_episode_replay(map()) -> {ok, historical_episode_replay()} | {error, {missing_field, atom()}}.
+new_historical_episode_replay(Map) ->
+    case maps:is_key(replay_id, Map) of
+        false -> {error, {missing_field, replay_id}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    case maps:is_key(historical_subject_sha, Map) of
+        false -> {error, {missing_field, historical_subject_sha}};
+        true ->
+    case maps:is_key(replay_seed, Map) of
+        false -> {error, {missing_field, replay_seed}};
+        true ->
+    case maps:is_key(divergence_code, Map) of
+        false -> {error, {missing_field, divergence_code}};
+        true ->
+    {ok, #historical_episode_replay{
+        replay_id = maps:get(replay_id, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        historical_subject_sha = maps:get(historical_subject_sha, Map, undefined),
+        replay_seed = maps:get(replay_seed, Map, undefined),
+        divergence_code = maps:get(divergence_code, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Updates hypothesis priority from realized evidence while retaining the prior ranking.
+-record(hypothesis_priority_update, {
+    update_id :: binary(), %% update_id: Stable priority update identity.
+    hypothesis_id :: binary(), %% hypothesis_id: Hypothesis being reprioritized.
+    prior_priority :: float(), %% prior_priority: Priority before learning.
+    new_priority :: float(), %% new_priority: Evidence-updated priority.
+    payoff_evidence_digest :: binary() %% payoff_evidence_digest: Digest supporting the update.
+}).
+
+-type hypothesis_priority_update() :: #hypothesis_priority_update{}.
+
+-spec new_hypothesis_priority_update(map()) -> {ok, hypothesis_priority_update()} | {error, {missing_field, atom()}}.
+new_hypothesis_priority_update(Map) ->
+    case maps:is_key(update_id, Map) of
+        false -> {error, {missing_field, update_id}};
+        true ->
+    case maps:is_key(hypothesis_id, Map) of
+        false -> {error, {missing_field, hypothesis_id}};
+        true ->
+    case maps:is_key(prior_priority, Map) of
+        false -> {error, {missing_field, prior_priority}};
+        true ->
+    case maps:is_key(new_priority, Map) of
+        false -> {error, {missing_field, new_priority}};
+        true ->
+    case maps:is_key(payoff_evidence_digest, Map) of
+        false -> {error, {missing_field, payoff_evidence_digest}};
+        true ->
+    {ok, #hypothesis_priority_update{
+        update_id = maps:get(update_id, Map, undefined),
+        hypothesis_id = maps:get(hypothesis_id, Map, undefined),
+        prior_priority = maps:get(prior_priority, Map, undefined),
+        new_priority = maps:get(new_priority, Map, undefined),
+        payoff_evidence_digest = maps:get(payoff_evidence_digest, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -9698,6 +11534,47 @@ new_invoice_entity_identity(Map) ->
     end
     end.
 
+%% Auditable commercial invoice line.
+-record(invoice_line_item, {
+    invoice_line_item_id :: binary(), %% invoice_line_item_id: Stable identity of this invoice line item contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    line_amount :: float(), %% line_amount: Observed amount for this exact invoice line.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type invoice_line_item() :: #invoice_line_item{}.
+
+-spec new_invoice_line_item(map()) -> {ok, invoice_line_item()} | {error, {missing_field, atom()}}.
+new_invoice_line_item(Map) ->
+    case maps:is_key(invoice_line_item_id, Map) of
+        false -> {error, {missing_field, invoice_line_item_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(line_amount, Map) of
+        false -> {error, {missing_field, line_amount}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #invoice_line_item{
+        invoice_line_item_id = maps:get(invoice_line_item_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        line_amount = maps:get(line_amount, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Deterministic invoicing cadence for a billing account.
 -record(invoice_schedule, {
     schedule_id :: binary(), %% schedule_id: Stable schedule identity.
@@ -9787,6 +11664,47 @@ new_k8s_object_ref(Map) ->
     end
     end.
 
+%% Admission of usage received after its billing window.
+-record(late_arriving_usage, {
+    late_arriving_usage_id :: binary(), %% late_arriving_usage_id: Stable identity of this late arriving usage contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    occurred_at :: binary(), %% occurred_at: Original occurrence instant for the delayed usage.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type late_arriving_usage() :: #late_arriving_usage{}.
+
+-spec new_late_arriving_usage(map()) -> {ok, late_arriving_usage()} | {error, {missing_field, atom()}}.
+new_late_arriving_usage(Map) ->
+    case maps:is_key(late_arriving_usage_id, Map) of
+        false -> {error, {missing_field, late_arriving_usage_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(occurred_at, Map) of
+        false -> {error, {missing_field, occurred_at}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #late_arriving_usage{
+        late_arriving_usage_id = maps:get(late_arriving_usage_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        occurred_at = maps:get(occurred_at, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Records an observed runtime latency against the admitted paid-service latency budget.
 -record(latency_budget_observation, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -9843,6 +11761,47 @@ new_leakage_finding(Map) ->
         precision = maps:get(precision, Map, undefined),
         amount_at_risk = maps:get(amount_at_risk, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Compiles one exact-subject execution episode into bounded learning evidence without granting actuation authority.
+-record(learning_episode, {
+    episode_id :: binary(), %% episode_id: Stable learning episode identity.
+    exact_subject_sha :: binary(), %% exact_subject_sha: Exact Git subject observed by the episode.
+    evidence_digest :: binary(), %% evidence_digest: Digest binding the episode to immutable evidence.
+    outcome :: binary(), %% outcome: Observed success, refusal, or failure outcome.
+    authority_ceiling :: binary() %% authority_ceiling: Maximum authority learning may influence; DO authority remains excluded.
+}).
+
+-type learning_episode() :: #learning_episode{}.
+
+-spec new_learning_episode(map()) -> {ok, learning_episode()} | {error, {missing_field, atom()}}.
+new_learning_episode(Map) ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    case maps:is_key(exact_subject_sha, Map) of
+        false -> {error, {missing_field, exact_subject_sha}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(outcome, Map) of
+        false -> {error, {missing_field, outcome}};
+        true ->
+    case maps:is_key(authority_ceiling, Map) of
+        false -> {error, {missing_field, authority_ceiling}};
+        true ->
+    {ok, #learning_episode{
+        episode_id = maps:get(episode_id, Map, undefined),
+        exact_subject_sha = maps:get(exact_subject_sha, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        outcome = maps:get(outcome, Map, undefined),
+        authority_ceiling = maps:get(authority_ceiling, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -10103,6 +12062,47 @@ new_manufacture_receipt_validity_observation(Map) ->
     end
     end.
 
+%% Exact MSA binding for an order.
+-record(master_service_agreement_binding, {
+    master_service_agreement_binding_id :: binary(), %% master_service_agreement_binding_id: Stable identity of this master service agreement binding contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    msa_digest :: binary(), %% msa_digest: Content digest of the governing master service agreement.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type master_service_agreement_binding() :: #master_service_agreement_binding{}.
+
+-spec new_master_service_agreement_binding(map()) -> {ok, master_service_agreement_binding()} | {error, {missing_field, atom()}}.
+new_master_service_agreement_binding(Map) ->
+    case maps:is_key(master_service_agreement_binding_id, Map) of
+        false -> {error, {missing_field, master_service_agreement_binding_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(msa_digest, Map) of
+        false -> {error, {missing_field, msa_digest}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #master_service_agreement_binding{
+        master_service_agreement_binding_id = maps:get(master_service_agreement_binding_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        msa_digest = maps:get(msa_digest, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Tracks the exact master service agreement and its executable admission state rather than treating legal review as a boolean.
 -record(master_service_agreement_state, {
     opportunity_id :: binary(), %% opportunity_id: Required master service agreement state input; omission is an executable typed refusal, never an inferred approval.
@@ -10186,6 +12186,129 @@ new_meta_router(Map) ->
         observation_hash = maps:get(observation_hash, Map, undefined),
         selected_planner_id = maps:get(selected_planner_id, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Immutable billable-meter definition.
+-record(meter_definition, {
+    meter_definition_id :: binary(), %% meter_definition_id: Stable identity of this meter definition contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    meter_name :: binary(), %% meter_name: Stable buyer-visible identity of the commercial meter.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type meter_definition() :: #meter_definition{}.
+
+-spec new_meter_definition(map()) -> {ok, meter_definition()} | {error, {missing_field, atom()}}.
+new_meter_definition(Map) ->
+    case maps:is_key(meter_definition_id, Map) of
+        false -> {error, {missing_field, meter_definition_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(meter_name, Map) of
+        false -> {error, {missing_field, meter_name}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #meter_definition{
+        meter_definition_id = maps:get(meter_definition_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        meter_name = maps:get(meter_name, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Typed dimension attached to a commercial meter.
+-record(meter_dimension, {
+    meter_dimension_id :: binary(), %% meter_dimension_id: Stable identity of this meter dimension contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    dimension_name :: binary(), %% dimension_name: Stable dimension identity used for pricing and reporting.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type meter_dimension() :: #meter_dimension{}.
+
+-spec new_meter_dimension(map()) -> {ok, meter_dimension()} | {error, {missing_field, atom()}}.
+new_meter_dimension(Map) ->
+    case maps:is_key(meter_dimension_id, Map) of
+        false -> {error, {missing_field, meter_dimension_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(dimension_name, Map) of
+        false -> {error, {missing_field, dimension_name}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #meter_dimension{
+        meter_dimension_id = maps:get(meter_dimension_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        dimension_name = maps:get(dimension_name, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Deterministic rollup policy for metered observations.
+-record(meter_rollup, {
+    meter_rollup_id :: binary(), %% meter_rollup_id: Stable identity of this meter rollup contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    rollup_function :: binary(), %% rollup_function: Admitted aggregation function identity.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type meter_rollup() :: #meter_rollup{}.
+
+-spec new_meter_rollup(map()) -> {ok, meter_rollup()} | {error, {missing_field, atom()}}.
+new_meter_rollup(Map) ->
+    case maps:is_key(meter_rollup_id, Map) of
+        false -> {error, {missing_field, meter_rollup_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(rollup_function, Map) of
+        false -> {error, {missing_field, rollup_function}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #meter_rollup{
+        meter_rollup_id = maps:get(meter_rollup_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        rollup_function = maps:get(rollup_function, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -10288,6 +12411,47 @@ new_migration_readiness(Map) ->
         migration_effort_days = maps:get(migration_effort_days, Map, undefined),
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Time-phased minimum-spend commitment.
+-record(minimum_commitment_schedule, {
+    minimum_commitment_schedule_id :: binary(), %% minimum_commitment_schedule_id: Stable identity of this minimum commitment schedule contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    committed_amount :: float(), %% committed_amount: Commercially admitted minimum amount for the schedule window.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type minimum_commitment_schedule() :: #minimum_commitment_schedule{}.
+
+-spec new_minimum_commitment_schedule(map()) -> {ok, minimum_commitment_schedule()} | {error, {missing_field, atom()}}.
+new_minimum_commitment_schedule(Map) ->
+    case maps:is_key(minimum_commitment_schedule_id, Map) of
+        false -> {error, {missing_field, minimum_commitment_schedule_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(committed_amount, Map) of
+        false -> {error, {missing_field, committed_amount}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #minimum_commitment_schedule{
+        minimum_commitment_schedule_id = maps:get(minimum_commitment_schedule_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        committed_amount = maps:get(committed_amount, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
     }}
     end
     end
@@ -10423,6 +12587,47 @@ new_mutual_information_score(Map) ->
     end
     end.
 
+%% Generates a falsifying fixture from a preserved failure and binds the expected refusal.
+-record(negative_fixture_generation, {
+    fixture_id :: binary(), %% fixture_id: Stable generated fixture identity.
+    source_failure_id :: binary(), %% source_failure_id: Preserved failure used as source.
+    invariant_id :: binary(), %% invariant_id: Invariant challenged by the fixture.
+    generated_input_digest :: binary(), %% generated_input_digest: Digest of deterministic negative input.
+    expected_refusal_code :: binary() %% expected_refusal_code: Exact refusal required for success.
+}).
+
+-type negative_fixture_generation() :: #negative_fixture_generation{}.
+
+-spec new_negative_fixture_generation(map()) -> {ok, negative_fixture_generation()} | {error, {missing_field, atom()}}.
+new_negative_fixture_generation(Map) ->
+    case maps:is_key(fixture_id, Map) of
+        false -> {error, {missing_field, fixture_id}};
+        true ->
+    case maps:is_key(source_failure_id, Map) of
+        false -> {error, {missing_field, source_failure_id}};
+        true ->
+    case maps:is_key(invariant_id, Map) of
+        false -> {error, {missing_field, invariant_id}};
+        true ->
+    case maps:is_key(generated_input_digest, Map) of
+        false -> {error, {missing_field, generated_input_digest}};
+        true ->
+    case maps:is_key(expected_refusal_code, Map) of
+        false -> {error, {missing_field, expected_refusal_code}};
+        true ->
+    {ok, #negative_fixture_generation{
+        fixture_id = maps:get(fixture_id, Map, undefined),
+        source_failure_id = maps:get(source_failure_id, Map, undefined),
+        invariant_id = maps:get(invariant_id, Map, undefined),
+        generated_input_digest = maps:get(generated_input_digest, Map, undefined),
+        expected_refusal_code = maps:get(expected_refusal_code, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Selects the next bounded action from scored admissible options without human micro-scheduling.
 -record(next_lawful_actuation, {
     episode_id :: binary(), %% episode_id: Required episode_id for this bounded planner contract.
@@ -10452,6 +12657,53 @@ new_next_lawful_actuation(Map) ->
     end
     end.
 
+%% Refuses any learned update that would expand consequential authority.
+-record(no_authority_learning_guard, {
+    guard_id :: binary(), %% guard_id: Stable no-authority guard identity.
+    candidate_update_id :: binary(), %% candidate_update_id: Learned update under review.
+    current_authority :: binary(), %% current_authority: Existing admitted authority.
+    requested_authority :: binary(), %% requested_authority: Authority implied by the update.
+    decision :: binary(), %% decision: ADMIT or REFUSE guard decision.
+    evidence_digest :: binary() %% evidence_digest: Evidence supporting the authority comparison.
+}).
+
+-type no_authority_learning_guard() :: #no_authority_learning_guard{}.
+
+-spec new_no_authority_learning_guard(map()) -> {ok, no_authority_learning_guard()} | {error, {missing_field, atom()}}.
+new_no_authority_learning_guard(Map) ->
+    case maps:is_key(guard_id, Map) of
+        false -> {error, {missing_field, guard_id}};
+        true ->
+    case maps:is_key(candidate_update_id, Map) of
+        false -> {error, {missing_field, candidate_update_id}};
+        true ->
+    case maps:is_key(current_authority, Map) of
+        false -> {error, {missing_field, current_authority}};
+        true ->
+    case maps:is_key(requested_authority, Map) of
+        false -> {error, {missing_field, requested_authority}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #no_authority_learning_guard{
+        guard_id = maps:get(guard_id, Map, undefined),
+        candidate_update_id = maps:get(candidate_update_id, Map, undefined),
+        current_authority = maps:get(current_authority, Map, undefined),
+        requested_authority = maps:get(requested_authority, Map, undefined),
+        decision = maps:get(decision, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Records the exact node failure and observed failover consequence for a paid service.
 -record(node_failover_event, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -10477,6 +12729,47 @@ new_node_failover_event(Map) ->
         node_id = maps:get(node_id, Map, undefined),
         failover_hash = maps:get(failover_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Explicit discount for nonproduction capacity.
+-record(nonproduction_discount_policy, {
+    nonproduction_discount_policy_id :: binary(), %% nonproduction_discount_policy_id: Stable identity of this nonproduction discount policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    discount_percent :: float(), %% discount_percent: Approved nonproduction discount percentage.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type nonproduction_discount_policy() :: #nonproduction_discount_policy{}.
+
+-spec new_nonproduction_discount_policy(map()) -> {ok, nonproduction_discount_policy()} | {error, {missing_field, atom()}}.
+new_nonproduction_discount_policy(Map) ->
+    case maps:is_key(nonproduction_discount_policy_id, Map) of
+        false -> {error, {missing_field, nonproduction_discount_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(discount_percent, Map) of
+        false -> {error, {missing_field, discount_percent}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #nonproduction_discount_policy{
+        nonproduction_discount_policy_id = maps:get(nonproduction_discount_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        discount_percent = maps:get(discount_percent, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -10511,6 +12804,53 @@ new_normalized_event_observation(Map) ->
         event_type = maps:get(event_type, Map, undefined),
         event_time = maps:get(event_time, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Rewards only measured distance from prior admitted hypotheses to resist repetitive backlog generation.
+-record(novelty_reward, {
+    reward_id :: binary(), %% reward_id: Stable novelty reward identity.
+    hypothesis_id :: binary(), %% hypothesis_id: Candidate hypothesis identity.
+    feature_vector_digest :: binary(), %% feature_vector_digest: Digest of semantic features.
+    nearest_prior_distance :: float(), %% nearest_prior_distance: Distance to nearest admitted prior hypothesis.
+    reward :: float(), %% reward: Bounded novelty reward.
+    evidence_digest :: binary() %% evidence_digest: Evidence supporting the distance calculation.
+}).
+
+-type novelty_reward() :: #novelty_reward{}.
+
+-spec new_novelty_reward(map()) -> {ok, novelty_reward()} | {error, {missing_field, atom()}}.
+new_novelty_reward(Map) ->
+    case maps:is_key(reward_id, Map) of
+        false -> {error, {missing_field, reward_id}};
+        true ->
+    case maps:is_key(hypothesis_id, Map) of
+        false -> {error, {missing_field, hypothesis_id}};
+        true ->
+    case maps:is_key(feature_vector_digest, Map) of
+        false -> {error, {missing_field, feature_vector_digest}};
+        true ->
+    case maps:is_key(nearest_prior_distance, Map) of
+        false -> {error, {missing_field, nearest_prior_distance}};
+        true ->
+    case maps:is_key(reward, Map) of
+        false -> {error, {missing_field, reward}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #novelty_reward{
+        reward_id = maps:get(reward_id, Map, undefined),
+        hypothesis_id = maps:get(hypothesis_id, Map, undefined),
+        feature_vector_digest = maps:get(feature_vector_digest, Map, undefined),
+        nearest_prior_distance = maps:get(nearest_prior_distance, Map, undefined),
+        reward = maps:get(reward, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end
@@ -10599,6 +12939,47 @@ new_object_type(Map) ->
         type_name = maps:get(type_name, Map, undefined),
         attribute_names = maps:get(attribute_names, Map, undefined)
     }}
+    end.
+
+%% Object-volume commercial packaging dimension.
+-record(object_volume_pricing_policy, {
+    object_volume_pricing_policy_id :: binary(), %% object_volume_pricing_policy_id: Stable identity of this object volume pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    unit_object_price :: float(), %% unit_object_price: Admitted unit price per object billing unit.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type object_volume_pricing_policy() :: #object_volume_pricing_policy{}.
+
+-spec new_object_volume_pricing_policy(map()) -> {ok, object_volume_pricing_policy()} | {error, {missing_field, atom()}}.
+new_object_volume_pricing_policy(Map) ->
+    case maps:is_key(object_volume_pricing_policy_id, Map) of
+        false -> {error, {missing_field, object_volume_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit_object_price, Map) of
+        false -> {error, {missing_field, unit_object_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #object_volume_pricing_policy{
+        object_volume_pricing_policy_id = maps:get(object_volume_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit_object_price = maps:get(unit_object_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
     end.
 
 %% Typed enterprise objection linked to an exact account and evidence.
@@ -10783,6 +13164,53 @@ new_observation_freshness_assessment(Map) ->
         freshness_deadline = maps:get(freshness_deadline, Map, undefined),
         freshness_status = maps:get(freshness_status, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Updates future observation shape from an admitted gap while preserving an explicit authority ceiling.
+-record(observation_projection_update, {
+    update_id :: binary(), %% update_id: Stable observation update identity.
+    projection_id :: binary(), %% projection_id: Projection being adapted.
+    prior_digest :: binary(), %% prior_digest: Digest of the prior projection.
+    new_digest :: binary(), %% new_digest: Digest of the candidate projection.
+    triggering_gap_id :: binary(), %% triggering_gap_id: Admitted capability gap causing the update.
+    authority_ceiling :: binary() %% authority_ceiling: Boundary excluding consequential actuation authority.
+}).
+
+-type observation_projection_update() :: #observation_projection_update{}.
+
+-spec new_observation_projection_update(map()) -> {ok, observation_projection_update()} | {error, {missing_field, atom()}}.
+new_observation_projection_update(Map) ->
+    case maps:is_key(update_id, Map) of
+        false -> {error, {missing_field, update_id}};
+        true ->
+    case maps:is_key(projection_id, Map) of
+        false -> {error, {missing_field, projection_id}};
+        true ->
+    case maps:is_key(prior_digest, Map) of
+        false -> {error, {missing_field, prior_digest}};
+        true ->
+    case maps:is_key(new_digest, Map) of
+        false -> {error, {missing_field, new_digest}};
+        true ->
+    case maps:is_key(triggering_gap_id, Map) of
+        false -> {error, {missing_field, triggering_gap_id}};
+        true ->
+    case maps:is_key(authority_ceiling, Map) of
+        false -> {error, {missing_field, authority_ceiling}};
+        true ->
+    {ok, #observation_projection_update{
+        update_id = maps:get(update_id, Map, undefined),
+        projection_id = maps:get(projection_id, Map, undefined),
+        prior_digest = maps:get(prior_digest, Map, undefined),
+        new_digest = maps:get(new_digest, Map, undefined),
+        triggering_gap_id = maps:get(triggering_gap_id, Map, undefined),
+        authority_ceiling = maps:get(authority_ceiling, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end
@@ -11218,6 +13646,94 @@ new_order_form_admission(Map) ->
     end
     end.
 
+%% Immutable commercial order-form version.
+-record(order_form_version, {
+    order_form_version_id :: binary(), %% order_form_version_id: Stable identity of this order form version contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    order_form_digest :: binary(), %% order_form_digest: Content digest of the accepted order form.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type order_form_version() :: #order_form_version{}.
+
+-spec new_order_form_version(map()) -> {ok, order_form_version()} | {error, {missing_field, atom()}}.
+new_order_form_version(Map) ->
+    case maps:is_key(order_form_version_id, Map) of
+        false -> {error, {missing_field, order_form_version_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(order_form_digest, Map) of
+        false -> {error, {missing_field, order_form_digest}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #order_form_version{
+        order_form_version_id = maps:get(order_form_version_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        order_form_digest = maps:get(order_form_digest, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Scores independent semantic coverage against the full comparison set.
+-record(orthogonality_reward, {
+    reward_id :: binary(), %% reward_id: Stable orthogonality reward identity.
+    candidate_id :: binary(), %% candidate_id: Candidate capability identity.
+    comparison_set_digest :: binary(), %% comparison_set_digest: Digest of capabilities compared.
+    minimum_semantic_distance :: float(), %% minimum_semantic_distance: Minimum distance from any prior capability.
+    reward :: float(), %% reward: Bounded orthogonality reward.
+    independence_evidence_digest :: binary() %% independence_evidence_digest: Digest proving distinct execution semantics.
+}).
+
+-type orthogonality_reward() :: #orthogonality_reward{}.
+
+-spec new_orthogonality_reward(map()) -> {ok, orthogonality_reward()} | {error, {missing_field, atom()}}.
+new_orthogonality_reward(Map) ->
+    case maps:is_key(reward_id, Map) of
+        false -> {error, {missing_field, reward_id}};
+        true ->
+    case maps:is_key(candidate_id, Map) of
+        false -> {error, {missing_field, candidate_id}};
+        true ->
+    case maps:is_key(comparison_set_digest, Map) of
+        false -> {error, {missing_field, comparison_set_digest}};
+        true ->
+    case maps:is_key(minimum_semantic_distance, Map) of
+        false -> {error, {missing_field, minimum_semantic_distance}};
+        true ->
+    case maps:is_key(reward, Map) of
+        false -> {error, {missing_field, reward}};
+        true ->
+    case maps:is_key(independence_evidence_digest, Map) of
+        false -> {error, {missing_field, independence_evidence_digest}};
+        true ->
+    {ok, #orthogonality_reward{
+        reward_id = maps:get(reward_id, Map, undefined),
+        candidate_id = maps:get(candidate_id, Map, undefined),
+        comparison_set_digest = maps:get(comparison_set_digest, Map, undefined),
+        minimum_semantic_distance = maps:get(minimum_semantic_distance, Map, undefined),
+        reward = maps:get(reward, Map, undefined),
+        independence_evidence_digest = maps:get(independence_evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Measures semantic independence between candidate work items.
 -record(orthogonality_score, {
     left_option_id :: binary(), %% left_option_id: Required left_option_id for this bounded planner contract.
@@ -11247,6 +13763,47 @@ new_orthogonality_score(Map) ->
     end
     end.
 
+%% Assigns an evidence-backed outcome class without allowing self-reported success to confirm itself.
+-record(outcome_label, {
+    label_id :: binary(), %% label_id: Stable outcome label identity.
+    episode_id :: binary(), %% episode_id: Exact episode being labeled.
+    outcome_class :: binary(), %% outcome_class: Observed outcome class.
+    confidence_basis :: binary(), %% confidence_basis: Independent basis for label confidence.
+    independent_evidence_digest :: binary() %% independent_evidence_digest: Digest of evidence outside the candidate policy claim.
+}).
+
+-type outcome_label() :: #outcome_label{}.
+
+-spec new_outcome_label(map()) -> {ok, outcome_label()} | {error, {missing_field, atom()}}.
+new_outcome_label(Map) ->
+    case maps:is_key(label_id, Map) of
+        false -> {error, {missing_field, label_id}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    case maps:is_key(outcome_class, Map) of
+        false -> {error, {missing_field, outcome_class}};
+        true ->
+    case maps:is_key(confidence_basis, Map) of
+        false -> {error, {missing_field, confidence_basis}};
+        true ->
+    case maps:is_key(independent_evidence_digest, Map) of
+        false -> {error, {missing_field, independent_evidence_digest}};
+        true ->
+    {ok, #outcome_label{
+        label_id = maps:get(label_id, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined),
+        outcome_class = maps:get(outcome_class, Map, undefined),
+        confidence_basis = maps:get(confidence_basis, Map, undefined),
+        independent_evidence_digest = maps:get(independent_evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Refuses manufacture promotion until every output path has admitted ownership.
 -record(output_ownership_gate, {
     subject_id :: binary(), %% subject_id: Required subject_id for this bounded planner contract.
@@ -11272,6 +13829,47 @@ new_output_ownership_gate(Map) ->
         ownership_manifest_hash = maps:get(ownership_manifest_hash, Map, undefined),
         standing = maps:get(standing, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Invoice consequence for measured overage.
+-record(overage_invoice, {
+    overage_invoice_id :: binary(), %% overage_invoice_id: Stable identity of this overage invoice contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    overage_amount :: float(), %% overage_amount: Observed overage amount after admitted aggregation.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type overage_invoice() :: #overage_invoice{}.
+
+-spec new_overage_invoice(map()) -> {ok, overage_invoice()} | {error, {missing_field, atom()}}.
+new_overage_invoice(Map) ->
+    case maps:is_key(overage_invoice_id, Map) of
+        false -> {error, {missing_field, overage_invoice_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(overage_amount, Map) of
+        false -> {error, {missing_field, overage_amount}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #overage_invoice{
+        overage_invoice_id = maps:get(overage_invoice_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        overage_amount = maps:get(overage_amount, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -11754,6 +14352,100 @@ new_planner_identity(Map) ->
     end
     end.
 
+%% Records objective-specific planner payoff from independent episode evidence.
+-record(planner_payoff_observation, {
+    observation_id :: binary(), %% observation_id: Stable planner payoff observation identity.
+    planner_id :: binary(), %% planner_id: Planner whose realized payoff is measured.
+    objective_id :: binary(), %% objective_id: Objective used for evaluation.
+    payoff :: float(), %% payoff: Observed numeric payoff.
+    evidence_digest :: binary(), %% evidence_digest: Independent evidence supporting the payoff.
+    episode_id :: binary() %% episode_id: Episode that realized the payoff.
+}).
+
+-type planner_payoff_observation() :: #planner_payoff_observation{}.
+
+-spec new_planner_payoff_observation(map()) -> {ok, planner_payoff_observation()} | {error, {missing_field, atom()}}.
+new_planner_payoff_observation(Map) ->
+    case maps:is_key(observation_id, Map) of
+        false -> {error, {missing_field, observation_id}};
+        true ->
+    case maps:is_key(planner_id, Map) of
+        false -> {error, {missing_field, planner_id}};
+        true ->
+    case maps:is_key(objective_id, Map) of
+        false -> {error, {missing_field, objective_id}};
+        true ->
+    case maps:is_key(payoff, Map) of
+        false -> {error, {missing_field, payoff}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(episode_id, Map) of
+        false -> {error, {missing_field, episode_id}};
+        true ->
+    {ok, #planner_payoff_observation{
+        observation_id = maps:get(observation_id, Map, undefined),
+        planner_id = maps:get(planner_id, Map, undefined),
+        objective_id = maps:get(objective_id, Map, undefined),
+        payoff = maps:get(payoff, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        episode_id = maps:get(episode_id, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
+%% Compares incumbent and challenger policies under one planner and one admitted objective.
+-record(planner_policy_comparison, {
+    comparison_id :: binary(), %% comparison_id: Stable comparison identity.
+    planner_id :: binary(), %% planner_id: Planner held constant for comparison.
+    incumbent_policy_id :: binary(), %% incumbent_policy_id: Incumbent policy identity.
+    challenger_policy_id :: binary(), %% challenger_policy_id: Challenger policy identity.
+    payoff_delta :: float(), %% payoff_delta: Challenger minus incumbent payoff.
+    winner_evidence_digest :: binary() %% winner_evidence_digest: Digest proving the selected winner.
+}).
+
+-type planner_policy_comparison() :: #planner_policy_comparison{}.
+
+-spec new_planner_policy_comparison(map()) -> {ok, planner_policy_comparison()} | {error, {missing_field, atom()}}.
+new_planner_policy_comparison(Map) ->
+    case maps:is_key(comparison_id, Map) of
+        false -> {error, {missing_field, comparison_id}};
+        true ->
+    case maps:is_key(planner_id, Map) of
+        false -> {error, {missing_field, planner_id}};
+        true ->
+    case maps:is_key(incumbent_policy_id, Map) of
+        false -> {error, {missing_field, incumbent_policy_id}};
+        true ->
+    case maps:is_key(challenger_policy_id, Map) of
+        false -> {error, {missing_field, challenger_policy_id}};
+        true ->
+    case maps:is_key(payoff_delta, Map) of
+        false -> {error, {missing_field, payoff_delta}};
+        true ->
+    case maps:is_key(winner_evidence_digest, Map) of
+        false -> {error, {missing_field, winner_evidence_digest}};
+        true ->
+    {ok, #planner_policy_comparison{
+        comparison_id = maps:get(comparison_id, Map, undefined),
+        planner_id = maps:get(planner_id, Map, undefined),
+        incumbent_policy_id = maps:get(incumbent_policy_id, Map, undefined),
+        challenger_policy_id = maps:get(challenger_policy_id, Map, undefined),
+        payoff_delta = maps:get(payoff_delta, Map, undefined),
+        winner_evidence_digest = maps:get(winner_evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Preserves a diverse set of planners for one bounded planning episode.
 -record(planner_portfolio, {
     portfolio_id :: binary(), %% portfolio_id: Required portfolio_id for this bounded planner contract.
@@ -11779,6 +14471,53 @@ new_planner_portfolio(Map) ->
         planner_ids = maps:get(planner_ids, Map, undefined),
         diversity_hash = maps:get(diversity_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Routes future planning to a better-supported planner with a declared rollback policy.
+-record(planner_routing_update, {
+    update_id :: binary(), %% update_id: Stable planner-routing update identity.
+    route_id :: binary(), %% route_id: Planning route being adapted.
+    prior_planner_id :: binary(), %% prior_planner_id: Previously selected planner.
+    selected_planner_id :: binary(), %% selected_planner_id: Evidence-selected future planner.
+    payoff_basis_digest :: binary(), %% payoff_basis_digest: Digest of comparative payoff evidence.
+    rollback_policy_id :: binary() %% rollback_policy_id: Policy restoring the prior route on regression.
+}).
+
+-type planner_routing_update() :: #planner_routing_update{}.
+
+-spec new_planner_routing_update(map()) -> {ok, planner_routing_update()} | {error, {missing_field, atom()}}.
+new_planner_routing_update(Map) ->
+    case maps:is_key(update_id, Map) of
+        false -> {error, {missing_field, update_id}};
+        true ->
+    case maps:is_key(route_id, Map) of
+        false -> {error, {missing_field, route_id}};
+        true ->
+    case maps:is_key(prior_planner_id, Map) of
+        false -> {error, {missing_field, prior_planner_id}};
+        true ->
+    case maps:is_key(selected_planner_id, Map) of
+        false -> {error, {missing_field, selected_planner_id}};
+        true ->
+    case maps:is_key(payoff_basis_digest, Map) of
+        false -> {error, {missing_field, payoff_basis_digest}};
+        true ->
+    case maps:is_key(rollback_policy_id, Map) of
+        false -> {error, {missing_field, rollback_policy_id}};
+        true ->
+    {ok, #planner_routing_update{
+        update_id = maps:get(update_id, Map, undefined),
+        route_id = maps:get(route_id, Map, undefined),
+        prior_planner_id = maps:get(prior_planner_id, Map, undefined),
+        selected_planner_id = maps:get(selected_planner_id, Map, undefined),
+        payoff_basis_digest = maps:get(payoff_basis_digest, Map, undefined),
+        rollback_policy_id = maps:get(rollback_policy_id, Map, undefined)
+    }}
+    end
+    end
+    end
     end
     end
     end.
@@ -12045,6 +14784,53 @@ new_policy_decision(Map) ->
     end
     end.
 
+%% Records bounded policy payoff separately from planner identity and parameters.
+-record(policy_payoff_observation, {
+    observation_id :: binary(), %% observation_id: Stable policy payoff observation identity.
+    policy_id :: binary(), %% policy_id: Exact policy identity.
+    parameter_digest :: binary(), %% parameter_digest: Digest of bounded policy parameters.
+    objective_id :: binary(), %% objective_id: Objective used to score the policy.
+    payoff :: float(), %% payoff: Observed numeric policy payoff.
+    evidence_digest :: binary() %% evidence_digest: Independent evidence supporting the payoff.
+}).
+
+-type policy_payoff_observation() :: #policy_payoff_observation{}.
+
+-spec new_policy_payoff_observation(map()) -> {ok, policy_payoff_observation()} | {error, {missing_field, atom()}}.
+new_policy_payoff_observation(Map) ->
+    case maps:is_key(observation_id, Map) of
+        false -> {error, {missing_field, observation_id}};
+        true ->
+    case maps:is_key(policy_id, Map) of
+        false -> {error, {missing_field, policy_id}};
+        true ->
+    case maps:is_key(parameter_digest, Map) of
+        false -> {error, {missing_field, parameter_digest}};
+        true ->
+    case maps:is_key(objective_id, Map) of
+        false -> {error, {missing_field, objective_id}};
+        true ->
+    case maps:is_key(payoff, Map) of
+        false -> {error, {missing_field, payoff}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #policy_payoff_observation{
+        observation_id = maps:get(observation_id, Map, undefined),
+        policy_id = maps:get(policy_id, Map, undefined),
+        parameter_digest = maps:get(parameter_digest, Map, undefined),
+        objective_id = maps:get(objective_id, Map, undefined),
+        payoff = maps:get(payoff, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% One directed edge of a ChoiceGraphNode.edges set over ChoiceGraphEndpoint (Start | Child(usize) | End); may be cyclic (a self-loop Child(i)->Child(i) is a POWL 1.0-style loop over a single child, generalized).
 -record(powl_choice_graph_edge, {
     from_kind :: atom(), %% from_kind: The edge source endpoint kind: start | child | end (ChoiceGraphEndpoint variant tag; start has no incoming edges, end has no outgoing edges per Def. 3.6).
@@ -12195,6 +14981,129 @@ new_ppddl_projection(Map) ->
         domain_hash = maps:get(domain_hash, Map, undefined),
         problem_hash = maps:get(problem_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Paid integration-connector add-on.
+-record(premium_connector_pricing, {
+    premium_connector_pricing_id :: binary(), %% premium_connector_pricing_id: Stable identity of this premium connector pricing contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    connector_id :: binary(), %% connector_id: Stable identity of the separately priced connector.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type premium_connector_pricing() :: #premium_connector_pricing{}.
+
+-spec new_premium_connector_pricing(map()) -> {ok, premium_connector_pricing()} | {error, {missing_field, atom()}}.
+new_premium_connector_pricing(Map) ->
+    case maps:is_key(premium_connector_pricing_id, Map) of
+        false -> {error, {missing_field, premium_connector_pricing_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(connector_id, Map) of
+        false -> {error, {missing_field, connector_id}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #premium_connector_pricing{
+        premium_connector_pricing_id = maps:get(premium_connector_pricing_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        connector_id = maps:get(connector_id, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipted prepaid-credit balance.
+-record(prepaid_credit_balance, {
+    prepaid_credit_balance_id :: binary(), %% prepaid_credit_balance_id: Stable identity of this prepaid credit balance contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    remaining_credit :: float(), %% remaining_credit: Observed remaining prepaid credit after admitted usage.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type prepaid_credit_balance() :: #prepaid_credit_balance{}.
+
+-spec new_prepaid_credit_balance(map()) -> {ok, prepaid_credit_balance()} | {error, {missing_field, atom()}}.
+new_prepaid_credit_balance(Map) ->
+    case maps:is_key(prepaid_credit_balance_id, Map) of
+        false -> {error, {missing_field, prepaid_credit_balance_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(remaining_credit, Map) of
+        false -> {error, {missing_field, remaining_credit}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #prepaid_credit_balance{
+        prepaid_credit_balance_id = maps:get(prepaid_credit_balance_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        remaining_credit = maps:get(remaining_credit, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Immutable enterprise price-book release.
+-record(price_book_version, {
+    price_book_version_id :: binary(), %% price_book_version_id: Stable identity of this price book version contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    version :: binary(), %% version: Buyer-visible semantic version of the admitted price book.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type price_book_version() :: #price_book_version{}.
+
+-spec new_price_book_version(map()) -> {ok, price_book_version()} | {error, {missing_field, atom()}}.
+new_price_book_version(Map) ->
+    case maps:is_key(price_book_version_id, Map) of
+        false -> {error, {missing_field, price_book_version_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(version, Map) of
+        false -> {error, {missing_field, version}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #price_book_version{
+        price_book_version_id = maps:get(price_book_version_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        version = maps:get(version, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -12358,6 +15267,47 @@ new_process_variant(Map) ->
         activity_sequence = maps:get(activity_sequence, Map, undefined),
         frequency = maps:get(frequency, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Process-model commercial packaging dimension.
+-record(process_volume_pricing_policy, {
+    process_volume_pricing_policy_id :: binary(), %% process_volume_pricing_policy_id: Stable identity of this process volume pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    unit_process_price :: float(), %% unit_process_price: Admitted unit price per managed process.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type process_volume_pricing_policy() :: #process_volume_pricing_policy{}.
+
+-spec new_process_volume_pricing_policy(map()) -> {ok, process_volume_pricing_policy()} | {error, {missing_field, atom()}}.
+new_process_volume_pricing_policy(Map) ->
+    case maps:is_key(process_volume_pricing_policy_id, Map) of
+        false -> {error, {missing_field, process_volume_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit_process_price, Map) of
+        false -> {error, {missing_field, unit_process_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #process_volume_pricing_policy{
+        process_volume_pricing_policy_id = maps:get(process_volume_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit_process_price = maps:get(unit_process_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -12537,6 +15487,100 @@ new_production_readiness(Map) ->
     end
     end.
 
+%% Promotes or refuses a challenger by applying a pre-existing threshold to independent evidence.
+-record(promotion_decision, {
+    decision_id :: binary(), %% decision_id: Stable promotion decision identity.
+    candidate_policy_id :: binary(), %% candidate_policy_id: Candidate policy considered.
+    threshold_id :: binary(), %% threshold_id: Immutable threshold applied.
+    evidence_set_digest :: binary(), %% evidence_set_digest: Digest of independent evaluation evidence.
+    decision :: binary(), %% decision: PROMOTE or REFUSE result.
+    refusal_code :: binary() %% refusal_code: Typed reason when promotion is refused.
+}).
+
+-type promotion_decision() :: #promotion_decision{}.
+
+-spec new_promotion_decision(map()) -> {ok, promotion_decision()} | {error, {missing_field, atom()}}.
+new_promotion_decision(Map) ->
+    case maps:is_key(decision_id, Map) of
+        false -> {error, {missing_field, decision_id}};
+        true ->
+    case maps:is_key(candidate_policy_id, Map) of
+        false -> {error, {missing_field, candidate_policy_id}};
+        true ->
+    case maps:is_key(threshold_id, Map) of
+        false -> {error, {missing_field, threshold_id}};
+        true ->
+    case maps:is_key(evidence_set_digest, Map) of
+        false -> {error, {missing_field, evidence_set_digest}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    case maps:is_key(refusal_code, Map) of
+        false -> {error, {missing_field, refusal_code}};
+        true ->
+    {ok, #promotion_decision{
+        decision_id = maps:get(decision_id, Map, undefined),
+        candidate_policy_id = maps:get(candidate_policy_id, Map, undefined),
+        threshold_id = maps:get(threshold_id, Map, undefined),
+        evidence_set_digest = maps:get(evidence_set_digest, Map, undefined),
+        decision = maps:get(decision, Map, undefined),
+        refusal_code = maps:get(refusal_code, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
+%% Defines immutable minimum evidence and payoff conditions for challenger promotion.
+-record(promotion_threshold, {
+    threshold_id :: binary(), %% threshold_id: Stable promotion threshold identity.
+    objective_id :: binary(), %% objective_id: Objective governed by the threshold.
+    minimum_payoff :: float(), %% minimum_payoff: Minimum challenger payoff.
+    maximum_regression :: float(), %% maximum_regression: Maximum admissible regression.
+    minimum_evidence_count :: integer(), %% minimum_evidence_count: Minimum independent evidence count.
+    authority_binding :: binary() %% authority_binding: Authority that owns threshold changes.
+}).
+
+-type promotion_threshold() :: #promotion_threshold{}.
+
+-spec new_promotion_threshold(map()) -> {ok, promotion_threshold()} | {error, {missing_field, atom()}}.
+new_promotion_threshold(Map) ->
+    case maps:is_key(threshold_id, Map) of
+        false -> {error, {missing_field, threshold_id}};
+        true ->
+    case maps:is_key(objective_id, Map) of
+        false -> {error, {missing_field, objective_id}};
+        true ->
+    case maps:is_key(minimum_payoff, Map) of
+        false -> {error, {missing_field, minimum_payoff}};
+        true ->
+    case maps:is_key(maximum_regression, Map) of
+        false -> {error, {missing_field, maximum_regression}};
+        true ->
+    case maps:is_key(minimum_evidence_count, Map) of
+        false -> {error, {missing_field, minimum_evidence_count}};
+        true ->
+    case maps:is_key(authority_binding, Map) of
+        false -> {error, {missing_field, authority_binding}};
+        true ->
+    {ok, #promotion_threshold{
+        threshold_id = maps:get(threshold_id, Map, undefined),
+        objective_id = maps:get(objective_id, Map, undefined),
+        minimum_payoff = maps:get(minimum_payoff, Map, undefined),
+        maximum_regression = maps:get(maximum_regression, Map, undefined),
+        minimum_evidence_count = maps:get(minimum_evidence_count, Map, undefined),
+        authority_binding = maps:get(authority_binding, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Qualifies whether a proof-of-value has an actual budget and decision rather than free-pilot ambiguity.
 -record(proof_of_value_budget, {
     opportunity_id :: binary(), %% opportunity_id: Required proof of value budget input; omission is an executable typed refusal, never an inferred approval.
@@ -12595,6 +15639,47 @@ new_proof_of_value_exit_gate(Map) ->
     end
     end.
 
+%% Paid proof-of-value package with measurable exit criterion.
+-record(proof_of_value_package, {
+    proof_of_value_package_id :: binary(), %% proof_of_value_package_id: Stable identity of this proof of value package contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    success_metric :: binary(), %% success_metric: Canonical metric that determines proof-of-value acceptance.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type proof_of_value_package() :: #proof_of_value_package{}.
+
+-spec new_proof_of_value_package(map()) -> {ok, proof_of_value_package()} | {error, {missing_field, atom()}}.
+new_proof_of_value_package(Map) ->
+    case maps:is_key(proof_of_value_package_id, Map) of
+        false -> {error, {missing_field, proof_of_value_package_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(success_metric, Map) of
+        false -> {error, {missing_field, success_metric}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #proof_of_value_package{
+        proof_of_value_package_id = maps:get(proof_of_value_package_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        success_metric = maps:get(success_metric, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Scores downstream consequences across the dependency and capability graph.
 -record(propagation_score, {
     option_id :: binary(), %% option_id: Required option_id for this bounded planner contract.
@@ -12620,6 +15705,47 @@ new_propagation_score(Map) ->
         graph_hash = maps:get(graph_hash, Map, undefined),
         score = maps:get(score, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Deterministic mid-term proration policy.
+-record(proration_policy, {
+    proration_policy_id :: binary(), %% proration_policy_id: Stable identity of this proration policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    proration_method :: binary(), %% proration_method: Admitted algorithm identity for partial-period charges.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type proration_policy() :: #proration_policy{}.
+
+-spec new_proration_policy(map()) -> {ok, proration_policy()} | {error, {missing_field, atom()}}.
+new_proration_policy(Map) ->
+    case maps:is_key(proration_policy_id, Map) of
+        false -> {error, {missing_field, proration_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(proration_method, Map) of
+        false -> {error, {missing_field, proration_method}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #proration_policy{
+        proration_policy_id = maps:get(proration_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        proration_method = maps:get(proration_method, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -12845,6 +15971,88 @@ new_queue_snapshot(Map) ->
     end
     end.
 
+%% Purchased temporary quota burst allowance.
+-record(quota_burst_allowance, {
+    quota_burst_allowance_id :: binary(), %% quota_burst_allowance_id: Stable identity of this quota burst allowance contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    burst_units :: float(), %% burst_units: Additional units admitted above the contracted quota.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type quota_burst_allowance() :: #quota_burst_allowance{}.
+
+-spec new_quota_burst_allowance(map()) -> {ok, quota_burst_allowance()} | {error, {missing_field, atom()}}.
+new_quota_burst_allowance(Map) ->
+    case maps:is_key(quota_burst_allowance_id, Map) of
+        false -> {error, {missing_field, quota_burst_allowance_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(burst_units, Map) of
+        false -> {error, {missing_field, burst_units}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #quota_burst_allowance{
+        quota_burst_allowance_id = maps:get(quota_burst_allowance_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        burst_units = maps:get(burst_units, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Explicitly authorized quota override.
+-record(quota_override, {
+    quota_override_id :: binary(), %% quota_override_id: Stable identity of this quota override contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    override_units :: float(), %% override_units: Authorized replacement quota for the bounded window.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type quota_override() :: #quota_override{}.
+
+-spec new_quota_override(map()) -> {ok, quota_override()} | {error, {missing_field, atom()}}.
+new_quota_override(Map) ->
+    case maps:is_key(quota_override_id, Map) of
+        false -> {error, {missing_field, quota_override_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(override_units, Map) of
+        false -> {error, {missing_field, override_units}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #quota_override{
+        quota_override_id = maps:get(quota_override_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        override_units = maps:get(override_units, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Enforceable quota limit over a named measurement window.
 -record(quota_policy, {
     quota_id :: binary(), %% quota_id: Stable quota identity.
@@ -12915,6 +16123,88 @@ new_ramp_commitment(Map) ->
     end
     end.
 
+%% Sellable unit price bound to an immutable price book.
+-record(rate_card_entry, {
+    rate_card_entry_id :: binary(), %% rate_card_entry_id: Stable identity of this rate card entry contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    unit_price :: float(), %% unit_price: Admitted unit price; currency is supplied by the linked currency policy.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type rate_card_entry() :: #rate_card_entry{}.
+
+-spec new_rate_card_entry(map()) -> {ok, rate_card_entry()} | {error, {missing_field, atom()}}.
+new_rate_card_entry(Map) ->
+    case maps:is_key(rate_card_entry_id, Map) of
+        false -> {error, {missing_field, rate_card_entry_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(unit_price, Map) of
+        false -> {error, {missing_field, unit_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #rate_card_entry{
+        rate_card_entry_id = maps:get(rate_card_entry_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        unit_price = maps:get(unit_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Bounds observation compression by maximum decision-relevant information distortion.
+-record(rate_distortion_budget, {
+    budget_id :: binary(), %% budget_id: Stable rate-distortion budget identity.
+    decision_id :: binary(), %% decision_id: Decision protected by the budget.
+    source_information_bits :: float(), %% source_information_bits: Information present before compression.
+    retained_information_bits :: float(), %% retained_information_bits: Information retained after projection.
+    maximum_distortion :: float() %% maximum_distortion: Maximum admitted decision distortion.
+}).
+
+-type rate_distortion_budget() :: #rate_distortion_budget{}.
+
+-spec new_rate_distortion_budget(map()) -> {ok, rate_distortion_budget()} | {error, {missing_field, atom()}}.
+new_rate_distortion_budget(Map) ->
+    case maps:is_key(budget_id, Map) of
+        false -> {error, {missing_field, budget_id}};
+        true ->
+    case maps:is_key(decision_id, Map) of
+        false -> {error, {missing_field, decision_id}};
+        true ->
+    case maps:is_key(source_information_bits, Map) of
+        false -> {error, {missing_field, source_information_bits}};
+        true ->
+    case maps:is_key(retained_information_bits, Map) of
+        false -> {error, {missing_field, retained_information_bits}};
+        true ->
+    case maps:is_key(maximum_distortion, Map) of
+        false -> {error, {missing_field, maximum_distortion}};
+        true ->
+    {ok, #rate_distortion_budget{
+        budget_id = maps:get(budget_id, Map, undefined),
+        decision_id = maps:get(decision_id, Map, undefined),
+        source_information_bits = maps:get(source_information_bits, Map, undefined),
+        retained_information_bits = maps:get(retained_information_bits, Map, undefined),
+        maximum_distortion = maps:get(maximum_distortion, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Determines whether an admitted goal remains reachable from current state.
 -record(reachability_analysis, {
     state_id :: binary(), %% state_id: Required state_id for this bounded planner contract.
@@ -12940,6 +16230,47 @@ new_reachability_analysis(Map) ->
         goal_id = maps:get(goal_id, Map, undefined),
         reachability_proof_hash = maps:get(reachability_proof_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Compiles only verified receipt-chain members into a deterministic learning corpus.
+-record(receipt_learning_compilation, {
+    compilation_id :: binary(), %% compilation_id: Stable receipt compilation identity.
+    receipt_chain_head :: binary(), %% receipt_chain_head: Digest of the admitted receipt chain head.
+    admitted_receipt_count :: integer(), %% admitted_receipt_count: Number of verified receipts admitted.
+    rejected_receipt_count :: integer(), %% rejected_receipt_count: Number of receipts refused by validation.
+    learning_digest :: binary() %% learning_digest: Digest of the compiled learning corpus.
+}).
+
+-type receipt_learning_compilation() :: #receipt_learning_compilation{}.
+
+-spec new_receipt_learning_compilation(map()) -> {ok, receipt_learning_compilation()} | {error, {missing_field, atom()}}.
+new_receipt_learning_compilation(Map) ->
+    case maps:is_key(compilation_id, Map) of
+        false -> {error, {missing_field, compilation_id}};
+        true ->
+    case maps:is_key(receipt_chain_head, Map) of
+        false -> {error, {missing_field, receipt_chain_head}};
+        true ->
+    case maps:is_key(admitted_receipt_count, Map) of
+        false -> {error, {missing_field, admitted_receipt_count}};
+        true ->
+    case maps:is_key(rejected_receipt_count, Map) of
+        false -> {error, {missing_field, rejected_receipt_count}};
+        true ->
+    case maps:is_key(learning_digest, Map) of
+        false -> {error, {missing_field, learning_digest}};
+        true ->
+    {ok, #receipt_learning_compilation{
+        compilation_id = maps:get(compilation_id, Map, undefined),
+        receipt_chain_head = maps:get(receipt_chain_head, Map, undefined),
+        admitted_receipt_count = maps:get(admitted_receipt_count, Map, undefined),
+        rejected_receipt_count = maps:get(rejected_receipt_count, Map, undefined),
+        learning_digest = maps:get(learning_digest, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -13223,6 +16554,47 @@ new_recovery_time_receipt(Map) ->
     end
     end.
 
+%% Deterministic refund eligibility policy.
+-record(refund_policy, {
+    refund_policy_id :: binary(), %% refund_policy_id: Stable identity of this refund policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    refund_method :: binary(), %% refund_method: Admitted method used to calculate a refund.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type refund_policy() :: #refund_policy{}.
+
+-spec new_refund_policy(map()) -> {ok, refund_policy()} | {error, {missing_field, atom()}}.
+new_refund_policy(Map) ->
+    case maps:is_key(refund_policy_id, Map) of
+        false -> {error, {missing_field, refund_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(refund_method, Map) of
+        false -> {error, {missing_field, refund_method}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #refund_policy{
+        refund_policy_id = maps:get(refund_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        refund_method = maps:get(refund_method, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Emits REFUSED with exact authority boundary and evidence.
 -record(refusal_boundary_observation, {
     subject_id :: binary(), %% subject_id: Exact refused subject identity.
@@ -13253,6 +16625,182 @@ new_refusal_boundary_observation(Map) ->
         authority_boundary = maps:get(authority_boundary, Map, undefined),
         evidence_digest = maps:get(evidence_digest, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Defines an immutable evidence boundary that forces policy refusal when crossed.
+-record(refusal_threshold, {
+    threshold_id :: binary(), %% threshold_id: Stable refusal threshold identity.
+    refusal_class :: binary(), %% refusal_class: Failure or risk class governed.
+    limit :: float(), %% limit: Numeric refusal boundary.
+    metric_id :: binary(), %% metric_id: Metric compared to the boundary.
+    authority_binding :: binary() %% authority_binding: Authority that alone may revise the threshold.
+}).
+
+-type refusal_threshold() :: #refusal_threshold{}.
+
+-spec new_refusal_threshold(map()) -> {ok, refusal_threshold()} | {error, {missing_field, atom()}}.
+new_refusal_threshold(Map) ->
+    case maps:is_key(threshold_id, Map) of
+        false -> {error, {missing_field, threshold_id}};
+        true ->
+    case maps:is_key(refusal_class, Map) of
+        false -> {error, {missing_field, refusal_class}};
+        true ->
+    case maps:is_key(limit, Map) of
+        false -> {error, {missing_field, limit}};
+        true ->
+    case maps:is_key(metric_id, Map) of
+        false -> {error, {missing_field, metric_id}};
+        true ->
+    case maps:is_key(authority_binding, Map) of
+        false -> {error, {missing_field, authority_binding}};
+        true ->
+    {ok, #refusal_threshold{
+        threshold_id = maps:get(threshold_id, Map, undefined),
+        refusal_class = maps:get(refusal_class, Map, undefined),
+        limit = maps:get(limit, Map, undefined),
+        metric_id = maps:get(metric_id, Map, undefined),
+        authority_binding = maps:get(authority_binding, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Deployment-region commercial adjustment.
+-record(region_pricing_policy, {
+    region_pricing_policy_id :: binary(), %% region_pricing_policy_id: Stable identity of this region pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    region_code :: binary(), %% region_code: Exact cloud or sovereign region governed by this price policy.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type region_pricing_policy() :: #region_pricing_policy{}.
+
+-spec new_region_pricing_policy(map()) -> {ok, region_pricing_policy()} | {error, {missing_field, atom()}}.
+new_region_pricing_policy(Map) ->
+    case maps:is_key(region_pricing_policy_id, Map) of
+        false -> {error, {missing_field, region_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(region_code, Map) of
+        false -> {error, {missing_field, region_code}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #region_pricing_policy{
+        region_pricing_policy_id = maps:get(region_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        region_code = maps:get(region_code, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Detects candidate regression against a fixed baseline and metric before promotion.
+-record(regression_detector, {
+    detection_id :: binary(), %% detection_id: Stable regression detection identity.
+    baseline_policy_id :: binary(), %% baseline_policy_id: Admitted baseline policy.
+    candidate_policy_id :: binary(), %% candidate_policy_id: Candidate policy under test.
+    metric_id :: binary(), %% metric_id: Metric defining regression.
+    regression_delta :: float(), %% regression_delta: Measured candidate regression.
+    evidence_digest :: binary() %% evidence_digest: Independent comparison evidence.
+}).
+
+-type regression_detector() :: #regression_detector{}.
+
+-spec new_regression_detector(map()) -> {ok, regression_detector()} | {error, {missing_field, atom()}}.
+new_regression_detector(Map) ->
+    case maps:is_key(detection_id, Map) of
+        false -> {error, {missing_field, detection_id}};
+        true ->
+    case maps:is_key(baseline_policy_id, Map) of
+        false -> {error, {missing_field, baseline_policy_id}};
+        true ->
+    case maps:is_key(candidate_policy_id, Map) of
+        false -> {error, {missing_field, candidate_policy_id}};
+        true ->
+    case maps:is_key(metric_id, Map) of
+        false -> {error, {missing_field, metric_id}};
+        true ->
+    case maps:is_key(regression_delta, Map) of
+        false -> {error, {missing_field, regression_delta}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #regression_detector{
+        detection_id = maps:get(detection_id, Map, undefined),
+        baseline_policy_id = maps:get(baseline_policy_id, Map, undefined),
+        candidate_policy_id = maps:get(candidate_policy_id, Map, undefined),
+        metric_id = maps:get(metric_id, Map, undefined),
+        regression_delta = maps:get(regression_delta, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
+%% Refuses promotion when observed regression exceeds the immutable acceptance threshold.
+-record(regression_refusal, {
+    refusal_id :: binary(), %% refusal_id: Stable regression refusal identity.
+    candidate_policy_id :: binary(), %% candidate_policy_id: Candidate refused promotion.
+    regression_detection_id :: binary(), %% regression_detection_id: Supporting regression detection.
+    acceptance_threshold :: float(), %% acceptance_threshold: Maximum admitted regression.
+    observed_regression :: float(), %% observed_regression: Measured regression.
+    authority_ceiling :: binary() %% authority_ceiling: Boundary preventing self-override of refusal.
+}).
+
+-type regression_refusal() :: #regression_refusal{}.
+
+-spec new_regression_refusal(map()) -> {ok, regression_refusal()} | {error, {missing_field, atom()}}.
+new_regression_refusal(Map) ->
+    case maps:is_key(refusal_id, Map) of
+        false -> {error, {missing_field, refusal_id}};
+        true ->
+    case maps:is_key(candidate_policy_id, Map) of
+        false -> {error, {missing_field, candidate_policy_id}};
+        true ->
+    case maps:is_key(regression_detection_id, Map) of
+        false -> {error, {missing_field, regression_detection_id}};
+        true ->
+    case maps:is_key(acceptance_threshold, Map) of
+        false -> {error, {missing_field, acceptance_threshold}};
+        true ->
+    case maps:is_key(observed_regression, Map) of
+        false -> {error, {missing_field, observed_regression}};
+        true ->
+    case maps:is_key(authority_ceiling, Map) of
+        false -> {error, {missing_field, authority_ceiling}};
+        true ->
+    {ok, #regression_refusal{
+        refusal_id = maps:get(refusal_id, Map, undefined),
+        candidate_policy_id = maps:get(candidate_policy_id, Map, undefined),
+        regression_detection_id = maps:get(regression_detection_id, Map, undefined),
+        acceptance_threshold = maps:get(acceptance_threshold, Map, undefined),
+        observed_regression = maps:get(observed_regression, Map, undefined),
+        authority_ceiling = maps:get(authority_ceiling, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end
@@ -13476,6 +17024,47 @@ new_renewal_term_admission(Map) ->
         renewal_term = maps:get(renewal_term, Map, undefined),
         decision = maps:get(decision, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Measures whether a repair reduced the target failure over a fixed evaluation window.
+-record(repair_effectiveness_measurement, {
+    measurement_id :: binary(), %% measurement_id: Stable repair measurement identity.
+    repair_id :: binary(), %% repair_id: Repair being evaluated.
+    baseline_failure_rate :: float(), %% baseline_failure_rate: Pre-repair failure rate.
+    post_repair_failure_rate :: float(), %% post_repair_failure_rate: Post-repair failure rate.
+    evaluation_window_digest :: binary() %% evaluation_window_digest: Digest of the compared episode windows.
+}).
+
+-type repair_effectiveness_measurement() :: #repair_effectiveness_measurement{}.
+
+-spec new_repair_effectiveness_measurement(map()) -> {ok, repair_effectiveness_measurement()} | {error, {missing_field, atom()}}.
+new_repair_effectiveness_measurement(Map) ->
+    case maps:is_key(measurement_id, Map) of
+        false -> {error, {missing_field, measurement_id}};
+        true ->
+    case maps:is_key(repair_id, Map) of
+        false -> {error, {missing_field, repair_id}};
+        true ->
+    case maps:is_key(baseline_failure_rate, Map) of
+        false -> {error, {missing_field, baseline_failure_rate}};
+        true ->
+    case maps:is_key(post_repair_failure_rate, Map) of
+        false -> {error, {missing_field, post_repair_failure_rate}};
+        true ->
+    case maps:is_key(evaluation_window_digest, Map) of
+        false -> {error, {missing_field, evaluation_window_digest}};
+        true ->
+    {ok, #repair_effectiveness_measurement{
+        measurement_id = maps:get(measurement_id, Map, undefined),
+        repair_id = maps:get(repair_id, Map, undefined),
+        baseline_failure_rate = maps:get(baseline_failure_rate, Map, undefined),
+        post_repair_failure_rate = maps:get(post_repair_failure_rate, Map, undefined),
+        evaluation_window_digest = maps:get(evaluation_window_digest, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -13876,6 +17465,47 @@ new_retention_policy_evidence(Map) ->
     end
     end.
 
+%% Retention-duration commercial packaging.
+-record(retention_pricing_policy, {
+    retention_pricing_policy_id :: binary(), %% retention_pricing_policy_id: Stable identity of this retention pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    retention_days :: integer(), %% retention_days: Purchased evidence and event-data retention period in days.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type retention_pricing_policy() :: #retention_pricing_policy{}.
+
+-spec new_retention_pricing_policy(map()) -> {ok, retention_pricing_policy()} | {error, {missing_field, atom()}}.
+new_retention_pricing_policy(Map) ->
+    case maps:is_key(retention_pricing_policy_id, Map) of
+        false -> {error, {missing_field, retention_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(retention_days, Map) of
+        false -> {error, {missing_field, retention_days}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #retention_pricing_policy{
+        retention_pricing_policy_id = maps:get(retention_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        retention_days = maps:get(retention_days, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Receipted revenue attribution bound to exact enterprise evidence.
 -record(revenue_attribution, {
     revenue_attribution_id :: binary(), %% revenue_attribution_id: Stable identity of this revenue attribution observation.
@@ -14202,6 +17832,53 @@ new_rollback_evidence(Map) ->
     end
     end.
 
+%% Learns whether rollback restored admitted state without treating rollback completion as success by itself.
+-record(rollback_outcome_learning, {
+    learning_id :: binary(), %% learning_id: Stable rollback learning identity.
+    rollback_id :: binary(), %% rollback_id: Rollback transition evaluated.
+    pre_rollback_state_digest :: binary(), %% pre_rollback_state_digest: State digest before rollback.
+    post_rollback_state_digest :: binary(), %% post_rollback_state_digest: State digest after rollback.
+    recovery_score :: float(), %% recovery_score: Measured degree of state restoration.
+    evidence_digest :: binary() %% evidence_digest: Independent recovery evidence.
+}).
+
+-type rollback_outcome_learning() :: #rollback_outcome_learning{}.
+
+-spec new_rollback_outcome_learning(map()) -> {ok, rollback_outcome_learning()} | {error, {missing_field, atom()}}.
+new_rollback_outcome_learning(Map) ->
+    case maps:is_key(learning_id, Map) of
+        false -> {error, {missing_field, learning_id}};
+        true ->
+    case maps:is_key(rollback_id, Map) of
+        false -> {error, {missing_field, rollback_id}};
+        true ->
+    case maps:is_key(pre_rollback_state_digest, Map) of
+        false -> {error, {missing_field, pre_rollback_state_digest}};
+        true ->
+    case maps:is_key(post_rollback_state_digest, Map) of
+        false -> {error, {missing_field, post_rollback_state_digest}};
+        true ->
+    case maps:is_key(recovery_score, Map) of
+        false -> {error, {missing_field, recovery_score}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #rollback_outcome_learning{
+        learning_id = maps:get(learning_id, Map, undefined),
+        rollback_id = maps:get(rollback_id, Map, undefined),
+        pre_rollback_state_digest = maps:get(pre_rollback_state_digest, Map, undefined),
+        post_rollback_state_digest = maps:get(post_rollback_state_digest, Map, undefined),
+        recovery_score = maps:get(recovery_score, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Admits an identified rolling upgrade plan with deterministic production evidence.
 -record(rolling_upgrade_plan, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -14227,6 +17904,88 @@ new_rolling_upgrade_plan(Map) ->
         upgrade_id = maps:get(upgrade_id, Map, undefined),
         plan_hash = maps:get(plan_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Stores a reusable root-cause pattern only after independent reproduction.
+-record(root_cause_pattern, {
+    pattern_id :: binary(), %% pattern_id: Stable root-cause pattern identity.
+    failure_class :: binary(), %% failure_class: Failure class explained by the pattern.
+    causal_graph_digest :: binary(), %% causal_graph_digest: Digest of the causal graph.
+    confirmed_reproducer_digest :: binary(), %% confirmed_reproducer_digest: Independent reproducer evidence.
+    reusable_scope :: binary() %% reusable_scope: Bounded scope where reuse is admissible.
+}).
+
+-type root_cause_pattern() :: #root_cause_pattern{}.
+
+-spec new_root_cause_pattern(map()) -> {ok, root_cause_pattern()} | {error, {missing_field, atom()}}.
+new_root_cause_pattern(Map) ->
+    case maps:is_key(pattern_id, Map) of
+        false -> {error, {missing_field, pattern_id}};
+        true ->
+    case maps:is_key(failure_class, Map) of
+        false -> {error, {missing_field, failure_class}};
+        true ->
+    case maps:is_key(causal_graph_digest, Map) of
+        false -> {error, {missing_field, causal_graph_digest}};
+        true ->
+    case maps:is_key(confirmed_reproducer_digest, Map) of
+        false -> {error, {missing_field, confirmed_reproducer_digest}};
+        true ->
+    case maps:is_key(reusable_scope, Map) of
+        false -> {error, {missing_field, reusable_scope}};
+        true ->
+    {ok, #root_cause_pattern{
+        pattern_id = maps:get(pattern_id, Map, undefined),
+        failure_class = maps:get(failure_class, Map, undefined),
+        causal_graph_digest = maps:get(causal_graph_digest, Map, undefined),
+        confirmed_reproducer_digest = maps:get(confirmed_reproducer_digest, Map, undefined),
+        reusable_scope = maps:get(reusable_scope, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Admits or refuses reuse of a historical root cause using measured similarity evidence.
+-record(root_cause_reuse_decision, {
+    decision_id :: binary(), %% decision_id: Stable reuse decision identity.
+    pattern_id :: binary(), %% pattern_id: Historical root-cause pattern considered.
+    current_failure_id :: binary(), %% current_failure_id: Current failure being diagnosed.
+    similarity_score :: float(), %% similarity_score: Measured causal similarity.
+    applicability_evidence_digest :: binary() %% applicability_evidence_digest: Evidence proving or refusing applicability.
+}).
+
+-type root_cause_reuse_decision() :: #root_cause_reuse_decision{}.
+
+-spec new_root_cause_reuse_decision(map()) -> {ok, root_cause_reuse_decision()} | {error, {missing_field, atom()}}.
+new_root_cause_reuse_decision(Map) ->
+    case maps:is_key(decision_id, Map) of
+        false -> {error, {missing_field, decision_id}};
+        true ->
+    case maps:is_key(pattern_id, Map) of
+        false -> {error, {missing_field, pattern_id}};
+        true ->
+    case maps:is_key(current_failure_id, Map) of
+        false -> {error, {missing_field, current_failure_id}};
+        true ->
+    case maps:is_key(similarity_score, Map) of
+        false -> {error, {missing_field, similarity_score}};
+        true ->
+    case maps:is_key(applicability_evidence_digest, Map) of
+        false -> {error, {missing_field, applicability_evidence_digest}};
+        true ->
+    {ok, #root_cause_reuse_decision{
+        decision_id = maps:get(decision_id, Map, undefined),
+        pattern_id = maps:get(pattern_id, Map, undefined),
+        current_failure_id = maps:get(current_failure_id, Map, undefined),
+        similarity_score = maps:get(similarity_score, Map, undefined),
+        applicability_evidence_digest = maps:get(applicability_evidence_digest, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -14324,6 +18083,94 @@ new_sanctions_screening_result(Map) ->
     end
     end.
 
+%% Nonproduction sandbox entitlement with a hard ceiling.
+-record(sandbox_entitlement, {
+    sandbox_entitlement_id :: binary(), %% sandbox_entitlement_id: Stable identity of this sandbox entitlement contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    sandbox_limit :: integer(), %% sandbox_limit: Maximum purchased sandbox environments.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type sandbox_entitlement() :: #sandbox_entitlement{}.
+
+-spec new_sandbox_entitlement(map()) -> {ok, sandbox_entitlement()} | {error, {missing_field, atom()}}.
+new_sandbox_entitlement(Map) ->
+    case maps:is_key(sandbox_entitlement_id, Map) of
+        false -> {error, {missing_field, sandbox_entitlement_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(sandbox_limit, Map) of
+        false -> {error, {missing_field, sandbox_limit}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #sandbox_entitlement{
+        sandbox_entitlement_id = maps:get(sandbox_entitlement_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        sandbox_limit = maps:get(sandbox_limit, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Detects diminishing learning returns from measured gain, novelty, and coverage evidence.
+-record(saturation_detection, {
+    detection_id :: binary(), %% detection_id: Stable saturation detection identity.
+    curriculum_id :: binary(), %% curriculum_id: Curriculum being measured.
+    recent_gain :: float(), %% recent_gain: Recent objective improvement.
+    gain_slope :: float(), %% gain_slope: Trend in marginal learning gain.
+    novelty_floor :: float(), %% novelty_floor: Minimum admitted novelty.
+    coverage_digest :: binary() %% coverage_digest: Digest of evaluated capability coverage.
+}).
+
+-type saturation_detection() :: #saturation_detection{}.
+
+-spec new_saturation_detection(map()) -> {ok, saturation_detection()} | {error, {missing_field, atom()}}.
+new_saturation_detection(Map) ->
+    case maps:is_key(detection_id, Map) of
+        false -> {error, {missing_field, detection_id}};
+        true ->
+    case maps:is_key(curriculum_id, Map) of
+        false -> {error, {missing_field, curriculum_id}};
+        true ->
+    case maps:is_key(recent_gain, Map) of
+        false -> {error, {missing_field, recent_gain}};
+        true ->
+    case maps:is_key(gain_slope, Map) of
+        false -> {error, {missing_field, gain_slope}};
+        true ->
+    case maps:is_key(novelty_floor, Map) of
+        false -> {error, {missing_field, novelty_floor}};
+        true ->
+    case maps:is_key(coverage_digest, Map) of
+        false -> {error, {missing_field, coverage_digest}};
+        true ->
+    {ok, #saturation_detection{
+        detection_id = maps:get(detection_id, Map, undefined),
+        curriculum_id = maps:get(curriculum_id, Map, undefined),
+        recent_gain = maps:get(recent_gain, Map, undefined),
+        gain_slope = maps:get(gain_slope, Map, undefined),
+        novelty_floor = maps:get(novelty_floor, Map, undefined),
+        coverage_digest = maps:get(coverage_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Executable SBOM evidence binding an exact commercial subject to the observed component inventory cardinality.
 -record(sbom_inventory_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this SBOM inventory observation.
@@ -14354,6 +18201,47 @@ new_sbom_inventory_evidence(Map) ->
         component_count = maps:get(component_count, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Named-seat enterprise packaging dimension.
+-record(seat_pricing_policy, {
+    seat_pricing_policy_id :: binary(), %% seat_pricing_policy_id: Stable identity of this seat pricing policy contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    seat_price :: float(), %% seat_price: Admitted unit price for one named enterprise seat.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type seat_pricing_policy() :: #seat_pricing_policy{}.
+
+-spec new_seat_pricing_policy(map()) -> {ok, seat_pricing_policy()} | {error, {missing_field, atom()}}.
+new_seat_pricing_policy(Map) ->
+    case maps:is_key(seat_pricing_policy_id, Map) of
+        false -> {error, {missing_field, seat_pricing_policy_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(seat_price, Map) of
+        false -> {error, {missing_field, seat_price}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #seat_pricing_policy{
+        seat_pricing_policy_id = maps:get(seat_pricing_policy_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        seat_price = maps:get(seat_price, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -14557,6 +18445,53 @@ new_security_readiness(Map) ->
     end
     end.
 
+%% Produces a reproducible policy evaluation bound to an explicit seed and dataset.
+-record(seeded_evaluation, {
+    evaluation_id :: binary(), %% evaluation_id: Stable seeded evaluation identity.
+    seed :: binary(), %% seed: Explicit deterministic seed.
+    dataset_digest :: binary(), %% dataset_digest: Immutable evaluation dataset digest.
+    policy_id :: binary(), %% policy_id: Policy evaluated.
+    score :: float(), %% score: Observed evaluation score.
+    replay_digest :: binary() %% replay_digest: Digest of deterministic replay output.
+}).
+
+-type seeded_evaluation() :: #seeded_evaluation{}.
+
+-spec new_seeded_evaluation(map()) -> {ok, seeded_evaluation()} | {error, {missing_field, atom()}}.
+new_seeded_evaluation(Map) ->
+    case maps:is_key(evaluation_id, Map) of
+        false -> {error, {missing_field, evaluation_id}};
+        true ->
+    case maps:is_key(seed, Map) of
+        false -> {error, {missing_field, seed}};
+        true ->
+    case maps:is_key(dataset_digest, Map) of
+        false -> {error, {missing_field, dataset_digest}};
+        true ->
+    case maps:is_key(policy_id, Map) of
+        false -> {error, {missing_field, policy_id}};
+        true ->
+    case maps:is_key(score, Map) of
+        false -> {error, {missing_field, score}};
+        true ->
+    case maps:is_key(replay_digest, Map) of
+        false -> {error, {missing_field, replay_digest}};
+        true ->
+    {ok, #seeded_evaluation{
+        evaluation_id = maps:get(evaluation_id, Map, undefined),
+        seed = maps:get(seed, Map, undefined),
+        dataset_digest = maps:get(dataset_digest, Map, undefined),
+        policy_id = maps:get(policy_id, Map, undefined),
+        score = maps:get(score, Map, undefined),
+        replay_digest = maps:get(replay_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Classifies semantic change between prior and current canonical digests.
 -record(semantic_drift_observation, {
     subject_id :: binary(), %% subject_id: Observed semantic subject.
@@ -14652,6 +18587,47 @@ new_service_credit_admission(Map) ->
         service_credit_id = maps:get(service_credit_id, Map, undefined),
         decision = maps:get(decision, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Auditable customer service-credit balance.
+-record(service_credit_ledger, {
+    service_credit_ledger_id :: binary(), %% service_credit_ledger_id: Stable identity of this service credit ledger contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    credit_amount :: float(), %% credit_amount: Observed service-credit amount after an admitted SLO consequence.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type service_credit_ledger() :: #service_credit_ledger{}.
+
+-spec new_service_credit_ledger(map()) -> {ok, service_credit_ledger()} | {error, {missing_field, atom()}}.
+new_service_credit_ledger(Map) ->
+    case maps:is_key(service_credit_ledger_id, Map) of
+        false -> {error, {missing_field, service_credit_ledger_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(credit_amount, Map) of
+        false -> {error, {missing_field, credit_amount}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #service_credit_ledger{
+        service_credit_ledger_id = maps:get(service_credit_ledger_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        credit_amount = maps:get(credit_amount, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -14776,6 +18752,53 @@ new_service_span(Map) ->
         duration_ms = maps:get(duration_ms, Map, undefined),
         parent_span_id = maps:get(parent_span_id, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Runs a challenger in observation-only shadow mode with no consequential DO authority.
+-record(shadow_challenger_execution, {
+    execution_id :: binary(), %% execution_id: Stable shadow execution identity.
+    incumbent_policy_id :: binary(), %% incumbent_policy_id: Live incumbent policy identity.
+    challenger_policy_id :: binary(), %% challenger_policy_id: Shadow challenger policy identity.
+    shared_observation_digest :: binary(), %% shared_observation_digest: Digest of identical inputs supplied to both policies.
+    shadow_receipt_digest :: binary(), %% shadow_receipt_digest: Receipt proving challenger execution remained shadow-only.
+    authority_mode :: binary() %% authority_mode: Authority mode, required to remain non-consequential.
+}).
+
+-type shadow_challenger_execution() :: #shadow_challenger_execution{}.
+
+-spec new_shadow_challenger_execution(map()) -> {ok, shadow_challenger_execution()} | {error, {missing_field, atom()}}.
+new_shadow_challenger_execution(Map) ->
+    case maps:is_key(execution_id, Map) of
+        false -> {error, {missing_field, execution_id}};
+        true ->
+    case maps:is_key(incumbent_policy_id, Map) of
+        false -> {error, {missing_field, incumbent_policy_id}};
+        true ->
+    case maps:is_key(challenger_policy_id, Map) of
+        false -> {error, {missing_field, challenger_policy_id}};
+        true ->
+    case maps:is_key(shared_observation_digest, Map) of
+        false -> {error, {missing_field, shared_observation_digest}};
+        true ->
+    case maps:is_key(shadow_receipt_digest, Map) of
+        false -> {error, {missing_field, shadow_receipt_digest}};
+        true ->
+    case maps:is_key(authority_mode, Map) of
+        false -> {error, {missing_field, authority_mode}};
+        true ->
+    {ok, #shadow_challenger_execution{
+        execution_id = maps:get(execution_id, Map, undefined),
+        incumbent_policy_id = maps:get(incumbent_policy_id, Map, undefined),
+        challenger_policy_id = maps:get(challenger_policy_id, Map, undefined),
+        shared_observation_digest = maps:get(shared_observation_digest, Map, undefined),
+        shadow_receipt_digest = maps:get(shadow_receipt_digest, Map, undefined),
+        authority_mode = maps:get(authority_mode, Map, undefined)
+    }}
+    end
+    end
+    end
     end
     end
     end.
@@ -14984,6 +19007,47 @@ new_solution_fit(Map) ->
     end
     end.
 
+%% Observed consumption against committed spend.
+-record(spend_drawdown, {
+    spend_drawdown_id :: binary(), %% spend_drawdown_id: Stable identity of this spend drawdown contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    consumed_amount :: float(), %% consumed_amount: Amount actually drawn from the committed-spend balance.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type spend_drawdown() :: #spend_drawdown{}.
+
+-spec new_spend_drawdown(map()) -> {ok, spend_drawdown()} | {error, {missing_field, atom()}}.
+new_spend_drawdown(Map) ->
+    case maps:is_key(spend_drawdown_id, Map) of
+        false -> {error, {missing_field, spend_drawdown_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(consumed_amount, Map) of
+        false -> {error, {missing_field, consumed_amount}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #spend_drawdown{
+        spend_drawdown_id = maps:get(spend_drawdown_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        consumed_amount = maps:get(consumed_amount, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Executable stakeholder-coverage contract for a qualified enterprise evaluation.
 -record(stakeholder_map, {
     stakeholder_map_id :: binary(), %% stakeholder_map_id: Stable identity of this stakeholder map observation.
@@ -15148,6 +19212,94 @@ new_standing_state_observation(Map) ->
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Stops further experiments only when an immutable evidence window satisfies a declared criterion.
+-record(stopping_criterion, {
+    criterion_id :: binary(), %% criterion_id: Stable stopping criterion identity.
+    objective_id :: binary(), %% objective_id: Objective governed by stopping.
+    minimum_gain :: float(), %% minimum_gain: Minimum gain required to continue.
+    maximum_episodes :: integer(), %% maximum_episodes: Maximum bounded experiment count.
+    evidence_window_digest :: binary(), %% evidence_window_digest: Digest of evidence used to stop.
+    authority_binding :: binary() %% authority_binding: Authority that owns criterion changes.
+}).
+
+-type stopping_criterion() :: #stopping_criterion{}.
+
+-spec new_stopping_criterion(map()) -> {ok, stopping_criterion()} | {error, {missing_field, atom()}}.
+new_stopping_criterion(Map) ->
+    case maps:is_key(criterion_id, Map) of
+        false -> {error, {missing_field, criterion_id}};
+        true ->
+    case maps:is_key(objective_id, Map) of
+        false -> {error, {missing_field, objective_id}};
+        true ->
+    case maps:is_key(minimum_gain, Map) of
+        false -> {error, {missing_field, minimum_gain}};
+        true ->
+    case maps:is_key(maximum_episodes, Map) of
+        false -> {error, {missing_field, maximum_episodes}};
+        true ->
+    case maps:is_key(evidence_window_digest, Map) of
+        false -> {error, {missing_field, evidence_window_digest}};
+        true ->
+    case maps:is_key(authority_binding, Map) of
+        false -> {error, {missing_field, authority_binding}};
+        true ->
+    {ok, #stopping_criterion{
+        criterion_id = maps:get(criterion_id, Map, undefined),
+        objective_id = maps:get(objective_id, Map, undefined),
+        minimum_gain = maps:get(minimum_gain, Map, undefined),
+        maximum_episodes = maps:get(maximum_episodes, Map, undefined),
+        evidence_window_digest = maps:get(evidence_window_digest, Map, undefined),
+        authority_binding = maps:get(authority_binding, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
+%% Attributes a failure to the exact subject only after the validation capsule is independently admitted.
+-record(subject_failure_separation, {
+    assessment_id :: binary(), %% assessment_id: Stable subject-failure assessment identity.
+    exact_subject_sha :: binary(), %% exact_subject_sha: Exact subject that reproduced the failure.
+    capsule_standing :: binary(), %% capsule_standing: Independent standing of the validation capsule.
+    subject_failure_code :: binary(), %% subject_failure_code: Typed failure attributed to the subject.
+    independent_reproducer_digest :: binary() %% independent_reproducer_digest: Digest of an independent reproducer.
+}).
+
+-type subject_failure_separation() :: #subject_failure_separation{}.
+
+-spec new_subject_failure_separation(map()) -> {ok, subject_failure_separation()} | {error, {missing_field, atom()}}.
+new_subject_failure_separation(Map) ->
+    case maps:is_key(assessment_id, Map) of
+        false -> {error, {missing_field, assessment_id}};
+        true ->
+    case maps:is_key(exact_subject_sha, Map) of
+        false -> {error, {missing_field, exact_subject_sha}};
+        true ->
+    case maps:is_key(capsule_standing, Map) of
+        false -> {error, {missing_field, capsule_standing}};
+        true ->
+    case maps:is_key(subject_failure_code, Map) of
+        false -> {error, {missing_field, subject_failure_code}};
+        true ->
+    case maps:is_key(independent_reproducer_digest, Map) of
+        false -> {error, {missing_field, independent_reproducer_digest}};
+        true ->
+    {ok, #subject_failure_separation{
+        assessment_id = maps:get(assessment_id, Map, undefined),
+        exact_subject_sha = maps:get(exact_subject_sha, Map, undefined),
+        capsule_standing = maps:get(capsule_standing, Map, undefined),
+        subject_failure_code = maps:get(subject_failure_code, Map, undefined),
+        independent_reproducer_digest = maps:get(independent_reproducer_digest, Map, undefined)
+    }}
+    end
     end
     end
     end
@@ -15623,6 +19775,47 @@ new_tax_jurisdiction_evidence(Map) ->
         tax_jurisdiction = maps:get(tax_jurisdiction, Map, undefined),
         evidence_hash = maps:get(evidence_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Tax jurisdiction routing for a contracting entity.
+-record(tax_jurisdiction_rule, {
+    tax_jurisdiction_rule_id :: binary(), %% tax_jurisdiction_rule_id: Stable identity of this tax jurisdiction rule contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    jurisdiction_code :: binary(), %% jurisdiction_code: Admitted tax jurisdiction code for invoice treatment.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type tax_jurisdiction_rule() :: #tax_jurisdiction_rule{}.
+
+-spec new_tax_jurisdiction_rule(map()) -> {ok, tax_jurisdiction_rule()} | {error, {missing_field, atom()}}.
+new_tax_jurisdiction_rule(Map) ->
+    case maps:is_key(tax_jurisdiction_rule_id, Map) of
+        false -> {error, {missing_field, tax_jurisdiction_rule_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(jurisdiction_code, Map) of
+        false -> {error, {missing_field, jurisdiction_code}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #tax_jurisdiction_rule{
+        tax_jurisdiction_rule_id = maps:get(tax_jurisdiction_rule_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        jurisdiction_code = maps:get(jurisdiction_code, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.
@@ -16116,6 +20309,88 @@ new_training_scope_admission(Map) ->
     end
     end.
 
+%% Bounds a software-manufacturing trajectory by exact endpoints so learning cannot silently mix histories.
+-record(trajectory_window, {
+    window_id :: binary(), %% window_id: Stable trajectory window identity.
+    repository_id :: binary(), %% repository_id: Caller-local repository identity.
+    first_subject_sha :: binary(), %% first_subject_sha: Exact first subject in the window.
+    last_subject_sha :: binary(), %% last_subject_sha: Exact final subject in the window.
+    episode_count :: integer() %% episode_count: Number of admitted episodes in the window.
+}).
+
+-type trajectory_window() :: #trajectory_window{}.
+
+-spec new_trajectory_window(map()) -> {ok, trajectory_window()} | {error, {missing_field, atom()}}.
+new_trajectory_window(Map) ->
+    case maps:is_key(window_id, Map) of
+        false -> {error, {missing_field, window_id}};
+        true ->
+    case maps:is_key(repository_id, Map) of
+        false -> {error, {missing_field, repository_id}};
+        true ->
+    case maps:is_key(first_subject_sha, Map) of
+        false -> {error, {missing_field, first_subject_sha}};
+        true ->
+    case maps:is_key(last_subject_sha, Map) of
+        false -> {error, {missing_field, last_subject_sha}};
+        true ->
+    case maps:is_key(episode_count, Map) of
+        false -> {error, {missing_field, episode_count}};
+        true ->
+    {ok, #trajectory_window{
+        window_id = maps:get(window_id, Map, undefined),
+        repository_id = maps:get(repository_id, Map, undefined),
+        first_subject_sha = maps:get(first_subject_sha, Map, undefined),
+        last_subject_sha = maps:get(last_subject_sha, Map, undefined),
+        episode_count = maps:get(episode_count, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Time-bounded enterprise trial entitlement.
+-record(trial_entitlement, {
+    trial_entitlement_id :: binary(), %% trial_entitlement_id: Stable identity of this trial entitlement contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    trial_expires_at :: binary(), %% trial_expires_at: Exact instant at which trial capability must be refused.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type trial_entitlement() :: #trial_entitlement{}.
+
+-spec new_trial_entitlement(map()) -> {ok, trial_entitlement()} | {error, {missing_field, atom()}}.
+new_trial_entitlement(Map) ->
+    case maps:is_key(trial_entitlement_id, Map) of
+        false -> {error, {missing_field, trial_entitlement_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(trial_expires_at, Map) of
+        false -> {error, {missing_field, trial_expires_at}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #trial_entitlement{
+        trial_entitlement_id = maps:get(trial_entitlement_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        trial_expires_at = maps:get(trial_expires_at, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% End-of-period reconciliation policy for committed consumption.
 -record(true_up_policy, {
     policy_id :: binary(), %% policy_id: Stable true-up identity.
@@ -16250,6 +20525,47 @@ new_uncertainty_observation(Map) ->
     end
     end.
 
+%% Evidence-bound gross-margin snapshot.
+-record(unit_economics_snapshot, {
+    unit_economics_snapshot_id :: binary(), %% unit_economics_snapshot_id: Stable identity of this unit economics snapshot contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    gross_margin :: float(), %% gross_margin: Observed gross margin derived from admitted revenue and cost evidence.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type unit_economics_snapshot() :: #unit_economics_snapshot{}.
+
+-spec new_unit_economics_snapshot(map()) -> {ok, unit_economics_snapshot()} | {error, {missing_field, atom()}}.
+new_unit_economics_snapshot(Map) ->
+    case maps:is_key(unit_economics_snapshot_id, Map) of
+        false -> {error, {missing_field, unit_economics_snapshot_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(gross_margin, Map) of
+        false -> {error, {missing_field, gross_margin}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #unit_economics_snapshot{
+        unit_economics_snapshot_id = maps:get(unit_economics_snapshot_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        gross_margin = maps:get(gross_margin, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
 %% Executable boundary evidence identifying a requested enterprise capability that the exact subject truthfully refuses.
 -record(unsupported_capability_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this unsupported-capability observation.
@@ -16354,6 +20670,88 @@ new_upsell_readiness(Map) ->
         upsell_score = maps:get(upsell_score, Map, undefined),
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Deterministic usage aggregation window.
+-record(usage_aggregation_window, {
+    usage_aggregation_window_id :: binary(), %% usage_aggregation_window_id: Stable identity of this usage aggregation window contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    window_seconds :: integer(), %% window_seconds: Exact billing aggregation window in seconds.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type usage_aggregation_window() :: #usage_aggregation_window{}.
+
+-spec new_usage_aggregation_window(map()) -> {ok, usage_aggregation_window()} | {error, {missing_field, atom()}}.
+new_usage_aggregation_window(Map) ->
+    case maps:is_key(usage_aggregation_window_id, Map) of
+        false -> {error, {missing_field, usage_aggregation_window_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(window_seconds, Map) of
+        false -> {error, {missing_field, window_seconds}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #usage_aggregation_window{
+        usage_aggregation_window_id = maps:get(usage_aggregation_window_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        window_seconds = maps:get(window_seconds, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Receipted correction to previously reported usage.
+-record(usage_correction, {
+    usage_correction_id :: binary(), %% usage_correction_id: Stable identity of this usage correction contract.
+    account_id :: binary(), %% account_id: Enterprise account governed by this commercial contract.
+    corrected_quantity :: float(), %% corrected_quantity: Replacement usage quantity bound to correction evidence.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence admitting this commercial consequence.
+    effective_at :: binary() %% effective_at: ISO8601 instant at which this contract becomes effective.
+}).
+
+-type usage_correction() :: #usage_correction{}.
+
+-spec new_usage_correction(map()) -> {ok, usage_correction()} | {error, {missing_field, atom()}}.
+new_usage_correction(Map) ->
+    case maps:is_key(usage_correction_id, Map) of
+        false -> {error, {missing_field, usage_correction_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(corrected_quantity, Map) of
+        false -> {error, {missing_field, corrected_quantity}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(effective_at, Map) of
+        false -> {error, {missing_field, effective_at}};
+        true ->
+    {ok, #usage_correction{
+        usage_correction_id = maps:get(usage_correction_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        corrected_quantity = maps:get(corrected_quantity, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        effective_at = maps:get(effective_at, Map, undefined)
     }}
     end
     end
@@ -16758,6 +21156,53 @@ new_value_realization(Map) ->
     end
     end.
 
+%% Feeds independently measured realized value back into future policy ranking.
+-record(value_realization_feedback, {
+    feedback_id :: binary(), %% feedback_id: Stable value feedback identity.
+    objective_id :: binary(), %% objective_id: Value objective being measured.
+    baseline_value :: float(), %% baseline_value: Value before the policy episode.
+    realized_value :: float(), %% realized_value: Observed value after the episode.
+    evidence_digest :: binary(), %% evidence_digest: Independent outcome evidence.
+    policy_id :: binary() %% policy_id: Policy associated with the outcome.
+}).
+
+-type value_realization_feedback() :: #value_realization_feedback{}.
+
+-spec new_value_realization_feedback(map()) -> {ok, value_realization_feedback()} | {error, {missing_field, atom()}}.
+new_value_realization_feedback(Map) ->
+    case maps:is_key(feedback_id, Map) of
+        false -> {error, {missing_field, feedback_id}};
+        true ->
+    case maps:is_key(objective_id, Map) of
+        false -> {error, {missing_field, objective_id}};
+        true ->
+    case maps:is_key(baseline_value, Map) of
+        false -> {error, {missing_field, baseline_value}};
+        true ->
+    case maps:is_key(realized_value, Map) of
+        false -> {error, {missing_field, realized_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(policy_id, Map) of
+        false -> {error, {missing_field, policy_id}};
+        true ->
+    {ok, #value_realization_feedback{
+        feedback_id = maps:get(feedback_id, Map, undefined),
+        objective_id = maps:get(objective_id, Map, undefined),
+        baseline_value = maps:get(baseline_value, Map, undefined),
+        realized_value = maps:get(realized_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        policy_id = maps:get(policy_id, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end
+    end.
+
 %% Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.
 -record(value_receipt, {
     value_receipt_id :: binary(), %% value_receipt_id: Stable identity of this before/after value receipt.
@@ -16899,6 +21344,53 @@ new_vendor_risk_evidence(Map) ->
         risk_score = maps:get(risk_score, Map, undefined),
         observed_result = maps:get(observed_result, Map, undefined)
     }}
+    end
+    end
+    end
+    end.
+
+%% Raises or lowers verification depth from observed risk without weakening the immutable minimum court.
+-record(verification_depth_update, {
+    update_id :: binary(), %% update_id: Stable verification-depth update identity.
+    verifier_id :: binary(), %% verifier_id: Verifier whose depth is adapted.
+    prior_depth :: integer(), %% prior_depth: Prior verification depth.
+    new_depth :: integer(), %% new_depth: Risk-adjusted verification depth.
+    risk_signal_digest :: binary(), %% risk_signal_digest: Digest of observed risk evidence.
+    minimum_depth :: integer() %% minimum_depth: Immutable minimum acceptance depth.
+}).
+
+-type verification_depth_update() :: #verification_depth_update{}.
+
+-spec new_verification_depth_update(map()) -> {ok, verification_depth_update()} | {error, {missing_field, atom()}}.
+new_verification_depth_update(Map) ->
+    case maps:is_key(update_id, Map) of
+        false -> {error, {missing_field, update_id}};
+        true ->
+    case maps:is_key(verifier_id, Map) of
+        false -> {error, {missing_field, verifier_id}};
+        true ->
+    case maps:is_key(prior_depth, Map) of
+        false -> {error, {missing_field, prior_depth}};
+        true ->
+    case maps:is_key(new_depth, Map) of
+        false -> {error, {missing_field, new_depth}};
+        true ->
+    case maps:is_key(risk_signal_digest, Map) of
+        false -> {error, {missing_field, risk_signal_digest}};
+        true ->
+    case maps:is_key(minimum_depth, Map) of
+        false -> {error, {missing_field, minimum_depth}};
+        true ->
+    {ok, #verification_depth_update{
+        update_id = maps:get(update_id, Map, undefined),
+        verifier_id = maps:get(verifier_id, Map, undefined),
+        prior_depth = maps:get(prior_depth, Map, undefined),
+        new_depth = maps:get(new_depth, Map, undefined),
+        risk_signal_digest = maps:get(risk_signal_digest, Map, undefined),
+        minimum_depth = maps:get(minimum_depth, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end

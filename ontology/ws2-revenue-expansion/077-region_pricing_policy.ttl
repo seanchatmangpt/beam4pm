@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-077 — region_pricing_policy
+bpm:region_pricing_policy_rt a bpm:RecordType ;
+    bpm:recordName "region_pricing_policy" ;
+    bpm:recordDoc "Deployment-region commercial adjustment." ;
+    bpm:hasField bpm:region_pricing_policy_region_pricing_policy_id_f,
+                 bpm:region_pricing_policy_account_id_f,
+                 bpm:region_pricing_policy_region_code_f,
+                 bpm:region_pricing_policy_evidence_digest_f,
+                 bpm:region_pricing_policy_effective_at_f .
+
+bpm:region_pricing_policy_region_pricing_policy_id_f a bpm:Field ;
+    bpm:fieldName "region_pricing_policy_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this region pricing policy contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:region_pricing_policy_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:region_pricing_policy_region_code_f a bpm:Field ;
+    bpm:fieldName "region_code" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact cloud or sovereign region governed by this price policy." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:region_pricing_policy_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:region_pricing_policy_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .

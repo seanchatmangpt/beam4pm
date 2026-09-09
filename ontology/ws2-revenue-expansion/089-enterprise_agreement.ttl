@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-089 — enterprise_agreement
+bpm:enterprise_agreement_rt a bpm:RecordType ;
+    bpm:recordName "enterprise_agreement" ;
+    bpm:recordDoc "Enterprise commercial umbrella agreement." ;
+    bpm:hasField bpm:enterprise_agreement_enterprise_agreement_id_f,
+                 bpm:enterprise_agreement_account_id_f,
+                 bpm:enterprise_agreement_agreement_version_f,
+                 bpm:enterprise_agreement_evidence_digest_f,
+                 bpm:enterprise_agreement_effective_at_f .
+
+bpm:enterprise_agreement_enterprise_agreement_id_f a bpm:Field ;
+    bpm:fieldName "enterprise_agreement_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this enterprise agreement contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:enterprise_agreement_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:enterprise_agreement_agreement_version_f a bpm:Field ;
+    bpm:fieldName "agreement_version" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Immutable semantic version of the governing agreement." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:enterprise_agreement_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:enterprise_agreement_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
