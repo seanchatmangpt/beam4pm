@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-003 — consumer_equivalence_proof
+b4p:consumer_equivalence_proof_rt a bpm:RecordType ;
+    bpm:recordName "consumer_equivalence_proof" ;
+    bpm:recordDoc "Admits central-surrogate planning only after explicit consumer-equivalence proof." ;
+    bpm:hasField b4p:consumer_equivalence_proof_consumer_set_id_f,
+                 b4p:consumer_equivalence_proof_equivalence_proof_hash_f,
+                 b4p:consumer_equivalence_proof_standing_f .
+
+b4p:consumer_equivalence_proof_consumer_set_id_f a bpm:Field ;
+    bpm:fieldName "consumer_set_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required consumer_set_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:consumer_equivalence_proof_equivalence_proof_hash_f a bpm:Field ;
+    bpm:fieldName "equivalence_proof_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required equivalence_proof_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:consumer_equivalence_proof_standing_f a bpm:Field ;
+    bpm:fieldName "standing" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required standing preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

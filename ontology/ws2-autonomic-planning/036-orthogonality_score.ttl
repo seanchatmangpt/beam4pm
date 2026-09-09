@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-036 — orthogonality_score
+b4p:orthogonality_score_rt a bpm:RecordType ;
+    bpm:recordName "orthogonality_score" ;
+    bpm:recordDoc "Measures semantic independence between candidate work items." ;
+    bpm:hasField b4p:orthogonality_score_left_option_id_f,
+                 b4p:orthogonality_score_right_option_id_f,
+                 b4p:orthogonality_score_score_f .
+
+b4p:orthogonality_score_left_option_id_f a bpm:Field ;
+    bpm:fieldName "left_option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required left_option_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:orthogonality_score_right_option_id_f a bpm:Field ;
+    bpm:fieldName "right_option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required right_option_id for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:orthogonality_score_score_f a bpm:Field ;
+    bpm:fieldName "score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required score preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

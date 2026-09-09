@@ -174,6 +174,27 @@
       ]
 
     },
+    "admissible_action_set": {
+      "type": "object",
+      "description": "Computes all actions currently permitted by state, constraints, and authority.",
+      "properties": {
+        "state_id": {
+          "type": "string",
+          "description": "Required state_id for this bounded planner contract."
+        },
+        "constraint_hash": {
+          "type": "string",
+          "description": "Required constraint_hash for deterministic planner evaluation."
+        },
+        "action_set_hash": {
+          "type": "string",
+          "description": "Required action_set_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["state_id", "constraint_hash", "action_set_hash"
+      ]
+
+    },
     "adoption_milestone": {
       "type": "object",
       "description": "Receipted customer adoption milestone tied to observable use.",
@@ -200,6 +221,27 @@
         }
       },
       "required": ["adoption_milestone_id", "account_id", "milestone_name", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "agent_assignment": {
+      "type": "object",
+      "description": "Assigns an admitted policy to an agent without transferring authority.",
+      "properties": {
+        "agent_id": {
+          "type": "string",
+          "description": "Required agent_id for this bounded planner contract."
+        },
+        "policy_id": {
+          "type": "string",
+          "description": "Required policy_id for deterministic planner evaluation."
+        },
+        "assignment_hash": {
+          "type": "string",
+          "description": "Required assignment_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["agent_id", "policy_id", "assignment_hash"
       ]
 
     },
@@ -399,6 +441,27 @@
       ]
 
     },
+    "astar_plan_candidate": {
+      "type": "object",
+      "description": "Represents an A-star plan with admissible heuristic and exact state lineage.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "Required plan_id for this bounded planner contract."
+        },
+        "heuristic_id": {
+          "type": "string",
+          "description": "Required heuristic_id for deterministic planner evaluation."
+        },
+        "path_hash": {
+          "type": "string",
+          "description": "Required path_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["plan_id", "heuristic_id", "path_hash"
+      ]
+
+    },
     "attestation_verification_evidence": {
       "type": "object",
       "description": "Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.",
@@ -446,6 +509,27 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "previous_receipt_hash", "observed_result"
+      ]
+
+    },
+    "authority_ceiling": {
+      "type": "object",
+      "description": "Caps every candidate action at the exact authority grant available to its subject.",
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "description": "Required action_id for this bounded planner contract."
+        },
+        "grant_id": {
+          "type": "string",
+          "description": "Required grant_id for deterministic planner evaluation."
+        },
+        "ceiling": {
+          "type": "string",
+          "description": "Required ceiling preserving evidence and falsifiability."
+        }
+      },
+      "required": ["action_id", "grant_id", "ceiling"
       ]
 
     },
@@ -1824,6 +1908,27 @@
       ]
 
     },
+    "beam_search_candidate": {
+      "type": "object",
+      "description": "Represents a bounded beam-search plan with explicit width and frontier.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "Required plan_id for this bounded planner contract."
+        },
+        "beam_width": {
+          "type": "string",
+          "description": "Required beam_width for deterministic planner evaluation."
+        },
+        "frontier_hash": {
+          "type": "string",
+          "description": "Required frontier_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["plan_id", "beam_width", "frontier_hash"
+      ]
+
+    },
     "belief_state_snapshot": {
       "type": "object",
       "description": "Captures a posterior belief state and explicit uncertainty standing.",
@@ -2159,6 +2264,52 @@
       ]
 
     },
+    "caller_local_consumer": {
+      "type": "object",
+      "description": "Preserves each caller-local consumer as an independently planned exact subject.",
+      "properties": {
+        "consumer_id": {
+          "type": "string",
+          "description": "Required consumer_id for this bounded planner contract."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Required subject_sha for deterministic planner evaluation."
+        },
+        "consumer_hash": {
+          "type": "string",
+          "description": "Required consumer_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["consumer_id", "subject_sha", "consumer_hash"
+      ]
+
+    },
+    "caller_local_crown_identity": {
+      "type": "object",
+      "description": "Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "consumer_subject_sha": {
+          "type": "string",
+          "description": "Exact caller-local consumer commit SHA that must be requalified."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "consumer_subject_sha", "receipt_digest"
+      ]
+
+    },
     "canary_decision": {
       "type": "object",
       "description": "Receipted enterprise canary decision based on an observed rollout consequence.",
@@ -2290,6 +2441,27 @@
         }
       },
       "required": ["capability_gap_id", "account_id", "gap_severity", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "capsule_availability": {
+      "type": "object",
+      "description": "Records whether the exact validation capsule is available before qualification.",
+      "properties": {
+        "capsule_id": {
+          "type": "string",
+          "description": "Required capsule_id for this bounded planner contract."
+        },
+        "capsule_digest": {
+          "type": "string",
+          "description": "Required capsule_digest for deterministic planner evaluation."
+        },
+        "availability": {
+          "type": "string",
+          "description": "Required availability preserving evidence and falsifiability."
+        }
+      },
+      "required": ["capsule_id", "capsule_digest", "availability"
       ]
 
     },
@@ -2945,6 +3117,27 @@
       ]
 
     },
+    "consumer_equivalence_proof": {
+      "type": "object",
+      "description": "Admits central-surrogate planning only after explicit consumer-equivalence proof.",
+      "properties": {
+        "consumer_set_id": {
+          "type": "string",
+          "description": "Required consumer_set_id for this bounded planner contract."
+        },
+        "equivalence_proof_hash": {
+          "type": "string",
+          "description": "Required equivalence_proof_hash for deterministic planner evaluation."
+        },
+        "standing": {
+          "type": "string",
+          "description": "Required standing preserving evidence and falsifiability."
+        }
+      },
+      "required": ["consumer_set_id", "equivalence_proof_hash", "standing"
+      ]
+
+    },
     "consumer_pack_pin_observation": {
       "type": "object",
       "description": "Proves a consumer used an exact immutable marketplace pack SHA.",
@@ -3091,6 +3284,27 @@
       ]
 
     },
+    "cost_of_delay_score": {
+      "type": "object",
+      "description": "Scores delay cost for an option without overriding explicit authority.",
+      "properties": {
+        "option_id": {
+          "type": "string",
+          "description": "Required option_id for this bounded planner contract."
+        },
+        "horizon": {
+          "type": "string",
+          "description": "Required horizon for deterministic planner evaluation."
+        },
+        "score": {
+          "type": "string",
+          "description": "Required score preserving evidence and falsifiability."
+        }
+      },
+      "required": ["option_id", "horizon", "score"
+      ]
+
+    },
     "cost_to_serve_measurement": {
       "type": "object",
       "description": "Records attributable runtime cost-to-serve for a paid tenant and billing period.",
@@ -3109,6 +3323,27 @@
         }
       },
       "required": ["tenant_id", "billing_period_id", "measurement_hash"
+      ]
+
+    },
+    "counterfactual_frontier": {
+      "type": "object",
+      "description": "Preserves counterfactual futures for every nondominated option.",
+      "properties": {
+        "option_set_id": {
+          "type": "string",
+          "description": "Required option_set_id for this bounded planner contract."
+        },
+        "world_model_hash": {
+          "type": "string",
+          "description": "Required world_model_hash for deterministic planner evaluation."
+        },
+        "frontier_hash": {
+          "type": "string",
+          "description": "Required frontier_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["option_set_id", "world_model_hash", "frontier_hash"
       ]
 
     },
@@ -3180,6 +3415,1231 @@
         }
       },
       "required": ["cross_sell_fit_id", "account_id", "cross_sell_score", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "crown_applicable_gate_coverage": {
+      "type": "object",
+      "description": "Requires every gate applicable to the changed subject before declaring the crown alive.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "applicable_gate_set_digest": {
+          "type": "string",
+          "description": "Digest of the normalized applicable gate set and results."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "applicable_gate_set_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_artifact_pullback_smoke": {
+      "type": "object",
+      "description": "Proves the published artifact can be pulled back from its distribution boundary byte-for-byte.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "pullback_digest": {
+          "type": "string",
+          "description": "Digest observed after artifact pullback."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "pullback_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_attestation_signer": {
+      "type": "object",
+      "description": "Requires an admitted signer identity for every propagated supply-chain attestation.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "signer_identity": {
+          "type": "string",
+          "description": "Verified identity that signed the attestation."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "signer_identity", "receipt_digest"
+      ]
+
+    },
+    "crown_autonomic_republish": {
+      "type": "object",
+      "description": "Receipts autonomous downstream requalification and immutable crown republication.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "republished_crown_digest": {
+          "type": "string",
+          "description": "Exact digest of the republished downstream crown."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "republished_crown_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_capsule_toolchain": {
+      "type": "object",
+      "description": "Binds source capsule, validation pack, execution mode, and toolchain as one evidence identity.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "toolchain_digest": {
+          "type": "string",
+          "description": "Digest of the exact capsule toolchain closure."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "toolchain_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_cas_promotion": {
+      "type": "object",
+      "description": "Authorizes promotion only when the observed prior crown equals the compare-and-swap expectation.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "expected_previous_digest": {
+          "type": "string",
+          "description": "Expected previously promoted crown digest."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "expected_previous_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_check_relevance": {
+      "type": "object",
+      "description": "Separates irrelevant checks from exact-subject qualification without hiding required evidence.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "relevance_proof_digest": {
+          "type": "string",
+          "description": "Digest proving check relevance classification."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "relevance_proof_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_child_publish_observation": {
+      "type": "object",
+      "description": "Observes the exact child publication execution before its crown can propagate further.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "child_publish_run_id": {
+          "type": "string",
+          "description": "Exact workflow run identity that published the child crown."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "child_publish_run_id", "receipt_digest"
+      ]
+
+    },
+    "crown_consumer_smoke": {
+      "type": "object",
+      "description": "Requires a real downstream consumer smoke consequence for the exact propagated crown.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "consumer_smoke_digest": {
+          "type": "string",
+          "description": "Digest of the exact-consumer smoke receipt."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "consumer_smoke_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_convergence_proof": {
+      "type": "object",
+      "description": "Produces a deterministic proof that every admitted consumer holds the expected crown.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "convergence_proof_digest": {
+          "type": "string",
+          "description": "Digest of the ecosystem convergence proof."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "convergence_proof_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_cosign_certificate": {
+      "type": "object",
+      "description": "Captures the keyless signing certificate identity admitted for the exact crown digest.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "certificate_identity": {
+          "type": "string",
+          "description": "Verified Cosign certificate identity."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "certificate_identity", "receipt_digest"
+      ]
+
+    },
+    "crown_default_head_sensor": {
+      "type": "object",
+      "description": "Observes the exact downstream default-branch head before selecting a reconciliation candidate.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "default_head_sha": {
+          "type": "string",
+          "description": "Observed immutable default-branch head SHA."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "default_head_sha", "receipt_digest"
+      ]
+
+    },
+    "crown_dependency_edge": {
+      "type": "object",
+      "description": "Declares one exact upstream-to-downstream propagation edge in the ecosystem graph.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "downstream_consumer_id": {
+          "type": "string",
+          "description": "Exact downstream consumer repository identity."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "downstream_consumer_id", "receipt_digest"
+      ]
+
+    },
+    "crown_execution_mode": {
+      "type": "object",
+      "description": "Records whether qualification ran locally, in a capsule, or on a hosted runner.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "execution_mode": {
+          "type": "string",
+          "description": "Admitted execution-mode identifier."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "execution_mode", "receipt_digest"
+      ]
+
+    },
+    "crown_fanin_convergence": {
+      "type": "object",
+      "description": "Requires every admitted upstream parent crown before a fan-in consumer can converge.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "fanin_set_digest": {
+          "type": "string",
+          "description": "Digest of the complete admitted fan-in crown set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "fanin_set_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_fanout_batch": {
+      "type": "object",
+      "description": "Binds parallel downstream propagation to one deterministic admitted consumer set.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "fanout_set_digest": {
+          "type": "string",
+          "description": "Digest of the sorted fan-out consumer set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "fanout_set_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_federated_phase_receipt": {
+      "type": "object",
+      "description": "Receipts SELECT, CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, and RECEIPT as ordered phases.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "selected_option_digest": {
+          "type": "string",
+          "description": "Digest of the selected qualified propagation option."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "selected_option_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_freshness_window": {
+      "type": "object",
+      "description": "Defines the deterministic deadline after which a crown cannot be promoted without requalification.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "fresh_until": {
+          "type": "string",
+          "description": "UTC freshness deadline admitted by policy."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "fresh_until", "receipt_digest"
+      ]
+
+    },
+    "crown_generated_source_ownership": {
+      "type": "object",
+      "description": "Routes drift in a generated projection back to its declared canonical semantic source.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "canonical_source_path": {
+          "type": "string",
+          "description": "Canonical non-generated source path authorized to repair the projection."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "canonical_source_path", "receipt_digest"
+      ]
+
+    },
+    "crown_gitlink_reconciliation": {
+      "type": "object",
+      "description": "Reconciles a consumer gitlink to the exact admitted dependency commit.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "gitlink_commit_sha": {
+          "type": "string",
+          "description": "Exact submodule gitlink commit SHA."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "gitlink_commit_sha", "receipt_digest"
+      ]
+
+    },
+    "crown_immutable_sha_tag": {
+      "type": "object",
+      "description": "Admits only artifact tags derived from an exact immutable source SHA.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "immutable_tag": {
+          "type": "string",
+          "description": "Immutable source-derived artifact tag."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "immutable_tag", "receipt_digest"
+      ]
+
+    },
+    "crown_known_good_rollback": {
+      "type": "object",
+      "description": "Selects an immutable previously qualified crown for autonomous rollback.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "rollback_crown_digest": {
+          "type": "string",
+          "description": "Exact prior known-good crown digest."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "rollback_crown_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_latency_observation": {
+      "type": "object",
+      "description": "Records exact end-to-end propagation latency for freshness and SLO decisions.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "latency_millis": {
+          "type": "string",
+          "description": "Observed propagation latency in milliseconds."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "latency_millis", "receipt_digest"
+      ]
+
+    },
+    "crown_lock_reconciliation": {
+      "type": "object",
+      "description": "Reconciles a downstream lock entry to the exact admitted upstream commit.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "lock_commit_sha": {
+          "type": "string",
+          "description": "Exact commit SHA encoded in the reconciled lock."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "lock_commit_sha", "receipt_digest"
+      ]
+
+    },
+    "crown_manufacturer_identity": {
+      "type": "object",
+      "description": "Binds propagation to the exact deterministic manufacturer executable identity.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "manufacturer_digest": {
+          "type": "string",
+          "description": "Digest of the admitted GGen manufacturer binary."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "manufacturer_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_marketplace_pack_pin": {
+      "type": "object",
+      "description": "Requires every consumed marketplace pack to resolve to an immutable Git commit before manufacture.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "pack_commit_sha": {
+          "type": "string",
+          "description": "Exact immutable marketplace pack commit SHA."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "pack_commit_sha", "receipt_digest"
+      ]
+
+    },
+    "crown_multiarch_platform_set": {
+      "type": "object",
+      "description": "Requires the crown manifest to contain the admitted architecture and operating-system set.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "platform_set_digest": {
+          "type": "string",
+          "description": "Digest of the normalized admitted platform set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "platform_set_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_oci_manifest_binding": {
+      "type": "object",
+      "description": "Binds a propagated crown to its exact OCI multi-architecture index digest.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "oci_index_digest": {
+          "type": "string",
+          "description": "Exact OCI index digest selected for propagation."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "oci_index_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_package_pin_reconciliation": {
+      "type": "object",
+      "description": "Reconciles package resolution to an immutable version and content digest.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "package_version_digest": {
+          "type": "string",
+          "description": "Digest of the exact resolved package version."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "package_version_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_partial_checkpoint": {
+      "type": "object",
+      "description": "Persists exact completed propagation edges for safe recovery after partial failure.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "checkpoint_digest": {
+          "type": "string",
+          "description": "Digest of the completed-edge checkpoint."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "checkpoint_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_path_skip_refusal": {
+      "type": "object",
+      "description": "Refuses false ALIVE when a required qualification gate was path-skipped.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "skipped_gate_id": {
+          "type": "string",
+          "description": "Identity of the required gate that was skipped."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "skipped_gate_id", "receipt_digest"
+      ]
+
+    },
+    "crown_planner_identity": {
+      "type": "object",
+      "description": "Binds autonomous propagation selection to the exact admitted planner identity.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "planner_digest": {
+          "type": "string",
+          "description": "Digest of the planner that selected the propagation action."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "planner_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_process_runtime_identity": {
+      "type": "object",
+      "description": "Binds process-intelligence evidence to the exact Beam4PM computation identity.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "process_runtime_digest": {
+          "type": "string",
+          "description": "Digest of the process-intelligence runtime subject."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "process_runtime_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_promotion_race": {
+      "type": "object",
+      "description": "Records the conflicting prior digest when a concurrent promotion wins the race.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "observed_previous_digest": {
+          "type": "string",
+          "description": "Observed prior crown digest at the failed CAS boundary."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "observed_previous_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_provenance_binding": {
+      "type": "object",
+      "description": "Binds build provenance to the exact source, builder, and published artifact identities.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "provenance_digest": {
+          "type": "string",
+          "description": "Digest of exact-subject build provenance."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "provenance_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_receipt_output_ownership": {
+      "type": "object",
+      "description": "Propagates receipt lineage together with the declared owner of every manufactured output.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "output_owner": {
+          "type": "string",
+          "description": "Declared owner identity for the manufactured output set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "output_owner", "receipt_digest"
+      ]
+
+    },
+    "crown_recursive_fixed_point": {
+      "type": "object",
+      "description": "Proves recursive ecosystem propagation reached a stable exact-crown fixed point.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "fixed_point_digest": {
+          "type": "string",
+          "description": "Digest of the converged ecosystem crown assignment."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "fixed_point_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_resume_token": {
+      "type": "object",
+      "description": "Binds resumed propagation to its checkpoint and current dependency graph.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "resume_token_digest": {
+          "type": "string",
+          "description": "Digest of the validated resume token."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "resume_token_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_runtime_identity": {
+      "type": "object",
+      "description": "Binds the propagated artifact to the exact runtime used for qualification.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "runtime_digest": {
+          "type": "string",
+          "description": "Digest of the admitted runtime environment."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "runtime_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_sbom_subject_binding": {
+      "type": "object",
+      "description": "Binds a retained software bill of materials to the exact published crown subject.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "sbom_digest": {
+          "type": "string",
+          "description": "Digest of the SBOM whose subject is the exact crown."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "sbom_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_second_pass_identity": {
+      "type": "object",
+      "description": "Proves a second lawful GGen sync is byte-identical to the first manufactured output set.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "second_pass_digest": {
+          "type": "string",
+          "description": "Digest of the complete second-pass output set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "second_pass_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_security_scan": {
+      "type": "object",
+      "description": "Requires a retained security scan report bound to the exact crown artifact digest.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "scan_report_digest": {
+          "type": "string",
+          "description": "Digest of the exact-artifact vulnerability scan report."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "scan_report_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_source_capsule": {
+      "type": "object",
+      "description": "Binds validation to the exact ggen-ecosystem source capsule and image identity.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "capsule_digest": {
+          "type": "string",
+          "description": "Exact source capsule or reproducible image digest."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "capsule_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_stale_refusal": {
+      "type": "object",
+      "description": "Records crown age so stale subjects are typed and refused without actuation.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "observed_age_seconds": {
+          "type": "string",
+          "description": "Observed crown age in seconds at the decision boundary."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "observed_age_seconds", "receipt_digest"
+      ]
+
+    },
+    "crown_supply_chain_policy": {
+      "type": "object",
+      "description": "Records the executable supply-chain policy decision that admitted or refused the crown.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "policy_decision_digest": {
+          "type": "string",
+          "description": "Digest of the exact policy input and decision."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "policy_decision_digest", "receipt_digest"
+      ]
+
+    },
+    "crown_topological_order": {
+      "type": "object",
+      "description": "Orders crown propagation so dependencies qualify before their consumers.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "topological_rank": {
+          "type": "string",
+          "description": "Deterministic topological rank for this propagation node."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "topological_rank", "receipt_digest"
+      ]
+
+    },
+    "crown_validation_pack": {
+      "type": "object",
+      "description": "Pins the executable validation pack to an immutable marketplace commit.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "validation_pack_sha": {
+          "type": "string",
+          "description": "Exact validation-pack Git commit SHA."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "validation_pack_sha", "receipt_digest"
+      ]
+
+    },
+    "crown_workflow_run_receipt": {
+      "type": "object",
+      "description": "Binds a qualification receipt to the exact workflow execution and attempt.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "workflow_run_id": {
+          "type": "string",
+          "description": "Exact hosted workflow run and attempt identity."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "workflow_run_id", "receipt_digest"
+      ]
+
+    },
+    "crown_zero_unreceipted_writes": {
+      "type": "object",
+      "description": "Proves every propagation write belongs to a retained authorized receipt.",
+      "properties": {
+        "propagation_id": {
+          "type": "string",
+          "description": "Unique autonomic propagation attempt identity."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Exact admitted Git subject SHA."
+        },
+        "write_set_digest": {
+          "type": "string",
+          "description": "Digest of the complete authorized write set."
+        },
+        "receipt_digest": {
+          "type": "string",
+          "description": "Immutable digest of this capability's exact-subject qualification receipt."
+        }
+      },
+      "required": ["propagation_id", "subject_sha", "write_set_digest", "receipt_digest"
       ]
 
     },
@@ -3513,6 +4973,27 @@
       ]
 
     },
+    "dependency_dag": {
+      "type": "object",
+      "description": "Represents action dependencies as an acyclic exact-subject graph.",
+      "properties": {
+        "dag_id": {
+          "type": "string",
+          "description": "Required dag_id for this bounded planner contract."
+        },
+        "node_set_hash": {
+          "type": "string",
+          "description": "Required node_set_hash for deterministic planner evaluation."
+        },
+        "edge_set_hash": {
+          "type": "string",
+          "description": "Required edge_set_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["dag_id", "node_set_hash", "edge_set_hash"
+      ]
+
+    },
     "dependency_inventory_evidence": {
       "type": "object",
       "description": "Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.",
@@ -3714,6 +5195,48 @@
         }
       },
       "required": ["discovery_hypothesis_id", "account_id", "expected_value", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "dominance_witness": {
+      "type": "object",
+      "description": "Records the exact objective evidence proving one option dominates another.",
+      "properties": {
+        "dominant_option_id": {
+          "type": "string",
+          "description": "Required dominant_option_id for this bounded planner contract."
+        },
+        "dominated_option_id": {
+          "type": "string",
+          "description": "Required dominated_option_id for deterministic planner evaluation."
+        },
+        "witness_hash": {
+          "type": "string",
+          "description": "Required witness_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["dominant_option_id", "dominated_option_id", "witness_hash"
+      ]
+
+    },
+    "dynamic_replan_trigger": {
+      "type": "object",
+      "description": "Triggers replanning when observed state invalidates a plan assumption.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "Required plan_id for this bounded planner contract."
+        },
+        "event_id": {
+          "type": "string",
+          "description": "Required event_id for deterministic planner evaluation."
+        },
+        "trigger_hash": {
+          "type": "string",
+          "description": "Required trigger_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["plan_id", "event_id", "trigger_hash"
       ]
 
     },
@@ -3964,6 +5487,27 @@
       ]
 
     },
+    "entropy_reduction_score": {
+      "type": "object",
+      "description": "Measures expected uncertainty reduction from a bounded observation action.",
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "description": "Required action_id for this bounded planner contract."
+        },
+        "prior_entropy": {
+          "type": "string",
+          "description": "Required prior_entropy for deterministic planner evaluation."
+        },
+        "expected_posterior_entropy": {
+          "type": "string",
+          "description": "Required expected_posterior_entropy preserving evidence and falsifiability."
+        }
+      },
+      "required": ["action_id", "prior_entropy", "expected_posterior_entropy"
+      ]
+
+    },
     "environment_identity": {
       "type": "object",
       "description": "Binds paid workload execution to an immutable production environment identity.",
@@ -4077,6 +5621,27 @@
       ]
 
     },
+    "event_triggered_planning": {
+      "type": "object",
+      "description": "Creates a bounded planning episode from an admitted world event.",
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Required event_id for this bounded planner contract."
+        },
+        "world_state_hash": {
+          "type": "string",
+          "description": "Required world_state_hash for deterministic planner evaluation."
+        },
+        "episode_id": {
+          "type": "string",
+          "description": "Required episode_id preserving evidence and falsifiability."
+        }
+      },
+      "required": ["event_id", "world_state_hash", "episode_id"
+      ]
+
+    },
     "event_type": {
       "type": "object",
       "description": "A declared OCEL event type and its attribute schema.",
@@ -4117,6 +5682,27 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "observed_at", "observed_result"
+      ]
+
+    },
+    "exact_subject_binding": {
+      "type": "object",
+      "description": "Binds every plan to one immutable repository/ref/SHA subject.",
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "description": "Required subject_id for this bounded planner contract."
+        },
+        "subject_sha": {
+          "type": "string",
+          "description": "Required subject_sha for deterministic planner evaluation."
+        },
+        "binding_hash": {
+          "type": "string",
+          "description": "Required binding_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["subject_id", "subject_sha", "binding_hash"
       ]
 
     },
@@ -4378,6 +5964,27 @@
       ]
 
     },
+    "generated_source_route": {
+      "type": "object",
+      "description": "Routes generated-projection defects to canonical semantic source or an independent rail.",
+      "properties": {
+        "projection_id": {
+          "type": "string",
+          "description": "Required projection_id for this bounded planner contract."
+        },
+        "source_coordinate": {
+          "type": "string",
+          "description": "Required source_coordinate for deterministic planner evaluation."
+        },
+        "route": {
+          "type": "string",
+          "description": "Required route preserving evidence and falsifiability."
+        }
+      },
+      "required": ["projection_id", "source_coordinate", "route"
+      ]
+
+    },
     "heuristic_arc": {
       "type": "object",
       "description": "One dependency-scored candidate arc considered during heuristic-net discovery.",
@@ -4396,6 +6003,27 @@
         }
       },
       "required": ["source_activity", "target_activity", "dependency_measure"
+      ]
+
+    },
+    "immutable_pack_selection": {
+      "type": "object",
+      "description": "Selects a marketplace pack only by exact immutable commit SHA.",
+      "properties": {
+        "pack_id": {
+          "type": "string",
+          "description": "Required pack_id for this bounded planner contract."
+        },
+        "pack_sha": {
+          "type": "string",
+          "description": "Required pack_sha for deterministic planner evaluation."
+        },
+        "selection_hash": {
+          "type": "string",
+          "description": "Required selection_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["pack_id", "pack_sha", "selection_hash"
       ]
 
     },
@@ -4650,6 +6278,27 @@
       ]
 
     },
+    "irreversibility_budget": {
+      "type": "object",
+      "description": "Limits irreversible commitments within one bounded planning episode.",
+      "properties": {
+        "episode_id": {
+          "type": "string",
+          "description": "Required episode_id for this bounded planner contract."
+        },
+        "budget": {
+          "type": "string",
+          "description": "Required budget for deterministic planner evaluation."
+        },
+        "consumed": {
+          "type": "string",
+          "description": "Required consumed preserving evidence and falsifiability."
+        }
+      },
+      "required": ["episode_id", "budget", "consumed"
+      ]
+
+    },
     "k8s_object_ref": {
       "type": "object",
       "description": "A reference to one Kubernetes object observed in the runtime topology.",
@@ -4899,6 +6548,48 @@
       ]
 
     },
+    "mcts_plan_candidate": {
+      "type": "object",
+      "description": "Represents a seeded Monte Carlo tree-search plan and its rollout evidence.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "Required plan_id for this bounded planner contract."
+        },
+        "seed": {
+          "type": "string",
+          "description": "Required seed for deterministic planner evaluation."
+        },
+        "rollout_hash": {
+          "type": "string",
+          "description": "Required rollout_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["plan_id", "seed", "rollout_hash"
+      ]
+
+    },
+    "meta_router": {
+      "type": "object",
+      "description": "Selects a planner from a portfolio using observed problem characteristics.",
+      "properties": {
+        "portfolio_id": {
+          "type": "string",
+          "description": "Required portfolio_id for this bounded planner contract."
+        },
+        "observation_hash": {
+          "type": "string",
+          "description": "Required observation_hash for deterministic planner evaluation."
+        },
+        "selected_planner_id": {
+          "type": "string",
+          "description": "Required selected_planner_id preserving evidence and falsifiability."
+        }
+      },
+      "required": ["portfolio_id", "observation_hash", "selected_planner_id"
+      ]
+
+    },
     "metered_usage_sample": {
       "type": "object",
       "description": "Records a bounded production usage sample eligible for tenant-level metering.",
@@ -5046,6 +6737,48 @@
       ]
 
     },
+    "mutual_information_score": {
+      "type": "object",
+      "description": "Ranks observations by expected mutual information with decision-relevant state.",
+      "properties": {
+        "observation_id": {
+          "type": "string",
+          "description": "Required observation_id for this bounded planner contract."
+        },
+        "target_state_id": {
+          "type": "string",
+          "description": "Required target_state_id for deterministic planner evaluation."
+        },
+        "score": {
+          "type": "string",
+          "description": "Required score preserving evidence and falsifiability."
+        }
+      },
+      "required": ["observation_id", "target_state_id", "score"
+      ]
+
+    },
+    "next_lawful_actuation": {
+      "type": "object",
+      "description": "Selects the next bounded action from scored admissible options without human micro-scheduling.",
+      "properties": {
+        "episode_id": {
+          "type": "string",
+          "description": "Required episode_id for this bounded planner contract."
+        },
+        "selected_action_id": {
+          "type": "string",
+          "description": "Required selected_action_id for deterministic planner evaluation."
+        },
+        "selection_receipt_hash": {
+          "type": "string",
+          "description": "Required selection_receipt_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["episode_id", "selected_action_id", "selection_receipt_hash"
+      ]
+
+    },
     "node_failover_event": {
       "type": "object",
       "description": "Records the exact node failure and observed failover consequence for a paid service.",
@@ -5089,6 +6822,27 @@
         }
       },
       "required": ["source_system", "event_id", "event_type", "event_time"
+      ]
+
+    },
+    "novelty_score": {
+      "type": "object",
+      "description": "Rewards options that expand the lawful reachable capability frontier.",
+      "properties": {
+        "option_id": {
+          "type": "string",
+          "description": "Required option_id for this bounded planner contract."
+        },
+        "reference_set_hash": {
+          "type": "string",
+          "description": "Required reference_set_hash for deterministic planner evaluation."
+        },
+        "score": {
+          "type": "string",
+          "description": "Required score preserving evidence and falsifiability."
+        }
+      },
+      "required": ["option_id", "reference_set_hash", "score"
       ]
 
     },
@@ -5527,6 +7281,48 @@
       ]
 
     },
+    "optimization_plan_candidate": {
+      "type": "object",
+      "description": "Represents an optimization-derived plan with objective and solver receipt.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "Required plan_id for this bounded planner contract."
+        },
+        "objective_id": {
+          "type": "string",
+          "description": "Required objective_id for deterministic planner evaluation."
+        },
+        "solver_receipt_hash": {
+          "type": "string",
+          "description": "Required solver_receipt_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["plan_id", "objective_id", "solver_receipt_hash"
+      ]
+
+    },
+    "option_generation": {
+      "type": "object",
+      "description": "Generates a reversible DfCM option set without premature selection.",
+      "properties": {
+        "state_id": {
+          "type": "string",
+          "description": "Required state_id for this bounded planner contract."
+        },
+        "generator_id": {
+          "type": "string",
+          "description": "Required generator_id for deterministic planner evaluation."
+        },
+        "option_set_hash": {
+          "type": "string",
+          "description": "Required option_set_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["state_id", "generator_id", "option_set_hash"
+      ]
+
+    },
     "order_form_admission": {
       "type": "object",
       "description": "Admits the exact order form that expresses the buyer's priced scope and authorized terms.",
@@ -5545,6 +7341,48 @@
         }
       },
       "required": ["opportunity_id", "order_form_id", "decision"
+      ]
+
+    },
+    "orthogonality_score": {
+      "type": "object",
+      "description": "Measures semantic independence between candidate work items.",
+      "properties": {
+        "left_option_id": {
+          "type": "string",
+          "description": "Required left_option_id for this bounded planner contract."
+        },
+        "right_option_id": {
+          "type": "string",
+          "description": "Required right_option_id for deterministic planner evaluation."
+        },
+        "score": {
+          "type": "string",
+          "description": "Required score preserving evidence and falsifiability."
+        }
+      },
+      "required": ["left_option_id", "right_option_id", "score"
+      ]
+
+    },
+    "output_ownership_gate": {
+      "type": "object",
+      "description": "Refuses manufacture promotion until every output path has admitted ownership.",
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "description": "Required subject_id for this bounded planner contract."
+        },
+        "ownership_manifest_hash": {
+          "type": "string",
+          "description": "Required ownership_manifest_hash for deterministic planner evaluation."
+        },
+        "standing": {
+          "type": "string",
+          "description": "Required standing preserving evidence and falsifiability."
+        }
+      },
+      "required": ["subject_id", "ownership_manifest_hash", "standing"
       ]
 
     },
@@ -5616,6 +7454,27 @@
         }
       },
       "required": ["tenant_id", "workload_id", "outcome_receipt_hash"
+      ]
+
+    },
+    "pareto_filter": {
+      "type": "object",
+      "description": "Removes strictly dominated options while preserving incomparable alternatives.",
+      "properties": {
+        "option_set_id": {
+          "type": "string",
+          "description": "Required option_set_id for this bounded planner contract."
+        },
+        "objective_set_hash": {
+          "type": "string",
+          "description": "Required objective_set_hash for deterministic planner evaluation."
+        },
+        "pareto_set_hash": {
+          "type": "string",
+          "description": "Required pareto_set_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["option_set_id", "objective_set_hash", "pareto_set_hash"
       ]
 
     },
@@ -5791,6 +7650,111 @@
       ]
 
     },
+    "plan_lineage": {
+      "type": "object",
+      "description": "Tracks derivation, repair, and supersession across plan generations.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "Required plan_id for this bounded planner contract."
+        },
+        "parent_plan_id": {
+          "type": "string",
+          "description": "Required parent_plan_id for deterministic planner evaluation."
+        },
+        "lineage_hash": {
+          "type": "string",
+          "description": "Required lineage_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["plan_id", "parent_plan_id", "lineage_hash"
+      ]
+
+    },
+    "plan_memory": {
+      "type": "object",
+      "description": "Stores reusable plan evidence without converting historical success into current authority.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "Required plan_id for this bounded planner contract."
+        },
+        "evidence_hash": {
+          "type": "string",
+          "description": "Required evidence_hash for deterministic planner evaluation."
+        },
+        "memory_hash": {
+          "type": "string",
+          "description": "Required memory_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["plan_id", "evidence_hash", "memory_hash"
+      ]
+
+    },
+    "planner_capability_profile": {
+      "type": "object",
+      "description": "Declares the problem features and guarantees supported by one planner.",
+      "properties": {
+        "planner_id": {
+          "type": "string",
+          "description": "Required planner_id for this bounded planner contract."
+        },
+        "capability_set": {
+          "type": "string",
+          "description": "Required capability_set for deterministic planner evaluation."
+        },
+        "profile_hash": {
+          "type": "string",
+          "description": "Required profile_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["planner_id", "capability_set", "profile_hash"
+      ]
+
+    },
+    "planner_identity": {
+      "type": "object",
+      "description": "Separates planner identity from policy, role, agent, and authority identities.",
+      "properties": {
+        "planner_id": {
+          "type": "string",
+          "description": "Required planner_id for this bounded planner contract."
+        },
+        "planner_kind": {
+          "type": "string",
+          "description": "Required planner_kind for deterministic planner evaluation."
+        },
+        "identity_hash": {
+          "type": "string",
+          "description": "Required identity_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["planner_id", "planner_kind", "identity_hash"
+      ]
+
+    },
+    "planner_portfolio": {
+      "type": "object",
+      "description": "Preserves a diverse set of planners for one bounded planning episode.",
+      "properties": {
+        "portfolio_id": {
+          "type": "string",
+          "description": "Required portfolio_id for this bounded planner contract."
+        },
+        "planner_ids": {
+          "type": "string",
+          "description": "Required planner_ids for deterministic planner evaluation."
+        },
+        "diversity_hash": {
+          "type": "string",
+          "description": "Required diversity_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["portfolio_id", "planner_ids", "diversity_hash"
+      ]
+
+    },
     "planning_action": {
       "type": "object",
       "description": "One PDDL-style planning action with its preconditions and effects.",
@@ -5948,6 +7912,27 @@
       ]
 
     },
+    "policy_binding": {
+      "type": "object",
+      "description": "Binds one planner to parameters, objective, observations, and action projection.",
+      "properties": {
+        "policy_id": {
+          "type": "string",
+          "description": "Required policy_id for this bounded planner contract."
+        },
+        "planner_id": {
+          "type": "string",
+          "description": "Required planner_id for deterministic planner evaluation."
+        },
+        "policy_hash": {
+          "type": "string",
+          "description": "Required policy_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["policy_id", "planner_id", "policy_hash"
+      ]
+
+    },
     "policy_decision": {
       "type": "object",
       "description": "One admission/authority policy decision recorded for an attempted action.",
@@ -6050,6 +8035,48 @@
         }
       },
       "required": ["from_index", "to_index"
+      ]
+
+    },
+    "powl_projection": {
+      "type": "object",
+      "description": "Binds a plan candidate to an exact POWL process-plan projection.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "Required plan_id for this bounded planner contract."
+        },
+        "powl_hash": {
+          "type": "string",
+          "description": "Required powl_hash for deterministic planner evaluation."
+        },
+        "projection_receipt_hash": {
+          "type": "string",
+          "description": "Required projection_receipt_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["plan_id", "powl_hash", "projection_receipt_hash"
+      ]
+
+    },
+    "ppddl_projection": {
+      "type": "object",
+      "description": "Binds a plan candidate to an exact PPDDL problem/domain projection.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "Required plan_id for this bounded planner contract."
+        },
+        "domain_hash": {
+          "type": "string",
+          "description": "Required domain_hash for deterministic planner evaluation."
+        },
+        "problem_hash": {
+          "type": "string",
+          "description": "Required problem_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["plan_id", "domain_hash", "problem_hash"
       ]
 
     },
@@ -6338,6 +8365,27 @@
       ]
 
     },
+    "propagation_score": {
+      "type": "object",
+      "description": "Scores downstream consequences across the dependency and capability graph.",
+      "properties": {
+        "option_id": {
+          "type": "string",
+          "description": "Required option_id for this bounded planner contract."
+        },
+        "graph_hash": {
+          "type": "string",
+          "description": "Required graph_hash for deterministic planner evaluation."
+        },
+        "score": {
+          "type": "string",
+          "description": "Required score preserving evidence and falsifiability."
+        }
+      },
+      "required": ["option_id", "graph_hash", "score"
+      ]
+
+    },
     "provenance_binding_evidence": {
       "type": "object",
       "description": "Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.",
@@ -6385,6 +8433,27 @@
         }
       },
       "required": ["observation_id", "source_capsule_digest", "evidence_digest", "binding_status"
+      ]
+
+    },
+    "psro_population": {
+      "type": "object",
+      "description": "Maintains a population of policies and response oracles for meta-routing.",
+      "properties": {
+        "population_id": {
+          "type": "string",
+          "description": "Required population_id for this bounded planner contract."
+        },
+        "policy_ids": {
+          "type": "string",
+          "description": "Required policy_ids for deterministic planner evaluation."
+        },
+        "population_hash": {
+          "type": "string",
+          "description": "Required population_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["population_id", "policy_ids", "population_hash"
       ]
 
     },
@@ -6526,6 +8595,27 @@
       ]
 
     },
+    "reachability_analysis": {
+      "type": "object",
+      "description": "Determines whether an admitted goal remains reachable from current state.",
+      "properties": {
+        "state_id": {
+          "type": "string",
+          "description": "Required state_id for this bounded planner contract."
+        },
+        "goal_id": {
+          "type": "string",
+          "description": "Required goal_id for deterministic planner evaluation."
+        },
+        "reachability_proof_hash": {
+          "type": "string",
+          "description": "Required reachability_proof_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["state_id", "goal_id", "reachability_proof_hash"
+      ]
+
+    },
     "receipt_replay_evidence": {
       "type": "object",
       "description": "Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt.",
@@ -6569,6 +8659,27 @@
         }
       },
       "required": ["tenant_id", "receipt_id", "replay_request_hash"
+      ]
+
+    },
+    "receipt_required_gate": {
+      "type": "object",
+      "description": "Prevents any actuation candidate from becoming selectable without a verifiable receipt plan.",
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "description": "Required action_id for this bounded planner contract."
+        },
+        "receipt_contract_id": {
+          "type": "string",
+          "description": "Required receipt_contract_id for deterministic planner evaluation."
+        },
+        "standing": {
+          "type": "string",
+          "description": "Required standing preserving evidence and falsifiability."
+        }
+      },
+      "required": ["action_id", "receipt_contract_id", "standing"
       ]
 
     },
@@ -7060,6 +9171,27 @@
       ]
 
     },
+    "reserve_work_promotion": {
+      "type": "object",
+      "description": "Automatically promotes the highest-value lawful reserve when primary work blocks.",
+      "properties": {
+        "blocked_work_id": {
+          "type": "string",
+          "description": "Required blocked_work_id for this bounded planner contract."
+        },
+        "reserve_set_hash": {
+          "type": "string",
+          "description": "Required reserve_set_hash for deterministic planner evaluation."
+        },
+        "promoted_work_id": {
+          "type": "string",
+          "description": "Required promoted_work_id preserving evidence and falsifiability."
+        }
+      },
+      "required": ["blocked_work_id", "reserve_set_hash", "promoted_work_id"
+      ]
+
+    },
     "residency_evidence": {
       "type": "object",
       "description": "Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.",
@@ -7103,6 +9235,27 @@
         }
       },
       "required": ["resource_id", "activity", "event_id"
+      ]
+
+    },
+    "resource_capacity_plan": {
+      "type": "object",
+      "description": "Allocates finite compute, time, and concurrency capacity across lawful options.",
+      "properties": {
+        "episode_id": {
+          "type": "string",
+          "description": "Required episode_id for this bounded planner contract."
+        },
+        "resource_pool_hash": {
+          "type": "string",
+          "description": "Required resource_pool_hash for deterministic planner evaluation."
+        },
+        "allocation_hash": {
+          "type": "string",
+          "description": "Required allocation_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["episode_id", "resource_pool_hash", "allocation_hash"
       ]
 
     },
@@ -7202,6 +9355,27 @@
       ]
 
     },
+    "reversibility_weight": {
+      "type": "object",
+      "description": "Weights reversible actions above irreversible ones until evidence justifies commitment.",
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "description": "Required action_id for this bounded planner contract."
+        },
+        "rollback_id": {
+          "type": "string",
+          "description": "Required rollback_id for deterministic planner evaluation."
+        },
+        "weight": {
+          "type": "string",
+          "description": "Required weight preserving evidence and falsifiability."
+        }
+      },
+      "required": ["action_id", "rollback_id", "weight"
+      ]
+
+    },
     "rfp_response_evidence": {
       "type": "object",
       "description": "Executable procurement evidence binding an exact subject to a deterministic RFP answer set.",
@@ -7224,6 +9398,27 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "answer_set_hash", "observed_result"
+      ]
+
+    },
+    "role_compatibility": {
+      "type": "object",
+      "description": "Evaluates whether a policy is lawful for an assigned role in the current world.",
+      "properties": {
+        "role_id": {
+          "type": "string",
+          "description": "Required role_id for this bounded planner contract."
+        },
+        "policy_id": {
+          "type": "string",
+          "description": "Required policy_id for deterministic planner evaluation."
+        },
+        "compatibility": {
+          "type": "string",
+          "description": "Required compatibility preserving evidence and falsifiability."
+        }
+      },
+      "required": ["role_id", "policy_id", "compatibility"
       ]
 
     },
@@ -7437,6 +9632,27 @@
         }
       },
       "required": ["first_tree_digest", "second_tree_digest", "byte_identity", "receipt_digest"
+      ]
+
+    },
+    "second_run_identity_objective": {
+      "type": "object",
+      "description": "Makes byte-identical second manufacture a first-class planning objective.",
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "description": "Required subject_id for this bounded planner contract."
+        },
+        "first_tree_hash": {
+          "type": "string",
+          "description": "Required first_tree_hash for deterministic planner evaluation."
+        },
+        "second_tree_hash": {
+          "type": "string",
+          "description": "Required second_tree_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["subject_id", "first_tree_hash", "second_tree_hash"
       ]
 
     },
@@ -7871,6 +10087,27 @@
         }
       },
       "required": ["stakeholder_map_id", "account_id", "stakeholder_count", "evidence_digest", "observed_at"
+      ]
+
+    },
+    "stale_plan_refusal": {
+      "type": "object",
+      "description": "Refuses execution when subject, pack, policy, or world identity has drifted.",
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "description": "Required plan_id for this bounded planner contract."
+        },
+        "admitted_preimage_hash": {
+          "type": "string",
+          "description": "Required admitted_preimage_hash for deterministic planner evaluation."
+        },
+        "observed_preimage_hash": {
+          "type": "string",
+          "description": "Required observed_preimage_hash preserving evidence and falsifiability."
+        }
+      },
+      "required": ["plan_id", "admitted_preimage_hash", "observed_preimage_hash"
       ]
 
     },
@@ -8688,6 +10925,27 @@
       ]
 
     },
+    "uncertainty_aware_selection": {
+      "type": "object",
+      "description": "Selects only when confidence and downside bounds satisfy explicit values.",
+      "properties": {
+        "option_set_id": {
+          "type": "string",
+          "description": "Required option_set_id for this bounded planner contract."
+        },
+        "uncertainty_model_hash": {
+          "type": "string",
+          "description": "Required uncertainty_model_hash for deterministic planner evaluation."
+        },
+        "selected_option_id": {
+          "type": "string",
+          "description": "Required selected_option_id preserving evidence and falsifiability."
+        }
+      },
+      "required": ["option_set_id", "uncertainty_model_hash", "selected_option_id"
+      ]
+
+    },
     "uncertainty_observation": {
       "type": "object",
       "description": "Represents typed UNKNOWN uncertainty instead of manufacturing false certainty.",
@@ -9025,6 +11283,27 @@
       ]
 
     },
+    "value_of_information_score": {
+      "type": "object",
+      "description": "Scores the expected value of acquiring missing information before selection.",
+      "properties": {
+        "option_id": {
+          "type": "string",
+          "description": "Required option_id for this bounded planner contract."
+        },
+        "observation_id": {
+          "type": "string",
+          "description": "Required observation_id for deterministic planner evaluation."
+        },
+        "score": {
+          "type": "string",
+          "description": "Required score preserving evidence and falsifiability."
+        }
+      },
+      "required": ["option_id", "observation_id", "score"
+      ]
+
+    },
     "value_realization": {
       "type": "object",
       "description": "Receipted realized customer value derived from observed consequences.",
@@ -9189,6 +11468,27 @@
         }
       },
       "required": ["evidence_id", "subject_sha", "vulnerability_count", "observed_result"
+      ]
+
+    },
+    "wip_limit_gate": {
+      "type": "object",
+      "description": "Refuses selections that would exceed the admitted work-in-process ceiling.",
+      "properties": {
+        "episode_id": {
+          "type": "string",
+          "description": "Required episode_id for this bounded planner contract."
+        },
+        "wip_limit": {
+          "type": "string",
+          "description": "Required wip_limit for deterministic planner evaluation."
+        },
+        "standing": {
+          "type": "string",
+          "description": "Required standing preserving evidence and falsifiability."
+        }
+      },
+      "required": ["episode_id", "wip_limit", "standing"
       ]
 
     },

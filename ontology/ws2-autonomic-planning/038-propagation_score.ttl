@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-038 — propagation_score
+b4p:propagation_score_rt a bpm:RecordType ;
+    bpm:recordName "propagation_score" ;
+    bpm:recordDoc "Scores downstream consequences across the dependency and capability graph." ;
+    bpm:hasField b4p:propagation_score_option_id_f,
+                 b4p:propagation_score_graph_hash_f,
+                 b4p:propagation_score_score_f .
+
+b4p:propagation_score_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required option_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:propagation_score_graph_hash_f a bpm:Field ;
+    bpm:fieldName "graph_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required graph_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:propagation_score_score_f a bpm:Field ;
+    bpm:fieldName "score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required score preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

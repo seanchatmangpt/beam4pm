@@ -207,6 +207,33 @@ defmodule BeamPM.Types.AddOnBundle do
   end
 end
 
+defmodule BeamPM.Types.AdmissibleActionSet do
+  @moduledoc "Computes all actions currently permitted by state, constraints, and authority."
+
+  defstruct [:state_id, :constraint_hash, :action_set_hash]
+
+  @type t :: %__MODULE__{
+    state_id: String.t() | nil,
+    constraint_hash: String.t() | nil,
+    action_set_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :state_id) -> {:error, {:missing_field, :state_id}}
+      not Map.has_key?(attrs, :constraint_hash) -> {:error, {:missing_field, :constraint_hash}}
+      not Map.has_key?(attrs, :action_set_hash) -> {:error, {:missing_field, :action_set_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          state_id: Map.get(attrs, :state_id),
+          constraint_hash: Map.get(attrs, :constraint_hash),
+          action_set_hash: Map.get(attrs, :action_set_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.AdoptionMilestone do
   @moduledoc "Receipted customer adoption milestone tied to observable use."
 
@@ -235,6 +262,33 @@ defmodule BeamPM.Types.AdoptionMilestone do
           milestone_name: Map.get(attrs, :milestone_name),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AgentAssignment do
+  @moduledoc "Assigns an admitted policy to an agent without transferring authority."
+
+  defstruct [:agent_id, :policy_id, :assignment_hash]
+
+  @type t :: %__MODULE__{
+    agent_id: String.t() | nil,
+    policy_id: String.t() | nil,
+    assignment_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :agent_id) -> {:error, {:missing_field, :agent_id}}
+      not Map.has_key?(attrs, :policy_id) -> {:error, {:missing_field, :policy_id}}
+      not Map.has_key?(attrs, :assignment_hash) -> {:error, {:missing_field, :assignment_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          agent_id: Map.get(attrs, :agent_id),
+          policy_id: Map.get(attrs, :policy_id),
+          assignment_hash: Map.get(attrs, :assignment_hash)
         }}
     end
   end
@@ -477,6 +531,33 @@ defmodule BeamPM.Types.ArtifactDigestObservation do
   end
 end
 
+defmodule BeamPM.Types.AstarPlanCandidate do
+  @moduledoc "Represents an A-star plan with admissible heuristic and exact state lineage."
+
+  defstruct [:plan_id, :heuristic_id, :path_hash]
+
+  @type t :: %__MODULE__{
+    plan_id: String.t() | nil,
+    heuristic_id: String.t() | nil,
+    path_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :plan_id) -> {:error, {:missing_field, :plan_id}}
+      not Map.has_key?(attrs, :heuristic_id) -> {:error, {:missing_field, :heuristic_id}}
+      not Map.has_key?(attrs, :path_hash) -> {:error, {:missing_field, :path_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          plan_id: Map.get(attrs, :plan_id),
+          heuristic_id: Map.get(attrs, :heuristic_id),
+          path_hash: Map.get(attrs, :path_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.AttestationVerificationEvidence do
   @moduledoc "Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified."
 
@@ -532,6 +613,33 @@ defmodule BeamPM.Types.AuditChainEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           previous_receipt_hash: Map.get(attrs, :previous_receipt_hash),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.AuthorityCeiling do
+  @moduledoc "Caps every candidate action at the exact authority grant available to its subject."
+
+  defstruct [:action_id, :grant_id, :ceiling]
+
+  @type t :: %__MODULE__{
+    action_id: String.t() | nil,
+    grant_id: String.t() | nil,
+    ceiling: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :action_id) -> {:error, {:missing_field, :action_id}}
+      not Map.has_key?(attrs, :grant_id) -> {:error, {:missing_field, :grant_id}}
+      not Map.has_key?(attrs, :ceiling) -> {:error, {:missing_field, :ceiling}}
+      true ->
+        {:ok, %__MODULE__{
+          action_id: Map.get(attrs, :action_id),
+          grant_id: Map.get(attrs, :grant_id),
+          ceiling: Map.get(attrs, :ceiling)
         }}
     end
   end
@@ -2187,6 +2295,33 @@ defmodule BeamPM.Types.BaselineMetric do
   end
 end
 
+defmodule BeamPM.Types.BeamSearchCandidate do
+  @moduledoc "Represents a bounded beam-search plan with explicit width and frontier."
+
+  defstruct [:plan_id, :beam_width, :frontier_hash]
+
+  @type t :: %__MODULE__{
+    plan_id: String.t() | nil,
+    beam_width: String.t() | nil,
+    frontier_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :plan_id) -> {:error, {:missing_field, :plan_id}}
+      not Map.has_key?(attrs, :beam_width) -> {:error, {:missing_field, :beam_width}}
+      not Map.has_key?(attrs, :frontier_hash) -> {:error, {:missing_field, :frontier_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          plan_id: Map.get(attrs, :plan_id),
+          beam_width: Map.get(attrs, :beam_width),
+          frontier_hash: Map.get(attrs, :frontier_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.BeliefStateSnapshot do
   @moduledoc "Captures a posterior belief state and explicit uncertainty standing."
 
@@ -2595,6 +2730,63 @@ defmodule BeamPM.Types.CallerLocalCheckoutObservation do
   end
 end
 
+defmodule BeamPM.Types.CallerLocalConsumer do
+  @moduledoc "Preserves each caller-local consumer as an independently planned exact subject."
+
+  defstruct [:consumer_id, :subject_sha, :consumer_hash]
+
+  @type t :: %__MODULE__{
+    consumer_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    consumer_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :consumer_id) -> {:error, {:missing_field, :consumer_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :consumer_hash) -> {:error, {:missing_field, :consumer_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          consumer_id: Map.get(attrs, :consumer_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          consumer_hash: Map.get(attrs, :consumer_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CallerLocalCrownIdentity do
+  @moduledoc "Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused."
+
+  defstruct [:propagation_id, :subject_sha, :consumer_subject_sha, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    consumer_subject_sha: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :consumer_subject_sha) -> {:error, {:missing_field, :consumer_subject_sha}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          consumer_subject_sha: Map.get(attrs, :consumer_subject_sha),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.CanaryDecision do
   @moduledoc "Receipted enterprise canary decision based on an observed rollout consequence."
 
@@ -2746,6 +2938,33 @@ defmodule BeamPM.Types.CapabilityGap do
           gap_severity: Map.get(attrs, :gap_severity),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CapsuleAvailability do
+  @moduledoc "Records whether the exact validation capsule is available before qualification."
+
+  defstruct [:capsule_id, :capsule_digest, :availability]
+
+  @type t :: %__MODULE__{
+    capsule_id: String.t() | nil,
+    capsule_digest: String.t() | nil,
+    availability: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :capsule_id) -> {:error, {:missing_field, :capsule_id}}
+      not Map.has_key?(attrs, :capsule_digest) -> {:error, {:missing_field, :capsule_digest}}
+      not Map.has_key?(attrs, :availability) -> {:error, {:missing_field, :availability}}
+      true ->
+        {:ok, %__MODULE__{
+          capsule_id: Map.get(attrs, :capsule_id),
+          capsule_digest: Map.get(attrs, :capsule_digest),
+          availability: Map.get(attrs, :availability)
         }}
     end
   end
@@ -3541,6 +3760,33 @@ defmodule BeamPM.Types.ConsequentialStateInvalidation do
   end
 end
 
+defmodule BeamPM.Types.ConsumerEquivalenceProof do
+  @moduledoc "Admits central-surrogate planning only after explicit consumer-equivalence proof."
+
+  defstruct [:consumer_set_id, :equivalence_proof_hash, :standing]
+
+  @type t :: %__MODULE__{
+    consumer_set_id: String.t() | nil,
+    equivalence_proof_hash: String.t() | nil,
+    standing: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :consumer_set_id) -> {:error, {:missing_field, :consumer_set_id}}
+      not Map.has_key?(attrs, :equivalence_proof_hash) -> {:error, {:missing_field, :equivalence_proof_hash}}
+      not Map.has_key?(attrs, :standing) -> {:error, {:missing_field, :standing}}
+      true ->
+        {:ok, %__MODULE__{
+          consumer_set_id: Map.get(attrs, :consumer_set_id),
+          equivalence_proof_hash: Map.get(attrs, :equivalence_proof_hash),
+          standing: Map.get(attrs, :standing)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ConsumerPackPinObservation do
   @moduledoc "Proves a consumer used an exact immutable marketplace pack SHA."
 
@@ -3718,6 +3964,33 @@ defmodule BeamPM.Types.ContractingEntityIdentity do
   end
 end
 
+defmodule BeamPM.Types.CostOfDelayScore do
+  @moduledoc "Scores delay cost for an option without overriding explicit authority."
+
+  defstruct [:option_id, :horizon, :score]
+
+  @type t :: %__MODULE__{
+    option_id: String.t() | nil,
+    horizon: String.t() | nil,
+    score: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :option_id) -> {:error, {:missing_field, :option_id}}
+      not Map.has_key?(attrs, :horizon) -> {:error, {:missing_field, :horizon}}
+      not Map.has_key?(attrs, :score) -> {:error, {:missing_field, :score}}
+      true ->
+        {:ok, %__MODULE__{
+          option_id: Map.get(attrs, :option_id),
+          horizon: Map.get(attrs, :horizon),
+          score: Map.get(attrs, :score)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.CostToServeMeasurement do
   @moduledoc "Records attributable runtime cost-to-serve for a paid tenant and billing period."
 
@@ -3740,6 +4013,33 @@ defmodule BeamPM.Types.CostToServeMeasurement do
           tenant_id: Map.get(attrs, :tenant_id),
           billing_period_id: Map.get(attrs, :billing_period_id),
           measurement_hash: Map.get(attrs, :measurement_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CounterfactualFrontier do
+  @moduledoc "Preserves counterfactual futures for every nondominated option."
+
+  defstruct [:option_set_id, :world_model_hash, :frontier_hash]
+
+  @type t :: %__MODULE__{
+    option_set_id: String.t() | nil,
+    world_model_hash: String.t() | nil,
+    frontier_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :option_set_id) -> {:error, {:missing_field, :option_set_id}}
+      not Map.has_key?(attrs, :world_model_hash) -> {:error, {:missing_field, :world_model_hash}}
+      not Map.has_key?(attrs, :frontier_hash) -> {:error, {:missing_field, :frontier_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          option_set_id: Map.get(attrs, :option_set_id),
+          world_model_hash: Map.get(attrs, :world_model_hash),
+          frontier_hash: Map.get(attrs, :frontier_hash)
         }}
     end
   end
@@ -3827,6 +4127,1476 @@ defmodule BeamPM.Types.CrossSellFit do
           cross_sell_score: Map.get(attrs, :cross_sell_score),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownApplicableGateCoverage do
+  @moduledoc "Requires every gate applicable to the changed subject before declaring the crown alive."
+
+  defstruct [:propagation_id, :subject_sha, :applicable_gate_set_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    applicable_gate_set_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :applicable_gate_set_digest) -> {:error, {:missing_field, :applicable_gate_set_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          applicable_gate_set_digest: Map.get(attrs, :applicable_gate_set_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownArtifactPullbackSmoke do
+  @moduledoc "Proves the published artifact can be pulled back from its distribution boundary byte-for-byte."
+
+  defstruct [:propagation_id, :subject_sha, :pullback_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    pullback_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :pullback_digest) -> {:error, {:missing_field, :pullback_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          pullback_digest: Map.get(attrs, :pullback_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownAttestationSigner do
+  @moduledoc "Requires an admitted signer identity for every propagated supply-chain attestation."
+
+  defstruct [:propagation_id, :subject_sha, :signer_identity, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    signer_identity: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :signer_identity) -> {:error, {:missing_field, :signer_identity}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          signer_identity: Map.get(attrs, :signer_identity),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownAutonomicRepublish do
+  @moduledoc "Receipts autonomous downstream requalification and immutable crown republication."
+
+  defstruct [:propagation_id, :subject_sha, :republished_crown_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    republished_crown_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :republished_crown_digest) -> {:error, {:missing_field, :republished_crown_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          republished_crown_digest: Map.get(attrs, :republished_crown_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownCapsuleToolchain do
+  @moduledoc "Binds source capsule, validation pack, execution mode, and toolchain as one evidence identity."
+
+  defstruct [:propagation_id, :subject_sha, :toolchain_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    toolchain_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :toolchain_digest) -> {:error, {:missing_field, :toolchain_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          toolchain_digest: Map.get(attrs, :toolchain_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownCasPromotion do
+  @moduledoc "Authorizes promotion only when the observed prior crown equals the compare-and-swap expectation."
+
+  defstruct [:propagation_id, :subject_sha, :expected_previous_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    expected_previous_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :expected_previous_digest) -> {:error, {:missing_field, :expected_previous_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          expected_previous_digest: Map.get(attrs, :expected_previous_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownCheckRelevance do
+  @moduledoc "Separates irrelevant checks from exact-subject qualification without hiding required evidence."
+
+  defstruct [:propagation_id, :subject_sha, :relevance_proof_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    relevance_proof_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :relevance_proof_digest) -> {:error, {:missing_field, :relevance_proof_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          relevance_proof_digest: Map.get(attrs, :relevance_proof_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownChildPublishObservation do
+  @moduledoc "Observes the exact child publication execution before its crown can propagate further."
+
+  defstruct [:propagation_id, :subject_sha, :child_publish_run_id, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    child_publish_run_id: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :child_publish_run_id) -> {:error, {:missing_field, :child_publish_run_id}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          child_publish_run_id: Map.get(attrs, :child_publish_run_id),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownConsumerSmoke do
+  @moduledoc "Requires a real downstream consumer smoke consequence for the exact propagated crown."
+
+  defstruct [:propagation_id, :subject_sha, :consumer_smoke_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    consumer_smoke_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :consumer_smoke_digest) -> {:error, {:missing_field, :consumer_smoke_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          consumer_smoke_digest: Map.get(attrs, :consumer_smoke_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownConvergenceProof do
+  @moduledoc "Produces a deterministic proof that every admitted consumer holds the expected crown."
+
+  defstruct [:propagation_id, :subject_sha, :convergence_proof_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    convergence_proof_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :convergence_proof_digest) -> {:error, {:missing_field, :convergence_proof_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          convergence_proof_digest: Map.get(attrs, :convergence_proof_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownCosignCertificate do
+  @moduledoc "Captures the keyless signing certificate identity admitted for the exact crown digest."
+
+  defstruct [:propagation_id, :subject_sha, :certificate_identity, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    certificate_identity: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :certificate_identity) -> {:error, {:missing_field, :certificate_identity}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          certificate_identity: Map.get(attrs, :certificate_identity),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownDefaultHeadSensor do
+  @moduledoc "Observes the exact downstream default-branch head before selecting a reconciliation candidate."
+
+  defstruct [:propagation_id, :subject_sha, :default_head_sha, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    default_head_sha: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :default_head_sha) -> {:error, {:missing_field, :default_head_sha}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          default_head_sha: Map.get(attrs, :default_head_sha),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownDependencyEdge do
+  @moduledoc "Declares one exact upstream-to-downstream propagation edge in the ecosystem graph."
+
+  defstruct [:propagation_id, :subject_sha, :downstream_consumer_id, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    downstream_consumer_id: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :downstream_consumer_id) -> {:error, {:missing_field, :downstream_consumer_id}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          downstream_consumer_id: Map.get(attrs, :downstream_consumer_id),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownExecutionMode do
+  @moduledoc "Records whether qualification ran locally, in a capsule, or on a hosted runner."
+
+  defstruct [:propagation_id, :subject_sha, :execution_mode, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    execution_mode: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :execution_mode) -> {:error, {:missing_field, :execution_mode}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          execution_mode: Map.get(attrs, :execution_mode),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownFaninConvergence do
+  @moduledoc "Requires every admitted upstream parent crown before a fan-in consumer can converge."
+
+  defstruct [:propagation_id, :subject_sha, :fanin_set_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    fanin_set_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :fanin_set_digest) -> {:error, {:missing_field, :fanin_set_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          fanin_set_digest: Map.get(attrs, :fanin_set_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownFanoutBatch do
+  @moduledoc "Binds parallel downstream propagation to one deterministic admitted consumer set."
+
+  defstruct [:propagation_id, :subject_sha, :fanout_set_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    fanout_set_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :fanout_set_digest) -> {:error, {:missing_field, :fanout_set_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          fanout_set_digest: Map.get(attrs, :fanout_set_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownFederatedPhaseReceipt do
+  @moduledoc "Receipts SELECT, CONSTRUCT, DRY-RUN MANUFACTURE, QUALIFY, and RECEIPT as ordered phases."
+
+  defstruct [:propagation_id, :subject_sha, :selected_option_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    selected_option_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :selected_option_digest) -> {:error, {:missing_field, :selected_option_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          selected_option_digest: Map.get(attrs, :selected_option_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownFreshnessWindow do
+  @moduledoc "Defines the deterministic deadline after which a crown cannot be promoted without requalification."
+
+  defstruct [:propagation_id, :subject_sha, :fresh_until, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    fresh_until: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :fresh_until) -> {:error, {:missing_field, :fresh_until}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          fresh_until: Map.get(attrs, :fresh_until),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownGeneratedSourceOwnership do
+  @moduledoc "Routes drift in a generated projection back to its declared canonical semantic source."
+
+  defstruct [:propagation_id, :subject_sha, :canonical_source_path, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    canonical_source_path: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :canonical_source_path) -> {:error, {:missing_field, :canonical_source_path}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          canonical_source_path: Map.get(attrs, :canonical_source_path),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownGitlinkReconciliation do
+  @moduledoc "Reconciles a consumer gitlink to the exact admitted dependency commit."
+
+  defstruct [:propagation_id, :subject_sha, :gitlink_commit_sha, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    gitlink_commit_sha: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :gitlink_commit_sha) -> {:error, {:missing_field, :gitlink_commit_sha}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          gitlink_commit_sha: Map.get(attrs, :gitlink_commit_sha),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownImmutableShaTag do
+  @moduledoc "Admits only artifact tags derived from an exact immutable source SHA."
+
+  defstruct [:propagation_id, :subject_sha, :immutable_tag, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    immutable_tag: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :immutable_tag) -> {:error, {:missing_field, :immutable_tag}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          immutable_tag: Map.get(attrs, :immutable_tag),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownKnownGoodRollback do
+  @moduledoc "Selects an immutable previously qualified crown for autonomous rollback."
+
+  defstruct [:propagation_id, :subject_sha, :rollback_crown_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    rollback_crown_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :rollback_crown_digest) -> {:error, {:missing_field, :rollback_crown_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          rollback_crown_digest: Map.get(attrs, :rollback_crown_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownLatencyObservation do
+  @moduledoc "Records exact end-to-end propagation latency for freshness and SLO decisions."
+
+  defstruct [:propagation_id, :subject_sha, :latency_millis, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    latency_millis: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :latency_millis) -> {:error, {:missing_field, :latency_millis}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          latency_millis: Map.get(attrs, :latency_millis),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownLockReconciliation do
+  @moduledoc "Reconciles a downstream lock entry to the exact admitted upstream commit."
+
+  defstruct [:propagation_id, :subject_sha, :lock_commit_sha, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    lock_commit_sha: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :lock_commit_sha) -> {:error, {:missing_field, :lock_commit_sha}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          lock_commit_sha: Map.get(attrs, :lock_commit_sha),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownManufacturerIdentity do
+  @moduledoc "Binds propagation to the exact deterministic manufacturer executable identity."
+
+  defstruct [:propagation_id, :subject_sha, :manufacturer_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    manufacturer_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :manufacturer_digest) -> {:error, {:missing_field, :manufacturer_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          manufacturer_digest: Map.get(attrs, :manufacturer_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownMarketplacePackPin do
+  @moduledoc "Requires every consumed marketplace pack to resolve to an immutable Git commit before manufacture."
+
+  defstruct [:propagation_id, :subject_sha, :pack_commit_sha, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    pack_commit_sha: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :pack_commit_sha) -> {:error, {:missing_field, :pack_commit_sha}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          pack_commit_sha: Map.get(attrs, :pack_commit_sha),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownMultiarchPlatformSet do
+  @moduledoc "Requires the crown manifest to contain the admitted architecture and operating-system set."
+
+  defstruct [:propagation_id, :subject_sha, :platform_set_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    platform_set_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :platform_set_digest) -> {:error, {:missing_field, :platform_set_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          platform_set_digest: Map.get(attrs, :platform_set_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownOciManifestBinding do
+  @moduledoc "Binds a propagated crown to its exact OCI multi-architecture index digest."
+
+  defstruct [:propagation_id, :subject_sha, :oci_index_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    oci_index_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :oci_index_digest) -> {:error, {:missing_field, :oci_index_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          oci_index_digest: Map.get(attrs, :oci_index_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownPackagePinReconciliation do
+  @moduledoc "Reconciles package resolution to an immutable version and content digest."
+
+  defstruct [:propagation_id, :subject_sha, :package_version_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    package_version_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :package_version_digest) -> {:error, {:missing_field, :package_version_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          package_version_digest: Map.get(attrs, :package_version_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownPartialCheckpoint do
+  @moduledoc "Persists exact completed propagation edges for safe recovery after partial failure."
+
+  defstruct [:propagation_id, :subject_sha, :checkpoint_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    checkpoint_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :checkpoint_digest) -> {:error, {:missing_field, :checkpoint_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          checkpoint_digest: Map.get(attrs, :checkpoint_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownPathSkipRefusal do
+  @moduledoc "Refuses false ALIVE when a required qualification gate was path-skipped."
+
+  defstruct [:propagation_id, :subject_sha, :skipped_gate_id, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    skipped_gate_id: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :skipped_gate_id) -> {:error, {:missing_field, :skipped_gate_id}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          skipped_gate_id: Map.get(attrs, :skipped_gate_id),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownPlannerIdentity do
+  @moduledoc "Binds autonomous propagation selection to the exact admitted planner identity."
+
+  defstruct [:propagation_id, :subject_sha, :planner_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    planner_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :planner_digest) -> {:error, {:missing_field, :planner_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          planner_digest: Map.get(attrs, :planner_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownProcessRuntimeIdentity do
+  @moduledoc "Binds process-intelligence evidence to the exact Beam4PM computation identity."
+
+  defstruct [:propagation_id, :subject_sha, :process_runtime_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    process_runtime_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :process_runtime_digest) -> {:error, {:missing_field, :process_runtime_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          process_runtime_digest: Map.get(attrs, :process_runtime_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownPromotionRace do
+  @moduledoc "Records the conflicting prior digest when a concurrent promotion wins the race."
+
+  defstruct [:propagation_id, :subject_sha, :observed_previous_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    observed_previous_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :observed_previous_digest) -> {:error, {:missing_field, :observed_previous_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          observed_previous_digest: Map.get(attrs, :observed_previous_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownProvenanceBinding do
+  @moduledoc "Binds build provenance to the exact source, builder, and published artifact identities."
+
+  defstruct [:propagation_id, :subject_sha, :provenance_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    provenance_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :provenance_digest) -> {:error, {:missing_field, :provenance_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          provenance_digest: Map.get(attrs, :provenance_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownReceiptOutputOwnership do
+  @moduledoc "Propagates receipt lineage together with the declared owner of every manufactured output."
+
+  defstruct [:propagation_id, :subject_sha, :output_owner, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    output_owner: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :output_owner) -> {:error, {:missing_field, :output_owner}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          output_owner: Map.get(attrs, :output_owner),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownRecursiveFixedPoint do
+  @moduledoc "Proves recursive ecosystem propagation reached a stable exact-crown fixed point."
+
+  defstruct [:propagation_id, :subject_sha, :fixed_point_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    fixed_point_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :fixed_point_digest) -> {:error, {:missing_field, :fixed_point_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          fixed_point_digest: Map.get(attrs, :fixed_point_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownResumeToken do
+  @moduledoc "Binds resumed propagation to its checkpoint and current dependency graph."
+
+  defstruct [:propagation_id, :subject_sha, :resume_token_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    resume_token_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :resume_token_digest) -> {:error, {:missing_field, :resume_token_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          resume_token_digest: Map.get(attrs, :resume_token_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownRuntimeIdentity do
+  @moduledoc "Binds the propagated artifact to the exact runtime used for qualification."
+
+  defstruct [:propagation_id, :subject_sha, :runtime_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    runtime_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :runtime_digest) -> {:error, {:missing_field, :runtime_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          runtime_digest: Map.get(attrs, :runtime_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownSbomSubjectBinding do
+  @moduledoc "Binds a retained software bill of materials to the exact published crown subject."
+
+  defstruct [:propagation_id, :subject_sha, :sbom_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    sbom_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :sbom_digest) -> {:error, {:missing_field, :sbom_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          sbom_digest: Map.get(attrs, :sbom_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownSecondPassIdentity do
+  @moduledoc "Proves a second lawful GGen sync is byte-identical to the first manufactured output set."
+
+  defstruct [:propagation_id, :subject_sha, :second_pass_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    second_pass_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :second_pass_digest) -> {:error, {:missing_field, :second_pass_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          second_pass_digest: Map.get(attrs, :second_pass_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownSecurityScan do
+  @moduledoc "Requires a retained security scan report bound to the exact crown artifact digest."
+
+  defstruct [:propagation_id, :subject_sha, :scan_report_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    scan_report_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :scan_report_digest) -> {:error, {:missing_field, :scan_report_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          scan_report_digest: Map.get(attrs, :scan_report_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownSourceCapsule do
+  @moduledoc "Binds validation to the exact ggen-ecosystem source capsule and image identity."
+
+  defstruct [:propagation_id, :subject_sha, :capsule_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    capsule_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :capsule_digest) -> {:error, {:missing_field, :capsule_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          capsule_digest: Map.get(attrs, :capsule_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownStaleRefusal do
+  @moduledoc "Records crown age so stale subjects are typed and refused without actuation."
+
+  defstruct [:propagation_id, :subject_sha, :observed_age_seconds, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    observed_age_seconds: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :observed_age_seconds) -> {:error, {:missing_field, :observed_age_seconds}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          observed_age_seconds: Map.get(attrs, :observed_age_seconds),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownSupplyChainPolicy do
+  @moduledoc "Records the executable supply-chain policy decision that admitted or refused the crown."
+
+  defstruct [:propagation_id, :subject_sha, :policy_decision_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    policy_decision_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :policy_decision_digest) -> {:error, {:missing_field, :policy_decision_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          policy_decision_digest: Map.get(attrs, :policy_decision_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownTopologicalOrder do
+  @moduledoc "Orders crown propagation so dependencies qualify before their consumers."
+
+  defstruct [:propagation_id, :subject_sha, :topological_rank, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    topological_rank: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :topological_rank) -> {:error, {:missing_field, :topological_rank}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          topological_rank: Map.get(attrs, :topological_rank),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownValidationPack do
+  @moduledoc "Pins the executable validation pack to an immutable marketplace commit."
+
+  defstruct [:propagation_id, :subject_sha, :validation_pack_sha, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    validation_pack_sha: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :validation_pack_sha) -> {:error, {:missing_field, :validation_pack_sha}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          validation_pack_sha: Map.get(attrs, :validation_pack_sha),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownWorkflowRunReceipt do
+  @moduledoc "Binds a qualification receipt to the exact workflow execution and attempt."
+
+  defstruct [:propagation_id, :subject_sha, :workflow_run_id, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    workflow_run_id: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :workflow_run_id) -> {:error, {:missing_field, :workflow_run_id}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          workflow_run_id: Map.get(attrs, :workflow_run_id),
+          receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.CrownZeroUnreceiptedWrites do
+  @moduledoc "Proves every propagation write belongs to a retained authorized receipt."
+
+  defstruct [:propagation_id, :subject_sha, :write_set_digest, :receipt_digest]
+
+  @type t :: %__MODULE__{
+    propagation_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    write_set_digest: String.t() | nil,
+    receipt_digest: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :propagation_id) -> {:error, {:missing_field, :propagation_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :write_set_digest) -> {:error, {:missing_field, :write_set_digest}}
+      not Map.has_key?(attrs, :receipt_digest) -> {:error, {:missing_field, :receipt_digest}}
+      true ->
+        {:ok, %__MODULE__{
+          propagation_id: Map.get(attrs, :propagation_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          write_set_digest: Map.get(attrs, :write_set_digest),
+          receipt_digest: Map.get(attrs, :receipt_digest)
         }}
     end
   end
@@ -4225,6 +5995,33 @@ defmodule BeamPM.Types.DemoScenario do
   end
 end
 
+defmodule BeamPM.Types.DependencyDag do
+  @moduledoc "Represents action dependencies as an acyclic exact-subject graph."
+
+  defstruct [:dag_id, :node_set_hash, :edge_set_hash]
+
+  @type t :: %__MODULE__{
+    dag_id: String.t() | nil,
+    node_set_hash: String.t() | nil,
+    edge_set_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :dag_id) -> {:error, {:missing_field, :dag_id}}
+      not Map.has_key?(attrs, :node_set_hash) -> {:error, {:missing_field, :node_set_hash}}
+      not Map.has_key?(attrs, :edge_set_hash) -> {:error, {:missing_field, :edge_set_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          dag_id: Map.get(attrs, :dag_id),
+          node_set_hash: Map.get(attrs, :node_set_hash),
+          edge_set_hash: Map.get(attrs, :edge_set_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.DependencyInventoryEvidence do
   @moduledoc "Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory."
 
@@ -4463,6 +6260,60 @@ defmodule BeamPM.Types.DiscoveryHypothesis do
           expected_value: Map.get(attrs, :expected_value),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.DominanceWitness do
+  @moduledoc "Records the exact objective evidence proving one option dominates another."
+
+  defstruct [:dominant_option_id, :dominated_option_id, :witness_hash]
+
+  @type t :: %__MODULE__{
+    dominant_option_id: String.t() | nil,
+    dominated_option_id: String.t() | nil,
+    witness_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :dominant_option_id) -> {:error, {:missing_field, :dominant_option_id}}
+      not Map.has_key?(attrs, :dominated_option_id) -> {:error, {:missing_field, :dominated_option_id}}
+      not Map.has_key?(attrs, :witness_hash) -> {:error, {:missing_field, :witness_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          dominant_option_id: Map.get(attrs, :dominant_option_id),
+          dominated_option_id: Map.get(attrs, :dominated_option_id),
+          witness_hash: Map.get(attrs, :witness_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.DynamicReplanTrigger do
+  @moduledoc "Triggers replanning when observed state invalidates a plan assumption."
+
+  defstruct [:plan_id, :event_id, :trigger_hash]
+
+  @type t :: %__MODULE__{
+    plan_id: String.t() | nil,
+    event_id: String.t() | nil,
+    trigger_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :plan_id) -> {:error, {:missing_field, :plan_id}}
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :trigger_hash) -> {:error, {:missing_field, :trigger_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          plan_id: Map.get(attrs, :plan_id),
+          event_id: Map.get(attrs, :event_id),
+          trigger_hash: Map.get(attrs, :trigger_hash)
         }}
     end
   end
@@ -4764,6 +6615,33 @@ defmodule BeamPM.Types.EntitlementState do
   end
 end
 
+defmodule BeamPM.Types.EntropyReductionScore do
+  @moduledoc "Measures expected uncertainty reduction from a bounded observation action."
+
+  defstruct [:action_id, :prior_entropy, :expected_posterior_entropy]
+
+  @type t :: %__MODULE__{
+    action_id: String.t() | nil,
+    prior_entropy: String.t() | nil,
+    expected_posterior_entropy: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :action_id) -> {:error, {:missing_field, :action_id}}
+      not Map.has_key?(attrs, :prior_entropy) -> {:error, {:missing_field, :prior_entropy}}
+      not Map.has_key?(attrs, :expected_posterior_entropy) -> {:error, {:missing_field, :expected_posterior_entropy}}
+      true ->
+        {:ok, %__MODULE__{
+          action_id: Map.get(attrs, :action_id),
+          prior_entropy: Map.get(attrs, :prior_entropy),
+          expected_posterior_entropy: Map.get(attrs, :expected_posterior_entropy)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.EnvironmentIdentity do
   @moduledoc "Binds paid workload execution to an immutable production environment identity."
 
@@ -4904,6 +6782,33 @@ defmodule BeamPM.Types.EventLog do
   end
 end
 
+defmodule BeamPM.Types.EventTriggeredPlanning do
+  @moduledoc "Creates a bounded planning episode from an admitted world event."
+
+  defstruct [:event_id, :world_state_hash, :episode_id]
+
+  @type t :: %__MODULE__{
+    event_id: String.t() | nil,
+    world_state_hash: String.t() | nil,
+    episode_id: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :event_id) -> {:error, {:missing_field, :event_id}}
+      not Map.has_key?(attrs, :world_state_hash) -> {:error, {:missing_field, :world_state_hash}}
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      true ->
+        {:ok, %__MODULE__{
+          event_id: Map.get(attrs, :event_id),
+          world_state_hash: Map.get(attrs, :world_state_hash),
+          episode_id: Map.get(attrs, :episode_id)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.EventType do
   @moduledoc "A declared OCEL event type and its attribute schema."
 
@@ -4952,6 +6857,33 @@ defmodule BeamPM.Types.EvidenceFreshnessEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           observed_at: Map.get(attrs, :observed_at),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ExactSubjectBinding do
+  @moduledoc "Binds every plan to one immutable repository/ref/SHA subject."
+
+  defstruct [:subject_id, :subject_sha, :binding_hash]
+
+  @type t :: %__MODULE__{
+    subject_id: String.t() | nil,
+    subject_sha: String.t() | nil,
+    binding_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :subject_id) -> {:error, {:missing_field, :subject_id}}
+      not Map.has_key?(attrs, :subject_sha) -> {:error, {:missing_field, :subject_sha}}
+      not Map.has_key?(attrs, :binding_hash) -> {:error, {:missing_field, :binding_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          subject_id: Map.get(attrs, :subject_id),
+          subject_sha: Map.get(attrs, :subject_sha),
+          binding_hash: Map.get(attrs, :binding_hash)
         }}
     end
   end
@@ -5263,6 +7195,33 @@ defmodule BeamPM.Types.GeneratedOutputOwnershipObservation do
   end
 end
 
+defmodule BeamPM.Types.GeneratedSourceRoute do
+  @moduledoc "Routes generated-projection defects to canonical semantic source or an independent rail."
+
+  defstruct [:projection_id, :source_coordinate, :route]
+
+  @type t :: %__MODULE__{
+    projection_id: String.t() | nil,
+    source_coordinate: String.t() | nil,
+    route: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :projection_id) -> {:error, {:missing_field, :projection_id}}
+      not Map.has_key?(attrs, :source_coordinate) -> {:error, {:missing_field, :source_coordinate}}
+      not Map.has_key?(attrs, :route) -> {:error, {:missing_field, :route}}
+      true ->
+        {:ok, %__MODULE__{
+          projection_id: Map.get(attrs, :projection_id),
+          source_coordinate: Map.get(attrs, :source_coordinate),
+          route: Map.get(attrs, :route)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.HeuristicArc do
   @moduledoc "One dependency-scored candidate arc considered during heuristic-net discovery."
 
@@ -5285,6 +7244,33 @@ defmodule BeamPM.Types.HeuristicArc do
           source_activity: Map.get(attrs, :source_activity),
           target_activity: Map.get(attrs, :target_activity),
           dependency_measure: Map.get(attrs, :dependency_measure)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ImmutablePackSelection do
+  @moduledoc "Selects a marketplace pack only by exact immutable commit SHA."
+
+  defstruct [:pack_id, :pack_sha, :selection_hash]
+
+  @type t :: %__MODULE__{
+    pack_id: String.t() | nil,
+    pack_sha: String.t() | nil,
+    selection_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :pack_id) -> {:error, {:missing_field, :pack_id}}
+      not Map.has_key?(attrs, :pack_sha) -> {:error, {:missing_field, :pack_sha}}
+      not Map.has_key?(attrs, :selection_hash) -> {:error, {:missing_field, :selection_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          pack_id: Map.get(attrs, :pack_id),
+          pack_sha: Map.get(attrs, :pack_sha),
+          selection_hash: Map.get(attrs, :selection_hash)
         }}
     end
   end
@@ -5602,6 +7588,33 @@ defmodule BeamPM.Types.InvoiceSchedule do
   end
 end
 
+defmodule BeamPM.Types.IrreversibilityBudget do
+  @moduledoc "Limits irreversible commitments within one bounded planning episode."
+
+  defstruct [:episode_id, :budget, :consumed]
+
+  @type t :: %__MODULE__{
+    episode_id: String.t() | nil,
+    budget: String.t() | nil,
+    consumed: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      not Map.has_key?(attrs, :budget) -> {:error, {:missing_field, :budget}}
+      not Map.has_key?(attrs, :consumed) -> {:error, {:missing_field, :consumed}}
+      true ->
+        {:ok, %__MODULE__{
+          episode_id: Map.get(attrs, :episode_id),
+          budget: Map.get(attrs, :budget),
+          consumed: Map.get(attrs, :consumed)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.K8SObjectRef do
   @moduledoc "A reference to one Kubernetes object observed in the runtime topology."
 
@@ -5910,6 +7923,60 @@ defmodule BeamPM.Types.MasterServiceAgreementState do
   end
 end
 
+defmodule BeamPM.Types.MctsPlanCandidate do
+  @moduledoc "Represents a seeded Monte Carlo tree-search plan and its rollout evidence."
+
+  defstruct [:plan_id, :seed, :rollout_hash]
+
+  @type t :: %__MODULE__{
+    plan_id: String.t() | nil,
+    seed: String.t() | nil,
+    rollout_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :plan_id) -> {:error, {:missing_field, :plan_id}}
+      not Map.has_key?(attrs, :seed) -> {:error, {:missing_field, :seed}}
+      not Map.has_key?(attrs, :rollout_hash) -> {:error, {:missing_field, :rollout_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          plan_id: Map.get(attrs, :plan_id),
+          seed: Map.get(attrs, :seed),
+          rollout_hash: Map.get(attrs, :rollout_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.MetaRouter do
+  @moduledoc "Selects a planner from a portfolio using observed problem characteristics."
+
+  defstruct [:portfolio_id, :observation_hash, :selected_planner_id]
+
+  @type t :: %__MODULE__{
+    portfolio_id: String.t() | nil,
+    observation_hash: String.t() | nil,
+    selected_planner_id: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :portfolio_id) -> {:error, {:missing_field, :portfolio_id}}
+      not Map.has_key?(attrs, :observation_hash) -> {:error, {:missing_field, :observation_hash}}
+      not Map.has_key?(attrs, :selected_planner_id) -> {:error, {:missing_field, :selected_planner_id}}
+      true ->
+        {:ok, %__MODULE__{
+          portfolio_id: Map.get(attrs, :portfolio_id),
+          observation_hash: Map.get(attrs, :observation_hash),
+          selected_planner_id: Map.get(attrs, :selected_planner_id)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.MeteredUsageSample do
   @moduledoc "Records a bounded production usage sample eligible for tenant-level metering."
 
@@ -6087,6 +8154,60 @@ defmodule BeamPM.Types.MutableIdentityRefusalEvidence do
   end
 end
 
+defmodule BeamPM.Types.MutualInformationScore do
+  @moduledoc "Ranks observations by expected mutual information with decision-relevant state."
+
+  defstruct [:observation_id, :target_state_id, :score]
+
+  @type t :: %__MODULE__{
+    observation_id: String.t() | nil,
+    target_state_id: String.t() | nil,
+    score: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :observation_id) -> {:error, {:missing_field, :observation_id}}
+      not Map.has_key?(attrs, :target_state_id) -> {:error, {:missing_field, :target_state_id}}
+      not Map.has_key?(attrs, :score) -> {:error, {:missing_field, :score}}
+      true ->
+        {:ok, %__MODULE__{
+          observation_id: Map.get(attrs, :observation_id),
+          target_state_id: Map.get(attrs, :target_state_id),
+          score: Map.get(attrs, :score)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.NextLawfulActuation do
+  @moduledoc "Selects the next bounded action from scored admissible options without human micro-scheduling."
+
+  defstruct [:episode_id, :selected_action_id, :selection_receipt_hash]
+
+  @type t :: %__MODULE__{
+    episode_id: String.t() | nil,
+    selected_action_id: String.t() | nil,
+    selection_receipt_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      not Map.has_key?(attrs, :selected_action_id) -> {:error, {:missing_field, :selected_action_id}}
+      not Map.has_key?(attrs, :selection_receipt_hash) -> {:error, {:missing_field, :selection_receipt_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          episode_id: Map.get(attrs, :episode_id),
+          selected_action_id: Map.get(attrs, :selected_action_id),
+          selection_receipt_hash: Map.get(attrs, :selection_receipt_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.NodeFailoverEvent do
   @moduledoc "Records the exact node failure and observed failover consequence for a paid service."
 
@@ -6139,6 +8260,33 @@ defmodule BeamPM.Types.NormalizedEventObservation do
           event_id: Map.get(attrs, :event_id),
           event_type: Map.get(attrs, :event_type),
           event_time: Map.get(attrs, :event_time)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.NoveltyScore do
+  @moduledoc "Rewards options that expand the lawful reachable capability frontier."
+
+  defstruct [:option_id, :reference_set_hash, :score]
+
+  @type t :: %__MODULE__{
+    option_id: String.t() | nil,
+    reference_set_hash: String.t() | nil,
+    score: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :option_id) -> {:error, {:missing_field, :option_id}}
+      not Map.has_key?(attrs, :reference_set_hash) -> {:error, {:missing_field, :reference_set_hash}}
+      not Map.has_key?(attrs, :score) -> {:error, {:missing_field, :score}}
+      true ->
+        {:ok, %__MODULE__{
+          option_id: Map.get(attrs, :option_id),
+          reference_set_hash: Map.get(attrs, :reference_set_hash),
+          score: Map.get(attrs, :score)
         }}
     end
   end
@@ -6667,6 +8815,60 @@ defmodule BeamPM.Types.OpportunityValueRange do
   end
 end
 
+defmodule BeamPM.Types.OptimizationPlanCandidate do
+  @moduledoc "Represents an optimization-derived plan with objective and solver receipt."
+
+  defstruct [:plan_id, :objective_id, :solver_receipt_hash]
+
+  @type t :: %__MODULE__{
+    plan_id: String.t() | nil,
+    objective_id: String.t() | nil,
+    solver_receipt_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :plan_id) -> {:error, {:missing_field, :plan_id}}
+      not Map.has_key?(attrs, :objective_id) -> {:error, {:missing_field, :objective_id}}
+      not Map.has_key?(attrs, :solver_receipt_hash) -> {:error, {:missing_field, :solver_receipt_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          plan_id: Map.get(attrs, :plan_id),
+          objective_id: Map.get(attrs, :objective_id),
+          solver_receipt_hash: Map.get(attrs, :solver_receipt_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.OptionGeneration do
+  @moduledoc "Generates a reversible DfCM option set without premature selection."
+
+  defstruct [:state_id, :generator_id, :option_set_hash]
+
+  @type t :: %__MODULE__{
+    state_id: String.t() | nil,
+    generator_id: String.t() | nil,
+    option_set_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :state_id) -> {:error, {:missing_field, :state_id}}
+      not Map.has_key?(attrs, :generator_id) -> {:error, {:missing_field, :generator_id}}
+      not Map.has_key?(attrs, :option_set_hash) -> {:error, {:missing_field, :option_set_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          state_id: Map.get(attrs, :state_id),
+          generator_id: Map.get(attrs, :generator_id),
+          option_set_hash: Map.get(attrs, :option_set_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.OrderFormAdmission do
   @moduledoc "Admits the exact order form that expresses the buyer's priced scope and authorized terms."
 
@@ -6689,6 +8891,60 @@ defmodule BeamPM.Types.OrderFormAdmission do
           opportunity_id: Map.get(attrs, :opportunity_id),
           order_form_id: Map.get(attrs, :order_form_id),
           decision: Map.get(attrs, :decision)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.OrthogonalityScore do
+  @moduledoc "Measures semantic independence between candidate work items."
+
+  defstruct [:left_option_id, :right_option_id, :score]
+
+  @type t :: %__MODULE__{
+    left_option_id: String.t() | nil,
+    right_option_id: String.t() | nil,
+    score: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :left_option_id) -> {:error, {:missing_field, :left_option_id}}
+      not Map.has_key?(attrs, :right_option_id) -> {:error, {:missing_field, :right_option_id}}
+      not Map.has_key?(attrs, :score) -> {:error, {:missing_field, :score}}
+      true ->
+        {:ok, %__MODULE__{
+          left_option_id: Map.get(attrs, :left_option_id),
+          right_option_id: Map.get(attrs, :right_option_id),
+          score: Map.get(attrs, :score)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.OutputOwnershipGate do
+  @moduledoc "Refuses manufacture promotion until every output path has admitted ownership."
+
+  defstruct [:subject_id, :ownership_manifest_hash, :standing]
+
+  @type t :: %__MODULE__{
+    subject_id: String.t() | nil,
+    ownership_manifest_hash: String.t() | nil,
+    standing: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :subject_id) -> {:error, {:missing_field, :subject_id}}
+      not Map.has_key?(attrs, :ownership_manifest_hash) -> {:error, {:missing_field, :ownership_manifest_hash}}
+      not Map.has_key?(attrs, :standing) -> {:error, {:missing_field, :standing}}
+      true ->
+        {:ok, %__MODULE__{
+          subject_id: Map.get(attrs, :subject_id),
+          ownership_manifest_hash: Map.get(attrs, :ownership_manifest_hash),
+          standing: Map.get(attrs, :standing)
         }}
     end
   end
@@ -6776,6 +9032,33 @@ defmodule BeamPM.Types.PaidWorkloadOutcomeReceipt do
           tenant_id: Map.get(attrs, :tenant_id),
           workload_id: Map.get(attrs, :workload_id),
           outcome_receipt_hash: Map.get(attrs, :outcome_receipt_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ParetoFilter do
+  @moduledoc "Removes strictly dominated options while preserving incomparable alternatives."
+
+  defstruct [:option_set_id, :objective_set_hash, :pareto_set_hash]
+
+  @type t :: %__MODULE__{
+    option_set_id: String.t() | nil,
+    objective_set_hash: String.t() | nil,
+    pareto_set_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :option_set_id) -> {:error, {:missing_field, :option_set_id}}
+      not Map.has_key?(attrs, :objective_set_hash) -> {:error, {:missing_field, :objective_set_hash}}
+      not Map.has_key?(attrs, :pareto_set_hash) -> {:error, {:missing_field, :pareto_set_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          option_set_id: Map.get(attrs, :option_set_id),
+          objective_set_hash: Map.get(attrs, :objective_set_hash),
+          pareto_set_hash: Map.get(attrs, :pareto_set_hash)
         }}
     end
   end
@@ -6999,6 +9282,141 @@ defmodule BeamPM.Types.PetriTransition do
   end
 end
 
+defmodule BeamPM.Types.PlanLineage do
+  @moduledoc "Tracks derivation, repair, and supersession across plan generations."
+
+  defstruct [:plan_id, :parent_plan_id, :lineage_hash]
+
+  @type t :: %__MODULE__{
+    plan_id: String.t() | nil,
+    parent_plan_id: String.t() | nil,
+    lineage_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :plan_id) -> {:error, {:missing_field, :plan_id}}
+      not Map.has_key?(attrs, :parent_plan_id) -> {:error, {:missing_field, :parent_plan_id}}
+      not Map.has_key?(attrs, :lineage_hash) -> {:error, {:missing_field, :lineage_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          plan_id: Map.get(attrs, :plan_id),
+          parent_plan_id: Map.get(attrs, :parent_plan_id),
+          lineage_hash: Map.get(attrs, :lineage_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PlanMemory do
+  @moduledoc "Stores reusable plan evidence without converting historical success into current authority."
+
+  defstruct [:plan_id, :evidence_hash, :memory_hash]
+
+  @type t :: %__MODULE__{
+    plan_id: String.t() | nil,
+    evidence_hash: String.t() | nil,
+    memory_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :plan_id) -> {:error, {:missing_field, :plan_id}}
+      not Map.has_key?(attrs, :evidence_hash) -> {:error, {:missing_field, :evidence_hash}}
+      not Map.has_key?(attrs, :memory_hash) -> {:error, {:missing_field, :memory_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          plan_id: Map.get(attrs, :plan_id),
+          evidence_hash: Map.get(attrs, :evidence_hash),
+          memory_hash: Map.get(attrs, :memory_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PlannerCapabilityProfile do
+  @moduledoc "Declares the problem features and guarantees supported by one planner."
+
+  defstruct [:planner_id, :capability_set, :profile_hash]
+
+  @type t :: %__MODULE__{
+    planner_id: String.t() | nil,
+    capability_set: String.t() | nil,
+    profile_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :planner_id) -> {:error, {:missing_field, :planner_id}}
+      not Map.has_key?(attrs, :capability_set) -> {:error, {:missing_field, :capability_set}}
+      not Map.has_key?(attrs, :profile_hash) -> {:error, {:missing_field, :profile_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          planner_id: Map.get(attrs, :planner_id),
+          capability_set: Map.get(attrs, :capability_set),
+          profile_hash: Map.get(attrs, :profile_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PlannerIdentity do
+  @moduledoc "Separates planner identity from policy, role, agent, and authority identities."
+
+  defstruct [:planner_id, :planner_kind, :identity_hash]
+
+  @type t :: %__MODULE__{
+    planner_id: String.t() | nil,
+    planner_kind: String.t() | nil,
+    identity_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :planner_id) -> {:error, {:missing_field, :planner_id}}
+      not Map.has_key?(attrs, :planner_kind) -> {:error, {:missing_field, :planner_kind}}
+      not Map.has_key?(attrs, :identity_hash) -> {:error, {:missing_field, :identity_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          planner_id: Map.get(attrs, :planner_id),
+          planner_kind: Map.get(attrs, :planner_kind),
+          identity_hash: Map.get(attrs, :identity_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PlannerPortfolio do
+  @moduledoc "Preserves a diverse set of planners for one bounded planning episode."
+
+  defstruct [:portfolio_id, :planner_ids, :diversity_hash]
+
+  @type t :: %__MODULE__{
+    portfolio_id: String.t() | nil,
+    planner_ids: String.t() | nil,
+    diversity_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :portfolio_id) -> {:error, {:missing_field, :portfolio_id}}
+      not Map.has_key?(attrs, :planner_ids) -> {:error, {:missing_field, :planner_ids}}
+      not Map.has_key?(attrs, :diversity_hash) -> {:error, {:missing_field, :diversity_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          portfolio_id: Map.get(attrs, :portfolio_id),
+          planner_ids: Map.get(attrs, :planner_ids),
+          diversity_hash: Map.get(attrs, :diversity_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PlanningAction do
   @moduledoc "One PDDL-style planning action with its preconditions and effects."
 
@@ -7180,6 +9598,33 @@ defmodule BeamPM.Types.PocTimeline do
   end
 end
 
+defmodule BeamPM.Types.PolicyBinding do
+  @moduledoc "Binds one planner to parameters, objective, observations, and action projection."
+
+  defstruct [:policy_id, :planner_id, :policy_hash]
+
+  @type t :: %__MODULE__{
+    policy_id: String.t() | nil,
+    planner_id: String.t() | nil,
+    policy_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :policy_id) -> {:error, {:missing_field, :policy_id}}
+      not Map.has_key?(attrs, :planner_id) -> {:error, {:missing_field, :planner_id}}
+      not Map.has_key?(attrs, :policy_hash) -> {:error, {:missing_field, :policy_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          policy_id: Map.get(attrs, :policy_id),
+          planner_id: Map.get(attrs, :planner_id),
+          policy_hash: Map.get(attrs, :policy_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.PolicyDecision do
   @moduledoc "One admission/authority policy decision recorded for an attempted action."
 
@@ -7304,6 +9749,60 @@ defmodule BeamPM.Types.PowlPartialOrderEdge do
         {:ok, %__MODULE__{
           from_index: Map.get(attrs, :from_index),
           to_index: Map.get(attrs, :to_index)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PowlProjection do
+  @moduledoc "Binds a plan candidate to an exact POWL process-plan projection."
+
+  defstruct [:plan_id, :powl_hash, :projection_receipt_hash]
+
+  @type t :: %__MODULE__{
+    plan_id: String.t() | nil,
+    powl_hash: String.t() | nil,
+    projection_receipt_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :plan_id) -> {:error, {:missing_field, :plan_id}}
+      not Map.has_key?(attrs, :powl_hash) -> {:error, {:missing_field, :powl_hash}}
+      not Map.has_key?(attrs, :projection_receipt_hash) -> {:error, {:missing_field, :projection_receipt_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          plan_id: Map.get(attrs, :plan_id),
+          powl_hash: Map.get(attrs, :powl_hash),
+          projection_receipt_hash: Map.get(attrs, :projection_receipt_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PpddlProjection do
+  @moduledoc "Binds a plan candidate to an exact PPDDL problem/domain projection."
+
+  defstruct [:plan_id, :domain_hash, :problem_hash]
+
+  @type t :: %__MODULE__{
+    plan_id: String.t() | nil,
+    domain_hash: String.t() | nil,
+    problem_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :plan_id) -> {:error, {:missing_field, :plan_id}}
+      not Map.has_key?(attrs, :domain_hash) -> {:error, {:missing_field, :domain_hash}}
+      not Map.has_key?(attrs, :problem_hash) -> {:error, {:missing_field, :problem_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          plan_id: Map.get(attrs, :plan_id),
+          domain_hash: Map.get(attrs, :domain_hash),
+          problem_hash: Map.get(attrs, :problem_hash)
         }}
     end
   end
@@ -7657,6 +10156,33 @@ defmodule BeamPM.Types.ProofOfValueExitGate do
   end
 end
 
+defmodule BeamPM.Types.PropagationScore do
+  @moduledoc "Scores downstream consequences across the dependency and capability graph."
+
+  defstruct [:option_id, :graph_hash, :score]
+
+  @type t :: %__MODULE__{
+    option_id: String.t() | nil,
+    graph_hash: String.t() | nil,
+    score: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :option_id) -> {:error, {:missing_field, :option_id}}
+      not Map.has_key?(attrs, :graph_hash) -> {:error, {:missing_field, :graph_hash}}
+      not Map.has_key?(attrs, :score) -> {:error, {:missing_field, :score}}
+      true ->
+        {:ok, %__MODULE__{
+          option_id: Map.get(attrs, :option_id),
+          graph_hash: Map.get(attrs, :graph_hash),
+          score: Map.get(attrs, :score)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ProvenanceBindingEvidence do
   @moduledoc "Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result."
 
@@ -7712,6 +10238,33 @@ defmodule BeamPM.Types.ProvenanceBindingObservation do
           source_capsule_digest: Map.get(attrs, :source_capsule_digest),
           evidence_digest: Map.get(attrs, :evidence_digest),
           binding_status: Map.get(attrs, :binding_status)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.PsroPopulation do
+  @moduledoc "Maintains a population of policies and response oracles for meta-routing."
+
+  defstruct [:population_id, :policy_ids, :population_hash]
+
+  @type t :: %__MODULE__{
+    population_id: String.t() | nil,
+    policy_ids: String.t() | nil,
+    population_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :population_id) -> {:error, {:missing_field, :population_id}}
+      not Map.has_key?(attrs, :policy_ids) -> {:error, {:missing_field, :policy_ids}}
+      not Map.has_key?(attrs, :population_hash) -> {:error, {:missing_field, :population_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          population_id: Map.get(attrs, :population_id),
+          policy_ids: Map.get(attrs, :policy_ids),
+          population_hash: Map.get(attrs, :population_hash)
         }}
     end
   end
@@ -7888,6 +10441,33 @@ defmodule BeamPM.Types.RampCommitment do
   end
 end
 
+defmodule BeamPM.Types.ReachabilityAnalysis do
+  @moduledoc "Determines whether an admitted goal remains reachable from current state."
+
+  defstruct [:state_id, :goal_id, :reachability_proof_hash]
+
+  @type t :: %__MODULE__{
+    state_id: String.t() | nil,
+    goal_id: String.t() | nil,
+    reachability_proof_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :state_id) -> {:error, {:missing_field, :state_id}}
+      not Map.has_key?(attrs, :goal_id) -> {:error, {:missing_field, :goal_id}}
+      not Map.has_key?(attrs, :reachability_proof_hash) -> {:error, {:missing_field, :reachability_proof_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          state_id: Map.get(attrs, :state_id),
+          goal_id: Map.get(attrs, :goal_id),
+          reachability_proof_hash: Map.get(attrs, :reachability_proof_hash)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ReceiptReplayEvidence do
   @moduledoc "Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt."
 
@@ -7940,6 +10520,33 @@ defmodule BeamPM.Types.ReceiptReplayRequest do
           tenant_id: Map.get(attrs, :tenant_id),
           receipt_id: Map.get(attrs, :receipt_id),
           replay_request_hash: Map.get(attrs, :replay_request_hash)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ReceiptRequiredGate do
+  @moduledoc "Prevents any actuation candidate from becoming selectable without a verifiable receipt plan."
+
+  defstruct [:action_id, :receipt_contract_id, :standing]
+
+  @type t :: %__MODULE__{
+    action_id: String.t() | nil,
+    receipt_contract_id: String.t() | nil,
+    standing: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :action_id) -> {:error, {:missing_field, :action_id}}
+      not Map.has_key?(attrs, :receipt_contract_id) -> {:error, {:missing_field, :receipt_contract_id}}
+      not Map.has_key?(attrs, :standing) -> {:error, {:missing_field, :standing}}
+      true ->
+        {:ok, %__MODULE__{
+          action_id: Map.get(attrs, :action_id),
+          receipt_contract_id: Map.get(attrs, :receipt_contract_id),
+          standing: Map.get(attrs, :standing)
         }}
     end
   end
@@ -8536,6 +11143,33 @@ defmodule BeamPM.Types.ResellerAuthorization do
   end
 end
 
+defmodule BeamPM.Types.ReserveWorkPromotion do
+  @moduledoc "Automatically promotes the highest-value lawful reserve when primary work blocks."
+
+  defstruct [:blocked_work_id, :reserve_set_hash, :promoted_work_id]
+
+  @type t :: %__MODULE__{
+    blocked_work_id: String.t() | nil,
+    reserve_set_hash: String.t() | nil,
+    promoted_work_id: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :blocked_work_id) -> {:error, {:missing_field, :blocked_work_id}}
+      not Map.has_key?(attrs, :reserve_set_hash) -> {:error, {:missing_field, :reserve_set_hash}}
+      not Map.has_key?(attrs, :promoted_work_id) -> {:error, {:missing_field, :promoted_work_id}}
+      true ->
+        {:ok, %__MODULE__{
+          blocked_work_id: Map.get(attrs, :blocked_work_id),
+          reserve_set_hash: Map.get(attrs, :reserve_set_hash),
+          promoted_work_id: Map.get(attrs, :promoted_work_id)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ResidencyEvidence do
   @moduledoc "Executable residency evidence binding an exact subject to the region where its controlled data operation occurred."
 
@@ -8588,6 +11222,33 @@ defmodule BeamPM.Types.ResourceAllocation do
           resource_id: Map.get(attrs, :resource_id),
           activity: Map.get(attrs, :activity),
           event_id: Map.get(attrs, :event_id)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.ResourceCapacityPlan do
+  @moduledoc "Allocates finite compute, time, and concurrency capacity across lawful options."
+
+  defstruct [:episode_id, :resource_pool_hash, :allocation_hash]
+
+  @type t :: %__MODULE__{
+    episode_id: String.t() | nil,
+    resource_pool_hash: String.t() | nil,
+    allocation_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      not Map.has_key?(attrs, :resource_pool_hash) -> {:error, {:missing_field, :resource_pool_hash}}
+      not Map.has_key?(attrs, :allocation_hash) -> {:error, {:missing_field, :allocation_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          episode_id: Map.get(attrs, :episode_id),
+          resource_pool_hash: Map.get(attrs, :resource_pool_hash),
+          allocation_hash: Map.get(attrs, :allocation_hash)
         }}
     end
   end
@@ -8710,6 +11371,33 @@ defmodule BeamPM.Types.RevenueScheduleAssumption do
   end
 end
 
+defmodule BeamPM.Types.ReversibilityWeight do
+  @moduledoc "Weights reversible actions above irreversible ones until evidence justifies commitment."
+
+  defstruct [:action_id, :rollback_id, :weight]
+
+  @type t :: %__MODULE__{
+    action_id: String.t() | nil,
+    rollback_id: String.t() | nil,
+    weight: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :action_id) -> {:error, {:missing_field, :action_id}}
+      not Map.has_key?(attrs, :rollback_id) -> {:error, {:missing_field, :rollback_id}}
+      not Map.has_key?(attrs, :weight) -> {:error, {:missing_field, :weight}}
+      true ->
+        {:ok, %__MODULE__{
+          action_id: Map.get(attrs, :action_id),
+          rollback_id: Map.get(attrs, :rollback_id),
+          weight: Map.get(attrs, :weight)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.RfpResponseEvidence do
   @moduledoc "Executable procurement evidence binding an exact subject to a deterministic RFP answer set."
 
@@ -8735,6 +11423,33 @@ defmodule BeamPM.Types.RfpResponseEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           answer_set_hash: Map.get(attrs, :answer_set_hash),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.RoleCompatibility do
+  @moduledoc "Evaluates whether a policy is lawful for an assigned role in the current world."
+
+  defstruct [:role_id, :policy_id, :compatibility]
+
+  @type t :: %__MODULE__{
+    role_id: String.t() | nil,
+    policy_id: String.t() | nil,
+    compatibility: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :role_id) -> {:error, {:missing_field, :role_id}}
+      not Map.has_key?(attrs, :policy_id) -> {:error, {:missing_field, :policy_id}}
+      not Map.has_key?(attrs, :compatibility) -> {:error, {:missing_field, :compatibility}}
+      true ->
+        {:ok, %__MODULE__{
+          role_id: Map.get(attrs, :role_id),
+          policy_id: Map.get(attrs, :policy_id),
+          compatibility: Map.get(attrs, :compatibility)
         }}
     end
   end
@@ -8996,6 +11711,33 @@ defmodule BeamPM.Types.SecondPassByteIdentityObservation do
           second_tree_digest: Map.get(attrs, :second_tree_digest),
           byte_identity: Map.get(attrs, :byte_identity),
           receipt_digest: Map.get(attrs, :receipt_digest)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.SecondRunIdentityObjective do
+  @moduledoc "Makes byte-identical second manufacture a first-class planning objective."
+
+  defstruct [:subject_id, :first_tree_hash, :second_tree_hash]
+
+  @type t :: %__MODULE__{
+    subject_id: String.t() | nil,
+    first_tree_hash: String.t() | nil,
+    second_tree_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :subject_id) -> {:error, {:missing_field, :subject_id}}
+      not Map.has_key?(attrs, :first_tree_hash) -> {:error, {:missing_field, :first_tree_hash}}
+      not Map.has_key?(attrs, :second_tree_hash) -> {:error, {:missing_field, :second_tree_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          subject_id: Map.get(attrs, :subject_id),
+          first_tree_hash: Map.get(attrs, :first_tree_hash),
+          second_tree_hash: Map.get(attrs, :second_tree_hash)
         }}
     end
   end
@@ -9523,6 +12265,33 @@ defmodule BeamPM.Types.StakeholderMap do
           stakeholder_count: Map.get(attrs, :stakeholder_count),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.StalePlanRefusal do
+  @moduledoc "Refuses execution when subject, pack, policy, or world identity has drifted."
+
+  defstruct [:plan_id, :admitted_preimage_hash, :observed_preimage_hash]
+
+  @type t :: %__MODULE__{
+    plan_id: String.t() | nil,
+    admitted_preimage_hash: String.t() | nil,
+    observed_preimage_hash: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :plan_id) -> {:error, {:missing_field, :plan_id}}
+      not Map.has_key?(attrs, :admitted_preimage_hash) -> {:error, {:missing_field, :admitted_preimage_hash}}
+      not Map.has_key?(attrs, :observed_preimage_hash) -> {:error, {:missing_field, :observed_preimage_hash}}
+      true ->
+        {:ok, %__MODULE__{
+          plan_id: Map.get(attrs, :plan_id),
+          admitted_preimage_hash: Map.get(attrs, :admitted_preimage_hash),
+          observed_preimage_hash: Map.get(attrs, :observed_preimage_hash)
         }}
     end
   end
@@ -10520,6 +13289,33 @@ defmodule BeamPM.Types.TypeEdge do
   end
 end
 
+defmodule BeamPM.Types.UncertaintyAwareSelection do
+  @moduledoc "Selects only when confidence and downside bounds satisfy explicit values."
+
+  defstruct [:option_set_id, :uncertainty_model_hash, :selected_option_id]
+
+  @type t :: %__MODULE__{
+    option_set_id: String.t() | nil,
+    uncertainty_model_hash: String.t() | nil,
+    selected_option_id: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :option_set_id) -> {:error, {:missing_field, :option_set_id}}
+      not Map.has_key?(attrs, :uncertainty_model_hash) -> {:error, {:missing_field, :uncertainty_model_hash}}
+      not Map.has_key?(attrs, :selected_option_id) -> {:error, {:missing_field, :selected_option_id}}
+      true ->
+        {:ok, %__MODULE__{
+          option_set_id: Map.get(attrs, :option_set_id),
+          uncertainty_model_hash: Map.get(attrs, :uncertainty_model_hash),
+          selected_option_id: Map.get(attrs, :selected_option_id)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.UncertaintyObservation do
   @moduledoc "Represents typed UNKNOWN uncertainty instead of manufacturing false certainty."
 
@@ -10919,6 +13715,33 @@ defmodule BeamPM.Types.ValueOfInformationEstimate do
   end
 end
 
+defmodule BeamPM.Types.ValueOfInformationScore do
+  @moduledoc "Scores the expected value of acquiring missing information before selection."
+
+  defstruct [:option_id, :observation_id, :score]
+
+  @type t :: %__MODULE__{
+    option_id: String.t() | nil,
+    observation_id: String.t() | nil,
+    score: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :option_id) -> {:error, {:missing_field, :option_id}}
+      not Map.has_key?(attrs, :observation_id) -> {:error, {:missing_field, :observation_id}}
+      not Map.has_key?(attrs, :score) -> {:error, {:missing_field, :score}}
+      true ->
+        {:ok, %__MODULE__{
+          option_id: Map.get(attrs, :option_id),
+          observation_id: Map.get(attrs, :observation_id),
+          score: Map.get(attrs, :score)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.ValueRealization do
   @moduledoc "Receipted realized customer value derived from observed consequences."
 
@@ -11118,6 +13941,33 @@ defmodule BeamPM.Types.VulnerabilityScanEvidence do
           subject_sha: Map.get(attrs, :subject_sha),
           vulnerability_count: Map.get(attrs, :vulnerability_count),
           observed_result: Map.get(attrs, :observed_result)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.WipLimitGate do
+  @moduledoc "Refuses selections that would exceed the admitted work-in-process ceiling."
+
+  defstruct [:episode_id, :wip_limit, :standing]
+
+  @type t :: %__MODULE__{
+    episode_id: String.t() | nil,
+    wip_limit: String.t() | nil,
+    standing: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :episode_id) -> {:error, {:missing_field, :episode_id}}
+      not Map.has_key?(attrs, :wip_limit) -> {:error, {:missing_field, :wip_limit}}
+      not Map.has_key?(attrs, :standing) -> {:error, {:missing_field, :standing}}
+      true ->
+        {:ok, %__MODULE__{
+          episode_id: Map.get(attrs, :episode_id),
+          wip_limit: Map.get(attrs, :wip_limit),
+          standing: Map.get(attrs, :standing)
         }}
     end
   end
