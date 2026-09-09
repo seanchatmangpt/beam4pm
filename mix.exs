@@ -13,6 +13,7 @@ defmodule Beam4pm.MixProject do
 
   def application do
     [
+      mod: {BeamPM.Application, []},
       extra_applications: [:logger]
     ]
   end
@@ -37,7 +38,12 @@ defmodule Beam4pm.MixProject do
       {:ggen_igniter, "~> 26.8", only: [:dev, :test], runtime: false},
       {:ash, "~> 3.0"},
       {:ash_ai, "~> 1.0"},
-      {:wasmex, "~> 0.15"}
+      {:wasmex, "~> 0.15"},
+      # BeamPM.OcelIngest.Router (lib/beam4pm_ocel_ingest.ex) -- beam4pm's own
+      # independent network ingestion layer, real runtime deps (not
+      # only: :test): a running beam4pm needs to actually listen.
+      {:plug, "~> 1.14"},
+      {:bandit, "~> 1.5"}
     ]
   end
 end

@@ -1068,6 +1068,27 @@ bpma:k8s_scale_down_aa a bpma:AdmittedActuation ;
     bpma:gymOp "scale_down" .
 
 # =============================================================================
+# beam4pm OCEL v2 network ingestion admission graph (independent runtime
+# capability -- beam4pm's own manufactured equivalent of ex4pm's retired
+# ex4pm_stream/ex4pm_web umbrella apps, not a dependency on ex4pm). This is
+# the SELECT-layer admission list for which HTTP routes are allowed to
+# exist at all; the generated router below only ever handles admitted
+# routes decoding into an already-admitted bpm:RecordType, never an
+# invented parallel wire format.
+# =============================================================================
+@prefix bpmi: <https://ggen.dev/ontology/beam4pm-ocel-ingestion#> .
+
+bpmi:ocel_events_route a bpmi:AdmittedIngestRoute ;
+    bpmi:routePath "/ocel/events" ;
+    bpmi:httpMethod "POST" ;
+    bpmi:producesRecordType "ocel_event" .
+
+bpmi:ocel_objects_route a bpmi:AdmittedIngestRoute ;
+    bpmi:routePath "/ocel/objects" ;
+    bpmi:httpMethod "POST" ;
+    bpmi:producesRecordType "ocel_object" .
+
+# =============================================================================
 # GitHub Actions CI + GHCR container-publish workflow instance data
 # =============================================================================
 # ---------------------------------------------------------------------------
