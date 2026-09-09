@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Checkout (with vendor/ggen-marketplace submodule)
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           submodules: recursive
@@ -40,7 +40,7 @@ jobs:
           otp-version: '27.2'
         
       - name: Cache rebar3 dependencies
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           restore-keys: "${{ runner.os }}-rebar3-27.2-3.24.0-\n${{ runner.os }}-rebar3-27.2-\n${{ runner.os }}-rebar3-\n"
           key: ${{ runner.os }}-rebar3-27.2-3.24.0-${{ hashFiles('rebar.lock') }}
@@ -64,7 +64,7 @@ jobs:
           cd native/rf3-ocel-oracle && cargo build --release && cd -
 
       - name: Cache mix dependencies
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           restore-keys: "${{ runner.os }}-mix-27.2-1.18.5-\n${{ runner.os }}-mix-27.2-\n${{ runner.os }}-mix-\n"
           key: ${{ runner.os }}-mix-27.2-1.18.5-${{ hashFiles('mix.lock') }}
