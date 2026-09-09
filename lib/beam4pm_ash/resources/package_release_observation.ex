@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.PackageReleaseObservation do
     attribute :package_id, :string, public?: true, allow_nil?: false
     attribute :version, :string, public?: true, allow_nil?: false
     attribute :immutable_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

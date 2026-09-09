@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.ContainerPlatformDigestObservation do
     attribute :index_digest, :string, public?: true, allow_nil?: false
     attribute :platform, :string, public?: true, allow_nil?: false
     attribute :platform_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

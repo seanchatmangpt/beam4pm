@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.SubmoduleLockObservation do
     attribute :submodule_path, :string, public?: true, allow_nil?: false
     attribute :gitlink_sha, :string, public?: true, allow_nil?: false
     attribute :lock_sha, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

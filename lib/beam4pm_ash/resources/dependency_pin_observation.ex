@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.DependencyPinObservation do
     attribute :dependency_id, :string, public?: true, allow_nil?: false
     attribute :declared_ref, :string, public?: true, allow_nil?: false
     attribute :resolved_sha, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

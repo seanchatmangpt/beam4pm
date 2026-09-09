@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.RepositoryDefaultBranchObservation do
     attribute :repository_id, :string, public?: true, allow_nil?: false
     attribute :default_branch, :string, public?: true, allow_nil?: false
     attribute :head_sha, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

@@ -6067,7 +6067,9 @@ defmodule BeamPM.Types.GeneratedTest do
         span_id: "x",
         service_name: "x",
         duration_ms: 1,
-        parent_span_id: "x"
+        parent_span_id: "x",
+        trace_id: "x",
+        start_time: "2026-01-01T00:00:00Z"
       }
     },
 
@@ -6153,6 +6155,18 @@ defmodule BeamPM.Types.GeneratedTest do
         fit_score: 1.0,
         evidence_digest: "x",
         observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "span_edge",
+      mod: BeamPM.Types.SpanEdge,
+      has_required: true,
+      full_attrs: %{
+        source_service: "x",
+        target_service: "x",
+        frequency: 1,
+        evidence: :some_atom
       }
     },
 

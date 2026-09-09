@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.RepositoryWorktreeStateObservation do
     attribute :repository_id, :string, public?: true, allow_nil?: false
     attribute :worktree_hash, :string, public?: true, allow_nil?: false
     attribute :dirty_path_count, :integer, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

@@ -16,48 +16,85 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 ## Count
 
-- Admitted unmarked files: **23**
-- Counted as manufacturing debt: **16**
+- Admitted unmarked files: **32**
+- Counted as manufacturing debt: **25**
 - Lawful inputs / reference evidence (not debt): **7**
 
 ## Authorship kinds (closed vocabulary, pack `ontology.ttl`)
 
 | Kind | Counts as debt | Admitted | Ceiling | Doc |
 | --- | --- | --- | --- | --- |
-| `hand_authored_qualification` | true | 15 | 16 | A hand-authored ExUnit qualification file under test/ (VISION-2030 section 2 lists tests-as-specification among lawful inputs, but this pack's convention manufactures every test from a template, so an unmanufactured test is counted as debt). Sunset: migrate its fixture bindings into ontology facts and render it from a .tmpl/.eex like the beam4pm_types_test.exs family. |
+| `hand_authored_qualification` | true | 24 | 24 | A hand-authored ExUnit qualification file under test/ (VISION-2030 section 2 lists tests-as-specification among lawful inputs, but this pack's convention manufactures every test from a template, so an unmanufactured test is counted as debt). Sunset: migrate its fixture bindings into ontology facts and render it from a .tmpl/.eex like the beam4pm_types_test.exs family. Ceiling raised 16 -> 24 (2026-09-09): a beam4pm branch-integration merge surfaced 8 real, pre-existing hand-authored files (lib/beam4pm_application.ex, lib/beam4pm_contracts.ex + test, lib/beam4pm_powl_discovery.ex + test, two new B4PM-1703/1709 mix tasks + tests, test/beam4pm_ws3_dfcm_self_healing_test.exs) that predate GATE AUTHORSHIP's own manufacture and were never previously surfaced as unadmitted debt -- disclosed and counted here, not silently exempted. |
 | `manufacturing_input` | false | 1 | 4 | Project scaffolding that happens to live under a manufactured root but is a lawful manufacturing input in the same class as ggen.toml / rebar.config / mix.exs (e.g. src/beam4pm.app.src). Not counted as debt; still admitted so the tree has zero unexplained unmarked files. |
 | `native_engine_facade` | true | 1 | 6 | A thin, delegation-only BEAM facade (Erlang / Elixir / Gleam) over ONE native engine hosted via wasm whose surface has NOT yet been admitted as bpm:Engine / bpm:EngineOp facts. Since pack 0.1.17 templates/beam4pm_engine.{ex,erl,gleam}.tmpl render every admitted engine's three facades, so this kind is the shrinking remainder (ferroplan, rust4pm in the reference consumer; petgraph and tract are manufactured). Ceiling lowered 12 -> 6 when those two converted: a converted engine cannot quietly return to hand-authoring. |
 | `reference_evidence` | false | 6 | 8 | A hand-authored reference document under docs/reference/ sitting beside the manufactured ones (VISION-2030 section 2: reference evidence is a lawful input). Not counted as debt; admitted so a doc that only LOOKS manufactured cannot hide there unexplained. |
 
 ## Admitted files
 
-### `hand_authored_qualification` (15 file(s), counts as debt: true)
+### `hand_authored_qualification` (24 file(s), counts as debt: true)
 
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
-| `test/beam4pm_actuation_k8s_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_actuation_k8s_test.exs` | cmd:kubectl --context kind-ex4pm cluster-info |
+| `lib/beam4pm_application.ex` | `91965eb` | 2026-12-31 | `mix test` | - |
+| `lib/beam4pm_contracts.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
+| `lib/beam4pm_powl_discovery.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_powl_discovery_test.exs` | - |
+| `lib/mix/tasks/beam4pm.rf2_oracle_dep.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_rf2_oracle_dep_task_test.exs` | - |
+| `lib/mix/tasks/beam4pm.version_bump.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_version_bump_test.exs` | - |
 | `test/beam4pm_ash_ai_tools_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ash_ai_tools_test.exs` | - |
+| `test/beam4pm_contracts_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `test/beam4pm_ferroplan_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_ferroplan_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
-| `test/beam4pm_ocel_test.exs` | `c89d973` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
+| `test/beam4pm_ocel_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
 | `test/beam4pm_pddl_projection_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_pddl_projection_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_petgraph_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_facades_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
 | `test/beam4pm_petgraph_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
+| `test/beam4pm_powl_discovery_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_powl_discovery_test.exs` | - |
 | `test/beam4pm_process_governor_k8s_test.exs` | `0107a09` | 2026-12-31 | `mix test test/beam4pm_process_governor_k8s_test.exs` | cmd:kubectl --context kind-ex4pm cluster-info |
+| `test/beam4pm_rf2_oracle_dep_task_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_rf2_oracle_dep_task_test.exs` | - |
 | `test/beam4pm_rust4pm_ci_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_ci_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_rust4pm_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_facades_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_rust4pm_health_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_health_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_rust4pm_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_rust4pm_test.exs` | native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm |
 | `test/beam4pm_tract_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_tract_facades_test.exs` | native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm |
 | `test/beam4pm_tract_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_tract_test.exs` | native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm |
+| `test/beam4pm_version_bump_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_version_bump_test.exs` | - |
+| `test/beam4pm_ws3_dfcm_self_healing_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ws3_dfcm_self_healing_test.exs` | - |
 
 
-#### `test/beam4pm_actuation_k8s_test.exs`
+#### `lib/beam4pm_application.ex`
 
-- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
-- Reason: Chicago qualification of the k8s_scale_up/k8s_scale_down admitted actuations through the real BeamPM.Actuation.run/2 pipeline against a live kind-ex4pm cluster; its kubectl context, deployment names and gym-bridge path are not yet ontology facts. Named skip when the cluster is unreachable.
-- Content sha256 at admission: `97ba6c240362e5b5ff7fe5f9ccca23132504ece34a38d075cf10e85a6051723e`
-- Sunset plan: Admit the k8s qualification bindings (context, deployment, bridge) as ontology facts and render this file from a pack .exs.eex beside beam4pm_process_governor_test.exs.eex; then delete this admission.
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: The OTP application module -- boots BeamPM.Application's supervision tree (including the real Bandit listener for lib/beam4pm_ocel_ingest.ex's router). Necessarily hand-authored: no ontology-fact-driven template exists for an OTP Application callback module, and it predates GATE AUTHORSHIP's own admission of every unmarked file (this file existed before the authorship gate itself was manufactured, so it was never previously surfaced as unadmitted).
+- Content sha256 at admission: `eba7b65c1023b4c0bbb1913907f3102f1eb74268942671d3f8a039f1a3a288f8`
+- Sunset plan: No template family fits an OTP Application callback module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter OTP-app-shell recipe is added.
+
+#### `lib/beam4pm_contracts.ex`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: BeamPM.Contracts.manifest/0 -- hand-written composition over already-generated modules (BeamPM.Types.Manifest, BeamPM.ReceiptChain.hash_file!/1), predates GATE AUTHORSHIP's own manufacture and was never previously surfaced as unadmitted.
+- Content sha256 at admission: `51f24b063e54cbf238778c2a0786c9571e1bf98eb1831c17cb9e3eb6a61385a7`
+- Sunset plan: No dedicated template exists for this composition module; keep admitted until one is proposed upstream.
+
+#### `lib/beam4pm_powl_discovery.ex`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: POWL 2.0 discovery wrapper over the vendored rust4pm-powl engine facade -- hand-written algorithm/wrapper module (same convention as BeamPM.Petgraph/BeamPM.Tract), not ontology-fact-driven, predates GATE AUTHORSHIP's own manufacture.
+- Content sha256 at admission: `4af71e5c91adbef6e8e1e850c4d0704b7fa7915d0de531a0529514d1de0d92b3`
+- Sunset plan: No template family fits a POWL discovery wrapper today; keep admitted until one is proposed upstream.
+
+#### `lib/mix/tasks/beam4pm.rf2_oracle_dep.ex`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: B4PM-1709: an Igniter mix task that programmatically adds the RF2_ORACLE_BIN-adjacent Rust NIF dependency to mix.exs, plus an optional version-pin patch. Operator tooling, not ontology-fact-driven generation.
+- Content sha256 at admission: `82084f3fab0fcc005b239ca95313e04e7462ea75fbf9865be7b284eb040e1e9f`
+- Sunset plan: Operator/Igniter tasks are not template-generated by convention in this repo; keep admitted.
+
+#### `lib/mix/tasks/beam4pm.version_bump.ex`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: B4PM-1703: an Igniter mix task that bumps mix.exs's version: and src/beam4pm.app.src's {vsn, ...} tuple together, refusing with a typed VersionMismatchError if the two are already drifted. Operator tooling, not ontology-fact-driven generation.
+- Content sha256 at admission: `8f5bf9a8ce8550b5fa3b2b1b7b85315e021911972bd2fa3398fab05cc6783c3c`
+- Sunset plan: Operator/Igniter tasks are not template-generated by convention in this repo; keep admitted.
 
 #### `test/beam4pm_ash_ai_tools_test.exs`
 
@@ -65,6 +102,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Reason: Real introspection coverage of the two read-only AshAi tools declared on BeamPM.Ash.Domain (registered, target the intended resource/action, no write tools). The tool declarations are template-static, so this qualification was hand-written rather than rendered.
 - Content sha256 at admission: `b658dbbdcaa4c5585ee1d7b4b1dc80c059a40535157960386363e383b924dfd3`
 - Sunset plan: Render this file from the same igniter recipe that renders beam4pm_ash_domain.ex (one tool row per declared AshAi tool); then delete this admission.
+
+#### `test/beam4pm_contracts_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: Chicago qualification of lib/beam4pm_contracts.ex (admitted above).
+- Content sha256 at admission: `04699f8e50cccd9b451619f983e472950799b8b2058000e5a1be251b004fc065`
+- Sunset plan: Sunsets alongside lib/beam4pm_contracts.ex's own admission.
 
 #### `test/beam4pm_ferroplan_facades_test.exs`
 
@@ -84,7 +128,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
 - Reason: Chicago round-trip qualification of the new hand-authored BeamPM.Ocel.encode/1 decode/1 pair (lib/beam4pm_ocel.ex, itself admitted below): real BeamPM.Types.OcelEvent.new/1 / OcelObject.new/1 constructors, real encode/decode calls, assertions on real returned struct fields. Hand-written because it exercises a hand-authored module rather than a manufactured record type, so no beam4pm_types_test.exs.eex-style template applies.
-- Content sha256 at admission: `617803cd819d0a796b2b84696793731d01277cf19ec16bba978de71a49896c55`
+- Content sha256 at admission: `af2f005ef2b9f52bf1b50b594239dee77cdbd855a1702bd19dbcaaf91b8f4e39`
 - Sunset plan: If lib/beam4pm_ocel.ex is later migrated into ontology-fact-driven generation, render its qualification test from the matching pack template as well; then delete this admission.
 
 #### `test/beam4pm_pddl_projection_test.exs`
@@ -108,12 +152,26 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `2516d9f57b9b99562fa9d460fd738721d8ec96ddcae0e9cfa7d27cb94f31f440`
 - Sunset plan: Admit the graph fixtures as ontology facts and render this qualification from them; then delete this admission.
 
+#### `test/beam4pm_powl_discovery_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: Chicago qualification of lib/beam4pm_powl_discovery.ex (admitted above) against a real POWL fixture.
+- Content sha256 at admission: `d28f85a842db472b943462a3baa22db3350c05738ea2dc8bf3e0a335e7160fc3`
+- Sunset plan: Sunsets alongside lib/beam4pm_powl_discovery.ex's own admission.
+
 #### `test/beam4pm_process_governor_k8s_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
 - Reason: Chicago qualification of BeamPM.ProcessGovernor.run/2 continuous k8s scaling against a live kind-ex4pm cluster with independent kubectl cross-checks, plus (2026-09-05 re-admission) BeamPM.ProcessGovernor.replay/2 end-to-end over the real k8s_scaling_governed receipt chain and a real on-disk actuation-receipt corruption falsifier (decode/mutate action.action_name/re-encode, same technique as beam4pm_receipt_chain_test.exs's own REAL FALSIFIER) proving replay/2 fails closed at the exact corrupted ordinal; cluster bindings are not yet ontology facts. Named skip when the cluster is unreachable.
 - Content sha256 at admission: `41e9ddf5c92782efb759331b92f46579d11fb21dd873bd328dcd33448ef014ae`
 - Sunset plan: Admit the k8s qualification bindings as ontology facts and render this file from a pack .exs.eex beside beam4pm_process_governor_test.exs.eex; then delete this admission.
+
+#### `test/beam4pm_rf2_oracle_dep_task_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: Chicago qualification of lib/mix/tasks/beam4pm.rf2_oracle_dep.ex (admitted above).
+- Content sha256 at admission: `022e1d043dec9d87ac460bb31df0d6155f63ac914956ead2258dc68f05e6dddc`
+- Sunset plan: Sunsets alongside its task's own admission.
 
 #### `test/beam4pm_rust4pm_ci_test.exs`
 
@@ -157,6 +215,20 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `89f6245fd5a0fee8a1f7f3365af806b4297fb5960cbe925940e67e6624b812de`
 - Sunset plan: Admit the ONNX fixture binding as an ontology fact and render this qualification from it; then delete this admission.
 
+#### `test/beam4pm_version_bump_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: Chicago qualification of lib/mix/tasks/beam4pm.version_bump.ex (admitted above).
+- Content sha256 at admission: `1e92cea2a087ad330f9da04b7a284da4bf6f47dd9aba7810c80d9e11bb688e50`
+- Sunset plan: Sunsets alongside its task's own admission.
+
+#### `test/beam4pm_ws3_dfcm_self_healing_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: Pre-existing WS3 DfCM self-healing exact-execution-witness test (commits 99b49df/c54ae24, predating GATE AUTHORSHIP's own manufacture, never previously surfaced as unadmitted). DISCLOSED GAP, not fixed by this admission: it references BeamPM.Autonomy.Kernel.frontier/2 and .digest/1, which do not exist in this codebase -- this file currently fails at test/beam4pm_ws3_dfcm_self_healing_test.exs, a real, pre-existing failure this admission surfaces rather than silently hides. ontology.ttl's own note near the FieldType_map vocabulary block records that an earlier BeamPM.Autonomy.Kernel/BeamPM.Governor design was rejected by a 4-lens adversarial audit (CONFIRMED_CRITICAL on every lens) for duplicating the real, tested BeamPM.Actuation Reactor pipeline with zero shared code -- this test was left referencing that rejected design's module and was never updated to the real BeamPM.Actuation pipeline it is meant to exercise.
+- Content sha256 at admission: `cbfef52311e8b12fb63d57f786e9e7a5b3f8175b9155b13cfedbae9ba1a5f2ce`
+- Sunset plan: Either rewrite this test against the real BeamPM.Actuation Reactor pipeline (the design that superseded BeamPM.Autonomy.Kernel) or delete it as dead debt referencing a rejected design; then delete this admission.
+
 ### `manufacturing_input` (1 file(s), counts as debt: false)
 
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
@@ -175,14 +247,14 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
-| `lib/beam4pm_ocel.ex` | `c89d973` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
+| `lib/beam4pm_ocel.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
 
 
 #### `lib/beam4pm_ocel.ex`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
 - Reason: General OCEL 2.0 JSON encode/1 decode/1 pair (docs/jira roadmap gap: today real OCEL 2.0 encode/decode only exists inside the RF3 Rust oracle via two fixed wire ops, not a general pair). Built entirely on the already-generated BeamPM.Types.OcelEvent/OcelObject structs and the already-generated BeamPM.Codec.to_map/1 from_map/2 (read-only calls, no generated file touched). Admitted under the native_engine_facade kind for lack of a closer-fitting closed-vocabulary kind (this is not a wasm native-engine facade; it is hand-authored lib/ domain logic not yet templated) -- the vendored pack's bpm:AuthorshipKind vocabulary has no dedicated general-lib-module kind yet, and adding one is an out-of-scope vendor-pack edit.
-- Content sha256 at admission: `b13c73e4795591e69437cbea3f62a346ae3337093baaf7046737f1e5e29541dc`
+- Content sha256 at admission: `f7e47a5c95278b14cc654361bf00e4b73e4440276945ba6b8eb6ef19d7b64ce2`
 - Sunset plan: Propose a dedicated hand_authored_lib_module (or similar) AuthorshipKind upstream in the vendored beam4pm-process-model-pack, or admit bpm:RecordType-level OCEL envelope facts and manufacture this codec from a pack template; then delete this admission.
 
 ### `reference_evidence` (6 file(s), counts as debt: false)

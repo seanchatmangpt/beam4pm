@@ -514,6 +514,7 @@
     new_sla_offer_admission/1,
     new_sojourn_time/1,
     new_solution_fit/1,
+    new_span_edge/1,
     new_spend_drawdown/1,
     new_stakeholder_map/1,
     new_stale_plan_refusal/1,
@@ -1109,6 +1110,7 @@
     sla_offer_admission/0,
     sojourn_time/0,
     solution_fit/0,
+    span_edge/0,
     spend_drawdown/0,
     stakeholder_map/0,
     stale_plan_refusal/0,
@@ -18730,7 +18732,9 @@ new_service_slo_contract(Map) ->
     span_id :: binary(), %% span_id: Unique span identifier.
     service_name :: binary(), %% service_name: Name of the service that produced this span.
     duration_ms :: integer(), %% duration_ms: Span duration in milliseconds.
-    parent_span_id :: binary() | undefined %% parent_span_id: Optional identifier of the parent span.
+    parent_span_id :: binary() | undefined, %% parent_span_id: Optional identifier of the parent span (the OpenTelemetry parent/child link; absent on a trace's root span). This is NOT the OpenTelemetry `links` field.
+    trace_id :: binary(), %% trace_id: Identifier of the trace this span belongs to (the partition key the temporal-adjacency arm groups by; parent/child links never cross it).
+    start_time :: binary() %% start_time: ISO8601 timestamp the span started (the only ordering the temporal-adjacency arm consults; the parent/child arm never reads it).
 }).
 
 -type service_span() :: #service_span{}.
@@ -18746,12 +18750,22 @@ new_service_span(Map) ->
     case maps:is_key(duration_ms, Map) of
         false -> {error, {missing_field, duration_ms}};
         true ->
+    case maps:is_key(trace_id, Map) of
+        false -> {error, {missing_field, trace_id}};
+        true ->
+    case maps:is_key(start_time, Map) of
+        false -> {error, {missing_field, start_time}};
+        true ->
     {ok, #service_span{
         span_id = maps:get(span_id, Map, undefined),
         service_name = maps:get(service_name, Map, undefined),
         duration_ms = maps:get(duration_ms, Map, undefined),
-        parent_span_id = maps:get(parent_span_id, Map, undefined)
+        parent_span_id = maps:get(parent_span_id, Map, undefined),
+        trace_id = maps:get(trace_id, Map, undefined),
+        start_time = maps:get(start_time, Map, undefined)
     }}
+    end
+    end
     end
     end
     end.
@@ -19002,6 +19016,41 @@ new_solution_fit(Map) ->
         observed_at = maps:get(observed_at, Map, undefined)
     }}
     end
+    end
+    end
+    end
+    end.
+
+%% One frequency-annotated service-to-service edge derived from tracing spans, tagged with the evidence class that supports it: parent_child_link (observed -- a parent/child span link exists) or temporal_adjacency (inferred -- consecutive start_time order within one trace, no link consulted).
+-record(span_edge, {
+    source_service :: binary(), %% source_service: service_name of the source span (the parent for parent_child_link; the earlier-starting span for temporal_adjacency).
+    target_service :: binary(), %% target_service: service_name of the target span (the child for parent_child_link; the next-starting span for temporal_adjacency).
+    frequency :: integer(), %% frequency: For parent_child_link: the number of parent -> child links with this (source_service, target_service). For temporal_adjacency: the number of consecutive start_time pairs with it, summed over traces. Comparable only when both arms are computed over the same span set, which causal_dfg_from_spans/1 guarantees.
+    evidence :: atom() %% evidence: Evidence class: parent_child_link (observed) or temporal_adjacency (inferred). No other value is emitted.
+}).
+
+-type span_edge() :: #span_edge{}.
+
+-spec new_span_edge(map()) -> {ok, span_edge()} | {error, {missing_field, atom()}}.
+new_span_edge(Map) ->
+    case maps:is_key(source_service, Map) of
+        false -> {error, {missing_field, source_service}};
+        true ->
+    case maps:is_key(target_service, Map) of
+        false -> {error, {missing_field, target_service}};
+        true ->
+    case maps:is_key(frequency, Map) of
+        false -> {error, {missing_field, frequency}};
+        true ->
+    case maps:is_key(evidence, Map) of
+        false -> {error, {missing_field, evidence}};
+        true ->
+    {ok, #span_edge{
+        source_service = maps:get(source_service, Map, undefined),
+        target_service = maps:get(target_service, Map, undefined),
+        frequency = maps:get(frequency, Map, undefined),
+        evidence = maps:get(evidence, Map, undefined)
+    }}
     end
     end
     end

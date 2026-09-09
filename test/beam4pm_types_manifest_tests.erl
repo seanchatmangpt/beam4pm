@@ -15,7 +15,7 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(592, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(593, length(beam4pm_types_manifest:record_names())).
 
 acceptance_criteria_nonweakening_fields_test() ->
     ?assertEqual([assessment_id, acceptance_contract_id, prior_digest, candidate_digest, strength_result, refusal_code], beam4pm_types_manifest:fields(acceptance_criteria_nonweakening)).
@@ -1527,7 +1527,7 @@ service_slo_contract_fields_test() ->
     ?assertEqual([tenant_id, slo_id, contract_hash], beam4pm_types_manifest:fields(service_slo_contract)).
 
 service_span_fields_test() ->
-    ?assertEqual([span_id, service_name, duration_ms, parent_span_id], beam4pm_types_manifest:fields(service_span)).
+    ?assertEqual([span_id, service_name, duration_ms, parent_span_id, trace_id, start_time], beam4pm_types_manifest:fields(service_span)).
 
 shadow_challenger_execution_fields_test() ->
     ?assertEqual([execution_id, incumbent_policy_id, challenger_policy_id, shared_observation_digest, shadow_receipt_digest, authority_mode], beam4pm_types_manifest:fields(shadow_challenger_execution)).
@@ -1549,6 +1549,9 @@ sojourn_time_fields_test() ->
 
 solution_fit_fields_test() ->
     ?assertEqual([solution_fit_id, account_id, fit_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(solution_fit)).
+
+span_edge_fields_test() ->
+    ?assertEqual([source_service, target_service, frequency, evidence], beam4pm_types_manifest:fields(span_edge)).
 
 spend_drawdown_fields_test() ->
     ?assertEqual([spend_drawdown_id, account_id, consumed_amount, evidence_digest, effective_at], beam4pm_types_manifest:fields(spend_drawdown)).

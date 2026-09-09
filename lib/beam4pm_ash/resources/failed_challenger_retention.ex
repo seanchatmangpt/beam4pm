@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.FailedChallengerRetention do
     attribute :retention_id, :string, public?: true, allow_nil?: false
     attribute :challenger_evaluation_id, :string, public?: true, allow_nil?: false
     attribute :failure_evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :retained_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :retained_at, :utc_datetime_usec, public?: true, allow_nil?: false
     attribute :eligible_for_future, :boolean, public?: true, allow_nil?: false
   end
 

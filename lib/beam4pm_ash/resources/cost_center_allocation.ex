@@ -13,7 +13,7 @@ defmodule BeamPM.Ash.Resources.CostCenterAllocation do
     attribute :account_id, :string, public?: true, allow_nil?: false
     attribute :cost_center_id, :string, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :effective_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :effective_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

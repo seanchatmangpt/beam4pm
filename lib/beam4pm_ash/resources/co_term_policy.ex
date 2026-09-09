@@ -11,9 +11,9 @@ defmodule BeamPM.Ash.Resources.CoTermPolicy do
     uuid_primary_key :id
     attribute :co_term_policy_id, :string, public?: true, allow_nil?: false
     attribute :account_id, :string, public?: true, allow_nil?: false
-    attribute :coterm_date, :utc_datetime, public?: true, allow_nil?: false
+    attribute :coterm_date, :utc_datetime_usec, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :effective_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :effective_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

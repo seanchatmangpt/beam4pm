@@ -521,6 +521,7 @@
     beam4pm_types:sla_offer_admission() |
     beam4pm_types:sojourn_time() |
     beam4pm_types:solution_fit() |
+    beam4pm_types:span_edge() |
     beam4pm_types:spend_drawdown() |
     beam4pm_types:stakeholder_map() |
     beam4pm_types:stale_plan_refusal() |
@@ -4135,7 +4136,9 @@ to_map(R) when element(1, R) =:= service_span ->
         {<<"span_id">>, plain, element(2, R)},
         {<<"service_name">>, plain, element(3, R)},
         {<<"duration_ms">>, plain, element(4, R)},
-        {<<"parent_span_id">>, plain, element(5, R)}
+        {<<"parent_span_id">>, plain, element(5, R)},
+        {<<"trace_id">>, plain, element(6, R)},
+        {<<"start_time">>, plain, element(7, R)}
     ]);
 to_map(R) when element(1, R) =:= shadow_challenger_execution ->
     pairs_to_map([
@@ -4186,6 +4189,13 @@ to_map(R) when element(1, R) =:= solution_fit ->
         {<<"fit_score">>, plain, element(4, R)},
         {<<"evidence_digest">>, plain, element(5, R)},
         {<<"observed_at">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= span_edge ->
+    pairs_to_map([
+        {<<"source_service">>, plain, element(2, R)},
+        {<<"target_service">>, plain, element(3, R)},
+        {<<"frequency">>, plain, element(4, R)},
+        {<<"evidence">>, atom, element(5, R)}
     ]);
 to_map(R) when element(1, R) =:= spend_drawdown ->
     pairs_to_map([
@@ -8292,7 +8302,9 @@ from_map(service_span, Map) when is_map(Map) ->
         {<<"span_id">>, span_id, plain},
         {<<"service_name">>, service_name, plain},
         {<<"duration_ms">>, duration_ms, plain},
-        {<<"parent_span_id">>, parent_span_id, plain}
+        {<<"parent_span_id">>, parent_span_id, plain},
+        {<<"trace_id">>, trace_id, plain},
+        {<<"start_time">>, start_time, plain}
     ]));
 from_map(shadow_challenger_execution, Map) when is_map(Map) ->
     beam4pm_types:new_shadow_challenger_execution(take_known(Map, [
@@ -8343,6 +8355,13 @@ from_map(solution_fit, Map) when is_map(Map) ->
         {<<"fit_score">>, fit_score, plain},
         {<<"evidence_digest">>, evidence_digest, plain},
         {<<"observed_at">>, observed_at, plain}
+    ]));
+from_map(span_edge, Map) when is_map(Map) ->
+    beam4pm_types:new_span_edge(take_known(Map, [
+        {<<"source_service">>, source_service, plain},
+        {<<"target_service">>, target_service, plain},
+        {<<"frequency">>, frequency, plain},
+        {<<"evidence">>, evidence, atom}
     ]));
 from_map(spend_drawdown, Map) when is_map(Map) ->
     beam4pm_types:new_spend_drawdown(take_known(Map, [

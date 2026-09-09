@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.StandingStateObservation do
     attribute :subject_id, :string, public?: true, allow_nil?: false
     attribute :standing, :string, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

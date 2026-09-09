@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.ArtifactDigestObservation do
     attribute :artifact_id, :string, public?: true, allow_nil?: false
     attribute :artifact_sha256, :string, public?: true, allow_nil?: false
     attribute :producer_run_id, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

@@ -15078,13 +15078,15 @@ end
 defmodule BeamPM.Types.ServiceSpan do
   @moduledoc "One OpenTelemetry-style tracing span observed for a service call."
 
-  defstruct [:span_id, :service_name, :duration_ms, :parent_span_id]
+  defstruct [:span_id, :service_name, :duration_ms, :parent_span_id, :trace_id, :start_time]
 
   @type t :: %__MODULE__{
     span_id: String.t() | nil,
     service_name: String.t() | nil,
     duration_ms: integer() | nil,
-    parent_span_id: String.t() | nil
+    parent_span_id: String.t() | nil,
+    trace_id: String.t() | nil,
+    start_time: String.t() | nil
   }
 
   @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
@@ -15093,12 +15095,16 @@ defmodule BeamPM.Types.ServiceSpan do
       not Map.has_key?(attrs, :span_id) -> {:error, {:missing_field, :span_id}}
       not Map.has_key?(attrs, :service_name) -> {:error, {:missing_field, :service_name}}
       not Map.has_key?(attrs, :duration_ms) -> {:error, {:missing_field, :duration_ms}}
+      not Map.has_key?(attrs, :trace_id) -> {:error, {:missing_field, :trace_id}}
+      not Map.has_key?(attrs, :start_time) -> {:error, {:missing_field, :start_time}}
       true ->
         {:ok, %__MODULE__{
           span_id: Map.get(attrs, :span_id),
           service_name: Map.get(attrs, :service_name),
           duration_ms: Map.get(attrs, :duration_ms),
-          parent_span_id: Map.get(attrs, :parent_span_id)
+          parent_span_id: Map.get(attrs, :parent_span_id),
+          trace_id: Map.get(attrs, :trace_id),
+          start_time: Map.get(attrs, :start_time)
         }}
     end
   end
@@ -15312,6 +15318,36 @@ defmodule BeamPM.Types.SolutionFit do
           fit_score: Map.get(attrs, :fit_score),
           evidence_digest: Map.get(attrs, :evidence_digest),
           observed_at: Map.get(attrs, :observed_at)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.SpanEdge do
+  @moduledoc "One frequency-annotated service-to-service edge derived from tracing spans, tagged with the evidence class that supports it: parent_child_link (observed -- a parent/child span link exists) or temporal_adjacency (inferred -- consecutive start_time order within one trace, no link consulted)."
+
+  defstruct [:source_service, :target_service, :frequency, :evidence]
+
+  @type t :: %__MODULE__{
+    source_service: String.t() | nil,
+    target_service: String.t() | nil,
+    frequency: integer() | nil,
+    evidence: atom() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :source_service) -> {:error, {:missing_field, :source_service}}
+      not Map.has_key?(attrs, :target_service) -> {:error, {:missing_field, :target_service}}
+      not Map.has_key?(attrs, :frequency) -> {:error, {:missing_field, :frequency}}
+      not Map.has_key?(attrs, :evidence) -> {:error, {:missing_field, :evidence}}
+      true ->
+        {:ok, %__MODULE__{
+          source_service: Map.get(attrs, :source_service),
+          target_service: Map.get(attrs, :target_service),
+          frequency: Map.get(attrs, :frequency),
+          evidence: Map.get(attrs, :evidence)
         }}
     end
   end

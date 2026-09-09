@@ -520,6 +520,7 @@ defmodule BeamPM.Roundtrip do
     :sla_offer_admission,
     :sojourn_time,
     :solution_fit,
+    :span_edge,
     :spend_drawdown,
     :stakeholder_map,
     :stale_plan_refusal,
@@ -608,9 +609,12 @@ defmodule BeamPM.Roundtrip do
   @spec record_names() :: [atom()]
   def record_names, do: @record_names
 
-  # Deterministic sample values, keyed by bpm:fieldType:
-  # string -> "sample_" <> field_name, datetime -> "2026-08-29T12:00:00Z",
-  # integer -> 42, float -> 3.5, boolean -> true, atom -> :sample_atom,
+  # Deterministic sample values, keyed by bpm:fieldType -- each is the pack
+  # vocabulary's bpm:sampleElixir literal for that bpm:FieldType:
+  # string -> "sample_" <> field_name, datetime -> an ISO 8601 UTC string
+  # carrying six microsecond digits (the same fixture the Ash-leg tests use,
+  # so a sub-second-truncating projection is caught), integer -> 42,
+  # float -> 3.5, boolean -> true, atom -> :sample_atom,
   # list_string -> ["alpha", "beta"], map -> a single-entry map "k" => "v".
   # :minimal = required fields only; :full = every field.
   @spec sample(atom(), :full | :minimal) :: {:ok, struct()}
@@ -643,7 +647,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       discovery_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -653,7 +657,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       discovery_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -729,7 +733,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       activation_type: "sample_activation_type",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -739,7 +743,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       activation_type: "sample_activation_type",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -767,7 +771,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       addon_id: "sample_addon_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -777,7 +781,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       addon_id: "sample_addon_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -803,7 +807,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       milestone_name: "sample_milestone_name",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -813,7 +817,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       milestone_name: "sample_milestone_name",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -852,7 +856,7 @@ defmodule BeamPM.Roundtrip do
       subscription_id: "sample_subscription_id",
       sku: "sample_sku",
       seat_count: 42,
-      renews_at: "2026-08-29T12:00:00Z"
+      renews_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -861,7 +865,7 @@ defmodule BeamPM.Roundtrip do
       subscription_id: "sample_subscription_id",
       sku: "sample_sku",
       seat_count: 42,
-      renews_at: "2026-08-29T12:00:00Z"
+      renews_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -947,7 +951,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       architecture_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -957,7 +961,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       architecture_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -1002,7 +1006,7 @@ defmodule BeamPM.Roundtrip do
       artifact_id: "sample_artifact_id",
       artifact_sha256: "sample_artifact_sha256",
       producer_run_id: "sample_producer_run_id",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -1011,7 +1015,7 @@ defmodule BeamPM.Roundtrip do
       artifact_id: "sample_artifact_id",
       artifact_sha256: "sample_artifact_sha256",
       producer_run_id: "sample_producer_run_id",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -1880,7 +1884,7 @@ defmodule BeamPM.Roundtrip do
       state_vector_id: "sample_state_vector_id",
       subject_id: "sample_subject_id",
       dimension_digest: "sample_dimension_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -1889,7 +1893,7 @@ defmodule BeamPM.Roundtrip do
       state_vector_id: "sample_state_vector_id",
       subject_id: "sample_subject_id",
       dimension_digest: "sample_dimension_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2059,7 +2063,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       baseline_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2069,7 +2073,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       baseline_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2181,8 +2185,8 @@ defmodule BeamPM.Roundtrip do
       metric_name: "sample_metric_name",
       total_quantity: 3.5,
       applied_event_ids: ["alpha", "beta"],
-      period_start: "2026-08-29T12:00:00Z",
-      period_end: "2026-08-29T12:00:00Z"
+      period_start: "2026-08-29T12:00:00.123456Z",
+      period_end: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2192,8 +2196,8 @@ defmodule BeamPM.Roundtrip do
       metric_name: "sample_metric_name",
       total_quantity: 3.5,
       applied_event_ids: ["alpha", "beta"],
-      period_start: "2026-08-29T12:00:00Z",
-      period_end: "2026-08-29T12:00:00Z"
+      period_start: "2026-08-29T12:00:00.123456Z",
+      period_end: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2267,7 +2271,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       conflicting_bundle_id: "sample_conflicting_bundle_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2277,7 +2281,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       conflicting_bundle_id: "sample_conflicting_bundle_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2287,7 +2291,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       required_bundle_id: "sample_required_bundle_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2297,7 +2301,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       required_bundle_id: "sample_required_bundle_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2307,7 +2311,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       burst_multiplier: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2317,7 +2321,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       burst_multiplier: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2361,7 +2365,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       business_unit_id: "sample_business_unit_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2371,7 +2375,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       business_unit_id: "sample_business_unit_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2381,7 +2385,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       committee_coverage: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2391,7 +2395,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       committee_coverage: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2453,7 +2457,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       canary_result: "sample_canary_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2463,7 +2467,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       canary_result: "sample_canary_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2491,7 +2495,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       notice_days: 42,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2501,7 +2505,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       notice_days: 42,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2547,7 +2551,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       gap_severity: "sample_gap_severity",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2557,7 +2561,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       gap_severity: "sample_gap_severity",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2633,7 +2637,7 @@ defmodule BeamPM.Roundtrip do
       release_id: "sample_release_id",
       version: "sample_version",
       sku_ids: ["alpha", "beta"],
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2642,7 +2646,7 @@ defmodule BeamPM.Roundtrip do
       release_id: "sample_release_id",
       version: "sample_version",
       sku_ids: ["alpha", "beta"],
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2743,7 +2747,7 @@ defmodule BeamPM.Roundtrip do
       agreement_id: "sample_agreement_id",
       partner_id: "sample_partner_id",
       territory: "sample_territory",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2752,7 +2756,7 @@ defmodule BeamPM.Roundtrip do
       agreement_id: "sample_agreement_id",
       partner_id: "sample_partner_id",
       territory: "sample_territory",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2794,9 +2798,9 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.CoTermPolicy.new(%{
       co_term_policy_id: "sample_co_term_policy_id",
       account_id: "sample_account_id",
-      coterm_date: "2026-08-29T12:00:00Z",
+      coterm_date: "2026-08-29T12:00:00.123456Z",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2804,9 +2808,9 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.CoTermPolicy.new(%{
       co_term_policy_id: "sample_co_term_policy_id",
       account_id: "sample_account_id",
-      coterm_date: "2026-08-29T12:00:00Z",
+      coterm_date: "2026-08-29T12:00:00.123456Z",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2904,7 +2908,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       outcome_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2914,7 +2918,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       outcome_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2959,7 +2963,7 @@ defmodule BeamPM.Roundtrip do
       realization_id: "sample_realization_id",
       baseline_id: "sample_baseline_id",
       realized_value: 3.5,
-      measured_at: "2026-08-29T12:00:00Z"
+      measured_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2968,7 +2972,7 @@ defmodule BeamPM.Roundtrip do
       realization_id: "sample_realization_id",
       baseline_id: "sample_baseline_id",
       realized_value: 3.5,
-      measured_at: "2026-08-29T12:00:00Z"
+      measured_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2977,7 +2981,7 @@ defmodule BeamPM.Roundtrip do
       commit_sha: "sample_commit_sha",
       check_name: "sample_check_name",
       check_status: "sample_check_status",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2986,7 +2990,7 @@ defmodule BeamPM.Roundtrip do
       commit_sha: "sample_commit_sha",
       check_name: "sample_check_name",
       check_status: "sample_check_status",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -2995,7 +2999,7 @@ defmodule BeamPM.Roundtrip do
       commitment_id: "sample_commitment_id",
       amount: 3.5,
       currency: "sample_currency",
-      expires_at: "2026-08-29T12:00:00Z"
+      expires_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3004,7 +3008,7 @@ defmodule BeamPM.Roundtrip do
       commitment_id: "sample_commitment_id",
       amount: 3.5,
       currency: "sample_currency",
-      expires_at: "2026-08-29T12:00:00Z"
+      expires_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3048,7 +3052,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       included_concurrency: 42,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3058,7 +3062,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       included_concurrency: 42,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3067,7 +3071,7 @@ defmodule BeamPM.Roundtrip do
       export_id: "sample_export_id",
       tenant_id: "sample_tenant_id",
       configuration_hash: "sample_configuration_hash",
-      exported_at: "2026-08-29T12:00:00Z"
+      exported_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3076,7 +3080,7 @@ defmodule BeamPM.Roundtrip do
       export_id: "sample_export_id",
       tenant_id: "sample_tenant_id",
       configuration_hash: "sample_configuration_hash",
-      exported_at: "2026-08-29T12:00:00Z"
+      exported_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3118,7 +3122,7 @@ defmodule BeamPM.Roundtrip do
       transition_id: "sample_transition_id",
       affected_state_digest: "sample_affected_state_digest",
       invalidation_reason: "sample_invalidation_reason",
-      invalidated_at: "2026-08-29T12:00:00Z"
+      invalidated_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3127,7 +3131,7 @@ defmodule BeamPM.Roundtrip do
       transition_id: "sample_transition_id",
       affected_state_digest: "sample_affected_state_digest",
       invalidation_reason: "sample_invalidation_reason",
-      invalidated_at: "2026-08-29T12:00:00Z"
+      invalidated_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3228,7 +3232,7 @@ defmodule BeamPM.Roundtrip do
       image_repository: "sample_image_repository",
       tag: "sample_tag",
       index_digest: "sample_index_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3237,7 +3241,7 @@ defmodule BeamPM.Roundtrip do
       image_repository: "sample_image_repository",
       tag: "sample_tag",
       index_digest: "sample_index_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3246,7 +3250,7 @@ defmodule BeamPM.Roundtrip do
       index_digest: "sample_index_digest",
       platform: "sample_platform",
       platform_digest: "sample_platform_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3255,7 +3259,7 @@ defmodule BeamPM.Roundtrip do
       index_digest: "sample_index_digest",
       platform: "sample_platform",
       platform_digest: "sample_platform_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3281,7 +3285,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       cost_center_id: "sample_cost_center_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3291,7 +3295,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       cost_center_id: "sample_cost_center_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3407,9 +3411,9 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.CreditExpiryPolicy.new(%{
       credit_expiry_policy_id: "sample_credit_expiry_policy_id",
       account_id: "sample_account_id",
-      expires_at: "2026-08-29T12:00:00Z",
+      expires_at: "2026-08-29T12:00:00.123456Z",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3417,9 +3421,9 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.CreditExpiryPolicy.new(%{
       credit_expiry_policy_id: "sample_credit_expiry_policy_id",
       account_id: "sample_account_id",
-      expires_at: "2026-08-29T12:00:00Z",
+      expires_at: "2026-08-29T12:00:00.123456Z",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3445,7 +3449,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       cross_sell_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -3455,7 +3459,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       cross_sell_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4347,7 +4351,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       currency_code: "sample_currency_code",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4357,7 +4361,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       currency_code: "sample_currency_code",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4387,7 +4391,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       health_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4397,7 +4401,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       health_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4424,7 +4428,7 @@ defmodule BeamPM.Roundtrip do
       customer_id: "sample_customer_id",
       signal_type: "sample_signal_type",
       signal_digest: "sample_signal_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4433,7 +4437,7 @@ defmodule BeamPM.Roundtrip do
       customer_id: "sample_customer_id",
       signal_type: "sample_signal_type",
       signal_digest: "sample_signal_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4493,7 +4497,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       data_quality_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4503,7 +4507,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       data_quality_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4531,7 +4535,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       unit_gb_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4541,7 +4545,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       unit_gb_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4625,7 +4629,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       demo_result: "sample_demo_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4635,7 +4639,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       demo_result: "sample_demo_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4645,7 +4649,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       scenario_name: "sample_scenario_name",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4655,7 +4659,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       scenario_name: "sample_scenario_name",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4698,7 +4702,7 @@ defmodule BeamPM.Roundtrip do
       dependency_id: "sample_dependency_id",
       declared_ref: "sample_declared_ref",
       resolved_sha: "sample_resolved_sha",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4707,7 +4711,7 @@ defmodule BeamPM.Roundtrip do
       dependency_id: "sample_dependency_id",
       declared_ref: "sample_declared_ref",
       resolved_sha: "sample_resolved_sha",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4716,7 +4720,7 @@ defmodule BeamPM.Roundtrip do
       entitlement_id: "sample_entitlement_id",
       tenant_id: "sample_tenant_id",
       profile_id: "sample_profile_id",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4725,7 +4729,7 @@ defmodule BeamPM.Roundtrip do
       entitlement_id: "sample_entitlement_id",
       tenant_id: "sample_tenant_id",
       profile_id: "sample_profile_id",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4735,7 +4739,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       developer_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4745,7 +4749,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       developer_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4769,7 +4773,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.DisasterRecoveryEvidence.new(%{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      recovered_at: "2026-08-29T12:00:00Z",
+      recovered_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     })
   end
@@ -4778,7 +4782,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.DisasterRecoveryEvidence.new(%{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      recovered_at: "2026-08-29T12:00:00Z",
+      recovered_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     })
   end
@@ -4807,7 +4811,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       expected_value: "sample_expected_value",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4817,7 +4821,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       expected_value: "sample_expected_value",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4877,7 +4881,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       target_edition_id: "sample_target_edition_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4887,7 +4891,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       target_edition_id: "sample_target_edition_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4897,7 +4901,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       target_edition_id: "sample_target_edition_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4907,7 +4911,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       target_edition_id: "sample_target_edition_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4917,7 +4921,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       agreement_version: "sample_agreement_version",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4927,7 +4931,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       agreement_version: "sample_agreement_version",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -4988,7 +4992,7 @@ defmodule BeamPM.Roundtrip do
       event_id: "sample_event_id",
       entitlement_id: "sample_entitlement_id",
       event_type: "sample_event_type",
-      effective_at: "2026-08-29T12:00:00Z",
+      effective_at: "2026-08-29T12:00:00.123456Z",
       payload: %{"k" => "v"}
     })
   end
@@ -4998,7 +5002,7 @@ defmodule BeamPM.Roundtrip do
       event_id: "sample_event_id",
       entitlement_id: "sample_entitlement_id",
       event_type: "sample_event_type",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5025,7 +5029,7 @@ defmodule BeamPM.Roundtrip do
       grant_id: "sample_grant_id",
       tenant_id: "sample_tenant_id",
       capability_id: "sample_capability_id",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5034,7 +5038,7 @@ defmodule BeamPM.Roundtrip do
       grant_id: "sample_grant_id",
       tenant_id: "sample_tenant_id",
       capability_id: "sample_capability_id",
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5043,7 +5047,7 @@ defmodule BeamPM.Roundtrip do
       revocation_id: "sample_revocation_id",
       grant_id: "sample_grant_id",
       reason: "sample_reason",
-      revoked_at: "2026-08-29T12:00:00Z"
+      revoked_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5052,7 +5056,7 @@ defmodule BeamPM.Roundtrip do
       revocation_id: "sample_revocation_id",
       grant_id: "sample_grant_id",
       reason: "sample_reason",
-      revoked_at: "2026-08-29T12:00:00Z"
+      revoked_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5077,7 +5081,7 @@ defmodule BeamPM.Roundtrip do
       entitlement_id: "sample_entitlement_id",
       status: "sample_status",
       last_applied_event_id: "sample_last_applied_event_id",
-      updated_at: "2026-08-29T12:00:00Z"
+      updated_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5086,7 +5090,7 @@ defmodule BeamPM.Roundtrip do
       entitlement_id: "sample_entitlement_id",
       status: "sample_status",
       last_applied_event_id: "sample_last_applied_event_id",
-      updated_at: "2026-08-29T12:00:00Z"
+      updated_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5148,7 +5152,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       environment_tier: "sample_environment_tier",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5158,7 +5162,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       environment_tier: "sample_environment_tier",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5185,7 +5189,7 @@ defmodule BeamPM.Roundtrip do
       environment_id: "sample_environment_id",
       signal_type: "sample_signal_type",
       signal_digest: "sample_signal_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5194,7 +5198,7 @@ defmodule BeamPM.Roundtrip do
       environment_id: "sample_environment_id",
       signal_type: "sample_signal_type",
       signal_digest: "sample_signal_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5286,7 +5290,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       unit_event_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5296,7 +5300,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       unit_event_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5304,7 +5308,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.EvidenceFreshnessEvidence.new(%{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      observed_at: "2026-08-29T12:00:00Z",
+      observed_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     })
   end
@@ -5313,7 +5317,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.EvidenceFreshnessEvidence.new(%{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      observed_at: "2026-08-29T12:00:00Z",
+      observed_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     })
   end
@@ -5376,7 +5380,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       executive_outcome: "sample_executive_outcome",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5386,7 +5390,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       executive_outcome: "sample_executive_outcome",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5396,7 +5400,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       sponsor_commitment: "sample_sponsor_commitment",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5406,7 +5410,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       sponsor_commitment: "sample_sponsor_commitment",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5416,7 +5420,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       expansion_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5426,7 +5430,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       expansion_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5454,7 +5458,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       receipt_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5464,7 +5468,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       receipt_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5474,7 +5478,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       expansion_signal_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5484,7 +5488,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       expansion_signal_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5515,7 +5519,7 @@ defmodule BeamPM.Roundtrip do
       retention_id: "sample_retention_id",
       challenger_evaluation_id: "sample_challenger_evaluation_id",
       failure_evidence_digest: "sample_failure_evidence_digest",
-      retained_at: "2026-08-29T12:00:00Z",
+      retained_at: "2026-08-29T12:00:00.123456Z",
       eligible_for_future: true
     })
   end
@@ -5525,7 +5529,7 @@ defmodule BeamPM.Roundtrip do
       retention_id: "sample_retention_id",
       challenger_evaluation_id: "sample_challenger_evaluation_id",
       failure_evidence_digest: "sample_failure_evidence_digest",
-      retained_at: "2026-08-29T12:00:00Z",
+      retained_at: "2026-08-29T12:00:00.123456Z",
       eligible_for_future: true
     })
   end
@@ -5618,7 +5622,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       rate_source: "sample_rate_source",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5628,7 +5632,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       rate_source: "sample_rate_source",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5880,7 +5884,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       integration_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5890,7 +5894,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       integration_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5932,7 +5936,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       line_amount: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5942,7 +5946,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       line_amount: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5951,7 +5955,7 @@ defmodule BeamPM.Roundtrip do
       schedule_id: "sample_schedule_id",
       billing_account_id: "sample_billing_account_id",
       cadence: :sample_atom,
-      next_invoice_at: "2026-08-29T12:00:00Z"
+      next_invoice_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5960,7 +5964,7 @@ defmodule BeamPM.Roundtrip do
       schedule_id: "sample_schedule_id",
       billing_account_id: "sample_billing_account_id",
       cadence: :sample_atom,
-      next_invoice_at: "2026-08-29T12:00:00Z"
+      next_invoice_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -5999,9 +6003,9 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.LateArrivingUsage.new(%{
       late_arriving_usage_id: "sample_late_arriving_usage_id",
       account_id: "sample_account_id",
-      occurred_at: "2026-08-29T12:00:00Z",
+      occurred_at: "2026-08-29T12:00:00.123456Z",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6009,9 +6013,9 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.LateArrivingUsage.new(%{
       late_arriving_usage_id: "sample_late_arriving_usage_id",
       account_id: "sample_account_id",
-      occurred_at: "2026-08-29T12:00:00Z",
+      occurred_at: "2026-08-29T12:00:00.123456Z",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6173,7 +6177,7 @@ defmodule BeamPM.Roundtrip do
       subject_sha: "sample_subject_sha",
       receipt_id: "sample_receipt_id",
       receipt_digest: "sample_receipt_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6182,7 +6186,7 @@ defmodule BeamPM.Roundtrip do
       subject_sha: "sample_subject_sha",
       receipt_id: "sample_receipt_id",
       receipt_digest: "sample_receipt_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6210,7 +6214,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       msa_digest: "sample_msa_digest",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6220,7 +6224,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       msa_digest: "sample_msa_digest",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6278,7 +6282,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       meter_name: "sample_meter_name",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6288,7 +6292,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       meter_name: "sample_meter_name",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6298,7 +6302,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       dimension_name: "sample_dimension_name",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6308,7 +6312,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       dimension_name: "sample_dimension_name",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6318,7 +6322,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       rollup_function: "sample_rollup_function",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6328,7 +6332,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       rollup_function: "sample_rollup_function",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6372,7 +6376,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       migration_effort_days: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6382,7 +6386,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       migration_effort_days: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6392,7 +6396,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       committed_amount: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6402,7 +6406,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       committed_amount: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6554,7 +6558,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       discount_percent: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6564,7 +6568,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       discount_percent: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6573,7 +6577,7 @@ defmodule BeamPM.Roundtrip do
       source_system: "sample_source_system",
       event_id: "sample_event_id",
       event_type: "sample_event_type",
-      event_time: "2026-08-29T12:00:00Z"
+      event_time: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6582,7 +6586,7 @@ defmodule BeamPM.Roundtrip do
       source_system: "sample_source_system",
       event_id: "sample_event_id",
       event_type: "sample_event_type",
-      event_time: "2026-08-29T12:00:00Z"
+      event_time: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6630,7 +6634,7 @@ defmodule BeamPM.Roundtrip do
       attribute_name: "sample_attribute_name",
       old_value: "sample_old_value",
       new_value: "sample_new_value",
-      changed_at: "2026-08-29T12:00:00Z"
+      changed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6639,7 +6643,7 @@ defmodule BeamPM.Roundtrip do
       object_id: "sample_object_id",
       attribute_name: "sample_attribute_name",
       new_value: "sample_new_value",
-      changed_at: "2026-08-29T12:00:00Z"
+      changed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6662,7 +6666,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       unit_object_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6672,7 +6676,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       unit_object_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6682,7 +6686,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       objection_type: "sample_objection_type",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6692,7 +6696,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       objection_type: "sample_objection_type",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6702,7 +6706,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       resolution_status: "sample_resolution_status",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6712,7 +6716,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       resolution_status: "sample_resolution_status",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6739,7 +6743,7 @@ defmodule BeamPM.Roundtrip do
       state_vector_id: "sample_state_vector_id",
       entropy_method: "sample_entropy_method",
       entropy_value: 3.5,
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6748,15 +6752,15 @@ defmodule BeamPM.Roundtrip do
       state_vector_id: "sample_state_vector_id",
       entropy_method: "sample_entropy_method",
       entropy_value: 3.5,
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
   def sample(:observation_freshness_assessment, :full) do
     BeamPM.Types.ObservationFreshnessAssessment.new(%{
       observation_id: "sample_observation_id",
-      observed_at: "2026-08-29T12:00:00Z",
-      freshness_deadline: "2026-08-29T12:00:00Z",
+      observed_at: "2026-08-29T12:00:00.123456Z",
+      freshness_deadline: "2026-08-29T12:00:00.123456Z",
       freshness_status: "sample_freshness_status"
     })
   end
@@ -6764,8 +6768,8 @@ defmodule BeamPM.Roundtrip do
   def sample(:observation_freshness_assessment, :minimal) do
     BeamPM.Types.ObservationFreshnessAssessment.new(%{
       observation_id: "sample_observation_id",
-      observed_at: "2026-08-29T12:00:00Z",
-      freshness_deadline: "2026-08-29T12:00:00Z",
+      observed_at: "2026-08-29T12:00:00.123456Z",
+      freshness_deadline: "2026-08-29T12:00:00.123456Z",
       freshness_status: "sample_freshness_status"
     })
   end
@@ -6795,7 +6799,7 @@ defmodule BeamPM.Roundtrip do
   def sample(:observation_staleness_invalidation, :full) do
     BeamPM.Types.ObservationStalenessInvalidation.new(%{
       observation_id: "sample_observation_id",
-      invalidated_at: "2026-08-29T12:00:00Z",
+      invalidated_at: "2026-08-29T12:00:00.123456Z",
       staleness_reason: "sample_staleness_reason",
       replacement_required: true
     })
@@ -6804,7 +6808,7 @@ defmodule BeamPM.Roundtrip do
   def sample(:observation_staleness_invalidation, :minimal) do
     BeamPM.Types.ObservationStalenessInvalidation.new(%{
       observation_id: "sample_observation_id",
-      invalidated_at: "2026-08-29T12:00:00Z",
+      invalidated_at: "2026-08-29T12:00:00.123456Z",
       staleness_reason: "sample_staleness_reason",
       replacement_required: true
     })
@@ -6832,7 +6836,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.OcelAttribute.new(%{
       attribute_name: "sample_attribute_name",
       attribute_value: "sample_attribute_value",
-      recorded_at: "2026-08-29T12:00:00Z"
+      recorded_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6847,7 +6851,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.OcelEvent.new(%{
       event_id: "sample_event_id",
       event_type: "sample_event_type",
-      event_time: "2026-08-29T12:00:00Z",
+      event_time: "2026-08-29T12:00:00.123456Z",
       attributes: %{"k" => "v"}
     })
   end
@@ -6856,7 +6860,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.OcelEvent.new(%{
       event_id: "sample_event_id",
       event_type: "sample_event_type",
-      event_time: "2026-08-29T12:00:00Z"
+      event_time: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6931,7 +6935,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       operator_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -6941,7 +6945,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       operator_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7031,7 +7035,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       order_form_digest: "sample_order_form_digest",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7041,7 +7045,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       order_form_digest: "sample_order_form_digest",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7125,7 +7129,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       overage_amount: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7135,7 +7139,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       overage_amount: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7162,7 +7166,7 @@ defmodule BeamPM.Roundtrip do
       package_id: "sample_package_id",
       version: "sample_version",
       immutable_digest: "sample_immutable_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7171,7 +7175,7 @@ defmodule BeamPM.Roundtrip do
       package_id: "sample_package_id",
       version: "sample_version",
       immutable_digest: "sample_immutable_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7516,7 +7520,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       criteria_pass_rate: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7526,7 +7530,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       criteria_pass_rate: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7536,7 +7540,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       risk_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7546,7 +7550,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       risk_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7556,7 +7560,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       use_case_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7566,7 +7570,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       use_case_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7576,7 +7580,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       days_to_value: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7586,7 +7590,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       days_to_value: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7740,7 +7744,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       connector_id: "sample_connector_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7750,7 +7754,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       connector_id: "sample_connector_id",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7760,7 +7764,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       remaining_credit: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7770,7 +7774,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       remaining_credit: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7780,7 +7784,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       version: "sample_version",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7790,7 +7794,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       version: "sample_version",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7833,7 +7837,7 @@ defmodule BeamPM.Roundtrip do
       offer_id: "sample_offer_id",
       account_id: "sample_account_id",
       total_price: 3.5,
-      expires_at: "2026-08-29T12:00:00Z"
+      expires_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7842,7 +7846,7 @@ defmodule BeamPM.Roundtrip do
       offer_id: "sample_offer_id",
       account_id: "sample_account_id",
       total_price: 3.5,
-      expires_at: "2026-08-29T12:00:00Z"
+      expires_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7886,7 +7890,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       unit_process_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7896,7 +7900,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       unit_process_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7956,7 +7960,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       procurement_stage: "sample_procurement_stage",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7966,7 +7970,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       procurement_stage: "sample_procurement_stage",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7976,7 +7980,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       production_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -7986,7 +7990,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       production_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8072,7 +8076,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       success_metric: "sample_success_metric",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8082,7 +8086,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       success_metric: "sample_success_metric",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8108,7 +8112,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       proration_method: "sample_proration_method",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8118,7 +8122,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       proration_method: "sample_proration_method",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8228,7 +8232,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.QueueSnapshot.new(%{
       queue_name: "sample_queue_name",
       depth: 42,
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8236,7 +8240,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.QueueSnapshot.new(%{
       queue_name: "sample_queue_name",
       depth: 42,
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8246,7 +8250,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       burst_units: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8256,7 +8260,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       burst_units: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8266,7 +8270,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       override_units: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8276,7 +8280,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       override_units: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8303,7 +8307,7 @@ defmodule BeamPM.Roundtrip do
       ramp_id: "sample_ramp_id",
       phase: 42,
       committed_amount: 3.5,
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8312,7 +8316,7 @@ defmodule BeamPM.Roundtrip do
       ramp_id: "sample_ramp_id",
       phase: 42,
       committed_amount: 3.5,
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8322,7 +8326,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       unit_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8332,7 +8336,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       unit_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8496,7 +8500,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       recovery_time_hours: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8506,7 +8510,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       recovery_time_hours: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8548,7 +8552,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       refund_method: "sample_refund_method",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8558,7 +8562,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       refund_method: "sample_refund_method",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8606,7 +8610,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       region_code: "sample_region_code",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8616,7 +8620,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       region_code: "sample_region_code",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8668,7 +8672,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.RemediationSlaEvidence.new(%{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      remediation_due_at: "2026-08-29T12:00:00Z",
+      remediation_due_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     })
   end
@@ -8677,7 +8681,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.RemediationSlaEvidence.new(%{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      remediation_due_at: "2026-08-29T12:00:00Z",
+      remediation_due_at: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     })
   end
@@ -8688,7 +8692,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       renewal_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8698,7 +8702,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       renewal_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8708,7 +8712,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       renewal_health_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8718,7 +8722,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       renewal_health_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8727,7 +8731,7 @@ defmodule BeamPM.Roundtrip do
       option_id: "sample_option_id",
       subscription_id: "sample_subscription_id",
       term_months: 42,
-      notice_by: "2026-08-29T12:00:00Z"
+      notice_by: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8736,7 +8740,7 @@ defmodule BeamPM.Roundtrip do
       option_id: "sample_option_id",
       subscription_id: "sample_subscription_id",
       term_months: 42,
-      notice_by: "2026-08-29T12:00:00Z"
+      notice_by: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8746,7 +8750,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       renewal_risk_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8756,7 +8760,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       renewal_risk_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8835,7 +8839,7 @@ defmodule BeamPM.Roundtrip do
       repository_id: "sample_repository_id",
       default_branch: "sample_default_branch",
       head_sha: "sample_head_sha",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8844,7 +8848,7 @@ defmodule BeamPM.Roundtrip do
       repository_id: "sample_repository_id",
       default_branch: "sample_default_branch",
       head_sha: "sample_head_sha",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8871,7 +8875,7 @@ defmodule BeamPM.Roundtrip do
       repository_id: "sample_repository_id",
       worktree_hash: "sample_worktree_hash",
       dirty_path_count: 42,
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -8880,7 +8884,7 @@ defmodule BeamPM.Roundtrip do
       repository_id: "sample_repository_id",
       worktree_hash: "sample_worktree_hash",
       dirty_path_count: 42,
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9010,7 +9014,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       retention_days: 42,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9020,7 +9024,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       retention_days: 42,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9030,7 +9034,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       attributed_revenue: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9040,7 +9044,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       attributed_revenue: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9164,7 +9168,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       rollback_result: "sample_rollback_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9174,7 +9178,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       rollback_result: "sample_rollback_result",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9279,7 +9283,7 @@ defmodule BeamPM.Roundtrip do
       runtime_id: "sample_runtime_id",
       health_state: "sample_health_state",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9288,7 +9292,7 @@ defmodule BeamPM.Roundtrip do
       runtime_id: "sample_runtime_id",
       health_state: "sample_health_state",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9330,7 +9334,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       sandbox_limit: 42,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9340,7 +9344,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       sandbox_limit: 42,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9390,7 +9394,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       seat_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9400,7 +9404,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       seat_price: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9494,7 +9498,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       control_coverage: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9504,7 +9508,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       control_coverage: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9588,7 +9592,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       credit_amount: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9598,7 +9602,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       credit_amount: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9657,7 +9661,9 @@ defmodule BeamPM.Roundtrip do
       span_id: "sample_span_id",
       service_name: "sample_service_name",
       duration_ms: 42,
-      parent_span_id: "sample_parent_span_id"
+      parent_span_id: "sample_parent_span_id",
+      trace_id: "sample_trace_id",
+      start_time: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9665,7 +9671,9 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.ServiceSpan.new(%{
       span_id: "sample_span_id",
       service_name: "sample_service_name",
-      duration_ms: 42
+      duration_ms: 42,
+      trace_id: "sample_trace_id",
+      start_time: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9783,7 +9791,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       fit_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9793,7 +9801,25 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       fit_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
+    })
+  end
+
+  def sample(:span_edge, :full) do
+    BeamPM.Types.SpanEdge.new(%{
+      source_service: "sample_source_service",
+      target_service: "sample_target_service",
+      frequency: 42,
+      evidence: :sample_atom
+    })
+  end
+
+  def sample(:span_edge, :minimal) do
+    BeamPM.Types.SpanEdge.new(%{
+      source_service: "sample_source_service",
+      target_service: "sample_target_service",
+      frequency: 42,
+      evidence: :sample_atom
     })
   end
 
@@ -9803,7 +9829,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       consumed_amount: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9813,7 +9839,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       consumed_amount: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9823,7 +9849,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       stakeholder_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9833,7 +9859,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       stakeholder_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9892,7 +9918,7 @@ defmodule BeamPM.Roundtrip do
       subject_id: "sample_subject_id",
       standing: "sample_standing",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9901,7 +9927,7 @@ defmodule BeamPM.Roundtrip do
       subject_id: "sample_subject_id",
       standing: "sample_standing",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9952,7 +9978,7 @@ defmodule BeamPM.Roundtrip do
       submodule_path: "sample_submodule_path",
       gitlink_sha: "sample_gitlink_sha",
       lock_sha: "sample_lock_sha",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9961,7 +9987,7 @@ defmodule BeamPM.Roundtrip do
       submodule_path: "sample_submodule_path",
       gitlink_sha: "sample_gitlink_sha",
       lock_sha: "sample_lock_sha",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9989,7 +10015,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       success_target: "sample_success_target",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -9999,7 +10025,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       success_target: "sample_success_target",
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10024,7 +10050,7 @@ defmodule BeamPM.Roundtrip do
       contract_id: "sample_contract_id",
       account_id: "sample_account_id",
       tier: :sample_atom,
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10033,7 +10059,7 @@ defmodule BeamPM.Roundtrip do
       contract_id: "sample_contract_id",
       account_id: "sample_account_id",
       tier: :sample_atom,
-      valid_until: "2026-08-29T12:00:00Z"
+      valid_until: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10077,7 +10103,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       support_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10087,7 +10113,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       support_readiness_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10164,7 +10190,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       target_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10174,7 +10200,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       target_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10200,7 +10226,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       jurisdiction_code: "sample_jurisdiction_code",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10210,7 +10236,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       jurisdiction_code: "sample_jurisdiction_code",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10352,8 +10378,8 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.TermSubscription.new(%{
       subscription_id: "sample_subscription_id",
       sku: "sample_sku",
-      starts_at: "2026-08-29T12:00:00Z",
-      ends_at: "2026-08-29T12:00:00Z"
+      starts_at: "2026-08-29T12:00:00.123456Z",
+      ends_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10361,8 +10387,8 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.TermSubscription.new(%{
       subscription_id: "sample_subscription_id",
       sku: "sample_sku",
-      starts_at: "2026-08-29T12:00:00Z",
-      ends_at: "2026-08-29T12:00:00Z"
+      starts_at: "2026-08-29T12:00:00.123456Z",
+      ends_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10388,7 +10414,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       verified_days: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10398,7 +10424,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       verified_days: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10423,7 +10449,7 @@ defmodule BeamPM.Roundtrip do
       tool_name: "sample_tool_name",
       tool_version: "sample_tool_version",
       executable_digest: "sample_executable_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10432,7 +10458,7 @@ defmodule BeamPM.Roundtrip do
       tool_name: "sample_tool_name",
       tool_version: "sample_tool_version",
       executable_digest: "sample_executable_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10442,7 +10468,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       training_completion_rate: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10452,7 +10478,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       training_completion_rate: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10496,9 +10522,9 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.TrialEntitlement.new(%{
       trial_entitlement_id: "sample_trial_entitlement_id",
       account_id: "sample_account_id",
-      trial_expires_at: "2026-08-29T12:00:00Z",
+      trial_expires_at: "2026-08-29T12:00:00.123456Z",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10506,9 +10532,9 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.TrialEntitlement.new(%{
       trial_entitlement_id: "sample_trial_entitlement_id",
       account_id: "sample_account_id",
-      trial_expires_at: "2026-08-29T12:00:00Z",
+      trial_expires_at: "2026-08-29T12:00:00.123456Z",
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10588,7 +10614,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       gross_margin: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10598,7 +10624,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       gross_margin: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10644,7 +10670,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       upsell_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10654,7 +10680,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       upsell_score: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10664,7 +10690,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       window_seconds: 42,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10674,7 +10700,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       window_seconds: 42,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10684,7 +10710,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       corrected_quantity: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10694,7 +10720,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       corrected_quantity: 3.5,
       evidence_digest: "sample_evidence_digest",
-      effective_at: "2026-08-29T12:00:00Z"
+      effective_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10704,7 +10730,7 @@ defmodule BeamPM.Roundtrip do
       entitlement_id: "sample_entitlement_id",
       quantity: 3.5,
       metric_name: "sample_metric_name",
-      occurred_at: "2026-08-29T12:00:00Z"
+      occurred_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10714,7 +10740,7 @@ defmodule BeamPM.Roundtrip do
       entitlement_id: "sample_entitlement_id",
       quantity: 3.5,
       metric_name: "sample_metric_name",
-      occurred_at: "2026-08-29T12:00:00Z"
+      occurred_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10758,7 +10784,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       active_user_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10768,7 +10794,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       active_user_count: 42,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10777,7 +10803,7 @@ defmodule BeamPM.Roundtrip do
       expected_digest: "sample_expected_digest",
       observed_digest: "sample_observed_digest",
       drift_status: "sample_drift_status",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10786,7 +10812,7 @@ defmodule BeamPM.Roundtrip do
       expected_digest: "sample_expected_digest",
       observed_digest: "sample_observed_digest",
       drift_status: "sample_drift_status",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10832,7 +10858,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       annual_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10842,7 +10868,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       annual_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10886,7 +10912,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       realized_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10896,7 +10922,7 @@ defmodule BeamPM.Roundtrip do
       account_id: "sample_account_id",
       realized_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10930,7 +10956,7 @@ defmodule BeamPM.Roundtrip do
       baseline_value: 3.5,
       observed_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -10942,7 +10968,7 @@ defmodule BeamPM.Roundtrip do
       baseline_value: 3.5,
       observed_value: 3.5,
       evidence_digest: "sample_evidence_digest",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -11022,7 +11048,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.VersionLifecycleEvidence.new(%{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      supported_until: "2026-08-29T12:00:00Z",
+      supported_until: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     })
   end
@@ -11031,7 +11057,7 @@ defmodule BeamPM.Roundtrip do
     BeamPM.Types.VersionLifecycleEvidence.new(%{
       evidence_id: "sample_evidence_id",
       subject_sha: "sample_subject_sha",
-      supported_until: "2026-08-29T12:00:00Z",
+      supported_until: "2026-08-29T12:00:00.123456Z",
       observed_result: :sample_atom
     })
   end
@@ -11091,7 +11117,7 @@ defmodule BeamPM.Roundtrip do
       workflow_path: "sample_workflow_path",
       definition_sha256: "sample_definition_sha256",
       source_sha: "sample_source_sha",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 
@@ -11100,7 +11126,7 @@ defmodule BeamPM.Roundtrip do
       workflow_path: "sample_workflow_path",
       definition_sha256: "sample_definition_sha256",
       source_sha: "sample_source_sha",
-      observed_at: "2026-08-29T12:00:00Z"
+      observed_at: "2026-08-29T12:00:00.123456Z"
     })
   end
 

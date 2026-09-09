@@ -7064,8 +7064,12 @@ pub type ServiceSpan {
     service_name: String,
     /// Span duration in milliseconds.
     duration_ms: Int,
-    /// Optional identifier of the parent span.
+    /// Optional identifier of the parent span (the OpenTelemetry parent/child link; absent on a trace's root span). This is NOT the OpenTelemetry `links` field.
     parent_span_id: option.Option(String),
+    /// Identifier of the trace this span belongs to (the partition key the temporal-adjacency arm groups by; parent/child links never cross it).
+    trace_id: String,
+    /// ISO8601 timestamp the span started (the only ordering the temporal-adjacency arm consults; the parent/child arm never reads it).
+    start_time: String,
   )
 }
 
@@ -7166,6 +7170,20 @@ pub type SolutionFit {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// One frequency-annotated service-to-service edge derived from tracing spans, tagged with the evidence class that supports it: parent_child_link (observed -- a parent/child span link exists) or temporal_adjacency (inferred -- consecutive start_time order within one trace, no link consulted).
+pub type SpanEdge {
+  SpanEdge(
+    /// service_name of the source span (the parent for parent_child_link; the earlier-starting span for temporal_adjacency).
+    source_service: String,
+    /// service_name of the target span (the child for parent_child_link; the next-starting span for temporal_adjacency).
+    target_service: String,
+    /// For parent_child_link: the number of parent -> child links with this (source_service, target_service). For temporal_adjacency: the number of consecutive start_time pairs with it, summed over traces. Comparable only when both arms are computed over the same span set, which causal_dfg_from_spans/1 guarantees.
+    frequency: Int,
+    /// Evidence class: parent_child_link (observed) or temporal_adjacency (inferred). No other value is emitted.
+    evidence: String,
   )
 }
 

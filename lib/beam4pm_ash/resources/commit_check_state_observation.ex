@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.CommitCheckStateObservation do
     attribute :commit_sha, :string, public?: true, allow_nil?: false
     attribute :check_name, :string, public?: true, allow_nil?: false
     attribute :check_status, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

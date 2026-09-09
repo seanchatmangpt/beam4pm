@@ -3,7 +3,7 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 592
+    assert length(BeamPM.Types.Manifest.record_names()) == 593
   end
 
   test "fields/1 returns the ordered field-name list for acceptance_criteria_nonweakening" do
@@ -2019,7 +2019,7 @@ defmodule BeamPM.Types.ManifestTest do
   end
 
   test "fields/1 returns the ordered field-name list for service_span" do
-    assert BeamPM.Types.Manifest.fields(:service_span) == [:span_id, :service_name, :duration_ms, :parent_span_id]
+    assert BeamPM.Types.Manifest.fields(:service_span) == [:span_id, :service_name, :duration_ms, :parent_span_id, :trace_id, :start_time]
   end
 
   test "fields/1 returns the ordered field-name list for shadow_challenger_execution" do
@@ -2048,6 +2048,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for solution_fit" do
     assert BeamPM.Types.Manifest.fields(:solution_fit) == [:solution_fit_id, :account_id, :fit_score, :evidence_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for span_edge" do
+    assert BeamPM.Types.Manifest.fields(:span_edge) == [:source_service, :target_service, :frequency, :evidence]
   end
 
   test "fields/1 returns the ordered field-name list for spend_drawdown" do

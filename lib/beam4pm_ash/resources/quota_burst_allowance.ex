@@ -13,7 +13,7 @@ defmodule BeamPM.Ash.Resources.QuotaBurstAllowance do
     attribute :account_id, :string, public?: true, allow_nil?: false
     attribute :burst_units, :float, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :effective_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :effective_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

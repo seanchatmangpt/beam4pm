@@ -8062,13 +8062,17 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           span_id: "sample_x",
           service_name: "sample_x",
           duration_ms: 42,
-          parent_span_id: "sample_x"
+          parent_span_id: "sample_x",
+          trace_id: "sample_x",
+          start_time: "2026-08-29T12:00:00Z"
       },
       expected: %{
           span_id: "sample_x",
           service_name: "sample_x",
           duration_ms: 42,
-          parent_span_id: "sample_x"
+          parent_span_id: "sample_x",
+          trace_id: "sample_x",
+          start_time: ~U[2026-08-29 12:00:00Z]
       }
     },
     %{
@@ -8183,6 +8187,22 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           fit_score: 3.5,
           evidence_digest: "sample_x",
           observed_at: ~U[2026-08-29 12:00:00Z]
+      }
+    },
+    %{
+      name: "span_edge",
+      mod: BeamPM.Ash.Resources.SpanEdge,
+      params: %{
+          source_service: "sample_x",
+          target_service: "sample_x",
+          frequency: 42,
+          evidence: :sample_atom
+      },
+      expected: %{
+          source_service: "sample_x",
+          target_service: "sample_x",
+          frequency: 42,
+          evidence: :sample_atom
       }
     },
     %{
@@ -9492,8 +9512,16 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       assert read_back.id == created.id, "#{res.name}: read-back id did not match created id"
 
       Enum.each(res.expected, fn {k, v} ->
-        assert Map.get(read_back, k) == v,
-               "#{res.name}: field #{k} expected #{inspect(v)}, got #{inspect(Map.get(read_back, k))}"
+        got = Map.get(read_back, k)
+
+        ok? =
+          case {v, got} do
+            {%DateTime{}, %DateTime{}} -> DateTime.compare(got, v) == :eq
+            _ -> got == v
+          end
+
+        assert ok?,
+               "#{res.name}: field #{k} expected #{inspect(v)}, got #{inspect(got)}"
       end)
     end)
   end

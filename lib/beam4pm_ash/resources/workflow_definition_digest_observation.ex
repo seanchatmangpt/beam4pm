@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.WorkflowDefinitionDigestObservation do
     attribute :workflow_path, :string, public?: true, allow_nil?: false
     attribute :definition_sha256, :string, public?: true, allow_nil?: false
     attribute :source_sha, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

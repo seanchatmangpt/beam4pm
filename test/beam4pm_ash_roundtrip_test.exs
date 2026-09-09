@@ -2,11 +2,11 @@
 defmodule BeamPM.AshRoundtripTest do
   use ExUnit.Case, async: false
 
-  # Ash.DataLayer.Ets logs one debug block per create (580 per sweep).
+  # Ash.DataLayer.Ets logs one debug block per create (1186 per sweep).
   @moduletag capture_log: true
 
-  @record_count 290
-  @fixture_count 580
+  @record_count 593
+  @fixture_count 1186
 
   setup do
     dir =
@@ -91,27 +91,27 @@ defmodule BeamPM.AshRoundtripTest do
 
     # The whole sweep reports it under the record.variant label and nothing else fails.
     {pass, failures} = BeamPM.AshRoundtrip.verify_samples(dir, "ex")
-    assert pass == 579
+    assert pass == 1185
     assert Enum.all?(failures, &String.starts_with?(&1, "account_discovery.full: "))
     assert failures != []
   end
 
   test "falsifier: a mutated non-datetime field on the wire is refused by name", %{dir: dir} do
-    path = Path.join(dir, "account_discovery.minimal.ex.json")
+    path = Path.join(dir, "acceptance_criteria_nonweakening.minimal.ex.json")
 
     tampered =
       path
       |> File.read!()
       |> JSON.decode!()
-      |> Map.put("account_discovery_id", "tampered_account_discovery_id")
+      |> Map.put("assessment_id", "tampered_assessment_id")
       |> JSON.encode!()
 
     File.write!(path, tampered)
 
     assert {:error, reasons} =
-             BeamPM.AshRoundtrip.verify_one(:account_discovery, :minimal, path)
+             BeamPM.AshRoundtrip.verify_one(:acceptance_criteria_nonweakening, :minimal, path)
 
-    assert Enum.any?(reasons, &String.contains?(&1, "field account_discovery_id"))
+    assert Enum.any?(reasons, &String.contains?(&1, "field assessment_id"))
     assert Enum.any?(reasons, &String.contains?(&1, "!= sample"))
   end
 

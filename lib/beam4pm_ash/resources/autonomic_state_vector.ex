@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.AutonomicStateVector do
     attribute :state_vector_id, :string, public?: true, allow_nil?: false
     attribute :subject_id, :string, public?: true, allow_nil?: false
     attribute :dimension_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

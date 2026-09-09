@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.EnvironmentSignalObservation do
     attribute :environment_id, :string, public?: true, allow_nil?: false
     attribute :signal_type, :string, public?: true, allow_nil?: false
     attribute :signal_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

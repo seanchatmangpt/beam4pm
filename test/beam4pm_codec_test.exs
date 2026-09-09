@@ -57,21 +57,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         discovery_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "account_discovery_id" => "sample_account_discovery_id",
         "account_id" => "sample_account_id",
         "discovery_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         account_discovery_id: "sample_account_discovery_id",
         account_id: "sample_account_id",
         discovery_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -181,21 +181,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         activation_type: "sample_activation_type",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "activation_event_id" => "sample_activation_event_id",
         "account_id" => "sample_account_id",
         "activation_type" => "sample_activation_type",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         activation_event_id: "sample_activation_event_id",
         account_id: "sample_account_id",
         activation_type: "sample_activation_type",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -236,21 +236,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         addon_id: "sample_addon_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "addon_activation_id" => "sample_addon_activation_id",
         "account_id" => "sample_account_id",
         "addon_id" => "sample_addon_id",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         addon_activation_id: "sample_addon_activation_id",
         account_id: "sample_account_id",
         addon_id: "sample_addon_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -288,21 +288,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         milestone_name: "sample_milestone_name",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "adoption_milestone_id" => "sample_adoption_milestone_id",
         "account_id" => "sample_account_id",
         "milestone_name" => "sample_milestone_name",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         adoption_milestone_id: "sample_adoption_milestone_id",
         account_id: "sample_account_id",
         milestone_name: "sample_milestone_name",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -359,19 +359,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         subscription_id: "sample_subscription_id",
         sku: "sample_sku",
         seat_count: 42,
-        renews_at: "2026-08-29T12:00:00Z"
+        renews_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "subscription_id" => "sample_subscription_id",
         "sku" => "sample_sku",
         "seat_count" => 42,
-        "renews_at" => "2026-08-29T12:00:00Z"
+        "renews_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         subscription_id: "sample_subscription_id",
         sku: "sample_sku",
         seat_count: 42,
-        renews_at: "2026-08-29T12:00:00Z"
+        renews_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -496,21 +496,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         architecture_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "architecture_readiness_id" => "sample_architecture_readiness_id",
         "account_id" => "sample_account_id",
         "architecture_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         architecture_readiness_id: "sample_architecture_readiness_id",
         account_id: "sample_account_id",
         architecture_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -576,19 +576,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         artifact_id: "sample_artifact_id",
         artifact_sha256: "sample_artifact_sha256",
         producer_run_id: "sample_producer_run_id",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "artifact_id" => "sample_artifact_id",
         "artifact_sha256" => "sample_artifact_sha256",
         "producer_run_id" => "sample_producer_run_id",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         artifact_id: "sample_artifact_id",
         artifact_sha256: "sample_artifact_sha256",
         producer_run_id: "sample_producer_run_id",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -1844,19 +1844,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         state_vector_id: "sample_state_vector_id",
         subject_id: "sample_subject_id",
         dimension_digest: "sample_dimension_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "state_vector_id" => "sample_state_vector_id",
         "subject_id" => "sample_subject_id",
         "dimension_digest" => "sample_dimension_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         state_vector_id: "sample_state_vector_id",
         subject_id: "sample_subject_id",
         dimension_digest: "sample_dimension_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -2102,21 +2102,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         baseline_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "baseline_metric_id" => "sample_baseline_metric_id",
         "account_id" => "sample_account_id",
         "baseline_value" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         baseline_metric_id: "sample_baseline_metric_id",
         account_id: "sample_account_id",
         baseline_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -2278,24 +2278,24 @@ defmodule BeamPM.Codec.GeneratedTest do
         metric_name: "sample_metric_name",
         total_quantity: 3.5,
         applied_event_ids: ["alpha", "beta"],
-        period_start: "2026-08-29T12:00:00Z",
-        period_end: "2026-08-29T12:00:00Z"
+        period_start: "2026-08-29T12:00:00.123456Z",
+        period_end: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "entitlement_id" => "sample_entitlement_id",
         "metric_name" => "sample_metric_name",
         "total_quantity" => 3.5,
         "applied_event_ids" => ["alpha", "beta"],
-        "period_start" => "2026-08-29T12:00:00Z",
-        "period_end" => "2026-08-29T12:00:00Z"
+        "period_start" => "2026-08-29T12:00:00.123456Z",
+        "period_end" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         entitlement_id: "sample_entitlement_id",
         metric_name: "sample_metric_name",
         total_quantity: 3.5,
         applied_event_ids: ["alpha", "beta"],
-        period_start: "2026-08-29T12:00:00Z",
-        period_end: "2026-08-29T12:00:00Z"
+        period_start: "2026-08-29T12:00:00.123456Z",
+        period_end: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 6,
       opt_field_names: [],
@@ -2402,21 +2402,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         conflicting_bundle_id: "sample_conflicting_bundle_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "bundle_conflict_id" => "sample_bundle_conflict_id",
         "account_id" => "sample_account_id",
         "conflicting_bundle_id" => "sample_conflicting_bundle_id",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         bundle_conflict_id: "sample_bundle_conflict_id",
         account_id: "sample_account_id",
         conflicting_bundle_id: "sample_conflicting_bundle_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -2431,21 +2431,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         required_bundle_id: "sample_required_bundle_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "bundle_dependency_id" => "sample_bundle_dependency_id",
         "account_id" => "sample_account_id",
         "required_bundle_id" => "sample_required_bundle_id",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         bundle_dependency_id: "sample_bundle_dependency_id",
         account_id: "sample_account_id",
         required_bundle_id: "sample_required_bundle_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -2460,21 +2460,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         burst_multiplier: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "burst_pricing_policy_id" => "sample_burst_pricing_policy_id",
         "account_id" => "sample_account_id",
         "burst_multiplier" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         burst_pricing_policy_id: "sample_burst_pricing_policy_id",
         account_id: "sample_account_id",
         burst_multiplier: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -2538,21 +2538,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         business_unit_id: "sample_business_unit_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "business_unit_allocation_id" => "sample_business_unit_allocation_id",
         "account_id" => "sample_account_id",
         "business_unit_id" => "sample_business_unit_id",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         business_unit_allocation_id: "sample_business_unit_allocation_id",
         account_id: "sample_account_id",
         business_unit_id: "sample_business_unit_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -2567,21 +2567,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         committee_coverage: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "buying_committee_id" => "sample_buying_committee_id",
         "account_id" => "sample_account_id",
         "committee_coverage" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         buying_committee_id: "sample_buying_committee_id",
         account_id: "sample_account_id",
         committee_coverage: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -2671,21 +2671,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         canary_result: "sample_canary_result",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "canary_decision_id" => "sample_canary_decision_id",
         "account_id" => "sample_account_id",
         "canary_result" => "sample_canary_result",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         canary_decision_id: "sample_canary_decision_id",
         account_id: "sample_account_id",
         canary_result: "sample_canary_result",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -2726,21 +2726,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         notice_days: 42,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "cancellation_policy_id" => "sample_cancellation_policy_id",
         "account_id" => "sample_account_id",
         "notice_days" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         cancellation_policy_id: "sample_cancellation_policy_id",
         account_id: "sample_account_id",
         notice_days: 42,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -2807,21 +2807,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         gap_severity: "sample_gap_severity",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "capability_gap_id" => "sample_capability_gap_id",
         "account_id" => "sample_account_id",
         "gap_severity" => "sample_gap_severity",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         capability_gap_id: "sample_capability_gap_id",
         account_id: "sample_account_id",
         gap_severity: "sample_gap_severity",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -2932,19 +2932,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         release_id: "sample_release_id",
         version: "sample_version",
         sku_ids: ["alpha", "beta"],
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "release_id" => "sample_release_id",
         "version" => "sample_version",
         "sku_ids" => ["alpha", "beta"],
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         release_id: "sample_release_id",
         version: "sample_version",
         sku_ids: ["alpha", "beta"],
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -3091,19 +3091,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         agreement_id: "sample_agreement_id",
         partner_id: "sample_partner_id",
         territory: "sample_territory",
-        valid_until: "2026-08-29T12:00:00Z"
+        valid_until: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "agreement_id" => "sample_agreement_id",
         "partner_id" => "sample_partner_id",
         "territory" => "sample_territory",
-        "valid_until" => "2026-08-29T12:00:00Z"
+        "valid_until" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         agreement_id: "sample_agreement_id",
         partner_id: "sample_partner_id",
         territory: "sample_territory",
-        valid_until: "2026-08-29T12:00:00Z"
+        valid_until: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -3165,23 +3165,23 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         co_term_policy_id: "sample_co_term_policy_id",
         account_id: "sample_account_id",
-        coterm_date: "2026-08-29T12:00:00Z",
+        coterm_date: "2026-08-29T12:00:00.123456Z",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "co_term_policy_id" => "sample_co_term_policy_id",
         "account_id" => "sample_account_id",
-        "coterm_date" => "2026-08-29T12:00:00Z",
+        "coterm_date" => "2026-08-29T12:00:00.123456Z",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         co_term_policy_id: "sample_co_term_policy_id",
         account_id: "sample_account_id",
-        coterm_date: "2026-08-29T12:00:00Z",
+        coterm_date: "2026-08-29T12:00:00.123456Z",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -3323,21 +3323,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         outcome_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "commercial_outcome_id" => "sample_commercial_outcome_id",
         "account_id" => "sample_account_id",
         "outcome_value" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         commercial_outcome_id: "sample_commercial_outcome_id",
         account_id: "sample_account_id",
         outcome_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -3403,19 +3403,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         realization_id: "sample_realization_id",
         baseline_id: "sample_baseline_id",
         realized_value: 3.5,
-        measured_at: "2026-08-29T12:00:00Z"
+        measured_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "realization_id" => "sample_realization_id",
         "baseline_id" => "sample_baseline_id",
         "realized_value" => 3.5,
-        "measured_at" => "2026-08-29T12:00:00Z"
+        "measured_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         realization_id: "sample_realization_id",
         baseline_id: "sample_baseline_id",
         realized_value: 3.5,
-        measured_at: "2026-08-29T12:00:00Z"
+        measured_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -3429,19 +3429,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         commit_sha: "sample_commit_sha",
         check_name: "sample_check_name",
         check_status: "sample_check_status",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "commit_sha" => "sample_commit_sha",
         "check_name" => "sample_check_name",
         "check_status" => "sample_check_status",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         commit_sha: "sample_commit_sha",
         check_name: "sample_check_name",
         check_status: "sample_check_status",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -3455,19 +3455,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         commitment_id: "sample_commitment_id",
         amount: 3.5,
         currency: "sample_currency",
-        expires_at: "2026-08-29T12:00:00Z"
+        expires_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "commitment_id" => "sample_commitment_id",
         "amount" => 3.5,
         "currency" => "sample_currency",
-        "expires_at" => "2026-08-29T12:00:00Z"
+        "expires_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         commitment_id: "sample_commitment_id",
         amount: 3.5,
         currency: "sample_currency",
-        expires_at: "2026-08-29T12:00:00Z"
+        expires_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -3531,21 +3531,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         included_concurrency: 42,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "concurrency_pricing_policy_id" => "sample_concurrency_pricing_policy_id",
         "account_id" => "sample_account_id",
         "included_concurrency" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         concurrency_pricing_policy_id: "sample_concurrency_pricing_policy_id",
         account_id: "sample_account_id",
         included_concurrency: 42,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -3559,19 +3559,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         export_id: "sample_export_id",
         tenant_id: "sample_tenant_id",
         configuration_hash: "sample_configuration_hash",
-        exported_at: "2026-08-29T12:00:00Z"
+        exported_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "export_id" => "sample_export_id",
         "tenant_id" => "sample_tenant_id",
         "configuration_hash" => "sample_configuration_hash",
-        "exported_at" => "2026-08-29T12:00:00Z"
+        "exported_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         export_id: "sample_export_id",
         tenant_id: "sample_tenant_id",
         configuration_hash: "sample_configuration_hash",
-        exported_at: "2026-08-29T12:00:00Z"
+        exported_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -3633,19 +3633,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         transition_id: "sample_transition_id",
         affected_state_digest: "sample_affected_state_digest",
         invalidation_reason: "sample_invalidation_reason",
-        invalidated_at: "2026-08-29T12:00:00Z"
+        invalidated_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "transition_id" => "sample_transition_id",
         "affected_state_digest" => "sample_affected_state_digest",
         "invalidation_reason" => "sample_invalidation_reason",
-        "invalidated_at" => "2026-08-29T12:00:00Z"
+        "invalidated_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         transition_id: "sample_transition_id",
         affected_state_digest: "sample_affected_state_digest",
         invalidation_reason: "sample_invalidation_reason",
-        invalidated_at: "2026-08-29T12:00:00Z"
+        invalidated_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -3792,19 +3792,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         image_repository: "sample_image_repository",
         tag: "sample_tag",
         index_digest: "sample_index_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "image_repository" => "sample_image_repository",
         "tag" => "sample_tag",
         "index_digest" => "sample_index_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         image_repository: "sample_image_repository",
         tag: "sample_tag",
         index_digest: "sample_index_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -3818,19 +3818,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         index_digest: "sample_index_digest",
         platform: "sample_platform",
         platform_digest: "sample_platform_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "index_digest" => "sample_index_digest",
         "platform" => "sample_platform",
         "platform_digest" => "sample_platform_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         index_digest: "sample_index_digest",
         platform: "sample_platform",
         platform_digest: "sample_platform_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -3868,21 +3868,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         cost_center_id: "sample_cost_center_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "cost_center_allocation_id" => "sample_cost_center_allocation_id",
         "account_id" => "sample_account_id",
         "cost_center_id" => "sample_cost_center_id",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         cost_center_allocation_id: "sample_cost_center_allocation_id",
         account_id: "sample_account_id",
         cost_center_id: "sample_cost_center_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -4051,23 +4051,23 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         credit_expiry_policy_id: "sample_credit_expiry_policy_id",
         account_id: "sample_account_id",
-        expires_at: "2026-08-29T12:00:00Z",
+        expires_at: "2026-08-29T12:00:00.123456Z",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "credit_expiry_policy_id" => "sample_credit_expiry_policy_id",
         "account_id" => "sample_account_id",
-        "expires_at" => "2026-08-29T12:00:00Z",
+        "expires_at" => "2026-08-29T12:00:00.123456Z",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         credit_expiry_policy_id: "sample_credit_expiry_policy_id",
         account_id: "sample_account_id",
-        expires_at: "2026-08-29T12:00:00Z",
+        expires_at: "2026-08-29T12:00:00.123456Z",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -4105,21 +4105,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         cross_sell_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "cross_sell_fit_id" => "sample_cross_sell_fit_id",
         "account_id" => "sample_account_id",
         "cross_sell_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         cross_sell_fit_id: "sample_cross_sell_fit_id",
         account_id: "sample_account_id",
         cross_sell_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -5408,21 +5408,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         currency_code: "sample_currency_code",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "currency_policy_id" => "sample_currency_policy_id",
         "account_id" => "sample_account_id",
         "currency_code" => "sample_currency_code",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         currency_policy_id: "sample_currency_policy_id",
         account_id: "sample_account_id",
         currency_code: "sample_currency_code",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -5466,21 +5466,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         health_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "customer_health_id" => "sample_customer_health_id",
         "account_id" => "sample_account_id",
         "health_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         customer_health_id: "sample_customer_health_id",
         account_id: "sample_account_id",
         health_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -5520,19 +5520,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         customer_id: "sample_customer_id",
         signal_type: "sample_signal_type",
         signal_digest: "sample_signal_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "customer_id" => "sample_customer_id",
         "signal_type" => "sample_signal_type",
         "signal_digest" => "sample_signal_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         customer_id: "sample_customer_id",
         signal_type: "sample_signal_type",
         signal_digest: "sample_signal_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -5619,21 +5619,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         data_quality_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "data_readiness_id" => "sample_data_readiness_id",
         "account_id" => "sample_account_id",
         "data_quality_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         data_readiness_id: "sample_data_readiness_id",
         account_id: "sample_account_id",
         data_quality_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -5674,21 +5674,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         unit_gb_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "data_volume_pricing_policy_id" => "sample_data_volume_pricing_policy_id",
         "account_id" => "sample_account_id",
         "unit_gb_price" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         data_volume_pricing_policy_id: "sample_data_volume_pricing_policy_id",
         account_id: "sample_account_id",
         unit_gb_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -5810,21 +5810,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         demo_result: "sample_demo_result",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "demo_run_id" => "sample_demo_run_id",
         "account_id" => "sample_account_id",
         "demo_result" => "sample_demo_result",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         demo_run_id: "sample_demo_run_id",
         account_id: "sample_account_id",
         demo_result: "sample_demo_result",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -5839,21 +5839,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         scenario_name: "sample_scenario_name",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "demo_scenario_id" => "sample_demo_scenario_id",
         "account_id" => "sample_account_id",
         "scenario_name" => "sample_scenario_name",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         demo_scenario_id: "sample_demo_scenario_id",
         account_id: "sample_account_id",
         scenario_name: "sample_scenario_name",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -5916,19 +5916,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         dependency_id: "sample_dependency_id",
         declared_ref: "sample_declared_ref",
         resolved_sha: "sample_resolved_sha",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "dependency_id" => "sample_dependency_id",
         "declared_ref" => "sample_declared_ref",
         "resolved_sha" => "sample_resolved_sha",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         dependency_id: "sample_dependency_id",
         declared_ref: "sample_declared_ref",
         resolved_sha: "sample_resolved_sha",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -5942,19 +5942,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         entitlement_id: "sample_entitlement_id",
         tenant_id: "sample_tenant_id",
         profile_id: "sample_profile_id",
-        valid_until: "2026-08-29T12:00:00Z"
+        valid_until: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "entitlement_id" => "sample_entitlement_id",
         "tenant_id" => "sample_tenant_id",
         "profile_id" => "sample_profile_id",
-        "valid_until" => "2026-08-29T12:00:00Z"
+        "valid_until" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         entitlement_id: "sample_entitlement_id",
         tenant_id: "sample_tenant_id",
         profile_id: "sample_profile_id",
-        valid_until: "2026-08-29T12:00:00Z"
+        valid_until: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -5969,21 +5969,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         developer_readiness_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "developer_readiness_id" => "sample_developer_readiness_id",
         "account_id" => "sample_account_id",
         "developer_readiness_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         developer_readiness_id: "sample_developer_readiness_id",
         account_id: "sample_account_id",
         developer_readiness_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -6019,19 +6019,19 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         evidence_id: "sample_evidence_id",
         subject_sha: "sample_subject_sha",
-        recovered_at: "2026-08-29T12:00:00Z",
+        recovered_at: "2026-08-29T12:00:00.123456Z",
         observed_result: :sample_atom
       },
       expected_map: %{
         "evidence_id" => "sample_evidence_id",
         "subject_sha" => "sample_subject_sha",
-        "recovered_at" => "2026-08-29T12:00:00Z",
+        "recovered_at" => "2026-08-29T12:00:00.123456Z",
         "observed_result" => "sample_atom"
       },
       req_attrs: %{
         evidence_id: "sample_evidence_id",
         subject_sha: "sample_subject_sha",
-        recovered_at: "2026-08-29T12:00:00Z",
+        recovered_at: "2026-08-29T12:00:00.123456Z",
         observed_result: :sample_atom
       },
       req_count: 4,
@@ -6073,21 +6073,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         expected_value: "sample_expected_value",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "discovery_hypothesis_id" => "sample_discovery_hypothesis_id",
         "account_id" => "sample_account_id",
         "expected_value" => "sample_expected_value",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         discovery_hypothesis_id: "sample_discovery_hypothesis_id",
         account_id: "sample_account_id",
         expected_value: "sample_expected_value",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -6174,21 +6174,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         target_edition_id: "sample_target_edition_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "edition_downgrade_path_id" => "sample_edition_downgrade_path_id",
         "account_id" => "sample_account_id",
         "target_edition_id" => "sample_target_edition_id",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         edition_downgrade_path_id: "sample_edition_downgrade_path_id",
         account_id: "sample_account_id",
         target_edition_id: "sample_target_edition_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -6203,21 +6203,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         target_edition_id: "sample_target_edition_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "edition_upgrade_path_id" => "sample_edition_upgrade_path_id",
         "account_id" => "sample_account_id",
         "target_edition_id" => "sample_target_edition_id",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         edition_upgrade_path_id: "sample_edition_upgrade_path_id",
         account_id: "sample_account_id",
         target_edition_id: "sample_target_edition_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -6232,21 +6232,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         agreement_version: "sample_agreement_version",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "enterprise_agreement_id" => "sample_enterprise_agreement_id",
         "account_id" => "sample_account_id",
         "agreement_version" => "sample_agreement_version",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         enterprise_agreement_id: "sample_enterprise_agreement_id",
         account_id: "sample_account_id",
         agreement_version: "sample_agreement_version",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -6335,21 +6335,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         event_id: "sample_event_id",
         entitlement_id: "sample_entitlement_id",
         event_type: "sample_event_type",
-        effective_at: "2026-08-29T12:00:00Z",
+        effective_at: "2026-08-29T12:00:00.123456Z",
         payload: %{"k" => "v"}
       },
       expected_map: %{
         "event_id" => "sample_event_id",
         "entitlement_id" => "sample_entitlement_id",
         "event_type" => "sample_event_type",
-        "effective_at" => "2026-08-29T12:00:00Z",
+        "effective_at" => "2026-08-29T12:00:00.123456Z",
         "payload" => %{"k" => "v"}
       },
       req_attrs: %{
         event_id: "sample_event_id",
         entitlement_id: "sample_entitlement_id",
         event_type: "sample_event_type",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: ["payload"],
@@ -6389,19 +6389,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         grant_id: "sample_grant_id",
         tenant_id: "sample_tenant_id",
         capability_id: "sample_capability_id",
-        valid_until: "2026-08-29T12:00:00Z"
+        valid_until: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "grant_id" => "sample_grant_id",
         "tenant_id" => "sample_tenant_id",
         "capability_id" => "sample_capability_id",
-        "valid_until" => "2026-08-29T12:00:00Z"
+        "valid_until" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         grant_id: "sample_grant_id",
         tenant_id: "sample_tenant_id",
         capability_id: "sample_capability_id",
-        valid_until: "2026-08-29T12:00:00Z"
+        valid_until: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -6415,19 +6415,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         revocation_id: "sample_revocation_id",
         grant_id: "sample_grant_id",
         reason: "sample_reason",
-        revoked_at: "2026-08-29T12:00:00Z"
+        revoked_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "revocation_id" => "sample_revocation_id",
         "grant_id" => "sample_grant_id",
         "reason" => "sample_reason",
-        "revoked_at" => "2026-08-29T12:00:00Z"
+        "revoked_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         revocation_id: "sample_revocation_id",
         grant_id: "sample_grant_id",
         reason: "sample_reason",
-        revoked_at: "2026-08-29T12:00:00Z"
+        revoked_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -6464,19 +6464,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         entitlement_id: "sample_entitlement_id",
         status: "sample_status",
         last_applied_event_id: "sample_last_applied_event_id",
-        updated_at: "2026-08-29T12:00:00Z"
+        updated_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "entitlement_id" => "sample_entitlement_id",
         "status" => "sample_status",
         "last_applied_event_id" => "sample_last_applied_event_id",
-        "updated_at" => "2026-08-29T12:00:00Z"
+        "updated_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         entitlement_id: "sample_entitlement_id",
         status: "sample_status",
         last_applied_event_id: "sample_last_applied_event_id",
-        updated_at: "2026-08-29T12:00:00Z"
+        updated_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -6566,21 +6566,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         environment_tier: "sample_environment_tier",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "environment_pricing_policy_id" => "sample_environment_pricing_policy_id",
         "account_id" => "sample_account_id",
         "environment_tier" => "sample_environment_tier",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         environment_pricing_policy_id: "sample_environment_pricing_policy_id",
         account_id: "sample_account_id",
         environment_tier: "sample_environment_tier",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -6620,19 +6620,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         environment_id: "sample_environment_id",
         signal_type: "sample_signal_type",
         signal_digest: "sample_signal_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "environment_id" => "sample_environment_id",
         "signal_type" => "sample_signal_type",
         "signal_digest" => "sample_signal_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         environment_id: "sample_environment_id",
         signal_type: "sample_signal_type",
         signal_digest: "sample_signal_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -6766,21 +6766,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         unit_event_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "event_volume_pricing_policy_id" => "sample_event_volume_pricing_policy_id",
         "account_id" => "sample_account_id",
         "unit_event_price" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         event_volume_pricing_policy_id: "sample_event_volume_pricing_policy_id",
         account_id: "sample_account_id",
         unit_event_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -6793,19 +6793,19 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         evidence_id: "sample_evidence_id",
         subject_sha: "sample_subject_sha",
-        observed_at: "2026-08-29T12:00:00Z",
+        observed_at: "2026-08-29T12:00:00.123456Z",
         observed_result: :sample_atom
       },
       expected_map: %{
         "evidence_id" => "sample_evidence_id",
         "subject_sha" => "sample_subject_sha",
-        "observed_at" => "2026-08-29T12:00:00Z",
+        "observed_at" => "2026-08-29T12:00:00.123456Z",
         "observed_result" => "sample_atom"
       },
       req_attrs: %{
         evidence_id: "sample_evidence_id",
         subject_sha: "sample_subject_sha",
-        observed_at: "2026-08-29T12:00:00Z",
+        observed_at: "2026-08-29T12:00:00.123456Z",
         observed_result: :sample_atom
       },
       req_count: 4,
@@ -6896,21 +6896,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         executive_outcome: "sample_executive_outcome",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "executive_business_review_id" => "sample_executive_business_review_id",
         "account_id" => "sample_account_id",
         "executive_outcome" => "sample_executive_outcome",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         executive_business_review_id: "sample_executive_business_review_id",
         account_id: "sample_account_id",
         executive_outcome: "sample_executive_outcome",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -6925,21 +6925,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         sponsor_commitment: "sample_sponsor_commitment",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "executive_sponsor_id" => "sample_executive_sponsor_id",
         "account_id" => "sample_account_id",
         "sponsor_commitment" => "sample_sponsor_commitment",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         executive_sponsor_id: "sample_executive_sponsor_id",
         account_id: "sample_account_id",
         sponsor_commitment: "sample_sponsor_commitment",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -6954,21 +6954,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         expansion_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "expansion_opportunity_id" => "sample_expansion_opportunity_id",
         "account_id" => "sample_account_id",
         "expansion_value" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         expansion_opportunity_id: "sample_expansion_opportunity_id",
         account_id: "sample_account_id",
         expansion_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -7009,21 +7009,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         receipt_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "expansion_receipt_id" => "sample_expansion_receipt_id",
         "account_id" => "sample_account_id",
         "receipt_value" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         expansion_receipt_id: "sample_expansion_receipt_id",
         account_id: "sample_account_id",
         receipt_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -7038,21 +7038,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         expansion_signal_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "expansion_signal_id" => "sample_expansion_signal_id",
         "account_id" => "sample_account_id",
         "expansion_signal_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         expansion_signal_id: "sample_expansion_signal_id",
         account_id: "sample_account_id",
         expansion_signal_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -7098,21 +7098,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         retention_id: "sample_retention_id",
         challenger_evaluation_id: "sample_challenger_evaluation_id",
         failure_evidence_digest: "sample_failure_evidence_digest",
-        retained_at: "2026-08-29T12:00:00Z",
+        retained_at: "2026-08-29T12:00:00.123456Z",
         eligible_for_future: true
       },
       expected_map: %{
         "retention_id" => "sample_retention_id",
         "challenger_evaluation_id" => "sample_challenger_evaluation_id",
         "failure_evidence_digest" => "sample_failure_evidence_digest",
-        "retained_at" => "2026-08-29T12:00:00Z",
+        "retained_at" => "2026-08-29T12:00:00.123456Z",
         "eligible_for_future" => true
       },
       req_attrs: %{
         retention_id: "sample_retention_id",
         challenger_evaluation_id: "sample_challenger_evaluation_id",
         failure_evidence_digest: "sample_failure_evidence_digest",
-        retained_at: "2026-08-29T12:00:00Z",
+        retained_at: "2026-08-29T12:00:00.123456Z",
         eligible_for_future: true
       },
       req_count: 5,
@@ -7247,21 +7247,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         rate_source: "sample_rate_source",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "fx_conversion_policy_id" => "sample_fx_conversion_policy_id",
         "account_id" => "sample_account_id",
         "rate_source" => "sample_rate_source",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         fx_conversion_policy_id: "sample_fx_conversion_policy_id",
         account_id: "sample_account_id",
         rate_source: "sample_rate_source",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -7625,21 +7625,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         integration_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "integration_readiness_id" => "sample_integration_readiness_id",
         "account_id" => "sample_account_id",
         "integration_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         integration_readiness_id: "sample_integration_readiness_id",
         account_id: "sample_account_id",
         integration_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -7700,21 +7700,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         line_amount: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "invoice_line_item_id" => "sample_invoice_line_item_id",
         "account_id" => "sample_account_id",
         "line_amount" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         invoice_line_item_id: "sample_invoice_line_item_id",
         account_id: "sample_account_id",
         line_amount: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -7728,19 +7728,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         schedule_id: "sample_schedule_id",
         billing_account_id: "sample_billing_account_id",
         cadence: :sample_atom,
-        next_invoice_at: "2026-08-29T12:00:00Z"
+        next_invoice_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "schedule_id" => "sample_schedule_id",
         "billing_account_id" => "sample_billing_account_id",
         "cadence" => "sample_atom",
-        "next_invoice_at" => "2026-08-29T12:00:00Z"
+        "next_invoice_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         schedule_id: "sample_schedule_id",
         billing_account_id: "sample_billing_account_id",
         cadence: :sample_atom,
-        next_invoice_at: "2026-08-29T12:00:00Z"
+        next_invoice_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -7798,23 +7798,23 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         late_arriving_usage_id: "sample_late_arriving_usage_id",
         account_id: "sample_account_id",
-        occurred_at: "2026-08-29T12:00:00Z",
+        occurred_at: "2026-08-29T12:00:00.123456Z",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "late_arriving_usage_id" => "sample_late_arriving_usage_id",
         "account_id" => "sample_account_id",
-        "occurred_at" => "2026-08-29T12:00:00Z",
+        "occurred_at" => "2026-08-29T12:00:00.123456Z",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         late_arriving_usage_id: "sample_late_arriving_usage_id",
         account_id: "sample_account_id",
-        occurred_at: "2026-08-29T12:00:00Z",
+        occurred_at: "2026-08-29T12:00:00.123456Z",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8049,19 +8049,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         subject_sha: "sample_subject_sha",
         receipt_id: "sample_receipt_id",
         receipt_digest: "sample_receipt_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "subject_sha" => "sample_subject_sha",
         "receipt_id" => "sample_receipt_id",
         "receipt_digest" => "sample_receipt_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         subject_sha: "sample_subject_sha",
         receipt_id: "sample_receipt_id",
         receipt_digest: "sample_receipt_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -8102,21 +8102,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         msa_digest: "sample_msa_digest",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "master_service_agreement_binding_id" => "sample_master_service_agreement_binding_id",
         "account_id" => "sample_account_id",
         "msa_digest" => "sample_msa_digest",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         master_service_agreement_binding_id: "sample_master_service_agreement_binding_id",
         account_id: "sample_account_id",
         msa_digest: "sample_msa_digest",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8200,21 +8200,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         meter_name: "sample_meter_name",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "meter_definition_id" => "sample_meter_definition_id",
         "account_id" => "sample_account_id",
         "meter_name" => "sample_meter_name",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         meter_definition_id: "sample_meter_definition_id",
         account_id: "sample_account_id",
         meter_name: "sample_meter_name",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8229,21 +8229,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         dimension_name: "sample_dimension_name",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "meter_dimension_id" => "sample_meter_dimension_id",
         "account_id" => "sample_account_id",
         "dimension_name" => "sample_dimension_name",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         meter_dimension_id: "sample_meter_dimension_id",
         account_id: "sample_account_id",
         dimension_name: "sample_dimension_name",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8258,21 +8258,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         rollup_function: "sample_rollup_function",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "meter_rollup_id" => "sample_meter_rollup_id",
         "account_id" => "sample_account_id",
         "rollup_function" => "sample_rollup_function",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         meter_rollup_id: "sample_meter_rollup_id",
         account_id: "sample_account_id",
         rollup_function: "sample_rollup_function",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8336,21 +8336,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         migration_effort_days: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "migration_readiness_id" => "sample_migration_readiness_id",
         "account_id" => "sample_account_id",
         "migration_effort_days" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         migration_readiness_id: "sample_migration_readiness_id",
         account_id: "sample_account_id",
         migration_effort_days: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8365,21 +8365,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         committed_amount: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "minimum_commitment_schedule_id" => "sample_minimum_commitment_schedule_id",
         "account_id" => "sample_account_id",
         "committed_amount" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         minimum_commitment_schedule_id: "sample_minimum_commitment_schedule_id",
         account_id: "sample_account_id",
         committed_amount: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8599,21 +8599,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         discount_percent: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "nonproduction_discount_policy_id" => "sample_nonproduction_discount_policy_id",
         "account_id" => "sample_account_id",
         "discount_percent" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         nonproduction_discount_policy_id: "sample_nonproduction_discount_policy_id",
         account_id: "sample_account_id",
         discount_percent: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8627,19 +8627,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         source_system: "sample_source_system",
         event_id: "sample_event_id",
         event_type: "sample_event_type",
-        event_time: "2026-08-29T12:00:00Z"
+        event_time: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "source_system" => "sample_source_system",
         "event_id" => "sample_event_id",
         "event_type" => "sample_event_type",
-        "event_time" => "2026-08-29T12:00:00Z"
+        "event_time" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         source_system: "sample_source_system",
         event_id: "sample_event_id",
         event_type: "sample_event_type",
-        event_time: "2026-08-29T12:00:00Z"
+        event_time: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -8709,20 +8709,20 @@ defmodule BeamPM.Codec.GeneratedTest do
         attribute_name: "sample_attribute_name",
         old_value: "sample_old_value",
         new_value: "sample_new_value",
-        changed_at: "2026-08-29T12:00:00Z"
+        changed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "object_id" => "sample_object_id",
         "attribute_name" => "sample_attribute_name",
         "old_value" => "sample_old_value",
         "new_value" => "sample_new_value",
-        "changed_at" => "2026-08-29T12:00:00Z"
+        "changed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         object_id: "sample_object_id",
         attribute_name: "sample_attribute_name",
         new_value: "sample_new_value",
-        changed_at: "2026-08-29T12:00:00Z"
+        changed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: ["old_value"],
@@ -8756,21 +8756,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         unit_object_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "object_volume_pricing_policy_id" => "sample_object_volume_pricing_policy_id",
         "account_id" => "sample_account_id",
         "unit_object_price" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         object_volume_pricing_policy_id: "sample_object_volume_pricing_policy_id",
         account_id: "sample_account_id",
         unit_object_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8785,21 +8785,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         objection_type: "sample_objection_type",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "objection_id" => "sample_objection_id",
         "account_id" => "sample_account_id",
         "objection_type" => "sample_objection_type",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         objection_id: "sample_objection_id",
         account_id: "sample_account_id",
         objection_type: "sample_objection_type",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8814,21 +8814,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         resolution_status: "sample_resolution_status",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "objection_resolution_id" => "sample_objection_resolution_id",
         "account_id" => "sample_account_id",
         "resolution_status" => "sample_resolution_status",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         objection_resolution_id: "sample_objection_resolution_id",
         account_id: "sample_account_id",
         resolution_status: "sample_resolution_status",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -8868,19 +8868,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         state_vector_id: "sample_state_vector_id",
         entropy_method: "sample_entropy_method",
         entropy_value: 3.5,
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "state_vector_id" => "sample_state_vector_id",
         "entropy_method" => "sample_entropy_method",
         "entropy_value" => 3.5,
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         state_vector_id: "sample_state_vector_id",
         entropy_method: "sample_entropy_method",
         entropy_value: 3.5,
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -8892,20 +8892,20 @@ defmodule BeamPM.Codec.GeneratedTest do
       mod: BeamPM.Types.ObservationFreshnessAssessment,
       full_attrs: %{
         observation_id: "sample_observation_id",
-        observed_at: "2026-08-29T12:00:00Z",
-        freshness_deadline: "2026-08-29T12:00:00Z",
+        observed_at: "2026-08-29T12:00:00.123456Z",
+        freshness_deadline: "2026-08-29T12:00:00.123456Z",
         freshness_status: "sample_freshness_status"
       },
       expected_map: %{
         "observation_id" => "sample_observation_id",
-        "observed_at" => "2026-08-29T12:00:00Z",
-        "freshness_deadline" => "2026-08-29T12:00:00Z",
+        "observed_at" => "2026-08-29T12:00:00.123456Z",
+        "freshness_deadline" => "2026-08-29T12:00:00.123456Z",
         "freshness_status" => "sample_freshness_status"
       },
       req_attrs: %{
         observation_id: "sample_observation_id",
-        observed_at: "2026-08-29T12:00:00Z",
-        freshness_deadline: "2026-08-29T12:00:00Z",
+        observed_at: "2026-08-29T12:00:00.123456Z",
+        freshness_deadline: "2026-08-29T12:00:00.123456Z",
         freshness_status: "sample_freshness_status"
       },
       req_count: 4,
@@ -8950,19 +8950,19 @@ defmodule BeamPM.Codec.GeneratedTest do
       mod: BeamPM.Types.ObservationStalenessInvalidation,
       full_attrs: %{
         observation_id: "sample_observation_id",
-        invalidated_at: "2026-08-29T12:00:00Z",
+        invalidated_at: "2026-08-29T12:00:00.123456Z",
         staleness_reason: "sample_staleness_reason",
         replacement_required: true
       },
       expected_map: %{
         "observation_id" => "sample_observation_id",
-        "invalidated_at" => "2026-08-29T12:00:00Z",
+        "invalidated_at" => "2026-08-29T12:00:00.123456Z",
         "staleness_reason" => "sample_staleness_reason",
         "replacement_required" => true
       },
       req_attrs: %{
         observation_id: "sample_observation_id",
-        invalidated_at: "2026-08-29T12:00:00Z",
+        invalidated_at: "2026-08-29T12:00:00.123456Z",
         staleness_reason: "sample_staleness_reason",
         replacement_required: true
       },
@@ -9003,12 +9003,12 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         attribute_name: "sample_attribute_name",
         attribute_value: "sample_attribute_value",
-        recorded_at: "2026-08-29T12:00:00Z"
+        recorded_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "attribute_name" => "sample_attribute_name",
         "attribute_value" => "sample_attribute_value",
-        "recorded_at" => "2026-08-29T12:00:00Z"
+        "recorded_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         attribute_name: "sample_attribute_name",
@@ -9025,19 +9025,19 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         event_id: "sample_event_id",
         event_type: "sample_event_type",
-        event_time: "2026-08-29T12:00:00Z",
+        event_time: "2026-08-29T12:00:00.123456Z",
         attributes: %{"k" => "v"}
       },
       expected_map: %{
         "event_id" => "sample_event_id",
         "event_type" => "sample_event_type",
-        "event_time" => "2026-08-29T12:00:00Z",
+        "event_time" => "2026-08-29T12:00:00.123456Z",
         "attributes" => %{"k" => "v"}
       },
       req_attrs: %{
         event_id: "sample_event_id",
         event_type: "sample_event_type",
-        event_time: "2026-08-29T12:00:00Z"
+        event_time: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 3,
       opt_field_names: ["attributes"],
@@ -9146,21 +9146,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         operator_readiness_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "operator_readiness_id" => "sample_operator_readiness_id",
         "account_id" => "sample_account_id",
         "operator_readiness_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         operator_readiness_id: "sample_operator_readiness_id",
         account_id: "sample_account_id",
         operator_readiness_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -9290,21 +9290,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         order_form_digest: "sample_order_form_digest",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "order_form_version_id" => "sample_order_form_version_id",
         "account_id" => "sample_account_id",
         "order_form_digest" => "sample_order_form_digest",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         order_form_version_id: "sample_order_form_version_id",
         account_id: "sample_account_id",
         order_form_digest: "sample_order_form_digest",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -9426,21 +9426,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         overage_amount: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "overage_invoice_id" => "sample_overage_invoice_id",
         "account_id" => "sample_account_id",
         "overage_amount" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         overage_invoice_id: "sample_overage_invoice_id",
         account_id: "sample_account_id",
         overage_amount: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -9480,19 +9480,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         package_id: "sample_package_id",
         version: "sample_version",
         immutable_digest: "sample_immutable_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "package_id" => "sample_package_id",
         "version" => "sample_version",
         "immutable_digest" => "sample_immutable_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         package_id: "sample_package_id",
         version: "sample_version",
         immutable_digest: "sample_immutable_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -9991,21 +9991,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         criteria_pass_rate: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "poc_exit_criteria_id" => "sample_poc_exit_criteria_id",
         "account_id" => "sample_account_id",
         "criteria_pass_rate" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         poc_exit_criteria_id: "sample_poc_exit_criteria_id",
         account_id: "sample_account_id",
         criteria_pass_rate: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10020,21 +10020,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         risk_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "poc_risk_id" => "sample_poc_risk_id",
         "account_id" => "sample_account_id",
         "risk_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         poc_risk_id: "sample_poc_risk_id",
         account_id: "sample_account_id",
         risk_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10049,21 +10049,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         use_case_count: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "poc_scope_id" => "sample_poc_scope_id",
         "account_id" => "sample_account_id",
         "use_case_count" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         poc_scope_id: "sample_poc_scope_id",
         account_id: "sample_account_id",
         use_case_count: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10078,21 +10078,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         days_to_value: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "poc_timeline_id" => "sample_poc_timeline_id",
         "account_id" => "sample_account_id",
         "days_to_value" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         poc_timeline_id: "sample_poc_timeline_id",
         account_id: "sample_account_id",
         days_to_value: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10317,21 +10317,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         connector_id: "sample_connector_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "premium_connector_pricing_id" => "sample_premium_connector_pricing_id",
         "account_id" => "sample_account_id",
         "connector_id" => "sample_connector_id",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         premium_connector_pricing_id: "sample_premium_connector_pricing_id",
         account_id: "sample_account_id",
         connector_id: "sample_connector_id",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10346,21 +10346,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         remaining_credit: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "prepaid_credit_balance_id" => "sample_prepaid_credit_balance_id",
         "account_id" => "sample_account_id",
         "remaining_credit" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         prepaid_credit_balance_id: "sample_prepaid_credit_balance_id",
         account_id: "sample_account_id",
         remaining_credit: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10375,21 +10375,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         version: "sample_version",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "price_book_version_id" => "sample_price_book_version_id",
         "account_id" => "sample_account_id",
         "version" => "sample_version",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         price_book_version_id: "sample_price_book_version_id",
         account_id: "sample_account_id",
         version: "sample_version",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10452,19 +10452,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         offer_id: "sample_offer_id",
         account_id: "sample_account_id",
         total_price: 3.5,
-        expires_at: "2026-08-29T12:00:00Z"
+        expires_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "offer_id" => "sample_offer_id",
         "account_id" => "sample_account_id",
         "total_price" => 3.5,
-        "expires_at" => "2026-08-29T12:00:00Z"
+        "expires_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         offer_id: "sample_offer_id",
         account_id: "sample_account_id",
         total_price: 3.5,
-        expires_at: "2026-08-29T12:00:00Z"
+        expires_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -10528,21 +10528,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         unit_process_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "process_volume_pricing_policy_id" => "sample_process_volume_pricing_policy_id",
         "account_id" => "sample_account_id",
         "unit_process_price" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         process_volume_pricing_policy_id: "sample_process_volume_pricing_policy_id",
         account_id: "sample_account_id",
         unit_process_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10629,21 +10629,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         procurement_stage: "sample_procurement_stage",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "procurement_readiness_id" => "sample_procurement_readiness_id",
         "account_id" => "sample_account_id",
         "procurement_stage" => "sample_procurement_stage",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         procurement_readiness_id: "sample_procurement_readiness_id",
         account_id: "sample_account_id",
         procurement_stage: "sample_procurement_stage",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10658,21 +10658,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         production_readiness_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "production_readiness_id" => "sample_production_readiness_id",
         "account_id" => "sample_account_id",
         "production_readiness_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         production_readiness_id: "sample_production_readiness_id",
         account_id: "sample_account_id",
         production_readiness_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10797,21 +10797,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         success_metric: "sample_success_metric",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "proof_of_value_package_id" => "sample_proof_of_value_package_id",
         "account_id" => "sample_account_id",
         "success_metric" => "sample_success_metric",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         proof_of_value_package_id: "sample_proof_of_value_package_id",
         account_id: "sample_account_id",
         success_metric: "sample_success_metric",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -10849,21 +10849,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         proration_method: "sample_proration_method",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "proration_policy_id" => "sample_proration_policy_id",
         "account_id" => "sample_account_id",
         "proration_method" => "sample_proration_method",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         proration_policy_id: "sample_proration_policy_id",
         account_id: "sample_account_id",
         proration_method: "sample_proration_method",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -11023,17 +11023,17 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         queue_name: "sample_queue_name",
         depth: 42,
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "queue_name" => "sample_queue_name",
         "depth" => 42,
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         queue_name: "sample_queue_name",
         depth: 42,
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 3,
       opt_field_names: [],
@@ -11048,21 +11048,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         burst_units: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "quota_burst_allowance_id" => "sample_quota_burst_allowance_id",
         "account_id" => "sample_account_id",
         "burst_units" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         quota_burst_allowance_id: "sample_quota_burst_allowance_id",
         account_id: "sample_account_id",
         burst_units: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -11077,21 +11077,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         override_units: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "quota_override_id" => "sample_quota_override_id",
         "account_id" => "sample_account_id",
         "override_units" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         quota_override_id: "sample_quota_override_id",
         account_id: "sample_account_id",
         override_units: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -11131,19 +11131,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         ramp_id: "sample_ramp_id",
         phase: 42,
         committed_amount: 3.5,
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "ramp_id" => "sample_ramp_id",
         "phase" => 42,
         "committed_amount" => 3.5,
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         ramp_id: "sample_ramp_id",
         phase: 42,
         committed_amount: 3.5,
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -11158,21 +11158,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         unit_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "rate_card_entry_id" => "sample_rate_card_entry_id",
         "account_id" => "sample_account_id",
         "unit_price" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         rate_card_entry_id: "sample_rate_card_entry_id",
         account_id: "sample_account_id",
         unit_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -11409,21 +11409,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         recovery_time_hours: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "recovery_plan_id" => "sample_recovery_plan_id",
         "account_id" => "sample_account_id",
         "recovery_time_hours" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         recovery_plan_id: "sample_recovery_plan_id",
         account_id: "sample_account_id",
         recovery_time_hours: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -11484,21 +11484,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         refund_method: "sample_refund_method",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "refund_policy_id" => "sample_refund_policy_id",
         "account_id" => "sample_account_id",
         "refund_method" => "sample_refund_method",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         refund_policy_id: "sample_refund_policy_id",
         account_id: "sample_account_id",
         refund_method: "sample_refund_method",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -11568,21 +11568,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         region_code: "sample_region_code",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "region_pricing_policy_id" => "sample_region_pricing_policy_id",
         "account_id" => "sample_account_id",
         "region_code" => "sample_region_code",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         region_pricing_policy_id: "sample_region_pricing_policy_id",
         account_id: "sample_account_id",
         region_code: "sample_region_code",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -11659,19 +11659,19 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         evidence_id: "sample_evidence_id",
         subject_sha: "sample_subject_sha",
-        remediation_due_at: "2026-08-29T12:00:00Z",
+        remediation_due_at: "2026-08-29T12:00:00.123456Z",
         observed_result: :sample_atom
       },
       expected_map: %{
         "evidence_id" => "sample_evidence_id",
         "subject_sha" => "sample_subject_sha",
-        "remediation_due_at" => "2026-08-29T12:00:00Z",
+        "remediation_due_at" => "2026-08-29T12:00:00.123456Z",
         "observed_result" => "sample_atom"
       },
       req_attrs: %{
         evidence_id: "sample_evidence_id",
         subject_sha: "sample_subject_sha",
-        remediation_due_at: "2026-08-29T12:00:00Z",
+        remediation_due_at: "2026-08-29T12:00:00.123456Z",
         observed_result: :sample_atom
       },
       req_count: 4,
@@ -11687,21 +11687,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         renewal_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "renewal_evidence_id" => "sample_renewal_evidence_id",
         "account_id" => "sample_account_id",
         "renewal_value" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         renewal_evidence_id: "sample_renewal_evidence_id",
         account_id: "sample_account_id",
         renewal_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -11716,21 +11716,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         renewal_health_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "renewal_health_id" => "sample_renewal_health_id",
         "account_id" => "sample_account_id",
         "renewal_health_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         renewal_health_id: "sample_renewal_health_id",
         account_id: "sample_account_id",
         renewal_health_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -11744,19 +11744,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         option_id: "sample_option_id",
         subscription_id: "sample_subscription_id",
         term_months: 42,
-        notice_by: "2026-08-29T12:00:00Z"
+        notice_by: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "option_id" => "sample_option_id",
         "subscription_id" => "sample_subscription_id",
         "term_months" => 42,
-        "notice_by" => "2026-08-29T12:00:00Z"
+        "notice_by" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         option_id: "sample_option_id",
         subscription_id: "sample_subscription_id",
         term_months: 42,
-        notice_by: "2026-08-29T12:00:00Z"
+        notice_by: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -11771,21 +11771,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         renewal_risk_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "renewal_risk_id" => "sample_renewal_risk_id",
         "account_id" => "sample_account_id",
         "renewal_risk_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         renewal_risk_id: "sample_renewal_risk_id",
         account_id: "sample_account_id",
         renewal_risk_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -11900,19 +11900,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         repository_id: "sample_repository_id",
         default_branch: "sample_default_branch",
         head_sha: "sample_head_sha",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "repository_id" => "sample_repository_id",
         "default_branch" => "sample_default_branch",
         "head_sha" => "sample_head_sha",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         repository_id: "sample_repository_id",
         default_branch: "sample_default_branch",
         head_sha: "sample_head_sha",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -11952,19 +11952,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         repository_id: "sample_repository_id",
         worktree_hash: "sample_worktree_hash",
         dirty_path_count: 42,
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "repository_id" => "sample_repository_id",
         "worktree_hash" => "sample_worktree_hash",
         "dirty_path_count" => 42,
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         repository_id: "sample_repository_id",
         worktree_hash: "sample_worktree_hash",
         dirty_path_count: 42,
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -12152,21 +12152,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         retention_days: 42,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "retention_pricing_policy_id" => "sample_retention_pricing_policy_id",
         "account_id" => "sample_account_id",
         "retention_days" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         retention_pricing_policy_id: "sample_retention_pricing_policy_id",
         account_id: "sample_account_id",
         retention_days: 42,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -12181,21 +12181,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         attributed_revenue: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "revenue_attribution_id" => "sample_revenue_attribution_id",
         "account_id" => "sample_account_id",
         "attributed_revenue" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         revenue_attribution_id: "sample_revenue_attribution_id",
         account_id: "sample_account_id",
         attributed_revenue: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -12374,21 +12374,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         rollback_result: "sample_rollback_result",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "rollback_decision_id" => "sample_rollback_decision_id",
         "account_id" => "sample_account_id",
         "rollback_result" => "sample_rollback_result",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         rollback_decision_id: "sample_rollback_decision_id",
         account_id: "sample_account_id",
         rollback_result: "sample_rollback_result",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -12541,19 +12541,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         runtime_id: "sample_runtime_id",
         health_state: "sample_health_state",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "runtime_id" => "sample_runtime_id",
         "health_state" => "sample_health_state",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         runtime_id: "sample_runtime_id",
         health_state: "sample_health_state",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -12614,21 +12614,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         sandbox_limit: 42,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "sandbox_entitlement_id" => "sample_sandbox_entitlement_id",
         "account_id" => "sample_account_id",
         "sandbox_limit" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         sandbox_entitlement_id: "sample_sandbox_entitlement_id",
         account_id: "sample_account_id",
         sandbox_limit: 42,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -12701,21 +12701,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         seat_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "seat_pricing_policy_id" => "sample_seat_pricing_policy_id",
         "account_id" => "sample_account_id",
         "seat_price" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         seat_pricing_policy_id: "sample_seat_pricing_policy_id",
         account_id: "sample_account_id",
         seat_price: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -12851,21 +12851,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         control_coverage: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "security_readiness_id" => "sample_security_readiness_id",
         "account_id" => "sample_account_id",
         "control_coverage" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         security_readiness_id: "sample_security_readiness_id",
         account_id: "sample_account_id",
         control_coverage: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -12987,21 +12987,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         credit_amount: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "service_credit_ledger_id" => "sample_service_credit_ledger_id",
         "account_id" => "sample_account_id",
         "credit_amount" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         service_credit_ledger_id: "sample_service_credit_ledger_id",
         account_id: "sample_account_id",
         credit_amount: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -13087,20 +13087,26 @@ defmodule BeamPM.Codec.GeneratedTest do
         span_id: "sample_span_id",
         service_name: "sample_service_name",
         duration_ms: 42,
-        parent_span_id: "sample_parent_span_id"
+        parent_span_id: "sample_parent_span_id",
+        trace_id: "sample_trace_id",
+        start_time: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "span_id" => "sample_span_id",
         "service_name" => "sample_service_name",
         "duration_ms" => 42,
-        "parent_span_id" => "sample_parent_span_id"
+        "parent_span_id" => "sample_parent_span_id",
+        "trace_id" => "sample_trace_id",
+        "start_time" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         span_id: "sample_span_id",
         service_name: "sample_service_name",
-        duration_ms: 42
+        duration_ms: 42,
+        trace_id: "sample_trace_id",
+        start_time: "2026-08-29T12:00:00.123456Z"
       },
-      req_count: 3,
+      req_count: 5,
       opt_field_names: ["parent_span_id"],
       first_required: :span_id
     },
@@ -13269,25 +13275,51 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         fit_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "solution_fit_id" => "sample_solution_fit_id",
         "account_id" => "sample_account_id",
         "fit_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         solution_fit_id: "sample_solution_fit_id",
         account_id: "sample_account_id",
         fit_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
       first_required: :solution_fit_id
+    },
+
+    %{
+      name: :span_edge,
+      mod: BeamPM.Types.SpanEdge,
+      full_attrs: %{
+        source_service: "sample_source_service",
+        target_service: "sample_target_service",
+        frequency: 42,
+        evidence: :sample_atom
+      },
+      expected_map: %{
+        "source_service" => "sample_source_service",
+        "target_service" => "sample_target_service",
+        "frequency" => 42,
+        "evidence" => "sample_atom"
+      },
+      req_attrs: %{
+        source_service: "sample_source_service",
+        target_service: "sample_target_service",
+        frequency: 42,
+        evidence: :sample_atom
+      },
+      req_count: 4,
+      opt_field_names: [],
+      first_required: :source_service
     },
 
     %{
@@ -13298,21 +13330,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         consumed_amount: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "spend_drawdown_id" => "sample_spend_drawdown_id",
         "account_id" => "sample_account_id",
         "consumed_amount" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         spend_drawdown_id: "sample_spend_drawdown_id",
         account_id: "sample_account_id",
         consumed_amount: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -13327,21 +13359,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         stakeholder_count: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "stakeholder_map_id" => "sample_stakeholder_map_id",
         "account_id" => "sample_account_id",
         "stakeholder_count" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         stakeholder_map_id: "sample_stakeholder_map_id",
         account_id: "sample_account_id",
         stakeholder_count: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -13427,19 +13459,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         subject_id: "sample_subject_id",
         standing: "sample_standing",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "subject_id" => "sample_subject_id",
         "standing" => "sample_standing",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         subject_id: "sample_subject_id",
         standing: "sample_standing",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -13514,19 +13546,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         submodule_path: "sample_submodule_path",
         gitlink_sha: "sample_gitlink_sha",
         lock_sha: "sample_lock_sha",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "submodule_path" => "sample_submodule_path",
         "gitlink_sha" => "sample_gitlink_sha",
         "lock_sha" => "sample_lock_sha",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         submodule_path: "sample_submodule_path",
         gitlink_sha: "sample_gitlink_sha",
         lock_sha: "sample_lock_sha",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -13567,21 +13599,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         success_target: "sample_success_target",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "success_plan_id" => "sample_success_plan_id",
         "account_id" => "sample_account_id",
         "success_target" => "sample_success_target",
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         success_plan_id: "sample_success_plan_id",
         account_id: "sample_account_id",
         success_target: "sample_success_target",
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -13618,19 +13650,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         contract_id: "sample_contract_id",
         account_id: "sample_account_id",
         tier: :sample_atom,
-        valid_until: "2026-08-29T12:00:00Z"
+        valid_until: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "contract_id" => "sample_contract_id",
         "account_id" => "sample_account_id",
         "tier" => "sample_atom",
-        "valid_until" => "2026-08-29T12:00:00Z"
+        "valid_until" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         contract_id: "sample_contract_id",
         account_id: "sample_account_id",
         tier: :sample_atom,
-        valid_until: "2026-08-29T12:00:00Z"
+        valid_until: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -13694,21 +13726,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         support_readiness_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "support_readiness_id" => "sample_support_readiness_id",
         "account_id" => "sample_account_id",
         "support_readiness_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         support_readiness_id: "sample_support_readiness_id",
         account_id: "sample_account_id",
         support_readiness_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -13820,21 +13852,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         target_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "target_metric_id" => "sample_target_metric_id",
         "account_id" => "sample_account_id",
         "target_value" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         target_metric_id: "sample_target_metric_id",
         account_id: "sample_account_id",
         target_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -13872,21 +13904,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         jurisdiction_code: "sample_jurisdiction_code",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "tax_jurisdiction_rule_id" => "sample_tax_jurisdiction_rule_id",
         "account_id" => "sample_account_id",
         "jurisdiction_code" => "sample_jurisdiction_code",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         tax_jurisdiction_rule_id: "sample_tax_jurisdiction_rule_id",
         account_id: "sample_account_id",
         jurisdiction_code: "sample_jurisdiction_code",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14092,20 +14124,20 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         subscription_id: "sample_subscription_id",
         sku: "sample_sku",
-        starts_at: "2026-08-29T12:00:00Z",
-        ends_at: "2026-08-29T12:00:00Z"
+        starts_at: "2026-08-29T12:00:00.123456Z",
+        ends_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "subscription_id" => "sample_subscription_id",
         "sku" => "sample_sku",
-        "starts_at" => "2026-08-29T12:00:00Z",
-        "ends_at" => "2026-08-29T12:00:00Z"
+        "starts_at" => "2026-08-29T12:00:00.123456Z",
+        "ends_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         subscription_id: "sample_subscription_id",
         sku: "sample_sku",
-        starts_at: "2026-08-29T12:00:00Z",
-        ends_at: "2026-08-29T12:00:00Z"
+        starts_at: "2026-08-29T12:00:00.123456Z",
+        ends_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -14143,21 +14175,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         verified_days: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "time_to_value_id" => "sample_time_to_value_id",
         "account_id" => "sample_account_id",
         "verified_days" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         time_to_value_id: "sample_time_to_value_id",
         account_id: "sample_account_id",
         verified_days: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14194,19 +14226,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         tool_name: "sample_tool_name",
         tool_version: "sample_tool_version",
         executable_digest: "sample_executable_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "tool_name" => "sample_tool_name",
         "tool_version" => "sample_tool_version",
         "executable_digest" => "sample_executable_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         tool_name: "sample_tool_name",
         tool_version: "sample_tool_version",
         executable_digest: "sample_executable_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -14221,21 +14253,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         training_completion_rate: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "training_readiness_id" => "sample_training_readiness_id",
         "account_id" => "sample_account_id",
         "training_completion_rate" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         training_readiness_id: "sample_training_readiness_id",
         account_id: "sample_account_id",
         training_completion_rate: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14300,23 +14332,23 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         trial_entitlement_id: "sample_trial_entitlement_id",
         account_id: "sample_account_id",
-        trial_expires_at: "2026-08-29T12:00:00Z",
+        trial_expires_at: "2026-08-29T12:00:00.123456Z",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "trial_entitlement_id" => "sample_trial_entitlement_id",
         "account_id" => "sample_account_id",
-        "trial_expires_at" => "2026-08-29T12:00:00Z",
+        "trial_expires_at" => "2026-08-29T12:00:00.123456Z",
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         trial_entitlement_id: "sample_trial_entitlement_id",
         account_id: "sample_account_id",
-        trial_expires_at: "2026-08-29T12:00:00Z",
+        trial_expires_at: "2026-08-29T12:00:00.123456Z",
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14432,21 +14464,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         gross_margin: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "unit_economics_snapshot_id" => "sample_unit_economics_snapshot_id",
         "account_id" => "sample_account_id",
         "gross_margin" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         unit_economics_snapshot_id: "sample_unit_economics_snapshot_id",
         account_id: "sample_account_id",
         gross_margin: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14513,21 +14545,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         upsell_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "upsell_readiness_id" => "sample_upsell_readiness_id",
         "account_id" => "sample_account_id",
         "upsell_score" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         upsell_readiness_id: "sample_upsell_readiness_id",
         account_id: "sample_account_id",
         upsell_score: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14542,21 +14574,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         window_seconds: 42,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "usage_aggregation_window_id" => "sample_usage_aggregation_window_id",
         "account_id" => "sample_account_id",
         "window_seconds" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         usage_aggregation_window_id: "sample_usage_aggregation_window_id",
         account_id: "sample_account_id",
         window_seconds: 42,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14571,21 +14603,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         corrected_quantity: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "usage_correction_id" => "sample_usage_correction_id",
         "account_id" => "sample_account_id",
         "corrected_quantity" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "effective_at" => "2026-08-29T12:00:00Z"
+        "effective_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         usage_correction_id: "sample_usage_correction_id",
         account_id: "sample_account_id",
         corrected_quantity: 3.5,
         evidence_digest: "sample_evidence_digest",
-        effective_at: "2026-08-29T12:00:00Z"
+        effective_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14600,21 +14632,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         entitlement_id: "sample_entitlement_id",
         quantity: 3.5,
         metric_name: "sample_metric_name",
-        occurred_at: "2026-08-29T12:00:00Z"
+        occurred_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "event_id" => "sample_event_id",
         "entitlement_id" => "sample_entitlement_id",
         "quantity" => 3.5,
         "metric_name" => "sample_metric_name",
-        "occurred_at" => "2026-08-29T12:00:00Z"
+        "occurred_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         event_id: "sample_event_id",
         entitlement_id: "sample_entitlement_id",
         quantity: 3.5,
         metric_name: "sample_metric_name",
-        occurred_at: "2026-08-29T12:00:00Z"
+        occurred_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14678,21 +14710,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         active_user_count: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "usage_signal_id" => "sample_usage_signal_id",
         "account_id" => "sample_account_id",
         "active_user_count" => 42,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         usage_signal_id: "sample_usage_signal_id",
         account_id: "sample_account_id",
         active_user_count: 42,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14706,19 +14738,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         expected_digest: "sample_expected_digest",
         observed_digest: "sample_observed_digest",
         drift_status: "sample_drift_status",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "expected_digest" => "sample_expected_digest",
         "observed_digest" => "sample_observed_digest",
         "drift_status" => "sample_drift_status",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         expected_digest: "sample_expected_digest",
         observed_digest: "sample_observed_digest",
         drift_status: "sample_drift_status",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],
@@ -14785,21 +14817,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         annual_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "value_driver_id" => "sample_value_driver_id",
         "account_id" => "sample_account_id",
         "annual_value" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         value_driver_id: "sample_value_driver_id",
         account_id: "sample_account_id",
         annual_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14863,21 +14895,21 @@ defmodule BeamPM.Codec.GeneratedTest do
         account_id: "sample_account_id",
         realized_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "value_realization_id" => "sample_value_realization_id",
         "account_id" => "sample_account_id",
         "realized_value" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         value_realization_id: "sample_value_realization_id",
         account_id: "sample_account_id",
         realized_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 5,
       opt_field_names: [],
@@ -14926,7 +14958,7 @@ defmodule BeamPM.Codec.GeneratedTest do
         baseline_value: 3.5,
         observed_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "value_receipt_id" => "sample_value_receipt_id",
@@ -14935,7 +14967,7 @@ defmodule BeamPM.Codec.GeneratedTest do
         "baseline_value" => 3.5,
         "observed_value" => 3.5,
         "evidence_digest" => "sample_evidence_digest",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         value_receipt_id: "sample_value_receipt_id",
@@ -14944,7 +14976,7 @@ defmodule BeamPM.Codec.GeneratedTest do
         baseline_value: 3.5,
         observed_value: 3.5,
         evidence_digest: "sample_evidence_digest",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 7,
       opt_field_names: [],
@@ -15061,19 +15093,19 @@ defmodule BeamPM.Codec.GeneratedTest do
       full_attrs: %{
         evidence_id: "sample_evidence_id",
         subject_sha: "sample_subject_sha",
-        supported_until: "2026-08-29T12:00:00Z",
+        supported_until: "2026-08-29T12:00:00.123456Z",
         observed_result: :sample_atom
       },
       expected_map: %{
         "evidence_id" => "sample_evidence_id",
         "subject_sha" => "sample_subject_sha",
-        "supported_until" => "2026-08-29T12:00:00Z",
+        "supported_until" => "2026-08-29T12:00:00.123456Z",
         "observed_result" => "sample_atom"
       },
       req_attrs: %{
         evidence_id: "sample_evidence_id",
         subject_sha: "sample_subject_sha",
-        supported_until: "2026-08-29T12:00:00Z",
+        supported_until: "2026-08-29T12:00:00.123456Z",
         observed_result: :sample_atom
       },
       req_count: 4,
@@ -15160,19 +15192,19 @@ defmodule BeamPM.Codec.GeneratedTest do
         workflow_path: "sample_workflow_path",
         definition_sha256: "sample_definition_sha256",
         source_sha: "sample_source_sha",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       expected_map: %{
         "workflow_path" => "sample_workflow_path",
         "definition_sha256" => "sample_definition_sha256",
         "source_sha" => "sample_source_sha",
-        "observed_at" => "2026-08-29T12:00:00Z"
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
       },
       req_attrs: %{
         workflow_path: "sample_workflow_path",
         definition_sha256: "sample_definition_sha256",
         source_sha: "sample_source_sha",
-        observed_at: "2026-08-29T12:00:00Z"
+        observed_at: "2026-08-29T12:00:00.123456Z"
       },
       req_count: 4,
       opt_field_names: [],

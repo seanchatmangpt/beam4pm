@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.NormalizedEventObservation do
     attribute :source_system, :string, public?: true, allow_nil?: false
     attribute :event_id, :string, public?: true, allow_nil?: false
     attribute :event_type, :string, public?: true, allow_nil?: false
-    attribute :event_time, :utc_datetime, public?: true, allow_nil?: false
+    attribute :event_time, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

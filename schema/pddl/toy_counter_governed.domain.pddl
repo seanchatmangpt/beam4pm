@@ -20,6 +20,7 @@
     (allows_k8s_scale_down ?from - state ?to - state)
     (allows_k8s_scale_up ?from - state ?to - state)
     (allows_observe_counter ?from - state ?to - state)
+    (allows_restart_worker ?from - state ?to - state)
   )
   (:action increment_counter
     :parameters (?from - state ?to - state)
@@ -39,6 +40,11 @@
   (:action observe_counter
     :parameters (?from - state ?to - state)
     :precondition (and (in_state ?from) (allows_observe_counter ?from ?to))
+    :effect (and (in_state ?to) (not (in_state ?from)))
+  )
+  (:action restart_worker
+    :parameters (?from - state ?to - state)
+    :precondition (and (in_state ?from) (allows_restart_worker ?from ?to))
     :effect (and (in_state ?to) (not (in_state ?from)))
   )
 )

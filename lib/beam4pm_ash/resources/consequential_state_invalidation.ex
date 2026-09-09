@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.ConsequentialStateInvalidation do
     attribute :transition_id, :string, public?: true, allow_nil?: false
     attribute :affected_state_digest, :string, public?: true, allow_nil?: false
     attribute :invalidation_reason, :string, public?: true, allow_nil?: false
-    attribute :invalidated_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :invalidated_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

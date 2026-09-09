@@ -227,6 +227,7 @@ defmodule BeamPM.Actuation do
     * `k8s_scale_down` -> gym op `scale_down` (no required precondition facts)
     * `k8s_scale_up` -> gym op `scale_up` (no required precondition facts)
     * `observe_counter` -> gym op `noop` (no required precondition facts)
+    * `restart_worker` -> gym op `restart` (no required precondition facts)
 
   ## Receipts (every path, `beam4pm-brce/v1`)
 
@@ -284,7 +285,8 @@ defmodule BeamPM.Actuation do
     "increment_counter" => %{gym_op: "inc", requires: ["counter_ready"]},
     "k8s_scale_down" => %{gym_op: "scale_down", requires: []},
     "k8s_scale_up" => %{gym_op: "scale_up", requires: []},
-    "observe_counter" => %{gym_op: "noop", requires: []}
+    "observe_counter" => %{gym_op: "noop", requires: []},
+    "restart_worker" => %{gym_op: "restart", requires: []}
   }
 
   input(:action_input)

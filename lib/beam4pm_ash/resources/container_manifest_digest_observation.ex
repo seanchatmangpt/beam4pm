@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.ContainerManifestDigestObservation do
     attribute :image_repository, :string, public?: true, allow_nil?: false
     attribute :tag, :string, public?: true, allow_nil?: false
     attribute :index_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

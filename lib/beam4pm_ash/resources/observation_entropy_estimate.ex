@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.ObservationEntropyEstimate do
     attribute :state_vector_id, :string, public?: true, allow_nil?: false
     attribute :entropy_method, :string, public?: true, allow_nil?: false
     attribute :entropy_value, :float, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

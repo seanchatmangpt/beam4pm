@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.ToolchainIdentityObservation do
     attribute :tool_name, :string, public?: true, allow_nil?: false
     attribute :tool_version, :string, public?: true, allow_nil?: false
     attribute :executable_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do
