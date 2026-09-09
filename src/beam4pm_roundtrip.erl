@@ -14,6 +14,7 @@
 -spec record_names() -> [atom()].
 record_names() ->
     [
+        acceptance_criteria_nonweakening,
         account_discovery,
         account_master_match,
         account_parent_scope,
@@ -28,6 +29,8 @@ record_names() ->
         alignment_move,
         annual_subscription,
         anomaly_detection_observation,
+        anti_repeat_refusal,
+        anti_repeat_signature,
         approval_separation_evidence,
         architecture_readiness,
         architecture_review_evidence,
@@ -119,11 +122,13 @@ record_names() ->
         canonical_source_authority_observation,
         capability_bundle,
         capability_gap,
+        capability_gap_learning,
         capsule_availability,
         capsule_identity,
         case_stats,
         catalog_release,
         causal_lineage_observation,
+        challenger_candidate_evaluation,
         change_control_evidence,
         change_order_authority,
         changed_surface_inference,
@@ -149,6 +154,7 @@ record_names() ->
         configuration_import,
         conformance_result,
         consequential_state_invalidation,
+        consumer_equivalence_learning_guard,
         consumer_equivalence_proof,
         consumer_pack_pin_observation,
         consumption_pool,
@@ -157,9 +163,11 @@ record_names() ->
         container_platform_digest_observation,
         contracting_entity_identity,
         cost_center_allocation,
+        cost_latency_reliability_tradeoff,
         cost_of_delay_score,
         cost_to_serve_measurement,
         counterfactual_frontier,
+        counterfactual_replay,
         crash_recovery_receipt,
         credit_expiry_policy,
         credit_risk_admission,
@@ -214,6 +222,7 @@ record_names() ->
         crown_workflow_run_receipt,
         crown_zero_unreceipted_writes,
         currency_policy,
+        curriculum_generation,
         customer_health,
         customer_managed_key_evidence,
         customer_signal_observation,
@@ -225,6 +234,7 @@ record_names() ->
         data_volume_pricing_policy,
         deal_desk_packet,
         decision_compression_observation,
+        decision_information_preservation,
         deletion_proof_evidence,
         demo_run,
         demo_scenario,
@@ -253,16 +263,19 @@ record_names() ->
         entitlement_runtime_check,
         entitlement_state,
         entropy_reduction_score,
+        environment_failure_separation,
         environment_identity,
         environment_pricing_policy,
         environment_profile,
         environment_signal_observation,
         error_budget_state,
+        evaluation_seed_binding,
         event_log,
         event_triggered_planning,
         event_type,
         event_volume_pricing_policy,
         evidence_freshness_evidence,
+        evidence_training_sample,
         exact_subject_binding,
         exception_authority,
         executive_business_review,
@@ -271,12 +284,19 @@ record_names() ->
         expansion_option,
         expansion_receipt,
         expansion_signal,
+        experiment_learning_receipt,
+        failed_challenger_retention,
+        failure_label,
+        federated_dogfood_learning_crown,
         forged_receipt_refusal,
         funding_approval_chain,
         fx_conversion_policy,
+        generated_hypothesis,
         generated_output_ownership_observation,
         generated_source_route,
         heuristic_arc,
+        historical_episode_replay,
+        hypothesis_priority_update,
         immutable_pack_selection,
         implementation_fee_admission,
         incident_acknowledgement,
@@ -294,6 +314,8 @@ record_names() ->
         k8s_object_ref,
         late_arriving_usage,
         latency_budget_observation,
+        leakage_finding,
+        learning_episode,
         least_authority_evidence,
         legal_blocker,
         liability_cap_admission,
@@ -317,10 +339,13 @@ record_names() ->
         multiarch_evidence,
         mutable_identity_refusal_evidence,
         mutual_information_score,
+        negative_fixture_generation,
         next_lawful_actuation,
+        no_authority_learning_guard,
         node_failover_event,
         nonproduction_discount_policy,
         normalized_event_observation,
+        novelty_reward,
         novelty_score,
         object_attribute_change,
         object_type,
@@ -330,6 +355,7 @@ record_names() ->
         observation_deduplication_decision,
         observation_entropy_estimate,
         observation_freshness_assessment,
+        observation_projection_update,
         observation_staleness_invalidation,
         oc_declare_constraint,
         ocel_attribute,
@@ -345,7 +371,9 @@ record_names() ->
         option_generation,
         order_form_admission,
         order_form_version,
+        orthogonality_reward,
         orthogonality_score,
+        outcome_label,
         output_ownership_gate,
         overage_invoice,
         overage_policy,
@@ -364,7 +392,10 @@ record_names() ->
         plan_memory,
         planner_capability_profile,
         planner_identity,
+        planner_payoff_observation,
+        planner_policy_comparison,
         planner_portfolio,
+        planner_routing_update,
         planning_action,
         planning_state,
         poc_exit_criteria,
@@ -373,6 +404,7 @@ record_names() ->
         poc_timeline,
         policy_binding,
         policy_decision,
+        policy_payoff_observation,
         powl_choice_graph_edge,
         powl_freq,
         powl_leaf,
@@ -393,6 +425,8 @@ record_names() ->
         procurement_channel_selection,
         procurement_readiness,
         production_readiness,
+        promotion_decision,
+        promotion_threshold,
         proof_of_value_budget,
         proof_of_value_exit_gate,
         proof_of_value_package,
@@ -410,7 +444,9 @@ record_names() ->
         quota_policy,
         ramp_commitment,
         rate_card_entry,
+        rate_distortion_budget,
         reachability_analysis,
+        receipt_learning_compilation,
         receipt_replay_evidence,
         receipt_replay_request,
         receipt_required_gate,
@@ -422,13 +458,17 @@ record_names() ->
         recovery_time_receipt,
         refund_policy,
         refusal_boundary_observation,
+        refusal_threshold,
         region_pricing_policy,
+        regression_detector,
+        regression_refusal,
         remediation_sla_evidence,
         renewal_evidence,
         renewal_health,
         renewal_option,
         renewal_risk,
         renewal_term_admission,
+        repair_effectiveness_measurement,
         replay_environment_identity,
         repository_ancestry_observation,
         repository_default_branch_observation,
@@ -446,16 +486,21 @@ record_names() ->
         revenue_contract_admission,
         revenue_schedule_assumption,
         reversibility_weight,
+        rework_cost,
         rfp_response_evidence,
         role_compatibility,
         rollback_checkpoint,
         rollback_decision,
         rollback_evidence,
+        rollback_outcome_learning,
         rolling_upgrade_plan,
+        root_cause_pattern,
+        root_cause_reuse_decision,
         runtime_health_observation,
         runtime_policy_decision,
         sanctions_screening_result,
         sandbox_entitlement,
+        saturation_detection,
         sbom_inventory_evidence,
         seat_pricing_policy,
         second_pass_byte_identity_observation,
@@ -464,6 +509,7 @@ record_names() ->
         security_addendum_state,
         security_blocker,
         security_readiness,
+        seeded_evaluation,
         semantic_drift_observation,
         service_credit,
         service_credit_admission,
@@ -472,6 +518,7 @@ record_names() ->
         service_level_objective,
         service_slo_contract,
         service_span,
+        shadow_challenger_execution,
         showback_allocation,
         signature_evidence,
         sku_definition,
@@ -484,6 +531,8 @@ record_names() ->
         stale_receipt_refusal,
         stale_subject_refusal_evidence,
         standing_state_observation,
+        stopping_criterion,
+        subject_failure_separation,
         submodule_lock_observation,
         submodule_registration_observation,
         success_plan,
@@ -514,6 +563,7 @@ record_names() ->
         toolchain_identity_observation,
         training_readiness,
         training_scope_admission,
+        trajectory_window,
         trial_entitlement,
         true_up_policy,
         type_edge,
@@ -536,9 +586,12 @@ record_names() ->
         value_of_information_estimate,
         value_of_information_score,
         value_realization,
+        value_realization_feedback,
+        value_receipt,
         value_telemetry_sample,
         vendor_registration_state,
         vendor_risk_evidence,
+        verification_depth_update,
         version_lifecycle_evidence,
         volume_tier_admission,
         vulnerability_scan_evidence,
@@ -561,6 +614,24 @@ record_names() ->
 %% list_string -> [<<"alpha">>, <<"beta">>], map -> #{<<"k">> => <<"v">>}.
 %% minimal = required fields only; full = every field.
 -spec sample(atom(), variant()) -> {ok, tuple()}.
+sample(acceptance_criteria_nonweakening, full) ->
+    beam4pm_types:new_acceptance_criteria_nonweakening(#{
+        assessment_id => <<"sample_assessment_id">>,
+        acceptance_contract_id => <<"sample_acceptance_contract_id">>,
+        prior_digest => <<"sample_prior_digest">>,
+        candidate_digest => <<"sample_candidate_digest">>,
+        strength_result => <<"sample_strength_result">>,
+        refusal_code => <<"sample_refusal_code">>
+    });
+sample(acceptance_criteria_nonweakening, minimal) ->
+    beam4pm_types:new_acceptance_criteria_nonweakening(#{
+        assessment_id => <<"sample_assessment_id">>,
+        acceptance_contract_id => <<"sample_acceptance_contract_id">>,
+        prior_digest => <<"sample_prior_digest">>,
+        candidate_digest => <<"sample_candidate_digest">>,
+        strength_result => <<"sample_strength_result">>,
+        refusal_code => <<"sample_refusal_code">>
+    });
 sample(account_discovery, full) ->
     beam4pm_types:new_account_discovery(#{
         account_discovery_id => <<"sample_account_discovery_id">>,
@@ -750,6 +821,38 @@ sample(anomaly_detection_observation, minimal) ->
         baseline_digest => <<"sample_baseline_digest">>,
         observation_digest => <<"sample_observation_digest">>,
         anomaly_score => 3.5
+    });
+sample(anti_repeat_refusal, full) ->
+    beam4pm_types:new_anti_repeat_refusal(#{
+        refusal_id => <<"sample_refusal_id">>,
+        candidate_action_id => <<"sample_candidate_action_id">>,
+        matching_signature_id => <<"sample_matching_signature_id">>,
+        recurrence_risk => 3.5,
+        alternative_required => true
+    });
+sample(anti_repeat_refusal, minimal) ->
+    beam4pm_types:new_anti_repeat_refusal(#{
+        refusal_id => <<"sample_refusal_id">>,
+        candidate_action_id => <<"sample_candidate_action_id">>,
+        matching_signature_id => <<"sample_matching_signature_id">>,
+        recurrence_risk => 3.5,
+        alternative_required => true
+    });
+sample(anti_repeat_signature, full) ->
+    beam4pm_types:new_anti_repeat_signature(#{
+        signature_id => <<"sample_signature_id">>,
+        failure_class => <<"sample_failure_class">>,
+        causal_features_digest => <<"sample_causal_features_digest">>,
+        repair_family => <<"sample_repair_family">>,
+        first_seen_episode => <<"sample_first_seen_episode">>
+    });
+sample(anti_repeat_signature, minimal) ->
+    beam4pm_types:new_anti_repeat_signature(#{
+        signature_id => <<"sample_signature_id">>,
+        failure_class => <<"sample_failure_class">>,
+        causal_features_digest => <<"sample_causal_features_digest">>,
+        repair_family => <<"sample_repair_family">>,
+        first_seen_episode => <<"sample_first_seen_episode">>
     });
 sample(approval_separation_evidence, full) ->
     beam4pm_types:new_approval_separation_evidence(#{
@@ -2025,6 +2128,22 @@ sample(capability_gap, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(capability_gap_learning, full) ->
+    beam4pm_types:new_capability_gap_learning(#{
+        learning_id => <<"sample_learning_id">>,
+        observed_capability_id => <<"sample_observed_capability_id">>,
+        required_capability_id => <<"sample_required_capability_id">>,
+        gap_type => <<"sample_gap_type">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    });
+sample(capability_gap_learning, minimal) ->
+    beam4pm_types:new_capability_gap_learning(#{
+        learning_id => <<"sample_learning_id">>,
+        observed_capability_id => <<"sample_observed_capability_id">>,
+        required_capability_id => <<"sample_required_capability_id">>,
+        gap_type => <<"sample_gap_type">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    });
 sample(capsule_availability, full) ->
     beam4pm_types:new_capsule_availability(#{
         capsule_id => <<"sample_capsule_id">>,
@@ -2087,6 +2206,24 @@ sample(causal_lineage_observation, minimal) ->
         effect_observation_id => <<"sample_effect_observation_id">>,
         causal_basis => <<"sample_causal_basis">>,
         evidence_digest => <<"sample_evidence_digest">>
+    });
+sample(challenger_candidate_evaluation, full) ->
+    beam4pm_types:new_challenger_candidate_evaluation(#{
+        evaluation_id => <<"sample_evaluation_id">>,
+        challenger_policy_id => <<"sample_challenger_policy_id">>,
+        episode_set_digest => <<"sample_episode_set_digest">>,
+        evaluation_seed => <<"sample_evaluation_seed">>,
+        score => 3.5,
+        refusal_code => <<"sample_refusal_code">>
+    });
+sample(challenger_candidate_evaluation, minimal) ->
+    beam4pm_types:new_challenger_candidate_evaluation(#{
+        evaluation_id => <<"sample_evaluation_id">>,
+        challenger_policy_id => <<"sample_challenger_policy_id">>,
+        episode_set_digest => <<"sample_episode_set_digest">>,
+        evaluation_seed => <<"sample_evaluation_seed">>,
+        score => 3.5,
+        refusal_code => <<"sample_refusal_code">>
     });
 sample(change_control_evidence, full) ->
     beam4pm_types:new_change_control_evidence(#{
@@ -2433,6 +2570,24 @@ sample(consequential_state_invalidation, minimal) ->
         invalidation_reason => <<"sample_invalidation_reason">>,
         invalidated_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(consumer_equivalence_learning_guard, full) ->
+    beam4pm_types:new_consumer_equivalence_learning_guard(#{
+        guard_id => <<"sample_guard_id">>,
+        source_consumer_id => <<"sample_source_consumer_id">>,
+        target_consumer_id => <<"sample_target_consumer_id">>,
+        equivalence_evidence_digest => <<"sample_equivalence_evidence_digest">>,
+        decision => <<"sample_decision">>,
+        refusal_code => <<"sample_refusal_code">>
+    });
+sample(consumer_equivalence_learning_guard, minimal) ->
+    beam4pm_types:new_consumer_equivalence_learning_guard(#{
+        guard_id => <<"sample_guard_id">>,
+        source_consumer_id => <<"sample_source_consumer_id">>,
+        target_consumer_id => <<"sample_target_consumer_id">>,
+        equivalence_evidence_digest => <<"sample_equivalence_evidence_digest">>,
+        decision => <<"sample_decision">>,
+        refusal_code => <<"sample_refusal_code">>
+    });
 sample(consumer_equivalence_proof, full) ->
     beam4pm_types:new_consumer_equivalence_proof(#{
         consumer_set_id => <<"sample_consumer_set_id">>,
@@ -2543,6 +2698,24 @@ sample(cost_center_allocation, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         effective_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(cost_latency_reliability_tradeoff, full) ->
+    beam4pm_types:new_cost_latency_reliability_tradeoff(#{
+        assessment_id => <<"sample_assessment_id">>,
+        candidate_policy_id => <<"sample_candidate_policy_id">>,
+        cost_score => 3.5,
+        latency_score => 3.5,
+        reliability_score => 3.5,
+        utility_score => 3.5
+    });
+sample(cost_latency_reliability_tradeoff, minimal) ->
+    beam4pm_types:new_cost_latency_reliability_tradeoff(#{
+        assessment_id => <<"sample_assessment_id">>,
+        candidate_policy_id => <<"sample_candidate_policy_id">>,
+        cost_score => 3.5,
+        latency_score => 3.5,
+        reliability_score => 3.5,
+        utility_score => 3.5
+    });
 sample(cost_of_delay_score, full) ->
     beam4pm_types:new_cost_of_delay_score(#{
         option_id => <<"sample_option_id">>,
@@ -2578,6 +2751,24 @@ sample(counterfactual_frontier, minimal) ->
         option_set_id => <<"sample_option_set_id">>,
         world_model_hash => <<"sample_world_model_hash">>,
         frontier_hash => <<"sample_frontier_hash">>
+    });
+sample(counterfactual_replay, full) ->
+    beam4pm_types:new_counterfactual_replay(#{
+        replay_id => <<"sample_replay_id">>,
+        source_episode_id => <<"sample_source_episode_id">>,
+        intervention_digest => <<"sample_intervention_digest">>,
+        seed => <<"sample_seed">>,
+        predicted_outcome => <<"sample_predicted_outcome">>,
+        comparison_digest => <<"sample_comparison_digest">>
+    });
+sample(counterfactual_replay, minimal) ->
+    beam4pm_types:new_counterfactual_replay(#{
+        replay_id => <<"sample_replay_id">>,
+        source_episode_id => <<"sample_source_episode_id">>,
+        intervention_digest => <<"sample_intervention_digest">>,
+        seed => <<"sample_seed">>,
+        predicted_outcome => <<"sample_predicted_outcome">>,
+        comparison_digest => <<"sample_comparison_digest">>
     });
 sample(crash_recovery_receipt, full) ->
     beam4pm_types:new_crash_recovery_receipt(#{
@@ -3337,6 +3528,22 @@ sample(currency_policy, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         effective_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(curriculum_generation, full) ->
+    beam4pm_types:new_curriculum_generation(#{
+        curriculum_id => <<"sample_curriculum_id">>,
+        source_gap_set_digest => <<"sample_source_gap_set_digest">>,
+        ordered_hypotheses_digest => <<"sample_ordered_hypotheses_digest">>,
+        diversity_score => 3.5,
+        falsifier_coverage => 3.5
+    });
+sample(curriculum_generation, minimal) ->
+    beam4pm_types:new_curriculum_generation(#{
+        curriculum_id => <<"sample_curriculum_id">>,
+        source_gap_set_digest => <<"sample_source_gap_set_digest">>,
+        ordered_hypotheses_digest => <<"sample_ordered_hypotheses_digest">>,
+        diversity_score => 3.5,
+        falsifier_coverage => 3.5
+    });
 sample(customer_health, full) ->
     beam4pm_types:new_customer_health(#{
         customer_health_id => <<"sample_customer_health_id">>,
@@ -3490,6 +3697,24 @@ sample(decision_compression_observation, minimal) ->
         input_state_digest => <<"sample_input_state_digest">>,
         output_delta_digest => <<"sample_output_delta_digest">>,
         loss_bound => <<"sample_loss_bound">>
+    });
+sample(decision_information_preservation, full) ->
+    beam4pm_types:new_decision_information_preservation(#{
+        preservation_id => <<"sample_preservation_id">>,
+        decision_id => <<"sample_decision_id">>,
+        source_partition_digest => <<"sample_source_partition_digest">>,
+        projection_digest => <<"sample_projection_digest">>,
+        preserved_question_set_digest => <<"sample_preserved_question_set_digest">>,
+        loss_score => 3.5
+    });
+sample(decision_information_preservation, minimal) ->
+    beam4pm_types:new_decision_information_preservation(#{
+        preservation_id => <<"sample_preservation_id">>,
+        decision_id => <<"sample_decision_id">>,
+        source_partition_digest => <<"sample_source_partition_digest">>,
+        projection_digest => <<"sample_projection_digest">>,
+        preserved_question_set_digest => <<"sample_preserved_question_set_digest">>,
+        loss_score => 3.5
     });
 sample(deletion_proof_evidence, full) ->
     beam4pm_types:new_deletion_proof_evidence(#{
@@ -3884,6 +4109,22 @@ sample(entropy_reduction_score, minimal) ->
         prior_entropy => <<"sample_prior_entropy">>,
         expected_posterior_entropy => <<"sample_expected_posterior_entropy">>
     });
+sample(environment_failure_separation, full) ->
+    beam4pm_types:new_environment_failure_separation(#{
+        assessment_id => <<"sample_assessment_id">>,
+        exact_subject_sha => <<"sample_exact_subject_sha">>,
+        capsule_digest => <<"sample_capsule_digest">>,
+        failure_signal => <<"sample_failure_signal">>,
+        classification_basis => <<"sample_classification_basis">>
+    });
+sample(environment_failure_separation, minimal) ->
+    beam4pm_types:new_environment_failure_separation(#{
+        assessment_id => <<"sample_assessment_id">>,
+        exact_subject_sha => <<"sample_exact_subject_sha">>,
+        capsule_digest => <<"sample_capsule_digest">>,
+        failure_signal => <<"sample_failure_signal">>,
+        classification_basis => <<"sample_classification_basis">>
+    });
 sample(environment_identity, full) ->
     beam4pm_types:new_environment_identity(#{
         tenant_id => <<"sample_tenant_id">>,
@@ -3952,6 +4193,24 @@ sample(error_budget_state, minimal) ->
         slo_id => <<"sample_slo_id">>,
         state_hash => <<"sample_state_hash">>
     });
+sample(evaluation_seed_binding, full) ->
+    beam4pm_types:new_evaluation_seed_binding(#{
+        binding_id => <<"sample_binding_id">>,
+        evaluation_id => <<"sample_evaluation_id">>,
+        seed => <<"sample_seed">>,
+        result_digest => <<"sample_result_digest">>,
+        source_digest => <<"sample_source_digest">>,
+        deterministic => true
+    });
+sample(evaluation_seed_binding, minimal) ->
+    beam4pm_types:new_evaluation_seed_binding(#{
+        binding_id => <<"sample_binding_id">>,
+        evaluation_id => <<"sample_evaluation_id">>,
+        seed => <<"sample_seed">>,
+        result_digest => <<"sample_result_digest">>,
+        source_digest => <<"sample_source_digest">>,
+        deterministic => true
+    });
 sample(event_log, full) ->
     beam4pm_types:new_event_log(#{
         log_id => <<"sample_log_id">>,
@@ -4013,6 +4272,22 @@ sample(evidence_freshness_evidence, minimal) ->
         subject_sha => <<"sample_subject_sha">>,
         observed_at => <<"2026-08-29T12:00:00Z">>,
         observed_result => sample_atom
+    });
+sample(evidence_training_sample, full) ->
+    beam4pm_types:new_evidence_training_sample(#{
+        sample_id => <<"sample_sample_id">>,
+        episode_id => <<"sample_episode_id">>,
+        feature_digest => <<"sample_feature_digest">>,
+        label_id => <<"sample_label_id">>,
+        provenance_digest => <<"sample_provenance_digest">>
+    });
+sample(evidence_training_sample, minimal) ->
+    beam4pm_types:new_evidence_training_sample(#{
+        sample_id => <<"sample_sample_id">>,
+        episode_id => <<"sample_episode_id">>,
+        feature_digest => <<"sample_feature_digest">>,
+        label_id => <<"sample_label_id">>,
+        provenance_digest => <<"sample_provenance_digest">>
     });
 sample(exact_subject_binding, full) ->
     beam4pm_types:new_exact_subject_binding(#{
@@ -4132,6 +4407,82 @@ sample(expansion_signal, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(experiment_learning_receipt, full) ->
+    beam4pm_types:new_experiment_learning_receipt(#{
+        receipt_id => <<"sample_receipt_id">>,
+        experiment_id => <<"sample_experiment_id">>,
+        exact_subject_sha => <<"sample_exact_subject_sha">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        result_digest => <<"sample_result_digest">>,
+        authority_ceiling => <<"sample_authority_ceiling">>
+    });
+sample(experiment_learning_receipt, minimal) ->
+    beam4pm_types:new_experiment_learning_receipt(#{
+        receipt_id => <<"sample_receipt_id">>,
+        experiment_id => <<"sample_experiment_id">>,
+        exact_subject_sha => <<"sample_exact_subject_sha">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        result_digest => <<"sample_result_digest">>,
+        authority_ceiling => <<"sample_authority_ceiling">>
+    });
+sample(failed_challenger_retention, full) ->
+    beam4pm_types:new_failed_challenger_retention(#{
+        retention_id => <<"sample_retention_id">>,
+        challenger_evaluation_id => <<"sample_challenger_evaluation_id">>,
+        failure_evidence_digest => <<"sample_failure_evidence_digest">>,
+        retained_at => <<"2026-08-29T12:00:00Z">>,
+        eligible_for_future => true
+    });
+sample(failed_challenger_retention, minimal) ->
+    beam4pm_types:new_failed_challenger_retention(#{
+        retention_id => <<"sample_retention_id">>,
+        challenger_evaluation_id => <<"sample_challenger_evaluation_id">>,
+        failure_evidence_digest => <<"sample_failure_evidence_digest">>,
+        retained_at => <<"2026-08-29T12:00:00Z">>,
+        eligible_for_future => true
+    });
+sample(failure_label, full) ->
+    beam4pm_types:new_failure_label(#{
+        failure_id => <<"sample_failure_id">>,
+        episode_id => <<"sample_episode_id">>,
+        failure_class => <<"sample_failure_class">>,
+        causal_scope => <<"sample_causal_scope">>,
+        preserved_evidence_digest => <<"sample_preserved_evidence_digest">>
+    });
+sample(failure_label, minimal) ->
+    beam4pm_types:new_failure_label(#{
+        failure_id => <<"sample_failure_id">>,
+        episode_id => <<"sample_episode_id">>,
+        failure_class => <<"sample_failure_class">>,
+        causal_scope => <<"sample_causal_scope">>,
+        preserved_evidence_digest => <<"sample_preserved_evidence_digest">>
+    });
+sample(federated_dogfood_learning_crown, full) ->
+    beam4pm_types:new_federated_dogfood_learning_crown(#{
+        crown_id => <<"sample_crown_id">>,
+        exact_subject_sha => <<"sample_exact_subject_sha">>,
+        consumer_id => <<"sample_consumer_id">>,
+        pack_sha => <<"sample_pack_sha">>,
+        capsule_digest => <<"sample_capsule_digest">>,
+        manufacture_receipt_digest => <<"sample_manufacture_receipt_digest">>,
+        ownership_verification_digest => <<"sample_ownership_verification_digest">>,
+        second_pass_identity_digest => <<"sample_second_pass_identity_digest">>,
+        workflow_sequence => <<"sample_workflow_sequence">>,
+        authority_ceiling => <<"sample_authority_ceiling">>
+    });
+sample(federated_dogfood_learning_crown, minimal) ->
+    beam4pm_types:new_federated_dogfood_learning_crown(#{
+        crown_id => <<"sample_crown_id">>,
+        exact_subject_sha => <<"sample_exact_subject_sha">>,
+        consumer_id => <<"sample_consumer_id">>,
+        pack_sha => <<"sample_pack_sha">>,
+        capsule_digest => <<"sample_capsule_digest">>,
+        manufacture_receipt_digest => <<"sample_manufacture_receipt_digest">>,
+        ownership_verification_digest => <<"sample_ownership_verification_digest">>,
+        second_pass_identity_digest => <<"sample_second_pass_identity_digest">>,
+        workflow_sequence => <<"sample_workflow_sequence">>,
+        authority_ceiling => <<"sample_authority_ceiling">>
+    });
 sample(forged_receipt_refusal, full) ->
     beam4pm_types:new_forged_receipt_refusal(#{
         tenant_id => <<"sample_tenant_id">>,
@@ -4172,6 +4523,22 @@ sample(fx_conversion_policy, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         effective_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(generated_hypothesis, full) ->
+    beam4pm_types:new_generated_hypothesis(#{
+        hypothesis_id => <<"sample_hypothesis_id">>,
+        source_gap_id => <<"sample_source_gap_id">>,
+        candidate_capability => <<"sample_candidate_capability">>,
+        expected_value => 3.5,
+        falsifier_contract => <<"sample_falsifier_contract">>
+    });
+sample(generated_hypothesis, minimal) ->
+    beam4pm_types:new_generated_hypothesis(#{
+        hypothesis_id => <<"sample_hypothesis_id">>,
+        source_gap_id => <<"sample_source_gap_id">>,
+        candidate_capability => <<"sample_candidate_capability">>,
+        expected_value => 3.5,
+        falsifier_contract => <<"sample_falsifier_contract">>
+    });
 sample(generated_output_ownership_observation, full) ->
     beam4pm_types:new_generated_output_ownership_observation(#{
         output_path => <<"sample_output_path">>,
@@ -4209,6 +4576,38 @@ sample(heuristic_arc, minimal) ->
         source_activity => <<"sample_source_activity">>,
         target_activity => <<"sample_target_activity">>,
         dependency_measure => 3.5
+    });
+sample(historical_episode_replay, full) ->
+    beam4pm_types:new_historical_episode_replay(#{
+        replay_id => <<"sample_replay_id">>,
+        episode_id => <<"sample_episode_id">>,
+        historical_subject_sha => <<"sample_historical_subject_sha">>,
+        replay_seed => <<"sample_replay_seed">>,
+        divergence_code => <<"sample_divergence_code">>
+    });
+sample(historical_episode_replay, minimal) ->
+    beam4pm_types:new_historical_episode_replay(#{
+        replay_id => <<"sample_replay_id">>,
+        episode_id => <<"sample_episode_id">>,
+        historical_subject_sha => <<"sample_historical_subject_sha">>,
+        replay_seed => <<"sample_replay_seed">>,
+        divergence_code => <<"sample_divergence_code">>
+    });
+sample(hypothesis_priority_update, full) ->
+    beam4pm_types:new_hypothesis_priority_update(#{
+        update_id => <<"sample_update_id">>,
+        hypothesis_id => <<"sample_hypothesis_id">>,
+        prior_priority => 3.5,
+        new_priority => 3.5,
+        payoff_evidence_digest => <<"sample_payoff_evidence_digest">>
+    });
+sample(hypothesis_priority_update, minimal) ->
+    beam4pm_types:new_hypothesis_priority_update(#{
+        update_id => <<"sample_update_id">>,
+        hypothesis_id => <<"sample_hypothesis_id">>,
+        prior_priority => 3.5,
+        new_priority => 3.5,
+        payoff_evidence_digest => <<"sample_payoff_evidence_digest">>
     });
 sample(immutable_pack_selection, full) ->
     beam4pm_types:new_immutable_pack_selection(#{
@@ -4430,6 +4829,35 @@ sample(latency_budget_observation, minimal) ->
         tenant_id => <<"sample_tenant_id">>,
         workload_id => <<"sample_workload_id">>,
         observation_hash => <<"sample_observation_hash">>
+    });
+sample(leakage_finding, full) ->
+    beam4pm_types:new_leakage_finding(#{
+        case_id => <<"sample_case_id">>,
+        fitness => 3.5,
+        precision => 3.5,
+        amount_at_risk => 3.5
+    });
+sample(leakage_finding, minimal) ->
+    beam4pm_types:new_leakage_finding(#{
+        case_id => <<"sample_case_id">>,
+        fitness => 3.5,
+        precision => 3.5
+    });
+sample(learning_episode, full) ->
+    beam4pm_types:new_learning_episode(#{
+        episode_id => <<"sample_episode_id">>,
+        exact_subject_sha => <<"sample_exact_subject_sha">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        outcome => <<"sample_outcome">>,
+        authority_ceiling => <<"sample_authority_ceiling">>
+    });
+sample(learning_episode, minimal) ->
+    beam4pm_types:new_learning_episode(#{
+        episode_id => <<"sample_episode_id">>,
+        exact_subject_sha => <<"sample_exact_subject_sha">>,
+        evidence_digest => <<"sample_evidence_digest">>,
+        outcome => <<"sample_outcome">>,
+        authority_ceiling => <<"sample_authority_ceiling">>
     });
 sample(least_authority_evidence, full) ->
     beam4pm_types:new_least_authority_evidence(#{
@@ -4745,6 +5173,22 @@ sample(mutual_information_score, minimal) ->
         target_state_id => <<"sample_target_state_id">>,
         score => <<"sample_score">>
     });
+sample(negative_fixture_generation, full) ->
+    beam4pm_types:new_negative_fixture_generation(#{
+        fixture_id => <<"sample_fixture_id">>,
+        source_failure_id => <<"sample_source_failure_id">>,
+        invariant_id => <<"sample_invariant_id">>,
+        generated_input_digest => <<"sample_generated_input_digest">>,
+        expected_refusal_code => <<"sample_expected_refusal_code">>
+    });
+sample(negative_fixture_generation, minimal) ->
+    beam4pm_types:new_negative_fixture_generation(#{
+        fixture_id => <<"sample_fixture_id">>,
+        source_failure_id => <<"sample_source_failure_id">>,
+        invariant_id => <<"sample_invariant_id">>,
+        generated_input_digest => <<"sample_generated_input_digest">>,
+        expected_refusal_code => <<"sample_expected_refusal_code">>
+    });
 sample(next_lawful_actuation, full) ->
     beam4pm_types:new_next_lawful_actuation(#{
         episode_id => <<"sample_episode_id">>,
@@ -4756,6 +5200,24 @@ sample(next_lawful_actuation, minimal) ->
         episode_id => <<"sample_episode_id">>,
         selected_action_id => <<"sample_selected_action_id">>,
         selection_receipt_hash => <<"sample_selection_receipt_hash">>
+    });
+sample(no_authority_learning_guard, full) ->
+    beam4pm_types:new_no_authority_learning_guard(#{
+        guard_id => <<"sample_guard_id">>,
+        candidate_update_id => <<"sample_candidate_update_id">>,
+        current_authority => <<"sample_current_authority">>,
+        requested_authority => <<"sample_requested_authority">>,
+        decision => <<"sample_decision">>,
+        evidence_digest => <<"sample_evidence_digest">>
+    });
+sample(no_authority_learning_guard, minimal) ->
+    beam4pm_types:new_no_authority_learning_guard(#{
+        guard_id => <<"sample_guard_id">>,
+        candidate_update_id => <<"sample_candidate_update_id">>,
+        current_authority => <<"sample_current_authority">>,
+        requested_authority => <<"sample_requested_authority">>,
+        decision => <<"sample_decision">>,
+        evidence_digest => <<"sample_evidence_digest">>
     });
 sample(node_failover_event, full) ->
     beam4pm_types:new_node_failover_event(#{
@@ -4798,6 +5260,24 @@ sample(normalized_event_observation, minimal) ->
         event_id => <<"sample_event_id">>,
         event_type => <<"sample_event_type">>,
         event_time => <<"2026-08-29T12:00:00Z">>
+    });
+sample(novelty_reward, full) ->
+    beam4pm_types:new_novelty_reward(#{
+        reward_id => <<"sample_reward_id">>,
+        hypothesis_id => <<"sample_hypothesis_id">>,
+        feature_vector_digest => <<"sample_feature_vector_digest">>,
+        nearest_prior_distance => 3.5,
+        reward => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>
+    });
+sample(novelty_reward, minimal) ->
+    beam4pm_types:new_novelty_reward(#{
+        reward_id => <<"sample_reward_id">>,
+        hypothesis_id => <<"sample_hypothesis_id">>,
+        feature_vector_digest => <<"sample_feature_vector_digest">>,
+        nearest_prior_distance => 3.5,
+        reward => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>
     });
 sample(novelty_score, full) ->
     beam4pm_types:new_novelty_score(#{
@@ -4924,6 +5404,24 @@ sample(observation_freshness_assessment, minimal) ->
         observed_at => <<"2026-08-29T12:00:00Z">>,
         freshness_deadline => <<"2026-08-29T12:00:00Z">>,
         freshness_status => <<"sample_freshness_status">>
+    });
+sample(observation_projection_update, full) ->
+    beam4pm_types:new_observation_projection_update(#{
+        update_id => <<"sample_update_id">>,
+        projection_id => <<"sample_projection_id">>,
+        prior_digest => <<"sample_prior_digest">>,
+        new_digest => <<"sample_new_digest">>,
+        triggering_gap_id => <<"sample_triggering_gap_id">>,
+        authority_ceiling => <<"sample_authority_ceiling">>
+    });
+sample(observation_projection_update, minimal) ->
+    beam4pm_types:new_observation_projection_update(#{
+        update_id => <<"sample_update_id">>,
+        projection_id => <<"sample_projection_id">>,
+        prior_digest => <<"sample_prior_digest">>,
+        new_digest => <<"sample_new_digest">>,
+        triggering_gap_id => <<"sample_triggering_gap_id">>,
+        authority_ceiling => <<"sample_authority_ceiling">>
     });
 sample(observation_staleness_invalidation, full) ->
     beam4pm_types:new_observation_staleness_invalidation(#{
@@ -5118,6 +5616,24 @@ sample(order_form_version, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         effective_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(orthogonality_reward, full) ->
+    beam4pm_types:new_orthogonality_reward(#{
+        reward_id => <<"sample_reward_id">>,
+        candidate_id => <<"sample_candidate_id">>,
+        comparison_set_digest => <<"sample_comparison_set_digest">>,
+        minimum_semantic_distance => 3.5,
+        reward => 3.5,
+        independence_evidence_digest => <<"sample_independence_evidence_digest">>
+    });
+sample(orthogonality_reward, minimal) ->
+    beam4pm_types:new_orthogonality_reward(#{
+        reward_id => <<"sample_reward_id">>,
+        candidate_id => <<"sample_candidate_id">>,
+        comparison_set_digest => <<"sample_comparison_set_digest">>,
+        minimum_semantic_distance => 3.5,
+        reward => 3.5,
+        independence_evidence_digest => <<"sample_independence_evidence_digest">>
+    });
 sample(orthogonality_score, full) ->
     beam4pm_types:new_orthogonality_score(#{
         left_option_id => <<"sample_left_option_id">>,
@@ -5129,6 +5645,22 @@ sample(orthogonality_score, minimal) ->
         left_option_id => <<"sample_left_option_id">>,
         right_option_id => <<"sample_right_option_id">>,
         score => <<"sample_score">>
+    });
+sample(outcome_label, full) ->
+    beam4pm_types:new_outcome_label(#{
+        label_id => <<"sample_label_id">>,
+        episode_id => <<"sample_episode_id">>,
+        outcome_class => <<"sample_outcome_class">>,
+        confidence_basis => <<"sample_confidence_basis">>,
+        independent_evidence_digest => <<"sample_independent_evidence_digest">>
+    });
+sample(outcome_label, minimal) ->
+    beam4pm_types:new_outcome_label(#{
+        label_id => <<"sample_label_id">>,
+        episode_id => <<"sample_episode_id">>,
+        outcome_class => <<"sample_outcome_class">>,
+        confidence_basis => <<"sample_confidence_basis">>,
+        independent_evidence_digest => <<"sample_independent_evidence_digest">>
     });
 sample(output_ownership_gate, full) ->
     beam4pm_types:new_output_ownership_gate(#{
@@ -5355,6 +5887,42 @@ sample(planner_identity, minimal) ->
         planner_kind => <<"sample_planner_kind">>,
         identity_hash => <<"sample_identity_hash">>
     });
+sample(planner_payoff_observation, full) ->
+    beam4pm_types:new_planner_payoff_observation(#{
+        observation_id => <<"sample_observation_id">>,
+        planner_id => <<"sample_planner_id">>,
+        objective_id => <<"sample_objective_id">>,
+        payoff => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(planner_payoff_observation, minimal) ->
+    beam4pm_types:new_planner_payoff_observation(#{
+        observation_id => <<"sample_observation_id">>,
+        planner_id => <<"sample_planner_id">>,
+        objective_id => <<"sample_objective_id">>,
+        payoff => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        episode_id => <<"sample_episode_id">>
+    });
+sample(planner_policy_comparison, full) ->
+    beam4pm_types:new_planner_policy_comparison(#{
+        comparison_id => <<"sample_comparison_id">>,
+        planner_id => <<"sample_planner_id">>,
+        incumbent_policy_id => <<"sample_incumbent_policy_id">>,
+        challenger_policy_id => <<"sample_challenger_policy_id">>,
+        payoff_delta => 3.5,
+        winner_evidence_digest => <<"sample_winner_evidence_digest">>
+    });
+sample(planner_policy_comparison, minimal) ->
+    beam4pm_types:new_planner_policy_comparison(#{
+        comparison_id => <<"sample_comparison_id">>,
+        planner_id => <<"sample_planner_id">>,
+        incumbent_policy_id => <<"sample_incumbent_policy_id">>,
+        challenger_policy_id => <<"sample_challenger_policy_id">>,
+        payoff_delta => 3.5,
+        winner_evidence_digest => <<"sample_winner_evidence_digest">>
+    });
 sample(planner_portfolio, full) ->
     beam4pm_types:new_planner_portfolio(#{
         portfolio_id => <<"sample_portfolio_id">>,
@@ -5366,6 +5934,24 @@ sample(planner_portfolio, minimal) ->
         portfolio_id => <<"sample_portfolio_id">>,
         planner_ids => <<"sample_planner_ids">>,
         diversity_hash => <<"sample_diversity_hash">>
+    });
+sample(planner_routing_update, full) ->
+    beam4pm_types:new_planner_routing_update(#{
+        update_id => <<"sample_update_id">>,
+        route_id => <<"sample_route_id">>,
+        prior_planner_id => <<"sample_prior_planner_id">>,
+        selected_planner_id => <<"sample_selected_planner_id">>,
+        payoff_basis_digest => <<"sample_payoff_basis_digest">>,
+        rollback_policy_id => <<"sample_rollback_policy_id">>
+    });
+sample(planner_routing_update, minimal) ->
+    beam4pm_types:new_planner_routing_update(#{
+        update_id => <<"sample_update_id">>,
+        route_id => <<"sample_route_id">>,
+        prior_planner_id => <<"sample_prior_planner_id">>,
+        selected_planner_id => <<"sample_selected_planner_id">>,
+        payoff_basis_digest => <<"sample_payoff_basis_digest">>,
+        rollback_policy_id => <<"sample_rollback_policy_id">>
     });
 sample(planning_action, full) ->
     beam4pm_types:new_planning_action(#{
@@ -5473,6 +6059,24 @@ sample(policy_decision, minimal) ->
     beam4pm_types:new_policy_decision(#{
         decision_id => <<"sample_decision_id">>,
         verdict => sample_atom
+    });
+sample(policy_payoff_observation, full) ->
+    beam4pm_types:new_policy_payoff_observation(#{
+        observation_id => <<"sample_observation_id">>,
+        policy_id => <<"sample_policy_id">>,
+        parameter_digest => <<"sample_parameter_digest">>,
+        objective_id => <<"sample_objective_id">>,
+        payoff => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>
+    });
+sample(policy_payoff_observation, minimal) ->
+    beam4pm_types:new_policy_payoff_observation(#{
+        observation_id => <<"sample_observation_id">>,
+        policy_id => <<"sample_policy_id">>,
+        parameter_digest => <<"sample_parameter_digest">>,
+        objective_id => <<"sample_objective_id">>,
+        payoff => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>
     });
 sample(powl_choice_graph_edge, full) ->
     beam4pm_types:new_powl_choice_graph_edge(#{
@@ -5741,6 +6345,42 @@ sample(production_readiness, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(promotion_decision, full) ->
+    beam4pm_types:new_promotion_decision(#{
+        decision_id => <<"sample_decision_id">>,
+        candidate_policy_id => <<"sample_candidate_policy_id">>,
+        threshold_id => <<"sample_threshold_id">>,
+        evidence_set_digest => <<"sample_evidence_set_digest">>,
+        decision => <<"sample_decision">>,
+        refusal_code => <<"sample_refusal_code">>
+    });
+sample(promotion_decision, minimal) ->
+    beam4pm_types:new_promotion_decision(#{
+        decision_id => <<"sample_decision_id">>,
+        candidate_policy_id => <<"sample_candidate_policy_id">>,
+        threshold_id => <<"sample_threshold_id">>,
+        evidence_set_digest => <<"sample_evidence_set_digest">>,
+        decision => <<"sample_decision">>,
+        refusal_code => <<"sample_refusal_code">>
+    });
+sample(promotion_threshold, full) ->
+    beam4pm_types:new_promotion_threshold(#{
+        threshold_id => <<"sample_threshold_id">>,
+        objective_id => <<"sample_objective_id">>,
+        minimum_payoff => 3.5,
+        maximum_regression => 3.5,
+        minimum_evidence_count => 42,
+        authority_binding => <<"sample_authority_binding">>
+    });
+sample(promotion_threshold, minimal) ->
+    beam4pm_types:new_promotion_threshold(#{
+        threshold_id => <<"sample_threshold_id">>,
+        objective_id => <<"sample_objective_id">>,
+        minimum_payoff => 3.5,
+        maximum_regression => 3.5,
+        minimum_evidence_count => 42,
+        authority_binding => <<"sample_authority_binding">>
+    });
 sample(proof_of_value_budget, full) ->
     beam4pm_types:new_proof_of_value_budget(#{
         opportunity_id => <<"sample_opportunity_id">>,
@@ -5975,6 +6615,22 @@ sample(rate_card_entry, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         effective_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(rate_distortion_budget, full) ->
+    beam4pm_types:new_rate_distortion_budget(#{
+        budget_id => <<"sample_budget_id">>,
+        decision_id => <<"sample_decision_id">>,
+        source_information_bits => 3.5,
+        retained_information_bits => 3.5,
+        maximum_distortion => 3.5
+    });
+sample(rate_distortion_budget, minimal) ->
+    beam4pm_types:new_rate_distortion_budget(#{
+        budget_id => <<"sample_budget_id">>,
+        decision_id => <<"sample_decision_id">>,
+        source_information_bits => 3.5,
+        retained_information_bits => 3.5,
+        maximum_distortion => 3.5
+    });
 sample(reachability_analysis, full) ->
     beam4pm_types:new_reachability_analysis(#{
         state_id => <<"sample_state_id">>,
@@ -5986,6 +6642,22 @@ sample(reachability_analysis, minimal) ->
         state_id => <<"sample_state_id">>,
         goal_id => <<"sample_goal_id">>,
         reachability_proof_hash => <<"sample_reachability_proof_hash">>
+    });
+sample(receipt_learning_compilation, full) ->
+    beam4pm_types:new_receipt_learning_compilation(#{
+        compilation_id => <<"sample_compilation_id">>,
+        receipt_chain_head => <<"sample_receipt_chain_head">>,
+        admitted_receipt_count => 42,
+        rejected_receipt_count => 42,
+        learning_digest => <<"sample_learning_digest">>
+    });
+sample(receipt_learning_compilation, minimal) ->
+    beam4pm_types:new_receipt_learning_compilation(#{
+        compilation_id => <<"sample_compilation_id">>,
+        receipt_chain_head => <<"sample_receipt_chain_head">>,
+        admitted_receipt_count => 42,
+        rejected_receipt_count => 42,
+        learning_digest => <<"sample_learning_digest">>
     });
 sample(receipt_replay_evidence, full) ->
     beam4pm_types:new_receipt_replay_evidence(#{
@@ -6131,6 +6803,22 @@ sample(refusal_boundary_observation, minimal) ->
         authority_boundary => <<"sample_authority_boundary">>,
         evidence_digest => <<"sample_evidence_digest">>
     });
+sample(refusal_threshold, full) ->
+    beam4pm_types:new_refusal_threshold(#{
+        threshold_id => <<"sample_threshold_id">>,
+        refusal_class => <<"sample_refusal_class">>,
+        limit => 3.5,
+        metric_id => <<"sample_metric_id">>,
+        authority_binding => <<"sample_authority_binding">>
+    });
+sample(refusal_threshold, minimal) ->
+    beam4pm_types:new_refusal_threshold(#{
+        threshold_id => <<"sample_threshold_id">>,
+        refusal_class => <<"sample_refusal_class">>,
+        limit => 3.5,
+        metric_id => <<"sample_metric_id">>,
+        authority_binding => <<"sample_authority_binding">>
+    });
 sample(region_pricing_policy, full) ->
     beam4pm_types:new_region_pricing_policy(#{
         region_pricing_policy_id => <<"sample_region_pricing_policy_id">>,
@@ -6146,6 +6834,42 @@ sample(region_pricing_policy, minimal) ->
         region_code => <<"sample_region_code">>,
         evidence_digest => <<"sample_evidence_digest">>,
         effective_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(regression_detector, full) ->
+    beam4pm_types:new_regression_detector(#{
+        detection_id => <<"sample_detection_id">>,
+        baseline_policy_id => <<"sample_baseline_policy_id">>,
+        candidate_policy_id => <<"sample_candidate_policy_id">>,
+        metric_id => <<"sample_metric_id">>,
+        regression_delta => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>
+    });
+sample(regression_detector, minimal) ->
+    beam4pm_types:new_regression_detector(#{
+        detection_id => <<"sample_detection_id">>,
+        baseline_policy_id => <<"sample_baseline_policy_id">>,
+        candidate_policy_id => <<"sample_candidate_policy_id">>,
+        metric_id => <<"sample_metric_id">>,
+        regression_delta => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>
+    });
+sample(regression_refusal, full) ->
+    beam4pm_types:new_regression_refusal(#{
+        refusal_id => <<"sample_refusal_id">>,
+        candidate_policy_id => <<"sample_candidate_policy_id">>,
+        regression_detection_id => <<"sample_regression_detection_id">>,
+        acceptance_threshold => 3.5,
+        observed_regression => 3.5,
+        authority_ceiling => <<"sample_authority_ceiling">>
+    });
+sample(regression_refusal, minimal) ->
+    beam4pm_types:new_regression_refusal(#{
+        refusal_id => <<"sample_refusal_id">>,
+        candidate_policy_id => <<"sample_candidate_policy_id">>,
+        regression_detection_id => <<"sample_regression_detection_id">>,
+        acceptance_threshold => 3.5,
+        observed_regression => 3.5,
+        authority_ceiling => <<"sample_authority_ceiling">>
     });
 sample(remediation_sla_evidence, full) ->
     beam4pm_types:new_remediation_sla_evidence(#{
@@ -6234,6 +6958,22 @@ sample(renewal_term_admission, minimal) ->
         opportunity_id => <<"sample_opportunity_id">>,
         renewal_term => <<"sample_renewal_term">>,
         decision => <<"sample_decision">>
+    });
+sample(repair_effectiveness_measurement, full) ->
+    beam4pm_types:new_repair_effectiveness_measurement(#{
+        measurement_id => <<"sample_measurement_id">>,
+        repair_id => <<"sample_repair_id">>,
+        baseline_failure_rate => 3.5,
+        post_repair_failure_rate => 3.5,
+        evaluation_window_digest => <<"sample_evaluation_window_digest">>
+    });
+sample(repair_effectiveness_measurement, minimal) ->
+    beam4pm_types:new_repair_effectiveness_measurement(#{
+        measurement_id => <<"sample_measurement_id">>,
+        repair_id => <<"sample_repair_id">>,
+        baseline_failure_rate => 3.5,
+        post_repair_failure_rate => 3.5,
+        evaluation_window_digest => <<"sample_evaluation_window_digest">>
     });
 sample(replay_environment_identity, full) ->
     beam4pm_types:new_replay_environment_identity(#{
@@ -6463,6 +7203,18 @@ sample(reversibility_weight, minimal) ->
         rollback_id => <<"sample_rollback_id">>,
         weight => <<"sample_weight">>
     });
+sample(rework_cost, full) ->
+    beam4pm_types:new_rework_cost(#{
+        case_id => <<"sample_case_id">>,
+        loop_count => 42,
+        weighted_cost => 3.5
+    });
+sample(rework_cost, minimal) ->
+    beam4pm_types:new_rework_cost(#{
+        case_id => <<"sample_case_id">>,
+        loop_count => 42,
+        weighted_cost => 3.5
+    });
 sample(rfp_response_evidence, full) ->
     beam4pm_types:new_rfp_response_evidence(#{
         evidence_id => <<"sample_evidence_id">>,
@@ -6531,6 +7283,24 @@ sample(rollback_evidence, minimal) ->
         rollback_digest => <<"sample_rollback_digest">>,
         observed_result => sample_atom
     });
+sample(rollback_outcome_learning, full) ->
+    beam4pm_types:new_rollback_outcome_learning(#{
+        learning_id => <<"sample_learning_id">>,
+        rollback_id => <<"sample_rollback_id">>,
+        pre_rollback_state_digest => <<"sample_pre_rollback_state_digest">>,
+        post_rollback_state_digest => <<"sample_post_rollback_state_digest">>,
+        recovery_score => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>
+    });
+sample(rollback_outcome_learning, minimal) ->
+    beam4pm_types:new_rollback_outcome_learning(#{
+        learning_id => <<"sample_learning_id">>,
+        rollback_id => <<"sample_rollback_id">>,
+        pre_rollback_state_digest => <<"sample_pre_rollback_state_digest">>,
+        post_rollback_state_digest => <<"sample_post_rollback_state_digest">>,
+        recovery_score => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>
+    });
 sample(rolling_upgrade_plan, full) ->
     beam4pm_types:new_rolling_upgrade_plan(#{
         tenant_id => <<"sample_tenant_id">>,
@@ -6542,6 +7312,38 @@ sample(rolling_upgrade_plan, minimal) ->
         tenant_id => <<"sample_tenant_id">>,
         upgrade_id => <<"sample_upgrade_id">>,
         plan_hash => <<"sample_plan_hash">>
+    });
+sample(root_cause_pattern, full) ->
+    beam4pm_types:new_root_cause_pattern(#{
+        pattern_id => <<"sample_pattern_id">>,
+        failure_class => <<"sample_failure_class">>,
+        causal_graph_digest => <<"sample_causal_graph_digest">>,
+        confirmed_reproducer_digest => <<"sample_confirmed_reproducer_digest">>,
+        reusable_scope => <<"sample_reusable_scope">>
+    });
+sample(root_cause_pattern, minimal) ->
+    beam4pm_types:new_root_cause_pattern(#{
+        pattern_id => <<"sample_pattern_id">>,
+        failure_class => <<"sample_failure_class">>,
+        causal_graph_digest => <<"sample_causal_graph_digest">>,
+        confirmed_reproducer_digest => <<"sample_confirmed_reproducer_digest">>,
+        reusable_scope => <<"sample_reusable_scope">>
+    });
+sample(root_cause_reuse_decision, full) ->
+    beam4pm_types:new_root_cause_reuse_decision(#{
+        decision_id => <<"sample_decision_id">>,
+        pattern_id => <<"sample_pattern_id">>,
+        current_failure_id => <<"sample_current_failure_id">>,
+        similarity_score => 3.5,
+        applicability_evidence_digest => <<"sample_applicability_evidence_digest">>
+    });
+sample(root_cause_reuse_decision, minimal) ->
+    beam4pm_types:new_root_cause_reuse_decision(#{
+        decision_id => <<"sample_decision_id">>,
+        pattern_id => <<"sample_pattern_id">>,
+        current_failure_id => <<"sample_current_failure_id">>,
+        similarity_score => 3.5,
+        applicability_evidence_digest => <<"sample_applicability_evidence_digest">>
     });
 sample(runtime_health_observation, full) ->
     beam4pm_types:new_runtime_health_observation(#{
@@ -6596,6 +7398,24 @@ sample(sandbox_entitlement, minimal) ->
         sandbox_limit => 42,
         evidence_digest => <<"sample_evidence_digest">>,
         effective_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(saturation_detection, full) ->
+    beam4pm_types:new_saturation_detection(#{
+        detection_id => <<"sample_detection_id">>,
+        curriculum_id => <<"sample_curriculum_id">>,
+        recent_gain => 3.5,
+        gain_slope => 3.5,
+        novelty_floor => 3.5,
+        coverage_digest => <<"sample_coverage_digest">>
+    });
+sample(saturation_detection, minimal) ->
+    beam4pm_types:new_saturation_detection(#{
+        detection_id => <<"sample_detection_id">>,
+        curriculum_id => <<"sample_curriculum_id">>,
+        recent_gain => 3.5,
+        gain_slope => 3.5,
+        novelty_floor => 3.5,
+        coverage_digest => <<"sample_coverage_digest">>
     });
 sample(sbom_inventory_evidence, full) ->
     beam4pm_types:new_sbom_inventory_evidence(#{
@@ -6707,6 +7527,24 @@ sample(security_readiness, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(seeded_evaluation, full) ->
+    beam4pm_types:new_seeded_evaluation(#{
+        evaluation_id => <<"sample_evaluation_id">>,
+        seed => <<"sample_seed">>,
+        dataset_digest => <<"sample_dataset_digest">>,
+        policy_id => <<"sample_policy_id">>,
+        score => 3.5,
+        replay_digest => <<"sample_replay_digest">>
+    });
+sample(seeded_evaluation, minimal) ->
+    beam4pm_types:new_seeded_evaluation(#{
+        evaluation_id => <<"sample_evaluation_id">>,
+        seed => <<"sample_seed">>,
+        dataset_digest => <<"sample_dataset_digest">>,
+        policy_id => <<"sample_policy_id">>,
+        score => 3.5,
+        replay_digest => <<"sample_replay_digest">>
+    });
 sample(semantic_drift_observation, full) ->
     beam4pm_types:new_semantic_drift_observation(#{
         subject_id => <<"sample_subject_id">>,
@@ -6813,6 +7651,24 @@ sample(service_span, minimal) ->
         span_id => <<"sample_span_id">>,
         service_name => <<"sample_service_name">>,
         duration_ms => 42
+    });
+sample(shadow_challenger_execution, full) ->
+    beam4pm_types:new_shadow_challenger_execution(#{
+        execution_id => <<"sample_execution_id">>,
+        incumbent_policy_id => <<"sample_incumbent_policy_id">>,
+        challenger_policy_id => <<"sample_challenger_policy_id">>,
+        shared_observation_digest => <<"sample_shared_observation_digest">>,
+        shadow_receipt_digest => <<"sample_shadow_receipt_digest">>,
+        authority_mode => <<"sample_authority_mode">>
+    });
+sample(shadow_challenger_execution, minimal) ->
+    beam4pm_types:new_shadow_challenger_execution(#{
+        execution_id => <<"sample_execution_id">>,
+        incumbent_policy_id => <<"sample_incumbent_policy_id">>,
+        challenger_policy_id => <<"sample_challenger_policy_id">>,
+        shared_observation_digest => <<"sample_shared_observation_digest">>,
+        shadow_receipt_digest => <<"sample_shadow_receipt_digest">>,
+        authority_mode => <<"sample_authority_mode">>
     });
 sample(showback_allocation, full) ->
     beam4pm_types:new_showback_allocation(#{
@@ -6979,6 +7835,40 @@ sample(standing_state_observation, minimal) ->
         standing => <<"sample_standing">>,
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(stopping_criterion, full) ->
+    beam4pm_types:new_stopping_criterion(#{
+        criterion_id => <<"sample_criterion_id">>,
+        objective_id => <<"sample_objective_id">>,
+        minimum_gain => 3.5,
+        maximum_episodes => 42,
+        evidence_window_digest => <<"sample_evidence_window_digest">>,
+        authority_binding => <<"sample_authority_binding">>
+    });
+sample(stopping_criterion, minimal) ->
+    beam4pm_types:new_stopping_criterion(#{
+        criterion_id => <<"sample_criterion_id">>,
+        objective_id => <<"sample_objective_id">>,
+        minimum_gain => 3.5,
+        maximum_episodes => 42,
+        evidence_window_digest => <<"sample_evidence_window_digest">>,
+        authority_binding => <<"sample_authority_binding">>
+    });
+sample(subject_failure_separation, full) ->
+    beam4pm_types:new_subject_failure_separation(#{
+        assessment_id => <<"sample_assessment_id">>,
+        exact_subject_sha => <<"sample_exact_subject_sha">>,
+        capsule_standing => <<"sample_capsule_standing">>,
+        subject_failure_code => <<"sample_subject_failure_code">>,
+        independent_reproducer_digest => <<"sample_independent_reproducer_digest">>
+    });
+sample(subject_failure_separation, minimal) ->
+    beam4pm_types:new_subject_failure_separation(#{
+        assessment_id => <<"sample_assessment_id">>,
+        exact_subject_sha => <<"sample_exact_subject_sha">>,
+        capsule_standing => <<"sample_capsule_standing">>,
+        subject_failure_code => <<"sample_subject_failure_code">>,
+        independent_reproducer_digest => <<"sample_independent_reproducer_digest">>
     });
 sample(submodule_lock_observation, full) ->
     beam4pm_types:new_submodule_lock_observation(#{
@@ -7385,6 +8275,22 @@ sample(training_scope_admission, minimal) ->
         training_scope_id => <<"sample_training_scope_id">>,
         decision => <<"sample_decision">>
     });
+sample(trajectory_window, full) ->
+    beam4pm_types:new_trajectory_window(#{
+        window_id => <<"sample_window_id">>,
+        repository_id => <<"sample_repository_id">>,
+        first_subject_sha => <<"sample_first_subject_sha">>,
+        last_subject_sha => <<"sample_last_subject_sha">>,
+        episode_count => 42
+    });
+sample(trajectory_window, minimal) ->
+    beam4pm_types:new_trajectory_window(#{
+        window_id => <<"sample_window_id">>,
+        repository_id => <<"sample_repository_id">>,
+        first_subject_sha => <<"sample_first_subject_sha">>,
+        last_subject_sha => <<"sample_last_subject_sha">>,
+        episode_count => 42
+    });
 sample(trial_entitlement, full) ->
     beam4pm_types:new_trial_entitlement(#{
         trial_entitlement_id => <<"sample_trial_entitlement_id">>,
@@ -7705,6 +8611,44 @@ sample(value_realization, minimal) ->
         evidence_digest => <<"sample_evidence_digest">>,
         observed_at => <<"2026-08-29T12:00:00Z">>
     });
+sample(value_realization_feedback, full) ->
+    beam4pm_types:new_value_realization_feedback(#{
+        feedback_id => <<"sample_feedback_id">>,
+        objective_id => <<"sample_objective_id">>,
+        baseline_value => 3.5,
+        realized_value => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        policy_id => <<"sample_policy_id">>
+    });
+sample(value_realization_feedback, minimal) ->
+    beam4pm_types:new_value_realization_feedback(#{
+        feedback_id => <<"sample_feedback_id">>,
+        objective_id => <<"sample_objective_id">>,
+        baseline_value => 3.5,
+        realized_value => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        policy_id => <<"sample_policy_id">>
+    });
+sample(value_receipt, full) ->
+    beam4pm_types:new_value_receipt(#{
+        value_receipt_id => <<"sample_value_receipt_id">>,
+        account_id => <<"sample_account_id">>,
+        metric_name => <<"sample_metric_name">>,
+        baseline_value => 3.5,
+        observed_value => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    });
+sample(value_receipt, minimal) ->
+    beam4pm_types:new_value_receipt(#{
+        value_receipt_id => <<"sample_value_receipt_id">>,
+        account_id => <<"sample_account_id">>,
+        metric_name => <<"sample_metric_name">>,
+        baseline_value => 3.5,
+        observed_value => 3.5,
+        evidence_digest => <<"sample_evidence_digest">>,
+        observed_at => <<"2026-08-29T12:00:00Z">>
+    });
 sample(value_telemetry_sample, full) ->
     beam4pm_types:new_value_telemetry_sample(#{
         tenant_id => <<"sample_tenant_id">>,
@@ -7742,6 +8686,24 @@ sample(vendor_risk_evidence, minimal) ->
         subject_sha => <<"sample_subject_sha">>,
         risk_score => 3.5,
         observed_result => sample_atom
+    });
+sample(verification_depth_update, full) ->
+    beam4pm_types:new_verification_depth_update(#{
+        update_id => <<"sample_update_id">>,
+        verifier_id => <<"sample_verifier_id">>,
+        prior_depth => 42,
+        new_depth => 42,
+        risk_signal_digest => <<"sample_risk_signal_digest">>,
+        minimum_depth => 42
+    });
+sample(verification_depth_update, minimal) ->
+    beam4pm_types:new_verification_depth_update(#{
+        update_id => <<"sample_update_id">>,
+        verifier_id => <<"sample_verifier_id">>,
+        prior_depth => 42,
+        new_depth => 42,
+        risk_signal_digest => <<"sample_risk_signal_digest">>,
+        minimum_depth => 42
     });
 sample(version_lifecycle_evidence, full) ->
     beam4pm_types:new_version_lifecycle_evidence(#{
