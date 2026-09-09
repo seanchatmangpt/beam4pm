@@ -1,0 +1,53 @@
+;; wire-koala-ferroplan.problem.hddl
+;; HDDL 2.1 problem file for the wire-koala-ferroplan domain.
+;; Hand-verified against HDDL 2.1 grammar, NOT parser-verified (no HDDL/HTN
+;; reader available in this repo's toolchain -- see domain file header).
+;;
+;; :init reflects real state as of this session: nothing has started yet.
+;; koala-planner is not vendored, not compiled to wasm, no wrapper module
+;; exists. BeamPM.Ferroplan (the real, existing engine this integration
+;; wires against) is real and unaffected -- this problem file does not
+;; model ferroplan's own state, only the new integration work's state,
+;; since ferroplan needs no changes for this domain's goal to be reached.
+
+(define (problem wire-koala-ferroplan-2026-09-09)
+  (:domain wire-koala-ferroplan)
+
+  (:objects
+    beampm-koala-mod - module
+    beampm-koala-plan-mod - module
+    beampm-koala-correspondence-mod - module
+    beampm-koala-admission-mod - module
+    beampm-koala-replan-mod - module
+    beampm-koala-receipt-mod - module
+    beampm-koala-routes-mod - module
+    hexdocs-doc - doc
+  )
+
+  (:htn
+    :parameters ()
+    :subtasks (and
+      (t0 (WIRE-KOALA-FERROPLAN))
+    )
+  )
+
+  (:init
+    ;; Nothing started. Absent from :init (per HDDL closed-world
+    ;; convention): koala-submodule-vendored, koala-compiled-to-wasm,
+    ;; existing-code-checked, component-designed, component-built,
+    ;; component-tested, component-verified, determinism-verified,
+    ;; doc-updated, component-closed, all-components-closed -- for every
+    ;; one of c1-c7.
+  )
+
+  (:goal (and
+    (component-closed c1-koala-wasm-wrapper)
+    (component-closed c2-typed-plan-structure)
+    (component-closed c3-name-correspondence-contract)
+    (component-closed c4-admission-check-boundary)
+    (component-closed c5-replanning-escalation-boundary)
+    (component-closed c6-two-tier-receipt-chain)
+    (component-closed c7-network-routes)
+    (all-components-closed)
+  ))
+)

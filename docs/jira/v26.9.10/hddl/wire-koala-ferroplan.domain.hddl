@@ -1,0 +1,370 @@
+;; wire-koala-ferroplan.domain.hddl
+;;
+;; HDDL 2.1 domain for wiring koala-planner (github.com/koala-planner/Planner,
+;; a real Rust FOND-HTN solver -- extended HDDL input with `oneof` for
+;; non-deterministic effects; no WASM target upstream today, so beam4pm
+;; compiles it the same way it already compiles rust4pm/petgraph/tract/
+;; ferroplan) into beam4pm alongside the ALREADY-REAL BeamPM.Ferroplan
+;; (lib/beam4pm_ferroplan.ex -- classical+temporal PDDL/PDDL3 solving with
+;; stateful session-based replanning: session_new/session_think/
+;; session_observe/session_elapse/session_apply_start, confirmed no
+;; hierarchy/HDDL/task/method primitives anywhere in its wire contract).
+;;
+;; Real division of labor this domain encodes (decided across several
+;; rounds of grounded design discussion, not assumed): Koala performs
+;; hierarchical task decomposition down to primitive actions; ferroplan's
+;; existing session model performs LOCAL replanning when an observed
+;; outcome diverges from a `oneof` branch's assumption, escalating back to
+;; a fresh Koala decomposition only if flat-level repair itself fails.
+;; Five real interface boundaries, not one merged blob:
+;;   (1) a typed Elixir plan structure crossing Koala -> everything else,
+;;   (2) a checked name-correspondence contract between HDDL primitive
+;;       actions and ferroplan's PDDL action vocabulary,
+;;   (3) an admission-check boundary (bpma:/bpmg: facts) between a
+;;       decomposed primitive task and either ferroplan or actuation,
+;;   (4) a replanning/escalation boundary wiring Koala's oneof branches to
+;;       ferroplan's real session_observe/session_think repair loop,
+;;   (5) two-tier receipting (outer HTN-decomposition receipt, inner
+;;       per-session-replan receipts) via the already-real
+;;       BeamPM.ReceiptChain hash-linking convention.
+;;
+;; Hand-verified against HDDL 2.1 grammar. No HDDL/HTN parser is available
+;; in this repo's toolchain -- syntax is hand-verified and parenthesis-
+;; balance-checked, NOT parser-verified, matching every other HDDL file
+;; produced this session (~/xaas/docs/hddl/, ~/ex4pm/docs/jira/v26.9.10/hddl/).
+
+(define (domain wire-koala-ferroplan)
+  (:requirements :hierarchy :typing :negative-preconditions)
+
+  (:types
+    component - object
+    module - object
+    doc - object
+    engine - object
+  )
+
+  (:constants
+    koala-engine - engine
+    ferroplan-engine - engine
+
+    c1-koala-wasm-wrapper - component
+    c2-typed-plan-structure - component
+    c3-name-correspondence-contract - component
+    c4-admission-check-boundary - component
+    c5-replanning-escalation-boundary - component
+    c6-two-tier-receipt-chain - component
+    c7-network-routes - component
+  )
+
+  (:predicates
+    (existing-code-checked ?c - component)
+    (component-designed ?c - component)
+    (component-built ?c - component ?m - module)
+    (component-tested ?c - component)
+    (component-verified ?c - component)
+    (doc-updated ?c - component ?d - doc)
+    (component-closed ?c - component)
+    (all-components-closed)
+    (determinism-verified ?c - component)
+    (koala-submodule-vendored ?e - engine)
+    (koala-compiled-to-wasm ?e - engine)
+  )
+
+  ;; ==========================================================================
+  ;; Top-level: the six real components close in strict causal order, not
+  ;; independently -- unlike ex4pm's R1-R4 (genuinely independent), each
+  ;; component here builds directly on the prior one. c7 (network routes)
+  ;; is last because it depends on every other component being real first
+  ;; (it routes to Koala via c1/c2, checks admission via c4, replans via
+  ;; c5, and receipts via c6).
+  ;; ==========================================================================
+
+  (:task WIRE-KOALA-FERROPLAN
+    :parameters ()
+  )
+
+  (:method m-wire-koala-ferroplan
+    :task (WIRE-KOALA-FERROPLAN)
+    :ordered-subtasks (and
+      (t1 (CLOSE-COMPONENT c1-koala-wasm-wrapper))
+      (t2 (CLOSE-COMPONENT c2-typed-plan-structure))
+      (t3 (CLOSE-COMPONENT c3-name-correspondence-contract))
+      (t4 (CLOSE-COMPONENT c4-admission-check-boundary))
+      (t5 (CLOSE-COMPONENT c5-replanning-escalation-boundary))
+      (t6 (CLOSE-COMPONENT c6-two-tier-receipt-chain))
+      (t7 (CLOSE-COMPONENT c7-network-routes))
+      (t8 (confirm-all-closed))
+    )
+  )
+
+  (:task CLOSE-COMPONENT
+    :parameters (?c - component)
+  )
+
+  ;; Every component here is hand-written EXCEPT c7 -- see per-component
+  ;; comments below for the classification reasoning against the same 11
+  ;; ggen_igniter usage patterns explored for ex4pm v26.9.10
+  ;; (docs/PRD-v26.9.10.md in ~/ex4pm, patterns cited by name here).
+
+  (:method m-close-c1
+    :parameters (?m - module ?d - doc)
+    :task (CLOSE-COMPONENT c1-koala-wasm-wrapper)
+    :ordered-subtasks (and
+      (t1 (check-existing-code c1-koala-wasm-wrapper))
+      (t2 (vendor-koala-submodule))
+      (t3 (compile-koala-to-wasm))
+      (t4 (write-koala-wrapper ?m))
+      (t5 (write-tests c1-koala-wasm-wrapper ?m))
+      (t6 (verify-tests c1-koala-wasm-wrapper))
+      (t7 (update-docs c1-koala-wasm-wrapper ?d))
+      (t8 (close-component c1-koala-wasm-wrapper ?d))
+    )
+  )
+
+  (:action vendor-koala-submodule
+    :parameters ()
+    :precondition (existing-code-checked c1-koala-wasm-wrapper)
+    :effect (koala-submodule-vendored koala-engine)
+    ;; real: a new `git submodule add https://github.com/koala-planner/
+    ;; Planner native/koala`, pinned at an exact commit SHA -- same
+    ;; convention as native/ferroplan and native/rust4pm-wasm.
+  )
+
+  (:action compile-koala-to-wasm
+    :parameters ()
+    :precondition (koala-submodule-vendored koala-engine)
+    :effect (koala-compiled-to-wasm koala-engine)
+    ;; real: koala-planner has no upstream WASM target (confirmed by
+    ;; reading its real README this session) -- this is genuinely new
+    ;; work, not just "run an existing wasm32-wasip1 build target" the way
+    ;; ferroplan's crates/ferroplan-wasm already provides one. Requires
+    ;; authoring a thin `fp_alloc`/`fp_call`/`fp_dealloc`-shaped linear-
+    ;; memory JSON ABI (matching ferroplan-wasm's own wasi_abi.rs shape
+    ;; exactly, for wrapper-code symmetry) around koala's real solve/
+    ;; grounder/parser Rust crates.
+  )
+
+  (:action write-koala-wrapper
+    :parameters (?m - module)
+    :precondition (koala-compiled-to-wasm koala-engine)
+    :effect (component-built c1-koala-wasm-wrapper ?m)
+    ;; real: lib/beam4pm_koala.ex, hand-written (classification:
+    ;; pat-wrapper-over-collaborator -- same class as BeamPM.Rust4PM/
+    ;; Petgraph/Tract/Ferroplan; no HTN algorithm reimplemented BEAM-side).
+    ;; One named Wasmex GenServer (BeamPM.Koala.Engine), independent store
+    ;; from BeamPM.Ferroplan.Engine and BeamPM.Rust4PM.Engine, same
+    ;; restart-on-trap/handle-invalidation contract as the other two.
+    ;; Public API: solve(domain_hddl, problem_hddl, opts) ->
+    ;; {:ok, raw_plan_json} | {:error, refusal} -- this component returns
+    ;; the wasm module's raw response; c2 is what turns it into a real
+    ;; typed Elixir structure.
+  )
+
+  (:method m-close-c2
+    :parameters (?m - module ?d - doc)
+    :task (CLOSE-COMPONENT c2-typed-plan-structure)
+    :ordered-subtasks (and
+      (t1 (check-existing-code c2-typed-plan-structure))
+      (t2 (design-module c2-typed-plan-structure ?m))
+      (t3 (build-module c2-typed-plan-structure ?m))
+      (t4 (write-tests c2-typed-plan-structure ?m))
+      (t5 (verify-tests c2-typed-plan-structure))
+      (t6 (update-docs c2-typed-plan-structure ?d))
+      (t7 (close-component c2-typed-plan-structure ?d))
+    )
+  )
+
+  (:method m-close-c3
+    :parameters (?m - module ?d - doc)
+    :task (CLOSE-COMPONENT c3-name-correspondence-contract)
+    :ordered-subtasks (and
+      (t1 (check-existing-code c3-name-correspondence-contract))
+      (t2 (design-module c3-name-correspondence-contract ?m))
+      (t3 (build-module c3-name-correspondence-contract ?m))
+      (t4 (write-tests c3-name-correspondence-contract ?m))
+      (t5 (verify-tests c3-name-correspondence-contract))
+      (t6 (update-docs c3-name-correspondence-contract ?d))
+      (t7 (close-component c3-name-correspondence-contract ?d))
+    )
+  )
+
+  (:method m-close-c4
+    :parameters (?m - module ?d - doc)
+    :task (CLOSE-COMPONENT c4-admission-check-boundary)
+    :ordered-subtasks (and
+      (t1 (check-existing-code c4-admission-check-boundary))
+      (t2 (design-module c4-admission-check-boundary ?m))
+      (t3 (build-module c4-admission-check-boundary ?m))
+      (t4 (write-tests c4-admission-check-boundary ?m))
+      (t5 (verify-tests c4-admission-check-boundary))
+      (t6 (update-docs c4-admission-check-boundary ?d))
+      (t7 (close-component c4-admission-check-boundary ?d))
+    )
+  )
+
+  (:method m-close-c5
+    :parameters (?m - module ?d - doc)
+    :task (CLOSE-COMPONENT c5-replanning-escalation-boundary)
+    :ordered-subtasks (and
+      (t1 (check-existing-code c5-replanning-escalation-boundary))
+      (t2 (design-module c5-replanning-escalation-boundary ?m))
+      (t3 (build-module c5-replanning-escalation-boundary ?m))
+      (t4 (write-tests c5-replanning-escalation-boundary ?m))
+      (t5 (verify-tests c5-replanning-escalation-boundary))
+      (t6 (update-docs c5-replanning-escalation-boundary ?d))
+      (t7 (close-component c5-replanning-escalation-boundary ?d))
+    )
+  )
+
+  (:method m-close-c6
+    :parameters (?m - module ?d - doc)
+    :task (CLOSE-COMPONENT c6-two-tier-receipt-chain)
+    :ordered-subtasks (and
+      (t1 (check-existing-code c6-two-tier-receipt-chain))
+      (t2 (design-module c6-two-tier-receipt-chain ?m))
+      (t3 (build-module c6-two-tier-receipt-chain ?m))
+      (t4 (write-tests c6-two-tier-receipt-chain ?m))
+      (t5 (verify-tests c6-two-tier-receipt-chain))
+      (t6 (update-docs c6-two-tier-receipt-chain ?d))
+      (t7 (close-component c6-two-tier-receipt-chain ?d))
+    )
+  )
+
+  ;; c7 IS ggen_igniter-generated (classification: pat-admitted-router,
+  ;; same pattern as this session's own scripts/ocel_ingest_sync.sh work)
+  ;; -- two admitted routes: POST /hddl/solve (routes to Koala + c2's
+  ;; typed structure + c4's admission check + c6's outer receipt) and
+  ;; POST /pddl/session/* (routes directly to ferroplan's own session API,
+  ;; independent of Koala, since ferroplan already stands alone as a
+  ;; complete flat planner).
+  (:method m-close-c7
+    :parameters (?m - module ?d - doc)
+    :task (CLOSE-COMPONENT c7-network-routes)
+    :precondition (and
+      (component-closed c1-koala-wasm-wrapper)
+      (component-closed c2-typed-plan-structure)
+      (component-closed c3-name-correspondence-contract)
+      (component-closed c4-admission-check-boundary)
+      (component-closed c5-replanning-escalation-boundary)
+      (component-closed c6-two-tier-receipt-chain)
+    )
+    :ordered-subtasks (and
+      (t1 (check-existing-code c7-network-routes))
+      (t2 (author-ontology-vocabulary))
+      (t3 (author-sparql-query))
+      (t4 (author-eex-template))
+      (t5 (author-sync-script))
+      (t6 (run-sync-script c7-network-routes ?m))
+      (t7 (write-tests c7-network-routes ?m))
+      (t8 (verify-tests c7-network-routes))
+      (t9 (verify-determinism c7-network-routes))
+      (t10 (update-docs c7-network-routes ?d))
+      (t11 (close-component c7-network-routes ?d))
+    )
+  )
+
+  (:action author-ontology-vocabulary
+    :parameters ()
+    :precondition (existing-code-checked c7-network-routes)
+    :effect (component-designed c7-network-routes)
+    ;; real: a new bpmk: (beam4pm-koala-routes) vocabulary in ontology.ttl,
+    ;; admitting exactly POST /hddl/solve and the POST /pddl/session/*
+    ;; family -- same shape as bpmi:AdmittedIngestRoute, following
+    ;; scripts/ocel_ingest_sync.sh's own real precedent exactly.
+  )
+
+  (:action author-sparql-query
+    :parameters ()
+    :precondition (component-designed c7-network-routes)
+    :effect (existing-code-checked c7-network-routes)
+  )
+
+  (:action author-eex-template
+    :parameters ()
+    :precondition (existing-code-checked c7-network-routes)
+    :effect (existing-code-checked c7-network-routes)
+  )
+
+  (:action author-sync-script
+    :parameters ()
+    :precondition (existing-code-checked c7-network-routes)
+    :effect (existing-code-checked c7-network-routes)
+    ;; real: scripts/koala_routes_sync.sh, same shape as
+    ;; scripts/ocel_ingest_sync.sh.
+  )
+
+  ;; -- shared generic actions (design/build/test/verify/document/close) --
+
+  (:action check-existing-code
+    :parameters (?c - component)
+    :precondition ()
+    :effect (existing-code-checked ?c)
+    ;; real: re-read lib/beam4pm_ferroplan.ex, lib/beam4pm_rust4pm.ex, and
+    ;; whatever prior c1..c6 already produced before writing the next
+    ;; component -- may have moved since this domain was authored.
+  )
+
+  (:action design-module
+    :parameters (?c - component ?m - module)
+    :precondition (existing-code-checked ?c)
+    :effect (component-designed ?c)
+  )
+
+  (:action build-module
+    :parameters (?c - component ?m - module)
+    :precondition (component-designed ?c)
+    :effect (component-built ?c ?m)
+  )
+
+  (:action write-tests
+    :parameters (?c - component ?m - module)
+    :precondition (component-built ?c ?m)
+    :effect (component-tested ?c)
+  )
+
+  (:action verify-tests
+    :parameters (?c - component)
+    :precondition (component-tested ?c)
+    :effect (component-verified ?c)
+  )
+
+  (:action verify-determinism
+    :parameters (?c - component)
+    :precondition (component-verified ?c)
+    :effect (determinism-verified ?c)
+    ;; real: for c7 only -- delete the generated route file, rerun the
+    ;; sync script, diff byte-identical, same manual-determinism-proof
+    ;; discipline already used for beam4pm_ocel_ingest.ex.
+  )
+
+  (:action update-docs
+    :parameters (?c - component ?d - doc)
+    :precondition (component-verified ?c)
+    :effect (doc-updated ?c ?d)
+    ;; for c7 specifically, this action's real precondition is satisfied
+    ;; via determinism-verified (a strict superset of component-verified
+    ;; in that branch); the generic hand-written branches skip t9 entirely
+    ;; and reach here straight from component-verified, per their own
+    ;; ordered-subtasks lists above.
+  )
+
+  (:action close-component
+    :parameters (?c - component ?d - doc)
+    :precondition (doc-updated ?c ?d)
+    :effect (component-closed ?c)
+  )
+
+  (:action confirm-all-closed
+    :parameters ()
+    :precondition (and
+      (component-closed c1-koala-wasm-wrapper)
+      (component-closed c2-typed-plan-structure)
+      (component-closed c3-name-correspondence-contract)
+      (component-closed c4-admission-check-boundary)
+      (component-closed c5-replanning-escalation-boundary)
+      (component-closed c6-two-tier-receipt-chain)
+      (component-closed c7-network-routes)
+    )
+    :effect (all-components-closed)
+  )
+)
