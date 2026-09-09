@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-006 — generated_source_route
+b4p:generated_source_route_rt a bpm:RecordType ;
+    bpm:recordName "generated_source_route" ;
+    bpm:recordDoc "Routes generated-projection defects to canonical semantic source or an independent rail." ;
+    bpm:hasField b4p:generated_source_route_projection_id_f,
+                 b4p:generated_source_route_source_coordinate_f,
+                 b4p:generated_source_route_route_f .
+
+b4p:generated_source_route_projection_id_f a bpm:Field ;
+    bpm:fieldName "projection_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required projection_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:generated_source_route_source_coordinate_f a bpm:Field ;
+    bpm:fieldName "source_coordinate" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required source_coordinate for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:generated_source_route_route_f a bpm:Field ;
+    bpm:fieldName "route" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required route preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

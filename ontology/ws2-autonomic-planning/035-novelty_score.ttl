@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-035 — novelty_score
+b4p:novelty_score_rt a bpm:RecordType ;
+    bpm:recordName "novelty_score" ;
+    bpm:recordDoc "Rewards options that expand the lawful reachable capability frontier." ;
+    bpm:hasField b4p:novelty_score_option_id_f,
+                 b4p:novelty_score_reference_set_hash_f,
+                 b4p:novelty_score_score_f .
+
+b4p:novelty_score_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required option_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:novelty_score_reference_set_hash_f a bpm:Field ;
+    bpm:fieldName "reference_set_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required reference_set_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:novelty_score_score_f a bpm:Field ;
+    bpm:fieldName "score" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required score preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

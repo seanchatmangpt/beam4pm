@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-015 — planner_portfolio
+b4p:planner_portfolio_rt a bpm:RecordType ;
+    bpm:recordName "planner_portfolio" ;
+    bpm:recordDoc "Preserves a diverse set of planners for one bounded planning episode." ;
+    bpm:hasField b4p:planner_portfolio_portfolio_id_f,
+                 b4p:planner_portfolio_planner_ids_f,
+                 b4p:planner_portfolio_diversity_hash_f .
+
+b4p:planner_portfolio_portfolio_id_f a bpm:Field ;
+    bpm:fieldName "portfolio_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required portfolio_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:planner_portfolio_planner_ids_f a bpm:Field ;
+    bpm:fieldName "planner_ids" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required planner_ids for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:planner_portfolio_diversity_hash_f a bpm:Field ;
+    bpm:fieldName "diversity_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required diversity_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

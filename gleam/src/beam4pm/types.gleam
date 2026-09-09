@@ -105,6 +105,18 @@ pub type AddOnBundle {
   )
 }
 
+/// Computes all actions currently permitted by state, constraints, and authority.
+pub type AdmissibleActionSet {
+  AdmissibleActionSet(
+    /// Required state_id for this bounded planner contract.
+    state_id: String,
+    /// Required constraint_hash for deterministic planner evaluation.
+    constraint_hash: String,
+    /// Required action_set_hash preserving evidence and falsifiability.
+    action_set_hash: String,
+  )
+}
+
 /// Receipted customer adoption milestone tied to observable use.
 pub type AdoptionMilestone {
   AdoptionMilestone(
@@ -118,6 +130,18 @@ pub type AdoptionMilestone {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Assigns an admitted policy to an agent without transferring authority.
+pub type AgentAssignment {
+  AgentAssignment(
+    /// Required agent_id for this bounded planner contract.
+    agent_id: String,
+    /// Required policy_id for deterministic planner evaluation.
+    policy_id: String,
+    /// Required assignment_hash preserving evidence and falsifiability.
+    assignment_hash: String,
   )
 }
 
@@ -231,6 +255,18 @@ pub type ArtifactDigestObservation {
   )
 }
 
+/// Represents an A-star plan with admissible heuristic and exact state lineage.
+pub type AstarPlanCandidate {
+  AstarPlanCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required heuristic_id for deterministic planner evaluation.
+    heuristic_id: String,
+    /// Required path_hash preserving evidence and falsifiability.
+    path_hash: String,
+  )
+}
+
 /// Executable attestation evidence binding an exact commercial subject to the predicate that was cryptographically verified.
 pub type AttestationVerificationEvidence {
   AttestationVerificationEvidence(
@@ -256,6 +292,18 @@ pub type AuditChainEvidence {
     previous_receipt_hash: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Caps every candidate action at the exact authority grant available to its subject.
+pub type AuthorityCeiling {
+  AuthorityCeiling(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required grant_id for deterministic planner evaluation.
+    grant_id: String,
+    /// Required ceiling preserving evidence and falsifiability.
+    ceiling: String,
   )
 }
 
@@ -326,6 +374,18 @@ pub type BaselineMetric {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Represents a bounded beam-search plan with explicit width and frontier.
+pub type BeamSearchCandidate {
+  BeamSearchCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required beam_width for deterministic planner evaluation.
+    beam_width: String,
+    /// Required frontier_hash preserving evidence and falsifiability.
+    frontier_hash: String,
   )
 }
 
@@ -517,6 +577,18 @@ pub type CallerLocalCheckoutObservation {
   )
 }
 
+/// Preserves each caller-local consumer as an independently planned exact subject.
+pub type CallerLocalConsumer {
+  CallerLocalConsumer(
+    /// Required consumer_id for this bounded planner contract.
+    consumer_id: String,
+    /// Required subject_sha for deterministic planner evaluation.
+    subject_sha: String,
+    /// Required consumer_hash preserving evidence and falsifiability.
+    consumer_hash: String,
+  )
+}
+
 /// Binds one admitted upstream crown to the exact caller-local consumer subject; cross-consumer crown reuse is refused.
 pub type CallerLocalCrownIdentity {
   CallerLocalCrownIdentity(
@@ -602,6 +674,18 @@ pub type CapabilityGap {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Records whether the exact validation capsule is available before qualification.
+pub type CapsuleAvailability {
+  CapsuleAvailability(
+    /// Required capsule_id for this bounded planner contract.
+    capsule_id: String,
+    /// Required capsule_digest for deterministic planner evaluation.
+    capsule_digest: String,
+    /// Required availability preserving evidence and falsifiability.
+    availability: String,
   )
 }
 
@@ -971,6 +1055,18 @@ pub type ConsequentialStateInvalidation {
   )
 }
 
+/// Admits central-surrogate planning only after explicit consumer-equivalence proof.
+pub type ConsumerEquivalenceProof {
+  ConsumerEquivalenceProof(
+    /// Required consumer_set_id for this bounded planner contract.
+    consumer_set_id: String,
+    /// Required equivalence_proof_hash for deterministic planner evaluation.
+    equivalence_proof_hash: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
+  )
+}
+
 /// Proves a consumer used an exact immutable marketplace pack SHA.
 pub type ConsumerPackPinObservation {
   ConsumerPackPinObservation(
@@ -1053,6 +1149,18 @@ pub type ContractingEntityIdentity {
   )
 }
 
+/// Scores delay cost for an option without overriding explicit authority.
+pub type CostOfDelayScore {
+  CostOfDelayScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required horizon for deterministic planner evaluation.
+    horizon: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
 /// Records attributable runtime cost-to-serve for a paid tenant and billing period.
 pub type CostToServeMeasurement {
   CostToServeMeasurement(
@@ -1062,6 +1170,18 @@ pub type CostToServeMeasurement {
     billing_period_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     measurement_hash: String,
+  )
+}
+
+/// Preserves counterfactual futures for every nondominated option.
+pub type CounterfactualFrontier {
+  CounterfactualFrontier(
+    /// Required option_set_id for this bounded planner contract.
+    option_set_id: String,
+    /// Required world_model_hash for deterministic planner evaluation.
+    world_model_hash: String,
+    /// Required frontier_hash preserving evidence and falsifiability.
+    frontier_hash: String,
   )
 }
 
@@ -1975,6 +2095,18 @@ pub type DemoScenario {
   )
 }
 
+/// Represents action dependencies as an acyclic exact-subject graph.
+pub type DependencyDag {
+  DependencyDag(
+    /// Required dag_id for this bounded planner contract.
+    dag_id: String,
+    /// Required node_set_hash for deterministic planner evaluation.
+    node_set_hash: String,
+    /// Required edge_set_hash preserving evidence and falsifiability.
+    edge_set_hash: String,
+  )
+}
+
 /// Executable dependency evidence binding an exact commercial subject to its resolved dependency inventory.
 pub type DependencyInventoryEvidence {
   DependencyInventoryEvidence(
@@ -2086,6 +2218,30 @@ pub type DiscoveryHypothesis {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Records the exact objective evidence proving one option dominates another.
+pub type DominanceWitness {
+  DominanceWitness(
+    /// Required dominant_option_id for this bounded planner contract.
+    dominant_option_id: String,
+    /// Required dominated_option_id for deterministic planner evaluation.
+    dominated_option_id: String,
+    /// Required witness_hash preserving evidence and falsifiability.
+    witness_hash: String,
+  )
+}
+
+/// Triggers replanning when observed state invalidates a plan assumption.
+pub type DynamicReplanTrigger {
+  DynamicReplanTrigger(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required event_id for deterministic planner evaluation.
+    event_id: String,
+    /// Required trigger_hash preserving evidence and falsifiability.
+    trigger_hash: String,
   )
 }
 
@@ -2227,6 +2383,18 @@ pub type EntitlementState {
   )
 }
 
+/// Measures expected uncertainty reduction from a bounded observation action.
+pub type EntropyReductionScore {
+  EntropyReductionScore(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required prior_entropy for deterministic planner evaluation.
+    prior_entropy: String,
+    /// Required expected_posterior_entropy preserving evidence and falsifiability.
+    expected_posterior_entropy: String,
+  )
+}
+
 /// Binds paid workload execution to an immutable production environment identity.
 pub type EnvironmentIdentity {
   EnvironmentIdentity(
@@ -2291,6 +2459,18 @@ pub type EventLog {
   )
 }
 
+/// Creates a bounded planning episode from an admitted world event.
+pub type EventTriggeredPlanning {
+  EventTriggeredPlanning(
+    /// Required event_id for this bounded planner contract.
+    event_id: String,
+    /// Required world_state_hash for deterministic planner evaluation.
+    world_state_hash: String,
+    /// Required episode_id preserving evidence and falsifiability.
+    episode_id: String,
+  )
+}
+
 /// A declared OCEL event type and its attribute schema.
 pub type EventType {
   EventType(
@@ -2312,6 +2492,18 @@ pub type EvidenceFreshnessEvidence {
     observed_at: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Binds every plan to one immutable repository/ref/SHA subject.
+pub type ExactSubjectBinding {
+  ExactSubjectBinding(
+    /// Required subject_id for this bounded planner contract.
+    subject_id: String,
+    /// Required subject_sha for deterministic planner evaluation.
+    subject_sha: String,
+    /// Required binding_hash preserving evidence and falsifiability.
+    binding_hash: String,
   )
 }
 
@@ -2459,6 +2651,18 @@ pub type GeneratedOutputOwnershipObservation {
   )
 }
 
+/// Routes generated-projection defects to canonical semantic source or an independent rail.
+pub type GeneratedSourceRoute {
+  GeneratedSourceRoute(
+    /// Required projection_id for this bounded planner contract.
+    projection_id: String,
+    /// Required source_coordinate for deterministic planner evaluation.
+    source_coordinate: String,
+    /// Required route preserving evidence and falsifiability.
+    route: String,
+  )
+}
+
 /// One dependency-scored candidate arc considered during heuristic-net discovery.
 pub type HeuristicArc {
   HeuristicArc(
@@ -2468,6 +2672,18 @@ pub type HeuristicArc {
     target_activity: String,
     /// The computed dependency/confidence score for this candidate arc.
     dependency_measure: Float,
+  )
+}
+
+/// Selects a marketplace pack only by exact immutable commit SHA.
+pub type ImmutablePackSelection {
+  ImmutablePackSelection(
+    /// Required pack_id for this bounded planner contract.
+    pack_id: String,
+    /// Required pack_sha for deterministic planner evaluation.
+    pack_sha: String,
+    /// Required selection_hash preserving evidence and falsifiability.
+    selection_hash: String,
   )
 }
 
@@ -2613,6 +2829,18 @@ pub type InvoiceSchedule {
   )
 }
 
+/// Limits irreversible commitments within one bounded planning episode.
+pub type IrreversibilityBudget {
+  IrreversibilityBudget(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required budget for deterministic planner evaluation.
+    budget: String,
+    /// Required consumed preserving evidence and falsifiability.
+    consumed: String,
+  )
+}
+
 /// A reference to one Kubernetes object observed in the runtime topology.
 pub type K8SObjectRef {
   K8SObjectRef(
@@ -2753,6 +2981,30 @@ pub type MasterServiceAgreementState {
   )
 }
 
+/// Represents a seeded Monte Carlo tree-search plan and its rollout evidence.
+pub type MctsPlanCandidate {
+  MctsPlanCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required seed for deterministic planner evaluation.
+    seed: String,
+    /// Required rollout_hash preserving evidence and falsifiability.
+    rollout_hash: String,
+  )
+}
+
+/// Selects a planner from a portfolio using observed problem characteristics.
+pub type MetaRouter {
+  MetaRouter(
+    /// Required portfolio_id for this bounded planner contract.
+    portfolio_id: String,
+    /// Required observation_hash for deterministic planner evaluation.
+    observation_hash: String,
+    /// Required selected_planner_id preserving evidence and falsifiability.
+    selected_planner_id: String,
+  )
+}
+
 /// Records a bounded production usage sample eligible for tenant-level metering.
 pub type MeteredUsageSample {
   MeteredUsageSample(
@@ -2835,6 +3087,30 @@ pub type MutableIdentityRefusalEvidence {
   )
 }
 
+/// Ranks observations by expected mutual information with decision-relevant state.
+pub type MutualInformationScore {
+  MutualInformationScore(
+    /// Required observation_id for this bounded planner contract.
+    observation_id: String,
+    /// Required target_state_id for deterministic planner evaluation.
+    target_state_id: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
+/// Selects the next bounded action from scored admissible options without human micro-scheduling.
+pub type NextLawfulActuation {
+  NextLawfulActuation(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required selected_action_id for deterministic planner evaluation.
+    selected_action_id: String,
+    /// Required selection_receipt_hash preserving evidence and falsifiability.
+    selection_receipt_hash: String,
+  )
+}
+
 /// Records the exact node failure and observed failover consequence for a paid service.
 pub type NodeFailoverEvent {
   NodeFailoverEvent(
@@ -2858,6 +3134,18 @@ pub type NormalizedEventObservation {
     event_type: String,
     /// Normalized event timestamp.
     event_time: String,
+  )
+}
+
+/// Rewards options that expand the lawful reachable capability frontier.
+pub type NoveltyScore {
+  NoveltyScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required reference_set_hash for deterministic planner evaluation.
+    reference_set_hash: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
   )
 }
 
@@ -3105,6 +3393,30 @@ pub type OpportunityValueRange {
   )
 }
 
+/// Represents an optimization-derived plan with objective and solver receipt.
+pub type OptimizationPlanCandidate {
+  OptimizationPlanCandidate(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required objective_id for deterministic planner evaluation.
+    objective_id: String,
+    /// Required solver_receipt_hash preserving evidence and falsifiability.
+    solver_receipt_hash: String,
+  )
+}
+
+/// Generates a reversible DfCM option set without premature selection.
+pub type OptionGeneration {
+  OptionGeneration(
+    /// Required state_id for this bounded planner contract.
+    state_id: String,
+    /// Required generator_id for deterministic planner evaluation.
+    generator_id: String,
+    /// Required option_set_hash preserving evidence and falsifiability.
+    option_set_hash: String,
+  )
+}
+
 /// Admits the exact order form that expresses the buyer's priced scope and authorized terms.
 pub type OrderFormAdmission {
   OrderFormAdmission(
@@ -3114,6 +3426,30 @@ pub type OrderFormAdmission {
     order_form_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Measures semantic independence between candidate work items.
+pub type OrthogonalityScore {
+  OrthogonalityScore(
+    /// Required left_option_id for this bounded planner contract.
+    left_option_id: String,
+    /// Required right_option_id for deterministic planner evaluation.
+    right_option_id: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
+/// Refuses manufacture promotion until every output path has admitted ownership.
+pub type OutputOwnershipGate {
+  OutputOwnershipGate(
+    /// Required subject_id for this bounded planner contract.
+    subject_id: String,
+    /// Required ownership_manifest_hash for deterministic planner evaluation.
+    ownership_manifest_hash: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
   )
 }
 
@@ -3154,6 +3490,18 @@ pub type PaidWorkloadOutcomeReceipt {
     workload_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     outcome_receipt_hash: String,
+  )
+}
+
+/// Removes strictly dominated options while preserving incomparable alternatives.
+pub type ParetoFilter {
+  ParetoFilter(
+    /// Required option_set_id for this bounded planner contract.
+    option_set_id: String,
+    /// Required objective_set_hash for deterministic planner evaluation.
+    objective_set_hash: String,
+    /// Required pareto_set_hash preserving evidence and falsifiability.
+    pareto_set_hash: String,
   )
 }
 
@@ -3255,6 +3603,66 @@ pub type PetriTransition {
   )
 }
 
+/// Tracks derivation, repair, and supersession across plan generations.
+pub type PlanLineage {
+  PlanLineage(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required parent_plan_id for deterministic planner evaluation.
+    parent_plan_id: String,
+    /// Required lineage_hash preserving evidence and falsifiability.
+    lineage_hash: String,
+  )
+}
+
+/// Stores reusable plan evidence without converting historical success into current authority.
+pub type PlanMemory {
+  PlanMemory(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required evidence_hash for deterministic planner evaluation.
+    evidence_hash: String,
+    /// Required memory_hash preserving evidence and falsifiability.
+    memory_hash: String,
+  )
+}
+
+/// Declares the problem features and guarantees supported by one planner.
+pub type PlannerCapabilityProfile {
+  PlannerCapabilityProfile(
+    /// Required planner_id for this bounded planner contract.
+    planner_id: String,
+    /// Required capability_set for deterministic planner evaluation.
+    capability_set: String,
+    /// Required profile_hash preserving evidence and falsifiability.
+    profile_hash: String,
+  )
+}
+
+/// Separates planner identity from policy, role, agent, and authority identities.
+pub type PlannerIdentity {
+  PlannerIdentity(
+    /// Required planner_id for this bounded planner contract.
+    planner_id: String,
+    /// Required planner_kind for deterministic planner evaluation.
+    planner_kind: String,
+    /// Required identity_hash preserving evidence and falsifiability.
+    identity_hash: String,
+  )
+}
+
+/// Preserves a diverse set of planners for one bounded planning episode.
+pub type PlannerPortfolio {
+  PlannerPortfolio(
+    /// Required portfolio_id for this bounded planner contract.
+    portfolio_id: String,
+    /// Required planner_ids for deterministic planner evaluation.
+    planner_ids: String,
+    /// Required diversity_hash preserving evidence and falsifiability.
+    diversity_hash: String,
+  )
+}
+
 /// One PDDL-style planning action with its preconditions and effects.
 pub type PlanningAction {
   PlanningAction(
@@ -3341,6 +3749,18 @@ pub type PocTimeline {
   )
 }
 
+/// Binds one planner to parameters, objective, observations, and action projection.
+pub type PolicyBinding {
+  PolicyBinding(
+    /// Required policy_id for this bounded planner contract.
+    policy_id: String,
+    /// Required planner_id for deterministic planner evaluation.
+    planner_id: String,
+    /// Required policy_hash preserving evidence and falsifiability.
+    policy_hash: String,
+  )
+}
+
 /// One admission/authority policy decision recorded for an attempted action.
 pub type PolicyDecision {
   PolicyDecision(
@@ -3398,6 +3818,30 @@ pub type PowlPartialOrderEdge {
     from_index: Int,
     /// Index into the parent PartialOrderNode's children that must happen after from_index.
     to_index: Int,
+  )
+}
+
+/// Binds a plan candidate to an exact POWL process-plan projection.
+pub type PowlProjection {
+  PowlProjection(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required powl_hash for deterministic planner evaluation.
+    powl_hash: String,
+    /// Required projection_receipt_hash preserving evidence and falsifiability.
+    projection_receipt_hash: String,
+  )
+}
+
+/// Binds a plan candidate to an exact PPDDL problem/domain projection.
+pub type PpddlProjection {
+  PpddlProjection(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required domain_hash for deterministic planner evaluation.
+    domain_hash: String,
+    /// Required problem_hash preserving evidence and falsifiability.
+    problem_hash: String,
   )
 }
 
@@ -3561,6 +4005,18 @@ pub type ProofOfValueExitGate {
   )
 }
 
+/// Scores downstream consequences across the dependency and capability graph.
+pub type PropagationScore {
+  PropagationScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required graph_hash for deterministic planner evaluation.
+    graph_hash: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
 /// Executable procurement evidence binding one commercial artifact to its exact repository commit and observed provenance verification result.
 pub type ProvenanceBindingEvidence {
   ProvenanceBindingEvidence(
@@ -3586,6 +4042,18 @@ pub type ProvenanceBindingObservation {
     evidence_digest: String,
     /// Machine-readable provenance standing.
     binding_status: String,
+  )
+}
+
+/// Maintains a population of policies and response oracles for meta-routing.
+pub type PsroPopulation {
+  PsroPopulation(
+    /// Required population_id for this bounded planner contract.
+    population_id: String,
+    /// Required policy_ids for deterministic planner evaluation.
+    policy_ids: String,
+    /// Required population_hash preserving evidence and falsifiability.
+    population_hash: String,
   )
 }
 
@@ -3667,6 +4135,18 @@ pub type RampCommitment {
   )
 }
 
+/// Determines whether an admitted goal remains reachable from current state.
+pub type ReachabilityAnalysis {
+  ReachabilityAnalysis(
+    /// Required state_id for this bounded planner contract.
+    state_id: String,
+    /// Required goal_id for deterministic planner evaluation.
+    goal_id: String,
+    /// Required reachability_proof_hash preserving evidence and falsifiability.
+    reachability_proof_hash: String,
+  )
+}
+
 /// Executable replay evidence binding an exact subject to the deterministic result reproduced from its receipt.
 pub type ReceiptReplayEvidence {
   ReceiptReplayEvidence(
@@ -3690,6 +4170,18 @@ pub type ReceiptReplayRequest {
     receipt_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     replay_request_hash: String,
+  )
+}
+
+/// Prevents any actuation candidate from becoming selectable without a verifiable receipt plan.
+pub type ReceiptRequiredGate {
+  ReceiptRequiredGate(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required receipt_contract_id for deterministic planner evaluation.
+    receipt_contract_id: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
   )
 }
 
@@ -3967,6 +4459,18 @@ pub type ResellerAuthorization {
   )
 }
 
+/// Automatically promotes the highest-value lawful reserve when primary work blocks.
+pub type ReserveWorkPromotion {
+  ReserveWorkPromotion(
+    /// Required blocked_work_id for this bounded planner contract.
+    blocked_work_id: String,
+    /// Required reserve_set_hash for deterministic planner evaluation.
+    reserve_set_hash: String,
+    /// Required promoted_work_id preserving evidence and falsifiability.
+    promoted_work_id: String,
+  )
+}
+
 /// Executable residency evidence binding an exact subject to the region where its controlled data operation occurred.
 pub type ResidencyEvidence {
   ResidencyEvidence(
@@ -3990,6 +4494,18 @@ pub type ResourceAllocation {
     activity: String,
     /// Identifier of the specific event occurrence.
     event_id: String,
+  )
+}
+
+/// Allocates finite compute, time, and concurrency capacity across lawful options.
+pub type ResourceCapacityPlan {
+  ResourceCapacityPlan(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required resource_pool_hash for deterministic planner evaluation.
+    resource_pool_hash: String,
+    /// Required allocation_hash preserving evidence and falsifiability.
+    allocation_hash: String,
   )
 }
 
@@ -4047,6 +4563,18 @@ pub type RevenueScheduleAssumption {
   )
 }
 
+/// Weights reversible actions above irreversible ones until evidence justifies commitment.
+pub type ReversibilityWeight {
+  ReversibilityWeight(
+    /// Required action_id for this bounded planner contract.
+    action_id: String,
+    /// Required rollback_id for deterministic planner evaluation.
+    rollback_id: String,
+    /// Required weight preserving evidence and falsifiability.
+    weight: String,
+  )
+}
+
 /// Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
 pub type RfpResponseEvidence {
   RfpResponseEvidence(
@@ -4058,6 +4586,18 @@ pub type RfpResponseEvidence {
     answer_set_hash: String,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Evaluates whether a policy is lawful for an assigned role in the current world.
+pub type RoleCompatibility {
+  RoleCompatibility(
+    /// Required role_id for this bounded planner contract.
+    role_id: String,
+    /// Required policy_id for deterministic planner evaluation.
+    policy_id: String,
+    /// Required compatibility preserving evidence and falsifiability.
+    compatibility: String,
   )
 }
 
@@ -4178,6 +4718,18 @@ pub type SecondPassByteIdentityObservation {
     byte_identity: Bool,
     /// Receipt binding the replay result.
     receipt_digest: String,
+  )
+}
+
+/// Makes byte-identical second manufacture a first-class planning objective.
+pub type SecondRunIdentityObjective {
+  SecondRunIdentityObjective(
+    /// Required subject_id for this bounded planner contract.
+    subject_id: String,
+    /// Required first_tree_hash for deterministic planner evaluation.
+    first_tree_hash: String,
+    /// Required second_tree_hash preserving evidence and falsifiability.
+    second_tree_hash: String,
   )
 }
 
@@ -4422,6 +4974,18 @@ pub type StakeholderMap {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Refuses execution when subject, pack, policy, or world identity has drifted.
+pub type StalePlanRefusal {
+  StalePlanRefusal(
+    /// Required plan_id for this bounded planner contract.
+    plan_id: String,
+    /// Required admitted_preimage_hash for deterministic planner evaluation.
+    admitted_preimage_hash: String,
+    /// Required observed_preimage_hash preserving evidence and falsifiability.
+    observed_preimage_hash: String,
   )
 }
 
@@ -4883,6 +5447,18 @@ pub type TypeEdge {
   )
 }
 
+/// Selects only when confidence and downside bounds satisfy explicit values.
+pub type UncertaintyAwareSelection {
+  UncertaintyAwareSelection(
+    /// Required option_set_id for this bounded planner contract.
+    option_set_id: String,
+    /// Required uncertainty_model_hash for deterministic planner evaluation.
+    uncertainty_model_hash: String,
+    /// Required selected_option_id preserving evidence and falsifiability.
+    selected_option_id: String,
+  )
+}
+
 /// Represents typed UNKNOWN uncertainty instead of manufacturing false certainty.
 pub type UncertaintyObservation {
   UncertaintyObservation(
@@ -5071,6 +5647,18 @@ pub type ValueOfInformationEstimate {
   )
 }
 
+/// Scores the expected value of acquiring missing information before selection.
+pub type ValueOfInformationScore {
+  ValueOfInformationScore(
+    /// Required option_id for this bounded planner contract.
+    option_id: String,
+    /// Required observation_id for deterministic planner evaluation.
+    observation_id: String,
+    /// Required score preserving evidence and falsifiability.
+    score: String,
+  )
+}
+
 /// Receipted realized customer value derived from observed consequences.
 pub type ValueRealization {
   ValueRealization(
@@ -5162,6 +5750,18 @@ pub type VulnerabilityScanEvidence {
     vulnerability_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Refuses selections that would exceed the admitted work-in-process ceiling.
+pub type WipLimitGate {
+  WipLimitGate(
+    /// Required episode_id for this bounded planner contract.
+    episode_id: String,
+    /// Required wip_limit for deterministic planner evaluation.
+    wip_limit: String,
+    /// Required standing preserving evidence and falsifiability.
+    standing: String,
   )
 }
 

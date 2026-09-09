@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-029 — pareto_filter
+b4p:pareto_filter_rt a bpm:RecordType ;
+    bpm:recordName "pareto_filter" ;
+    bpm:recordDoc "Removes strictly dominated options while preserving incomparable alternatives." ;
+    bpm:hasField b4p:pareto_filter_option_set_id_f,
+                 b4p:pareto_filter_objective_set_hash_f,
+                 b4p:pareto_filter_pareto_set_hash_f .
+
+b4p:pareto_filter_option_set_id_f a bpm:Field ;
+    bpm:fieldName "option_set_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required option_set_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:pareto_filter_objective_set_hash_f a bpm:Field ;
+    bpm:fieldName "objective_set_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required objective_set_hash for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:pareto_filter_pareto_set_hash_f a bpm:Field ;
+    bpm:fieldName "pareto_set_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required pareto_set_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .

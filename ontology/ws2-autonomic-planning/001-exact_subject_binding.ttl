@@ -1,0 +1,25 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+@prefix b4p: <https://beam4pm.dev/ontology/instance#> .
+
+# WS2-PLAN-001 — exact_subject_binding
+b4p:exact_subject_binding_rt a bpm:RecordType ;
+    bpm:recordName "exact_subject_binding" ;
+    bpm:recordDoc "Binds every plan to one immutable repository/ref/SHA subject." ;
+    bpm:hasField b4p:exact_subject_binding_subject_id_f,
+                 b4p:exact_subject_binding_subject_sha_f,
+                 b4p:exact_subject_binding_binding_hash_f .
+
+b4p:exact_subject_binding_subject_id_f a bpm:Field ;
+    bpm:fieldName "subject_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required subject_id for this bounded planner contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+b4p:exact_subject_binding_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required subject_sha for deterministic planner evaluation." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+b4p:exact_subject_binding_binding_hash_f a bpm:Field ;
+    bpm:fieldName "binding_hash" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Required binding_hash preserving evidence and falsifiability." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
