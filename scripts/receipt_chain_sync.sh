@@ -14,7 +14,9 @@ mix deps.get
 # ggen_igniter's own reactor reconciliation (mix compile + mix test) before
 # the next step runs:
 #   1. lib/beam4pm_receipt_chain.ex (static, no deps) must exist before...
-#   2. beam4pm_actuation.ex, which now calls BeamPM.ReceiptChain.link_fields/2
+#   2. beam4pm_actuation.ex, which now calls BeamPM.ReceiptChain.link_fields/3
+#      (indexed, O(1); the legacy link_fields/2 is retained so a not-yet-
+#      regenerated actuation.ex still compiles during step 1's own verify)
 #   3. beam4pm_process_governor.ex, which delegates to BeamPM.Actuation.run/2
 #   4. test/beam4pm_receipt_chain_test.exs LAST -- it exercises BOTH
 #      BeamPM.ReceiptChain directly AND BeamPM.ProcessGovernor.run/2 (the

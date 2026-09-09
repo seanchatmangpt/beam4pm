@@ -123,6 +123,19 @@ def _load_cube_counter():
     return CubeCounterProvider()
 
 
+def _load_gymnasium():
+    # GymnasiumProvider (/Users/sac/gymact/src/gymact/gyms/gymnasium_env.py)
+    # wraps ANY already-registered `gymnasium.Env` -- no gym-specific bridge
+    # code needed per environment; `config["env_id"]` selects which one at
+    # runtime (default CartPole-v1). Requires the optional 'gyms' extra (the
+    # `gymnasium` package itself); raises ImportError on a machine without
+    # it -- probed for real by --list and reported runnable:false in that
+    # case, never silently hidden, matching _load_cube_counter's convention.
+    from gymact.gyms.gymnasium_env import GymnasiumProvider
+
+    return GymnasiumProvider()
+
+
 def _lock_reward(before: dict[str, Any], after: dict[str, Any]) -> float:
     return float(after.get("locks_open", 0) - before.get("locks_open", 0))
 
@@ -150,6 +163,25 @@ def _cube_reward(before: dict[str, Any], after: dict[str, Any]) -> float:
 
 def _cube_done(state: dict[str, Any]) -> bool:
     return bool(state.get("solved"))
+
+
+def _gymnasium_reward(before: dict[str, Any], after: dict[str, Any]) -> float:
+    # gymnasium's own env.step() reward IS the real per-step reward (unlike
+    # lock-and-key's locks_open or CUBE's running score, it is not a
+    # cumulative counter needing a before/after delta), surfaced verbatim in
+    # the gym's observed state
+    # (/Users/sac/gymact/src/gymact/gyms/gymnasium_env.py:118-123) -- report
+    # it directly, never a bridge-invented delta. `reward` is None
+    # immediately after reset/before any step; report that as 0.0.
+    del before
+    return float(after.get("reward") or 0.0)
+
+
+def _gymnasium_done(state: dict[str, Any]) -> bool:
+    # gymnasium's own terminated/truncated flags -- the real, authoritative
+    # episode-end signal for ANY Gymnasium-API-compliant environment, not a
+    # bridge-specific interpretation.
+    return bool(state.get("terminated")) or bool(state.get("truncated"))
 
 
 GYMS: dict[str, dict[str, Any]] = {
@@ -183,6 +215,23 @@ GYMS: dict[str, dict[str, Any]] = {
         "reward": _cube_reward,
         "done": _cube_done,
     },
+    "gymnasium": {
+        "provider": "gymnasium",
+        "load": _load_gymnasium,
+        # requires_authority=False: matches cube-counter's convention -- this
+        # bridge already admits DO through gymact's own
+        # AllowListAuthorityResolver; stepping a real gymnasium env (an
+        # in-process simulation) has no external consequence to additionally
+        # gate. env_id is a genuine runtime parameter (via --config), not a
+        # code-time dispatch key: any already-registered `gymnasium.Env`
+        # (CartPole-v1 default, or any other id in `gymnasium.registry`) is
+        # drivable through this ONE entry with zero gym-specific code added
+        # here or in gymact.
+        "default_config": {"env_id": "CartPole-v1", "requires_authority": False},
+        "forbidden_bindings": {},
+        "reward": _gymnasium_reward,
+        "done": _gymnasium_done,
+    },
 }
 
 
@@ -194,7 +243,26 @@ class BridgeSession:
         self.spec = GYMS[gym_name]
         self.config = config or dict(self.spec["default_config"])
         self.loop = asyncio.new_event_loop()
-        self.gym: GymAct | None = None
+        # Real kernel + real authority resolver + real provider -- mirrors
+        # /Users/sac/gymact/tests/test_lock_and_key.py:23-35. Constructed and
+        # registered ONCE per bridge session, never per reset: `GymAct()`
+        # pays a real SHACL profile-conformance check by default
+        # (validate_profile=True -> self.profile.validate(), see
+        # /Users/sac/gymact/src/gymact/kernel.py:83-110), and
+        # `register_provider` refuses a second registration of the same
+        # provider name outright (kernel.py:188-194). The kernel's own
+        # `_episodes` dict (kernel.py:94, populated by `materialize`,
+        # depopulated by `teardown` at kernel.py:1103) is designed to carry
+        # many sequential episodes on ONE instance -- rebuilding the whole
+        # kernel per reset was amortizable per-process cost paid on every
+        # episode instead of once. Real benchmark (lock-and-key, N=20 resets
+        # in one process, /Users/sac/gymact/.venv/bin/python,
+        # this host, 2026-09-05): reconstruct-per-reset = 34.12ms/reset;
+        # construct-once-reuse = 18.30ms/reset (1.86x). Bounded/local: same
+        # O(1)-per-reset complexity class, smaller constant factor amortized
+        # across a long-lived bridge process -- not a phase change.
+        self.gym: GymAct = GymAct(authority_resolver=AllowListAuthorityResolver({AUTHORITY_REF}))
+        self.gym.register_provider(self.spec["load"]())
         self.episode_id: str | None = None
 
     def _run(self, coro):
@@ -203,15 +271,11 @@ class BridgeSession:
     # -- protocol ops --------------------------------------------------------
 
     def reset(self) -> dict[str, Any]:
-        if self.gym is not None and self.episode_id is not None:
+        if self.episode_id is not None:
             try:
                 self._run(self.gym.teardown(self.episode_id, authority_ref=AUTHORITY_REF))
             except Exception:
                 pass
-        # Real kernel + real authority resolver + real provider -- mirrors
-        # /Users/sac/gymact/tests/test_lock_and_key.py:23-35.
-        self.gym = GymAct(authority_resolver=AllowListAuthorityResolver({AUTHORITY_REF}))
-        self.gym.register_provider(self.spec["load"]())
         materialization = self._run(
             self.gym.materialize(
                 MaterializationIntent(provider=self.spec["provider"], config=self.config)
@@ -226,7 +290,7 @@ class BridgeSession:
         return {"ok": True, "observation": observation.state}
 
     def _resolve_capability(self, ref: str):
-        assert self.gym is not None and self.episode_id is not None
+        assert self.episode_id is not None
         env = self.gym._episodes[self.episode_id].environment
         for cap in env.capabilities():
             if cap.iri == ref or cap.binding == ref:
@@ -234,7 +298,7 @@ class BridgeSession:
         raise ValueError(f"unknown capability for gym {self.gym_name!r}: {ref!r}")
 
     def step(self, action: Any) -> dict[str, Any]:
-        if self.gym is None or self.episode_id is None:
+        if self.episode_id is None:
             return {"ok": False, "error": "no live episode: send {\"op\":\"reset\"} first"}
         if not isinstance(action, dict):
             return {"ok": False, "error": "action must be a JSON object"}
@@ -307,7 +371,7 @@ class BridgeSession:
         }
 
     def close(self) -> dict[str, Any]:
-        if self.gym is not None and self.episode_id is not None:
+        if self.episode_id is not None:
             try:
                 self._run(self.gym.teardown(self.episode_id, authority_ref=AUTHORITY_REF))
             except Exception as exc:

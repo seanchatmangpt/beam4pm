@@ -31,15 +31,20 @@ acceptance, receipt standing, and the gym's own applicability/result fields.
 ## Gyms probed, and which actually run here
 
 Probed FOR REAL on this machine (import + kernel materialize + observe +
-teardown, via `--list`) on 2026-08-29, interpreter
+teardown, via `--list`) on 2026-09-04, interpreter
 `/Users/sac/gymact/.venv/bin/python` (Python 3.13.9, used read-only):
 
 ```text
 $ /Users/sac/gymact/.venv/bin/python gym_bridge.py --list
 {"gym": "lock-and-key", "runnable": true, "observation_keys": ["dead_end", "depth", "final_open", "held_key", "holding_key", "locks_open", "rack_jammed", "solved"]}
 {"gym": "chatman-state", "runnable": true, "observation_keys": ["repo_limit"]}
-{"gym": "cube-counter", "runnable": true, "observation_keys": ["counter", "reward", "solved", "target"]}
+{"gym": "cube-counter", "runnable": false, "error": "ImportError: cube_counter requires the optional 'cube' extra (...)"}
+{"gym": "gymnasium", "runnable": true, "observation_keys": ["env_id", "info", "observation", "reward", "terminated", "truncated"]}
 ```
+
+(`cube-counter`'s `runnable:false` here is this machine's own missing
+`cube` extra, unrelated to the bridge itself -- reported by `--list`'s real
+probe, never hidden, per its own doctrine below.)
 
 1. `lock-and-key` (`gymact.gyms.lock_and_key`) -- pure Python, no network, no
    Docker, no optional packages. Hidden seeded key permutation, reversible
@@ -52,14 +57,30 @@ $ /Users/sac/gymact/.venv/bin/python gym_bridge.py --list
    this bridge must have no network side effects; `list_local_repos` and
    `estimated_effort_cost` are local-only and allowed.
 3. `cube-counter` (`gymact.gyms.cube_counter`) -- CUBE's own no-Docker
-   `counter-cube` benchmark; runnable here because gymact's venv has the
-   `cube` extra installed. On a machine without `counter_cube`, `--list`
-   reports it `runnable:false` with the real ImportError, never hidden.
+   `counter-cube` benchmark; runnable when gymact's venv has the `cube`
+   extra installed. On a machine without `counter_cube`, `--list` reports it
+   `runnable:false` with the real ImportError, never hidden.
+4. `gymnasium` (`gymact.gyms.gymnasium_env.GymnasiumProvider`) -- generic
+   bridge over the standard `gymnasium` package's own environment registry
+   (63 environments registered in a plain interpreter with zero optional
+   extras, measured via `python3 -c "import gymnasium;
+   print(len(gymnasium.registry))"`, growing with Box2D/MuJoCo/Atari extras
+   and third-party `gymnasium.register()` calls). `env_id` is a runtime
+   `--config` parameter (default `CartPole-v1`), not a code-time dispatch
+   key: this ONE registry entry drives ANY already-registered
+   Gymnasium-API-compliant environment with zero gym-specific bridge code.
+   Reward = gymnasium's own real per-step `reward` (not a delta -- unlike
+   lock-and-key/CUBE, gymnasium's `reward` is already the per-step value,
+   not a cumulative counter); `done` = `terminated or truncated`, gymnasium's
+   own real episode-end signal.
 
 Gyms not bridged, with reasons observed in their sources: `cloud_topology_gym`
 (needs botocore data files -- offline but an optional extra), `aws_botocore_*`
 (same family), `browsergym`/`swegym`/`sregym` (external benchmark stacks),
-`gcp_*` (provider census data / live probes), `terraform_*` (external tooling).
+`gcp_*` (provider census data / live probes), `terraform_*` (external
+tooling), `inspect_evals.py`'s `InspectEvalsProvider` (materializes one
+hardcoded Sample/task rather than adapting an open registry -- not the same
+unbounded-scaling shape as `gymnasium_env.py`'s `GymnasiumProvider`).
 
 ## Real gymact construction mirrored (file:line)
 
@@ -121,11 +142,13 @@ actuation is replayable byte-for-byte against the same bridge.
 /Users/sac/gymact/.venv/bin/python -m unittest test_gym_bridge -v
 ```
 
-7 tests, all against the real subprocess and real gyms: full
-reset/step/step/close episodes for lock-and-key and chatman-state, the
-irreversible `force_latch` dead-end, the fail-closed network-policy refusal,
-garbage/unknown-op resilience, unknown-gym exit 2, and a real `--list` probe.
-Mock-grep over this directory returns zero matches (verified each run):
+10 tests, all against the real subprocess and real gyms: full
+reset/step/step/close episodes for lock-and-key, chatman-state, and
+gymnasium (real CartPole-v1), the irreversible `force_latch` dead-end, the
+fail-closed network-policy refusal, gymnasium's illegal-action refusal and
+READ-capability (`sample_action`) state-invariance, garbage/unknown-op
+resilience, unknown-gym exit 2, and a real `--list` probe. Mock-grep over
+this directory returns zero matches (verified each run):
 
 ```bash
 grep -rn "unittest.mock\|Mock(\|MagicMock\|patch(\|monkeypatch" .

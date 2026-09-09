@@ -11,7 +11,7 @@ defmodule BeamPM.Ash.Resources.EvidenceFreshnessEvidence do
     uuid_primary_key :id
     attribute :evidence_id, :string, public?: true, allow_nil?: false
     attribute :subject_sha, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
     attribute :observed_result, :atom, public?: true, allow_nil?: false
   end
 

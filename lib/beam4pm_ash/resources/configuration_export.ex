@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.ConfigurationExport do
     attribute :export_id, :string, public?: true, allow_nil?: false
     attribute :tenant_id, :string, public?: true, allow_nil?: false
     attribute :configuration_hash, :string, public?: true, allow_nil?: false
-    attribute :exported_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :exported_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

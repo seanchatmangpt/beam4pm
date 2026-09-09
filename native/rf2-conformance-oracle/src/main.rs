@@ -22,7 +22,6 @@
 //!   - `compute_fitness` (real fitness statistics over those alignments)
 //! Nothing here re-implements or approximates any of the above.
 
-use std::io::Read;
 use std::process::ExitCode;
 
 use serde::Deserialize;
@@ -84,18 +83,9 @@ fn default_case_attr_key() -> String {
 }
 
 fn main() -> ExitCode {
-    let mut raw = String::new();
-    if let Err(e) = std::io::stdin().read_to_string(&mut raw) {
-        eprintln!("rf2-conformance-oracle: failed to read stdin: {e}");
-        return ExitCode::from(1);
-    }
-
-    let input: WireInput = match serde_json::from_str(&raw) {
+    let input: WireInput = match oracle_io::read_stdin_json("rf2-conformance-oracle") {
         Ok(v) => v,
-        Err(e) => {
-            eprintln!("rf2-conformance-oracle: malformed input JSON: {e}");
-            return ExitCode::from(1);
-        }
+        Err(code) => return code,
     };
 
     if input.op != "conformance" {

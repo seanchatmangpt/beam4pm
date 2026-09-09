@@ -13,6 +13,8 @@ defmodule BeamPM.Ash.Resources.ServiceSpan do
     attribute :service_name, :string, public?: true, allow_nil?: false
     attribute :duration_ms, :integer, public?: true, allow_nil?: false
     attribute :parent_span_id, :string, public?: true
+    attribute :trace_id, :string, public?: true, allow_nil?: false
+    attribute :start_time, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.CommittedSpend do
     attribute :commitment_id, :string, public?: true, allow_nil?: false
     attribute :amount, :float, public?: true, allow_nil?: false
     attribute :currency, :string, public?: true, allow_nil?: false
-    attribute :expires_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :expires_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

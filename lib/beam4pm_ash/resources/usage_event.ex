@@ -13,7 +13,7 @@ defmodule BeamPM.Ash.Resources.UsageEvent do
     attribute :entitlement_id, :string, public?: true, allow_nil?: false
     attribute :quantity, :float, public?: true, allow_nil?: false
     attribute :metric_name, :string, public?: true, allow_nil?: false
-    attribute :occurred_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :occurred_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

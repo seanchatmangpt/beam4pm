@@ -8,9 +8,16 @@ through `ontology.ttl` or the vendored pack templates, not direct edits.
 
 ## BeamPM.Discovery
 
+Two evidence classes, kept apart on purpose (VISION-2030 section 7): the event-log functions
+(`traces_from_events/2`, `dfg_from_traces/1`, `conformance/2`) promote every consecutive pair
+inside a case to an edge — inference from temporal adjacency, all an event log can support. The
+span functions below (`traces_from_spans/1`, `causal_dfg_from_spans/1`) add a second, independent
+evidence source — the OpenTelemetry parent/child link — and expose where it disagrees with
+temporal adjacency instead of merging the two readings (moduledoc, `lib/beam4pm_discovery.ex:1-43`).
+
 ### `traces_from_events/2`
 
-`lib/beam4pm_discovery.ex:42-65`
+`lib/beam4pm_discovery.ex:63-86`
 
 ```elixir
 @spec traces_from_events([BeamPM.Types.OcelEvent.t()], String.t()) ::
@@ -21,12 +28,12 @@ Groups OCEL events into case-centric `LogTrace` structs.
 
 | Aspect | Behavior | Location |
 |---|---|---|
-| Case id source | `attributes` map, string key `case_attr_key` | line 46 |
-| Missing/`nil` attributes | event dropped | lines 46-51 |
-| Event ordering within case | `{event_time, event_id}` | line 57 |
-| `activity_sequence` | mapped from `event_type` | line 58 |
-| Trace ordering | sorted by `case_id` | line 53 |
-| Construction | `LogTrace.new/1` | lines 60-63 |
+| Case id source | `attributes` map, string key `case_attr_key` | line 69 |
+| Missing/`nil` attributes | event dropped | lines 68-71 |
+| Event ordering within case | `{event_time, event_id}` | line 78 |
+| `activity_sequence` | mapped from `event_type` | line 79 |
+| Trace ordering | sorted by `case_id` | line 74 |
+| Construction | `LogTrace.new/1` | lines 81-82 |
 
 ```elixir
 events = [
@@ -41,16 +48,16 @@ BeamPM.Discovery.traces_from_events(events, "case")
 
 ### `dfg_from_traces/1`
 
-`lib/beam4pm_discovery.ex:72-86`
+`lib/beam4pm_discovery.ex:93-107`
 
 ```elixir
 @spec dfg_from_traces([BeamPM.Types.LogTrace.t()]) :: [BeamPM.Types.DfgEdge.t()]
 ```
 
 Flat-maps each trace's `activity_sequence` into adjacent `(a, b)` pairs via the private
-`adjacent_pairs/1` (lines 151-156: `Enum.zip(seq, Enum.drop(seq, 1))`), counts frequencies
-with `Enum.frequencies/1` (line 76), sorts by `{source, target}` (line 77), and builds
-`DfgEdge` structs (lines 78-85).
+`adjacent_pairs/1` (lines 347-352: `Enum.zip(seq, Enum.drop(seq, 1))`), counts frequencies
+with `Enum.frequencies/1` (line 97), sorts by `{source, target}` (line 98), and builds
+`DfgEdge` structs (lines 99-106).
 
 ```elixir
 traces = [%BeamPM.Types.LogTrace{case_id: "c1", activity_sequence: ["submit", "approve"]}]
@@ -60,7 +67,7 @@ BeamPM.Discovery.dfg_from_traces(traces)
 
 ### `conformance/2`
 
-`lib/beam4pm_discovery.ex:124-149`
+`lib/beam4pm_discovery.ex:145-170`
 
 ```elixir
 @spec conformance([BeamPM.Types.DfgEdge.t()], BeamPM.Types.LogTrace.t()) ::
@@ -71,10 +78,10 @@ Computes fitness and precision of one trace against a `DfgEdge` list.
 
 | Field | Computation | Location |
 |---|---|---|
-| `fitness` | fraction of trace's adjacent pairs present in the edge set (`MapSet` membership) | lines 134-140 |
-| `fitness` (short trace) | `1.0` when trace has fewer than 2 activities | lines 130-131 |
-| `precision` | delegated to `BeamPM.Precision.etc_precision/2` — never re-derived locally | line 143 |
-| Result | built via `ConformanceResult.new/1` | lines 145-148 |
+| `fitness` | fraction of trace's adjacent pairs present in the edge set (`MapSet` membership) | lines 155-161 |
+| `fitness` (short trace) | `1.0` when trace has fewer than 2 activities | lines 151-152 |
+| `precision` | delegated to `BeamPM.Precision.etc_precision/2` — never re-derived locally | line 164 |
+| Result | built via `ConformanceResult.new/1` | lines 166-169 |
 
 ```elixir
 edges = [%BeamPM.Types.DfgEdge{source_activity: "submit", target_activity: "approve",
@@ -83,6 +90,154 @@ trace = %BeamPM.Types.LogTrace{case_id: "c1", activity_sequence: ["submit", "app
 BeamPM.Discovery.conformance(edges, trace)
 # => %BeamPM.Types.ConformanceResult{trace_id: "c1", fitness: 1.0, precision: 1.0}
 ```
+
+### `traces_from_spans/1`
+
+`lib/beam4pm_discovery.ex:181-195`
+
+```elixir
+@spec traces_from_spans([BeamPM.Types.ServiceSpan.t()]) :: [BeamPM.Types.LogTrace.t()]
+```
+
+The temporal-adjacency reading of tracing spans — deliberately nothing more than
+`traces_from_events/2`'s reading applied to spans instead of OCEL events: one `LogTrace` per
+distinct `trace_id` (`case_id` = `trace_id`).
+
+| Aspect | Behavior | Location |
+|---|---|---|
+| Grouping key | `trace_id` — one `LogTrace` per distinct value | line 184 |
+| Ordering within a trace | `{start_time, span_id}` (lexicographic ISO8601, ties broken by `span_id`) | line 189 |
+| `activity_sequence` | mapped from `service_name` | line 190 |
+| `parent_span_id` | **never read here** — this is what a miner that only sees timestamps and a correlation id would conclude | moduledoc, lines 172-179 |
+| Trace ordering | sorted by `trace_id` | line 185 |
+| Construction | `LogTrace.new/1`, `case_id` set to `trace_id` | lines 192-193 |
+
+```elixir
+spans = [
+  # root span: no parent_span_id
+  %BeamPM.Types.ServiceSpan{span_id: "r1", service_name: "gateway", duration_ms: 50,
+    trace_id: "t1", start_time: "2026-09-05T10:00:00.000Z"},
+  %BeamPM.Types.ServiceSpan{span_id: "s2", service_name: "inventory", duration_ms: 10,
+    parent_span_id: "r1", trace_id: "t1", start_time: "2026-09-05T10:00:00.020Z"},
+  %BeamPM.Types.ServiceSpan{span_id: "s1", service_name: "orders", duration_ms: 10,
+    parent_span_id: "r1", trace_id: "t1", start_time: "2026-09-05T10:00:00.010Z"}
+]
+BeamPM.Discovery.traces_from_spans(spans)
+# => [%BeamPM.Types.LogTrace{case_id: "t1",
+#       activity_sequence: ["gateway", "orders", "inventory"]}]
+```
+
+### `causal_dfg_from_spans/1`
+
+`lib/beam4pm_discovery.ex:249-277` (private helpers `index_spans/1`, `link_spans/2`,
+`span_edges/2`, `adjacency_edge/1`, `edge_pair/1` at lines 279-346)
+
+```elixir
+@spec causal_dfg_from_spans([BeamPM.Types.ServiceSpan.t()]) ::
+        {:ok, span_evidence()}
+        | {:error, {:duplicate_span_id, String.t()} | {:parent_in_other_trace, String.t()}}
+```
+
+OpenTelemetry parent/child (invocation) causality over `service_span` records, returned side
+by side with the temporal-adjacency edges the same span set yields — VISION-2030 section 24's
+falsifier ("telemetry adjacency cannot be distinguished from causality well enough for
+trustworthy process inference") answered by exposing the disagreement rather than picking one
+reading. Edges are `BeamPM.Types.SpanEdge`, never `BeamPM.Types.DfgEdge` — a parent/child link
+means the child ran *inside* the parent's interval, which is not directly-follows.
+
+`span_evidence()` (the success payload, `lib/beam4pm_discovery.ex:219-225`) is a map with five
+keys, every edge list sorted by `{source_service, target_service}` and `orphans` sorted by
+`{span_id, parent_span_id}`:
+
+| Key | Evidence class | Content | Location |
+|---|---|---|---|
+| `observed` | `:parent_child_link` | one `SpanEdge` per distinct (parent `service_name`, child `service_name`) pair; `frequency` = count of parent→child links with that pair | lines 253-255, 314-330 |
+| `adjacent` | `:temporal_adjacency` | `traces_from_spans/1 \|> dfg_from_traces/1`, re-tagged as `SpanEdge` on the same span set | lines 257-261, 332-343 |
+| `inferred_only` | — | `adjacent` edges whose pair no `observed` link supports — what adjacency invented | line 270-271 |
+| `observed_not_adjacent` | — | `observed` edges whose pair `adjacent` never produced — real causality adjacency cannot see | lines 272-273 |
+| `orphans` | — | `{span_id, parent_span_id}` for every span whose parent is absent from the input (sampled out, uninstrumented) — never an edge, never dropped silently | line 274, 292-311 |
+
+The two edge sets (`observed`, `adjacent`) are **not nested** — a root with concurrent children
+produces edges in `inferred_only` *and* `observed_not_adjacent` simultaneously (worked example
+below); both differences are always computed, never just one.
+
+Typed refusals, never silent:
+
+| Condition | Result | Location |
+|---|---|---|
+| Duplicate `span_id` in input (the index would otherwise last-write-win) | `{:error, {:duplicate_span_id, id}}` | lines 281-287 |
+| A span's parent found in a **different** `trace_id` (a malformed trace — links never cross traces) | `{:error, {:parent_in_other_trace, child_span_id}}` | lines 302-308 |
+
+Worked example — a root (`gateway`) fans out to two concurrent children (`orders`, `inventory`)
+whose `start_time` order is scheduling noise, not causality (same fixture as
+`test/beam4pm_discovery_test.exs:194-237`, `fan_out_orders_first/0`):
+
+```elixir
+spans = [
+  %BeamPM.Types.ServiceSpan{span_id: "r1", service_name: "gateway", duration_ms: 50,
+    trace_id: "t1", start_time: "2026-09-05T10:00:00.000Z"},
+  %BeamPM.Types.ServiceSpan{span_id: "s2", service_name: "inventory", duration_ms: 10,
+    parent_span_id: "r1", trace_id: "t1", start_time: "2026-09-05T10:00:00.020Z"},
+  %BeamPM.Types.ServiceSpan{span_id: "s1", service_name: "orders", duration_ms: 10,
+    parent_span_id: "r1", trace_id: "t1", start_time: "2026-09-05T10:00:00.010Z"}
+]
+
+BeamPM.Discovery.causal_dfg_from_spans(spans)
+# => {:ok, %{
+#      observed: [
+#        %BeamPM.Types.SpanEdge{source_service: "gateway", target_service: "inventory",
+#          frequency: 1, evidence: :parent_child_link},
+#        %BeamPM.Types.SpanEdge{source_service: "gateway", target_service: "orders",
+#          frequency: 1, evidence: :parent_child_link}
+#      ],
+#      adjacent: [
+#        %BeamPM.Types.SpanEdge{source_service: "gateway", target_service: "orders",
+#          frequency: 1, evidence: :temporal_adjacency},
+#        %BeamPM.Types.SpanEdge{source_service: "orders", target_service: "inventory",
+#          frequency: 1, evidence: :temporal_adjacency}
+#      ],
+#      # the sibling edge adjacency INVENTS -- no parent/child link supports it:
+#      inferred_only: [%BeamPM.Types.SpanEdge{source_service: "orders",
+#        target_service: "inventory", frequency: 1, evidence: :temporal_adjacency}],
+#      # the real causal edge adjacency CANNOT SEE (gateway's second concurrent child):
+#      observed_not_adjacent: [%BeamPM.Types.SpanEdge{source_service: "gateway",
+#        target_service: "inventory", frequency: 1, evidence: :parent_child_link}],
+#      orphans: []
+#    }}
+```
+
+Reordering the same spans/links so `inventory` starts before `orders` flips `adjacent` (and
+therefore `inferred_only`/`observed_not_adjacent`) while `observed` is unchanged — the
+parent/child arm is invariant under sibling scheduling order, the temporal-adjacency arm is not
+(`test/beam4pm_discovery_test.exs:239-255`).
+
+### Record types: `service_span` and `span_edge`
+
+Two `bpm:RecordType` individuals admitted for span-based discovery. Field tables mirrored
+verbatim from the generated `docs/reference/beam4pm_types_reference.md` (the source of truth —
+update there first if these ever drift):
+
+**`service_span`** — one OpenTelemetry-style tracing span observed for a service call
+(`beam4pm_types_reference.md`, `## service_span`):
+
+| Field | Type | Required | Doc |
+|---|---|---|---|
+| `span_id` | `string` | true | Unique span identifier. |
+| `service_name` | `string` | true | Name of the service that produced this span. |
+| `duration_ms` | `integer` | true | Span duration in milliseconds. |
+| `parent_span_id` | `string` | false | Optional identifier of the parent span (the OpenTelemetry parent/child link; absent on a trace's root span). This is NOT the OpenTelemetry `links` field. |
+| `trace_id` | `string` | true | Identifier of the trace this span belongs to (the partition key the temporal-adjacency arm groups by; parent/child links never cross it). |
+| `start_time` | `datetime` | true | ISO8601 timestamp the span started (the only ordering the temporal-adjacency arm consults; the parent/child arm never reads it). |
+
+**`span_edge`** — one frequency-annotated service-to-service edge derived from tracing spans,
+tagged with the evidence class that supports it (`beam4pm_types_reference.md`, `## span_edge`):
+
+| Field | Type | Required | Doc |
+|---|---|---|---|
+| `source_service` | `string` | true | `service_name` of the source span (the parent for `parent_child_link`; the earlier-starting span for `temporal_adjacency`). |
+| `target_service` | `string` | true | `service_name` of the target span (the child for `parent_child_link`; the next-starting span for `temporal_adjacency`). |
+| `frequency` | `integer` | true | For `parent_child_link`: the number of parent→child links with this pair. For `temporal_adjacency`: the number of consecutive `start_time` pairs with it, summed over traces. Comparable only when both arms are computed over the same span set, which `causal_dfg_from_spans/1` guarantees. |
+| `evidence` | `atom` | true | Evidence class: `parent_child_link` (observed) or `temporal_adjacency` (inferred). No other value is emitted. |
 
 ## BeamPM.Precision
 
@@ -140,7 +295,9 @@ BeamPM.Precision.etc_precision(edges, trace, 1.0)
 - `CLAUDE.md` — manufacturing pipeline, source-authority doctrine, Erlang/Elixir/Gleam/Ash
   language projections
 - `docs/reference/beam4pm_types_reference.md` — field-level reference for `DfgEdge`,
-  `LogTrace`, `ConformanceResult`, `OcelEvent`
+  `LogTrace`, `ConformanceResult`, `OcelEvent`, `ServiceSpan`, `SpanEdge`
+- `test/beam4pm_discovery_test.exs` — real fixtures and assertions for every function above,
+  including the fan-out worked example reproduced in `causal_dfg_from_spans/1`
 - `ontology.ttl` — the `bpm:RecordType` / `bpm:Field` individuals these modules are
   manufactured from
 - `docs/jira/v26.8.29/03-architecture-and-ggen-manufacturing.md` — full source-authority

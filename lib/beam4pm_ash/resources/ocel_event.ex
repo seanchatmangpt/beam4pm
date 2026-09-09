@@ -11,7 +11,7 @@ defmodule BeamPM.Ash.Resources.OcelEvent do
     uuid_primary_key :id
     attribute :event_id, :string, public?: true, allow_nil?: false
     attribute :event_type, :string, public?: true, allow_nil?: false
-    attribute :event_time, :utc_datetime, public?: true, allow_nil?: false
+    attribute :event_time, :utc_datetime_usec, public?: true, allow_nil?: false
     attribute :attributes, :map, public?: true
   end
 

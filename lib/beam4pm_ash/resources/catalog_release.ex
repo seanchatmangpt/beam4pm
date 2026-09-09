@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.CatalogRelease do
     attribute :release_id, :string, public?: true, allow_nil?: false
     attribute :version, :string, public?: true, allow_nil?: false
     attribute :sku_ids, {:array, :string}, public?: true, allow_nil?: false
-    attribute :effective_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :effective_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

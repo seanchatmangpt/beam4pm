@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.ChannelAgreement do
     attribute :agreement_id, :string, public?: true, allow_nil?: false
     attribute :partner_id, :string, public?: true, allow_nil?: false
     attribute :territory, :string, public?: true, allow_nil?: false
-    attribute :valid_until, :utc_datetime, public?: true, allow_nil?: false
+    attribute :valid_until, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

@@ -43,9 +43,9 @@ In order, the script:
 
 1. Locates all manufactured files by marker and sha256s them — the "before" set
    (`scripts/gate_m2_check.sh:48-53`).
-2. Stashes `test/beam4pm_actuation_k8s_test.exs` and
-   `test/beam4pm_process_governor_k8s_test.exs` to a `mktemp -d` dir
-   (`scripts/gate_m2_check.sh:78-94`), restored via an `EXIT` trap. These two hand-authored
+2. Stashes `test/beam4pm_actuation_k8s_test.exs`, `test/beam4pm_process_governor_k8s_test.exs`,
+   and `test/beam4pm_pddl_projection_test.exs` to a `mktemp -d` dir
+   (`scripts/gate_m2_check.sh:78-94`), restored via an `EXIT` trap. These three hand-authored
    tests reference manufactured modules at compile time and would otherwise fail with
    `UndefinedFunctionError` mid-regeneration-window.
 3. Deletes exactly the found "before" files (never a whole directory,
@@ -113,5 +113,10 @@ regenerate manufactured files in your working tree, use `just sync` or one of th
 - `CLAUDE.md` — source-authority doctrine (what's generated vs. hand-editable) and the
   full build/sync/test command list.
 - `scripts/gate_m2_check.sh` — the script itself.
+- `scripts/gate_authorship_check.sh` — GATE AUTHORSHIP, the companion check that every
+  hand-authored file under a manufactured root is an admitted `bpm:HandAuthoredSource`;
+  wired into `just verify` alongside GATE M2.
+- `scripts/gate_engine_dispatch_check.sh` — GATE ENGINE DISPATCH, the companion check that
+  every manufactured native-engine facade op is an op the engine's crate actually dispatches.
 - `scripts/roundtrip_check.sh` — GATE M5, the companion wire-format identity check.
 - `scripts/gate_lint_truth.sh` — GATE LINT-TRUTH, the overclaiming-phrase scanner.

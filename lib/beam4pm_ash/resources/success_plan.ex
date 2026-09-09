@@ -13,7 +13,7 @@ defmodule BeamPM.Ash.Resources.SuccessPlan do
     attribute :account_id, :string, public?: true, allow_nil?: false
     attribute :success_target, :string, public?: true, allow_nil?: false
     attribute :evidence_digest, :string, public?: true, allow_nil?: false
-    attribute :observed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :observed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

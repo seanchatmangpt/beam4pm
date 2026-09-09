@@ -13,7 +13,7 @@ defmodule BeamPM.Ash.Resources.ObjectAttributeChange do
     attribute :attribute_name, :string, public?: true, allow_nil?: false
     attribute :old_value, :string, public?: true
     attribute :new_value, :string, public?: true, allow_nil?: false
-    attribute :changed_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :changed_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

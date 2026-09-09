@@ -124,5 +124,5 @@ anything downstream of "build me an object-centric process model" is not yet imp
   `ocel_relationship`) this page is grounded in
 - `lib/beam4pm_pro_ocpm_discovery.ex` — the real `BeamPM.Pro.OcpmDiscovery` implementation and its
   own disclosed `gaps/0`
-- `docs/reference/beam4pm_types_reference.md` — generated field-level reference for all 31 core
-  `bpm:RecordType` individuals, including the OCEL identity domain
+- `docs/reference/beam4pm_types_reference.md` — generated field-level reference for all 290
+  admitted `bpm:RecordType` individuals, including the OCEL identity domain

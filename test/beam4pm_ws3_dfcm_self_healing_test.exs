@@ -43,7 +43,7 @@ defmodule BeamPM.Ws3DfcmSelfHealingQualificationTest do
     |> Base.encode16(case: :lower)
   end
 
-  if Code.ensure_loaded?(BeamPM.Actuation) do
+  if Code.ensure_loaded?(BeamPM.Actuation) and Code.ensure_loaded?(BeamPM.Autonomy.Kernel) do
   test "observed crash preserves DfCM repair options; fresh BRCE re-admission heals and replay verifies",
        %{tmp_dir: tmp_dir} do
     chain_id = "ws3-dfcm-self-healing"

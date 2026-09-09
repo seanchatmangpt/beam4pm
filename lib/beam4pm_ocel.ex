@@ -3,7 +3,8 @@ defmodule BeamPM.Ocel do
   Real OCEL 2.0 object-centric query functions over already-ingested
   `BeamPM.Types.OcelEvent`/`OcelObject`/`OcelRelationship`/`OcelAttribute`
   structs (see `lib/beam4pm_ocel_ingest.ex` for how events/objects and their
-  nested relationships are decoded off the wire).
+  nested relationships are decoded off the wire), plus a hand-authored
+  general OCEL 2.0 JSON `encode/1`/`decode/1` pair.
 
   Not ggen-generated: this is hand-written computation OVER already-admitted
   data shapes (same convention as `BeamPM.Petgraph`/`BeamPM.Tract` -- a
@@ -11,12 +12,22 @@ defmodule BeamPM.Ocel do
   since none of these functions are admission-fact-driven the way
   `BeamPM.OcelIngest.Router` or `BeamPM.Actuation` are.
 
-  These functions take plain lists the caller assembles -- this module owns
-  no storage/persistence of its own (matching `BeamPM.OcelIngest.Router`,
-  which also does not persist). A caller wanting these functions to operate
-  over "everything ever ingested" is responsible for accumulating the
-  ingested `{record, relationships}` pairs itself (e.g. in an Ash resource,
-  ETS table, or its own process state) and passing them in.
+  The query functions (`object_trace/2`, `attribute_history/1`,
+  `relationships_for/2`, `validate_envelope/2`) take plain lists the caller
+  assembles -- this module owns no storage/persistence of its own (matching
+  `BeamPM.OcelIngest.Router`, which also does not persist). A caller wanting
+  these functions to operate over "everything ever ingested" is responsible
+  for accumulating the ingested `{record, relationships}` pairs itself (e.g.
+  in an Ash resource, ETS table, or its own process state) and passing them
+  in.
+
+  `encode/1`/`decode/1` close a separate roadmap gap (see `docs/jira/`
+  roadmap gap -- "today real OCEL 2.0 encode/decode only exists inside the
+  RF3 Rust oracle via two fixed wire ops, not a general encode/1 decode/1
+  pair"). Built entirely on top of the existing generated
+  `BeamPM.Types.OcelEvent` / `BeamPM.Types.OcelObject` structs and the
+  existing generated `BeamPM.Codec.to_map/1` / `from_map/2` -- no generated
+  file is modified.
   """
 
   alias BeamPM.Types.OcelAttribute
@@ -114,5 +125,74 @@ defmodule BeamPM.Ocel do
     rels
     |> Enum.reject(fn %OcelRelationship{object_id: rid} -> MapSet.member?(known_object_ids, rid) end)
     |> Enum.map(fn %OcelRelationship{object_id: rid} -> {owner_kind, owner_id, rid} end)
+  end
+
+  @doc """
+  Encode a set of already-decoded events/objects into a general OCEL 2.0
+  JSON envelope (`{"objectTypes": [...], "eventTypes": [...], "objects":
+  [...], "events": [...]}`), using the existing generated
+  `BeamPM.Codec.to_map/1` for each record.
+  """
+  @spec encode(events: [OcelEvent.t()], objects: [OcelObject.t()]) ::
+          {:ok, String.t()} | {:error, term()}
+  def encode(opts) when is_list(opts) do
+    events = Keyword.get(opts, :events, [])
+    objects = Keyword.get(opts, :objects, [])
+
+    with true <- Enum.all?(events, &match?(%OcelEvent{}, &1)),
+         true <- Enum.all?(objects, &match?(%OcelObject{}, &1)) do
+      envelope = %{
+        "objectTypes" => objects |> Enum.map(& &1.object_type) |> Enum.uniq() |> object_type_defs(),
+        "eventTypes" => events |> Enum.map(& &1.event_type) |> Enum.uniq() |> event_type_defs(),
+        "objects" => Enum.map(objects, &BeamPM.Codec.to_map/1),
+        "events" => Enum.map(events, &BeamPM.Codec.to_map/1)
+      }
+
+      {:ok, JSON.encode!(envelope)}
+    else
+      false -> {:error, {:invalid_input, :expected_ocel_event_and_ocel_object_structs}}
+    end
+  end
+
+  @doc """
+  Decode a general OCEL 2.0 JSON envelope (as produced by `encode/1`) back
+  into `{:ok, %{events: [...], objects: [...]}}`, using the existing
+  generated `BeamPM.Codec.from_map/2` for each record.
+  """
+  @spec decode(String.t()) ::
+          {:ok, %{events: [OcelEvent.t()], objects: [OcelObject.t()]}}
+          | {:error, term()}
+  def decode(json) when is_binary(json) do
+    with %{"events" => raw_events, "objects" => raw_objects} <- JSON.decode!(json) do
+      with {:ok, events} <- decode_all(raw_events, :ocel_event),
+           {:ok, objects} <- decode_all(raw_objects, :ocel_object) do
+        {:ok, %{events: events, objects: objects}}
+      end
+    else
+      _ -> {:error, {:invalid_envelope, :missing_events_or_objects}}
+    end
+  rescue
+    e -> {:error, {:decode_failed, Exception.message(e)}}
+  end
+
+  defp decode_all(items, record_kind) when is_list(items) do
+    Enum.reduce_while(items, {:ok, []}, fn item, {:ok, acc} ->
+      case BeamPM.Codec.from_map(record_kind, item) do
+        {:ok, record} -> {:cont, {:ok, [record | acc]}}
+        {:error, _} = err -> {:halt, err}
+      end
+    end)
+    |> case do
+      {:ok, acc} -> {:ok, Enum.reverse(acc)}
+      err -> err
+    end
+  end
+
+  defp object_type_defs(object_types) do
+    Enum.map(object_types, fn type -> %{"name" => type, "attributes" => []} end)
+  end
+
+  defp event_type_defs(event_types) do
+    Enum.map(event_types, fn type -> %{"name" => type, "attributes" => []} end)
   end
 end

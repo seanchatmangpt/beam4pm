@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.EntitlementRevocation do
     attribute :revocation_id, :string, public?: true, allow_nil?: false
     attribute :grant_id, :string, public?: true, allow_nil?: false
     attribute :reason, :string, public?: true, allow_nil?: false
-    attribute :revoked_at, :utc_datetime, public?: true, allow_nil?: false
+    attribute :revoked_at, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

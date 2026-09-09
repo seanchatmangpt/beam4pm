@@ -249,6 +249,112 @@ class TestChatmanStateEpisode(unittest.TestCase):
 
 
 @unittest.skipIf(PYTHON is None, SKIP_REASON)
+class TestGymnasiumEpisode(unittest.TestCase):
+    """Real CartPole-v1 episode via gymact's `GymnasiumProvider` -- proves
+    ANY Gymnasium-API-compliant environment is drivable through this bridge
+    with zero gym-specific bridge code (env_id is a runtime --config
+    parameter, not a code-time dispatch key)."""
+
+    def test_reset_step_step_close_protocol_and_state(self) -> None:
+        bridge = BridgeProcess("--gym", "gymnasium", "--config", '{"env_id":"CartPole-v1"}')
+        try:
+            reset = bridge.roundtrip({"op": "reset"})
+            self.assertIs(reset["ok"], True)
+            obs = reset["observation"]
+            self.assertEqual(obs["env_id"], "CartPole-v1")
+            self.assertEqual(len(obs["observation"]), 4)  # CartPole's real 4-float state
+            self.assertIsNone(obs["reward"])  # no step taken yet
+            self.assertIs(obs["terminated"], False)
+            self.assertIs(obs["truncated"], False)
+
+            step1 = bridge.roundtrip(
+                {"op": "step", "action": {"capability": "step", "payload": {"action": 0}}}
+            )
+            self.assertIs(step1["ok"], True)
+            self.assertIsInstance(step1["reward"], float)  # real per-step CartPole reward
+            self.assertIs(step1["done"], False)
+            self.assertIs(step1["info"]["accepted"], True)
+            self.assertEqual(step1["info"]["consequence"], "DO")
+            self.assertEqual(step1["info"]["receipt_standing"], "ALIVE")
+            self.assertEqual(
+                step1["info"]["capability"], "urn:gymact:gymnasium:capability:step"
+            )
+            self.assertNotEqual(step1["observation"]["observation"], obs["observation"])
+
+            step2 = bridge.roundtrip(
+                {"op": "step", "action": {"capability": "step", "payload": {"action": 1}}}
+            )
+            self.assertIs(step2["ok"], True)
+            self.assertIs(step2["done"], False)
+
+            closed = bridge.roundtrip({"op": "close"})
+            self.assertEqual(closed, {"ok": True})
+        finally:
+            self.assertEqual(bridge.finish(), 0)
+
+    def test_illegal_action_is_refused_but_wire_protocol_survives(self) -> None:
+        """CartPole's real Discrete(2) action space only admits {0, 1}. An
+        illegal action is refused by gymact's own kernel (never smuggled
+        through as a state change) and reported via info, not a wire-level
+        error -- matching gymact's own
+        test_illegal_action_is_refused_and_does_not_change_real_state."""
+        bridge = BridgeProcess("--gym", "gymnasium")
+        try:
+            self.assertIs(bridge.roundtrip({"op": "reset"})["ok"], True)
+            before = bridge.roundtrip(
+                {"op": "step", "action": {"capability": "step", "payload": {"action": 0}}}
+            )
+            self.assertIs(before["ok"], True)
+
+            refused = bridge.roundtrip(
+                {"op": "step", "action": {"capability": "step", "payload": {"action": 99}}}
+            )
+            self.assertIs(refused["ok"], True)  # wire-level ok; kernel refused the action
+            self.assertIs(refused["info"]["accepted"], False)
+            self.assertIn("PROVIDER_ERROR:ValueError", refused["info"]["receipt_reason"])
+            self.assertEqual(refused["info"]["receipt_standing"], "BLOCKED")
+            self.assertEqual(  # real state did not change on refusal
+                refused["observation"], before["observation"]
+            )
+
+            # The refusal must not kill the session: a further real step works.
+            after = bridge.roundtrip(
+                {"op": "step", "action": {"capability": "step", "payload": {"action": 1}}}
+            )
+            self.assertIs(after["ok"], True)
+            self.assertIs(after["info"]["accepted"], True)
+
+            closed = bridge.roundtrip({"op": "close"})
+            self.assertEqual(closed, {"ok": True})
+        finally:
+            self.assertEqual(bridge.finish(), 0)
+
+    def test_sample_action_is_read_and_does_not_change_state(self) -> None:
+        bridge = BridgeProcess("--gym", "gymnasium")
+        try:
+            self.assertIs(bridge.roundtrip({"op": "reset"})["ok"], True)
+            before = bridge.roundtrip(
+                {"op": "step", "action": {"capability": "step", "payload": {"action": 0}}}
+            )
+            self.assertIs(before["ok"], True)
+
+            sampled = bridge.roundtrip(
+                {"op": "step", "action": {"capability": "sample_action", "payload": {}}}
+            )
+            self.assertIs(sampled["ok"], True)
+            self.assertEqual(sampled["info"]["consequence"], "READ")
+            self.assertIs(sampled["info"]["accepted"], True)
+            self.assertEqual(  # a READ never changes the real episode state
+                sampled["observation"], before["observation"]
+            )
+
+            closed = bridge.roundtrip({"op": "close"})
+            self.assertEqual(closed, {"ok": True})
+        finally:
+            self.assertEqual(bridge.finish(), 0)
+
+
+@unittest.skipIf(PYTHON is None, SKIP_REASON)
 class TestProtocolConformance(unittest.TestCase):
     def test_unknown_gym_fails_closed_with_exit_2(self) -> None:
         result = subprocess.run(
@@ -310,6 +416,57 @@ class TestProtocolConformance(unittest.TestCase):
             self.assertIn("runnable", row)
             if not row["runnable"]:
                 self.assertIn("error", row)  # a real probed failure, named
+
+
+class TestBridgeSessionKernelReuse(unittest.TestCase):
+    """Direct in-process check (no subprocess) that `BridgeSession` builds and
+    registers its real `GymAct` kernel ONCE and reuses it across repeated
+    resets, instead of rebuilding it (and re-paying GymAct's real SHACL
+    profile validation -- see BridgeSession.__init__'s comment in
+    gym_bridge.py, and gymact/kernel.py:83-110) on every reset call. Real
+    object, real kernel, real state assertions (object identity, distinct
+    episode ids) -- no mock/patch/monkeypatch anywhere in this class."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        try:
+            import gym_bridge as gym_bridge_module  # real in-process import probe
+        except BaseException as exc:  # gym_bridge.py itself raises SystemExit(2)
+            raise unittest.SkipTest(  # when gymact isn't importable here
+                f"BLOCKED: gym_bridge not importable in-process ({exc!r}); "
+                "run this suite under an interpreter with gymact installed "
+                "(see README.md)"
+            ) from None
+        cls.gym_bridge_module = gym_bridge_module
+
+    def test_gym_kernel_identity_is_stable_across_repeated_resets(self) -> None:
+        session = self.gym_bridge_module.BridgeSession(
+            "lock-and-key", {"seed": 7, "depth": 3}
+        )
+        try:
+            first = session.reset()
+            self.assertIs(first["ok"], True)
+            kernel_after_first_reset = session.gym
+            episode_after_first_reset = session.episode_id
+
+            second = session.reset()
+            self.assertIs(second["ok"], True)
+            # The SAME kernel object serves the second episode -- no
+            # reconstruction, no re-registration. `register_provider` raises
+            # ValueError on a duplicate provider name (kernel.py:188-194), so
+            # a regression back to per-reset reconstruction would surface
+            # here as a real crash, not a silently-passing behavior change.
+            self.assertIs(session.gym, kernel_after_first_reset)
+            self.assertIsNotNone(session.episode_id)
+            self.assertNotEqual(session.episode_id, episode_after_first_reset)
+
+            third = session.reset()
+            self.assertIs(third["ok"], True)
+            self.assertIs(session.gym, kernel_after_first_reset)
+        finally:
+            session.close()
+            session.loop.close()
 
 
 if __name__ == "__main__":

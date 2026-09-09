@@ -71,7 +71,12 @@ defmodule Beam4pmVersionBumpTest do
     end
 
     test "refuses (typed VersionMismatchError, not a silent no-op) when mix.exs and app.src have already drifted apart" do
-      drifted_app_src = String.replace(@app_src_real, ~s({vsn, "0.1.0"}), ~s({vsn, "0.0.9"}))
+      # Derive the drift from whatever app.src's real current {vsn, ...} is
+      # (a literal "0.1.0" target goes silently inert -- and the refute
+      # below then passes vacuously -- the moment the real repo's version
+      # moves past that literal, as it has since this test was authored).
+      [_, real_vsn] = Regex.run(~r/\{vsn,\s*"([^"]+)"\}/, @app_src_real)
+      drifted_app_src = String.replace(@app_src_real, ~s({vsn, "#{real_vsn}"}), ~s({vsn, "0.0.0-drifted"}))
       refute drifted_app_src == @app_src_real
 
       igniter = test_igniter(%{"mix.exs" => @mix_exs_real, "src/beam4pm.app.src" => drifted_app_src}, "0.1.1")

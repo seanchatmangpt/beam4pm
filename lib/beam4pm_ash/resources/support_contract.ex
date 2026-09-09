@@ -12,7 +12,7 @@ defmodule BeamPM.Ash.Resources.SupportContract do
     attribute :contract_id, :string, public?: true, allow_nil?: false
     attribute :account_id, :string, public?: true, allow_nil?: false
     attribute :tier, :atom, public?: true, allow_nil?: false
-    attribute :valid_until, :utc_datetime, public?: true, allow_nil?: false
+    attribute :valid_until, :utc_datetime_usec, public?: true, allow_nil?: false
   end
 
   actions do

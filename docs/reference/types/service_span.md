@@ -11,7 +11,9 @@ One OpenTelemetry-style tracing span observed for a service call.
 | `span_id` | `string` | yes | Unique span identifier. |
 | `service_name` | `string` | yes | Name of the service that produced this span. |
 | `duration_ms` | `integer` | yes | Span duration in milliseconds. |
-| `parent_span_id` | `string` | no | Optional identifier of the parent span. |
+| `parent_span_id` | `string` | no | Optional identifier of the parent span (the OpenTelemetry parent/child link; absent on a trace's root span). This is NOT the OpenTelemetry `links` field. |
+| `trace_id` | `string` | yes | Identifier of the trace this span belongs to (the partition key the temporal-adjacency arm groups by; parent/child links never cross it). |
+| `start_time` | `datetime` | yes | ISO8601 timestamp the span started (the only ordering the temporal-adjacency arm consults; the parent/child arm never reads it). |
 
 ## Constructors
 
