@@ -12,9 +12,13 @@ modules already exist as real code with matching test suites
 (`beam4pm_billing`/`BeamPM.Billing`, MP6 usage/billing reconciliation;
 `beam4pm_entitlement`/`BeamPM.Entitlement`, MP3 entitlement reconciliation) —
 the remaining gap is marketplace/pricing/RevOps tooling, not these core
-modules. See
-[`docs/jira/v26.8.29/`](docs/jira/v26.8.29/) for the full doctrine, vision, and
-RevOps package that motivates that split.
+modules (`PRO_CAPABILITY_SEEDS: PARTIAL_ALIVE`), and no separately
+installable/licensed `beam4pm_pro` product boundary, distribution channel, or
+control plane exists yet (`PRO_PRODUCT_BOUNDARY: UNSUPPORTED`,
+`PRO_DISTRIBUTION_AND_UPGRADE: UNSUPPORTED`, `PRO_CONTROL_PLANE: UNSUPPORTED`).
+See [`docs/jira/v26.8.29/`](docs/jira/v26.8.29/) for the full doctrine, vision,
+and RevOps package, and [`docs/v26.8.30/README.md`](docs/v26.8.30/README.md)
+for the current gap-closure status and acceptance criteria.
 
 ## Source-authority doctrine
 
