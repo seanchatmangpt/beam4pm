@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-083 — edition_upgrade_path
+bpm:edition_upgrade_path_rt a bpm:RecordType ;
+    bpm:recordName "edition_upgrade_path" ;
+    bpm:recordDoc "Admitted commercial edition upgrade path." ;
+    bpm:hasField bpm:edition_upgrade_path_edition_upgrade_path_id_f,
+                 bpm:edition_upgrade_path_account_id_f,
+                 bpm:edition_upgrade_path_target_edition_id_f,
+                 bpm:edition_upgrade_path_evidence_digest_f,
+                 bpm:edition_upgrade_path_effective_at_f .
+
+bpm:edition_upgrade_path_edition_upgrade_path_id_f a bpm:Field ;
+    bpm:fieldName "edition_upgrade_path_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this edition upgrade path contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:edition_upgrade_path_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:edition_upgrade_path_target_edition_id_f a bpm:Field ;
+    bpm:fieldName "target_edition_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Edition that may be reached without breaking contract compatibility." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:edition_upgrade_path_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:edition_upgrade_path_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .

@@ -1,0 +1,36 @@
+@prefix bpm: <https://ggen.dev/ontology/beam-process-model#> .
+
+# WS2-REV-105 — quota_override
+bpm:quota_override_rt a bpm:RecordType ;
+    bpm:recordName "quota_override" ;
+    bpm:recordDoc "Explicitly authorized quota override." ;
+    bpm:hasField bpm:quota_override_quota_override_id_f,
+                 bpm:quota_override_account_id_f,
+                 bpm:quota_override_override_units_f,
+                 bpm:quota_override_evidence_digest_f,
+                 bpm:quota_override_effective_at_f .
+
+bpm:quota_override_quota_override_id_f a bpm:Field ;
+    bpm:fieldName "quota_override_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable identity of this quota override contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+
+bpm:quota_override_account_id_f a bpm:Field ;
+    bpm:fieldName "account_id" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Enterprise account governed by this commercial contract." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+
+bpm:quota_override_override_units_f a bpm:Field ;
+    bpm:fieldName "override_units" ; bpm:fieldType "float" ;
+    bpm:fieldDoc "Authorized replacement quota for the bounded window." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+
+bpm:quota_override_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ; bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the exact evidence admitting this commercial consequence." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+bpm:quota_override_effective_at_f a bpm:Field ;
+    bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
+    bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
+    bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
