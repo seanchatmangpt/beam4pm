@@ -15,7 +15,7 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(439, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(492, length(beam4pm_types_manifest:record_names())).
 
 account_discovery_fields_test() ->
     ?assertEqual([account_discovery_id, account_id, discovery_score, evidence_digest, observed_at], beam4pm_types_manifest:fields(account_discovery)).
@@ -83,8 +83,158 @@ audit_chain_evidence_fields_test() ->
 authority_ceiling_fields_test() ->
     ?assertEqual([action_id, grant_id, ceiling], beam4pm_types_manifest:fields(authority_ceiling)).
 
+autonomic_actuation_receipt_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_actuation_receipt)).
+
+autonomic_actuation_replay_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_actuation_replay)).
+
+autonomic_actuation_selection_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_actuation_selection)).
+
+autonomic_authority_admission_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_authority_admission)).
+
+autonomic_authority_escalation_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_authority_escalation)).
+
+autonomic_backpressure_admission_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_backpressure_admission)).
+
+autonomic_caller_local_binding_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_caller_local_binding)).
+
+autonomic_canary_admission_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_canary_admission)).
+
+autonomic_cancellation_receipt_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_cancellation_receipt)).
+
+autonomic_canonical_repair_route_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_canonical_repair_route)).
+
+autonomic_capability_token_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_capability_token)).
+
+autonomic_circuit_breaker_transition_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_circuit_breaker_transition)).
+
+autonomic_compensation_verification_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_compensation_verification)).
+
+autonomic_crash_recovery_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_crash_recovery)).
+
+autonomic_cross_consumer_receipt_refusal_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_cross_consumer_receipt_refusal)).
+
+autonomic_deterministic_receipt_replay_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_deterministic_receipt_replay)).
+
+autonomic_failure_classification_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_failure_classification)).
+
+autonomic_forged_receipt_refusal_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_forged_receipt_refusal)).
+
+autonomic_generated_surface_refusal_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_generated_surface_refusal)).
+
+autonomic_idempotence_fence_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_idempotence_fence)).
+
+autonomic_incident_recovery_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_incident_recovery)).
+
+autonomic_least_authority_grant_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_least_authority_grant)).
+
+autonomic_model_authority_refusal_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_model_authority_refusal)).
+
+autonomic_mutable_pack_refusal_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_mutable_pack_refusal)).
+
+autonomic_output_ownership_check_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_output_ownership_check)).
+
+autonomic_pack_sha_authority_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_pack_sha_authority)).
+
+autonomic_plan_construction_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_plan_construction)).
+
+autonomic_planner_authority_refusal_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_planner_authority_refusal)).
+
+autonomic_rca_hypothesis_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_rca_hypothesis)).
+
+autonomic_receipt_authority_binding_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_receipt_authority_binding)).
+
+autonomic_receipt_chain_link_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_receipt_chain_link)).
+
+autonomic_receipt_completeness_check_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_receipt_completeness_check)).
+
+autonomic_receipt_subject_binding_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_receipt_subject_binding)).
+
+autonomic_repair_reexecution_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_repair_reexecution)).
+
+autonomic_repair_selection_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_repair_selection)).
+
+autonomic_replay_divergence_refusal_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_replay_divergence_refusal)).
+
+autonomic_retry_backoff_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_retry_backoff)).
+
+autonomic_retry_budget_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_retry_budget)).
+
+autonomic_rollback_transition_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_rollback_transition)).
+
+autonomic_saga_compensation_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_saga_compensation)).
+
+autonomic_second_run_identity_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_second_run_identity)).
+
+autonomic_self_healing_completion_receipt_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_self_healing_completion_receipt)).
+
+autonomic_stale_action_refusal_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_stale_action_refusal)).
+
+autonomic_stale_receipt_refusal_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_stale_receipt_refusal)).
+
 autonomic_state_vector_fields_test() ->
     ?assertEqual([state_vector_id, subject_id, dimension_digest, observed_at], beam4pm_types_manifest:fields(autonomic_state_vector)).
+
+autonomic_subject_compare_and_swap_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_subject_compare_and_swap)).
+
+autonomic_supervisor_restart_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_supervisor_restart)).
+
+autonomic_timeout_budget_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_timeout_budget)).
+
+autonomic_transition_execution_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_transition_execution)).
+
+autonomic_transition_verification_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_transition_verification)).
+
+autonomic_upgrade_transition_fields_test() ->
+    ?assertEqual([actuation_id, subject_sha, authority_receipt_sha, state_digest], beam4pm_types_manifest:fields(autonomic_upgrade_transition)).
 
 availability_observation_fields_test() ->
     ?assertEqual([tenant_id, slo_id, observation_hash], beam4pm_types_manifest:fields(availability_observation)).
@@ -647,6 +797,9 @@ k8s_object_ref_fields_test() ->
 latency_budget_observation_fields_test() ->
     ?assertEqual([tenant_id, workload_id, observation_hash], beam4pm_types_manifest:fields(latency_budget_observation)).
 
+leakage_finding_fields_test() ->
+    ?assertEqual([case_id, fitness, precision, amount_at_risk], beam4pm_types_manifest:fields(leakage_finding)).
+
 least_authority_evidence_fields_test() ->
     ?assertEqual([evidence_id, subject_sha, granted_permissions, observed_result], beam4pm_types_manifest:fields(least_authority_evidence)).
 
@@ -1040,6 +1193,9 @@ revenue_schedule_assumption_fields_test() ->
 reversibility_weight_fields_test() ->
     ?assertEqual([action_id, rollback_id, weight], beam4pm_types_manifest:fields(reversibility_weight)).
 
+rework_cost_fields_test() ->
+    ?assertEqual([case_id, loop_count, weighted_cost], beam4pm_types_manifest:fields(rework_cost)).
+
 rfp_response_evidence_fields_test() ->
     ?assertEqual([evidence_id, subject_sha, answer_set_hash, observed_result], beam4pm_types_manifest:fields(rfp_response_evidence)).
 
@@ -1282,6 +1438,9 @@ value_of_information_score_fields_test() ->
 
 value_realization_fields_test() ->
     ?assertEqual([value_realization_id, account_id, realized_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(value_realization)).
+
+value_receipt_fields_test() ->
+    ?assertEqual([value_receipt_id, account_id, metric_name, baseline_value, observed_value, evidence_digest, observed_at], beam4pm_types_manifest:fields(value_receipt)).
 
 value_telemetry_sample_fields_test() ->
     ?assertEqual([tenant_id, outcome_id, telemetry_hash], beam4pm_types_manifest:fields(value_telemetry_sample)).

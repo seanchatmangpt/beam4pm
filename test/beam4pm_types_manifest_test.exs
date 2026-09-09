@@ -3,7 +3,7 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 439
+    assert length(BeamPM.Types.Manifest.record_names()) == 492
   end
 
   test "fields/1 returns the ordered field-name list for account_discovery" do
@@ -94,8 +94,208 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:authority_ceiling) == [:action_id, :grant_id, :ceiling]
   end
 
+  test "fields/1 returns the ordered field-name list for autonomic_actuation_receipt" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_actuation_receipt) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_actuation_replay" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_actuation_replay) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_actuation_selection" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_actuation_selection) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_authority_admission" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_authority_admission) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_authority_escalation" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_authority_escalation) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_backpressure_admission" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_backpressure_admission) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_caller_local_binding" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_caller_local_binding) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_canary_admission" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_canary_admission) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_cancellation_receipt" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_cancellation_receipt) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_canonical_repair_route" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_canonical_repair_route) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_capability_token" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_capability_token) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_circuit_breaker_transition" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_circuit_breaker_transition) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_compensation_verification" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_compensation_verification) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_crash_recovery" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_crash_recovery) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_cross_consumer_receipt_refusal" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_cross_consumer_receipt_refusal) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_deterministic_receipt_replay" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_deterministic_receipt_replay) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_failure_classification" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_failure_classification) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_forged_receipt_refusal" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_forged_receipt_refusal) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_generated_surface_refusal" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_generated_surface_refusal) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_idempotence_fence" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_idempotence_fence) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_incident_recovery" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_incident_recovery) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_least_authority_grant" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_least_authority_grant) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_model_authority_refusal" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_model_authority_refusal) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_mutable_pack_refusal" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_mutable_pack_refusal) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_output_ownership_check" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_output_ownership_check) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_pack_sha_authority" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_pack_sha_authority) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_plan_construction" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_plan_construction) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_planner_authority_refusal" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_planner_authority_refusal) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_rca_hypothesis" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_rca_hypothesis) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_receipt_authority_binding" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_receipt_authority_binding) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_receipt_chain_link" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_receipt_chain_link) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_receipt_completeness_check" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_receipt_completeness_check) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_receipt_subject_binding" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_receipt_subject_binding) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_repair_reexecution" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_repair_reexecution) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_repair_selection" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_repair_selection) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_replay_divergence_refusal" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_replay_divergence_refusal) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_retry_backoff" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_retry_backoff) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_retry_budget" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_retry_budget) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_rollback_transition" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_rollback_transition) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_saga_compensation" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_saga_compensation) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_second_run_identity" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_second_run_identity) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_self_healing_completion_receipt" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_self_healing_completion_receipt) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_stale_action_refusal" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_stale_action_refusal) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_stale_receipt_refusal" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_stale_receipt_refusal) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
   test "fields/1 returns the ordered field-name list for autonomic_state_vector" do
     assert BeamPM.Types.Manifest.fields(:autonomic_state_vector) == [:state_vector_id, :subject_id, :dimension_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_subject_compare_and_swap" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_subject_compare_and_swap) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_supervisor_restart" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_supervisor_restart) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_timeout_budget" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_timeout_budget) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_transition_execution" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_transition_execution) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_transition_verification" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_transition_verification) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
+  end
+
+  test "fields/1 returns the ordered field-name list for autonomic_upgrade_transition" do
+    assert BeamPM.Types.Manifest.fields(:autonomic_upgrade_transition) == [:actuation_id, :subject_sha, :authority_receipt_sha, :state_digest]
   end
 
   test "fields/1 returns the ordered field-name list for availability_observation" do
@@ -846,6 +1046,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:latency_budget_observation) == [:tenant_id, :workload_id, :observation_hash]
   end
 
+  test "fields/1 returns the ordered field-name list for leakage_finding" do
+    assert BeamPM.Types.Manifest.fields(:leakage_finding) == [:case_id, :fitness, :precision, :amount_at_risk]
+  end
+
   test "fields/1 returns the ordered field-name list for least_authority_evidence" do
     assert BeamPM.Types.Manifest.fields(:least_authority_evidence) == [:evidence_id, :subject_sha, :granted_permissions, :observed_result]
   end
@@ -1370,6 +1574,10 @@ defmodule BeamPM.Types.ManifestTest do
     assert BeamPM.Types.Manifest.fields(:reversibility_weight) == [:action_id, :rollback_id, :weight]
   end
 
+  test "fields/1 returns the ordered field-name list for rework_cost" do
+    assert BeamPM.Types.Manifest.fields(:rework_cost) == [:case_id, :loop_count, :weighted_cost]
+  end
+
   test "fields/1 returns the ordered field-name list for rfp_response_evidence" do
     assert BeamPM.Types.Manifest.fields(:rfp_response_evidence) == [:evidence_id, :subject_sha, :answer_set_hash, :observed_result]
   end
@@ -1692,6 +1900,10 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for value_realization" do
     assert BeamPM.Types.Manifest.fields(:value_realization) == [:value_realization_id, :account_id, :realized_value, :evidence_digest, :observed_at]
+  end
+
+  test "fields/1 returns the ordered field-name list for value_receipt" do
+    assert BeamPM.Types.Manifest.fields(:value_receipt) == [:value_receipt_id, :account_id, :metric_name, :baseline_value, :observed_value, :evidence_digest, :observed_at]
   end
 
   test "fields/1 returns the ordered field-name list for value_telemetry_sample" do

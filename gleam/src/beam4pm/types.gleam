@@ -307,6 +307,622 @@ pub type AuthorityCeiling {
   )
 }
 
+/// Produces a complete deterministic receipt for one authorized actuation.
+pub type AutonomicActuationReceipt {
+  AutonomicActuationReceipt(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Replays an actuation receipt against the same exact subject without repeating consequences.
+pub type AutonomicActuationReplay {
+  AutonomicActuationReplay(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Selects one bounded actuation candidate while preserving the exact decision subject and admitted authority.
+pub type AutonomicActuationSelection {
+  AutonomicActuationSelection(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Admits or refuses authority for one consequential transition using an immutable authority receipt.
+pub type AutonomicAuthorityAdmission {
+  AutonomicAuthorityAdmission(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Emits a machine-readable escalation only when the remaining boundary is irreducible by admitted authority.
+pub type AutonomicAuthorityEscalation {
+  AutonomicAuthorityEscalation(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses new consequential work when admitted queue or inflight capacity is exhausted.
+pub type AutonomicBackpressureAdmission {
+  AutonomicBackpressureAdmission(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Binds actuation to the exact consumer checkout rather than a central surrogate.
+pub type AutonomicCallerLocalBinding {
+  AutonomicCallerLocalBinding(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Admits a bounded canary transition and refuses fleet-wide expansion without verified evidence.
+pub type AutonomicCanaryAdmission {
+  AutonomicCanaryAdmission(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Produces a deterministic receipt proving cancellation and the resulting bounded state.
+pub type AutonomicCancellationReceipt {
+  AutonomicCancellationReceipt(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Routes a generated-surface defect to its canonical semantic source or independent qualification rail.
+pub type AutonomicCanonicalRepairRoute {
+  AutonomicCanonicalRepairRoute(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Scopes actuation authority to one capability, subject, and bounded transition.
+pub type AutonomicCapabilityToken {
+  AutonomicCapabilityToken(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Opens, probes, and closes a circuit using receipted health state transitions.
+pub type AutonomicCircuitBreakerTransition {
+  AutonomicCircuitBreakerTransition(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Verifies compensation restored the admitted recovery state without hiding partial effects.
+pub type AutonomicCompensationVerification {
+  AutonomicCompensationVerification(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Resumes a receipted transition after process crash from the last verified state boundary.
+pub type AutonomicCrashRecovery {
+  AutonomicCrashRecovery(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses reuse of an actuation receipt across distinct caller-local consumer subjects.
+pub type AutonomicCrossConsumerReceiptRefusal {
+  AutonomicCrossConsumerReceiptRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Recomputes receipt identity deterministically without reapplying the original consequence.
+pub type AutonomicDeterministicReceiptReplay {
+  AutonomicDeterministicReceiptReplay(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Classifies execution failures as subject, authority, capsule, dependency, transient, or irreducible boundary.
+pub type AutonomicFailureClassification {
+  AutonomicFailureClassification(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses receipts whose claimed transition identity fails deterministic verification.
+pub type AutonomicForgedReceiptRefusal {
+  AutonomicForgedReceiptRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses direct mutation of generator-owned workflows and projections.
+pub type AutonomicGeneratedSurfaceRefusal {
+  AutonomicGeneratedSurfaceRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Prevents duplicate execution of an already receipted actuation identity.
+pub type AutonomicIdempotenceFence {
+  AutonomicIdempotenceFence(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Coordinates automatic incident recovery through verified transitions and deterministic receipts.
+pub type AutonomicIncidentRecovery {
+  AutonomicIncidentRecovery(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Encodes the least authority sufficient for exactly one admitted actuation.
+pub type AutonomicLeastAuthorityGrant {
+  AutonomicLeastAuthorityGrant(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses model-produced intent as ambient authority for a consequential transition.
+pub type AutonomicModelAuthorityRefusal {
+  AutonomicModelAuthorityRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses actuation when a marketplace pack is selected by mutable tag or branch.
+pub type AutonomicMutablePackRefusal {
+  AutonomicMutablePackRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Verifies that every written output is owned by the admitted manufacturing plan.
+pub type AutonomicOutputOwnershipCheck {
+  AutonomicOutputOwnershipCheck(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Requires an exact immutable marketplace pack SHA before construction or execution.
+pub type AutonomicPackShaAuthority {
+  AutonomicPackShaAuthority(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Constructs an executable actuation plan bound to the exact caller-local subject.
+pub type AutonomicPlanConstruction {
+  AutonomicPlanConstruction(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses planner output as authority unless a separate admitted authority receipt is present.
+pub type AutonomicPlannerAuthorityRefusal {
+  AutonomicPlannerAuthorityRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Generates a bounded machine-actionable root-cause hypothesis from failed actuation evidence.
+pub type AutonomicRcaHypothesis {
+  AutonomicRcaHypothesis(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Binds a receipt to the exact authority admission used for the transition.
+pub type AutonomicReceiptAuthorityBinding {
+  AutonomicReceiptAuthorityBinding(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Links each consequential transition receipt to its verified predecessor receipt.
+pub type AutonomicReceiptChainLink {
+  AutonomicReceiptChainLink(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses any actuation receipt missing subject, authority, before-state, after-state, or result identity.
+pub type AutonomicReceiptCompletenessCheck {
+  AutonomicReceiptCompletenessCheck(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Cryptographically binds an actuation receipt to the exact caller-local subject SHA.
+pub type AutonomicReceiptSubjectBinding {
+  AutonomicReceiptSubjectBinding(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Re-executes a repaired actuation from the last verified state with a linked receipt.
+pub type AutonomicRepairReexecution {
+  AutonomicRepairReexecution(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Selects a least-change repair whose authority and affected surface remain explicitly bounded.
+pub type AutonomicRepairSelection {
+  AutonomicRepairSelection(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses replay when recomputed state or receipt identity diverges from the admitted evidence.
+pub type AutonomicReplayDivergenceRefusal {
+  AutonomicReplayDivergenceRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Schedules bounded retry delay without widening the original authority or subject.
+pub type AutonomicRetryBackoff {
+  AutonomicRetryBackoff(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Bounds recoverable actuation retries by explicit count and authority scope.
+pub type AutonomicRetryBudget {
+  AutonomicRetryBudget(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Restores an exact admitted prior state when forward repair cannot safely complete.
+pub type AutonomicRollbackTransition {
+  AutonomicRollbackTransition(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Constructs a compensating transition for a partially completed multi-step actuation.
+pub type AutonomicSagaCompensation {
+  AutonomicSagaCompensation(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Proves a second manufacture or sync produces byte-identical owned outputs.
+pub type AutonomicSecondRunIdentity {
+  AutonomicSecondRunIdentity(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Proves the full select, authorize, execute, verify, repair, replay, and containment loop completed.
+pub type AutonomicSelfHealingCompletionReceipt {
+  AutonomicSelfHealingCompletionReceipt(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses a queued action whose subject, authority, or expected before-state became stale.
+pub type AutonomicStaleActionRefusal {
+  AutonomicStaleActionRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Refuses receipts whose subject or before-state no longer matches the admitted transition.
+pub type AutonomicStaleReceiptRefusal {
+  AutonomicStaleReceiptRefusal(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
 /// Encodes decision-relevant observed dimensions for one exact subject.
 pub type AutonomicStateVector {
   AutonomicStateVector(
@@ -318,6 +934,90 @@ pub type AutonomicStateVector {
     dimension_digest: String,
     /// Timestamp of state-vector encoding.
     observed_at: String,
+  )
+}
+
+/// Refuses an actuation unless the observed subject SHA equals the admitted expected SHA.
+pub type AutonomicSubjectCompareAndSwap {
+  AutonomicSubjectCompareAndSwap(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Restarts a failed actuation worker under bounded BEAM supervision semantics.
+pub type AutonomicSupervisorRestart {
+  AutonomicSupervisorRestart(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Cancels an unfinished actuation when its admitted execution budget expires.
+pub type AutonomicTimeoutBudget {
+  AutonomicTimeoutBudget(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Records execution of one admitted state transition without granting ambient planner authority.
+pub type AutonomicTransitionExecution {
+  AutonomicTransitionExecution(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Verifies the exact before and after state digests for a completed consequential transition.
+pub type AutonomicTransitionVerification {
+  AutonomicTransitionVerification(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
+  )
+}
+
+/// Executes a version upgrade against exact capsule, pack, and subject identities with rollback evidence.
+pub type AutonomicUpgradeTransition {
+  AutonomicUpgradeTransition(
+    /// Unique bounded actuation identity.
+    actuation_id: String,
+    /// Exact caller-local subject commit SHA.
+    subject_sha: String,
+    /// Immutable receipt admitting authority for this transition.
+    authority_receipt_sha: String,
+    /// Deterministic state digest used by verification and replay.
+    state_digest: String,
   )
 }
 
@@ -2865,6 +3565,20 @@ pub type LatencyBudgetObservation {
   )
 }
 
+/// One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk.
+pub type LeakageFinding {
+  LeakageFinding(
+    /// Exact process-case identity that deviated from the admitted reference model.
+    case_id: String,
+    /// Observed conformance fitness for this case.
+    fitness: Float,
+    /// Observed conformance precision for this case against the admitted model.
+    precision: Float,
+    /// Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero.
+    amount_at_risk: option.Option(Float),
+  )
+}
+
 /// Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
 pub type LeastAuthorityEvidence {
   LeastAuthorityEvidence(
@@ -4575,6 +5289,18 @@ pub type ReversibilityWeight {
   )
 }
 
+/// One observed process case with quantified retry/rework loop count and weighted cost evidence.
+pub type ReworkCost {
+  ReworkCost(
+    /// Exact process-case identity carrying the observed rework.
+    case_id: String,
+    /// Observed count of retry/rework loop markers for this case.
+    loop_count: Int,
+    /// Observed case amount weighted by the admitted rework-loop rule; units are inherited from the admitted source evidence.
+    weighted_cost: Float,
+  )
+}
+
 /// Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
 pub type RfpResponseEvidence {
   RfpResponseEvidence(
@@ -5671,6 +6397,26 @@ pub type ValueRealization {
     /// Digest of the exact evidence supporting this customer-value observation.
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.
+pub type ValueReceipt {
+  ValueReceipt(
+    /// Stable identity of this before/after value receipt.
+    value_receipt_id: String,
+    /// Customer or enterprise account whose measured value is receipted.
+    account_id: String,
+    /// Canonical metric identity used for both baseline and observed values.
+    metric_name: String,
+    /// Admitted baseline value before the measured change or observation window.
+    baseline_value: Float,
+    /// Observed value after the measured change or observation window.
+    observed_value: Float,
+    /// Digest of the exact evidence supporting the baseline and observed consequence.
+    evidence_digest: String,
+    /// ISO8601 instant the receipted value consequence was observed.
     observed_at: String,
   )
 }

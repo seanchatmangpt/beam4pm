@@ -246,6 +246,490 @@ authority_ceiling_ok_test() ->
 authority_ceiling_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_authority_ceiling(#{})).
 
+autonomic_actuation_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_actuation_receipt(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_actuation_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_actuation_receipt(#{})).
+
+autonomic_actuation_replay_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_actuation_replay(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_actuation_replay_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_actuation_replay(#{})).
+
+autonomic_actuation_selection_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_actuation_selection(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_actuation_selection_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_actuation_selection(#{})).
+
+autonomic_authority_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_authority_admission(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_authority_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_authority_admission(#{})).
+
+autonomic_authority_escalation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_authority_escalation(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_authority_escalation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_authority_escalation(#{})).
+
+autonomic_backpressure_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_backpressure_admission(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_backpressure_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_backpressure_admission(#{})).
+
+autonomic_caller_local_binding_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_caller_local_binding(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_caller_local_binding_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_caller_local_binding(#{})).
+
+autonomic_canary_admission_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_canary_admission(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_canary_admission_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_canary_admission(#{})).
+
+autonomic_cancellation_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_cancellation_receipt(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_cancellation_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_cancellation_receipt(#{})).
+
+autonomic_canonical_repair_route_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_canonical_repair_route(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_canonical_repair_route_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_canonical_repair_route(#{})).
+
+autonomic_capability_token_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_capability_token(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_capability_token_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_capability_token(#{})).
+
+autonomic_circuit_breaker_transition_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_circuit_breaker_transition(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_circuit_breaker_transition_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_circuit_breaker_transition(#{})).
+
+autonomic_compensation_verification_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_compensation_verification(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_compensation_verification_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_compensation_verification(#{})).
+
+autonomic_crash_recovery_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_crash_recovery(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_crash_recovery_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_crash_recovery(#{})).
+
+autonomic_cross_consumer_receipt_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_cross_consumer_receipt_refusal(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_cross_consumer_receipt_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_cross_consumer_receipt_refusal(#{})).
+
+autonomic_deterministic_receipt_replay_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_deterministic_receipt_replay(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_deterministic_receipt_replay_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_deterministic_receipt_replay(#{})).
+
+autonomic_failure_classification_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_failure_classification(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_failure_classification_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_failure_classification(#{})).
+
+autonomic_forged_receipt_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_forged_receipt_refusal(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_forged_receipt_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_forged_receipt_refusal(#{})).
+
+autonomic_generated_surface_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_generated_surface_refusal(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_generated_surface_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_generated_surface_refusal(#{})).
+
+autonomic_idempotence_fence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_idempotence_fence(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_idempotence_fence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_idempotence_fence(#{})).
+
+autonomic_incident_recovery_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_incident_recovery(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_incident_recovery_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_incident_recovery(#{})).
+
+autonomic_least_authority_grant_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_least_authority_grant(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_least_authority_grant_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_least_authority_grant(#{})).
+
+autonomic_model_authority_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_model_authority_refusal(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_model_authority_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_model_authority_refusal(#{})).
+
+autonomic_mutable_pack_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_mutable_pack_refusal(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_mutable_pack_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_mutable_pack_refusal(#{})).
+
+autonomic_output_ownership_check_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_output_ownership_check(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_output_ownership_check_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_output_ownership_check(#{})).
+
+autonomic_pack_sha_authority_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_pack_sha_authority(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_pack_sha_authority_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_pack_sha_authority(#{})).
+
+autonomic_plan_construction_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_plan_construction(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_plan_construction_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_plan_construction(#{})).
+
+autonomic_planner_authority_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_planner_authority_refusal(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_planner_authority_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_planner_authority_refusal(#{})).
+
+autonomic_rca_hypothesis_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_rca_hypothesis(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_rca_hypothesis_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_rca_hypothesis(#{})).
+
+autonomic_receipt_authority_binding_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_receipt_authority_binding(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_receipt_authority_binding_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_receipt_authority_binding(#{})).
+
+autonomic_receipt_chain_link_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_receipt_chain_link(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_receipt_chain_link_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_receipt_chain_link(#{})).
+
+autonomic_receipt_completeness_check_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_receipt_completeness_check(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_receipt_completeness_check_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_receipt_completeness_check(#{})).
+
+autonomic_receipt_subject_binding_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_receipt_subject_binding(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_receipt_subject_binding_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_receipt_subject_binding(#{})).
+
+autonomic_repair_reexecution_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_repair_reexecution(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_repair_reexecution_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_repair_reexecution(#{})).
+
+autonomic_repair_selection_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_repair_selection(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_repair_selection_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_repair_selection(#{})).
+
+autonomic_replay_divergence_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_replay_divergence_refusal(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_replay_divergence_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_replay_divergence_refusal(#{})).
+
+autonomic_retry_backoff_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_retry_backoff(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_retry_backoff_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_retry_backoff(#{})).
+
+autonomic_retry_budget_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_retry_budget(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_retry_budget_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_retry_budget(#{})).
+
+autonomic_rollback_transition_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_rollback_transition(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_rollback_transition_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_rollback_transition(#{})).
+
+autonomic_saga_compensation_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_saga_compensation(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_saga_compensation_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_saga_compensation(#{})).
+
+autonomic_second_run_identity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_second_run_identity(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_second_run_identity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_second_run_identity(#{})).
+
+autonomic_self_healing_completion_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_self_healing_completion_receipt(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_self_healing_completion_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_self_healing_completion_receipt(#{})).
+
+autonomic_stale_action_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_stale_action_refusal(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_stale_action_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_stale_action_refusal(#{})).
+
+autonomic_stale_receipt_refusal_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_stale_receipt_refusal(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_stale_receipt_refusal_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_stale_receipt_refusal(#{})).
+
 autonomic_state_vector_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_autonomic_state_vector(#{
         state_vector_id => <<"x">>,
@@ -256,6 +740,72 @@ autonomic_state_vector_ok_test() ->
 
 autonomic_state_vector_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_state_vector(#{})).
+
+autonomic_subject_compare_and_swap_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_subject_compare_and_swap(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_subject_compare_and_swap_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_subject_compare_and_swap(#{})).
+
+autonomic_supervisor_restart_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_supervisor_restart(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_supervisor_restart_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_supervisor_restart(#{})).
+
+autonomic_timeout_budget_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_timeout_budget(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_timeout_budget_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_timeout_budget(#{})).
+
+autonomic_transition_execution_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_transition_execution(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_transition_execution_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_transition_execution(#{})).
+
+autonomic_transition_verification_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_transition_verification(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_transition_verification_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_transition_verification(#{})).
+
+autonomic_upgrade_transition_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_autonomic_upgrade_transition(#{
+        actuation_id => <<"x">>,
+        subject_sha => <<"x">>,
+        authority_receipt_sha => <<"x">>,
+        state_digest => <<"x">>
+    })).
+
+autonomic_upgrade_transition_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_autonomic_upgrade_transition(#{})).
 
 availability_observation_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_availability_observation(#{
@@ -2277,6 +2827,17 @@ latency_budget_observation_ok_test() ->
 latency_budget_observation_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_latency_budget_observation(#{})).
 
+leakage_finding_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_leakage_finding(#{
+        case_id => <<"x">>,
+        fitness => 1.0,
+        precision => 1.0,
+        amount_at_risk => 1.0
+    })).
+
+leakage_finding_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_leakage_finding(#{})).
+
 least_authority_evidence_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_least_authority_evidence(#{
         evidence_id => <<"x">>,
@@ -3656,6 +4217,16 @@ reversibility_weight_ok_test() ->
 reversibility_weight_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_reversibility_weight(#{})).
 
+rework_cost_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_rework_cost(#{
+        case_id => <<"x">>,
+        loop_count => 1,
+        weighted_cost => 1.0
+    })).
+
+rework_cost_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_rework_cost(#{})).
+
 rfp_response_evidence_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_rfp_response_evidence(#{
         evidence_id => <<"x">>,
@@ -4529,6 +5100,20 @@ value_realization_ok_test() ->
 
 value_realization_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_value_realization(#{})).
+
+value_receipt_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_value_receipt(#{
+        value_receipt_id => <<"x">>,
+        account_id => <<"x">>,
+        metric_name => <<"x">>,
+        baseline_value => 1.0,
+        observed_value => 1.0,
+        evidence_digest => <<"x">>,
+        observed_at => <<"2026-01-01T00:00:00Z">>
+    })).
+
+value_receipt_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_value_receipt(#{})).
 
 value_telemetry_sample_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_value_telemetry_sample(#{

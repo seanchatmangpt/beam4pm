@@ -1,0 +1,12 @@
+@prefix pro: <https://beam4pm.dev/pro/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+pro:SecurityEvidenceManifest a pro:CapabilityContract ;
+ dct:identifier "WS2-REV-055" ; dct:title "Standard security evidence manifest" ;
+ pro:requiredEvidence "the packet references exact provenance, SBOM, attestation, vulnerability, least-authority, secrets, residency, privacy, retention, incident, audit-chain and freshness evidence identities already admitted by the trust/procurement graph" ;
+ pro:acceptanceCrown "manifest membership, evidence digests, source identity and freshness bounds are deterministic; absent, stale or mutable evidence remains visibly missing and cannot be converted into a passing security claim" ;
+ pro:evidenceAggregationOnly true ; pro:claimBeyondEvidenceAllowed false ;
+ pro:authorityCeiling "VERIFY" ;
+ pro:refusalCode "REFUSED[SECURITY_EVIDENCE_MANIFEST_INCOMPLETE]" ;
+ prov:wasDerivedFrom <https://github.com/seanchatmangpt/beam4pm/blob/main/docs/jira/v26.8.29/04-cloud-marketplace-revops.md> .

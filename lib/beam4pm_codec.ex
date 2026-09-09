@@ -207,12 +207,462 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.AutonomicActuationReceipt{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicActuationReplay{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicActuationSelection{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicAuthorityAdmission{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicAuthorityEscalation{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicBackpressureAdmission{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCallerLocalBinding{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCanaryAdmission{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCancellationReceipt{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCanonicalRepairRoute{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCapabilityToken{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCircuitBreakerTransition{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCompensationVerification{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCrashRecovery{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicCrossConsumerReceiptRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicDeterministicReceiptReplay{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicFailureClassification{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicForgedReceiptRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicGeneratedSurfaceRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicIdempotenceFence{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicIncidentRecovery{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicLeastAuthorityGrant{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicModelAuthorityRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicMutablePackRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicOutputOwnershipCheck{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicPackShaAuthority{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicPlanConstruction{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicPlannerAuthorityRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRcaHypothesis{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicReceiptAuthorityBinding{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicReceiptChainLink{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicReceiptCompletenessCheck{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicReceiptSubjectBinding{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRepairReexecution{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRepairSelection{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicReplayDivergenceRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRetryBackoff{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRetryBudget{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicRollbackTransition{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicSagaCompensation{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicSecondRunIdentity{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicSelfHealingCompletionReceipt{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicStaleActionRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicStaleReceiptRefusal{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.AutonomicStateVector{} = r) do
     to_known_map([
       {"state_vector_id", r.state_vector_id, :passthrough},
       {"subject_id", r.subject_id, :passthrough},
       {"dimension_digest", r.dimension_digest, :passthrough},
       {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicSubjectCompareAndSwap{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicSupervisorRestart{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicTimeoutBudget{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicTransitionExecution{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicTransitionVerification{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.AutonomicUpgradeTransition{} = r) do
+    to_known_map([
+      {"actuation_id", r.actuation_id, :passthrough},
+      {"subject_sha", r.subject_sha, :passthrough},
+      {"authority_receipt_sha", r.authority_receipt_sha, :passthrough},
+      {"state_digest", r.state_digest, :passthrough}
     ])
   end
 
@@ -1862,6 +2312,15 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.LeakageFinding{} = r) do
+    to_known_map([
+      {"case_id", r.case_id, :passthrough},
+      {"fitness", r.fitness, :passthrough},
+      {"precision", r.precision, :passthrough},
+      {"amount_at_risk", r.amount_at_risk, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.LeastAuthorityEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -2979,6 +3438,14 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ReworkCost{} = r) do
+    to_known_map([
+      {"case_id", r.case_id, :passthrough},
+      {"loop_count", r.loop_count, :passthrough},
+      {"weighted_cost", r.weighted_cost, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.RfpResponseEvidence{} = r) do
     to_known_map([
       {"evidence_id", r.evidence_id, :passthrough},
@@ -3691,6 +4158,18 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.ValueReceipt{} = r) do
+    to_known_map([
+      {"value_receipt_id", r.value_receipt_id, :passthrough},
+      {"account_id", r.account_id, :passthrough},
+      {"metric_name", r.metric_name, :passthrough},
+      {"baseline_value", r.baseline_value, :passthrough},
+      {"observed_value", r.observed_value, :passthrough},
+      {"evidence_digest", r.evidence_digest, :passthrough},
+      {"observed_at", r.observed_at, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.ValueTelemetrySample{} = r) do
     to_known_map([
       {"tenant_id", r.tenant_id, :passthrough},
@@ -4118,6 +4597,578 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:autonomic_actuation_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicActuationReceipt.new/1
+    )
+  end
+
+  def from_map(:autonomic_actuation_replay, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicActuationReplay.new/1
+    )
+  end
+
+  def from_map(:autonomic_actuation_selection, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicActuationSelection.new/1
+    )
+  end
+
+  def from_map(:autonomic_authority_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicAuthorityAdmission.new/1
+    )
+  end
+
+  def from_map(:autonomic_authority_escalation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicAuthorityEscalation.new/1
+    )
+  end
+
+  def from_map(:autonomic_backpressure_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicBackpressureAdmission.new/1
+    )
+  end
+
+  def from_map(:autonomic_caller_local_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCallerLocalBinding.new/1
+    )
+  end
+
+  def from_map(:autonomic_canary_admission, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCanaryAdmission.new/1
+    )
+  end
+
+  def from_map(:autonomic_cancellation_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCancellationReceipt.new/1
+    )
+  end
+
+  def from_map(:autonomic_canonical_repair_route, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCanonicalRepairRoute.new/1
+    )
+  end
+
+  def from_map(:autonomic_capability_token, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCapabilityToken.new/1
+    )
+  end
+
+  def from_map(:autonomic_circuit_breaker_transition, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCircuitBreakerTransition.new/1
+    )
+  end
+
+  def from_map(:autonomic_compensation_verification, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCompensationVerification.new/1
+    )
+  end
+
+  def from_map(:autonomic_crash_recovery, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCrashRecovery.new/1
+    )
+  end
+
+  def from_map(:autonomic_cross_consumer_receipt_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicCrossConsumerReceiptRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_deterministic_receipt_replay, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicDeterministicReceiptReplay.new/1
+    )
+  end
+
+  def from_map(:autonomic_failure_classification, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicFailureClassification.new/1
+    )
+  end
+
+  def from_map(:autonomic_forged_receipt_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicForgedReceiptRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_generated_surface_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicGeneratedSurfaceRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_idempotence_fence, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicIdempotenceFence.new/1
+    )
+  end
+
+  def from_map(:autonomic_incident_recovery, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicIncidentRecovery.new/1
+    )
+  end
+
+  def from_map(:autonomic_least_authority_grant, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicLeastAuthorityGrant.new/1
+    )
+  end
+
+  def from_map(:autonomic_model_authority_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicModelAuthorityRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_mutable_pack_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicMutablePackRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_output_ownership_check, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicOutputOwnershipCheck.new/1
+    )
+  end
+
+  def from_map(:autonomic_pack_sha_authority, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicPackShaAuthority.new/1
+    )
+  end
+
+  def from_map(:autonomic_plan_construction, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicPlanConstruction.new/1
+    )
+  end
+
+  def from_map(:autonomic_planner_authority_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicPlannerAuthorityRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_rca_hypothesis, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRcaHypothesis.new/1
+    )
+  end
+
+  def from_map(:autonomic_receipt_authority_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicReceiptAuthorityBinding.new/1
+    )
+  end
+
+  def from_map(:autonomic_receipt_chain_link, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicReceiptChainLink.new/1
+    )
+  end
+
+  def from_map(:autonomic_receipt_completeness_check, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicReceiptCompletenessCheck.new/1
+    )
+  end
+
+  def from_map(:autonomic_receipt_subject_binding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicReceiptSubjectBinding.new/1
+    )
+  end
+
+  def from_map(:autonomic_repair_reexecution, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRepairReexecution.new/1
+    )
+  end
+
+  def from_map(:autonomic_repair_selection, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRepairSelection.new/1
+    )
+  end
+
+  def from_map(:autonomic_replay_divergence_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicReplayDivergenceRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_retry_backoff, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRetryBackoff.new/1
+    )
+  end
+
+  def from_map(:autonomic_retry_budget, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRetryBudget.new/1
+    )
+  end
+
+  def from_map(:autonomic_rollback_transition, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicRollbackTransition.new/1
+    )
+  end
+
+  def from_map(:autonomic_saga_compensation, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicSagaCompensation.new/1
+    )
+  end
+
+  def from_map(:autonomic_second_run_identity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicSecondRunIdentity.new/1
+    )
+  end
+
+  def from_map(:autonomic_self_healing_completion_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicSelfHealingCompletionReceipt.new/1
+    )
+  end
+
+  def from_map(:autonomic_stale_action_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicStaleActionRefusal.new/1
+    )
+  end
+
+  def from_map(:autonomic_stale_receipt_refusal, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicStaleReceiptRefusal.new/1
+    )
+  end
+
   def from_map(:autonomic_state_vector, m) when is_map(m) do
     from_known_fields(
       m,
@@ -4128,6 +5179,84 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.AutonomicStateVector.new/1
+    )
+  end
+
+  def from_map(:autonomic_subject_compare_and_swap, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicSubjectCompareAndSwap.new/1
+    )
+  end
+
+  def from_map(:autonomic_supervisor_restart, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicSupervisorRestart.new/1
+    )
+  end
+
+  def from_map(:autonomic_timeout_budget, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicTimeoutBudget.new/1
+    )
+  end
+
+  def from_map(:autonomic_transition_execution, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicTransitionExecution.new/1
+    )
+  end
+
+  def from_map(:autonomic_transition_verification, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicTransitionVerification.new/1
+    )
+  end
+
+  def from_map(:autonomic_upgrade_transition, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"actuation_id", :actuation_id, :passthrough},
+        {"subject_sha", :subject_sha, :passthrough},
+        {"authority_receipt_sha", :authority_receipt_sha, :passthrough},
+        {"state_digest", :state_digest, :passthrough}
+      ],
+      &BeamPM.Types.AutonomicUpgradeTransition.new/1
     )
   end
 
@@ -6525,6 +7654,19 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:leakage_finding, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"case_id", :case_id, :passthrough},
+        {"fitness", :fitness, :passthrough},
+        {"precision", :precision, :passthrough},
+        {"amount_at_risk", :amount_at_risk, :passthrough}
+      ],
+      &BeamPM.Types.LeakageFinding.new/1
+    )
+  end
+
   def from_map(:least_authority_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -8166,6 +9308,18 @@ defmodule BeamPM.Codec do
     )
   end
 
+  def from_map(:rework_cost, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"case_id", :case_id, :passthrough},
+        {"loop_count", :loop_count, :passthrough},
+        {"weighted_cost", :weighted_cost, :passthrough}
+      ],
+      &BeamPM.Types.ReworkCost.new/1
+    )
+  end
+
   def from_map(:rfp_response_evidence, m) when is_map(m) do
     from_known_fields(
       m,
@@ -9199,6 +10353,22 @@ defmodule BeamPM.Codec do
         {"observed_at", :observed_at, :passthrough}
       ],
       &BeamPM.Types.ValueRealization.new/1
+    )
+  end
+
+  def from_map(:value_receipt, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"value_receipt_id", :value_receipt_id, :passthrough},
+        {"account_id", :account_id, :passthrough},
+        {"metric_name", :metric_name, :passthrough},
+        {"baseline_value", :baseline_value, :passthrough},
+        {"observed_value", :observed_value, :passthrough},
+        {"evidence_digest", :evidence_digest, :passthrough},
+        {"observed_at", :observed_at, :passthrough}
+      ],
+      &BeamPM.Types.ValueReceipt.new/1
     )
   end
 

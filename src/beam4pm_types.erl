@@ -25,7 +25,57 @@
     new_attestation_verification_evidence/1,
     new_audit_chain_evidence/1,
     new_authority_ceiling/1,
+    new_autonomic_actuation_receipt/1,
+    new_autonomic_actuation_replay/1,
+    new_autonomic_actuation_selection/1,
+    new_autonomic_authority_admission/1,
+    new_autonomic_authority_escalation/1,
+    new_autonomic_backpressure_admission/1,
+    new_autonomic_caller_local_binding/1,
+    new_autonomic_canary_admission/1,
+    new_autonomic_cancellation_receipt/1,
+    new_autonomic_canonical_repair_route/1,
+    new_autonomic_capability_token/1,
+    new_autonomic_circuit_breaker_transition/1,
+    new_autonomic_compensation_verification/1,
+    new_autonomic_crash_recovery/1,
+    new_autonomic_cross_consumer_receipt_refusal/1,
+    new_autonomic_deterministic_receipt_replay/1,
+    new_autonomic_failure_classification/1,
+    new_autonomic_forged_receipt_refusal/1,
+    new_autonomic_generated_surface_refusal/1,
+    new_autonomic_idempotence_fence/1,
+    new_autonomic_incident_recovery/1,
+    new_autonomic_least_authority_grant/1,
+    new_autonomic_model_authority_refusal/1,
+    new_autonomic_mutable_pack_refusal/1,
+    new_autonomic_output_ownership_check/1,
+    new_autonomic_pack_sha_authority/1,
+    new_autonomic_plan_construction/1,
+    new_autonomic_planner_authority_refusal/1,
+    new_autonomic_rca_hypothesis/1,
+    new_autonomic_receipt_authority_binding/1,
+    new_autonomic_receipt_chain_link/1,
+    new_autonomic_receipt_completeness_check/1,
+    new_autonomic_receipt_subject_binding/1,
+    new_autonomic_repair_reexecution/1,
+    new_autonomic_repair_selection/1,
+    new_autonomic_replay_divergence_refusal/1,
+    new_autonomic_retry_backoff/1,
+    new_autonomic_retry_budget/1,
+    new_autonomic_rollback_transition/1,
+    new_autonomic_saga_compensation/1,
+    new_autonomic_second_run_identity/1,
+    new_autonomic_self_healing_completion_receipt/1,
+    new_autonomic_stale_action_refusal/1,
+    new_autonomic_stale_receipt_refusal/1,
     new_autonomic_state_vector/1,
+    new_autonomic_subject_compare_and_swap/1,
+    new_autonomic_supervisor_restart/1,
+    new_autonomic_timeout_budget/1,
+    new_autonomic_transition_execution/1,
+    new_autonomic_transition_verification/1,
+    new_autonomic_upgrade_transition/1,
     new_availability_observation/1,
     new_availability_slo_evidence/1,
     new_backup_restore_evidence/1,
@@ -213,6 +263,7 @@
     new_irreversibility_budget/1,
     new_k8s_object_ref/1,
     new_latency_budget_observation/1,
+    new_leakage_finding/1,
     new_least_authority_evidence/1,
     new_legal_blocker/1,
     new_liability_cap_admission/1,
@@ -344,6 +395,7 @@
     new_revenue_contract_admission/1,
     new_revenue_schedule_assumption/1,
     new_reversibility_weight/1,
+    new_rework_cost/1,
     new_rfp_response_evidence/1,
     new_role_compatibility/1,
     new_rollback_checkpoint/1,
@@ -425,6 +477,7 @@
     new_value_of_information_estimate/1,
     new_value_of_information_score/1,
     new_value_realization/1,
+    new_value_receipt/1,
     new_value_telemetry_sample/1,
     new_vendor_registration_state/1,
     new_vendor_risk_evidence/1,
@@ -467,7 +520,57 @@
     attestation_verification_evidence/0,
     audit_chain_evidence/0,
     authority_ceiling/0,
+    autonomic_actuation_receipt/0,
+    autonomic_actuation_replay/0,
+    autonomic_actuation_selection/0,
+    autonomic_authority_admission/0,
+    autonomic_authority_escalation/0,
+    autonomic_backpressure_admission/0,
+    autonomic_caller_local_binding/0,
+    autonomic_canary_admission/0,
+    autonomic_cancellation_receipt/0,
+    autonomic_canonical_repair_route/0,
+    autonomic_capability_token/0,
+    autonomic_circuit_breaker_transition/0,
+    autonomic_compensation_verification/0,
+    autonomic_crash_recovery/0,
+    autonomic_cross_consumer_receipt_refusal/0,
+    autonomic_deterministic_receipt_replay/0,
+    autonomic_failure_classification/0,
+    autonomic_forged_receipt_refusal/0,
+    autonomic_generated_surface_refusal/0,
+    autonomic_idempotence_fence/0,
+    autonomic_incident_recovery/0,
+    autonomic_least_authority_grant/0,
+    autonomic_model_authority_refusal/0,
+    autonomic_mutable_pack_refusal/0,
+    autonomic_output_ownership_check/0,
+    autonomic_pack_sha_authority/0,
+    autonomic_plan_construction/0,
+    autonomic_planner_authority_refusal/0,
+    autonomic_rca_hypothesis/0,
+    autonomic_receipt_authority_binding/0,
+    autonomic_receipt_chain_link/0,
+    autonomic_receipt_completeness_check/0,
+    autonomic_receipt_subject_binding/0,
+    autonomic_repair_reexecution/0,
+    autonomic_repair_selection/0,
+    autonomic_replay_divergence_refusal/0,
+    autonomic_retry_backoff/0,
+    autonomic_retry_budget/0,
+    autonomic_rollback_transition/0,
+    autonomic_saga_compensation/0,
+    autonomic_second_run_identity/0,
+    autonomic_self_healing_completion_receipt/0,
+    autonomic_stale_action_refusal/0,
+    autonomic_stale_receipt_refusal/0,
     autonomic_state_vector/0,
+    autonomic_subject_compare_and_swap/0,
+    autonomic_supervisor_restart/0,
+    autonomic_timeout_budget/0,
+    autonomic_transition_execution/0,
+    autonomic_transition_verification/0,
+    autonomic_upgrade_transition/0,
     availability_observation/0,
     availability_slo_evidence/0,
     backup_restore_evidence/0,
@@ -655,6 +758,7 @@
     irreversibility_budget/0,
     k8s_object_ref/0,
     latency_budget_observation/0,
+    leakage_finding/0,
     least_authority_evidence/0,
     legal_blocker/0,
     liability_cap_admission/0,
@@ -786,6 +890,7 @@
     revenue_contract_admission/0,
     revenue_schedule_assumption/0,
     reversibility_weight/0,
+    rework_cost/0,
     rfp_response_evidence/0,
     role_compatibility/0,
     rollback_checkpoint/0,
@@ -867,6 +972,7 @@
     value_of_information_estimate/0,
     value_of_information_score/0,
     value_realization/0,
+    value_receipt/0,
     value_telemetry_sample/0,
     vendor_registration_state/0,
     vendor_risk_evidence/0,
@@ -1626,6 +1732,1546 @@ new_authority_ceiling(Map) ->
     end
     end.
 
+%% Produces a complete deterministic receipt for one authorized actuation.
+-record(autonomic_actuation_receipt, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_actuation_receipt() :: #autonomic_actuation_receipt{}.
+
+-spec new_autonomic_actuation_receipt(map()) -> {ok, autonomic_actuation_receipt()} | {error, {missing_field, atom()}}.
+new_autonomic_actuation_receipt(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_actuation_receipt{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Replays an actuation receipt against the same exact subject without repeating consequences.
+-record(autonomic_actuation_replay, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_actuation_replay() :: #autonomic_actuation_replay{}.
+
+-spec new_autonomic_actuation_replay(map()) -> {ok, autonomic_actuation_replay()} | {error, {missing_field, atom()}}.
+new_autonomic_actuation_replay(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_actuation_replay{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Selects one bounded actuation candidate while preserving the exact decision subject and admitted authority.
+-record(autonomic_actuation_selection, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_actuation_selection() :: #autonomic_actuation_selection{}.
+
+-spec new_autonomic_actuation_selection(map()) -> {ok, autonomic_actuation_selection()} | {error, {missing_field, atom()}}.
+new_autonomic_actuation_selection(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_actuation_selection{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Admits or refuses authority for one consequential transition using an immutable authority receipt.
+-record(autonomic_authority_admission, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_authority_admission() :: #autonomic_authority_admission{}.
+
+-spec new_autonomic_authority_admission(map()) -> {ok, autonomic_authority_admission()} | {error, {missing_field, atom()}}.
+new_autonomic_authority_admission(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_authority_admission{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Emits a machine-readable escalation only when the remaining boundary is irreducible by admitted authority.
+-record(autonomic_authority_escalation, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_authority_escalation() :: #autonomic_authority_escalation{}.
+
+-spec new_autonomic_authority_escalation(map()) -> {ok, autonomic_authority_escalation()} | {error, {missing_field, atom()}}.
+new_autonomic_authority_escalation(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_authority_escalation{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses new consequential work when admitted queue or inflight capacity is exhausted.
+-record(autonomic_backpressure_admission, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_backpressure_admission() :: #autonomic_backpressure_admission{}.
+
+-spec new_autonomic_backpressure_admission(map()) -> {ok, autonomic_backpressure_admission()} | {error, {missing_field, atom()}}.
+new_autonomic_backpressure_admission(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_backpressure_admission{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds actuation to the exact consumer checkout rather than a central surrogate.
+-record(autonomic_caller_local_binding, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_caller_local_binding() :: #autonomic_caller_local_binding{}.
+
+-spec new_autonomic_caller_local_binding(map()) -> {ok, autonomic_caller_local_binding()} | {error, {missing_field, atom()}}.
+new_autonomic_caller_local_binding(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_caller_local_binding{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Admits a bounded canary transition and refuses fleet-wide expansion without verified evidence.
+-record(autonomic_canary_admission, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_canary_admission() :: #autonomic_canary_admission{}.
+
+-spec new_autonomic_canary_admission(map()) -> {ok, autonomic_canary_admission()} | {error, {missing_field, atom()}}.
+new_autonomic_canary_admission(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_canary_admission{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Produces a deterministic receipt proving cancellation and the resulting bounded state.
+-record(autonomic_cancellation_receipt, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_cancellation_receipt() :: #autonomic_cancellation_receipt{}.
+
+-spec new_autonomic_cancellation_receipt(map()) -> {ok, autonomic_cancellation_receipt()} | {error, {missing_field, atom()}}.
+new_autonomic_cancellation_receipt(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_cancellation_receipt{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Routes a generated-surface defect to its canonical semantic source or independent qualification rail.
+-record(autonomic_canonical_repair_route, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_canonical_repair_route() :: #autonomic_canonical_repair_route{}.
+
+-spec new_autonomic_canonical_repair_route(map()) -> {ok, autonomic_canonical_repair_route()} | {error, {missing_field, atom()}}.
+new_autonomic_canonical_repair_route(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_canonical_repair_route{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Scopes actuation authority to one capability, subject, and bounded transition.
+-record(autonomic_capability_token, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_capability_token() :: #autonomic_capability_token{}.
+
+-spec new_autonomic_capability_token(map()) -> {ok, autonomic_capability_token()} | {error, {missing_field, atom()}}.
+new_autonomic_capability_token(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_capability_token{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Opens, probes, and closes a circuit using receipted health state transitions.
+-record(autonomic_circuit_breaker_transition, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_circuit_breaker_transition() :: #autonomic_circuit_breaker_transition{}.
+
+-spec new_autonomic_circuit_breaker_transition(map()) -> {ok, autonomic_circuit_breaker_transition()} | {error, {missing_field, atom()}}.
+new_autonomic_circuit_breaker_transition(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_circuit_breaker_transition{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Verifies compensation restored the admitted recovery state without hiding partial effects.
+-record(autonomic_compensation_verification, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_compensation_verification() :: #autonomic_compensation_verification{}.
+
+-spec new_autonomic_compensation_verification(map()) -> {ok, autonomic_compensation_verification()} | {error, {missing_field, atom()}}.
+new_autonomic_compensation_verification(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_compensation_verification{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Resumes a receipted transition after process crash from the last verified state boundary.
+-record(autonomic_crash_recovery, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_crash_recovery() :: #autonomic_crash_recovery{}.
+
+-spec new_autonomic_crash_recovery(map()) -> {ok, autonomic_crash_recovery()} | {error, {missing_field, atom()}}.
+new_autonomic_crash_recovery(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_crash_recovery{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses reuse of an actuation receipt across distinct caller-local consumer subjects.
+-record(autonomic_cross_consumer_receipt_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_cross_consumer_receipt_refusal() :: #autonomic_cross_consumer_receipt_refusal{}.
+
+-spec new_autonomic_cross_consumer_receipt_refusal(map()) -> {ok, autonomic_cross_consumer_receipt_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_cross_consumer_receipt_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_cross_consumer_receipt_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Recomputes receipt identity deterministically without reapplying the original consequence.
+-record(autonomic_deterministic_receipt_replay, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_deterministic_receipt_replay() :: #autonomic_deterministic_receipt_replay{}.
+
+-spec new_autonomic_deterministic_receipt_replay(map()) -> {ok, autonomic_deterministic_receipt_replay()} | {error, {missing_field, atom()}}.
+new_autonomic_deterministic_receipt_replay(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_deterministic_receipt_replay{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Classifies execution failures as subject, authority, capsule, dependency, transient, or irreducible boundary.
+-record(autonomic_failure_classification, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_failure_classification() :: #autonomic_failure_classification{}.
+
+-spec new_autonomic_failure_classification(map()) -> {ok, autonomic_failure_classification()} | {error, {missing_field, atom()}}.
+new_autonomic_failure_classification(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_failure_classification{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses receipts whose claimed transition identity fails deterministic verification.
+-record(autonomic_forged_receipt_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_forged_receipt_refusal() :: #autonomic_forged_receipt_refusal{}.
+
+-spec new_autonomic_forged_receipt_refusal(map()) -> {ok, autonomic_forged_receipt_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_forged_receipt_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_forged_receipt_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses direct mutation of generator-owned workflows and projections.
+-record(autonomic_generated_surface_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_generated_surface_refusal() :: #autonomic_generated_surface_refusal{}.
+
+-spec new_autonomic_generated_surface_refusal(map()) -> {ok, autonomic_generated_surface_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_generated_surface_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_generated_surface_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Prevents duplicate execution of an already receipted actuation identity.
+-record(autonomic_idempotence_fence, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_idempotence_fence() :: #autonomic_idempotence_fence{}.
+
+-spec new_autonomic_idempotence_fence(map()) -> {ok, autonomic_idempotence_fence()} | {error, {missing_field, atom()}}.
+new_autonomic_idempotence_fence(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_idempotence_fence{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Coordinates automatic incident recovery through verified transitions and deterministic receipts.
+-record(autonomic_incident_recovery, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_incident_recovery() :: #autonomic_incident_recovery{}.
+
+-spec new_autonomic_incident_recovery(map()) -> {ok, autonomic_incident_recovery()} | {error, {missing_field, atom()}}.
+new_autonomic_incident_recovery(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_incident_recovery{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Encodes the least authority sufficient for exactly one admitted actuation.
+-record(autonomic_least_authority_grant, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_least_authority_grant() :: #autonomic_least_authority_grant{}.
+
+-spec new_autonomic_least_authority_grant(map()) -> {ok, autonomic_least_authority_grant()} | {error, {missing_field, atom()}}.
+new_autonomic_least_authority_grant(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_least_authority_grant{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses model-produced intent as ambient authority for a consequential transition.
+-record(autonomic_model_authority_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_model_authority_refusal() :: #autonomic_model_authority_refusal{}.
+
+-spec new_autonomic_model_authority_refusal(map()) -> {ok, autonomic_model_authority_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_model_authority_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_model_authority_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses actuation when a marketplace pack is selected by mutable tag or branch.
+-record(autonomic_mutable_pack_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_mutable_pack_refusal() :: #autonomic_mutable_pack_refusal{}.
+
+-spec new_autonomic_mutable_pack_refusal(map()) -> {ok, autonomic_mutable_pack_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_mutable_pack_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_mutable_pack_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Verifies that every written output is owned by the admitted manufacturing plan.
+-record(autonomic_output_ownership_check, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_output_ownership_check() :: #autonomic_output_ownership_check{}.
+
+-spec new_autonomic_output_ownership_check(map()) -> {ok, autonomic_output_ownership_check()} | {error, {missing_field, atom()}}.
+new_autonomic_output_ownership_check(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_output_ownership_check{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Requires an exact immutable marketplace pack SHA before construction or execution.
+-record(autonomic_pack_sha_authority, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_pack_sha_authority() :: #autonomic_pack_sha_authority{}.
+
+-spec new_autonomic_pack_sha_authority(map()) -> {ok, autonomic_pack_sha_authority()} | {error, {missing_field, atom()}}.
+new_autonomic_pack_sha_authority(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_pack_sha_authority{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Constructs an executable actuation plan bound to the exact caller-local subject.
+-record(autonomic_plan_construction, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_plan_construction() :: #autonomic_plan_construction{}.
+
+-spec new_autonomic_plan_construction(map()) -> {ok, autonomic_plan_construction()} | {error, {missing_field, atom()}}.
+new_autonomic_plan_construction(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_plan_construction{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses planner output as authority unless a separate admitted authority receipt is present.
+-record(autonomic_planner_authority_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_planner_authority_refusal() :: #autonomic_planner_authority_refusal{}.
+
+-spec new_autonomic_planner_authority_refusal(map()) -> {ok, autonomic_planner_authority_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_planner_authority_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_planner_authority_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Generates a bounded machine-actionable root-cause hypothesis from failed actuation evidence.
+-record(autonomic_rca_hypothesis, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_rca_hypothesis() :: #autonomic_rca_hypothesis{}.
+
+-spec new_autonomic_rca_hypothesis(map()) -> {ok, autonomic_rca_hypothesis()} | {error, {missing_field, atom()}}.
+new_autonomic_rca_hypothesis(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_rca_hypothesis{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Binds a receipt to the exact authority admission used for the transition.
+-record(autonomic_receipt_authority_binding, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_receipt_authority_binding() :: #autonomic_receipt_authority_binding{}.
+
+-spec new_autonomic_receipt_authority_binding(map()) -> {ok, autonomic_receipt_authority_binding()} | {error, {missing_field, atom()}}.
+new_autonomic_receipt_authority_binding(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_receipt_authority_binding{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Links each consequential transition receipt to its verified predecessor receipt.
+-record(autonomic_receipt_chain_link, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_receipt_chain_link() :: #autonomic_receipt_chain_link{}.
+
+-spec new_autonomic_receipt_chain_link(map()) -> {ok, autonomic_receipt_chain_link()} | {error, {missing_field, atom()}}.
+new_autonomic_receipt_chain_link(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_receipt_chain_link{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses any actuation receipt missing subject, authority, before-state, after-state, or result identity.
+-record(autonomic_receipt_completeness_check, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_receipt_completeness_check() :: #autonomic_receipt_completeness_check{}.
+
+-spec new_autonomic_receipt_completeness_check(map()) -> {ok, autonomic_receipt_completeness_check()} | {error, {missing_field, atom()}}.
+new_autonomic_receipt_completeness_check(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_receipt_completeness_check{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Cryptographically binds an actuation receipt to the exact caller-local subject SHA.
+-record(autonomic_receipt_subject_binding, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_receipt_subject_binding() :: #autonomic_receipt_subject_binding{}.
+
+-spec new_autonomic_receipt_subject_binding(map()) -> {ok, autonomic_receipt_subject_binding()} | {error, {missing_field, atom()}}.
+new_autonomic_receipt_subject_binding(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_receipt_subject_binding{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Re-executes a repaired actuation from the last verified state with a linked receipt.
+-record(autonomic_repair_reexecution, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_repair_reexecution() :: #autonomic_repair_reexecution{}.
+
+-spec new_autonomic_repair_reexecution(map()) -> {ok, autonomic_repair_reexecution()} | {error, {missing_field, atom()}}.
+new_autonomic_repair_reexecution(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_repair_reexecution{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Selects a least-change repair whose authority and affected surface remain explicitly bounded.
+-record(autonomic_repair_selection, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_repair_selection() :: #autonomic_repair_selection{}.
+
+-spec new_autonomic_repair_selection(map()) -> {ok, autonomic_repair_selection()} | {error, {missing_field, atom()}}.
+new_autonomic_repair_selection(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_repair_selection{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses replay when recomputed state or receipt identity diverges from the admitted evidence.
+-record(autonomic_replay_divergence_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_replay_divergence_refusal() :: #autonomic_replay_divergence_refusal{}.
+
+-spec new_autonomic_replay_divergence_refusal(map()) -> {ok, autonomic_replay_divergence_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_replay_divergence_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_replay_divergence_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Schedules bounded retry delay without widening the original authority or subject.
+-record(autonomic_retry_backoff, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_retry_backoff() :: #autonomic_retry_backoff{}.
+
+-spec new_autonomic_retry_backoff(map()) -> {ok, autonomic_retry_backoff()} | {error, {missing_field, atom()}}.
+new_autonomic_retry_backoff(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_retry_backoff{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Bounds recoverable actuation retries by explicit count and authority scope.
+-record(autonomic_retry_budget, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_retry_budget() :: #autonomic_retry_budget{}.
+
+-spec new_autonomic_retry_budget(map()) -> {ok, autonomic_retry_budget()} | {error, {missing_field, atom()}}.
+new_autonomic_retry_budget(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_retry_budget{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Restores an exact admitted prior state when forward repair cannot safely complete.
+-record(autonomic_rollback_transition, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_rollback_transition() :: #autonomic_rollback_transition{}.
+
+-spec new_autonomic_rollback_transition(map()) -> {ok, autonomic_rollback_transition()} | {error, {missing_field, atom()}}.
+new_autonomic_rollback_transition(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_rollback_transition{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Constructs a compensating transition for a partially completed multi-step actuation.
+-record(autonomic_saga_compensation, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_saga_compensation() :: #autonomic_saga_compensation{}.
+
+-spec new_autonomic_saga_compensation(map()) -> {ok, autonomic_saga_compensation()} | {error, {missing_field, atom()}}.
+new_autonomic_saga_compensation(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_saga_compensation{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves a second manufacture or sync produces byte-identical owned outputs.
+-record(autonomic_second_run_identity, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_second_run_identity() :: #autonomic_second_run_identity{}.
+
+-spec new_autonomic_second_run_identity(map()) -> {ok, autonomic_second_run_identity()} | {error, {missing_field, atom()}}.
+new_autonomic_second_run_identity(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_second_run_identity{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Proves the full select, authorize, execute, verify, repair, replay, and containment loop completed.
+-record(autonomic_self_healing_completion_receipt, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_self_healing_completion_receipt() :: #autonomic_self_healing_completion_receipt{}.
+
+-spec new_autonomic_self_healing_completion_receipt(map()) -> {ok, autonomic_self_healing_completion_receipt()} | {error, {missing_field, atom()}}.
+new_autonomic_self_healing_completion_receipt(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_self_healing_completion_receipt{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses a queued action whose subject, authority, or expected before-state became stale.
+-record(autonomic_stale_action_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_stale_action_refusal() :: #autonomic_stale_action_refusal{}.
+
+-spec new_autonomic_stale_action_refusal(map()) -> {ok, autonomic_stale_action_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_stale_action_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_stale_action_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses receipts whose subject or before-state no longer matches the admitted transition.
+-record(autonomic_stale_receipt_refusal, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_stale_receipt_refusal() :: #autonomic_stale_receipt_refusal{}.
+
+-spec new_autonomic_stale_receipt_refusal(map()) -> {ok, autonomic_stale_receipt_refusal()} | {error, {missing_field, atom()}}.
+new_autonomic_stale_receipt_refusal(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_stale_receipt_refusal{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
 %% Encodes decision-relevant observed dimensions for one exact subject.
 -record(autonomic_state_vector, {
     state_vector_id :: binary(), %% state_vector_id: Stable state-vector identity.
@@ -1655,6 +3301,216 @@ new_autonomic_state_vector(Map) ->
         subject_id = maps:get(subject_id, Map, undefined),
         dimension_digest = maps:get(dimension_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Refuses an actuation unless the observed subject SHA equals the admitted expected SHA.
+-record(autonomic_subject_compare_and_swap, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_subject_compare_and_swap() :: #autonomic_subject_compare_and_swap{}.
+
+-spec new_autonomic_subject_compare_and_swap(map()) -> {ok, autonomic_subject_compare_and_swap()} | {error, {missing_field, atom()}}.
+new_autonomic_subject_compare_and_swap(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_subject_compare_and_swap{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Restarts a failed actuation worker under bounded BEAM supervision semantics.
+-record(autonomic_supervisor_restart, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_supervisor_restart() :: #autonomic_supervisor_restart{}.
+
+-spec new_autonomic_supervisor_restart(map()) -> {ok, autonomic_supervisor_restart()} | {error, {missing_field, atom()}}.
+new_autonomic_supervisor_restart(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_supervisor_restart{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Cancels an unfinished actuation when its admitted execution budget expires.
+-record(autonomic_timeout_budget, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_timeout_budget() :: #autonomic_timeout_budget{}.
+
+-spec new_autonomic_timeout_budget(map()) -> {ok, autonomic_timeout_budget()} | {error, {missing_field, atom()}}.
+new_autonomic_timeout_budget(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_timeout_budget{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Records execution of one admitted state transition without granting ambient planner authority.
+-record(autonomic_transition_execution, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_transition_execution() :: #autonomic_transition_execution{}.
+
+-spec new_autonomic_transition_execution(map()) -> {ok, autonomic_transition_execution()} | {error, {missing_field, atom()}}.
+new_autonomic_transition_execution(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_transition_execution{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Verifies the exact before and after state digests for a completed consequential transition.
+-record(autonomic_transition_verification, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_transition_verification() :: #autonomic_transition_verification{}.
+
+-spec new_autonomic_transition_verification(map()) -> {ok, autonomic_transition_verification()} | {error, {missing_field, atom()}}.
+new_autonomic_transition_verification(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_transition_verification{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Executes a version upgrade against exact capsule, pack, and subject identities with rollback evidence.
+-record(autonomic_upgrade_transition, {
+    actuation_id :: binary(), %% actuation_id: Unique bounded actuation identity.
+    subject_sha :: binary(), %% subject_sha: Exact caller-local subject commit SHA.
+    authority_receipt_sha :: binary(), %% authority_receipt_sha: Immutable receipt admitting authority for this transition.
+    state_digest :: binary() %% state_digest: Deterministic state digest used by verification and replay.
+}).
+
+-type autonomic_upgrade_transition() :: #autonomic_upgrade_transition{}.
+
+-spec new_autonomic_upgrade_transition(map()) -> {ok, autonomic_upgrade_transition()} | {error, {missing_field, atom()}}.
+new_autonomic_upgrade_transition(Map) ->
+    case maps:is_key(actuation_id, Map) of
+        false -> {error, {missing_field, actuation_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(authority_receipt_sha, Map) of
+        false -> {error, {missing_field, authority_receipt_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    {ok, #autonomic_upgrade_transition{
+        actuation_id = maps:get(actuation_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        authority_receipt_sha = maps:get(authority_receipt_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined)
     }}
     end
     end
@@ -7960,6 +9816,37 @@ new_latency_budget_observation(Map) ->
     end
     end.
 
+%% One conformance-deviation finding with exact case identity, measured fitness/precision and optional amount at risk.
+-record(leakage_finding, {
+    case_id :: binary(), %% case_id: Exact process-case identity that deviated from the admitted reference model.
+    fitness :: float(), %% fitness: Observed conformance fitness for this case.
+    precision :: float(), %% precision: Observed conformance precision for this case against the admitted model.
+    amount_at_risk :: float() | undefined %% amount_at_risk: Optional admitted amount associated with the deviating case; absent evidence remains absent rather than being coerced to zero.
+}).
+
+-type leakage_finding() :: #leakage_finding{}.
+
+-spec new_leakage_finding(map()) -> {ok, leakage_finding()} | {error, {missing_field, atom()}}.
+new_leakage_finding(Map) ->
+    case maps:is_key(case_id, Map) of
+        false -> {error, {missing_field, case_id}};
+        true ->
+    case maps:is_key(fitness, Map) of
+        false -> {error, {missing_field, fitness}};
+        true ->
+    case maps:is_key(precision, Map) of
+        false -> {error, {missing_field, precision}};
+        true ->
+    {ok, #leakage_finding{
+        case_id = maps:get(case_id, Map, undefined),
+        fitness = maps:get(fitness, Map, undefined),
+        precision = maps:get(precision, Map, undefined),
+        amount_at_risk = maps:get(amount_at_risk, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable least-authority evidence binding an exact subject to the permissions actually granted during execution.
 -record(least_authority_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this least-authority permission observation.
@@ -12117,6 +14004,35 @@ new_reversibility_weight(Map) ->
     end
     end.
 
+%% One observed process case with quantified retry/rework loop count and weighted cost evidence.
+-record(rework_cost, {
+    case_id :: binary(), %% case_id: Exact process-case identity carrying the observed rework.
+    loop_count :: integer(), %% loop_count: Observed count of retry/rework loop markers for this case.
+    weighted_cost :: float() %% weighted_cost: Observed case amount weighted by the admitted rework-loop rule; units are inherited from the admitted source evidence.
+}).
+
+-type rework_cost() :: #rework_cost{}.
+
+-spec new_rework_cost(map()) -> {ok, rework_cost()} | {error, {missing_field, atom()}}.
+new_rework_cost(Map) ->
+    case maps:is_key(case_id, Map) of
+        false -> {error, {missing_field, case_id}};
+        true ->
+    case maps:is_key(loop_count, Map) of
+        false -> {error, {missing_field, loop_count}};
+        true ->
+    case maps:is_key(weighted_cost, Map) of
+        false -> {error, {missing_field, weighted_cost}};
+        true ->
+    {ok, #rework_cost{
+        case_id = maps:get(case_id, Map, undefined),
+        loop_count = maps:get(loop_count, Map, undefined),
+        weighted_cost = maps:get(weighted_cost, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Executable procurement evidence binding an exact subject to a deterministic RFP answer set.
 -record(rfp_response_evidence, {
     evidence_id :: binary(), %% evidence_id: Content-addressed identity of this RFP-response observation.
@@ -14836,6 +16752,59 @@ new_value_realization(Map) ->
         evidence_digest = maps:get(evidence_digest, Map, undefined),
         observed_at = maps:get(observed_at, Map, undefined)
     }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Customer-controlled before/after value receipt binding a measured operational or economic outcome to exact evidence.
+-record(value_receipt, {
+    value_receipt_id :: binary(), %% value_receipt_id: Stable identity of this before/after value receipt.
+    account_id :: binary(), %% account_id: Customer or enterprise account whose measured value is receipted.
+    metric_name :: binary(), %% metric_name: Canonical metric identity used for both baseline and observed values.
+    baseline_value :: float(), %% baseline_value: Admitted baseline value before the measured change or observation window.
+    observed_value :: float(), %% observed_value: Observed value after the measured change or observation window.
+    evidence_digest :: binary(), %% evidence_digest: Digest of the exact evidence supporting the baseline and observed consequence.
+    observed_at :: binary() %% observed_at: ISO8601 instant the receipted value consequence was observed.
+}).
+
+-type value_receipt() :: #value_receipt{}.
+
+-spec new_value_receipt(map()) -> {ok, value_receipt()} | {error, {missing_field, atom()}}.
+new_value_receipt(Map) ->
+    case maps:is_key(value_receipt_id, Map) of
+        false -> {error, {missing_field, value_receipt_id}};
+        true ->
+    case maps:is_key(account_id, Map) of
+        false -> {error, {missing_field, account_id}};
+        true ->
+    case maps:is_key(metric_name, Map) of
+        false -> {error, {missing_field, metric_name}};
+        true ->
+    case maps:is_key(baseline_value, Map) of
+        false -> {error, {missing_field, baseline_value}};
+        true ->
+    case maps:is_key(observed_value, Map) of
+        false -> {error, {missing_field, observed_value}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #value_receipt{
+        value_receipt_id = maps:get(value_receipt_id, Map, undefined),
+        account_id = maps:get(account_id, Map, undefined),
+        metric_name = maps:get(metric_name, Map, undefined),
+        baseline_value = maps:get(baseline_value, Map, undefined),
+        observed_value = maps:get(observed_value, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end

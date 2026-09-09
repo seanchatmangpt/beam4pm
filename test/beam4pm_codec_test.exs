@@ -886,6 +886,1766 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "autonomic_actuation_receipt to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicActuationReceipt.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_actuation_receipt, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_actuation_receipt, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_actuation_receipt encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicActuationReceipt.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_actuation_receipt, json)
+  end
+
+  test "autonomic_actuation_receipt from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_actuation_receipt, %{})
+  end
+
+
+  test "autonomic_actuation_replay to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicActuationReplay.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_actuation_replay, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_actuation_replay, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_actuation_replay encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicActuationReplay.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_actuation_replay, json)
+  end
+
+  test "autonomic_actuation_replay from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_actuation_replay, %{})
+  end
+
+
+  test "autonomic_actuation_selection to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicActuationSelection.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_actuation_selection, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_actuation_selection, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_actuation_selection encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicActuationSelection.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_actuation_selection, json)
+  end
+
+  test "autonomic_actuation_selection from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_actuation_selection, %{})
+  end
+
+
+  test "autonomic_authority_admission to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicAuthorityAdmission.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_authority_admission, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_authority_admission, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_authority_admission encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicAuthorityAdmission.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_authority_admission, json)
+  end
+
+  test "autonomic_authority_admission from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_authority_admission, %{})
+  end
+
+
+  test "autonomic_authority_escalation to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicAuthorityEscalation.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_authority_escalation, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_authority_escalation, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_authority_escalation encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicAuthorityEscalation.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_authority_escalation, json)
+  end
+
+  test "autonomic_authority_escalation from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_authority_escalation, %{})
+  end
+
+
+  test "autonomic_backpressure_admission to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicBackpressureAdmission.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_backpressure_admission, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_backpressure_admission, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_backpressure_admission encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicBackpressureAdmission.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_backpressure_admission, json)
+  end
+
+  test "autonomic_backpressure_admission from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_backpressure_admission, %{})
+  end
+
+
+  test "autonomic_caller_local_binding to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCallerLocalBinding.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_caller_local_binding, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_caller_local_binding, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_caller_local_binding encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCallerLocalBinding.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_caller_local_binding, json)
+  end
+
+  test "autonomic_caller_local_binding from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_caller_local_binding, %{})
+  end
+
+
+  test "autonomic_canary_admission to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCanaryAdmission.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_canary_admission, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_canary_admission, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_canary_admission encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCanaryAdmission.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_canary_admission, json)
+  end
+
+  test "autonomic_canary_admission from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_canary_admission, %{})
+  end
+
+
+  test "autonomic_cancellation_receipt to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCancellationReceipt.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_cancellation_receipt, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_cancellation_receipt, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_cancellation_receipt encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCancellationReceipt.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_cancellation_receipt, json)
+  end
+
+  test "autonomic_cancellation_receipt from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_cancellation_receipt, %{})
+  end
+
+
+  test "autonomic_canonical_repair_route to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCanonicalRepairRoute.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_canonical_repair_route, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_canonical_repair_route, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_canonical_repair_route encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCanonicalRepairRoute.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_canonical_repair_route, json)
+  end
+
+  test "autonomic_canonical_repair_route from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_canonical_repair_route, %{})
+  end
+
+
+  test "autonomic_capability_token to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCapabilityToken.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_capability_token, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_capability_token, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_capability_token encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCapabilityToken.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_capability_token, json)
+  end
+
+  test "autonomic_capability_token from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_capability_token, %{})
+  end
+
+
+  test "autonomic_circuit_breaker_transition to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCircuitBreakerTransition.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_circuit_breaker_transition, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_circuit_breaker_transition, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_circuit_breaker_transition encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCircuitBreakerTransition.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_circuit_breaker_transition, json)
+  end
+
+  test "autonomic_circuit_breaker_transition from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_circuit_breaker_transition, %{})
+  end
+
+
+  test "autonomic_compensation_verification to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCompensationVerification.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_compensation_verification, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_compensation_verification, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_compensation_verification encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCompensationVerification.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_compensation_verification, json)
+  end
+
+  test "autonomic_compensation_verification from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_compensation_verification, %{})
+  end
+
+
+  test "autonomic_crash_recovery to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCrashRecovery.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_crash_recovery, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_crash_recovery, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_crash_recovery encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCrashRecovery.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_crash_recovery, json)
+  end
+
+  test "autonomic_crash_recovery from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_crash_recovery, %{})
+  end
+
+
+  test "autonomic_cross_consumer_receipt_refusal to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCrossConsumerReceiptRefusal.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_cross_consumer_receipt_refusal, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_cross_consumer_receipt_refusal, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_cross_consumer_receipt_refusal encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicCrossConsumerReceiptRefusal.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_cross_consumer_receipt_refusal, json)
+  end
+
+  test "autonomic_cross_consumer_receipt_refusal from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_cross_consumer_receipt_refusal, %{})
+  end
+
+
+  test "autonomic_deterministic_receipt_replay to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicDeterministicReceiptReplay.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_deterministic_receipt_replay, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_deterministic_receipt_replay, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_deterministic_receipt_replay encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicDeterministicReceiptReplay.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_deterministic_receipt_replay, json)
+  end
+
+  test "autonomic_deterministic_receipt_replay from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_deterministic_receipt_replay, %{})
+  end
+
+
+  test "autonomic_failure_classification to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicFailureClassification.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_failure_classification, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_failure_classification, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_failure_classification encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicFailureClassification.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_failure_classification, json)
+  end
+
+  test "autonomic_failure_classification from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_failure_classification, %{})
+  end
+
+
+  test "autonomic_forged_receipt_refusal to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicForgedReceiptRefusal.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_forged_receipt_refusal, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_forged_receipt_refusal, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_forged_receipt_refusal encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicForgedReceiptRefusal.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_forged_receipt_refusal, json)
+  end
+
+  test "autonomic_forged_receipt_refusal from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_forged_receipt_refusal, %{})
+  end
+
+
+  test "autonomic_generated_surface_refusal to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicGeneratedSurfaceRefusal.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_generated_surface_refusal, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_generated_surface_refusal, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_generated_surface_refusal encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicGeneratedSurfaceRefusal.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_generated_surface_refusal, json)
+  end
+
+  test "autonomic_generated_surface_refusal from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_generated_surface_refusal, %{})
+  end
+
+
+  test "autonomic_idempotence_fence to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicIdempotenceFence.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_idempotence_fence, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_idempotence_fence, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_idempotence_fence encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicIdempotenceFence.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_idempotence_fence, json)
+  end
+
+  test "autonomic_idempotence_fence from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_idempotence_fence, %{})
+  end
+
+
+  test "autonomic_incident_recovery to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicIncidentRecovery.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_incident_recovery, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_incident_recovery, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_incident_recovery encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicIncidentRecovery.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_incident_recovery, json)
+  end
+
+  test "autonomic_incident_recovery from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_incident_recovery, %{})
+  end
+
+
+  test "autonomic_least_authority_grant to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicLeastAuthorityGrant.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_least_authority_grant, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_least_authority_grant, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_least_authority_grant encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicLeastAuthorityGrant.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_least_authority_grant, json)
+  end
+
+  test "autonomic_least_authority_grant from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_least_authority_grant, %{})
+  end
+
+
+  test "autonomic_model_authority_refusal to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicModelAuthorityRefusal.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_model_authority_refusal, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_model_authority_refusal, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_model_authority_refusal encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicModelAuthorityRefusal.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_model_authority_refusal, json)
+  end
+
+  test "autonomic_model_authority_refusal from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_model_authority_refusal, %{})
+  end
+
+
+  test "autonomic_mutable_pack_refusal to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicMutablePackRefusal.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_mutable_pack_refusal, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_mutable_pack_refusal, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_mutable_pack_refusal encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicMutablePackRefusal.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_mutable_pack_refusal, json)
+  end
+
+  test "autonomic_mutable_pack_refusal from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_mutable_pack_refusal, %{})
+  end
+
+
+  test "autonomic_output_ownership_check to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicOutputOwnershipCheck.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_output_ownership_check, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_output_ownership_check, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_output_ownership_check encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicOutputOwnershipCheck.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_output_ownership_check, json)
+  end
+
+  test "autonomic_output_ownership_check from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_output_ownership_check, %{})
+  end
+
+
+  test "autonomic_pack_sha_authority to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicPackShaAuthority.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_pack_sha_authority, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_pack_sha_authority, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_pack_sha_authority encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicPackShaAuthority.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_pack_sha_authority, json)
+  end
+
+  test "autonomic_pack_sha_authority from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_pack_sha_authority, %{})
+  end
+
+
+  test "autonomic_plan_construction to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicPlanConstruction.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_plan_construction, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_plan_construction, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_plan_construction encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicPlanConstruction.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_plan_construction, json)
+  end
+
+  test "autonomic_plan_construction from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_plan_construction, %{})
+  end
+
+
+  test "autonomic_planner_authority_refusal to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicPlannerAuthorityRefusal.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_planner_authority_refusal, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_planner_authority_refusal, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_planner_authority_refusal encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicPlannerAuthorityRefusal.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_planner_authority_refusal, json)
+  end
+
+  test "autonomic_planner_authority_refusal from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_planner_authority_refusal, %{})
+  end
+
+
+  test "autonomic_rca_hypothesis to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRcaHypothesis.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_rca_hypothesis, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_rca_hypothesis, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_rca_hypothesis encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRcaHypothesis.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_rca_hypothesis, json)
+  end
+
+  test "autonomic_rca_hypothesis from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_rca_hypothesis, %{})
+  end
+
+
+  test "autonomic_receipt_authority_binding to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicReceiptAuthorityBinding.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_receipt_authority_binding, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_receipt_authority_binding, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_receipt_authority_binding encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicReceiptAuthorityBinding.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_receipt_authority_binding, json)
+  end
+
+  test "autonomic_receipt_authority_binding from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_receipt_authority_binding, %{})
+  end
+
+
+  test "autonomic_receipt_chain_link to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicReceiptChainLink.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_receipt_chain_link, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_receipt_chain_link, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_receipt_chain_link encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicReceiptChainLink.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_receipt_chain_link, json)
+  end
+
+  test "autonomic_receipt_chain_link from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_receipt_chain_link, %{})
+  end
+
+
+  test "autonomic_receipt_completeness_check to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicReceiptCompletenessCheck.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_receipt_completeness_check, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_receipt_completeness_check, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_receipt_completeness_check encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicReceiptCompletenessCheck.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_receipt_completeness_check, json)
+  end
+
+  test "autonomic_receipt_completeness_check from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_receipt_completeness_check, %{})
+  end
+
+
+  test "autonomic_receipt_subject_binding to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicReceiptSubjectBinding.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_receipt_subject_binding, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_receipt_subject_binding, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_receipt_subject_binding encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicReceiptSubjectBinding.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_receipt_subject_binding, json)
+  end
+
+  test "autonomic_receipt_subject_binding from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_receipt_subject_binding, %{})
+  end
+
+
+  test "autonomic_repair_reexecution to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRepairReexecution.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_repair_reexecution, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_repair_reexecution, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_repair_reexecution encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRepairReexecution.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_repair_reexecution, json)
+  end
+
+  test "autonomic_repair_reexecution from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_repair_reexecution, %{})
+  end
+
+
+  test "autonomic_repair_selection to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRepairSelection.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_repair_selection, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_repair_selection, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_repair_selection encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRepairSelection.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_repair_selection, json)
+  end
+
+  test "autonomic_repair_selection from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_repair_selection, %{})
+  end
+
+
+  test "autonomic_replay_divergence_refusal to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicReplayDivergenceRefusal.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_replay_divergence_refusal, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_replay_divergence_refusal, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_replay_divergence_refusal encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicReplayDivergenceRefusal.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_replay_divergence_refusal, json)
+  end
+
+  test "autonomic_replay_divergence_refusal from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_replay_divergence_refusal, %{})
+  end
+
+
+  test "autonomic_retry_backoff to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRetryBackoff.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_retry_backoff, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_retry_backoff, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_retry_backoff encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRetryBackoff.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_retry_backoff, json)
+  end
+
+  test "autonomic_retry_backoff from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_retry_backoff, %{})
+  end
+
+
+  test "autonomic_retry_budget to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRetryBudget.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_retry_budget, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_retry_budget, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_retry_budget encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRetryBudget.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_retry_budget, json)
+  end
+
+  test "autonomic_retry_budget from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_retry_budget, %{})
+  end
+
+
+  test "autonomic_rollback_transition to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRollbackTransition.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_rollback_transition, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_rollback_transition, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_rollback_transition encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicRollbackTransition.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_rollback_transition, json)
+  end
+
+  test "autonomic_rollback_transition from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_rollback_transition, %{})
+  end
+
+
+  test "autonomic_saga_compensation to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicSagaCompensation.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_saga_compensation, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_saga_compensation, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_saga_compensation encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicSagaCompensation.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_saga_compensation, json)
+  end
+
+  test "autonomic_saga_compensation from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_saga_compensation, %{})
+  end
+
+
+  test "autonomic_second_run_identity to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicSecondRunIdentity.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_second_run_identity, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_second_run_identity, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_second_run_identity encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicSecondRunIdentity.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_second_run_identity, json)
+  end
+
+  test "autonomic_second_run_identity from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_second_run_identity, %{})
+  end
+
+
+  test "autonomic_self_healing_completion_receipt to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicSelfHealingCompletionReceipt.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_self_healing_completion_receipt, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_self_healing_completion_receipt, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_self_healing_completion_receipt encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicSelfHealingCompletionReceipt.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_self_healing_completion_receipt, json)
+  end
+
+  test "autonomic_self_healing_completion_receipt from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_self_healing_completion_receipt, %{})
+  end
+
+
+  test "autonomic_stale_action_refusal to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicStaleActionRefusal.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_stale_action_refusal, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_stale_action_refusal, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_stale_action_refusal encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicStaleActionRefusal.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_stale_action_refusal, json)
+  end
+
+  test "autonomic_stale_action_refusal from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_stale_action_refusal, %{})
+  end
+
+
+  test "autonomic_stale_receipt_refusal to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicStaleReceiptRefusal.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_stale_receipt_refusal, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_stale_receipt_refusal, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_stale_receipt_refusal encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicStaleReceiptRefusal.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_stale_receipt_refusal, json)
+  end
+
+  test "autonomic_stale_receipt_refusal from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_stale_receipt_refusal, %{})
+  end
+
+
   test "autonomic_state_vector to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       state_vector_id: "sample_state_vector_id",
@@ -923,6 +2683,246 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "autonomic_state_vector from_map reports the first missing required field" do
     assert {:error, {:missing_field, :state_vector_id}} =
              BeamPM.Codec.from_map(:autonomic_state_vector, %{})
+  end
+
+
+  test "autonomic_subject_compare_and_swap to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicSubjectCompareAndSwap.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_subject_compare_and_swap, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_subject_compare_and_swap, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_subject_compare_and_swap encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicSubjectCompareAndSwap.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_subject_compare_and_swap, json)
+  end
+
+  test "autonomic_subject_compare_and_swap from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_subject_compare_and_swap, %{})
+  end
+
+
+  test "autonomic_supervisor_restart to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicSupervisorRestart.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_supervisor_restart, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_supervisor_restart, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_supervisor_restart encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicSupervisorRestart.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_supervisor_restart, json)
+  end
+
+  test "autonomic_supervisor_restart from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_supervisor_restart, %{})
+  end
+
+
+  test "autonomic_timeout_budget to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicTimeoutBudget.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_timeout_budget, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_timeout_budget, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_timeout_budget encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicTimeoutBudget.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_timeout_budget, json)
+  end
+
+  test "autonomic_timeout_budget from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_timeout_budget, %{})
+  end
+
+
+  test "autonomic_transition_execution to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicTransitionExecution.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_transition_execution, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_transition_execution, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_transition_execution encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicTransitionExecution.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_transition_execution, json)
+  end
+
+  test "autonomic_transition_execution from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_transition_execution, %{})
+  end
+
+
+  test "autonomic_transition_verification to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicTransitionVerification.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_transition_verification, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_transition_verification, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_transition_verification encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicTransitionVerification.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_transition_verification, json)
+  end
+
+  test "autonomic_transition_verification from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_transition_verification, %{})
+  end
+
+
+  test "autonomic_upgrade_transition to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicUpgradeTransition.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["actuation_id"] == "sample_actuation_id"
+    assert m["subject_sha"] == "sample_subject_sha"
+    assert m["authority_receipt_sha"] == "sample_authority_receipt_sha"
+    assert m["state_digest"] == "sample_state_digest"
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:autonomic_upgrade_transition, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:autonomic_upgrade_transition, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "autonomic_upgrade_transition encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      actuation_id: "sample_actuation_id",
+      subject_sha: "sample_subject_sha",
+      authority_receipt_sha: "sample_authority_receipt_sha",
+      state_digest: "sample_state_digest"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.AutonomicUpgradeTransition.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:autonomic_upgrade_transition, json)
+  end
+
+  test "autonomic_upgrade_transition from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :actuation_id}} =
+             BeamPM.Codec.from_map(:autonomic_upgrade_transition, %{})
   end
 
 
@@ -8368,6 +10368,59 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "leakage_finding to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      case_id: "sample_case_id",
+      fitness: 3.5,
+      precision: 3.5,
+      amount_at_risk: 3.5
+    }
+
+    assert {:ok, rec} = BeamPM.Types.LeakageFinding.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["case_id"] == "sample_case_id"
+    assert m["fitness"] == 3.5
+    assert m["precision"] == 3.5
+    assert m["amount_at_risk"] == 3.5
+    assert map_size(m) == 4
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:leakage_finding, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:leakage_finding, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "leakage_finding encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      case_id: "sample_case_id",
+      fitness: 3.5,
+      precision: 3.5,
+      amount_at_risk: 3.5
+    }
+
+    assert {:ok, rec} = BeamPM.Types.LeakageFinding.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:leakage_finding, json)
+  end
+
+  test "leakage_finding from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :case_id}} =
+             BeamPM.Codec.from_map(:leakage_finding, %{})
+  end
+
+  test "leakage_finding to_map omits nil optional fields (minimal variant roundtrip)" do
+    attrs = %{
+      case_id: "sample_case_id",
+      fitness: 3.5,
+      precision: 3.5
+    }
+
+    assert {:ok, rec} = BeamPM.Types.LeakageFinding.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    refute Map.has_key?(m, "amount_at_risk")
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:leakage_finding, m)
+  end
+
   test "least_authority_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -13556,6 +15609,43 @@ defmodule BeamPM.Codec.GeneratedTest do
   end
 
 
+  test "rework_cost to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      case_id: "sample_case_id",
+      loop_count: 42,
+      weighted_cost: 3.5
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ReworkCost.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["case_id"] == "sample_case_id"
+    assert m["loop_count"] == 42
+    assert m["weighted_cost"] == 3.5
+    assert map_size(m) == 3
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:rework_cost, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:rework_cost, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "rework_cost encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      case_id: "sample_case_id",
+      loop_count: 42,
+      weighted_cost: 3.5
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ReworkCost.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:rework_cost, json)
+  end
+
+  test "rework_cost from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :case_id}} =
+             BeamPM.Codec.from_map(:rework_cost, %{})
+  end
+
+
   test "rfp_response_evidence to_map/from_map roundtrip (full variant) with exact map values" do
     attrs = %{
       evidence_id: "sample_evidence_id",
@@ -16767,6 +18857,55 @@ defmodule BeamPM.Codec.GeneratedTest do
   test "value_realization from_map reports the first missing required field" do
     assert {:error, {:missing_field, :value_realization_id}} =
              BeamPM.Codec.from_map(:value_realization, %{})
+  end
+
+
+  test "value_receipt to_map/from_map roundtrip (full variant) with exact map values" do
+    attrs = %{
+      value_receipt_id: "sample_value_receipt_id",
+      account_id: "sample_account_id",
+      metric_name: "sample_metric_name",
+      baseline_value: 3.5,
+      observed_value: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      observed_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ValueReceipt.new(attrs)
+    m = BeamPM.Codec.to_map(rec)
+    assert m["value_receipt_id"] == "sample_value_receipt_id"
+    assert m["account_id"] == "sample_account_id"
+    assert m["metric_name"] == "sample_metric_name"
+    assert m["baseline_value"] == 3.5
+    assert m["observed_value"] == 3.5
+    assert m["evidence_digest"] == "sample_evidence_digest"
+    assert m["observed_at"] == "2026-08-29T12:00:00Z"
+    assert map_size(m) == 7
+    assert {:ok, ^rec} = BeamPM.Codec.from_map(:value_receipt, m)
+    assert {:ok, ^rec} =
+             BeamPM.Codec.from_map(:value_receipt, Map.put(m, "definitely_unknown_key", "x"))
+  end
+
+  test "value_receipt encode/decode JSON roundtrip (full variant)" do
+    attrs = %{
+      value_receipt_id: "sample_value_receipt_id",
+      account_id: "sample_account_id",
+      metric_name: "sample_metric_name",
+      baseline_value: 3.5,
+      observed_value: 3.5,
+      evidence_digest: "sample_evidence_digest",
+      observed_at: "2026-08-29T12:00:00Z"
+    }
+
+    assert {:ok, rec} = BeamPM.Types.ValueReceipt.new(attrs)
+    json = BeamPM.Codec.encode(rec)
+    assert is_binary(json)
+    assert {:ok, ^rec} = BeamPM.Codec.decode(:value_receipt, json)
+  end
+
+  test "value_receipt from_map reports the first missing required field" do
+    assert {:error, {:missing_field, :value_receipt_id}} =
+             BeamPM.Codec.from_map(:value_receipt, %{})
   end
 
 
