@@ -239,6 +239,490 @@
 | `grant_id` | `string` | true | Required grant_id for deterministic planner evaluation. |
 | `ceiling` | `string` | true | Required ceiling preserving evidence and falsifiability. |
 
+## autonomic_actuation_receipt
+
+> Produces a complete deterministic receipt for one authorized actuation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_actuation_replay
+
+> Replays an actuation receipt against the same exact subject without repeating consequences.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_actuation_selection
+
+> Selects one bounded actuation candidate while preserving the exact decision subject and admitted authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_authority_admission
+
+> Admits or refuses authority for one consequential transition using an immutable authority receipt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_authority_escalation
+
+> Emits a machine-readable escalation only when the remaining boundary is irreducible by admitted authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_backpressure_admission
+
+> Refuses new consequential work when admitted queue or inflight capacity is exhausted.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_caller_local_binding
+
+> Binds actuation to the exact consumer checkout rather than a central surrogate.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_canary_admission
+
+> Admits a bounded canary transition and refuses fleet-wide expansion without verified evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_cancellation_receipt
+
+> Produces a deterministic receipt proving cancellation and the resulting bounded state.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_canonical_repair_route
+
+> Routes a generated-surface defect to its canonical semantic source or independent qualification rail.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_capability_token
+
+> Scopes actuation authority to one capability, subject, and bounded transition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_circuit_breaker_transition
+
+> Opens, probes, and closes a circuit using receipted health state transitions.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_compensation_verification
+
+> Verifies compensation restored the admitted recovery state without hiding partial effects.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_crash_recovery
+
+> Resumes a receipted transition after process crash from the last verified state boundary.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_cross_consumer_receipt_refusal
+
+> Refuses reuse of an actuation receipt across distinct caller-local consumer subjects.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_deterministic_receipt_replay
+
+> Recomputes receipt identity deterministically without reapplying the original consequence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_failure_classification
+
+> Classifies execution failures as subject, authority, capsule, dependency, transient, or irreducible boundary.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_forged_receipt_refusal
+
+> Refuses receipts whose claimed transition identity fails deterministic verification.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_generated_surface_refusal
+
+> Refuses direct mutation of generator-owned workflows and projections.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_idempotence_fence
+
+> Prevents duplicate execution of an already receipted actuation identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_incident_recovery
+
+> Coordinates automatic incident recovery through verified transitions and deterministic receipts.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_least_authority_grant
+
+> Encodes the least authority sufficient for exactly one admitted actuation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_model_authority_refusal
+
+> Refuses model-produced intent as ambient authority for a consequential transition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_mutable_pack_refusal
+
+> Refuses actuation when a marketplace pack is selected by mutable tag or branch.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_output_ownership_check
+
+> Verifies that every written output is owned by the admitted manufacturing plan.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_pack_sha_authority
+
+> Requires an exact immutable marketplace pack SHA before construction or execution.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_plan_construction
+
+> Constructs an executable actuation plan bound to the exact caller-local subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_planner_authority_refusal
+
+> Refuses planner output as authority unless a separate admitted authority receipt is present.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_rca_hypothesis
+
+> Generates a bounded machine-actionable root-cause hypothesis from failed actuation evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_receipt_authority_binding
+
+> Binds a receipt to the exact authority admission used for the transition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_receipt_chain_link
+
+> Links each consequential transition receipt to its verified predecessor receipt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_receipt_completeness_check
+
+> Refuses any actuation receipt missing subject, authority, before-state, after-state, or result identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_receipt_subject_binding
+
+> Cryptographically binds an actuation receipt to the exact caller-local subject SHA.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_repair_reexecution
+
+> Re-executes a repaired actuation from the last verified state with a linked receipt.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_repair_selection
+
+> Selects a least-change repair whose authority and affected surface remain explicitly bounded.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_replay_divergence_refusal
+
+> Refuses replay when recomputed state or receipt identity diverges from the admitted evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_retry_backoff
+
+> Schedules bounded retry delay without widening the original authority or subject.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_retry_budget
+
+> Bounds recoverable actuation retries by explicit count and authority scope.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_rollback_transition
+
+> Restores an exact admitted prior state when forward repair cannot safely complete.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_saga_compensation
+
+> Constructs a compensating transition for a partially completed multi-step actuation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_second_run_identity
+
+> Proves a second manufacture or sync produces byte-identical owned outputs.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_self_healing_completion_receipt
+
+> Proves the full select, authorize, execute, verify, repair, replay, and containment loop completed.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_stale_action_refusal
+
+> Refuses a queued action whose subject, authority, or expected before-state became stale.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_stale_receipt_refusal
+
+> Refuses receipts whose subject or before-state no longer matches the admitted transition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
 ## autonomic_state_vector
 
 > Encodes decision-relevant observed dimensions for one exact subject.
@@ -249,6 +733,72 @@
 | `subject_id` | `string` | true | Exact observed subject identity. |
 | `dimension_digest` | `string` | true | Digest of ordered state dimensions. |
 | `observed_at` | `datetime` | true | Timestamp of state-vector encoding. |
+
+## autonomic_subject_compare_and_swap
+
+> Refuses an actuation unless the observed subject SHA equals the admitted expected SHA.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_supervisor_restart
+
+> Restarts a failed actuation worker under bounded BEAM supervision semantics.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_timeout_budget
+
+> Cancels an unfinished actuation when its admitted execution budget expires.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_transition_execution
+
+> Records execution of one admitted state transition without granting ambient planner authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_transition_verification
+
+> Verifies the exact before and after state digests for a completed consequential transition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
+
+## autonomic_upgrade_transition
+
+> Executes a version upgrade against exact capsule, pack, and subject identities with rollback evidence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `actuation_id` | `string` | true | Unique bounded actuation identity. |
+| `subject_sha` | `string` | true | Exact caller-local subject commit SHA. |
+| `authority_receipt_sha` | `string` | true | Immutable receipt admitting authority for this transition. |
+| `state_digest` | `string` | true | Deterministic state digest used by verification and replay. |
 
 ## availability_observation
 

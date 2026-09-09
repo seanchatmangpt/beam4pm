@@ -41,7 +41,57 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.AttestationVerificationEvidence
     resource BeamPM.Ash.Resources.AuditChainEvidence
     resource BeamPM.Ash.Resources.AuthorityCeiling
+    resource BeamPM.Ash.Resources.AutonomicActuationReceipt
+    resource BeamPM.Ash.Resources.AutonomicActuationReplay
+    resource BeamPM.Ash.Resources.AutonomicActuationSelection
+    resource BeamPM.Ash.Resources.AutonomicAuthorityAdmission
+    resource BeamPM.Ash.Resources.AutonomicAuthorityEscalation
+    resource BeamPM.Ash.Resources.AutonomicBackpressureAdmission
+    resource BeamPM.Ash.Resources.AutonomicCallerLocalBinding
+    resource BeamPM.Ash.Resources.AutonomicCanaryAdmission
+    resource BeamPM.Ash.Resources.AutonomicCancellationReceipt
+    resource BeamPM.Ash.Resources.AutonomicCanonicalRepairRoute
+    resource BeamPM.Ash.Resources.AutonomicCapabilityToken
+    resource BeamPM.Ash.Resources.AutonomicCircuitBreakerTransition
+    resource BeamPM.Ash.Resources.AutonomicCompensationVerification
+    resource BeamPM.Ash.Resources.AutonomicCrashRecovery
+    resource BeamPM.Ash.Resources.AutonomicCrossConsumerReceiptRefusal
+    resource BeamPM.Ash.Resources.AutonomicDeterministicReceiptReplay
+    resource BeamPM.Ash.Resources.AutonomicFailureClassification
+    resource BeamPM.Ash.Resources.AutonomicForgedReceiptRefusal
+    resource BeamPM.Ash.Resources.AutonomicGeneratedSurfaceRefusal
+    resource BeamPM.Ash.Resources.AutonomicIdempotenceFence
+    resource BeamPM.Ash.Resources.AutonomicIncidentRecovery
+    resource BeamPM.Ash.Resources.AutonomicLeastAuthorityGrant
+    resource BeamPM.Ash.Resources.AutonomicModelAuthorityRefusal
+    resource BeamPM.Ash.Resources.AutonomicMutablePackRefusal
+    resource BeamPM.Ash.Resources.AutonomicOutputOwnershipCheck
+    resource BeamPM.Ash.Resources.AutonomicPackShaAuthority
+    resource BeamPM.Ash.Resources.AutonomicPlanConstruction
+    resource BeamPM.Ash.Resources.AutonomicPlannerAuthorityRefusal
+    resource BeamPM.Ash.Resources.AutonomicRcaHypothesis
+    resource BeamPM.Ash.Resources.AutonomicReceiptAuthorityBinding
+    resource BeamPM.Ash.Resources.AutonomicReceiptChainLink
+    resource BeamPM.Ash.Resources.AutonomicReceiptCompletenessCheck
+    resource BeamPM.Ash.Resources.AutonomicReceiptSubjectBinding
+    resource BeamPM.Ash.Resources.AutonomicRepairReexecution
+    resource BeamPM.Ash.Resources.AutonomicRepairSelection
+    resource BeamPM.Ash.Resources.AutonomicReplayDivergenceRefusal
+    resource BeamPM.Ash.Resources.AutonomicRetryBackoff
+    resource BeamPM.Ash.Resources.AutonomicRetryBudget
+    resource BeamPM.Ash.Resources.AutonomicRollbackTransition
+    resource BeamPM.Ash.Resources.AutonomicSagaCompensation
+    resource BeamPM.Ash.Resources.AutonomicSecondRunIdentity
+    resource BeamPM.Ash.Resources.AutonomicSelfHealingCompletionReceipt
+    resource BeamPM.Ash.Resources.AutonomicStaleActionRefusal
+    resource BeamPM.Ash.Resources.AutonomicStaleReceiptRefusal
     resource BeamPM.Ash.Resources.AutonomicStateVector
+    resource BeamPM.Ash.Resources.AutonomicSubjectCompareAndSwap
+    resource BeamPM.Ash.Resources.AutonomicSupervisorRestart
+    resource BeamPM.Ash.Resources.AutonomicTimeoutBudget
+    resource BeamPM.Ash.Resources.AutonomicTransitionExecution
+    resource BeamPM.Ash.Resources.AutonomicTransitionVerification
+    resource BeamPM.Ash.Resources.AutonomicUpgradeTransition
     resource BeamPM.Ash.Resources.AvailabilityObservation
     resource BeamPM.Ash.Resources.AvailabilitySloEvidence
     resource BeamPM.Ash.Resources.BackupRestoreEvidence

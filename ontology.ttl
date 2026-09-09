@@ -9788,6 +9788,524 @@ b4p:machine_actionable_delta_recommended_action_f a bpm:Field ;
     bpm:fieldDoc "Bounded next action for the control plane." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 
+# WS3-ACT-001 — autonomic_actuation_selection
+b4p:autonomic_actuation_selection_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_actuation_selection" ;
+    bpm:recordDoc "Selects one bounded actuation candidate while preserving the exact decision subject and admitted authority." ;
+    bpm:hasField b4p:autonomic_actuation_selection_actuation_id_f, b4p:autonomic_actuation_selection_subject_sha_f, b4p:autonomic_actuation_selection_authority_receipt_sha_f, b4p:autonomic_actuation_selection_state_digest_f .
+
+b4p:autonomic_actuation_selection_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_actuation_selection_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_actuation_selection_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_actuation_selection_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-002 — autonomic_authority_admission
+b4p:autonomic_authority_admission_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_authority_admission" ;
+    bpm:recordDoc "Admits or refuses authority for one consequential transition using an immutable authority receipt." ;
+    bpm:hasField b4p:autonomic_authority_admission_actuation_id_f, b4p:autonomic_authority_admission_subject_sha_f, b4p:autonomic_authority_admission_authority_receipt_sha_f, b4p:autonomic_authority_admission_state_digest_f .
+
+b4p:autonomic_authority_admission_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_authority_admission_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_authority_admission_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_authority_admission_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-003 — autonomic_plan_construction
+b4p:autonomic_plan_construction_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_plan_construction" ;
+    bpm:recordDoc "Constructs an executable actuation plan bound to the exact caller-local subject." ;
+    bpm:hasField b4p:autonomic_plan_construction_actuation_id_f, b4p:autonomic_plan_construction_subject_sha_f, b4p:autonomic_plan_construction_authority_receipt_sha_f, b4p:autonomic_plan_construction_state_digest_f .
+
+b4p:autonomic_plan_construction_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_plan_construction_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_plan_construction_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_plan_construction_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-004 — autonomic_transition_execution
+b4p:autonomic_transition_execution_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_transition_execution" ;
+    bpm:recordDoc "Records execution of one admitted state transition without granting ambient planner authority." ;
+    bpm:hasField b4p:autonomic_transition_execution_actuation_id_f, b4p:autonomic_transition_execution_subject_sha_f, b4p:autonomic_transition_execution_authority_receipt_sha_f, b4p:autonomic_transition_execution_state_digest_f .
+
+b4p:autonomic_transition_execution_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_transition_execution_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_transition_execution_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_transition_execution_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-005 — autonomic_transition_verification
+b4p:autonomic_transition_verification_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_transition_verification" ;
+    bpm:recordDoc "Verifies the exact before and after state digests for a completed consequential transition." ;
+    bpm:hasField b4p:autonomic_transition_verification_actuation_id_f, b4p:autonomic_transition_verification_subject_sha_f, b4p:autonomic_transition_verification_authority_receipt_sha_f, b4p:autonomic_transition_verification_state_digest_f .
+
+b4p:autonomic_transition_verification_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_transition_verification_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_transition_verification_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_transition_verification_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-006 — autonomic_actuation_receipt
+b4p:autonomic_actuation_receipt_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_actuation_receipt" ;
+    bpm:recordDoc "Produces a complete deterministic receipt for one authorized actuation." ;
+    bpm:hasField b4p:autonomic_actuation_receipt_actuation_id_f, b4p:autonomic_actuation_receipt_subject_sha_f, b4p:autonomic_actuation_receipt_authority_receipt_sha_f, b4p:autonomic_actuation_receipt_state_digest_f .
+
+b4p:autonomic_actuation_receipt_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_actuation_receipt_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_actuation_receipt_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_actuation_receipt_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-007 — autonomic_actuation_replay
+b4p:autonomic_actuation_replay_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_actuation_replay" ;
+    bpm:recordDoc "Replays an actuation receipt against the same exact subject without repeating consequences." ;
+    bpm:hasField b4p:autonomic_actuation_replay_actuation_id_f, b4p:autonomic_actuation_replay_subject_sha_f, b4p:autonomic_actuation_replay_authority_receipt_sha_f, b4p:autonomic_actuation_replay_state_digest_f .
+
+b4p:autonomic_actuation_replay_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_actuation_replay_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_actuation_replay_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_actuation_replay_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-008 — autonomic_subject_compare_and_swap
+b4p:autonomic_subject_compare_and_swap_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_subject_compare_and_swap" ;
+    bpm:recordDoc "Refuses an actuation unless the observed subject SHA equals the admitted expected SHA." ;
+    bpm:hasField b4p:autonomic_subject_compare_and_swap_actuation_id_f, b4p:autonomic_subject_compare_and_swap_subject_sha_f, b4p:autonomic_subject_compare_and_swap_authority_receipt_sha_f, b4p:autonomic_subject_compare_and_swap_state_digest_f .
+
+b4p:autonomic_subject_compare_and_swap_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_subject_compare_and_swap_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_subject_compare_and_swap_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_subject_compare_and_swap_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-009 — autonomic_capability_token
+b4p:autonomic_capability_token_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_capability_token" ;
+    bpm:recordDoc "Scopes actuation authority to one capability, subject, and bounded transition." ;
+    bpm:hasField b4p:autonomic_capability_token_actuation_id_f, b4p:autonomic_capability_token_subject_sha_f, b4p:autonomic_capability_token_authority_receipt_sha_f, b4p:autonomic_capability_token_state_digest_f .
+
+b4p:autonomic_capability_token_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_capability_token_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_capability_token_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_capability_token_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-010 — autonomic_least_authority_grant
+b4p:autonomic_least_authority_grant_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_least_authority_grant" ;
+    bpm:recordDoc "Encodes the least authority sufficient for exactly one admitted actuation." ;
+    bpm:hasField b4p:autonomic_least_authority_grant_actuation_id_f, b4p:autonomic_least_authority_grant_subject_sha_f, b4p:autonomic_least_authority_grant_authority_receipt_sha_f, b4p:autonomic_least_authority_grant_state_digest_f .
+
+b4p:autonomic_least_authority_grant_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_least_authority_grant_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_least_authority_grant_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_least_authority_grant_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-011 — autonomic_planner_authority_refusal
+b4p:autonomic_planner_authority_refusal_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_planner_authority_refusal" ; bpm:recordDoc "Refuses planner output as authority unless a separate admitted authority receipt is present." ;
+    bpm:hasField b4p:autonomic_planner_authority_refusal_actuation_id_f, b4p:autonomic_planner_authority_refusal_subject_sha_f, b4p:autonomic_planner_authority_refusal_authority_receipt_sha_f, b4p:autonomic_planner_authority_refusal_state_digest_f .
+b4p:autonomic_planner_authority_refusal_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_planner_authority_refusal_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_planner_authority_refusal_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_planner_authority_refusal_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-012 — autonomic_model_authority_refusal
+b4p:autonomic_model_authority_refusal_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_model_authority_refusal" ; bpm:recordDoc "Refuses model-produced intent as ambient authority for a consequential transition." ;
+    bpm:hasField b4p:autonomic_model_authority_refusal_actuation_id_f, b4p:autonomic_model_authority_refusal_subject_sha_f, b4p:autonomic_model_authority_refusal_authority_receipt_sha_f, b4p:autonomic_model_authority_refusal_state_digest_f .
+b4p:autonomic_model_authority_refusal_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_model_authority_refusal_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_model_authority_refusal_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_model_authority_refusal_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-013 — autonomic_caller_local_binding
+b4p:autonomic_caller_local_binding_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_caller_local_binding" ; bpm:recordDoc "Binds actuation to the exact consumer checkout rather than a central surrogate." ;
+    bpm:hasField b4p:autonomic_caller_local_binding_actuation_id_f, b4p:autonomic_caller_local_binding_subject_sha_f, b4p:autonomic_caller_local_binding_authority_receipt_sha_f, b4p:autonomic_caller_local_binding_state_digest_f .
+b4p:autonomic_caller_local_binding_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_caller_local_binding_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_caller_local_binding_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_caller_local_binding_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-014 — autonomic_cross_consumer_receipt_refusal
+b4p:autonomic_cross_consumer_receipt_refusal_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_cross_consumer_receipt_refusal" ; bpm:recordDoc "Refuses reuse of an actuation receipt across distinct caller-local consumer subjects." ;
+    bpm:hasField b4p:autonomic_cross_consumer_receipt_refusal_actuation_id_f, b4p:autonomic_cross_consumer_receipt_refusal_subject_sha_f, b4p:autonomic_cross_consumer_receipt_refusal_authority_receipt_sha_f, b4p:autonomic_cross_consumer_receipt_refusal_state_digest_f .
+b4p:autonomic_cross_consumer_receipt_refusal_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_cross_consumer_receipt_refusal_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_cross_consumer_receipt_refusal_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_cross_consumer_receipt_refusal_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-015 — autonomic_pack_sha_authority
+b4p:autonomic_pack_sha_authority_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_pack_sha_authority" ; bpm:recordDoc "Requires an exact immutable marketplace pack SHA before construction or execution." ;
+    bpm:hasField b4p:autonomic_pack_sha_authority_actuation_id_f, b4p:autonomic_pack_sha_authority_subject_sha_f, b4p:autonomic_pack_sha_authority_authority_receipt_sha_f, b4p:autonomic_pack_sha_authority_state_digest_f .
+b4p:autonomic_pack_sha_authority_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_pack_sha_authority_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_pack_sha_authority_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_pack_sha_authority_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-016 — autonomic_mutable_pack_refusal
+b4p:autonomic_mutable_pack_refusal_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_mutable_pack_refusal" ; bpm:recordDoc "Refuses actuation when a marketplace pack is selected by mutable tag or branch." ;
+    bpm:hasField b4p:autonomic_mutable_pack_refusal_actuation_id_f, b4p:autonomic_mutable_pack_refusal_subject_sha_f, b4p:autonomic_mutable_pack_refusal_authority_receipt_sha_f, b4p:autonomic_mutable_pack_refusal_state_digest_f .
+b4p:autonomic_mutable_pack_refusal_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_mutable_pack_refusal_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_mutable_pack_refusal_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_mutable_pack_refusal_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-017 — autonomic_generated_surface_refusal
+b4p:autonomic_generated_surface_refusal_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_generated_surface_refusal" ; bpm:recordDoc "Refuses direct mutation of generator-owned workflows and projections." ;
+    bpm:hasField b4p:autonomic_generated_surface_refusal_actuation_id_f, b4p:autonomic_generated_surface_refusal_subject_sha_f, b4p:autonomic_generated_surface_refusal_authority_receipt_sha_f, b4p:autonomic_generated_surface_refusal_state_digest_f .
+b4p:autonomic_generated_surface_refusal_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_generated_surface_refusal_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_generated_surface_refusal_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_generated_surface_refusal_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-018 — autonomic_canonical_repair_route
+b4p:autonomic_canonical_repair_route_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_canonical_repair_route" ; bpm:recordDoc "Routes a generated-surface defect to its canonical semantic source or independent qualification rail." ;
+    bpm:hasField b4p:autonomic_canonical_repair_route_actuation_id_f, b4p:autonomic_canonical_repair_route_subject_sha_f, b4p:autonomic_canonical_repair_route_authority_receipt_sha_f, b4p:autonomic_canonical_repair_route_state_digest_f .
+b4p:autonomic_canonical_repair_route_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_canonical_repair_route_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_canonical_repair_route_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_canonical_repair_route_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-019 — autonomic_output_ownership_check
+b4p:autonomic_output_ownership_check_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_output_ownership_check" ; bpm:recordDoc "Verifies that every written output is owned by the admitted manufacturing plan." ;
+    bpm:hasField b4p:autonomic_output_ownership_check_actuation_id_f, b4p:autonomic_output_ownership_check_subject_sha_f, b4p:autonomic_output_ownership_check_authority_receipt_sha_f, b4p:autonomic_output_ownership_check_state_digest_f .
+b4p:autonomic_output_ownership_check_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_output_ownership_check_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_output_ownership_check_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_output_ownership_check_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-020 — autonomic_receipt_completeness_check
+b4p:autonomic_receipt_completeness_check_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_receipt_completeness_check" ; bpm:recordDoc "Refuses any actuation receipt missing subject, authority, before-state, after-state, or result identity." ;
+    bpm:hasField b4p:autonomic_receipt_completeness_check_actuation_id_f, b4p:autonomic_receipt_completeness_check_subject_sha_f, b4p:autonomic_receipt_completeness_check_authority_receipt_sha_f, b4p:autonomic_receipt_completeness_check_state_digest_f .
+b4p:autonomic_receipt_completeness_check_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_receipt_completeness_check_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_receipt_completeness_check_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_receipt_completeness_check_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-021 — autonomic_receipt_subject_binding
+b4p:autonomic_receipt_subject_binding_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_receipt_subject_binding" ; bpm:recordDoc "Cryptographically binds an actuation receipt to the exact caller-local subject SHA." ;
+    bpm:hasField b4p:autonomic_receipt_subject_binding_actuation_id_f, b4p:autonomic_receipt_subject_binding_subject_sha_f, b4p:autonomic_receipt_subject_binding_authority_receipt_sha_f, b4p:autonomic_receipt_subject_binding_state_digest_f .
+b4p:autonomic_receipt_subject_binding_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_receipt_subject_binding_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_receipt_subject_binding_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_receipt_subject_binding_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-022 — autonomic_receipt_authority_binding
+b4p:autonomic_receipt_authority_binding_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_receipt_authority_binding" ; bpm:recordDoc "Binds a receipt to the exact authority admission used for the transition." ;
+    bpm:hasField b4p:autonomic_receipt_authority_binding_actuation_id_f, b4p:autonomic_receipt_authority_binding_subject_sha_f, b4p:autonomic_receipt_authority_binding_authority_receipt_sha_f, b4p:autonomic_receipt_authority_binding_state_digest_f .
+b4p:autonomic_receipt_authority_binding_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_receipt_authority_binding_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_receipt_authority_binding_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_receipt_authority_binding_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-023 — autonomic_forged_receipt_refusal
+b4p:autonomic_forged_receipt_refusal_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_forged_receipt_refusal" ; bpm:recordDoc "Refuses receipts whose claimed transition identity fails deterministic verification." ;
+    bpm:hasField b4p:autonomic_forged_receipt_refusal_actuation_id_f, b4p:autonomic_forged_receipt_refusal_subject_sha_f, b4p:autonomic_forged_receipt_refusal_authority_receipt_sha_f, b4p:autonomic_forged_receipt_refusal_state_digest_f .
+b4p:autonomic_forged_receipt_refusal_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_forged_receipt_refusal_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_forged_receipt_refusal_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_forged_receipt_refusal_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-024 — autonomic_stale_receipt_refusal
+b4p:autonomic_stale_receipt_refusal_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_stale_receipt_refusal" ; bpm:recordDoc "Refuses receipts whose subject or before-state no longer matches the admitted transition." ;
+    bpm:hasField b4p:autonomic_stale_receipt_refusal_actuation_id_f, b4p:autonomic_stale_receipt_refusal_subject_sha_f, b4p:autonomic_stale_receipt_refusal_authority_receipt_sha_f, b4p:autonomic_stale_receipt_refusal_state_digest_f .
+b4p:autonomic_stale_receipt_refusal_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_stale_receipt_refusal_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_stale_receipt_refusal_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_stale_receipt_refusal_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-025 — autonomic_receipt_chain_link
+b4p:autonomic_receipt_chain_link_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_receipt_chain_link" ; bpm:recordDoc "Links each consequential transition receipt to its verified predecessor receipt." ;
+    bpm:hasField b4p:autonomic_receipt_chain_link_actuation_id_f, b4p:autonomic_receipt_chain_link_subject_sha_f, b4p:autonomic_receipt_chain_link_authority_receipt_sha_f, b4p:autonomic_receipt_chain_link_state_digest_f .
+b4p:autonomic_receipt_chain_link_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_receipt_chain_link_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_receipt_chain_link_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_receipt_chain_link_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-026 — autonomic_deterministic_receipt_replay
+b4p:autonomic_deterministic_receipt_replay_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_deterministic_receipt_replay" ; bpm:recordDoc "Recomputes receipt identity deterministically without reapplying the original consequence." ;
+    bpm:hasField b4p:autonomic_deterministic_receipt_replay_actuation_id_f, b4p:autonomic_deterministic_receipt_replay_subject_sha_f, b4p:autonomic_deterministic_receipt_replay_authority_receipt_sha_f, b4p:autonomic_deterministic_receipt_replay_state_digest_f .
+b4p:autonomic_deterministic_receipt_replay_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_deterministic_receipt_replay_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_deterministic_receipt_replay_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_deterministic_receipt_replay_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-027 — autonomic_replay_divergence_refusal
+b4p:autonomic_replay_divergence_refusal_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_replay_divergence_refusal" ; bpm:recordDoc "Refuses replay when recomputed state or receipt identity diverges from the admitted evidence." ;
+    bpm:hasField b4p:autonomic_replay_divergence_refusal_actuation_id_f, b4p:autonomic_replay_divergence_refusal_subject_sha_f, b4p:autonomic_replay_divergence_refusal_authority_receipt_sha_f, b4p:autonomic_replay_divergence_refusal_state_digest_f .
+b4p:autonomic_replay_divergence_refusal_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_replay_divergence_refusal_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_replay_divergence_refusal_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_replay_divergence_refusal_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-028 — autonomic_second_run_identity
+b4p:autonomic_second_run_identity_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_second_run_identity" ; bpm:recordDoc "Proves a second manufacture or sync produces byte-identical owned outputs." ;
+    bpm:hasField b4p:autonomic_second_run_identity_actuation_id_f, b4p:autonomic_second_run_identity_subject_sha_f, b4p:autonomic_second_run_identity_authority_receipt_sha_f, b4p:autonomic_second_run_identity_state_digest_f .
+b4p:autonomic_second_run_identity_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_second_run_identity_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_second_run_identity_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_second_run_identity_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-029 — autonomic_idempotence_fence
+b4p:autonomic_idempotence_fence_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_idempotence_fence" ; bpm:recordDoc "Prevents duplicate execution of an already receipted actuation identity." ;
+    bpm:hasField b4p:autonomic_idempotence_fence_actuation_id_f, b4p:autonomic_idempotence_fence_subject_sha_f, b4p:autonomic_idempotence_fence_authority_receipt_sha_f, b4p:autonomic_idempotence_fence_state_digest_f .
+b4p:autonomic_idempotence_fence_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_idempotence_fence_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_idempotence_fence_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_idempotence_fence_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-030 — autonomic_retry_budget
+b4p:autonomic_retry_budget_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_retry_budget" ; bpm:recordDoc "Bounds recoverable actuation retries by explicit count and authority scope." ;
+    bpm:hasField b4p:autonomic_retry_budget_actuation_id_f, b4p:autonomic_retry_budget_subject_sha_f, b4p:autonomic_retry_budget_authority_receipt_sha_f, b4p:autonomic_retry_budget_state_digest_f .
+b4p:autonomic_retry_budget_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_retry_budget_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_retry_budget_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_retry_budget_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-031 — autonomic_retry_backoff
+b4p:autonomic_retry_backoff_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_retry_backoff" ; bpm:recordDoc "Schedules bounded retry delay without widening the original authority or subject." ;
+    bpm:hasField b4p:autonomic_retry_backoff_actuation_id_f, b4p:autonomic_retry_backoff_subject_sha_f, b4p:autonomic_retry_backoff_authority_receipt_sha_f, b4p:autonomic_retry_backoff_state_digest_f .
+b4p:autonomic_retry_backoff_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_retry_backoff_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_retry_backoff_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_retry_backoff_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-032 — autonomic_timeout_budget
+b4p:autonomic_timeout_budget_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_timeout_budget" ; bpm:recordDoc "Cancels an unfinished actuation when its admitted execution budget expires." ;
+    bpm:hasField b4p:autonomic_timeout_budget_actuation_id_f, b4p:autonomic_timeout_budget_subject_sha_f, b4p:autonomic_timeout_budget_authority_receipt_sha_f, b4p:autonomic_timeout_budget_state_digest_f .
+b4p:autonomic_timeout_budget_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_timeout_budget_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_timeout_budget_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_timeout_budget_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-033 — autonomic_cancellation_receipt
+b4p:autonomic_cancellation_receipt_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_cancellation_receipt" ; bpm:recordDoc "Produces a deterministic receipt proving cancellation and the resulting bounded state." ;
+    bpm:hasField b4p:autonomic_cancellation_receipt_actuation_id_f, b4p:autonomic_cancellation_receipt_subject_sha_f, b4p:autonomic_cancellation_receipt_authority_receipt_sha_f, b4p:autonomic_cancellation_receipt_state_digest_f .
+b4p:autonomic_cancellation_receipt_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_cancellation_receipt_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_cancellation_receipt_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_cancellation_receipt_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-034 — autonomic_saga_compensation
+b4p:autonomic_saga_compensation_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_saga_compensation" ; bpm:recordDoc "Constructs a compensating transition for a partially completed multi-step actuation." ;
+    bpm:hasField b4p:autonomic_saga_compensation_actuation_id_f, b4p:autonomic_saga_compensation_subject_sha_f, b4p:autonomic_saga_compensation_authority_receipt_sha_f, b4p:autonomic_saga_compensation_state_digest_f .
+b4p:autonomic_saga_compensation_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_saga_compensation_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_saga_compensation_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_saga_compensation_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-035 — autonomic_compensation_verification
+b4p:autonomic_compensation_verification_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_compensation_verification" ; bpm:recordDoc "Verifies compensation restored the admitted recovery state without hiding partial effects." ;
+    bpm:hasField b4p:autonomic_compensation_verification_actuation_id_f, b4p:autonomic_compensation_verification_subject_sha_f, b4p:autonomic_compensation_verification_authority_receipt_sha_f, b4p:autonomic_compensation_verification_state_digest_f .
+b4p:autonomic_compensation_verification_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_compensation_verification_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_compensation_verification_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_compensation_verification_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-036 — autonomic_supervisor_restart
+b4p:autonomic_supervisor_restart_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_supervisor_restart" ; bpm:recordDoc "Restarts a failed actuation worker under bounded BEAM supervision semantics." ;
+    bpm:hasField b4p:autonomic_supervisor_restart_actuation_id_f, b4p:autonomic_supervisor_restart_subject_sha_f, b4p:autonomic_supervisor_restart_authority_receipt_sha_f, b4p:autonomic_supervisor_restart_state_digest_f .
+b4p:autonomic_supervisor_restart_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_supervisor_restart_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_supervisor_restart_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_supervisor_restart_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-037 — autonomic_crash_recovery
+b4p:autonomic_crash_recovery_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_crash_recovery" ; bpm:recordDoc "Resumes a receipted transition after process crash from the last verified state boundary." ;
+    bpm:hasField b4p:autonomic_crash_recovery_actuation_id_f, b4p:autonomic_crash_recovery_subject_sha_f, b4p:autonomic_crash_recovery_authority_receipt_sha_f, b4p:autonomic_crash_recovery_state_digest_f .
+b4p:autonomic_crash_recovery_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_crash_recovery_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_crash_recovery_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_crash_recovery_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-038 — autonomic_backpressure_admission
+b4p:autonomic_backpressure_admission_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_backpressure_admission" ; bpm:recordDoc "Refuses new consequential work when admitted queue or inflight capacity is exhausted." ;
+    bpm:hasField b4p:autonomic_backpressure_admission_actuation_id_f, b4p:autonomic_backpressure_admission_subject_sha_f, b4p:autonomic_backpressure_admission_authority_receipt_sha_f, b4p:autonomic_backpressure_admission_state_digest_f .
+b4p:autonomic_backpressure_admission_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_backpressure_admission_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_backpressure_admission_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_backpressure_admission_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-039 — autonomic_circuit_breaker_transition
+b4p:autonomic_circuit_breaker_transition_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_circuit_breaker_transition" ; bpm:recordDoc "Opens, probes, and closes a circuit using receipted health state transitions." ;
+    bpm:hasField b4p:autonomic_circuit_breaker_transition_actuation_id_f, b4p:autonomic_circuit_breaker_transition_subject_sha_f, b4p:autonomic_circuit_breaker_transition_authority_receipt_sha_f, b4p:autonomic_circuit_breaker_transition_state_digest_f .
+b4p:autonomic_circuit_breaker_transition_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_circuit_breaker_transition_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_circuit_breaker_transition_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_circuit_breaker_transition_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-040 — autonomic_stale_action_refusal
+b4p:autonomic_stale_action_refusal_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_stale_action_refusal" ; bpm:recordDoc "Refuses a queued action whose subject, authority, or expected before-state became stale." ;
+    bpm:hasField b4p:autonomic_stale_action_refusal_actuation_id_f, b4p:autonomic_stale_action_refusal_subject_sha_f, b4p:autonomic_stale_action_refusal_authority_receipt_sha_f, b4p:autonomic_stale_action_refusal_state_digest_f .
+b4p:autonomic_stale_action_refusal_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_stale_action_refusal_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_stale_action_refusal_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_stale_action_refusal_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-041 — autonomic_failure_classification
+b4p:autonomic_failure_classification_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_failure_classification" ; bpm:recordDoc "Classifies execution failures as subject, authority, capsule, dependency, transient, or irreducible boundary." ;
+    bpm:hasField b4p:autonomic_failure_classification_actuation_id_f, b4p:autonomic_failure_classification_subject_sha_f, b4p:autonomic_failure_classification_authority_receipt_sha_f, b4p:autonomic_failure_classification_state_digest_f .
+b4p:autonomic_failure_classification_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_failure_classification_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_failure_classification_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_failure_classification_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-042 — autonomic_rca_hypothesis
+b4p:autonomic_rca_hypothesis_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_rca_hypothesis" ; bpm:recordDoc "Generates a bounded machine-actionable root-cause hypothesis from failed actuation evidence." ;
+    bpm:hasField b4p:autonomic_rca_hypothesis_actuation_id_f, b4p:autonomic_rca_hypothesis_subject_sha_f, b4p:autonomic_rca_hypothesis_authority_receipt_sha_f, b4p:autonomic_rca_hypothesis_state_digest_f .
+b4p:autonomic_rca_hypothesis_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_rca_hypothesis_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_rca_hypothesis_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_rca_hypothesis_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-043 — autonomic_repair_selection
+b4p:autonomic_repair_selection_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_repair_selection" ; bpm:recordDoc "Selects a least-change repair whose authority and affected surface remain explicitly bounded." ;
+    bpm:hasField b4p:autonomic_repair_selection_actuation_id_f, b4p:autonomic_repair_selection_subject_sha_f, b4p:autonomic_repair_selection_authority_receipt_sha_f, b4p:autonomic_repair_selection_state_digest_f .
+b4p:autonomic_repair_selection_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_repair_selection_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_repair_selection_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_repair_selection_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-044 — autonomic_repair_reexecution
+b4p:autonomic_repair_reexecution_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_repair_reexecution" ; bpm:recordDoc "Re-executes a repaired actuation from the last verified state with a linked receipt." ;
+    bpm:hasField b4p:autonomic_repair_reexecution_actuation_id_f, b4p:autonomic_repair_reexecution_subject_sha_f, b4p:autonomic_repair_reexecution_authority_receipt_sha_f, b4p:autonomic_repair_reexecution_state_digest_f .
+b4p:autonomic_repair_reexecution_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_repair_reexecution_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_repair_reexecution_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_repair_reexecution_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-045 — autonomic_rollback_transition
+b4p:autonomic_rollback_transition_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_rollback_transition" ; bpm:recordDoc "Restores an exact admitted prior state when forward repair cannot safely complete." ;
+    bpm:hasField b4p:autonomic_rollback_transition_actuation_id_f, b4p:autonomic_rollback_transition_subject_sha_f, b4p:autonomic_rollback_transition_authority_receipt_sha_f, b4p:autonomic_rollback_transition_state_digest_f .
+b4p:autonomic_rollback_transition_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_rollback_transition_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_rollback_transition_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_rollback_transition_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-046 — autonomic_canary_admission
+b4p:autonomic_canary_admission_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_canary_admission" ; bpm:recordDoc "Admits a bounded canary transition and refuses fleet-wide expansion without verified evidence." ;
+    bpm:hasField b4p:autonomic_canary_admission_actuation_id_f, b4p:autonomic_canary_admission_subject_sha_f, b4p:autonomic_canary_admission_authority_receipt_sha_f, b4p:autonomic_canary_admission_state_digest_f .
+b4p:autonomic_canary_admission_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_canary_admission_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_canary_admission_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_canary_admission_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-047 — autonomic_upgrade_transition
+b4p:autonomic_upgrade_transition_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_upgrade_transition" ; bpm:recordDoc "Executes a version upgrade against exact capsule, pack, and subject identities with rollback evidence." ;
+    bpm:hasField b4p:autonomic_upgrade_transition_actuation_id_f, b4p:autonomic_upgrade_transition_subject_sha_f, b4p:autonomic_upgrade_transition_authority_receipt_sha_f, b4p:autonomic_upgrade_transition_state_digest_f .
+b4p:autonomic_upgrade_transition_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_upgrade_transition_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_upgrade_transition_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_upgrade_transition_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-048 — autonomic_incident_recovery
+b4p:autonomic_incident_recovery_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_incident_recovery" ; bpm:recordDoc "Coordinates automatic incident recovery through verified transitions and deterministic receipts." ;
+    bpm:hasField b4p:autonomic_incident_recovery_actuation_id_f, b4p:autonomic_incident_recovery_subject_sha_f, b4p:autonomic_incident_recovery_authority_receipt_sha_f, b4p:autonomic_incident_recovery_state_digest_f .
+b4p:autonomic_incident_recovery_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_incident_recovery_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_incident_recovery_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_incident_recovery_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-049 — autonomic_authority_escalation
+b4p:autonomic_authority_escalation_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_authority_escalation" ; bpm:recordDoc "Emits a machine-readable escalation only when the remaining boundary is irreducible by admitted authority." ;
+    bpm:hasField b4p:autonomic_authority_escalation_actuation_id_f, b4p:autonomic_authority_escalation_subject_sha_f, b4p:autonomic_authority_escalation_authority_receipt_sha_f, b4p:autonomic_authority_escalation_state_digest_f .
+b4p:autonomic_authority_escalation_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_authority_escalation_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_authority_escalation_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_authority_escalation_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
+
+
+# WS3-ACT-050 — autonomic_self_healing_completion_receipt
+b4p:autonomic_self_healing_completion_receipt_rt a bpm:RecordType ;
+    bpm:recordName "autonomic_self_healing_completion_receipt" ; bpm:recordDoc "Proves the full select, authorize, execute, verify, repair, replay, and containment loop completed." ;
+    bpm:hasField b4p:autonomic_self_healing_completion_receipt_actuation_id_f, b4p:autonomic_self_healing_completion_receipt_subject_sha_f, b4p:autonomic_self_healing_completion_receipt_authority_receipt_sha_f, b4p:autonomic_self_healing_completion_receipt_state_digest_f .
+b4p:autonomic_self_healing_completion_receipt_actuation_id_f a bpm:Field ; bpm:fieldName "actuation_id" ; bpm:fieldType "string" ; bpm:fieldDoc "Unique bounded actuation identity." ; bpm:fieldRequired "true" ; bpm:fieldOrder 1 .
+b4p:autonomic_self_healing_completion_receipt_subject_sha_f a bpm:Field ; bpm:fieldName "subject_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Exact caller-local subject commit SHA." ; bpm:fieldRequired "true" ; bpm:fieldOrder 2 .
+b4p:autonomic_self_healing_completion_receipt_authority_receipt_sha_f a bpm:Field ; bpm:fieldName "authority_receipt_sha" ; bpm:fieldType "string" ; bpm:fieldDoc "Immutable receipt admitting authority for this transition." ; bpm:fieldRequired "true" ; bpm:fieldOrder 3 .
+b4p:autonomic_self_healing_completion_receipt_state_digest_f a bpm:Field ; bpm:fieldName "state_digest" ; bpm:fieldType "string" ; bpm:fieldDoc "Deterministic state digest used by verification and replay." ; bpm:fieldRequired "true" ; bpm:fieldOrder 4 .
 # WS4-ACP-001 — caller_local_crown_identity
 b4p:caller_local_crown_identity_rt a bpm:RecordType ;
     bpm:recordName "caller_local_crown_identity" ;
