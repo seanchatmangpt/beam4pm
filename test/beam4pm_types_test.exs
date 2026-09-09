@@ -2,9477 +2,7149 @@
 defmodule BeamPM.Types.GeneratedTest do
   use ExUnit.Case, async: true
 
-  test "acceptance_criteria_nonweakening new/1 succeeds when all fields are present" do
-    attrs = %{
-      assessment_id: "x",
-      acceptance_contract_id: "x",
-      prior_digest: "x",
-      candidate_digest: "x",
-      strength_result: "x",
-      refusal_code: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AcceptanceCriteriaNonweakening.new(attrs)
-  end
-
-  test "acceptance_criteria_nonweakening new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AcceptanceCriteriaNonweakening.new(%{})
-  end
-
-
-  test "account_discovery new/1 succeeds when all fields are present" do
-    attrs = %{
-      account_discovery_id: "x",
-      account_id: "x",
-      discovery_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AccountDiscovery.new(attrs)
-  end
-
-  test "account_discovery new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AccountDiscovery.new(%{})
-  end
-
-
-  test "account_master_match new/1 succeeds when all fields are present" do
-    attrs = %{
-      source_account_id: "x",
-      canonical_account_id: "x",
-      match_evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AccountMasterMatch.new(attrs)
-  end
-
-  test "account_master_match new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AccountMasterMatch.new(%{})
-  end
-
-
-  test "account_parent_scope new/1 succeeds when all fields are present" do
-    attrs = %{
-      account_id: "x",
-      parent_account_id: "x",
-      scope_evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AccountParentScope.new(attrs)
-  end
-
-  test "account_parent_scope new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AccountParentScope.new(%{})
-  end
-
-
-  test "account_value_realization new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      account_id: "x",
-      realization_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AccountValueRealization.new(attrs)
-  end
-
-  test "account_value_realization new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AccountValueRealization.new(%{})
-  end
-
-
-  test "action_pin_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      action_sha: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ActionPinEvidence.new(attrs)
-  end
-
-  test "action_pin_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ActionPinEvidence.new(%{})
-  end
-
-
-  test "activation_event new/1 succeeds when all fields are present" do
-    attrs = %{
-      activation_event_id: "x",
-      account_id: "x",
-      activation_type: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ActivationEvent.new(attrs)
-  end
-
-  test "activation_event new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ActivationEvent.new(%{})
-  end
-
-
-  test "add_on_bundle new/1 succeeds when all fields are present" do
-    attrs = %{
-      add_on_id: "x",
-      name: "x",
-      capability_ids: ["a"],
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.AddOnBundle.new(attrs)
-  end
-
-  test "add_on_bundle new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AddOnBundle.new(%{})
-  end
-
-
-  test "addon_activation new/1 succeeds when all fields are present" do
-    attrs = %{
-      addon_activation_id: "x",
-      account_id: "x",
-      addon_id: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AddonActivation.new(attrs)
-  end
-
-  test "addon_activation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AddonActivation.new(%{})
-  end
-
-
-  test "admissible_action_set new/1 succeeds when all fields are present" do
-    attrs = %{
-      state_id: "x",
-      constraint_hash: "x",
-      action_set_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AdmissibleActionSet.new(attrs)
-  end
-
-  test "admissible_action_set new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AdmissibleActionSet.new(%{})
-  end
-
-
-  test "adoption_milestone new/1 succeeds when all fields are present" do
-    attrs = %{
-      adoption_milestone_id: "x",
-      account_id: "x",
-      milestone_name: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AdoptionMilestone.new(attrs)
-  end
-
-  test "adoption_milestone new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AdoptionMilestone.new(%{})
-  end
-
-
-  test "agent_assignment new/1 succeeds when all fields are present" do
-    attrs = %{
-      agent_id: "x",
-      policy_id: "x",
-      assignment_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AgentAssignment.new(attrs)
-  end
-
-  test "agent_assignment new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AgentAssignment.new(%{})
-  end
-
-
-  test "alignment_move new/1 succeeds when all fields are present" do
-    attrs = %{
-      move_type: :some_atom,
-      cost: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.AlignmentMove.new(attrs)
-  end
-
-  test "alignment_move new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AlignmentMove.new(%{})
-  end
-
-
-  test "annual_subscription new/1 succeeds when all fields are present" do
-    attrs = %{
-      subscription_id: "x",
-      sku: "x",
-      seat_count: 1,
-      renews_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AnnualSubscription.new(attrs)
-  end
-
-  test "annual_subscription new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AnnualSubscription.new(%{})
-  end
-
-
-  test "anomaly_detection_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      subject_id: "x",
-      baseline_digest: "x",
-      observation_digest: "x",
-      anomaly_score: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.AnomalyDetectionObservation.new(attrs)
-  end
-
-  test "anomaly_detection_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AnomalyDetectionObservation.new(%{})
-  end
-
-
-  test "anti_repeat_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      refusal_id: "x",
-      candidate_action_id: "x",
-      matching_signature_id: "x",
-      recurrence_risk: 1.0,
-      alternative_required: true
-    }
-
-    assert {:ok, _} = BeamPM.Types.AntiRepeatRefusal.new(attrs)
-  end
-
-  test "anti_repeat_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AntiRepeatRefusal.new(%{})
-  end
-
-
-  test "anti_repeat_signature new/1 succeeds when all fields are present" do
-    attrs = %{
-      signature_id: "x",
-      failure_class: "x",
-      causal_features_digest: "x",
-      repair_family: "x",
-      first_seen_episode: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AntiRepeatSignature.new(attrs)
-  end
-
-  test "anti_repeat_signature new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AntiRepeatSignature.new(%{})
-  end
-
-
-  test "approval_separation_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      approver_identity: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ApprovalSeparationEvidence.new(attrs)
-  end
-
-  test "approval_separation_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ApprovalSeparationEvidence.new(%{})
-  end
-
-
-  test "architecture_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      architecture_readiness_id: "x",
-      account_id: "x",
-      architecture_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ArchitectureReadiness.new(attrs)
-  end
-
-  test "architecture_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ArchitectureReadiness.new(%{})
-  end
-
-
-  test "architecture_review_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      review_decision: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ArchitectureReviewEvidence.new(attrs)
-  end
-
-  test "architecture_review_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ArchitectureReviewEvidence.new(%{})
-  end
-
-
-  test "artifact_digest_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      digest: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ArtifactDigestEvidence.new(attrs)
-  end
-
-  test "artifact_digest_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ArtifactDigestEvidence.new(%{})
-  end
-
-
-  test "artifact_digest_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      artifact_id: "x",
-      artifact_sha256: "x",
-      producer_run_id: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ArtifactDigestObservation.new(attrs)
-  end
-
-  test "artifact_digest_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ArtifactDigestObservation.new(%{})
-  end
-
-
-  test "astar_plan_candidate new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      heuristic_id: "x",
-      path_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AstarPlanCandidate.new(attrs)
-  end
-
-  test "astar_plan_candidate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AstarPlanCandidate.new(%{})
-  end
-
-
-  test "attestation_verification_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      predicate_type: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.AttestationVerificationEvidence.new(attrs)
-  end
-
-  test "attestation_verification_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AttestationVerificationEvidence.new(%{})
-  end
-
-
-  test "audit_chain_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      previous_receipt_hash: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.AuditChainEvidence.new(attrs)
-  end
-
-  test "audit_chain_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AuditChainEvidence.new(%{})
-  end
-
-
-  test "authority_ceiling new/1 succeeds when all fields are present" do
-    attrs = %{
-      action_id: "x",
-      grant_id: "x",
-      ceiling: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AuthorityCeiling.new(attrs)
-  end
-
-  test "authority_ceiling new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AuthorityCeiling.new(%{})
-  end
-
-
-  test "autonomic_actuation_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicActuationReceipt.new(attrs)
-  end
-
-  test "autonomic_actuation_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicActuationReceipt.new(%{})
-  end
-
-
-  test "autonomic_actuation_replay new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicActuationReplay.new(attrs)
-  end
-
-  test "autonomic_actuation_replay new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicActuationReplay.new(%{})
-  end
-
-
-  test "autonomic_actuation_selection new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicActuationSelection.new(attrs)
-  end
-
-  test "autonomic_actuation_selection new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicActuationSelection.new(%{})
-  end
-
-
-  test "autonomic_authority_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicAuthorityAdmission.new(attrs)
-  end
-
-  test "autonomic_authority_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicAuthorityAdmission.new(%{})
-  end
-
-
-  test "autonomic_authority_escalation new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicAuthorityEscalation.new(attrs)
-  end
-
-  test "autonomic_authority_escalation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicAuthorityEscalation.new(%{})
-  end
-
-
-  test "autonomic_backpressure_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicBackpressureAdmission.new(attrs)
-  end
-
-  test "autonomic_backpressure_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicBackpressureAdmission.new(%{})
-  end
-
-
-  test "autonomic_caller_local_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicCallerLocalBinding.new(attrs)
-  end
-
-  test "autonomic_caller_local_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCallerLocalBinding.new(%{})
-  end
-
-
-  test "autonomic_canary_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicCanaryAdmission.new(attrs)
-  end
-
-  test "autonomic_canary_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCanaryAdmission.new(%{})
-  end
-
-
-  test "autonomic_cancellation_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicCancellationReceipt.new(attrs)
-  end
-
-  test "autonomic_cancellation_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCancellationReceipt.new(%{})
-  end
-
-
-  test "autonomic_canonical_repair_route new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicCanonicalRepairRoute.new(attrs)
-  end
-
-  test "autonomic_canonical_repair_route new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCanonicalRepairRoute.new(%{})
-  end
-
-
-  test "autonomic_capability_token new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicCapabilityToken.new(attrs)
-  end
-
-  test "autonomic_capability_token new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCapabilityToken.new(%{})
-  end
-
-
-  test "autonomic_circuit_breaker_transition new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicCircuitBreakerTransition.new(attrs)
-  end
-
-  test "autonomic_circuit_breaker_transition new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCircuitBreakerTransition.new(%{})
-  end
-
-
-  test "autonomic_compensation_verification new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicCompensationVerification.new(attrs)
-  end
-
-  test "autonomic_compensation_verification new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCompensationVerification.new(%{})
-  end
-
-
-  test "autonomic_crash_recovery new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicCrashRecovery.new(attrs)
-  end
-
-  test "autonomic_crash_recovery new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCrashRecovery.new(%{})
-  end
-
-
-  test "autonomic_cross_consumer_receipt_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicCrossConsumerReceiptRefusal.new(attrs)
-  end
-
-  test "autonomic_cross_consumer_receipt_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicCrossConsumerReceiptRefusal.new(%{})
-  end
-
-
-  test "autonomic_deterministic_receipt_replay new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicDeterministicReceiptReplay.new(attrs)
-  end
-
-  test "autonomic_deterministic_receipt_replay new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicDeterministicReceiptReplay.new(%{})
-  end
-
-
-  test "autonomic_failure_classification new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicFailureClassification.new(attrs)
-  end
-
-  test "autonomic_failure_classification new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicFailureClassification.new(%{})
-  end
-
-
-  test "autonomic_forged_receipt_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicForgedReceiptRefusal.new(attrs)
-  end
-
-  test "autonomic_forged_receipt_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicForgedReceiptRefusal.new(%{})
-  end
-
-
-  test "autonomic_generated_surface_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicGeneratedSurfaceRefusal.new(attrs)
-  end
-
-  test "autonomic_generated_surface_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicGeneratedSurfaceRefusal.new(%{})
-  end
-
-
-  test "autonomic_idempotence_fence new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicIdempotenceFence.new(attrs)
-  end
-
-  test "autonomic_idempotence_fence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicIdempotenceFence.new(%{})
-  end
-
-
-  test "autonomic_incident_recovery new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicIncidentRecovery.new(attrs)
-  end
-
-  test "autonomic_incident_recovery new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicIncidentRecovery.new(%{})
-  end
-
-
-  test "autonomic_least_authority_grant new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicLeastAuthorityGrant.new(attrs)
-  end
-
-  test "autonomic_least_authority_grant new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicLeastAuthorityGrant.new(%{})
-  end
-
-
-  test "autonomic_model_authority_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicModelAuthorityRefusal.new(attrs)
-  end
-
-  test "autonomic_model_authority_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicModelAuthorityRefusal.new(%{})
-  end
-
-
-  test "autonomic_mutable_pack_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicMutablePackRefusal.new(attrs)
-  end
-
-  test "autonomic_mutable_pack_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicMutablePackRefusal.new(%{})
-  end
-
-
-  test "autonomic_output_ownership_check new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicOutputOwnershipCheck.new(attrs)
-  end
-
-  test "autonomic_output_ownership_check new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicOutputOwnershipCheck.new(%{})
-  end
-
-
-  test "autonomic_pack_sha_authority new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicPackShaAuthority.new(attrs)
-  end
-
-  test "autonomic_pack_sha_authority new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicPackShaAuthority.new(%{})
-  end
-
-
-  test "autonomic_plan_construction new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicPlanConstruction.new(attrs)
-  end
-
-  test "autonomic_plan_construction new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicPlanConstruction.new(%{})
-  end
-
-
-  test "autonomic_planner_authority_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicPlannerAuthorityRefusal.new(attrs)
-  end
-
-  test "autonomic_planner_authority_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicPlannerAuthorityRefusal.new(%{})
-  end
-
-
-  test "autonomic_rca_hypothesis new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicRcaHypothesis.new(attrs)
-  end
-
-  test "autonomic_rca_hypothesis new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRcaHypothesis.new(%{})
-  end
-
-
-  test "autonomic_receipt_authority_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicReceiptAuthorityBinding.new(attrs)
-  end
-
-  test "autonomic_receipt_authority_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicReceiptAuthorityBinding.new(%{})
-  end
-
-
-  test "autonomic_receipt_chain_link new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicReceiptChainLink.new(attrs)
-  end
-
-  test "autonomic_receipt_chain_link new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicReceiptChainLink.new(%{})
-  end
-
-
-  test "autonomic_receipt_completeness_check new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicReceiptCompletenessCheck.new(attrs)
-  end
-
-  test "autonomic_receipt_completeness_check new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicReceiptCompletenessCheck.new(%{})
-  end
-
-
-  test "autonomic_receipt_subject_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicReceiptSubjectBinding.new(attrs)
-  end
-
-  test "autonomic_receipt_subject_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicReceiptSubjectBinding.new(%{})
-  end
-
-
-  test "autonomic_repair_reexecution new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicRepairReexecution.new(attrs)
-  end
-
-  test "autonomic_repair_reexecution new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRepairReexecution.new(%{})
-  end
-
-
-  test "autonomic_repair_selection new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicRepairSelection.new(attrs)
-  end
-
-  test "autonomic_repair_selection new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRepairSelection.new(%{})
-  end
-
-
-  test "autonomic_replay_divergence_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicReplayDivergenceRefusal.new(attrs)
-  end
-
-  test "autonomic_replay_divergence_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicReplayDivergenceRefusal.new(%{})
-  end
-
-
-  test "autonomic_retry_backoff new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicRetryBackoff.new(attrs)
-  end
-
-  test "autonomic_retry_backoff new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRetryBackoff.new(%{})
-  end
-
-
-  test "autonomic_retry_budget new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicRetryBudget.new(attrs)
-  end
-
-  test "autonomic_retry_budget new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRetryBudget.new(%{})
-  end
-
-
-  test "autonomic_rollback_transition new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicRollbackTransition.new(attrs)
-  end
-
-  test "autonomic_rollback_transition new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicRollbackTransition.new(%{})
-  end
-
-
-  test "autonomic_saga_compensation new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicSagaCompensation.new(attrs)
-  end
-
-  test "autonomic_saga_compensation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicSagaCompensation.new(%{})
-  end
-
-
-  test "autonomic_second_run_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicSecondRunIdentity.new(attrs)
-  end
-
-  test "autonomic_second_run_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicSecondRunIdentity.new(%{})
-  end
-
-
-  test "autonomic_self_healing_completion_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicSelfHealingCompletionReceipt.new(attrs)
-  end
-
-  test "autonomic_self_healing_completion_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicSelfHealingCompletionReceipt.new(%{})
-  end
-
-
-  test "autonomic_stale_action_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicStaleActionRefusal.new(attrs)
-  end
-
-  test "autonomic_stale_action_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicStaleActionRefusal.new(%{})
-  end
-
-
-  test "autonomic_stale_receipt_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicStaleReceiptRefusal.new(attrs)
-  end
-
-  test "autonomic_stale_receipt_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicStaleReceiptRefusal.new(%{})
-  end
-
-
-  test "autonomic_state_vector new/1 succeeds when all fields are present" do
-    attrs = %{
-      state_vector_id: "x",
-      subject_id: "x",
-      dimension_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicStateVector.new(attrs)
-  end
-
-  test "autonomic_state_vector new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicStateVector.new(%{})
-  end
-
-
-  test "autonomic_subject_compare_and_swap new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicSubjectCompareAndSwap.new(attrs)
-  end
-
-  test "autonomic_subject_compare_and_swap new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicSubjectCompareAndSwap.new(%{})
-  end
-
-
-  test "autonomic_supervisor_restart new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicSupervisorRestart.new(attrs)
-  end
-
-  test "autonomic_supervisor_restart new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicSupervisorRestart.new(%{})
-  end
-
-
-  test "autonomic_timeout_budget new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicTimeoutBudget.new(attrs)
-  end
-
-  test "autonomic_timeout_budget new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicTimeoutBudget.new(%{})
-  end
-
-
-  test "autonomic_transition_execution new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicTransitionExecution.new(attrs)
-  end
-
-  test "autonomic_transition_execution new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicTransitionExecution.new(%{})
-  end
-
-
-  test "autonomic_transition_verification new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicTransitionVerification.new(attrs)
-  end
-
-  test "autonomic_transition_verification new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicTransitionVerification.new(%{})
-  end
-
-
-  test "autonomic_upgrade_transition new/1 succeeds when all fields are present" do
-    attrs = %{
-      actuation_id: "x",
-      subject_sha: "x",
-      authority_receipt_sha: "x",
-      state_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AutonomicUpgradeTransition.new(attrs)
-  end
-
-  test "autonomic_upgrade_transition new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AutonomicUpgradeTransition.new(%{})
-  end
-
-
-  test "availability_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      slo_id: "x",
-      observation_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.AvailabilityObservation.new(attrs)
-  end
-
-  test "availability_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AvailabilityObservation.new(%{})
-  end
-
-
-  test "availability_slo_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      availability_percent: 1.0,
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.AvailabilitySloEvidence.new(attrs)
-  end
-
-  test "availability_slo_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.AvailabilitySloEvidence.new(%{})
-  end
-
-
-  test "backup_restore_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      backup_digest: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.BackupRestoreEvidence.new(attrs)
-  end
-
-  test "backup_restore_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BackupRestoreEvidence.new(%{})
-  end
-
-
-  test "baseline_metric new/1 succeeds when all fields are present" do
-    attrs = %{
-      baseline_metric_id: "x",
-      account_id: "x",
-      baseline_value: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BaselineMetric.new(attrs)
-  end
-
-  test "baseline_metric new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BaselineMetric.new(%{})
-  end
-
-
-  test "beam_search_candidate new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      beam_width: "x",
-      frontier_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BeamSearchCandidate.new(attrs)
-  end
-
-  test "beam_search_candidate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BeamSearchCandidate.new(%{})
-  end
-
-
-  test "belief_state_snapshot new/1 succeeds when all fields are present" do
-    attrs = %{
-      belief_state_id: "x",
-      subject_id: "x",
-      posterior_digest: "x",
-      uncertainty_status: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BeliefStateSnapshot.new(attrs)
-  end
-
-  test "belief_state_snapshot new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BeliefStateSnapshot.new(%{})
-  end
-
-
-  test "belief_state_update new/1 succeeds when all fields are present" do
-    attrs = %{
-      prior_belief_id: "x",
-      evidence_digest: "x",
-      posterior_belief_id: "x",
-      update_rule: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BeliefStateUpdate.new(attrs)
-  end
-
-  test "belief_state_update new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BeliefStateUpdate.new(%{})
-  end
-
-
-  test "beneficial_owner_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      account_id: "x",
-      owner_id: "x",
-      evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BeneficialOwnerEvidence.new(attrs)
-  end
-
-  test "beneficial_owner_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BeneficialOwnerEvidence.new(%{})
-  end
-
-
-  test "billable_usage_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      billable_usage_id: "x",
-      identity_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BillableUsageIdentity.new(attrs)
-  end
-
-  test "billable_usage_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BillableUsageIdentity.new(%{})
-  end
-
-
-  test "billing_account new/1 succeeds when all fields are present" do
-    attrs = %{
-      billing_account_id: "x",
-      account_id: "x",
-      currency: "x",
-      invoice_profile: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BillingAccount.new(attrs)
-  end
-
-  test "billing_account new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BillingAccount.new(%{})
-  end
-
-
-  test "billing_reconciliation new/1 succeeds when all fields are present" do
-    attrs = %{
-      entitlement_id: "x",
-      metric_name: "x",
-      total_quantity: 1.0,
-      applied_event_ids: ["a"],
-      period_start: "2026-01-01T00:00:00Z",
-      period_end: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BillingReconciliation.new(attrs)
-  end
-
-  test "billing_reconciliation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BillingReconciliation.new(%{})
-  end
-
-
-  test "booking_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      readiness_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BookingReadiness.new(attrs)
-  end
-
-  test "booking_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BookingReadiness.new(%{})
-  end
-
-
-  test "brce_actuation_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      request_id: "x",
-      receipt_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BrceActuationReceipt.new(attrs)
-  end
-
-  test "brce_actuation_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BrceActuationReceipt.new(%{})
-  end
-
-
-  test "brce_actuation_request new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      request_id: "x",
-      authority_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BrceActuationRequest.new(attrs)
-  end
-
-  test "brce_actuation_request new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BrceActuationRequest.new(%{})
-  end
-
-
-  test "budget_period_alignment new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      budget_period: "x",
-      alignment_result: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BudgetPeriodAlignment.new(attrs)
-  end
-
-  test "budget_period_alignment new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BudgetPeriodAlignment.new(%{})
-  end
-
-
-  test "bundle_conflict new/1 succeeds when all fields are present" do
-    attrs = %{
-      bundle_conflict_id: "x",
-      account_id: "x",
-      conflicting_bundle_id: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BundleConflict.new(attrs)
-  end
-
-  test "bundle_conflict new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BundleConflict.new(%{})
-  end
-
-
-  test "bundle_dependency new/1 succeeds when all fields are present" do
-    attrs = %{
-      bundle_dependency_id: "x",
-      account_id: "x",
-      required_bundle_id: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BundleDependency.new(attrs)
-  end
-
-  test "bundle_dependency new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BundleDependency.new(%{})
-  end
-
-
-  test "burst_pricing_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      burst_pricing_policy_id: "x",
-      account_id: "x",
-      burst_multiplier: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BurstPricingPolicy.new(attrs)
-  end
-
-  test "burst_pricing_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BurstPricingPolicy.new(%{})
-  end
-
-
-  test "business_continuity_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      continuity_mode: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.BusinessContinuityEvidence.new(attrs)
-  end
-
-  test "business_continuity_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BusinessContinuityEvidence.new(%{})
-  end
-
-
-  test "business_outcome_measurement new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      outcome_id: "x",
-      measurement_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BusinessOutcomeMeasurement.new(attrs)
-  end
-
-  test "business_outcome_measurement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BusinessOutcomeMeasurement.new(%{})
-  end
-
-
-  test "business_unit_allocation new/1 succeeds when all fields are present" do
-    attrs = %{
-      business_unit_allocation_id: "x",
-      account_id: "x",
-      business_unit_id: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BusinessUnitAllocation.new(attrs)
-  end
-
-  test "business_unit_allocation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BusinessUnitAllocation.new(%{})
-  end
-
-
-  test "buying_committee new/1 succeeds when all fields are present" do
-    attrs = %{
-      buying_committee_id: "x",
-      account_id: "x",
-      committee_coverage: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.BuyingCommittee.new(attrs)
-  end
-
-  test "buying_committee new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.BuyingCommittee.new(%{})
-  end
-
-
-  test "caller_local_checkout_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      consumer_repository_id: "x",
-      checkout_sha: "x",
-      checkout_path: "x",
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CallerLocalCheckoutObservation.new(attrs)
-  end
-
-  test "caller_local_checkout_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CallerLocalCheckoutObservation.new(%{})
-  end
-
-
-  test "caller_local_consumer new/1 succeeds when all fields are present" do
-    attrs = %{
-      consumer_id: "x",
-      subject_sha: "x",
-      consumer_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CallerLocalConsumer.new(attrs)
-  end
-
-  test "caller_local_consumer new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CallerLocalConsumer.new(%{})
-  end
-
-
-  test "caller_local_crown_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      consumer_subject_sha: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CallerLocalCrownIdentity.new(attrs)
-  end
-
-  test "caller_local_crown_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CallerLocalCrownIdentity.new(%{})
-  end
-
-
-  test "canary_decision new/1 succeeds when all fields are present" do
-    attrs = %{
-      canary_decision_id: "x",
-      account_id: "x",
-      canary_result: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CanaryDecision.new(attrs)
-  end
-
-  test "canary_decision new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CanaryDecision.new(%{})
-  end
-
-
-  test "canary_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      canary_percentage: 1.0,
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.CanaryEvidence.new(attrs)
-  end
-
-  test "canary_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CanaryEvidence.new(%{})
-  end
-
-
-  test "cancellation_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      cancellation_policy_id: "x",
-      account_id: "x",
-      notice_days: 1,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CancellationPolicy.new(attrs)
-  end
-
-  test "cancellation_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CancellationPolicy.new(%{})
-  end
-
-
-  test "canonical_source_authority_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      source_path: "x",
-      authority_class: "x",
-      mutation_allowed: true,
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CanonicalSourceAuthorityObservation.new(attrs)
-  end
-
-  test "canonical_source_authority_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CanonicalSourceAuthorityObservation.new(%{})
-  end
-
-
-  test "capability_bundle new/1 succeeds when all fields are present" do
-    attrs = %{
-      bundle_id: "x",
-      name: "x",
-      capability_ids: ["a"],
-      version: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CapabilityBundle.new(attrs)
-  end
-
-  test "capability_bundle new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CapabilityBundle.new(%{})
-  end
-
-
-  test "capability_gap new/1 succeeds when all fields are present" do
-    attrs = %{
-      capability_gap_id: "x",
-      account_id: "x",
-      gap_severity: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CapabilityGap.new(attrs)
-  end
-
-  test "capability_gap new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CapabilityGap.new(%{})
-  end
-
-
-  test "capability_gap_learning new/1 succeeds when all fields are present" do
-    attrs = %{
-      learning_id: "x",
-      observed_capability_id: "x",
-      required_capability_id: "x",
-      gap_type: "x",
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CapabilityGapLearning.new(attrs)
-  end
-
-  test "capability_gap_learning new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CapabilityGapLearning.new(%{})
-  end
-
-
-  test "capsule_availability new/1 succeeds when all fields are present" do
-    attrs = %{
-      capsule_id: "x",
-      capsule_digest: "x",
-      availability: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CapsuleAvailability.new(attrs)
-  end
-
-  test "capsule_availability new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CapsuleAvailability.new(%{})
-  end
-
-
-  test "capsule_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      capsule_id: "x",
-      identity_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CapsuleIdentity.new(attrs)
-  end
-
-  test "capsule_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CapsuleIdentity.new(%{})
-  end
-
-
-  test "case_stats new/1 succeeds when all fields are present" do
-    attrs = %{
-      case_id: "x",
-      event_count: 1,
-      duration_seconds: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.CaseStats.new(attrs)
-  end
-
-  test "case_stats new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CaseStats.new(%{})
-  end
-
-
-  test "catalog_release new/1 succeeds when all fields are present" do
-    attrs = %{
-      release_id: "x",
-      version: "x",
-      sku_ids: ["a"],
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CatalogRelease.new(attrs)
-  end
-
-  test "catalog_release new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CatalogRelease.new(%{})
-  end
-
-
-  test "causal_lineage_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      cause_observation_id: "x",
-      effect_observation_id: "x",
-      causal_basis: "x",
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CausalLineageObservation.new(attrs)
-  end
-
-  test "causal_lineage_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CausalLineageObservation.new(%{})
-  end
-
-
-  test "challenger_candidate_evaluation new/1 succeeds when all fields are present" do
-    attrs = %{
-      evaluation_id: "x",
-      challenger_policy_id: "x",
-      episode_set_digest: "x",
-      evaluation_seed: "x",
-      score: 1.0,
-      refusal_code: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ChallengerCandidateEvaluation.new(attrs)
-  end
-
-  test "challenger_candidate_evaluation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ChallengerCandidateEvaluation.new(%{})
-  end
-
-
-  test "change_control_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      change_request_id: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ChangeControlEvidence.new(attrs)
-  end
-
-  test "change_control_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ChangeControlEvidence.new(%{})
-  end
-
-
-  test "change_order_authority new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      authority_id: "x",
-      evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ChangeOrderAuthority.new(attrs)
-  end
-
-  test "change_order_authority new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ChangeOrderAuthority.new(%{})
-  end
-
-
-  test "changed_surface_inference new/1 succeeds when all fields are present" do
-    attrs = %{
-      prior_tree_sha: "x",
-      current_tree_sha: "x",
-      changed_surface_digest: "x",
-      inference_status: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ChangedSurfaceInference.new(attrs)
-  end
-
-  test "changed_surface_inference new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ChangedSurfaceInference.new(%{})
-  end
-
-
-  test "channel_agreement new/1 succeeds when all fields are present" do
-    attrs = %{
-      agreement_id: "x",
-      partner_id: "x",
-      territory: "x",
-      valid_until: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ChannelAgreement.new(attrs)
-  end
-
-  test "channel_agreement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ChannelAgreement.new(%{})
-  end
-
-
-  test "chargeback_rule new/1 succeeds when all fields are present" do
-    attrs = %{
-      rule_id: "x",
-      cost_center: "x",
-      metric_name: "x",
-      rate: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.ChargebackRule.new(attrs)
-  end
-
-  test "chargeback_rule new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ChargebackRule.new(%{})
-  end
-
-
-  test "cluster_quorum_state new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      cluster_id: "x",
-      quorum_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ClusterQuorumState.new(attrs)
-  end
-
-  test "cluster_quorum_state new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ClusterQuorumState.new(%{})
-  end
-
-
-  test "co_term_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      co_term_policy_id: "x",
-      account_id: "x",
-      coterm_date: "2026-01-01T00:00:00Z",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CoTermPolicy.new(attrs)
-  end
-
-  test "co_term_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CoTermPolicy.new(%{})
-  end
-
-
-  test "commercial_approval new/1 succeeds when all fields are present" do
-    attrs = %{
-      approval_id: "x",
-      quote_id: "x",
-      authority: "x",
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommercialApproval.new(attrs)
-  end
-
-  test "commercial_approval new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialApproval.new(%{})
-  end
-
-
-  test "commercial_artifact_crown_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      artifact_digest: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommercialArtifactCrownEvidence.new(attrs)
-  end
-
-  test "commercial_artifact_crown_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialArtifactCrownEvidence.new(%{})
-  end
-
-
-  test "commercial_exception new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      exception_id: "x",
-      exception_state: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommercialException.new(attrs)
-  end
-
-  test "commercial_exception new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialException.new(%{})
-  end
-
-
-  test "commercial_execution_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      receipt_id: "x",
-      subject_id: "x",
-      operation: "x",
-      evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommercialExecutionReceipt.new(attrs)
-  end
-
-  test "commercial_execution_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialExecutionReceipt.new(%{})
-  end
-
-
-  test "commercial_forecast new/1 succeeds when all fields are present" do
-    attrs = %{
-      forecast_id: "x",
-      account_id: "x",
-      amount: 1.0,
-      confidence: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommercialForecast.new(attrs)
-  end
-
-  test "commercial_forecast new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialForecast.new(%{})
-  end
-
-
-  test "commercial_outcome new/1 succeeds when all fields are present" do
-    attrs = %{
-      commercial_outcome_id: "x",
-      account_id: "x",
-      outcome_value: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommercialOutcome.new(attrs)
-  end
-
-  test "commercial_outcome new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialOutcome.new(%{})
-  end
-
-
-  test "commercial_quote new/1 succeeds when all fields are present" do
-    attrs = %{
-      quote_id: "x",
-      account_id: "x",
-      currency: "x",
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommercialQuote.new(attrs)
-  end
-
-  test "commercial_quote new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialQuote.new(%{})
-  end
-
-
-  test "commercial_quote_line new/1 succeeds when all fields are present" do
-    attrs = %{
-      quote_id: "x",
-      sku: "x",
-      quantity: 1,
-      unit_price: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommercialQuoteLine.new(attrs)
-  end
-
-  test "commercial_quote_line new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialQuoteLine.new(%{})
-  end
-
-
-  test "commercial_value_realization new/1 succeeds when all fields are present" do
-    attrs = %{
-      realization_id: "x",
-      baseline_id: "x",
-      realized_value: 1.0,
-      measured_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommercialValueRealization.new(attrs)
-  end
-
-  test "commercial_value_realization new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommercialValueRealization.new(%{})
-  end
-
-
-  test "commit_check_state_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      commit_sha: "x",
-      check_name: "x",
-      check_status: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommitCheckStateObservation.new(attrs)
-  end
-
-  test "commit_check_state_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommitCheckStateObservation.new(%{})
-  end
-
-
-  test "committed_spend new/1 succeeds when all fields are present" do
-    attrs = %{
-      commitment_id: "x",
-      amount: 1.0,
-      currency: "x",
-      expires_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommittedSpend.new(attrs)
-  end
-
-  test "committed_spend new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommittedSpend.new(%{})
-  end
-
-
-  test "committed_spend_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      commitment_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CommittedSpendAdmission.new(attrs)
-  end
-
-  test "committed_spend_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CommittedSpendAdmission.new(%{})
-  end
-
-
-  test "compatibility_contract new/1 succeeds when all fields are present" do
-    attrs = %{
-      contract_id: "x",
-      product_version: "x",
-      schema_version: "x",
-      api_version: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CompatibilityContract.new(attrs)
-  end
-
-  test "compatibility_contract new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CompatibilityContract.new(%{})
-  end
-
-
-  test "concurrency_pricing_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      concurrency_pricing_policy_id: "x",
-      account_id: "x",
-      included_concurrency: 1,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ConcurrencyPricingPolicy.new(attrs)
-  end
-
-  test "concurrency_pricing_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ConcurrencyPricingPolicy.new(%{})
-  end
-
-
-  test "configuration_export new/1 succeeds when all fields are present" do
-    attrs = %{
-      export_id: "x",
-      tenant_id: "x",
-      configuration_hash: "x",
-      exported_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ConfigurationExport.new(attrs)
-  end
-
-  test "configuration_export new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ConfigurationExport.new(%{})
-  end
-
-
-  test "configuration_import new/1 succeeds when all fields are present" do
-    attrs = %{
-      import_id: "x",
-      tenant_id: "x",
-      configuration_hash: "x",
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ConfigurationImport.new(attrs)
-  end
-
-  test "configuration_import new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ConfigurationImport.new(%{})
-  end
-
-
-  test "conformance_result new/1 succeeds when all fields are present" do
-    attrs = %{
-      trace_id: "x",
-      fitness: 1.0,
-      precision: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.ConformanceResult.new(attrs)
-  end
-
-  test "conformance_result new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ConformanceResult.new(%{})
-  end
-
-
-  test "consequential_state_invalidation new/1 succeeds when all fields are present" do
-    attrs = %{
-      transition_id: "x",
-      affected_state_digest: "x",
-      invalidation_reason: "x",
-      invalidated_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ConsequentialStateInvalidation.new(attrs)
-  end
-
-  test "consequential_state_invalidation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ConsequentialStateInvalidation.new(%{})
-  end
-
-
-  test "consumer_equivalence_learning_guard new/1 succeeds when all fields are present" do
-    attrs = %{
-      guard_id: "x",
-      source_consumer_id: "x",
-      target_consumer_id: "x",
-      equivalence_evidence_digest: "x",
-      decision: "x",
-      refusal_code: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ConsumerEquivalenceLearningGuard.new(attrs)
-  end
-
-  test "consumer_equivalence_learning_guard new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ConsumerEquivalenceLearningGuard.new(%{})
-  end
-
-
-  test "consumer_equivalence_proof new/1 succeeds when all fields are present" do
-    attrs = %{
-      consumer_set_id: "x",
-      equivalence_proof_hash: "x",
-      standing: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ConsumerEquivalenceProof.new(attrs)
-  end
-
-  test "consumer_equivalence_proof new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ConsumerEquivalenceProof.new(%{})
-  end
-
-
-  test "consumer_pack_pin_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      consumer_repository_id: "x",
-      pack_id: "x",
-      pack_sha: "x",
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ConsumerPackPinObservation.new(attrs)
-  end
-
-  test "consumer_pack_pin_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ConsumerPackPinObservation.new(%{})
-  end
-
-
-  test "consumption_pool new/1 succeeds when all fields are present" do
-    attrs = %{
-      pool_id: "x",
-      account_id: "x",
-      unit: "x",
-      remaining_quantity: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.ConsumptionPool.new(attrs)
-  end
-
-  test "consumption_pool new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ConsumptionPool.new(%{})
-  end
-
-
-  test "consumption_subscription new/1 succeeds when all fields are present" do
-    attrs = %{
-      subscription_id: "x",
-      account_id: "x",
-      plan_id: "x",
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ConsumptionSubscription.new(attrs)
-  end
-
-  test "consumption_subscription new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ConsumptionSubscription.new(%{})
-  end
-
-
-  test "container_manifest_digest_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      image_repository: "x",
-      tag: "x",
-      index_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ContainerManifestDigestObservation.new(attrs)
-  end
-
-  test "container_manifest_digest_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ContainerManifestDigestObservation.new(%{})
-  end
-
-
-  test "container_platform_digest_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      index_digest: "x",
-      platform: "x",
-      platform_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ContainerPlatformDigestObservation.new(attrs)
-  end
-
-  test "container_platform_digest_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ContainerPlatformDigestObservation.new(%{})
-  end
-
-
-  test "contracting_entity_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      contracting_entity_id: "x",
-      identity_evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ContractingEntityIdentity.new(attrs)
-  end
-
-  test "contracting_entity_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ContractingEntityIdentity.new(%{})
-  end
-
-
-  test "cost_center_allocation new/1 succeeds when all fields are present" do
-    attrs = %{
-      cost_center_allocation_id: "x",
-      account_id: "x",
-      cost_center_id: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CostCenterAllocation.new(attrs)
-  end
-
-  test "cost_center_allocation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CostCenterAllocation.new(%{})
-  end
-
-
-  test "cost_latency_reliability_tradeoff new/1 succeeds when all fields are present" do
-    attrs = %{
-      assessment_id: "x",
-      candidate_policy_id: "x",
-      cost_score: 1.0,
-      latency_score: 1.0,
-      reliability_score: 1.0,
-      utility_score: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.CostLatencyReliabilityTradeoff.new(attrs)
-  end
-
-  test "cost_latency_reliability_tradeoff new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CostLatencyReliabilityTradeoff.new(%{})
-  end
-
-
-  test "cost_of_delay_score new/1 succeeds when all fields are present" do
-    attrs = %{
-      option_id: "x",
-      horizon: "x",
-      score: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CostOfDelayScore.new(attrs)
-  end
-
-  test "cost_of_delay_score new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CostOfDelayScore.new(%{})
-  end
-
-
-  test "cost_to_serve_measurement new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      billing_period_id: "x",
-      measurement_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CostToServeMeasurement.new(attrs)
-  end
-
-  test "cost_to_serve_measurement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CostToServeMeasurement.new(%{})
-  end
-
-
-  test "counterfactual_frontier new/1 succeeds when all fields are present" do
-    attrs = %{
-      option_set_id: "x",
-      world_model_hash: "x",
-      frontier_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CounterfactualFrontier.new(attrs)
-  end
-
-  test "counterfactual_frontier new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CounterfactualFrontier.new(%{})
-  end
-
-
-  test "counterfactual_replay new/1 succeeds when all fields are present" do
-    attrs = %{
-      replay_id: "x",
-      source_episode_id: "x",
-      intervention_digest: "x",
-      seed: "x",
-      predicted_outcome: "x",
-      comparison_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CounterfactualReplay.new(attrs)
-  end
-
-  test "counterfactual_replay new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CounterfactualReplay.new(%{})
-  end
-
-
-  test "crash_recovery_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      crash_id: "x",
-      receipt_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrashRecoveryReceipt.new(attrs)
-  end
-
-  test "crash_recovery_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrashRecoveryReceipt.new(%{})
-  end
-
-
-  test "credit_expiry_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      credit_expiry_policy_id: "x",
-      account_id: "x",
-      expires_at: "2026-01-01T00:00:00Z",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CreditExpiryPolicy.new(attrs)
-  end
-
-  test "credit_expiry_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CreditExpiryPolicy.new(%{})
-  end
-
-
-  test "credit_risk_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      account_id: "x",
-      risk_band: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CreditRiskAdmission.new(attrs)
-  end
-
-  test "credit_risk_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CreditRiskAdmission.new(%{})
-  end
-
-
-  test "cross_sell_fit new/1 succeeds when all fields are present" do
-    attrs = %{
-      cross_sell_fit_id: "x",
-      account_id: "x",
-      cross_sell_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrossSellFit.new(attrs)
-  end
-
-  test "cross_sell_fit new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrossSellFit.new(%{})
-  end
-
-
-  test "crown_applicable_gate_coverage new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      applicable_gate_set_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownApplicableGateCoverage.new(attrs)
-  end
-
-  test "crown_applicable_gate_coverage new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownApplicableGateCoverage.new(%{})
-  end
-
-
-  test "crown_artifact_pullback_smoke new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      pullback_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownArtifactPullbackSmoke.new(attrs)
-  end
-
-  test "crown_artifact_pullback_smoke new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownArtifactPullbackSmoke.new(%{})
-  end
-
-
-  test "crown_attestation_signer new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      signer_identity: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownAttestationSigner.new(attrs)
-  end
-
-  test "crown_attestation_signer new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownAttestationSigner.new(%{})
-  end
-
-
-  test "crown_autonomic_republish new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      republished_crown_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownAutonomicRepublish.new(attrs)
-  end
-
-  test "crown_autonomic_republish new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownAutonomicRepublish.new(%{})
-  end
-
-
-  test "crown_capsule_toolchain new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      toolchain_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownCapsuleToolchain.new(attrs)
-  end
-
-  test "crown_capsule_toolchain new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownCapsuleToolchain.new(%{})
-  end
-
-
-  test "crown_cas_promotion new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      expected_previous_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownCasPromotion.new(attrs)
-  end
-
-  test "crown_cas_promotion new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownCasPromotion.new(%{})
-  end
-
-
-  test "crown_check_relevance new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      relevance_proof_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownCheckRelevance.new(attrs)
-  end
-
-  test "crown_check_relevance new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownCheckRelevance.new(%{})
-  end
-
-
-  test "crown_child_publish_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      child_publish_run_id: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownChildPublishObservation.new(attrs)
-  end
-
-  test "crown_child_publish_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownChildPublishObservation.new(%{})
-  end
-
-
-  test "crown_consumer_smoke new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      consumer_smoke_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownConsumerSmoke.new(attrs)
-  end
-
-  test "crown_consumer_smoke new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownConsumerSmoke.new(%{})
-  end
-
-
-  test "crown_convergence_proof new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      convergence_proof_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownConvergenceProof.new(attrs)
-  end
-
-  test "crown_convergence_proof new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownConvergenceProof.new(%{})
-  end
-
-
-  test "crown_cosign_certificate new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      certificate_identity: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownCosignCertificate.new(attrs)
-  end
-
-  test "crown_cosign_certificate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownCosignCertificate.new(%{})
-  end
-
-
-  test "crown_default_head_sensor new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      default_head_sha: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownDefaultHeadSensor.new(attrs)
-  end
-
-  test "crown_default_head_sensor new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownDefaultHeadSensor.new(%{})
-  end
-
-
-  test "crown_dependency_edge new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      downstream_consumer_id: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownDependencyEdge.new(attrs)
-  end
-
-  test "crown_dependency_edge new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownDependencyEdge.new(%{})
-  end
-
-
-  test "crown_execution_mode new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      execution_mode: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownExecutionMode.new(attrs)
-  end
-
-  test "crown_execution_mode new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownExecutionMode.new(%{})
-  end
-
-
-  test "crown_fanin_convergence new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      fanin_set_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownFaninConvergence.new(attrs)
-  end
-
-  test "crown_fanin_convergence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownFaninConvergence.new(%{})
-  end
-
-
-  test "crown_fanout_batch new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      fanout_set_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownFanoutBatch.new(attrs)
-  end
-
-  test "crown_fanout_batch new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownFanoutBatch.new(%{})
-  end
-
-
-  test "crown_federated_phase_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      selected_option_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownFederatedPhaseReceipt.new(attrs)
-  end
-
-  test "crown_federated_phase_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownFederatedPhaseReceipt.new(%{})
-  end
-
-
-  test "crown_freshness_window new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      fresh_until: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownFreshnessWindow.new(attrs)
-  end
-
-  test "crown_freshness_window new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownFreshnessWindow.new(%{})
-  end
-
-
-  test "crown_generated_source_ownership new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      canonical_source_path: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownGeneratedSourceOwnership.new(attrs)
-  end
-
-  test "crown_generated_source_ownership new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownGeneratedSourceOwnership.new(%{})
-  end
-
-
-  test "crown_gitlink_reconciliation new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      gitlink_commit_sha: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownGitlinkReconciliation.new(attrs)
-  end
-
-  test "crown_gitlink_reconciliation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownGitlinkReconciliation.new(%{})
-  end
-
-
-  test "crown_immutable_sha_tag new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      immutable_tag: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownImmutableShaTag.new(attrs)
-  end
-
-  test "crown_immutable_sha_tag new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownImmutableShaTag.new(%{})
-  end
-
-
-  test "crown_known_good_rollback new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      rollback_crown_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownKnownGoodRollback.new(attrs)
-  end
-
-  test "crown_known_good_rollback new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownKnownGoodRollback.new(%{})
-  end
-
-
-  test "crown_latency_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      latency_millis: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownLatencyObservation.new(attrs)
-  end
-
-  test "crown_latency_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownLatencyObservation.new(%{})
-  end
-
-
-  test "crown_lock_reconciliation new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      lock_commit_sha: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownLockReconciliation.new(attrs)
-  end
-
-  test "crown_lock_reconciliation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownLockReconciliation.new(%{})
-  end
-
-
-  test "crown_manufacturer_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      manufacturer_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownManufacturerIdentity.new(attrs)
-  end
-
-  test "crown_manufacturer_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownManufacturerIdentity.new(%{})
-  end
-
-
-  test "crown_marketplace_pack_pin new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      pack_commit_sha: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownMarketplacePackPin.new(attrs)
-  end
-
-  test "crown_marketplace_pack_pin new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownMarketplacePackPin.new(%{})
-  end
-
-
-  test "crown_multiarch_platform_set new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      platform_set_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownMultiarchPlatformSet.new(attrs)
-  end
-
-  test "crown_multiarch_platform_set new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownMultiarchPlatformSet.new(%{})
-  end
-
-
-  test "crown_oci_manifest_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      oci_index_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownOciManifestBinding.new(attrs)
-  end
-
-  test "crown_oci_manifest_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownOciManifestBinding.new(%{})
-  end
-
-
-  test "crown_package_pin_reconciliation new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      package_version_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownPackagePinReconciliation.new(attrs)
-  end
-
-  test "crown_package_pin_reconciliation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownPackagePinReconciliation.new(%{})
-  end
-
-
-  test "crown_partial_checkpoint new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      checkpoint_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownPartialCheckpoint.new(attrs)
-  end
-
-  test "crown_partial_checkpoint new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownPartialCheckpoint.new(%{})
-  end
-
-
-  test "crown_path_skip_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      skipped_gate_id: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownPathSkipRefusal.new(attrs)
-  end
-
-  test "crown_path_skip_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownPathSkipRefusal.new(%{})
-  end
-
-
-  test "crown_planner_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      planner_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownPlannerIdentity.new(attrs)
-  end
-
-  test "crown_planner_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownPlannerIdentity.new(%{})
-  end
-
-
-  test "crown_process_runtime_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      process_runtime_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownProcessRuntimeIdentity.new(attrs)
-  end
-
-  test "crown_process_runtime_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownProcessRuntimeIdentity.new(%{})
-  end
-
-
-  test "crown_promotion_race new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      observed_previous_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownPromotionRace.new(attrs)
-  end
-
-  test "crown_promotion_race new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownPromotionRace.new(%{})
-  end
-
-
-  test "crown_provenance_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      provenance_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownProvenanceBinding.new(attrs)
-  end
-
-  test "crown_provenance_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownProvenanceBinding.new(%{})
-  end
-
-
-  test "crown_receipt_output_ownership new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      output_owner: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownReceiptOutputOwnership.new(attrs)
-  end
-
-  test "crown_receipt_output_ownership new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownReceiptOutputOwnership.new(%{})
-  end
-
-
-  test "crown_recursive_fixed_point new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      fixed_point_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownRecursiveFixedPoint.new(attrs)
-  end
-
-  test "crown_recursive_fixed_point new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownRecursiveFixedPoint.new(%{})
-  end
-
-
-  test "crown_resume_token new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      resume_token_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownResumeToken.new(attrs)
-  end
-
-  test "crown_resume_token new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownResumeToken.new(%{})
-  end
-
-
-  test "crown_runtime_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      runtime_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownRuntimeIdentity.new(attrs)
-  end
-
-  test "crown_runtime_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownRuntimeIdentity.new(%{})
-  end
-
-
-  test "crown_sbom_subject_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      sbom_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownSbomSubjectBinding.new(attrs)
-  end
-
-  test "crown_sbom_subject_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownSbomSubjectBinding.new(%{})
-  end
-
-
-  test "crown_second_pass_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      second_pass_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownSecondPassIdentity.new(attrs)
-  end
-
-  test "crown_second_pass_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownSecondPassIdentity.new(%{})
-  end
-
-
-  test "crown_security_scan new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      scan_report_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownSecurityScan.new(attrs)
-  end
-
-  test "crown_security_scan new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownSecurityScan.new(%{})
-  end
-
-
-  test "crown_source_capsule new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      capsule_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownSourceCapsule.new(attrs)
-  end
-
-  test "crown_source_capsule new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownSourceCapsule.new(%{})
-  end
-
-
-  test "crown_stale_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      observed_age_seconds: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownStaleRefusal.new(attrs)
-  end
-
-  test "crown_stale_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownStaleRefusal.new(%{})
-  end
-
-
-  test "crown_supply_chain_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      policy_decision_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownSupplyChainPolicy.new(attrs)
-  end
-
-  test "crown_supply_chain_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownSupplyChainPolicy.new(%{})
-  end
-
-
-  test "crown_topological_order new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      topological_rank: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownTopologicalOrder.new(attrs)
-  end
-
-  test "crown_topological_order new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownTopologicalOrder.new(%{})
-  end
-
-
-  test "crown_validation_pack new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      validation_pack_sha: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownValidationPack.new(attrs)
-  end
-
-  test "crown_validation_pack new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownValidationPack.new(%{})
-  end
-
-
-  test "crown_workflow_run_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      workflow_run_id: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownWorkflowRunReceipt.new(attrs)
-  end
-
-  test "crown_workflow_run_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownWorkflowRunReceipt.new(%{})
-  end
-
-
-  test "crown_zero_unreceipted_writes new/1 succeeds when all fields are present" do
-    attrs = %{
-      propagation_id: "x",
-      subject_sha: "x",
-      write_set_digest: "x",
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CrownZeroUnreceiptedWrites.new(attrs)
-  end
-
-  test "crown_zero_unreceipted_writes new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CrownZeroUnreceiptedWrites.new(%{})
-  end
-
-
-  test "currency_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      currency_policy_id: "x",
-      account_id: "x",
-      currency_code: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CurrencyPolicy.new(attrs)
-  end
-
-  test "currency_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CurrencyPolicy.new(%{})
-  end
-
-
-  test "curriculum_generation new/1 succeeds when all fields are present" do
-    attrs = %{
-      curriculum_id: "x",
-      source_gap_set_digest: "x",
-      ordered_hypotheses_digest: "x",
-      diversity_score: 1.0,
-      falsifier_coverage: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.CurriculumGeneration.new(attrs)
-  end
-
-  test "curriculum_generation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CurriculumGeneration.new(%{})
-  end
-
-
-  test "customer_health new/1 succeeds when all fields are present" do
-    attrs = %{
-      customer_health_id: "x",
-      account_id: "x",
-      health_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CustomerHealth.new(attrs)
-  end
-
-  test "customer_health new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CustomerHealth.new(%{})
-  end
-
-
-  test "customer_managed_key_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      key_identifier: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.CustomerManagedKeyEvidence.new(attrs)
-  end
-
-  test "customer_managed_key_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CustomerManagedKeyEvidence.new(%{})
-  end
-
-
-  test "customer_signal_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      customer_id: "x",
-      signal_type: "x",
-      signal_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.CustomerSignalObservation.new(attrs)
-  end
-
-  test "customer_signal_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.CustomerSignalObservation.new(%{})
-  end
-
-
-  test "data_egress_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      egress_bytes: 1,
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.DataEgressEvidence.new(attrs)
-  end
-
-  test "data_egress_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DataEgressEvidence.new(%{})
-  end
-
-
-  test "data_migration_scope_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      migration_scope_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DataMigrationScopeAdmission.new(attrs)
-  end
-
-  test "data_migration_scope_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DataMigrationScopeAdmission.new(%{})
-  end
-
-
-  test "data_processing_addendum_state new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      addendum_id: "x",
-      addendum_state: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DataProcessingAddendumState.new(attrs)
-  end
-
-  test "data_processing_addendum_state new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DataProcessingAddendumState.new(%{})
-  end
-
-
-  test "data_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      data_readiness_id: "x",
-      account_id: "x",
-      data_quality_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DataReadiness.new(attrs)
-  end
-
-  test "data_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DataReadiness.new(%{})
-  end
-
-
-  test "data_residency_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      policy_id: "x",
-      tenant_id: "x",
-      allowed_regions: ["a"],
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.DataResidencyPolicy.new(attrs)
-  end
-
-  test "data_residency_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DataResidencyPolicy.new(%{})
-  end
-
-
-  test "data_volume_pricing_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      data_volume_pricing_policy_id: "x",
-      account_id: "x",
-      unit_gb_price: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DataVolumePricingPolicy.new(attrs)
-  end
-
-  test "data_volume_pricing_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DataVolumePricingPolicy.new(%{})
-  end
-
-
-  test "deal_desk_packet new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      packet_id: "x",
-      evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DealDeskPacket.new(attrs)
-  end
-
-  test "deal_desk_packet new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DealDeskPacket.new(%{})
-  end
-
-
-  test "decision_compression_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      compression_id: "x",
-      input_state_digest: "x",
-      output_delta_digest: "x",
-      loss_bound: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DecisionCompressionObservation.new(attrs)
-  end
-
-  test "decision_compression_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DecisionCompressionObservation.new(%{})
-  end
-
-
-  test "decision_information_preservation new/1 succeeds when all fields are present" do
-    attrs = %{
-      preservation_id: "x",
-      decision_id: "x",
-      source_partition_digest: "x",
-      projection_digest: "x",
-      preserved_question_set_digest: "x",
-      loss_score: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.DecisionInformationPreservation.new(attrs)
-  end
-
-  test "decision_information_preservation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DecisionInformationPreservation.new(%{})
-  end
-
-
-  test "deletion_proof_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      deletion_receipt_id: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.DeletionProofEvidence.new(attrs)
-  end
-
-  test "deletion_proof_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DeletionProofEvidence.new(%{})
-  end
-
-
-  test "demo_run new/1 succeeds when all fields are present" do
-    attrs = %{
-      demo_run_id: "x",
-      account_id: "x",
-      demo_result: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DemoRun.new(attrs)
-  end
-
-  test "demo_run new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DemoRun.new(%{})
-  end
-
-
-  test "demo_scenario new/1 succeeds when all fields are present" do
-    attrs = %{
-      demo_scenario_id: "x",
-      account_id: "x",
-      scenario_name: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DemoScenario.new(attrs)
-  end
-
-  test "demo_scenario new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DemoScenario.new(%{})
-  end
-
-
-  test "dependency_dag new/1 succeeds when all fields are present" do
-    attrs = %{
-      dag_id: "x",
-      node_set_hash: "x",
-      edge_set_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DependencyDag.new(attrs)
-  end
-
-  test "dependency_dag new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DependencyDag.new(%{})
-  end
-
-
-  test "dependency_inventory_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      dependency_count: 1,
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.DependencyInventoryEvidence.new(attrs)
-  end
-
-  test "dependency_inventory_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DependencyInventoryEvidence.new(%{})
-  end
-
-
-  test "dependency_pin_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      dependency_id: "x",
-      declared_ref: "x",
-      resolved_sha: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DependencyPinObservation.new(attrs)
-  end
-
-  test "dependency_pin_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DependencyPinObservation.new(%{})
-  end
-
-
-  test "deployment_entitlement new/1 succeeds when all fields are present" do
-    attrs = %{
-      entitlement_id: "x",
-      tenant_id: "x",
-      profile_id: "x",
-      valid_until: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DeploymentEntitlement.new(attrs)
-  end
-
-  test "deployment_entitlement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DeploymentEntitlement.new(%{})
-  end
-
-
-  test "developer_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      developer_readiness_id: "x",
-      account_id: "x",
-      developer_readiness_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DeveloperReadiness.new(attrs)
-  end
-
-  test "developer_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DeveloperReadiness.new(%{})
-  end
-
-
-  test "dfg_edge new/1 succeeds when all fields are present" do
-    attrs = %{
-      source_activity: "x",
-      target_activity: "x",
-      frequency: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.DfgEdge.new(attrs)
-  end
-
-  test "dfg_edge new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DfgEdge.new(%{})
-  end
-
-
-  test "disaster_recovery_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      recovered_at: "2026-01-01T00:00:00Z",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.DisasterRecoveryEvidence.new(attrs)
-  end
-
-  test "disaster_recovery_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DisasterRecoveryEvidence.new(%{})
-  end
-
-
-  test "discount_schedule new/1 succeeds when all fields are present" do
-    attrs = %{
-      schedule_id: "x",
-      threshold: 1.0,
-      discount_percent: 1.0,
-      currency: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DiscountSchedule.new(attrs)
-  end
-
-  test "discount_schedule new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DiscountSchedule.new(%{})
-  end
-
-
-  test "discovery_hypothesis new/1 succeeds when all fields are present" do
-    attrs = %{
-      discovery_hypothesis_id: "x",
-      account_id: "x",
-      expected_value: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DiscoveryHypothesis.new(attrs)
-  end
-
-  test "discovery_hypothesis new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DiscoveryHypothesis.new(%{})
-  end
-
-
-  test "dominance_witness new/1 succeeds when all fields are present" do
-    attrs = %{
-      dominant_option_id: "x",
-      dominated_option_id: "x",
-      witness_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DominanceWitness.new(attrs)
-  end
-
-  test "dominance_witness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DominanceWitness.new(%{})
-  end
-
-
-  test "dynamic_replan_trigger new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      event_id: "x",
-      trigger_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.DynamicReplanTrigger.new(attrs)
-  end
-
-  test "dynamic_replan_trigger new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.DynamicReplanTrigger.new(%{})
-  end
-
-
-  test "edition_definition new/1 succeeds when all fields are present" do
-    attrs = %{
-      edition_id: "x",
-      name: "x",
-      bundle_ids: ["a"],
-      support_tier: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EditionDefinition.new(attrs)
-  end
-
-  test "edition_definition new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EditionDefinition.new(%{})
-  end
-
-
-  test "edition_downgrade_path new/1 succeeds when all fields are present" do
-    attrs = %{
-      edition_downgrade_path_id: "x",
-      account_id: "x",
-      target_edition_id: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EditionDowngradePath.new(attrs)
-  end
-
-  test "edition_downgrade_path new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EditionDowngradePath.new(%{})
-  end
-
-
-  test "edition_upgrade_path new/1 succeeds when all fields are present" do
-    attrs = %{
-      edition_upgrade_path_id: "x",
-      account_id: "x",
-      target_edition_id: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EditionUpgradePath.new(attrs)
-  end
-
-  test "edition_upgrade_path new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EditionUpgradePath.new(%{})
-  end
-
-
-  test "enterprise_agreement new/1 succeeds when all fields are present" do
-    attrs = %{
-      enterprise_agreement_id: "x",
-      account_id: "x",
-      agreement_version: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EnterpriseAgreement.new(attrs)
-  end
-
-  test "enterprise_agreement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EnterpriseAgreement.new(%{})
-  end
-
-
-  test "enterprise_order new/1 succeeds when all fields are present" do
-    attrs = %{
-      order_id: "x",
-      account_id: "x",
-      quote_id: "x",
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.EnterpriseOrder.new(attrs)
-  end
-
-  test "enterprise_order new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EnterpriseOrder.new(%{})
-  end
-
-
-  test "enterprise_order_line new/1 succeeds when all fields are present" do
-    attrs = %{
-      order_id: "x",
-      sku: "x",
-      quantity: 1,
-      unit_price: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.EnterpriseOrderLine.new(attrs)
-  end
-
-  test "enterprise_order_line new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EnterpriseOrderLine.new(%{})
-  end
-
-
-  test "entitlement_denial_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      entitlement_id: "x",
-      denial_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EntitlementDenialReceipt.new(attrs)
-  end
-
-  test "entitlement_denial_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementDenialReceipt.new(%{})
-  end
-
-
-  test "entitlement_event new/1 succeeds when all fields are present" do
-    attrs = %{
-      event_id: "x",
-      entitlement_id: "x",
-      event_type: "x",
-      effective_at: "2026-01-01T00:00:00Z",
-      payload: %{}
-    }
-
-    assert {:ok, _} = BeamPM.Types.EntitlementEvent.new(attrs)
-  end
-
-  test "entitlement_event new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementEvent.new(%{})
-  end
-
-
-  test "entitlement_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      entitlement_id: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.EntitlementEvidence.new(attrs)
-  end
-
-  test "entitlement_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementEvidence.new(%{})
-  end
-
-
-  test "entitlement_grant new/1 succeeds when all fields are present" do
-    attrs = %{
-      grant_id: "x",
-      tenant_id: "x",
-      capability_id: "x",
-      valid_until: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EntitlementGrant.new(attrs)
-  end
-
-  test "entitlement_grant new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementGrant.new(%{})
-  end
-
-
-  test "entitlement_revocation new/1 succeeds when all fields are present" do
-    attrs = %{
-      revocation_id: "x",
-      grant_id: "x",
-      reason: "x",
-      revoked_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EntitlementRevocation.new(attrs)
-  end
-
-  test "entitlement_revocation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementRevocation.new(%{})
-  end
-
-
-  test "entitlement_runtime_check new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      entitlement_id: "x",
-      check_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EntitlementRuntimeCheck.new(attrs)
-  end
-
-  test "entitlement_runtime_check new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementRuntimeCheck.new(%{})
-  end
-
-
-  test "entitlement_state new/1 succeeds when all fields are present" do
-    attrs = %{
-      entitlement_id: "x",
-      status: "x",
-      last_applied_event_id: "x",
-      updated_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EntitlementState.new(attrs)
-  end
-
-  test "entitlement_state new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EntitlementState.new(%{})
-  end
-
-
-  test "entropy_reduction_score new/1 succeeds when all fields are present" do
-    attrs = %{
-      action_id: "x",
-      prior_entropy: "x",
-      expected_posterior_entropy: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EntropyReductionScore.new(attrs)
-  end
-
-  test "entropy_reduction_score new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EntropyReductionScore.new(%{})
-  end
-
-
-  test "environment_failure_separation new/1 succeeds when all fields are present" do
-    attrs = %{
-      assessment_id: "x",
-      exact_subject_sha: "x",
-      capsule_digest: "x",
-      failure_signal: "x",
-      classification_basis: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EnvironmentFailureSeparation.new(attrs)
-  end
-
-  test "environment_failure_separation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EnvironmentFailureSeparation.new(%{})
-  end
-
-
-  test "environment_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      environment_id: "x",
-      identity_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EnvironmentIdentity.new(attrs)
-  end
-
-  test "environment_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EnvironmentIdentity.new(%{})
-  end
-
-
-  test "environment_pricing_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      environment_pricing_policy_id: "x",
-      account_id: "x",
-      environment_tier: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EnvironmentPricingPolicy.new(attrs)
-  end
-
-  test "environment_pricing_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EnvironmentPricingPolicy.new(%{})
-  end
-
-
-  test "environment_profile new/1 succeeds when all fields are present" do
-    attrs = %{
-      profile_id: "x",
-      environment: :some_atom,
-      region: "x",
-      configuration_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EnvironmentProfile.new(attrs)
-  end
-
-  test "environment_profile new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EnvironmentProfile.new(%{})
-  end
-
-
-  test "environment_signal_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      environment_id: "x",
-      signal_type: "x",
-      signal_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EnvironmentSignalObservation.new(attrs)
-  end
-
-  test "environment_signal_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EnvironmentSignalObservation.new(%{})
-  end
-
-
-  test "error_budget_state new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      slo_id: "x",
-      state_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ErrorBudgetState.new(attrs)
-  end
-
-  test "error_budget_state new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ErrorBudgetState.new(%{})
-  end
-
-
-  test "evaluation_seed_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      binding_id: "x",
-      evaluation_id: "x",
-      seed: "x",
-      result_digest: "x",
-      source_digest: "x",
-      deterministic: true
-    }
-
-    assert {:ok, _} = BeamPM.Types.EvaluationSeedBinding.new(attrs)
-  end
-
-  test "evaluation_seed_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EvaluationSeedBinding.new(%{})
-  end
-
-
-  test "event_log new/1 succeeds when all fields are present" do
-    attrs = %{
-      log_id: "x",
-      name: "x",
-      description: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EventLog.new(attrs)
-  end
-
-  test "event_log new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EventLog.new(%{})
-  end
-
-
-  test "event_triggered_planning new/1 succeeds when all fields are present" do
-    attrs = %{
-      event_id: "x",
-      world_state_hash: "x",
-      episode_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EventTriggeredPlanning.new(attrs)
-  end
-
-  test "event_triggered_planning new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EventTriggeredPlanning.new(%{})
-  end
-
-
-  test "event_type new/1 succeeds when all fields are present" do
-    attrs = %{
-      type_name: "x",
-      attribute_names: ["a"]
-    }
-
-    assert {:ok, _} = BeamPM.Types.EventType.new(attrs)
-  end
-
-  test "event_type new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EventType.new(%{})
-  end
-
-
-  test "event_volume_pricing_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      event_volume_pricing_policy_id: "x",
-      account_id: "x",
-      unit_event_price: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EventVolumePricingPolicy.new(attrs)
-  end
-
-  test "event_volume_pricing_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EventVolumePricingPolicy.new(%{})
-  end
-
-
-  test "evidence_freshness_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      observed_at: "2026-01-01T00:00:00Z",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.EvidenceFreshnessEvidence.new(attrs)
-  end
-
-  test "evidence_freshness_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EvidenceFreshnessEvidence.new(%{})
-  end
-
-
-  test "evidence_training_sample new/1 succeeds when all fields are present" do
-    attrs = %{
-      sample_id: "x",
-      episode_id: "x",
-      feature_digest: "x",
-      label_id: "x",
-      provenance_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.EvidenceTrainingSample.new(attrs)
-  end
-
-  test "evidence_training_sample new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.EvidenceTrainingSample.new(%{})
-  end
-
-
-  test "exact_subject_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      subject_id: "x",
-      subject_sha: "x",
-      binding_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ExactSubjectBinding.new(attrs)
-  end
-
-  test "exact_subject_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ExactSubjectBinding.new(%{})
-  end
-
-
-  test "exception_authority new/1 succeeds when all fields are present" do
-    attrs = %{
-      exception_id: "x",
-      authority_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ExceptionAuthority.new(attrs)
-  end
-
-  test "exception_authority new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ExceptionAuthority.new(%{})
-  end
-
-
-  test "executive_business_review new/1 succeeds when all fields are present" do
-    attrs = %{
-      executive_business_review_id: "x",
-      account_id: "x",
-      executive_outcome: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ExecutiveBusinessReview.new(attrs)
-  end
-
-  test "executive_business_review new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ExecutiveBusinessReview.new(%{})
-  end
-
-
-  test "executive_sponsor new/1 succeeds when all fields are present" do
-    attrs = %{
-      executive_sponsor_id: "x",
-      account_id: "x",
-      sponsor_commitment: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ExecutiveSponsor.new(attrs)
-  end
-
-  test "executive_sponsor new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ExecutiveSponsor.new(%{})
-  end
-
-
-  test "expansion_opportunity new/1 succeeds when all fields are present" do
-    attrs = %{
-      expansion_opportunity_id: "x",
-      account_id: "x",
-      expansion_value: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ExpansionOpportunity.new(attrs)
-  end
-
-  test "expansion_opportunity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ExpansionOpportunity.new(%{})
-  end
-
-
-  test "expansion_option new/1 succeeds when all fields are present" do
-    attrs = %{
-      option_id: "x",
-      account_id: "x",
-      sku: "x",
-      max_quantity: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.ExpansionOption.new(attrs)
-  end
-
-  test "expansion_option new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ExpansionOption.new(%{})
-  end
-
-
-  test "expansion_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      expansion_receipt_id: "x",
-      account_id: "x",
-      receipt_value: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ExpansionReceipt.new(attrs)
-  end
-
-  test "expansion_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ExpansionReceipt.new(%{})
-  end
-
-
-  test "expansion_signal new/1 succeeds when all fields are present" do
-    attrs = %{
-      expansion_signal_id: "x",
-      account_id: "x",
-      expansion_signal_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ExpansionSignal.new(attrs)
-  end
-
-  test "expansion_signal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ExpansionSignal.new(%{})
-  end
-
-
-  test "experiment_learning_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      receipt_id: "x",
-      experiment_id: "x",
-      exact_subject_sha: "x",
-      evidence_digest: "x",
-      result_digest: "x",
-      authority_ceiling: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ExperimentLearningReceipt.new(attrs)
-  end
-
-  test "experiment_learning_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ExperimentLearningReceipt.new(%{})
-  end
-
-
-  test "failed_challenger_retention new/1 succeeds when all fields are present" do
-    attrs = %{
-      retention_id: "x",
-      challenger_evaluation_id: "x",
-      failure_evidence_digest: "x",
-      retained_at: "2026-01-01T00:00:00Z",
-      eligible_for_future: true
-    }
-
-    assert {:ok, _} = BeamPM.Types.FailedChallengerRetention.new(attrs)
-  end
-
-  test "failed_challenger_retention new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.FailedChallengerRetention.new(%{})
-  end
-
-
-  test "failure_label new/1 succeeds when all fields are present" do
-    attrs = %{
-      failure_id: "x",
-      episode_id: "x",
-      failure_class: "x",
-      causal_scope: "x",
-      preserved_evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.FailureLabel.new(attrs)
-  end
-
-  test "failure_label new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.FailureLabel.new(%{})
-  end
-
-
-  test "federated_dogfood_learning_crown new/1 succeeds when all fields are present" do
-    attrs = %{
-      crown_id: "x",
-      exact_subject_sha: "x",
-      consumer_id: "x",
-      pack_sha: "x",
-      capsule_digest: "x",
-      manufacture_receipt_digest: "x",
-      ownership_verification_digest: "x",
-      second_pass_identity_digest: "x",
-      workflow_sequence: "x",
-      authority_ceiling: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.FederatedDogfoodLearningCrown.new(attrs)
-  end
-
-  test "federated_dogfood_learning_crown new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.FederatedDogfoodLearningCrown.new(%{})
-  end
-
-
-  test "forged_receipt_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      receipt_id: "x",
-      refusal_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ForgedReceiptRefusal.new(attrs)
-  end
-
-  test "forged_receipt_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ForgedReceiptRefusal.new(%{})
-  end
-
-
-  test "funding_approval_chain new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      approval_chain_id: "x",
-      evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.FundingApprovalChain.new(attrs)
-  end
-
-  test "funding_approval_chain new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.FundingApprovalChain.new(%{})
-  end
-
-
-  test "fx_conversion_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      fx_conversion_policy_id: "x",
-      account_id: "x",
-      rate_source: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.FxConversionPolicy.new(attrs)
-  end
-
-  test "fx_conversion_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.FxConversionPolicy.new(%{})
-  end
-
-
-  test "generated_hypothesis new/1 succeeds when all fields are present" do
-    attrs = %{
-      hypothesis_id: "x",
-      source_gap_id: "x",
-      candidate_capability: "x",
-      expected_value: 1.0,
-      falsifier_contract: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.GeneratedHypothesis.new(attrs)
-  end
-
-  test "generated_hypothesis new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.GeneratedHypothesis.new(%{})
-  end
-
-
-  test "generated_output_ownership_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      output_path: "x",
-      ownership_marker: "x",
-      source_input_digest: "x",
-      standing: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.GeneratedOutputOwnershipObservation.new(attrs)
-  end
-
-  test "generated_output_ownership_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.GeneratedOutputOwnershipObservation.new(%{})
-  end
-
-
-  test "generated_source_route new/1 succeeds when all fields are present" do
-    attrs = %{
-      projection_id: "x",
-      source_coordinate: "x",
-      route: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.GeneratedSourceRoute.new(attrs)
-  end
-
-  test "generated_source_route new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.GeneratedSourceRoute.new(%{})
-  end
-
-
-  test "heuristic_arc new/1 succeeds when all fields are present" do
-    attrs = %{
-      source_activity: "x",
-      target_activity: "x",
-      dependency_measure: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.HeuristicArc.new(attrs)
-  end
-
-  test "heuristic_arc new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.HeuristicArc.new(%{})
-  end
-
-
-  test "historical_episode_replay new/1 succeeds when all fields are present" do
-    attrs = %{
-      replay_id: "x",
-      episode_id: "x",
-      historical_subject_sha: "x",
-      replay_seed: "x",
-      divergence_code: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.HistoricalEpisodeReplay.new(attrs)
-  end
-
-  test "historical_episode_replay new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.HistoricalEpisodeReplay.new(%{})
-  end
-
-
-  test "hypothesis_priority_update new/1 succeeds when all fields are present" do
-    attrs = %{
-      update_id: "x",
-      hypothesis_id: "x",
-      prior_priority: 1.0,
-      new_priority: 1.0,
-      payoff_evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.HypothesisPriorityUpdate.new(attrs)
-  end
-
-  test "hypothesis_priority_update new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.HypothesisPriorityUpdate.new(%{})
-  end
-
-
-  test "immutable_pack_selection new/1 succeeds when all fields are present" do
-    attrs = %{
-      pack_id: "x",
-      pack_sha: "x",
-      selection_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ImmutablePackSelection.new(attrs)
-  end
-
-  test "immutable_pack_selection new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ImmutablePackSelection.new(%{})
-  end
-
-
-  test "implementation_fee_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      fee_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ImplementationFeeAdmission.new(attrs)
-  end
-
-  test "implementation_fee_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ImplementationFeeAdmission.new(%{})
-  end
-
-
-  test "incident_acknowledgement new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      incident_id: "x",
-      acknowledgement_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.IncidentAcknowledgement.new(attrs)
-  end
-
-  test "incident_acknowledgement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.IncidentAcknowledgement.new(%{})
-  end
-
-
-  test "incident_detection_event new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      incident_id: "x",
-      detection_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.IncidentDetectionEvent.new(attrs)
-  end
-
-  test "incident_detection_event new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.IncidentDetectionEvent.new(%{})
-  end
-
-
-  test "incident_response_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      incident_id: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.IncidentResponseEvidence.new(attrs)
-  end
-
-  test "incident_response_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.IncidentResponseEvidence.new(%{})
-  end
-
-
-  test "indemnity_scope_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      indemnity_scope_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.IndemnityScopeAdmission.new(attrs)
-  end
-
-  test "indemnity_scope_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.IndemnityScopeAdmission.new(%{})
-  end
-
-
-  test "information_partition_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      partition_id: "x",
-      state_vector_id: "x",
-      partition_key: "x",
-      information_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.InformationPartitionObservation.new(attrs)
-  end
-
-  test "information_partition_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.InformationPartitionObservation.new(%{})
-  end
-
-
-  test "insurance_requirement new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      coverage_id: "x",
-      evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.InsuranceRequirement.new(attrs)
-  end
-
-  test "insurance_requirement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.InsuranceRequirement.new(%{})
-  end
-
-
-  test "integration_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      integration_readiness_id: "x",
-      account_id: "x",
-      integration_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.IntegrationReadiness.new(attrs)
-  end
-
-  test "integration_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.IntegrationReadiness.new(%{})
-  end
-
-
-  test "integration_scope_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      integration_scope_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.IntegrationScopeAdmission.new(attrs)
-  end
-
-  test "integration_scope_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.IntegrationScopeAdmission.new(%{})
-  end
-
-
-  test "invoice_entity_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      invoice_entity_id: "x",
-      identity_evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.InvoiceEntityIdentity.new(attrs)
-  end
-
-  test "invoice_entity_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.InvoiceEntityIdentity.new(%{})
-  end
-
-
-  test "invoice_line_item new/1 succeeds when all fields are present" do
-    attrs = %{
-      invoice_line_item_id: "x",
-      account_id: "x",
-      line_amount: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.InvoiceLineItem.new(attrs)
-  end
-
-  test "invoice_line_item new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.InvoiceLineItem.new(%{})
-  end
-
-
-  test "invoice_schedule new/1 succeeds when all fields are present" do
-    attrs = %{
-      schedule_id: "x",
-      billing_account_id: "x",
-      cadence: :some_atom,
-      next_invoice_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.InvoiceSchedule.new(attrs)
-  end
-
-  test "invoice_schedule new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.InvoiceSchedule.new(%{})
-  end
-
-
-  test "irreversibility_budget new/1 succeeds when all fields are present" do
-    attrs = %{
-      episode_id: "x",
-      budget: "x",
-      consumed: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.IrreversibilityBudget.new(attrs)
-  end
-
-  test "irreversibility_budget new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.IrreversibilityBudget.new(%{})
-  end
-
-
-  test "k8s_object_ref new/1 succeeds when all fields are present" do
-    attrs = %{
-      kind: "x",
-      name: "x",
-      namespace: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.K8SObjectRef.new(attrs)
-  end
-
-  test "k8s_object_ref new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.K8SObjectRef.new(%{})
-  end
-
-
-  test "late_arriving_usage new/1 succeeds when all fields are present" do
-    attrs = %{
-      late_arriving_usage_id: "x",
-      account_id: "x",
-      occurred_at: "2026-01-01T00:00:00Z",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.LateArrivingUsage.new(attrs)
-  end
-
-  test "late_arriving_usage new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.LateArrivingUsage.new(%{})
-  end
-
-
-  test "latency_budget_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      workload_id: "x",
-      observation_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.LatencyBudgetObservation.new(attrs)
-  end
-
-  test "latency_budget_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.LatencyBudgetObservation.new(%{})
-  end
-
-
-  test "leakage_finding new/1 succeeds when all fields are present" do
-    attrs = %{
-      case_id: "x",
-      fitness: 1.0,
-      precision: 1.0,
-      amount_at_risk: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.LeakageFinding.new(attrs)
-  end
-
-  test "leakage_finding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.LeakageFinding.new(%{})
-  end
-
-
-  test "learning_episode new/1 succeeds when all fields are present" do
-    attrs = %{
-      episode_id: "x",
-      exact_subject_sha: "x",
-      evidence_digest: "x",
-      outcome: "x",
-      authority_ceiling: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.LearningEpisode.new(attrs)
-  end
-
-  test "learning_episode new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.LearningEpisode.new(%{})
-  end
-
-
-  test "least_authority_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      granted_permissions: ["a"],
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.LeastAuthorityEvidence.new(attrs)
-  end
-
-  test "least_authority_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.LeastAuthorityEvidence.new(%{})
-  end
-
-
-  test "legal_blocker new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      blocker_id: "x",
-      refusal_code: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.LegalBlocker.new(attrs)
-  end
-
-  test "legal_blocker new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.LegalBlocker.new(%{})
-  end
-
-
-  test "liability_cap_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      liability_cap_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.LiabilityCapAdmission.new(attrs)
-  end
-
-  test "liability_cap_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.LiabilityCapAdmission.new(%{})
-  end
-
-
-  test "license_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      license_expression: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.LicenseEvidence.new(attrs)
-  end
-
-  test "license_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.LicenseEvidence.new(%{})
-  end
-
-
-  test "log_trace new/1 succeeds when all fields are present" do
-    attrs = %{
-      case_id: "x",
-      activity_sequence: ["a"]
-    }
-
-    assert {:ok, _} = BeamPM.Types.LogTrace.new(attrs)
-  end
-
-  test "log_trace new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.LogTrace.new(%{})
-  end
-
-
-  test "machine_actionable_delta new/1 succeeds when all fields are present" do
-    attrs = %{
-      subject_id: "x",
-      prior_state_digest: "x",
-      delta_digest: "x",
-      recommended_action: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MachineActionableDelta.new(attrs)
-  end
-
-  test "machine_actionable_delta new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MachineActionableDelta.new(%{})
-  end
-
-
-  test "manufacture_receipt_presence_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      subject_sha: "x",
-      receipt_id: "x",
-      receipt_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ManufactureReceiptPresenceObservation.new(attrs)
-  end
-
-  test "manufacture_receipt_presence_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ManufactureReceiptPresenceObservation.new(%{})
-  end
-
-
-  test "manufacture_receipt_validity_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      receipt_digest: "x",
-      subject_sha: "x",
-      verification_status: "x",
-      verifier_identity: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ManufactureReceiptValidityObservation.new(attrs)
-  end
-
-  test "manufacture_receipt_validity_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ManufactureReceiptValidityObservation.new(%{})
-  end
-
-
-  test "master_service_agreement_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      master_service_agreement_binding_id: "x",
-      account_id: "x",
-      msa_digest: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MasterServiceAgreementBinding.new(attrs)
-  end
-
-  test "master_service_agreement_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MasterServiceAgreementBinding.new(%{})
-  end
-
-
-  test "master_service_agreement_state new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      agreement_id: "x",
-      agreement_state: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MasterServiceAgreementState.new(attrs)
-  end
-
-  test "master_service_agreement_state new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MasterServiceAgreementState.new(%{})
-  end
-
-
-  test "mcts_plan_candidate new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      seed: "x",
-      rollout_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MctsPlanCandidate.new(attrs)
-  end
-
-  test "mcts_plan_candidate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MctsPlanCandidate.new(%{})
-  end
-
-
-  test "meta_router new/1 succeeds when all fields are present" do
-    attrs = %{
-      portfolio_id: "x",
-      observation_hash: "x",
-      selected_planner_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MetaRouter.new(attrs)
-  end
-
-  test "meta_router new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MetaRouter.new(%{})
-  end
-
-
-  test "meter_definition new/1 succeeds when all fields are present" do
-    attrs = %{
-      meter_definition_id: "x",
-      account_id: "x",
-      meter_name: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MeterDefinition.new(attrs)
-  end
-
-  test "meter_definition new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MeterDefinition.new(%{})
-  end
-
-
-  test "meter_dimension new/1 succeeds when all fields are present" do
-    attrs = %{
-      meter_dimension_id: "x",
-      account_id: "x",
-      dimension_name: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MeterDimension.new(attrs)
-  end
-
-  test "meter_dimension new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MeterDimension.new(%{})
-  end
-
-
-  test "meter_rollup new/1 succeeds when all fields are present" do
-    attrs = %{
-      meter_rollup_id: "x",
-      account_id: "x",
-      rollup_function: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MeterRollup.new(attrs)
-  end
-
-  test "meter_rollup new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MeterRollup.new(%{})
-  end
-
-
-  test "metered_usage_sample new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      usage_sample_id: "x",
-      sample_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MeteredUsageSample.new(attrs)
-  end
-
-  test "metered_usage_sample new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MeteredUsageSample.new(%{})
-  end
-
-
-  test "migration_contract new/1 succeeds when all fields are present" do
-    attrs = %{
-      migration_id: "x",
-      from_version: "x",
-      to_version: "x",
-      rollback_plan: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MigrationContract.new(attrs)
-  end
-
-  test "migration_contract new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MigrationContract.new(%{})
-  end
-
-
-  test "migration_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      migration_readiness_id: "x",
-      account_id: "x",
-      migration_effort_days: 1,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MigrationReadiness.new(attrs)
-  end
-
-  test "migration_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MigrationReadiness.new(%{})
-  end
-
-
-  test "minimum_commitment_schedule new/1 succeeds when all fields are present" do
-    attrs = %{
-      minimum_commitment_schedule_id: "x",
-      account_id: "x",
-      committed_amount: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MinimumCommitmentSchedule.new(attrs)
-  end
-
-  test "minimum_commitment_schedule new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MinimumCommitmentSchedule.new(%{})
-  end
-
-
-  test "minimum_term_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      minimum_term: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MinimumTermAdmission.new(attrs)
-  end
-
-  test "minimum_term_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MinimumTermAdmission.new(%{})
-  end
-
-
-  test "multiarch_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      platforms: ["a"],
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.MultiarchEvidence.new(attrs)
-  end
-
-  test "multiarch_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MultiarchEvidence.new(%{})
-  end
-
-
-  test "mutable_identity_refusal_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      mutable_reference: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.MutableIdentityRefusalEvidence.new(attrs)
-  end
-
-  test "mutable_identity_refusal_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MutableIdentityRefusalEvidence.new(%{})
-  end
-
-
-  test "mutual_information_score new/1 succeeds when all fields are present" do
-    attrs = %{
-      observation_id: "x",
-      target_state_id: "x",
-      score: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.MutualInformationScore.new(attrs)
-  end
-
-  test "mutual_information_score new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.MutualInformationScore.new(%{})
-  end
-
-
-  test "negative_fixture_generation new/1 succeeds when all fields are present" do
-    attrs = %{
-      fixture_id: "x",
-      source_failure_id: "x",
-      invariant_id: "x",
-      generated_input_digest: "x",
-      expected_refusal_code: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.NegativeFixtureGeneration.new(attrs)
-  end
-
-  test "negative_fixture_generation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.NegativeFixtureGeneration.new(%{})
-  end
-
-
-  test "next_lawful_actuation new/1 succeeds when all fields are present" do
-    attrs = %{
-      episode_id: "x",
-      selected_action_id: "x",
-      selection_receipt_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.NextLawfulActuation.new(attrs)
-  end
-
-  test "next_lawful_actuation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.NextLawfulActuation.new(%{})
-  end
-
-
-  test "no_authority_learning_guard new/1 succeeds when all fields are present" do
-    attrs = %{
-      guard_id: "x",
-      candidate_update_id: "x",
-      current_authority: "x",
-      requested_authority: "x",
-      decision: "x",
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.NoAuthorityLearningGuard.new(attrs)
-  end
-
-  test "no_authority_learning_guard new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.NoAuthorityLearningGuard.new(%{})
-  end
-
-
-  test "node_failover_event new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      node_id: "x",
-      failover_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.NodeFailoverEvent.new(attrs)
-  end
-
-  test "node_failover_event new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.NodeFailoverEvent.new(%{})
-  end
-
-
-  test "nonproduction_discount_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      nonproduction_discount_policy_id: "x",
-      account_id: "x",
-      discount_percent: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.NonproductionDiscountPolicy.new(attrs)
-  end
-
-  test "nonproduction_discount_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.NonproductionDiscountPolicy.new(%{})
-  end
-
-
-  test "normalized_event_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      source_system: "x",
-      event_id: "x",
-      event_type: "x",
-      event_time: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.NormalizedEventObservation.new(attrs)
-  end
-
-  test "normalized_event_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.NormalizedEventObservation.new(%{})
-  end
-
-
-  test "novelty_reward new/1 succeeds when all fields are present" do
-    attrs = %{
-      reward_id: "x",
-      hypothesis_id: "x",
-      feature_vector_digest: "x",
-      nearest_prior_distance: 1.0,
-      reward: 1.0,
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.NoveltyReward.new(attrs)
-  end
-
-  test "novelty_reward new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.NoveltyReward.new(%{})
-  end
-
-
-  test "novelty_score new/1 succeeds when all fields are present" do
-    attrs = %{
-      option_id: "x",
-      reference_set_hash: "x",
-      score: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.NoveltyScore.new(attrs)
-  end
-
-  test "novelty_score new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.NoveltyScore.new(%{})
-  end
-
-
-  test "object_attribute_change new/1 succeeds when all fields are present" do
-    attrs = %{
-      object_id: "x",
-      attribute_name: "x",
-      old_value: "x",
-      new_value: "x",
-      changed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ObjectAttributeChange.new(attrs)
-  end
-
-  test "object_attribute_change new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ObjectAttributeChange.new(%{})
-  end
-
-
-  test "object_type new/1 succeeds when all fields are present" do
-    attrs = %{
-      type_name: "x",
-      attribute_names: ["a"]
-    }
-
-    assert {:ok, _} = BeamPM.Types.ObjectType.new(attrs)
-  end
-
-  test "object_type new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ObjectType.new(%{})
-  end
-
-
-  test "object_volume_pricing_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      object_volume_pricing_policy_id: "x",
-      account_id: "x",
-      unit_object_price: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ObjectVolumePricingPolicy.new(attrs)
-  end
-
-  test "object_volume_pricing_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ObjectVolumePricingPolicy.new(%{})
-  end
-
-
-  test "objection new/1 succeeds when all fields are present" do
-    attrs = %{
-      objection_id: "x",
-      account_id: "x",
-      objection_type: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.Objection.new(attrs)
-  end
-
-  test "objection new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.Objection.new(%{})
-  end
-
-
-  test "objection_resolution new/1 succeeds when all fields are present" do
-    attrs = %{
-      objection_resolution_id: "x",
-      account_id: "x",
-      resolution_status: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ObjectionResolution.new(attrs)
-  end
-
-  test "objection_resolution new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ObjectionResolution.new(%{})
-  end
-
-
-  test "observation_deduplication_decision new/1 succeeds when all fields are present" do
-    attrs = %{
-      event_id: "x",
-      event_digest: "x",
-      dedup_key: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ObservationDeduplicationDecision.new(attrs)
-  end
-
-  test "observation_deduplication_decision new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ObservationDeduplicationDecision.new(%{})
-  end
-
-
-  test "observation_entropy_estimate new/1 succeeds when all fields are present" do
-    attrs = %{
-      state_vector_id: "x",
-      entropy_method: "x",
-      entropy_value: 1.0,
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ObservationEntropyEstimate.new(attrs)
-  end
-
-  test "observation_entropy_estimate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ObservationEntropyEstimate.new(%{})
-  end
-
-
-  test "observation_freshness_assessment new/1 succeeds when all fields are present" do
-    attrs = %{
-      observation_id: "x",
-      observed_at: "2026-01-01T00:00:00Z",
-      freshness_deadline: "2026-01-01T00:00:00Z",
-      freshness_status: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ObservationFreshnessAssessment.new(attrs)
-  end
-
-  test "observation_freshness_assessment new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ObservationFreshnessAssessment.new(%{})
-  end
-
-
-  test "observation_projection_update new/1 succeeds when all fields are present" do
-    attrs = %{
-      update_id: "x",
-      projection_id: "x",
-      prior_digest: "x",
-      new_digest: "x",
-      triggering_gap_id: "x",
-      authority_ceiling: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ObservationProjectionUpdate.new(attrs)
-  end
-
-  test "observation_projection_update new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ObservationProjectionUpdate.new(%{})
-  end
-
-
-  test "observation_staleness_invalidation new/1 succeeds when all fields are present" do
-    attrs = %{
-      observation_id: "x",
-      invalidated_at: "2026-01-01T00:00:00Z",
-      staleness_reason: "x",
-      replacement_required: true
-    }
-
-    assert {:ok, _} = BeamPM.Types.ObservationStalenessInvalidation.new(attrs)
-  end
-
-  test "observation_staleness_invalidation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ObservationStalenessInvalidation.new(%{})
-  end
-
-
-  test "oc_declare_constraint new/1 succeeds when all fields are present" do
-    attrs = %{
-      constraint_id: "x",
-      source_activity: "x",
-      target_activity: "x",
-      constraint_type: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.OcDeclareConstraint.new(attrs)
-  end
-
-  test "oc_declare_constraint new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OcDeclareConstraint.new(%{})
-  end
-
-
-  test "ocel_attribute new/1 succeeds when all fields are present" do
-    attrs = %{
-      attribute_name: "x",
-      attribute_value: "x",
-      recorded_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OcelAttribute.new(attrs)
-  end
-
-  test "ocel_attribute new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OcelAttribute.new(%{})
-  end
-
-
-  test "ocel_event new/1 succeeds when all fields are present" do
-    attrs = %{
-      event_id: "x",
-      event_type: "x",
-      event_time: "2026-01-01T00:00:00Z",
-      attributes: %{}
-    }
-
-    assert {:ok, _} = BeamPM.Types.OcelEvent.new(attrs)
-  end
-
-  test "ocel_event new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OcelEvent.new(%{})
-  end
-
-
-  test "ocel_object new/1 succeeds when all fields are present" do
-    attrs = %{
-      object_id: "x",
-      object_type: "x",
-      attributes: %{}
-    }
-
-    assert {:ok, _} = BeamPM.Types.OcelObject.new(attrs)
-  end
-
-  test "ocel_object new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OcelObject.new(%{})
-  end
-
-
-  test "ocel_relationship new/1 succeeds when all fields are present" do
-    attrs = %{
-      qualifier: "x",
-      object_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OcelRelationship.new(attrs)
-  end
-
-  test "ocel_relationship new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OcelRelationship.new(%{})
-  end
-
-
-  test "oci_manifest_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      manifest_digest: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.OciManifestEvidence.new(attrs)
-  end
-
-  test "oci_manifest_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OciManifestEvidence.new(%{})
-  end
-
-
-  test "offline_bundle_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      bundle_digest: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.OfflineBundleEvidence.new(attrs)
-  end
-
-  test "offline_bundle_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OfflineBundleEvidence.new(%{})
-  end
-
-
-  test "operator_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      operator_readiness_id: "x",
-      account_id: "x",
-      operator_readiness_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OperatorReadiness.new(attrs)
-  end
-
-  test "operator_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OperatorReadiness.new(%{})
-  end
-
-
-  test "opportunity_currency_contract new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      currency_code: "x",
-      fx_basis_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OpportunityCurrencyContract.new(attrs)
-  end
-
-  test "opportunity_currency_contract new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OpportunityCurrencyContract.new(%{})
-  end
-
-
-  test "opportunity_value_range new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      minimum_value: "x",
-      maximum_value: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OpportunityValueRange.new(attrs)
-  end
-
-  test "opportunity_value_range new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OpportunityValueRange.new(%{})
-  end
-
-
-  test "optimization_plan_candidate new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      objective_id: "x",
-      solver_receipt_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OptimizationPlanCandidate.new(attrs)
-  end
-
-  test "optimization_plan_candidate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OptimizationPlanCandidate.new(%{})
-  end
-
-
-  test "option_generation new/1 succeeds when all fields are present" do
-    attrs = %{
-      state_id: "x",
-      generator_id: "x",
-      option_set_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OptionGeneration.new(attrs)
-  end
-
-  test "option_generation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OptionGeneration.new(%{})
-  end
-
-
-  test "order_form_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      order_form_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OrderFormAdmission.new(attrs)
-  end
-
-  test "order_form_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OrderFormAdmission.new(%{})
-  end
-
-
-  test "order_form_version new/1 succeeds when all fields are present" do
-    attrs = %{
-      order_form_version_id: "x",
-      account_id: "x",
-      order_form_digest: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OrderFormVersion.new(attrs)
-  end
-
-  test "order_form_version new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OrderFormVersion.new(%{})
-  end
-
-
-  test "orthogonality_reward new/1 succeeds when all fields are present" do
-    attrs = %{
-      reward_id: "x",
-      candidate_id: "x",
-      comparison_set_digest: "x",
-      minimum_semantic_distance: 1.0,
-      reward: 1.0,
-      independence_evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OrthogonalityReward.new(attrs)
-  end
-
-  test "orthogonality_reward new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OrthogonalityReward.new(%{})
-  end
-
-
-  test "orthogonality_score new/1 succeeds when all fields are present" do
-    attrs = %{
-      left_option_id: "x",
-      right_option_id: "x",
-      score: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OrthogonalityScore.new(attrs)
-  end
-
-  test "orthogonality_score new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OrthogonalityScore.new(%{})
-  end
-
-
-  test "outcome_label new/1 succeeds when all fields are present" do
-    attrs = %{
-      label_id: "x",
-      episode_id: "x",
-      outcome_class: "x",
-      confidence_basis: "x",
-      independent_evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OutcomeLabel.new(attrs)
-  end
-
-  test "outcome_label new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OutcomeLabel.new(%{})
-  end
-
-
-  test "output_ownership_gate new/1 succeeds when all fields are present" do
-    attrs = %{
-      subject_id: "x",
-      ownership_manifest_hash: "x",
-      standing: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OutputOwnershipGate.new(attrs)
-  end
-
-  test "output_ownership_gate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OutputOwnershipGate.new(%{})
-  end
-
-
-  test "overage_invoice new/1 succeeds when all fields are present" do
-    attrs = %{
-      overage_invoice_id: "x",
-      account_id: "x",
-      overage_amount: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.OverageInvoice.new(attrs)
-  end
-
-  test "overage_invoice new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OverageInvoice.new(%{})
-  end
-
-
-  test "overage_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      policy_id: "x",
-      quota_id: "x",
-      unit_price: 1.0,
-      behavior: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.OveragePolicy.new(attrs)
-  end
-
-  test "overage_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.OveragePolicy.new(%{})
-  end
-
-
-  test "package_release_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      package_id: "x",
-      version: "x",
-      immutable_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PackageReleaseObservation.new(attrs)
-  end
-
-  test "package_release_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PackageReleaseObservation.new(%{})
-  end
-
-
-  test "paid_workload_outcome_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      workload_id: "x",
-      outcome_receipt_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PaidWorkloadOutcomeReceipt.new(attrs)
-  end
-
-  test "paid_workload_outcome_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PaidWorkloadOutcomeReceipt.new(%{})
-  end
-
-
-  test "pareto_filter new/1 succeeds when all fields are present" do
-    attrs = %{
-      option_set_id: "x",
-      objective_set_hash: "x",
-      pareto_set_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ParetoFilter.new(attrs)
-  end
-
-  test "pareto_filter new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ParetoFilter.new(%{})
-  end
-
-
-  test "path_schema new/1 succeeds when all fields are present" do
-    attrs = %{
-      schema_id: "x",
-      source_type: "x",
-      target_type: "x",
-      support: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.PathSchema.new(attrs)
-  end
-
-  test "path_schema new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PathSchema.new(%{})
-  end
-
-
-  test "path_schema_query new/1 succeeds when all fields are present" do
-    attrs = %{
-      source_type: "x",
-      target_type: "x",
-      max_length: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.PathSchemaQuery.new(attrs)
-  end
-
-  test "path_schema_query new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PathSchemaQuery.new(%{})
-  end
-
-
-  test "payment_terms new/1 succeeds when all fields are present" do
-    attrs = %{
-      terms_id: "x",
-      net_days: 1,
-      late_policy: "x",
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.PaymentTerms.new(attrs)
-  end
-
-  test "payment_terms new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PaymentTerms.new(%{})
-  end
-
-
-  test "payment_terms_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      payment_terms: "x",
-      authority_evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PaymentTermsAdmission.new(attrs)
-  end
-
-  test "payment_terms_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PaymentTermsAdmission.new(%{})
-  end
-
-
-  test "performance_slo_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      latency_p95_ms: 1,
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.PerformanceSloEvidence.new(attrs)
-  end
-
-  test "performance_slo_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PerformanceSloEvidence.new(%{})
-  end
-
-
-  test "petri_arc new/1 succeeds when all fields are present" do
-    attrs = %{
-      source_id: "x",
-      target_id: "x",
-      weight: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.PetriArc.new(attrs)
-  end
-
-  test "petri_arc new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PetriArc.new(%{})
-  end
-
-
-  test "petri_place new/1 succeeds when all fields are present" do
-    attrs = %{
-      place_id: "x",
-      tokens: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.PetriPlace.new(attrs)
-  end
-
-  test "petri_place new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PetriPlace.new(%{})
-  end
-
-
-  test "petri_transition new/1 succeeds when all fields are present" do
-    attrs = %{
-      transition_id: "x",
-      label: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PetriTransition.new(attrs)
-  end
-
-  test "petri_transition new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PetriTransition.new(%{})
-  end
-
-
-  test "plan_lineage new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      parent_plan_id: "x",
-      lineage_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PlanLineage.new(attrs)
-  end
-
-  test "plan_lineage new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PlanLineage.new(%{})
-  end
-
-
-  test "plan_memory new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      evidence_hash: "x",
-      memory_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PlanMemory.new(attrs)
-  end
-
-  test "plan_memory new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PlanMemory.new(%{})
-  end
-
-
-  test "planner_capability_profile new/1 succeeds when all fields are present" do
-    attrs = %{
-      planner_id: "x",
-      capability_set: "x",
-      profile_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PlannerCapabilityProfile.new(attrs)
-  end
-
-  test "planner_capability_profile new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PlannerCapabilityProfile.new(%{})
-  end
-
-
-  test "planner_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      planner_id: "x",
-      planner_kind: "x",
-      identity_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PlannerIdentity.new(attrs)
-  end
-
-  test "planner_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PlannerIdentity.new(%{})
-  end
-
-
-  test "planner_payoff_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      observation_id: "x",
-      planner_id: "x",
-      objective_id: "x",
-      payoff: 1.0,
-      evidence_digest: "x",
-      episode_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PlannerPayoffObservation.new(attrs)
-  end
-
-  test "planner_payoff_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PlannerPayoffObservation.new(%{})
-  end
-
-
-  test "planner_policy_comparison new/1 succeeds when all fields are present" do
-    attrs = %{
-      comparison_id: "x",
-      planner_id: "x",
-      incumbent_policy_id: "x",
-      challenger_policy_id: "x",
-      payoff_delta: 1.0,
-      winner_evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PlannerPolicyComparison.new(attrs)
-  end
-
-  test "planner_policy_comparison new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PlannerPolicyComparison.new(%{})
-  end
-
-
-  test "planner_portfolio new/1 succeeds when all fields are present" do
-    attrs = %{
-      portfolio_id: "x",
-      planner_ids: "x",
-      diversity_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PlannerPortfolio.new(attrs)
-  end
-
-  test "planner_portfolio new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PlannerPortfolio.new(%{})
-  end
-
-
-  test "planner_routing_update new/1 succeeds when all fields are present" do
-    attrs = %{
-      update_id: "x",
-      route_id: "x",
-      prior_planner_id: "x",
-      selected_planner_id: "x",
-      payoff_basis_digest: "x",
-      rollback_policy_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PlannerRoutingUpdate.new(attrs)
-  end
-
-  test "planner_routing_update new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PlannerRoutingUpdate.new(%{})
-  end
-
-
-  test "planning_action new/1 succeeds when all fields are present" do
-    attrs = %{
-      action_name: "x",
-      preconditions: ["a"],
-      effects: ["a"]
-    }
-
-    assert {:ok, _} = BeamPM.Types.PlanningAction.new(attrs)
-  end
-
-  test "planning_action new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PlanningAction.new(%{})
-  end
-
-
-  test "planning_state new/1 succeeds when all fields are present" do
-    attrs = %{
-      state_id: "x",
-      facts: ["a"]
-    }
-
-    assert {:ok, _} = BeamPM.Types.PlanningState.new(attrs)
-  end
-
-  test "planning_state new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PlanningState.new(%{})
-  end
-
-
-  test "poc_exit_criteria new/1 succeeds when all fields are present" do
-    attrs = %{
-      poc_exit_criteria_id: "x",
-      account_id: "x",
-      criteria_pass_rate: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PocExitCriteria.new(attrs)
-  end
-
-  test "poc_exit_criteria new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PocExitCriteria.new(%{})
-  end
-
-
-  test "poc_risk new/1 succeeds when all fields are present" do
-    attrs = %{
-      poc_risk_id: "x",
-      account_id: "x",
-      risk_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PocRisk.new(attrs)
-  end
-
-  test "poc_risk new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PocRisk.new(%{})
-  end
-
-
-  test "poc_scope new/1 succeeds when all fields are present" do
-    attrs = %{
-      poc_scope_id: "x",
-      account_id: "x",
-      use_case_count: 1,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PocScope.new(attrs)
-  end
-
-  test "poc_scope new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PocScope.new(%{})
-  end
-
-
-  test "poc_timeline new/1 succeeds when all fields are present" do
-    attrs = %{
-      poc_timeline_id: "x",
-      account_id: "x",
-      days_to_value: 1,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PocTimeline.new(attrs)
-  end
-
-  test "poc_timeline new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PocTimeline.new(%{})
-  end
-
-
-  test "policy_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      policy_id: "x",
-      planner_id: "x",
-      policy_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PolicyBinding.new(attrs)
-  end
-
-  test "policy_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PolicyBinding.new(%{})
-  end
-
-
-  test "policy_decision new/1 succeeds when all fields are present" do
-    attrs = %{
-      decision_id: "x",
-      verdict: :some_atom,
-      reason: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PolicyDecision.new(attrs)
-  end
-
-  test "policy_decision new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PolicyDecision.new(%{})
-  end
-
-
-  test "policy_payoff_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      observation_id: "x",
-      policy_id: "x",
-      parameter_digest: "x",
-      objective_id: "x",
-      payoff: 1.0,
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PolicyPayoffObservation.new(attrs)
-  end
-
-  test "policy_payoff_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PolicyPayoffObservation.new(%{})
-  end
-
-
-  test "powl_choice_graph_edge new/1 succeeds when all fields are present" do
-    attrs = %{
-      from_kind: :some_atom,
-      from_child_index: 1,
-      to_kind: :some_atom,
-      to_child_index: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.PowlChoiceGraphEdge.new(attrs)
-  end
-
-  test "powl_choice_graph_edge new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PowlChoiceGraphEdge.new(%{})
-  end
-
-
-  test "powl_freq new/1 succeeds when all fields are present" do
-    attrs = %{
-      min_freq: 1,
-      max_freq: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.PowlFreq.new(attrs)
-  end
-
-  test "powl_freq new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PowlFreq.new(%{})
-  end
-
-
-  test "powl_leaf new/1 succeeds when all fields are present" do
-    attrs = %{
-      activity_label: "x",
-      is_tau: true,
-      min_freq: 1,
-      max_freq: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.PowlLeaf.new(attrs)
-  end
-
-  test "powl_leaf new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PowlLeaf.new(%{})
-  end
-
-
-  test "powl_partial_order_edge new/1 succeeds when all fields are present" do
-    attrs = %{
-      from_index: 1,
-      to_index: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.PowlPartialOrderEdge.new(attrs)
-  end
-
-  test "powl_partial_order_edge new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PowlPartialOrderEdge.new(%{})
-  end
-
-
-  test "powl_projection new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      powl_hash: "x",
-      projection_receipt_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PowlProjection.new(attrs)
-  end
-
-  test "powl_projection new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PowlProjection.new(%{})
-  end
-
-
-  test "ppddl_projection new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      domain_hash: "x",
-      problem_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PpddlProjection.new(attrs)
-  end
-
-  test "ppddl_projection new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PpddlProjection.new(%{})
-  end
-
-
-  test "premium_connector_pricing new/1 succeeds when all fields are present" do
-    attrs = %{
-      premium_connector_pricing_id: "x",
-      account_id: "x",
-      connector_id: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PremiumConnectorPricing.new(attrs)
-  end
-
-  test "premium_connector_pricing new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PremiumConnectorPricing.new(%{})
-  end
-
-
-  test "prepaid_credit_balance new/1 succeeds when all fields are present" do
-    attrs = %{
-      prepaid_credit_balance_id: "x",
-      account_id: "x",
-      remaining_credit: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PrepaidCreditBalance.new(attrs)
-  end
-
-  test "prepaid_credit_balance new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PrepaidCreditBalance.new(%{})
-  end
-
-
-  test "price_book_version new/1 succeeds when all fields are present" do
-    attrs = %{
-      price_book_version_id: "x",
-      account_id: "x",
-      version: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PriceBookVersion.new(attrs)
-  end
-
-  test "price_book_version new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PriceBookVersion.new(%{})
-  end
-
-
-  test "pricing_basis_contract new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      pricing_basis_id: "x",
-      evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PricingBasisContract.new(attrs)
-  end
-
-  test "pricing_basis_contract new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PricingBasisContract.new(%{})
-  end
-
-
-  test "privacy_classification_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      privacy_class: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.PrivacyClassificationEvidence.new(attrs)
-  end
-
-  test "privacy_classification_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PrivacyClassificationEvidence.new(%{})
-  end
-
-
-  test "private_offer new/1 succeeds when all fields are present" do
-    attrs = %{
-      offer_id: "x",
-      account_id: "x",
-      total_price: 1.0,
-      expires_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PrivateOffer.new(attrs)
-  end
-
-  test "private_offer new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PrivateOffer.new(%{})
-  end
-
-
-  test "private_registry_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      registry_digest: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.PrivateRegistryEvidence.new(attrs)
-  end
-
-  test "private_registry_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PrivateRegistryEvidence.new(%{})
-  end
-
-
-  test "process_variant new/1 succeeds when all fields are present" do
-    attrs = %{
-      variant_id: "x",
-      activity_sequence: ["a"],
-      frequency: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProcessVariant.new(attrs)
-  end
-
-  test "process_variant new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProcessVariant.new(%{})
-  end
-
-
-  test "process_volume_pricing_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      process_volume_pricing_policy_id: "x",
-      account_id: "x",
-      unit_process_price: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProcessVolumePricingPolicy.new(attrs)
-  end
-
-  test "process_volume_pricing_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProcessVolumePricingPolicy.new(%{})
-  end
-
-
-  test "procurement_acceptance_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      acceptance_decision: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProcurementAcceptanceEvidence.new(attrs)
-  end
-
-  test "procurement_acceptance_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProcurementAcceptanceEvidence.new(%{})
-  end
-
-
-  test "procurement_blocker new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      blocker_id: "x",
-      refusal_code: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProcurementBlocker.new(attrs)
-  end
-
-  test "procurement_blocker new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProcurementBlocker.new(%{})
-  end
-
-
-  test "procurement_channel_selection new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      channel_id: "x",
-      selection_evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProcurementChannelSelection.new(attrs)
-  end
-
-  test "procurement_channel_selection new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProcurementChannelSelection.new(%{})
-  end
-
-
-  test "procurement_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      procurement_readiness_id: "x",
-      account_id: "x",
-      procurement_stage: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProcurementReadiness.new(attrs)
-  end
-
-  test "procurement_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProcurementReadiness.new(%{})
-  end
-
-
-  test "production_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      production_readiness_id: "x",
-      account_id: "x",
-      production_readiness_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProductionReadiness.new(attrs)
-  end
-
-  test "production_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProductionReadiness.new(%{})
-  end
-
-
-  test "promotion_decision new/1 succeeds when all fields are present" do
-    attrs = %{
-      decision_id: "x",
-      candidate_policy_id: "x",
-      threshold_id: "x",
-      evidence_set_digest: "x",
-      decision: "x",
-      refusal_code: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PromotionDecision.new(attrs)
-  end
-
-  test "promotion_decision new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PromotionDecision.new(%{})
-  end
-
-
-  test "promotion_threshold new/1 succeeds when all fields are present" do
-    attrs = %{
-      threshold_id: "x",
-      objective_id: "x",
-      minimum_payoff: 1.0,
-      maximum_regression: 1.0,
-      minimum_evidence_count: 1,
-      authority_binding: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PromotionThreshold.new(attrs)
-  end
-
-  test "promotion_threshold new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PromotionThreshold.new(%{})
-  end
-
-
-  test "proof_of_value_budget new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      budget_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProofOfValueBudget.new(attrs)
-  end
-
-  test "proof_of_value_budget new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProofOfValueBudget.new(%{})
-  end
-
-
-  test "proof_of_value_exit_gate new/1 succeeds when all fields are present" do
-    attrs = %{
-      pov_id: "x",
-      exit_gate_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProofOfValueExitGate.new(attrs)
-  end
-
-  test "proof_of_value_exit_gate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProofOfValueExitGate.new(%{})
-  end
-
-
-  test "proof_of_value_package new/1 succeeds when all fields are present" do
-    attrs = %{
-      proof_of_value_package_id: "x",
-      account_id: "x",
-      success_metric: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProofOfValuePackage.new(attrs)
-  end
-
-  test "proof_of_value_package new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProofOfValuePackage.new(%{})
-  end
-
-
-  test "propagation_score new/1 succeeds when all fields are present" do
-    attrs = %{
-      option_id: "x",
-      graph_hash: "x",
-      score: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PropagationScore.new(attrs)
-  end
-
-  test "propagation_score new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PropagationScore.new(%{})
-  end
-
-
-  test "proration_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      proration_policy_id: "x",
-      account_id: "x",
-      proration_method: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProrationPolicy.new(attrs)
-  end
-
-  test "proration_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProrationPolicy.new(%{})
-  end
-
-
-  test "provenance_binding_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      builder_identity: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProvenanceBindingEvidence.new(attrs)
-  end
-
-  test "provenance_binding_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProvenanceBindingEvidence.new(%{})
-  end
-
-
-  test "provenance_binding_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      observation_id: "x",
-      source_capsule_digest: "x",
-      evidence_digest: "x",
-      binding_status: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ProvenanceBindingObservation.new(attrs)
-  end
-
-  test "provenance_binding_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ProvenanceBindingObservation.new(%{})
-  end
-
-
-  test "psro_population new/1 succeeds when all fields are present" do
-    attrs = %{
-      population_id: "x",
-      policy_ids: "x",
-      population_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PsroPopulation.new(attrs)
-  end
-
-  test "psro_population new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PsroPopulation.new(%{})
-  end
-
-
-  test "purchase_order_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      binding_id: "x",
-      order_id: "x",
-      purchase_order_number: "x",
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.PurchaseOrderBinding.new(attrs)
-  end
-
-  test "purchase_order_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PurchaseOrderBinding.new(%{})
-  end
-
-
-  test "purchase_order_requirement new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      requirement_id: "x",
-      evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PurchaseOrderRequirement.new(attrs)
-  end
-
-  test "purchase_order_requirement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PurchaseOrderRequirement.new(%{})
-  end
-
-
-  test "purchasing_entity_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      purchasing_entity_id: "x",
-      identity_evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.PurchasingEntityIdentity.new(attrs)
-  end
-
-  test "purchasing_entity_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.PurchasingEntityIdentity.new(%{})
-  end
-
-
-  test "queue_snapshot new/1 succeeds when all fields are present" do
-    attrs = %{
-      queue_name: "x",
-      depth: 1,
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.QueueSnapshot.new(attrs)
-  end
-
-  test "queue_snapshot new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.QueueSnapshot.new(%{})
-  end
-
-
-  test "quota_burst_allowance new/1 succeeds when all fields are present" do
-    attrs = %{
-      quota_burst_allowance_id: "x",
-      account_id: "x",
-      burst_units: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.QuotaBurstAllowance.new(attrs)
-  end
-
-  test "quota_burst_allowance new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.QuotaBurstAllowance.new(%{})
-  end
-
-
-  test "quota_override new/1 succeeds when all fields are present" do
-    attrs = %{
-      quota_override_id: "x",
-      account_id: "x",
-      override_units: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.QuotaOverride.new(attrs)
-  end
-
-  test "quota_override new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.QuotaOverride.new(%{})
-  end
-
-
-  test "quota_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      quota_id: "x",
-      metric_name: "x",
-      limit: 1.0,
-      window: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.QuotaPolicy.new(attrs)
-  end
-
-  test "quota_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.QuotaPolicy.new(%{})
-  end
-
-
-  test "ramp_commitment new/1 succeeds when all fields are present" do
-    attrs = %{
-      ramp_id: "x",
-      phase: 1,
-      committed_amount: 1.0,
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RampCommitment.new(attrs)
-  end
-
-  test "ramp_commitment new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RampCommitment.new(%{})
-  end
-
-
-  test "rate_card_entry new/1 succeeds when all fields are present" do
-    attrs = %{
-      rate_card_entry_id: "x",
-      account_id: "x",
-      unit_price: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RateCardEntry.new(attrs)
-  end
-
-  test "rate_card_entry new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RateCardEntry.new(%{})
-  end
-
-
-  test "rate_distortion_budget new/1 succeeds when all fields are present" do
-    attrs = %{
-      budget_id: "x",
-      decision_id: "x",
-      source_information_bits: 1.0,
-      retained_information_bits: 1.0,
-      maximum_distortion: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.RateDistortionBudget.new(attrs)
-  end
-
-  test "rate_distortion_budget new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RateDistortionBudget.new(%{})
-  end
-
-
-  test "reachability_analysis new/1 succeeds when all fields are present" do
-    attrs = %{
-      state_id: "x",
-      goal_id: "x",
-      reachability_proof_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReachabilityAnalysis.new(attrs)
-  end
-
-  test "reachability_analysis new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReachabilityAnalysis.new(%{})
-  end
-
-
-  test "receipt_learning_compilation new/1 succeeds when all fields are present" do
-    attrs = %{
-      compilation_id: "x",
-      receipt_chain_head: "x",
-      admitted_receipt_count: 1,
-      rejected_receipt_count: 1,
-      learning_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReceiptLearningCompilation.new(attrs)
-  end
-
-  test "receipt_learning_compilation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptLearningCompilation.new(%{})
-  end
-
-
-  test "receipt_replay_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      replay_result_hash: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReceiptReplayEvidence.new(attrs)
-  end
-
-  test "receipt_replay_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptReplayEvidence.new(%{})
-  end
-
-
-  test "receipt_replay_request new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      receipt_id: "x",
-      replay_request_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReceiptReplayRequest.new(attrs)
-  end
-
-  test "receipt_replay_request new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptReplayRequest.new(%{})
-  end
-
-
-  test "receipt_required_gate new/1 succeeds when all fields are present" do
-    attrs = %{
-      action_id: "x",
-      receipt_contract_id: "x",
-      standing: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReceiptRequiredGate.new(attrs)
-  end
-
-  test "receipt_required_gate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptRequiredGate.new(%{})
-  end
-
-
-  test "receipt_signature new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      receipt_id: "x",
-      signature_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReceiptSignature.new(attrs)
-  end
-
-  test "receipt_signature new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptSignature.new(%{})
-  end
-
-
-  test "receipt_subject_binding new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      workload_id: "x",
-      binding_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReceiptSubjectBinding.new(attrs)
-  end
-
-  test "receipt_subject_binding new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptSubjectBinding.new(%{})
-  end
-
-
-  test "receipt_verification new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      receipt_id: "x",
-      verification_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReceiptVerification.new(attrs)
-  end
-
-  test "receipt_verification new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReceiptVerification.new(%{})
-  end
-
-
-  test "recovery_plan new/1 succeeds when all fields are present" do
-    attrs = %{
-      recovery_plan_id: "x",
-      account_id: "x",
-      recovery_time_hours: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RecoveryPlan.new(attrs)
-  end
-
-  test "recovery_plan new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RecoveryPlan.new(%{})
-  end
-
-
-  test "recovery_point_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      incident_id: "x",
-      recovery_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RecoveryPointReceipt.new(attrs)
-  end
-
-  test "recovery_point_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RecoveryPointReceipt.new(%{})
-  end
-
-
-  test "recovery_time_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      incident_id: "x",
-      recovery_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RecoveryTimeReceipt.new(attrs)
-  end
-
-  test "recovery_time_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RecoveryTimeReceipt.new(%{})
-  end
-
-
-  test "refund_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      refund_policy_id: "x",
-      account_id: "x",
-      refund_method: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RefundPolicy.new(attrs)
-  end
-
-  test "refund_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RefundPolicy.new(%{})
-  end
-
-
-  test "refusal_boundary_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      subject_id: "x",
-      refusal_code: "x",
-      authority_boundary: "x",
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RefusalBoundaryObservation.new(attrs)
-  end
-
-  test "refusal_boundary_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RefusalBoundaryObservation.new(%{})
-  end
-
-
-  test "refusal_threshold new/1 succeeds when all fields are present" do
-    attrs = %{
-      threshold_id: "x",
-      refusal_class: "x",
-      limit: 1.0,
-      metric_id: "x",
-      authority_binding: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RefusalThreshold.new(attrs)
-  end
-
-  test "refusal_threshold new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RefusalThreshold.new(%{})
-  end
-
-
-  test "region_pricing_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      region_pricing_policy_id: "x",
-      account_id: "x",
-      region_code: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RegionPricingPolicy.new(attrs)
-  end
-
-  test "region_pricing_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RegionPricingPolicy.new(%{})
-  end
-
-
-  test "regression_detector new/1 succeeds when all fields are present" do
-    attrs = %{
-      detection_id: "x",
-      baseline_policy_id: "x",
-      candidate_policy_id: "x",
-      metric_id: "x",
-      regression_delta: 1.0,
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RegressionDetector.new(attrs)
-  end
-
-  test "regression_detector new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RegressionDetector.new(%{})
-  end
-
-
-  test "regression_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      refusal_id: "x",
-      candidate_policy_id: "x",
-      regression_detection_id: "x",
-      acceptance_threshold: 1.0,
-      observed_regression: 1.0,
-      authority_ceiling: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RegressionRefusal.new(attrs)
-  end
-
-  test "regression_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RegressionRefusal.new(%{})
-  end
-
-
-  test "remediation_sla_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      remediation_due_at: "2026-01-01T00:00:00Z",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.RemediationSlaEvidence.new(attrs)
-  end
-
-  test "remediation_sla_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RemediationSlaEvidence.new(%{})
-  end
-
-
-  test "renewal_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      renewal_evidence_id: "x",
-      account_id: "x",
-      renewal_value: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RenewalEvidence.new(attrs)
-  end
-
-  test "renewal_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RenewalEvidence.new(%{})
-  end
-
-
-  test "renewal_health new/1 succeeds when all fields are present" do
-    attrs = %{
-      renewal_health_id: "x",
-      account_id: "x",
-      renewal_health_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RenewalHealth.new(attrs)
-  end
-
-  test "renewal_health new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RenewalHealth.new(%{})
-  end
-
-
-  test "renewal_option new/1 succeeds when all fields are present" do
-    attrs = %{
-      option_id: "x",
-      subscription_id: "x",
-      term_months: 1,
-      notice_by: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RenewalOption.new(attrs)
-  end
-
-  test "renewal_option new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RenewalOption.new(%{})
-  end
-
-
-  test "renewal_risk new/1 succeeds when all fields are present" do
-    attrs = %{
-      renewal_risk_id: "x",
-      account_id: "x",
-      renewal_risk_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RenewalRisk.new(attrs)
-  end
-
-  test "renewal_risk new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RenewalRisk.new(%{})
-  end
-
-
-  test "renewal_term_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      renewal_term: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RenewalTermAdmission.new(attrs)
-  end
-
-  test "renewal_term_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RenewalTermAdmission.new(%{})
-  end
-
-
-  test "repair_effectiveness_measurement new/1 succeeds when all fields are present" do
-    attrs = %{
-      measurement_id: "x",
-      repair_id: "x",
-      baseline_failure_rate: 1.0,
-      post_repair_failure_rate: 1.0,
-      evaluation_window_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RepairEffectivenessMeasurement.new(attrs)
-  end
-
-  test "repair_effectiveness_measurement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RepairEffectivenessMeasurement.new(%{})
-  end
-
-
-  test "replay_environment_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      environment_id: "x",
-      identity_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReplayEnvironmentIdentity.new(attrs)
-  end
-
-  test "replay_environment_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReplayEnvironmentIdentity.new(%{})
-  end
-
-
-  test "repository_ancestry_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      ancestor_sha: "x",
-      descendant_sha: "x",
-      relation: "x",
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RepositoryAncestryObservation.new(attrs)
-  end
-
-  test "repository_ancestry_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RepositoryAncestryObservation.new(%{})
-  end
-
-
-  test "repository_default_branch_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      repository_id: "x",
-      default_branch: "x",
-      head_sha: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RepositoryDefaultBranchObservation.new(attrs)
-  end
-
-  test "repository_default_branch_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RepositoryDefaultBranchObservation.new(%{})
-  end
-
-
-  test "repository_exact_head_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      repository_id: "x",
-      branch_name: "x",
-      head_sha: "x",
-      previous_head_sha: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RepositoryExactHeadObservation.new(attrs)
-  end
-
-  test "repository_exact_head_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RepositoryExactHeadObservation.new(%{})
-  end
-
-
-  test "repository_worktree_state_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      repository_id: "x",
-      worktree_hash: "x",
-      dirty_path_count: 1,
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RepositoryWorktreeStateObservation.new(attrs)
-  end
-
-  test "repository_worktree_state_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RepositoryWorktreeStateObservation.new(%{})
-  end
-
-
-  test "reproducible_build_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      build_digest: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReproducibleBuildEvidence.new(attrs)
-  end
-
-  test "reproducible_build_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReproducibleBuildEvidence.new(%{})
-  end
-
-
-  test "reseller_authorization new/1 succeeds when all fields are present" do
-    attrs = %{
-      authorization_id: "x",
-      reseller_id: "x",
-      sku: "x",
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ResellerAuthorization.new(attrs)
-  end
-
-  test "reseller_authorization new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ResellerAuthorization.new(%{})
-  end
-
-
-  test "reserve_work_promotion new/1 succeeds when all fields are present" do
-    attrs = %{
-      blocked_work_id: "x",
-      reserve_set_hash: "x",
-      promoted_work_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReserveWorkPromotion.new(attrs)
-  end
-
-  test "reserve_work_promotion new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReserveWorkPromotion.new(%{})
-  end
-
-
-  test "residency_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      region: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ResidencyEvidence.new(attrs)
-  end
-
-  test "residency_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ResidencyEvidence.new(%{})
-  end
-
-
-  test "resource_allocation new/1 succeeds when all fields are present" do
-    attrs = %{
-      resource_id: "x",
-      activity: "x",
-      event_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ResourceAllocation.new(attrs)
-  end
-
-  test "resource_allocation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ResourceAllocation.new(%{})
-  end
-
-
-  test "resource_capacity_plan new/1 succeeds when all fields are present" do
-    attrs = %{
-      episode_id: "x",
-      resource_pool_hash: "x",
-      allocation_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ResourceCapacityPlan.new(attrs)
-  end
-
-  test "resource_capacity_plan new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ResourceCapacityPlan.new(%{})
-  end
-
-
-  test "retention_policy_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      retention_days: 1,
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.RetentionPolicyEvidence.new(attrs)
-  end
-
-  test "retention_policy_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RetentionPolicyEvidence.new(%{})
-  end
-
-
-  test "retention_pricing_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      retention_pricing_policy_id: "x",
-      account_id: "x",
-      retention_days: 1,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RetentionPricingPolicy.new(attrs)
-  end
-
-  test "retention_pricing_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RetentionPricingPolicy.new(%{})
-  end
-
-
-  test "revenue_attribution new/1 succeeds when all fields are present" do
-    attrs = %{
-      revenue_attribution_id: "x",
-      account_id: "x",
-      attributed_revenue: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RevenueAttribution.new(attrs)
-  end
-
-  test "revenue_attribution new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RevenueAttribution.new(%{})
-  end
-
-
-  test "revenue_contract_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      contract_id: "x",
-      admission_receipt_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RevenueContractAdmission.new(attrs)
-  end
-
-  test "revenue_contract_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RevenueContractAdmission.new(%{})
-  end
-
-
-  test "revenue_schedule_assumption new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      schedule_id: "x",
-      assumption_evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RevenueScheduleAssumption.new(attrs)
-  end
-
-  test "revenue_schedule_assumption new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RevenueScheduleAssumption.new(%{})
-  end
-
-
-  test "reversibility_weight new/1 succeeds when all fields are present" do
-    attrs = %{
-      action_id: "x",
-      rollback_id: "x",
-      weight: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReversibilityWeight.new(attrs)
-  end
-
-  test "reversibility_weight new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReversibilityWeight.new(%{})
-  end
-
-
-  test "rework_cost new/1 succeeds when all fields are present" do
-    attrs = %{
-      case_id: "x",
-      loop_count: 1,
-      weighted_cost: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.ReworkCost.new(attrs)
-  end
-
-  test "rework_cost new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ReworkCost.new(%{})
-  end
-
-
-  test "rfp_response_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      answer_set_hash: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.RfpResponseEvidence.new(attrs)
-  end
-
-  test "rfp_response_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RfpResponseEvidence.new(%{})
-  end
-
-
-  test "role_compatibility new/1 succeeds when all fields are present" do
-    attrs = %{
-      role_id: "x",
-      policy_id: "x",
-      compatibility: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RoleCompatibility.new(attrs)
-  end
-
-  test "role_compatibility new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RoleCompatibility.new(%{})
-  end
-
-
-  test "rollback_checkpoint new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      checkpoint_id: "x",
-      state_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RollbackCheckpoint.new(attrs)
-  end
-
-  test "rollback_checkpoint new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RollbackCheckpoint.new(%{})
-  end
-
-
-  test "rollback_decision new/1 succeeds when all fields are present" do
-    attrs = %{
-      rollback_decision_id: "x",
-      account_id: "x",
-      rollback_result: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RollbackDecision.new(attrs)
-  end
-
-  test "rollback_decision new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RollbackDecision.new(%{})
-  end
-
-
-  test "rollback_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      rollback_digest: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.RollbackEvidence.new(attrs)
-  end
-
-  test "rollback_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RollbackEvidence.new(%{})
-  end
-
-
-  test "rollback_outcome_learning new/1 succeeds when all fields are present" do
-    attrs = %{
-      learning_id: "x",
-      rollback_id: "x",
-      pre_rollback_state_digest: "x",
-      post_rollback_state_digest: "x",
-      recovery_score: 1.0,
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RollbackOutcomeLearning.new(attrs)
-  end
-
-  test "rollback_outcome_learning new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RollbackOutcomeLearning.new(%{})
-  end
-
-
-  test "rolling_upgrade_plan new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      upgrade_id: "x",
-      plan_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RollingUpgradePlan.new(attrs)
-  end
-
-  test "rolling_upgrade_plan new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RollingUpgradePlan.new(%{})
-  end
-
-
-  test "root_cause_pattern new/1 succeeds when all fields are present" do
-    attrs = %{
-      pattern_id: "x",
-      failure_class: "x",
-      causal_graph_digest: "x",
-      confirmed_reproducer_digest: "x",
-      reusable_scope: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RootCausePattern.new(attrs)
-  end
-
-  test "root_cause_pattern new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RootCausePattern.new(%{})
-  end
-
-
-  test "root_cause_reuse_decision new/1 succeeds when all fields are present" do
-    attrs = %{
-      decision_id: "x",
-      pattern_id: "x",
-      current_failure_id: "x",
-      similarity_score: 1.0,
-      applicability_evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RootCauseReuseDecision.new(attrs)
-  end
-
-  test "root_cause_reuse_decision new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RootCauseReuseDecision.new(%{})
-  end
-
-
-  test "runtime_health_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      runtime_id: "x",
-      health_state: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RuntimeHealthObservation.new(attrs)
-  end
-
-  test "runtime_health_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RuntimeHealthObservation.new(%{})
-  end
-
-
-  test "runtime_policy_decision new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      decision_id: "x",
-      policy_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.RuntimePolicyDecision.new(attrs)
-  end
-
-  test "runtime_policy_decision new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.RuntimePolicyDecision.new(%{})
-  end
-
-
-  test "sanctions_screening_result new/1 succeeds when all fields are present" do
-    attrs = %{
-      account_id: "x",
-      screening_id: "x",
-      screening_result: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SanctionsScreeningResult.new(attrs)
-  end
-
-  test "sanctions_screening_result new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SanctionsScreeningResult.new(%{})
-  end
-
-
-  test "sandbox_entitlement new/1 succeeds when all fields are present" do
-    attrs = %{
-      sandbox_entitlement_id: "x",
-      account_id: "x",
-      sandbox_limit: 1,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SandboxEntitlement.new(attrs)
-  end
-
-  test "sandbox_entitlement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SandboxEntitlement.new(%{})
-  end
-
-
-  test "saturation_detection new/1 succeeds when all fields are present" do
-    attrs = %{
-      detection_id: "x",
-      curriculum_id: "x",
-      recent_gain: 1.0,
-      gain_slope: 1.0,
-      novelty_floor: 1.0,
-      coverage_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SaturationDetection.new(attrs)
-  end
-
-  test "saturation_detection new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SaturationDetection.new(%{})
-  end
-
-
-  test "sbom_inventory_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      component_count: 1,
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.SbomInventoryEvidence.new(attrs)
-  end
-
-  test "sbom_inventory_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SbomInventoryEvidence.new(%{})
-  end
-
-
-  test "seat_pricing_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      seat_pricing_policy_id: "x",
-      account_id: "x",
-      seat_price: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SeatPricingPolicy.new(attrs)
-  end
-
-  test "seat_pricing_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SeatPricingPolicy.new(%{})
-  end
-
-
-  test "second_pass_byte_identity_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      first_tree_digest: "x",
-      second_tree_digest: "x",
-      byte_identity: true,
-      receipt_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SecondPassByteIdentityObservation.new(attrs)
-  end
-
-  test "second_pass_byte_identity_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SecondPassByteIdentityObservation.new(%{})
-  end
-
-
-  test "second_run_identity_objective new/1 succeeds when all fields are present" do
-    attrs = %{
-      subject_id: "x",
-      first_tree_hash: "x",
-      second_tree_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SecondRunIdentityObjective.new(attrs)
-  end
-
-  test "second_run_identity_objective new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SecondRunIdentityObjective.new(%{})
-  end
-
-
-  test "secret_boundary_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      secret_source: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.SecretBoundaryEvidence.new(attrs)
-  end
-
-  test "secret_boundary_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SecretBoundaryEvidence.new(%{})
-  end
-
-
-  test "security_addendum_state new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      addendum_id: "x",
-      addendum_state: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SecurityAddendumState.new(attrs)
-  end
-
-  test "security_addendum_state new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SecurityAddendumState.new(%{})
-  end
-
-
-  test "security_blocker new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      blocker_id: "x",
-      refusal_code: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SecurityBlocker.new(attrs)
-  end
-
-  test "security_blocker new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SecurityBlocker.new(%{})
-  end
-
-
-  test "security_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      security_readiness_id: "x",
-      account_id: "x",
-      control_coverage: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SecurityReadiness.new(attrs)
-  end
-
-  test "security_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SecurityReadiness.new(%{})
-  end
-
-
-  test "seeded_evaluation new/1 succeeds when all fields are present" do
-    attrs = %{
-      evaluation_id: "x",
-      seed: "x",
-      dataset_digest: "x",
-      policy_id: "x",
-      score: 1.0,
-      replay_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SeededEvaluation.new(attrs)
-  end
-
-  test "seeded_evaluation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SeededEvaluation.new(%{})
-  end
-
-
-  test "semantic_drift_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      subject_id: "x",
-      prior_semantic_digest: "x",
-      current_semantic_digest: "x",
-      drift_class: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SemanticDriftObservation.new(attrs)
-  end
-
-  test "semantic_drift_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SemanticDriftObservation.new(%{})
-  end
-
-
-  test "service_credit new/1 succeeds when all fields are present" do
-    attrs = %{
-      credit_id: "x",
-      slo_id: "x",
-      amount: 1.0,
-      currency: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ServiceCredit.new(attrs)
-  end
-
-  test "service_credit new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceCredit.new(%{})
-  end
-
-
-  test "service_credit_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      service_credit_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ServiceCreditAdmission.new(attrs)
-  end
-
-  test "service_credit_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceCreditAdmission.new(%{})
-  end
-
-
-  test "service_credit_ledger new/1 succeeds when all fields are present" do
-    attrs = %{
-      service_credit_ledger_id: "x",
-      account_id: "x",
-      credit_amount: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ServiceCreditLedger.new(attrs)
-  end
-
-  test "service_credit_ledger new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceCreditLedger.new(%{})
-  end
-
-
-  test "service_health_snapshot new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      service_id: "x",
-      snapshot_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ServiceHealthSnapshot.new(attrs)
-  end
-
-  test "service_health_snapshot new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceHealthSnapshot.new(%{})
-  end
-
-
-  test "service_level_objective new/1 succeeds when all fields are present" do
-    attrs = %{
-      slo_id: "x",
-      contract_id: "x",
-      target_percent: 1.0,
-      measurement_window: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.ServiceLevelObjective.new(attrs)
-  end
-
-  test "service_level_objective new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceLevelObjective.new(%{})
-  end
-
-
-  test "service_slo_contract new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      slo_id: "x",
-      contract_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ServiceSloContract.new(attrs)
-  end
-
-  test "service_slo_contract new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceSloContract.new(%{})
-  end
-
-
-  test "service_span new/1 succeeds when all fields are present" do
-    attrs = %{
-      span_id: "x",
-      service_name: "x",
-      duration_ms: 1,
-      parent_span_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ServiceSpan.new(attrs)
-  end
-
-  test "service_span new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ServiceSpan.new(%{})
-  end
-
-
-  test "shadow_challenger_execution new/1 succeeds when all fields are present" do
-    attrs = %{
-      execution_id: "x",
-      incumbent_policy_id: "x",
-      challenger_policy_id: "x",
-      shared_observation_digest: "x",
-      shadow_receipt_digest: "x",
-      authority_mode: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ShadowChallengerExecution.new(attrs)
-  end
-
-  test "shadow_challenger_execution new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ShadowChallengerExecution.new(%{})
-  end
-
-
-  test "showback_allocation new/1 succeeds when all fields are present" do
-    attrs = %{
-      allocation_id: "x",
-      project_id: "x",
-      metric_name: "x",
-      quantity: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.ShowbackAllocation.new(attrs)
-  end
-
-  test "showback_allocation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ShowbackAllocation.new(%{})
-  end
-
-
-  test "signature_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      signature_identity: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.SignatureEvidence.new(attrs)
-  end
-
-  test "signature_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SignatureEvidence.new(%{})
-  end
-
-
-  test "sku_definition new/1 succeeds when all fields are present" do
-    attrs = %{
-      sku: "x",
-      edition_id: "x",
-      billing_model: :some_atom,
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.SkuDefinition.new(attrs)
-  end
-
-  test "sku_definition new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SkuDefinition.new(%{})
-  end
-
-
-  test "sla_offer_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      sla_offer_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SlaOfferAdmission.new(attrs)
-  end
-
-  test "sla_offer_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SlaOfferAdmission.new(%{})
-  end
-
-
-  test "sojourn_time new/1 succeeds when all fields are present" do
-    attrs = %{
-      object_id: "x",
-      event_type: "x",
-      seconds: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.SojournTime.new(attrs)
-  end
-
-  test "sojourn_time new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SojournTime.new(%{})
-  end
-
-
-  test "solution_fit new/1 succeeds when all fields are present" do
-    attrs = %{
-      solution_fit_id: "x",
-      account_id: "x",
-      fit_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SolutionFit.new(attrs)
-  end
-
-  test "solution_fit new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SolutionFit.new(%{})
-  end
-
-
-  test "spend_drawdown new/1 succeeds when all fields are present" do
-    attrs = %{
-      spend_drawdown_id: "x",
-      account_id: "x",
-      consumed_amount: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SpendDrawdown.new(attrs)
-  end
-
-  test "spend_drawdown new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SpendDrawdown.new(%{})
-  end
-
-
-  test "stakeholder_map new/1 succeeds when all fields are present" do
-    attrs = %{
-      stakeholder_map_id: "x",
-      account_id: "x",
-      stakeholder_count: 1,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.StakeholderMap.new(attrs)
-  end
-
-  test "stakeholder_map new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.StakeholderMap.new(%{})
-  end
-
-
-  test "stale_plan_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      admitted_preimage_hash: "x",
-      observed_preimage_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.StalePlanRefusal.new(attrs)
-  end
-
-  test "stale_plan_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.StalePlanRefusal.new(%{})
-  end
-
-
-  test "stale_receipt_refusal new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      receipt_id: "x",
-      refusal_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.StaleReceiptRefusal.new(attrs)
-  end
-
-  test "stale_receipt_refusal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.StaleReceiptRefusal.new(%{})
-  end
-
-
-  test "stale_subject_refusal_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      stale_sha: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.StaleSubjectRefusalEvidence.new(attrs)
-  end
-
-  test "stale_subject_refusal_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.StaleSubjectRefusalEvidence.new(%{})
-  end
-
-
-  test "standing_state_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      subject_id: "x",
-      standing: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.StandingStateObservation.new(attrs)
-  end
-
-  test "standing_state_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.StandingStateObservation.new(%{})
-  end
-
-
-  test "stopping_criterion new/1 succeeds when all fields are present" do
-    attrs = %{
-      criterion_id: "x",
-      objective_id: "x",
-      minimum_gain: 1.0,
-      maximum_episodes: 1,
-      evidence_window_digest: "x",
-      authority_binding: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.StoppingCriterion.new(attrs)
-  end
-
-  test "stopping_criterion new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.StoppingCriterion.new(%{})
-  end
-
-
-  test "subject_failure_separation new/1 succeeds when all fields are present" do
-    attrs = %{
-      assessment_id: "x",
-      exact_subject_sha: "x",
-      capsule_standing: "x",
-      subject_failure_code: "x",
-      independent_reproducer_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SubjectFailureSeparation.new(attrs)
-  end
-
-  test "subject_failure_separation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SubjectFailureSeparation.new(%{})
-  end
-
-
-  test "submodule_lock_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      submodule_path: "x",
-      gitlink_sha: "x",
-      lock_sha: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SubmoduleLockObservation.new(attrs)
-  end
-
-  test "submodule_lock_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SubmoduleLockObservation.new(%{})
-  end
-
-
-  test "submodule_registration_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      submodule_path: "x",
-      registration_state: "x",
-      repository_url: "x",
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SubmoduleRegistrationObservation.new(attrs)
-  end
-
-  test "submodule_registration_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SubmoduleRegistrationObservation.new(%{})
-  end
-
-
-  test "success_plan new/1 succeeds when all fields are present" do
-    attrs = %{
-      success_plan_id: "x",
-      account_id: "x",
-      success_target: "x",
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SuccessPlan.new(attrs)
-  end
-
-  test "success_plan new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SuccessPlan.new(%{})
-  end
-
-
-  test "supervisor_restart_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      supervisor_id: "x",
-      policy_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SupervisorRestartPolicy.new(attrs)
-  end
-
-  test "supervisor_restart_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SupervisorRestartPolicy.new(%{})
-  end
-
-
-  test "support_contract new/1 succeeds when all fields are present" do
-    attrs = %{
-      contract_id: "x",
-      account_id: "x",
-      tier: :some_atom,
-      valid_until: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SupportContract.new(attrs)
-  end
-
-  test "support_contract new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SupportContract.new(%{})
-  end
-
-
-  test "support_diagnostic_bundle new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      incident_id: "x",
-      bundle_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SupportDiagnosticBundle.new(attrs)
-  end
-
-  test "support_diagnostic_bundle new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SupportDiagnosticBundle.new(%{})
-  end
-
-
-  test "support_escalation_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      escalation_owner: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.SupportEscalationEvidence.new(attrs)
-  end
-
-  test "support_escalation_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SupportEscalationEvidence.new(%{})
-  end
-
-
-  test "support_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      support_readiness_id: "x",
-      account_id: "x",
-      support_readiness_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SupportReadiness.new(attrs)
-  end
-
-  test "support_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SupportReadiness.new(%{})
-  end
-
-
-  test "support_sla_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      response_minutes: 1,
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.SupportSlaEvidence.new(attrs)
-  end
-
-  test "support_sla_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SupportSlaEvidence.new(%{})
-  end
-
-
-  test "support_tier_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      support_tier_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.SupportTierAdmission.new(attrs)
-  end
-
-  test "support_tier_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SupportTierAdmission.new(%{})
-  end
-
-
-  test "support_window_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      support_channel: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.SupportWindowEvidence.new(attrs)
-  end
-
-  test "support_window_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SupportWindowEvidence.new(%{})
-  end
-
-
-  test "sync_time new/1 succeeds when all fields are present" do
-    attrs = %{
-      object_id: "x",
-      delaying_object_id: "x",
-      seconds: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.SyncTime.new(attrs)
-  end
-
-  test "sync_time new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.SyncTime.new(%{})
-  end
-
-
-  test "target_metric new/1 succeeds when all fields are present" do
-    attrs = %{
-      target_metric_id: "x",
-      account_id: "x",
-      target_value: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TargetMetric.new(attrs)
-  end
-
-  test "target_metric new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TargetMetric.new(%{})
-  end
-
-
-  test "tax_jurisdiction_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      contracting_entity_id: "x",
-      tax_jurisdiction: "x",
-      evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TaxJurisdictionEvidence.new(attrs)
-  end
-
-  test "tax_jurisdiction_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TaxJurisdictionEvidence.new(%{})
-  end
-
-
-  test "tax_jurisdiction_rule new/1 succeeds when all fields are present" do
-    attrs = %{
-      tax_jurisdiction_rule_id: "x",
-      account_id: "x",
-      jurisdiction_code: "x",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TaxJurisdictionRule.new(attrs)
-  end
-
-  test "tax_jurisdiction_rule new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TaxJurisdictionRule.new(%{})
-  end
-
-
-  test "technical_blocker new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      blocker_id: "x",
-      refusal_code: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TechnicalBlocker.new(attrs)
-  end
-
-  test "technical_blocker new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TechnicalBlocker.new(%{})
-  end
-
-
-  test "temporal_order_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      earlier_observation_id: "x",
-      later_observation_id: "x",
-      ordering_basis: "x",
-      evidence_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TemporalOrderObservation.new(attrs)
-  end
-
-  test "temporal_order_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TemporalOrderObservation.new(%{})
-  end
-
-
-  test "tenant_account new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      account_id: "x",
-      home_region: "x",
-      edition_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TenantAccount.new(attrs)
-  end
-
-  test "tenant_account new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantAccount.new(%{})
-  end
-
-
-  test "tenant_data_partition new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      partition_id: "x",
-      isolation_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TenantDataPartition.new(attrs)
-  end
-
-  test "tenant_data_partition new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantDataPartition.new(%{})
-  end
-
-
-  test "tenant_key_scope new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      key_scope_id: "x",
-      key_attestation_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TenantKeyScope.new(attrs)
-  end
-
-  test "tenant_key_scope new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantKeyScope.new(%{})
-  end
-
-
-  test "tenant_project new/1 succeeds when all fields are present" do
-    attrs = %{
-      project_id: "x",
-      tenant_id: "x",
-      cost_center: "x",
-      status: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.TenantProject.new(attrs)
-  end
-
-  test "tenant_project new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantProject.new(%{})
-  end
-
-
-  test "tenant_resource_quota new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      quota_id: "x",
-      utilization_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TenantResourceQuota.new(attrs)
-  end
-
-  test "tenant_resource_quota new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantResourceQuota.new(%{})
-  end
-
-
-  test "tenant_runtime_boundary new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      boundary_id: "x",
-      evidence_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TenantRuntimeBoundary.new(attrs)
-  end
-
-  test "tenant_runtime_boundary new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TenantRuntimeBoundary.new(%{})
-  end
-
-
-  test "term_subscription new/1 succeeds when all fields are present" do
-    attrs = %{
-      subscription_id: "x",
-      sku: "x",
-      starts_at: "2026-01-01T00:00:00Z",
-      ends_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TermSubscription.new(attrs)
-  end
-
-  test "term_subscription new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TermSubscription.new(%{})
-  end
-
-
-  test "termination_right_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      termination_right_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TerminationRightAdmission.new(attrs)
-  end
-
-  test "termination_right_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TerminationRightAdmission.new(%{})
-  end
-
-
-  test "time_to_value new/1 succeeds when all fields are present" do
-    attrs = %{
-      time_to_value_id: "x",
-      account_id: "x",
-      verified_days: 1,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TimeToValue.new(attrs)
-  end
-
-  test "time_to_value new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TimeToValue.new(%{})
-  end
-
-
-  test "toolchain_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      toolchain_id: "x",
-      identity_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ToolchainIdentity.new(attrs)
-  end
-
-  test "toolchain_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ToolchainIdentity.new(%{})
-  end
-
-
-  test "toolchain_identity_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      tool_name: "x",
-      tool_version: "x",
-      executable_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ToolchainIdentityObservation.new(attrs)
-  end
-
-  test "toolchain_identity_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ToolchainIdentityObservation.new(%{})
-  end
-
-
-  test "training_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      training_readiness_id: "x",
-      account_id: "x",
-      training_completion_rate: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TrainingReadiness.new(attrs)
-  end
-
-  test "training_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TrainingReadiness.new(%{})
-  end
-
-
-  test "training_scope_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      training_scope_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TrainingScopeAdmission.new(attrs)
-  end
-
-  test "training_scope_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TrainingScopeAdmission.new(%{})
-  end
-
-
-  test "trajectory_window new/1 succeeds when all fields are present" do
-    attrs = %{
-      window_id: "x",
-      repository_id: "x",
-      first_subject_sha: "x",
-      last_subject_sha: "x",
-      episode_count: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.TrajectoryWindow.new(attrs)
-  end
-
-  test "trajectory_window new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TrajectoryWindow.new(%{})
-  end
-
-
-  test "trial_entitlement new/1 succeeds when all fields are present" do
-    attrs = %{
-      trial_entitlement_id: "x",
-      account_id: "x",
-      trial_expires_at: "2026-01-01T00:00:00Z",
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.TrialEntitlement.new(attrs)
-  end
-
-  test "trial_entitlement new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TrialEntitlement.new(%{})
-  end
-
-
-  test "true_up_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      policy_id: "x",
-      commitment_id: "x",
-      cadence: :some_atom,
-      shortfall_behavior: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.TrueUpPolicy.new(attrs)
-  end
-
-  test "true_up_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TrueUpPolicy.new(%{})
-  end
-
-
-  test "type_edge new/1 succeeds when all fields are present" do
-    attrs = %{
-      source_type: "x",
-      target_type: "x",
-      qualifier: "x",
-      direction: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.TypeEdge.new(attrs)
-  end
-
-  test "type_edge new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.TypeEdge.new(%{})
-  end
-
-
-  test "uncertainty_aware_selection new/1 succeeds when all fields are present" do
-    attrs = %{
-      option_set_id: "x",
-      uncertainty_model_hash: "x",
-      selected_option_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.UncertaintyAwareSelection.new(attrs)
-  end
-
-  test "uncertainty_aware_selection new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UncertaintyAwareSelection.new(%{})
-  end
-
-
-  test "uncertainty_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      observation_id: "x",
-      uncertainty_kind: "x",
-      confidence_basis: "x",
-      standing: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.UncertaintyObservation.new(attrs)
-  end
-
-  test "uncertainty_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UncertaintyObservation.new(%{})
-  end
-
-
-  test "unit_economics_snapshot new/1 succeeds when all fields are present" do
-    attrs = %{
-      unit_economics_snapshot_id: "x",
-      account_id: "x",
-      gross_margin: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.UnitEconomicsSnapshot.new(attrs)
-  end
-
-  test "unit_economics_snapshot new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UnitEconomicsSnapshot.new(%{})
-  end
-
-
-  test "unsupported_capability_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      capability_name: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.UnsupportedCapabilityEvidence.new(attrs)
-  end
-
-  test "unsupported_capability_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UnsupportedCapabilityEvidence.new(%{})
-  end
-
-
-  test "upgrade_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      from_version: "x",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.UpgradeEvidence.new(attrs)
-  end
-
-  test "upgrade_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UpgradeEvidence.new(%{})
-  end
-
-
-  test "upsell_readiness new/1 succeeds when all fields are present" do
-    attrs = %{
-      upsell_readiness_id: "x",
-      account_id: "x",
-      upsell_score: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.UpsellReadiness.new(attrs)
-  end
-
-  test "upsell_readiness new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UpsellReadiness.new(%{})
-  end
-
-
-  test "usage_aggregation_window new/1 succeeds when all fields are present" do
-    attrs = %{
-      usage_aggregation_window_id: "x",
-      account_id: "x",
-      window_seconds: 1,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.UsageAggregationWindow.new(attrs)
-  end
-
-  test "usage_aggregation_window new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UsageAggregationWindow.new(%{})
-  end
-
-
-  test "usage_correction new/1 succeeds when all fields are present" do
-    attrs = %{
-      usage_correction_id: "x",
-      account_id: "x",
-      corrected_quantity: 1.0,
-      evidence_digest: "x",
-      effective_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.UsageCorrection.new(attrs)
-  end
-
-  test "usage_correction new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UsageCorrection.new(%{})
-  end
-
-
-  test "usage_event new/1 succeeds when all fields are present" do
-    attrs = %{
-      event_id: "x",
-      entitlement_id: "x",
-      quantity: 1.0,
-      metric_name: "x",
-      occurred_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.UsageEvent.new(attrs)
-  end
-
-  test "usage_event new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UsageEvent.new(%{})
-  end
-
-
-  test "usage_plan new/1 succeeds when all fields are present" do
-    attrs = %{
-      plan_id: "x",
-      metric_name: "x",
-      unit: "x",
-      billing_mode: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.UsagePlan.new(attrs)
-  end
-
-  test "usage_plan new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UsagePlan.new(%{})
-  end
-
-
-  test "usage_reconciliation_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      billing_period_id: "x",
-      reconciliation_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.UsageReconciliationReceipt.new(attrs)
-  end
-
-  test "usage_reconciliation_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UsageReconciliationReceipt.new(%{})
-  end
-
-
-  test "usage_signal new/1 succeeds when all fields are present" do
-    attrs = %{
-      usage_signal_id: "x",
-      account_id: "x",
-      active_user_count: 1,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.UsageSignal.new(attrs)
-  end
-
-  test "usage_signal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.UsageSignal.new(%{})
-  end
-
-
-  test "validation_capsule_drift_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      expected_digest: "x",
-      observed_digest: "x",
-      drift_status: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ValidationCapsuleDriftObservation.new(attrs)
-  end
-
-  test "validation_capsule_drift_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ValidationCapsuleDriftObservation.new(%{})
-  end
-
-
-  test "validation_capsule_identity_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      capsule_repository: "x",
-      capsule_sha: "x",
-      execution_mode: "x",
-      image_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ValidationCapsuleIdentityObservation.new(attrs)
-  end
-
-  test "validation_capsule_identity_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ValidationCapsuleIdentityObservation.new(%{})
-  end
-
-
-  test "value_baseline new/1 succeeds when all fields are present" do
-    attrs = %{
-      baseline_id: "x",
-      account_id: "x",
-      metric_name: "x",
-      baseline_value: 1.0
-    }
-
-    assert {:ok, _} = BeamPM.Types.ValueBaseline.new(attrs)
-  end
-
-  test "value_baseline new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueBaseline.new(%{})
-  end
-
-
-  test "value_driver new/1 succeeds when all fields are present" do
-    attrs = %{
-      value_driver_id: "x",
-      account_id: "x",
-      annual_value: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ValueDriver.new(attrs)
-  end
-
-  test "value_driver new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueDriver.new(%{})
-  end
-
-
-  test "value_of_information_estimate new/1 succeeds when all fields are present" do
-    attrs = %{
-      decision_id: "x",
-      evidence_candidate_id: "x",
-      expected_information_gain: 1.0,
-      cost_basis: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ValueOfInformationEstimate.new(attrs)
-  end
-
-  test "value_of_information_estimate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueOfInformationEstimate.new(%{})
-  end
-
-
-  test "value_of_information_score new/1 succeeds when all fields are present" do
-    attrs = %{
-      option_id: "x",
-      observation_id: "x",
-      score: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ValueOfInformationScore.new(attrs)
-  end
-
-  test "value_of_information_score new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueOfInformationScore.new(%{})
-  end
-
-
-  test "value_realization new/1 succeeds when all fields are present" do
-    attrs = %{
-      value_realization_id: "x",
-      account_id: "x",
-      realized_value: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ValueRealization.new(attrs)
-  end
-
-  test "value_realization new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueRealization.new(%{})
-  end
-
-
-  test "value_realization_feedback new/1 succeeds when all fields are present" do
-    attrs = %{
-      feedback_id: "x",
-      objective_id: "x",
-      baseline_value: 1.0,
-      realized_value: 1.0,
-      evidence_digest: "x",
-      policy_id: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ValueRealizationFeedback.new(attrs)
-  end
-
-  test "value_realization_feedback new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueRealizationFeedback.new(%{})
-  end
-
-
-  test "value_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      value_receipt_id: "x",
-      account_id: "x",
-      metric_name: "x",
-      baseline_value: 1.0,
-      observed_value: 1.0,
-      evidence_digest: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ValueReceipt.new(attrs)
+  # Correct-by-construction: `BeamPM.Types.<Mod>.new/1` is itself generated,
+  # field-for-field, from this same admitted `bpm:RecordType` graph by this
+  # same template family -- so what needs proving is that the TEMPLATE's
+  # generation pattern holds for every admitted record, not that each
+  # individual projected module works in isolation (that's implied once the
+  # pattern is proven once per distinct shape it's applied to). Previously
+  # this file emitted one ExUnit `test` block per record type (~1180
+  # separate test-process spawns for ~90 admitted types) -- real coverage,
+  # but the wrong unit of test: it exercised the same two assertions
+  # (all-fields-present succeeds; missing-required-field errors, or
+  # empty-map succeeds when nothing is required) once per projection
+  # instead of once per template branch. Two runtime-iterated tests below
+  # preserve exactly the same per-record assertions (every admitted record
+  # is still individually checked, by name, inside the loop) while cutting
+  # ExUnit's per-test scheduling overhead ~600x. Run via `mix test`
+  # (default) -- no longer gated behind :chicago; this is now fast.
+
+  @records [
+
+    %{
+      name: "acceptance_criteria_nonweakening",
+      mod: BeamPM.Types.AcceptanceCriteriaNonweakening,
+      has_required: true,
+      full_attrs: %{
+        assessment_id: "x",
+        acceptance_contract_id: "x",
+        prior_digest: "x",
+        candidate_digest: "x",
+        strength_result: "x",
+        refusal_code: "x"
+      }
+    },
+
+    %{
+      name: "account_discovery",
+      mod: BeamPM.Types.AccountDiscovery,
+      has_required: true,
+      full_attrs: %{
+        account_discovery_id: "x",
+        account_id: "x",
+        discovery_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "account_master_match",
+      mod: BeamPM.Types.AccountMasterMatch,
+      has_required: true,
+      full_attrs: %{
+        source_account_id: "x",
+        canonical_account_id: "x",
+        match_evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "account_parent_scope",
+      mod: BeamPM.Types.AccountParentScope,
+      has_required: true,
+      full_attrs: %{
+        account_id: "x",
+        parent_account_id: "x",
+        scope_evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "account_value_realization",
+      mod: BeamPM.Types.AccountValueRealization,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        account_id: "x",
+        realization_hash: "x"
+      }
+    },
+
+    %{
+      name: "action_pin_evidence",
+      mod: BeamPM.Types.ActionPinEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        action_sha: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "activation_event",
+      mod: BeamPM.Types.ActivationEvent,
+      has_required: true,
+      full_attrs: %{
+        activation_event_id: "x",
+        account_id: "x",
+        activation_type: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "add_on_bundle",
+      mod: BeamPM.Types.AddOnBundle,
+      has_required: true,
+      full_attrs: %{
+        add_on_id: "x",
+        name: "x",
+        capability_ids: ["a"],
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "addon_activation",
+      mod: BeamPM.Types.AddonActivation,
+      has_required: true,
+      full_attrs: %{
+        addon_activation_id: "x",
+        account_id: "x",
+        addon_id: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "admissible_action_set",
+      mod: BeamPM.Types.AdmissibleActionSet,
+      has_required: true,
+      full_attrs: %{
+        state_id: "x",
+        constraint_hash: "x",
+        action_set_hash: "x"
+      }
+    },
+
+    %{
+      name: "adoption_milestone",
+      mod: BeamPM.Types.AdoptionMilestone,
+      has_required: true,
+      full_attrs: %{
+        adoption_milestone_id: "x",
+        account_id: "x",
+        milestone_name: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "agent_assignment",
+      mod: BeamPM.Types.AgentAssignment,
+      has_required: true,
+      full_attrs: %{
+        agent_id: "x",
+        policy_id: "x",
+        assignment_hash: "x"
+      }
+    },
+
+    %{
+      name: "alignment_move",
+      mod: BeamPM.Types.AlignmentMove,
+      has_required: true,
+      full_attrs: %{
+        move_type: :some_atom,
+        cost: 1
+      }
+    },
+
+    %{
+      name: "annual_subscription",
+      mod: BeamPM.Types.AnnualSubscription,
+      has_required: true,
+      full_attrs: %{
+        subscription_id: "x",
+        sku: "x",
+        seat_count: 1,
+        renews_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "anomaly_detection_observation",
+      mod: BeamPM.Types.AnomalyDetectionObservation,
+      has_required: true,
+      full_attrs: %{
+        subject_id: "x",
+        baseline_digest: "x",
+        observation_digest: "x",
+        anomaly_score: 1.0
+      }
+    },
+
+    %{
+      name: "anti_repeat_refusal",
+      mod: BeamPM.Types.AntiRepeatRefusal,
+      has_required: true,
+      full_attrs: %{
+        refusal_id: "x",
+        candidate_action_id: "x",
+        matching_signature_id: "x",
+        recurrence_risk: 1.0,
+        alternative_required: true
+      }
+    },
+
+    %{
+      name: "anti_repeat_signature",
+      mod: BeamPM.Types.AntiRepeatSignature,
+      has_required: true,
+      full_attrs: %{
+        signature_id: "x",
+        failure_class: "x",
+        causal_features_digest: "x",
+        repair_family: "x",
+        first_seen_episode: "x"
+      }
+    },
+
+    %{
+      name: "approval_separation_evidence",
+      mod: BeamPM.Types.ApprovalSeparationEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        approver_identity: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "architecture_readiness",
+      mod: BeamPM.Types.ArchitectureReadiness,
+      has_required: true,
+      full_attrs: %{
+        architecture_readiness_id: "x",
+        account_id: "x",
+        architecture_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "architecture_review_evidence",
+      mod: BeamPM.Types.ArchitectureReviewEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        review_decision: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "artifact_digest_evidence",
+      mod: BeamPM.Types.ArtifactDigestEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        digest: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "artifact_digest_observation",
+      mod: BeamPM.Types.ArtifactDigestObservation,
+      has_required: true,
+      full_attrs: %{
+        artifact_id: "x",
+        artifact_sha256: "x",
+        producer_run_id: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "astar_plan_candidate",
+      mod: BeamPM.Types.AstarPlanCandidate,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        heuristic_id: "x",
+        path_hash: "x"
+      }
+    },
+
+    %{
+      name: "attestation_verification_evidence",
+      mod: BeamPM.Types.AttestationVerificationEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        predicate_type: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "audit_chain_evidence",
+      mod: BeamPM.Types.AuditChainEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        previous_receipt_hash: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "authority_ceiling",
+      mod: BeamPM.Types.AuthorityCeiling,
+      has_required: true,
+      full_attrs: %{
+        action_id: "x",
+        grant_id: "x",
+        ceiling: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_actuation_receipt",
+      mod: BeamPM.Types.AutonomicActuationReceipt,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_actuation_replay",
+      mod: BeamPM.Types.AutonomicActuationReplay,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_actuation_selection",
+      mod: BeamPM.Types.AutonomicActuationSelection,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_authority_admission",
+      mod: BeamPM.Types.AutonomicAuthorityAdmission,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_authority_escalation",
+      mod: BeamPM.Types.AutonomicAuthorityEscalation,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_backpressure_admission",
+      mod: BeamPM.Types.AutonomicBackpressureAdmission,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_caller_local_binding",
+      mod: BeamPM.Types.AutonomicCallerLocalBinding,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_canary_admission",
+      mod: BeamPM.Types.AutonomicCanaryAdmission,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_cancellation_receipt",
+      mod: BeamPM.Types.AutonomicCancellationReceipt,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_canonical_repair_route",
+      mod: BeamPM.Types.AutonomicCanonicalRepairRoute,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_capability_token",
+      mod: BeamPM.Types.AutonomicCapabilityToken,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_circuit_breaker_transition",
+      mod: BeamPM.Types.AutonomicCircuitBreakerTransition,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_compensation_verification",
+      mod: BeamPM.Types.AutonomicCompensationVerification,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_crash_recovery",
+      mod: BeamPM.Types.AutonomicCrashRecovery,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_cross_consumer_receipt_refusal",
+      mod: BeamPM.Types.AutonomicCrossConsumerReceiptRefusal,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_deterministic_receipt_replay",
+      mod: BeamPM.Types.AutonomicDeterministicReceiptReplay,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_failure_classification",
+      mod: BeamPM.Types.AutonomicFailureClassification,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_forged_receipt_refusal",
+      mod: BeamPM.Types.AutonomicForgedReceiptRefusal,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_generated_surface_refusal",
+      mod: BeamPM.Types.AutonomicGeneratedSurfaceRefusal,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_idempotence_fence",
+      mod: BeamPM.Types.AutonomicIdempotenceFence,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_incident_recovery",
+      mod: BeamPM.Types.AutonomicIncidentRecovery,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_least_authority_grant",
+      mod: BeamPM.Types.AutonomicLeastAuthorityGrant,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_model_authority_refusal",
+      mod: BeamPM.Types.AutonomicModelAuthorityRefusal,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_mutable_pack_refusal",
+      mod: BeamPM.Types.AutonomicMutablePackRefusal,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_output_ownership_check",
+      mod: BeamPM.Types.AutonomicOutputOwnershipCheck,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_pack_sha_authority",
+      mod: BeamPM.Types.AutonomicPackShaAuthority,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_plan_construction",
+      mod: BeamPM.Types.AutonomicPlanConstruction,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_planner_authority_refusal",
+      mod: BeamPM.Types.AutonomicPlannerAuthorityRefusal,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_rca_hypothesis",
+      mod: BeamPM.Types.AutonomicRcaHypothesis,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_receipt_authority_binding",
+      mod: BeamPM.Types.AutonomicReceiptAuthorityBinding,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_receipt_chain_link",
+      mod: BeamPM.Types.AutonomicReceiptChainLink,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_receipt_completeness_check",
+      mod: BeamPM.Types.AutonomicReceiptCompletenessCheck,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_receipt_subject_binding",
+      mod: BeamPM.Types.AutonomicReceiptSubjectBinding,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_repair_reexecution",
+      mod: BeamPM.Types.AutonomicRepairReexecution,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_repair_selection",
+      mod: BeamPM.Types.AutonomicRepairSelection,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_replay_divergence_refusal",
+      mod: BeamPM.Types.AutonomicReplayDivergenceRefusal,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_retry_backoff",
+      mod: BeamPM.Types.AutonomicRetryBackoff,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_retry_budget",
+      mod: BeamPM.Types.AutonomicRetryBudget,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_rollback_transition",
+      mod: BeamPM.Types.AutonomicRollbackTransition,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_saga_compensation",
+      mod: BeamPM.Types.AutonomicSagaCompensation,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_second_run_identity",
+      mod: BeamPM.Types.AutonomicSecondRunIdentity,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_self_healing_completion_receipt",
+      mod: BeamPM.Types.AutonomicSelfHealingCompletionReceipt,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_stale_action_refusal",
+      mod: BeamPM.Types.AutonomicStaleActionRefusal,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_stale_receipt_refusal",
+      mod: BeamPM.Types.AutonomicStaleReceiptRefusal,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_state_vector",
+      mod: BeamPM.Types.AutonomicStateVector,
+      has_required: true,
+      full_attrs: %{
+        state_vector_id: "x",
+        subject_id: "x",
+        dimension_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "autonomic_subject_compare_and_swap",
+      mod: BeamPM.Types.AutonomicSubjectCompareAndSwap,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_supervisor_restart",
+      mod: BeamPM.Types.AutonomicSupervisorRestart,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_timeout_budget",
+      mod: BeamPM.Types.AutonomicTimeoutBudget,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_transition_execution",
+      mod: BeamPM.Types.AutonomicTransitionExecution,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_transition_verification",
+      mod: BeamPM.Types.AutonomicTransitionVerification,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "autonomic_upgrade_transition",
+      mod: BeamPM.Types.AutonomicUpgradeTransition,
+      has_required: true,
+      full_attrs: %{
+        actuation_id: "x",
+        subject_sha: "x",
+        authority_receipt_sha: "x",
+        state_digest: "x"
+      }
+    },
+
+    %{
+      name: "availability_observation",
+      mod: BeamPM.Types.AvailabilityObservation,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        slo_id: "x",
+        observation_hash: "x"
+      }
+    },
+
+    %{
+      name: "availability_slo_evidence",
+      mod: BeamPM.Types.AvailabilitySloEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        availability_percent: 1.0,
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "backup_restore_evidence",
+      mod: BeamPM.Types.BackupRestoreEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        backup_digest: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "baseline_metric",
+      mod: BeamPM.Types.BaselineMetric,
+      has_required: true,
+      full_attrs: %{
+        baseline_metric_id: "x",
+        account_id: "x",
+        baseline_value: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "beam_search_candidate",
+      mod: BeamPM.Types.BeamSearchCandidate,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        beam_width: "x",
+        frontier_hash: "x"
+      }
+    },
+
+    %{
+      name: "belief_state_snapshot",
+      mod: BeamPM.Types.BeliefStateSnapshot,
+      has_required: true,
+      full_attrs: %{
+        belief_state_id: "x",
+        subject_id: "x",
+        posterior_digest: "x",
+        uncertainty_status: "x"
+      }
+    },
+
+    %{
+      name: "belief_state_update",
+      mod: BeamPM.Types.BeliefStateUpdate,
+      has_required: true,
+      full_attrs: %{
+        prior_belief_id: "x",
+        evidence_digest: "x",
+        posterior_belief_id: "x",
+        update_rule: "x"
+      }
+    },
+
+    %{
+      name: "beneficial_owner_evidence",
+      mod: BeamPM.Types.BeneficialOwnerEvidence,
+      has_required: true,
+      full_attrs: %{
+        account_id: "x",
+        owner_id: "x",
+        evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "billable_usage_identity",
+      mod: BeamPM.Types.BillableUsageIdentity,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        billable_usage_id: "x",
+        identity_hash: "x"
+      }
+    },
+
+    %{
+      name: "billing_account",
+      mod: BeamPM.Types.BillingAccount,
+      has_required: true,
+      full_attrs: %{
+        billing_account_id: "x",
+        account_id: "x",
+        currency: "x",
+        invoice_profile: "x"
+      }
+    },
+
+    %{
+      name: "billing_reconciliation",
+      mod: BeamPM.Types.BillingReconciliation,
+      has_required: true,
+      full_attrs: %{
+        entitlement_id: "x",
+        metric_name: "x",
+        total_quantity: 1.0,
+        applied_event_ids: ["a"],
+        period_start: "2026-01-01T00:00:00Z",
+        period_end: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "booking_readiness",
+      mod: BeamPM.Types.BookingReadiness,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        readiness_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "brce_actuation_receipt",
+      mod: BeamPM.Types.BrceActuationReceipt,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        request_id: "x",
+        receipt_hash: "x"
+      }
+    },
+
+    %{
+      name: "brce_actuation_request",
+      mod: BeamPM.Types.BrceActuationRequest,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        request_id: "x",
+        authority_hash: "x"
+      }
+    },
+
+    %{
+      name: "budget_period_alignment",
+      mod: BeamPM.Types.BudgetPeriodAlignment,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        budget_period: "x",
+        alignment_result: "x"
+      }
+    },
+
+    %{
+      name: "bundle_conflict",
+      mod: BeamPM.Types.BundleConflict,
+      has_required: true,
+      full_attrs: %{
+        bundle_conflict_id: "x",
+        account_id: "x",
+        conflicting_bundle_id: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "bundle_dependency",
+      mod: BeamPM.Types.BundleDependency,
+      has_required: true,
+      full_attrs: %{
+        bundle_dependency_id: "x",
+        account_id: "x",
+        required_bundle_id: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "burst_pricing_policy",
+      mod: BeamPM.Types.BurstPricingPolicy,
+      has_required: true,
+      full_attrs: %{
+        burst_pricing_policy_id: "x",
+        account_id: "x",
+        burst_multiplier: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "business_continuity_evidence",
+      mod: BeamPM.Types.BusinessContinuityEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        continuity_mode: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "business_outcome_measurement",
+      mod: BeamPM.Types.BusinessOutcomeMeasurement,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        outcome_id: "x",
+        measurement_hash: "x"
+      }
+    },
+
+    %{
+      name: "business_unit_allocation",
+      mod: BeamPM.Types.BusinessUnitAllocation,
+      has_required: true,
+      full_attrs: %{
+        business_unit_allocation_id: "x",
+        account_id: "x",
+        business_unit_id: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "buying_committee",
+      mod: BeamPM.Types.BuyingCommittee,
+      has_required: true,
+      full_attrs: %{
+        buying_committee_id: "x",
+        account_id: "x",
+        committee_coverage: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "caller_local_checkout_observation",
+      mod: BeamPM.Types.CallerLocalCheckoutObservation,
+      has_required: true,
+      full_attrs: %{
+        consumer_repository_id: "x",
+        checkout_sha: "x",
+        checkout_path: "x",
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "caller_local_consumer",
+      mod: BeamPM.Types.CallerLocalConsumer,
+      has_required: true,
+      full_attrs: %{
+        consumer_id: "x",
+        subject_sha: "x",
+        consumer_hash: "x"
+      }
+    },
+
+    %{
+      name: "caller_local_crown_identity",
+      mod: BeamPM.Types.CallerLocalCrownIdentity,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        consumer_subject_sha: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "canary_decision",
+      mod: BeamPM.Types.CanaryDecision,
+      has_required: true,
+      full_attrs: %{
+        canary_decision_id: "x",
+        account_id: "x",
+        canary_result: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "canary_evidence",
+      mod: BeamPM.Types.CanaryEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        canary_percentage: 1.0,
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "cancellation_policy",
+      mod: BeamPM.Types.CancellationPolicy,
+      has_required: true,
+      full_attrs: %{
+        cancellation_policy_id: "x",
+        account_id: "x",
+        notice_days: 1,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "canonical_source_authority_observation",
+      mod: BeamPM.Types.CanonicalSourceAuthorityObservation,
+      has_required: true,
+      full_attrs: %{
+        source_path: "x",
+        authority_class: "x",
+        mutation_allowed: true,
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "capability_bundle",
+      mod: BeamPM.Types.CapabilityBundle,
+      has_required: true,
+      full_attrs: %{
+        bundle_id: "x",
+        name: "x",
+        capability_ids: ["a"],
+        version: "x"
+      }
+    },
+
+    %{
+      name: "capability_gap",
+      mod: BeamPM.Types.CapabilityGap,
+      has_required: true,
+      full_attrs: %{
+        capability_gap_id: "x",
+        account_id: "x",
+        gap_severity: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "capability_gap_learning",
+      mod: BeamPM.Types.CapabilityGapLearning,
+      has_required: true,
+      full_attrs: %{
+        learning_id: "x",
+        observed_capability_id: "x",
+        required_capability_id: "x",
+        gap_type: "x",
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "capsule_availability",
+      mod: BeamPM.Types.CapsuleAvailability,
+      has_required: true,
+      full_attrs: %{
+        capsule_id: "x",
+        capsule_digest: "x",
+        availability: "x"
+      }
+    },
+
+    %{
+      name: "capsule_identity",
+      mod: BeamPM.Types.CapsuleIdentity,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        capsule_id: "x",
+        identity_hash: "x"
+      }
+    },
+
+    %{
+      name: "case_stats",
+      mod: BeamPM.Types.CaseStats,
+      has_required: true,
+      full_attrs: %{
+        case_id: "x",
+        event_count: 1,
+        duration_seconds: 1.0
+      }
+    },
+
+    %{
+      name: "catalog_release",
+      mod: BeamPM.Types.CatalogRelease,
+      has_required: true,
+      full_attrs: %{
+        release_id: "x",
+        version: "x",
+        sku_ids: ["a"],
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "causal_lineage_observation",
+      mod: BeamPM.Types.CausalLineageObservation,
+      has_required: true,
+      full_attrs: %{
+        cause_observation_id: "x",
+        effect_observation_id: "x",
+        causal_basis: "x",
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "challenger_candidate_evaluation",
+      mod: BeamPM.Types.ChallengerCandidateEvaluation,
+      has_required: true,
+      full_attrs: %{
+        evaluation_id: "x",
+        challenger_policy_id: "x",
+        episode_set_digest: "x",
+        evaluation_seed: "x",
+        score: 1.0,
+        refusal_code: "x"
+      }
+    },
+
+    %{
+      name: "change_control_evidence",
+      mod: BeamPM.Types.ChangeControlEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        change_request_id: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "change_order_authority",
+      mod: BeamPM.Types.ChangeOrderAuthority,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        authority_id: "x",
+        evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "changed_surface_inference",
+      mod: BeamPM.Types.ChangedSurfaceInference,
+      has_required: true,
+      full_attrs: %{
+        prior_tree_sha: "x",
+        current_tree_sha: "x",
+        changed_surface_digest: "x",
+        inference_status: "x"
+      }
+    },
+
+    %{
+      name: "channel_agreement",
+      mod: BeamPM.Types.ChannelAgreement,
+      has_required: true,
+      full_attrs: %{
+        agreement_id: "x",
+        partner_id: "x",
+        territory: "x",
+        valid_until: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "chargeback_rule",
+      mod: BeamPM.Types.ChargebackRule,
+      has_required: true,
+      full_attrs: %{
+        rule_id: "x",
+        cost_center: "x",
+        metric_name: "x",
+        rate: 1.0
+      }
+    },
+
+    %{
+      name: "cluster_quorum_state",
+      mod: BeamPM.Types.ClusterQuorumState,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        cluster_id: "x",
+        quorum_hash: "x"
+      }
+    },
+
+    %{
+      name: "co_term_policy",
+      mod: BeamPM.Types.CoTermPolicy,
+      has_required: true,
+      full_attrs: %{
+        co_term_policy_id: "x",
+        account_id: "x",
+        coterm_date: "2026-01-01T00:00:00Z",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "commercial_approval",
+      mod: BeamPM.Types.CommercialApproval,
+      has_required: true,
+      full_attrs: %{
+        approval_id: "x",
+        quote_id: "x",
+        authority: "x",
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "commercial_artifact_crown_evidence",
+      mod: BeamPM.Types.CommercialArtifactCrownEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        artifact_digest: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "commercial_exception",
+      mod: BeamPM.Types.CommercialException,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        exception_id: "x",
+        exception_state: "x"
+      }
+    },
+
+    %{
+      name: "commercial_execution_receipt",
+      mod: BeamPM.Types.CommercialExecutionReceipt,
+      has_required: true,
+      full_attrs: %{
+        receipt_id: "x",
+        subject_id: "x",
+        operation: "x",
+        evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "commercial_forecast",
+      mod: BeamPM.Types.CommercialForecast,
+      has_required: true,
+      full_attrs: %{
+        forecast_id: "x",
+        account_id: "x",
+        amount: 1.0,
+        confidence: 1.0
+      }
+    },
+
+    %{
+      name: "commercial_outcome",
+      mod: BeamPM.Types.CommercialOutcome,
+      has_required: true,
+      full_attrs: %{
+        commercial_outcome_id: "x",
+        account_id: "x",
+        outcome_value: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "commercial_quote",
+      mod: BeamPM.Types.CommercialQuote,
+      has_required: true,
+      full_attrs: %{
+        quote_id: "x",
+        account_id: "x",
+        currency: "x",
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "commercial_quote_line",
+      mod: BeamPM.Types.CommercialQuoteLine,
+      has_required: true,
+      full_attrs: %{
+        quote_id: "x",
+        sku: "x",
+        quantity: 1,
+        unit_price: 1.0
+      }
+    },
+
+    %{
+      name: "commercial_value_realization",
+      mod: BeamPM.Types.CommercialValueRealization,
+      has_required: true,
+      full_attrs: %{
+        realization_id: "x",
+        baseline_id: "x",
+        realized_value: 1.0,
+        measured_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "commit_check_state_observation",
+      mod: BeamPM.Types.CommitCheckStateObservation,
+      has_required: true,
+      full_attrs: %{
+        commit_sha: "x",
+        check_name: "x",
+        check_status: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "committed_spend",
+      mod: BeamPM.Types.CommittedSpend,
+      has_required: true,
+      full_attrs: %{
+        commitment_id: "x",
+        amount: 1.0,
+        currency: "x",
+        expires_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "committed_spend_admission",
+      mod: BeamPM.Types.CommittedSpendAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        commitment_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "compatibility_contract",
+      mod: BeamPM.Types.CompatibilityContract,
+      has_required: true,
+      full_attrs: %{
+        contract_id: "x",
+        product_version: "x",
+        schema_version: "x",
+        api_version: "x"
+      }
+    },
+
+    %{
+      name: "concurrency_pricing_policy",
+      mod: BeamPM.Types.ConcurrencyPricingPolicy,
+      has_required: true,
+      full_attrs: %{
+        concurrency_pricing_policy_id: "x",
+        account_id: "x",
+        included_concurrency: 1,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "configuration_export",
+      mod: BeamPM.Types.ConfigurationExport,
+      has_required: true,
+      full_attrs: %{
+        export_id: "x",
+        tenant_id: "x",
+        configuration_hash: "x",
+        exported_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "configuration_import",
+      mod: BeamPM.Types.ConfigurationImport,
+      has_required: true,
+      full_attrs: %{
+        import_id: "x",
+        tenant_id: "x",
+        configuration_hash: "x",
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "conformance_result",
+      mod: BeamPM.Types.ConformanceResult,
+      has_required: true,
+      full_attrs: %{
+        trace_id: "x",
+        fitness: 1.0,
+        precision: 1.0
+      }
+    },
+
+    %{
+      name: "consequential_state_invalidation",
+      mod: BeamPM.Types.ConsequentialStateInvalidation,
+      has_required: true,
+      full_attrs: %{
+        transition_id: "x",
+        affected_state_digest: "x",
+        invalidation_reason: "x",
+        invalidated_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "consumer_equivalence_learning_guard",
+      mod: BeamPM.Types.ConsumerEquivalenceLearningGuard,
+      has_required: true,
+      full_attrs: %{
+        guard_id: "x",
+        source_consumer_id: "x",
+        target_consumer_id: "x",
+        equivalence_evidence_digest: "x",
+        decision: "x",
+        refusal_code: "x"
+      }
+    },
+
+    %{
+      name: "consumer_equivalence_proof",
+      mod: BeamPM.Types.ConsumerEquivalenceProof,
+      has_required: true,
+      full_attrs: %{
+        consumer_set_id: "x",
+        equivalence_proof_hash: "x",
+        standing: "x"
+      }
+    },
+
+    %{
+      name: "consumer_pack_pin_observation",
+      mod: BeamPM.Types.ConsumerPackPinObservation,
+      has_required: true,
+      full_attrs: %{
+        consumer_repository_id: "x",
+        pack_id: "x",
+        pack_sha: "x",
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "consumption_pool",
+      mod: BeamPM.Types.ConsumptionPool,
+      has_required: true,
+      full_attrs: %{
+        pool_id: "x",
+        account_id: "x",
+        unit: "x",
+        remaining_quantity: 1.0
+      }
+    },
+
+    %{
+      name: "consumption_subscription",
+      mod: BeamPM.Types.ConsumptionSubscription,
+      has_required: true,
+      full_attrs: %{
+        subscription_id: "x",
+        account_id: "x",
+        plan_id: "x",
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "container_manifest_digest_observation",
+      mod: BeamPM.Types.ContainerManifestDigestObservation,
+      has_required: true,
+      full_attrs: %{
+        image_repository: "x",
+        tag: "x",
+        index_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "container_platform_digest_observation",
+      mod: BeamPM.Types.ContainerPlatformDigestObservation,
+      has_required: true,
+      full_attrs: %{
+        index_digest: "x",
+        platform: "x",
+        platform_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "contracting_entity_identity",
+      mod: BeamPM.Types.ContractingEntityIdentity,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        contracting_entity_id: "x",
+        identity_evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "cost_center_allocation",
+      mod: BeamPM.Types.CostCenterAllocation,
+      has_required: true,
+      full_attrs: %{
+        cost_center_allocation_id: "x",
+        account_id: "x",
+        cost_center_id: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "cost_latency_reliability_tradeoff",
+      mod: BeamPM.Types.CostLatencyReliabilityTradeoff,
+      has_required: true,
+      full_attrs: %{
+        assessment_id: "x",
+        candidate_policy_id: "x",
+        cost_score: 1.0,
+        latency_score: 1.0,
+        reliability_score: 1.0,
+        utility_score: 1.0
+      }
+    },
+
+    %{
+      name: "cost_of_delay_score",
+      mod: BeamPM.Types.CostOfDelayScore,
+      has_required: true,
+      full_attrs: %{
+        option_id: "x",
+        horizon: "x",
+        score: "x"
+      }
+    },
+
+    %{
+      name: "cost_to_serve_measurement",
+      mod: BeamPM.Types.CostToServeMeasurement,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        billing_period_id: "x",
+        measurement_hash: "x"
+      }
+    },
+
+    %{
+      name: "counterfactual_frontier",
+      mod: BeamPM.Types.CounterfactualFrontier,
+      has_required: true,
+      full_attrs: %{
+        option_set_id: "x",
+        world_model_hash: "x",
+        frontier_hash: "x"
+      }
+    },
+
+    %{
+      name: "counterfactual_replay",
+      mod: BeamPM.Types.CounterfactualReplay,
+      has_required: true,
+      full_attrs: %{
+        replay_id: "x",
+        source_episode_id: "x",
+        intervention_digest: "x",
+        seed: "x",
+        predicted_outcome: "x",
+        comparison_digest: "x"
+      }
+    },
+
+    %{
+      name: "crash_recovery_receipt",
+      mod: BeamPM.Types.CrashRecoveryReceipt,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        crash_id: "x",
+        receipt_hash: "x"
+      }
+    },
+
+    %{
+      name: "credit_expiry_policy",
+      mod: BeamPM.Types.CreditExpiryPolicy,
+      has_required: true,
+      full_attrs: %{
+        credit_expiry_policy_id: "x",
+        account_id: "x",
+        expires_at: "2026-01-01T00:00:00Z",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "credit_risk_admission",
+      mod: BeamPM.Types.CreditRiskAdmission,
+      has_required: true,
+      full_attrs: %{
+        account_id: "x",
+        risk_band: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "cross_sell_fit",
+      mod: BeamPM.Types.CrossSellFit,
+      has_required: true,
+      full_attrs: %{
+        cross_sell_fit_id: "x",
+        account_id: "x",
+        cross_sell_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "crown_applicable_gate_coverage",
+      mod: BeamPM.Types.CrownApplicableGateCoverage,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        applicable_gate_set_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_artifact_pullback_smoke",
+      mod: BeamPM.Types.CrownArtifactPullbackSmoke,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        pullback_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_attestation_signer",
+      mod: BeamPM.Types.CrownAttestationSigner,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        signer_identity: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_autonomic_republish",
+      mod: BeamPM.Types.CrownAutonomicRepublish,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        republished_crown_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_capsule_toolchain",
+      mod: BeamPM.Types.CrownCapsuleToolchain,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        toolchain_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_cas_promotion",
+      mod: BeamPM.Types.CrownCasPromotion,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        expected_previous_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_check_relevance",
+      mod: BeamPM.Types.CrownCheckRelevance,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        relevance_proof_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_child_publish_observation",
+      mod: BeamPM.Types.CrownChildPublishObservation,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        child_publish_run_id: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_consumer_smoke",
+      mod: BeamPM.Types.CrownConsumerSmoke,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        consumer_smoke_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_convergence_proof",
+      mod: BeamPM.Types.CrownConvergenceProof,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        convergence_proof_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_cosign_certificate",
+      mod: BeamPM.Types.CrownCosignCertificate,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        certificate_identity: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_default_head_sensor",
+      mod: BeamPM.Types.CrownDefaultHeadSensor,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        default_head_sha: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_dependency_edge",
+      mod: BeamPM.Types.CrownDependencyEdge,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        downstream_consumer_id: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_execution_mode",
+      mod: BeamPM.Types.CrownExecutionMode,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        execution_mode: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_fanin_convergence",
+      mod: BeamPM.Types.CrownFaninConvergence,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        fanin_set_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_fanout_batch",
+      mod: BeamPM.Types.CrownFanoutBatch,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        fanout_set_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_federated_phase_receipt",
+      mod: BeamPM.Types.CrownFederatedPhaseReceipt,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        selected_option_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_freshness_window",
+      mod: BeamPM.Types.CrownFreshnessWindow,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        fresh_until: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_generated_source_ownership",
+      mod: BeamPM.Types.CrownGeneratedSourceOwnership,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        canonical_source_path: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_gitlink_reconciliation",
+      mod: BeamPM.Types.CrownGitlinkReconciliation,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        gitlink_commit_sha: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_immutable_sha_tag",
+      mod: BeamPM.Types.CrownImmutableShaTag,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        immutable_tag: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_known_good_rollback",
+      mod: BeamPM.Types.CrownKnownGoodRollback,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        rollback_crown_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_latency_observation",
+      mod: BeamPM.Types.CrownLatencyObservation,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        latency_millis: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_lock_reconciliation",
+      mod: BeamPM.Types.CrownLockReconciliation,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        lock_commit_sha: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_manufacturer_identity",
+      mod: BeamPM.Types.CrownManufacturerIdentity,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        manufacturer_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_marketplace_pack_pin",
+      mod: BeamPM.Types.CrownMarketplacePackPin,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        pack_commit_sha: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_multiarch_platform_set",
+      mod: BeamPM.Types.CrownMultiarchPlatformSet,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        platform_set_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_oci_manifest_binding",
+      mod: BeamPM.Types.CrownOciManifestBinding,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        oci_index_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_package_pin_reconciliation",
+      mod: BeamPM.Types.CrownPackagePinReconciliation,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        package_version_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_partial_checkpoint",
+      mod: BeamPM.Types.CrownPartialCheckpoint,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        checkpoint_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_path_skip_refusal",
+      mod: BeamPM.Types.CrownPathSkipRefusal,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        skipped_gate_id: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_planner_identity",
+      mod: BeamPM.Types.CrownPlannerIdentity,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        planner_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_process_runtime_identity",
+      mod: BeamPM.Types.CrownProcessRuntimeIdentity,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        process_runtime_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_promotion_race",
+      mod: BeamPM.Types.CrownPromotionRace,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        observed_previous_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_provenance_binding",
+      mod: BeamPM.Types.CrownProvenanceBinding,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        provenance_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_receipt_output_ownership",
+      mod: BeamPM.Types.CrownReceiptOutputOwnership,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        output_owner: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_recursive_fixed_point",
+      mod: BeamPM.Types.CrownRecursiveFixedPoint,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        fixed_point_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_resume_token",
+      mod: BeamPM.Types.CrownResumeToken,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        resume_token_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_runtime_identity",
+      mod: BeamPM.Types.CrownRuntimeIdentity,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        runtime_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_sbom_subject_binding",
+      mod: BeamPM.Types.CrownSbomSubjectBinding,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        sbom_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_second_pass_identity",
+      mod: BeamPM.Types.CrownSecondPassIdentity,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        second_pass_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_security_scan",
+      mod: BeamPM.Types.CrownSecurityScan,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        scan_report_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_source_capsule",
+      mod: BeamPM.Types.CrownSourceCapsule,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        capsule_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_stale_refusal",
+      mod: BeamPM.Types.CrownStaleRefusal,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        observed_age_seconds: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_supply_chain_policy",
+      mod: BeamPM.Types.CrownSupplyChainPolicy,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        policy_decision_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_topological_order",
+      mod: BeamPM.Types.CrownTopologicalOrder,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        topological_rank: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_validation_pack",
+      mod: BeamPM.Types.CrownValidationPack,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        validation_pack_sha: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_workflow_run_receipt",
+      mod: BeamPM.Types.CrownWorkflowRunReceipt,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        workflow_run_id: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "crown_zero_unreceipted_writes",
+      mod: BeamPM.Types.CrownZeroUnreceiptedWrites,
+      has_required: true,
+      full_attrs: %{
+        propagation_id: "x",
+        subject_sha: "x",
+        write_set_digest: "x",
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "currency_policy",
+      mod: BeamPM.Types.CurrencyPolicy,
+      has_required: true,
+      full_attrs: %{
+        currency_policy_id: "x",
+        account_id: "x",
+        currency_code: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "curriculum_generation",
+      mod: BeamPM.Types.CurriculumGeneration,
+      has_required: true,
+      full_attrs: %{
+        curriculum_id: "x",
+        source_gap_set_digest: "x",
+        ordered_hypotheses_digest: "x",
+        diversity_score: 1.0,
+        falsifier_coverage: 1.0
+      }
+    },
+
+    %{
+      name: "customer_health",
+      mod: BeamPM.Types.CustomerHealth,
+      has_required: true,
+      full_attrs: %{
+        customer_health_id: "x",
+        account_id: "x",
+        health_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "customer_managed_key_evidence",
+      mod: BeamPM.Types.CustomerManagedKeyEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        key_identifier: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "customer_signal_observation",
+      mod: BeamPM.Types.CustomerSignalObservation,
+      has_required: true,
+      full_attrs: %{
+        customer_id: "x",
+        signal_type: "x",
+        signal_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "data_egress_evidence",
+      mod: BeamPM.Types.DataEgressEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        egress_bytes: 1,
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "data_migration_scope_admission",
+      mod: BeamPM.Types.DataMigrationScopeAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        migration_scope_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "data_processing_addendum_state",
+      mod: BeamPM.Types.DataProcessingAddendumState,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        addendum_id: "x",
+        addendum_state: "x"
+      }
+    },
+
+    %{
+      name: "data_readiness",
+      mod: BeamPM.Types.DataReadiness,
+      has_required: true,
+      full_attrs: %{
+        data_readiness_id: "x",
+        account_id: "x",
+        data_quality_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "data_residency_policy",
+      mod: BeamPM.Types.DataResidencyPolicy,
+      has_required: true,
+      full_attrs: %{
+        policy_id: "x",
+        tenant_id: "x",
+        allowed_regions: ["a"],
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "data_volume_pricing_policy",
+      mod: BeamPM.Types.DataVolumePricingPolicy,
+      has_required: true,
+      full_attrs: %{
+        data_volume_pricing_policy_id: "x",
+        account_id: "x",
+        unit_gb_price: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "deal_desk_packet",
+      mod: BeamPM.Types.DealDeskPacket,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        packet_id: "x",
+        evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "decision_compression_observation",
+      mod: BeamPM.Types.DecisionCompressionObservation,
+      has_required: true,
+      full_attrs: %{
+        compression_id: "x",
+        input_state_digest: "x",
+        output_delta_digest: "x",
+        loss_bound: "x"
+      }
+    },
+
+    %{
+      name: "decision_information_preservation",
+      mod: BeamPM.Types.DecisionInformationPreservation,
+      has_required: true,
+      full_attrs: %{
+        preservation_id: "x",
+        decision_id: "x",
+        source_partition_digest: "x",
+        projection_digest: "x",
+        preserved_question_set_digest: "x",
+        loss_score: 1.0
+      }
+    },
+
+    %{
+      name: "deletion_proof_evidence",
+      mod: BeamPM.Types.DeletionProofEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        deletion_receipt_id: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "demo_run",
+      mod: BeamPM.Types.DemoRun,
+      has_required: true,
+      full_attrs: %{
+        demo_run_id: "x",
+        account_id: "x",
+        demo_result: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "demo_scenario",
+      mod: BeamPM.Types.DemoScenario,
+      has_required: true,
+      full_attrs: %{
+        demo_scenario_id: "x",
+        account_id: "x",
+        scenario_name: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "dependency_dag",
+      mod: BeamPM.Types.DependencyDag,
+      has_required: true,
+      full_attrs: %{
+        dag_id: "x",
+        node_set_hash: "x",
+        edge_set_hash: "x"
+      }
+    },
+
+    %{
+      name: "dependency_inventory_evidence",
+      mod: BeamPM.Types.DependencyInventoryEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        dependency_count: 1,
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "dependency_pin_observation",
+      mod: BeamPM.Types.DependencyPinObservation,
+      has_required: true,
+      full_attrs: %{
+        dependency_id: "x",
+        declared_ref: "x",
+        resolved_sha: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "deployment_entitlement",
+      mod: BeamPM.Types.DeploymentEntitlement,
+      has_required: true,
+      full_attrs: %{
+        entitlement_id: "x",
+        tenant_id: "x",
+        profile_id: "x",
+        valid_until: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "developer_readiness",
+      mod: BeamPM.Types.DeveloperReadiness,
+      has_required: true,
+      full_attrs: %{
+        developer_readiness_id: "x",
+        account_id: "x",
+        developer_readiness_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "dfg_edge",
+      mod: BeamPM.Types.DfgEdge,
+      has_required: true,
+      full_attrs: %{
+        source_activity: "x",
+        target_activity: "x",
+        frequency: 1
+      }
+    },
+
+    %{
+      name: "disaster_recovery_evidence",
+      mod: BeamPM.Types.DisasterRecoveryEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        recovered_at: "2026-01-01T00:00:00Z",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "discount_schedule",
+      mod: BeamPM.Types.DiscountSchedule,
+      has_required: true,
+      full_attrs: %{
+        schedule_id: "x",
+        threshold: 1.0,
+        discount_percent: 1.0,
+        currency: "x"
+      }
+    },
+
+    %{
+      name: "discovery_hypothesis",
+      mod: BeamPM.Types.DiscoveryHypothesis,
+      has_required: true,
+      full_attrs: %{
+        discovery_hypothesis_id: "x",
+        account_id: "x",
+        expected_value: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "dominance_witness",
+      mod: BeamPM.Types.DominanceWitness,
+      has_required: true,
+      full_attrs: %{
+        dominant_option_id: "x",
+        dominated_option_id: "x",
+        witness_hash: "x"
+      }
+    },
+
+    %{
+      name: "dynamic_replan_trigger",
+      mod: BeamPM.Types.DynamicReplanTrigger,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        event_id: "x",
+        trigger_hash: "x"
+      }
+    },
+
+    %{
+      name: "edition_definition",
+      mod: BeamPM.Types.EditionDefinition,
+      has_required: true,
+      full_attrs: %{
+        edition_id: "x",
+        name: "x",
+        bundle_ids: ["a"],
+        support_tier: "x"
+      }
+    },
+
+    %{
+      name: "edition_downgrade_path",
+      mod: BeamPM.Types.EditionDowngradePath,
+      has_required: true,
+      full_attrs: %{
+        edition_downgrade_path_id: "x",
+        account_id: "x",
+        target_edition_id: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "edition_upgrade_path",
+      mod: BeamPM.Types.EditionUpgradePath,
+      has_required: true,
+      full_attrs: %{
+        edition_upgrade_path_id: "x",
+        account_id: "x",
+        target_edition_id: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "enterprise_agreement",
+      mod: BeamPM.Types.EnterpriseAgreement,
+      has_required: true,
+      full_attrs: %{
+        enterprise_agreement_id: "x",
+        account_id: "x",
+        agreement_version: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "enterprise_order",
+      mod: BeamPM.Types.EnterpriseOrder,
+      has_required: true,
+      full_attrs: %{
+        order_id: "x",
+        account_id: "x",
+        quote_id: "x",
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "enterprise_order_line",
+      mod: BeamPM.Types.EnterpriseOrderLine,
+      has_required: true,
+      full_attrs: %{
+        order_id: "x",
+        sku: "x",
+        quantity: 1,
+        unit_price: 1.0
+      }
+    },
+
+    %{
+      name: "entitlement_denial_receipt",
+      mod: BeamPM.Types.EntitlementDenialReceipt,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        entitlement_id: "x",
+        denial_hash: "x"
+      }
+    },
+
+    %{
+      name: "entitlement_event",
+      mod: BeamPM.Types.EntitlementEvent,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        entitlement_id: "x",
+        event_type: "x",
+        effective_at: "2026-01-01T00:00:00Z",
+        payload: %{}
+      }
+    },
+
+    %{
+      name: "entitlement_evidence",
+      mod: BeamPM.Types.EntitlementEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        entitlement_id: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "entitlement_grant",
+      mod: BeamPM.Types.EntitlementGrant,
+      has_required: true,
+      full_attrs: %{
+        grant_id: "x",
+        tenant_id: "x",
+        capability_id: "x",
+        valid_until: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "entitlement_revocation",
+      mod: BeamPM.Types.EntitlementRevocation,
+      has_required: true,
+      full_attrs: %{
+        revocation_id: "x",
+        grant_id: "x",
+        reason: "x",
+        revoked_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "entitlement_runtime_check",
+      mod: BeamPM.Types.EntitlementRuntimeCheck,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        entitlement_id: "x",
+        check_hash: "x"
+      }
+    },
+
+    %{
+      name: "entitlement_state",
+      mod: BeamPM.Types.EntitlementState,
+      has_required: true,
+      full_attrs: %{
+        entitlement_id: "x",
+        status: "x",
+        last_applied_event_id: "x",
+        updated_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "entropy_reduction_score",
+      mod: BeamPM.Types.EntropyReductionScore,
+      has_required: true,
+      full_attrs: %{
+        action_id: "x",
+        prior_entropy: "x",
+        expected_posterior_entropy: "x"
+      }
+    },
+
+    %{
+      name: "environment_failure_separation",
+      mod: BeamPM.Types.EnvironmentFailureSeparation,
+      has_required: true,
+      full_attrs: %{
+        assessment_id: "x",
+        exact_subject_sha: "x",
+        capsule_digest: "x",
+        failure_signal: "x",
+        classification_basis: "x"
+      }
+    },
+
+    %{
+      name: "environment_identity",
+      mod: BeamPM.Types.EnvironmentIdentity,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        environment_id: "x",
+        identity_hash: "x"
+      }
+    },
+
+    %{
+      name: "environment_pricing_policy",
+      mod: BeamPM.Types.EnvironmentPricingPolicy,
+      has_required: true,
+      full_attrs: %{
+        environment_pricing_policy_id: "x",
+        account_id: "x",
+        environment_tier: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "environment_profile",
+      mod: BeamPM.Types.EnvironmentProfile,
+      has_required: true,
+      full_attrs: %{
+        profile_id: "x",
+        environment: :some_atom,
+        region: "x",
+        configuration_hash: "x"
+      }
+    },
+
+    %{
+      name: "environment_signal_observation",
+      mod: BeamPM.Types.EnvironmentSignalObservation,
+      has_required: true,
+      full_attrs: %{
+        environment_id: "x",
+        signal_type: "x",
+        signal_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "error_budget_state",
+      mod: BeamPM.Types.ErrorBudgetState,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        slo_id: "x",
+        state_hash: "x"
+      }
+    },
+
+    %{
+      name: "evaluation_seed_binding",
+      mod: BeamPM.Types.EvaluationSeedBinding,
+      has_required: true,
+      full_attrs: %{
+        binding_id: "x",
+        evaluation_id: "x",
+        seed: "x",
+        result_digest: "x",
+        source_digest: "x",
+        deterministic: true
+      }
+    },
+
+    %{
+      name: "event_log",
+      mod: BeamPM.Types.EventLog,
+      has_required: true,
+      full_attrs: %{
+        log_id: "x",
+        name: "x",
+        description: "x"
+      }
+    },
+
+    %{
+      name: "event_triggered_planning",
+      mod: BeamPM.Types.EventTriggeredPlanning,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        world_state_hash: "x",
+        episode_id: "x"
+      }
+    },
+
+    %{
+      name: "event_type",
+      mod: BeamPM.Types.EventType,
+      has_required: true,
+      full_attrs: %{
+        type_name: "x",
+        attribute_names: ["a"]
+      }
+    },
+
+    %{
+      name: "event_volume_pricing_policy",
+      mod: BeamPM.Types.EventVolumePricingPolicy,
+      has_required: true,
+      full_attrs: %{
+        event_volume_pricing_policy_id: "x",
+        account_id: "x",
+        unit_event_price: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "evidence_freshness_evidence",
+      mod: BeamPM.Types.EvidenceFreshnessEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        observed_at: "2026-01-01T00:00:00Z",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "evidence_training_sample",
+      mod: BeamPM.Types.EvidenceTrainingSample,
+      has_required: true,
+      full_attrs: %{
+        sample_id: "x",
+        episode_id: "x",
+        feature_digest: "x",
+        label_id: "x",
+        provenance_digest: "x"
+      }
+    },
+
+    %{
+      name: "exact_subject_binding",
+      mod: BeamPM.Types.ExactSubjectBinding,
+      has_required: true,
+      full_attrs: %{
+        subject_id: "x",
+        subject_sha: "x",
+        binding_hash: "x"
+      }
+    },
+
+    %{
+      name: "exception_authority",
+      mod: BeamPM.Types.ExceptionAuthority,
+      has_required: true,
+      full_attrs: %{
+        exception_id: "x",
+        authority_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "executive_business_review",
+      mod: BeamPM.Types.ExecutiveBusinessReview,
+      has_required: true,
+      full_attrs: %{
+        executive_business_review_id: "x",
+        account_id: "x",
+        executive_outcome: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "executive_sponsor",
+      mod: BeamPM.Types.ExecutiveSponsor,
+      has_required: true,
+      full_attrs: %{
+        executive_sponsor_id: "x",
+        account_id: "x",
+        sponsor_commitment: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "expansion_opportunity",
+      mod: BeamPM.Types.ExpansionOpportunity,
+      has_required: true,
+      full_attrs: %{
+        expansion_opportunity_id: "x",
+        account_id: "x",
+        expansion_value: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "expansion_option",
+      mod: BeamPM.Types.ExpansionOption,
+      has_required: true,
+      full_attrs: %{
+        option_id: "x",
+        account_id: "x",
+        sku: "x",
+        max_quantity: 1
+      }
+    },
+
+    %{
+      name: "expansion_receipt",
+      mod: BeamPM.Types.ExpansionReceipt,
+      has_required: true,
+      full_attrs: %{
+        expansion_receipt_id: "x",
+        account_id: "x",
+        receipt_value: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "expansion_signal",
+      mod: BeamPM.Types.ExpansionSignal,
+      has_required: true,
+      full_attrs: %{
+        expansion_signal_id: "x",
+        account_id: "x",
+        expansion_signal_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "experiment_learning_receipt",
+      mod: BeamPM.Types.ExperimentLearningReceipt,
+      has_required: true,
+      full_attrs: %{
+        receipt_id: "x",
+        experiment_id: "x",
+        exact_subject_sha: "x",
+        evidence_digest: "x",
+        result_digest: "x",
+        authority_ceiling: "x"
+      }
+    },
+
+    %{
+      name: "failed_challenger_retention",
+      mod: BeamPM.Types.FailedChallengerRetention,
+      has_required: true,
+      full_attrs: %{
+        retention_id: "x",
+        challenger_evaluation_id: "x",
+        failure_evidence_digest: "x",
+        retained_at: "2026-01-01T00:00:00Z",
+        eligible_for_future: true
+      }
+    },
+
+    %{
+      name: "failure_label",
+      mod: BeamPM.Types.FailureLabel,
+      has_required: true,
+      full_attrs: %{
+        failure_id: "x",
+        episode_id: "x",
+        failure_class: "x",
+        causal_scope: "x",
+        preserved_evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "federated_dogfood_learning_crown",
+      mod: BeamPM.Types.FederatedDogfoodLearningCrown,
+      has_required: true,
+      full_attrs: %{
+        crown_id: "x",
+        exact_subject_sha: "x",
+        consumer_id: "x",
+        pack_sha: "x",
+        capsule_digest: "x",
+        manufacture_receipt_digest: "x",
+        ownership_verification_digest: "x",
+        second_pass_identity_digest: "x",
+        workflow_sequence: "x",
+        authority_ceiling: "x"
+      }
+    },
+
+    %{
+      name: "forged_receipt_refusal",
+      mod: BeamPM.Types.ForgedReceiptRefusal,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        receipt_id: "x",
+        refusal_hash: "x"
+      }
+    },
+
+    %{
+      name: "funding_approval_chain",
+      mod: BeamPM.Types.FundingApprovalChain,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        approval_chain_id: "x",
+        evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "fx_conversion_policy",
+      mod: BeamPM.Types.FxConversionPolicy,
+      has_required: true,
+      full_attrs: %{
+        fx_conversion_policy_id: "x",
+        account_id: "x",
+        rate_source: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "generated_hypothesis",
+      mod: BeamPM.Types.GeneratedHypothesis,
+      has_required: true,
+      full_attrs: %{
+        hypothesis_id: "x",
+        source_gap_id: "x",
+        candidate_capability: "x",
+        expected_value: 1.0,
+        falsifier_contract: "x"
+      }
+    },
+
+    %{
+      name: "generated_output_ownership_observation",
+      mod: BeamPM.Types.GeneratedOutputOwnershipObservation,
+      has_required: true,
+      full_attrs: %{
+        output_path: "x",
+        ownership_marker: "x",
+        source_input_digest: "x",
+        standing: "x"
+      }
+    },
+
+    %{
+      name: "generated_source_route",
+      mod: BeamPM.Types.GeneratedSourceRoute,
+      has_required: true,
+      full_attrs: %{
+        projection_id: "x",
+        source_coordinate: "x",
+        route: "x"
+      }
+    },
+
+    %{
+      name: "heuristic_arc",
+      mod: BeamPM.Types.HeuristicArc,
+      has_required: true,
+      full_attrs: %{
+        source_activity: "x",
+        target_activity: "x",
+        dependency_measure: 1.0
+      }
+    },
+
+    %{
+      name: "historical_episode_replay",
+      mod: BeamPM.Types.HistoricalEpisodeReplay,
+      has_required: true,
+      full_attrs: %{
+        replay_id: "x",
+        episode_id: "x",
+        historical_subject_sha: "x",
+        replay_seed: "x",
+        divergence_code: "x"
+      }
+    },
+
+    %{
+      name: "hypothesis_priority_update",
+      mod: BeamPM.Types.HypothesisPriorityUpdate,
+      has_required: true,
+      full_attrs: %{
+        update_id: "x",
+        hypothesis_id: "x",
+        prior_priority: 1.0,
+        new_priority: 1.0,
+        payoff_evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "immutable_pack_selection",
+      mod: BeamPM.Types.ImmutablePackSelection,
+      has_required: true,
+      full_attrs: %{
+        pack_id: "x",
+        pack_sha: "x",
+        selection_hash: "x"
+      }
+    },
+
+    %{
+      name: "implementation_fee_admission",
+      mod: BeamPM.Types.ImplementationFeeAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        fee_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "incident_acknowledgement",
+      mod: BeamPM.Types.IncidentAcknowledgement,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        incident_id: "x",
+        acknowledgement_hash: "x"
+      }
+    },
+
+    %{
+      name: "incident_detection_event",
+      mod: BeamPM.Types.IncidentDetectionEvent,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        incident_id: "x",
+        detection_hash: "x"
+      }
+    },
+
+    %{
+      name: "incident_response_evidence",
+      mod: BeamPM.Types.IncidentResponseEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        incident_id: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "indemnity_scope_admission",
+      mod: BeamPM.Types.IndemnityScopeAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        indemnity_scope_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "information_partition_observation",
+      mod: BeamPM.Types.InformationPartitionObservation,
+      has_required: true,
+      full_attrs: %{
+        partition_id: "x",
+        state_vector_id: "x",
+        partition_key: "x",
+        information_digest: "x"
+      }
+    },
+
+    %{
+      name: "insurance_requirement",
+      mod: BeamPM.Types.InsuranceRequirement,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        coverage_id: "x",
+        evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "integration_readiness",
+      mod: BeamPM.Types.IntegrationReadiness,
+      has_required: true,
+      full_attrs: %{
+        integration_readiness_id: "x",
+        account_id: "x",
+        integration_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "integration_scope_admission",
+      mod: BeamPM.Types.IntegrationScopeAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        integration_scope_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "invoice_entity_identity",
+      mod: BeamPM.Types.InvoiceEntityIdentity,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        invoice_entity_id: "x",
+        identity_evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "invoice_line_item",
+      mod: BeamPM.Types.InvoiceLineItem,
+      has_required: true,
+      full_attrs: %{
+        invoice_line_item_id: "x",
+        account_id: "x",
+        line_amount: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "invoice_schedule",
+      mod: BeamPM.Types.InvoiceSchedule,
+      has_required: true,
+      full_attrs: %{
+        schedule_id: "x",
+        billing_account_id: "x",
+        cadence: :some_atom,
+        next_invoice_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "irreversibility_budget",
+      mod: BeamPM.Types.IrreversibilityBudget,
+      has_required: true,
+      full_attrs: %{
+        episode_id: "x",
+        budget: "x",
+        consumed: "x"
+      }
+    },
+
+    %{
+      name: "k8s_object_ref",
+      mod: BeamPM.Types.K8SObjectRef,
+      has_required: true,
+      full_attrs: %{
+        kind: "x",
+        name: "x",
+        namespace: "x"
+      }
+    },
+
+    %{
+      name: "late_arriving_usage",
+      mod: BeamPM.Types.LateArrivingUsage,
+      has_required: true,
+      full_attrs: %{
+        late_arriving_usage_id: "x",
+        account_id: "x",
+        occurred_at: "2026-01-01T00:00:00Z",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "latency_budget_observation",
+      mod: BeamPM.Types.LatencyBudgetObservation,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        workload_id: "x",
+        observation_hash: "x"
+      }
+    },
+
+    %{
+      name: "leakage_finding",
+      mod: BeamPM.Types.LeakageFinding,
+      has_required: true,
+      full_attrs: %{
+        case_id: "x",
+        fitness: 1.0,
+        precision: 1.0,
+        amount_at_risk: 1.0
+      }
+    },
+
+    %{
+      name: "learning_episode",
+      mod: BeamPM.Types.LearningEpisode,
+      has_required: true,
+      full_attrs: %{
+        episode_id: "x",
+        exact_subject_sha: "x",
+        evidence_digest: "x",
+        outcome: "x",
+        authority_ceiling: "x"
+      }
+    },
+
+    %{
+      name: "least_authority_evidence",
+      mod: BeamPM.Types.LeastAuthorityEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        granted_permissions: ["a"],
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "legal_blocker",
+      mod: BeamPM.Types.LegalBlocker,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        blocker_id: "x",
+        refusal_code: "x"
+      }
+    },
+
+    %{
+      name: "liability_cap_admission",
+      mod: BeamPM.Types.LiabilityCapAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        liability_cap_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "license_evidence",
+      mod: BeamPM.Types.LicenseEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        license_expression: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "log_trace",
+      mod: BeamPM.Types.LogTrace,
+      has_required: true,
+      full_attrs: %{
+        case_id: "x",
+        activity_sequence: ["a"]
+      }
+    },
+
+    %{
+      name: "machine_actionable_delta",
+      mod: BeamPM.Types.MachineActionableDelta,
+      has_required: true,
+      full_attrs: %{
+        subject_id: "x",
+        prior_state_digest: "x",
+        delta_digest: "x",
+        recommended_action: "x"
+      }
+    },
+
+    %{
+      name: "manufacture_receipt_presence_observation",
+      mod: BeamPM.Types.ManufactureReceiptPresenceObservation,
+      has_required: true,
+      full_attrs: %{
+        subject_sha: "x",
+        receipt_id: "x",
+        receipt_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "manufacture_receipt_validity_observation",
+      mod: BeamPM.Types.ManufactureReceiptValidityObservation,
+      has_required: true,
+      full_attrs: %{
+        receipt_digest: "x",
+        subject_sha: "x",
+        verification_status: "x",
+        verifier_identity: "x"
+      }
+    },
+
+    %{
+      name: "master_service_agreement_binding",
+      mod: BeamPM.Types.MasterServiceAgreementBinding,
+      has_required: true,
+      full_attrs: %{
+        master_service_agreement_binding_id: "x",
+        account_id: "x",
+        msa_digest: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "master_service_agreement_state",
+      mod: BeamPM.Types.MasterServiceAgreementState,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        agreement_id: "x",
+        agreement_state: "x"
+      }
+    },
+
+    %{
+      name: "mcts_plan_candidate",
+      mod: BeamPM.Types.MctsPlanCandidate,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        seed: "x",
+        rollout_hash: "x"
+      }
+    },
+
+    %{
+      name: "meta_router",
+      mod: BeamPM.Types.MetaRouter,
+      has_required: true,
+      full_attrs: %{
+        portfolio_id: "x",
+        observation_hash: "x",
+        selected_planner_id: "x"
+      }
+    },
+
+    %{
+      name: "meter_definition",
+      mod: BeamPM.Types.MeterDefinition,
+      has_required: true,
+      full_attrs: %{
+        meter_definition_id: "x",
+        account_id: "x",
+        meter_name: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "meter_dimension",
+      mod: BeamPM.Types.MeterDimension,
+      has_required: true,
+      full_attrs: %{
+        meter_dimension_id: "x",
+        account_id: "x",
+        dimension_name: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "meter_rollup",
+      mod: BeamPM.Types.MeterRollup,
+      has_required: true,
+      full_attrs: %{
+        meter_rollup_id: "x",
+        account_id: "x",
+        rollup_function: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "metered_usage_sample",
+      mod: BeamPM.Types.MeteredUsageSample,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        usage_sample_id: "x",
+        sample_hash: "x"
+      }
+    },
+
+    %{
+      name: "migration_contract",
+      mod: BeamPM.Types.MigrationContract,
+      has_required: true,
+      full_attrs: %{
+        migration_id: "x",
+        from_version: "x",
+        to_version: "x",
+        rollback_plan: "x"
+      }
+    },
+
+    %{
+      name: "migration_readiness",
+      mod: BeamPM.Types.MigrationReadiness,
+      has_required: true,
+      full_attrs: %{
+        migration_readiness_id: "x",
+        account_id: "x",
+        migration_effort_days: 1,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "minimum_commitment_schedule",
+      mod: BeamPM.Types.MinimumCommitmentSchedule,
+      has_required: true,
+      full_attrs: %{
+        minimum_commitment_schedule_id: "x",
+        account_id: "x",
+        committed_amount: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "minimum_term_admission",
+      mod: BeamPM.Types.MinimumTermAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        minimum_term: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "multiarch_evidence",
+      mod: BeamPM.Types.MultiarchEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        platforms: ["a"],
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "mutable_identity_refusal_evidence",
+      mod: BeamPM.Types.MutableIdentityRefusalEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        mutable_reference: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "mutual_information_score",
+      mod: BeamPM.Types.MutualInformationScore,
+      has_required: true,
+      full_attrs: %{
+        observation_id: "x",
+        target_state_id: "x",
+        score: "x"
+      }
+    },
+
+    %{
+      name: "negative_fixture_generation",
+      mod: BeamPM.Types.NegativeFixtureGeneration,
+      has_required: true,
+      full_attrs: %{
+        fixture_id: "x",
+        source_failure_id: "x",
+        invariant_id: "x",
+        generated_input_digest: "x",
+        expected_refusal_code: "x"
+      }
+    },
+
+    %{
+      name: "next_lawful_actuation",
+      mod: BeamPM.Types.NextLawfulActuation,
+      has_required: true,
+      full_attrs: %{
+        episode_id: "x",
+        selected_action_id: "x",
+        selection_receipt_hash: "x"
+      }
+    },
+
+    %{
+      name: "no_authority_learning_guard",
+      mod: BeamPM.Types.NoAuthorityLearningGuard,
+      has_required: true,
+      full_attrs: %{
+        guard_id: "x",
+        candidate_update_id: "x",
+        current_authority: "x",
+        requested_authority: "x",
+        decision: "x",
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "node_failover_event",
+      mod: BeamPM.Types.NodeFailoverEvent,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        node_id: "x",
+        failover_hash: "x"
+      }
+    },
+
+    %{
+      name: "nonproduction_discount_policy",
+      mod: BeamPM.Types.NonproductionDiscountPolicy,
+      has_required: true,
+      full_attrs: %{
+        nonproduction_discount_policy_id: "x",
+        account_id: "x",
+        discount_percent: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "normalized_event_observation",
+      mod: BeamPM.Types.NormalizedEventObservation,
+      has_required: true,
+      full_attrs: %{
+        source_system: "x",
+        event_id: "x",
+        event_type: "x",
+        event_time: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "novelty_reward",
+      mod: BeamPM.Types.NoveltyReward,
+      has_required: true,
+      full_attrs: %{
+        reward_id: "x",
+        hypothesis_id: "x",
+        feature_vector_digest: "x",
+        nearest_prior_distance: 1.0,
+        reward: 1.0,
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "novelty_score",
+      mod: BeamPM.Types.NoveltyScore,
+      has_required: true,
+      full_attrs: %{
+        option_id: "x",
+        reference_set_hash: "x",
+        score: "x"
+      }
+    },
+
+    %{
+      name: "object_attribute_change",
+      mod: BeamPM.Types.ObjectAttributeChange,
+      has_required: true,
+      full_attrs: %{
+        object_id: "x",
+        attribute_name: "x",
+        old_value: "x",
+        new_value: "x",
+        changed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "object_type",
+      mod: BeamPM.Types.ObjectType,
+      has_required: true,
+      full_attrs: %{
+        type_name: "x",
+        attribute_names: ["a"]
+      }
+    },
+
+    %{
+      name: "object_volume_pricing_policy",
+      mod: BeamPM.Types.ObjectVolumePricingPolicy,
+      has_required: true,
+      full_attrs: %{
+        object_volume_pricing_policy_id: "x",
+        account_id: "x",
+        unit_object_price: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "objection",
+      mod: BeamPM.Types.Objection,
+      has_required: true,
+      full_attrs: %{
+        objection_id: "x",
+        account_id: "x",
+        objection_type: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "objection_resolution",
+      mod: BeamPM.Types.ObjectionResolution,
+      has_required: true,
+      full_attrs: %{
+        objection_resolution_id: "x",
+        account_id: "x",
+        resolution_status: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "observation_deduplication_decision",
+      mod: BeamPM.Types.ObservationDeduplicationDecision,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_digest: "x",
+        dedup_key: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "observation_entropy_estimate",
+      mod: BeamPM.Types.ObservationEntropyEstimate,
+      has_required: true,
+      full_attrs: %{
+        state_vector_id: "x",
+        entropy_method: "x",
+        entropy_value: 1.0,
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "observation_freshness_assessment",
+      mod: BeamPM.Types.ObservationFreshnessAssessment,
+      has_required: true,
+      full_attrs: %{
+        observation_id: "x",
+        observed_at: "2026-01-01T00:00:00Z",
+        freshness_deadline: "2026-01-01T00:00:00Z",
+        freshness_status: "x"
+      }
+    },
+
+    %{
+      name: "observation_projection_update",
+      mod: BeamPM.Types.ObservationProjectionUpdate,
+      has_required: true,
+      full_attrs: %{
+        update_id: "x",
+        projection_id: "x",
+        prior_digest: "x",
+        new_digest: "x",
+        triggering_gap_id: "x",
+        authority_ceiling: "x"
+      }
+    },
+
+    %{
+      name: "observation_staleness_invalidation",
+      mod: BeamPM.Types.ObservationStalenessInvalidation,
+      has_required: true,
+      full_attrs: %{
+        observation_id: "x",
+        invalidated_at: "2026-01-01T00:00:00Z",
+        staleness_reason: "x",
+        replacement_required: true
+      }
+    },
+
+    %{
+      name: "oc_declare_constraint",
+      mod: BeamPM.Types.OcDeclareConstraint,
+      has_required: true,
+      full_attrs: %{
+        constraint_id: "x",
+        source_activity: "x",
+        target_activity: "x",
+        constraint_type: :some_atom
+      }
+    },
+
+    %{
+      name: "ocel_attribute",
+      mod: BeamPM.Types.OcelAttribute,
+      has_required: true,
+      full_attrs: %{
+        attribute_name: "x",
+        attribute_value: "x",
+        recorded_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "ocel_event",
+      mod: BeamPM.Types.OcelEvent,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        event_type: "x",
+        event_time: "2026-01-01T00:00:00Z",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "ocel_object",
+      mod: BeamPM.Types.OcelObject,
+      has_required: true,
+      full_attrs: %{
+        object_id: "x",
+        object_type: "x",
+        attributes: %{}
+      }
+    },
+
+    %{
+      name: "ocel_relationship",
+      mod: BeamPM.Types.OcelRelationship,
+      has_required: true,
+      full_attrs: %{
+        qualifier: "x",
+        object_id: "x"
+      }
+    },
+
+    %{
+      name: "oci_manifest_evidence",
+      mod: BeamPM.Types.OciManifestEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        manifest_digest: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "offline_bundle_evidence",
+      mod: BeamPM.Types.OfflineBundleEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        bundle_digest: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "operator_readiness",
+      mod: BeamPM.Types.OperatorReadiness,
+      has_required: true,
+      full_attrs: %{
+        operator_readiness_id: "x",
+        account_id: "x",
+        operator_readiness_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "opportunity_currency_contract",
+      mod: BeamPM.Types.OpportunityCurrencyContract,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        currency_code: "x",
+        fx_basis_id: "x"
+      }
+    },
+
+    %{
+      name: "opportunity_value_range",
+      mod: BeamPM.Types.OpportunityValueRange,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        minimum_value: "x",
+        maximum_value: "x"
+      }
+    },
+
+    %{
+      name: "optimization_plan_candidate",
+      mod: BeamPM.Types.OptimizationPlanCandidate,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        objective_id: "x",
+        solver_receipt_hash: "x"
+      }
+    },
+
+    %{
+      name: "option_generation",
+      mod: BeamPM.Types.OptionGeneration,
+      has_required: true,
+      full_attrs: %{
+        state_id: "x",
+        generator_id: "x",
+        option_set_hash: "x"
+      }
+    },
+
+    %{
+      name: "order_form_admission",
+      mod: BeamPM.Types.OrderFormAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        order_form_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "order_form_version",
+      mod: BeamPM.Types.OrderFormVersion,
+      has_required: true,
+      full_attrs: %{
+        order_form_version_id: "x",
+        account_id: "x",
+        order_form_digest: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "orthogonality_reward",
+      mod: BeamPM.Types.OrthogonalityReward,
+      has_required: true,
+      full_attrs: %{
+        reward_id: "x",
+        candidate_id: "x",
+        comparison_set_digest: "x",
+        minimum_semantic_distance: 1.0,
+        reward: 1.0,
+        independence_evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "orthogonality_score",
+      mod: BeamPM.Types.OrthogonalityScore,
+      has_required: true,
+      full_attrs: %{
+        left_option_id: "x",
+        right_option_id: "x",
+        score: "x"
+      }
+    },
+
+    %{
+      name: "outcome_label",
+      mod: BeamPM.Types.OutcomeLabel,
+      has_required: true,
+      full_attrs: %{
+        label_id: "x",
+        episode_id: "x",
+        outcome_class: "x",
+        confidence_basis: "x",
+        independent_evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "output_ownership_gate",
+      mod: BeamPM.Types.OutputOwnershipGate,
+      has_required: true,
+      full_attrs: %{
+        subject_id: "x",
+        ownership_manifest_hash: "x",
+        standing: "x"
+      }
+    },
+
+    %{
+      name: "overage_invoice",
+      mod: BeamPM.Types.OverageInvoice,
+      has_required: true,
+      full_attrs: %{
+        overage_invoice_id: "x",
+        account_id: "x",
+        overage_amount: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "overage_policy",
+      mod: BeamPM.Types.OveragePolicy,
+      has_required: true,
+      full_attrs: %{
+        policy_id: "x",
+        quota_id: "x",
+        unit_price: 1.0,
+        behavior: :some_atom
+      }
+    },
+
+    %{
+      name: "package_release_observation",
+      mod: BeamPM.Types.PackageReleaseObservation,
+      has_required: true,
+      full_attrs: %{
+        package_id: "x",
+        version: "x",
+        immutable_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "paid_workload_outcome_receipt",
+      mod: BeamPM.Types.PaidWorkloadOutcomeReceipt,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        workload_id: "x",
+        outcome_receipt_hash: "x"
+      }
+    },
+
+    %{
+      name: "pareto_filter",
+      mod: BeamPM.Types.ParetoFilter,
+      has_required: true,
+      full_attrs: %{
+        option_set_id: "x",
+        objective_set_hash: "x",
+        pareto_set_hash: "x"
+      }
+    },
+
+    %{
+      name: "path_schema",
+      mod: BeamPM.Types.PathSchema,
+      has_required: true,
+      full_attrs: %{
+        schema_id: "x",
+        source_type: "x",
+        target_type: "x",
+        support: 1
+      }
+    },
+
+    %{
+      name: "path_schema_query",
+      mod: BeamPM.Types.PathSchemaQuery,
+      has_required: true,
+      full_attrs: %{
+        source_type: "x",
+        target_type: "x",
+        max_length: 1
+      }
+    },
+
+    %{
+      name: "payment_terms",
+      mod: BeamPM.Types.PaymentTerms,
+      has_required: true,
+      full_attrs: %{
+        terms_id: "x",
+        net_days: 1,
+        late_policy: "x",
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "payment_terms_admission",
+      mod: BeamPM.Types.PaymentTermsAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        payment_terms: "x",
+        authority_evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "performance_slo_evidence",
+      mod: BeamPM.Types.PerformanceSloEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        latency_p95_ms: 1,
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "petri_arc",
+      mod: BeamPM.Types.PetriArc,
+      has_required: true,
+      full_attrs: %{
+        source_id: "x",
+        target_id: "x",
+        weight: 1
+      }
+    },
+
+    %{
+      name: "petri_place",
+      mod: BeamPM.Types.PetriPlace,
+      has_required: true,
+      full_attrs: %{
+        place_id: "x",
+        tokens: 1
+      }
+    },
+
+    %{
+      name: "petri_transition",
+      mod: BeamPM.Types.PetriTransition,
+      has_required: true,
+      full_attrs: %{
+        transition_id: "x",
+        label: "x"
+      }
+    },
+
+    %{
+      name: "plan_lineage",
+      mod: BeamPM.Types.PlanLineage,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        parent_plan_id: "x",
+        lineage_hash: "x"
+      }
+    },
+
+    %{
+      name: "plan_memory",
+      mod: BeamPM.Types.PlanMemory,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        evidence_hash: "x",
+        memory_hash: "x"
+      }
+    },
+
+    %{
+      name: "planner_capability_profile",
+      mod: BeamPM.Types.PlannerCapabilityProfile,
+      has_required: true,
+      full_attrs: %{
+        planner_id: "x",
+        capability_set: "x",
+        profile_hash: "x"
+      }
+    },
+
+    %{
+      name: "planner_identity",
+      mod: BeamPM.Types.PlannerIdentity,
+      has_required: true,
+      full_attrs: %{
+        planner_id: "x",
+        planner_kind: "x",
+        identity_hash: "x"
+      }
+    },
+
+    %{
+      name: "planner_payoff_observation",
+      mod: BeamPM.Types.PlannerPayoffObservation,
+      has_required: true,
+      full_attrs: %{
+        observation_id: "x",
+        planner_id: "x",
+        objective_id: "x",
+        payoff: 1.0,
+        evidence_digest: "x",
+        episode_id: "x"
+      }
+    },
+
+    %{
+      name: "planner_policy_comparison",
+      mod: BeamPM.Types.PlannerPolicyComparison,
+      has_required: true,
+      full_attrs: %{
+        comparison_id: "x",
+        planner_id: "x",
+        incumbent_policy_id: "x",
+        challenger_policy_id: "x",
+        payoff_delta: 1.0,
+        winner_evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "planner_portfolio",
+      mod: BeamPM.Types.PlannerPortfolio,
+      has_required: true,
+      full_attrs: %{
+        portfolio_id: "x",
+        planner_ids: "x",
+        diversity_hash: "x"
+      }
+    },
+
+    %{
+      name: "planner_routing_update",
+      mod: BeamPM.Types.PlannerRoutingUpdate,
+      has_required: true,
+      full_attrs: %{
+        update_id: "x",
+        route_id: "x",
+        prior_planner_id: "x",
+        selected_planner_id: "x",
+        payoff_basis_digest: "x",
+        rollback_policy_id: "x"
+      }
+    },
+
+    %{
+      name: "planning_action",
+      mod: BeamPM.Types.PlanningAction,
+      has_required: true,
+      full_attrs: %{
+        action_name: "x",
+        preconditions: ["a"],
+        effects: ["a"]
+      }
+    },
+
+    %{
+      name: "planning_state",
+      mod: BeamPM.Types.PlanningState,
+      has_required: true,
+      full_attrs: %{
+        state_id: "x",
+        facts: ["a"]
+      }
+    },
+
+    %{
+      name: "poc_exit_criteria",
+      mod: BeamPM.Types.PocExitCriteria,
+      has_required: true,
+      full_attrs: %{
+        poc_exit_criteria_id: "x",
+        account_id: "x",
+        criteria_pass_rate: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "poc_risk",
+      mod: BeamPM.Types.PocRisk,
+      has_required: true,
+      full_attrs: %{
+        poc_risk_id: "x",
+        account_id: "x",
+        risk_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "poc_scope",
+      mod: BeamPM.Types.PocScope,
+      has_required: true,
+      full_attrs: %{
+        poc_scope_id: "x",
+        account_id: "x",
+        use_case_count: 1,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "poc_timeline",
+      mod: BeamPM.Types.PocTimeline,
+      has_required: true,
+      full_attrs: %{
+        poc_timeline_id: "x",
+        account_id: "x",
+        days_to_value: 1,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "policy_binding",
+      mod: BeamPM.Types.PolicyBinding,
+      has_required: true,
+      full_attrs: %{
+        policy_id: "x",
+        planner_id: "x",
+        policy_hash: "x"
+      }
+    },
+
+    %{
+      name: "policy_decision",
+      mod: BeamPM.Types.PolicyDecision,
+      has_required: true,
+      full_attrs: %{
+        decision_id: "x",
+        verdict: :some_atom,
+        reason: "x"
+      }
+    },
+
+    %{
+      name: "policy_payoff_observation",
+      mod: BeamPM.Types.PolicyPayoffObservation,
+      has_required: true,
+      full_attrs: %{
+        observation_id: "x",
+        policy_id: "x",
+        parameter_digest: "x",
+        objective_id: "x",
+        payoff: 1.0,
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "powl_choice_graph_edge",
+      mod: BeamPM.Types.PowlChoiceGraphEdge,
+      has_required: true,
+      full_attrs: %{
+        from_kind: :some_atom,
+        from_child_index: 1,
+        to_kind: :some_atom,
+        to_child_index: 1
+      }
+    },
+
+    %{
+      name: "powl_freq",
+      mod: BeamPM.Types.PowlFreq,
+      has_required: true,
+      full_attrs: %{
+        min_freq: 1,
+        max_freq: 1
+      }
+    },
+
+    %{
+      name: "powl_leaf",
+      mod: BeamPM.Types.PowlLeaf,
+      has_required: true,
+      full_attrs: %{
+        activity_label: "x",
+        is_tau: true,
+        min_freq: 1,
+        max_freq: 1
+      }
+    },
+
+    %{
+      name: "powl_partial_order_edge",
+      mod: BeamPM.Types.PowlPartialOrderEdge,
+      has_required: true,
+      full_attrs: %{
+        from_index: 1,
+        to_index: 1
+      }
+    },
+
+    %{
+      name: "powl_projection",
+      mod: BeamPM.Types.PowlProjection,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        powl_hash: "x",
+        projection_receipt_hash: "x"
+      }
+    },
+
+    %{
+      name: "ppddl_projection",
+      mod: BeamPM.Types.PpddlProjection,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        domain_hash: "x",
+        problem_hash: "x"
+      }
+    },
+
+    %{
+      name: "premium_connector_pricing",
+      mod: BeamPM.Types.PremiumConnectorPricing,
+      has_required: true,
+      full_attrs: %{
+        premium_connector_pricing_id: "x",
+        account_id: "x",
+        connector_id: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "prepaid_credit_balance",
+      mod: BeamPM.Types.PrepaidCreditBalance,
+      has_required: true,
+      full_attrs: %{
+        prepaid_credit_balance_id: "x",
+        account_id: "x",
+        remaining_credit: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "price_book_version",
+      mod: BeamPM.Types.PriceBookVersion,
+      has_required: true,
+      full_attrs: %{
+        price_book_version_id: "x",
+        account_id: "x",
+        version: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "pricing_basis_contract",
+      mod: BeamPM.Types.PricingBasisContract,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        pricing_basis_id: "x",
+        evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "privacy_classification_evidence",
+      mod: BeamPM.Types.PrivacyClassificationEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        privacy_class: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "private_offer",
+      mod: BeamPM.Types.PrivateOffer,
+      has_required: true,
+      full_attrs: %{
+        offer_id: "x",
+        account_id: "x",
+        total_price: 1.0,
+        expires_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "private_registry_evidence",
+      mod: BeamPM.Types.PrivateRegistryEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        registry_digest: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "process_variant",
+      mod: BeamPM.Types.ProcessVariant,
+      has_required: true,
+      full_attrs: %{
+        variant_id: "x",
+        activity_sequence: ["a"],
+        frequency: 1
+      }
+    },
+
+    %{
+      name: "process_volume_pricing_policy",
+      mod: BeamPM.Types.ProcessVolumePricingPolicy,
+      has_required: true,
+      full_attrs: %{
+        process_volume_pricing_policy_id: "x",
+        account_id: "x",
+        unit_process_price: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "procurement_acceptance_evidence",
+      mod: BeamPM.Types.ProcurementAcceptanceEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        acceptance_decision: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "procurement_blocker",
+      mod: BeamPM.Types.ProcurementBlocker,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        blocker_id: "x",
+        refusal_code: "x"
+      }
+    },
+
+    %{
+      name: "procurement_channel_selection",
+      mod: BeamPM.Types.ProcurementChannelSelection,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        channel_id: "x",
+        selection_evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "procurement_readiness",
+      mod: BeamPM.Types.ProcurementReadiness,
+      has_required: true,
+      full_attrs: %{
+        procurement_readiness_id: "x",
+        account_id: "x",
+        procurement_stage: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "production_readiness",
+      mod: BeamPM.Types.ProductionReadiness,
+      has_required: true,
+      full_attrs: %{
+        production_readiness_id: "x",
+        account_id: "x",
+        production_readiness_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "promotion_decision",
+      mod: BeamPM.Types.PromotionDecision,
+      has_required: true,
+      full_attrs: %{
+        decision_id: "x",
+        candidate_policy_id: "x",
+        threshold_id: "x",
+        evidence_set_digest: "x",
+        decision: "x",
+        refusal_code: "x"
+      }
+    },
+
+    %{
+      name: "promotion_threshold",
+      mod: BeamPM.Types.PromotionThreshold,
+      has_required: true,
+      full_attrs: %{
+        threshold_id: "x",
+        objective_id: "x",
+        minimum_payoff: 1.0,
+        maximum_regression: 1.0,
+        minimum_evidence_count: 1,
+        authority_binding: "x"
+      }
+    },
+
+    %{
+      name: "proof_of_value_budget",
+      mod: BeamPM.Types.ProofOfValueBudget,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        budget_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "proof_of_value_exit_gate",
+      mod: BeamPM.Types.ProofOfValueExitGate,
+      has_required: true,
+      full_attrs: %{
+        pov_id: "x",
+        exit_gate_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "proof_of_value_package",
+      mod: BeamPM.Types.ProofOfValuePackage,
+      has_required: true,
+      full_attrs: %{
+        proof_of_value_package_id: "x",
+        account_id: "x",
+        success_metric: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "propagation_score",
+      mod: BeamPM.Types.PropagationScore,
+      has_required: true,
+      full_attrs: %{
+        option_id: "x",
+        graph_hash: "x",
+        score: "x"
+      }
+    },
+
+    %{
+      name: "proration_policy",
+      mod: BeamPM.Types.ProrationPolicy,
+      has_required: true,
+      full_attrs: %{
+        proration_policy_id: "x",
+        account_id: "x",
+        proration_method: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "provenance_binding_evidence",
+      mod: BeamPM.Types.ProvenanceBindingEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        builder_identity: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "provenance_binding_observation",
+      mod: BeamPM.Types.ProvenanceBindingObservation,
+      has_required: true,
+      full_attrs: %{
+        observation_id: "x",
+        source_capsule_digest: "x",
+        evidence_digest: "x",
+        binding_status: "x"
+      }
+    },
+
+    %{
+      name: "psro_population",
+      mod: BeamPM.Types.PsroPopulation,
+      has_required: true,
+      full_attrs: %{
+        population_id: "x",
+        policy_ids: "x",
+        population_hash: "x"
+      }
+    },
+
+    %{
+      name: "purchase_order_binding",
+      mod: BeamPM.Types.PurchaseOrderBinding,
+      has_required: true,
+      full_attrs: %{
+        binding_id: "x",
+        order_id: "x",
+        purchase_order_number: "x",
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "purchase_order_requirement",
+      mod: BeamPM.Types.PurchaseOrderRequirement,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        requirement_id: "x",
+        evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "purchasing_entity_identity",
+      mod: BeamPM.Types.PurchasingEntityIdentity,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        purchasing_entity_id: "x",
+        identity_evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "queue_snapshot",
+      mod: BeamPM.Types.QueueSnapshot,
+      has_required: true,
+      full_attrs: %{
+        queue_name: "x",
+        depth: 1,
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "quota_burst_allowance",
+      mod: BeamPM.Types.QuotaBurstAllowance,
+      has_required: true,
+      full_attrs: %{
+        quota_burst_allowance_id: "x",
+        account_id: "x",
+        burst_units: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "quota_override",
+      mod: BeamPM.Types.QuotaOverride,
+      has_required: true,
+      full_attrs: %{
+        quota_override_id: "x",
+        account_id: "x",
+        override_units: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "quota_policy",
+      mod: BeamPM.Types.QuotaPolicy,
+      has_required: true,
+      full_attrs: %{
+        quota_id: "x",
+        metric_name: "x",
+        limit: 1.0,
+        window: :some_atom
+      }
+    },
+
+    %{
+      name: "ramp_commitment",
+      mod: BeamPM.Types.RampCommitment,
+      has_required: true,
+      full_attrs: %{
+        ramp_id: "x",
+        phase: 1,
+        committed_amount: 1.0,
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "rate_card_entry",
+      mod: BeamPM.Types.RateCardEntry,
+      has_required: true,
+      full_attrs: %{
+        rate_card_entry_id: "x",
+        account_id: "x",
+        unit_price: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "rate_distortion_budget",
+      mod: BeamPM.Types.RateDistortionBudget,
+      has_required: true,
+      full_attrs: %{
+        budget_id: "x",
+        decision_id: "x",
+        source_information_bits: 1.0,
+        retained_information_bits: 1.0,
+        maximum_distortion: 1.0
+      }
+    },
+
+    %{
+      name: "reachability_analysis",
+      mod: BeamPM.Types.ReachabilityAnalysis,
+      has_required: true,
+      full_attrs: %{
+        state_id: "x",
+        goal_id: "x",
+        reachability_proof_hash: "x"
+      }
+    },
+
+    %{
+      name: "receipt_learning_compilation",
+      mod: BeamPM.Types.ReceiptLearningCompilation,
+      has_required: true,
+      full_attrs: %{
+        compilation_id: "x",
+        receipt_chain_head: "x",
+        admitted_receipt_count: 1,
+        rejected_receipt_count: 1,
+        learning_digest: "x"
+      }
+    },
+
+    %{
+      name: "receipt_replay_evidence",
+      mod: BeamPM.Types.ReceiptReplayEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        replay_result_hash: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "receipt_replay_request",
+      mod: BeamPM.Types.ReceiptReplayRequest,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        receipt_id: "x",
+        replay_request_hash: "x"
+      }
+    },
+
+    %{
+      name: "receipt_required_gate",
+      mod: BeamPM.Types.ReceiptRequiredGate,
+      has_required: true,
+      full_attrs: %{
+        action_id: "x",
+        receipt_contract_id: "x",
+        standing: "x"
+      }
+    },
+
+    %{
+      name: "receipt_signature",
+      mod: BeamPM.Types.ReceiptSignature,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        receipt_id: "x",
+        signature_hash: "x"
+      }
+    },
+
+    %{
+      name: "receipt_subject_binding",
+      mod: BeamPM.Types.ReceiptSubjectBinding,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        workload_id: "x",
+        binding_hash: "x"
+      }
+    },
+
+    %{
+      name: "receipt_verification",
+      mod: BeamPM.Types.ReceiptVerification,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        receipt_id: "x",
+        verification_hash: "x"
+      }
+    },
+
+    %{
+      name: "recovery_plan",
+      mod: BeamPM.Types.RecoveryPlan,
+      has_required: true,
+      full_attrs: %{
+        recovery_plan_id: "x",
+        account_id: "x",
+        recovery_time_hours: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "recovery_point_receipt",
+      mod: BeamPM.Types.RecoveryPointReceipt,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        incident_id: "x",
+        recovery_hash: "x"
+      }
+    },
+
+    %{
+      name: "recovery_time_receipt",
+      mod: BeamPM.Types.RecoveryTimeReceipt,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        incident_id: "x",
+        recovery_hash: "x"
+      }
+    },
+
+    %{
+      name: "refund_policy",
+      mod: BeamPM.Types.RefundPolicy,
+      has_required: true,
+      full_attrs: %{
+        refund_policy_id: "x",
+        account_id: "x",
+        refund_method: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "refusal_boundary_observation",
+      mod: BeamPM.Types.RefusalBoundaryObservation,
+      has_required: true,
+      full_attrs: %{
+        subject_id: "x",
+        refusal_code: "x",
+        authority_boundary: "x",
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "refusal_threshold",
+      mod: BeamPM.Types.RefusalThreshold,
+      has_required: true,
+      full_attrs: %{
+        threshold_id: "x",
+        refusal_class: "x",
+        limit: 1.0,
+        metric_id: "x",
+        authority_binding: "x"
+      }
+    },
+
+    %{
+      name: "region_pricing_policy",
+      mod: BeamPM.Types.RegionPricingPolicy,
+      has_required: true,
+      full_attrs: %{
+        region_pricing_policy_id: "x",
+        account_id: "x",
+        region_code: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "regression_detector",
+      mod: BeamPM.Types.RegressionDetector,
+      has_required: true,
+      full_attrs: %{
+        detection_id: "x",
+        baseline_policy_id: "x",
+        candidate_policy_id: "x",
+        metric_id: "x",
+        regression_delta: 1.0,
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "regression_refusal",
+      mod: BeamPM.Types.RegressionRefusal,
+      has_required: true,
+      full_attrs: %{
+        refusal_id: "x",
+        candidate_policy_id: "x",
+        regression_detection_id: "x",
+        acceptance_threshold: 1.0,
+        observed_regression: 1.0,
+        authority_ceiling: "x"
+      }
+    },
+
+    %{
+      name: "remediation_sla_evidence",
+      mod: BeamPM.Types.RemediationSlaEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        remediation_due_at: "2026-01-01T00:00:00Z",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "renewal_evidence",
+      mod: BeamPM.Types.RenewalEvidence,
+      has_required: true,
+      full_attrs: %{
+        renewal_evidence_id: "x",
+        account_id: "x",
+        renewal_value: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "renewal_health",
+      mod: BeamPM.Types.RenewalHealth,
+      has_required: true,
+      full_attrs: %{
+        renewal_health_id: "x",
+        account_id: "x",
+        renewal_health_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "renewal_option",
+      mod: BeamPM.Types.RenewalOption,
+      has_required: true,
+      full_attrs: %{
+        option_id: "x",
+        subscription_id: "x",
+        term_months: 1,
+        notice_by: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "renewal_risk",
+      mod: BeamPM.Types.RenewalRisk,
+      has_required: true,
+      full_attrs: %{
+        renewal_risk_id: "x",
+        account_id: "x",
+        renewal_risk_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "renewal_term_admission",
+      mod: BeamPM.Types.RenewalTermAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        renewal_term: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "repair_effectiveness_measurement",
+      mod: BeamPM.Types.RepairEffectivenessMeasurement,
+      has_required: true,
+      full_attrs: %{
+        measurement_id: "x",
+        repair_id: "x",
+        baseline_failure_rate: 1.0,
+        post_repair_failure_rate: 1.0,
+        evaluation_window_digest: "x"
+      }
+    },
+
+    %{
+      name: "replay_environment_identity",
+      mod: BeamPM.Types.ReplayEnvironmentIdentity,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        environment_id: "x",
+        identity_hash: "x"
+      }
+    },
+
+    %{
+      name: "repository_ancestry_observation",
+      mod: BeamPM.Types.RepositoryAncestryObservation,
+      has_required: true,
+      full_attrs: %{
+        ancestor_sha: "x",
+        descendant_sha: "x",
+        relation: "x",
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "repository_default_branch_observation",
+      mod: BeamPM.Types.RepositoryDefaultBranchObservation,
+      has_required: true,
+      full_attrs: %{
+        repository_id: "x",
+        default_branch: "x",
+        head_sha: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "repository_exact_head_observation",
+      mod: BeamPM.Types.RepositoryExactHeadObservation,
+      has_required: true,
+      full_attrs: %{
+        repository_id: "x",
+        branch_name: "x",
+        head_sha: "x",
+        previous_head_sha: "x"
+      }
+    },
+
+    %{
+      name: "repository_worktree_state_observation",
+      mod: BeamPM.Types.RepositoryWorktreeStateObservation,
+      has_required: true,
+      full_attrs: %{
+        repository_id: "x",
+        worktree_hash: "x",
+        dirty_path_count: 1,
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "reproducible_build_evidence",
+      mod: BeamPM.Types.ReproducibleBuildEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        build_digest: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "reseller_authorization",
+      mod: BeamPM.Types.ResellerAuthorization,
+      has_required: true,
+      full_attrs: %{
+        authorization_id: "x",
+        reseller_id: "x",
+        sku: "x",
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "reserve_work_promotion",
+      mod: BeamPM.Types.ReserveWorkPromotion,
+      has_required: true,
+      full_attrs: %{
+        blocked_work_id: "x",
+        reserve_set_hash: "x",
+        promoted_work_id: "x"
+      }
+    },
+
+    %{
+      name: "residency_evidence",
+      mod: BeamPM.Types.ResidencyEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        region: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "resource_allocation",
+      mod: BeamPM.Types.ResourceAllocation,
+      has_required: true,
+      full_attrs: %{
+        resource_id: "x",
+        activity: "x",
+        event_id: "x"
+      }
+    },
+
+    %{
+      name: "resource_capacity_plan",
+      mod: BeamPM.Types.ResourceCapacityPlan,
+      has_required: true,
+      full_attrs: %{
+        episode_id: "x",
+        resource_pool_hash: "x",
+        allocation_hash: "x"
+      }
+    },
+
+    %{
+      name: "retention_policy_evidence",
+      mod: BeamPM.Types.RetentionPolicyEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        retention_days: 1,
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "retention_pricing_policy",
+      mod: BeamPM.Types.RetentionPricingPolicy,
+      has_required: true,
+      full_attrs: %{
+        retention_pricing_policy_id: "x",
+        account_id: "x",
+        retention_days: 1,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "revenue_attribution",
+      mod: BeamPM.Types.RevenueAttribution,
+      has_required: true,
+      full_attrs: %{
+        revenue_attribution_id: "x",
+        account_id: "x",
+        attributed_revenue: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "revenue_contract_admission",
+      mod: BeamPM.Types.RevenueContractAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        contract_id: "x",
+        admission_receipt_hash: "x"
+      }
+    },
+
+    %{
+      name: "revenue_schedule_assumption",
+      mod: BeamPM.Types.RevenueScheduleAssumption,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        schedule_id: "x",
+        assumption_evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "reversibility_weight",
+      mod: BeamPM.Types.ReversibilityWeight,
+      has_required: true,
+      full_attrs: %{
+        action_id: "x",
+        rollback_id: "x",
+        weight: "x"
+      }
+    },
+
+    %{
+      name: "rework_cost",
+      mod: BeamPM.Types.ReworkCost,
+      has_required: true,
+      full_attrs: %{
+        case_id: "x",
+        loop_count: 1,
+        weighted_cost: 1.0
+      }
+    },
+
+    %{
+      name: "rfp_response_evidence",
+      mod: BeamPM.Types.RfpResponseEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        answer_set_hash: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "role_compatibility",
+      mod: BeamPM.Types.RoleCompatibility,
+      has_required: true,
+      full_attrs: %{
+        role_id: "x",
+        policy_id: "x",
+        compatibility: "x"
+      }
+    },
+
+    %{
+      name: "rollback_checkpoint",
+      mod: BeamPM.Types.RollbackCheckpoint,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        checkpoint_id: "x",
+        state_hash: "x"
+      }
+    },
+
+    %{
+      name: "rollback_decision",
+      mod: BeamPM.Types.RollbackDecision,
+      has_required: true,
+      full_attrs: %{
+        rollback_decision_id: "x",
+        account_id: "x",
+        rollback_result: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "rollback_evidence",
+      mod: BeamPM.Types.RollbackEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        rollback_digest: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "rollback_outcome_learning",
+      mod: BeamPM.Types.RollbackOutcomeLearning,
+      has_required: true,
+      full_attrs: %{
+        learning_id: "x",
+        rollback_id: "x",
+        pre_rollback_state_digest: "x",
+        post_rollback_state_digest: "x",
+        recovery_score: 1.0,
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "rolling_upgrade_plan",
+      mod: BeamPM.Types.RollingUpgradePlan,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        upgrade_id: "x",
+        plan_hash: "x"
+      }
+    },
+
+    %{
+      name: "root_cause_pattern",
+      mod: BeamPM.Types.RootCausePattern,
+      has_required: true,
+      full_attrs: %{
+        pattern_id: "x",
+        failure_class: "x",
+        causal_graph_digest: "x",
+        confirmed_reproducer_digest: "x",
+        reusable_scope: "x"
+      }
+    },
+
+    %{
+      name: "root_cause_reuse_decision",
+      mod: BeamPM.Types.RootCauseReuseDecision,
+      has_required: true,
+      full_attrs: %{
+        decision_id: "x",
+        pattern_id: "x",
+        current_failure_id: "x",
+        similarity_score: 1.0,
+        applicability_evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "runtime_health_observation",
+      mod: BeamPM.Types.RuntimeHealthObservation,
+      has_required: true,
+      full_attrs: %{
+        runtime_id: "x",
+        health_state: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "runtime_policy_decision",
+      mod: BeamPM.Types.RuntimePolicyDecision,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        decision_id: "x",
+        policy_hash: "x"
+      }
+    },
+
+    %{
+      name: "sanctions_screening_result",
+      mod: BeamPM.Types.SanctionsScreeningResult,
+      has_required: true,
+      full_attrs: %{
+        account_id: "x",
+        screening_id: "x",
+        screening_result: "x"
+      }
+    },
+
+    %{
+      name: "sandbox_entitlement",
+      mod: BeamPM.Types.SandboxEntitlement,
+      has_required: true,
+      full_attrs: %{
+        sandbox_entitlement_id: "x",
+        account_id: "x",
+        sandbox_limit: 1,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "saturation_detection",
+      mod: BeamPM.Types.SaturationDetection,
+      has_required: true,
+      full_attrs: %{
+        detection_id: "x",
+        curriculum_id: "x",
+        recent_gain: 1.0,
+        gain_slope: 1.0,
+        novelty_floor: 1.0,
+        coverage_digest: "x"
+      }
+    },
+
+    %{
+      name: "sbom_inventory_evidence",
+      mod: BeamPM.Types.SbomInventoryEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        component_count: 1,
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "seat_pricing_policy",
+      mod: BeamPM.Types.SeatPricingPolicy,
+      has_required: true,
+      full_attrs: %{
+        seat_pricing_policy_id: "x",
+        account_id: "x",
+        seat_price: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "second_pass_byte_identity_observation",
+      mod: BeamPM.Types.SecondPassByteIdentityObservation,
+      has_required: true,
+      full_attrs: %{
+        first_tree_digest: "x",
+        second_tree_digest: "x",
+        byte_identity: true,
+        receipt_digest: "x"
+      }
+    },
+
+    %{
+      name: "second_run_identity_objective",
+      mod: BeamPM.Types.SecondRunIdentityObjective,
+      has_required: true,
+      full_attrs: %{
+        subject_id: "x",
+        first_tree_hash: "x",
+        second_tree_hash: "x"
+      }
+    },
+
+    %{
+      name: "secret_boundary_evidence",
+      mod: BeamPM.Types.SecretBoundaryEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        secret_source: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "security_addendum_state",
+      mod: BeamPM.Types.SecurityAddendumState,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        addendum_id: "x",
+        addendum_state: "x"
+      }
+    },
+
+    %{
+      name: "security_blocker",
+      mod: BeamPM.Types.SecurityBlocker,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        blocker_id: "x",
+        refusal_code: "x"
+      }
+    },
+
+    %{
+      name: "security_readiness",
+      mod: BeamPM.Types.SecurityReadiness,
+      has_required: true,
+      full_attrs: %{
+        security_readiness_id: "x",
+        account_id: "x",
+        control_coverage: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "seeded_evaluation",
+      mod: BeamPM.Types.SeededEvaluation,
+      has_required: true,
+      full_attrs: %{
+        evaluation_id: "x",
+        seed: "x",
+        dataset_digest: "x",
+        policy_id: "x",
+        score: 1.0,
+        replay_digest: "x"
+      }
+    },
+
+    %{
+      name: "semantic_drift_observation",
+      mod: BeamPM.Types.SemanticDriftObservation,
+      has_required: true,
+      full_attrs: %{
+        subject_id: "x",
+        prior_semantic_digest: "x",
+        current_semantic_digest: "x",
+        drift_class: "x"
+      }
+    },
+
+    %{
+      name: "service_credit",
+      mod: BeamPM.Types.ServiceCredit,
+      has_required: true,
+      full_attrs: %{
+        credit_id: "x",
+        slo_id: "x",
+        amount: 1.0,
+        currency: "x"
+      }
+    },
+
+    %{
+      name: "service_credit_admission",
+      mod: BeamPM.Types.ServiceCreditAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        service_credit_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "service_credit_ledger",
+      mod: BeamPM.Types.ServiceCreditLedger,
+      has_required: true,
+      full_attrs: %{
+        service_credit_ledger_id: "x",
+        account_id: "x",
+        credit_amount: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "service_health_snapshot",
+      mod: BeamPM.Types.ServiceHealthSnapshot,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        service_id: "x",
+        snapshot_hash: "x"
+      }
+    },
+
+    %{
+      name: "service_level_objective",
+      mod: BeamPM.Types.ServiceLevelObjective,
+      has_required: true,
+      full_attrs: %{
+        slo_id: "x",
+        contract_id: "x",
+        target_percent: 1.0,
+        measurement_window: :some_atom
+      }
+    },
+
+    %{
+      name: "service_slo_contract",
+      mod: BeamPM.Types.ServiceSloContract,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        slo_id: "x",
+        contract_hash: "x"
+      }
+    },
+
+    %{
+      name: "service_span",
+      mod: BeamPM.Types.ServiceSpan,
+      has_required: true,
+      full_attrs: %{
+        span_id: "x",
+        service_name: "x",
+        duration_ms: 1,
+        parent_span_id: "x"
+      }
+    },
+
+    %{
+      name: "shadow_challenger_execution",
+      mod: BeamPM.Types.ShadowChallengerExecution,
+      has_required: true,
+      full_attrs: %{
+        execution_id: "x",
+        incumbent_policy_id: "x",
+        challenger_policy_id: "x",
+        shared_observation_digest: "x",
+        shadow_receipt_digest: "x",
+        authority_mode: "x"
+      }
+    },
+
+    %{
+      name: "showback_allocation",
+      mod: BeamPM.Types.ShowbackAllocation,
+      has_required: true,
+      full_attrs: %{
+        allocation_id: "x",
+        project_id: "x",
+        metric_name: "x",
+        quantity: 1.0
+      }
+    },
+
+    %{
+      name: "signature_evidence",
+      mod: BeamPM.Types.SignatureEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        signature_identity: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "sku_definition",
+      mod: BeamPM.Types.SkuDefinition,
+      has_required: true,
+      full_attrs: %{
+        sku: "x",
+        edition_id: "x",
+        billing_model: :some_atom,
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "sla_offer_admission",
+      mod: BeamPM.Types.SlaOfferAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        sla_offer_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "sojourn_time",
+      mod: BeamPM.Types.SojournTime,
+      has_required: true,
+      full_attrs: %{
+        object_id: "x",
+        event_type: "x",
+        seconds: 1.0
+      }
+    },
+
+    %{
+      name: "solution_fit",
+      mod: BeamPM.Types.SolutionFit,
+      has_required: true,
+      full_attrs: %{
+        solution_fit_id: "x",
+        account_id: "x",
+        fit_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "spend_drawdown",
+      mod: BeamPM.Types.SpendDrawdown,
+      has_required: true,
+      full_attrs: %{
+        spend_drawdown_id: "x",
+        account_id: "x",
+        consumed_amount: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "stakeholder_map",
+      mod: BeamPM.Types.StakeholderMap,
+      has_required: true,
+      full_attrs: %{
+        stakeholder_map_id: "x",
+        account_id: "x",
+        stakeholder_count: 1,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "stale_plan_refusal",
+      mod: BeamPM.Types.StalePlanRefusal,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        admitted_preimage_hash: "x",
+        observed_preimage_hash: "x"
+      }
+    },
+
+    %{
+      name: "stale_receipt_refusal",
+      mod: BeamPM.Types.StaleReceiptRefusal,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        receipt_id: "x",
+        refusal_hash: "x"
+      }
+    },
+
+    %{
+      name: "stale_subject_refusal_evidence",
+      mod: BeamPM.Types.StaleSubjectRefusalEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        stale_sha: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "standing_state_observation",
+      mod: BeamPM.Types.StandingStateObservation,
+      has_required: true,
+      full_attrs: %{
+        subject_id: "x",
+        standing: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "stopping_criterion",
+      mod: BeamPM.Types.StoppingCriterion,
+      has_required: true,
+      full_attrs: %{
+        criterion_id: "x",
+        objective_id: "x",
+        minimum_gain: 1.0,
+        maximum_episodes: 1,
+        evidence_window_digest: "x",
+        authority_binding: "x"
+      }
+    },
+
+    %{
+      name: "subject_failure_separation",
+      mod: BeamPM.Types.SubjectFailureSeparation,
+      has_required: true,
+      full_attrs: %{
+        assessment_id: "x",
+        exact_subject_sha: "x",
+        capsule_standing: "x",
+        subject_failure_code: "x",
+        independent_reproducer_digest: "x"
+      }
+    },
+
+    %{
+      name: "submodule_lock_observation",
+      mod: BeamPM.Types.SubmoduleLockObservation,
+      has_required: true,
+      full_attrs: %{
+        submodule_path: "x",
+        gitlink_sha: "x",
+        lock_sha: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "submodule_registration_observation",
+      mod: BeamPM.Types.SubmoduleRegistrationObservation,
+      has_required: true,
+      full_attrs: %{
+        submodule_path: "x",
+        registration_state: "x",
+        repository_url: "x",
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "success_plan",
+      mod: BeamPM.Types.SuccessPlan,
+      has_required: true,
+      full_attrs: %{
+        success_plan_id: "x",
+        account_id: "x",
+        success_target: "x",
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "supervisor_restart_policy",
+      mod: BeamPM.Types.SupervisorRestartPolicy,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        supervisor_id: "x",
+        policy_hash: "x"
+      }
+    },
+
+    %{
+      name: "support_contract",
+      mod: BeamPM.Types.SupportContract,
+      has_required: true,
+      full_attrs: %{
+        contract_id: "x",
+        account_id: "x",
+        tier: :some_atom,
+        valid_until: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "support_diagnostic_bundle",
+      mod: BeamPM.Types.SupportDiagnosticBundle,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        incident_id: "x",
+        bundle_hash: "x"
+      }
+    },
+
+    %{
+      name: "support_escalation_evidence",
+      mod: BeamPM.Types.SupportEscalationEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        escalation_owner: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "support_readiness",
+      mod: BeamPM.Types.SupportReadiness,
+      has_required: true,
+      full_attrs: %{
+        support_readiness_id: "x",
+        account_id: "x",
+        support_readiness_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "support_sla_evidence",
+      mod: BeamPM.Types.SupportSlaEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        response_minutes: 1,
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "support_tier_admission",
+      mod: BeamPM.Types.SupportTierAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        support_tier_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "support_window_evidence",
+      mod: BeamPM.Types.SupportWindowEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        support_channel: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "sync_time",
+      mod: BeamPM.Types.SyncTime,
+      has_required: true,
+      full_attrs: %{
+        object_id: "x",
+        delaying_object_id: "x",
+        seconds: 1.0
+      }
+    },
+
+    %{
+      name: "target_metric",
+      mod: BeamPM.Types.TargetMetric,
+      has_required: true,
+      full_attrs: %{
+        target_metric_id: "x",
+        account_id: "x",
+        target_value: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "tax_jurisdiction_evidence",
+      mod: BeamPM.Types.TaxJurisdictionEvidence,
+      has_required: true,
+      full_attrs: %{
+        contracting_entity_id: "x",
+        tax_jurisdiction: "x",
+        evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "tax_jurisdiction_rule",
+      mod: BeamPM.Types.TaxJurisdictionRule,
+      has_required: true,
+      full_attrs: %{
+        tax_jurisdiction_rule_id: "x",
+        account_id: "x",
+        jurisdiction_code: "x",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "technical_blocker",
+      mod: BeamPM.Types.TechnicalBlocker,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        blocker_id: "x",
+        refusal_code: "x"
+      }
+    },
+
+    %{
+      name: "temporal_order_observation",
+      mod: BeamPM.Types.TemporalOrderObservation,
+      has_required: true,
+      full_attrs: %{
+        earlier_observation_id: "x",
+        later_observation_id: "x",
+        ordering_basis: "x",
+        evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "tenant_account",
+      mod: BeamPM.Types.TenantAccount,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        account_id: "x",
+        home_region: "x",
+        edition_id: "x"
+      }
+    },
+
+    %{
+      name: "tenant_data_partition",
+      mod: BeamPM.Types.TenantDataPartition,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        partition_id: "x",
+        isolation_hash: "x"
+      }
+    },
+
+    %{
+      name: "tenant_key_scope",
+      mod: BeamPM.Types.TenantKeyScope,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        key_scope_id: "x",
+        key_attestation_hash: "x"
+      }
+    },
+
+    %{
+      name: "tenant_project",
+      mod: BeamPM.Types.TenantProject,
+      has_required: true,
+      full_attrs: %{
+        project_id: "x",
+        tenant_id: "x",
+        cost_center: "x",
+        status: :some_atom
+      }
+    },
+
+    %{
+      name: "tenant_resource_quota",
+      mod: BeamPM.Types.TenantResourceQuota,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        quota_id: "x",
+        utilization_hash: "x"
+      }
+    },
+
+    %{
+      name: "tenant_runtime_boundary",
+      mod: BeamPM.Types.TenantRuntimeBoundary,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        boundary_id: "x",
+        evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "term_subscription",
+      mod: BeamPM.Types.TermSubscription,
+      has_required: true,
+      full_attrs: %{
+        subscription_id: "x",
+        sku: "x",
+        starts_at: "2026-01-01T00:00:00Z",
+        ends_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "termination_right_admission",
+      mod: BeamPM.Types.TerminationRightAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        termination_right_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "time_to_value",
+      mod: BeamPM.Types.TimeToValue,
+      has_required: true,
+      full_attrs: %{
+        time_to_value_id: "x",
+        account_id: "x",
+        verified_days: 1,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "toolchain_identity",
+      mod: BeamPM.Types.ToolchainIdentity,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        toolchain_id: "x",
+        identity_hash: "x"
+      }
+    },
+
+    %{
+      name: "toolchain_identity_observation",
+      mod: BeamPM.Types.ToolchainIdentityObservation,
+      has_required: true,
+      full_attrs: %{
+        tool_name: "x",
+        tool_version: "x",
+        executable_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "training_readiness",
+      mod: BeamPM.Types.TrainingReadiness,
+      has_required: true,
+      full_attrs: %{
+        training_readiness_id: "x",
+        account_id: "x",
+        training_completion_rate: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "training_scope_admission",
+      mod: BeamPM.Types.TrainingScopeAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        training_scope_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "trajectory_window",
+      mod: BeamPM.Types.TrajectoryWindow,
+      has_required: true,
+      full_attrs: %{
+        window_id: "x",
+        repository_id: "x",
+        first_subject_sha: "x",
+        last_subject_sha: "x",
+        episode_count: 1
+      }
+    },
+
+    %{
+      name: "trial_entitlement",
+      mod: BeamPM.Types.TrialEntitlement,
+      has_required: true,
+      full_attrs: %{
+        trial_entitlement_id: "x",
+        account_id: "x",
+        trial_expires_at: "2026-01-01T00:00:00Z",
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "true_up_policy",
+      mod: BeamPM.Types.TrueUpPolicy,
+      has_required: true,
+      full_attrs: %{
+        policy_id: "x",
+        commitment_id: "x",
+        cadence: :some_atom,
+        shortfall_behavior: :some_atom
+      }
+    },
+
+    %{
+      name: "type_edge",
+      mod: BeamPM.Types.TypeEdge,
+      has_required: true,
+      full_attrs: %{
+        source_type: "x",
+        target_type: "x",
+        qualifier: "x",
+        direction: :some_atom
+      }
+    },
+
+    %{
+      name: "uncertainty_aware_selection",
+      mod: BeamPM.Types.UncertaintyAwareSelection,
+      has_required: true,
+      full_attrs: %{
+        option_set_id: "x",
+        uncertainty_model_hash: "x",
+        selected_option_id: "x"
+      }
+    },
+
+    %{
+      name: "uncertainty_observation",
+      mod: BeamPM.Types.UncertaintyObservation,
+      has_required: true,
+      full_attrs: %{
+        observation_id: "x",
+        uncertainty_kind: "x",
+        confidence_basis: "x",
+        standing: "x"
+      }
+    },
+
+    %{
+      name: "unit_economics_snapshot",
+      mod: BeamPM.Types.UnitEconomicsSnapshot,
+      has_required: true,
+      full_attrs: %{
+        unit_economics_snapshot_id: "x",
+        account_id: "x",
+        gross_margin: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "unsupported_capability_evidence",
+      mod: BeamPM.Types.UnsupportedCapabilityEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        capability_name: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "upgrade_evidence",
+      mod: BeamPM.Types.UpgradeEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        from_version: "x",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "upsell_readiness",
+      mod: BeamPM.Types.UpsellReadiness,
+      has_required: true,
+      full_attrs: %{
+        upsell_readiness_id: "x",
+        account_id: "x",
+        upsell_score: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "usage_aggregation_window",
+      mod: BeamPM.Types.UsageAggregationWindow,
+      has_required: true,
+      full_attrs: %{
+        usage_aggregation_window_id: "x",
+        account_id: "x",
+        window_seconds: 1,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "usage_correction",
+      mod: BeamPM.Types.UsageCorrection,
+      has_required: true,
+      full_attrs: %{
+        usage_correction_id: "x",
+        account_id: "x",
+        corrected_quantity: 1.0,
+        evidence_digest: "x",
+        effective_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "usage_event",
+      mod: BeamPM.Types.UsageEvent,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        entitlement_id: "x",
+        quantity: 1.0,
+        metric_name: "x",
+        occurred_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "usage_plan",
+      mod: BeamPM.Types.UsagePlan,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        metric_name: "x",
+        unit: "x",
+        billing_mode: :some_atom
+      }
+    },
+
+    %{
+      name: "usage_reconciliation_receipt",
+      mod: BeamPM.Types.UsageReconciliationReceipt,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        billing_period_id: "x",
+        reconciliation_hash: "x"
+      }
+    },
+
+    %{
+      name: "usage_signal",
+      mod: BeamPM.Types.UsageSignal,
+      has_required: true,
+      full_attrs: %{
+        usage_signal_id: "x",
+        account_id: "x",
+        active_user_count: 1,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "validation_capsule_drift_observation",
+      mod: BeamPM.Types.ValidationCapsuleDriftObservation,
+      has_required: true,
+      full_attrs: %{
+        expected_digest: "x",
+        observed_digest: "x",
+        drift_status: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "validation_capsule_identity_observation",
+      mod: BeamPM.Types.ValidationCapsuleIdentityObservation,
+      has_required: true,
+      full_attrs: %{
+        capsule_repository: "x",
+        capsule_sha: "x",
+        execution_mode: "x",
+        image_digest: "x"
+      }
+    },
+
+    %{
+      name: "value_baseline",
+      mod: BeamPM.Types.ValueBaseline,
+      has_required: true,
+      full_attrs: %{
+        baseline_id: "x",
+        account_id: "x",
+        metric_name: "x",
+        baseline_value: 1.0
+      }
+    },
+
+    %{
+      name: "value_driver",
+      mod: BeamPM.Types.ValueDriver,
+      has_required: true,
+      full_attrs: %{
+        value_driver_id: "x",
+        account_id: "x",
+        annual_value: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "value_of_information_estimate",
+      mod: BeamPM.Types.ValueOfInformationEstimate,
+      has_required: true,
+      full_attrs: %{
+        decision_id: "x",
+        evidence_candidate_id: "x",
+        expected_information_gain: 1.0,
+        cost_basis: "x"
+      }
+    },
+
+    %{
+      name: "value_of_information_score",
+      mod: BeamPM.Types.ValueOfInformationScore,
+      has_required: true,
+      full_attrs: %{
+        option_id: "x",
+        observation_id: "x",
+        score: "x"
+      }
+    },
+
+    %{
+      name: "value_realization",
+      mod: BeamPM.Types.ValueRealization,
+      has_required: true,
+      full_attrs: %{
+        value_realization_id: "x",
+        account_id: "x",
+        realized_value: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "value_realization_feedback",
+      mod: BeamPM.Types.ValueRealizationFeedback,
+      has_required: true,
+      full_attrs: %{
+        feedback_id: "x",
+        objective_id: "x",
+        baseline_value: 1.0,
+        realized_value: 1.0,
+        evidence_digest: "x",
+        policy_id: "x"
+      }
+    },
+
+    %{
+      name: "value_receipt",
+      mod: BeamPM.Types.ValueReceipt,
+      has_required: true,
+      full_attrs: %{
+        value_receipt_id: "x",
+        account_id: "x",
+        metric_name: "x",
+        baseline_value: 1.0,
+        observed_value: 1.0,
+        evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "value_telemetry_sample",
+      mod: BeamPM.Types.ValueTelemetrySample,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        outcome_id: "x",
+        telemetry_hash: "x"
+      }
+    },
+
+    %{
+      name: "vendor_registration_state",
+      mod: BeamPM.Types.VendorRegistrationState,
+      has_required: true,
+      full_attrs: %{
+        account_id: "x",
+        registration_id: "x",
+        registration_state: "x"
+      }
+    },
+
+    %{
+      name: "vendor_risk_evidence",
+      mod: BeamPM.Types.VendorRiskEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        risk_score: 1.0,
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "verification_depth_update",
+      mod: BeamPM.Types.VerificationDepthUpdate,
+      has_required: true,
+      full_attrs: %{
+        update_id: "x",
+        verifier_id: "x",
+        prior_depth: 1,
+        new_depth: 1,
+        risk_signal_digest: "x",
+        minimum_depth: 1
+      }
+    },
+
+    %{
+      name: "version_lifecycle_evidence",
+      mod: BeamPM.Types.VersionLifecycleEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        supported_until: "2026-01-01T00:00:00Z",
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "volume_tier_admission",
+      mod: BeamPM.Types.VolumeTierAdmission,
+      has_required: true,
+      full_attrs: %{
+        opportunity_id: "x",
+        volume_tier_id: "x",
+        decision: "x"
+      }
+    },
+
+    %{
+      name: "vulnerability_scan_evidence",
+      mod: BeamPM.Types.VulnerabilityScanEvidence,
+      has_required: true,
+      full_attrs: %{
+        evidence_id: "x",
+        subject_sha: "x",
+        vulnerability_count: 1,
+        observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "wip_limit_gate",
+      mod: BeamPM.Types.WipLimitGate,
+      has_required: true,
+      full_attrs: %{
+        episode_id: "x",
+        wip_limit: "x",
+        standing: "x"
+      }
+    },
+
+    %{
+      name: "workflow_definition_digest_observation",
+      mod: BeamPM.Types.WorkflowDefinitionDigestObservation,
+      has_required: true,
+      full_attrs: %{
+        workflow_path: "x",
+        definition_sha256: "x",
+        source_sha: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "workflow_job_state_observation",
+      mod: BeamPM.Types.WorkflowJobStateObservation,
+      has_required: true,
+      full_attrs: %{
+        job_id: "x",
+        run_id: "x",
+        runner_identity: "x",
+        conclusion: "x"
+      }
+    },
+
+    %{
+      name: "workflow_run_state_observation",
+      mod: BeamPM.Types.WorkflowRunStateObservation,
+      has_required: true,
+      full_attrs: %{
+        run_id: "x",
+        workflow_id: "x",
+        head_sha: "x",
+        conclusion: "x"
+      }
+    },
+
+    %{
+      name: "workload_backpressure_signal",
+      mod: BeamPM.Types.WorkloadBackpressureSignal,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        signal_id: "x",
+        measurement_hash: "x"
+      }
+    },
+
+    %{
+      name: "workload_cancellation_receipt",
+      mod: BeamPM.Types.WorkloadCancellationReceipt,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        execution_id: "x",
+        receipt_hash: "x"
+      }
+    },
+
+    %{
+      name: "workload_execution_identity",
+      mod: BeamPM.Types.WorkloadExecutionIdentity,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        execution_id: "x",
+        subject_digest: "x"
+      }
+    },
+
+    %{
+      name: "workload_idempotency_key",
+      mod: BeamPM.Types.WorkloadIdempotencyKey,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        execution_id: "x",
+        idempotency_key: "x"
+      }
+    },
+
+    %{
+      name: "workload_queue_depth",
+      mod: BeamPM.Types.WorkloadQueueDepth,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        queue_id: "x",
+        measurement_hash: "x"
+      }
+    },
+
+    %{
+      name: "workload_retry_policy",
+      mod: BeamPM.Types.WorkloadRetryPolicy,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        policy_id: "x",
+        policy_hash: "x"
+      }
+    },
+
+    %{
+      name: "workload_timeout_budget",
+      mod: BeamPM.Types.WorkloadTimeoutBudget,
+      has_required: true,
+      full_attrs: %{
+        tenant_id: "x",
+        budget_id: "x",
+        budget_hash: "x"
+      }
+    }
+  ]
+
+  test "every admitted record type's new/1 succeeds when all fields are present" do
+    for r <- @records do
+      assert {:ok, _} = r.mod.new(r.full_attrs), "#{r.name}: new/1 with full_attrs did not return {:ok, _}"
+    end
+  end
+
+  test "every admitted record type's new/1 handles an empty map per its own required-field admission" do
+    for r <- @records do
+      case r.has_required do
+        true ->
+          assert {:error, {:missing_field, _}} = r.mod.new(%{}),
+                 "#{r.name}: expected {:error, {:missing_field, _}} for new/1(%{}) since it has required fields"
+
+        false ->
+          assert {:ok, _} = r.mod.new(%{}),
+                 "#{r.name}: expected {:ok, _} for new/1(%{}) since no fields are required"
+      end
+    end
   end
-
-  test "value_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueReceipt.new(%{})
-  end
-
-
-  test "value_telemetry_sample new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      outcome_id: "x",
-      telemetry_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.ValueTelemetrySample.new(attrs)
-  end
-
-  test "value_telemetry_sample new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.ValueTelemetrySample.new(%{})
-  end
-
-
-  test "vendor_registration_state new/1 succeeds when all fields are present" do
-    attrs = %{
-      account_id: "x",
-      registration_id: "x",
-      registration_state: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.VendorRegistrationState.new(attrs)
-  end
-
-  test "vendor_registration_state new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.VendorRegistrationState.new(%{})
-  end
-
-
-  test "vendor_risk_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      risk_score: 1.0,
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.VendorRiskEvidence.new(attrs)
-  end
-
-  test "vendor_risk_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.VendorRiskEvidence.new(%{})
-  end
-
-
-  test "verification_depth_update new/1 succeeds when all fields are present" do
-    attrs = %{
-      update_id: "x",
-      verifier_id: "x",
-      prior_depth: 1,
-      new_depth: 1,
-      risk_signal_digest: "x",
-      minimum_depth: 1
-    }
-
-    assert {:ok, _} = BeamPM.Types.VerificationDepthUpdate.new(attrs)
-  end
-
-  test "verification_depth_update new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.VerificationDepthUpdate.new(%{})
-  end
-
-
-  test "version_lifecycle_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      supported_until: "2026-01-01T00:00:00Z",
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.VersionLifecycleEvidence.new(attrs)
-  end
-
-  test "version_lifecycle_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.VersionLifecycleEvidence.new(%{})
-  end
-
-
-  test "volume_tier_admission new/1 succeeds when all fields are present" do
-    attrs = %{
-      opportunity_id: "x",
-      volume_tier_id: "x",
-      decision: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.VolumeTierAdmission.new(attrs)
-  end
-
-  test "volume_tier_admission new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.VolumeTierAdmission.new(%{})
-  end
-
-
-  test "vulnerability_scan_evidence new/1 succeeds when all fields are present" do
-    attrs = %{
-      evidence_id: "x",
-      subject_sha: "x",
-      vulnerability_count: 1,
-      observed_result: :some_atom
-    }
-
-    assert {:ok, _} = BeamPM.Types.VulnerabilityScanEvidence.new(attrs)
-  end
-
-  test "vulnerability_scan_evidence new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.VulnerabilityScanEvidence.new(%{})
-  end
-
-
-  test "wip_limit_gate new/1 succeeds when all fields are present" do
-    attrs = %{
-      episode_id: "x",
-      wip_limit: "x",
-      standing: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WipLimitGate.new(attrs)
-  end
-
-  test "wip_limit_gate new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WipLimitGate.new(%{})
-  end
-
-
-  test "workflow_definition_digest_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      workflow_path: "x",
-      definition_sha256: "x",
-      source_sha: "x",
-      observed_at: "2026-01-01T00:00:00Z"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WorkflowDefinitionDigestObservation.new(attrs)
-  end
-
-  test "workflow_definition_digest_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkflowDefinitionDigestObservation.new(%{})
-  end
-
-
-  test "workflow_job_state_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      job_id: "x",
-      run_id: "x",
-      runner_identity: "x",
-      conclusion: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WorkflowJobStateObservation.new(attrs)
-  end
-
-  test "workflow_job_state_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkflowJobStateObservation.new(%{})
-  end
-
-
-  test "workflow_run_state_observation new/1 succeeds when all fields are present" do
-    attrs = %{
-      run_id: "x",
-      workflow_id: "x",
-      head_sha: "x",
-      conclusion: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WorkflowRunStateObservation.new(attrs)
-  end
-
-  test "workflow_run_state_observation new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkflowRunStateObservation.new(%{})
-  end
-
-
-  test "workload_backpressure_signal new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      signal_id: "x",
-      measurement_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WorkloadBackpressureSignal.new(attrs)
-  end
-
-  test "workload_backpressure_signal new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadBackpressureSignal.new(%{})
-  end
-
-
-  test "workload_cancellation_receipt new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      execution_id: "x",
-      receipt_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WorkloadCancellationReceipt.new(attrs)
-  end
-
-  test "workload_cancellation_receipt new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadCancellationReceipt.new(%{})
-  end
-
-
-  test "workload_execution_identity new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      execution_id: "x",
-      subject_digest: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WorkloadExecutionIdentity.new(attrs)
-  end
-
-  test "workload_execution_identity new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadExecutionIdentity.new(%{})
-  end
-
-
-  test "workload_idempotency_key new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      execution_id: "x",
-      idempotency_key: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WorkloadIdempotencyKey.new(attrs)
-  end
-
-  test "workload_idempotency_key new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadIdempotencyKey.new(%{})
-  end
-
-
-  test "workload_queue_depth new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      queue_id: "x",
-      measurement_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WorkloadQueueDepth.new(attrs)
-  end
-
-  test "workload_queue_depth new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadQueueDepth.new(%{})
-  end
-
-
-  test "workload_retry_policy new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      policy_id: "x",
-      policy_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WorkloadRetryPolicy.new(attrs)
-  end
-
-  test "workload_retry_policy new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadRetryPolicy.new(%{})
-  end
-
-
-  test "workload_timeout_budget new/1 succeeds when all fields are present" do
-    attrs = %{
-      tenant_id: "x",
-      budget_id: "x",
-      budget_hash: "x"
-    }
-
-    assert {:ok, _} = BeamPM.Types.WorkloadTimeoutBudget.new(attrs)
-  end
-
-  test "workload_timeout_budget new/1 returns an error when a required field is missing" do
-    assert {:error, {:missing_field, _}} = BeamPM.Types.WorkloadTimeoutBudget.new(%{})
-  end
-
 end

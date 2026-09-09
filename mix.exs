@@ -7,7 +7,8 @@ defmodule Beam4pm.MixProject do
       version: "26.9.9",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
@@ -16,6 +17,10 @@ defmodule Beam4pm.MixProject do
       mod: {BeamPM.Application, []},
       extra_applications: [:logger]
     ]
+  end
+
+  def cli do
+    [preferred_envs: ["test.chicago": :test]]
   end
 
   # lib/ and test/ hold hand-authored and ggen-manufactured source alike --
@@ -44,6 +49,20 @@ defmodule Beam4pm.MixProject do
       # only: :test): a running beam4pm needs to actually listen.
       {:plug, "~> 1.14"},
       {:bandit, "~> 1.5"}
+    ]
+  end
+
+  # `mix test` (default, test/test_helper.exs excludes :chicago) -- fast,
+  # everyday loop. `mix test.chicago` -- full suite including any test
+  # explicitly tagged :chicago (a repo-wide convention for slow,
+  # full-integration-scope cases; no test currently carries the tag here,
+  # so this alias is presently equivalent to `mix test --include chicago`
+  # with nothing extra admitted -- it exists as the standing seam for the
+  # first real :chicago-tagged integration test, not a currently-populated
+  # suite).
+  defp aliases do
+    [
+      "test.chicago": ["test --include chicago"]
     ]
   end
 end
