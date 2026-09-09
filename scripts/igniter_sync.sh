@@ -73,21 +73,29 @@ mix ggen_igniter.sync \
   --template "$IGN/templates/beam4pm_ash_domain.ex.eex" \
   --out lib/beam4pm_ash_domain.ex
 
-# 2a. Chicago ExUnit CRUD suite: one real Ash.create!/Ash.read! round-trip
-#     per admitted record type, deterministic sample values, no mocks -- one
-#     test file per resource under test/beam4pm_ash/resources/, split for
-#     the same marginal-compile-cost reason as 1a. mix's default
-#     test_paths ["test"] recurses, and test/test_helper.exs (unchanged)
-#     already covers this nested directory, so no new test_helper is
-#     needed. `--on-stale prune` mirrors 1a.
+# 2a. Real Ash.create!/Ash.read! round-trip per admitted record type,
+#     deterministic sample values, no mocks -- collapsed into ONE output
+#     file (test/beam4pm_ash_resources_test.exs), unlike 1a's per-resource
+#     lib/ split. The lib/ split (1a) has a real, measured compile-cost
+#     rationale that does not apply here: this was previously one test
+#     FILE per resource (592 files, all async: false, one BEAM
+#     test-process spawn each) under test/beam4pm_ash/resources/, which
+#     dominated `mix test` wall clock (~592 of the suite's slowest tests)
+#     while only proving Ash's own ETS create/read mechanics repeatedly,
+#     not beam4pm-specific logic. The real signal -- each resource's
+#     attributes correctly mirror its admitted record type's fields -- is
+#     now proven by one runtime loop over all resources inside a single
+#     test, same per-resource/per-field assertions, labeled by record name
+#     on failure. Delete the old per-resource directory first since the
+#     output path itself changed (a stale one wouldn't be pruned by
+#     --on-stale, which no longer applies to a single-output template).
+rm -rf test/beam4pm_ash/resources
 mix ggen_igniter.sync \
   --ontology ontology.ttl \
   --query records="$IGN/queries/records.rq" \
   --query fields="$IGN/queries/fields.rq" \
-  --for-each records \
-  --on-stale prune \
   --template "$IGN/templates/beam4pm_ash_resource_test.exs.eex" \
-  --out "test/beam4pm_ash/resources/<%= record_name %>_test.exs"
+  --out test/beam4pm_ash_resources_test.exs
 
 # 2b. BeamPM.AutonomyKernelGeneratedTest: static, no per-record shape, so it
 #     stays a single output file like the pre-split monolith test.
