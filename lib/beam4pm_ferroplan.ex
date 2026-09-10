@@ -68,7 +68,9 @@ defmodule BeamPM.Ferroplan do
   `session_fluent/3`,
   `session_plan_valid?/4`,
   `session_world_bytes/2`,
-  `session_mind_bytes/2`
+  `session_mind_bytes/2`,
+  `htn_plan/3`,
+  `fond_policy/3`
 
   ## Process model and crash semantics
 
@@ -471,6 +473,26 @@ defmodule BeamPM.Ferroplan do
       when is_integer(handle) do
     %{"op" => "session_mind_bytes", "handle" => handle}
     |> call(timeout(opts, @cheap_timeout))
+  end
+
+  @doc ~S"""
+  `{"op":"htn_plan","domain":d,"problem":p[,"limits":l]}` -- hierarchical task network (HTN) decomposition, PlanningType::Hierarchical via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`.
+  """
+  @spec htn_plan(String.t(), String.t(), keyword()) :: result()
+  def htn_plan(domain, problem, opts \\ [])
+      when is_binary(domain) and is_binary(problem) do
+    %{"op" => "htn_plan", "domain" => domain, "problem" => problem}
+    |> call(timeout(opts, @heavy_timeout))
+  end
+
+  @doc ~S"""
+  `{"op":"fond_policy","domain":d,"problem":p[,"limits":l]}` -- fully observable non-deterministic (FOND) policy synthesis, PlanningType::Fond via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`.
+  """
+  @spec fond_policy(String.t(), String.t(), keyword()) :: result()
+  def fond_policy(domain, problem, opts \\ [])
+      when is_binary(domain) and is_binary(problem) do
+    %{"op" => "fond_policy", "domain" => domain, "problem" => problem}
+    |> call(timeout(opts, @heavy_timeout))
   end
 
   # ---------------------------------------------------------------------

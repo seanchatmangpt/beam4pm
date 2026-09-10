@@ -160,3 +160,11 @@ pub fn session_world_bytes(handle: Int) -> Result(Dynamic, Dynamic)
 /// `{"op":"session_mind_bytes","handle":h}` -- byte size of this session's private mutable state.
 @external(erlang, "Elixir.BeamPM.Ferroplan", "session_mind_bytes")
 pub fn session_mind_bytes(handle: Int) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"htn_plan","domain":d,"problem":p[,"limits":l]}` -- hierarchical task network (HTN) decomposition, PlanningType::Hierarchical via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`.
+@external(erlang, "Elixir.BeamPM.Ferroplan", "htn_plan")
+pub fn htn_plan(domain: String, problem: String) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"fond_policy","domain":d,"problem":p[,"limits":l]}` -- fully observable non-deterministic (FOND) policy synthesis, PlanningType::Fond via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`.
+@external(erlang, "Elixir.BeamPM.Ferroplan", "fond_policy")
+pub fn fond_policy(domain: String, problem: String) -> Result(Dynamic, Dynamic)
