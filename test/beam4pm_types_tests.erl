@@ -3053,6 +3053,53 @@ forged_receipt_refusal_ok_test() ->
 forged_receipt_refusal_missing_field_test() ->
     ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_forged_receipt_refusal(#{})).
 
+frontier_benchmark_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_frontier_benchmark(#{
+        benchmark_id => <<"x">>,
+        metric => <<"x">>,
+        acceptance_predicate => <<"x">>,
+        falsifier => <<"x">>
+    })).
+
+frontier_benchmark_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_frontier_benchmark(#{})).
+
+frontier_evidence_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_frontier_evidence(#{
+        subject_identity => <<"x">>,
+        verifier_identity => <<"x">>,
+        receipt_ref => <<"x">>,
+        replay_ref => <<"x">>,
+        standing => some_atom
+    })).
+
+frontier_evidence_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_frontier_evidence(#{})).
+
+frontier_opportunity_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_frontier_opportunity(#{
+        source_digest => <<"x">>,
+        response_mode => some_atom,
+        target_repository => <<"x">>,
+        required_capability => <<"x">>,
+        benchmark_id => <<"x">>
+    })).
+
+frontier_opportunity_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_frontier_opportunity(#{})).
+
+frontier_source_release_ok_test() ->
+    ?assertMatch({ok, _}, beam4pm_types:new_frontier_source_release(#{
+        source_url => <<"x">>,
+        publisher => <<"x">>,
+        published_at => <<"2026-01-01T00:00:00Z">>,
+        content_digest => <<"x">>,
+        claims => #{}
+    })).
+
+frontier_source_release_missing_field_test() ->
+    ?assertMatch({error, {missing_field, _}}, beam4pm_types:new_frontier_source_release(#{})).
+
 funding_approval_chain_ok_test() ->
     ?assertMatch({ok, _}, beam4pm_types:new_funding_approval_chain(#{
         opportunity_id => <<"x">>,

@@ -3897,6 +3897,68 @@ pub type ForgedReceiptRefusal {
   )
 }
 
+/// Executable comparison contract produced from a frontier announcement.
+pub type FrontierBenchmark {
+  FrontierBenchmark(
+    /// Stable benchmark identity.
+    benchmark_id: String,
+    /// Measured comparison quantity.
+    metric: String,
+    /// Predicate that must be observed before the claim can be earned.
+    acceptance_predicate: String,
+    /// Observation that defeats the benchmark claim.
+    falsifier: String,
+  )
+}
+
+/// Exact-subject verifier/replay evidence supporting an earned frontier-response claim.
+pub type FrontierEvidence {
+  FrontierEvidence(
+    /// Exact implementation subject, normally repository plus commit/digest.
+    subject_identity: String,
+    /// Exact verifier identity.
+    verifier_identity: String,
+    /// Execution receipt reference.
+    receipt_ref: String,
+    /// Replay-verification reference.
+    replay_ref: String,
+    /// Bounded standing; publication consumers must require ALIVE for an earned claim.
+    standing: String,
+  )
+}
+
+/// DfCM-selected bounded response opportunity derived from an observed release.
+pub type FrontierOpportunity {
+  FrontierOpportunity(
+    /// Digest linking this opportunity to its observed source release.
+    source_digest: String,
+    /// One of reuse, compose, extend, invent, benchmark, formalize, automate, eliminate.
+    response_mode: String,
+    /// Repository coordinate selected for implementation; selection confers no DO authority.
+    target_repository: String,
+    /// Capability the response must manufacture or prove.
+    required_capability: String,
+    /// Executable benchmark identity.
+    benchmark_id: String,
+  )
+}
+
+/// Observed external frontier announcement with provenance and extracted-claim payload; observation only, never authority.
+pub type FrontierSourceRelease {
+  FrontierSourceRelease(
+    /// Canonical external source URL.
+    source_url: String,
+    /// Observed publisher identity.
+    publisher: String,
+    /// Observed publication timestamp.
+    published_at: String,
+    /// Exact digest of the admitted source representation.
+    content_digest: String,
+    /// Normalized observed claims; candidate semantic extraction, not execution evidence.
+    claims: dict.Dict(String, String),
+  )
+}
+
 /// Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.
 pub type FundingApprovalChain {
   FundingApprovalChain(

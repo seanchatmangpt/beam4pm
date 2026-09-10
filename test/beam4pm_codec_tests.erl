@@ -7774,6 +7774,127 @@ forged_receipt_refusal_json_roundtrip_test() ->
     {ok, Rec2} = beam4pm_codec:decode(forged_receipt_refusal, Json),
     ?assertEqual(Rec, Rec2).
 
+frontier_benchmark_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_frontier_benchmark(#{
+        benchmark_id => <<"sample_benchmark_id">>,
+        metric => <<"sample_metric">>,
+        acceptance_predicate => <<"sample_acceptance_predicate">>,
+        falsifier => <<"sample_falsifier">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_benchmark_id">>, maps:get(<<"benchmark_id">>, Map)),
+    ?assertEqual(<<"sample_metric">>, maps:get(<<"metric">>, Map)),
+    ?assertEqual(<<"sample_acceptance_predicate">>, maps:get(<<"acceptance_predicate">>, Map)),
+    ?assertEqual(<<"sample_falsifier">>, maps:get(<<"falsifier">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(frontier_benchmark,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+frontier_benchmark_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_frontier_benchmark(#{
+        benchmark_id => <<"sample_benchmark_id">>,
+        metric => <<"sample_metric">>,
+        acceptance_predicate => <<"sample_acceptance_predicate">>,
+        falsifier => <<"sample_falsifier">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(frontier_benchmark, Json),
+    ?assertEqual(Rec, Rec2).
+
+frontier_evidence_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_frontier_evidence(#{
+        subject_identity => <<"sample_subject_identity">>,
+        verifier_identity => <<"sample_verifier_identity">>,
+        receipt_ref => <<"sample_receipt_ref">>,
+        replay_ref => <<"sample_replay_ref">>,
+        standing => sample_atom
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_subject_identity">>, maps:get(<<"subject_identity">>, Map)),
+    ?assertEqual(<<"sample_verifier_identity">>, maps:get(<<"verifier_identity">>, Map)),
+    ?assertEqual(<<"sample_receipt_ref">>, maps:get(<<"receipt_ref">>, Map)),
+    ?assertEqual(<<"sample_replay_ref">>, maps:get(<<"replay_ref">>, Map)),
+    ?assertEqual(<<"sample_atom">>, maps:get(<<"standing">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(frontier_evidence,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+frontier_evidence_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_frontier_evidence(#{
+        subject_identity => <<"sample_subject_identity">>,
+        verifier_identity => <<"sample_verifier_identity">>,
+        receipt_ref => <<"sample_receipt_ref">>,
+        replay_ref => <<"sample_replay_ref">>,
+        standing => sample_atom
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(frontier_evidence, Json),
+    ?assertEqual(Rec, Rec2).
+
+frontier_opportunity_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_frontier_opportunity(#{
+        source_digest => <<"sample_source_digest">>,
+        response_mode => sample_atom,
+        target_repository => <<"sample_target_repository">>,
+        required_capability => <<"sample_required_capability">>,
+        benchmark_id => <<"sample_benchmark_id">>
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_source_digest">>, maps:get(<<"source_digest">>, Map)),
+    ?assertEqual(<<"sample_atom">>, maps:get(<<"response_mode">>, Map)),
+    ?assertEqual(<<"sample_target_repository">>, maps:get(<<"target_repository">>, Map)),
+    ?assertEqual(<<"sample_required_capability">>, maps:get(<<"required_capability">>, Map)),
+    ?assertEqual(<<"sample_benchmark_id">>, maps:get(<<"benchmark_id">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(frontier_opportunity,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+frontier_opportunity_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_frontier_opportunity(#{
+        source_digest => <<"sample_source_digest">>,
+        response_mode => sample_atom,
+        target_repository => <<"sample_target_repository">>,
+        required_capability => <<"sample_required_capability">>,
+        benchmark_id => <<"sample_benchmark_id">>
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(frontier_opportunity, Json),
+    ?assertEqual(Rec, Rec2).
+
+frontier_source_release_map_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_frontier_source_release(#{
+        source_url => <<"sample_source_url">>,
+        publisher => <<"sample_publisher">>,
+        published_at => <<"2026-08-29T12:00:00.123456Z">>,
+        content_digest => <<"sample_content_digest">>,
+        claims => #{<<"k">> => <<"v">>}
+    }),
+    Map = beam4pm_codec:to_map(Rec),
+    ?assertEqual(<<"sample_source_url">>, maps:get(<<"source_url">>, Map)),
+    ?assertEqual(<<"sample_publisher">>, maps:get(<<"publisher">>, Map)),
+    ?assertEqual(<<"2026-08-29T12:00:00.123456Z">>, maps:get(<<"published_at">>, Map)),
+    ?assertEqual(<<"sample_content_digest">>, maps:get(<<"content_digest">>, Map)),
+    ?assertEqual(#{<<"k">> => <<"v">>}, maps:get(<<"claims">>, Map)),
+    {ok, Rec2} = beam4pm_codec:from_map(frontier_source_release,
+        Map#{<<"totally_unknown_key_zz">> => <<"dropped">>}),
+    ?assertEqual(Rec, Rec2).
+
+frontier_source_release_json_roundtrip_test() ->
+    {ok, Rec} = beam4pm_types:new_frontier_source_release(#{
+        source_url => <<"sample_source_url">>,
+        publisher => <<"sample_publisher">>,
+        published_at => <<"2026-08-29T12:00:00.123456Z">>,
+        content_digest => <<"sample_content_digest">>,
+        claims => #{<<"k">> => <<"v">>}
+    }),
+    Json = beam4pm_codec:encode(Rec),
+    ?assert(is_binary(Json)),
+    {ok, Rec2} = beam4pm_codec:decode(frontier_source_release, Json),
+    ?assertEqual(Rec, Rec2).
+
 funding_approval_chain_map_roundtrip_test() ->
     {ok, Rec} = beam4pm_types:new_funding_approval_chain(#{
         opportunity_id => <<"sample_opportunity_id">>,

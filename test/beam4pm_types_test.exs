@@ -3341,6 +3341,57 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "frontier_benchmark",
+      mod: BeamPM.Types.FrontierBenchmark,
+      has_required: true,
+      full_attrs: %{
+        benchmark_id: "x",
+        metric: "x",
+        acceptance_predicate: "x",
+        falsifier: "x"
+      }
+    },
+
+    %{
+      name: "frontier_evidence",
+      mod: BeamPM.Types.FrontierEvidence,
+      has_required: true,
+      full_attrs: %{
+        subject_identity: "x",
+        verifier_identity: "x",
+        receipt_ref: "x",
+        replay_ref: "x",
+        standing: :some_atom
+      }
+    },
+
+    %{
+      name: "frontier_opportunity",
+      mod: BeamPM.Types.FrontierOpportunity,
+      has_required: true,
+      full_attrs: %{
+        source_digest: "x",
+        response_mode: :some_atom,
+        target_repository: "x",
+        required_capability: "x",
+        benchmark_id: "x"
+      }
+    },
+
+    %{
+      name: "frontier_source_release",
+      mod: BeamPM.Types.FrontierSourceRelease,
+      has_required: true,
+      full_attrs: %{
+        source_url: "x",
+        publisher: "x",
+        published_at: "2026-01-01T00:00:00Z",
+        content_digest: "x",
+        claims: %{}
+      }
+    },
+
+    %{
       name: "funding_approval_chain",
       mod: BeamPM.Types.FundingApprovalChain,
       has_required: true,

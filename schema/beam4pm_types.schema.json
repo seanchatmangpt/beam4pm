@@ -6960,6 +6960,118 @@
       ]
 
     },
+    "frontier_benchmark": {
+      "type": "object",
+      "description": "Executable comparison contract produced from a frontier announcement.",
+      "properties": {
+        "benchmark_id": {
+          "type": "string",
+          "description": "Stable benchmark identity."
+        },
+        "metric": {
+          "type": "string",
+          "description": "Measured comparison quantity."
+        },
+        "acceptance_predicate": {
+          "type": "string",
+          "description": "Predicate that must be observed before the claim can be earned."
+        },
+        "falsifier": {
+          "type": "string",
+          "description": "Observation that defeats the benchmark claim."
+        }
+      },
+      "required": ["benchmark_id", "metric", "acceptance_predicate", "falsifier"
+      ]
+
+    },
+    "frontier_evidence": {
+      "type": "object",
+      "description": "Exact-subject verifier/replay evidence supporting an earned frontier-response claim.",
+      "properties": {
+        "subject_identity": {
+          "type": "string",
+          "description": "Exact implementation subject, normally repository plus commit/digest."
+        },
+        "verifier_identity": {
+          "type": "string",
+          "description": "Exact verifier identity."
+        },
+        "receipt_ref": {
+          "type": "string",
+          "description": "Execution receipt reference."
+        },
+        "replay_ref": {
+          "type": "string",
+          "description": "Replay-verification reference."
+        },
+        "standing": {
+          "type": "string",
+          "description": "Bounded standing; publication consumers must require ALIVE for an earned claim."
+        }
+      },
+      "required": ["subject_identity", "verifier_identity", "receipt_ref", "replay_ref", "standing"
+      ]
+
+    },
+    "frontier_opportunity": {
+      "type": "object",
+      "description": "DfCM-selected bounded response opportunity derived from an observed release.",
+      "properties": {
+        "source_digest": {
+          "type": "string",
+          "description": "Digest linking this opportunity to its observed source release."
+        },
+        "response_mode": {
+          "type": "string",
+          "description": "One of reuse, compose, extend, invent, benchmark, formalize, automate, eliminate."
+        },
+        "target_repository": {
+          "type": "string",
+          "description": "Repository coordinate selected for implementation; selection confers no DO authority."
+        },
+        "required_capability": {
+          "type": "string",
+          "description": "Capability the response must manufacture or prove."
+        },
+        "benchmark_id": {
+          "type": "string",
+          "description": "Executable benchmark identity."
+        }
+      },
+      "required": ["source_digest", "response_mode", "target_repository", "required_capability", "benchmark_id"
+      ]
+
+    },
+    "frontier_source_release": {
+      "type": "object",
+      "description": "Observed external frontier announcement with provenance and extracted-claim payload; observation only, never authority.",
+      "properties": {
+        "source_url": {
+          "type": "string",
+          "description": "Canonical external source URL."
+        },
+        "publisher": {
+          "type": "string",
+          "description": "Observed publisher identity."
+        },
+        "published_at": {
+          "type": "string",
+          "description": "Observed publication timestamp."
+        },
+        "content_digest": {
+          "type": "string",
+          "description": "Exact digest of the admitted source representation."
+        },
+        "claims": {
+          "type": "object",
+          "description": "Normalized observed claims; candidate semantic extraction, not execution evidence."
+        }
+      },
+      "required": ["source_url", "publisher", "published_at", "content_digest", "claims"
+      ]
+
+    },
     "funding_approval_chain": {
       "type": "object",
       "description": "Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.",

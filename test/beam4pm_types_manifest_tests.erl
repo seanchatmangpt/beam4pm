@@ -15,7 +15,7 @@
 %% would become a hard failure under warnings_as_errors).
 
 record_names_count_test() ->
-    ?assertEqual(593, length(beam4pm_types_manifest:record_names())).
+    ?assertEqual(597, length(beam4pm_types_manifest:record_names())).
 
 acceptance_criteria_nonweakening_fields_test() ->
     ?assertEqual([assessment_id, acceptance_contract_id, prior_digest, candidate_digest, strength_result, refusal_code], beam4pm_types_manifest:fields(acceptance_criteria_nonweakening)).
@@ -841,6 +841,18 @@ federated_dogfood_learning_crown_fields_test() ->
 
 forged_receipt_refusal_fields_test() ->
     ?assertEqual([tenant_id, receipt_id, refusal_hash], beam4pm_types_manifest:fields(forged_receipt_refusal)).
+
+frontier_benchmark_fields_test() ->
+    ?assertEqual([benchmark_id, metric, acceptance_predicate, falsifier], beam4pm_types_manifest:fields(frontier_benchmark)).
+
+frontier_evidence_fields_test() ->
+    ?assertEqual([subject_identity, verifier_identity, receipt_ref, replay_ref, standing], beam4pm_types_manifest:fields(frontier_evidence)).
+
+frontier_opportunity_fields_test() ->
+    ?assertEqual([source_digest, response_mode, target_repository, required_capability, benchmark_id], beam4pm_types_manifest:fields(frontier_opportunity)).
+
+frontier_source_release_fields_test() ->
+    ?assertEqual([source_url, publisher, published_at, content_digest, claims], beam4pm_types_manifest:fields(frontier_source_release)).
 
 funding_approval_chain_fields_test() ->
     ?assertEqual([opportunity_id, approval_chain_id, evidence_hash], beam4pm_types_manifest:fields(funding_approval_chain)).

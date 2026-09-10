@@ -284,6 +284,10 @@ defmodule BeamPM.Roundtrip do
     :failure_label,
     :federated_dogfood_learning_crown,
     :forged_receipt_refusal,
+    :frontier_benchmark,
+    :frontier_evidence,
+    :frontier_opportunity,
+    :frontier_source_release,
     :funding_approval_chain,
     :fx_conversion_policy,
     :generated_hypothesis,
@@ -5599,6 +5603,84 @@ defmodule BeamPM.Roundtrip do
       tenant_id: "sample_tenant_id",
       receipt_id: "sample_receipt_id",
       refusal_hash: "sample_refusal_hash"
+    })
+  end
+
+  def sample(:frontier_benchmark, :full) do
+    BeamPM.Types.FrontierBenchmark.new(%{
+      benchmark_id: "sample_benchmark_id",
+      metric: "sample_metric",
+      acceptance_predicate: "sample_acceptance_predicate",
+      falsifier: "sample_falsifier"
+    })
+  end
+
+  def sample(:frontier_benchmark, :minimal) do
+    BeamPM.Types.FrontierBenchmark.new(%{
+      benchmark_id: "sample_benchmark_id",
+      metric: "sample_metric",
+      acceptance_predicate: "sample_acceptance_predicate",
+      falsifier: "sample_falsifier"
+    })
+  end
+
+  def sample(:frontier_evidence, :full) do
+    BeamPM.Types.FrontierEvidence.new(%{
+      subject_identity: "sample_subject_identity",
+      verifier_identity: "sample_verifier_identity",
+      receipt_ref: "sample_receipt_ref",
+      replay_ref: "sample_replay_ref",
+      standing: :sample_atom
+    })
+  end
+
+  def sample(:frontier_evidence, :minimal) do
+    BeamPM.Types.FrontierEvidence.new(%{
+      subject_identity: "sample_subject_identity",
+      verifier_identity: "sample_verifier_identity",
+      receipt_ref: "sample_receipt_ref",
+      replay_ref: "sample_replay_ref",
+      standing: :sample_atom
+    })
+  end
+
+  def sample(:frontier_opportunity, :full) do
+    BeamPM.Types.FrontierOpportunity.new(%{
+      source_digest: "sample_source_digest",
+      response_mode: :sample_atom,
+      target_repository: "sample_target_repository",
+      required_capability: "sample_required_capability",
+      benchmark_id: "sample_benchmark_id"
+    })
+  end
+
+  def sample(:frontier_opportunity, :minimal) do
+    BeamPM.Types.FrontierOpportunity.new(%{
+      source_digest: "sample_source_digest",
+      response_mode: :sample_atom,
+      target_repository: "sample_target_repository",
+      required_capability: "sample_required_capability",
+      benchmark_id: "sample_benchmark_id"
+    })
+  end
+
+  def sample(:frontier_source_release, :full) do
+    BeamPM.Types.FrontierSourceRelease.new(%{
+      source_url: "sample_source_url",
+      publisher: "sample_publisher",
+      published_at: "2026-08-29T12:00:00.123456Z",
+      content_digest: "sample_content_digest",
+      claims: %{"k" => "v"}
+    })
+  end
+
+  def sample(:frontier_source_release, :minimal) do
+    BeamPM.Types.FrontierSourceRelease.new(%{
+      source_url: "sample_source_url",
+      publisher: "sample_publisher",
+      published_at: "2026-08-29T12:00:00.123456Z",
+      content_digest: "sample_content_digest",
+      claims: %{"k" => "v"}
     })
   end
 

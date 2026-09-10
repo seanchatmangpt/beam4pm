@@ -7220,6 +7220,119 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :frontier_benchmark,
+      mod: BeamPM.Types.FrontierBenchmark,
+      full_attrs: %{
+        benchmark_id: "sample_benchmark_id",
+        metric: "sample_metric",
+        acceptance_predicate: "sample_acceptance_predicate",
+        falsifier: "sample_falsifier"
+      },
+      expected_map: %{
+        "benchmark_id" => "sample_benchmark_id",
+        "metric" => "sample_metric",
+        "acceptance_predicate" => "sample_acceptance_predicate",
+        "falsifier" => "sample_falsifier"
+      },
+      req_attrs: %{
+        benchmark_id: "sample_benchmark_id",
+        metric: "sample_metric",
+        acceptance_predicate: "sample_acceptance_predicate",
+        falsifier: "sample_falsifier"
+      },
+      req_count: 4,
+      opt_field_names: [],
+      first_required: :benchmark_id
+    },
+
+    %{
+      name: :frontier_evidence,
+      mod: BeamPM.Types.FrontierEvidence,
+      full_attrs: %{
+        subject_identity: "sample_subject_identity",
+        verifier_identity: "sample_verifier_identity",
+        receipt_ref: "sample_receipt_ref",
+        replay_ref: "sample_replay_ref",
+        standing: :sample_atom
+      },
+      expected_map: %{
+        "subject_identity" => "sample_subject_identity",
+        "verifier_identity" => "sample_verifier_identity",
+        "receipt_ref" => "sample_receipt_ref",
+        "replay_ref" => "sample_replay_ref",
+        "standing" => "sample_atom"
+      },
+      req_attrs: %{
+        subject_identity: "sample_subject_identity",
+        verifier_identity: "sample_verifier_identity",
+        receipt_ref: "sample_receipt_ref",
+        replay_ref: "sample_replay_ref",
+        standing: :sample_atom
+      },
+      req_count: 5,
+      opt_field_names: [],
+      first_required: :subject_identity
+    },
+
+    %{
+      name: :frontier_opportunity,
+      mod: BeamPM.Types.FrontierOpportunity,
+      full_attrs: %{
+        source_digest: "sample_source_digest",
+        response_mode: :sample_atom,
+        target_repository: "sample_target_repository",
+        required_capability: "sample_required_capability",
+        benchmark_id: "sample_benchmark_id"
+      },
+      expected_map: %{
+        "source_digest" => "sample_source_digest",
+        "response_mode" => "sample_atom",
+        "target_repository" => "sample_target_repository",
+        "required_capability" => "sample_required_capability",
+        "benchmark_id" => "sample_benchmark_id"
+      },
+      req_attrs: %{
+        source_digest: "sample_source_digest",
+        response_mode: :sample_atom,
+        target_repository: "sample_target_repository",
+        required_capability: "sample_required_capability",
+        benchmark_id: "sample_benchmark_id"
+      },
+      req_count: 5,
+      opt_field_names: [],
+      first_required: :source_digest
+    },
+
+    %{
+      name: :frontier_source_release,
+      mod: BeamPM.Types.FrontierSourceRelease,
+      full_attrs: %{
+        source_url: "sample_source_url",
+        publisher: "sample_publisher",
+        published_at: "2026-08-29T12:00:00.123456Z",
+        content_digest: "sample_content_digest",
+        claims: %{"k" => "v"}
+      },
+      expected_map: %{
+        "source_url" => "sample_source_url",
+        "publisher" => "sample_publisher",
+        "published_at" => "2026-08-29T12:00:00.123456Z",
+        "content_digest" => "sample_content_digest",
+        "claims" => %{"k" => "v"}
+      },
+      req_attrs: %{
+        source_url: "sample_source_url",
+        publisher: "sample_publisher",
+        published_at: "2026-08-29T12:00:00.123456Z",
+        content_digest: "sample_content_digest",
+        claims: %{"k" => "v"}
+      },
+      req_count: 5,
+      opt_field_names: [],
+      first_required: :source_url
+    },
+
+    %{
       name: :funding_approval_chain,
       mod: BeamPM.Types.FundingApprovalChain,
       full_attrs: %{

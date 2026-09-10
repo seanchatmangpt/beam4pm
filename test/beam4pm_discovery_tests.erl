@@ -2,7 +2,7 @@
 %%
 %% EUnit court for beam4pm_discovery, run against a seeded known log and a
 %% seeded known trace. Admitted bpm:RecordType graph size:
-%% 593 record types (ocel_event carries
+%% 597 record types (ocel_event carries
 %% 4
 %% admitted fields, service_span carries
 %% 6).

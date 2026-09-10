@@ -294,6 +294,10 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.FailureLabel
     resource BeamPM.Ash.Resources.FederatedDogfoodLearningCrown
     resource BeamPM.Ash.Resources.ForgedReceiptRefusal
+    resource BeamPM.Ash.Resources.FrontierBenchmark
+    resource BeamPM.Ash.Resources.FrontierEvidence
+    resource BeamPM.Ash.Resources.FrontierOpportunity
+    resource BeamPM.Ash.Resources.FrontierSourceRelease
     resource BeamPM.Ash.Resources.FundingApprovalChain
     resource BeamPM.Ash.Resources.FxConversionPolicy
     resource BeamPM.Ash.Resources.GeneratedHypothesis

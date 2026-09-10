@@ -8302,6 +8302,135 @@ defmodule BeamPM.Types.ForgedReceiptRefusal do
   end
 end
 
+defmodule BeamPM.Types.FrontierBenchmark do
+  @moduledoc "Executable comparison contract produced from a frontier announcement."
+
+  defstruct [:benchmark_id, :metric, :acceptance_predicate, :falsifier]
+
+  @type t :: %__MODULE__{
+    benchmark_id: String.t() | nil,
+    metric: String.t() | nil,
+    acceptance_predicate: String.t() | nil,
+    falsifier: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :benchmark_id) -> {:error, {:missing_field, :benchmark_id}}
+      not Map.has_key?(attrs, :metric) -> {:error, {:missing_field, :metric}}
+      not Map.has_key?(attrs, :acceptance_predicate) -> {:error, {:missing_field, :acceptance_predicate}}
+      not Map.has_key?(attrs, :falsifier) -> {:error, {:missing_field, :falsifier}}
+      true ->
+        {:ok, %__MODULE__{
+          benchmark_id: Map.get(attrs, :benchmark_id),
+          metric: Map.get(attrs, :metric),
+          acceptance_predicate: Map.get(attrs, :acceptance_predicate),
+          falsifier: Map.get(attrs, :falsifier)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.FrontierEvidence do
+  @moduledoc "Exact-subject verifier/replay evidence supporting an earned frontier-response claim."
+
+  defstruct [:subject_identity, :verifier_identity, :receipt_ref, :replay_ref, :standing]
+
+  @type t :: %__MODULE__{
+    subject_identity: String.t() | nil,
+    verifier_identity: String.t() | nil,
+    receipt_ref: String.t() | nil,
+    replay_ref: String.t() | nil,
+    standing: atom() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :subject_identity) -> {:error, {:missing_field, :subject_identity}}
+      not Map.has_key?(attrs, :verifier_identity) -> {:error, {:missing_field, :verifier_identity}}
+      not Map.has_key?(attrs, :receipt_ref) -> {:error, {:missing_field, :receipt_ref}}
+      not Map.has_key?(attrs, :replay_ref) -> {:error, {:missing_field, :replay_ref}}
+      not Map.has_key?(attrs, :standing) -> {:error, {:missing_field, :standing}}
+      true ->
+        {:ok, %__MODULE__{
+          subject_identity: Map.get(attrs, :subject_identity),
+          verifier_identity: Map.get(attrs, :verifier_identity),
+          receipt_ref: Map.get(attrs, :receipt_ref),
+          replay_ref: Map.get(attrs, :replay_ref),
+          standing: Map.get(attrs, :standing)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.FrontierOpportunity do
+  @moduledoc "DfCM-selected bounded response opportunity derived from an observed release."
+
+  defstruct [:source_digest, :response_mode, :target_repository, :required_capability, :benchmark_id]
+
+  @type t :: %__MODULE__{
+    source_digest: String.t() | nil,
+    response_mode: atom() | nil,
+    target_repository: String.t() | nil,
+    required_capability: String.t() | nil,
+    benchmark_id: String.t() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :source_digest) -> {:error, {:missing_field, :source_digest}}
+      not Map.has_key?(attrs, :response_mode) -> {:error, {:missing_field, :response_mode}}
+      not Map.has_key?(attrs, :target_repository) -> {:error, {:missing_field, :target_repository}}
+      not Map.has_key?(attrs, :required_capability) -> {:error, {:missing_field, :required_capability}}
+      not Map.has_key?(attrs, :benchmark_id) -> {:error, {:missing_field, :benchmark_id}}
+      true ->
+        {:ok, %__MODULE__{
+          source_digest: Map.get(attrs, :source_digest),
+          response_mode: Map.get(attrs, :response_mode),
+          target_repository: Map.get(attrs, :target_repository),
+          required_capability: Map.get(attrs, :required_capability),
+          benchmark_id: Map.get(attrs, :benchmark_id)
+        }}
+    end
+  end
+end
+
+defmodule BeamPM.Types.FrontierSourceRelease do
+  @moduledoc "Observed external frontier announcement with provenance and extracted-claim payload; observation only, never authority."
+
+  defstruct [:source_url, :publisher, :published_at, :content_digest, :claims]
+
+  @type t :: %__MODULE__{
+    source_url: String.t() | nil,
+    publisher: String.t() | nil,
+    published_at: String.t() | nil,
+    content_digest: String.t() | nil,
+    claims: map() | nil
+  }
+
+  @spec new(map()) :: {:ok, t()} | {:error, {:missing_field, atom()}}
+  def new(attrs) when is_map(attrs) do
+    cond do
+      not Map.has_key?(attrs, :source_url) -> {:error, {:missing_field, :source_url}}
+      not Map.has_key?(attrs, :publisher) -> {:error, {:missing_field, :publisher}}
+      not Map.has_key?(attrs, :published_at) -> {:error, {:missing_field, :published_at}}
+      not Map.has_key?(attrs, :content_digest) -> {:error, {:missing_field, :content_digest}}
+      not Map.has_key?(attrs, :claims) -> {:error, {:missing_field, :claims}}
+      true ->
+        {:ok, %__MODULE__{
+          source_url: Map.get(attrs, :source_url),
+          publisher: Map.get(attrs, :publisher),
+          published_at: Map.get(attrs, :published_at),
+          content_digest: Map.get(attrs, :content_digest),
+          claims: Map.get(attrs, :claims)
+        }}
+    end
+  end
+end
+
 defmodule BeamPM.Types.FundingApprovalChain do
   @moduledoc "Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim."
 

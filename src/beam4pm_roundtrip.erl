@@ -289,6 +289,10 @@ record_names() ->
         failure_label,
         federated_dogfood_learning_crown,
         forged_receipt_refusal,
+        frontier_benchmark,
+        frontier_evidence,
+        frontier_opportunity,
+        frontier_source_release,
         funding_approval_chain,
         fx_conversion_policy,
         generated_hypothesis,
@@ -4500,6 +4504,68 @@ sample(forged_receipt_refusal, minimal) ->
         tenant_id => <<"sample_tenant_id">>,
         receipt_id => <<"sample_receipt_id">>,
         refusal_hash => <<"sample_refusal_hash">>
+    });
+sample(frontier_benchmark, full) ->
+    beam4pm_types:new_frontier_benchmark(#{
+        benchmark_id => <<"sample_benchmark_id">>,
+        metric => <<"sample_metric">>,
+        acceptance_predicate => <<"sample_acceptance_predicate">>,
+        falsifier => <<"sample_falsifier">>
+    });
+sample(frontier_benchmark, minimal) ->
+    beam4pm_types:new_frontier_benchmark(#{
+        benchmark_id => <<"sample_benchmark_id">>,
+        metric => <<"sample_metric">>,
+        acceptance_predicate => <<"sample_acceptance_predicate">>,
+        falsifier => <<"sample_falsifier">>
+    });
+sample(frontier_evidence, full) ->
+    beam4pm_types:new_frontier_evidence(#{
+        subject_identity => <<"sample_subject_identity">>,
+        verifier_identity => <<"sample_verifier_identity">>,
+        receipt_ref => <<"sample_receipt_ref">>,
+        replay_ref => <<"sample_replay_ref">>,
+        standing => sample_atom
+    });
+sample(frontier_evidence, minimal) ->
+    beam4pm_types:new_frontier_evidence(#{
+        subject_identity => <<"sample_subject_identity">>,
+        verifier_identity => <<"sample_verifier_identity">>,
+        receipt_ref => <<"sample_receipt_ref">>,
+        replay_ref => <<"sample_replay_ref">>,
+        standing => sample_atom
+    });
+sample(frontier_opportunity, full) ->
+    beam4pm_types:new_frontier_opportunity(#{
+        source_digest => <<"sample_source_digest">>,
+        response_mode => sample_atom,
+        target_repository => <<"sample_target_repository">>,
+        required_capability => <<"sample_required_capability">>,
+        benchmark_id => <<"sample_benchmark_id">>
+    });
+sample(frontier_opportunity, minimal) ->
+    beam4pm_types:new_frontier_opportunity(#{
+        source_digest => <<"sample_source_digest">>,
+        response_mode => sample_atom,
+        target_repository => <<"sample_target_repository">>,
+        required_capability => <<"sample_required_capability">>,
+        benchmark_id => <<"sample_benchmark_id">>
+    });
+sample(frontier_source_release, full) ->
+    beam4pm_types:new_frontier_source_release(#{
+        source_url => <<"sample_source_url">>,
+        publisher => <<"sample_publisher">>,
+        published_at => <<"2026-08-29T12:00:00.123456Z">>,
+        content_digest => <<"sample_content_digest">>,
+        claims => #{<<"k">> => <<"v">>}
+    });
+sample(frontier_source_release, minimal) ->
+    beam4pm_types:new_frontier_source_release(#{
+        source_url => <<"sample_source_url">>,
+        publisher => <<"sample_publisher">>,
+        published_at => <<"2026-08-29T12:00:00.123456Z">>,
+        content_digest => <<"sample_content_digest">>,
+        claims => #{<<"k">> => <<"v">>}
     });
 sample(funding_approval_chain, full) ->
     beam4pm_types:new_funding_approval_chain(#{

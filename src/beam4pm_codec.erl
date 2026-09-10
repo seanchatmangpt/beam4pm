@@ -285,6 +285,10 @@
     beam4pm_types:failure_label() |
     beam4pm_types:federated_dogfood_learning_crown() |
     beam4pm_types:forged_receipt_refusal() |
+    beam4pm_types:frontier_benchmark() |
+    beam4pm_types:frontier_evidence() |
+    beam4pm_types:frontier_opportunity() |
+    beam4pm_types:frontier_source_release() |
     beam4pm_types:funding_approval_chain() |
     beam4pm_types:fx_conversion_policy() |
     beam4pm_types:generated_hypothesis() |
@@ -2551,6 +2555,37 @@ to_map(R) when element(1, R) =:= forged_receipt_refusal ->
         {<<"tenant_id">>, plain, element(2, R)},
         {<<"receipt_id">>, plain, element(3, R)},
         {<<"refusal_hash">>, plain, element(4, R)}
+    ]);
+to_map(R) when element(1, R) =:= frontier_benchmark ->
+    pairs_to_map([
+        {<<"benchmark_id">>, plain, element(2, R)},
+        {<<"metric">>, plain, element(3, R)},
+        {<<"acceptance_predicate">>, plain, element(4, R)},
+        {<<"falsifier">>, plain, element(5, R)}
+    ]);
+to_map(R) when element(1, R) =:= frontier_evidence ->
+    pairs_to_map([
+        {<<"subject_identity">>, plain, element(2, R)},
+        {<<"verifier_identity">>, plain, element(3, R)},
+        {<<"receipt_ref">>, plain, element(4, R)},
+        {<<"replay_ref">>, plain, element(5, R)},
+        {<<"standing">>, atom, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= frontier_opportunity ->
+    pairs_to_map([
+        {<<"source_digest">>, plain, element(2, R)},
+        {<<"response_mode">>, atom, element(3, R)},
+        {<<"target_repository">>, plain, element(4, R)},
+        {<<"required_capability">>, plain, element(5, R)},
+        {<<"benchmark_id">>, plain, element(6, R)}
+    ]);
+to_map(R) when element(1, R) =:= frontier_source_release ->
+    pairs_to_map([
+        {<<"source_url">>, plain, element(2, R)},
+        {<<"publisher">>, plain, element(3, R)},
+        {<<"published_at">>, plain, element(4, R)},
+        {<<"content_digest">>, plain, element(5, R)},
+        {<<"claims">>, plain, element(6, R)}
     ]);
 to_map(R) when element(1, R) =:= funding_approval_chain ->
     pairs_to_map([
@@ -6718,6 +6753,37 @@ from_map(forged_receipt_refusal, Map) when is_map(Map) ->
         {<<"tenant_id">>, tenant_id, plain},
         {<<"receipt_id">>, receipt_id, plain},
         {<<"refusal_hash">>, refusal_hash, plain}
+    ]));
+from_map(frontier_benchmark, Map) when is_map(Map) ->
+    beam4pm_types:new_frontier_benchmark(take_known(Map, [
+        {<<"benchmark_id">>, benchmark_id, plain},
+        {<<"metric">>, metric, plain},
+        {<<"acceptance_predicate">>, acceptance_predicate, plain},
+        {<<"falsifier">>, falsifier, plain}
+    ]));
+from_map(frontier_evidence, Map) when is_map(Map) ->
+    beam4pm_types:new_frontier_evidence(take_known(Map, [
+        {<<"subject_identity">>, subject_identity, plain},
+        {<<"verifier_identity">>, verifier_identity, plain},
+        {<<"receipt_ref">>, receipt_ref, plain},
+        {<<"replay_ref">>, replay_ref, plain},
+        {<<"standing">>, standing, atom}
+    ]));
+from_map(frontier_opportunity, Map) when is_map(Map) ->
+    beam4pm_types:new_frontier_opportunity(take_known(Map, [
+        {<<"source_digest">>, source_digest, plain},
+        {<<"response_mode">>, response_mode, atom},
+        {<<"target_repository">>, target_repository, plain},
+        {<<"required_capability">>, required_capability, plain},
+        {<<"benchmark_id">>, benchmark_id, plain}
+    ]));
+from_map(frontier_source_release, Map) when is_map(Map) ->
+    beam4pm_types:new_frontier_source_release(take_known(Map, [
+        {<<"source_url">>, source_url, plain},
+        {<<"publisher">>, publisher, plain},
+        {<<"published_at">>, published_at, plain},
+        {<<"content_digest">>, content_digest, plain},
+        {<<"claims">>, claims, plain}
     ]));
 from_map(funding_approval_chain, Map) when is_map(Map) ->
     beam4pm_types:new_funding_approval_chain(take_known(Map, [

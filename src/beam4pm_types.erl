@@ -278,6 +278,10 @@
     new_failure_label/1,
     new_federated_dogfood_learning_crown/1,
     new_forged_receipt_refusal/1,
+    new_frontier_benchmark/1,
+    new_frontier_evidence/1,
+    new_frontier_opportunity/1,
+    new_frontier_source_release/1,
     new_funding_approval_chain/1,
     new_fx_conversion_policy/1,
     new_generated_hypothesis/1,
@@ -874,6 +878,10 @@
     failure_label/0,
     federated_dogfood_learning_crown/0,
     forged_receipt_refusal/0,
+    frontier_benchmark/0,
+    frontier_evidence/0,
+    frontier_opportunity/0,
+    frontier_source_release/0,
     funding_approval_chain/0,
     fx_conversion_policy/0,
     generated_hypothesis/0,
@@ -10909,6 +10917,164 @@ new_forged_receipt_refusal(Map) ->
         receipt_id = maps:get(receipt_id, Map, undefined),
         refusal_hash = maps:get(refusal_hash, Map, undefined)
     }}
+    end
+    end
+    end.
+
+%% Executable comparison contract produced from a frontier announcement.
+-record(frontier_benchmark, {
+    benchmark_id :: binary(), %% benchmark_id: Stable benchmark identity.
+    metric :: binary(), %% metric: Measured comparison quantity.
+    acceptance_predicate :: binary(), %% acceptance_predicate: Predicate that must be observed before the claim can be earned.
+    falsifier :: binary() %% falsifier: Observation that defeats the benchmark claim.
+}).
+
+-type frontier_benchmark() :: #frontier_benchmark{}.
+
+-spec new_frontier_benchmark(map()) -> {ok, frontier_benchmark()} | {error, {missing_field, atom()}}.
+new_frontier_benchmark(Map) ->
+    case maps:is_key(benchmark_id, Map) of
+        false -> {error, {missing_field, benchmark_id}};
+        true ->
+    case maps:is_key(metric, Map) of
+        false -> {error, {missing_field, metric}};
+        true ->
+    case maps:is_key(acceptance_predicate, Map) of
+        false -> {error, {missing_field, acceptance_predicate}};
+        true ->
+    case maps:is_key(falsifier, Map) of
+        false -> {error, {missing_field, falsifier}};
+        true ->
+    {ok, #frontier_benchmark{
+        benchmark_id = maps:get(benchmark_id, Map, undefined),
+        metric = maps:get(metric, Map, undefined),
+        acceptance_predicate = maps:get(acceptance_predicate, Map, undefined),
+        falsifier = maps:get(falsifier, Map, undefined)
+    }}
+    end
+    end
+    end
+    end.
+
+%% Exact-subject verifier/replay evidence supporting an earned frontier-response claim.
+-record(frontier_evidence, {
+    subject_identity :: binary(), %% subject_identity: Exact implementation subject, normally repository plus commit/digest.
+    verifier_identity :: binary(), %% verifier_identity: Exact verifier identity.
+    receipt_ref :: binary(), %% receipt_ref: Execution receipt reference.
+    replay_ref :: binary(), %% replay_ref: Replay-verification reference.
+    standing :: atom() %% standing: Bounded standing; publication consumers must require ALIVE for an earned claim.
+}).
+
+-type frontier_evidence() :: #frontier_evidence{}.
+
+-spec new_frontier_evidence(map()) -> {ok, frontier_evidence()} | {error, {missing_field, atom()}}.
+new_frontier_evidence(Map) ->
+    case maps:is_key(subject_identity, Map) of
+        false -> {error, {missing_field, subject_identity}};
+        true ->
+    case maps:is_key(verifier_identity, Map) of
+        false -> {error, {missing_field, verifier_identity}};
+        true ->
+    case maps:is_key(receipt_ref, Map) of
+        false -> {error, {missing_field, receipt_ref}};
+        true ->
+    case maps:is_key(replay_ref, Map) of
+        false -> {error, {missing_field, replay_ref}};
+        true ->
+    case maps:is_key(standing, Map) of
+        false -> {error, {missing_field, standing}};
+        true ->
+    {ok, #frontier_evidence{
+        subject_identity = maps:get(subject_identity, Map, undefined),
+        verifier_identity = maps:get(verifier_identity, Map, undefined),
+        receipt_ref = maps:get(receipt_ref, Map, undefined),
+        replay_ref = maps:get(replay_ref, Map, undefined),
+        standing = maps:get(standing, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% DfCM-selected bounded response opportunity derived from an observed release.
+-record(frontier_opportunity, {
+    source_digest :: binary(), %% source_digest: Digest linking this opportunity to its observed source release.
+    response_mode :: atom(), %% response_mode: One of reuse, compose, extend, invent, benchmark, formalize, automate, eliminate.
+    target_repository :: binary(), %% target_repository: Repository coordinate selected for implementation; selection confers no DO authority.
+    required_capability :: binary(), %% required_capability: Capability the response must manufacture or prove.
+    benchmark_id :: binary() %% benchmark_id: Executable benchmark identity.
+}).
+
+-type frontier_opportunity() :: #frontier_opportunity{}.
+
+-spec new_frontier_opportunity(map()) -> {ok, frontier_opportunity()} | {error, {missing_field, atom()}}.
+new_frontier_opportunity(Map) ->
+    case maps:is_key(source_digest, Map) of
+        false -> {error, {missing_field, source_digest}};
+        true ->
+    case maps:is_key(response_mode, Map) of
+        false -> {error, {missing_field, response_mode}};
+        true ->
+    case maps:is_key(target_repository, Map) of
+        false -> {error, {missing_field, target_repository}};
+        true ->
+    case maps:is_key(required_capability, Map) of
+        false -> {error, {missing_field, required_capability}};
+        true ->
+    case maps:is_key(benchmark_id, Map) of
+        false -> {error, {missing_field, benchmark_id}};
+        true ->
+    {ok, #frontier_opportunity{
+        source_digest = maps:get(source_digest, Map, undefined),
+        response_mode = maps:get(response_mode, Map, undefined),
+        target_repository = maps:get(target_repository, Map, undefined),
+        required_capability = maps:get(required_capability, Map, undefined),
+        benchmark_id = maps:get(benchmark_id, Map, undefined)
+    }}
+    end
+    end
+    end
+    end
+    end.
+
+%% Observed external frontier announcement with provenance and extracted-claim payload; observation only, never authority.
+-record(frontier_source_release, {
+    source_url :: binary(), %% source_url: Canonical external source URL.
+    publisher :: binary(), %% publisher: Observed publisher identity.
+    published_at :: binary(), %% published_at: Observed publication timestamp.
+    content_digest :: binary(), %% content_digest: Exact digest of the admitted source representation.
+    claims :: map() %% claims: Normalized observed claims; candidate semantic extraction, not execution evidence.
+}).
+
+-type frontier_source_release() :: #frontier_source_release{}.
+
+-spec new_frontier_source_release(map()) -> {ok, frontier_source_release()} | {error, {missing_field, atom()}}.
+new_frontier_source_release(Map) ->
+    case maps:is_key(source_url, Map) of
+        false -> {error, {missing_field, source_url}};
+        true ->
+    case maps:is_key(publisher, Map) of
+        false -> {error, {missing_field, publisher}};
+        true ->
+    case maps:is_key(published_at, Map) of
+        false -> {error, {missing_field, published_at}};
+        true ->
+    case maps:is_key(content_digest, Map) of
+        false -> {error, {missing_field, content_digest}};
+        true ->
+    case maps:is_key(claims, Map) of
+        false -> {error, {missing_field, claims}};
+        true ->
+    {ok, #frontier_source_release{
+        source_url = maps:get(source_url, Map, undefined),
+        publisher = maps:get(publisher, Map, undefined),
+        published_at = maps:get(published_at, Map, undefined),
+        content_digest = maps:get(content_digest, Map, undefined),
+        claims = maps:get(claims, Map, undefined)
+    }}
+    end
+    end
     end
     end
     end.

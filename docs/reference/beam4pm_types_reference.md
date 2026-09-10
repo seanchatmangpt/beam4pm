@@ -3046,6 +3046,53 @@
 | `receipt_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `refusal_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## frontier_benchmark
+
+> Executable comparison contract produced from a frontier announcement.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `benchmark_id` | `string` | true | Stable benchmark identity. |
+| `metric` | `string` | true | Measured comparison quantity. |
+| `acceptance_predicate` | `string` | true | Predicate that must be observed before the claim can be earned. |
+| `falsifier` | `string` | true | Observation that defeats the benchmark claim. |
+
+## frontier_evidence
+
+> Exact-subject verifier/replay evidence supporting an earned frontier-response claim.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_identity` | `string` | true | Exact implementation subject, normally repository plus commit/digest. |
+| `verifier_identity` | `string` | true | Exact verifier identity. |
+| `receipt_ref` | `string` | true | Execution receipt reference. |
+| `replay_ref` | `string` | true | Replay-verification reference. |
+| `standing` | `atom` | true | Bounded standing; publication consumers must require ALIVE for an earned claim. |
+
+## frontier_opportunity
+
+> DfCM-selected bounded response opportunity derived from an observed release.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `source_digest` | `string` | true | Digest linking this opportunity to its observed source release. |
+| `response_mode` | `atom` | true | One of reuse, compose, extend, invent, benchmark, formalize, automate, eliminate. |
+| `target_repository` | `string` | true | Repository coordinate selected for implementation; selection confers no DO authority. |
+| `required_capability` | `string` | true | Capability the response must manufacture or prove. |
+| `benchmark_id` | `string` | true | Executable benchmark identity. |
+
+## frontier_source_release
+
+> Observed external frontier announcement with provenance and extracted-claim payload; observation only, never authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `source_url` | `string` | true | Canonical external source URL. |
+| `publisher` | `string` | true | Observed publisher identity. |
+| `published_at` | `datetime` | true | Observed publication timestamp. |
+| `content_digest` | `string` | true | Exact digest of the admitted source representation. |
+| `claims` | `map` | true | Normalized observed claims; candidate semantic extraction, not execution evidence. |
+
 ## funding_approval_chain
 
 > Requires a replayable funding approval chain rather than relying on a stakeholder's verbal budget claim.

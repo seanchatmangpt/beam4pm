@@ -6,8 +6,8 @@
 # BeamPM.Codec, created on the real Ash.DataLayer.Ets resource, read back
 # by primary key, and compared field by field against BeamPM.Roundtrip's
 # independently constructed sample -- see the identity relation on
-# verify_one/3. 593 record types; 153 carry
-# 160 datetime attribute(s) compared with DateTime.compare/2.
+# verify_one/3. 597 record types; 154 carry
+# 161 datetime attribute(s) compared with DateTime.compare/2.
 
 defmodule BeamPM.AshRoundtrip do
   @moduledoc """
@@ -315,6 +315,10 @@ defmodule BeamPM.AshRoundtrip do
     :failure_label,
     :federated_dogfood_learning_crown,
     :forged_receipt_refusal,
+    :frontier_benchmark,
+    :frontier_evidence,
+    :frontier_opportunity,
+    :frontier_source_release,
     :funding_approval_chain,
     :fx_conversion_policy,
     :generated_hypothesis,
@@ -914,6 +918,10 @@ defmodule BeamPM.AshRoundtrip do
     failure_label: BeamPM.Ash.Resources.FailureLabel,
     federated_dogfood_learning_crown: BeamPM.Ash.Resources.FederatedDogfoodLearningCrown,
     forged_receipt_refusal: BeamPM.Ash.Resources.ForgedReceiptRefusal,
+    frontier_benchmark: BeamPM.Ash.Resources.FrontierBenchmark,
+    frontier_evidence: BeamPM.Ash.Resources.FrontierEvidence,
+    frontier_opportunity: BeamPM.Ash.Resources.FrontierOpportunity,
+    frontier_source_release: BeamPM.Ash.Resources.FrontierSourceRelease,
     funding_approval_chain: BeamPM.Ash.Resources.FundingApprovalChain,
     fx_conversion_policy: BeamPM.Ash.Resources.FxConversionPolicy,
     generated_hypothesis: BeamPM.Ash.Resources.GeneratedHypothesis,
@@ -1299,6 +1307,7 @@ defmodule BeamPM.AshRoundtrip do
     expansion_receipt: [:observed_at],
     expansion_signal: [:observed_at],
     failed_challenger_retention: [:retained_at],
+    frontier_source_release: [:published_at],
     fx_conversion_policy: [:effective_at],
     integration_readiness: [:observed_at],
     invoice_line_item: [:effective_at],

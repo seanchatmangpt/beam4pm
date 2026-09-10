@@ -3,7 +3,7 @@ defmodule BeamPM.Types.ManifestTest do
   use ExUnit.Case, async: true
 
   test "record_names/0 lists every admitted record type" do
-    assert length(BeamPM.Types.Manifest.record_names()) == 593
+    assert length(BeamPM.Types.Manifest.record_names()) == 597
   end
 
   test "fields/1 returns the ordered field-name list for acceptance_criteria_nonweakening" do
@@ -1104,6 +1104,22 @@ defmodule BeamPM.Types.ManifestTest do
 
   test "fields/1 returns the ordered field-name list for forged_receipt_refusal" do
     assert BeamPM.Types.Manifest.fields(:forged_receipt_refusal) == [:tenant_id, :receipt_id, :refusal_hash]
+  end
+
+  test "fields/1 returns the ordered field-name list for frontier_benchmark" do
+    assert BeamPM.Types.Manifest.fields(:frontier_benchmark) == [:benchmark_id, :metric, :acceptance_predicate, :falsifier]
+  end
+
+  test "fields/1 returns the ordered field-name list for frontier_evidence" do
+    assert BeamPM.Types.Manifest.fields(:frontier_evidence) == [:subject_identity, :verifier_identity, :receipt_ref, :replay_ref, :standing]
+  end
+
+  test "fields/1 returns the ordered field-name list for frontier_opportunity" do
+    assert BeamPM.Types.Manifest.fields(:frontier_opportunity) == [:source_digest, :response_mode, :target_repository, :required_capability, :benchmark_id]
+  end
+
+  test "fields/1 returns the ordered field-name list for frontier_source_release" do
+    assert BeamPM.Types.Manifest.fields(:frontier_source_release) == [:source_url, :publisher, :published_at, :content_digest, :claims]
   end
 
   test "fields/1 returns the ordered field-name list for funding_approval_chain" do

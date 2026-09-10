@@ -4442,6 +4442,76 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "frontier_benchmark",
+      mod: BeamPM.Ash.Resources.FrontierBenchmark,
+      params: %{
+          benchmark_id: "sample_x",
+          metric: "sample_x",
+          acceptance_predicate: "sample_x",
+          falsifier: "sample_x"
+      },
+      expected: %{
+          benchmark_id: "sample_x",
+          metric: "sample_x",
+          acceptance_predicate: "sample_x",
+          falsifier: "sample_x"
+      }
+    },
+    %{
+      name: "frontier_evidence",
+      mod: BeamPM.Ash.Resources.FrontierEvidence,
+      params: %{
+          subject_identity: "sample_x",
+          verifier_identity: "sample_x",
+          receipt_ref: "sample_x",
+          replay_ref: "sample_x",
+          standing: :sample_atom
+      },
+      expected: %{
+          subject_identity: "sample_x",
+          verifier_identity: "sample_x",
+          receipt_ref: "sample_x",
+          replay_ref: "sample_x",
+          standing: :sample_atom
+      }
+    },
+    %{
+      name: "frontier_opportunity",
+      mod: BeamPM.Ash.Resources.FrontierOpportunity,
+      params: %{
+          source_digest: "sample_x",
+          response_mode: :sample_atom,
+          target_repository: "sample_x",
+          required_capability: "sample_x",
+          benchmark_id: "sample_x"
+      },
+      expected: %{
+          source_digest: "sample_x",
+          response_mode: :sample_atom,
+          target_repository: "sample_x",
+          required_capability: "sample_x",
+          benchmark_id: "sample_x"
+      }
+    },
+    %{
+      name: "frontier_source_release",
+      mod: BeamPM.Ash.Resources.FrontierSourceRelease,
+      params: %{
+          source_url: "sample_x",
+          publisher: "sample_x",
+          published_at: "2026-08-29T12:00:00Z",
+          content_digest: "sample_x",
+          claims: %{"k" => "v"}
+      },
+      expected: %{
+          source_url: "sample_x",
+          publisher: "sample_x",
+          published_at: ~U[2026-08-29 12:00:00Z],
+          content_digest: "sample_x",
+          claims: %{"k" => "v"}
+      }
+    },
+    %{
       name: "funding_approval_chain",
       mod: BeamPM.Ash.Resources.FundingApprovalChain,
       params: %{

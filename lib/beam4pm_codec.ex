@@ -2508,6 +2508,45 @@ defmodule BeamPM.Codec do
     ])
   end
 
+  def to_map(%BeamPM.Types.FrontierBenchmark{} = r) do
+    to_known_map([
+      {"benchmark_id", r.benchmark_id, :passthrough},
+      {"metric", r.metric, :passthrough},
+      {"acceptance_predicate", r.acceptance_predicate, :passthrough},
+      {"falsifier", r.falsifier, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.FrontierEvidence{} = r) do
+    to_known_map([
+      {"subject_identity", r.subject_identity, :passthrough},
+      {"verifier_identity", r.verifier_identity, :passthrough},
+      {"receipt_ref", r.receipt_ref, :passthrough},
+      {"replay_ref", r.replay_ref, :passthrough},
+      {"standing", r.standing, :atom}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.FrontierOpportunity{} = r) do
+    to_known_map([
+      {"source_digest", r.source_digest, :passthrough},
+      {"response_mode", r.response_mode, :atom},
+      {"target_repository", r.target_repository, :passthrough},
+      {"required_capability", r.required_capability, :passthrough},
+      {"benchmark_id", r.benchmark_id, :passthrough}
+    ])
+  end
+
+  def to_map(%BeamPM.Types.FrontierSourceRelease{} = r) do
+    to_known_map([
+      {"source_url", r.source_url, :passthrough},
+      {"publisher", r.publisher, :passthrough},
+      {"published_at", r.published_at, :passthrough},
+      {"content_digest", r.content_digest, :passthrough},
+      {"claims", r.claims, :passthrough}
+    ])
+  end
+
   def to_map(%BeamPM.Types.FundingApprovalChain{} = r) do
     to_known_map([
       {"opportunity_id", r.opportunity_id, :passthrough},
@@ -8951,6 +8990,61 @@ defmodule BeamPM.Codec do
         {"refusal_hash", :refusal_hash, :passthrough}
       ],
       &BeamPM.Types.ForgedReceiptRefusal.new/1
+    )
+  end
+
+  def from_map(:frontier_benchmark, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"benchmark_id", :benchmark_id, :passthrough},
+        {"metric", :metric, :passthrough},
+        {"acceptance_predicate", :acceptance_predicate, :passthrough},
+        {"falsifier", :falsifier, :passthrough}
+      ],
+      &BeamPM.Types.FrontierBenchmark.new/1
+    )
+  end
+
+  def from_map(:frontier_evidence, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"subject_identity", :subject_identity, :passthrough},
+        {"verifier_identity", :verifier_identity, :passthrough},
+        {"receipt_ref", :receipt_ref, :passthrough},
+        {"replay_ref", :replay_ref, :passthrough},
+        {"standing", :standing, :atom}
+      ],
+      &BeamPM.Types.FrontierEvidence.new/1
+    )
+  end
+
+  def from_map(:frontier_opportunity, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"source_digest", :source_digest, :passthrough},
+        {"response_mode", :response_mode, :atom},
+        {"target_repository", :target_repository, :passthrough},
+        {"required_capability", :required_capability, :passthrough},
+        {"benchmark_id", :benchmark_id, :passthrough}
+      ],
+      &BeamPM.Types.FrontierOpportunity.new/1
+    )
+  end
+
+  def from_map(:frontier_source_release, m) when is_map(m) do
+    from_known_fields(
+      m,
+      [
+        {"source_url", :source_url, :passthrough},
+        {"publisher", :publisher, :passthrough},
+        {"published_at", :published_at, :passthrough},
+        {"content_digest", :content_digest, :passthrough},
+        {"claims", :claims, :passthrough}
+      ],
+      &BeamPM.Types.FrontierSourceRelease.new/1
     )
   end
 
