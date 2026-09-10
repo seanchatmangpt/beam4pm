@@ -11,22 +11,30 @@ github-actions-pack = { path = "vendor/ggen-marketplace/packs/github-actions-pac
 beam4pm-ai-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-ai-contracts-pack" }
 beam4pm-pro-entitlement = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-entitlement-pack" }
 frontier-release = { path = "vendor/ggen-marketplace/packs/frontier-release-beam-pack" }
-# ggen-verify-pack: investigated 2026-09-10 (OCEL evidence-architecture
-# Phase 4), NOT wired yet. Its 4 ver:RequiredCheck facts (build/test/
-# clippy-reference/byte-identity) are hard-coded `cargo build --workspace` /
-# `cargo test --workspace` / `cargo clippy ...` commands admitted directly
-# in the pack's own ontology.ttl -- correct for a Rust-generated consumer,
-# but beam4pm's manufactured projections are Erlang/Elixir/Gleam (rebar3
-# eunit + mix test), so wiring the pack as-is makes every `ggen sync run`
-# refuse at gate 010_evidence_present.rq (missing evidence for `build`),
-# confirmed by a real `ggen sync run --dry-run` against this exact
-# [packs] entry. Real wiring needs either (a) the pack adding a
-# consumer-overridable RequiredCheck set (upstream pack change), or (b) a
-# beam4pm-local reinterpretation of ver:req-build/-test/-clippy-reference/
-# -byte-identity's ver:checkCommand to rebar3/mix equivalents without
-# breaking the pack's own IRIs for its other (Rust) consumers -- neither
-# attempted this session; left as a real, disclosed BLOCKED item rather
-# than force cargo commands into a BEAM tree.
+# ggen-verify-pack: wired 2026-09-10 (OCEL evidence-architecture Phase 4,
+# unblocked). The pack previously shipped 4 hardcoded cargo
+# ver:RequiredCheck individuals (build/test/clippy-reference/byte-identity)
+# directly in ITS OWN ontology.ttl, which made every `ggen sync run` refuse
+# at gate 010_evidence_present.rq for any non-Rust consumer (no rebar3/mix
+# evidence could ever satisfy check names hardcoded to cargo). Fixed
+# upstream in ggen-verify-pack v26.7.20 (real fix, not a workaround: the
+# pack now ships ZERO ver:RequiredCheck individuals -- gate 010's own
+# SPARQL was already generic, `?req a ver:RequiredCheck` with no
+# namespace/IRI constraint, so pack-shipped individuals were never
+# load-bearing for the gate mechanism, only noise against a non-Rust
+# consumer). beam4pm now admits its own ver:RequiredCheck facts below
+# (`bpm:req-*` in ontology.ttl) naming its REAL check commands (rebar3
+# eunit, mix test, mix compile --warnings-as-errors, the evidence-coverage
+# gate). verify-evidence is the local, unpinned (lock = false) evidence
+# mini-pack the generated emitter (scripts/verify-evidence.sh) writes into;
+# [law] reflexive = true is required by gates 030 (freshness)/040 (latest
+# green)/050 (output-count regression), which query the reflexive sync
+# history.
+ggen-verify-pack = { path = "vendor/ggen-marketplace/packs/ggen-verify-pack" }
+verify-evidence = { path = "evidence", lock = false }
+
+[law]
+reflexive = true
 
 # gh-terraform-pack: investigated 2026-08-30, NOT wired -- ships unscoped
 # reference-repo instance data that hard-collides (family "repository") or

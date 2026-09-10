@@ -28121,3 +28121,34 @@ bpm:unit_economics_snapshot_effective_at_f a bpm:Field ;
     bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# --- ggen-verify-pack wiring: beam4pm's own ver:RequiredCheck policy ------
+# (OCEL evidence-architecture Phase 4, unblocked 2026-09-10 by
+# ggen-verify-pack v26.7.20 removing its hardcoded cargo individuals.)
+# beam4pm's real toolchain is Erlang/Elixir/Gleam, not Rust -- these four
+# facts name beam4pm's REAL verification commands, not cargo.
+@prefix ver: <http://seanchatmangpt.github.io/packs/ggen-verify#> .
+
+bpm:req-eunit a ver:RequiredCheck ;
+    ver:name "eunit" ;
+    ver:checkCommand "rebar3 eunit" ;
+    rdfs:comment "The Erlang eunit test suite over generated src/*.erl must have been run and recorded." .
+
+bpm:req-mix-test a ver:RequiredCheck ;
+    ver:name "mix-test" ;
+    ver:checkCommand "mix test" ;
+    rdfs:comment "The Elixir ExUnit test suite over generated lib/*.ex must have been run and recorded." .
+
+bpm:req-mix-compile a ver:RequiredCheck ;
+    ver:name "mix-compile-warnings" ;
+    ver:checkCommand "mix compile --warnings-as-errors" ;
+    rdfs:comment "Elixir compilation with warnings promoted to errors must have been run and recorded." .
+
+bpm:req-evidence-coverage a ver:RequiredCheck ;
+    ver:name "evidence-coverage" ;
+    ver:checkCommand "bash scripts/gate_evidence_coverage_check.sh" ;
+    rdfs:comment "beam4pm's own OCEL evidence-coverage gate (scripts/gate_evidence_coverage_check.sh) must have been run and recorded." .
+
+bpm:kd-mix-test a ver:KnownDivergence ;
+    ver:name "mix-test" ;
+    rdfs:comment "mix test currently reports 1073 tests, 11 failures, 57 skipped -- the documented pre-existing RF2/RF3-oracle-env baseline from this session's earlier OCEL-evidence-architecture work, not a regression introduced by wiring ggen-verify-pack. Recorded red, accepted, disclosed; remove once the 11 pre-existing failures are root-caused and fixed." .
