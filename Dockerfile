@@ -12,16 +12,22 @@
 # 2026-09-09 (GitHub issue #13: bumped from the prior 1.18.5-erlang-27.2.4
 # pin, which was materially OLDER than the BEAM toolchain pair the M0-M6
 # gate closure actually verified -- OTP 28.3.1 / Elixir 1.19.5, per
-# docs/jira/v26.8.29/16-gate-closure-m0-m6.md GATE M3. The old pin was also
-# a REAL, currently-live container-build breakage, not just a documentation
-# mismatch: :ash_ai's Spark DSL (lib/ash_ai/dev_tools/tools.ex) failed to
-# compile under Elixir 1.18.5/OTP 27.2.4 in this image
-# (`** (Spark.Error.DslError) [AshAi.DevTools.Tools]`, confirmed via
-# beam4pm-container.yml run 34426167278, both amd64 and arm64 legs) while
-# compiling cleanly under 1.19.5/28.3.1 -- the same pair this repo's own
-# local development and CI test matrix already use. hexpm/elixir and
+# docs/jira/v26.8.29/16-gate-closure-m0-m6.md GATE M3). hexpm/elixir and
 # hexpm/erlang both list the exact tags below; multi-arch, so this builds
 # natively on amd64 runners and arm64 laptops alike.
+#
+# SEPARATE, REAL fix in the same change (initially misdiagnosed as the
+# toolchain gap above -- correction, not left standing): every
+# beam4pm-container.yml run was failing `** (Spark.Error.DslError)
+# [AshAi.DevTools.Tools] \`config :ash, :default_string_length_count\` is
+# not set` (confirmed via runs 34426167278 and 34445189824, both amd64/
+# arm64 legs, BEFORE and AFTER the toolchain bump above -- ruling out the
+# toolchain as the cause). Root cause: this Dockerfile's builder stage
+# never COPYed config/ at all, so config/config.exs's real
+# `config :ash, default_string_length_count: :codepoints` (added when
+# ash_ai 1.0.0 started requiring it) never reached the image -- `mix test`
+# ran with zero config loaded. Fixed by adding `COPY config ./config`
+# below, verified via a real local `docker build --target builder`.
 #
 # GLEAM IS DELIBERATELY EXCLUDED from this image: the hexpm base images carry
 # no gleam and no clean in-image install path exists (the gleam release
@@ -65,6 +71,7 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 
 WORKDIR /app
 COPY rebar.config mix.exs mix.lock ./
+COPY config ./config
 COPY src ./src
 COPY lib ./lib
 COPY test ./test
