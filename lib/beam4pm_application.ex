@@ -22,6 +22,16 @@ defmodule BeamPM.Application do
       {Bandit, plug: BeamPM.OcelIngest.Router, port: port}
     ]
 
-    Supervisor.start_link(children, strategy: :one_for_one, name: BeamPM.Supervisor)
+    result = Supervisor.start_link(children, strategy: :one_for_one, name: BeamPM.Supervisor)
+
+    # BeamPM.Evidence (lib/beam4pm_evidence.ex) -- attaches the real
+    # [:beam4pm, :engine, engine, op] telemetry family (every generated
+    # engine facade op) to both the OCEL ingest bridge and the OTel span
+    # bridge. Supervision-tree wiring is a manufacturing input per this
+    # module's own doc comment; this call, not a new generated template, is
+    # the right place for it.
+    :ok = BeamPM.Evidence.attach_all()
+
+    result
   end
 end

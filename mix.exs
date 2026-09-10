@@ -52,6 +52,18 @@ defmodule Beam4pm.MixProject do
       # beam4pm_engine.ex.tmpl) emits a real :telemetry.execute/3 event on
       # both its success and refusal paths (OCEL evidence-contract Phase 2).
       {:telemetry, "~> 1.4"},
+      # :opentelemetry -- real OTel SDK dependency (not test-only), Phase 3
+      # of the OCEL evidence-contract work: BeamPM.Evidence.OtelBridge
+      # (lib/beam4pm_evidence.ex) opens/closes a real span per
+      # [:beam4pm, :engine, engine, op] telemetry event via
+      # OpenTelemetry.Tracer.with_span/3. Exporter defaults to
+      # :otel_exporter_stdout (shipped inside this same package, no extra
+      # dep) for local/dev visibility; production/CI can override via
+      # config :opentelemetry, traces_exporter: :none (or a real OTLP
+      # exporter dep) since beam4pm is a library/substrate, not a
+      # standalone service that should force stdout tracing on its host app.
+      {:opentelemetry, "~> 1.5"},
+      {:opentelemetry_api, "~> 1.4"},
       # BeamPM.OcelIngest.Router (lib/beam4pm_ocel_ingest.ex) -- beam4pm's own
       # independent network ingestion layer, real runtime deps (not
       # only: :test): a running beam4pm needs to actually listen.
