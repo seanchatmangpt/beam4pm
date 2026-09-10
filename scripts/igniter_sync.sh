@@ -106,9 +106,15 @@ mix ggen_igniter.sync \
 
 # 1b. BeamPM.Ash.Domain (registers every resource from 1a by name) plus the
 #     static BeamPM.Autonomy.Kernel module -- neither has a per-record
-#     shape, so both stay single-output like the pre-split monolith.
+#     shape, so both stay single-output like the pre-split monolith. Must
+#     run on MERGED_TTL, same as 1a: a bare-ontology.ttl run here once
+#     generated every lib/beam4pm_ash/resources/frontier_*.ex resource
+#     module (1a, correctly on MERGED_TTL) but left them unregistered in
+#     BeamPM.Ash.Domain, a real "Resource ... is not accepted by
+#     BeamPM.Ash.Domain" Ash.create/3 failure caught by
+#     test/beam4pm_ash_roundtrip_test.exs, not a hypothetical.
 mix ggen_igniter.sync \
-  --ontology ontology.ttl \
+  --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
   --template "$IGN/templates/beam4pm_ash_domain.ex.eex" \
   --out lib/beam4pm_ash_domain.ex
@@ -170,9 +176,13 @@ mix ggen_igniter.sync \
   --out test/beam4pm_ash_roundtrip_test.exs
 
 # 2b. BeamPM.AutonomyKernelGeneratedTest: static, no per-record shape, so it
-#     stays a single output file like the pre-split monolith test.
+#     stays a single output file like the pre-split monolith test. Run on
+#     MERGED_TTL for consistency with every other `records` consumer in
+#     this script since 0b (frontier-release-beam-pack) -- if this template
+#     ever starts counting/listing records (it does not today), a bare
+#     ontology.ttl run would silently under-report the same way 1b did.
 mix ggen_igniter.sync \
-  --ontology ontology.ttl \
+  --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
   --template "$IGN/templates/beam4pm_ash_kernel_test.exs.eex" \
   --out test/beam4pm_ash_kernel_test.exs
