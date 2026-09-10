@@ -70,15 +70,15 @@ RUN curl -fsSL https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --p
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 WORKDIR /app
-COPY rebar.config mix.exs mix.lock ./
+COPY rebar.config mix.exs mix.lock ontology.ttl ./
 COPY config ./config
 COPY src ./src
 COPY lib ./lib
 COPY test ./test
 COPY qualification ./qualification
 COPY native ./native
-COPY scripts/env ./scripts/env
-COPY scripts/rust4pm_wasm_build.sh ./scripts/rust4pm_wasm_build.sh
+COPY schema ./schema
+COPY scripts ./scripts
 
 # RF1/RF2/RF3/RF4's real Chicago tests spawn these compiled Rust oracle
 # binaries as subprocesses (rust4pm's own process_mining =0.6.2 function
