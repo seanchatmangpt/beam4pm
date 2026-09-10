@@ -14,7 +14,7 @@ content_hash = "blake3:7d069bbc76b22d685a10e00acea10222be388580203ccfb91d2dc34df
 
 [packs.beam4pm-process-model]
 source = "path:vendor/ggen-marketplace/packs/beam4pm-process-model-pack"
-content_hash = "blake3:3e91526aae0e7a976e5e71925366cde919791c8eb36547c37db821b157c12b8b"
+content_hash = "blake3:6acebbfd1072fbcf4e48c7205cbde9d7013de0d0e6588ea8e368da6f603b1dbc"
 
 [packs.github-actions-pack]
 source = "path:vendor/ggen-marketplace/packs/github-actions-pack"

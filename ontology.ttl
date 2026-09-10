@@ -11535,6 +11535,15 @@ bap:engine_ferroplan_op_session_mind_bytes a bpm:EngineOp ;
 bap:engine_ferroplan_op_session_mind_bytes_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_mind_bytes ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
+bap:engine_ferroplan_op_hddl_solve a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "hddl_solve" ; bpm:opOrder 31 ;
+    bpm:opDoc "`{\"op\":\"hddl_solve\",\"domain\":d,\"problem\":p[,\"limits\":{...}]}` -- `domain`/`problem` are HDDL source text (not classical PDDL): parsed, grounded, and translated by `ferroplan_hddl`, then solved by the existing FOND policy solver (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. Returns `{:ok, <UniversalPlan map>}`. A malformed/unsolvable HDDL document surfaces as `{:ok, %{\"error\" => %{\"code\" => ..., \"message\" => ..., \"retryable\" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_hddl_solve_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_hddl_solve_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
 # WS1-OBS-001 — repository_default_branch_observation
 b4p:repository_default_branch_observation_rt a bpm:RecordType ;
     bpm:recordName "repository_default_branch_observation" ;
