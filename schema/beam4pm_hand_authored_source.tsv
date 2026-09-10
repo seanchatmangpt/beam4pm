@@ -17,9 +17,11 @@ lib/ggen_igniter/patch_field.ex	hand_authored_qualification	true	febc37450299760
 lib/mix/tasks/beam4pm.rf2_oracle_dep.ex	hand_authored_qualification	true	82084f3fab0fcc005b239ca95313e04e7462ea75fbf9865be7b284eb040e1e9f	2026-12-31	mix test test/beam4pm_rf2_oracle_dep_task_test.exs	-
 lib/mix/tasks/beam4pm.version_bump.ex	hand_authored_qualification	true	8f5bf9a8ce8550b5fa3b2b1b7b85315e021911972bd2fa3398fab05cc6783c3c	2026-12-31	mix test test/beam4pm_version_bump_test.exs	-
 lib/mix/tasks/ggen_igniter.patch_field.ex	hand_authored_qualification	true	89c5c6997053eaeb124547700485c420b72da3351c150600888c8ceb442dd322	2026-12-31	mix test test/ggen_igniter_patch_field_test.exs	-
+schema/beam4pm_evidence_coverage.tsv	hand_authored_qualification	true	13df9958c005ad8b86d17651d821dcf6776d43006e7caedff7034d78a9e0c22a	2026-12-31	bash scripts/gate_evidence_coverage_check.sh	-
 src/beam4pm.app.src	manufacturing_input	false	-	-	rebar3 compile	-
 test/beam4pm_ash_ai_tools_test.exs	hand_authored_qualification	true	b658dbbdcaa4c5585ee1d7b4b1dc80c059a40535157960386363e383b924dfd3	2026-12-31	mix test test/beam4pm_ash_ai_tools_test.exs	-
 test/beam4pm_contracts_test.exs	hand_authored_qualification	true	04699f8e50cccd9b451619f983e472950799b8b2058000e5a1be251b004fc065	2026-12-31	mix test test/beam4pm_contracts_test.exs	-
+test/beam4pm_evidence_chain_test.exs	hand_authored_qualification	true	2c398b053b9ca830adf948b8ce0e741328a7d443b480a89c253e5929f5dc3399	2026-12-31	mix test test/beam4pm_evidence_chain_test.exs	-
 test/beam4pm_ferroplan_facades_test.exs	hand_authored_qualification	true	9ad4f8658075e3804384a02b6c2ee550a235fd7e75615acf9838b285c9533e34	2026-12-31	mix test test/beam4pm_ferroplan_facades_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_ferroplan_test.exs	hand_authored_qualification	true	6f7760d29a3dbf06dd290221a878c77b5806cc2d25a4cc6cb98732dde3967384	2026-12-31	mix test test/beam4pm_ferroplan_test.exs	native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm
 test/beam4pm_ocel_test.exs	hand_authored_qualification	true	af2f005ef2b9f52bf1b50b594239dee77cdbd855a1702bd19dbcaaf91b8f4e39	2026-12-31	mix test test/beam4pm_ocel_test.exs	-

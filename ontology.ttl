@@ -10913,6 +10913,28 @@ bap:hand_authored_doc_scripts a bpm:HandAuthoredSource ;
     bpm:acceptanceCommand "bash scripts/gate_lint_truth.sh" ;
     bpm:admittedAtCommit "f44dcd0" .
 
+bap:hand_authored_schema_evidence_coverage a bpm:HandAuthoredSource ;
+    bpm:sourcePath "schema/beam4pm_evidence_coverage.tsv" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "OCEL evidence-contract Phase 5: coverage matrix written by the new scripts/gate_evidence_coverage_check.sh falsifier (declared/reachable columns from real static grep evidence over the generated engine facades; the five runtime columns are the literal string \"unverified_static_gate\", not fabricated, pending Phase 6's real runtime smoke). Committed 666e1df alongside the gate script itself but never admitted in this GATE AUTHORSHIP manifest at that time -- a real gap, fixed here rather than left to surface again as a silent REFUSED_UNADMITTED." ;
+    bpm:acceptanceCommand "bash scripts/gate_evidence_coverage_check.sh" ;
+    bpm:contentSha256 "13df9958c005ad8b86d17651d821dcf6776d43006e7caedff7034d78a9e0c22a" ;
+    bpm:admittedAtCommit "666e1df" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "Regenerate as a GENERATED artifact once the gate script itself is folded into a ggen template family; keep admitted as hand-authored gate output until then." .
+
+bap:hand_authored_test_evidence_chain a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_evidence_chain_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "OCEL evidence-contract Phase 6: one generalized Chicago-style end-to-end test asserting real state at all three evidence hops (a real OcelEvent in BeamPM.Ingest.Bridge.events/0, a real OTel span captured via the real otel_exporter_pid test exporter swapped onto the running otel_batch_processor, and a real BeamPM.ReceiptChain.verify/2-checked receipt chain) for one representative op per engine (petgraph.graph_new, tract.load_model_path, rust4pm.ocel_new, ferroplan.readiness) plus one refusal-path case (rust4pm.import_xes(\"not xml\")). No mocks; a missing wasm artifact is a named ExUnit skip per this repo's own established pattern." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_evidence_chain_test.exs" ;
+    bpm:contentSha256 "2c398b053b9ca830adf948b8ce0e741328a7d443b480a89c253e5929f5dc3399" ;
+    bpm:admittedAtCommit "666e1df" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "No template family fits an end-to-end evidence-chain qualification test today; keep as permanently-admitted hand-authored infrastructure. Phase 16's full-79-op rollout will extend this same file, not replace it." .
+
 # ===========================================================================
 # Native engine surfaces -- ADMITTED as facts, facades MANUFACTURED
 # (2026-09-05; VISION-2030 section 2 / section 24 falsifier "ggen-only
