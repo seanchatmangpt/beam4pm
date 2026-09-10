@@ -48,6 +48,10 @@ defmodule Beam4pm.MixProject do
       {:ash, "~> 3.0"},
       {:ash_ai, "~> 1.0"},
       {:wasmex, "~> 0.15"},
+      # :telemetry -- every generated engine facade op (lib/beam4pm_*.ex,
+      # beam4pm_engine.ex.tmpl) emits a real :telemetry.execute/3 event on
+      # both its success and refusal paths (OCEL evidence-contract Phase 2).
+      {:telemetry, "~> 1.4"},
       # BeamPM.OcelIngest.Router (lib/beam4pm_ocel_ingest.ex) -- beam4pm's own
       # independent network ingestion layer, real runtime deps (not
       # only: :test): a running beam4pm needs to actually listen.

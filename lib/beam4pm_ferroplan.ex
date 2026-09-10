@@ -182,9 +182,46 @@ defmodule BeamPM.Ferroplan do
   @spec plan(String.t(), String.t(), map(), keyword()) :: result()
   def plan(domain, problem, extra \\ %{}, opts \\ [])
       when is_binary(domain) and is_binary(problem) and is_map(extra) do
-    %{"op" => "plan", "domain" => domain, "problem" => problem}
-    |> Map.merge(extra)
-    |> call(timeout(opts, @heavy_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ domain, problem, extra }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "plan", "domain" => domain, "problem" => problem}
+      |> Map.merge(extra)
+      |> call(timeout(opts, @heavy_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_plan",
+      engine: :ferroplan,
+      op: :plan,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :plan],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :plan],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -193,9 +230,46 @@ defmodule BeamPM.Ferroplan do
   @spec plan_production(String.t(), String.t(), map(), keyword()) :: result()
   def plan_production(domain, problem, extra \\ %{}, opts \\ [])
       when is_binary(domain) and is_binary(problem) and is_map(extra) do
-    %{"op" => "plan_production", "domain" => domain, "problem" => problem}
-    |> Map.merge(extra)
-    |> call(timeout(opts, @heavy_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ domain, problem, extra }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "plan_production", "domain" => domain, "problem" => problem}
+      |> Map.merge(extra)
+      |> call(timeout(opts, @heavy_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_plan_production",
+      engine: :ferroplan,
+      op: :plan_production,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :plan_production],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :plan_production],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -203,8 +277,45 @@ defmodule BeamPM.Ferroplan do
   """
   @spec readiness(keyword()) :: result()
   def readiness(opts \\ []) do
-    %{"op" => "readiness"}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({  }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "readiness"}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_readiness",
+      engine: :ferroplan,
+      op: :readiness,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :readiness],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :readiness],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -212,8 +323,45 @@ defmodule BeamPM.Ferroplan do
   """
   @spec version(keyword()) :: result()
   def version(opts \\ []) do
-    %{"op" => "version"}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({  }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "version"}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_version",
+      engine: :ferroplan,
+      op: :version,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :version],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :version],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -222,8 +370,45 @@ defmodule BeamPM.Ferroplan do
   @spec explain(String.t(), String.t(), map(), keyword()) :: result()
   def explain(domain, problem, plan, opts \\ [])
       when is_binary(domain) and is_binary(problem) and is_map(plan) do
-    %{"op" => "explain", "domain" => domain, "problem" => problem, "plan" => plan}
-    |> call(timeout(opts, @heavy_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ domain, problem, plan }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "explain", "domain" => domain, "problem" => problem, "plan" => plan}
+      |> call(timeout(opts, @heavy_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_explain",
+      engine: :ferroplan,
+      op: :explain,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :explain],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :explain],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -232,8 +417,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_new(String.t(), String.t(), keyword()) :: result()
   def session_new(domain, problem, opts \\ [])
       when is_binary(domain) and is_binary(problem) do
-    %{"op" => "session_new", "domain" => domain, "problem" => problem}
-    |> call(timeout(opts, @heavy_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ domain, problem }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_new", "domain" => domain, "problem" => problem}
+      |> call(timeout(opts, @heavy_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_new",
+      engine: :ferroplan,
+      op: :session_new,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_new],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_new],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -242,8 +464,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_fork(non_neg_integer(), keyword()) :: result()
   def session_fork(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_fork", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_fork", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_fork",
+      engine: :ferroplan,
+      op: :session_fork,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_fork],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_fork],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -252,8 +511,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_free(non_neg_integer(), keyword()) :: result()
   def session_free(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_free", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_free", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_free",
+      engine: :ferroplan,
+      op: :session_free,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :REFUSAL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_free],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_free],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -262,8 +558,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_set_goal(non_neg_integer(), String.t(), keyword()) :: result()
   def session_set_goal(handle, goal, opts \\ [])
       when is_integer(handle) and is_binary(goal) do
-    %{"op" => "session_set_goal", "handle" => handle, "goal" => goal}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, goal }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_set_goal", "handle" => handle, "goal" => goal}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_set_goal",
+      engine: :ferroplan,
+      op: :session_set_goal,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_set_goal],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_set_goal],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -272,8 +605,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_restrict_prefix_claims(non_neg_integer(), String.t(), String.t(), keyword()) :: result()
   def session_restrict_prefix_claims(handle, prefix, claimed, opts \\ [])
       when is_integer(handle) and is_binary(prefix) and is_binary(claimed) do
-    %{"op" => "session_restrict_prefix_claims", "handle" => handle, "prefix" => prefix, "claimed" => claimed}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, prefix, claimed }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_restrict_prefix_claims", "handle" => handle, "prefix" => prefix, "claimed" => claimed}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_restrict_prefix_claims",
+      engine: :ferroplan,
+      op: :session_restrict_prefix_claims,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_restrict_prefix_claims],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_restrict_prefix_claims],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -282,8 +652,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_restrict_contains(non_neg_integer(), String.t(), keyword()) :: result()
   def session_restrict_contains(handle, filter, opts \\ [])
       when is_integer(handle) and is_binary(filter) do
-    %{"op" => "session_restrict_contains", "handle" => handle, "filter" => filter}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, filter }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_restrict_contains", "handle" => handle, "filter" => filter}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_restrict_contains",
+      engine: :ferroplan,
+      op: :session_restrict_contains,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_restrict_contains],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_restrict_contains],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -292,8 +699,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_think(non_neg_integer(), non_neg_integer(), non_neg_integer(), keyword()) :: result()
   def session_think(handle, evals, mem_mb, opts \\ [])
       when is_integer(handle) and is_integer(evals) and is_integer(mem_mb) do
-    %{"op" => "session_think", "handle" => handle, "evals" => evals, "mem_mb" => mem_mb}
-    |> call(timeout(opts, @heavy_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, evals, mem_mb }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_think", "handle" => handle, "evals" => evals, "mem_mb" => mem_mb}
+      |> call(timeout(opts, @heavy_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_think",
+      engine: :ferroplan,
+      op: :session_think,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_think],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_think],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -302,8 +746,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_valid?(non_neg_integer(), keyword()) :: result()
   def session_valid?(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_valid", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_valid", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_valid",
+      engine: :ferroplan,
+      op: :session_valid,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_valid],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_valid],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -312,8 +793,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_step(non_neg_integer(), keyword()) :: result()
   def session_step(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_step", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_step", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_step",
+      engine: :ferroplan,
+      op: :session_step,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_step],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_step],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -322,8 +840,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_suffix(non_neg_integer(), keyword()) :: result()
   def session_suffix(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_suffix", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_suffix", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_suffix",
+      engine: :ferroplan,
+      op: :session_suffix,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_suffix],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_suffix],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -332,8 +887,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_advance(non_neg_integer(), keyword()) :: result()
   def session_advance(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_advance", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_advance", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_advance",
+      engine: :ferroplan,
+      op: :session_advance,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_advance],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_advance],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -342,8 +934,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_drop_plan(non_neg_integer(), keyword()) :: result()
   def session_drop_plan(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_drop_plan", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_drop_plan", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_drop_plan",
+      engine: :ferroplan,
+      op: :session_drop_plan,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :REFUSAL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_drop_plan],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_drop_plan],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -352,8 +981,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_has_plan?(non_neg_integer(), keyword()) :: result()
   def session_has_plan?(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_has_plan", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_has_plan", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_has_plan",
+      engine: :ferroplan,
+      op: :session_has_plan,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_has_plan],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_has_plan],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -362,8 +1028,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_set_fact(non_neg_integer(), String.t(), boolean(), keyword()) :: result()
   def session_set_fact(handle, name, value, opts \\ [])
       when is_integer(handle) and is_binary(name) and is_boolean(value) do
-    %{"op" => "session_set_fact", "handle" => handle, "name" => name, "value" => value}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, name, value }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_set_fact", "handle" => handle, "name" => name, "value" => value}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_set_fact",
+      engine: :ferroplan,
+      op: :session_set_fact,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_set_fact],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_set_fact],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -372,8 +1075,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_set_timed_fact(non_neg_integer(), number(), String.t(), boolean(), keyword()) :: result()
   def session_set_timed_fact(handle, dt, name, value, opts \\ [])
       when is_integer(handle) and is_number(dt) and is_binary(name) and is_boolean(value) do
-    %{"op" => "session_set_timed_fact", "handle" => handle, "dt" => dt, "name" => name, "value" => value}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, dt, name, value }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_set_timed_fact", "handle" => handle, "dt" => dt, "name" => name, "value" => value}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_set_timed_fact",
+      engine: :ferroplan,
+      op: :session_set_timed_fact,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_set_timed_fact],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_set_timed_fact],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -382,8 +1122,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_observe(non_neg_integer(), [{String.t(), boolean()}], keyword()) :: result()
   def session_observe(handle, sight, opts \\ [])
       when is_integer(handle) and is_list(sight) do
-    %{"op" => "session_observe", "handle" => handle, "sight" => Enum.map(sight, &Tuple.to_list/1)}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, sight }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_observe", "handle" => handle, "sight" => Enum.map(sight, &Tuple.to_list/1)}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_observe",
+      engine: :ferroplan,
+      op: :session_observe,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_observe],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_observe],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -392,8 +1169,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_goal_met?(non_neg_integer(), keyword()) :: result()
   def session_goal_met?(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_goal_met", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_goal_met", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_goal_met",
+      engine: :ferroplan,
+      op: :session_goal_met,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_goal_met],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_goal_met],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -402,8 +1216,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_fact(non_neg_integer(), String.t(), keyword()) :: result()
   def session_fact(handle, name, opts \\ [])
       when is_integer(handle) and is_binary(name) do
-    %{"op" => "session_fact", "handle" => handle, "name" => name}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, name }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_fact", "handle" => handle, "name" => name}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_fact",
+      engine: :ferroplan,
+      op: :session_fact,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_fact],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_fact],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -412,8 +1263,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_apply_start(non_neg_integer(), String.t(), keyword()) :: result()
   def session_apply_start(handle, name, opts \\ [])
       when is_integer(handle) and is_binary(name) do
-    %{"op" => "session_apply_start", "handle" => handle, "name" => name}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, name }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_apply_start", "handle" => handle, "name" => name}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_apply_start",
+      engine: :ferroplan,
+      op: :session_apply_start,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_apply_start],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_apply_start],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -422,8 +1310,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_elapse(non_neg_integer(), number(), keyword()) :: result()
   def session_elapse(handle, dt, opts \\ [])
       when is_integer(handle) and is_number(dt) do
-    %{"op" => "session_elapse", "handle" => handle, "dt" => dt}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, dt }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_elapse", "handle" => handle, "dt" => dt}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_elapse",
+      engine: :ferroplan,
+      op: :session_elapse,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_elapse],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_elapse],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -432,8 +1357,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_set_fluent(non_neg_integer(), String.t(), number(), keyword()) :: result()
   def session_set_fluent(handle, name, value, opts \\ [])
       when is_integer(handle) and is_binary(name) and is_number(value) do
-    %{"op" => "session_set_fluent", "handle" => handle, "name" => name, "value" => value}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, name, value }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_set_fluent", "handle" => handle, "name" => name, "value" => value}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_set_fluent",
+      engine: :ferroplan,
+      op: :session_set_fluent,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_set_fluent],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_set_fluent],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -442,8 +1404,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_fluent(non_neg_integer(), String.t(), keyword()) :: result()
   def session_fluent(handle, name, opts \\ [])
       when is_integer(handle) and is_binary(name) do
-    %{"op" => "session_fluent", "handle" => handle, "name" => name}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, name }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_fluent", "handle" => handle, "name" => name}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_fluent",
+      engine: :ferroplan,
+      op: :session_fluent,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_fluent],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_fluent],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -452,8 +1451,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_plan_valid?(non_neg_integer(), map(), non_neg_integer(), keyword()) :: result()
   def session_plan_valid?(handle, plan, from, opts \\ [])
       when is_integer(handle) and is_map(plan) and is_integer(from) do
-    %{"op" => "session_plan_valid", "handle" => handle, "plan" => plan, "from" => from}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, plan, from }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_plan_valid", "handle" => handle, "plan" => plan, "from" => from}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_plan_valid",
+      engine: :ferroplan,
+      op: :session_plan_valid,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_plan_valid],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_plan_valid],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -462,8 +1498,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_world_bytes(non_neg_integer(), keyword()) :: result()
   def session_world_bytes(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_world_bytes", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_world_bytes", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_world_bytes",
+      engine: :ferroplan,
+      op: :session_world_bytes,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_world_bytes],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_world_bytes],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -472,8 +1545,45 @@ defmodule BeamPM.Ferroplan do
   @spec session_mind_bytes(non_neg_integer(), keyword()) :: result()
   def session_mind_bytes(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_mind_bytes", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "session_mind_bytes", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_session_mind_bytes",
+      engine: :ferroplan,
+      op: :session_mind_bytes,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_mind_bytes],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :session_mind_bytes],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -482,8 +1592,45 @@ defmodule BeamPM.Ferroplan do
   @spec htn_plan(String.t(), String.t(), keyword()) :: result()
   def htn_plan(domain, problem, opts \\ [])
       when is_binary(domain) and is_binary(problem) do
-    %{"op" => "htn_plan", "domain" => domain, "problem" => problem}
-    |> call(timeout(opts, @heavy_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ domain, problem }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "htn_plan", "domain" => domain, "problem" => problem}
+      |> call(timeout(opts, @heavy_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_htn_plan",
+      engine: :ferroplan,
+      op: :htn_plan,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :htn_plan],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :htn_plan],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -492,8 +1639,45 @@ defmodule BeamPM.Ferroplan do
   @spec fond_policy(String.t(), String.t(), keyword()) :: result()
   def fond_policy(domain, problem, opts \\ [])
       when is_binary(domain) and is_binary(problem) do
-    %{"op" => "fond_policy", "domain" => domain, "problem" => problem}
-    |> call(timeout(opts, @heavy_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ domain, problem }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "fond_policy", "domain" => domain, "problem" => problem}
+      |> call(timeout(opts, @heavy_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_fond_policy",
+      engine: :ferroplan,
+      op: :fond_policy,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :fond_policy],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :fond_policy],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -502,8 +1686,45 @@ defmodule BeamPM.Ferroplan do
   @spec hddl_solve(String.t(), String.t(), keyword()) :: result()
   def hddl_solve(domain, problem, opts \\ [])
       when is_binary(domain) and is_binary(problem) do
-    %{"op" => "hddl_solve", "domain" => domain, "problem" => problem}
-    |> call(timeout(opts, @heavy_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ domain, problem }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "hddl_solve", "domain" => domain, "problem" => problem}
+      |> call(timeout(opts, @heavy_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_ferroplan_op_hddl_solve",
+      engine: :ferroplan,
+      op: :hddl_solve,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :hddl_solve],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :ferroplan, :hddl_solve],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   # ---------------------------------------------------------------------

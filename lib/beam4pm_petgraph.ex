@@ -157,8 +157,45 @@ defmodule BeamPM.Petgraph do
   """
   @spec graph_new(keyword()) :: result()
   def graph_new(opts \\ []) do
-    %{"op" => "graph_new"}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({  }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "graph_new"}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_petgraph_op_graph_new",
+      engine: :petgraph,
+      op: :graph_new,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :graph_new],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :graph_new],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -167,8 +204,45 @@ defmodule BeamPM.Petgraph do
   @spec add_node(non_neg_integer(), String.t(), keyword()) :: result()
   def add_node(handle, name, opts \\ [])
       when is_integer(handle) and is_binary(name) do
-    %{"op" => "add_node", "handle" => handle, "name" => name}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, name }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "add_node", "handle" => handle, "name" => name}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_petgraph_op_add_node",
+      engine: :petgraph,
+      op: :add_node,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :add_node],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :add_node],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -177,8 +251,45 @@ defmodule BeamPM.Petgraph do
   @spec add_edge(non_neg_integer(), String.t(), String.t(), keyword()) :: result()
   def add_edge(handle, from, to, opts \\ [])
       when is_integer(handle) and is_binary(from) and is_binary(to) do
-    %{"op" => "add_edge", "handle" => handle, "from" => from, "to" => to, "weight" => Keyword.get(opts, :weight, 1.0)}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, from, to }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "add_edge", "handle" => handle, "from" => from, "to" => to, "weight" => Keyword.get(opts, :weight, 1.0)}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_petgraph_op_add_edge",
+      engine: :petgraph,
+      op: :add_edge,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :STATEFUL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :add_edge],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :add_edge],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -187,8 +298,45 @@ defmodule BeamPM.Petgraph do
   @spec shortest_path(non_neg_integer(), String.t(), String.t(), keyword()) :: result()
   def shortest_path(handle, from, to, opts \\ [])
       when is_integer(handle) and is_binary(from) and is_binary(to) do
-    %{"op" => "shortest_path", "handle" => handle, "from" => from, "to" => to}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, from, to }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "shortest_path", "handle" => handle, "from" => from, "to" => to}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_petgraph_op_shortest_path",
+      engine: :petgraph,
+      op: :shortest_path,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :shortest_path],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :shortest_path],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -197,8 +345,45 @@ defmodule BeamPM.Petgraph do
   @spec scc(non_neg_integer(), keyword()) :: result()
   def scc(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "scc", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "scc", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_petgraph_op_scc",
+      engine: :petgraph,
+      op: :scc,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :scc],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :scc],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -207,8 +392,45 @@ defmodule BeamPM.Petgraph do
   @spec toposort(non_neg_integer(), keyword()) :: result()
   def toposort(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "toposort", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "toposort", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_petgraph_op_toposort",
+      engine: :petgraph,
+      op: :toposort,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :toposort],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :toposort],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -217,8 +439,45 @@ defmodule BeamPM.Petgraph do
   @spec is_cyclic?(non_neg_integer(), keyword()) :: result()
   def is_cyclic?(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "is_cyclic", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "is_cyclic", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_petgraph_op_is_cyclic",
+      engine: :petgraph,
+      op: :is_cyclic,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :is_cyclic],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :is_cyclic],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -227,8 +486,45 @@ defmodule BeamPM.Petgraph do
   @spec node_count(non_neg_integer(), keyword()) :: result()
   def node_count(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "node_count", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "node_count", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_petgraph_op_node_count",
+      engine: :petgraph,
+      op: :node_count,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :node_count],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :node_count],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -237,8 +533,45 @@ defmodule BeamPM.Petgraph do
   @spec edge_count(non_neg_integer(), keyword()) :: result()
   def edge_count(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "edge_count", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "edge_count", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_petgraph_op_edge_count",
+      engine: :petgraph,
+      op: :edge_count,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :PURE
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :edge_count],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :edge_count],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   @doc ~S"""
@@ -247,8 +580,45 @@ defmodule BeamPM.Petgraph do
   @spec free_graph(non_neg_integer(), keyword()) :: result()
   def free_graph(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "free_graph", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    telemetry_t0 = :erlang.monotonic_time()
+    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+
+    telemetry_args_digest =
+      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
+      |> Base.encode16(case: :lower)
+
+    telemetry_result =
+      %{"op" => "free_graph", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
+
+    telemetry_meta = %{
+      op_iri: "https://ggen.dev/projects/beam4pm#engine_petgraph_op_free_graph",
+      engine: :petgraph,
+      op: :free_graph,
+      args_digest: telemetry_args_digest,
+      invocation_id: telemetry_invocation_id,
+      verification_class: :REFUSAL
+    }
+
+    case telemetry_result do
+      {:error, telemetry_reason} ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :free_graph],
+          %{duration_native: telemetry_duration_native},
+          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
+        )
+
+      _ok ->
+        :telemetry.execute(
+          [:beam4pm, :engine, :petgraph, :free_graph],
+          %{duration_native: telemetry_duration_native},
+          telemetry_meta
+        )
+    end
+
+    telemetry_result
   end
 
   # ---------------------------------------------------------------------

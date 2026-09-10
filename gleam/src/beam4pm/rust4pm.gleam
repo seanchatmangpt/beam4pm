@@ -9,6 +9,17 @@
 //// facade src/beam4pm_rust4pm.erl are all rendered from the same admitted
 //// bpm:Engine / bpm:EngineOp / bpm:EngineArg facts.
 ////
+//// Telemetry: every op dispatch on Elixir.BeamPM.Rust4PM emits a real
+//// `:telemetry.execute/3` event ([:beam4pm, :engine, :rust4pm, <op>]) on
+//// both the success and refusal paths -- see lib/beam4pm_rust4pm.ex.
+//// Documented gap: this module's `@external` bindings call straight into
+//// that Elixir function via the Erlang FFI, so the event already fires on
+//// every call made through here. There is no real path for Gleam itself to
+//// call `:telemetry.execute/3` a second time around a call it does not
+//// actually dispatch -- these are pure `@external` type-shape bindings with
+//// no Gleam function body to wrap, so a second emission point here would be
+//// fabricated, not real instrumentation.
+////
 //// Compile-checked by `gleam build` (externals are not resolved at compile
 //// time); runtime-tested ONLY from the mix context
 //// (test/beam4pm_rust4pm_facades_test.exs appends gleam/build/dev/erlang/
