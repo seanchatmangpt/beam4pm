@@ -79,10 +79,35 @@ Acceptance: representative object/event/process graph can be consumed in Ash wit
 ## EPIC B4PM-600 — process mining core
 
 ### B4PM-601 OCEL ingest/export
+
+**Status: PARTIAL_ALIVE** (delta RF3, verified 2026-09-09 at head `72b7b82`). OCEL 2.0
+slim bindings verified through the real rust4pm oracle subprocess, not
+reimplemented: `lib/beam4pm_rf3_ocel.ex`, `mix test test/beam4pm_rf3_ocel_test.exs`
+(part of the 19/19 run above) including real disclosed-limitation cases (duplicate
+object id, dangling O2O reference) surfaced as real oracle warnings, not silently
+dropped. This covers the RF3 function-surface slice only, not full OCEL ingest/export
+end to end — left PARTIAL_ALIVE rather than ALIVE.
+
 ### B4PM-602 directly-follows graph discovery
+
+**Status: ALIVE** (delta RF1, verified 2026-09-09 at head `72b7b82`). Real DFG
+discovery via the real rust4pm oracle subprocess: `lib/beam4pm_rf1_dfg.ex`
+(`BeamPM.RF1.DfgOracleBridge`/`BeamPM.RF1.DfgDiscovery`). `mix test
+test/beam4pm_rf1_dfg_test.exs` (part of the 19/19 run above).
 ### B4PM-603 process/Petri representation
 ### B4PM-604 variants
 ### B4PM-605 alignment/conformance
+
+**Status: ALIVE** (delta EX1 + RF1/RF2/RF3, verified 2026-09-09 at head `72b7b82`). Precision is
+now computed, not left unset: `lib/beam4pm_discovery.ex:169` (`precision =
+Precision.etc_precision(edges, trace)`) feeding `ConformanceResult.new/1` at
+`lib/beam4pm_discovery.ex:172`, via `lib/beam4pm_precision.ex`'s real ETC
+(escaping-edges) implementation. `mix test test/beam4pm_precision_test.exs`: 10
+tests, 0 failures. Alpha+++ discovery/alignment/fitness against real rust4pm oracles
+(RF2) and OCEL 2.0 slim bindings (RF3) also verified this pass, env sourced from
+`scripts/env/rust4pm_reactor_env.sh`: `mix test test/beam4pm_rf1_dfg_test.exs
+test/beam4pm_rf2_conformance_test.exs test/beam4pm_rf3_ocel_test.exs`: 19 tests, 0
+failures.
 ### B4PM-606 path/process schema analysis
 ### B4PM-607 deterministic fixtures/property generation
 
@@ -189,9 +214,58 @@ Acceptance: planner enumerates lawful alternatives from exact twin state but can
 
 ### B4PM-1601 intent object
 ### B4PM-1602 admission/refusal
+
 ### B4PM-1603 authority/capability binding
+
+**Status: ALIVE** (delta EX3, verified 2026-09-09 at head `72b7b82`). `bpma:k8s_scale_up_aa`/
+`bpma:k8s_scale_down_aa` admitted actuations declared `rdfs:subClassOf
+ex4pm:Authority`; the standing vocabulary is confirmed string-identical to
+`ex4pm.ttl`'s six real `ex4pm:Capability` individuals by a real, re-runnable check
+(not a one-time manual grep): `bash scripts/standing_vocabulary_check.sh` ->
+`STANDING VOCABULARY CHECK: PASS -- all 6 canonical strings (UNKNOWN, PARTIAL_ALIVE,
+ALIVE, BLOCKED, BUILD_BROKEN, UNSUPPORTED) confirmed present, string-identical to
+ex4pm.ttl's six real ex4pm:Capability individuals` (exit 0), re-confirmed this pass.
+
 ### B4PM-1604 narrow reversible actuator
+
+**Status: ALIVE** (delta k8s-actuation + continuous ProcessGovernor, verified
+2026-09-09 at head `72b7b82`). Real production k8s actuation
+(`bpma:k8s_scale_up_aa`/`bpma:k8s_scale_down_aa`) drives `qualification/
+k8s_gym_bridge.py` (real `kubectl` subprocess calls) against the real, live
+`kind-ex4pm` cluster through the full `BeamPM.Actuation` Reactor pipeline.
+Continuous-session mode (`lib/beam4pm_process_governor.ex:339-365`,
+`continuous: true`) opens exactly one `BeamPM.Actuation.Session` before the first
+transition and threads it through every graph-declared transition, closing it once
+via `try/after`. Re-run for real this pass against the live cluster (not skipped):
+`mix test test/beam4pm_process_governor_k8s_test.exs --trace` -> 3 tests, 0
+failures, each test actually executing a live 1->3->1 k8s rollout (16.6s, 18.3s,
+16.9s wall time per test, not a skip stub). Combined run: `mix test
+test/beam4pm_process_governor_k8s_test.exs test/beam4pm_process_governor_test.exs
+test/beam4pm_receipt_chain_test.exs`: 18 tests, 0 failures (61.5s).
+
+**Stale citation disclosed**: the delta doc
+(`docs/jira/v26.8.29/22-gate-closure-delta-current-head.md`) still cites
+`test/beam4pm_actuation_k8s_test.exs` for the earlier `setup_all`-skip-mechanism fix;
+that file no longer exists in the tree at this head (confirmed via `ls`, removed at
+some point after commit `4820123`) — the live-cluster k8s coverage now lives in
+`test/beam4pm_process_governor_k8s_test.exs` instead, which is the file actually
+verified above.
+
 ### B4PM-1605 receipt/replay
+
+**Status: ALIVE** (delta EX2, verified 2026-09-09 at head `72b7b82`, re-verified
+after the task's flagged flaky-stress-test concern). `lib/beam4pm_receipt_chain.ex`
+(`BeamPM.ReceiptChain`, `verify/2` at `lib/beam4pm_receipt_chain.ex:300`) is a
+purely-additive hash-chained receipt mechanism via `actuation_opts[:chain_id]`.
+`mix test test/beam4pm_receipt_chain_test.exs`: 10 tests, 0 failures (9.1s) — the
+current test file has 10 tests total (including a 360-write tip-index stress test,
+`test/beam4pm_receipt_chain_test.exs:291`), not the 12-test/400-write file a prior
+partial pass flagged as flaky; no timeout or failure observed in this run. Composed
+with `BeamPM.ProcessGovernor` and the live k8s cluster: `mix test
+test/beam4pm_process_governor_k8s_test.exs test/beam4pm_process_governor_test.exs
+test/beam4pm_receipt_chain_test.exs`: 18 tests, 0 failures (61.5s), including
+`ProcessGovernor.replay/2` end-to-end on a real `k8s_scaling_governed` receipt chain
+plus a real on-disk corruption falsifier.
 
 Acceptance: unauthorized planner action is refused; explicitly admitted action executes exact target, records consequence and replays verification.
 
