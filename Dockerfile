@@ -95,7 +95,14 @@ RUN cd native/rf1-dfg-oracle && cargo build --release \
 # artifacts); rebar3 eunit compiles/runs the test profile on top of it.
 RUN rebar3 compile && rebar3 eunit
 RUN mix local.hex --force && mix deps.get
-RUN . ./scripts/env/rust4pm_reactor_env.sh && mix test
+# --exclude requires_git_root: exactly 2 of 1065 real tests (GATE
+# AUTHORSHIP's "real repository tree" describe block) call `git ls-files`
+# against the actual checkout root -- this .dockerignore deliberately
+# excludes .git/ (measured ~500MB build-context bloat), so these 2 alone
+# cannot pass here. Both still run in every other context (local `mix
+# test`, beam4pm-ci.yml) where a real .git/ is present; this exclusion is
+# scoped to this one RUN line, not a global test_helper.exs change.
+RUN . ./scripts/env/rust4pm_reactor_env.sh && mix test --exclude requires_git_root
 
 # The broad suite intentionally runs before the WASM artifact exists because
 # one canonical-scale Rust4PM test depends on a machine-local 29MB corpus.
