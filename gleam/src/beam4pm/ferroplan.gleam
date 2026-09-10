@@ -9,6 +9,17 @@
 //// facade src/beam4pm_ferroplan.erl are all rendered from the same admitted
 //// bpm:Engine / bpm:EngineOp / bpm:EngineArg facts.
 ////
+//// Telemetry: every op dispatch on Elixir.BeamPM.Ferroplan emits a real
+//// `:telemetry.execute/3` event ([:beam4pm, :engine, :ferroplan, <op>]) on
+//// both the success and refusal paths -- see lib/beam4pm_ferroplan.ex.
+//// Documented gap: this module's `@external` bindings call straight into
+//// that Elixir function via the Erlang FFI, so the event already fires on
+//// every call made through here. There is no real path for Gleam itself to
+//// call `:telemetry.execute/3` a second time around a call it does not
+//// actually dispatch -- these are pure `@external` type-shape bindings with
+//// no Gleam function body to wrap, so a second emission point here would be
+//// fabricated, not real instrumentation.
+////
 //// Compile-checked by `gleam build` (externals are not resolved at compile
 //// time); runtime-tested ONLY from the mix context
 //// (test/beam4pm_ferroplan_facades_test.exs appends gleam/build/dev/erlang/
@@ -160,3 +171,15 @@ pub fn session_world_bytes(handle: Int) -> Result(Dynamic, Dynamic)
 /// `{"op":"session_mind_bytes","handle":h}` -- byte size of this session's private mutable state.
 @external(erlang, "Elixir.BeamPM.Ferroplan", "session_mind_bytes")
 pub fn session_mind_bytes(handle: Int) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"htn_plan","domain":d,"problem":p[,"limits":l]}` -- hierarchical task network (HTN) decomposition, PlanningType::Hierarchical via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`.
+@external(erlang, "Elixir.BeamPM.Ferroplan", "htn_plan")
+pub fn htn_plan(domain: String, problem: String) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"fond_policy","domain":d,"problem":p[,"limits":l]}` -- fully observable non-deterministic (FOND) policy synthesis, PlanningType::Fond via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`.
+@external(erlang, "Elixir.BeamPM.Ferroplan", "fond_policy")
+pub fn fond_policy(domain: String, problem: String) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"hddl_solve","domain":d,"problem":p[,"limits":{...}]}` -- `domain`/`problem` are HDDL source text (not classical PDDL): parsed, grounded, and translated by `ferroplan_hddl`, then solved by the existing FOND policy solver (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. Returns `{:ok, <UniversalPlan map>}`. A malformed/unsolvable HDDL document surfaces as `{:ok, %{"error" => %{"code" => ..., "message" => ..., "retryable" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect).
+@external(erlang, "Elixir.BeamPM.Ferroplan", "hddl_solve")
+pub fn hddl_solve(domain: String, problem: String) -> Result(Dynamic, Dynamic)

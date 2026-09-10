@@ -53,6 +53,13 @@ jobs:
         run: |
           rebar3 eunit
 
+      - name: Cache Cargo dependencies for RF1/RF2/RF3 oracle crates
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          restore-keys: "${{ runner.os }}-cargo-\n"
+          key: ${{ runner.os }}-cargo-${{ hashFiles('native/**/Cargo.lock') }}
+          path: "native/*/target"
+        
       - name: Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3)
         shell: bash
         run: |

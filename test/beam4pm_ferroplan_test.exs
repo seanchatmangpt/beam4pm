@@ -90,6 +90,78 @@ defmodule BeamPM.FerroplanTest do
     end
   end
 
+  describe "universal planning ops (htn_plan/3, fond_policy/3)" do
+    # Same hierarchy fixture as ferroplan's own
+    # crates/ferroplan/tests/planning_runtime.rs::hierarchy_problem() --
+    # one root task decomposed by one method into two primitive subtasks.
+    @htn_problem Jason.encode!(%{
+                   "tasks" => [
+                     %{"id" => "root", "requires" => []},
+                     %{
+                       "id" => "inspect",
+                       "primitive_action" => "inspect-repo",
+                       "requires" => ["read"]
+                     },
+                     %{
+                       "id" => "verify",
+                       "primitive_action" => "run-tests",
+                       "requires" => ["test"]
+                     }
+                   ],
+                   "root_tasks" => ["root"],
+                   "methods" => [
+                     %{"id" => "root-method", "task" => "root", "subtasks" => ["inspect", "verify"]}
+                   ]
+                 })
+
+    test "htn_plan/3 decomposes a real hierarchy problem via solve_planning_type" do
+      assert {:ok, plan} = Ferroplan.htn_plan("", @htn_problem)
+      assert plan["planning_type"] == "hierarchical"
+      assert plan["solved"] == true
+      assert plan["decomposition"] == ["inspect-repo", "run-tests"]
+    end
+
+    # Same FOND fixture as ferroplan's own
+    # crates/ferroplan/tests/planning_runtime.rs::fond_strong_policy_executes()
+    # -- one probabilistic "commit" action landing on either of two goal
+    # states, each satisfying the same goal fact.
+    @fond_problem Jason.encode!(%{
+                    "states" => [
+                      %{"id" => "s0"},
+                      %{"id" => "g1", "facts" => ["done"]},
+                      %{"id" => "g2", "facts" => ["done"]}
+                    ],
+                    "initial_states" => ["s0"],
+                    "goal" => %{"facts" => ["done"]},
+                    "transitions" => [
+                      %{
+                        "action" => "commit",
+                        "from" => "s0",
+                        "to" => "g1",
+                        "probability_ppm" => 500_000
+                      },
+                      %{
+                        "action" => "commit",
+                        "from" => "s0",
+                        "to" => "g2",
+                        "probability_ppm" => 500_000
+                      }
+                    ]
+                  })
+
+    test "fond_policy/3 synthesizes a real strong policy via solve_planning_type" do
+      assert {:ok, plan} = Ferroplan.fond_policy("", @fond_problem)
+      assert plan["planning_type"] == "fond"
+      assert plan["solved"] == true
+      assert plan["policy"] != []
+    end
+
+    test "htn_plan/3 on a malformed problem returns a real adapter error, not a crash" do
+      assert {:error, {:engine, message}} = Ferroplan.htn_plan("", "not json")
+      assert message =~ "FP_ADAPTER"
+    end
+  end
+
   describe "session lifecycle" do
     test "session_new -> session_think -> session_step/suffix/advance walks a real plan" do
       assert {:ok, %{"handle" => handle}} = Ferroplan.session_new(@domain, @problem)

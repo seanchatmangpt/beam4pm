@@ -16,36 +16,39 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 ## Count
 
-- Admitted unmarked files: **35**
-- Counted as manufacturing debt: **28**
+- Admitted unmarked files: **38**
+- Counted as manufacturing debt: **31**
 - Lawful inputs / reference evidence (not debt): **7**
 
 ## Authorship kinds (closed vocabulary, pack `ontology.ttl`)
 
 | Kind | Counts as debt | Admitted | Ceiling | Doc |
 | --- | --- | --- | --- | --- |
-| `hand_authored_qualification` | true | 27 | 27 | A hand-authored ExUnit qualification file under test/ (VISION-2030 section 2 lists tests-as-specification among lawful inputs, but this pack's convention manufactures every test from a template, so an unmanufactured test is counted as debt). Sunset: migrate its fixture bindings into ontology facts and render it from a .tmpl/.eex like the beam4pm_types_test.exs family. Ceiling raised 16 -> 24 (2026-09-09): a beam4pm branch-integration merge surfaced 8 real, pre-existing hand-authored files (lib/beam4pm_application.ex, lib/beam4pm_contracts.ex + test, lib/beam4pm_powl_discovery.ex + test, two new B4PM-1703/1709 mix tasks + tests, test/beam4pm_ws3_dfcm_self_healing_test.exs) that predate GATE AUTHORSHIP's own manufacture and were never previously surfaced as unadmitted debt -- disclosed and counted here, not silently exempted. Ceiling raised 24 -> 27 (2026-09-09, same session): B4PM-1702's single-record-patch codemod (lib/ggen_igniter/patch_field.ex, its mix task, and its test) is a deliberately hand-authored alternative manufacturing path -- the codemod's own capability IS being an alternative to a full EEx re-render, so it cannot itself be ggen output. |
+| `hand_authored_qualification` | true | 30 | 30 | A hand-authored ExUnit qualification file under test/ (VISION-2030 section 2 lists tests-as-specification among lawful inputs, but this pack's convention manufactures every test from a template, so an unmanufactured test is counted as debt). Sunset: migrate its fixture bindings into ontology facts and render it from a .tmpl/.eex like the beam4pm_types_test.exs family. Ceiling raised 16 -> 24 (2026-09-09): a beam4pm branch-integration merge surfaced 8 real, pre-existing hand-authored files (lib/beam4pm_application.ex, lib/beam4pm_contracts.ex + test, lib/beam4pm_powl_discovery.ex + test, two new B4PM-1703/1709 mix tasks + tests, test/beam4pm_ws3_dfcm_self_healing_test.exs) that predate GATE AUTHORSHIP's own manufacture and were never previously surfaced as unadmitted debt -- disclosed and counted here, not silently exempted. Ceiling raised 24 -> 27 (2026-09-09, same session): B4PM-1702's single-record-patch codemod (lib/ggen_igniter/patch_field.ex, its mix task, and its test) is a deliberately hand-authored alternative manufacturing path -- the codemod's own capability IS being an alternative to a full EEx re-render, so it cannot itself be ggen output. Ceiling raised 27 -> 28 (2026-09-10, OCEL evidence-contract Phase 3): lib/beam4pm_evidence.ex is genuinely hand-authored orchestration (attaches the real [:beam4pm, :engine, engine, op] telemetry family to the OCEL/OTel bridges at application boot) with no ontology-fact-driven template for telemetry-bridge wiring; lib/beam4pm_application.ex's existing admission was re-digested (sha updated) for its one-line call to BeamPM.Evidence.attach_all/0, not newly counted. Ceiling raised 28 -> 30 (2026-09-10, OCEL evidence-contract Phase 6): test/beam4pm_evidence_chain_test.exs is a genuinely hand-authored Chicago-style end-to-end qualification test with no template covering an evidence-chain harness (real OCEL + OTel + receipt-chain assertions over a generated engine facade call), and schema/beam4pm_evidence_coverage.tsv (Phase 5's gate output, real but never admitted at the time -- a disclosed prior gap, fixed here) is counted under this same kind as the closest existing category for hand-authored gate/qualification output rather than inventing a narrower kind for one file. |
 | `manufacturing_input` | false | 1 | 4 | Project scaffolding that happens to live under a manufactured root but is a lawful manufacturing input in the same class as ggen.toml / rebar.config / mix.exs (e.g. src/beam4pm.app.src). Not counted as debt; still admitted so the tree has zero unexplained unmarked files. |
 | `native_engine_facade` | true | 1 | 6 | A thin, delegation-only BEAM facade (Erlang / Elixir / Gleam) over ONE native engine hosted via wasm whose surface has NOT yet been admitted as bpm:Engine / bpm:EngineOp facts. Since pack 0.1.17 templates/beam4pm_engine.{ex,erl,gleam}.tmpl render every admitted engine's three facades, so this kind is the shrinking remainder (ferroplan, rust4pm in the reference consumer; petgraph and tract are manufactured). Ceiling lowered 12 -> 6 when those two converted: a converted engine cannot quietly return to hand-authoring. |
 | `reference_evidence` | false | 6 | 8 | A hand-authored reference document under docs/reference/ sitting beside the manufactured ones (VISION-2030 section 2: reference evidence is a lawful input). Not counted as debt; admitted so a doc that only LOOKS manufactured cannot hide there unexplained. |
 
 ## Admitted files
 
-### `hand_authored_qualification` (27 file(s), counts as debt: true)
+### `hand_authored_qualification` (30 file(s), counts as debt: true)
 
 | Path | Admitted at | Expires | Acceptance command | Prerequisite |
 | --- | --- | --- | --- | --- |
-| `lib/beam4pm_application.ex` | `91965eb` | 2026-12-31 | `mix test` | - |
+| `lib/beam4pm_application.ex` | `a4d7df2` | 2026-12-31 | `mix test` | - |
 | `lib/beam4pm_contracts.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
+| `lib/beam4pm_evidence.ex` | `a4d7df2` | 2026-12-31 | `mix test` | - |
 | `lib/beam4pm_powl_discovery.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_powl_discovery_test.exs` | - |
 | `lib/ggen_igniter/patch_field.ex` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | - |
 | `lib/mix/tasks/beam4pm.rf2_oracle_dep.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_rf2_oracle_dep_task_test.exs` | - |
 | `lib/mix/tasks/beam4pm.version_bump.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_version_bump_test.exs` | - |
 | `lib/mix/tasks/ggen_igniter.patch_field.ex` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | - |
+| `schema/beam4pm_evidence_coverage.tsv` | `666e1df` | 2026-12-31 | `bash scripts/gate_evidence_coverage_check.sh` | - |
 | `test/beam4pm_ash_ai_tools_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ash_ai_tools_test.exs` | - |
 | `test/beam4pm_contracts_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
+| `test/beam4pm_evidence_chain_test.exs` | `666e1df` | 2026-12-31 | `mix test test/beam4pm_evidence_chain_test.exs` | - |
 | `test/beam4pm_ferroplan_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
-| `test/beam4pm_ferroplan_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
+| `test/beam4pm_ferroplan_test.exs` | `7aa4f64` | 2026-12-31 | `mix test test/beam4pm_ferroplan_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_ocel_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ocel_test.exs` | - |
 | `test/beam4pm_pddl_projection_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_pddl_projection_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
 | `test/beam4pm_petgraph_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_petgraph_facades_test.exs` | native/petgraph-wasm/target/wasm32-wasip1/release/petgraph_wasm.wasm |
@@ -67,8 +70,8 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 #### `lib/beam4pm_application.ex`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
-- Reason: The OTP application module -- boots BeamPM.Application's supervision tree (including the real Bandit listener for lib/beam4pm_ocel_ingest.ex's router). Necessarily hand-authored: no ontology-fact-driven template exists for an OTP Application callback module, and it predates GATE AUTHORSHIP's own admission of every unmarked file (this file existed before the authorship gate itself was manufactured, so it was never previously surfaced as unadmitted).
-- Content sha256 at admission: `eba7b65c1023b4c0bbb1913907f3102f1eb74268942671d3f8a039f1a3a288f8`
+- Reason: The OTP application module -- boots BeamPM.Application's supervision tree (including the real Bandit listener for lib/beam4pm_ocel_ingest.ex's router) and, as of the OCEL evidence-contract Phase 3 session, calls BeamPM.Evidence.attach_all/0 to wire the real [:beam4pm, :engine, engine, op] telemetry family to the OCEL/OTel bridges. Necessarily hand-authored: no ontology-fact-driven template exists for an OTP Application callback module, and it predates GATE AUTHORSHIP's own admission of every unmarked file (this file existed before the authorship gate itself was manufactured, so it was never previously surfaced as unadmitted).
+- Content sha256 at admission: `f63ae0595b2dc0a8786bbe045d268ccf0c7231cf57a9ccdbb1bc3a045c6f8adc`
 - Sunset plan: No template family fits an OTP Application callback module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter OTP-app-shell recipe is added.
 
 #### `lib/beam4pm_contracts.ex`
@@ -77,6 +80,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Reason: BeamPM.Contracts.manifest/0 -- hand-written composition over already-generated modules (BeamPM.Types.Manifest, BeamPM.ReceiptChain.hash_file!/1), predates GATE AUTHORSHIP's own manufacture and was never previously surfaced as unadmitted.
 - Content sha256 at admission: `51f24b063e54cbf238778c2a0786c9571e1bf98eb1831c17cb9e3eb6a61385a7`
 - Sunset plan: No dedicated template exists for this composition module; keep admitted until one is proposed upstream.
+
+#### `lib/beam4pm_evidence.ex`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: OCEL evidence-contract Phase 3/4: hand-authored orchestration wiring the real [:beam4pm, :engine, engine, op] telemetry family (emitted by every GENERATED engine facade op) to three real consumers -- BeamPM.Ingest.Bridge (scripts/ingest_telemetry.exs, already-admitted capital, buffers a real OcelEvent per call), BeamPM.Evidence.OtelBridge (this file, opens/closes a real OpenTelemetry span per call), and (Phase 4) BeamPM.Evidence.ReceiptBridge (this file, writes one real hash-chained beam4pm-brce/v1 receipt per call via the already-real BeamPM.ReceiptChain.link_fields/3). Not a bpm:RecordType projection or template-rendered file, so it has no generation path -- analogous to lib/beam4pm_application.ex and lib/beam4pm_ocel_ingest.ex, both already-admitted hand-authored lib/ modules.
+- Content sha256 at admission: `8135b9bb0e4f78446442eaa537f2f2d8bb656fa46eea1c60b1caa77330a58ab2`
+- Sunset plan: No template family fits telemetry-bridge orchestration today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter recipe covers evidence-bridge wiring.
 
 #### `lib/beam4pm_powl_discovery.ex`
 
@@ -113,6 +123,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `89c5c6997053eaeb124547700485c420b72da3351c150600888c8ceb442dd322`
 - Sunset plan: Sunsets alongside lib/ggen_igniter/patch_field.ex's own admission.
 
+#### `schema/beam4pm_evidence_coverage.tsv`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: OCEL evidence-contract Phase 5: coverage matrix written by the new scripts/gate_evidence_coverage_check.sh falsifier (declared/reachable columns from real static grep evidence over the generated engine facades; the five runtime columns are the literal string "unverified_static_gate", not fabricated, pending Phase 6's real runtime smoke). Committed 666e1df alongside the gate script itself but never admitted in this GATE AUTHORSHIP manifest at that time -- a real gap, fixed here rather than left to surface again as a silent REFUSED_UNADMITTED.
+- Content sha256 at admission: `13df9958c005ad8b86d17651d821dcf6776d43006e7caedff7034d78a9e0c22a`
+- Sunset plan: Regenerate as a GENERATED artifact once the gate script itself is folded into a ggen template family; keep admitted as hand-authored gate output until then.
+
 #### `test/beam4pm_ash_ai_tools_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
@@ -127,6 +144,13 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Content sha256 at admission: `04699f8e50cccd9b451619f983e472950799b8b2058000e5a1be251b004fc065`
 - Sunset plan: Sunsets alongside lib/beam4pm_contracts.ex's own admission.
 
+#### `test/beam4pm_evidence_chain_test.exs`
+
+- Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
+- Reason: OCEL evidence-contract Phase 6: one generalized Chicago-style end-to-end test asserting real state at all three evidence hops (a real OcelEvent in BeamPM.Ingest.Bridge.events/0, a real OTel span captured via the real otel_exporter_pid test exporter swapped onto the running otel_batch_processor, and a real BeamPM.ReceiptChain.verify/2-checked receipt chain) for one representative op per engine (petgraph.graph_new, tract.load_model_path, rust4pm.ocel_new, ferroplan.readiness) plus one refusal-path case (rust4pm.import_xes("not xml")). No mocks; a missing wasm artifact is a named ExUnit skip per this repo's own established pattern.
+- Content sha256 at admission: `2c398b053b9ca830adf948b8ce0e741328a7d443b480a89c253e5929f5dc3399`
+- Sunset plan: No template family fits an end-to-end evidence-chain qualification test today; keep as permanently-admitted hand-authored infrastructure. Phase 16's full-79-op rollout will extend this same file, not replace it.
+
 #### `test/beam4pm_ferroplan_facades_test.exs`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
@@ -138,7 +162,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39
 - Reason: Chicago qualification of BeamPM.Ferroplan against a real classical-planning domain inside the wasm engine (no mocks); the planning fixtures are hand-written, not ontology facts.
-- Content sha256 at admission: `b03146d3354196f6437636d25c2b4e9b72eaa1f9984431f2bf2650d014f979ca`
+- Content sha256 at admission: `6f7760d29a3dbf06dd290221a878c77b5806cc2d25a4cc6cb98732dde3967384`
 - Sunset plan: Admit the planning fixtures as ontology facts (a bpmg:ProcessContract already projects to PDDL) and render this qualification from them; then delete this admission.
 
 #### `test/beam4pm_ocel_test.exs`
