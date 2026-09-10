@@ -1198,22 +1198,33 @@ bpmi:ocel_objects_route a bpmi:AdmittedIngestRoute ;
 # these facts and re-run `ggen sync run`.
 #
 # beam4pm-ci.yml REPLACES the previously hand-authored .github/workflows/ci.yml
-# (same OTP 27.2 / rebar3 3.24.0 choices, same steps including the
-# honestly-gapped determinism check, plus: gleam test over the Gleam
+# (originally the same OTP 27.2 / rebar3 3.24.0 choices, same steps including
+# the honestly-gapped determinism check, plus: gleam test over the Gleam
 # projection, workflow_dispatch, and every third-party action pinned to a
-# 40-hex commit SHA as the pack's gate 020 requires). Delete ci.yml in the
-# same change that lands the manufactured replacement.
+# 40-hex commit SHA as the pack's gate 020 requires).
 #
 # ELIXIR BUMP 1.17.3 -> 1.18.5, measured not assumed: the current
 # beam4pm's Elixir code calls Elixir's built-in JSON module (JSON.encode!/1,
 # new in Elixir 1.18), and mix.exs's ex_ast transitive dep requires ~> 1.18.
 # A real containerized `mix test` on 1.17.3 (2026-08-29) failed 34/248 tests
 # with UndefinedFunctionError on JSON.encode!/1; the same suite passes 248/248
-# on >= 1.18. So the hand-authored ci.yml's 1.17.3 pin is already broken
+# on >= 1.18. So the hand-authored ci.yml's 1.17.3 pin was already broken
 # against beam4pm's own current code -- this is the "conflict" case where the
-# old version choice must not be kept. v1.18.5-otp-27 confirmed present in
-# https://builds.hex.pm/builds/elixir/builds.txt (published 2026-08-28), the
-# exact list erlef/setup-beam installs from.
+# old version choice must not be kept.
+#
+# SECOND BUMP 27.2/1.18.5 -> 28.3.1/1.19.5 (GitHub issue #13, 2026-09-09):
+# docs/jira/v26.8.29/16-gate-closure-m0-m6.md's own GATE M3 record states
+# the M0-M6 gate closure was actually verified against OTP 28.3.1 / Elixir
+# 1.19.5, not 27.2/1.18.5 -- CI and the Dockerfile builder stage had drifted
+# materially older than the toolchain pair the gate closure itself proved.
+# This was a REAL, currently-live container-build breakage, not just a
+# documentation mismatch: :ash_ai's Spark DSL (lib/ash_ai/dev_tools/
+# tools.ex) failed `** (Spark.Error.DslError) [AshAi.DevTools.Tools]` under
+# 1.18.5/27.2.4 (confirmed via beam4pm-container.yml run 34426167278, both
+# amd64 and arm64 legs) while compiling cleanly under 1.19.5/28.3.1.
+# hexpm/elixir:1.19.5-erlang-28.3.1-debian-bookworm-20260610 confirmed
+# present via Docker Hub's tag API on 2026-09-09, same source discipline as
+# the original resolution below.
 #
 # Action pins resolved for real on 2026-08-29 (not assumed):
 #   - actions/checkout d23441a4... / docker/login-action 74a5d142... /
@@ -1275,8 +1286,8 @@ bex:ciSetupBeam
     gha:inJob bex:ciTest ; gha:stepOrder 2 ;
     gha:stepName "Set up Erlang/OTP + Elixir + rebar3 + Gleam" ;
     gha:usesAction "erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1" ;
-    gha:withParam "otp-version: '27.2'" ;
-    gha:withParam "elixir-version: '1.18.5'" ;
+    gha:withParam "otp-version: '28.3.1'" ;
+    gha:withParam "elixir-version: '1.19.5'" ;
     gha:withParam "rebar3-version: '3.24.0'" ;
     gha:withParam "gleam-version: '1.18.1'" .
 
@@ -1286,8 +1297,8 @@ bex:ciRebar3Cache
     gha:stepName "Cache rebar3 dependencies" ;
     gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
     gha:withParam "path: \"_build\\n~/.cache/rebar3\\n\"" ;
-    gha:withParam "key: ${{ runner.os }}-rebar3-27.2-3.24.0-${{ hashFiles('rebar.lock') }}" ;
-    gha:withParam "restore-keys: \"${{ runner.os }}-rebar3-27.2-3.24.0-\\n${{ runner.os }}-rebar3-27.2-\\n${{ runner.os }}-rebar3-\\n\"" .
+    gha:withParam "key: ${{ runner.os }}-rebar3-28.3.1-3.24.0-${{ hashFiles('rebar.lock') }}" ;
+    gha:withParam "restore-keys: \"${{ runner.os }}-rebar3-28.3.1-3.24.0-\\n${{ runner.os }}-rebar3-28.3.1-\\n${{ runner.os }}-rebar3-\\n\"" .
 
 bex:ciRebar3Eunit
     a gha:Step ;
@@ -1314,8 +1325,8 @@ bex:ciMixCache
     gha:stepName "Cache mix dependencies" ;
     gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
     gha:withParam "path: \"deps\\n~/.hex\\n~/.mix\\n\"" ;
-    gha:withParam "key: ${{ runner.os }}-mix-27.2-1.18.5-${{ hashFiles('mix.lock') }}" ;
-    gha:withParam "restore-keys: \"${{ runner.os }}-mix-27.2-1.18.5-\\n${{ runner.os }}-mix-27.2-\\n${{ runner.os }}-mix-\\n\"" .
+    gha:withParam "key: ${{ runner.os }}-mix-28.3.1-1.19.5-${{ hashFiles('mix.lock') }}" ;
+    gha:withParam "restore-keys: \"${{ runner.os }}-mix-28.3.1-1.19.5-\\n${{ runner.os }}-mix-28.3.1-\\n${{ runner.os }}-mix-\\n\"" .
 
 bex:ciMixDepsGet
     a gha:Step ;

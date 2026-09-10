@@ -8,11 +8,20 @@
 # facts) -- the same manufactured-consumption pattern as
 # ghcr.io/seanchatmangpt/ggen-ecosystem.
 #
-# Base image tags resolved for real against Docker Hub's tag API on 2026-08-29
-# (hexpm/elixir and hexpm/erlang both list the exact tags below; multi-arch,
-# so this builds natively on amd64 runners and arm64 laptops alike). OTP is
-# 27.2.4 -- the newest real 27.2.x hexpm image; CI's erlef/setup-beam
-# `otp-version: '27.2'` range resolves to the same 27.2.x line.
+# Base image tags resolved for real against Docker Hub's tag API on
+# 2026-09-09 (GitHub issue #13: bumped from the prior 1.18.5-erlang-27.2.4
+# pin, which was materially OLDER than the BEAM toolchain pair the M0-M6
+# gate closure actually verified -- OTP 28.3.1 / Elixir 1.19.5, per
+# docs/jira/v26.8.29/16-gate-closure-m0-m6.md GATE M3. The old pin was also
+# a REAL, currently-live container-build breakage, not just a documentation
+# mismatch: :ash_ai's Spark DSL (lib/ash_ai/dev_tools/tools.ex) failed to
+# compile under Elixir 1.18.5/OTP 27.2.4 in this image
+# (`** (Spark.Error.DslError) [AshAi.DevTools.Tools]`, confirmed via
+# beam4pm-container.yml run 34426167278, both amd64 and arm64 legs) while
+# compiling cleanly under 1.19.5/28.3.1 -- the same pair this repo's own
+# local development and CI test matrix already use. hexpm/elixir and
+# hexpm/erlang both list the exact tags below; multi-arch, so this builds
+# natively on amd64 runners and arm64 laptops alike.
 #
 # GLEAM IS DELIBERATELY EXCLUDED from this image: the hexpm base images carry
 # no gleam and no clean in-image install path exists (the gleam release
@@ -21,7 +30,7 @@
 # erlef/setup-beam's real `gleam-version` input in beam4pm-ci.yml.
 
 # --- builder ------------------------------------------------------------
-FROM hexpm/elixir:1.18.5-erlang-27.2.4-debian-bookworm-20260824 AS builder
+FROM hexpm/elixir:1.19.5-erlang-28.3.1-debian-bookworm-20260610 AS builder
 
 ENV LANG=C.UTF-8
 

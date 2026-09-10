@@ -114,6 +114,17 @@ types are checked against for field-shape parity). Skipping the
 `RF3_ORACLE_BIN` unset, which fails 11 of the ExUnit tests loudly with a
 `System.EnvError` naming the exact fix — never a silent skip.
 
+**A Rust/cargo toolchain is required**, even though the primary manufacturing
+pipeline (ggen/Tera) does not otherwise need Rust: compiling the `ggen_igniter`
+hex dependency builds its oxigraph query engine as a Rustler NIF, and the
+RF1/RF2/RF3 Chicago tests spawn real Rust subprocess oracles
+(`native/rf1-dfg-oracle`, `native/rf2-conformance-oracle`,
+`native/rf3-ocel-oracle`) — see `scripts/igniter_sync.sh` and
+`playground/playground.sh`'s own step 1/10 toolchain preflight, which checks
+for `cargo` (alongside `ggen`, `erlc`, `rebar3`, `elixir`, `mix`, `gleam`) and
+fails closed with `BLOCKED: required tool 'cargo' not on PATH` before
+attempting the igniter sync, rather than failing deep into the build.
+
 ## Regenerating
 
 ```sh
