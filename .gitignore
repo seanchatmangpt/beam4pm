@@ -39,3 +39,4 @@ native/*/target/
 # committed; the .tf files themselves ARE ggen output and are committed)
 infra/**/.terraform/
 infra/**/.terraform.lock.hcl
+receipts/engine_ops/

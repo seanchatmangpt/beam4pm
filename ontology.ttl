@@ -10714,9 +10714,9 @@ bap:hand_authored_lib_evidence a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_evidence.ex" ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
-    bpm:admissionReason "OCEL evidence-contract Phase 3: hand-authored orchestration wiring the real [:beam4pm, :engine, engine, op] telemetry family (emitted by every GENERATED engine facade op) to two real consumers -- BeamPM.Ingest.Bridge (scripts/ingest_telemetry.exs, already-admitted capital, buffers a real OcelEvent per call) and BeamPM.Evidence.OtelBridge (this file, opens/closes a real OpenTelemetry span per call). Not a bpm:RecordType projection or template-rendered file, so it has no generation path -- analogous to lib/beam4pm_application.ex and lib/beam4pm_ocel_ingest.ex, both already-admitted hand-authored lib/ modules." ;
+    bpm:admissionReason "OCEL evidence-contract Phase 3/4: hand-authored orchestration wiring the real [:beam4pm, :engine, engine, op] telemetry family (emitted by every GENERATED engine facade op) to three real consumers -- BeamPM.Ingest.Bridge (scripts/ingest_telemetry.exs, already-admitted capital, buffers a real OcelEvent per call), BeamPM.Evidence.OtelBridge (this file, opens/closes a real OpenTelemetry span per call), and (Phase 4) BeamPM.Evidence.ReceiptBridge (this file, writes one real hash-chained beam4pm-brce/v1 receipt per call via the already-real BeamPM.ReceiptChain.link_fields/3). Not a bpm:RecordType projection or template-rendered file, so it has no generation path -- analogous to lib/beam4pm_application.ex and lib/beam4pm_ocel_ingest.ex, both already-admitted hand-authored lib/ modules." ;
     bpm:acceptanceCommand "mix test" ;
-    bpm:contentSha256 "819905aa79f7286f34e48e5aa98017e20886207a63e9cae732df06e02bee624a" ;
+    bpm:contentSha256 "8135b9bb0e4f78446442eaa537f2f2d8bb656fa46eea1c60b1caa77330a58ab2" ;
     bpm:admittedAtCommit "a4d7df2" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "No template family fits telemetry-bridge orchestration today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter recipe covers evidence-bridge wiring." .
