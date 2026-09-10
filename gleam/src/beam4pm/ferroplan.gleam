@@ -168,3 +168,7 @@ pub fn htn_plan(domain: String, problem: String) -> Result(Dynamic, Dynamic)
 /// `{"op":"fond_policy","domain":d,"problem":p[,"limits":l]}` -- fully observable non-deterministic (FOND) policy synthesis, PlanningType::Fond via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`.
 @external(erlang, "Elixir.BeamPM.Ferroplan", "fond_policy")
 pub fn fond_policy(domain: String, problem: String) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"hddl_solve","domain":d,"problem":p[,"limits":{...}]}` -- `domain`/`problem` are HDDL source text (not classical PDDL): parsed, grounded, and translated by `ferroplan_hddl`, then solved by the existing FOND policy solver (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. Returns `{:ok, <UniversalPlan map>}`. A malformed/unsolvable HDDL document surfaces as `{:ok, %{"error" => %{"code" => ..., "message" => ..., "retryable" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect).
+@external(erlang, "Elixir.BeamPM.Ferroplan", "hddl_solve")
+pub fn hddl_solve(domain: String, problem: String) -> Result(Dynamic, Dynamic)

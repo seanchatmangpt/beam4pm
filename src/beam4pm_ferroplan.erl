@@ -62,7 +62,8 @@
          session_world_bytes/1,
          session_mind_bytes/1,
          htn_plan/2,
-         fond_policy/2]).
+         fond_policy/2,
+         hddl_solve/2]).
 
 -type result() :: {ok, map()} | {error, term()}.
 -type handle() :: non_neg_integer().
@@ -240,3 +241,8 @@ htn_plan(Domain, Problem) ->
 -spec fond_policy(binary(), binary()) -> result().
 fond_policy(Domain, Problem) ->
     'Elixir.BeamPM.Ferroplan':fond_policy(Domain, Problem).
+
+%% `{"op":"hddl_solve","domain":d,"problem":p[,"limits":{...}]}` -- `domain`/`problem` are HDDL source text (not classical PDDL): parsed, grounded, and translated by `ferroplan_hddl`, then solved by the existing FOND policy solver (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. Returns `{:ok, <UniversalPlan map>}`. A malformed/unsolvable HDDL document surfaces as `{:ok, %{"error" => %{"code" => ..., "message" => ..., "retryable" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect).
+-spec hddl_solve(binary(), binary()) -> result().
+hddl_solve(Domain, Problem) ->
+    'Elixir.BeamPM.Ferroplan':hddl_solve(Domain, Problem).
