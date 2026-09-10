@@ -61,11 +61,24 @@ rm -f lib/beam4pm_ash.ex test/beam4pm_ash_test.exs
 #     receipt records is reproducible run to run; tmp_probe/ is outside
 #     gate_m2_check.sh's SEARCH_DIRS and the merged file carries no
 #     GENERATED marker, so it is never mistaken for manufactured output.
-#     Only steps 1a and 2a consume it -- fields.rq (steps 3, and
-#     scripts/pro_type_pages_sync.sh) keeps running on the consumer graph.
+#     Originally only steps 1a/2a consumed this, with step 3 (fields.rq) and
+#     scripts/pro_type_pages_sync.sh running on the bare consumer graph --
+#     safe while beam4pm-process-model-pack was the only wired pack
+#     contributing bpm:RecordType facts. Broken by frontier-release-beam-pack
+#     (2026-09-09): a SECOND pack now contributes bpm:RecordType/bpm:Field
+#     facts (frontier_source_release/opportunity/benchmark/evidence), which
+#     the Rust ggen leg picks up for free via ggen.toml's [packs] merge but
+#     ontology.ttl alone does not -- step 3's cross-engine identity probe
+#     DIVERGED for real (ggen_igniter's manifest missing all 4 frontier_*
+#     records the Rust leg had). Fixed by also concatenating every
+#     ADDITIONAL_PACK_ONTOLOGY below into MERGED_TTL and using it for step 3
+#     too, not just 1a/2a.
 MERGED_TTL="tmp_probe/ontology_merged.ttl"
 mkdir -p tmp_probe
-cat ontology.ttl "$PACK/ontology.ttl" > "$MERGED_TTL"
+ADDITIONAL_PACK_ONTOLOGIES=(
+  "vendor/ggen-marketplace/packs/frontier-release-beam-pack/ontology.ttl"
+)
+cat ontology.ttl "$PACK/ontology.ttl" "${ADDITIONAL_PACK_ONTOLOGIES[@]}" > "$MERGED_TTL"
 
 # 1a. Ash resources: one Ash.Resource module PER admitted bpm:RecordType row
 #     (ETS data layer, uuid_primary_key :id, ontology-derived attributes),
@@ -171,10 +184,14 @@ mix ggen_igniter.sync \
 #    `diff ... && echo` form never failed this script -- under `set -e` a
 #    `cmd && other` list whose first command fails is not an error, so a
 #    divergence between the two engines printed a diff and kept going. Runs
-#    on the consumer graph (fields.rq), exactly as the Rust leg's own
-#    manifest template does.
+#    on MERGED_TTL (0b, now including every ADDITIONAL_PACK_ONTOLOGY), not
+#    the bare consumer graph -- the Rust leg's own manifest template runs
+#    against ggen.toml's full [packs] merge, so this probe must match that
+#    same scope or a pack-contributed record type (e.g. frontier-release-
+#    beam-pack's frontier_*) makes the two engines diverge for real, not
+#    just report a false positive.
 mix ggen_igniter.sync \
-  --ontology ontology.ttl \
+  --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
   --query fields="$IGN/queries/fields.rq" \
   --template "$IGN/templates/beam4pm_types_manifest.ex.eex" \
