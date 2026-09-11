@@ -246,6 +246,46 @@ of the four native-engine facades (`petgraph`, `tract`) have already taken that 
 see `docs/reference/beam4pm_hand_authored_source.md` for the current admitted/debt
 counts and which two remain (`rust4pm`, `ferroplan`).
 
+## Running the RF1/RF2/RF3 oracle-backed qualification tests
+
+`test/beam4pm_rf1_dfg_test.exs`, `test/beam4pm_rf2_conformance_test.exs`, and
+`test/beam4pm_rf3_ocel_test.exs` are real differential-testing suites: they invoke a
+real native Rust oracle binary (built from `process_mining` 0.6.2) via a `Port`, not a
+mock. `native/*/target/` is gitignored (see the `native/*/target/` entry in
+`.gitignore` — Cargo.lock is committed for reproducible builds, `target/` is not), so
+each contributor/CI job builds the oracle binaries locally before running these three
+suites:
+
+```sh
+cd native/rf1-dfg-oracle && cargo build --release && cd -
+cd native/rf2-conformance-oracle && cargo build --release && cd -
+cd native/rf3-ocel-oracle && cargo build --release && cd -
+```
+
+RF1 (`beam4pm_rf1_dfg_test.exs`) resolves its own oracle path at
+`native/rf1-dfg-oracle/target/release/rf1-dfg-oracle` (no env var). RF2 and RF3 take
+their oracle/fixture paths from env vars — not hardcoded, so the suite is portable
+across machines/CI:
+
+```sh
+RF2_ORACLE_BIN="$(pwd)/native/rf2-conformance-oracle/target/release/rf2-conformance-oracle" \
+RF2_CLEAN_XES="$(pwd)/qualification/fixtures/receipt.xes" \
+RF2_MUTATED_XES="$(pwd)/qualification/fixtures/mutated_receipt.xes" \
+RF3_ORACLE_BIN="$(pwd)/native/rf3-ocel-oracle/target/release/rf3-ocel-oracle" \
+RF3_POSITIVE_FIXTURE="$(pwd)/qualification/fixtures/positive-self-authored.ocel.json" \
+RF3_N13_FIXTURE="$(pwd)/qualification/fixtures/n13-duplicate-object-id.ocel.json" \
+RF3_N14_FIXTURE="$(pwd)/qualification/fixtures/n14-undeclared-event-type.ocel.json" \
+RF3_N05_FIXTURE="$(pwd)/qualification/fixtures/n05-o2o-dangling.ocel.json" \
+mix test
+```
+
+These env vars are genuinely machine/build-specific (an absolute path into a
+gitignored `target/` dir) — they do not belong in a committed `.env.test` file, only
+in this documented recipe. Without them, `RF2ConformanceTest`/`RF3OcelTest` fail fast
+via `System.fetch_env!/1`, and `RF1DfgDiscoveryTest` raises a clear "binary not found,
+run `cargo build --release` in native/rf1-dfg-oracle/ first" message — both are
+honest refusals, not silent skips.
+
 ## See also
 
 - [`README.md`](README.md) — project overview, current manufacturing status
