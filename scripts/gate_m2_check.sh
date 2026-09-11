@@ -155,10 +155,41 @@ before_sums="$(for f in "${before_files[@]}"; do shasum -a 256 "$f"; done | sort
 # run` has already deleted it and before igniter_sync.sh's own internal
 # `mix test` runs. Left unstashed, that same internal `mix test` fails with
 # "BeamPM.Ash.Domain is not a Spark DSL module", not a real regression.
+HAND_AUTHORED_DEPENDENT_TESTS=(test/beam4pm_actuation_k8s_test.exs test/beam4pm_process_governor_k8s_test.exs test/beam4pm_pddl_projection_test.exs test/beam4pm_ash_ai_tools_test.exs)
+
+# SIGKILL-survival preflight. Root cause of the real 2026-09 incident: the
+# `trap on_exit EXIT` below (restore_manufactured/restore_stash/
+# restore_ontology) cannot fire on SIGKILL -- POSIX/bash signal semantics,
+# not a bug in the trap itself -- so a hard kill of this process tree (CI
+# timeout, OOM-killer, a forced kill) mid-run leaves ontology.ttl mid-pass-2b
+# composition, ggen.lock deleted, and the 4 HAND_AUTHORED_DEPENDENT_TESTS
+# files stranded inside an orphaned mktemp STASH_DIR whose path dies with
+# the process -- with no in-process fix possible, since no trap can catch
+# SIGKILL. The durable recovery medium that DOES survive SIGKILL is git's
+# own object store: ontology.ttl, ggen.lock, and all 4 dependent test files
+# are tracked, committed files, so as long as the working tree is clean for
+# them BEFORE this script starts mutating them, `git checkout --
+# <those paths>` recovers the exact pre-run content from .git (committed to
+# disk, unaffected by any signal) even if this whole process is SIGKILLed
+# with no trap ever running. This preflight enforces the precondition that
+# guarantee depends on: refuse to run (loud, non-zero exit, no mutation yet)
+# if any of these paths already carry uncommitted changes, since a git
+# checkout recovery would otherwise silently discard real pending work
+# instead of restoring the correct pre-run state.
+GIT_RECOVERABLE_PATHS=(ontology.ttl ggen.lock "${HAND_AUTHORED_DEPENDENT_TESTS[@]}")
+dirty="$(git status --porcelain -- "${GIT_RECOVERABLE_PATHS[@]}" 2>/dev/null || true)"
+if [ -n "$dirty" ]; then
+  echo "GATE M2: REFUSED -- uncommitted changes in a file this gate must be able to recover via 'git checkout --' if killed:" >&2
+  echo "$dirty" >&2
+  echo "Commit or stash these paths first so the SIGKILL-survival recovery guarantee holds, then re-run." >&2
+  exit 1
+fi
+GATE_M2_PRE_RUN_HEAD="$(git rev-parse HEAD)"
+echo "== preflight: ${#GIT_RECOVERABLE_PATHS[@]} git-recoverable paths clean at HEAD $GATE_M2_PRE_RUN_HEAD =="
+
 STASH_DIR="$(mktemp -d)"
 ONTOLOGY_BACKUP="$(mktemp)"
 cp ontology.ttl "$ONTOLOGY_BACKUP"
-HAND_AUTHORED_DEPENDENT_TESTS=(test/beam4pm_actuation_k8s_test.exs test/beam4pm_process_governor_k8s_test.exs test/beam4pm_pddl_projection_test.exs test/beam4pm_ash_ai_tools_test.exs)
 restore_stash() {
   # `if ... ; then mv; fi` (not a bare `[ -f ] && mv`) -- a bare `test && cmd`
   # statement is falsy whenever the test is false, and under this script's
