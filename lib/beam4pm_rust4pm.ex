@@ -74,7 +74,8 @@ defmodule BeamPM.Rust4PM do
   `import_ocel_xml/2`,
   `ocel_dfg_of_object_type/3`,
   `ocel_variants_of_object_type/3`,
-  `free_ocel/2`
+  `free_ocel/2`,
+  `ocel_discover_powl/3`
 
   ## Process model and crash semantics
 
@@ -688,6 +689,23 @@ defmodule BeamPM.Rust4PM do
       |> call(timeout(opts, @cheap_timeout))
 
     emit_engine_op_telemetry(:free_ocel, result, invocation_id, start_native)
+    result
+  end
+
+  @doc ~S"""
+  `{"op":"ocel_discover_powl","ocel_handle":h,"object_type":t}` -- object-centric POWL discovery via flattening: builds a real flat EventLog (one trace per object of `object_type`, containing every event e2o-related to that object, ordered by the event's real OCEL timestamp) and runs the same real `discover_powl` recursive choice-graph inductive miner used by the flat-log `discover_powl` op. Returns `{:ok, %{"powl" => model, "num_traces" => n, "object_type" => t}}`. Disclosed limitation: one flattening choice per object type -- an event shared by several objects of the same type is duplicated across their traces (divergence), and relations to OTHER object types are dropped, so true multi-object convergence is not modeled.
+  """
+  @spec ocel_discover_powl(non_neg_integer(), String.t(), keyword()) :: result()
+  def ocel_discover_powl(ocel, object_type, opts \\ [])
+      when is_integer(ocel) and is_binary(object_type) do
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_discover_powl", "ocel_handle" => ocel, "object_type" => object_type}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:ocel_discover_powl, result, invocation_id, start_native)
     result
   end
 

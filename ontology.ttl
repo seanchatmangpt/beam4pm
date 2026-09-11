@@ -10570,10 +10570,10 @@ bap:hand_authored_test_rust4pm a bpm:HandAuthoredSource ;
     bpm:sourcePath "test/beam4pm_rust4pm_test.exs" ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01UiCeLuzgcK2BLocBKxXw39" ;
-    bpm:admissionReason "Chicago qualification of BeamPM.Rust4PM against real canonical fixtures and differentially against the two native oracle binaries built from the same crate version; fixture and oracle bindings are hand-written. Re-pinned for T13: a real Chicago proof of discover_powl (previously an exposed-but-unproven facade, Section 24 falsifier gap) against a real imported small-example.xes, asserting exact structural equality on the engine's real POWL model output plus a log_stats cross-check." ;
+    bpm:admissionReason "Chicago qualification of BeamPM.Rust4PM against real canonical fixtures and differentially against the two native oracle binaries built from the same crate version; fixture and oracle bindings are hand-written. Re-pinned for T13: a real Chicago proof of discover_powl (previously an exposed-but-unproven facade, Section 24 falsifier gap) against a real imported small-example.xes, asserting exact structural equality on the engine's real POWL model output plus a log_stats cross-check. Re-pinned for T14: a real Chicago proof of the new ocel_discover_powl flattening bridge against a real, small, in-test OCEL v2 log (2 meeting objects with one object's events inserted out of chronological order + 1 other-type object), asserting exact structural equality on the real discovered POWL model, the real timestamp-sort behavior, and the real object_type filter." ;
     bpm:acceptanceCommand "mix test test/beam4pm_rust4pm_test.exs" ;
     bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
-    bpm:contentSha256 "5451fb4cc70eecd4c5633fa71f9c285d1567967f06cbb5f90d406fa1622bc1fe" ;
+    bpm:contentSha256 "1bcdd936bdc3d38ec36132bf4c8dda388158a9273144bccd14bd5d81548feaee" ;
     bpm:admittedAtCommit "f44dcd0" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the fixture/oracle bindings as ontology facts and render this qualification from them (rf1/rf2 igniter recipes are the precedent); then delete this admission." .
@@ -11314,6 +11314,15 @@ bap:engine_rust4pm_op_ocel_variants_of_object_type_object_type a bpm:EngineArg ;
 bap:engine_rust4pm_op_ocel_variants_of_object_type_n a bpm:EngineArg ;
     bpm:argOp bap:engine_rust4pm_op_ocel_variants_of_object_type ; bpm:argName "n" ; bpm:argOrder 3 ;
     bpm:argType bpm:EngineArgType_integer ; bpm:argMode bpm:ArgMode_keyword ; bpm:argDefault "nil" .
+
+bap:engine_rust4pm_op_ocel_discover_powl a bpm:EngineOp ;
+    bpm:opEngine bap:engine_rust4pm ; bpm:opName "ocel_discover_powl" ; bpm:opOrder 32 ;
+    bpm:opDoc "`{\"op\":\"ocel_discover_powl\",\"ocel_handle\":h,\"object_type\":t}` -- object-centric POWL discovery via flattening: builds a real flat EventLog (one trace per object of `object_type`, containing every event e2o-related to that object, ordered by the event's real OCEL timestamp) and runs the same real `discover_powl` recursive choice-graph inductive miner used by the flat-log `discover_powl` op. Returns `{:ok, %{\"powl\" => model, \"num_traces\" => n, \"object_type\" => t}}`. Disclosed limitation: one flattening choice per object type -- an event shared by several objects of the same type is duplicated across their traces (divergence), and relations to OTHER object types are dropped, so true multi-object convergence is not modeled." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_rust4pm_op_ocel_discover_powl_ocel a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_discover_powl ; bpm:argName "ocel" ; bpm:argOrder 1 ; bpm:argWireKey "ocel_handle" ; bpm:argType bpm:EngineArgType_handle .
+bap:engine_rust4pm_op_ocel_discover_powl_object_type a bpm:EngineArg ;
+    bpm:argOp bap:engine_rust4pm_op_ocel_discover_powl ; bpm:argName "object_type" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
 
 bap:engine_rust4pm_op_free_ocel a bpm:EngineOp ;
     bpm:opEngine bap:engine_rust4pm ; bpm:opName "free_ocel" ; bpm:opOrder 31 ;
