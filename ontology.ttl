@@ -11609,6 +11609,45 @@ bap:engine_ferroplan_op_session_mind_bytes a bpm:EngineOp ;
 bap:engine_ferroplan_op_session_mind_bytes_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_mind_bytes ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
 
+bap:engine_ferroplan_op_htn_plan a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "htn_plan" ; bpm:opOrder 31 ;
+    bpm:opDoc "`{\"op\":\"htn_plan\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are UTF-8 JSON text of a `PlanningProblem` object (same wire shape as `plan`/`plan_production`'s `domain`/`problem` fields, but decoded into the typed universal-planning model rather than PDDL text). `domain` is accepted but ignored when non-empty and not equal to `problem` -- ferroplan's universal-planning model has one combined problem document, so `problem` alone is parsed as the full `PlanningProblem`. Forces `PlanningType::Hierarchical`. Returns `UniversalPlan` JSON." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_htn_plan_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_htn_plan ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_htn_plan_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_htn_plan ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_htn_plan_limits a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_htn_plan ; bpm:argName "limits" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_optional_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "nil" ;
+    bpm:argEncoding bpm:ArgEncoding_omit_when_nil .
+
+bap:engine_ferroplan_op_fond_policy a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "fond_policy" ; bpm:opOrder 32 ;
+    bpm:opDoc "`{\"op\":\"fond_policy\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- same wire shape as `htn_plan`; forces `PlanningType::Fond`. Returns `UniversalPlan` JSON." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_fond_policy_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_fond_policy_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_fond_policy_limits a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy ; bpm:argName "limits" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_optional_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "nil" ;
+    bpm:argEncoding bpm:ArgEncoding_omit_when_nil .
+
+bap:engine_ferroplan_op_hddl_solve a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "hddl_solve" ; bpm:opOrder 33 ;
+    bpm:opDoc "`{\"op\":\"hddl_solve\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- `domain`/`problem` are HDDL domain/problem text (not JSON), routed through `ferroplan_hddl`'s parse -> ground -> translate pipeline into the same FOND solver used by `fond_policy`. A domain-level failure (parse/ground/translate/timeout/worker-panic) arrives as `{:ok, err_json}`, not a raised error -- same success/error envelope shape as `plan`. Returns `UniversalPlan` JSON on success." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_hddl_solve_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_hddl_solve_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_hddl_solve_limits a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "limits" ; bpm:argOrder 3 ;
+    bpm:argType bpm:EngineArgType_optional_map ; bpm:argMode bpm:ArgMode_optional ; bpm:argDefault "nil" ;
+    bpm:argEncoding bpm:ArgEncoding_omit_when_nil .
+
 # WS1-OBS-001 — repository_default_branch_observation
 b4p:repository_default_branch_observation_rt a bpm:RecordType ;
     bpm:recordName "repository_default_branch_observation" ;

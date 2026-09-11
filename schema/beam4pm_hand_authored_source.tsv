@@ -8,7 +8,9 @@ docs/reference/discovery-and-conformance-api.md	reference_evidence	false	-	-	bas
 docs/reference/infra-beamops-first-principles.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/rust4pm-wasm-beam.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
 docs/reference/scripts.md	reference_evidence	false	-	-	bash scripts/gate_lint_truth.sh	-
-lib/beam4pm_application.ex	hand_authored_qualification	true	eba7b65c1023b4c0bbb1913907f3102f1eb74268942671d3f8a039f1a3a288f8	2026-12-31	mix test	-
+lib/beam4pm_a2a_agent.ex	hand_authored_qualification	true	2d147cf932f13bf8d31472a21a3b2d0835b5540d00ac0b8748046bd5adf3e672	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
+lib/beam4pm_a2a_router.ex	hand_authored_qualification	true	734cf82e4625241defa3c5361ba7abdcc1c2fb2a01543a2c2d931c9287ba8b28	2026-12-31	mix run qualification/a2a_smoke_test.exs	-
+lib/beam4pm_application.ex	hand_authored_qualification	true	5296564323089870a49b5e8fadc1149ea08c06645434943463ef43d963f9ed8f	2026-12-31	mix test	-
 lib/beam4pm_contracts.ex	hand_authored_qualification	true	51f24b063e54cbf238778c2a0786c9571e1bf98eb1831c17cb9e3eb6a61385a7	2026-12-31	mix test test/beam4pm_contracts_test.exs	-
 lib/beam4pm_ocel.ex	native_engine_facade	true	f7e47a5c95278b14cc654361bf00e4b73e4440276945ba6b8eb6ef19d7b64ce2	2026-12-31	mix test test/beam4pm_ocel_test.exs	-
 lib/beam4pm_powl_discovery.ex	hand_authored_qualification	true	4af71e5c91adbef6e8e1e850c4d0704b7fa7915d0de531a0529514d1de0d92b3	2026-12-31	mix test test/beam4pm_powl_discovery_test.exs	-
