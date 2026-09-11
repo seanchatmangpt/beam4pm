@@ -10,3 +10,11 @@ import Config
 # accuracy is the safer default absent a specific performance reason to
 # switch to :mixed.
 config :ash, default_string_length_count: :codepoints
+
+# BeamPM.A2AAgent (lib/beam4pm_a2a_agent.ex) is booted by ash_a2a's own
+# Application callback (AshA2A.Application, `:ash_a2a`'s `mod`), which reads
+# this config and starts an A2A.AgentSupervisor for it -- so
+# BeamPM.Application must NOT also start an A2A.AgentSupervisor for the same
+# agent (that double-starts the agent's registered name and crashes boot).
+# BeamPM.Application only adds the HTTP listener (A2A.Plug/Bandit) on top.
+config :ash_a2a, :agents, [BeamPM.A2AAgent]
