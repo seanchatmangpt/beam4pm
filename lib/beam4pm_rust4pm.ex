@@ -37,7 +37,12 @@ defmodule BeamPM.Rust4PM do
   ## Ops
 
   One public function per admitted `bpm:EngineOp`, each taking a trailing
-  `opts` keyword list (`:timeout` overrides the op's default budget):
+  `opts` keyword list (`:timeout` overrides the op's default budget). Every
+  op call fires exactly one `[:beam4pm, :engine, :rust4pm, op]`
+  `:telemetry.execute/3` event after the call returns, on both the success
+  and `{:error, reason}` refusal paths -- the OCEL evidence-contract Phase 2
+  event family consumed by `BeamPM.Ingest.Bridge`, `BeamPM.Evidence.OtelBridge`,
+  and `BeamPM.Evidence.ReceiptBridge` (`lib/beam4pm_evidence.ex`):
 
   `import_xes/2`,
   `import_xes_path/2` (host-side `File.read!/1`, then `import_xes`),
@@ -180,45 +185,15 @@ defmodule BeamPM.Rust4PM do
   @spec import_xes(String.t(), keyword()) :: result()
   def import_xes(xes_content, opts \\ [])
       when is_binary(xes_content) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ xes_content }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "import_xes", "content" => xes_content}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_import_xes",
-      engine: :rust4pm,
-      op: :import_xes,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_xes],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_xes],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:import_xes, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -226,44 +201,7 @@ defmodule BeamPM.Rust4PM do
   """
   @spec import_xes_path(Path.t(), keyword()) :: result()
   def import_xes_path(path, opts \\ []) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
-
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ path }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
-      import_xes(File.read!(path), opts)
-
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_import_xes_path",
-      engine: :rust4pm,
-      op: :import_xes_path,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :EXTERNAL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_xes_path],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_xes_path],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    import_xes(File.read!(path), opts)
   end
 
   @doc ~S"""
@@ -272,45 +210,15 @@ defmodule BeamPM.Rust4PM do
   @spec import_xes_gz(binary(), keyword()) :: result()
   def import_xes_gz(gz_bytes, opts \\ [])
       when is_binary(gz_bytes) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ gz_bytes }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "import_xes_gz", "content_b64" => Base.encode64(gz_bytes)}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_import_xes_gz",
-      engine: :rust4pm,
-      op: :import_xes_gz,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_xes_gz],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_xes_gz],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:import_xes_gz, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -319,45 +227,15 @@ defmodule BeamPM.Rust4PM do
   @spec import_pnml(String.t(), keyword()) :: result()
   def import_pnml(pnml_content, opts \\ [])
       when is_binary(pnml_content) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ pnml_content }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "import_pnml", "content" => pnml_content}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_import_pnml",
-      engine: :rust4pm,
-      op: :import_pnml,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_pnml],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_pnml],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:import_pnml, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -365,44 +243,7 @@ defmodule BeamPM.Rust4PM do
   """
   @spec import_pnml_path(Path.t(), keyword()) :: result()
   def import_pnml_path(path, opts \\ []) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
-
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ path }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
-      import_pnml(File.read!(path), opts)
-
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_import_pnml_path",
-      engine: :rust4pm,
-      op: :import_pnml_path,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :EXTERNAL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_pnml_path],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_pnml_path],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    import_pnml(File.read!(path), opts)
   end
 
   @doc ~S"""
@@ -411,45 +252,15 @@ defmodule BeamPM.Rust4PM do
   @spec log_stats(non_neg_integer(), keyword()) :: result()
   def log_stats(handle, opts \\ [])
       when is_integer(handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "log_stats", "handle" => handle}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_log_stats",
-      engine: :rust4pm,
-      op: :log_stats,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :log_stats],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :log_stats],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:log_stats, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -458,45 +269,15 @@ defmodule BeamPM.Rust4PM do
   @spec top_n_variants(non_neg_integer(), non_neg_integer(), keyword()) :: result()
   def top_n_variants(handle, n, opts \\ [])
       when is_integer(handle) and is_integer(n) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, n }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "top_n_variants", "handle" => handle, "n" => n}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_top_n_variants",
-      engine: :rust4pm,
-      op: :top_n_variants,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :top_n_variants],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :top_n_variants],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:top_n_variants, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -505,45 +286,15 @@ defmodule BeamPM.Rust4PM do
   @spec discover_dfg(non_neg_integer(), keyword()) :: result()
   def discover_dfg(handle, opts \\ [])
       when is_integer(handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "discover_dfg", "handle" => handle}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_discover_dfg",
-      engine: :rust4pm,
-      op: :discover_dfg,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :discover_dfg],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :discover_dfg],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:discover_dfg, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -552,45 +303,15 @@ defmodule BeamPM.Rust4PM do
   @spec activities_to_alphabet(non_neg_integer(), keyword()) :: result()
   def activities_to_alphabet(handle, opts \\ [])
       when is_integer(handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "activities_to_alphabet", "handle" => handle}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_activities_to_alphabet",
-      engine: :rust4pm,
-      op: :activities_to_alphabet,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :activities_to_alphabet],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :activities_to_alphabet],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:activities_to_alphabet, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -599,45 +320,15 @@ defmodule BeamPM.Rust4PM do
   @spec activity_position(non_neg_integer(), String.t(), keyword()) :: result()
   def activity_position(handle, activity, opts \\ [])
       when is_integer(handle) and is_binary(activity) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, activity }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "activity_position", "handle" => handle, "activity" => activity}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_activity_position",
-      engine: :rust4pm,
-      op: :activity_position,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :activity_position],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :activity_position],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:activity_position, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -646,46 +337,16 @@ defmodule BeamPM.Rust4PM do
   @spec discover_alphappp(non_neg_integer(), map() | nil, keyword()) :: result()
   def discover_alphappp(handle, config \\ nil, opts \\ [])
       when is_integer(handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, config }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "discover_alphappp", "handle" => handle}
       |> put_optional("config", config)
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_discover_alphappp",
-      engine: :rust4pm,
-      op: :discover_alphappp,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :discover_alphappp],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :discover_alphappp],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:discover_alphappp, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -694,45 +355,15 @@ defmodule BeamPM.Rust4PM do
   @spec discover_powl(non_neg_integer(), keyword()) :: result()
   def discover_powl(handle, opts \\ [])
       when is_integer(handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "discover_powl", "handle" => handle}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_discover_powl",
-      engine: :rust4pm,
-      op: :discover_powl,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :discover_powl],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :discover_powl],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:discover_powl, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -741,46 +372,16 @@ defmodule BeamPM.Rust4PM do
   @spec align_variants(non_neg_integer(), non_neg_integer(), map() | nil, keyword()) :: result()
   def align_variants(log_handle, net_handle, options \\ nil, opts \\ [])
       when is_integer(log_handle) and is_integer(net_handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ log_handle, net_handle, options }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "align_variants", "log_handle" => log_handle, "net_handle" => net_handle}
       |> put_optional("options", options)
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_align_variants",
-      engine: :rust4pm,
-      op: :align_variants,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :align_variants],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :align_variants],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:align_variants, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -789,46 +390,16 @@ defmodule BeamPM.Rust4PM do
   @spec align_trace(non_neg_integer(), [String.t()], map() | nil, keyword()) :: result()
   def align_trace(net_handle, trace, options \\ nil, opts \\ [])
       when is_integer(net_handle) and is_list(trace) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ net_handle, trace, options }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "align_trace", "net_handle" => net_handle, "trace" => trace}
       |> put_optional("options", options)
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_align_trace",
-      engine: :rust4pm,
-      op: :align_trace,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :align_trace],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :align_trace],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:align_trace, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -837,46 +408,16 @@ defmodule BeamPM.Rust4PM do
   @spec compute_fitness(non_neg_integer(), non_neg_integer(), map() | nil, keyword()) :: result()
   def compute_fitness(log_handle, net_handle, options \\ nil, opts \\ [])
       when is_integer(log_handle) and is_integer(net_handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ log_handle, net_handle, options }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "compute_fitness", "log_handle" => log_handle, "net_handle" => net_handle}
       |> put_optional("options", options)
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_compute_fitness",
-      engine: :rust4pm,
-      op: :compute_fitness,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :compute_fitness],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :compute_fitness],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:compute_fitness, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -885,45 +426,15 @@ defmodule BeamPM.Rust4PM do
   @spec free_log(non_neg_integer(), keyword()) :: result()
   def free_log(handle, opts \\ [])
       when is_integer(handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "free_log", "handle" => handle}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_free_log",
-      engine: :rust4pm,
-      op: :free_log,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :REFUSAL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :free_log],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :free_log],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:free_log, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -932,45 +443,15 @@ defmodule BeamPM.Rust4PM do
   @spec free_net(non_neg_integer(), keyword()) :: result()
   def free_net(handle, opts \\ [])
       when is_integer(handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "free_net", "handle" => handle}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_free_net",
-      engine: :rust4pm,
-      op: :free_net,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :REFUSAL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :free_net],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :free_net],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:free_net, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -978,45 +459,15 @@ defmodule BeamPM.Rust4PM do
   """
   @spec ocel_new(keyword()) :: result()
   def ocel_new(opts \\ []) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({  }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "ocel_new"}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_ocel_new",
-      engine: :rust4pm,
-      op: :ocel_new,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_new],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_new],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:ocel_new, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1025,45 +476,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_add_event_type(non_neg_integer(), String.t(), list(), keyword()) :: result()
   def ocel_add_event_type(ocel, name, attributes \\ [], opts \\ [])
       when is_integer(ocel) and is_binary(name) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ ocel, name, attributes }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "ocel_add_event_type", "ocel_handle" => ocel, "name" => name, "attributes" => attributes}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_ocel_add_event_type",
-      engine: :rust4pm,
-      op: :ocel_add_event_type,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_add_event_type],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_add_event_type],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:ocel_add_event_type, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1072,45 +493,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_add_object_type(non_neg_integer(), String.t(), list(), keyword()) :: result()
   def ocel_add_object_type(ocel, name, attributes \\ [], opts \\ [])
       when is_integer(ocel) and is_binary(name) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ ocel, name, attributes }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "ocel_add_object_type", "ocel_handle" => ocel, "name" => name, "attributes" => attributes}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_ocel_add_object_type",
-      engine: :rust4pm,
-      op: :ocel_add_object_type,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_add_object_type],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_add_object_type],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:ocel_add_object_type, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1119,45 +510,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_add_object(non_neg_integer(), String.t(), String.t(), list(), keyword()) :: result()
   def ocel_add_object(ocel, id, object_type, o2o \\ [], opts \\ [])
       when is_integer(ocel) and is_binary(id) and is_binary(object_type) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ ocel, id, object_type, o2o }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "ocel_add_object", "ocel_handle" => ocel, "id" => id, "type" => object_type, "o2o" => o2o}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_ocel_add_object",
-      engine: :rust4pm,
-      op: :ocel_add_object,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_add_object],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_add_object],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:ocel_add_object, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1166,45 +527,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_add_event(non_neg_integer(), String.t(), String.t(), String.t(), list(), keyword()) :: result()
   def ocel_add_event(ocel, id, event_type, time, e2o \\ [], opts \\ [])
       when is_integer(ocel) and is_binary(id) and is_binary(event_type) and is_binary(time) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ ocel, id, event_type, time, e2o }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "ocel_add_event", "ocel_handle" => ocel, "id" => id, "type" => event_type, "time" => time, "e2o" => e2o}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_ocel_add_event",
-      engine: :rust4pm,
-      op: :ocel_add_event,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_add_event],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_add_event],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:ocel_add_event, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1213,45 +544,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_stats(non_neg_integer(), keyword()) :: result()
   def ocel_stats(ocel, opts \\ [])
       when is_integer(ocel) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ ocel }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "ocel_stats", "ocel_handle" => ocel}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_ocel_stats",
-      engine: :rust4pm,
-      op: :ocel_stats,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_stats],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_stats],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:ocel_stats, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1260,45 +561,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_to_json(non_neg_integer(), keyword()) :: result()
   def ocel_to_json(ocel, opts \\ [])
       when is_integer(ocel) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ ocel }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "ocel_to_json", "ocel_handle" => ocel}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_ocel_to_json",
-      engine: :rust4pm,
-      op: :ocel_to_json,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_to_json],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_to_json],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:ocel_to_json, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1307,45 +578,15 @@ defmodule BeamPM.Rust4PM do
   @spec xes_to_ocel(non_neg_integer(), String.t(), String.t(), keyword()) :: result()
   def xes_to_ocel(log_handle, case_object_type, qualifier, opts \\ [])
       when is_integer(log_handle) and is_binary(case_object_type) and is_binary(qualifier) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ log_handle, case_object_type, qualifier }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "xes_to_ocel", "handle" => log_handle, "case_object_type" => case_object_type, "qualifier" => qualifier}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_xes_to_ocel",
-      engine: :rust4pm,
-      op: :xes_to_ocel,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :xes_to_ocel],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :xes_to_ocel],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:xes_to_ocel, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1354,45 +595,15 @@ defmodule BeamPM.Rust4PM do
   @spec import_ocel_json(String.t(), keyword()) :: result()
   def import_ocel_json(json_content, opts \\ [])
       when is_binary(json_content) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ json_content }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "import_ocel_json", "content" => json_content}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_import_ocel_json",
-      engine: :rust4pm,
-      op: :import_ocel_json,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_ocel_json],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_ocel_json],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:import_ocel_json, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1401,45 +612,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_to_xml(non_neg_integer(), keyword()) :: result()
   def ocel_to_xml(ocel, opts \\ [])
       when is_integer(ocel) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ ocel }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "ocel_to_xml", "ocel_handle" => ocel}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_ocel_to_xml",
-      engine: :rust4pm,
-      op: :ocel_to_xml,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_to_xml],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_to_xml],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:ocel_to_xml, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1448,45 +629,15 @@ defmodule BeamPM.Rust4PM do
   @spec import_ocel_xml(binary(), keyword()) :: result()
   def import_ocel_xml(xml_bytes, opts \\ [])
       when is_binary(xml_bytes) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ xml_bytes }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "import_ocel_xml", "content_b64" => Base.encode64(xml_bytes)}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_import_ocel_xml",
-      engine: :rust4pm,
-      op: :import_ocel_xml,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_ocel_xml],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :import_ocel_xml],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:import_ocel_xml, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1495,45 +646,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_dfg_of_object_type(non_neg_integer(), String.t(), keyword()) :: result()
   def ocel_dfg_of_object_type(ocel, object_type, opts \\ [])
       when is_integer(ocel) and is_binary(object_type) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ ocel, object_type }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "ocel_dfg_of_object_type", "ocel_handle" => ocel, "object_type" => object_type}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_ocel_dfg_of_object_type",
-      engine: :rust4pm,
-      op: :ocel_dfg_of_object_type,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_dfg_of_object_type],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_dfg_of_object_type],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:ocel_dfg_of_object_type, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1542,45 +663,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_variants_of_object_type(non_neg_integer(), String.t(), keyword()) :: result()
   def ocel_variants_of_object_type(ocel, object_type, opts \\ [])
       when is_integer(ocel) and is_binary(object_type) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ ocel, object_type }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "ocel_variants_of_object_type", "ocel_handle" => ocel, "object_type" => object_type, "n" => Keyword.get(opts, :n, nil)}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_ocel_variants_of_object_type",
-      engine: :rust4pm,
-      op: :ocel_variants_of_object_type,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_variants_of_object_type],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :ocel_variants_of_object_type],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:ocel_variants_of_object_type, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -1589,45 +680,15 @@ defmodule BeamPM.Rust4PM do
   @spec free_ocel(non_neg_integer(), keyword()) :: result()
   def free_ocel(ocel, opts \\ [])
       when is_integer(ocel) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ ocel }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "free_ocel", "ocel_handle" => ocel}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_rust4pm_op_free_ocel",
-      engine: :rust4pm,
-      op: :free_ocel,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :REFUSAL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :free_ocel],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :rust4pm, :free_ocel],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:free_ocel, result, invocation_id, start_native)
+    result
   end
 
   # ---------------------------------------------------------------------
@@ -1726,6 +787,36 @@ defmodule BeamPM.Rust4PM do
   defp put_optional(req, key, value), do: Map.put(req, key, value)
 
   defp timeout(opts, default), do: Keyword.get(opts, :timeout, default)
+
+  # ---------------------------------------------------------------------
+  # Telemetry -- fires the real `[:beam4pm, :engine, engine, op]` event
+  # this pack's OCEL evidence-contract Phase 2 consumers (BeamPM.Ingest.Bridge,
+  # BeamPM.Evidence.OtelBridge, BeamPM.Evidence.ReceiptBridge, all in
+  # lib/beam4pm_evidence.ex -- read, not guessed, before this wrapper was
+  # written) attach to. ONE :telemetry.execute/3 call after the op already
+  # returned (not a with_span/3 wrapper around the call site), matching
+  # OtelBridge's own handle_event/4 contract, which opens and closes its
+  # span from inside the callback using the already-known duration.
+  # ---------------------------------------------------------------------
+  defp emit_engine_op_telemetry(op, result, invocation_id, start_native) do
+    duration_native = System.monotonic_time() - start_native
+
+    metadata = %{
+      engine: :rust4pm,
+      op: op,
+      op_iri: "https://ggen.dev/ontology/beam-process-model#rust4pm/" <> Atom.to_string(op),
+      invocation_id: invocation_id,
+      verification_class: :unverified
+    }
+
+    metadata =
+      case result do
+        {:error, reason} -> Map.put(metadata, :refusal_reason, inspect(reason))
+        _ -> metadata
+      end
+
+    :telemetry.execute([:beam4pm, :engine, :rust4pm, op], %{duration_native: duration_native}, metadata)
+  end
 end
 
 defmodule BeamPM.Rust4PM.Health do

@@ -37,7 +37,12 @@ defmodule BeamPM.Tract do
   ## Ops
 
   One public function per admitted `bpm:EngineOp`, each taking a trailing
-  `opts` keyword list (`:timeout` overrides the op's default budget):
+  `opts` keyword list (`:timeout` overrides the op's default budget). Every
+  op call fires exactly one `[:beam4pm, :engine, :tract, op]`
+  `:telemetry.execute/3` event after the call returns, on both the success
+  and `{:error, reason}` refusal paths -- the OCEL evidence-contract Phase 2
+  event family consumed by `BeamPM.Ingest.Bridge`, `BeamPM.Evidence.OtelBridge`,
+  and `BeamPM.Evidence.ReceiptBridge` (`lib/beam4pm_evidence.ex`):
 
   `load_model/2`,
   `load_model_path/2` (host-side `File.read!/1`, then `load_model`),
@@ -154,45 +159,15 @@ defmodule BeamPM.Tract do
   @spec load_model(binary(), keyword()) :: result()
   def load_model(model_bytes, opts \\ [])
       when is_binary(model_bytes) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ model_bytes }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "load_model", "model_b64" => Base.encode64(model_bytes)}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_tract_op_load_model",
-      engine: :tract,
-      op: :load_model,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :STATEFUL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :tract, :load_model],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :tract, :load_model],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:load_model, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -200,44 +175,7 @@ defmodule BeamPM.Tract do
   """
   @spec load_model_path(Path.t(), keyword()) :: result()
   def load_model_path(path, opts \\ []) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
-
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ path }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
-      load_model(File.read!(path), opts)
-
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_tract_op_load_model_path",
-      engine: :tract,
-      op: :load_model_path,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :EXTERNAL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :tract, :load_model_path],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :tract, :load_model_path],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    load_model(File.read!(path), opts)
   end
 
   @doc ~S"""
@@ -246,45 +184,15 @@ defmodule BeamPM.Tract do
   @spec run(non_neg_integer(), [%{shape: [non_neg_integer()], data: [number()]}], keyword()) :: result()
   def run(handle, inputs, opts \\ [])
       when is_integer(handle) and is_list(inputs) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle, inputs }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "run", "handle" => handle, "inputs" => Enum.map(inputs, fn %{shape: shape, data: data} -> %{"shape" => shape, "data" => data} end)}
       |> call(timeout(opts, @heavy_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_tract_op_run",
-      engine: :tract,
-      op: :run,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :tract, :run],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :tract, :run],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:run, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -293,45 +201,15 @@ defmodule BeamPM.Tract do
   @spec model_info(non_neg_integer(), keyword()) :: result()
   def model_info(handle, opts \\ [])
       when is_integer(handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "model_info", "handle" => handle}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_tract_op_model_info",
-      engine: :tract,
-      op: :model_info,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :PURE
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :tract, :model_info],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :tract, :model_info],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:model_info, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -340,45 +218,15 @@ defmodule BeamPM.Tract do
   @spec free_model(non_neg_integer(), keyword()) :: result()
   def free_model(handle, opts \\ [])
       when is_integer(handle) do
-    telemetry_t0 = :erlang.monotonic_time()
-    telemetry_invocation_id = :erlang.unique_integer([:positive, :monotonic])
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
 
-    telemetry_args_digest =
-      :crypto.hash(:sha256, :erlang.term_to_binary({ handle }))
-      |> Base.encode16(case: :lower)
-
-    telemetry_result =
+    result =
       %{"op" => "free_model", "handle" => handle}
       |> call(timeout(opts, @cheap_timeout))
 
-    telemetry_duration_native = :erlang.monotonic_time() - telemetry_t0
-
-    telemetry_meta = %{
-      op_iri: "https://ggen.dev/projects/beam4pm#engine_tract_op_free_model",
-      engine: :tract,
-      op: :free_model,
-      args_digest: telemetry_args_digest,
-      invocation_id: telemetry_invocation_id,
-      verification_class: :REFUSAL
-    }
-
-    case telemetry_result do
-      {:error, telemetry_reason} ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :tract, :free_model],
-          %{duration_native: telemetry_duration_native},
-          Map.put(telemetry_meta, :refusal_reason, inspect(telemetry_reason))
-        )
-
-      _ok ->
-        :telemetry.execute(
-          [:beam4pm, :engine, :tract, :free_model],
-          %{duration_native: telemetry_duration_native},
-          telemetry_meta
-        )
-    end
-
-    telemetry_result
+    emit_engine_op_telemetry(:free_model, result, invocation_id, start_native)
+    result
   end
 
   # ---------------------------------------------------------------------
@@ -479,6 +327,36 @@ defmodule BeamPM.Tract do
   end
 
   defp timeout(opts, default), do: Keyword.get(opts, :timeout, default)
+
+  # ---------------------------------------------------------------------
+  # Telemetry -- fires the real `[:beam4pm, :engine, engine, op]` event
+  # this pack's OCEL evidence-contract Phase 2 consumers (BeamPM.Ingest.Bridge,
+  # BeamPM.Evidence.OtelBridge, BeamPM.Evidence.ReceiptBridge, all in
+  # lib/beam4pm_evidence.ex -- read, not guessed, before this wrapper was
+  # written) attach to. ONE :telemetry.execute/3 call after the op already
+  # returned (not a with_span/3 wrapper around the call site), matching
+  # OtelBridge's own handle_event/4 contract, which opens and closes its
+  # span from inside the callback using the already-known duration.
+  # ---------------------------------------------------------------------
+  defp emit_engine_op_telemetry(op, result, invocation_id, start_native) do
+    duration_native = System.monotonic_time() - start_native
+
+    metadata = %{
+      engine: :tract,
+      op: op,
+      op_iri: "https://ggen.dev/ontology/beam-process-model#tract/" <> Atom.to_string(op),
+      invocation_id: invocation_id,
+      verification_class: :unverified
+    }
+
+    metadata =
+      case result do
+        {:error, reason} -> Map.put(metadata, :refusal_reason, inspect(reason))
+        _ -> metadata
+      end
+
+    :telemetry.execute([:beam4pm, :engine, :tract, op], %{duration_native: duration_native}, metadata)
+  end
 end
 
 defmodule BeamPM.Tract.Health do

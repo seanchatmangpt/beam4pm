@@ -23,14 +23,6 @@
 %% one arity higher taking that value explicitly, since Erlang has no
 %% default-argument or keyword-list sugar.
 %%
-%% Telemetry: every op dispatch on 'Elixir.BeamPM.Tract' emits a real
-%% `:telemetry.execute/3` event ([:beam4pm, :engine, :tract, <op>]) on
-%% both the success and refusal paths -- see lib/beam4pm_tract.ex. This
-%% facade delegates 1:1 to that same Elixir function for every op, so calling
-%% through here already emits that event; re-emitting it here would double
-%% the telemetry for one logical call, since no computation or dispatch
-%% happens in this module.
-%%
 %% Why there is no beam4pm_tract_tests.erl: eunit runs under rebar3 (root
 %% rebar.config), which compiles src/ WITHOUT Mix dependencies, so wasmex is
 %% not on rebar3's code path. This facade is exercised for real from ExUnit

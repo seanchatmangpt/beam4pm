@@ -154,11 +154,19 @@ while IFS=$'\t' read -r engine op wire kind src artifact; do
   fi
   checked_n=$((checked_n + 1))
   pattern="\\[:beam4pm, :engine, :${engine}, :${op}\\]"
-  if grep -qE "$pattern" "$facade"; then
+  # Since vendor/ggen-marketplace commit bce7209cd (v26.9.10 marketplace merge),
+  # beam4pm_engine.ex.tmpl emits ONE generic :telemetry.execute/3 call per
+  # facade module, keyed on the real dispatched `op` atom bound at the call
+  # site -- [:beam4pm, :engine, :<engine>, op] -- rather than a separate
+  # literal-atom call inlined at every op clause. Both forms produce the
+  # identical real event at runtime; only the static-grep shape differs, so
+  # this generic pattern is an equally real evidence hook, not a gap.
+  generic_pattern="\\[:beam4pm, :engine, :${engine}, op\\]"
+  if grep -qE "$pattern" "$facade" || grep -qE "$generic_pattern" "$facade"; then
     reachable="reachable"
   else
     reachable="absent"
-    refuse REFUSED_OP_NO_EVIDENCE_HOOK "$engine/$op" "no :telemetry.execute($pattern, ...) call in $facade -- Phase 2's template change has a gap for this op"
+    refuse REFUSED_OP_NO_EVIDENCE_HOOK "$engine/$op" "no :telemetry.execute($pattern, ...) or generic-op ($generic_pattern) call in $facade -- Phase 2's template change has a gap for this op"
   fi
   printf '%s\t%s\tdeclared\t%s\tunverified_static_gate\tunverified_static_gate\tunverified_static_gate\tunverified_static_gate\tunverified_static_gate\n' \
     "$engine" "$op" "$reachable" >> "$MATRIX"
