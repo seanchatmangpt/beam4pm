@@ -148,6 +148,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :action_eligibility_decision,
+      mod: BeamPM.Types.ActionEligibilityDecision,
+      full_attrs: %{
+        decision_id: "sample_decision_id",
+        action_id: "sample_action_id",
+        standing: "sample_standing"
+      },
+      expected_map: %{
+        "decision_id" => "sample_decision_id",
+        "action_id" => "sample_action_id",
+        "standing" => "sample_standing"
+      },
+      req_attrs: %{
+        decision_id: "sample_decision_id",
+        action_id: "sample_action_id",
+        standing: "sample_standing"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :decision_id
+    },
+
+    %{
       name: :action_pin_evidence,
       mod: BeamPM.Types.ActionPinEvidence,
       full_attrs: %{
@@ -330,6 +353,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 3,
       opt_field_names: [],
       first_required: :agent_id
+    },
+
+    %{
+      name: :agent_capability_advertisement,
+      mod: BeamPM.Types.AgentCapabilityAdvertisement,
+      full_attrs: %{
+        agent_subject_sha: "sample_agent_subject_sha",
+        capability_digest: "sample_capability_digest",
+        valid_until: "2026-08-29T12:00:00.123456Z"
+      },
+      expected_map: %{
+        "agent_subject_sha" => "sample_agent_subject_sha",
+        "capability_digest" => "sample_capability_digest",
+        "valid_until" => "2026-08-29T12:00:00.123456Z"
+      },
+      req_attrs: %{
+        agent_subject_sha: "sample_agent_subject_sha",
+        capability_digest: "sample_capability_digest",
+        valid_until: "2026-08-29T12:00:00.123456Z"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :agent_subject_sha
     },
 
     %{
@@ -2199,6 +2245,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :belief_update_rule,
+      mod: BeamPM.Types.BeliefUpdateRule,
+      full_attrs: %{
+        rule_id: "sample_rule_id",
+        observation_schema: "sample_observation_schema",
+        update_digest: "sample_update_digest"
+      },
+      expected_map: %{
+        "rule_id" => "sample_rule_id",
+        "observation_schema" => "sample_observation_schema",
+        "update_digest" => "sample_update_digest"
+      },
+      req_attrs: %{
+        rule_id: "sample_rule_id",
+        observation_schema: "sample_observation_schema",
+        update_digest: "sample_update_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :rule_id
+    },
+
+    %{
       name: :beneficial_owner_evidence,
       mod: BeamPM.Types.BeneficialOwnerEvidence,
       full_attrs: %{
@@ -2323,6 +2392,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 3,
       opt_field_names: [],
       first_required: :opportunity_id
+    },
+
+    %{
+      name: :bounded_work_selection_receipt,
+      mod: BeamPM.Types.BoundedWorkSelectionReceipt,
+      full_attrs: %{
+        receipt_id: "sample_receipt_id",
+        selected_work_item_id: "sample_selected_work_item_id",
+        frontier_digest: "sample_frontier_digest"
+      },
+      expected_map: %{
+        "receipt_id" => "sample_receipt_id",
+        "selected_work_item_id" => "sample_selected_work_item_id",
+        "frontier_digest" => "sample_frontier_digest"
+      },
+      req_attrs: %{
+        receipt_id: "sample_receipt_id",
+        selected_work_item_id: "sample_selected_work_item_id",
+        frontier_digest: "sample_frontier_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :receipt_id
     },
 
     %{
@@ -2901,6 +2993,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 3,
       opt_field_names: [],
       first_required: :tenant_id
+    },
+
+    %{
+      name: :case_object_binding,
+      mod: BeamPM.Types.CaseObjectBinding,
+      full_attrs: %{
+        case_id: "sample_case_id",
+        object_id: "sample_object_id",
+        binding_role: "sample_binding_role"
+      },
+      expected_map: %{
+        "case_id" => "sample_case_id",
+        "object_id" => "sample_object_id",
+        "binding_role" => "sample_binding_role"
+      },
+      req_attrs: %{
+        case_id: "sample_case_id",
+        object_id: "sample_object_id",
+        binding_role: "sample_binding_role"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :case_id
     },
 
     %{
@@ -3524,6 +3639,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :compound_task_expansion,
+      mod: BeamPM.Types.CompoundTaskExpansion,
+      full_attrs: %{
+        task_id: "sample_task_id",
+        selected_method_id: "sample_selected_method_id",
+        alternative_digest: "sample_alternative_digest"
+      },
+      expected_map: %{
+        "task_id" => "sample_task_id",
+        "selected_method_id" => "sample_selected_method_id",
+        "alternative_digest" => "sample_alternative_digest"
+      },
+      req_attrs: %{
+        task_id: "sample_task_id",
+        selected_method_id: "sample_selected_method_id",
+        alternative_digest: "sample_alternative_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :task_id
+    },
+
+    %{
       name: :concurrency_pricing_policy,
       mod: BeamPM.Types.ConcurrencyPricingPolicy,
       full_attrs: %{
@@ -3650,6 +3788,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 4,
       opt_field_names: [],
       first_required: :transition_id
+    },
+
+    %{
+      name: :constraint_set_binding,
+      mod: BeamPM.Types.ConstraintSetBinding,
+      full_attrs: %{
+        problem_id: "sample_problem_id",
+        constraint_digest: "sample_constraint_digest",
+        binding_mode: "sample_binding_mode"
+      },
+      expected_map: %{
+        "problem_id" => "sample_problem_id",
+        "constraint_digest" => "sample_constraint_digest",
+        "binding_mode" => "sample_binding_mode"
+      },
+      req_attrs: %{
+        problem_id: "sample_problem_id",
+        constraint_digest: "sample_constraint_digest",
+        binding_mode: "sample_binding_mode"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :problem_id
     },
 
     %{
@@ -3835,6 +3996,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 4,
       opt_field_names: [],
       first_required: :index_digest
+    },
+
+    %{
+      name: :contingency_branch,
+      mod: BeamPM.Types.ContingencyBranch,
+      full_attrs: %{
+        branch_id: "sample_branch_id",
+        observation_predicate: "sample_observation_predicate",
+        next_node_id: "sample_next_node_id"
+      },
+      expected_map: %{
+        "branch_id" => "sample_branch_id",
+        "observation_predicate" => "sample_observation_predicate",
+        "next_node_id" => "sample_next_node_id"
+      },
+      req_attrs: %{
+        branch_id: "sample_branch_id",
+        observation_predicate: "sample_observation_predicate",
+        next_node_id: "sample_next_node_id"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :branch_id
     },
 
     %{
@@ -5991,6 +6175,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :deviation_repair_option,
+      mod: BeamPM.Types.DeviationRepairOption,
+      full_attrs: %{
+        option_id: "sample_option_id",
+        deviation_id: "sample_deviation_id",
+        repair_plan_digest: "sample_repair_plan_digest"
+      },
+      expected_map: %{
+        "option_id" => "sample_option_id",
+        "deviation_id" => "sample_deviation_id",
+        "repair_plan_digest" => "sample_repair_plan_digest"
+      },
+      req_attrs: %{
+        option_id: "sample_option_id",
+        deviation_id: "sample_deviation_id",
+        repair_plan_digest: "sample_repair_plan_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :option_id
+    },
+
+    %{
       name: :dfg_edge,
       mod: BeamPM.Types.DfgEdge,
       full_attrs: %{
@@ -6095,6 +6302,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 5,
       opt_field_names: [],
       first_required: :discovery_hypothesis_id
+    },
+
+    %{
+      name: :distributed_work_queue_observation,
+      mod: BeamPM.Types.DistributedWorkQueueObservation,
+      full_attrs: %{
+        consumer_subject_sha: "sample_consumer_subject_sha",
+        queue_digest: "sample_queue_digest",
+        observed_at: "2026-08-29T12:00:00.123456Z"
+      },
+      expected_map: %{
+        "consumer_subject_sha" => "sample_consumer_subject_sha",
+        "queue_digest" => "sample_queue_digest",
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
+      },
+      req_attrs: %{
+        consumer_subject_sha: "sample_consumer_subject_sha",
+        queue_digest: "sample_queue_digest",
+        observed_at: "2026-08-29T12:00:00.123456Z"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :consumer_subject_sha
     },
 
     %{
@@ -6869,6 +7099,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :exact_world_state_admission,
+      mod: BeamPM.Types.ExactWorldStateAdmission,
+      full_attrs: %{
+        subject_sha: "sample_subject_sha",
+        state_digest: "sample_state_digest",
+        observed_at: "2026-08-29T12:00:00.123456Z"
+      },
+      expected_map: %{
+        "subject_sha" => "sample_subject_sha",
+        "state_digest" => "sample_state_digest",
+        "observed_at" => "2026-08-29T12:00:00.123456Z"
+      },
+      req_attrs: %{
+        subject_sha: "sample_subject_sha",
+        state_digest: "sample_state_digest",
+        observed_at: "2026-08-29T12:00:00.123456Z"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :subject_sha
+    },
+
+    %{
       name: :exception_authority,
       mod: BeamPM.Types.ExceptionAuthority,
       full_attrs: %{
@@ -7150,6 +7403,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 5,
       opt_field_names: [],
       first_required: :failure_id
+    },
+
+    %{
+      name: :fairness_assumption,
+      mod: BeamPM.Types.FairnessAssumption,
+      full_attrs: %{
+        assumption_id: "sample_assumption_id",
+        policy_digest: "sample_policy_digest",
+        evidence_digest: "sample_evidence_digest"
+      },
+      expected_map: %{
+        "assumption_id" => "sample_assumption_id",
+        "policy_digest" => "sample_policy_digest",
+        "evidence_digest" => "sample_evidence_digest"
+      },
+      req_attrs: %{
+        assumption_id: "sample_assumption_id",
+        policy_digest: "sample_policy_digest",
+        evidence_digest: "sample_evidence_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :assumption_id
     },
 
     %{
@@ -7463,6 +7739,75 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :goal_set_binding,
+      mod: BeamPM.Types.GoalSetBinding,
+      full_attrs: %{
+        problem_id: "sample_problem_id",
+        goal_set_digest: "sample_goal_set_digest",
+        value_profile: "sample_value_profile"
+      },
+      expected_map: %{
+        "problem_id" => "sample_problem_id",
+        "goal_set_digest" => "sample_goal_set_digest",
+        "value_profile" => "sample_value_profile"
+      },
+      req_attrs: %{
+        problem_id: "sample_problem_id",
+        goal_set_digest: "sample_goal_set_digest",
+        value_profile: "sample_value_profile"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :problem_id
+    },
+
+    %{
+      name: :hddl_method_candidate,
+      mod: BeamPM.Types.HddlMethodCandidate,
+      full_attrs: %{
+        method_id: "sample_method_id",
+        compound_task_id: "sample_compound_task_id",
+        subnetwork_digest: "sample_subnetwork_digest"
+      },
+      expected_map: %{
+        "method_id" => "sample_method_id",
+        "compound_task_id" => "sample_compound_task_id",
+        "subnetwork_digest" => "sample_subnetwork_digest"
+      },
+      req_attrs: %{
+        method_id: "sample_method_id",
+        compound_task_id: "sample_compound_task_id",
+        subnetwork_digest: "sample_subnetwork_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :method_id
+    },
+
+    %{
+      name: :hddl_task_network,
+      mod: BeamPM.Types.HddlTaskNetwork,
+      full_attrs: %{
+        network_id: "sample_network_id",
+        task_set_digest: "sample_task_set_digest",
+        ordering_digest: "sample_ordering_digest"
+      },
+      expected_map: %{
+        "network_id" => "sample_network_id",
+        "task_set_digest" => "sample_task_set_digest",
+        "ordering_digest" => "sample_ordering_digest"
+      },
+      req_attrs: %{
+        network_id: "sample_network_id",
+        task_set_digest: "sample_task_set_digest",
+        ordering_digest: "sample_ordering_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :network_id
+    },
+
+    %{
       name: :heuristic_arc,
       mod: BeamPM.Types.HeuristicArc,
       full_attrs: %{
@@ -7708,6 +8053,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 4,
       opt_field_names: [],
       first_required: :partition_id
+    },
+
+    %{
+      name: :initial_state_digest,
+      mod: BeamPM.Types.InitialStateDigest,
+      full_attrs: %{
+        problem_id: "sample_problem_id",
+        fact_digest: "sample_fact_digest",
+        normalizer_version: "sample_normalizer_version"
+      },
+      expected_map: %{
+        "problem_id" => "sample_problem_id",
+        "fact_digest" => "sample_fact_digest",
+        "normalizer_version" => "sample_normalizer_version"
+      },
+      req_attrs: %{
+        problem_id: "sample_problem_id",
+        fact_digest: "sample_fact_digest",
+        normalizer_version: "sample_normalizer_version"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :problem_id
     },
 
     %{
@@ -8012,6 +8380,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 5,
       opt_field_names: [],
       first_required: :episode_id
+    },
+
+    %{
+      name: :lease_expiry_replan,
+      mod: BeamPM.Types.LeaseExpiryReplan,
+      full_attrs: %{
+        replan_id: "sample_replan_id",
+        expired_lease_id: "sample_expired_lease_id",
+        returned_frontier_digest: "sample_returned_frontier_digest"
+      },
+      expected_map: %{
+        "replan_id" => "sample_replan_id",
+        "expired_lease_id" => "sample_expired_lease_id",
+        "returned_frontier_digest" => "sample_returned_frontier_digest"
+      },
+      req_attrs: %{
+        replan_id: "sample_replan_id",
+        expired_lease_id: "sample_expired_lease_id",
+        returned_frontier_digest: "sample_returned_frontier_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :replan_id
     },
 
     %{
@@ -8419,6 +8810,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :method_precondition_gate,
+      mod: BeamPM.Types.MethodPreconditionGate,
+      full_attrs: %{
+        method_id: "sample_method_id",
+        state_digest: "sample_state_digest",
+        decision: "sample_decision"
+      },
+      expected_map: %{
+        "method_id" => "sample_method_id",
+        "state_digest" => "sample_state_digest",
+        "decision" => "sample_decision"
+      },
+      req_attrs: %{
+        method_id: "sample_method_id",
+        state_digest: "sample_state_digest",
+        decision: "sample_decision"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :method_id
+    },
+
+    %{
       name: :migration_contract,
       mod: BeamPM.Types.MigrationContract,
       full_attrs: %{
@@ -8630,6 +9044,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :next_event_prediction_contract,
+      mod: BeamPM.Types.NextEventPredictionContract,
+      full_attrs: %{
+        prediction_id: "sample_prediction_id",
+        prefix_digest: "sample_prefix_digest",
+        distribution_digest: "sample_distribution_digest"
+      },
+      expected_map: %{
+        "prediction_id" => "sample_prediction_id",
+        "prefix_digest" => "sample_prefix_digest",
+        "distribution_digest" => "sample_distribution_digest"
+      },
+      req_attrs: %{
+        prediction_id: "sample_prediction_id",
+        prefix_digest: "sample_prefix_digest",
+        distribution_digest: "sample_distribution_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :prediction_id
+    },
+
+    %{
       name: :next_lawful_actuation,
       mod: BeamPM.Types.NextLawfulActuation,
       full_attrs: %{
@@ -8705,6 +9142,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 3,
       opt_field_names: [],
       first_required: :tenant_id
+    },
+
+    %{
+      name: :nondeterministic_effect_contract,
+      mod: BeamPM.Types.NondeterministicEffectContract,
+      full_attrs: %{
+        action_id: "sample_action_id",
+        effect_set_digest: "sample_effect_set_digest",
+        selection_semantics: "sample_selection_semantics"
+      },
+      expected_map: %{
+        "action_id" => "sample_action_id",
+        "effect_set_digest" => "sample_effect_set_digest",
+        "selection_semantics" => "sample_selection_semantics"
+      },
+      req_attrs: %{
+        action_id: "sample_action_id",
+        effect_set_digest: "sample_effect_set_digest",
+        selection_semantics: "sample_selection_semantics"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :action_id
     },
 
     %{
@@ -9030,6 +9490,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :observation_partition,
+      mod: BeamPM.Types.ObservationPartition,
+      full_attrs: %{
+        partition_id: "sample_partition_id",
+        state_set_digest: "sample_state_set_digest",
+        observation_key: "sample_observation_key"
+      },
+      expected_map: %{
+        "partition_id" => "sample_partition_id",
+        "state_set_digest" => "sample_state_set_digest",
+        "observation_key" => "sample_observation_key"
+      },
+      req_attrs: %{
+        partition_id: "sample_partition_id",
+        state_set_digest: "sample_state_set_digest",
+        observation_key: "sample_observation_key"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :partition_id
+    },
+
+    %{
       name: :observation_projection_update,
       mod: BeamPM.Types.ObservationProjectionUpdate,
       full_attrs: %{
@@ -9180,6 +9663,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 2,
       opt_field_names: ["attributes"],
       first_required: :object_id
+    },
+
+    %{
+      name: :ocel_planning_event,
+      mod: BeamPM.Types.OcelPlanningEvent,
+      full_attrs: %{
+        event_id: "sample_event_id",
+        activity: "sample_activity",
+        object_binding_digest: "sample_object_binding_digest"
+      },
+      expected_map: %{
+        "event_id" => "sample_event_id",
+        "activity" => "sample_activity",
+        "object_binding_digest" => "sample_object_binding_digest"
+      },
+      req_attrs: %{
+        event_id: "sample_event_id",
+        activity: "sample_activity",
+        object_binding_digest: "sample_object_binding_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :event_id
     },
 
     %{
@@ -9480,6 +9986,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 3,
       opt_field_names: [],
       first_required: :left_option_id
+    },
+
+    %{
+      name: :outcome_branch_set,
+      mod: BeamPM.Types.OutcomeBranchSet,
+      full_attrs: %{
+        action_id: "sample_action_id",
+        branch_digest: "sample_branch_digest",
+        coverage_mode: "sample_coverage_mode"
+      },
+      expected_map: %{
+        "action_id" => "sample_action_id",
+        "branch_digest" => "sample_branch_digest",
+        "coverage_mode" => "sample_coverage_mode"
+      },
+      req_attrs: %{
+        action_id: "sample_action_id",
+        branch_digest: "sample_branch_digest",
+        coverage_mode: "sample_coverage_mode"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :action_id
     },
 
     %{
@@ -9848,6 +10377,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :plan_handoff_receipt,
+      mod: BeamPM.Types.PlanHandoffReceipt,
+      full_attrs: %{
+        receipt_id: "sample_receipt_id",
+        plan_digest: "sample_plan_digest",
+        receiver_subject_sha: "sample_receiver_subject_sha"
+      },
+      expected_map: %{
+        "receipt_id" => "sample_receipt_id",
+        "plan_digest" => "sample_plan_digest",
+        "receiver_subject_sha" => "sample_receiver_subject_sha"
+      },
+      req_attrs: %{
+        receipt_id: "sample_receipt_id",
+        plan_digest: "sample_plan_digest",
+        receiver_subject_sha: "sample_receiver_subject_sha"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :receipt_id
+    },
+
+    %{
       name: :plan_lineage,
       mod: BeamPM.Types.PlanLineage,
       full_attrs: %{
@@ -9894,6 +10446,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :planner_bid,
+      mod: BeamPM.Types.PlannerBid,
+      full_attrs: %{
+        bid_id: "sample_bid_id",
+        work_item_id: "sample_work_item_id",
+        score_digest: "sample_score_digest"
+      },
+      expected_map: %{
+        "bid_id" => "sample_bid_id",
+        "work_item_id" => "sample_work_item_id",
+        "score_digest" => "sample_score_digest"
+      },
+      req_attrs: %{
+        bid_id: "sample_bid_id",
+        work_item_id: "sample_work_item_id",
+        score_digest: "sample_score_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :bid_id
+    },
+
+    %{
       name: :planner_capability_profile,
       mod: BeamPM.Types.PlannerCapabilityProfile,
       full_attrs: %{
@@ -9937,6 +10512,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 3,
       opt_field_names: [],
       first_required: :planner_id
+    },
+
+    %{
+      name: :planner_lease,
+      mod: BeamPM.Types.PlannerLease,
+      full_attrs: %{
+        lease_id: "sample_lease_id",
+        work_item_id: "sample_work_item_id",
+        expires_at: "2026-08-29T12:00:00.123456Z"
+      },
+      expected_map: %{
+        "lease_id" => "sample_lease_id",
+        "work_item_id" => "sample_work_item_id",
+        "expires_at" => "2026-08-29T12:00:00.123456Z"
+      },
+      req_attrs: %{
+        lease_id: "sample_lease_id",
+        work_item_id: "sample_work_item_id",
+        expires_at: "2026-08-29T12:00:00.123456Z"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :lease_id
     },
 
     %{
@@ -10077,6 +10675,167 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 1,
       opt_field_names: ["preconditions", "effects"],
       first_required: :action_name
+    },
+
+    %{
+      name: :planning_blackboard_claim,
+      mod: BeamPM.Types.PlanningBlackboardClaim,
+      full_attrs: %{
+        claim_id: "sample_claim_id",
+        work_item_id: "sample_work_item_id",
+        owner_subject_sha: "sample_owner_subject_sha"
+      },
+      expected_map: %{
+        "claim_id" => "sample_claim_id",
+        "work_item_id" => "sample_work_item_id",
+        "owner_subject_sha" => "sample_owner_subject_sha"
+      },
+      req_attrs: %{
+        claim_id: "sample_claim_id",
+        work_item_id: "sample_work_item_id",
+        owner_subject_sha: "sample_owner_subject_sha"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :claim_id
+    },
+
+    %{
+      name: :planning_blackboard_conflict,
+      mod: BeamPM.Types.PlanningBlackboardConflict,
+      full_attrs: %{
+        conflict_id: "sample_conflict_id",
+        claim_set_digest: "sample_claim_set_digest",
+        conflict_type: "sample_conflict_type"
+      },
+      expected_map: %{
+        "conflict_id" => "sample_conflict_id",
+        "claim_set_digest" => "sample_claim_set_digest",
+        "conflict_type" => "sample_conflict_type"
+      },
+      req_attrs: %{
+        conflict_id: "sample_conflict_id",
+        claim_set_digest: "sample_claim_set_digest",
+        conflict_type: "sample_conflict_type"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :conflict_id
+    },
+
+    %{
+      name: :planning_blackboard_fact,
+      mod: BeamPM.Types.PlanningBlackboardFact,
+      full_attrs: %{
+        fact_id: "sample_fact_id",
+        subject_sha: "sample_subject_sha",
+        provenance_digest: "sample_provenance_digest"
+      },
+      expected_map: %{
+        "fact_id" => "sample_fact_id",
+        "subject_sha" => "sample_subject_sha",
+        "provenance_digest" => "sample_provenance_digest"
+      },
+      req_attrs: %{
+        fact_id: "sample_fact_id",
+        subject_sha: "sample_subject_sha",
+        provenance_digest: "sample_provenance_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :fact_id
+    },
+
+    %{
+      name: :planning_blackboard_resolution,
+      mod: BeamPM.Types.PlanningBlackboardResolution,
+      full_attrs: %{
+        resolution_id: "sample_resolution_id",
+        conflict_id: "sample_conflict_id",
+        preserved_option_digest: "sample_preserved_option_digest"
+      },
+      expected_map: %{
+        "resolution_id" => "sample_resolution_id",
+        "conflict_id" => "sample_conflict_id",
+        "preserved_option_digest" => "sample_preserved_option_digest"
+      },
+      req_attrs: %{
+        resolution_id: "sample_resolution_id",
+        conflict_id: "sample_conflict_id",
+        preserved_option_digest: "sample_preserved_option_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :resolution_id
+    },
+
+    %{
+      name: :planning_case_identity,
+      mod: BeamPM.Types.PlanningCaseIdentity,
+      full_attrs: %{
+        case_id: "sample_case_id",
+        subject_sha: "sample_subject_sha",
+        lineage_root: "sample_lineage_root"
+      },
+      expected_map: %{
+        "case_id" => "sample_case_id",
+        "subject_sha" => "sample_subject_sha",
+        "lineage_root" => "sample_lineage_root"
+      },
+      req_attrs: %{
+        case_id: "sample_case_id",
+        subject_sha: "sample_subject_sha",
+        lineage_root: "sample_lineage_root"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :case_id
+    },
+
+    %{
+      name: :planning_conformance_alignment,
+      mod: BeamPM.Types.PlanningConformanceAlignment,
+      full_attrs: %{
+        alignment_id: "sample_alignment_id",
+        trace_digest: "sample_trace_digest",
+        model_digest: "sample_model_digest"
+      },
+      expected_map: %{
+        "alignment_id" => "sample_alignment_id",
+        "trace_digest" => "sample_trace_digest",
+        "model_digest" => "sample_model_digest"
+      },
+      req_attrs: %{
+        alignment_id: "sample_alignment_id",
+        trace_digest: "sample_trace_digest",
+        model_digest: "sample_model_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :alignment_id
+    },
+
+    %{
+      name: :planning_problem_admission,
+      mod: BeamPM.Types.PlanningProblemAdmission,
+      full_attrs: %{
+        problem_id: "sample_problem_id",
+        state_digest: "sample_state_digest",
+        authority_scope: "sample_authority_scope"
+      },
+      expected_map: %{
+        "problem_id" => "sample_problem_id",
+        "state_digest" => "sample_state_digest",
+        "authority_scope" => "sample_authority_scope"
+      },
+      req_attrs: %{
+        problem_id: "sample_problem_id",
+        state_digest: "sample_state_digest",
+        authority_scope: "sample_authority_scope"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :problem_id
     },
 
     %{
@@ -10261,6 +11020,52 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :policy_graph_edge,
+      mod: BeamPM.Types.PolicyGraphEdge,
+      full_attrs: %{
+        source_node_id: "sample_source_node_id",
+        outcome_label: "sample_outcome_label",
+        target_node_id: "sample_target_node_id"
+      },
+      expected_map: %{
+        "source_node_id" => "sample_source_node_id",
+        "outcome_label" => "sample_outcome_label",
+        "target_node_id" => "sample_target_node_id"
+      },
+      req_attrs: %{
+        source_node_id: "sample_source_node_id",
+        outcome_label: "sample_outcome_label",
+        target_node_id: "sample_target_node_id"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :source_node_id
+    },
+
+    %{
+      name: :policy_graph_node,
+      mod: BeamPM.Types.PolicyGraphNode,
+      full_attrs: %{
+        node_id: "sample_node_id",
+        state_digest: "sample_state_digest",
+        selected_action_id: "sample_selected_action_id"
+      },
+      expected_map: %{
+        "node_id" => "sample_node_id",
+        "state_digest" => "sample_state_digest",
+        "selected_action_id" => "sample_selected_action_id"
+      },
+      req_attrs: %{
+        node_id: "sample_node_id",
+        state_digest: "sample_state_digest",
+        selected_action_id: "sample_selected_action_id"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :node_id
+    },
+
+    %{
       name: :policy_payoff_observation,
       mod: BeamPM.Types.PolicyPayoffObservation,
       full_attrs: %{
@@ -10317,6 +11122,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :powl_choice_operator,
+      mod: BeamPM.Types.PowlChoiceOperator,
+      full_attrs: %{
+        operator_id: "sample_operator_id",
+        branch_digest: "sample_branch_digest",
+        selection_rule: "sample_selection_rule"
+      },
+      expected_map: %{
+        "operator_id" => "sample_operator_id",
+        "branch_digest" => "sample_branch_digest",
+        "selection_rule" => "sample_selection_rule"
+      },
+      req_attrs: %{
+        operator_id: "sample_operator_id",
+        branch_digest: "sample_branch_digest",
+        selection_rule: "sample_selection_rule"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :operator_id
+    },
+
+    %{
       name: :powl_freq,
       mod: BeamPM.Types.PowlFreq,
       full_attrs: %{
@@ -10360,6 +11188,52 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :powl_loop_operator,
+      mod: BeamPM.Types.PowlLoopOperator,
+      full_attrs: %{
+        operator_id: "sample_operator_id",
+        body_digest: "sample_body_digest",
+        exit_predicate: "sample_exit_predicate"
+      },
+      expected_map: %{
+        "operator_id" => "sample_operator_id",
+        "body_digest" => "sample_body_digest",
+        "exit_predicate" => "sample_exit_predicate"
+      },
+      req_attrs: %{
+        operator_id: "sample_operator_id",
+        body_digest: "sample_body_digest",
+        exit_predicate: "sample_exit_predicate"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :operator_id
+    },
+
+    %{
+      name: :powl_parallel_operator,
+      mod: BeamPM.Types.PowlParallelOperator,
+      full_attrs: %{
+        operator_id: "sample_operator_id",
+        branch_digest: "sample_branch_digest",
+        join_rule: "sample_join_rule"
+      },
+      expected_map: %{
+        "operator_id" => "sample_operator_id",
+        "branch_digest" => "sample_branch_digest",
+        "join_rule" => "sample_join_rule"
+      },
+      req_attrs: %{
+        operator_id: "sample_operator_id",
+        branch_digest: "sample_branch_digest",
+        join_rule: "sample_join_rule"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :operator_id
+    },
+
+    %{
       name: :powl_partial_order_edge,
       mod: BeamPM.Types.PowlPartialOrderEdge,
       full_attrs: %{
@@ -10377,6 +11251,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 2,
       opt_field_names: [],
       first_required: :from_index
+    },
+
+    %{
+      name: :powl_partial_order_plan,
+      mod: BeamPM.Types.PowlPartialOrderPlan,
+      full_attrs: %{
+        plan_id: "sample_plan_id",
+        operator_digest: "sample_operator_digest",
+        order_digest: "sample_order_digest"
+      },
+      expected_map: %{
+        "plan_id" => "sample_plan_id",
+        "operator_digest" => "sample_operator_digest",
+        "order_digest" => "sample_order_digest"
+      },
+      req_attrs: %{
+        plan_id: "sample_plan_id",
+        operator_digest: "sample_operator_digest",
+        order_digest: "sample_order_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :plan_id
     },
 
     %{
@@ -10403,6 +11300,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :powl_sequence_operator,
+      mod: BeamPM.Types.PowlSequenceOperator,
+      full_attrs: %{
+        operator_id: "sample_operator_id",
+        step_digest: "sample_step_digest",
+        predecessor_digest: "sample_predecessor_digest"
+      },
+      expected_map: %{
+        "operator_id" => "sample_operator_id",
+        "step_digest" => "sample_step_digest",
+        "predecessor_digest" => "sample_predecessor_digest"
+      },
+      req_attrs: %{
+        operator_id: "sample_operator_id",
+        step_digest: "sample_step_digest",
+        predecessor_digest: "sample_predecessor_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :operator_id
+    },
+
+    %{
       name: :ppddl_projection,
       mod: BeamPM.Types.PpddlProjection,
       full_attrs: %{
@@ -10423,6 +11343,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 3,
       opt_field_names: [],
       first_required: :plan_id
+    },
+
+    %{
+      name: :prefix_alignment_frontier,
+      mod: BeamPM.Types.PrefixAlignmentFrontier,
+      full_attrs: %{
+        frontier_id: "sample_frontier_id",
+        prefix_digest: "sample_prefix_digest",
+        candidate_digest: "sample_candidate_digest"
+      },
+      expected_map: %{
+        "frontier_id" => "sample_frontier_id",
+        "prefix_digest" => "sample_prefix_digest",
+        "candidate_digest" => "sample_candidate_digest"
+      },
+      req_attrs: %{
+        frontier_id: "sample_frontier_id",
+        prefix_digest: "sample_prefix_digest",
+        candidate_digest: "sample_candidate_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :frontier_id
     },
 
     %{
@@ -10533,6 +11476,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 3,
       opt_field_names: [],
       first_required: :opportunity_id
+    },
+
+    %{
+      name: :primitive_task_binding,
+      mod: BeamPM.Types.PrimitiveTaskBinding,
+      full_attrs: %{
+        task_id: "sample_task_id",
+        action_id: "sample_action_id",
+        binding_digest: "sample_binding_digest"
+      },
+      expected_map: %{
+        "task_id" => "sample_task_id",
+        "action_id" => "sample_action_id",
+        "binding_digest" => "sample_binding_digest"
+      },
+      req_attrs: %{
+        task_id: "sample_task_id",
+        action_id: "sample_action_id",
+        binding_digest: "sample_binding_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :task_id
     },
 
     %{
@@ -11570,6 +12536,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :recovery_subtask,
+      mod: BeamPM.Types.RecoverySubtask,
+      full_attrs: %{
+        subtask_id: "sample_subtask_id",
+        trigger_outcome: "sample_trigger_outcome",
+        recovery_goal_digest: "sample_recovery_goal_digest"
+      },
+      expected_map: %{
+        "subtask_id" => "sample_subtask_id",
+        "trigger_outcome" => "sample_trigger_outcome",
+        "recovery_goal_digest" => "sample_recovery_goal_digest"
+      },
+      req_attrs: %{
+        subtask_id: "sample_subtask_id",
+        trigger_outcome: "sample_trigger_outcome",
+        recovery_goal_digest: "sample_recovery_goal_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :subtask_id
+    },
+
+    %{
       name: :recovery_time_receipt,
       mod: BeamPM.Types.RecoveryTimeReceipt,
       full_attrs: %{
@@ -11767,6 +12756,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 6,
       opt_field_names: [],
       first_required: :refusal_id
+    },
+
+    %{
+      name: :remaining_time_estimate_contract,
+      mod: BeamPM.Types.RemainingTimeEstimateContract,
+      full_attrs: %{
+        estimate_id: "sample_estimate_id",
+        case_state_digest: "sample_case_state_digest",
+        interval_digest: "sample_interval_digest"
+      },
+      expected_map: %{
+        "estimate_id" => "sample_estimate_id",
+        "case_state_digest" => "sample_case_state_digest",
+        "interval_digest" => "sample_interval_digest"
+      },
+      req_attrs: %{
+        estimate_id: "sample_estimate_id",
+        case_state_digest: "sample_case_state_digest",
+        interval_digest: "sample_interval_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :estimate_id
     },
 
     %{
@@ -12810,6 +13822,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :scheduling_priority_score,
+      mod: BeamPM.Types.SchedulingPriorityScore,
+      full_attrs: %{
+        score_id: "sample_score_id",
+        work_item_id: "sample_work_item_id",
+        component_digest: "sample_component_digest"
+      },
+      expected_map: %{
+        "score_id" => "sample_score_id",
+        "work_item_id" => "sample_work_item_id",
+        "component_digest" => "sample_component_digest"
+      },
+      req_attrs: %{
+        score_id: "sample_score_id",
+        work_item_id: "sample_work_item_id",
+        component_digest: "sample_component_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :score_id
+    },
+
+    %{
       name: :seat_pricing_policy,
       mod: BeamPM.Types.SeatPricingPolicy,
       full_attrs: %{
@@ -13627,6 +14662,52 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :strong_cyclic_plan_candidate,
+      mod: BeamPM.Types.StrongCyclicPlanCandidate,
+      full_attrs: %{
+        candidate_id: "sample_candidate_id",
+        policy_digest: "sample_policy_digest",
+        fairness_proof: "sample_fairness_proof"
+      },
+      expected_map: %{
+        "candidate_id" => "sample_candidate_id",
+        "policy_digest" => "sample_policy_digest",
+        "fairness_proof" => "sample_fairness_proof"
+      },
+      req_attrs: %{
+        candidate_id: "sample_candidate_id",
+        policy_digest: "sample_policy_digest",
+        fairness_proof: "sample_fairness_proof"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :candidate_id
+    },
+
+    %{
+      name: :strong_plan_candidate,
+      mod: BeamPM.Types.StrongPlanCandidate,
+      full_attrs: %{
+        candidate_id: "sample_candidate_id",
+        policy_digest: "sample_policy_digest",
+        coverage_proof: "sample_coverage_proof"
+      },
+      expected_map: %{
+        "candidate_id" => "sample_candidate_id",
+        "policy_digest" => "sample_policy_digest",
+        "coverage_proof" => "sample_coverage_proof"
+      },
+      req_attrs: %{
+        candidate_id: "sample_candidate_id",
+        policy_digest: "sample_policy_digest",
+        coverage_proof: "sample_coverage_proof"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :candidate_id
+    },
+
+    %{
       name: :subject_failure_separation,
       mod: BeamPM.Types.SubjectFailureSeparation,
       full_attrs: %{
@@ -13990,6 +15071,29 @@ defmodule BeamPM.Codec.GeneratedTest do
     },
 
     %{
+      name: :task_decomposition_proof,
+      mod: BeamPM.Types.TaskDecompositionProof,
+      full_attrs: %{
+        proof_id: "sample_proof_id",
+        method_id: "sample_method_id",
+        constraint_proof_digest: "sample_constraint_proof_digest"
+      },
+      expected_map: %{
+        "proof_id" => "sample_proof_id",
+        "method_id" => "sample_method_id",
+        "constraint_proof_digest" => "sample_constraint_proof_digest"
+      },
+      req_attrs: %{
+        proof_id: "sample_proof_id",
+        method_id: "sample_method_id",
+        constraint_proof_digest: "sample_constraint_proof_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :proof_id
+    },
+
+    %{
       name: :tax_jurisdiction_evidence,
       mod: BeamPM.Types.TaxJurisdictionEvidence,
       full_attrs: %{
@@ -14310,6 +15414,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 5,
       opt_field_names: [],
       first_required: :time_to_value_id
+    },
+
+    %{
+      name: :token_replay_state,
+      mod: BeamPM.Types.TokenReplayState,
+      full_attrs: %{
+        replay_id: "sample_replay_id",
+        prefix_digest: "sample_prefix_digest",
+        marking_digest: "sample_marking_digest"
+      },
+      expected_map: %{
+        "replay_id" => "sample_replay_id",
+        "prefix_digest" => "sample_prefix_digest",
+        "marking_digest" => "sample_marking_digest"
+      },
+      req_attrs: %{
+        replay_id: "sample_replay_id",
+        prefix_digest: "sample_prefix_digest",
+        marking_digest: "sample_marking_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :replay_id
     },
 
     %{
@@ -15276,6 +16403,29 @@ defmodule BeamPM.Codec.GeneratedTest do
       req_count: 4,
       opt_field_names: [],
       first_required: :evidence_id
+    },
+
+    %{
+      name: :weak_plan_candidate,
+      mod: BeamPM.Types.WeakPlanCandidate,
+      full_attrs: %{
+        candidate_id: "sample_candidate_id",
+        policy_digest: "sample_policy_digest",
+        uncovered_digest: "sample_uncovered_digest"
+      },
+      expected_map: %{
+        "candidate_id" => "sample_candidate_id",
+        "policy_digest" => "sample_policy_digest",
+        "uncovered_digest" => "sample_uncovered_digest"
+      },
+      req_attrs: %{
+        candidate_id: "sample_candidate_id",
+        policy_digest: "sample_policy_digest",
+        uncovered_digest: "sample_uncovered_digest"
+      },
+      req_count: 3,
+      opt_field_names: [],
+      first_required: :candidate_id
     },
 
     %{
