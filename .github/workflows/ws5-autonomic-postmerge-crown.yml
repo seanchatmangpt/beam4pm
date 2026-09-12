@@ -59,6 +59,7 @@ jobs:
           test "${#names[@]}" -eq 50
           test "$(printf '%s\n' "${names[@]}" | sort -u | wc -l | tr -d ' ')" -eq 50
           for name in "${names[@]}"; do
+            echo "checking ${name}"
             test -f "lib/beam4pm_ash/resources/${name}.ex"
             test -f "test/beam4pm_ash/resources/${name}_test.exs"
             test -f "docs/reference/types/${name}.md"
