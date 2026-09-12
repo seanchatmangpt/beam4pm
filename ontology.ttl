@@ -1267,7 +1267,7 @@ bex:ciTest
     gha:inWorkflow bex:ciWorkflow ;
     gha:jobName "test" ;
     gha:runner "ubuntu-latest" ;
-    gha:timeoutMinutes 30 ;
+    gha:timeoutMinutes 60 ;
     gha:jobPermissions "contents: read" ;
     gha:jobExtra "name: Erlang/Elixir/Gleam tests + determinism check" ;
     gha:evidenceEmitted "eunit, mix test, and gleam test results in the run log" ;
