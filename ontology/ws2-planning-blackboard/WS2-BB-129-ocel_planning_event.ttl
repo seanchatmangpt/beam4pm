@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-129 — ocel_planning_event
+bpm:ocel_planning_event_rt a bpm:RecordType ;
+    bpm:recordName "ocel_planning_event" ;
+    bpm:recordDoc "Captures a planning decision or observation as an object-centric event." ;
+    bpm:hasField bpm:ocel_planning_event_event_id_f ,
+                 bpm:ocel_planning_event_activity_f ,
+                 bpm:ocel_planning_event_object_binding_digest_f .
+
+bpm:ocel_planning_event_event_id_f a bpm:Field ;
+    bpm:fieldName "event_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning event identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:ocel_planning_event_activity_f a bpm:Field ;
+    bpm:fieldName "activity" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning activity type." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:ocel_planning_event_object_binding_digest_f a bpm:Field ;
+    bpm:fieldName "object_binding_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of related planning objects." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
