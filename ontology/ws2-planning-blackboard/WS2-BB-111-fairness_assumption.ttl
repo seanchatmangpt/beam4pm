@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-111 — fairness_assumption
+bpm:fairness_assumption_rt a bpm:RecordType ;
+    bpm:recordName "fairness_assumption" ;
+    bpm:recordDoc "Binds an explicit fairness assumption to a cyclic policy instead of hiding it." ;
+    bpm:hasField bpm:fairness_assumption_assumption_id_f ,
+                 bpm:fairness_assumption_policy_digest_f ,
+                 bpm:fairness_assumption_evidence_digest_f .
+
+bpm:fairness_assumption_assumption_id_f a bpm:Field ;
+    bpm:fieldName "assumption_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable fairness assumption identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:fairness_assumption_policy_digest_f a bpm:Field ;
+    bpm:fieldName "policy_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Policy graph governed by the assumption." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:fairness_assumption_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of evidence supporting fairness." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
