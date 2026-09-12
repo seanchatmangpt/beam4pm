@@ -107,6 +107,7 @@ jobs:
       - name: Exercise admitted hand-authored acceptance commands (GATE AUTHORSHIP --exercise)
         shell: bash
         run: |
+          source scripts/env/rust4pm_reactor_env.sh
           bash scripts/gate_authorship_check.sh --exercise
 
       - name: Cross-language wire identity (Erlang<->Elixir roundtrip + Ash verifies the wire)
