@@ -65,7 +65,7 @@ jobs:
             grep -Fq "new_${name}" lib/beam4pm_types.ex
             grep -Fq "new_${name}" src/beam4pm_types.erl
             grep -Fq "new_${name}" gleam/src/beam4pm/types.gleam
-            grep -Fq "\"\${name}\"" schema/beam4pm_types.schema.json
+            grep -Fq "\"${name}\"" schema/beam4pm_types.schema.json
           done
 
       - name: Prove conversation dogfood guards and no-DO ceiling
