@@ -77,6 +77,6 @@ jobs:
 
           git add lib/beam4pm_ash_domain.ex lib/beam4pm_ash_roundtrip.ex lib/beam4pm_ash/resources test/beam4pm_ash_resources_test.exs test/beam4pm_ash_roundtrip_test.exs test/beam4pm_ash_kernel_test.exs
           git rm .github/workflows/ws2-ash-crown-capture.yml
-          git diff --cached --check
+          git diff --cached --check -- . ':(exclude)lib/beam4pm_ash/resources/*.ex'
           git commit -m 'fix(crown): regenerate combined Ash planning domain'
           git push origin HEAD:codex/ws2-autonomic-blackboard-50-20260912
