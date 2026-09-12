@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-132 — planning_conformance_alignment
+bpm:planning_conformance_alignment_rt a bpm:RecordType ;
+    bpm:recordName "planning_conformance_alignment" ;
+    bpm:recordDoc "Aligns an observed planning trace to its admitted policy and process model." ;
+    bpm:hasField bpm:planning_conformance_alignment_alignment_id_f ,
+                 bpm:planning_conformance_alignment_trace_digest_f ,
+                 bpm:planning_conformance_alignment_model_digest_f .
+
+bpm:planning_conformance_alignment_alignment_id_f a bpm:Field ;
+    bpm:fieldName "alignment_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Conformance alignment identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_conformance_alignment_trace_digest_f a bpm:Field ;
+    bpm:fieldName "trace_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of observed planning events." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_conformance_alignment_model_digest_f a bpm:Field ;
+    bpm:fieldName "model_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the admitted model." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
