@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-117 — recovery_subtask
+bpm:recovery_subtask_rt a bpm:RecordType ;
+    bpm:recordName "recovery_subtask" ;
+    bpm:recordDoc "Declares a bounded recovery subtask for one failed or adverse outcome." ;
+    bpm:hasField bpm:recovery_subtask_subtask_id_f ,
+                 bpm:recovery_subtask_trigger_outcome_f ,
+                 bpm:recovery_subtask_recovery_goal_digest_f .
+
+bpm:recovery_subtask_subtask_id_f a bpm:Field ;
+    bpm:fieldName "subtask_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Recovery subtask identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:recovery_subtask_trigger_outcome_f a bpm:Field ;
+    bpm:fieldName "trigger_outcome" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Outcome that triggers recovery." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:recovery_subtask_recovery_goal_digest_f a bpm:Field ;
+    bpm:fieldName "recovery_goal_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the bounded recovery goal." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
