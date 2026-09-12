@@ -260,8 +260,29 @@ for fragment in "${ONTOLOGY_FRAGMENTS[@]}"; do
   cat "$fragment" >> ontology.ttl
 done
 
+# Stage-zero bootstrap: BeamPM.Contracts is admitted handwritten composition
+# and calls BeamPM.ReceiptChain at compile time. Every ggen_igniter task loads
+# and compiles this host project before it can render its first output, so
+# deleting ReceiptChain makes the second engine unable to start. The receipt
+# module is a fully static template: require byte identity with the exact
+# pinned template before preserving it as the compiler bootstrap. The normal
+# receipt_chain_sync.sh leg still executes and pass 4 still checks the final
+# byte set, so this grants no handwritten or stale-output authority.
+BOOTSTRAP_RECEIPT_CHAIN="lib/beam4pm_receipt_chain.ex"
+BOOTSTRAP_RECEIPT_CHAIN_TEMPLATE="vendor/ggen-marketplace/packs/beam4pm-process-model-pack/igniter/templates/beam4pm_receipt_chain.ex.eex"
+if ! cmp -s "$BOOTSTRAP_RECEIPT_CHAIN" "$BOOTSTRAP_RECEIPT_CHAIN_TEMPLATE"; then
+  echo "GATE M2: bootstrap receipt chain diverges from its exact static template" >&2
+  exit 1
+fi
+
 echo "== pass 3: delete manufactured files, regenerate (both engines) =="
-for f in "${before_files[@]}"; do rm -f "$f"; done
+for f in "${before_files[@]}"; do
+  if [ "$f" = "$BOOTSTRAP_RECEIPT_CHAIN" ]; then
+    echo "preserve exact static bootstrap: $f"
+  else
+    rm -f "$f"
+  fi
+done
 rm -f ggen.lock
 ggen sync run
 # lib/beam4pm_ash.ex, lib/beam4pm_actuation.ex, lib/beam4pm_process_governor.ex,
