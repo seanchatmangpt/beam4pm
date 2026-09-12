@@ -61,10 +61,12 @@ jobs:
           for name in "${names[@]}"; do
             echo "checking ${name}"
             test -f "lib/beam4pm_ash/resources/${name}.ex"
-            test -f "test/beam4pm_ash/resources/${name}_test.exs"
+            grep -Fq "name: \"${name}\"" test/beam4pm_ash_resources_test.exs
             test -f "docs/reference/types/${name}.md"
             grep -Fq "new_${name}" lib/beam4pm_types.ex
             grep -Fq "new_${name}" src/beam4pm_types.erl
+            grep -Fq "name: \"${name}\"" test/beam4pm_types_test.exs
+            grep -Fq "${name}_missing_field_test" test/beam4pm_types_tests.erl
             grep -Fq "new_${name}" gleam/src/beam4pm/types.gleam
             grep -Fq "\"${name}\"" schema/beam4pm_types.schema.json
           done
@@ -76,7 +78,7 @@ jobs:
           for name in             validation_capsule_identity_observation             manufacture_receipt_validity_observation             generated_output_ownership_observation             second_pass_byte_identity_observation             immutable_pack_selection             generated_source_route             consumer_equivalence_learning_guard             no_authority_learning_guard             federated_dogfood_learning_crown
           do
             test -f "lib/beam4pm_ash/resources/${name}.ex"
-            test -f "test/beam4pm_ash/resources/${name}_test.exs"
+            grep -Fq "name: \"${name}\"" test/beam4pm_ash_resources_test.exs
           done
           grep -Fq 'DO authority remains excluded' ontology.ttl
           grep -Fq 'zero unreceipted DO authority' ontology.ttl
