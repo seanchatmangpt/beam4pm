@@ -60,14 +60,15 @@ jobs:
           test "$(printf '%s\n' "${names[@]}" | sort -u | wc -l | tr -d ' ')" -eq 50
           for name in "${names[@]}"; do
             echo "checking ${name}"
+            class="$(awk -F_ '{ for (i = 1; i <= NF; i++) printf toupper(substr($i, 1, 1)) substr($i, 2) }' <<<"${name}")"
             test -f "lib/beam4pm_ash/resources/${name}.ex"
             grep -Fq "name: \"${name}\"" test/beam4pm_ash_resources_test.exs
             test -f "docs/reference/types/${name}.md"
-            grep -Fq "new_${name}" lib/beam4pm_types.ex
+            grep -Fq "defmodule BeamPM.Types.${class} do" lib/beam4pm_types.ex
             grep -Fq "new_${name}" src/beam4pm_types.erl
             grep -Fq "name: \"${name}\"" test/beam4pm_types_test.exs
             grep -Fq "${name}_missing_field_test" test/beam4pm_types_tests.erl
-            grep -Fq "new_${name}" gleam/src/beam4pm/types.gleam
+            grep -Fq "pub type ${class} {" gleam/src/beam4pm/types.gleam
             grep -Fq "\"${name}\"" schema/beam4pm_types.schema.json
           done
 
