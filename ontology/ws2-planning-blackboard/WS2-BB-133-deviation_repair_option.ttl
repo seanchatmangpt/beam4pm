@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-133 — deviation_repair_option
+bpm:deviation_repair_option_rt a bpm:RecordType ;
+    bpm:recordName "deviation_repair_option" ;
+    bpm:recordDoc "Generates a reversible repair option for one conformance deviation." ;
+    bpm:hasField bpm:deviation_repair_option_option_id_f ,
+                 bpm:deviation_repair_option_deviation_id_f ,
+                 bpm:deviation_repair_option_repair_plan_digest_f .
+
+bpm:deviation_repair_option_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Deviation repair option identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:deviation_repair_option_deviation_id_f a bpm:Field ;
+    bpm:fieldName "deviation_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Deviation addressed by the option." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:deviation_repair_option_repair_plan_digest_f a bpm:Field ;
+    bpm:fieldName "repair_plan_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the bounded repair plan." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
