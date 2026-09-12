@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-113 — policy_graph_edge
+bpm:policy_graph_edge_rt a bpm:RecordType ;
+    bpm:recordName "policy_graph_edge" ;
+    bpm:recordDoc "Defines an outcome-labelled transition between policy graph nodes." ;
+    bpm:hasField bpm:policy_graph_edge_source_node_id_f ,
+                 bpm:policy_graph_edge_outcome_label_f ,
+                 bpm:policy_graph_edge_target_node_id_f .
+
+bpm:policy_graph_edge_source_node_id_f a bpm:Field ;
+    bpm:fieldName "source_node_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Origin policy node." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:policy_graph_edge_outcome_label_f a bpm:Field ;
+    bpm:fieldName "outcome_label" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed outcome selecting the transition." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:policy_graph_edge_target_node_id_f a bpm:Field ;
+    bpm:fieldName "target_node_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Destination policy node." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
