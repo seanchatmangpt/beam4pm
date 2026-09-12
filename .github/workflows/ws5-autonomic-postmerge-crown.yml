@@ -1,0 +1,81 @@
+# Hand-authored independent qualification rail. The generated product workflows remain ggen-owned.
+name: WS5 Autonomic Learning Post-Merge Crown
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ws5-crown:
+    name: 50-cell lineage, projection, and authority crown
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact subject with immutable inputs
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          submodules: recursive
+
+      - name: Prove exact subject and WS5 lineage
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha }}"
+          git merge-base --is-ancestor 8804843bc84fb54ca2bf9f57f9ad693be9d96f79 HEAD
+          git merge-base --is-ancestor 25ec1555c28f1cb81113fcebf80f267dc1f72f6a HEAD
+          git merge-base --is-ancestor 70f2549f037e832e7c2908d0e8c9ce495aa62b3c HEAD
+          test "$(git submodule status --cached vendor/ggen-marketplace | awk '{print $1}' | tr -d '+-U')" =                "$(git -C vendor/ggen-marketplace rev-parse HEAD)"
+
+      - name: Prove 50 independent ontology cells and required-field falsifiers
+        shell: bash
+        run: |
+          set -euo pipefail
+          for n in $(seq -f '%03g' 1 50); do
+            test "$(grep -c "^# WS5-AUTO-${n} " ontology.ttl)" -eq 1
+          done
+          test "$(grep -oE '^# WS5-AUTO-[0-9]{3} ' ontology.ttl | sort -u | wc -l | tr -d ' ')" -eq 50
+          mapfile -t names < <(
+            awk '
+              /^# WS5-AUTO-[0-9][0-9][0-9] / { wanted = 1; next }
+              wanted && /bpm:recordName "/ {
+                line = $0
+                sub(/^.*bpm:recordName "/, "", line)
+                sub(/".*$/, "", line)
+                print line
+                wanted = 0
+              }
+            ' ontology.ttl
+          )
+          test "${#names[@]}" -eq 50
+          test "$(printf '%s\n' "${names[@]}" | sort -u | wc -l | tr -d ' ')" -eq 50
+          for name in "${names[@]}"; do
+            test -f "lib/beam4pm_ash/resources/${name}.ex"
+            test -f "test/beam4pm_ash/resources/${name}_test.exs"
+            test -f "docs/reference/types/${name}.md"
+            grep -Fq "new_${name}" lib/beam4pm_types.ex
+            grep -Fq "new_${name}" src/beam4pm_types.erl
+            grep -Fq "new_${name}" gleam/src/beam4pm/types.gleam
+            grep -Fq "\"\${name}\"" schema/beam4pm_types.schema.json
+          done
+
+      - name: Prove conversation dogfood guards and no-DO ceiling
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in             validation_capsule_identity_observation             manufacture_receipt_validity_observation             generated_output_ownership_observation             second_pass_byte_identity_observation             immutable_pack_selection             generated_source_route             consumer_equivalence_learning_guard             no_authority_learning_guard             federated_dogfood_learning_crown
+          do
+            test -f "lib/beam4pm_ash/resources/${name}.ex"
+            test -f "test/beam4pm_ash/resources/${name}_test.exs"
+          done
+          grep -Fq 'DO authority remains excluded' ontology.ttl
+          grep -Fq 'zero unreceipted DO authority' ontology.ttl
+          grep -Fq 'SELECT-CONSTRUCT-DRY_RUN_MANUFACTURE-QUALIFY-RECEIPT' ontology.ttl
