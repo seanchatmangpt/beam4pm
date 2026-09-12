@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-118 — hddl_task_network
+bpm:hddl_task_network_rt a bpm:RecordType ;
+    bpm:recordName "hddl_task_network" ;
+    bpm:recordDoc "Represents a partially ordered HDDL task network over an exact problem." ;
+    bpm:hasField bpm:hddl_task_network_network_id_f ,
+                 bpm:hddl_task_network_task_set_digest_f ,
+                 bpm:hddl_task_network_ordering_digest_f .
+
+bpm:hddl_task_network_network_id_f a bpm:Field ;
+    bpm:fieldName "network_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Task network identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:hddl_task_network_task_set_digest_f a bpm:Field ;
+    bpm:fieldName "task_set_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of network tasks." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:hddl_task_network_ordering_digest_f a bpm:Field ;
+    bpm:fieldName "ordering_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of partial-order constraints." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
