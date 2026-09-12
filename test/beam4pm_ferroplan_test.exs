@@ -88,6 +88,28 @@ defmodule BeamPM.FerroplanTest do
       assert {:ok, explanation} = Ferroplan.explain(@domain, @problem, sol["plan"])
       assert is_map(explanation)
     end
+
+    test "hddl_solve/4 solves the real transport-a HDDL fixture end-to-end" do
+      # `crates/ferroplan-hddl/fixtures/a` -- a fully deterministic
+      # deliver domain (pickup -> drive -> dropoff), documented in
+      # `ferroplan::hddl::tests` (crates/ferroplan/src/hddl.rs) as having
+      # a real strong FOND policy (used there as the "known-solved"
+      # counterpart to fixture C's "known-NoPlan" case in the
+      # concurrency-safety test). Going through the real
+      # BeamPM.Ferroplan wasmex-hosted engine (not calling the Rust op
+      # directly) exercises the whole HDDL parse -> ground -> translate ->
+      # FOND-solve -> wire-JSON path for real, including the wasm ABI's
+      # own `max_wall_ms = 0` override in `op_hddl_solve` (see
+      # `native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs`) that
+      # avoids `solve_hddl`'s thread-spawning watchdog, unsupported on
+      # wasm32-wasip1.
+      domain = File.read!("native/ferroplan/crates/ferroplan-hddl/fixtures/a/domain.hddl")
+      problem = File.read!("native/ferroplan/crates/ferroplan-hddl/fixtures/a/problem.hddl")
+
+      assert {:ok, policy} = Ferroplan.hddl_solve(domain, problem)
+      refute Map.has_key?(policy, "error")
+      assert policy["solved"] == true
+    end
   end
 
   describe "session lifecycle" do
