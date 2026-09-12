@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-148 — action_eligibility_decision
+bpm:action_eligibility_decision_rt a bpm:RecordType ;
+    bpm:recordName "action_eligibility_decision" ;
+    bpm:recordDoc "Calculates whether an action is lawful from constraints, authority, and receipts." ;
+    bpm:hasField bpm:action_eligibility_decision_decision_id_f ,
+                 bpm:action_eligibility_decision_action_id_f ,
+                 bpm:action_eligibility_decision_standing_f .
+
+bpm:action_eligibility_decision_decision_id_f a bpm:Field ;
+    bpm:fieldName "decision_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Eligibility decision identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:action_eligibility_decision_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate action evaluated." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:action_eligibility_decision_standing_f a bpm:Field ;
+    bpm:fieldName "standing" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed eligible or refused standing." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
