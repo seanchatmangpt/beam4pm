@@ -28054,3 +28054,47 @@ bap:hand_authored_test_deviation_admission a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "c639d69" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "If bpm:ProcessDeviation is later rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission." .
+
+# EDS (Executable Design Science) core: an ExecutableResearchClaim whose
+# evidence state can only advance through a real, enforced ladder
+# (proposed -> implemented -> executable -> observed -> verified, plus
+# terminal falsified/blocked/unsupported), every transition recorded as a
+# real beam4pm-brce/v1 receipt chained via the existing BeamPM.ReceiptChain
+# primitives. lib/beam4pm_eds_ppcx_h1.ex wires the PPCX paper's Section 16
+# H1 example (deviation-feedback half) as the first concrete claim, reusing
+# BeamPM.PowlConformance.check_conformance/3 and
+# BeamPM.DeviationAdmission.admit_deviation/4 -- no new receipt format, no
+# new chaining logic, pure reuse of already-admitted capital.
+
+bap:hand_authored_lib_beam4pm_eds a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_eds.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Executable Design Science core: ExecutableResearchClaim struct + an enforced 5-state evidence ladder (no illegal transitions/collapses) + a terminal falsified/blocked/unsupported branch reachable from any non-terminal state, every transition receipted and chained via the existing BeamPM.ReceiptChain.link_fields/3 + hash_file!/1 primitives (no new receipt schema, no new chaining logic)." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_eds_test.exs" ;
+    bpm:contentSha256 "e9fca0b31543ba67de7ecc066975218d7810d7cca9d71f6a584631adc69b7057" ;
+    bpm:admittedAtCommit "4d50b4b" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If a research-claim record type is ever promoted to a full admitted bpm:RecordType with ggen-generated constructors/codec, migrate BeamPM.EDS's receipt-writing onto the generated struct; then delete this admission." .
+
+bap:hand_authored_lib_beam4pm_eds_ppcx_h1 a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_eds_ppcx_h1.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "The first concrete Executable Research Claim under BeamPM.EDS: the PPCX paper's Section 16 H1 example (deviation-feedback half only, honestly disclosed as not yet the full comparative claim), driving a real claim through the full ladder against the real, already-admitted check_conformance/3 -> admit_deviation/4 pipeline." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_eds_test.exs" ;
+    bpm:contentSha256 "d6c69650e66285cad187a5210633d9a7b8044c4f988c507fe4963c2935d83260" ;
+    bpm:admittedAtCommit "4d50b4b" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If H1's full comparative claim (deviation-feedback vs. control condition) is later implemented, this module's scope note should be revised or this admission superseded by a broader one." .
+
+bap:hand_authored_test_eds a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_eds_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Chicago-style qualification of BeamPM.EDS and BeamPM.EDS.PPCXH1: real illegal-transition refusal, real terminal-state reachability, real receipt chain write + independent replay verification, and a real deviating OCEL trace driving the PPCX H1 artifact through the full ladder to :verified with a real ontology.ttl mutation confirmed by reading the file back -- no mocks." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_eds_test.exs" ;
+    bpm:contentSha256 "14b8eb48d3a07c530cb533b7fed5a8bae588f21a44489e86b4cf2aa918ca5d29" ;
+    bpm:admittedAtCommit "4d50b4b" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If a research-claim record type is ever rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission." .
