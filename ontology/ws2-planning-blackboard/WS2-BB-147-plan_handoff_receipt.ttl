@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-147 — plan_handoff_receipt
+bpm:plan_handoff_receipt_rt a bpm:RecordType ;
+    bpm:recordName "plan_handoff_receipt" ;
+    bpm:recordDoc "Receipts transfer of an exact plan subject between caller-local consumers." ;
+    bpm:hasField bpm:plan_handoff_receipt_receipt_id_f ,
+                 bpm:plan_handoff_receipt_plan_digest_f ,
+                 bpm:plan_handoff_receipt_receiver_subject_sha_f .
+
+bpm:plan_handoff_receipt_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Plan handoff receipt identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:plan_handoff_receipt_plan_digest_f a bpm:Field ;
+    bpm:fieldName "plan_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the transferred plan." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:plan_handoff_receipt_receiver_subject_sha_f a bpm:Field ;
+    bpm:fieldName "receiver_subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact receiving consumer subject." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
