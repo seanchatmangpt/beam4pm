@@ -27911,3 +27911,1457 @@ bpm:unit_economics_snapshot_effective_at_f a bpm:Field ;
     bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# ===========================================================================
+# WS2 distributed planning blackboard — WS2-BB-101..150
+# ===========================================================================
+
+# WS2-BB-101 — exact_world_state_admission
+bpm:exact_world_state_admission_rt a bpm:RecordType ;
+    bpm:recordName "exact_world_state_admission" ;
+    bpm:recordDoc "Admits an exact immutable world-state subject before option generation." ;
+    bpm:hasField bpm:exact_world_state_admission_subject_sha_f ,
+                 bpm:exact_world_state_admission_state_digest_f ,
+                 bpm:exact_world_state_admission_observed_at_f .
+
+bpm:exact_world_state_admission_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact SHA of the admitted planning subject." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:exact_world_state_admission_state_digest_f a bpm:Field ;
+    bpm:fieldName "state_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the normalized world state." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:exact_world_state_admission_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of the admitted observation." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-102 — planning_problem_admission
+bpm:planning_problem_admission_rt a bpm:RecordType ;
+    bpm:recordName "planning_problem_admission" ;
+    bpm:recordDoc "Binds an admitted world state to a bounded planning problem." ;
+    bpm:hasField bpm:planning_problem_admission_problem_id_f ,
+                 bpm:planning_problem_admission_state_digest_f ,
+                 bpm:planning_problem_admission_authority_scope_f .
+
+bpm:planning_problem_admission_problem_id_f a bpm:Field ;
+    bpm:fieldName "problem_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable planning problem identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_problem_admission_state_digest_f a bpm:Field ;
+    bpm:fieldName "state_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the admitted initial state." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_problem_admission_authority_scope_f a bpm:Field ;
+    bpm:fieldName "authority_scope" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Authority boundary for proposed actions." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-103 — goal_set_binding
+bpm:goal_set_binding_rt a bpm:RecordType ;
+    bpm:recordName "goal_set_binding" ;
+    bpm:recordDoc "Binds explicit valued goals to one admitted planning problem." ;
+    bpm:hasField bpm:goal_set_binding_problem_id_f ,
+                 bpm:goal_set_binding_goal_set_digest_f ,
+                 bpm:goal_set_binding_value_profile_f .
+
+bpm:goal_set_binding_problem_id_f a bpm:Field ;
+    bpm:fieldName "problem_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning problem receiving the goals." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:goal_set_binding_goal_set_digest_f a bpm:Field ;
+    bpm:fieldName "goal_set_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the ordered goal set." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:goal_set_binding_value_profile_f a bpm:Field ;
+    bpm:fieldName "value_profile" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Explicit value profile used for selection." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-104 — constraint_set_binding
+bpm:constraint_set_binding_rt a bpm:RecordType ;
+    bpm:recordName "constraint_set_binding" ;
+    bpm:recordDoc "Binds hard and soft constraints without granting actuation authority." ;
+    bpm:hasField bpm:constraint_set_binding_problem_id_f ,
+                 bpm:constraint_set_binding_constraint_digest_f ,
+                 bpm:constraint_set_binding_binding_mode_f .
+
+bpm:constraint_set_binding_problem_id_f a bpm:Field ;
+    bpm:fieldName "problem_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning problem receiving constraints." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:constraint_set_binding_constraint_digest_f a bpm:Field ;
+    bpm:fieldName "constraint_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of normalized constraints." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:constraint_set_binding_binding_mode_f a bpm:Field ;
+    bpm:fieldName "binding_mode" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Hard or soft constraint interpretation." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-105 — initial_state_digest
+bpm:initial_state_digest_rt a bpm:RecordType ;
+    bpm:recordName "initial_state_digest" ;
+    bpm:recordDoc "Freezes the normalized initial facts used by every planner in a portfolio." ;
+    bpm:hasField bpm:initial_state_digest_problem_id_f ,
+                 bpm:initial_state_digest_fact_digest_f ,
+                 bpm:initial_state_digest_normalizer_version_f .
+
+bpm:initial_state_digest_problem_id_f a bpm:Field ;
+    bpm:fieldName "problem_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning problem identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:initial_state_digest_fact_digest_f a bpm:Field ;
+    bpm:fieldName "fact_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of sorted initial facts." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:initial_state_digest_normalizer_version_f a bpm:Field ;
+    bpm:fieldName "normalizer_version" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact normalizer version." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-106 — outcome_branch_set
+bpm:outcome_branch_set_rt a bpm:RecordType ;
+    bpm:recordName "outcome_branch_set" ;
+    bpm:recordDoc "Declares the finite outcome branches an action may produce." ;
+    bpm:hasField bpm:outcome_branch_set_action_id_f ,
+                 bpm:outcome_branch_set_branch_digest_f ,
+                 bpm:outcome_branch_set_coverage_mode_f .
+
+bpm:outcome_branch_set_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate action identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:outcome_branch_set_branch_digest_f a bpm:Field ;
+    bpm:fieldName "branch_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of ordered possible outcomes." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:outcome_branch_set_coverage_mode_f a bpm:Field ;
+    bpm:fieldName "coverage_mode" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Declared completeness mode for branches." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-107 — nondeterministic_effect_contract
+bpm:nondeterministic_effect_contract_rt a bpm:RecordType ;
+    bpm:recordName "nondeterministic_effect_contract" ;
+    bpm:recordDoc "Makes nondeterministic effects explicit for FOND planning and replay." ;
+    bpm:hasField bpm:nondeterministic_effect_contract_action_id_f ,
+                 bpm:nondeterministic_effect_contract_effect_set_digest_f ,
+                 bpm:nondeterministic_effect_contract_selection_semantics_f .
+
+bpm:nondeterministic_effect_contract_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Action whose effects are nondeterministic." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:nondeterministic_effect_contract_effect_set_digest_f a bpm:Field ;
+    bpm:fieldName "effect_set_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the alternative effect sets." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:nondeterministic_effect_contract_selection_semantics_f a bpm:Field ;
+    bpm:fieldName "selection_semantics" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Environment selection semantics." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-108 — strong_plan_candidate
+bpm:strong_plan_candidate_rt a bpm:RecordType ;
+    bpm:recordName "strong_plan_candidate" ;
+    bpm:recordDoc "Records a policy candidate that reaches the goal under every admitted outcome." ;
+    bpm:hasField bpm:strong_plan_candidate_candidate_id_f ,
+                 bpm:strong_plan_candidate_policy_digest_f ,
+                 bpm:strong_plan_candidate_coverage_proof_f .
+
+bpm:strong_plan_candidate_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Strong plan candidate identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:strong_plan_candidate_policy_digest_f a bpm:Field ;
+    bpm:fieldName "policy_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the policy graph." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:strong_plan_candidate_coverage_proof_f a bpm:Field ;
+    bpm:fieldName "coverage_proof" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence covering every admitted outcome." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-109 — strong_cyclic_plan_candidate
+bpm:strong_cyclic_plan_candidate_rt a bpm:RecordType ;
+    bpm:recordName "strong_cyclic_plan_candidate" ;
+    bpm:recordDoc "Records a fair strong-cyclic policy candidate for recoverable recurrence." ;
+    bpm:hasField bpm:strong_cyclic_plan_candidate_candidate_id_f ,
+                 bpm:strong_cyclic_plan_candidate_policy_digest_f ,
+                 bpm:strong_cyclic_plan_candidate_fairness_proof_f .
+
+bpm:strong_cyclic_plan_candidate_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Strong-cyclic candidate identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:strong_cyclic_plan_candidate_policy_digest_f a bpm:Field ;
+    bpm:fieldName "policy_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the cyclic policy graph." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:strong_cyclic_plan_candidate_fairness_proof_f a bpm:Field ;
+    bpm:fieldName "fairness_proof" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Evidence binding recurrence to fairness assumptions." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-110 — weak_plan_candidate
+bpm:weak_plan_candidate_rt a bpm:RecordType ;
+    bpm:recordName "weak_plan_candidate" ;
+    bpm:recordDoc "Records a weak plan while preserving its uncovered counterfactuals." ;
+    bpm:hasField bpm:weak_plan_candidate_candidate_id_f ,
+                 bpm:weak_plan_candidate_policy_digest_f ,
+                 bpm:weak_plan_candidate_uncovered_digest_f .
+
+bpm:weak_plan_candidate_candidate_id_f a bpm:Field ;
+    bpm:fieldName "candidate_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Weak plan candidate identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:weak_plan_candidate_policy_digest_f a bpm:Field ;
+    bpm:fieldName "policy_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the proposed policy." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:weak_plan_candidate_uncovered_digest_f a bpm:Field ;
+    bpm:fieldName "uncovered_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of outcomes not guaranteed to reach the goal." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-111 — fairness_assumption
+bpm:fairness_assumption_rt a bpm:RecordType ;
+    bpm:recordName "fairness_assumption" ;
+    bpm:recordDoc "Binds an explicit fairness assumption to a cyclic policy instead of hiding it." ;
+    bpm:hasField bpm:fairness_assumption_assumption_id_f ,
+                 bpm:fairness_assumption_policy_digest_f ,
+                 bpm:fairness_assumption_evidence_digest_f .
+
+bpm:fairness_assumption_assumption_id_f a bpm:Field ;
+    bpm:fieldName "assumption_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable fairness assumption identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:fairness_assumption_policy_digest_f a bpm:Field ;
+    bpm:fieldName "policy_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Policy graph governed by the assumption." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:fairness_assumption_evidence_digest_f a bpm:Field ;
+    bpm:fieldName "evidence_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of evidence supporting fairness." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-112 — policy_graph_node
+bpm:policy_graph_node_rt a bpm:RecordType ;
+    bpm:recordName "policy_graph_node" ;
+    bpm:recordDoc "Defines one exact state node in an executable policy graph." ;
+    bpm:hasField bpm:policy_graph_node_node_id_f ,
+                 bpm:policy_graph_node_state_digest_f ,
+                 bpm:policy_graph_node_selected_action_id_f .
+
+bpm:policy_graph_node_node_id_f a bpm:Field ;
+    bpm:fieldName "node_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Policy node identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:policy_graph_node_state_digest_f a bpm:Field ;
+    bpm:fieldName "state_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Normalized state digest at the node." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:policy_graph_node_selected_action_id_f a bpm:Field ;
+    bpm:fieldName "selected_action_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Action selected when the node matches." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-113 — policy_graph_edge
+bpm:policy_graph_edge_rt a bpm:RecordType ;
+    bpm:recordName "policy_graph_edge" ;
+    bpm:recordDoc "Defines an outcome-labelled transition between policy graph nodes." ;
+    bpm:hasField bpm:policy_graph_edge_source_node_id_f ,
+                 bpm:policy_graph_edge_outcome_label_f ,
+                 bpm:policy_graph_edge_target_node_id_f .
+
+bpm:policy_graph_edge_source_node_id_f a bpm:Field ;
+    bpm:fieldName "source_node_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Origin policy node." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:policy_graph_edge_outcome_label_f a bpm:Field ;
+    bpm:fieldName "outcome_label" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Observed outcome selecting the transition." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:policy_graph_edge_target_node_id_f a bpm:Field ;
+    bpm:fieldName "target_node_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Destination policy node." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-114 — belief_update_rule
+bpm:belief_update_rule_rt a bpm:RecordType ;
+    bpm:recordName "belief_update_rule" ;
+    bpm:recordDoc "Updates a belief state from an admitted observation without inventing facts." ;
+    bpm:hasField bpm:belief_update_rule_rule_id_f ,
+                 bpm:belief_update_rule_observation_schema_f ,
+                 bpm:belief_update_rule_update_digest_f .
+
+bpm:belief_update_rule_rule_id_f a bpm:Field ;
+    bpm:fieldName "rule_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Belief update rule identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:belief_update_rule_observation_schema_f a bpm:Field ;
+    bpm:fieldName "observation_schema" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Schema of admissible observations." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:belief_update_rule_update_digest_f a bpm:Field ;
+    bpm:fieldName "update_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of deterministic update semantics." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-115 — observation_partition
+bpm:observation_partition_rt a bpm:RecordType ;
+    bpm:recordName "observation_partition" ;
+    bpm:recordDoc "Partitions observationally equivalent world states for contingent planning." ;
+    bpm:hasField bpm:observation_partition_partition_id_f ,
+                 bpm:observation_partition_state_set_digest_f ,
+                 bpm:observation_partition_observation_key_f .
+
+bpm:observation_partition_partition_id_f a bpm:Field ;
+    bpm:fieldName "partition_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Observation partition identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:observation_partition_state_set_digest_f a bpm:Field ;
+    bpm:fieldName "state_set_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of member world states." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:observation_partition_observation_key_f a bpm:Field ;
+    bpm:fieldName "observation_key" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Observation defining equivalence." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-116 — contingency_branch
+bpm:contingency_branch_rt a bpm:RecordType ;
+    bpm:recordName "contingency_branch" ;
+    bpm:recordDoc "Binds an observation predicate to the next lawful policy branch." ;
+    bpm:hasField bpm:contingency_branch_branch_id_f ,
+                 bpm:contingency_branch_observation_predicate_f ,
+                 bpm:contingency_branch_next_node_id_f .
+
+bpm:contingency_branch_branch_id_f a bpm:Field ;
+    bpm:fieldName "branch_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Contingency branch identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:contingency_branch_observation_predicate_f a bpm:Field ;
+    bpm:fieldName "observation_predicate" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Predicate selecting this branch." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:contingency_branch_next_node_id_f a bpm:Field ;
+    bpm:fieldName "next_node_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Policy node entered on match." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-117 — recovery_subtask
+bpm:recovery_subtask_rt a bpm:RecordType ;
+    bpm:recordName "recovery_subtask" ;
+    bpm:recordDoc "Declares a bounded recovery subtask for one failed or adverse outcome." ;
+    bpm:hasField bpm:recovery_subtask_subtask_id_f ,
+                 bpm:recovery_subtask_trigger_outcome_f ,
+                 bpm:recovery_subtask_recovery_goal_digest_f .
+
+bpm:recovery_subtask_subtask_id_f a bpm:Field ;
+    bpm:fieldName "subtask_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Recovery subtask identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:recovery_subtask_trigger_outcome_f a bpm:Field ;
+    bpm:fieldName "trigger_outcome" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Outcome that triggers recovery." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:recovery_subtask_recovery_goal_digest_f a bpm:Field ;
+    bpm:fieldName "recovery_goal_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the bounded recovery goal." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-118 — hddl_task_network
+bpm:hddl_task_network_rt a bpm:RecordType ;
+    bpm:recordName "hddl_task_network" ;
+    bpm:recordDoc "Represents a partially ordered HDDL task network over an exact problem." ;
+    bpm:hasField bpm:hddl_task_network_network_id_f ,
+                 bpm:hddl_task_network_task_set_digest_f ,
+                 bpm:hddl_task_network_ordering_digest_f .
+
+bpm:hddl_task_network_network_id_f a bpm:Field ;
+    bpm:fieldName "network_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Task network identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:hddl_task_network_task_set_digest_f a bpm:Field ;
+    bpm:fieldName "task_set_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of network tasks." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:hddl_task_network_ordering_digest_f a bpm:Field ;
+    bpm:fieldName "ordering_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of partial-order constraints." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-119 — hddl_method_candidate
+bpm:hddl_method_candidate_rt a bpm:RecordType ;
+    bpm:recordName "hddl_method_candidate" ;
+    bpm:recordDoc "Declares one applicable method candidate for a compound task." ;
+    bpm:hasField bpm:hddl_method_candidate_method_id_f ,
+                 bpm:hddl_method_candidate_compound_task_id_f ,
+                 bpm:hddl_method_candidate_subnetwork_digest_f .
+
+bpm:hddl_method_candidate_method_id_f a bpm:Field ;
+    bpm:fieldName "method_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "HDDL method identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:hddl_method_candidate_compound_task_id_f a bpm:Field ;
+    bpm:fieldName "compound_task_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Compound task decomposed by the method." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:hddl_method_candidate_subnetwork_digest_f a bpm:Field ;
+    bpm:fieldName "subnetwork_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the proposed subtask network." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-120 — task_decomposition_proof
+bpm:task_decomposition_proof_rt a bpm:RecordType ;
+    bpm:recordName "task_decomposition_proof" ;
+    bpm:recordDoc "Records evidence that a method expansion preserves task-network constraints." ;
+    bpm:hasField bpm:task_decomposition_proof_proof_id_f ,
+                 bpm:task_decomposition_proof_method_id_f ,
+                 bpm:task_decomposition_proof_constraint_proof_digest_f .
+
+bpm:task_decomposition_proof_proof_id_f a bpm:Field ;
+    bpm:fieldName "proof_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Decomposition proof identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:task_decomposition_proof_method_id_f a bpm:Field ;
+    bpm:fieldName "method_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Method whose expansion is proven." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:task_decomposition_proof_constraint_proof_digest_f a bpm:Field ;
+    bpm:fieldName "constraint_proof_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of constraint-preservation evidence." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-121 — method_precondition_gate
+bpm:method_precondition_gate_rt a bpm:RecordType ;
+    bpm:recordName "method_precondition_gate" ;
+    bpm:recordDoc "Refuses HDDL method selection when its exact preconditions do not hold." ;
+    bpm:hasField bpm:method_precondition_gate_method_id_f ,
+                 bpm:method_precondition_gate_state_digest_f ,
+                 bpm:method_precondition_gate_decision_f .
+
+bpm:method_precondition_gate_method_id_f a bpm:Field ;
+    bpm:fieldName "method_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Method being evaluated." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:method_precondition_gate_state_digest_f a bpm:Field ;
+    bpm:fieldName "state_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact state evaluated for applicability." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:method_precondition_gate_decision_f a bpm:Field ;
+    bpm:fieldName "decision" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed admitted or refused outcome." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-122 — primitive_task_binding
+bpm:primitive_task_binding_rt a bpm:RecordType ;
+    bpm:recordName "primitive_task_binding" ;
+    bpm:recordDoc "Binds a primitive HDDL task to one executable action contract." ;
+    bpm:hasField bpm:primitive_task_binding_task_id_f ,
+                 bpm:primitive_task_binding_action_id_f ,
+                 bpm:primitive_task_binding_binding_digest_f .
+
+bpm:primitive_task_binding_task_id_f a bpm:Field ;
+    bpm:fieldName "task_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Primitive task identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:primitive_task_binding_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Executable action identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:primitive_task_binding_binding_digest_f a bpm:Field ;
+    bpm:fieldName "binding_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of parameter and type bindings." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-123 — compound_task_expansion
+bpm:compound_task_expansion_rt a bpm:RecordType ;
+    bpm:recordName "compound_task_expansion" ;
+    bpm:recordDoc "Records the selected expansion of a compound task with alternatives preserved." ;
+    bpm:hasField bpm:compound_task_expansion_task_id_f ,
+                 bpm:compound_task_expansion_selected_method_id_f ,
+                 bpm:compound_task_expansion_alternative_digest_f .
+
+bpm:compound_task_expansion_task_id_f a bpm:Field ;
+    bpm:fieldName "task_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Compound task identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:compound_task_expansion_selected_method_id_f a bpm:Field ;
+    bpm:fieldName "selected_method_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Method selected for expansion." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:compound_task_expansion_alternative_digest_f a bpm:Field ;
+    bpm:fieldName "alternative_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of lawful unselected methods." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-124 — powl_partial_order_plan
+bpm:powl_partial_order_plan_rt a bpm:RecordType ;
+    bpm:recordName "powl_partial_order_plan" ;
+    bpm:recordDoc "Projects a decomposed task network into an executable POWL partial order." ;
+    bpm:hasField bpm:powl_partial_order_plan_plan_id_f ,
+                 bpm:powl_partial_order_plan_operator_digest_f ,
+                 bpm:powl_partial_order_plan_order_digest_f .
+
+bpm:powl_partial_order_plan_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "POWL plan identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_partial_order_plan_operator_digest_f a bpm:Field ;
+    bpm:fieldName "operator_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of POWL operators." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_partial_order_plan_order_digest_f a bpm:Field ;
+    bpm:fieldName "order_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of ordering constraints." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-125 — powl_choice_operator
+bpm:powl_choice_operator_rt a bpm:RecordType ;
+    bpm:recordName "powl_choice_operator" ;
+    bpm:recordDoc "Represents an evidence-selected exclusive POWL choice without erasing alternatives." ;
+    bpm:hasField bpm:powl_choice_operator_operator_id_f ,
+                 bpm:powl_choice_operator_branch_digest_f ,
+                 bpm:powl_choice_operator_selection_rule_f .
+
+bpm:powl_choice_operator_operator_id_f a bpm:Field ;
+    bpm:fieldName "operator_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Choice operator identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_choice_operator_branch_digest_f a bpm:Field ;
+    bpm:fieldName "branch_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of available branches." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_choice_operator_selection_rule_f a bpm:Field ;
+    bpm:fieldName "selection_rule" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Rule selecting a branch at execution." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-126 — powl_loop_operator
+bpm:powl_loop_operator_rt a bpm:RecordType ;
+    bpm:recordName "powl_loop_operator" ;
+    bpm:recordDoc "Represents a guarded POWL loop with a bounded exit condition." ;
+    bpm:hasField bpm:powl_loop_operator_operator_id_f ,
+                 bpm:powl_loop_operator_body_digest_f ,
+                 bpm:powl_loop_operator_exit_predicate_f .
+
+bpm:powl_loop_operator_operator_id_f a bpm:Field ;
+    bpm:fieldName "operator_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Loop operator identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_loop_operator_body_digest_f a bpm:Field ;
+    bpm:fieldName "body_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of loop body operators." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_loop_operator_exit_predicate_f a bpm:Field ;
+    bpm:fieldName "exit_predicate" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Predicate terminating the loop." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-127 — powl_parallel_operator
+bpm:powl_parallel_operator_rt a bpm:RecordType ;
+    bpm:recordName "powl_parallel_operator" ;
+    bpm:recordDoc "Represents concurrently executable POWL branches and their join semantics." ;
+    bpm:hasField bpm:powl_parallel_operator_operator_id_f ,
+                 bpm:powl_parallel_operator_branch_digest_f ,
+                 bpm:powl_parallel_operator_join_rule_f .
+
+bpm:powl_parallel_operator_operator_id_f a bpm:Field ;
+    bpm:fieldName "operator_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Parallel operator identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_parallel_operator_branch_digest_f a bpm:Field ;
+    bpm:fieldName "branch_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of parallel branches." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_parallel_operator_join_rule_f a bpm:Field ;
+    bpm:fieldName "join_rule" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Completion rule for the parallel join." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-128 — powl_sequence_operator
+bpm:powl_sequence_operator_rt a bpm:RecordType ;
+    bpm:recordName "powl_sequence_operator" ;
+    bpm:recordDoc "Represents an ordered POWL operator sequence with exact predecessor binding." ;
+    bpm:hasField bpm:powl_sequence_operator_operator_id_f ,
+                 bpm:powl_sequence_operator_step_digest_f ,
+                 bpm:powl_sequence_operator_predecessor_digest_f .
+
+bpm:powl_sequence_operator_operator_id_f a bpm:Field ;
+    bpm:fieldName "operator_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Sequence operator identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_sequence_operator_step_digest_f a bpm:Field ;
+    bpm:fieldName "step_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of ordered steps." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_sequence_operator_predecessor_digest_f a bpm:Field ;
+    bpm:fieldName "predecessor_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of predecessor bindings." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-129 — ocel_planning_event
+bpm:ocel_planning_event_rt a bpm:RecordType ;
+    bpm:recordName "ocel_planning_event" ;
+    bpm:recordDoc "Captures a planning decision or observation as an object-centric event." ;
+    bpm:hasField bpm:ocel_planning_event_event_id_f ,
+                 bpm:ocel_planning_event_activity_f ,
+                 bpm:ocel_planning_event_object_binding_digest_f .
+
+bpm:ocel_planning_event_event_id_f a bpm:Field ;
+    bpm:fieldName "event_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning event identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:ocel_planning_event_activity_f a bpm:Field ;
+    bpm:fieldName "activity" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning activity type." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:ocel_planning_event_object_binding_digest_f a bpm:Field ;
+    bpm:fieldName "object_binding_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of related planning objects." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-130 — planning_case_identity
+bpm:planning_case_identity_rt a bpm:RecordType ;
+    bpm:recordName "planning_case_identity" ;
+    bpm:recordDoc "Defines a stable process-planning case across events, objects, and replans." ;
+    bpm:hasField bpm:planning_case_identity_case_id_f ,
+                 bpm:planning_case_identity_subject_sha_f ,
+                 bpm:planning_case_identity_lineage_root_f .
+
+bpm:planning_case_identity_case_id_f a bpm:Field ;
+    bpm:fieldName "case_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable planning case identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_case_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact repository subject for the case." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_case_identity_lineage_root_f a bpm:Field ;
+    bpm:fieldName "lineage_root" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Root identity of the plan lineage." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-131 — case_object_binding
+bpm:case_object_binding_rt a bpm:RecordType ;
+    bpm:recordName "case_object_binding" ;
+    bpm:recordDoc "Binds a planning case to its exact OCEL objects and roles." ;
+    bpm:hasField bpm:case_object_binding_case_id_f ,
+                 bpm:case_object_binding_object_id_f ,
+                 bpm:case_object_binding_binding_role_f .
+
+bpm:case_object_binding_case_id_f a bpm:Field ;
+    bpm:fieldName "case_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning case identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:case_object_binding_object_id_f a bpm:Field ;
+    bpm:fieldName "object_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Related OCEL object identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:case_object_binding_binding_role_f a bpm:Field ;
+    bpm:fieldName "binding_role" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Role the object plays in the case." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-132 — planning_conformance_alignment
+bpm:planning_conformance_alignment_rt a bpm:RecordType ;
+    bpm:recordName "planning_conformance_alignment" ;
+    bpm:recordDoc "Aligns an observed planning trace to its admitted policy and process model." ;
+    bpm:hasField bpm:planning_conformance_alignment_alignment_id_f ,
+                 bpm:planning_conformance_alignment_trace_digest_f ,
+                 bpm:planning_conformance_alignment_model_digest_f .
+
+bpm:planning_conformance_alignment_alignment_id_f a bpm:Field ;
+    bpm:fieldName "alignment_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Conformance alignment identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_conformance_alignment_trace_digest_f a bpm:Field ;
+    bpm:fieldName "trace_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of observed planning events." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_conformance_alignment_model_digest_f a bpm:Field ;
+    bpm:fieldName "model_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the admitted model." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-133 — deviation_repair_option
+bpm:deviation_repair_option_rt a bpm:RecordType ;
+    bpm:recordName "deviation_repair_option" ;
+    bpm:recordDoc "Generates a reversible repair option for one conformance deviation." ;
+    bpm:hasField bpm:deviation_repair_option_option_id_f ,
+                 bpm:deviation_repair_option_deviation_id_f ,
+                 bpm:deviation_repair_option_repair_plan_digest_f .
+
+bpm:deviation_repair_option_option_id_f a bpm:Field ;
+    bpm:fieldName "option_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Deviation repair option identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:deviation_repair_option_deviation_id_f a bpm:Field ;
+    bpm:fieldName "deviation_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Deviation addressed by the option." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:deviation_repair_option_repair_plan_digest_f a bpm:Field ;
+    bpm:fieldName "repair_plan_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the bounded repair plan." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-134 — token_replay_state
+bpm:token_replay_state_rt a bpm:RecordType ;
+    bpm:recordName "token_replay_state" ;
+    bpm:recordDoc "Records deterministic process-token state after replaying an event prefix." ;
+    bpm:hasField bpm:token_replay_state_replay_id_f ,
+                 bpm:token_replay_state_prefix_digest_f ,
+                 bpm:token_replay_state_marking_digest_f .
+
+bpm:token_replay_state_replay_id_f a bpm:Field ;
+    bpm:fieldName "replay_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Token replay identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:token_replay_state_prefix_digest_f a bpm:Field ;
+    bpm:fieldName "prefix_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the replayed event prefix." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:token_replay_state_marking_digest_f a bpm:Field ;
+    bpm:fieldName "marking_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of resulting token marking." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-135 — prefix_alignment_frontier
+bpm:prefix_alignment_frontier_rt a bpm:RecordType ;
+    bpm:recordName "prefix_alignment_frontier" ;
+    bpm:recordDoc "Preserves competing minimum-cost alignments for a live event prefix." ;
+    bpm:hasField bpm:prefix_alignment_frontier_frontier_id_f ,
+                 bpm:prefix_alignment_frontier_prefix_digest_f ,
+                 bpm:prefix_alignment_frontier_candidate_digest_f .
+
+bpm:prefix_alignment_frontier_frontier_id_f a bpm:Field ;
+    bpm:fieldName "frontier_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Prefix alignment frontier identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:prefix_alignment_frontier_prefix_digest_f a bpm:Field ;
+    bpm:fieldName "prefix_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the observed prefix." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:prefix_alignment_frontier_candidate_digest_f a bpm:Field ;
+    bpm:fieldName "candidate_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of nondominated alignments." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-136 — next_event_prediction_contract
+bpm:next_event_prediction_contract_rt a bpm:RecordType ;
+    bpm:recordName "next_event_prediction_contract" ;
+    bpm:recordDoc "Binds a seeded next-event predictor to an exact case prefix." ;
+    bpm:hasField bpm:next_event_prediction_contract_prediction_id_f ,
+                 bpm:next_event_prediction_contract_prefix_digest_f ,
+                 bpm:next_event_prediction_contract_distribution_digest_f .
+
+bpm:next_event_prediction_contract_prediction_id_f a bpm:Field ;
+    bpm:fieldName "prediction_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Next-event prediction identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:next_event_prediction_contract_prefix_digest_f a bpm:Field ;
+    bpm:fieldName "prefix_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of exact case prefix." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:next_event_prediction_contract_distribution_digest_f a bpm:Field ;
+    bpm:fieldName "distribution_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of predicted event probabilities." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-137 — remaining_time_estimate_contract
+bpm:remaining_time_estimate_contract_rt a bpm:RecordType ;
+    bpm:recordName "remaining_time_estimate_contract" ;
+    bpm:recordDoc "Binds a calibrated completion-time estimate to an exact planning case." ;
+    bpm:hasField bpm:remaining_time_estimate_contract_estimate_id_f ,
+                 bpm:remaining_time_estimate_contract_case_state_digest_f ,
+                 bpm:remaining_time_estimate_contract_interval_digest_f .
+
+bpm:remaining_time_estimate_contract_estimate_id_f a bpm:Field ;
+    bpm:fieldName "estimate_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Remaining-time estimate identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:remaining_time_estimate_contract_case_state_digest_f a bpm:Field ;
+    bpm:fieldName "case_state_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of current case state." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:remaining_time_estimate_contract_interval_digest_f a bpm:Field ;
+    bpm:fieldName "interval_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of calibrated time interval." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-138 — distributed_work_queue_observation
+bpm:distributed_work_queue_observation_rt a bpm:RecordType ;
+    bpm:recordName "distributed_work_queue_observation" ;
+    bpm:recordDoc "Admits a caller-local snapshot of executable work without central surrogacy." ;
+    bpm:hasField bpm:distributed_work_queue_observation_consumer_subject_sha_f ,
+                 bpm:distributed_work_queue_observation_queue_digest_f ,
+                 bpm:distributed_work_queue_observation_observed_at_f .
+
+bpm:distributed_work_queue_observation_consumer_subject_sha_f a bpm:Field ;
+    bpm:fieldName "consumer_subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact caller-local consumer subject." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:distributed_work_queue_observation_queue_digest_f a bpm:Field ;
+    bpm:fieldName "queue_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of locally visible work." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:distributed_work_queue_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Queue observation timestamp." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-139 — planning_blackboard_fact
+bpm:planning_blackboard_fact_rt a bpm:RecordType ;
+    bpm:recordName "planning_blackboard_fact" ;
+    bpm:recordDoc "Publishes a provenance-bound planning fact to the distributed blackboard." ;
+    bpm:hasField bpm:planning_blackboard_fact_fact_id_f ,
+                 bpm:planning_blackboard_fact_subject_sha_f ,
+                 bpm:planning_blackboard_fact_provenance_digest_f .
+
+bpm:planning_blackboard_fact_fact_id_f a bpm:Field ;
+    bpm:fieldName "fact_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Blackboard fact identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_blackboard_fact_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact subject the fact describes." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_blackboard_fact_provenance_digest_f a bpm:Field ;
+    bpm:fieldName "provenance_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of observation provenance." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-140 — planning_blackboard_claim
+bpm:planning_blackboard_claim_rt a bpm:RecordType ;
+    bpm:recordName "planning_blackboard_claim" ;
+    bpm:recordDoc "Claims bounded planning work with an explicit owner and expiry." ;
+    bpm:hasField bpm:planning_blackboard_claim_claim_id_f ,
+                 bpm:planning_blackboard_claim_work_item_id_f ,
+                 bpm:planning_blackboard_claim_owner_subject_sha_f .
+
+bpm:planning_blackboard_claim_claim_id_f a bpm:Field ;
+    bpm:fieldName "claim_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Blackboard claim identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_blackboard_claim_work_item_id_f a bpm:Field ;
+    bpm:fieldName "work_item_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Bounded work item claimed." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_blackboard_claim_owner_subject_sha_f a bpm:Field ;
+    bpm:fieldName "owner_subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact caller-local owner subject." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-141 — planning_blackboard_conflict
+bpm:planning_blackboard_conflict_rt a bpm:RecordType ;
+    bpm:recordName "planning_blackboard_conflict" ;
+    bpm:recordDoc "Captures mutually incompatible blackboard claims without silent last-writer wins." ;
+    bpm:hasField bpm:planning_blackboard_conflict_conflict_id_f ,
+                 bpm:planning_blackboard_conflict_claim_set_digest_f ,
+                 bpm:planning_blackboard_conflict_conflict_type_f .
+
+bpm:planning_blackboard_conflict_conflict_id_f a bpm:Field ;
+    bpm:fieldName "conflict_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Blackboard conflict identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_blackboard_conflict_claim_set_digest_f a bpm:Field ;
+    bpm:fieldName "claim_set_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of incompatible claims." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_blackboard_conflict_conflict_type_f a bpm:Field ;
+    bpm:fieldName "conflict_type" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed conflict classification." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-142 — planning_blackboard_resolution
+bpm:planning_blackboard_resolution_rt a bpm:RecordType ;
+    bpm:recordName "planning_blackboard_resolution" ;
+    bpm:recordDoc "Records evidence-based resolution while preserving losing lawful claims." ;
+    bpm:hasField bpm:planning_blackboard_resolution_resolution_id_f ,
+                 bpm:planning_blackboard_resolution_conflict_id_f ,
+                 bpm:planning_blackboard_resolution_preserved_option_digest_f .
+
+bpm:planning_blackboard_resolution_resolution_id_f a bpm:Field ;
+    bpm:fieldName "resolution_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Conflict resolution identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_blackboard_resolution_conflict_id_f a bpm:Field ;
+    bpm:fieldName "conflict_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Conflict being resolved." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_blackboard_resolution_preserved_option_digest_f a bpm:Field ;
+    bpm:fieldName "preserved_option_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of preserved unselected claims." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-143 — agent_capability_advertisement
+bpm:agent_capability_advertisement_rt a bpm:RecordType ;
+    bpm:recordName "agent_capability_advertisement" ;
+    bpm:recordDoc "Advertises exact subject-bound planning capabilities for portfolio routing." ;
+    bpm:hasField bpm:agent_capability_advertisement_agent_subject_sha_f ,
+                 bpm:agent_capability_advertisement_capability_digest_f ,
+                 bpm:agent_capability_advertisement_valid_until_f .
+
+bpm:agent_capability_advertisement_agent_subject_sha_f a bpm:Field ;
+    bpm:fieldName "agent_subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact agent consumer subject." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:agent_capability_advertisement_capability_digest_f a bpm:Field ;
+    bpm:fieldName "capability_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of advertised capabilities." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:agent_capability_advertisement_valid_until_f a bpm:Field ;
+    bpm:fieldName "valid_until" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Advertisement expiry timestamp." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-144 — planner_bid
+bpm:planner_bid_rt a bpm:RecordType ;
+    bpm:recordName "planner_bid" ;
+    bpm:recordDoc "Bids for bounded work using declared cost, confidence, and capsule identity." ;
+    bpm:hasField bpm:planner_bid_bid_id_f ,
+                 bpm:planner_bid_work_item_id_f ,
+                 bpm:planner_bid_score_digest_f .
+
+bpm:planner_bid_bid_id_f a bpm:Field ;
+    bpm:fieldName "bid_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planner bid identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planner_bid_work_item_id_f a bpm:Field ;
+    bpm:fieldName "work_item_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Bounded work item being bid." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planner_bid_score_digest_f a bpm:Field ;
+    bpm:fieldName "score_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of cost, confidence, and evidence scores." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-145 — planner_lease
+bpm:planner_lease_rt a bpm:RecordType ;
+    bpm:recordName "planner_lease" ;
+    bpm:recordDoc "Grants time-bounded construction authority for one work item without DO authority." ;
+    bpm:hasField bpm:planner_lease_lease_id_f ,
+                 bpm:planner_lease_work_item_id_f ,
+                 bpm:planner_lease_expires_at_f .
+
+bpm:planner_lease_lease_id_f a bpm:Field ;
+    bpm:fieldName "lease_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planner lease identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planner_lease_work_item_id_f a bpm:Field ;
+    bpm:fieldName "work_item_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Leased bounded work item." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planner_lease_expires_at_f a bpm:Field ;
+    bpm:fieldName "expires_at" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Lease expiry timestamp." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-146 — lease_expiry_replan
+bpm:lease_expiry_replan_rt a bpm:RecordType ;
+    bpm:recordName "lease_expiry_replan" ;
+    bpm:recordDoc "Invalidates stale leased plans and returns work to the lawful option frontier." ;
+    bpm:hasField bpm:lease_expiry_replan_replan_id_f ,
+                 bpm:lease_expiry_replan_expired_lease_id_f ,
+                 bpm:lease_expiry_replan_returned_frontier_digest_f .
+
+bpm:lease_expiry_replan_replan_id_f a bpm:Field ;
+    bpm:fieldName "replan_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Lease-expiry replan identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:lease_expiry_replan_expired_lease_id_f a bpm:Field ;
+    bpm:fieldName "expired_lease_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Lease whose authority expired." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:lease_expiry_replan_returned_frontier_digest_f a bpm:Field ;
+    bpm:fieldName "returned_frontier_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of restored work options." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-147 — plan_handoff_receipt
+bpm:plan_handoff_receipt_rt a bpm:RecordType ;
+    bpm:recordName "plan_handoff_receipt" ;
+    bpm:recordDoc "Receipts transfer of an exact plan subject between caller-local consumers." ;
+    bpm:hasField bpm:plan_handoff_receipt_receipt_id_f ,
+                 bpm:plan_handoff_receipt_plan_digest_f ,
+                 bpm:plan_handoff_receipt_receiver_subject_sha_f .
+
+bpm:plan_handoff_receipt_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Plan handoff receipt identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:plan_handoff_receipt_plan_digest_f a bpm:Field ;
+    bpm:fieldName "plan_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the transferred plan." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:plan_handoff_receipt_receiver_subject_sha_f a bpm:Field ;
+    bpm:fieldName "receiver_subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact receiving consumer subject." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-148 — action_eligibility_decision
+bpm:action_eligibility_decision_rt a bpm:RecordType ;
+    bpm:recordName "action_eligibility_decision" ;
+    bpm:recordDoc "Calculates whether an action is lawful from constraints, authority, and receipts." ;
+    bpm:hasField bpm:action_eligibility_decision_decision_id_f ,
+                 bpm:action_eligibility_decision_action_id_f ,
+                 bpm:action_eligibility_decision_standing_f .
+
+bpm:action_eligibility_decision_decision_id_f a bpm:Field ;
+    bpm:fieldName "decision_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Eligibility decision identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:action_eligibility_decision_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Candidate action evaluated." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:action_eligibility_decision_standing_f a bpm:Field ;
+    bpm:fieldName "standing" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Typed eligible or refused standing." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-149 — scheduling_priority_score
+bpm:scheduling_priority_score_rt a bpm:RecordType ;
+    bpm:recordName "scheduling_priority_score" ;
+    bpm:recordDoc "Computes transparent next-work priority from value, delay, information, and reversibility." ;
+    bpm:hasField bpm:scheduling_priority_score_score_id_f ,
+                 bpm:scheduling_priority_score_work_item_id_f ,
+                 bpm:scheduling_priority_score_component_digest_f .
+
+bpm:scheduling_priority_score_score_id_f a bpm:Field ;
+    bpm:fieldName "score_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Priority score identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:scheduling_priority_score_work_item_id_f a bpm:Field ;
+    bpm:fieldName "work_item_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Bounded work item scored." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:scheduling_priority_score_component_digest_f a bpm:Field ;
+    bpm:fieldName "component_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of normalized score components." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
+
+# WS2-BB-150 — bounded_work_selection_receipt
+bpm:bounded_work_selection_receipt_rt a bpm:RecordType ;
+    bpm:recordName "bounded_work_selection_receipt" ;
+    bpm:recordDoc "Receipts automatic selection of the next bounded lawful action without granting execution authority." ;
+    bpm:hasField bpm:bounded_work_selection_receipt_receipt_id_f ,
+                 bpm:bounded_work_selection_receipt_selected_work_item_id_f ,
+                 bpm:bounded_work_selection_receipt_frontier_digest_f .
+
+bpm:bounded_work_selection_receipt_receipt_id_f a bpm:Field ;
+    bpm:fieldName "receipt_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Selection receipt identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:bounded_work_selection_receipt_selected_work_item_id_f a bpm:Field ;
+    bpm:fieldName "selected_work_item_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Automatically selected bounded work item." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:bounded_work_selection_receipt_frontier_digest_f a bpm:Field ;
+    bpm:fieldName "frontier_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the evaluated lawful frontier." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
