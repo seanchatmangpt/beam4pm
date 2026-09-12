@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-126 — powl_loop_operator
+bpm:powl_loop_operator_rt a bpm:RecordType ;
+    bpm:recordName "powl_loop_operator" ;
+    bpm:recordDoc "Represents a guarded POWL loop with a bounded exit condition." ;
+    bpm:hasField bpm:powl_loop_operator_operator_id_f ,
+                 bpm:powl_loop_operator_body_digest_f ,
+                 bpm:powl_loop_operator_exit_predicate_f .
+
+bpm:powl_loop_operator_operator_id_f a bpm:Field ;
+    bpm:fieldName "operator_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Loop operator identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_loop_operator_body_digest_f a bpm:Field ;
+    bpm:fieldName "body_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of loop body operators." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_loop_operator_exit_predicate_f a bpm:Field ;
+    bpm:fieldName "exit_predicate" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Predicate terminating the loop." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
