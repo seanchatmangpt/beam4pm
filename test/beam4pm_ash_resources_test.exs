@@ -84,6 +84,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "action_eligibility_decision",
+      mod: BeamPM.Ash.Resources.ActionEligibilityDecision,
+      params: %{
+          decision_id: "sample_x",
+          action_id: "sample_x",
+          standing: "sample_x"
+      },
+      expected: %{
+          decision_id: "sample_x",
+          action_id: "sample_x",
+          standing: "sample_x"
+      }
+    },
+    %{
       name: "action_pin_evidence",
       mod: BeamPM.Ash.Resources.ActionPinEvidence,
       params: %{
@@ -195,6 +209,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           agent_id: "sample_x",
           policy_id: "sample_x",
           assignment_hash: "sample_x"
+      }
+    },
+    %{
+      name: "agent_capability_advertisement",
+      mod: BeamPM.Ash.Resources.AgentCapabilityAdvertisement,
+      params: %{
+          agent_subject_sha: "sample_x",
+          capability_digest: "sample_x",
+          valid_until: "2026-08-29T12:00:00Z"
+      },
+      expected: %{
+          agent_subject_sha: "sample_x",
+          capability_digest: "sample_x",
+          valid_until: ~U[2026-08-29 12:00:00Z]
       }
     },
     %{
@@ -1346,6 +1374,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "belief_update_rule",
+      mod: BeamPM.Ash.Resources.BeliefUpdateRule,
+      params: %{
+          rule_id: "sample_x",
+          observation_schema: "sample_x",
+          update_digest: "sample_x"
+      },
+      expected: %{
+          rule_id: "sample_x",
+          observation_schema: "sample_x",
+          update_digest: "sample_x"
+      }
+    },
+    %{
       name: "beneficial_owner_evidence",
       mod: BeamPM.Ash.Resources.BeneficialOwnerEvidence,
       params: %{
@@ -1421,6 +1463,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           opportunity_id: "sample_x",
           readiness_id: "sample_x",
           decision: "sample_x"
+      }
+    },
+    %{
+      name: "bounded_work_selection_receipt",
+      mod: BeamPM.Ash.Resources.BoundedWorkSelectionReceipt,
+      params: %{
+          receipt_id: "sample_x",
+          selected_work_item_id: "sample_x",
+          frontier_digest: "sample_x"
+      },
+      expected: %{
+          receipt_id: "sample_x",
+          selected_work_item_id: "sample_x",
+          frontier_digest: "sample_x"
       }
     },
     %{
@@ -1777,6 +1833,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           tenant_id: "sample_x",
           capsule_id: "sample_x",
           identity_hash: "sample_x"
+      }
+    },
+    %{
+      name: "case_object_binding",
+      mod: BeamPM.Ash.Resources.CaseObjectBinding,
+      params: %{
+          case_id: "sample_x",
+          object_id: "sample_x",
+          binding_role: "sample_x"
+      },
+      expected: %{
+          case_id: "sample_x",
+          object_id: "sample_x",
+          binding_role: "sample_x"
       }
     },
     %{
@@ -2162,6 +2232,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "compound_task_expansion",
+      mod: BeamPM.Ash.Resources.CompoundTaskExpansion,
+      params: %{
+          task_id: "sample_x",
+          selected_method_id: "sample_x",
+          alternative_digest: "sample_x"
+      },
+      expected: %{
+          task_id: "sample_x",
+          selected_method_id: "sample_x",
+          alternative_digest: "sample_x"
+      }
+    },
+    %{
       name: "concurrency_pricing_policy",
       mod: BeamPM.Ash.Resources.ConcurrencyPricingPolicy,
       params: %{
@@ -2239,6 +2323,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           affected_state_digest: "sample_x",
           invalidation_reason: "sample_x",
           invalidated_at: ~U[2026-08-29 12:00:00Z]
+      }
+    },
+    %{
+      name: "constraint_set_binding",
+      mod: BeamPM.Ash.Resources.ConstraintSetBinding,
+      params: %{
+          problem_id: "sample_x",
+          constraint_digest: "sample_x",
+          binding_mode: "sample_x"
+      },
+      expected: %{
+          problem_id: "sample_x",
+          constraint_digest: "sample_x",
+          binding_mode: "sample_x"
       }
     },
     %{
@@ -2353,6 +2451,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           platform: "sample_x",
           platform_digest: "sample_x",
           observed_at: ~U[2026-08-29 12:00:00Z]
+      }
+    },
+    %{
+      name: "contingency_branch",
+      mod: BeamPM.Ash.Resources.ContingencyBranch,
+      params: %{
+          branch_id: "sample_x",
+          observation_predicate: "sample_x",
+          next_node_id: "sample_x"
+      },
+      expected: %{
+          branch_id: "sample_x",
+          observation_predicate: "sample_x",
+          next_node_id: "sample_x"
       }
     },
     %{
@@ -3682,6 +3794,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "deviation_repair_option",
+      mod: BeamPM.Ash.Resources.DeviationRepairOption,
+      params: %{
+          option_id: "sample_x",
+          deviation_id: "sample_x",
+          repair_plan_digest: "sample_x"
+      },
+      expected: %{
+          option_id: "sample_x",
+          deviation_id: "sample_x",
+          repair_plan_digest: "sample_x"
+      }
+    },
+    %{
       name: "dfg_edge",
       mod: BeamPM.Ash.Resources.DfgEdge,
       params: %{
@@ -3744,6 +3870,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           account_id: "sample_x",
           expected_value: "sample_x",
           evidence_digest: "sample_x",
+          observed_at: ~U[2026-08-29 12:00:00Z]
+      }
+    },
+    %{
+      name: "distributed_work_queue_observation",
+      mod: BeamPM.Ash.Resources.DistributedWorkQueueObservation,
+      params: %{
+          consumer_subject_sha: "sample_x",
+          queue_digest: "sample_x",
+          observed_at: "2026-08-29T12:00:00Z"
+      },
+      expected: %{
+          consumer_subject_sha: "sample_x",
+          queue_digest: "sample_x",
           observed_at: ~U[2026-08-29 12:00:00Z]
       }
     },
@@ -4224,6 +4364,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "exact_world_state_admission",
+      mod: BeamPM.Ash.Resources.ExactWorldStateAdmission,
+      params: %{
+          subject_sha: "sample_x",
+          state_digest: "sample_x",
+          observed_at: "2026-08-29T12:00:00Z"
+      },
+      expected: %{
+          subject_sha: "sample_x",
+          state_digest: "sample_x",
+          observed_at: ~U[2026-08-29 12:00:00Z]
+      }
+    },
+    %{
       name: "exception_authority",
       mod: BeamPM.Ash.Resources.ExceptionAuthority,
       params: %{
@@ -4397,6 +4551,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           failure_class: "sample_x",
           causal_scope: "sample_x",
           preserved_evidence_digest: "sample_x"
+      }
+    },
+    %{
+      name: "fairness_assumption",
+      mod: BeamPM.Ash.Resources.FairnessAssumption,
+      params: %{
+          assumption_id: "sample_x",
+          policy_digest: "sample_x",
+          evidence_digest: "sample_x"
+      },
+      expected: %{
+          assumption_id: "sample_x",
+          policy_digest: "sample_x",
+          evidence_digest: "sample_x"
       }
     },
     %{
@@ -4592,6 +4760,48 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "goal_set_binding",
+      mod: BeamPM.Ash.Resources.GoalSetBinding,
+      params: %{
+          problem_id: "sample_x",
+          goal_set_digest: "sample_x",
+          value_profile: "sample_x"
+      },
+      expected: %{
+          problem_id: "sample_x",
+          goal_set_digest: "sample_x",
+          value_profile: "sample_x"
+      }
+    },
+    %{
+      name: "hddl_method_candidate",
+      mod: BeamPM.Ash.Resources.HddlMethodCandidate,
+      params: %{
+          method_id: "sample_x",
+          compound_task_id: "sample_x",
+          subnetwork_digest: "sample_x"
+      },
+      expected: %{
+          method_id: "sample_x",
+          compound_task_id: "sample_x",
+          subnetwork_digest: "sample_x"
+      }
+    },
+    %{
+      name: "hddl_task_network",
+      mod: BeamPM.Ash.Resources.HddlTaskNetwork,
+      params: %{
+          network_id: "sample_x",
+          task_set_digest: "sample_x",
+          ordering_digest: "sample_x"
+      },
+      expected: %{
+          network_id: "sample_x",
+          task_set_digest: "sample_x",
+          ordering_digest: "sample_x"
+      }
+    },
+    %{
       name: "heuristic_arc",
       mod: BeamPM.Ash.Resources.HeuristicArc,
       params: %{
@@ -4741,6 +4951,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           state_vector_id: "sample_x",
           partition_key: "sample_x",
           information_digest: "sample_x"
+      }
+    },
+    %{
+      name: "initial_state_digest",
+      mod: BeamPM.Ash.Resources.InitialStateDigest,
+      params: %{
+          problem_id: "sample_x",
+          fact_digest: "sample_x",
+          normalizer_version: "sample_x"
+      },
+      expected: %{
+          problem_id: "sample_x",
+          fact_digest: "sample_x",
+          normalizer_version: "sample_x"
       }
     },
     %{
@@ -4929,6 +5153,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           evidence_digest: "sample_x",
           outcome: "sample_x",
           authority_ceiling: "sample_x"
+      }
+    },
+    %{
+      name: "lease_expiry_replan",
+      mod: BeamPM.Ash.Resources.LeaseExpiryReplan,
+      params: %{
+          replan_id: "sample_x",
+          expired_lease_id: "sample_x",
+          returned_frontier_digest: "sample_x"
+      },
+      expected: %{
+          replan_id: "sample_x",
+          expired_lease_id: "sample_x",
+          returned_frontier_digest: "sample_x"
       }
     },
     %{
@@ -5180,6 +5418,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "method_precondition_gate",
+      mod: BeamPM.Ash.Resources.MethodPreconditionGate,
+      params: %{
+          method_id: "sample_x",
+          state_digest: "sample_x",
+          decision: "sample_x"
+      },
+      expected: %{
+          method_id: "sample_x",
+          state_digest: "sample_x",
+          decision: "sample_x"
+      }
+    },
+    %{
       name: "migration_contract",
       mod: BeamPM.Ash.Resources.MigrationContract,
       params: %{
@@ -5310,6 +5562,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "next_event_prediction_contract",
+      mod: BeamPM.Ash.Resources.NextEventPredictionContract,
+      params: %{
+          prediction_id: "sample_x",
+          prefix_digest: "sample_x",
+          distribution_digest: "sample_x"
+      },
+      expected: %{
+          prediction_id: "sample_x",
+          prefix_digest: "sample_x",
+          distribution_digest: "sample_x"
+      }
+    },
+    %{
       name: "next_lawful_actuation",
       mod: BeamPM.Ash.Resources.NextLawfulActuation,
       params: %{
@@ -5355,6 +5621,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           tenant_id: "sample_x",
           node_id: "sample_x",
           failover_hash: "sample_x"
+      }
+    },
+    %{
+      name: "nondeterministic_effect_contract",
+      mod: BeamPM.Ash.Resources.NondeterministicEffectContract,
+      params: %{
+          action_id: "sample_x",
+          effect_set_digest: "sample_x",
+          selection_semantics: "sample_x"
+      },
+      expected: %{
+          action_id: "sample_x",
+          effect_set_digest: "sample_x",
+          selection_semantics: "sample_x"
       }
     },
     %{
@@ -5558,6 +5838,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "observation_partition",
+      mod: BeamPM.Ash.Resources.ObservationPartition,
+      params: %{
+          partition_id: "sample_x",
+          state_set_digest: "sample_x",
+          observation_key: "sample_x"
+      },
+      expected: %{
+          partition_id: "sample_x",
+          state_set_digest: "sample_x",
+          observation_key: "sample_x"
+      }
+    },
+    %{
       name: "observation_projection_update",
       mod: BeamPM.Ash.Resources.ObservationProjectionUpdate,
       params: %{
@@ -5651,6 +5945,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           object_id: "sample_x",
           object_type: "sample_x",
           attributes: %{"k" => "v"}
+      }
+    },
+    %{
+      name: "ocel_planning_event",
+      mod: BeamPM.Ash.Resources.OcelPlanningEvent,
+      params: %{
+          event_id: "sample_x",
+          activity: "sample_x",
+          object_binding_digest: "sample_x"
+      },
+      expected: %{
+          event_id: "sample_x",
+          activity: "sample_x",
+          object_binding_digest: "sample_x"
       }
     },
     %{
@@ -5835,6 +6143,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           left_option_id: "sample_x",
           right_option_id: "sample_x",
           score: "sample_x"
+      }
+    },
+    %{
+      name: "outcome_branch_set",
+      mod: BeamPM.Ash.Resources.OutcomeBranchSet,
+      params: %{
+          action_id: "sample_x",
+          branch_digest: "sample_x",
+          coverage_mode: "sample_x"
+      },
+      expected: %{
+          action_id: "sample_x",
+          branch_digest: "sample_x",
+          coverage_mode: "sample_x"
       }
     },
     %{
@@ -6062,6 +6384,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "plan_handoff_receipt",
+      mod: BeamPM.Ash.Resources.PlanHandoffReceipt,
+      params: %{
+          receipt_id: "sample_x",
+          plan_digest: "sample_x",
+          receiver_subject_sha: "sample_x"
+      },
+      expected: %{
+          receipt_id: "sample_x",
+          plan_digest: "sample_x",
+          receiver_subject_sha: "sample_x"
+      }
+    },
+    %{
       name: "plan_lineage",
       mod: BeamPM.Ash.Resources.PlanLineage,
       params: %{
@@ -6090,6 +6426,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "planner_bid",
+      mod: BeamPM.Ash.Resources.PlannerBid,
+      params: %{
+          bid_id: "sample_x",
+          work_item_id: "sample_x",
+          score_digest: "sample_x"
+      },
+      expected: %{
+          bid_id: "sample_x",
+          work_item_id: "sample_x",
+          score_digest: "sample_x"
+      }
+    },
+    %{
       name: "planner_capability_profile",
       mod: BeamPM.Ash.Resources.PlannerCapabilityProfile,
       params: %{
@@ -6115,6 +6465,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           planner_id: "sample_x",
           planner_kind: "sample_x",
           identity_hash: "sample_x"
+      }
+    },
+    %{
+      name: "planner_lease",
+      mod: BeamPM.Ash.Resources.PlannerLease,
+      params: %{
+          lease_id: "sample_x",
+          work_item_id: "sample_x",
+          expires_at: "2026-08-29T12:00:00Z"
+      },
+      expected: %{
+          lease_id: "sample_x",
+          work_item_id: "sample_x",
+          expires_at: ~U[2026-08-29 12:00:00Z]
       }
     },
     %{
@@ -6203,6 +6567,104 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           action_name: "sample_x",
           preconditions: ["alpha", "beta"],
           effects: ["alpha", "beta"]
+      }
+    },
+    %{
+      name: "planning_blackboard_claim",
+      mod: BeamPM.Ash.Resources.PlanningBlackboardClaim,
+      params: %{
+          claim_id: "sample_x",
+          work_item_id: "sample_x",
+          owner_subject_sha: "sample_x"
+      },
+      expected: %{
+          claim_id: "sample_x",
+          work_item_id: "sample_x",
+          owner_subject_sha: "sample_x"
+      }
+    },
+    %{
+      name: "planning_blackboard_conflict",
+      mod: BeamPM.Ash.Resources.PlanningBlackboardConflict,
+      params: %{
+          conflict_id: "sample_x",
+          claim_set_digest: "sample_x",
+          conflict_type: "sample_x"
+      },
+      expected: %{
+          conflict_id: "sample_x",
+          claim_set_digest: "sample_x",
+          conflict_type: "sample_x"
+      }
+    },
+    %{
+      name: "planning_blackboard_fact",
+      mod: BeamPM.Ash.Resources.PlanningBlackboardFact,
+      params: %{
+          fact_id: "sample_x",
+          subject_sha: "sample_x",
+          provenance_digest: "sample_x"
+      },
+      expected: %{
+          fact_id: "sample_x",
+          subject_sha: "sample_x",
+          provenance_digest: "sample_x"
+      }
+    },
+    %{
+      name: "planning_blackboard_resolution",
+      mod: BeamPM.Ash.Resources.PlanningBlackboardResolution,
+      params: %{
+          resolution_id: "sample_x",
+          conflict_id: "sample_x",
+          preserved_option_digest: "sample_x"
+      },
+      expected: %{
+          resolution_id: "sample_x",
+          conflict_id: "sample_x",
+          preserved_option_digest: "sample_x"
+      }
+    },
+    %{
+      name: "planning_case_identity",
+      mod: BeamPM.Ash.Resources.PlanningCaseIdentity,
+      params: %{
+          case_id: "sample_x",
+          subject_sha: "sample_x",
+          lineage_root: "sample_x"
+      },
+      expected: %{
+          case_id: "sample_x",
+          subject_sha: "sample_x",
+          lineage_root: "sample_x"
+      }
+    },
+    %{
+      name: "planning_conformance_alignment",
+      mod: BeamPM.Ash.Resources.PlanningConformanceAlignment,
+      params: %{
+          alignment_id: "sample_x",
+          trace_digest: "sample_x",
+          model_digest: "sample_x"
+      },
+      expected: %{
+          alignment_id: "sample_x",
+          trace_digest: "sample_x",
+          model_digest: "sample_x"
+      }
+    },
+    %{
+      name: "planning_problem_admission",
+      mod: BeamPM.Ash.Resources.PlanningProblemAdmission,
+      params: %{
+          problem_id: "sample_x",
+          state_digest: "sample_x",
+          authority_scope: "sample_x"
+      },
+      expected: %{
+          problem_id: "sample_x",
+          state_digest: "sample_x",
+          authority_scope: "sample_x"
       }
     },
     %{
@@ -6318,6 +6780,34 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "policy_graph_edge",
+      mod: BeamPM.Ash.Resources.PolicyGraphEdge,
+      params: %{
+          source_node_id: "sample_x",
+          outcome_label: "sample_x",
+          target_node_id: "sample_x"
+      },
+      expected: %{
+          source_node_id: "sample_x",
+          outcome_label: "sample_x",
+          target_node_id: "sample_x"
+      }
+    },
+    %{
+      name: "policy_graph_node",
+      mod: BeamPM.Ash.Resources.PolicyGraphNode,
+      params: %{
+          node_id: "sample_x",
+          state_digest: "sample_x",
+          selected_action_id: "sample_x"
+      },
+      expected: %{
+          node_id: "sample_x",
+          state_digest: "sample_x",
+          selected_action_id: "sample_x"
+      }
+    },
+    %{
       name: "policy_payoff_observation",
       mod: BeamPM.Ash.Resources.PolicyPayoffObservation,
       params: %{
@@ -6354,6 +6844,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "powl_choice_operator",
+      mod: BeamPM.Ash.Resources.PowlChoiceOperator,
+      params: %{
+          operator_id: "sample_x",
+          branch_digest: "sample_x",
+          selection_rule: "sample_x"
+      },
+      expected: %{
+          operator_id: "sample_x",
+          branch_digest: "sample_x",
+          selection_rule: "sample_x"
+      }
+    },
+    %{
       name: "powl_freq",
       mod: BeamPM.Ash.Resources.PowlFreq,
       params: %{
@@ -6382,6 +6886,34 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "powl_loop_operator",
+      mod: BeamPM.Ash.Resources.PowlLoopOperator,
+      params: %{
+          operator_id: "sample_x",
+          body_digest: "sample_x",
+          exit_predicate: "sample_x"
+      },
+      expected: %{
+          operator_id: "sample_x",
+          body_digest: "sample_x",
+          exit_predicate: "sample_x"
+      }
+    },
+    %{
+      name: "powl_parallel_operator",
+      mod: BeamPM.Ash.Resources.PowlParallelOperator,
+      params: %{
+          operator_id: "sample_x",
+          branch_digest: "sample_x",
+          join_rule: "sample_x"
+      },
+      expected: %{
+          operator_id: "sample_x",
+          branch_digest: "sample_x",
+          join_rule: "sample_x"
+      }
+    },
+    %{
       name: "powl_partial_order_edge",
       mod: BeamPM.Ash.Resources.PowlPartialOrderEdge,
       params: %{
@@ -6391,6 +6923,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       expected: %{
           from_index: 42,
           to_index: 42
+      }
+    },
+    %{
+      name: "powl_partial_order_plan",
+      mod: BeamPM.Ash.Resources.PowlPartialOrderPlan,
+      params: %{
+          plan_id: "sample_x",
+          operator_digest: "sample_x",
+          order_digest: "sample_x"
+      },
+      expected: %{
+          plan_id: "sample_x",
+          operator_digest: "sample_x",
+          order_digest: "sample_x"
       }
     },
     %{
@@ -6408,6 +6954,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "powl_sequence_operator",
+      mod: BeamPM.Ash.Resources.PowlSequenceOperator,
+      params: %{
+          operator_id: "sample_x",
+          step_digest: "sample_x",
+          predecessor_digest: "sample_x"
+      },
+      expected: %{
+          operator_id: "sample_x",
+          step_digest: "sample_x",
+          predecessor_digest: "sample_x"
+      }
+    },
+    %{
       name: "ppddl_projection",
       mod: BeamPM.Ash.Resources.PpddlProjection,
       params: %{
@@ -6419,6 +6979,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           plan_id: "sample_x",
           domain_hash: "sample_x",
           problem_hash: "sample_x"
+      }
+    },
+    %{
+      name: "prefix_alignment_frontier",
+      mod: BeamPM.Ash.Resources.PrefixAlignmentFrontier,
+      params: %{
+          frontier_id: "sample_x",
+          prefix_digest: "sample_x",
+          candidate_digest: "sample_x"
+      },
+      expected: %{
+          frontier_id: "sample_x",
+          prefix_digest: "sample_x",
+          candidate_digest: "sample_x"
       }
     },
     %{
@@ -6487,6 +7061,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           opportunity_id: "sample_x",
           pricing_basis_id: "sample_x",
           evidence_hash: "sample_x"
+      }
+    },
+    %{
+      name: "primitive_task_binding",
+      mod: BeamPM.Ash.Resources.PrimitiveTaskBinding,
+      params: %{
+          task_id: "sample_x",
+          action_id: "sample_x",
+          binding_digest: "sample_x"
+      },
+      expected: %{
+          task_id: "sample_x",
+          action_id: "sample_x",
+          binding_digest: "sample_x"
       }
     },
     %{
@@ -7126,6 +7714,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "recovery_subtask",
+      mod: BeamPM.Ash.Resources.RecoverySubtask,
+      params: %{
+          subtask_id: "sample_x",
+          trigger_outcome: "sample_x",
+          recovery_goal_digest: "sample_x"
+      },
+      expected: %{
+          subtask_id: "sample_x",
+          trigger_outcome: "sample_x",
+          recovery_goal_digest: "sample_x"
+      }
+    },
+    %{
       name: "recovery_time_receipt",
       mod: BeamPM.Ash.Resources.RecoveryTimeReceipt,
       params: %{
@@ -7247,6 +7849,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           acceptance_threshold: 3.5,
           observed_regression: 3.5,
           authority_ceiling: "sample_x"
+      }
+    },
+    %{
+      name: "remaining_time_estimate_contract",
+      mod: BeamPM.Ash.Resources.RemainingTimeEstimateContract,
+      params: %{
+          estimate_id: "sample_x",
+          case_state_digest: "sample_x",
+          interval_digest: "sample_x"
+      },
+      expected: %{
+          estimate_id: "sample_x",
+          case_state_digest: "sample_x",
+          interval_digest: "sample_x"
       }
     },
     %{
@@ -7890,6 +8506,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "scheduling_priority_score",
+      mod: BeamPM.Ash.Resources.SchedulingPriorityScore,
+      params: %{
+          score_id: "sample_x",
+          work_item_id: "sample_x",
+          component_digest: "sample_x"
+      },
+      expected: %{
+          score_id: "sample_x",
+          work_item_id: "sample_x",
+          component_digest: "sample_x"
+      }
+    },
+    %{
       name: "seat_pricing_policy",
       mod: BeamPM.Ash.Resources.SeatPricingPolicy,
       params: %{
@@ -8394,6 +9024,34 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "strong_cyclic_plan_candidate",
+      mod: BeamPM.Ash.Resources.StrongCyclicPlanCandidate,
+      params: %{
+          candidate_id: "sample_x",
+          policy_digest: "sample_x",
+          fairness_proof: "sample_x"
+      },
+      expected: %{
+          candidate_id: "sample_x",
+          policy_digest: "sample_x",
+          fairness_proof: "sample_x"
+      }
+    },
+    %{
+      name: "strong_plan_candidate",
+      mod: BeamPM.Ash.Resources.StrongPlanCandidate,
+      params: %{
+          candidate_id: "sample_x",
+          policy_digest: "sample_x",
+          coverage_proof: "sample_x"
+      },
+      expected: %{
+          candidate_id: "sample_x",
+          policy_digest: "sample_x",
+          coverage_proof: "sample_x"
+      }
+    },
+    %{
       name: "subject_failure_separation",
       mod: BeamPM.Ash.Resources.SubjectFailureSeparation,
       params: %{
@@ -8618,6 +9276,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
       }
     },
     %{
+      name: "task_decomposition_proof",
+      mod: BeamPM.Ash.Resources.TaskDecompositionProof,
+      params: %{
+          proof_id: "sample_x",
+          method_id: "sample_x",
+          constraint_proof_digest: "sample_x"
+      },
+      expected: %{
+          proof_id: "sample_x",
+          method_id: "sample_x",
+          constraint_proof_digest: "sample_x"
+      }
+    },
+    %{
       name: "tax_jurisdiction_evidence",
       mod: BeamPM.Ash.Resources.TaxJurisdictionEvidence,
       params: %{
@@ -8813,6 +9485,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           verified_days: 42,
           evidence_digest: "sample_x",
           observed_at: ~U[2026-08-29 12:00:00Z]
+      }
+    },
+    %{
+      name: "token_replay_state",
+      mod: BeamPM.Ash.Resources.TokenReplayState,
+      params: %{
+          replay_id: "sample_x",
+          prefix_digest: "sample_x",
+          marking_digest: "sample_x"
+      },
+      expected: %{
+          replay_id: "sample_x",
+          prefix_digest: "sample_x",
+          marking_digest: "sample_x"
       }
     },
     %{
@@ -9409,6 +10095,20 @@ defmodule BeamPM.Ash.ResourcesGeneratedTest do
           subject_sha: "sample_x",
           vulnerability_count: 42,
           observed_result: :sample_atom
+      }
+    },
+    %{
+      name: "weak_plan_candidate",
+      mod: BeamPM.Ash.Resources.WeakPlanCandidate,
+      params: %{
+          candidate_id: "sample_x",
+          policy_digest: "sample_x",
+          uncovered_digest: "sample_x"
+      },
+      expected: %{
+          candidate_id: "sample_x",
+          policy_digest: "sample_x",
+          uncovered_digest: "sample_x"
       }
     },
     %{
