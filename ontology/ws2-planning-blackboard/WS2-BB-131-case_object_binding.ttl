@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-131 — case_object_binding
+bpm:case_object_binding_rt a bpm:RecordType ;
+    bpm:recordName "case_object_binding" ;
+    bpm:recordDoc "Binds a planning case to its exact OCEL objects and roles." ;
+    bpm:hasField bpm:case_object_binding_case_id_f ,
+                 bpm:case_object_binding_object_id_f ,
+                 bpm:case_object_binding_binding_role_f .
+
+bpm:case_object_binding_case_id_f a bpm:Field ;
+    bpm:fieldName "case_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning case identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:case_object_binding_object_id_f a bpm:Field ;
+    bpm:fieldName "object_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Related OCEL object identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:case_object_binding_binding_role_f a bpm:Field ;
+    bpm:fieldName "binding_role" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Role the object plays in the case." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
