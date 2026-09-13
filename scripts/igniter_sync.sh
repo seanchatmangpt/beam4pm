@@ -156,8 +156,13 @@ mix ggen_igniter.sync \
   --template "$IGN/templates/beam4pm_ash_roundtrip.ex.eex" \
   --out lib/beam4pm_ash_roundtrip.ex
 
-# The 1c Mix invocation compiles the domain written by 1b before running its
-# task.  Only now can the compile-time A2A adapter be restored safely.
+# Force a clean bootstrap compile while the compile-time A2A adapter remains
+# stashed. Incremental Mix manifests can otherwise retain the deleted domain's
+# stale module state even after 1b writes the replacement source, causing the
+# restored adapter to observe a module without Ash's persisted DSL metadata.
+mix compile --force --warnings-as-errors
+
+# Only now can the compile-time A2A adapter be restored safely.
 restore_a2a_agent
 trap - EXIT
 
