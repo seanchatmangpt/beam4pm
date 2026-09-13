@@ -64,7 +64,7 @@ jobs:
           source scripts/env/rust4pm_reactor_env.sh
           bash scripts/igniter_sync.sh
 
-          allowed='^(lib/beam4pm_ash_domain\.ex|lib/beam4pm_ash_roundtrip\.ex|lib/beam4pm_ash/resources/.*\.ex|test/beam4pm_ash_resources_test\.exs|test/beam4pm_ash_roundtrip_test\.exs|test/beam4pm_ash_kernel_test\.exs|\.github/workflows/ws2-ash-crown-capture\.yml)$'
+          allowed='^(lib/beam4pm_ash_domain\.ex|lib/beam4pm_ash_roundtrip\.ex|lib/beam4pm_ash/resources/.*\.ex|test/beam4pm_ash_resources_test\.exs|test/beam4pm_ash_roundtrip_test\.exs|test/beam4pm_ash_kernel_test\.exs|docs/reference/types/.*\.md|\.github/workflows/ws2-ash-crown-capture\.yml)$'
           bad=0
           while IFS= read -r path; do
             [ -n "$path" ] || continue
