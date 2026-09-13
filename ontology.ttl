@@ -10478,7 +10478,7 @@ bap:hand_authored_test_ferroplan a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of BeamPM.Ferroplan against a real classical-planning domain inside the wasm engine (no mocks); the planning fixtures are hand-written, not ontology facts." ;
     bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_test.exs" ;
     bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "b03146d3354196f6437636d25c2b4e9b72eaa1f9984431f2bf2650d014f979ca" ;
+    bpm:contentSha256 "6a85d337a16c47f447b8a527822eda28f26aaa0a09b14f6ea58f7845a20d6da5" ;
     bpm:admittedAtCommit "f44dcd0" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the planning fixtures as ontology facts (a bpmg:ProcessContract already projects to PDDL) and render this qualification from them; then delete this admission." .
@@ -28021,3 +28021,40 @@ bpm:unit_economics_snapshot_effective_at_f a bpm:Field ;
     bpm:fieldName "effective_at" ; bpm:fieldType "datetime" ;
     bpm:fieldDoc "ISO8601 instant at which this contract becomes effective." ;
     bpm:fieldRequired "true" ; bpm:fieldOrder 5 .
+
+# -- PPCX conformance-deviation-to-ontology admission -------------------------
+# BeamPM.DeviationAdmission (lib/beam4pm_deviation_admission.ex) closes the
+# gap where a BeamPM.PowlConformance.check_conformance/3 result reporting
+# conforms: false previously terminated in an ExUnit assertion and touched
+# nothing else. Minimal new class bpm:ProcessDeviation (not run through
+# ggen/SHACL -- a deliberately minimal admitted fact, not a new manufactured
+# record-type projection) with real fields: bpm:deviationReferenceTrace,
+# bpm:deviationCandidateTrace, bpm:deviationActivity (the real deviating
+# alignment move, "log_side/model_side"), bpm:deviationTimestamp (real
+# ISO8601 UTC instant), bpm:deviationStatus (fixed "observed" -- no invented
+# workflow state machine). Individuals are admitted at runtime by
+# BeamPM.DeviationAdmission.admit_deviation/4, one bap:process_deviation_<16
+# hex chars of sha256(reference_trace_id <> candidate_trace_id <>
+# deviating_move <> timestamp)> individual per real detected deviation.
+
+bap:hand_authored_lib_beam4pm_deviation_admission a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_deviation_admission.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_native_engine_facade ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Closes the PPCX conceptual-center gap: admits a real bpm:ProcessDeviation individual into ontology.ttl on disk (a real file mutation, not an in-memory struct) whenever BeamPM.PowlConformance.check_conformance/3 reports conforms: false. Admitted under the native_engine_facade kind for lack of a closer-fitting closed-vocabulary kind (this is not a wasm native-engine facade; it is hand-authored lib/ domain logic not yet templated), same convention as bap:hand_authored_lib_beam4pm_ocel above." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_deviation_admission_test.exs" ;
+    bpm:contentSha256 "4767352c23faf177d89485ba200b787b5dac573f7b22e637a5316ab70deb4b41" ;
+    bpm:admittedAtCommit "c639d69" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If bpm:ProcessDeviation is later promoted to a full admitted bpm:RecordType with ggen-generated constructors/codec, migrate BeamPM.DeviationAdmission's write path onto the generated struct + a real generated/hand-written TTL-append helper; then delete this admission." .
+
+bap:hand_authored_test_deviation_admission a bpm:HandAuthoredSource ;
+    bpm:sourcePath "test/beam4pm_deviation_admission_test.exs" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "Chicago-style qualification of BeamPM.DeviationAdmission.admit_deviation/4: runs a real check_conformance/3 against a real deviating trace (the exact fixture shape from beam4pm_powl_conformance_test.exs), calls the admission function against a real temp copy of ontology.ttl, and asserts the real resulting file content on disk contains the new bpm:ProcessDeviation individual -- reads the file back, never asserts only on a return value." ;
+    bpm:acceptanceCommand "mix test test/beam4pm_deviation_admission_test.exs" ;
+    bpm:contentSha256 "1ee967b2bc49ca2d7b69ebc1529eee2168e450d85e059c33a077d9a49440e6e6" ;
+    bpm:admittedAtCommit "c639d69" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "If bpm:ProcessDeviation is later rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission." .
