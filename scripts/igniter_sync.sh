@@ -137,9 +137,6 @@ mix ggen_igniter.sync \
   --template "$IGN/templates/beam4pm_ash_domain.ex.eex" \
   --out lib/beam4pm_ash_domain.ex
 
-restore_a2a_agent
-trap - EXIT
-
 # 1c. BeamPM.AshRoundtrip -- the Ash leg of GATE M5 (scripts/roundtrip_check.sh,
 #     third direction "ash-verifies-wire"). Single output: for every admitted
 #     record x {full, minimal} it decodes the SAME wire fixture the Erlang and
@@ -157,6 +154,11 @@ mix ggen_igniter.sync \
   --query ash_fields="$IGN/queries/ash_fields.rq" \
   --template "$IGN/templates/beam4pm_ash_roundtrip.ex.eex" \
   --out lib/beam4pm_ash_roundtrip.ex
+
+# The 1c Mix invocation compiles the domain written by 1b before running its
+# task.  Only now can the compile-time A2A adapter be restored safely.
+restore_a2a_agent
+trap - EXIT
 
 # 2a. Real Ash.create!/Ash.read! round-trip per admitted record type,
 #     deterministic sample values, no mocks -- collapsed into ONE output
