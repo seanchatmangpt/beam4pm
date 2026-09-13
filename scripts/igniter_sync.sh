@@ -28,7 +28,17 @@ set -euo pipefail
 PACK="${PACK:-vendor/ggen-marketplace/packs/beam4pm-process-model-pack}"
 IGN="$PACK/igniter"
 
+# The caller-local A2A adapter expands AshA2A.Agent at compile time and asks
+# BeamPM.Ash.Domain for persisted DSL metadata. GATE M2 deliberately deletes
+# that generated domain before rebuilding it, so compile the adapter's explicit
+# bootstrap stub until the new domain has been generated and compiled.
+mkdir -p tmp_probe
+export BEAM4PM_ASH_BOOTSTRAP=1
+
 mix deps.get
+# Remove cached project compiler state that can otherwise cause Mix to reload
+# the stashed adapter from its prior compilation manifest during regeneration.
+mix clean
 
 # 0. Remove the former monolithic outputs BEFORE any split-template sync
 #    below runs. Order is load-bearing, not cosmetic: real-run evidence
@@ -74,7 +84,6 @@ rm -f lib/beam4pm_ash.ex test/beam4pm_ash_test.exs
 #     ADDITIONAL_PACK_ONTOLOGY below into MERGED_TTL and using it for step 3
 #     too, not just 1a/2a.
 MERGED_TTL="tmp_probe/ontology_merged.ttl"
-mkdir -p tmp_probe
 ADDITIONAL_PACK_ONTOLOGIES=(
   "vendor/ggen-marketplace/packs/frontier-release-beam-pack/ontology.ttl"
 )
@@ -136,6 +145,14 @@ mix ggen_igniter.sync \
   --query ash_fields="$IGN/queries/ash_fields.rq" \
   --template "$IGN/templates/beam4pm_ash_roundtrip.ex.eex" \
   --out lib/beam4pm_ash_roundtrip.ex
+
+# Force a clean bootstrap compile while the adapter exposes only its explicit
+# stub. The generated domain now has persisted Ash DSL metadata.
+mix compile --force --warnings-as-errors
+
+# Keep bootstrap mode scoped to this regeneration subprocess. The real adapter
+# already passed the pre-regeneration suite; GATE M2 now proves manufacture and
+# byte identity without asking SELECT/CONSTRUCT tooling to boot the runtime.
 
 # 2a. Real Ash.create!/Ash.read! round-trip per admitted record type,
 #     deterministic sample values, no mocks -- collapsed into ONE output
@@ -216,4 +233,4 @@ fi
 # Verify (as actually run in the scratch consumer: exit 0, and
 # `1 doctest, 32 tests, 0 failures` - 31 of those tests are this suite).
 mix compile --warnings-as-errors
-mix test
+mix test --max-requires 1

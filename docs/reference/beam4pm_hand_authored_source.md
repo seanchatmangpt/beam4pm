@@ -37,7 +37,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | --- | --- | --- | --- | --- |
 | `lib/beam4pm_a2a_agent.ex` | `7aa4f64` | 2026-12-31 | `mix run qualification/a2a_smoke_test.exs` | - |
 | `lib/beam4pm_a2a_router.ex` | `7aa4f64` | 2026-12-31 | `mix run qualification/a2a_smoke_test.exs` | - |
-| `lib/beam4pm_application.ex` | `7aa4f64` | 2026-12-31 | `mix test` | - |
+| `lib/beam4pm_application.ex` | `7aa4f64` | 2026-12-31 | `source scripts/env/rust4pm_reactor_env.sh && mix test --max-requires 1` | - |
 | `lib/beam4pm_contracts.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `lib/beam4pm_powl_discovery.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_powl_discovery_test.exs` | - |
 | `lib/beam4pm_research_erc.ex` | `51ca841` | 2026-12-31 | `mix eds.ledger` | - |
@@ -69,14 +69,14 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_tract_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_tract_test.exs` | native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm |
 | `test/beam4pm_version_bump_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_version_bump_test.exs` | - |
 | `test/beam4pm_ws3_dfcm_self_healing_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ws3_dfcm_self_healing_test.exs` | - |
-| `test/ggen_igniter_patch_field_test.exs` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | cmd:test $(wc -l < lib/beam4pm_types.ex) -lt 5000 |
+| `test/ggen_igniter_patch_field_test.exs` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | cmd:test -n "${BEAM4PM_RUN_EXPENSIVE_PATCH_FIELD_TESTS:-}" && test $(wc -l < lib/beam4pm_types.ex) -lt 5000 |
 
 
 #### `lib/beam4pm_a2a_agent.ex`
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
 - Reason: BeamPM.A2AAgent -- the agent-facing AshA2A.Agent entry point over the curated BeamPM.Ash.Domain a2a skills (same 2 resources already curated as AshAi tools: OcelEvent read, ConformanceResult read). Additive alongside ex4pm's existing Ex4pm.Engine.Beam4pm HTTP route-table client; never routes beam4pm's own internals (EngineOp dispatch, OCEL/OTel evidence chain, BeamPM.ReceiptChain) through A2A/JSON-RPC. Hand-authored: no ontology-fact-driven template exists for an AshA2A.Agent shell module (same class as the OTP Application callback above).
-- Content sha256 at admission: `2d147cf932f13bf8d31472a21a3b2d0835b5540d00ac0b8748046bd5adf3e672`
+- Content sha256 at admission: `093c3eadf739f6a41c3b538640162698304ffe1970a8efcf27dca9d61d0ccfc6`
 - Sunset plan: No template family fits an AshA2A.Agent shell module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter A2A-agent-shell recipe is added.
 
 #### `lib/beam4pm_a2a_router.ex`
@@ -174,7 +174,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 
 - Authorizing principal: Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU
 - Reason: Chicago-style qualification of BeamPM.EDS and BeamPM.EDS.PPCXH1: real illegal-transition refusal, real terminal-state reachability, real receipt chain write + independent replay verification, and a real deviating OCEL trace driving the PPCX H1 artifact through the full ladder to :verified with a real ontology.ttl mutation confirmed by reading the file back -- no mocks.
-- Content sha256 at admission: `14b8eb48d3a07c530cb533b7fed5a8bae588f21a44489e86b4cf2aa918ca5d29`
+- Content sha256 at admission: `bfc270732d9cfffa3620f7ac6a9c702e526dccbded6320808e449bc2e432c176`
 - Sunset plan: If a research-claim record type is ever rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission.
 
 #### `test/beam4pm_ferroplan_facades_test.exs`

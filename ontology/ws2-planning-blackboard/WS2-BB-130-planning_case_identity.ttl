@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-130 — planning_case_identity
+bpm:planning_case_identity_rt a bpm:RecordType ;
+    bpm:recordName "planning_case_identity" ;
+    bpm:recordDoc "Defines a stable process-planning case across events, objects, and replans." ;
+    bpm:hasField bpm:planning_case_identity_case_id_f ,
+                 bpm:planning_case_identity_subject_sha_f ,
+                 bpm:planning_case_identity_lineage_root_f .
+
+bpm:planning_case_identity_case_id_f a bpm:Field ;
+    bpm:fieldName "case_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable planning case identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_case_identity_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact repository subject for the case." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_case_identity_lineage_root_f a bpm:Field ;
+    bpm:fieldName "lineage_root" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Root identity of the plan lineage." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

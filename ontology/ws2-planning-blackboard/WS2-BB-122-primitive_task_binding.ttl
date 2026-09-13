@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-122 — primitive_task_binding
+bpm:primitive_task_binding_rt a bpm:RecordType ;
+    bpm:recordName "primitive_task_binding" ;
+    bpm:recordDoc "Binds a primitive HDDL task to one executable action contract." ;
+    bpm:hasField bpm:primitive_task_binding_task_id_f ,
+                 bpm:primitive_task_binding_action_id_f ,
+                 bpm:primitive_task_binding_binding_digest_f .
+
+bpm:primitive_task_binding_task_id_f a bpm:Field ;
+    bpm:fieldName "task_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Primitive task identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:primitive_task_binding_action_id_f a bpm:Field ;
+    bpm:fieldName "action_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Executable action identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:primitive_task_binding_binding_digest_f a bpm:Field ;
+    bpm:fieldName "binding_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of parameter and type bindings." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
