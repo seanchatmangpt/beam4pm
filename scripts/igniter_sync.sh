@@ -43,12 +43,23 @@ restore_a2a_agent() {
     mv "$A2A_AGENT_STASH" "$A2A_AGENT_SOURCE"
   fi
 }
+stash_a2a_agent() {
+  if [ -f "$A2A_AGENT_SOURCE" ]; then
+    mv -f "$A2A_AGENT_SOURCE" "$A2A_AGENT_STASH"
+  fi
+  if [ -f "$A2A_AGENT_SOURCE" ]; then
+    echo "REFUSED[A2A_BOOTSTRAP_SOURCE_PRESENT]:$A2A_AGENT_SOURCE" >&2
+    exit 2
+  fi
+}
 trap restore_a2a_agent EXIT
-if [ -f "$A2A_AGENT_SOURCE" ]; then
-  mv "$A2A_AGENT_SOURCE" "$A2A_AGENT_STASH"
-fi
+stash_a2a_agent
 
 mix deps.get
+# Remove cached project compiler state that can otherwise cause Mix to reload
+# the stashed adapter from its prior compilation manifest during regeneration.
+mix clean
+stash_a2a_agent
 
 # 0. Remove the former monolithic outputs BEFORE any split-template sync
 #    below runs. Order is load-bearing, not cosmetic: real-run evidence
@@ -114,6 +125,7 @@ cat ontology.ttl "$PACK/ontology.ttl" "${ADDITIONAL_PACK_ONTOLOGIES[@]}" > "$MER
 #     the merged graph (0b) -- datetime is :utc_datetime_usec, so the
 #     microseconds every other leg carries on the wire survive the Ash leg
 #     (the former in-template ladder said :utc_datetime and truncated them).
+stash_a2a_agent
 mix ggen_igniter.sync \
   --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
@@ -132,6 +144,7 @@ mix ggen_igniter.sync \
 #     BeamPM.Ash.Domain, a real "Resource ... is not accepted by
 #     BeamPM.Ash.Domain" Ash.create/3 failure caught by
 #     test/beam4pm_ash_roundtrip_test.exs, not a hypothetical.
+stash_a2a_agent
 mix ggen_igniter.sync \
   --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
@@ -149,6 +162,7 @@ mix ggen_igniter.sync \
 #     and asserted so). Needs ash_fields.rq on the merged graph (0b) to know
 #     which attributes are in the :utc_datetime family; refuses by record and
 #     field name on an unbound ?ash_type_expr like its two siblings.
+stash_a2a_agent
 mix ggen_igniter.sync \
   --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
