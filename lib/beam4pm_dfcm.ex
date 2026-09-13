@@ -1,33 +1,18 @@
 defmodule BeamPM.Dfcm do
   @moduledoc """
-  Design for Combinatorial Maximalism (DfCM) planning crown.
+  Pure Design for Combinatorial Maximalism planning crown.
 
-  This module composes the admitted WS2 planning contracts rather than
-  introducing a parallel planner. It preserves lawful alternatives, applies
-  explicit fences, records every exclusion with a deterministic receipt and
-  falsifier, and returns either an observation request or a SELECT candidate.
-
-  The authority ceiling is intentionally `:select`. This module has no DO
-  surface and performs no external side effects.
-
-  The decomposition order mirrors the HDDL crown:
-
-      preserve -> fence -> calculus -> exclusions -> falsifier -> extension
-      -> contingent_policy -> select
-
-  Unresolved decision-relevant observations are represented as FOND branches.
-  An inconclusive observation remains unresolved, yielding a strong-cyclic
-  observation edge rather than collapsing the option frontier.
+  DfCM preserves admitted alternatives, applies explicit fences, records every
+  exclusion with a deterministic receipt and falsifier, and returns either a
+  decision-relevant observation request or a SELECT candidate. It composes the
+  WS2 FOND/HDDL contracts and deliberately has no DO surface.
   """
 
-  @type reversibility ::
-          :reversible | :compensatable | :migratable | :irreversible | :unknown
   @type observation_outcome :: :positive | :negative | :inconclusive
-  @type option_id :: String.t()
   @type option :: map()
   @type problem :: %{
           required(:options) => [option()],
-          optional(:observations) => %{optional(atom()) => observation_outcome()},
+          optional(:observations) => map(),
           optional(:fences) => [map()]
         }
 
@@ -52,25 +37,16 @@ defmodule BeamPM.Dfcm do
 
   @fond_outcomes [:positive, :negative, :inconclusive]
 
-  @doc "The DfCM authority ceiling. DfCM may SELECT; it never acquires DO."
   @spec authority_ceiling() :: :select
   def authority_ceiling, do: :select
 
-  @doc "Canonical HDDL decomposition order for one DfCM cycle."
   @spec phase_order() :: [atom()]
   def phase_order, do: @phase_order
 
-  @doc "FOND outcomes used by decision-relevant observation edges."
   @spec fond_outcomes() :: [observation_outcome()]
   def fond_outcomes, do: @fond_outcomes
 
-  @doc """
-  Runs one deterministic DfCM SELECT cycle over an admitted problem.
-
-  The return value is descriptive planning data only. `:decision` is either an
-  observation request, a selected option, or a refusal when no lawful option
-  remains.
-  """
+  @doc "Run one deterministic DfCM planning cycle; returns planning data only."
   @spec cycle(problem()) :: map()
   def cycle(%{options: options} = problem) when is_list(options) do
     observations = Map.get(problem, :observations, %{})
@@ -93,24 +69,18 @@ defmodule BeamPM.Dfcm do
 
     initial_exclusions = fence_exclusions ++ observation_exclusions
     initial_excluded_ids = ids(initial_exclusions)
-
     active = Enum.reject(admitted, &(&1.id in initial_excluded_ids))
-
-    pending_observations = decision_relevant_observations(active, observations)
+    pending = decision_relevant_observations(active, observations)
 
     dominance_exclusions =
-      if pending_observations == [] do
-        dominance_exclusions(active)
-      else
-        []
-      end
+      if pending == [], do: dominance_exclusions(active), else: []
 
     exclusions = dedupe_exclusions(initial_exclusions ++ dominance_exclusions)
     excluded_ids = ids(exclusions)
     nondominated = Enum.reject(active, &(&1.id in excluded_ids))
 
     decision =
-      case pending_observations do
+      case pending do
         [observation | _] ->
           %{
             kind: :observe,
@@ -129,20 +99,18 @@ defmodule BeamPM.Dfcm do
       preserved_options: preserved_ids,
       excluded_options: exclusions,
       nondominated_options: Enum.map(nondominated, & &1.id),
-      pending_observations: pending_observations,
+      pending_observations: pending,
       decision: decision,
-      hddl_task_network: hddl_task_network(),
+      hddl_task_network: %{
+        task: :dfcm_cycle,
+        ordered_subtasks: @phase_order,
+        terminal_authority: :select
+      },
       fond_policy: fond_policy(decision)
     }
   end
 
-  @doc """
-  Applies one FOND observation outcome and returns the next problem state.
-
-  `:inconclusive` is deliberately retained as unresolved by `cycle/1`, which
-  creates the strong-cyclic observe-again edge under the declared fairness
-  assumption.
-  """
+  @doc "Apply one FOND observation outcome to the problem state."
   @spec observe(problem(), atom(), observation_outcome()) :: problem()
   def observe(problem, observation, outcome)
       when is_atom(observation) and outcome in @fond_outcomes do
@@ -150,23 +118,15 @@ defmodule BeamPM.Dfcm do
     Map.put(problem, :observations, Map.put(observations, observation, outcome))
   end
 
-  @doc """
-  Materializes the FOND branches for the next unresolved observation.
-
-  The `:inconclusive` branch must return another `:observe` decision; positive
-  and negative branches may proceed to SELECT after the option frontier is
-  recomputed.
-  """
+  @doc "Materialize the next FOND policy branch set."
   @spec policy(problem()) :: map()
   def policy(problem) do
-    current = cycle(problem)
-
-    case current.decision do
+    case cycle(problem).decision do
       %{kind: :observe, observation: observation} ->
         branches =
           Map.new(@fond_outcomes, fn outcome ->
-            next_problem = observe(problem, observation, outcome)
-            {outcome, cycle(next_problem).decision}
+            next = problem |> observe(observation, outcome) |> cycle()
+            {outcome, next.decision}
           end)
 
         %{
@@ -178,39 +138,28 @@ defmodule BeamPM.Dfcm do
         }
 
       decision ->
-        %{
-          kind: :terminal_select_state,
-          decision: decision,
-          authority_ceiling: :select
-        }
+        %{kind: :terminal_select_state, decision: decision, authority_ceiling: :select}
     end
   end
 
-  @doc "Pareto dominance over the admitted DfCM calculus dimensions."
+  @doc "Pareto dominance across progress, reversibility, information, reuse and bounded cost."
   @spec dominates?(option(), option()) :: boolean()
   def dominates?(left, right) do
     left = normalize_option(left)
     right = normalize_option(right)
+    left_dims = dimensions(left)
+    right_dims = dimensions(right)
+    pairs = Enum.zip(left_dims, right_dims)
 
-    left_dims = maximize_dimensions(left) ++ minimize_dimensions(left)
-    right_dims = maximize_dimensions(right) ++ minimize_dimensions(right)
-
-    no_worse =
-      Enum.zip(left_dims, right_dims)
-      |> Enum.all?(fn {l, r} -> l >= r end)
-
-    strictly_better =
-      Enum.zip(left_dims, right_dims)
-      |> Enum.any?(fn {l, r} -> l > r end)
-
-    no_worse and strictly_better
+    Enum.all?(pairs, fn {l, r} -> l >= r end) and
+      Enum.any?(pairs, fn {l, r} -> l > r end)
   end
 
-  @doc "A/B/C/X reference problem used by the executable FOND/HDDL fixture."
+  @doc "A/B/C/X benchmark: A collapses C; B preserves C; C is valuable iff X is positive."
   @spec benchmark() :: problem()
   def benchmark do
     %{
-      observations: %{x => :inconclusive},
+      observations: %{x: :inconclusive},
       fences: [],
       options: [
         %{
@@ -251,7 +200,7 @@ defmodule BeamPM.Dfcm do
     }
   end
 
-  defp normalize_option(option) when is_map(option) do
+  defp normalize_option(option) do
     option
     |> Map.put_new(:admitted, true)
     |> Map.put_new(:goal_progress, 0)
@@ -261,15 +210,13 @@ defmodule BeamPM.Dfcm do
     |> Map.put_new(:irreversible_loss, 0)
     |> Map.put_new(:consequence, 0)
     |> Map.put_new(:verification_cost, 0)
-    |> Map.put_new(:destroys, [])
-    |> Map.put_new(:preserves, [])
   end
 
   defp fence_exclusions(options, fences) do
     for fence <- fences,
         option <- options,
         option.id in Map.get(fence, :excludes, []) do
-      exclusion_receipt(
+      receipt(
         option.id,
         {:fence, Map.fetch!(fence, :id)},
         Map.get(fence, :evidence),
@@ -285,7 +232,7 @@ defmodule BeamPM.Dfcm do
           case Map.get(observations, observation) do
             outcome when outcome in [:positive, :negative] and outcome != expected ->
               [
-                exclusion_receipt(
+                receipt(
                   option.id,
                   {:observation_disables, observation, outcome},
                   {:observed, observation, outcome},
@@ -312,24 +259,19 @@ defmodule BeamPM.Dfcm do
       end
     end)
     |> Enum.uniq()
-    |> Enum.filter(fn observation ->
-      Map.get(observations, observation) not in [:positive, :negative]
-    end)
+    |> Enum.filter(&(Map.get(observations, &1) not in [:positive, :negative]))
     |> Enum.sort()
   end
 
   defp dominance_exclusions(options) do
-    options
-    |> Enum.flat_map(fn candidate ->
-      case Enum.find(options, fn other ->
-             other.id != candidate.id and dominates?(other, candidate)
-           end) do
+    Enum.flat_map(options, fn candidate ->
+      case Enum.find(options, &(&1.id != candidate.id and dominates?(&1, candidate))) do
         nil ->
           []
 
         dominant ->
           [
-            exclusion_receipt(
+            receipt(
               candidate.id,
               {:dominated_by, dominant.id},
               {:pareto_witness, dominant.id, candidate.id},
@@ -340,22 +282,11 @@ defmodule BeamPM.Dfcm do
     end)
   end
 
-  defp select([]) do
-    %{
-      kind: :refuse,
-      reason: :no_lawful_option,
-      authority_ceiling: :select
-    }
-  end
+  defp select([]),
+    do: %{kind: :refuse, reason: :no_lawful_option, authority_ceiling: :select}
 
   defp select(options) do
-    selected =
-      options
-      |> Enum.sort_by(
-        fn option -> {selection_score(option), option.id} end,
-        :desc
-      )
-      |> hd()
+    selected = Enum.max_by(options, &selection_score/1)
 
     %{
       kind: :select,
@@ -365,26 +296,8 @@ defmodule BeamPM.Dfcm do
     }
   end
 
-  defp maximize_dimensions(option) do
+  defp dimensions(option) do
     [
-      option.goal_progress,
-      Map.fetch!(@reversibility_rank, option.reversibility),
-      option.information_gain,
-      option.reuse
-    ]
-  end
-
-  # Negated minimization dimensions let the same >= Pareto relation apply.
-  defp minimize_dimensions(option) do
-    [
-      -option.irreversible_loss,
-      -option.consequence,
-      -option.verification_cost
-    ]
-  end
-
-  defp selection_score(option) do
-    {
       option.goal_progress,
       Map.fetch!(@reversibility_rank, option.reversibility),
       option.information_gain,
@@ -392,14 +305,14 @@ defmodule BeamPM.Dfcm do
       -option.irreversible_loss,
       -option.consequence,
       -option.verification_cost
-    }
+    ]
   end
 
-  defp exclusion_receipt(option_id, reason, evidence, falsifier) do
-    payload = {option_id, reason, evidence, falsifier}
+  defp selection_score(option), do: List.to_tuple(dimensions(option))
 
+  defp receipt(option_id, reason, evidence, falsifier) do
     receipt_hash =
-      :crypto.hash(:sha256, :erlang.term_to_binary(payload))
+      :crypto.hash(:sha256, :erlang.term_to_binary({option_id, reason, evidence, falsifier}))
       |> Base.encode16(case: :lower)
 
     %{
@@ -419,14 +332,6 @@ defmodule BeamPM.Dfcm do
     |> Enum.sort_by(&{&1.option_id, inspect(&1.reason)})
   end
 
-  defp hddl_task_network do
-    %{
-      task: :dfcm_cycle,
-      ordered_subtasks: @phase_order,
-      terminal_authority: :select
-    }
-  end
-
   defp fond_policy(%{kind: :observe, observation: observation}) do
     %{
       kind: :strong_cyclic,
@@ -437,11 +342,6 @@ defmodule BeamPM.Dfcm do
     }
   end
 
-  defp fond_policy(decision) do
-    %{
-      kind: :terminal,
-      decision: decision.kind,
-      terminal_authority: :select
-    }
-  end
+  defp fond_policy(decision),
+    do: %{kind: :terminal, decision: decision.kind, terminal_authority: :select}
 end
