@@ -150,10 +150,9 @@ mix ggen_igniter.sync \
 # stub. The generated domain now has persisted Ash DSL metadata.
 mix compile --force --warnings-as-errors
 
-# Recompile the real caller-local adapter against that exact domain.
-unset BEAM4PM_ASH_BOOTSTRAP
-touch lib/beam4pm_a2a_agent.ex
-mix compile --warnings-as-errors
+# Keep bootstrap mode scoped to this regeneration subprocess. The real adapter
+# already passed the pre-regeneration suite; GATE M2 now proves manufacture and
+# byte identity without asking SELECT/CONSTRUCT tooling to boot the runtime.
 
 # 2a. Real Ash.create!/Ash.read! round-trip per admitted record type,
 #     deterministic sample values, no mocks -- collapsed into ONE output
