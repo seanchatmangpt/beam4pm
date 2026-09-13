@@ -76,6 +76,7 @@ jobs:
           lib/beam4pm_types.ex
           lib/beam4pm_types_manifest.ex
           schema/beam4pm_ai_contracts.schema.json
+          schema/beam4pm_hand_authored_source.tsv
           schema/beam4pm_types.schema.json
           src/beam4pm_ai_contracts.erl
           src/beam4pm_ai_contracts_codec.erl
