@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-136 — next_event_prediction_contract
+bpm:next_event_prediction_contract_rt a bpm:RecordType ;
+    bpm:recordName "next_event_prediction_contract" ;
+    bpm:recordDoc "Binds a seeded next-event predictor to an exact case prefix." ;
+    bpm:hasField bpm:next_event_prediction_contract_prediction_id_f ,
+                 bpm:next_event_prediction_contract_prefix_digest_f ,
+                 bpm:next_event_prediction_contract_distribution_digest_f .
+
+bpm:next_event_prediction_contract_prediction_id_f a bpm:Field ;
+    bpm:fieldName "prediction_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Next-event prediction identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:next_event_prediction_contract_prefix_digest_f a bpm:Field ;
+    bpm:fieldName "prefix_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of exact case prefix." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:next_event_prediction_contract_distribution_digest_f a bpm:Field ;
+    bpm:fieldName "distribution_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of predicted event probabilities." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-138 — distributed_work_queue_observation
+bpm:distributed_work_queue_observation_rt a bpm:RecordType ;
+    bpm:recordName "distributed_work_queue_observation" ;
+    bpm:recordDoc "Admits a caller-local snapshot of executable work without central surrogacy." ;
+    bpm:hasField bpm:distributed_work_queue_observation_consumer_subject_sha_f ,
+                 bpm:distributed_work_queue_observation_queue_digest_f ,
+                 bpm:distributed_work_queue_observation_observed_at_f .
+
+bpm:distributed_work_queue_observation_consumer_subject_sha_f a bpm:Field ;
+    bpm:fieldName "consumer_subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact caller-local consumer subject." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:distributed_work_queue_observation_queue_digest_f a bpm:Field ;
+    bpm:fieldName "queue_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of locally visible work." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:distributed_work_queue_observation_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Queue observation timestamp." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

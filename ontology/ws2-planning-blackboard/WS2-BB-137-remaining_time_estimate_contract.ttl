@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-137 — remaining_time_estimate_contract
+bpm:remaining_time_estimate_contract_rt a bpm:RecordType ;
+    bpm:recordName "remaining_time_estimate_contract" ;
+    bpm:recordDoc "Binds a calibrated completion-time estimate to an exact planning case." ;
+    bpm:hasField bpm:remaining_time_estimate_contract_estimate_id_f ,
+                 bpm:remaining_time_estimate_contract_case_state_digest_f ,
+                 bpm:remaining_time_estimate_contract_interval_digest_f .
+
+bpm:remaining_time_estimate_contract_estimate_id_f a bpm:Field ;
+    bpm:fieldName "estimate_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Remaining-time estimate identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:remaining_time_estimate_contract_case_state_digest_f a bpm:Field ;
+    bpm:fieldName "case_state_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of current case state." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:remaining_time_estimate_contract_interval_digest_f a bpm:Field ;
+    bpm:fieldName "interval_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of calibrated time interval." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

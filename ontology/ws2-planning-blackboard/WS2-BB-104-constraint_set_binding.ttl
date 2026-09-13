@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-104 — constraint_set_binding
+bpm:constraint_set_binding_rt a bpm:RecordType ;
+    bpm:recordName "constraint_set_binding" ;
+    bpm:recordDoc "Binds hard and soft constraints without granting actuation authority." ;
+    bpm:hasField bpm:constraint_set_binding_problem_id_f ,
+                 bpm:constraint_set_binding_constraint_digest_f ,
+                 bpm:constraint_set_binding_binding_mode_f .
+
+bpm:constraint_set_binding_problem_id_f a bpm:Field ;
+    bpm:fieldName "problem_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Planning problem receiving constraints." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:constraint_set_binding_constraint_digest_f a bpm:Field ;
+    bpm:fieldName "constraint_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of normalized constraints." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:constraint_set_binding_binding_mode_f a bpm:Field ;
+    bpm:fieldName "binding_mode" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Hard or soft constraint interpretation." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

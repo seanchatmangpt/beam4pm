@@ -82,6 +82,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "action_eligibility_decision",
+      mod: BeamPM.Types.ActionEligibilityDecision,
+      has_required: true,
+      full_attrs: %{
+        decision_id: "x",
+        action_id: "x",
+        standing: "x"
+      }
+    },
+
+    %{
       name: "action_pin_evidence",
       mod: BeamPM.Types.ActionPinEvidence,
       has_required: true,
@@ -163,6 +174,17 @@ defmodule BeamPM.Types.GeneratedTest do
         agent_id: "x",
         policy_id: "x",
         assignment_hash: "x"
+      }
+    },
+
+    %{
+      name: "agent_capability_advertisement",
+      mod: BeamPM.Types.AgentCapabilityAdvertisement,
+      has_required: true,
+      full_attrs: %{
+        agent_subject_sha: "x",
+        capability_digest: "x",
+        valid_until: "2026-01-01T00:00:00Z"
       }
     },
 
@@ -1029,6 +1051,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "belief_update_rule",
+      mod: BeamPM.Types.BeliefUpdateRule,
+      has_required: true,
+      full_attrs: %{
+        rule_id: "x",
+        observation_schema: "x",
+        update_digest: "x"
+      }
+    },
+
+    %{
       name: "beneficial_owner_evidence",
       mod: BeamPM.Types.BeneficialOwnerEvidence,
       has_required: true,
@@ -1084,6 +1117,17 @@ defmodule BeamPM.Types.GeneratedTest do
         opportunity_id: "x",
         readiness_id: "x",
         decision: "x"
+      }
+    },
+
+    %{
+      name: "bounded_work_selection_receipt",
+      mod: BeamPM.Types.BoundedWorkSelectionReceipt,
+      has_required: true,
+      full_attrs: %{
+        receipt_id: "x",
+        selected_work_item_id: "x",
+        frontier_digest: "x"
       }
     },
 
@@ -1350,6 +1394,17 @@ defmodule BeamPM.Types.GeneratedTest do
         tenant_id: "x",
         capsule_id: "x",
         identity_hash: "x"
+      }
+    },
+
+    %{
+      name: "case_object_binding",
+      mod: BeamPM.Types.CaseObjectBinding,
+      has_required: true,
+      full_attrs: %{
+        case_id: "x",
+        object_id: "x",
+        binding_role: "x"
       }
     },
 
@@ -1641,6 +1696,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "compound_task_expansion",
+      mod: BeamPM.Types.CompoundTaskExpansion,
+      has_required: true,
+      full_attrs: %{
+        task_id: "x",
+        selected_method_id: "x",
+        alternative_digest: "x"
+      }
+    },
+
+    %{
       name: "concurrency_pricing_policy",
       mod: BeamPM.Types.ConcurrencyPricingPolicy,
       has_required: true,
@@ -1697,6 +1763,17 @@ defmodule BeamPM.Types.GeneratedTest do
         affected_state_digest: "x",
         invalidation_reason: "x",
         invalidated_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "constraint_set_binding",
+      mod: BeamPM.Types.ConstraintSetBinding,
+      has_required: true,
+      full_attrs: %{
+        problem_id: "x",
+        constraint_digest: "x",
+        binding_mode: "x"
       }
     },
 
@@ -1782,6 +1859,17 @@ defmodule BeamPM.Types.GeneratedTest do
         platform: "x",
         platform_digest: "x",
         observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "contingency_branch",
+      mod: BeamPM.Types.ContingencyBranch,
+      has_required: true,
+      full_attrs: %{
+        branch_id: "x",
+        observation_predicate: "x",
+        next_node_id: "x"
       }
     },
 
@@ -2777,6 +2865,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "deviation_repair_option",
+      mod: BeamPM.Types.DeviationRepairOption,
+      has_required: true,
+      full_attrs: %{
+        option_id: "x",
+        deviation_id: "x",
+        repair_plan_digest: "x"
+      }
+    },
+
+    %{
       name: "dfg_edge",
       mod: BeamPM.Types.DfgEdge,
       has_required: true,
@@ -2821,6 +2920,17 @@ defmodule BeamPM.Types.GeneratedTest do
         account_id: "x",
         expected_value: "x",
         evidence_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "distributed_work_queue_observation",
+      mod: BeamPM.Types.DistributedWorkQueueObservation,
+      has_required: true,
+      full_attrs: %{
+        consumer_subject_sha: "x",
+        queue_digest: "x",
         observed_at: "2026-01-01T00:00:00Z"
       }
     },
@@ -3184,6 +3294,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "exact_world_state_admission",
+      mod: BeamPM.Types.ExactWorldStateAdmission,
+      has_required: true,
+      full_attrs: %{
+        subject_sha: "x",
+        state_digest: "x",
+        observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
       name: "exception_authority",
       mod: BeamPM.Types.ExceptionAuthority,
       has_required: true,
@@ -3308,6 +3429,17 @@ defmodule BeamPM.Types.GeneratedTest do
         failure_class: "x",
         causal_scope: "x",
         preserved_evidence_digest: "x"
+      }
+    },
+
+    %{
+      name: "fairness_assumption",
+      mod: BeamPM.Types.FairnessAssumption,
+      has_required: true,
+      full_attrs: %{
+        assumption_id: "x",
+        policy_digest: "x",
+        evidence_digest: "x"
       }
     },
 
@@ -3452,6 +3584,39 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "goal_set_binding",
+      mod: BeamPM.Types.GoalSetBinding,
+      has_required: true,
+      full_attrs: %{
+        problem_id: "x",
+        goal_set_digest: "x",
+        value_profile: "x"
+      }
+    },
+
+    %{
+      name: "hddl_method_candidate",
+      mod: BeamPM.Types.HddlMethodCandidate,
+      has_required: true,
+      full_attrs: %{
+        method_id: "x",
+        compound_task_id: "x",
+        subnetwork_digest: "x"
+      }
+    },
+
+    %{
+      name: "hddl_task_network",
+      mod: BeamPM.Types.HddlTaskNetwork,
+      has_required: true,
+      full_attrs: %{
+        network_id: "x",
+        task_set_digest: "x",
+        ordering_digest: "x"
+      }
+    },
+
+    %{
       name: "heuristic_arc",
       mod: BeamPM.Types.HeuristicArc,
       has_required: true,
@@ -3564,6 +3729,17 @@ defmodule BeamPM.Types.GeneratedTest do
         state_vector_id: "x",
         partition_key: "x",
         information_digest: "x"
+      }
+    },
+
+    %{
+      name: "initial_state_digest",
+      mod: BeamPM.Types.InitialStateDigest,
+      has_required: true,
+      full_attrs: %{
+        problem_id: "x",
+        fact_digest: "x",
+        normalizer_version: "x"
       }
     },
 
@@ -3706,6 +3882,17 @@ defmodule BeamPM.Types.GeneratedTest do
         evidence_digest: "x",
         outcome: "x",
         authority_ceiling: "x"
+      }
+    },
+
+    %{
+      name: "lease_expiry_replan",
+      mod: BeamPM.Types.LeaseExpiryReplan,
+      has_required: true,
+      full_attrs: %{
+        replan_id: "x",
+        expired_lease_id: "x",
+        returned_frontier_digest: "x"
       }
     },
 
@@ -3898,6 +4085,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "method_precondition_gate",
+      mod: BeamPM.Types.MethodPreconditionGate,
+      has_required: true,
+      full_attrs: %{
+        method_id: "x",
+        state_digest: "x",
+        decision: "x"
+      }
+    },
+
+    %{
       name: "migration_contract",
       mod: BeamPM.Types.MigrationContract,
       has_required: true,
@@ -3995,6 +4193,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "next_event_prediction_contract",
+      mod: BeamPM.Types.NextEventPredictionContract,
+      has_required: true,
+      full_attrs: %{
+        prediction_id: "x",
+        prefix_digest: "x",
+        distribution_digest: "x"
+      }
+    },
+
+    %{
       name: "next_lawful_actuation",
       mod: BeamPM.Types.NextLawfulActuation,
       has_required: true,
@@ -4027,6 +4236,17 @@ defmodule BeamPM.Types.GeneratedTest do
         tenant_id: "x",
         node_id: "x",
         failover_hash: "x"
+      }
+    },
+
+    %{
+      name: "nondeterministic_effect_contract",
+      mod: BeamPM.Types.NondeterministicEffectContract,
+      has_required: true,
+      full_attrs: %{
+        action_id: "x",
+        effect_set_digest: "x",
+        selection_semantics: "x"
       }
     },
 
@@ -4179,6 +4399,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "observation_partition",
+      mod: BeamPM.Types.ObservationPartition,
+      has_required: true,
+      full_attrs: %{
+        partition_id: "x",
+        state_set_digest: "x",
+        observation_key: "x"
+      }
+    },
+
+    %{
       name: "observation_projection_update",
       mod: BeamPM.Types.ObservationProjectionUpdate,
       has_required: true,
@@ -4247,6 +4478,17 @@ defmodule BeamPM.Types.GeneratedTest do
         object_id: "x",
         object_type: "x",
         attributes: %{}
+      }
+    },
+
+    %{
+      name: "ocel_planning_event",
+      mod: BeamPM.Types.OcelPlanningEvent,
+      has_required: true,
+      full_attrs: %{
+        event_id: "x",
+        activity: "x",
+        object_binding_digest: "x"
       }
     },
 
@@ -4387,6 +4629,17 @@ defmodule BeamPM.Types.GeneratedTest do
         left_option_id: "x",
         right_option_id: "x",
         score: "x"
+      }
+    },
+
+    %{
+      name: "outcome_branch_set",
+      mod: BeamPM.Types.OutcomeBranchSet,
+      has_required: true,
+      full_attrs: %{
+        action_id: "x",
+        branch_digest: "x",
+        coverage_mode: "x"
       }
     },
 
@@ -4563,6 +4816,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "plan_handoff_receipt",
+      mod: BeamPM.Types.PlanHandoffReceipt,
+      has_required: true,
+      full_attrs: %{
+        receipt_id: "x",
+        plan_digest: "x",
+        receiver_subject_sha: "x"
+      }
+    },
+
+    %{
       name: "plan_lineage",
       mod: BeamPM.Types.PlanLineage,
       has_required: true,
@@ -4585,6 +4849,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "planner_bid",
+      mod: BeamPM.Types.PlannerBid,
+      has_required: true,
+      full_attrs: %{
+        bid_id: "x",
+        work_item_id: "x",
+        score_digest: "x"
+      }
+    },
+
+    %{
       name: "planner_capability_profile",
       mod: BeamPM.Types.PlannerCapabilityProfile,
       has_required: true,
@@ -4603,6 +4878,17 @@ defmodule BeamPM.Types.GeneratedTest do
         planner_id: "x",
         planner_kind: "x",
         identity_hash: "x"
+      }
+    },
+
+    %{
+      name: "planner_lease",
+      mod: BeamPM.Types.PlannerLease,
+      has_required: true,
+      full_attrs: %{
+        lease_id: "x",
+        work_item_id: "x",
+        expires_at: "2026-01-01T00:00:00Z"
       }
     },
 
@@ -4667,6 +4953,83 @@ defmodule BeamPM.Types.GeneratedTest do
         action_name: "x",
         preconditions: ["a"],
         effects: ["a"]
+      }
+    },
+
+    %{
+      name: "planning_blackboard_claim",
+      mod: BeamPM.Types.PlanningBlackboardClaim,
+      has_required: true,
+      full_attrs: %{
+        claim_id: "x",
+        work_item_id: "x",
+        owner_subject_sha: "x"
+      }
+    },
+
+    %{
+      name: "planning_blackboard_conflict",
+      mod: BeamPM.Types.PlanningBlackboardConflict,
+      has_required: true,
+      full_attrs: %{
+        conflict_id: "x",
+        claim_set_digest: "x",
+        conflict_type: "x"
+      }
+    },
+
+    %{
+      name: "planning_blackboard_fact",
+      mod: BeamPM.Types.PlanningBlackboardFact,
+      has_required: true,
+      full_attrs: %{
+        fact_id: "x",
+        subject_sha: "x",
+        provenance_digest: "x"
+      }
+    },
+
+    %{
+      name: "planning_blackboard_resolution",
+      mod: BeamPM.Types.PlanningBlackboardResolution,
+      has_required: true,
+      full_attrs: %{
+        resolution_id: "x",
+        conflict_id: "x",
+        preserved_option_digest: "x"
+      }
+    },
+
+    %{
+      name: "planning_case_identity",
+      mod: BeamPM.Types.PlanningCaseIdentity,
+      has_required: true,
+      full_attrs: %{
+        case_id: "x",
+        subject_sha: "x",
+        lineage_root: "x"
+      }
+    },
+
+    %{
+      name: "planning_conformance_alignment",
+      mod: BeamPM.Types.PlanningConformanceAlignment,
+      has_required: true,
+      full_attrs: %{
+        alignment_id: "x",
+        trace_digest: "x",
+        model_digest: "x"
+      }
+    },
+
+    %{
+      name: "planning_problem_admission",
+      mod: BeamPM.Types.PlanningProblemAdmission,
+      has_required: true,
+      full_attrs: %{
+        problem_id: "x",
+        state_digest: "x",
+        authority_scope: "x"
       }
     },
 
@@ -4755,6 +5118,28 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "policy_graph_edge",
+      mod: BeamPM.Types.PolicyGraphEdge,
+      has_required: true,
+      full_attrs: %{
+        source_node_id: "x",
+        outcome_label: "x",
+        target_node_id: "x"
+      }
+    },
+
+    %{
+      name: "policy_graph_node",
+      mod: BeamPM.Types.PolicyGraphNode,
+      has_required: true,
+      full_attrs: %{
+        node_id: "x",
+        state_digest: "x",
+        selected_action_id: "x"
+      }
+    },
+
+    %{
       name: "policy_payoff_observation",
       mod: BeamPM.Types.PolicyPayoffObservation,
       has_required: true,
@@ -4781,6 +5166,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "powl_choice_operator",
+      mod: BeamPM.Types.PowlChoiceOperator,
+      has_required: true,
+      full_attrs: %{
+        operator_id: "x",
+        branch_digest: "x",
+        selection_rule: "x"
+      }
+    },
+
+    %{
       name: "powl_freq",
       mod: BeamPM.Types.PowlFreq,
       has_required: true,
@@ -4803,12 +5199,45 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "powl_loop_operator",
+      mod: BeamPM.Types.PowlLoopOperator,
+      has_required: true,
+      full_attrs: %{
+        operator_id: "x",
+        body_digest: "x",
+        exit_predicate: "x"
+      }
+    },
+
+    %{
+      name: "powl_parallel_operator",
+      mod: BeamPM.Types.PowlParallelOperator,
+      has_required: true,
+      full_attrs: %{
+        operator_id: "x",
+        branch_digest: "x",
+        join_rule: "x"
+      }
+    },
+
+    %{
       name: "powl_partial_order_edge",
       mod: BeamPM.Types.PowlPartialOrderEdge,
       has_required: true,
       full_attrs: %{
         from_index: 1,
         to_index: 1
+      }
+    },
+
+    %{
+      name: "powl_partial_order_plan",
+      mod: BeamPM.Types.PowlPartialOrderPlan,
+      has_required: true,
+      full_attrs: %{
+        plan_id: "x",
+        operator_digest: "x",
+        order_digest: "x"
       }
     },
 
@@ -4824,6 +5253,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "powl_sequence_operator",
+      mod: BeamPM.Types.PowlSequenceOperator,
+      has_required: true,
+      full_attrs: %{
+        operator_id: "x",
+        step_digest: "x",
+        predecessor_digest: "x"
+      }
+    },
+
+    %{
       name: "ppddl_projection",
       mod: BeamPM.Types.PpddlProjection,
       has_required: true,
@@ -4831,6 +5271,17 @@ defmodule BeamPM.Types.GeneratedTest do
         plan_id: "x",
         domain_hash: "x",
         problem_hash: "x"
+      }
+    },
+
+    %{
+      name: "prefix_alignment_frontier",
+      mod: BeamPM.Types.PrefixAlignmentFrontier,
+      has_required: true,
+      full_attrs: %{
+        frontier_id: "x",
+        prefix_digest: "x",
+        candidate_digest: "x"
       }
     },
 
@@ -4881,6 +5332,17 @@ defmodule BeamPM.Types.GeneratedTest do
         opportunity_id: "x",
         pricing_basis_id: "x",
         evidence_hash: "x"
+      }
+    },
+
+    %{
+      name: "primitive_task_binding",
+      mod: BeamPM.Types.PrimitiveTaskBinding,
+      has_required: true,
+      full_attrs: %{
+        task_id: "x",
+        action_id: "x",
+        binding_digest: "x"
       }
     },
 
@@ -5363,6 +5825,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "recovery_subtask",
+      mod: BeamPM.Types.RecoverySubtask,
+      has_required: true,
+      full_attrs: %{
+        subtask_id: "x",
+        trigger_outcome: "x",
+        recovery_goal_digest: "x"
+      }
+    },
+
+    %{
       name: "recovery_time_receipt",
       mod: BeamPM.Types.RecoveryTimeReceipt,
       has_required: true,
@@ -5449,6 +5922,17 @@ defmodule BeamPM.Types.GeneratedTest do
         acceptance_threshold: 1.0,
         observed_regression: 1.0,
         authority_ceiling: "x"
+      }
+    },
+
+    %{
+      name: "remaining_time_estimate_contract",
+      mod: BeamPM.Types.RemainingTimeEstimateContract,
+      has_required: true,
+      full_attrs: %{
+        estimate_id: "x",
+        case_state_digest: "x",
+        interval_digest: "x"
       }
     },
 
@@ -5933,6 +6417,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "scheduling_priority_score",
+      mod: BeamPM.Types.SchedulingPriorityScore,
+      has_required: true,
+      full_attrs: %{
+        score_id: "x",
+        work_item_id: "x",
+        component_digest: "x"
+      }
+    },
+
+    %{
       name: "seat_pricing_policy",
       mod: BeamPM.Types.SeatPricingPolicy,
       has_required: true,
@@ -6309,6 +6804,28 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "strong_cyclic_plan_candidate",
+      mod: BeamPM.Types.StrongCyclicPlanCandidate,
+      has_required: true,
+      full_attrs: %{
+        candidate_id: "x",
+        policy_digest: "x",
+        fairness_proof: "x"
+      }
+    },
+
+    %{
+      name: "strong_plan_candidate",
+      mod: BeamPM.Types.StrongPlanCandidate,
+      has_required: true,
+      full_attrs: %{
+        candidate_id: "x",
+        policy_digest: "x",
+        coverage_proof: "x"
+      }
+    },
+
+    %{
       name: "subject_failure_separation",
       mod: BeamPM.Types.SubjectFailureSeparation,
       has_required: true,
@@ -6477,6 +6994,17 @@ defmodule BeamPM.Types.GeneratedTest do
     },
 
     %{
+      name: "task_decomposition_proof",
+      mod: BeamPM.Types.TaskDecompositionProof,
+      has_required: true,
+      full_attrs: %{
+        proof_id: "x",
+        method_id: "x",
+        constraint_proof_digest: "x"
+      }
+    },
+
+    %{
       name: "tax_jurisdiction_evidence",
       mod: BeamPM.Types.TaxJurisdictionEvidence,
       has_required: true,
@@ -6624,6 +7152,17 @@ defmodule BeamPM.Types.GeneratedTest do
         verified_days: 1,
         evidence_digest: "x",
         observed_at: "2026-01-01T00:00:00Z"
+      }
+    },
+
+    %{
+      name: "token_replay_state",
+      mod: BeamPM.Types.TokenReplayState,
+      has_required: true,
+      full_attrs: %{
+        replay_id: "x",
+        prefix_digest: "x",
+        marking_digest: "x"
       }
     },
 
@@ -7066,6 +7605,17 @@ defmodule BeamPM.Types.GeneratedTest do
         subject_sha: "x",
         vulnerability_count: 1,
         observed_result: :some_atom
+      }
+    },
+
+    %{
+      name: "weak_plan_candidate",
+      mod: BeamPM.Types.WeakPlanCandidate,
+      has_required: true,
+      full_attrs: %{
+        candidate_id: "x",
+        policy_digest: "x",
+        uncovered_digest: "x"
       }
     },
 

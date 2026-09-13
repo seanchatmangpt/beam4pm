@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-102 — planning_problem_admission
+bpm:planning_problem_admission_rt a bpm:RecordType ;
+    bpm:recordName "planning_problem_admission" ;
+    bpm:recordDoc "Binds an admitted world state to a bounded planning problem." ;
+    bpm:hasField bpm:planning_problem_admission_problem_id_f ,
+                 bpm:planning_problem_admission_state_digest_f ,
+                 bpm:planning_problem_admission_authority_scope_f .
+
+bpm:planning_problem_admission_problem_id_f a bpm:Field ;
+    bpm:fieldName "problem_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Stable planning problem identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_problem_admission_state_digest_f a bpm:Field ;
+    bpm:fieldName "state_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the admitted initial state." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_problem_admission_authority_scope_f a bpm:Field ;
+    bpm:fieldName "authority_scope" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Authority boundary for proposed actions." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

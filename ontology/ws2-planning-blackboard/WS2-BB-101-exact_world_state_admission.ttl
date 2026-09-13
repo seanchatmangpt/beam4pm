@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-101 — exact_world_state_admission
+bpm:exact_world_state_admission_rt a bpm:RecordType ;
+    bpm:recordName "exact_world_state_admission" ;
+    bpm:recordDoc "Admits an exact immutable world-state subject before option generation." ;
+    bpm:hasField bpm:exact_world_state_admission_subject_sha_f ,
+                 bpm:exact_world_state_admission_state_digest_f ,
+                 bpm:exact_world_state_admission_observed_at_f .
+
+bpm:exact_world_state_admission_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact SHA of the admitted planning subject." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:exact_world_state_admission_state_digest_f a bpm:Field ;
+    bpm:fieldName "state_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the normalized world state." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:exact_world_state_admission_observed_at_f a bpm:Field ;
+    bpm:fieldName "observed_at" ;
+    bpm:fieldType "datetime" ;
+    bpm:fieldDoc "Timestamp of the admitted observation." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

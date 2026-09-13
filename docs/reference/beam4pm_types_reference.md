@@ -57,6 +57,16 @@
 | `account_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `realization_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## action_eligibility_decision
+
+> Calculates whether an action is lawful from constraints, authority, and receipts.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `decision_id` | `string` | true | Eligibility decision identity. |
+| `action_id` | `string` | true | Candidate action evaluated. |
+| `standing` | `string` | true | Typed eligible or refused standing. |
+
 ## action_pin_evidence
 
 > Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.
@@ -134,6 +144,16 @@
 | `agent_id` | `string` | true | Required agent_id for this bounded planner contract. |
 | `policy_id` | `string` | true | Required policy_id for deterministic planner evaluation. |
 | `assignment_hash` | `string` | true | Required assignment_hash preserving evidence and falsifiability. |
+
+## agent_capability_advertisement
+
+> Advertises exact subject-bound planning capabilities for portfolio routing.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `agent_subject_sha` | `string` | true | Exact agent consumer subject. |
+| `capability_digest` | `string` | true | Digest of advertised capabilities. |
+| `valid_until` | `datetime` | true | Advertisement expiry timestamp. |
 
 ## alignment_move
 
@@ -925,6 +945,16 @@
 | `posterior_belief_id` | `string` | true | Resulting belief-state identity. |
 | `update_rule` | `string` | true | Deterministic belief update rule. |
 
+## belief_update_rule
+
+> Updates a belief state from an admitted observation without inventing facts.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `rule_id` | `string` | true | Belief update rule identity. |
+| `observation_schema` | `string` | true | Schema of admissible observations. |
+| `update_digest` | `string` | true | Digest of deterministic update semantics. |
+
 ## beneficial_owner_evidence
 
 > Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence.
@@ -978,6 +1008,16 @@
 | `opportunity_id` | `string` | true | Required booking readiness input; omission is an executable typed refusal, never an inferred approval. |
 | `readiness_id` | `string` | true | Required booking readiness input; omission is an executable typed refusal, never an inferred approval. |
 | `decision` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## bounded_work_selection_receipt
+
+> Receipts automatic selection of the next bounded lawful action without granting execution authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `receipt_id` | `string` | true | Selection receipt identity. |
+| `selected_work_item_id` | `string` | true | Automatically selected bounded work item. |
+| `frontier_digest` | `string` | true | Digest of the evaluated lawful frontier. |
 
 ## brce_actuation_receipt
 
@@ -1222,6 +1262,16 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `capsule_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `identity_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## case_object_binding
+
+> Binds a planning case to its exact OCEL objects and roles.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `case_id` | `string` | true | Planning case identity. |
+| `object_id` | `string` | true | Related OCEL object identity. |
+| `binding_role` | `string` | true | Role the object plays in the case. |
 
 ## case_stats
 
@@ -1486,6 +1536,16 @@
 | `schema_version` | `string` | true | Supported schema version. |
 | `api_version` | `string` | true | Supported API version. |
 
+## compound_task_expansion
+
+> Records the selected expansion of a compound task with alternatives preserved.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `task_id` | `string` | true | Compound task identity. |
+| `selected_method_id` | `string` | true | Method selected for expansion. |
+| `alternative_digest` | `string` | true | Digest of lawful unselected methods. |
+
 ## concurrency_pricing_policy
 
 > Concurrent-workload packaging dimension.
@@ -1540,6 +1600,16 @@
 | `affected_state_digest` | `string` | true | Digest of state invalidated by transition. |
 | `invalidation_reason` | `string` | true | Typed invalidation reason. |
 | `invalidated_at` | `datetime` | true | Timestamp invalidation became effective. |
+
+## constraint_set_binding
+
+> Binds hard and soft constraints without granting actuation authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `problem_id` | `string` | true | Planning problem receiving constraints. |
+| `constraint_digest` | `string` | true | Digest of normalized constraints. |
+| `binding_mode` | `string` | true | Hard or soft constraint interpretation. |
 
 ## consumer_equivalence_learning_guard
 
@@ -1618,6 +1688,16 @@
 | `platform` | `string` | true | Normalized operating-system and architecture. |
 | `platform_digest` | `string` | true | Exact platform image digest. |
 | `observed_at` | `datetime` | true | Timestamp of platform resolution. |
+
+## contingency_branch
+
+> Binds an observation predicate to the next lawful policy branch.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `branch_id` | `string` | true | Contingency branch identity. |
+| `observation_predicate` | `string` | true | Predicate selecting this branch. |
+| `next_node_id` | `string` | true | Policy node entered on match. |
 
 ## contracting_entity_identity
 
@@ -2528,6 +2608,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## deviation_repair_option
+
+> Generates a reversible repair option for one conformance deviation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `option_id` | `string` | true | Deviation repair option identity. |
+| `deviation_id` | `string` | true | Deviation addressed by the option. |
+| `repair_plan_digest` | `string` | true | Digest of the bounded repair plan. |
+
 ## dfg_edge
 
 > One frequency-annotated directly-follows edge between two activities.
@@ -2572,6 +2662,16 @@
 | `expected_value` | `string` | true | Falsifiable value expectation stated by the customer. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## distributed_work_queue_observation
+
+> Admits a caller-local snapshot of executable work without central surrogacy.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `consumer_subject_sha` | `string` | true | Exact caller-local consumer subject. |
+| `queue_digest` | `string` | true | Digest of locally visible work. |
+| `observed_at` | `datetime` | true | Queue observation timestamp. |
 
 ## dominance_witness
 
@@ -2901,6 +3001,16 @@
 | `subject_sha` | `string` | true | Required subject_sha for deterministic planner evaluation. |
 | `binding_hash` | `string` | true | Required binding_hash preserving evidence and falsifiability. |
 
+## exact_world_state_admission
+
+> Admits an exact immutable world-state subject before option generation.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subject_sha` | `string` | true | Exact SHA of the admitted planning subject. |
+| `state_digest` | `string` | true | Digest of the normalized world state. |
+| `observed_at` | `datetime` | true | Timestamp of the admitted observation. |
+
 ## exception_authority
 
 > Admits a commercial exception only when the exact authority and decision are present.
@@ -3018,6 +3128,16 @@
 | `failure_class` | `string` | true | Typed subject, environment, policy, or authority failure class. |
 | `causal_scope` | `string` | true | Smallest supported causal boundary. |
 | `preserved_evidence_digest` | `string` | true | Digest proving the failed evidence was retained. |
+
+## fairness_assumption
+
+> Binds an explicit fairness assumption to a cyclic policy instead of hiding it.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `assumption_id` | `string` | true | Stable fairness assumption identity. |
+| `policy_digest` | `string` | true | Policy graph governed by the assumption. |
+| `evidence_digest` | `string` | true | Digest of evidence supporting fairness. |
 
 ## federated_dogfood_learning_crown
 
@@ -3148,6 +3268,36 @@
 | `source_coordinate` | `string` | true | Required source_coordinate for deterministic planner evaluation. |
 | `route` | `string` | true | Required route preserving evidence and falsifiability. |
 
+## goal_set_binding
+
+> Binds explicit valued goals to one admitted planning problem.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `problem_id` | `string` | true | Planning problem receiving the goals. |
+| `goal_set_digest` | `string` | true | Digest of the ordered goal set. |
+| `value_profile` | `string` | true | Explicit value profile used for selection. |
+
+## hddl_method_candidate
+
+> Declares one applicable method candidate for a compound task.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `method_id` | `string` | true | HDDL method identity. |
+| `compound_task_id` | `string` | true | Compound task decomposed by the method. |
+| `subnetwork_digest` | `string` | true | Digest of the proposed subtask network. |
+
+## hddl_task_network
+
+> Represents a partially ordered HDDL task network over an exact problem.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `network_id` | `string` | true | Task network identity. |
+| `task_set_digest` | `string` | true | Digest of network tasks. |
+| `ordering_digest` | `string` | true | Digest of partial-order constraints. |
+
 ## heuristic_arc
 
 > One dependency-scored candidate arc considered during heuristic-net discovery.
@@ -3253,6 +3403,16 @@
 | `state_vector_id` | `string` | true | Source state-vector identity. |
 | `partition_key` | `string` | true | Decision-relevant partition key. |
 | `information_digest` | `string` | true | Digest of partition contents. |
+
+## initial_state_digest
+
+> Freezes the normalized initial facts used by every planner in a portfolio.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `problem_id` | `string` | true | Planning problem identity. |
+| `fact_digest` | `string` | true | Digest of sorted initial facts. |
+| `normalizer_version` | `string` | true | Exact normalizer version. |
 
 ## insurance_requirement
 
@@ -3383,6 +3543,16 @@
 | `evidence_digest` | `string` | true | Digest binding the episode to immutable evidence. |
 | `outcome` | `string` | true | Observed success, refusal, or failure outcome. |
 | `authority_ceiling` | `string` | true | Maximum authority learning may influence; DO authority remains excluded. |
+
+## lease_expiry_replan
+
+> Invalidates stale leased plans and returns work to the lawful option frontier.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `replan_id` | `string` | true | Lease-expiry replan identity. |
+| `expired_lease_id` | `string` | true | Lease whose authority expired. |
+| `returned_frontier_digest` | `string` | true | Digest of restored work options. |
 
 ## least_authority_evidence
 
@@ -3556,6 +3726,16 @@
 | `usage_sample_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `sample_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## method_precondition_gate
+
+> Refuses HDDL method selection when its exact preconditions do not hold.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `method_id` | `string` | true | Method being evaluated. |
+| `state_digest` | `string` | true | Exact state evaluated for applicability. |
+| `decision` | `string` | true | Typed admitted or refused outcome. |
+
 ## migration_contract
 
 > Versioned migration path with source, target, and rollback identity.
@@ -3645,6 +3825,16 @@
 | `generated_input_digest` | `string` | true | Digest of deterministic negative input. |
 | `expected_refusal_code` | `string` | true | Exact refusal required for success. |
 
+## next_event_prediction_contract
+
+> Binds a seeded next-event predictor to an exact case prefix.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `prediction_id` | `string` | true | Next-event prediction identity. |
+| `prefix_digest` | `string` | true | Digest of exact case prefix. |
+| `distribution_digest` | `string` | true | Digest of predicted event probabilities. |
+
 ## next_lawful_actuation
 
 > Selects the next bounded action from scored admissible options without human micro-scheduling.
@@ -3677,6 +3867,16 @@
 | `tenant_id` | `string` | true | Exact paid tenant identity for this bounded runtime observation. |
 | `node_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `failover_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
+
+## nondeterministic_effect_contract
+
+> Makes nondeterministic effects explicit for FOND planning and replay.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `action_id` | `string` | true | Action whose effects are nondeterministic. |
+| `effect_set_digest` | `string` | true | Digest of the alternative effect sets. |
+| `selection_semantics` | `string` | true | Environment selection semantics. |
 
 ## nonproduction_discount_policy
 
@@ -3814,6 +4014,16 @@
 | `freshness_deadline` | `datetime` | true | Latest acceptable observation time. |
 | `freshness_status` | `string` | true | Machine-readable freshness standing. |
 
+## observation_partition
+
+> Partitions observationally equivalent world states for contingent planning.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `partition_id` | `string` | true | Observation partition identity. |
+| `state_set_digest` | `string` | true | Digest of member world states. |
+| `observation_key` | `string` | true | Observation defining equivalence. |
+
 ## observation_projection_update
 
 > Updates future observation shape from an admitted gap while preserving an explicit authority ceiling.
@@ -3879,6 +4089,16 @@
 | `object_id` | `string` | true | Unique object identifier. |
 | `object_type` | `string` | true | The object's type. |
 | `attributes` | `map` | false | Arbitrary named current attribute values (a flat snapshot, not the time-indexed history -- see bpm:ocel_attribute and bpm:object_attribute_change for per-timestamp values). |
+
+## ocel_planning_event
+
+> Captures a planning decision or observation as an object-centric event.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `event_id` | `string` | true | Planning event identity. |
+| `activity` | `string` | true | Planning activity type. |
+| `object_binding_digest` | `string` | true | Digest of related planning objects. |
 
 ## ocel_relationship
 
@@ -4007,6 +4227,16 @@
 | `left_option_id` | `string` | true | Required left_option_id for this bounded planner contract. |
 | `right_option_id` | `string` | true | Required right_option_id for deterministic planner evaluation. |
 | `score` | `string` | true | Required score preserving evidence and falsifiability. |
+
+## outcome_branch_set
+
+> Declares the finite outcome branches an action may produce.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `action_id` | `string` | true | Candidate action identity. |
+| `branch_digest` | `string` | true | Digest of ordered possible outcomes. |
+| `coverage_mode` | `string` | true | Declared completeness mode for branches. |
 
 ## outcome_label
 
@@ -4165,6 +4395,16 @@
 | `transition_id` | `string` | true | Unique transition identifier. |
 | `label` | `string` | false | Optional human-readable/activity label (silent transition if absent). |
 
+## plan_handoff_receipt
+
+> Receipts transfer of an exact plan subject between caller-local consumers.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `receipt_id` | `string` | true | Plan handoff receipt identity. |
+| `plan_digest` | `string` | true | Digest of the transferred plan. |
+| `receiver_subject_sha` | `string` | true | Exact receiving consumer subject. |
+
 ## plan_lineage
 
 > Tracks derivation, repair, and supersession across plan generations.
@@ -4185,6 +4425,16 @@
 | `evidence_hash` | `string` | true | Required evidence_hash for deterministic planner evaluation. |
 | `memory_hash` | `string` | true | Required memory_hash preserving evidence and falsifiability. |
 
+## planner_bid
+
+> Bids for bounded work using declared cost, confidence, and capsule identity.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `bid_id` | `string` | true | Planner bid identity. |
+| `work_item_id` | `string` | true | Bounded work item being bid. |
+| `score_digest` | `string` | true | Digest of cost, confidence, and evidence scores. |
+
 ## planner_capability_profile
 
 > Declares the problem features and guarantees supported by one planner.
@@ -4204,6 +4454,16 @@
 | `planner_id` | `string` | true | Required planner_id for this bounded planner contract. |
 | `planner_kind` | `string` | true | Required planner_kind for deterministic planner evaluation. |
 | `identity_hash` | `string` | true | Required identity_hash preserving evidence and falsifiability. |
+
+## planner_lease
+
+> Grants time-bounded construction authority for one work item without DO authority.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `lease_id` | `string` | true | Planner lease identity. |
+| `work_item_id` | `string` | true | Leased bounded work item. |
+| `expires_at` | `datetime` | true | Lease expiry timestamp. |
 
 ## planner_payoff_observation
 
@@ -4263,6 +4523,76 @@
 | `action_name` | `string` | true | The action name. |
 | `preconditions` | `list_string` | false | Optional list of precondition fact names. |
 | `effects` | `list_string` | false | Optional list of effect fact names this action produces. |
+
+## planning_blackboard_claim
+
+> Claims bounded planning work with an explicit owner and expiry.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `claim_id` | `string` | true | Blackboard claim identity. |
+| `work_item_id` | `string` | true | Bounded work item claimed. |
+| `owner_subject_sha` | `string` | true | Exact caller-local owner subject. |
+
+## planning_blackboard_conflict
+
+> Captures mutually incompatible blackboard claims without silent last-writer wins.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `conflict_id` | `string` | true | Blackboard conflict identity. |
+| `claim_set_digest` | `string` | true | Digest of incompatible claims. |
+| `conflict_type` | `string` | true | Typed conflict classification. |
+
+## planning_blackboard_fact
+
+> Publishes a provenance-bound planning fact to the distributed blackboard.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `fact_id` | `string` | true | Blackboard fact identity. |
+| `subject_sha` | `string` | true | Exact subject the fact describes. |
+| `provenance_digest` | `string` | true | Digest of observation provenance. |
+
+## planning_blackboard_resolution
+
+> Records evidence-based resolution while preserving losing lawful claims.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `resolution_id` | `string` | true | Conflict resolution identity. |
+| `conflict_id` | `string` | true | Conflict being resolved. |
+| `preserved_option_digest` | `string` | true | Digest of preserved unselected claims. |
+
+## planning_case_identity
+
+> Defines a stable process-planning case across events, objects, and replans.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `case_id` | `string` | true | Stable planning case identity. |
+| `subject_sha` | `string` | true | Exact repository subject for the case. |
+| `lineage_root` | `string` | true | Root identity of the plan lineage. |
+
+## planning_conformance_alignment
+
+> Aligns an observed planning trace to its admitted policy and process model.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `alignment_id` | `string` | true | Conformance alignment identity. |
+| `trace_digest` | `string` | true | Digest of observed planning events. |
+| `model_digest` | `string` | true | Digest of the admitted model. |
+
+## planning_problem_admission
+
+> Binds an admitted world state to a bounded planning problem.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `problem_id` | `string` | true | Stable planning problem identity. |
+| `state_digest` | `string` | true | Digest of the admitted initial state. |
+| `authority_scope` | `string` | true | Authority boundary for proposed actions. |
 
 ## planning_state
 
@@ -4341,6 +4671,26 @@
 | `verdict` | `atom` | true | One of: admitted \| refused \| blocked. |
 | `reason` | `string` | false | Optional human-readable reason for this verdict. |
 
+## policy_graph_edge
+
+> Defines an outcome-labelled transition between policy graph nodes.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `source_node_id` | `string` | true | Origin policy node. |
+| `outcome_label` | `string` | true | Observed outcome selecting the transition. |
+| `target_node_id` | `string` | true | Destination policy node. |
+
+## policy_graph_node
+
+> Defines one exact state node in an executable policy graph.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `node_id` | `string` | true | Policy node identity. |
+| `state_digest` | `string` | true | Normalized state digest at the node. |
+| `selected_action_id` | `string` | true | Action selected when the node matches. |
+
 ## policy_payoff_observation
 
 > Records bounded policy payoff separately from planner identity and parameters.
@@ -4365,6 +4715,16 @@
 | `to_kind` | `atom` | true | The edge target endpoint kind: start \| child \| end. |
 | `to_child_index` | `integer` | false | Index into the parent ChoiceGraphNode's children when to_kind is child; absent otherwise. |
 
+## powl_choice_operator
+
+> Represents an evidence-selected exclusive POWL choice without erasing alternatives.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `operator_id` | `string` | true | Choice operator identity. |
+| `branch_digest` | `string` | true | Digest of available branches. |
+| `selection_rule` | `string` | true | Rule selecting a branch at execution. |
+
 ## powl_freq
 
 > A POWL node's multiplicity/frequency tag (Freq): how many times it may occur.
@@ -4385,6 +4745,26 @@
 | `min_freq` | `integer` | true | This leaf's Freq.min_freq, flattened onto the leaf record. |
 | `max_freq` | `integer` | false | This leaf's Freq.max_freq, flattened onto the leaf record; absent means unbounded. |
 
+## powl_loop_operator
+
+> Represents a guarded POWL loop with a bounded exit condition.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `operator_id` | `string` | true | Loop operator identity. |
+| `body_digest` | `string` | true | Digest of loop body operators. |
+| `exit_predicate` | `string` | true | Predicate terminating the loop. |
+
+## powl_parallel_operator
+
+> Represents concurrently executable POWL branches and their join semantics.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `operator_id` | `string` | true | Parallel operator identity. |
+| `branch_digest` | `string` | true | Digest of parallel branches. |
+| `join_rule` | `string` | true | Completion rule for the parallel join. |
+
 ## powl_partial_order_edge
 
 > One strict order edge of a PartialOrderNode.order set: from_index must happen before to_index among the parent node's children.
@@ -4393,6 +4773,16 @@
 | --- | --- | --- | --- |
 | `from_index` | `integer` | true | Index into the parent PartialOrderNode's children that must happen first. |
 | `to_index` | `integer` | true | Index into the parent PartialOrderNode's children that must happen after from_index. |
+
+## powl_partial_order_plan
+
+> Projects a decomposed task network into an executable POWL partial order.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `plan_id` | `string` | true | POWL plan identity. |
+| `operator_digest` | `string` | true | Digest of POWL operators. |
+| `order_digest` | `string` | true | Digest of ordering constraints. |
 
 ## powl_projection
 
@@ -4404,6 +4794,16 @@
 | `powl_hash` | `string` | true | Required powl_hash for deterministic planner evaluation. |
 | `projection_receipt_hash` | `string` | true | Required projection_receipt_hash preserving evidence and falsifiability. |
 
+## powl_sequence_operator
+
+> Represents an ordered POWL operator sequence with exact predecessor binding.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `operator_id` | `string` | true | Sequence operator identity. |
+| `step_digest` | `string` | true | Digest of ordered steps. |
+| `predecessor_digest` | `string` | true | Digest of predecessor bindings. |
+
 ## ppddl_projection
 
 > Binds a plan candidate to an exact PPDDL problem/domain projection.
@@ -4413,6 +4813,16 @@
 | `plan_id` | `string` | true | Required plan_id for this bounded planner contract. |
 | `domain_hash` | `string` | true | Required domain_hash for deterministic planner evaluation. |
 | `problem_hash` | `string` | true | Required problem_hash preserving evidence and falsifiability. |
+
+## prefix_alignment_frontier
+
+> Preserves competing minimum-cost alignments for a live event prefix.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `frontier_id` | `string` | true | Prefix alignment frontier identity. |
+| `prefix_digest` | `string` | true | Digest of the observed prefix. |
+| `candidate_digest` | `string` | true | Digest of nondominated alignments. |
 
 ## premium_connector_pricing
 
@@ -4459,6 +4869,16 @@
 | `opportunity_id` | `string` | true | Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval. |
 | `pricing_basis_id` | `string` | true | Required pricing basis contract input; omission is an executable typed refusal, never an inferred approval. |
 | `evidence_hash` | `string` | true | Immutable decision or evidence identity used to verify and replay this bounded commercial admission. |
+
+## primitive_task_binding
+
+> Binds a primitive HDDL task to one executable action contract.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `task_id` | `string` | true | Primitive task identity. |
+| `action_id` | `string` | true | Executable action identity. |
+| `binding_digest` | `string` | true | Digest of parameter and type bindings. |
 
 ## privacy_classification_evidence
 
@@ -4898,6 +5318,16 @@
 | `incident_id` | `string` | true | Exact runtime subject identity required for independent verification and replay. |
 | `recovery_hash` | `string` | true | Immutable evidence identity binding the observed production consequence. |
 
+## recovery_subtask
+
+> Declares a bounded recovery subtask for one failed or adverse outcome.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `subtask_id` | `string` | true | Recovery subtask identity. |
+| `trigger_outcome` | `string` | true | Outcome that triggers recovery. |
+| `recovery_goal_digest` | `string` | true | Digest of the bounded recovery goal. |
+
 ## recovery_time_receipt
 
 > Receipts the observed recovery-time consequence against the paid-service objective.
@@ -4980,6 +5410,16 @@
 | `acceptance_threshold` | `float` | true | Maximum admitted regression. |
 | `observed_regression` | `float` | true | Measured regression. |
 | `authority_ceiling` | `string` | true | Boundary preventing self-override of refusal. |
+
+## remaining_time_estimate_contract
+
+> Binds a calibrated completion-time estimate to an exact planning case.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `estimate_id` | `string` | true | Remaining-time estimate identity. |
+| `case_state_digest` | `string` | true | Digest of current case state. |
+| `interval_digest` | `string` | true | Digest of calibrated time interval. |
 
 ## remediation_sla_evidence
 
@@ -5421,6 +5861,16 @@
 | `component_count` | `integer` | true | Observed number of components in the parsed SBOM inventory. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
 
+## scheduling_priority_score
+
+> Computes transparent next-work priority from value, delay, information, and reversibility.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `score_id` | `string` | true | Priority score identity. |
+| `work_item_id` | `string` | true | Bounded work item scored. |
+| `component_digest` | `string` | true | Digest of normalized score components. |
+
 ## seat_pricing_policy
 
 > Named-seat enterprise packaging dimension.
@@ -5766,6 +6216,26 @@
 | `evidence_window_digest` | `string` | true | Digest of evidence used to stop. |
 | `authority_binding` | `string` | true | Authority that owns criterion changes. |
 
+## strong_cyclic_plan_candidate
+
+> Records a fair strong-cyclic policy candidate for recoverable recurrence.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `candidate_id` | `string` | true | Strong-cyclic candidate identity. |
+| `policy_digest` | `string` | true | Digest of the cyclic policy graph. |
+| `fairness_proof` | `string` | true | Evidence binding recurrence to fairness assumptions. |
+
+## strong_plan_candidate
+
+> Records a policy candidate that reaches the goal under every admitted outcome.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `candidate_id` | `string` | true | Strong plan candidate identity. |
+| `policy_digest` | `string` | true | Digest of the policy graph. |
+| `coverage_proof` | `string` | true | Evidence covering every admitted outcome. |
+
 ## subject_failure_separation
 
 > Attributes a failure to the exact subject only after the validation capsule is independently admitted.
@@ -5920,6 +6390,16 @@
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
 
+## task_decomposition_proof
+
+> Records evidence that a method expansion preserves task-network constraints.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `proof_id` | `string` | true | Decomposition proof identity. |
+| `method_id` | `string` | true | Method whose expansion is proven. |
+| `constraint_proof_digest` | `string` | true | Digest of constraint-preservation evidence. |
+
 ## tax_jurisdiction_evidence
 
 > Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.
@@ -6057,6 +6537,16 @@
 | `verified_days` | `integer` | true | Days from admission to first verified value. |
 | `evidence_digest` | `string` | true | Digest of the exact evidence supporting this customer-value observation. |
 | `observed_at` | `datetime` | true | ISO8601 instant the enterprise consequence was observed. |
+
+## token_replay_state
+
+> Records deterministic process-token state after replaying an event prefix.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `replay_id` | `string` | true | Token replay identity. |
+| `prefix_digest` | `string` | true | Digest of the replayed event prefix. |
+| `marking_digest` | `string` | true | Digest of resulting token marking. |
 
 ## toolchain_identity
 
@@ -6463,6 +6953,16 @@
 | `subject_sha` | `string` | true | Exact immutable beam4pm commit verified by this observation. |
 | `vulnerability_count` | `integer` | true | Observed count of admitted vulnerability findings. |
 | `observed_result` | `atom` | true | Observed verifier consequence: verified or refused. |
+
+## weak_plan_candidate
+
+> Records a weak plan while preserving its uncovered counterfactuals.
+
+| Field | Type | Required | Doc |
+| --- | --- | --- | --- |
+| `candidate_id` | `string` | true | Weak plan candidate identity. |
+| `policy_digest` | `string` | true | Digest of the proposed policy. |
+| `uncovered_digest` | `string` | true | Digest of outcomes not guaranteed to reach the goal. |
 
 ## wip_limit_gate
 

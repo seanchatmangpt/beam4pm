@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-142 — planning_blackboard_resolution
+bpm:planning_blackboard_resolution_rt a bpm:RecordType ;
+    bpm:recordName "planning_blackboard_resolution" ;
+    bpm:recordDoc "Records evidence-based resolution while preserving losing lawful claims." ;
+    bpm:hasField bpm:planning_blackboard_resolution_resolution_id_f ,
+                 bpm:planning_blackboard_resolution_conflict_id_f ,
+                 bpm:planning_blackboard_resolution_preserved_option_digest_f .
+
+bpm:planning_blackboard_resolution_resolution_id_f a bpm:Field ;
+    bpm:fieldName "resolution_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Conflict resolution identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_blackboard_resolution_conflict_id_f a bpm:Field ;
+    bpm:fieldName "conflict_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Conflict being resolved." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_blackboard_resolution_preserved_option_digest_f a bpm:Field ;
+    bpm:fieldName "preserved_option_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of preserved unselected claims." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

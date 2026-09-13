@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-119 — hddl_method_candidate
+bpm:hddl_method_candidate_rt a bpm:RecordType ;
+    bpm:recordName "hddl_method_candidate" ;
+    bpm:recordDoc "Declares one applicable method candidate for a compound task." ;
+    bpm:hasField bpm:hddl_method_candidate_method_id_f ,
+                 bpm:hddl_method_candidate_compound_task_id_f ,
+                 bpm:hddl_method_candidate_subnetwork_digest_f .
+
+bpm:hddl_method_candidate_method_id_f a bpm:Field ;
+    bpm:fieldName "method_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "HDDL method identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:hddl_method_candidate_compound_task_id_f a bpm:Field ;
+    bpm:fieldName "compound_task_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Compound task decomposed by the method." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:hddl_method_candidate_subnetwork_digest_f a bpm:Field ;
+    bpm:fieldName "subnetwork_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of the proposed subtask network." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

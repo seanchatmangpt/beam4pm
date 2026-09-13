@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-128 — powl_sequence_operator
+bpm:powl_sequence_operator_rt a bpm:RecordType ;
+    bpm:recordName "powl_sequence_operator" ;
+    bpm:recordDoc "Represents an ordered POWL operator sequence with exact predecessor binding." ;
+    bpm:hasField bpm:powl_sequence_operator_operator_id_f ,
+                 bpm:powl_sequence_operator_step_digest_f ,
+                 bpm:powl_sequence_operator_predecessor_digest_f .
+
+bpm:powl_sequence_operator_operator_id_f a bpm:Field ;
+    bpm:fieldName "operator_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Sequence operator identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_sequence_operator_step_digest_f a bpm:Field ;
+    bpm:fieldName "step_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of ordered steps." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_sequence_operator_predecessor_digest_f a bpm:Field ;
+    bpm:fieldName "predecessor_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of predecessor bindings." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

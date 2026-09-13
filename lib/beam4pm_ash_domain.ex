@@ -24,6 +24,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.AccountMasterMatch
     resource BeamPM.Ash.Resources.AccountParentScope
     resource BeamPM.Ash.Resources.AccountValueRealization
+    resource BeamPM.Ash.Resources.ActionEligibilityDecision
     resource BeamPM.Ash.Resources.ActionPinEvidence
     resource BeamPM.Ash.Resources.ActivationEvent
     resource BeamPM.Ash.Resources.AddOnBundle
@@ -31,6 +32,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.AdmissibleActionSet
     resource BeamPM.Ash.Resources.AdoptionMilestone
     resource BeamPM.Ash.Resources.AgentAssignment
+    resource BeamPM.Ash.Resources.AgentCapabilityAdvertisement
     resource BeamPM.Ash.Resources.AlignmentMove
     resource BeamPM.Ash.Resources.AnnualSubscription
     resource BeamPM.Ash.Resources.AnomalyDetectionObservation
@@ -103,11 +105,13 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.BeamSearchCandidate
     resource BeamPM.Ash.Resources.BeliefStateSnapshot
     resource BeamPM.Ash.Resources.BeliefStateUpdate
+    resource BeamPM.Ash.Resources.BeliefUpdateRule
     resource BeamPM.Ash.Resources.BeneficialOwnerEvidence
     resource BeamPM.Ash.Resources.BillableUsageIdentity
     resource BeamPM.Ash.Resources.BillingAccount
     resource BeamPM.Ash.Resources.BillingReconciliation
     resource BeamPM.Ash.Resources.BookingReadiness
+    resource BeamPM.Ash.Resources.BoundedWorkSelectionReceipt
     resource BeamPM.Ash.Resources.BrceActuationReceipt
     resource BeamPM.Ash.Resources.BrceActuationRequest
     resource BeamPM.Ash.Resources.BudgetPeriodAlignment
@@ -130,6 +134,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.CapabilityGapLearning
     resource BeamPM.Ash.Resources.CapsuleAvailability
     resource BeamPM.Ash.Resources.CapsuleIdentity
+    resource BeamPM.Ash.Resources.CaseObjectBinding
     resource BeamPM.Ash.Resources.CaseStats
     resource BeamPM.Ash.Resources.CatalogRelease
     resource BeamPM.Ash.Resources.CausalLineageObservation
@@ -154,11 +159,13 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.CommittedSpend
     resource BeamPM.Ash.Resources.CommittedSpendAdmission
     resource BeamPM.Ash.Resources.CompatibilityContract
+    resource BeamPM.Ash.Resources.CompoundTaskExpansion
     resource BeamPM.Ash.Resources.ConcurrencyPricingPolicy
     resource BeamPM.Ash.Resources.ConfigurationExport
     resource BeamPM.Ash.Resources.ConfigurationImport
     resource BeamPM.Ash.Resources.ConformanceResult
     resource BeamPM.Ash.Resources.ConsequentialStateInvalidation
+    resource BeamPM.Ash.Resources.ConstraintSetBinding
     resource BeamPM.Ash.Resources.ConsumerEquivalenceLearningGuard
     resource BeamPM.Ash.Resources.ConsumerEquivalenceProof
     resource BeamPM.Ash.Resources.ConsumerPackPinObservation
@@ -166,6 +173,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ConsumptionSubscription
     resource BeamPM.Ash.Resources.ContainerManifestDigestObservation
     resource BeamPM.Ash.Resources.ContainerPlatformDigestObservation
+    resource BeamPM.Ash.Resources.ContingencyBranch
     resource BeamPM.Ash.Resources.ContractingEntityIdentity
     resource BeamPM.Ash.Resources.CostCenterAllocation
     resource BeamPM.Ash.Resources.CostLatencyReliabilityTradeoff
@@ -248,10 +256,12 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.DependencyPinObservation
     resource BeamPM.Ash.Resources.DeploymentEntitlement
     resource BeamPM.Ash.Resources.DeveloperReadiness
+    resource BeamPM.Ash.Resources.DeviationRepairOption
     resource BeamPM.Ash.Resources.DfgEdge
     resource BeamPM.Ash.Resources.DisasterRecoveryEvidence
     resource BeamPM.Ash.Resources.DiscountSchedule
     resource BeamPM.Ash.Resources.DiscoveryHypothesis
+    resource BeamPM.Ash.Resources.DistributedWorkQueueObservation
     resource BeamPM.Ash.Resources.DominanceWitness
     resource BeamPM.Ash.Resources.DynamicReplanTrigger
     resource BeamPM.Ash.Resources.EditionDefinition
@@ -282,6 +292,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.EvidenceFreshnessEvidence
     resource BeamPM.Ash.Resources.EvidenceTrainingSample
     resource BeamPM.Ash.Resources.ExactSubjectBinding
+    resource BeamPM.Ash.Resources.ExactWorldStateAdmission
     resource BeamPM.Ash.Resources.ExceptionAuthority
     resource BeamPM.Ash.Resources.ExecutiveBusinessReview
     resource BeamPM.Ash.Resources.ExecutiveSponsor
@@ -292,6 +303,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ExperimentLearningReceipt
     resource BeamPM.Ash.Resources.FailedChallengerRetention
     resource BeamPM.Ash.Resources.FailureLabel
+    resource BeamPM.Ash.Resources.FairnessAssumption
     resource BeamPM.Ash.Resources.FederatedDogfoodLearningCrown
     resource BeamPM.Ash.Resources.ForgedReceiptRefusal
     resource BeamPM.Ash.Resources.FrontierBenchmark
@@ -303,6 +315,9 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.GeneratedHypothesis
     resource BeamPM.Ash.Resources.GeneratedOutputOwnershipObservation
     resource BeamPM.Ash.Resources.GeneratedSourceRoute
+    resource BeamPM.Ash.Resources.GoalSetBinding
+    resource BeamPM.Ash.Resources.HddlMethodCandidate
+    resource BeamPM.Ash.Resources.HddlTaskNetwork
     resource BeamPM.Ash.Resources.HeuristicArc
     resource BeamPM.Ash.Resources.HistoricalEpisodeReplay
     resource BeamPM.Ash.Resources.HypothesisPriorityUpdate
@@ -313,6 +328,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.IncidentResponseEvidence
     resource BeamPM.Ash.Resources.IndemnityScopeAdmission
     resource BeamPM.Ash.Resources.InformationPartitionObservation
+    resource BeamPM.Ash.Resources.InitialStateDigest
     resource BeamPM.Ash.Resources.InsuranceRequirement
     resource BeamPM.Ash.Resources.IntegrationReadiness
     resource BeamPM.Ash.Resources.IntegrationScopeAdmission
@@ -325,6 +341,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.LatencyBudgetObservation
     resource BeamPM.Ash.Resources.LeakageFinding
     resource BeamPM.Ash.Resources.LearningEpisode
+    resource BeamPM.Ash.Resources.LeaseExpiryReplan
     resource BeamPM.Ash.Resources.LeastAuthorityEvidence
     resource BeamPM.Ash.Resources.LegalBlocker
     resource BeamPM.Ash.Resources.LiabilityCapAdmission
@@ -341,6 +358,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.MeterDimension
     resource BeamPM.Ash.Resources.MeterRollup
     resource BeamPM.Ash.Resources.MeteredUsageSample
+    resource BeamPM.Ash.Resources.MethodPreconditionGate
     resource BeamPM.Ash.Resources.MigrationContract
     resource BeamPM.Ash.Resources.MigrationReadiness
     resource BeamPM.Ash.Resources.MinimumCommitmentSchedule
@@ -349,9 +367,11 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.MutableIdentityRefusalEvidence
     resource BeamPM.Ash.Resources.MutualInformationScore
     resource BeamPM.Ash.Resources.NegativeFixtureGeneration
+    resource BeamPM.Ash.Resources.NextEventPredictionContract
     resource BeamPM.Ash.Resources.NextLawfulActuation
     resource BeamPM.Ash.Resources.NoAuthorityLearningGuard
     resource BeamPM.Ash.Resources.NodeFailoverEvent
+    resource BeamPM.Ash.Resources.NondeterministicEffectContract
     resource BeamPM.Ash.Resources.NonproductionDiscountPolicy
     resource BeamPM.Ash.Resources.NormalizedEventObservation
     resource BeamPM.Ash.Resources.NoveltyReward
@@ -364,12 +384,14 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ObservationDeduplicationDecision
     resource BeamPM.Ash.Resources.ObservationEntropyEstimate
     resource BeamPM.Ash.Resources.ObservationFreshnessAssessment
+    resource BeamPM.Ash.Resources.ObservationPartition
     resource BeamPM.Ash.Resources.ObservationProjectionUpdate
     resource BeamPM.Ash.Resources.ObservationStalenessInvalidation
     resource BeamPM.Ash.Resources.OcDeclareConstraint
     resource BeamPM.Ash.Resources.OcelAttribute
     resource BeamPM.Ash.Resources.OcelEvent
     resource BeamPM.Ash.Resources.OcelObject
+    resource BeamPM.Ash.Resources.OcelPlanningEvent
     resource BeamPM.Ash.Resources.OcelRelationship
     resource BeamPM.Ash.Resources.OciManifestEvidence
     resource BeamPM.Ash.Resources.OfflineBundleEvidence
@@ -382,6 +404,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.OrderFormVersion
     resource BeamPM.Ash.Resources.OrthogonalityReward
     resource BeamPM.Ash.Resources.OrthogonalityScore
+    resource BeamPM.Ash.Resources.OutcomeBranchSet
     resource BeamPM.Ash.Resources.OutcomeLabel
     resource BeamPM.Ash.Resources.OutputOwnershipGate
     resource BeamPM.Ash.Resources.OverageInvoice
@@ -397,15 +420,25 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.PetriArc
     resource BeamPM.Ash.Resources.PetriPlace
     resource BeamPM.Ash.Resources.PetriTransition
+    resource BeamPM.Ash.Resources.PlanHandoffReceipt
     resource BeamPM.Ash.Resources.PlanLineage
     resource BeamPM.Ash.Resources.PlanMemory
+    resource BeamPM.Ash.Resources.PlannerBid
     resource BeamPM.Ash.Resources.PlannerCapabilityProfile
     resource BeamPM.Ash.Resources.PlannerIdentity
+    resource BeamPM.Ash.Resources.PlannerLease
     resource BeamPM.Ash.Resources.PlannerPayoffObservation
     resource BeamPM.Ash.Resources.PlannerPolicyComparison
     resource BeamPM.Ash.Resources.PlannerPortfolio
     resource BeamPM.Ash.Resources.PlannerRoutingUpdate
     resource BeamPM.Ash.Resources.PlanningAction
+    resource BeamPM.Ash.Resources.PlanningBlackboardClaim
+    resource BeamPM.Ash.Resources.PlanningBlackboardConflict
+    resource BeamPM.Ash.Resources.PlanningBlackboardFact
+    resource BeamPM.Ash.Resources.PlanningBlackboardResolution
+    resource BeamPM.Ash.Resources.PlanningCaseIdentity
+    resource BeamPM.Ash.Resources.PlanningConformanceAlignment
+    resource BeamPM.Ash.Resources.PlanningProblemAdmission
     resource BeamPM.Ash.Resources.PlanningState
     resource BeamPM.Ash.Resources.PocExitCriteria
     resource BeamPM.Ash.Resources.PocRisk
@@ -413,17 +446,26 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.PocTimeline
     resource BeamPM.Ash.Resources.PolicyBinding
     resource BeamPM.Ash.Resources.PolicyDecision
+    resource BeamPM.Ash.Resources.PolicyGraphEdge
+    resource BeamPM.Ash.Resources.PolicyGraphNode
     resource BeamPM.Ash.Resources.PolicyPayoffObservation
     resource BeamPM.Ash.Resources.PowlChoiceGraphEdge
+    resource BeamPM.Ash.Resources.PowlChoiceOperator
     resource BeamPM.Ash.Resources.PowlFreq
     resource BeamPM.Ash.Resources.PowlLeaf
+    resource BeamPM.Ash.Resources.PowlLoopOperator
+    resource BeamPM.Ash.Resources.PowlParallelOperator
     resource BeamPM.Ash.Resources.PowlPartialOrderEdge
+    resource BeamPM.Ash.Resources.PowlPartialOrderPlan
     resource BeamPM.Ash.Resources.PowlProjection
+    resource BeamPM.Ash.Resources.PowlSequenceOperator
     resource BeamPM.Ash.Resources.PpddlProjection
+    resource BeamPM.Ash.Resources.PrefixAlignmentFrontier
     resource BeamPM.Ash.Resources.PremiumConnectorPricing
     resource BeamPM.Ash.Resources.PrepaidCreditBalance
     resource BeamPM.Ash.Resources.PriceBookVersion
     resource BeamPM.Ash.Resources.PricingBasisContract
+    resource BeamPM.Ash.Resources.PrimitiveTaskBinding
     resource BeamPM.Ash.Resources.PrivacyClassificationEvidence
     resource BeamPM.Ash.Resources.PrivateOffer
     resource BeamPM.Ash.Resources.PrivateRegistryEvidence
@@ -464,6 +506,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.ReceiptVerification
     resource BeamPM.Ash.Resources.RecoveryPlan
     resource BeamPM.Ash.Resources.RecoveryPointReceipt
+    resource BeamPM.Ash.Resources.RecoverySubtask
     resource BeamPM.Ash.Resources.RecoveryTimeReceipt
     resource BeamPM.Ash.Resources.RefundPolicy
     resource BeamPM.Ash.Resources.RefusalBoundaryObservation
@@ -471,6 +514,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.RegionPricingPolicy
     resource BeamPM.Ash.Resources.RegressionDetector
     resource BeamPM.Ash.Resources.RegressionRefusal
+    resource BeamPM.Ash.Resources.RemainingTimeEstimateContract
     resource BeamPM.Ash.Resources.RemediationSlaEvidence
     resource BeamPM.Ash.Resources.RenewalEvidence
     resource BeamPM.Ash.Resources.RenewalHealth
@@ -511,6 +555,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.SandboxEntitlement
     resource BeamPM.Ash.Resources.SaturationDetection
     resource BeamPM.Ash.Resources.SbomInventoryEvidence
+    resource BeamPM.Ash.Resources.SchedulingPriorityScore
     resource BeamPM.Ash.Resources.SeatPricingPolicy
     resource BeamPM.Ash.Resources.SecondPassByteIdentityObservation
     resource BeamPM.Ash.Resources.SecondRunIdentityObjective
@@ -542,6 +587,8 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.StaleSubjectRefusalEvidence
     resource BeamPM.Ash.Resources.StandingStateObservation
     resource BeamPM.Ash.Resources.StoppingCriterion
+    resource BeamPM.Ash.Resources.StrongCyclicPlanCandidate
+    resource BeamPM.Ash.Resources.StrongPlanCandidate
     resource BeamPM.Ash.Resources.SubjectFailureSeparation
     resource BeamPM.Ash.Resources.SubmoduleLockObservation
     resource BeamPM.Ash.Resources.SubmoduleRegistrationObservation
@@ -556,6 +603,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.SupportWindowEvidence
     resource BeamPM.Ash.Resources.SyncTime
     resource BeamPM.Ash.Resources.TargetMetric
+    resource BeamPM.Ash.Resources.TaskDecompositionProof
     resource BeamPM.Ash.Resources.TaxJurisdictionEvidence
     resource BeamPM.Ash.Resources.TaxJurisdictionRule
     resource BeamPM.Ash.Resources.TechnicalBlocker
@@ -569,6 +617,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.TermSubscription
     resource BeamPM.Ash.Resources.TerminationRightAdmission
     resource BeamPM.Ash.Resources.TimeToValue
+    resource BeamPM.Ash.Resources.TokenReplayState
     resource BeamPM.Ash.Resources.ToolchainIdentity
     resource BeamPM.Ash.Resources.ToolchainIdentityObservation
     resource BeamPM.Ash.Resources.TrainingReadiness
@@ -605,6 +654,7 @@ defmodule BeamPM.Ash.Domain do
     resource BeamPM.Ash.Resources.VersionLifecycleEvidence
     resource BeamPM.Ash.Resources.VolumeTierAdmission
     resource BeamPM.Ash.Resources.VulnerabilityScanEvidence
+    resource BeamPM.Ash.Resources.WeakPlanCandidate
     resource BeamPM.Ash.Resources.WipLimitGate
     resource BeamPM.Ash.Resources.WorkflowDefinitionDigestObservation
     resource BeamPM.Ash.Resources.WorkflowJobStateObservation

@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-139 — planning_blackboard_fact
+bpm:planning_blackboard_fact_rt a bpm:RecordType ;
+    bpm:recordName "planning_blackboard_fact" ;
+    bpm:recordDoc "Publishes a provenance-bound planning fact to the distributed blackboard." ;
+    bpm:hasField bpm:planning_blackboard_fact_fact_id_f ,
+                 bpm:planning_blackboard_fact_subject_sha_f ,
+                 bpm:planning_blackboard_fact_provenance_digest_f .
+
+bpm:planning_blackboard_fact_fact_id_f a bpm:Field ;
+    bpm:fieldName "fact_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Blackboard fact identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:planning_blackboard_fact_subject_sha_f a bpm:Field ;
+    bpm:fieldName "subject_sha" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Exact subject the fact describes." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:planning_blackboard_fact_provenance_digest_f a bpm:Field ;
+    bpm:fieldName "provenance_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of observation provenance." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

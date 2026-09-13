@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-124 — powl_partial_order_plan
+bpm:powl_partial_order_plan_rt a bpm:RecordType ;
+    bpm:recordName "powl_partial_order_plan" ;
+    bpm:recordDoc "Projects a decomposed task network into an executable POWL partial order." ;
+    bpm:hasField bpm:powl_partial_order_plan_plan_id_f ,
+                 bpm:powl_partial_order_plan_operator_digest_f ,
+                 bpm:powl_partial_order_plan_order_digest_f .
+
+bpm:powl_partial_order_plan_plan_id_f a bpm:Field ;
+    bpm:fieldName "plan_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "POWL plan identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:powl_partial_order_plan_operator_digest_f a bpm:Field ;
+    bpm:fieldName "operator_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of POWL operators." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:powl_partial_order_plan_order_digest_f a bpm:Field ;
+    bpm:fieldName "order_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of ordering constraints." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

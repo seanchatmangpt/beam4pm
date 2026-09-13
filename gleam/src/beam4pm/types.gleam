@@ -79,6 +79,18 @@ pub type AccountValueRealization {
   )
 }
 
+/// Calculates whether an action is lawful from constraints, authority, and receipts.
+pub type ActionEligibilityDecision {
+  ActionEligibilityDecision(
+    /// Eligibility decision identity.
+    decision_id: String,
+    /// Candidate action evaluated.
+    action_id: String,
+    /// Typed eligible or refused standing.
+    standing: String,
+  )
+}
+
 /// Executable workflow-supply-chain evidence proving a referenced GitHub Action resolves to an immutable commit identity.
 pub type ActionPinEvidence {
   ActionPinEvidence(
@@ -176,6 +188,18 @@ pub type AgentAssignment {
     policy_id: String,
     /// Required assignment_hash preserving evidence and falsifiability.
     assignment_hash: String,
+  )
+}
+
+/// Advertises exact subject-bound planning capabilities for portfolio routing.
+pub type AgentCapabilityAdvertisement {
+  AgentCapabilityAdvertisement(
+    /// Exact agent consumer subject.
+    agent_subject_sha: String,
+    /// Digest of advertised capabilities.
+    capability_digest: String,
+    /// Advertisement expiry timestamp.
+    valid_until: String,
   )
 }
 
@@ -1183,6 +1207,18 @@ pub type BeliefStateUpdate {
   )
 }
 
+/// Updates a belief state from an admitted observation without inventing facts.
+pub type BeliefUpdateRule {
+  BeliefUpdateRule(
+    /// Belief update rule identity.
+    rule_id: String,
+    /// Schema of admissible observations.
+    observation_schema: String,
+    /// Digest of deterministic update semantics.
+    update_digest: String,
+  )
+}
+
 /// Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence.
 pub type BeneficialOwnerEvidence {
   BeneficialOwnerEvidence(
@@ -1248,6 +1284,18 @@ pub type BookingReadiness {
     readiness_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     decision: String,
+  )
+}
+
+/// Receipts automatic selection of the next bounded lawful action without granting execution authority.
+pub type BoundedWorkSelectionReceipt {
+  BoundedWorkSelectionReceipt(
+    /// Selection receipt identity.
+    receipt_id: String,
+    /// Automatically selected bounded work item.
+    selected_work_item_id: String,
+    /// Digest of the evaluated lawful frontier.
+    frontier_digest: String,
   )
 }
 
@@ -1560,6 +1608,18 @@ pub type CapsuleIdentity {
     capsule_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     identity_hash: String,
+  )
+}
+
+/// Binds a planning case to its exact OCEL objects and roles.
+pub type CaseObjectBinding {
+  CaseObjectBinding(
+    /// Planning case identity.
+    case_id: String,
+    /// Related OCEL object identity.
+    object_id: String,
+    /// Role the object plays in the case.
+    binding_role: String,
   )
 }
 
@@ -1897,6 +1957,18 @@ pub type CompatibilityContract {
   )
 }
 
+/// Records the selected expansion of a compound task with alternatives preserved.
+pub type CompoundTaskExpansion {
+  CompoundTaskExpansion(
+    /// Compound task identity.
+    task_id: String,
+    /// Method selected for expansion.
+    selected_method_id: String,
+    /// Digest of lawful unselected methods.
+    alternative_digest: String,
+  )
+}
+
 /// Concurrent-workload packaging dimension.
 pub type ConcurrencyPricingPolicy {
   ConcurrencyPricingPolicy(
@@ -1964,6 +2036,18 @@ pub type ConsequentialStateInvalidation {
     invalidation_reason: String,
     /// Timestamp invalidation became effective.
     invalidated_at: String,
+  )
+}
+
+/// Binds hard and soft constraints without granting actuation authority.
+pub type ConstraintSetBinding {
+  ConstraintSetBinding(
+    /// Planning problem receiving constraints.
+    problem_id: String,
+    /// Digest of normalized constraints.
+    constraint_digest: String,
+    /// Hard or soft constraint interpretation.
+    binding_mode: String,
   )
 }
 
@@ -2064,6 +2148,18 @@ pub type ContainerPlatformDigestObservation {
     platform_digest: String,
     /// Timestamp of platform resolution.
     observed_at: String,
+  )
+}
+
+/// Binds an observation predicate to the next lawful policy branch.
+pub type ContingencyBranch {
+  ContingencyBranch(
+    /// Contingency branch identity.
+    branch_id: String,
+    /// Predicate selecting this branch.
+    observation_predicate: String,
+    /// Policy node entered on match.
+    next_node_id: String,
   )
 }
 
@@ -3229,6 +3325,18 @@ pub type DeveloperReadiness {
   )
 }
 
+/// Generates a reversible repair option for one conformance deviation.
+pub type DeviationRepairOption {
+  DeviationRepairOption(
+    /// Deviation repair option identity.
+    option_id: String,
+    /// Deviation addressed by the option.
+    deviation_id: String,
+    /// Digest of the bounded repair plan.
+    repair_plan_digest: String,
+  )
+}
+
 /// One frequency-annotated directly-follows edge between two activities.
 pub type DfgEdge {
   DfgEdge(
@@ -3283,6 +3391,18 @@ pub type DiscoveryHypothesis {
     /// Digest of the exact evidence supporting this customer-value observation.
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
+    observed_at: String,
+  )
+}
+
+/// Admits a caller-local snapshot of executable work without central surrogacy.
+pub type DistributedWorkQueueObservation {
+  DistributedWorkQueueObservation(
+    /// Exact caller-local consumer subject.
+    consumer_subject_sha: String,
+    /// Digest of locally visible work.
+    queue_digest: String,
+    /// Queue observation timestamp.
     observed_at: String,
   )
 }
@@ -3703,6 +3823,18 @@ pub type ExactSubjectBinding {
   )
 }
 
+/// Admits an exact immutable world-state subject before option generation.
+pub type ExactWorldStateAdmission {
+  ExactWorldStateAdmission(
+    /// Exact SHA of the admitted planning subject.
+    subject_sha: String,
+    /// Digest of the normalized world state.
+    state_digest: String,
+    /// Timestamp of the admitted observation.
+    observed_at: String,
+  )
+}
+
 /// Admits a commercial exception only when the exact authority and decision are present.
 pub type ExceptionAuthority {
   ExceptionAuthority(
@@ -3856,6 +3988,18 @@ pub type FailureLabel {
     causal_scope: String,
     /// Digest proving the failed evidence was retained.
     preserved_evidence_digest: String,
+  )
+}
+
+/// Binds an explicit fairness assumption to a cyclic policy instead of hiding it.
+pub type FairnessAssumption {
+  FairnessAssumption(
+    /// Stable fairness assumption identity.
+    assumption_id: String,
+    /// Policy graph governed by the assumption.
+    policy_digest: String,
+    /// Digest of evidence supporting fairness.
+    evidence_digest: String,
   )
 }
 
@@ -4029,6 +4173,42 @@ pub type GeneratedSourceRoute {
   )
 }
 
+/// Binds explicit valued goals to one admitted planning problem.
+pub type GoalSetBinding {
+  GoalSetBinding(
+    /// Planning problem receiving the goals.
+    problem_id: String,
+    /// Digest of the ordered goal set.
+    goal_set_digest: String,
+    /// Explicit value profile used for selection.
+    value_profile: String,
+  )
+}
+
+/// Declares one applicable method candidate for a compound task.
+pub type HddlMethodCandidate {
+  HddlMethodCandidate(
+    /// HDDL method identity.
+    method_id: String,
+    /// Compound task decomposed by the method.
+    compound_task_id: String,
+    /// Digest of the proposed subtask network.
+    subnetwork_digest: String,
+  )
+}
+
+/// Represents a partially ordered HDDL task network over an exact problem.
+pub type HddlTaskNetwork {
+  HddlTaskNetwork(
+    /// Task network identity.
+    network_id: String,
+    /// Digest of network tasks.
+    task_set_digest: String,
+    /// Digest of partial-order constraints.
+    ordering_digest: String,
+  )
+}
+
 /// One dependency-scored candidate arc considered during heuristic-net discovery.
 pub type HeuristicArc {
   HeuristicArc(
@@ -4158,6 +4338,18 @@ pub type InformationPartitionObservation {
     partition_key: String,
     /// Digest of partition contents.
     information_digest: String,
+  )
+}
+
+/// Freezes the normalized initial facts used by every planner in a portfolio.
+pub type InitialStateDigest {
+  InitialStateDigest(
+    /// Planning problem identity.
+    problem_id: String,
+    /// Digest of sorted initial facts.
+    fact_digest: String,
+    /// Exact normalizer version.
+    normalizer_version: String,
   )
 }
 
@@ -4322,6 +4514,18 @@ pub type LearningEpisode {
     outcome: String,
     /// Maximum authority learning may influence; DO authority remains excluded.
     authority_ceiling: String,
+  )
+}
+
+/// Invalidates stale leased plans and returns work to the lawful option frontier.
+pub type LeaseExpiryReplan {
+  LeaseExpiryReplan(
+    /// Lease-expiry replan identity.
+    replan_id: String,
+    /// Lease whose authority expired.
+    expired_lease_id: String,
+    /// Digest of restored work options.
+    returned_frontier_digest: String,
   )
 }
 
@@ -4541,6 +4745,18 @@ pub type MeteredUsageSample {
   )
 }
 
+/// Refuses HDDL method selection when its exact preconditions do not hold.
+pub type MethodPreconditionGate {
+  MethodPreconditionGate(
+    /// Method being evaluated.
+    method_id: String,
+    /// Exact state evaluated for applicability.
+    state_digest: String,
+    /// Typed admitted or refused outcome.
+    decision: String,
+  )
+}
+
 /// Versioned migration path with source, target, and rollback identity.
 pub type MigrationContract {
   MigrationContract(
@@ -4655,6 +4871,18 @@ pub type NegativeFixtureGeneration {
   )
 }
 
+/// Binds a seeded next-event predictor to an exact case prefix.
+pub type NextEventPredictionContract {
+  NextEventPredictionContract(
+    /// Next-event prediction identity.
+    prediction_id: String,
+    /// Digest of exact case prefix.
+    prefix_digest: String,
+    /// Digest of predicted event probabilities.
+    distribution_digest: String,
+  )
+}
+
 /// Selects the next bounded action from scored admissible options without human micro-scheduling.
 pub type NextLawfulActuation {
   NextLawfulActuation(
@@ -4694,6 +4922,18 @@ pub type NodeFailoverEvent {
     node_id: String,
     /// Immutable evidence identity binding the observed production consequence.
     failover_hash: String,
+  )
+}
+
+/// Makes nondeterministic effects explicit for FOND planning and replay.
+pub type NondeterministicEffectContract {
+  NondeterministicEffectContract(
+    /// Action whose effects are nondeterministic.
+    action_id: String,
+    /// Digest of the alternative effect sets.
+    effect_set_digest: String,
+    /// Environment selection semantics.
+    selection_semantics: String,
   )
 }
 
@@ -4873,6 +5113,18 @@ pub type ObservationFreshnessAssessment {
   )
 }
 
+/// Partitions observationally equivalent world states for contingent planning.
+pub type ObservationPartition {
+  ObservationPartition(
+    /// Observation partition identity.
+    partition_id: String,
+    /// Digest of member world states.
+    state_set_digest: String,
+    /// Observation defining equivalence.
+    observation_key: String,
+  )
+}
+
 /// Updates future observation shape from an admitted gap while preserving an explicit authority ceiling.
 pub type ObservationProjectionUpdate {
   ObservationProjectionUpdate(
@@ -4954,6 +5206,18 @@ pub type OcelObject {
     object_type: String,
     /// Arbitrary named current attribute values (a flat snapshot, not the time-indexed history -- see bpm:ocel_attribute and bpm:object_attribute_change for per-timestamp values).
     attributes: option.Option(dict.Dict(String, String)),
+  )
+}
+
+/// Captures a planning decision or observation as an object-centric event.
+pub type OcelPlanningEvent {
+  OcelPlanningEvent(
+    /// Planning event identity.
+    event_id: String,
+    /// Planning activity type.
+    activity: String,
+    /// Digest of related planning objects.
+    object_binding_digest: String,
   )
 }
 
@@ -5114,6 +5378,18 @@ pub type OrthogonalityScore {
     right_option_id: String,
     /// Required score preserving evidence and falsifiability.
     score: String,
+  )
+}
+
+/// Declares the finite outcome branches an action may produce.
+pub type OutcomeBranchSet {
+  OutcomeBranchSet(
+    /// Candidate action identity.
+    action_id: String,
+    /// Digest of ordered possible outcomes.
+    branch_digest: String,
+    /// Declared completeness mode for branches.
+    coverage_mode: String,
   )
 }
 
@@ -5311,6 +5587,18 @@ pub type PetriTransition {
   )
 }
 
+/// Receipts transfer of an exact plan subject between caller-local consumers.
+pub type PlanHandoffReceipt {
+  PlanHandoffReceipt(
+    /// Plan handoff receipt identity.
+    receipt_id: String,
+    /// Digest of the transferred plan.
+    plan_digest: String,
+    /// Exact receiving consumer subject.
+    receiver_subject_sha: String,
+  )
+}
+
 /// Tracks derivation, repair, and supersession across plan generations.
 pub type PlanLineage {
   PlanLineage(
@@ -5335,6 +5623,18 @@ pub type PlanMemory {
   )
 }
 
+/// Bids for bounded work using declared cost, confidence, and capsule identity.
+pub type PlannerBid {
+  PlannerBid(
+    /// Planner bid identity.
+    bid_id: String,
+    /// Bounded work item being bid.
+    work_item_id: String,
+    /// Digest of cost, confidence, and evidence scores.
+    score_digest: String,
+  )
+}
+
 /// Declares the problem features and guarantees supported by one planner.
 pub type PlannerCapabilityProfile {
   PlannerCapabilityProfile(
@@ -5356,6 +5656,18 @@ pub type PlannerIdentity {
     planner_kind: String,
     /// Required identity_hash preserving evidence and falsifiability.
     identity_hash: String,
+  )
+}
+
+/// Grants time-bounded construction authority for one work item without DO authority.
+pub type PlannerLease {
+  PlannerLease(
+    /// Planner lease identity.
+    lease_id: String,
+    /// Leased bounded work item.
+    work_item_id: String,
+    /// Lease expiry timestamp.
+    expires_at: String,
   )
 }
 
@@ -5434,6 +5746,90 @@ pub type PlanningAction {
     preconditions: option.Option(List(String)),
     /// Optional list of effect fact names this action produces.
     effects: option.Option(List(String)),
+  )
+}
+
+/// Claims bounded planning work with an explicit owner and expiry.
+pub type PlanningBlackboardClaim {
+  PlanningBlackboardClaim(
+    /// Blackboard claim identity.
+    claim_id: String,
+    /// Bounded work item claimed.
+    work_item_id: String,
+    /// Exact caller-local owner subject.
+    owner_subject_sha: String,
+  )
+}
+
+/// Captures mutually incompatible blackboard claims without silent last-writer wins.
+pub type PlanningBlackboardConflict {
+  PlanningBlackboardConflict(
+    /// Blackboard conflict identity.
+    conflict_id: String,
+    /// Digest of incompatible claims.
+    claim_set_digest: String,
+    /// Typed conflict classification.
+    conflict_type: String,
+  )
+}
+
+/// Publishes a provenance-bound planning fact to the distributed blackboard.
+pub type PlanningBlackboardFact {
+  PlanningBlackboardFact(
+    /// Blackboard fact identity.
+    fact_id: String,
+    /// Exact subject the fact describes.
+    subject_sha: String,
+    /// Digest of observation provenance.
+    provenance_digest: String,
+  )
+}
+
+/// Records evidence-based resolution while preserving losing lawful claims.
+pub type PlanningBlackboardResolution {
+  PlanningBlackboardResolution(
+    /// Conflict resolution identity.
+    resolution_id: String,
+    /// Conflict being resolved.
+    conflict_id: String,
+    /// Digest of preserved unselected claims.
+    preserved_option_digest: String,
+  )
+}
+
+/// Defines a stable process-planning case across events, objects, and replans.
+pub type PlanningCaseIdentity {
+  PlanningCaseIdentity(
+    /// Stable planning case identity.
+    case_id: String,
+    /// Exact repository subject for the case.
+    subject_sha: String,
+    /// Root identity of the plan lineage.
+    lineage_root: String,
+  )
+}
+
+/// Aligns an observed planning trace to its admitted policy and process model.
+pub type PlanningConformanceAlignment {
+  PlanningConformanceAlignment(
+    /// Conformance alignment identity.
+    alignment_id: String,
+    /// Digest of observed planning events.
+    trace_digest: String,
+    /// Digest of the admitted model.
+    model_digest: String,
+  )
+}
+
+/// Binds an admitted world state to a bounded planning problem.
+pub type PlanningProblemAdmission {
+  PlanningProblemAdmission(
+    /// Stable planning problem identity.
+    problem_id: String,
+    /// Digest of the admitted initial state.
+    state_digest: String,
+    /// Authority boundary for proposed actions.
+    authority_scope: String,
   )
 }
 
@@ -5535,6 +5931,30 @@ pub type PolicyDecision {
   )
 }
 
+/// Defines an outcome-labelled transition between policy graph nodes.
+pub type PolicyGraphEdge {
+  PolicyGraphEdge(
+    /// Origin policy node.
+    source_node_id: String,
+    /// Observed outcome selecting the transition.
+    outcome_label: String,
+    /// Destination policy node.
+    target_node_id: String,
+  )
+}
+
+/// Defines one exact state node in an executable policy graph.
+pub type PolicyGraphNode {
+  PolicyGraphNode(
+    /// Policy node identity.
+    node_id: String,
+    /// Normalized state digest at the node.
+    state_digest: String,
+    /// Action selected when the node matches.
+    selected_action_id: String,
+  )
+}
+
 /// Records bounded policy payoff separately from planner identity and parameters.
 pub type PolicyPayoffObservation {
   PolicyPayoffObservation(
@@ -5567,6 +5987,18 @@ pub type PowlChoiceGraphEdge {
   )
 }
 
+/// Represents an evidence-selected exclusive POWL choice without erasing alternatives.
+pub type PowlChoiceOperator {
+  PowlChoiceOperator(
+    /// Choice operator identity.
+    operator_id: String,
+    /// Digest of available branches.
+    branch_digest: String,
+    /// Rule selecting a branch at execution.
+    selection_rule: String,
+  )
+}
+
 /// A POWL node's multiplicity/frequency tag (Freq): how many times it may occur.
 pub type PowlFreq {
   PowlFreq(
@@ -5591,6 +6023,30 @@ pub type PowlLeaf {
   )
 }
 
+/// Represents a guarded POWL loop with a bounded exit condition.
+pub type PowlLoopOperator {
+  PowlLoopOperator(
+    /// Loop operator identity.
+    operator_id: String,
+    /// Digest of loop body operators.
+    body_digest: String,
+    /// Predicate terminating the loop.
+    exit_predicate: String,
+  )
+}
+
+/// Represents concurrently executable POWL branches and their join semantics.
+pub type PowlParallelOperator {
+  PowlParallelOperator(
+    /// Parallel operator identity.
+    operator_id: String,
+    /// Digest of parallel branches.
+    branch_digest: String,
+    /// Completion rule for the parallel join.
+    join_rule: String,
+  )
+}
+
 /// One strict order edge of a PartialOrderNode.order set: from_index must happen before to_index among the parent node's children.
 pub type PowlPartialOrderEdge {
   PowlPartialOrderEdge(
@@ -5598,6 +6054,18 @@ pub type PowlPartialOrderEdge {
     from_index: Int,
     /// Index into the parent PartialOrderNode's children that must happen after from_index.
     to_index: Int,
+  )
+}
+
+/// Projects a decomposed task network into an executable POWL partial order.
+pub type PowlPartialOrderPlan {
+  PowlPartialOrderPlan(
+    /// POWL plan identity.
+    plan_id: String,
+    /// Digest of POWL operators.
+    operator_digest: String,
+    /// Digest of ordering constraints.
+    order_digest: String,
   )
 }
 
@@ -5613,6 +6081,18 @@ pub type PowlProjection {
   )
 }
 
+/// Represents an ordered POWL operator sequence with exact predecessor binding.
+pub type PowlSequenceOperator {
+  PowlSequenceOperator(
+    /// Sequence operator identity.
+    operator_id: String,
+    /// Digest of ordered steps.
+    step_digest: String,
+    /// Digest of predecessor bindings.
+    predecessor_digest: String,
+  )
+}
+
 /// Binds a plan candidate to an exact PPDDL problem/domain projection.
 pub type PpddlProjection {
   PpddlProjection(
@@ -5622,6 +6102,18 @@ pub type PpddlProjection {
     domain_hash: String,
     /// Required problem_hash preserving evidence and falsifiability.
     problem_hash: String,
+  )
+}
+
+/// Preserves competing minimum-cost alignments for a live event prefix.
+pub type PrefixAlignmentFrontier {
+  PrefixAlignmentFrontier(
+    /// Prefix alignment frontier identity.
+    frontier_id: String,
+    /// Digest of the observed prefix.
+    prefix_digest: String,
+    /// Digest of nondominated alignments.
+    candidate_digest: String,
   )
 }
 
@@ -5682,6 +6174,18 @@ pub type PricingBasisContract {
     pricing_basis_id: String,
     /// Immutable decision or evidence identity used to verify and replay this bounded commercial admission.
     evidence_hash: String,
+  )
+}
+
+/// Binds a primitive HDDL task to one executable action contract.
+pub type PrimitiveTaskBinding {
+  PrimitiveTaskBinding(
+    /// Primitive task identity.
+    task_id: String,
+    /// Executable action identity.
+    action_id: String,
+    /// Digest of parameter and type bindings.
+    binding_digest: String,
   )
 }
 
@@ -6241,6 +6745,18 @@ pub type RecoveryPointReceipt {
   )
 }
 
+/// Declares a bounded recovery subtask for one failed or adverse outcome.
+pub type RecoverySubtask {
+  RecoverySubtask(
+    /// Recovery subtask identity.
+    subtask_id: String,
+    /// Outcome that triggers recovery.
+    trigger_outcome: String,
+    /// Digest of the bounded recovery goal.
+    recovery_goal_digest: String,
+  )
+}
+
 /// Receipts the observed recovery-time consequence against the paid-service objective.
 pub type RecoveryTimeReceipt {
   RecoveryTimeReceipt(
@@ -6348,6 +6864,18 @@ pub type RegressionRefusal {
     observed_regression: Float,
     /// Boundary preventing self-override of refusal.
     authority_ceiling: String,
+  )
+}
+
+/// Binds a calibrated completion-time estimate to an exact planning case.
+pub type RemainingTimeEstimateContract {
+  RemainingTimeEstimateContract(
+    /// Remaining-time estimate identity.
+    estimate_id: String,
+    /// Digest of current case state.
+    case_state_digest: String,
+    /// Digest of calibrated time interval.
+    interval_digest: String,
   )
 }
 
@@ -6911,6 +7439,18 @@ pub type SbomInventoryEvidence {
   )
 }
 
+/// Computes transparent next-work priority from value, delay, information, and reversibility.
+pub type SchedulingPriorityScore {
+  SchedulingPriorityScore(
+    /// Priority score identity.
+    score_id: String,
+    /// Bounded work item scored.
+    work_item_id: String,
+    /// Digest of normalized score components.
+    component_digest: String,
+  )
+}
+
 /// Named-seat enterprise packaging dimension.
 pub type SeatPricingPolicy {
   SeatPricingPolicy(
@@ -7353,6 +7893,30 @@ pub type StoppingCriterion {
   )
 }
 
+/// Records a fair strong-cyclic policy candidate for recoverable recurrence.
+pub type StrongCyclicPlanCandidate {
+  StrongCyclicPlanCandidate(
+    /// Strong-cyclic candidate identity.
+    candidate_id: String,
+    /// Digest of the cyclic policy graph.
+    policy_digest: String,
+    /// Evidence binding recurrence to fairness assumptions.
+    fairness_proof: String,
+  )
+}
+
+/// Records a policy candidate that reaches the goal under every admitted outcome.
+pub type StrongPlanCandidate {
+  StrongPlanCandidate(
+    /// Strong plan candidate identity.
+    candidate_id: String,
+    /// Digest of the policy graph.
+    policy_digest: String,
+    /// Evidence covering every admitted outcome.
+    coverage_proof: String,
+  )
+}
+
 /// Attributes a failure to the exact subject only after the validation capsule is independently admitted.
 pub type SubjectFailureSeparation {
   SubjectFailureSeparation(
@@ -7549,6 +8113,18 @@ pub type TargetMetric {
   )
 }
 
+/// Records evidence that a method expansion preserves task-network constraints.
+pub type TaskDecompositionProof {
+  TaskDecompositionProof(
+    /// Decomposition proof identity.
+    proof_id: String,
+    /// Method whose expansion is proven.
+    method_id: String,
+    /// Digest of constraint-preservation evidence.
+    constraint_proof_digest: String,
+  )
+}
+
 /// Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.
 pub type TaxJurisdictionEvidence {
   TaxJurisdictionEvidence(
@@ -7718,6 +8294,18 @@ pub type TimeToValue {
     evidence_digest: String,
     /// ISO8601 instant the enterprise consequence was observed.
     observed_at: String,
+  )
+}
+
+/// Records deterministic process-token state after replaying an event prefix.
+pub type TokenReplayState {
+  TokenReplayState(
+    /// Token replay identity.
+    replay_id: String,
+    /// Digest of the replayed event prefix.
+    prefix_digest: String,
+    /// Digest of resulting token marking.
+    marking_digest: String,
   )
 }
 
@@ -8242,6 +8830,18 @@ pub type VulnerabilityScanEvidence {
     vulnerability_count: Int,
     /// Observed verifier consequence: verified or refused.
     observed_result: String,
+  )
+}
+
+/// Records a weak plan while preserving its uncovered counterfactuals.
+pub type WeakPlanCandidate {
+  WeakPlanCandidate(
+    /// Weak plan candidate identity.
+    candidate_id: String,
+    /// Digest of the proposed policy.
+    policy_digest: String,
+    /// Digest of outcomes not guaranteed to reach the goal.
+    uncovered_digest: String,
   )
 }
 

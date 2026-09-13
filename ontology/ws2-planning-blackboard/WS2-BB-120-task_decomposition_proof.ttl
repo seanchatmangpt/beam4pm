@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-120 — task_decomposition_proof
+bpm:task_decomposition_proof_rt a bpm:RecordType ;
+    bpm:recordName "task_decomposition_proof" ;
+    bpm:recordDoc "Records evidence that a method expansion preserves task-network constraints." ;
+    bpm:hasField bpm:task_decomposition_proof_proof_id_f ,
+                 bpm:task_decomposition_proof_method_id_f ,
+                 bpm:task_decomposition_proof_constraint_proof_digest_f .
+
+bpm:task_decomposition_proof_proof_id_f a bpm:Field ;
+    bpm:fieldName "proof_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Decomposition proof identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:task_decomposition_proof_method_id_f a bpm:Field ;
+    bpm:fieldName "method_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Method whose expansion is proven." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:task_decomposition_proof_constraint_proof_digest_f a bpm:Field ;
+    bpm:fieldName "constraint_proof_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of constraint-preservation evidence." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

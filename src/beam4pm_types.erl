@@ -8,6 +8,7 @@
     new_account_master_match/1,
     new_account_parent_scope/1,
     new_account_value_realization/1,
+    new_action_eligibility_decision/1,
     new_action_pin_evidence/1,
     new_activation_event/1,
     new_add_on_bundle/1,
@@ -15,6 +16,7 @@
     new_admissible_action_set/1,
     new_adoption_milestone/1,
     new_agent_assignment/1,
+    new_agent_capability_advertisement/1,
     new_alignment_move/1,
     new_annual_subscription/1,
     new_anomaly_detection_observation/1,
@@ -87,11 +89,13 @@
     new_beam_search_candidate/1,
     new_belief_state_snapshot/1,
     new_belief_state_update/1,
+    new_belief_update_rule/1,
     new_beneficial_owner_evidence/1,
     new_billable_usage_identity/1,
     new_billing_account/1,
     new_billing_reconciliation/1,
     new_booking_readiness/1,
+    new_bounded_work_selection_receipt/1,
     new_brce_actuation_receipt/1,
     new_brce_actuation_request/1,
     new_budget_period_alignment/1,
@@ -114,6 +118,7 @@
     new_capability_gap_learning/1,
     new_capsule_availability/1,
     new_capsule_identity/1,
+    new_case_object_binding/1,
     new_case_stats/1,
     new_catalog_release/1,
     new_causal_lineage_observation/1,
@@ -138,11 +143,13 @@
     new_committed_spend/1,
     new_committed_spend_admission/1,
     new_compatibility_contract/1,
+    new_compound_task_expansion/1,
     new_concurrency_pricing_policy/1,
     new_configuration_export/1,
     new_configuration_import/1,
     new_conformance_result/1,
     new_consequential_state_invalidation/1,
+    new_constraint_set_binding/1,
     new_consumer_equivalence_learning_guard/1,
     new_consumer_equivalence_proof/1,
     new_consumer_pack_pin_observation/1,
@@ -150,6 +157,7 @@
     new_consumption_subscription/1,
     new_container_manifest_digest_observation/1,
     new_container_platform_digest_observation/1,
+    new_contingency_branch/1,
     new_contracting_entity_identity/1,
     new_cost_center_allocation/1,
     new_cost_latency_reliability_tradeoff/1,
@@ -232,10 +240,12 @@
     new_dependency_pin_observation/1,
     new_deployment_entitlement/1,
     new_developer_readiness/1,
+    new_deviation_repair_option/1,
     new_dfg_edge/1,
     new_disaster_recovery_evidence/1,
     new_discount_schedule/1,
     new_discovery_hypothesis/1,
+    new_distributed_work_queue_observation/1,
     new_dominance_witness/1,
     new_dynamic_replan_trigger/1,
     new_edition_definition/1,
@@ -266,6 +276,7 @@
     new_evidence_freshness_evidence/1,
     new_evidence_training_sample/1,
     new_exact_subject_binding/1,
+    new_exact_world_state_admission/1,
     new_exception_authority/1,
     new_executive_business_review/1,
     new_executive_sponsor/1,
@@ -276,6 +287,7 @@
     new_experiment_learning_receipt/1,
     new_failed_challenger_retention/1,
     new_failure_label/1,
+    new_fairness_assumption/1,
     new_federated_dogfood_learning_crown/1,
     new_forged_receipt_refusal/1,
     new_frontier_benchmark/1,
@@ -287,6 +299,9 @@
     new_generated_hypothesis/1,
     new_generated_output_ownership_observation/1,
     new_generated_source_route/1,
+    new_goal_set_binding/1,
+    new_hddl_method_candidate/1,
+    new_hddl_task_network/1,
     new_heuristic_arc/1,
     new_historical_episode_replay/1,
     new_hypothesis_priority_update/1,
@@ -297,6 +312,7 @@
     new_incident_response_evidence/1,
     new_indemnity_scope_admission/1,
     new_information_partition_observation/1,
+    new_initial_state_digest/1,
     new_insurance_requirement/1,
     new_integration_readiness/1,
     new_integration_scope_admission/1,
@@ -309,6 +325,7 @@
     new_latency_budget_observation/1,
     new_leakage_finding/1,
     new_learning_episode/1,
+    new_lease_expiry_replan/1,
     new_least_authority_evidence/1,
     new_legal_blocker/1,
     new_liability_cap_admission/1,
@@ -325,6 +342,7 @@
     new_meter_dimension/1,
     new_meter_rollup/1,
     new_metered_usage_sample/1,
+    new_method_precondition_gate/1,
     new_migration_contract/1,
     new_migration_readiness/1,
     new_minimum_commitment_schedule/1,
@@ -333,9 +351,11 @@
     new_mutable_identity_refusal_evidence/1,
     new_mutual_information_score/1,
     new_negative_fixture_generation/1,
+    new_next_event_prediction_contract/1,
     new_next_lawful_actuation/1,
     new_no_authority_learning_guard/1,
     new_node_failover_event/1,
+    new_nondeterministic_effect_contract/1,
     new_nonproduction_discount_policy/1,
     new_normalized_event_observation/1,
     new_novelty_reward/1,
@@ -348,12 +368,14 @@
     new_observation_deduplication_decision/1,
     new_observation_entropy_estimate/1,
     new_observation_freshness_assessment/1,
+    new_observation_partition/1,
     new_observation_projection_update/1,
     new_observation_staleness_invalidation/1,
     new_oc_declare_constraint/1,
     new_ocel_attribute/1,
     new_ocel_event/1,
     new_ocel_object/1,
+    new_ocel_planning_event/1,
     new_ocel_relationship/1,
     new_oci_manifest_evidence/1,
     new_offline_bundle_evidence/1,
@@ -366,6 +388,7 @@
     new_order_form_version/1,
     new_orthogonality_reward/1,
     new_orthogonality_score/1,
+    new_outcome_branch_set/1,
     new_outcome_label/1,
     new_output_ownership_gate/1,
     new_overage_invoice/1,
@@ -381,15 +404,25 @@
     new_petri_arc/1,
     new_petri_place/1,
     new_petri_transition/1,
+    new_plan_handoff_receipt/1,
     new_plan_lineage/1,
     new_plan_memory/1,
+    new_planner_bid/1,
     new_planner_capability_profile/1,
     new_planner_identity/1,
+    new_planner_lease/1,
     new_planner_payoff_observation/1,
     new_planner_policy_comparison/1,
     new_planner_portfolio/1,
     new_planner_routing_update/1,
     new_planning_action/1,
+    new_planning_blackboard_claim/1,
+    new_planning_blackboard_conflict/1,
+    new_planning_blackboard_fact/1,
+    new_planning_blackboard_resolution/1,
+    new_planning_case_identity/1,
+    new_planning_conformance_alignment/1,
+    new_planning_problem_admission/1,
     new_planning_state/1,
     new_poc_exit_criteria/1,
     new_poc_risk/1,
@@ -397,17 +430,26 @@
     new_poc_timeline/1,
     new_policy_binding/1,
     new_policy_decision/1,
+    new_policy_graph_edge/1,
+    new_policy_graph_node/1,
     new_policy_payoff_observation/1,
     new_powl_choice_graph_edge/1,
+    new_powl_choice_operator/1,
     new_powl_freq/1,
     new_powl_leaf/1,
+    new_powl_loop_operator/1,
+    new_powl_parallel_operator/1,
     new_powl_partial_order_edge/1,
+    new_powl_partial_order_plan/1,
     new_powl_projection/1,
+    new_powl_sequence_operator/1,
     new_ppddl_projection/1,
+    new_prefix_alignment_frontier/1,
     new_premium_connector_pricing/1,
     new_prepaid_credit_balance/1,
     new_price_book_version/1,
     new_pricing_basis_contract/1,
+    new_primitive_task_binding/1,
     new_privacy_classification_evidence/1,
     new_private_offer/1,
     new_private_registry_evidence/1,
@@ -448,6 +490,7 @@
     new_receipt_verification/1,
     new_recovery_plan/1,
     new_recovery_point_receipt/1,
+    new_recovery_subtask/1,
     new_recovery_time_receipt/1,
     new_refund_policy/1,
     new_refusal_boundary_observation/1,
@@ -455,6 +498,7 @@
     new_region_pricing_policy/1,
     new_regression_detector/1,
     new_regression_refusal/1,
+    new_remaining_time_estimate_contract/1,
     new_remediation_sla_evidence/1,
     new_renewal_evidence/1,
     new_renewal_health/1,
@@ -495,6 +539,7 @@
     new_sandbox_entitlement/1,
     new_saturation_detection/1,
     new_sbom_inventory_evidence/1,
+    new_scheduling_priority_score/1,
     new_seat_pricing_policy/1,
     new_second_pass_byte_identity_observation/1,
     new_second_run_identity_objective/1,
@@ -526,6 +571,8 @@
     new_stale_subject_refusal_evidence/1,
     new_standing_state_observation/1,
     new_stopping_criterion/1,
+    new_strong_cyclic_plan_candidate/1,
+    new_strong_plan_candidate/1,
     new_subject_failure_separation/1,
     new_submodule_lock_observation/1,
     new_submodule_registration_observation/1,
@@ -540,6 +587,7 @@
     new_support_window_evidence/1,
     new_sync_time/1,
     new_target_metric/1,
+    new_task_decomposition_proof/1,
     new_tax_jurisdiction_evidence/1,
     new_tax_jurisdiction_rule/1,
     new_technical_blocker/1,
@@ -553,6 +601,7 @@
     new_term_subscription/1,
     new_termination_right_admission/1,
     new_time_to_value/1,
+    new_token_replay_state/1,
     new_toolchain_identity/1,
     new_toolchain_identity_observation/1,
     new_training_readiness/1,
@@ -589,6 +638,7 @@
     new_version_lifecycle_evidence/1,
     new_volume_tier_admission/1,
     new_vulnerability_scan_evidence/1,
+    new_weak_plan_candidate/1,
     new_wip_limit_gate/1,
     new_workflow_definition_digest_observation/1,
     new_workflow_job_state_observation/1,
@@ -608,6 +658,7 @@
     account_master_match/0,
     account_parent_scope/0,
     account_value_realization/0,
+    action_eligibility_decision/0,
     action_pin_evidence/0,
     activation_event/0,
     add_on_bundle/0,
@@ -615,6 +666,7 @@
     admissible_action_set/0,
     adoption_milestone/0,
     agent_assignment/0,
+    agent_capability_advertisement/0,
     alignment_move/0,
     annual_subscription/0,
     anomaly_detection_observation/0,
@@ -687,11 +739,13 @@
     beam_search_candidate/0,
     belief_state_snapshot/0,
     belief_state_update/0,
+    belief_update_rule/0,
     beneficial_owner_evidence/0,
     billable_usage_identity/0,
     billing_account/0,
     billing_reconciliation/0,
     booking_readiness/0,
+    bounded_work_selection_receipt/0,
     brce_actuation_receipt/0,
     brce_actuation_request/0,
     budget_period_alignment/0,
@@ -714,6 +768,7 @@
     capability_gap_learning/0,
     capsule_availability/0,
     capsule_identity/0,
+    case_object_binding/0,
     case_stats/0,
     catalog_release/0,
     causal_lineage_observation/0,
@@ -738,11 +793,13 @@
     committed_spend/0,
     committed_spend_admission/0,
     compatibility_contract/0,
+    compound_task_expansion/0,
     concurrency_pricing_policy/0,
     configuration_export/0,
     configuration_import/0,
     conformance_result/0,
     consequential_state_invalidation/0,
+    constraint_set_binding/0,
     consumer_equivalence_learning_guard/0,
     consumer_equivalence_proof/0,
     consumer_pack_pin_observation/0,
@@ -750,6 +807,7 @@
     consumption_subscription/0,
     container_manifest_digest_observation/0,
     container_platform_digest_observation/0,
+    contingency_branch/0,
     contracting_entity_identity/0,
     cost_center_allocation/0,
     cost_latency_reliability_tradeoff/0,
@@ -832,10 +890,12 @@
     dependency_pin_observation/0,
     deployment_entitlement/0,
     developer_readiness/0,
+    deviation_repair_option/0,
     dfg_edge/0,
     disaster_recovery_evidence/0,
     discount_schedule/0,
     discovery_hypothesis/0,
+    distributed_work_queue_observation/0,
     dominance_witness/0,
     dynamic_replan_trigger/0,
     edition_definition/0,
@@ -866,6 +926,7 @@
     evidence_freshness_evidence/0,
     evidence_training_sample/0,
     exact_subject_binding/0,
+    exact_world_state_admission/0,
     exception_authority/0,
     executive_business_review/0,
     executive_sponsor/0,
@@ -876,6 +937,7 @@
     experiment_learning_receipt/0,
     failed_challenger_retention/0,
     failure_label/0,
+    fairness_assumption/0,
     federated_dogfood_learning_crown/0,
     forged_receipt_refusal/0,
     frontier_benchmark/0,
@@ -887,6 +949,9 @@
     generated_hypothesis/0,
     generated_output_ownership_observation/0,
     generated_source_route/0,
+    goal_set_binding/0,
+    hddl_method_candidate/0,
+    hddl_task_network/0,
     heuristic_arc/0,
     historical_episode_replay/0,
     hypothesis_priority_update/0,
@@ -897,6 +962,7 @@
     incident_response_evidence/0,
     indemnity_scope_admission/0,
     information_partition_observation/0,
+    initial_state_digest/0,
     insurance_requirement/0,
     integration_readiness/0,
     integration_scope_admission/0,
@@ -909,6 +975,7 @@
     latency_budget_observation/0,
     leakage_finding/0,
     learning_episode/0,
+    lease_expiry_replan/0,
     least_authority_evidence/0,
     legal_blocker/0,
     liability_cap_admission/0,
@@ -925,6 +992,7 @@
     meter_dimension/0,
     meter_rollup/0,
     metered_usage_sample/0,
+    method_precondition_gate/0,
     migration_contract/0,
     migration_readiness/0,
     minimum_commitment_schedule/0,
@@ -933,9 +1001,11 @@
     mutable_identity_refusal_evidence/0,
     mutual_information_score/0,
     negative_fixture_generation/0,
+    next_event_prediction_contract/0,
     next_lawful_actuation/0,
     no_authority_learning_guard/0,
     node_failover_event/0,
+    nondeterministic_effect_contract/0,
     nonproduction_discount_policy/0,
     normalized_event_observation/0,
     novelty_reward/0,
@@ -948,12 +1018,14 @@
     observation_deduplication_decision/0,
     observation_entropy_estimate/0,
     observation_freshness_assessment/0,
+    observation_partition/0,
     observation_projection_update/0,
     observation_staleness_invalidation/0,
     oc_declare_constraint/0,
     ocel_attribute/0,
     ocel_event/0,
     ocel_object/0,
+    ocel_planning_event/0,
     ocel_relationship/0,
     oci_manifest_evidence/0,
     offline_bundle_evidence/0,
@@ -966,6 +1038,7 @@
     order_form_version/0,
     orthogonality_reward/0,
     orthogonality_score/0,
+    outcome_branch_set/0,
     outcome_label/0,
     output_ownership_gate/0,
     overage_invoice/0,
@@ -981,15 +1054,25 @@
     petri_arc/0,
     petri_place/0,
     petri_transition/0,
+    plan_handoff_receipt/0,
     plan_lineage/0,
     plan_memory/0,
+    planner_bid/0,
     planner_capability_profile/0,
     planner_identity/0,
+    planner_lease/0,
     planner_payoff_observation/0,
     planner_policy_comparison/0,
     planner_portfolio/0,
     planner_routing_update/0,
     planning_action/0,
+    planning_blackboard_claim/0,
+    planning_blackboard_conflict/0,
+    planning_blackboard_fact/0,
+    planning_blackboard_resolution/0,
+    planning_case_identity/0,
+    planning_conformance_alignment/0,
+    planning_problem_admission/0,
     planning_state/0,
     poc_exit_criteria/0,
     poc_risk/0,
@@ -997,17 +1080,26 @@
     poc_timeline/0,
     policy_binding/0,
     policy_decision/0,
+    policy_graph_edge/0,
+    policy_graph_node/0,
     policy_payoff_observation/0,
     powl_choice_graph_edge/0,
+    powl_choice_operator/0,
     powl_freq/0,
     powl_leaf/0,
+    powl_loop_operator/0,
+    powl_parallel_operator/0,
     powl_partial_order_edge/0,
+    powl_partial_order_plan/0,
     powl_projection/0,
+    powl_sequence_operator/0,
     ppddl_projection/0,
+    prefix_alignment_frontier/0,
     premium_connector_pricing/0,
     prepaid_credit_balance/0,
     price_book_version/0,
     pricing_basis_contract/0,
+    primitive_task_binding/0,
     privacy_classification_evidence/0,
     private_offer/0,
     private_registry_evidence/0,
@@ -1048,6 +1140,7 @@
     receipt_verification/0,
     recovery_plan/0,
     recovery_point_receipt/0,
+    recovery_subtask/0,
     recovery_time_receipt/0,
     refund_policy/0,
     refusal_boundary_observation/0,
@@ -1055,6 +1148,7 @@
     region_pricing_policy/0,
     regression_detector/0,
     regression_refusal/0,
+    remaining_time_estimate_contract/0,
     remediation_sla_evidence/0,
     renewal_evidence/0,
     renewal_health/0,
@@ -1095,6 +1189,7 @@
     sandbox_entitlement/0,
     saturation_detection/0,
     sbom_inventory_evidence/0,
+    scheduling_priority_score/0,
     seat_pricing_policy/0,
     second_pass_byte_identity_observation/0,
     second_run_identity_objective/0,
@@ -1126,6 +1221,8 @@
     stale_subject_refusal_evidence/0,
     standing_state_observation/0,
     stopping_criterion/0,
+    strong_cyclic_plan_candidate/0,
+    strong_plan_candidate/0,
     subject_failure_separation/0,
     submodule_lock_observation/0,
     submodule_registration_observation/0,
@@ -1140,6 +1237,7 @@
     support_window_evidence/0,
     sync_time/0,
     target_metric/0,
+    task_decomposition_proof/0,
     tax_jurisdiction_evidence/0,
     tax_jurisdiction_rule/0,
     technical_blocker/0,
@@ -1153,6 +1251,7 @@
     term_subscription/0,
     termination_right_admission/0,
     time_to_value/0,
+    token_replay_state/0,
     toolchain_identity/0,
     toolchain_identity_observation/0,
     training_readiness/0,
@@ -1189,6 +1288,7 @@
     version_lifecycle_evidence/0,
     volume_tier_admission/0,
     vulnerability_scan_evidence/0,
+    weak_plan_candidate/0,
     wip_limit_gate/0,
     workflow_definition_digest_observation/0,
     workflow_job_state_observation/0,
@@ -1372,6 +1472,35 @@ new_account_value_realization(Map) ->
         tenant_id = maps:get(tenant_id, Map, undefined),
         account_id = maps:get(account_id, Map, undefined),
         realization_hash = maps:get(realization_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Calculates whether an action is lawful from constraints, authority, and receipts.
+-record(action_eligibility_decision, {
+    decision_id :: binary(), %% decision_id: Eligibility decision identity.
+    action_id :: binary(), %% action_id: Candidate action evaluated.
+    standing :: binary() %% standing: Typed eligible or refused standing.
+}).
+
+-type action_eligibility_decision() :: #action_eligibility_decision{}.
+
+-spec new_action_eligibility_decision(map()) -> {ok, action_eligibility_decision()} | {error, {missing_field, atom()}}.
+new_action_eligibility_decision(Map) ->
+    case maps:is_key(decision_id, Map) of
+        false -> {error, {missing_field, decision_id}};
+        true ->
+    case maps:is_key(action_id, Map) of
+        false -> {error, {missing_field, action_id}};
+        true ->
+    case maps:is_key(standing, Map) of
+        false -> {error, {missing_field, standing}};
+        true ->
+    {ok, #action_eligibility_decision{
+        decision_id = maps:get(decision_id, Map, undefined),
+        action_id = maps:get(action_id, Map, undefined),
+        standing = maps:get(standing, Map, undefined)
     }}
     end
     end
@@ -1623,6 +1752,35 @@ new_agent_assignment(Map) ->
         agent_id = maps:get(agent_id, Map, undefined),
         policy_id = maps:get(policy_id, Map, undefined),
         assignment_hash = maps:get(assignment_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Advertises exact subject-bound planning capabilities for portfolio routing.
+-record(agent_capability_advertisement, {
+    agent_subject_sha :: binary(), %% agent_subject_sha: Exact agent consumer subject.
+    capability_digest :: binary(), %% capability_digest: Digest of advertised capabilities.
+    valid_until :: binary() %% valid_until: Advertisement expiry timestamp.
+}).
+
+-type agent_capability_advertisement() :: #agent_capability_advertisement{}.
+
+-spec new_agent_capability_advertisement(map()) -> {ok, agent_capability_advertisement()} | {error, {missing_field, atom()}}.
+new_agent_capability_advertisement(Map) ->
+    case maps:is_key(agent_subject_sha, Map) of
+        false -> {error, {missing_field, agent_subject_sha}};
+        true ->
+    case maps:is_key(capability_digest, Map) of
+        false -> {error, {missing_field, capability_digest}};
+        true ->
+    case maps:is_key(valid_until, Map) of
+        false -> {error, {missing_field, valid_until}};
+        true ->
+    {ok, #agent_capability_advertisement{
+        agent_subject_sha = maps:get(agent_subject_sha, Map, undefined),
+        capability_digest = maps:get(capability_digest, Map, undefined),
+        valid_until = maps:get(valid_until, Map, undefined)
     }}
     end
     end
@@ -4136,6 +4294,35 @@ new_belief_state_update(Map) ->
     end
     end.
 
+%% Updates a belief state from an admitted observation without inventing facts.
+-record(belief_update_rule, {
+    rule_id :: binary(), %% rule_id: Belief update rule identity.
+    observation_schema :: binary(), %% observation_schema: Schema of admissible observations.
+    update_digest :: binary() %% update_digest: Digest of deterministic update semantics.
+}).
+
+-type belief_update_rule() :: #belief_update_rule{}.
+
+-spec new_belief_update_rule(map()) -> {ok, belief_update_rule()} | {error, {missing_field, atom()}}.
+new_belief_update_rule(Map) ->
+    case maps:is_key(rule_id, Map) of
+        false -> {error, {missing_field, rule_id}};
+        true ->
+    case maps:is_key(observation_schema, Map) of
+        false -> {error, {missing_field, observation_schema}};
+        true ->
+    case maps:is_key(update_digest, Map) of
+        false -> {error, {missing_field, update_digest}};
+        true ->
+    {ok, #belief_update_rule{
+        rule_id = maps:get(rule_id, Map, undefined),
+        observation_schema = maps:get(observation_schema, Map, undefined),
+        update_digest = maps:get(update_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Binds beneficial-owner identity to immutable evidence for counterparties that require enhanced diligence.
 -record(beneficial_owner_evidence, {
     account_id :: binary(), %% account_id: Required beneficial owner evidence input; omission is an executable typed refusal, never an inferred approval.
@@ -4300,6 +4487,35 @@ new_booking_readiness(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         readiness_id = maps:get(readiness_id, Map, undefined),
         decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Receipts automatic selection of the next bounded lawful action without granting execution authority.
+-record(bounded_work_selection_receipt, {
+    receipt_id :: binary(), %% receipt_id: Selection receipt identity.
+    selected_work_item_id :: binary(), %% selected_work_item_id: Automatically selected bounded work item.
+    frontier_digest :: binary() %% frontier_digest: Digest of the evaluated lawful frontier.
+}).
+
+-type bounded_work_selection_receipt() :: #bounded_work_selection_receipt{}.
+
+-spec new_bounded_work_selection_receipt(map()) -> {ok, bounded_work_selection_receipt()} | {error, {missing_field, atom()}}.
+new_bounded_work_selection_receipt(Map) ->
+    case maps:is_key(receipt_id, Map) of
+        false -> {error, {missing_field, receipt_id}};
+        true ->
+    case maps:is_key(selected_work_item_id, Map) of
+        false -> {error, {missing_field, selected_work_item_id}};
+        true ->
+    case maps:is_key(frontier_digest, Map) of
+        false -> {error, {missing_field, frontier_digest}};
+        true ->
+    {ok, #bounded_work_selection_receipt{
+        receipt_id = maps:get(receipt_id, Map, undefined),
+        selected_work_item_id = maps:get(selected_work_item_id, Map, undefined),
+        frontier_digest = maps:get(frontier_digest, Map, undefined)
     }}
     end
     end
@@ -5082,6 +5298,35 @@ new_capsule_identity(Map) ->
         tenant_id = maps:get(tenant_id, Map, undefined),
         capsule_id = maps:get(capsule_id, Map, undefined),
         identity_hash = maps:get(identity_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds a planning case to its exact OCEL objects and roles.
+-record(case_object_binding, {
+    case_id :: binary(), %% case_id: Planning case identity.
+    object_id :: binary(), %% object_id: Related OCEL object identity.
+    binding_role :: binary() %% binding_role: Role the object plays in the case.
+}).
+
+-type case_object_binding() :: #case_object_binding{}.
+
+-spec new_case_object_binding(map()) -> {ok, case_object_binding()} | {error, {missing_field, atom()}}.
+new_case_object_binding(Map) ->
+    case maps:is_key(case_id, Map) of
+        false -> {error, {missing_field, case_id}};
+        true ->
+    case maps:is_key(object_id, Map) of
+        false -> {error, {missing_field, object_id}};
+        true ->
+    case maps:is_key(binding_role, Map) of
+        false -> {error, {missing_field, binding_role}};
+        true ->
+    {ok, #case_object_binding{
+        case_id = maps:get(case_id, Map, undefined),
+        object_id = maps:get(object_id, Map, undefined),
+        binding_role = maps:get(binding_role, Map, undefined)
     }}
     end
     end
@@ -5917,6 +6162,35 @@ new_compatibility_contract(Map) ->
     end
     end.
 
+%% Records the selected expansion of a compound task with alternatives preserved.
+-record(compound_task_expansion, {
+    task_id :: binary(), %% task_id: Compound task identity.
+    selected_method_id :: binary(), %% selected_method_id: Method selected for expansion.
+    alternative_digest :: binary() %% alternative_digest: Digest of lawful unselected methods.
+}).
+
+-type compound_task_expansion() :: #compound_task_expansion{}.
+
+-spec new_compound_task_expansion(map()) -> {ok, compound_task_expansion()} | {error, {missing_field, atom()}}.
+new_compound_task_expansion(Map) ->
+    case maps:is_key(task_id, Map) of
+        false -> {error, {missing_field, task_id}};
+        true ->
+    case maps:is_key(selected_method_id, Map) of
+        false -> {error, {missing_field, selected_method_id}};
+        true ->
+    case maps:is_key(alternative_digest, Map) of
+        false -> {error, {missing_field, alternative_digest}};
+        true ->
+    {ok, #compound_task_expansion{
+        task_id = maps:get(task_id, Map, undefined),
+        selected_method_id = maps:get(selected_method_id, Map, undefined),
+        alternative_digest = maps:get(alternative_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Concurrent-workload packaging dimension.
 -record(concurrency_pricing_policy, {
     concurrency_pricing_policy_id :: binary(), %% concurrency_pricing_policy_id: Stable identity of this concurrency pricing policy contract.
@@ -6084,6 +6358,35 @@ new_consequential_state_invalidation(Map) ->
         invalidated_at = maps:get(invalidated_at, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Binds hard and soft constraints without granting actuation authority.
+-record(constraint_set_binding, {
+    problem_id :: binary(), %% problem_id: Planning problem receiving constraints.
+    constraint_digest :: binary(), %% constraint_digest: Digest of normalized constraints.
+    binding_mode :: binary() %% binding_mode: Hard or soft constraint interpretation.
+}).
+
+-type constraint_set_binding() :: #constraint_set_binding{}.
+
+-spec new_constraint_set_binding(map()) -> {ok, constraint_set_binding()} | {error, {missing_field, atom()}}.
+new_constraint_set_binding(Map) ->
+    case maps:is_key(problem_id, Map) of
+        false -> {error, {missing_field, problem_id}};
+        true ->
+    case maps:is_key(constraint_digest, Map) of
+        false -> {error, {missing_field, constraint_digest}};
+        true ->
+    case maps:is_key(binding_mode, Map) of
+        false -> {error, {missing_field, binding_mode}};
+        true ->
+    {ok, #constraint_set_binding{
+        problem_id = maps:get(problem_id, Map, undefined),
+        constraint_digest = maps:get(constraint_digest, Map, undefined),
+        binding_mode = maps:get(binding_mode, Map, undefined)
+    }}
     end
     end
     end.
@@ -6335,6 +6638,35 @@ new_container_platform_digest_observation(Map) ->
         observed_at = maps:get(observed_at, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Binds an observation predicate to the next lawful policy branch.
+-record(contingency_branch, {
+    branch_id :: binary(), %% branch_id: Contingency branch identity.
+    observation_predicate :: binary(), %% observation_predicate: Predicate selecting this branch.
+    next_node_id :: binary() %% next_node_id: Policy node entered on match.
+}).
+
+-type contingency_branch() :: #contingency_branch{}.
+
+-spec new_contingency_branch(map()) -> {ok, contingency_branch()} | {error, {missing_field, atom()}}.
+new_contingency_branch(Map) ->
+    case maps:is_key(branch_id, Map) of
+        false -> {error, {missing_field, branch_id}};
+        true ->
+    case maps:is_key(observation_predicate, Map) of
+        false -> {error, {missing_field, observation_predicate}};
+        true ->
+    case maps:is_key(next_node_id, Map) of
+        false -> {error, {missing_field, next_node_id}};
+        true ->
+    {ok, #contingency_branch{
+        branch_id = maps:get(branch_id, Map, undefined),
+        observation_predicate = maps:get(observation_predicate, Map, undefined),
+        next_node_id = maps:get(next_node_id, Map, undefined)
+    }}
     end
     end
     end.
@@ -9251,6 +9583,35 @@ new_developer_readiness(Map) ->
     end
     end.
 
+%% Generates a reversible repair option for one conformance deviation.
+-record(deviation_repair_option, {
+    option_id :: binary(), %% option_id: Deviation repair option identity.
+    deviation_id :: binary(), %% deviation_id: Deviation addressed by the option.
+    repair_plan_digest :: binary() %% repair_plan_digest: Digest of the bounded repair plan.
+}).
+
+-type deviation_repair_option() :: #deviation_repair_option{}.
+
+-spec new_deviation_repair_option(map()) -> {ok, deviation_repair_option()} | {error, {missing_field, atom()}}.
+new_deviation_repair_option(Map) ->
+    case maps:is_key(option_id, Map) of
+        false -> {error, {missing_field, option_id}};
+        true ->
+    case maps:is_key(deviation_id, Map) of
+        false -> {error, {missing_field, deviation_id}};
+        true ->
+    case maps:is_key(repair_plan_digest, Map) of
+        false -> {error, {missing_field, repair_plan_digest}};
+        true ->
+    {ok, #deviation_repair_option{
+        option_id = maps:get(option_id, Map, undefined),
+        deviation_id = maps:get(deviation_id, Map, undefined),
+        repair_plan_digest = maps:get(repair_plan_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% One frequency-annotated directly-follows edge between two activities.
 -record(dfg_edge, {
     source_activity :: binary(), %% source_activity: The preceding activity name.
@@ -9393,6 +9754,35 @@ new_discovery_hypothesis(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Admits a caller-local snapshot of executable work without central surrogacy.
+-record(distributed_work_queue_observation, {
+    consumer_subject_sha :: binary(), %% consumer_subject_sha: Exact caller-local consumer subject.
+    queue_digest :: binary(), %% queue_digest: Digest of locally visible work.
+    observed_at :: binary() %% observed_at: Queue observation timestamp.
+}).
+
+-type distributed_work_queue_observation() :: #distributed_work_queue_observation{}.
+
+-spec new_distributed_work_queue_observation(map()) -> {ok, distributed_work_queue_observation()} | {error, {missing_field, atom()}}.
+new_distributed_work_queue_observation(Map) ->
+    case maps:is_key(consumer_subject_sha, Map) of
+        false -> {error, {missing_field, consumer_subject_sha}};
+        true ->
+    case maps:is_key(queue_digest, Map) of
+        false -> {error, {missing_field, queue_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #distributed_work_queue_observation{
+        consumer_subject_sha = maps:get(consumer_subject_sha, Map, undefined),
+        queue_digest = maps:get(queue_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
     end
     end
     end.
@@ -10423,6 +10813,35 @@ new_exact_subject_binding(Map) ->
     end
     end.
 
+%% Admits an exact immutable world-state subject before option generation.
+-record(exact_world_state_admission, {
+    subject_sha :: binary(), %% subject_sha: Exact SHA of the admitted planning subject.
+    state_digest :: binary(), %% state_digest: Digest of the normalized world state.
+    observed_at :: binary() %% observed_at: Timestamp of the admitted observation.
+}).
+
+-type exact_world_state_admission() :: #exact_world_state_admission{}.
+
+-spec new_exact_world_state_admission(map()) -> {ok, exact_world_state_admission()} | {error, {missing_field, atom()}}.
+new_exact_world_state_admission(Map) ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    case maps:is_key(observed_at, Map) of
+        false -> {error, {missing_field, observed_at}};
+        true ->
+    {ok, #exact_world_state_admission{
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined),
+        observed_at = maps:get(observed_at, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Admits a commercial exception only when the exact authority and decision are present.
 -record(exception_authority, {
     exception_id :: binary(), %% exception_id: Required exception authority input; omission is an executable typed refusal, never an inferred approval.
@@ -10817,6 +11236,35 @@ new_failure_label(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Binds an explicit fairness assumption to a cyclic policy instead of hiding it.
+-record(fairness_assumption, {
+    assumption_id :: binary(), %% assumption_id: Stable fairness assumption identity.
+    policy_digest :: binary(), %% policy_digest: Policy graph governed by the assumption.
+    evidence_digest :: binary() %% evidence_digest: Digest of evidence supporting fairness.
+}).
+
+-type fairness_assumption() :: #fairness_assumption{}.
+
+-spec new_fairness_assumption(map()) -> {ok, fairness_assumption()} | {error, {missing_field, atom()}}.
+new_fairness_assumption(Map) ->
+    case maps:is_key(assumption_id, Map) of
+        false -> {error, {missing_field, assumption_id}};
+        true ->
+    case maps:is_key(policy_digest, Map) of
+        false -> {error, {missing_field, policy_digest}};
+        true ->
+    case maps:is_key(evidence_digest, Map) of
+        false -> {error, {missing_field, evidence_digest}};
+        true ->
+    {ok, #fairness_assumption{
+        assumption_id = maps:get(assumption_id, Map, undefined),
+        policy_digest = maps:get(policy_digest, Map, undefined),
+        evidence_digest = maps:get(evidence_digest, Map, undefined)
+    }}
     end
     end
     end.
@@ -11254,6 +11702,93 @@ new_generated_source_route(Map) ->
     end
     end.
 
+%% Binds explicit valued goals to one admitted planning problem.
+-record(goal_set_binding, {
+    problem_id :: binary(), %% problem_id: Planning problem receiving the goals.
+    goal_set_digest :: binary(), %% goal_set_digest: Digest of the ordered goal set.
+    value_profile :: binary() %% value_profile: Explicit value profile used for selection.
+}).
+
+-type goal_set_binding() :: #goal_set_binding{}.
+
+-spec new_goal_set_binding(map()) -> {ok, goal_set_binding()} | {error, {missing_field, atom()}}.
+new_goal_set_binding(Map) ->
+    case maps:is_key(problem_id, Map) of
+        false -> {error, {missing_field, problem_id}};
+        true ->
+    case maps:is_key(goal_set_digest, Map) of
+        false -> {error, {missing_field, goal_set_digest}};
+        true ->
+    case maps:is_key(value_profile, Map) of
+        false -> {error, {missing_field, value_profile}};
+        true ->
+    {ok, #goal_set_binding{
+        problem_id = maps:get(problem_id, Map, undefined),
+        goal_set_digest = maps:get(goal_set_digest, Map, undefined),
+        value_profile = maps:get(value_profile, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Declares one applicable method candidate for a compound task.
+-record(hddl_method_candidate, {
+    method_id :: binary(), %% method_id: HDDL method identity.
+    compound_task_id :: binary(), %% compound_task_id: Compound task decomposed by the method.
+    subnetwork_digest :: binary() %% subnetwork_digest: Digest of the proposed subtask network.
+}).
+
+-type hddl_method_candidate() :: #hddl_method_candidate{}.
+
+-spec new_hddl_method_candidate(map()) -> {ok, hddl_method_candidate()} | {error, {missing_field, atom()}}.
+new_hddl_method_candidate(Map) ->
+    case maps:is_key(method_id, Map) of
+        false -> {error, {missing_field, method_id}};
+        true ->
+    case maps:is_key(compound_task_id, Map) of
+        false -> {error, {missing_field, compound_task_id}};
+        true ->
+    case maps:is_key(subnetwork_digest, Map) of
+        false -> {error, {missing_field, subnetwork_digest}};
+        true ->
+    {ok, #hddl_method_candidate{
+        method_id = maps:get(method_id, Map, undefined),
+        compound_task_id = maps:get(compound_task_id, Map, undefined),
+        subnetwork_digest = maps:get(subnetwork_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Represents a partially ordered HDDL task network over an exact problem.
+-record(hddl_task_network, {
+    network_id :: binary(), %% network_id: Task network identity.
+    task_set_digest :: binary(), %% task_set_digest: Digest of network tasks.
+    ordering_digest :: binary() %% ordering_digest: Digest of partial-order constraints.
+}).
+
+-type hddl_task_network() :: #hddl_task_network{}.
+
+-spec new_hddl_task_network(map()) -> {ok, hddl_task_network()} | {error, {missing_field, atom()}}.
+new_hddl_task_network(Map) ->
+    case maps:is_key(network_id, Map) of
+        false -> {error, {missing_field, network_id}};
+        true ->
+    case maps:is_key(task_set_digest, Map) of
+        false -> {error, {missing_field, task_set_digest}};
+        true ->
+    case maps:is_key(ordering_digest, Map) of
+        false -> {error, {missing_field, ordering_digest}};
+        true ->
+    {ok, #hddl_task_network{
+        network_id = maps:get(network_id, Map, undefined),
+        task_set_digest = maps:get(task_set_digest, Map, undefined),
+        ordering_digest = maps:get(ordering_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% One dependency-scored candidate arc considered during heuristic-net discovery.
 -record(heuristic_arc, {
     source_activity :: binary(), %% source_activity: The candidate arc source activity.
@@ -11576,6 +12111,35 @@ new_information_partition_observation(Map) ->
         information_digest = maps:get(information_digest, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Freezes the normalized initial facts used by every planner in a portfolio.
+-record(initial_state_digest, {
+    problem_id :: binary(), %% problem_id: Planning problem identity.
+    fact_digest :: binary(), %% fact_digest: Digest of sorted initial facts.
+    normalizer_version :: binary() %% normalizer_version: Exact normalizer version.
+}).
+
+-type initial_state_digest() :: #initial_state_digest{}.
+
+-spec new_initial_state_digest(map()) -> {ok, initial_state_digest()} | {error, {missing_field, atom()}}.
+new_initial_state_digest(Map) ->
+    case maps:is_key(problem_id, Map) of
+        false -> {error, {missing_field, problem_id}};
+        true ->
+    case maps:is_key(fact_digest, Map) of
+        false -> {error, {missing_field, fact_digest}};
+        true ->
+    case maps:is_key(normalizer_version, Map) of
+        false -> {error, {missing_field, normalizer_version}};
+        true ->
+    {ok, #initial_state_digest{
+        problem_id = maps:get(problem_id, Map, undefined),
+        fact_digest = maps:get(fact_digest, Map, undefined),
+        normalizer_version = maps:get(normalizer_version, Map, undefined)
+    }}
     end
     end
     end.
@@ -11976,6 +12540,35 @@ new_learning_episode(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Invalidates stale leased plans and returns work to the lawful option frontier.
+-record(lease_expiry_replan, {
+    replan_id :: binary(), %% replan_id: Lease-expiry replan identity.
+    expired_lease_id :: binary(), %% expired_lease_id: Lease whose authority expired.
+    returned_frontier_digest :: binary() %% returned_frontier_digest: Digest of restored work options.
+}).
+
+-type lease_expiry_replan() :: #lease_expiry_replan{}.
+
+-spec new_lease_expiry_replan(map()) -> {ok, lease_expiry_replan()} | {error, {missing_field, atom()}}.
+new_lease_expiry_replan(Map) ->
+    case maps:is_key(replan_id, Map) of
+        false -> {error, {missing_field, replan_id}};
+        true ->
+    case maps:is_key(expired_lease_id, Map) of
+        false -> {error, {missing_field, expired_lease_id}};
+        true ->
+    case maps:is_key(returned_frontier_digest, Map) of
+        false -> {error, {missing_field, returned_frontier_digest}};
+        true ->
+    {ok, #lease_expiry_replan{
+        replan_id = maps:get(replan_id, Map, undefined),
+        expired_lease_id = maps:get(expired_lease_id, Map, undefined),
+        returned_frontier_digest = maps:get(returned_frontier_digest, Map, undefined)
+    }}
     end
     end
     end.
@@ -12516,6 +13109,35 @@ new_metered_usage_sample(Map) ->
     end
     end.
 
+%% Refuses HDDL method selection when its exact preconditions do not hold.
+-record(method_precondition_gate, {
+    method_id :: binary(), %% method_id: Method being evaluated.
+    state_digest :: binary(), %% state_digest: Exact state evaluated for applicability.
+    decision :: binary() %% decision: Typed admitted or refused outcome.
+}).
+
+-type method_precondition_gate() :: #method_precondition_gate{}.
+
+-spec new_method_precondition_gate(map()) -> {ok, method_precondition_gate()} | {error, {missing_field, atom()}}.
+new_method_precondition_gate(Map) ->
+    case maps:is_key(method_id, Map) of
+        false -> {error, {missing_field, method_id}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    case maps:is_key(decision, Map) of
+        false -> {error, {missing_field, decision}};
+        true ->
+    {ok, #method_precondition_gate{
+        method_id = maps:get(method_id, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined),
+        decision = maps:get(decision, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Versioned migration path with source, target, and rollback identity.
 -record(migration_contract, {
     migration_id :: binary(), %% migration_id: Stable migration identity.
@@ -12802,6 +13424,35 @@ new_negative_fixture_generation(Map) ->
     end
     end.
 
+%% Binds a seeded next-event predictor to an exact case prefix.
+-record(next_event_prediction_contract, {
+    prediction_id :: binary(), %% prediction_id: Next-event prediction identity.
+    prefix_digest :: binary(), %% prefix_digest: Digest of exact case prefix.
+    distribution_digest :: binary() %% distribution_digest: Digest of predicted event probabilities.
+}).
+
+-type next_event_prediction_contract() :: #next_event_prediction_contract{}.
+
+-spec new_next_event_prediction_contract(map()) -> {ok, next_event_prediction_contract()} | {error, {missing_field, atom()}}.
+new_next_event_prediction_contract(Map) ->
+    case maps:is_key(prediction_id, Map) of
+        false -> {error, {missing_field, prediction_id}};
+        true ->
+    case maps:is_key(prefix_digest, Map) of
+        false -> {error, {missing_field, prefix_digest}};
+        true ->
+    case maps:is_key(distribution_digest, Map) of
+        false -> {error, {missing_field, distribution_digest}};
+        true ->
+    {ok, #next_event_prediction_contract{
+        prediction_id = maps:get(prediction_id, Map, undefined),
+        prefix_digest = maps:get(prefix_digest, Map, undefined),
+        distribution_digest = maps:get(distribution_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Selects the next bounded action from scored admissible options without human micro-scheduling.
 -record(next_lawful_actuation, {
     episode_id :: binary(), %% episode_id: Required episode_id for this bounded planner contract.
@@ -12902,6 +13553,35 @@ new_node_failover_event(Map) ->
         tenant_id = maps:get(tenant_id, Map, undefined),
         node_id = maps:get(node_id, Map, undefined),
         failover_hash = maps:get(failover_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Makes nondeterministic effects explicit for FOND planning and replay.
+-record(nondeterministic_effect_contract, {
+    action_id :: binary(), %% action_id: Action whose effects are nondeterministic.
+    effect_set_digest :: binary(), %% effect_set_digest: Digest of the alternative effect sets.
+    selection_semantics :: binary() %% selection_semantics: Environment selection semantics.
+}).
+
+-type nondeterministic_effect_contract() :: #nondeterministic_effect_contract{}.
+
+-spec new_nondeterministic_effect_contract(map()) -> {ok, nondeterministic_effect_contract()} | {error, {missing_field, atom()}}.
+new_nondeterministic_effect_contract(Map) ->
+    case maps:is_key(action_id, Map) of
+        false -> {error, {missing_field, action_id}};
+        true ->
+    case maps:is_key(effect_set_digest, Map) of
+        false -> {error, {missing_field, effect_set_digest}};
+        true ->
+    case maps:is_key(selection_semantics, Map) of
+        false -> {error, {missing_field, selection_semantics}};
+        true ->
+    {ok, #nondeterministic_effect_contract{
+        action_id = maps:get(action_id, Map, undefined),
+        effect_set_digest = maps:get(effect_set_digest, Map, undefined),
+        selection_semantics = maps:get(selection_semantics, Map, undefined)
     }}
     end
     end
@@ -13343,6 +14023,35 @@ new_observation_freshness_assessment(Map) ->
     end
     end.
 
+%% Partitions observationally equivalent world states for contingent planning.
+-record(observation_partition, {
+    partition_id :: binary(), %% partition_id: Observation partition identity.
+    state_set_digest :: binary(), %% state_set_digest: Digest of member world states.
+    observation_key :: binary() %% observation_key: Observation defining equivalence.
+}).
+
+-type observation_partition() :: #observation_partition{}.
+
+-spec new_observation_partition(map()) -> {ok, observation_partition()} | {error, {missing_field, atom()}}.
+new_observation_partition(Map) ->
+    case maps:is_key(partition_id, Map) of
+        false -> {error, {missing_field, partition_id}};
+        true ->
+    case maps:is_key(state_set_digest, Map) of
+        false -> {error, {missing_field, state_set_digest}};
+        true ->
+    case maps:is_key(observation_key, Map) of
+        false -> {error, {missing_field, observation_key}};
+        true ->
+    {ok, #observation_partition{
+        partition_id = maps:get(partition_id, Map, undefined),
+        state_set_digest = maps:get(state_set_digest, Map, undefined),
+        observation_key = maps:get(observation_key, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Updates future observation shape from an admitted gap while preserving an explicit authority ceiling.
 -record(observation_projection_update, {
     update_id :: binary(), %% update_id: Stable observation update identity.
@@ -13538,6 +14247,35 @@ new_ocel_object(Map) ->
         object_type = maps:get(object_type, Map, undefined),
         attributes = maps:get(attributes, Map, undefined)
     }}
+    end
+    end.
+
+%% Captures a planning decision or observation as an object-centric event.
+-record(ocel_planning_event, {
+    event_id :: binary(), %% event_id: Planning event identity.
+    activity :: binary(), %% activity: Planning activity type.
+    object_binding_digest :: binary() %% object_binding_digest: Digest of related planning objects.
+}).
+
+-type ocel_planning_event() :: #ocel_planning_event{}.
+
+-spec new_ocel_planning_event(map()) -> {ok, ocel_planning_event()} | {error, {missing_field, atom()}}.
+new_ocel_planning_event(Map) ->
+    case maps:is_key(event_id, Map) of
+        false -> {error, {missing_field, event_id}};
+        true ->
+    case maps:is_key(activity, Map) of
+        false -> {error, {missing_field, activity}};
+        true ->
+    case maps:is_key(object_binding_digest, Map) of
+        false -> {error, {missing_field, object_binding_digest}};
+        true ->
+    {ok, #ocel_planning_event{
+        event_id = maps:get(event_id, Map, undefined),
+        activity = maps:get(activity, Map, undefined),
+        object_binding_digest = maps:get(object_binding_digest, Map, undefined)
+    }}
+    end
     end
     end.
 
@@ -13932,6 +14670,35 @@ new_orthogonality_score(Map) ->
         left_option_id = maps:get(left_option_id, Map, undefined),
         right_option_id = maps:get(right_option_id, Map, undefined),
         score = maps:get(score, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Declares the finite outcome branches an action may produce.
+-record(outcome_branch_set, {
+    action_id :: binary(), %% action_id: Candidate action identity.
+    branch_digest :: binary(), %% branch_digest: Digest of ordered possible outcomes.
+    coverage_mode :: binary() %% coverage_mode: Declared completeness mode for branches.
+}).
+
+-type outcome_branch_set() :: #outcome_branch_set{}.
+
+-spec new_outcome_branch_set(map()) -> {ok, outcome_branch_set()} | {error, {missing_field, atom()}}.
+new_outcome_branch_set(Map) ->
+    case maps:is_key(action_id, Map) of
+        false -> {error, {missing_field, action_id}};
+        true ->
+    case maps:is_key(branch_digest, Map) of
+        false -> {error, {missing_field, branch_digest}};
+        true ->
+    case maps:is_key(coverage_mode, Map) of
+        false -> {error, {missing_field, coverage_mode}};
+        true ->
+    {ok, #outcome_branch_set{
+        action_id = maps:get(action_id, Map, undefined),
+        branch_digest = maps:get(branch_digest, Map, undefined),
+        coverage_mode = maps:get(coverage_mode, Map, undefined)
     }}
     end
     end
@@ -14410,6 +15177,35 @@ new_petri_transition(Map) ->
     }}
     end.
 
+%% Receipts transfer of an exact plan subject between caller-local consumers.
+-record(plan_handoff_receipt, {
+    receipt_id :: binary(), %% receipt_id: Plan handoff receipt identity.
+    plan_digest :: binary(), %% plan_digest: Digest of the transferred plan.
+    receiver_subject_sha :: binary() %% receiver_subject_sha: Exact receiving consumer subject.
+}).
+
+-type plan_handoff_receipt() :: #plan_handoff_receipt{}.
+
+-spec new_plan_handoff_receipt(map()) -> {ok, plan_handoff_receipt()} | {error, {missing_field, atom()}}.
+new_plan_handoff_receipt(Map) ->
+    case maps:is_key(receipt_id, Map) of
+        false -> {error, {missing_field, receipt_id}};
+        true ->
+    case maps:is_key(plan_digest, Map) of
+        false -> {error, {missing_field, plan_digest}};
+        true ->
+    case maps:is_key(receiver_subject_sha, Map) of
+        false -> {error, {missing_field, receiver_subject_sha}};
+        true ->
+    {ok, #plan_handoff_receipt{
+        receipt_id = maps:get(receipt_id, Map, undefined),
+        plan_digest = maps:get(plan_digest, Map, undefined),
+        receiver_subject_sha = maps:get(receiver_subject_sha, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Tracks derivation, repair, and supersession across plan generations.
 -record(plan_lineage, {
     plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
@@ -14468,6 +15264,35 @@ new_plan_memory(Map) ->
     end
     end.
 
+%% Bids for bounded work using declared cost, confidence, and capsule identity.
+-record(planner_bid, {
+    bid_id :: binary(), %% bid_id: Planner bid identity.
+    work_item_id :: binary(), %% work_item_id: Bounded work item being bid.
+    score_digest :: binary() %% score_digest: Digest of cost, confidence, and evidence scores.
+}).
+
+-type planner_bid() :: #planner_bid{}.
+
+-spec new_planner_bid(map()) -> {ok, planner_bid()} | {error, {missing_field, atom()}}.
+new_planner_bid(Map) ->
+    case maps:is_key(bid_id, Map) of
+        false -> {error, {missing_field, bid_id}};
+        true ->
+    case maps:is_key(work_item_id, Map) of
+        false -> {error, {missing_field, work_item_id}};
+        true ->
+    case maps:is_key(score_digest, Map) of
+        false -> {error, {missing_field, score_digest}};
+        true ->
+    {ok, #planner_bid{
+        bid_id = maps:get(bid_id, Map, undefined),
+        work_item_id = maps:get(work_item_id, Map, undefined),
+        score_digest = maps:get(score_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Declares the problem features and guarantees supported by one planner.
 -record(planner_capability_profile, {
     planner_id :: binary(), %% planner_id: Required planner_id for this bounded planner contract.
@@ -14521,6 +15346,35 @@ new_planner_identity(Map) ->
         planner_id = maps:get(planner_id, Map, undefined),
         planner_kind = maps:get(planner_kind, Map, undefined),
         identity_hash = maps:get(identity_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Grants time-bounded construction authority for one work item without DO authority.
+-record(planner_lease, {
+    lease_id :: binary(), %% lease_id: Planner lease identity.
+    work_item_id :: binary(), %% work_item_id: Leased bounded work item.
+    expires_at :: binary() %% expires_at: Lease expiry timestamp.
+}).
+
+-type planner_lease() :: #planner_lease{}.
+
+-spec new_planner_lease(map()) -> {ok, planner_lease()} | {error, {missing_field, atom()}}.
+new_planner_lease(Map) ->
+    case maps:is_key(lease_id, Map) of
+        false -> {error, {missing_field, lease_id}};
+        true ->
+    case maps:is_key(work_item_id, Map) of
+        false -> {error, {missing_field, work_item_id}};
+        true ->
+    case maps:is_key(expires_at, Map) of
+        false -> {error, {missing_field, expires_at}};
+        true ->
+    {ok, #planner_lease{
+        lease_id = maps:get(lease_id, Map, undefined),
+        work_item_id = maps:get(work_item_id, Map, undefined),
+        expires_at = maps:get(expires_at, Map, undefined)
     }}
     end
     end
@@ -14715,6 +15569,209 @@ new_planning_action(Map) ->
         preconditions = maps:get(preconditions, Map, undefined),
         effects = maps:get(effects, Map, undefined)
     }}
+    end.
+
+%% Claims bounded planning work with an explicit owner and expiry.
+-record(planning_blackboard_claim, {
+    claim_id :: binary(), %% claim_id: Blackboard claim identity.
+    work_item_id :: binary(), %% work_item_id: Bounded work item claimed.
+    owner_subject_sha :: binary() %% owner_subject_sha: Exact caller-local owner subject.
+}).
+
+-type planning_blackboard_claim() :: #planning_blackboard_claim{}.
+
+-spec new_planning_blackboard_claim(map()) -> {ok, planning_blackboard_claim()} | {error, {missing_field, atom()}}.
+new_planning_blackboard_claim(Map) ->
+    case maps:is_key(claim_id, Map) of
+        false -> {error, {missing_field, claim_id}};
+        true ->
+    case maps:is_key(work_item_id, Map) of
+        false -> {error, {missing_field, work_item_id}};
+        true ->
+    case maps:is_key(owner_subject_sha, Map) of
+        false -> {error, {missing_field, owner_subject_sha}};
+        true ->
+    {ok, #planning_blackboard_claim{
+        claim_id = maps:get(claim_id, Map, undefined),
+        work_item_id = maps:get(work_item_id, Map, undefined),
+        owner_subject_sha = maps:get(owner_subject_sha, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Captures mutually incompatible blackboard claims without silent last-writer wins.
+-record(planning_blackboard_conflict, {
+    conflict_id :: binary(), %% conflict_id: Blackboard conflict identity.
+    claim_set_digest :: binary(), %% claim_set_digest: Digest of incompatible claims.
+    conflict_type :: binary() %% conflict_type: Typed conflict classification.
+}).
+
+-type planning_blackboard_conflict() :: #planning_blackboard_conflict{}.
+
+-spec new_planning_blackboard_conflict(map()) -> {ok, planning_blackboard_conflict()} | {error, {missing_field, atom()}}.
+new_planning_blackboard_conflict(Map) ->
+    case maps:is_key(conflict_id, Map) of
+        false -> {error, {missing_field, conflict_id}};
+        true ->
+    case maps:is_key(claim_set_digest, Map) of
+        false -> {error, {missing_field, claim_set_digest}};
+        true ->
+    case maps:is_key(conflict_type, Map) of
+        false -> {error, {missing_field, conflict_type}};
+        true ->
+    {ok, #planning_blackboard_conflict{
+        conflict_id = maps:get(conflict_id, Map, undefined),
+        claim_set_digest = maps:get(claim_set_digest, Map, undefined),
+        conflict_type = maps:get(conflict_type, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Publishes a provenance-bound planning fact to the distributed blackboard.
+-record(planning_blackboard_fact, {
+    fact_id :: binary(), %% fact_id: Blackboard fact identity.
+    subject_sha :: binary(), %% subject_sha: Exact subject the fact describes.
+    provenance_digest :: binary() %% provenance_digest: Digest of observation provenance.
+}).
+
+-type planning_blackboard_fact() :: #planning_blackboard_fact{}.
+
+-spec new_planning_blackboard_fact(map()) -> {ok, planning_blackboard_fact()} | {error, {missing_field, atom()}}.
+new_planning_blackboard_fact(Map) ->
+    case maps:is_key(fact_id, Map) of
+        false -> {error, {missing_field, fact_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(provenance_digest, Map) of
+        false -> {error, {missing_field, provenance_digest}};
+        true ->
+    {ok, #planning_blackboard_fact{
+        fact_id = maps:get(fact_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        provenance_digest = maps:get(provenance_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Records evidence-based resolution while preserving losing lawful claims.
+-record(planning_blackboard_resolution, {
+    resolution_id :: binary(), %% resolution_id: Conflict resolution identity.
+    conflict_id :: binary(), %% conflict_id: Conflict being resolved.
+    preserved_option_digest :: binary() %% preserved_option_digest: Digest of preserved unselected claims.
+}).
+
+-type planning_blackboard_resolution() :: #planning_blackboard_resolution{}.
+
+-spec new_planning_blackboard_resolution(map()) -> {ok, planning_blackboard_resolution()} | {error, {missing_field, atom()}}.
+new_planning_blackboard_resolution(Map) ->
+    case maps:is_key(resolution_id, Map) of
+        false -> {error, {missing_field, resolution_id}};
+        true ->
+    case maps:is_key(conflict_id, Map) of
+        false -> {error, {missing_field, conflict_id}};
+        true ->
+    case maps:is_key(preserved_option_digest, Map) of
+        false -> {error, {missing_field, preserved_option_digest}};
+        true ->
+    {ok, #planning_blackboard_resolution{
+        resolution_id = maps:get(resolution_id, Map, undefined),
+        conflict_id = maps:get(conflict_id, Map, undefined),
+        preserved_option_digest = maps:get(preserved_option_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Defines a stable process-planning case across events, objects, and replans.
+-record(planning_case_identity, {
+    case_id :: binary(), %% case_id: Stable planning case identity.
+    subject_sha :: binary(), %% subject_sha: Exact repository subject for the case.
+    lineage_root :: binary() %% lineage_root: Root identity of the plan lineage.
+}).
+
+-type planning_case_identity() :: #planning_case_identity{}.
+
+-spec new_planning_case_identity(map()) -> {ok, planning_case_identity()} | {error, {missing_field, atom()}}.
+new_planning_case_identity(Map) ->
+    case maps:is_key(case_id, Map) of
+        false -> {error, {missing_field, case_id}};
+        true ->
+    case maps:is_key(subject_sha, Map) of
+        false -> {error, {missing_field, subject_sha}};
+        true ->
+    case maps:is_key(lineage_root, Map) of
+        false -> {error, {missing_field, lineage_root}};
+        true ->
+    {ok, #planning_case_identity{
+        case_id = maps:get(case_id, Map, undefined),
+        subject_sha = maps:get(subject_sha, Map, undefined),
+        lineage_root = maps:get(lineage_root, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Aligns an observed planning trace to its admitted policy and process model.
+-record(planning_conformance_alignment, {
+    alignment_id :: binary(), %% alignment_id: Conformance alignment identity.
+    trace_digest :: binary(), %% trace_digest: Digest of observed planning events.
+    model_digest :: binary() %% model_digest: Digest of the admitted model.
+}).
+
+-type planning_conformance_alignment() :: #planning_conformance_alignment{}.
+
+-spec new_planning_conformance_alignment(map()) -> {ok, planning_conformance_alignment()} | {error, {missing_field, atom()}}.
+new_planning_conformance_alignment(Map) ->
+    case maps:is_key(alignment_id, Map) of
+        false -> {error, {missing_field, alignment_id}};
+        true ->
+    case maps:is_key(trace_digest, Map) of
+        false -> {error, {missing_field, trace_digest}};
+        true ->
+    case maps:is_key(model_digest, Map) of
+        false -> {error, {missing_field, model_digest}};
+        true ->
+    {ok, #planning_conformance_alignment{
+        alignment_id = maps:get(alignment_id, Map, undefined),
+        trace_digest = maps:get(trace_digest, Map, undefined),
+        model_digest = maps:get(model_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds an admitted world state to a bounded planning problem.
+-record(planning_problem_admission, {
+    problem_id :: binary(), %% problem_id: Stable planning problem identity.
+    state_digest :: binary(), %% state_digest: Digest of the admitted initial state.
+    authority_scope :: binary() %% authority_scope: Authority boundary for proposed actions.
+}).
+
+-type planning_problem_admission() :: #planning_problem_admission{}.
+
+-spec new_planning_problem_admission(map()) -> {ok, planning_problem_admission()} | {error, {missing_field, atom()}}.
+new_planning_problem_admission(Map) ->
+    case maps:is_key(problem_id, Map) of
+        false -> {error, {missing_field, problem_id}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    case maps:is_key(authority_scope, Map) of
+        false -> {error, {missing_field, authority_scope}};
+        true ->
+    {ok, #planning_problem_admission{
+        problem_id = maps:get(problem_id, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined),
+        authority_scope = maps:get(authority_scope, Map, undefined)
+    }}
+    end
+    end
     end.
 
 %% One planning-search state as a bounded set of true facts.
@@ -14958,6 +16015,64 @@ new_policy_decision(Map) ->
     end
     end.
 
+%% Defines an outcome-labelled transition between policy graph nodes.
+-record(policy_graph_edge, {
+    source_node_id :: binary(), %% source_node_id: Origin policy node.
+    outcome_label :: binary(), %% outcome_label: Observed outcome selecting the transition.
+    target_node_id :: binary() %% target_node_id: Destination policy node.
+}).
+
+-type policy_graph_edge() :: #policy_graph_edge{}.
+
+-spec new_policy_graph_edge(map()) -> {ok, policy_graph_edge()} | {error, {missing_field, atom()}}.
+new_policy_graph_edge(Map) ->
+    case maps:is_key(source_node_id, Map) of
+        false -> {error, {missing_field, source_node_id}};
+        true ->
+    case maps:is_key(outcome_label, Map) of
+        false -> {error, {missing_field, outcome_label}};
+        true ->
+    case maps:is_key(target_node_id, Map) of
+        false -> {error, {missing_field, target_node_id}};
+        true ->
+    {ok, #policy_graph_edge{
+        source_node_id = maps:get(source_node_id, Map, undefined),
+        outcome_label = maps:get(outcome_label, Map, undefined),
+        target_node_id = maps:get(target_node_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Defines one exact state node in an executable policy graph.
+-record(policy_graph_node, {
+    node_id :: binary(), %% node_id: Policy node identity.
+    state_digest :: binary(), %% state_digest: Normalized state digest at the node.
+    selected_action_id :: binary() %% selected_action_id: Action selected when the node matches.
+}).
+
+-type policy_graph_node() :: #policy_graph_node{}.
+
+-spec new_policy_graph_node(map()) -> {ok, policy_graph_node()} | {error, {missing_field, atom()}}.
+new_policy_graph_node(Map) ->
+    case maps:is_key(node_id, Map) of
+        false -> {error, {missing_field, node_id}};
+        true ->
+    case maps:is_key(state_digest, Map) of
+        false -> {error, {missing_field, state_digest}};
+        true ->
+    case maps:is_key(selected_action_id, Map) of
+        false -> {error, {missing_field, selected_action_id}};
+        true ->
+    {ok, #policy_graph_node{
+        node_id = maps:get(node_id, Map, undefined),
+        state_digest = maps:get(state_digest, Map, undefined),
+        selected_action_id = maps:get(selected_action_id, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Records bounded policy payoff separately from planner identity and parameters.
 -record(policy_payoff_observation, {
     observation_id :: binary(), %% observation_id: Stable policy payoff observation identity.
@@ -15032,6 +16147,35 @@ new_powl_choice_graph_edge(Map) ->
     end
     end.
 
+%% Represents an evidence-selected exclusive POWL choice without erasing alternatives.
+-record(powl_choice_operator, {
+    operator_id :: binary(), %% operator_id: Choice operator identity.
+    branch_digest :: binary(), %% branch_digest: Digest of available branches.
+    selection_rule :: binary() %% selection_rule: Rule selecting a branch at execution.
+}).
+
+-type powl_choice_operator() :: #powl_choice_operator{}.
+
+-spec new_powl_choice_operator(map()) -> {ok, powl_choice_operator()} | {error, {missing_field, atom()}}.
+new_powl_choice_operator(Map) ->
+    case maps:is_key(operator_id, Map) of
+        false -> {error, {missing_field, operator_id}};
+        true ->
+    case maps:is_key(branch_digest, Map) of
+        false -> {error, {missing_field, branch_digest}};
+        true ->
+    case maps:is_key(selection_rule, Map) of
+        false -> {error, {missing_field, selection_rule}};
+        true ->
+    {ok, #powl_choice_operator{
+        operator_id = maps:get(operator_id, Map, undefined),
+        branch_digest = maps:get(branch_digest, Map, undefined),
+        selection_rule = maps:get(selection_rule, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% A POWL node's multiplicity/frequency tag (Freq): how many times it may occur.
 -record(powl_freq, {
     min_freq :: integer(), %% min_freq: Minimum occurrence count; 0 means the node is skippable.
@@ -15078,6 +16222,64 @@ new_powl_leaf(Map) ->
     end
     end.
 
+%% Represents a guarded POWL loop with a bounded exit condition.
+-record(powl_loop_operator, {
+    operator_id :: binary(), %% operator_id: Loop operator identity.
+    body_digest :: binary(), %% body_digest: Digest of loop body operators.
+    exit_predicate :: binary() %% exit_predicate: Predicate terminating the loop.
+}).
+
+-type powl_loop_operator() :: #powl_loop_operator{}.
+
+-spec new_powl_loop_operator(map()) -> {ok, powl_loop_operator()} | {error, {missing_field, atom()}}.
+new_powl_loop_operator(Map) ->
+    case maps:is_key(operator_id, Map) of
+        false -> {error, {missing_field, operator_id}};
+        true ->
+    case maps:is_key(body_digest, Map) of
+        false -> {error, {missing_field, body_digest}};
+        true ->
+    case maps:is_key(exit_predicate, Map) of
+        false -> {error, {missing_field, exit_predicate}};
+        true ->
+    {ok, #powl_loop_operator{
+        operator_id = maps:get(operator_id, Map, undefined),
+        body_digest = maps:get(body_digest, Map, undefined),
+        exit_predicate = maps:get(exit_predicate, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Represents concurrently executable POWL branches and their join semantics.
+-record(powl_parallel_operator, {
+    operator_id :: binary(), %% operator_id: Parallel operator identity.
+    branch_digest :: binary(), %% branch_digest: Digest of parallel branches.
+    join_rule :: binary() %% join_rule: Completion rule for the parallel join.
+}).
+
+-type powl_parallel_operator() :: #powl_parallel_operator{}.
+
+-spec new_powl_parallel_operator(map()) -> {ok, powl_parallel_operator()} | {error, {missing_field, atom()}}.
+new_powl_parallel_operator(Map) ->
+    case maps:is_key(operator_id, Map) of
+        false -> {error, {missing_field, operator_id}};
+        true ->
+    case maps:is_key(branch_digest, Map) of
+        false -> {error, {missing_field, branch_digest}};
+        true ->
+    case maps:is_key(join_rule, Map) of
+        false -> {error, {missing_field, join_rule}};
+        true ->
+    {ok, #powl_parallel_operator{
+        operator_id = maps:get(operator_id, Map, undefined),
+        branch_digest = maps:get(branch_digest, Map, undefined),
+        join_rule = maps:get(join_rule, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% One strict order edge of a PartialOrderNode.order set: from_index must happen before to_index among the parent node's children.
 -record(powl_partial_order_edge, {
     from_index :: integer(), %% from_index: Index into the parent PartialOrderNode's children that must happen first.
@@ -15098,6 +16300,35 @@ new_powl_partial_order_edge(Map) ->
         from_index = maps:get(from_index, Map, undefined),
         to_index = maps:get(to_index, Map, undefined)
     }}
+    end
+    end.
+
+%% Projects a decomposed task network into an executable POWL partial order.
+-record(powl_partial_order_plan, {
+    plan_id :: binary(), %% plan_id: POWL plan identity.
+    operator_digest :: binary(), %% operator_digest: Digest of POWL operators.
+    order_digest :: binary() %% order_digest: Digest of ordering constraints.
+}).
+
+-type powl_partial_order_plan() :: #powl_partial_order_plan{}.
+
+-spec new_powl_partial_order_plan(map()) -> {ok, powl_partial_order_plan()} | {error, {missing_field, atom()}}.
+new_powl_partial_order_plan(Map) ->
+    case maps:is_key(plan_id, Map) of
+        false -> {error, {missing_field, plan_id}};
+        true ->
+    case maps:is_key(operator_digest, Map) of
+        false -> {error, {missing_field, operator_digest}};
+        true ->
+    case maps:is_key(order_digest, Map) of
+        false -> {error, {missing_field, order_digest}};
+        true ->
+    {ok, #powl_partial_order_plan{
+        plan_id = maps:get(plan_id, Map, undefined),
+        operator_digest = maps:get(operator_digest, Map, undefined),
+        order_digest = maps:get(order_digest, Map, undefined)
+    }}
+    end
     end
     end.
 
@@ -15130,6 +16361,35 @@ new_powl_projection(Map) ->
     end
     end.
 
+%% Represents an ordered POWL operator sequence with exact predecessor binding.
+-record(powl_sequence_operator, {
+    operator_id :: binary(), %% operator_id: Sequence operator identity.
+    step_digest :: binary(), %% step_digest: Digest of ordered steps.
+    predecessor_digest :: binary() %% predecessor_digest: Digest of predecessor bindings.
+}).
+
+-type powl_sequence_operator() :: #powl_sequence_operator{}.
+
+-spec new_powl_sequence_operator(map()) -> {ok, powl_sequence_operator()} | {error, {missing_field, atom()}}.
+new_powl_sequence_operator(Map) ->
+    case maps:is_key(operator_id, Map) of
+        false -> {error, {missing_field, operator_id}};
+        true ->
+    case maps:is_key(step_digest, Map) of
+        false -> {error, {missing_field, step_digest}};
+        true ->
+    case maps:is_key(predecessor_digest, Map) of
+        false -> {error, {missing_field, predecessor_digest}};
+        true ->
+    {ok, #powl_sequence_operator{
+        operator_id = maps:get(operator_id, Map, undefined),
+        step_digest = maps:get(step_digest, Map, undefined),
+        predecessor_digest = maps:get(predecessor_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Binds a plan candidate to an exact PPDDL problem/domain projection.
 -record(ppddl_projection, {
     plan_id :: binary(), %% plan_id: Required plan_id for this bounded planner contract.
@@ -15154,6 +16414,35 @@ new_ppddl_projection(Map) ->
         plan_id = maps:get(plan_id, Map, undefined),
         domain_hash = maps:get(domain_hash, Map, undefined),
         problem_hash = maps:get(problem_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Preserves competing minimum-cost alignments for a live event prefix.
+-record(prefix_alignment_frontier, {
+    frontier_id :: binary(), %% frontier_id: Prefix alignment frontier identity.
+    prefix_digest :: binary(), %% prefix_digest: Digest of the observed prefix.
+    candidate_digest :: binary() %% candidate_digest: Digest of nondominated alignments.
+}).
+
+-type prefix_alignment_frontier() :: #prefix_alignment_frontier{}.
+
+-spec new_prefix_alignment_frontier(map()) -> {ok, prefix_alignment_frontier()} | {error, {missing_field, atom()}}.
+new_prefix_alignment_frontier(Map) ->
+    case maps:is_key(frontier_id, Map) of
+        false -> {error, {missing_field, frontier_id}};
+        true ->
+    case maps:is_key(prefix_digest, Map) of
+        false -> {error, {missing_field, prefix_digest}};
+        true ->
+    case maps:is_key(candidate_digest, Map) of
+        false -> {error, {missing_field, candidate_digest}};
+        true ->
+    {ok, #prefix_alignment_frontier{
+        frontier_id = maps:get(frontier_id, Map, undefined),
+        prefix_digest = maps:get(prefix_digest, Map, undefined),
+        candidate_digest = maps:get(candidate_digest, Map, undefined)
     }}
     end
     end
@@ -15306,6 +16595,35 @@ new_pricing_basis_contract(Map) ->
         opportunity_id = maps:get(opportunity_id, Map, undefined),
         pricing_basis_id = maps:get(pricing_basis_id, Map, undefined),
         evidence_hash = maps:get(evidence_hash, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Binds a primitive HDDL task to one executable action contract.
+-record(primitive_task_binding, {
+    task_id :: binary(), %% task_id: Primitive task identity.
+    action_id :: binary(), %% action_id: Executable action identity.
+    binding_digest :: binary() %% binding_digest: Digest of parameter and type bindings.
+}).
+
+-type primitive_task_binding() :: #primitive_task_binding{}.
+
+-spec new_primitive_task_binding(map()) -> {ok, primitive_task_binding()} | {error, {missing_field, atom()}}.
+new_primitive_task_binding(Map) ->
+    case maps:is_key(task_id, Map) of
+        false -> {error, {missing_field, task_id}};
+        true ->
+    case maps:is_key(action_id, Map) of
+        false -> {error, {missing_field, action_id}};
+        true ->
+    case maps:is_key(binding_digest, Map) of
+        false -> {error, {missing_field, binding_digest}};
+        true ->
+    {ok, #primitive_task_binding{
+        task_id = maps:get(task_id, Map, undefined),
+        action_id = maps:get(action_id, Map, undefined),
+        binding_digest = maps:get(binding_digest, Map, undefined)
     }}
     end
     end
@@ -16699,6 +18017,35 @@ new_recovery_point_receipt(Map) ->
     end
     end.
 
+%% Declares a bounded recovery subtask for one failed or adverse outcome.
+-record(recovery_subtask, {
+    subtask_id :: binary(), %% subtask_id: Recovery subtask identity.
+    trigger_outcome :: binary(), %% trigger_outcome: Outcome that triggers recovery.
+    recovery_goal_digest :: binary() %% recovery_goal_digest: Digest of the bounded recovery goal.
+}).
+
+-type recovery_subtask() :: #recovery_subtask{}.
+
+-spec new_recovery_subtask(map()) -> {ok, recovery_subtask()} | {error, {missing_field, atom()}}.
+new_recovery_subtask(Map) ->
+    case maps:is_key(subtask_id, Map) of
+        false -> {error, {missing_field, subtask_id}};
+        true ->
+    case maps:is_key(trigger_outcome, Map) of
+        false -> {error, {missing_field, trigger_outcome}};
+        true ->
+    case maps:is_key(recovery_goal_digest, Map) of
+        false -> {error, {missing_field, recovery_goal_digest}};
+        true ->
+    {ok, #recovery_subtask{
+        subtask_id = maps:get(subtask_id, Map, undefined),
+        trigger_outcome = maps:get(trigger_outcome, Map, undefined),
+        recovery_goal_digest = maps:get(recovery_goal_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Receipts the observed recovery-time consequence against the paid-service objective.
 -record(recovery_time_receipt, {
     tenant_id :: binary(), %% tenant_id: Exact paid tenant identity for this bounded runtime observation.
@@ -16976,6 +18323,35 @@ new_regression_refusal(Map) ->
     end
     end
     end
+    end
+    end
+    end.
+
+%% Binds a calibrated completion-time estimate to an exact planning case.
+-record(remaining_time_estimate_contract, {
+    estimate_id :: binary(), %% estimate_id: Remaining-time estimate identity.
+    case_state_digest :: binary(), %% case_state_digest: Digest of current case state.
+    interval_digest :: binary() %% interval_digest: Digest of calibrated time interval.
+}).
+
+-type remaining_time_estimate_contract() :: #remaining_time_estimate_contract{}.
+
+-spec new_remaining_time_estimate_contract(map()) -> {ok, remaining_time_estimate_contract()} | {error, {missing_field, atom()}}.
+new_remaining_time_estimate_contract(Map) ->
+    case maps:is_key(estimate_id, Map) of
+        false -> {error, {missing_field, estimate_id}};
+        true ->
+    case maps:is_key(case_state_digest, Map) of
+        false -> {error, {missing_field, case_state_digest}};
+        true ->
+    case maps:is_key(interval_digest, Map) of
+        false -> {error, {missing_field, interval_digest}};
+        true ->
+    {ok, #remaining_time_estimate_contract{
+        estimate_id = maps:get(estimate_id, Map, undefined),
+        case_state_digest = maps:get(case_state_digest, Map, undefined),
+        interval_digest = maps:get(interval_digest, Map, undefined)
+    }}
     end
     end
     end.
@@ -18380,6 +19756,35 @@ new_sbom_inventory_evidence(Map) ->
     end
     end.
 
+%% Computes transparent next-work priority from value, delay, information, and reversibility.
+-record(scheduling_priority_score, {
+    score_id :: binary(), %% score_id: Priority score identity.
+    work_item_id :: binary(), %% work_item_id: Bounded work item scored.
+    component_digest :: binary() %% component_digest: Digest of normalized score components.
+}).
+
+-type scheduling_priority_score() :: #scheduling_priority_score{}.
+
+-spec new_scheduling_priority_score(map()) -> {ok, scheduling_priority_score()} | {error, {missing_field, atom()}}.
+new_scheduling_priority_score(Map) ->
+    case maps:is_key(score_id, Map) of
+        false -> {error, {missing_field, score_id}};
+        true ->
+    case maps:is_key(work_item_id, Map) of
+        false -> {error, {missing_field, work_item_id}};
+        true ->
+    case maps:is_key(component_digest, Map) of
+        false -> {error, {missing_field, component_digest}};
+        true ->
+    {ok, #scheduling_priority_score{
+        score_id = maps:get(score_id, Map, undefined),
+        work_item_id = maps:get(work_item_id, Map, undefined),
+        component_digest = maps:get(component_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Named-seat enterprise packaging dimension.
 -record(seat_pricing_policy, {
     seat_pricing_policy_id :: binary(), %% seat_pricing_policy_id: Stable identity of this seat pricing policy contract.
@@ -19485,6 +20890,64 @@ new_stopping_criterion(Map) ->
     end
     end.
 
+%% Records a fair strong-cyclic policy candidate for recoverable recurrence.
+-record(strong_cyclic_plan_candidate, {
+    candidate_id :: binary(), %% candidate_id: Strong-cyclic candidate identity.
+    policy_digest :: binary(), %% policy_digest: Digest of the cyclic policy graph.
+    fairness_proof :: binary() %% fairness_proof: Evidence binding recurrence to fairness assumptions.
+}).
+
+-type strong_cyclic_plan_candidate() :: #strong_cyclic_plan_candidate{}.
+
+-spec new_strong_cyclic_plan_candidate(map()) -> {ok, strong_cyclic_plan_candidate()} | {error, {missing_field, atom()}}.
+new_strong_cyclic_plan_candidate(Map) ->
+    case maps:is_key(candidate_id, Map) of
+        false -> {error, {missing_field, candidate_id}};
+        true ->
+    case maps:is_key(policy_digest, Map) of
+        false -> {error, {missing_field, policy_digest}};
+        true ->
+    case maps:is_key(fairness_proof, Map) of
+        false -> {error, {missing_field, fairness_proof}};
+        true ->
+    {ok, #strong_cyclic_plan_candidate{
+        candidate_id = maps:get(candidate_id, Map, undefined),
+        policy_digest = maps:get(policy_digest, Map, undefined),
+        fairness_proof = maps:get(fairness_proof, Map, undefined)
+    }}
+    end
+    end
+    end.
+
+%% Records a policy candidate that reaches the goal under every admitted outcome.
+-record(strong_plan_candidate, {
+    candidate_id :: binary(), %% candidate_id: Strong plan candidate identity.
+    policy_digest :: binary(), %% policy_digest: Digest of the policy graph.
+    coverage_proof :: binary() %% coverage_proof: Evidence covering every admitted outcome.
+}).
+
+-type strong_plan_candidate() :: #strong_plan_candidate{}.
+
+-spec new_strong_plan_candidate(map()) -> {ok, strong_plan_candidate()} | {error, {missing_field, atom()}}.
+new_strong_plan_candidate(Map) ->
+    case maps:is_key(candidate_id, Map) of
+        false -> {error, {missing_field, candidate_id}};
+        true ->
+    case maps:is_key(policy_digest, Map) of
+        false -> {error, {missing_field, policy_digest}};
+        true ->
+    case maps:is_key(coverage_proof, Map) of
+        false -> {error, {missing_field, coverage_proof}};
+        true ->
+    {ok, #strong_plan_candidate{
+        candidate_id = maps:get(candidate_id, Map, undefined),
+        policy_digest = maps:get(policy_digest, Map, undefined),
+        coverage_proof = maps:get(coverage_proof, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Attributes a failure to the exact subject only after the validation capsule is independently admitted.
 -record(subject_failure_separation, {
     assessment_id :: binary(), %% assessment_id: Stable subject-failure assessment identity.
@@ -19971,6 +21434,35 @@ new_target_metric(Map) ->
     end
     end.
 
+%% Records evidence that a method expansion preserves task-network constraints.
+-record(task_decomposition_proof, {
+    proof_id :: binary(), %% proof_id: Decomposition proof identity.
+    method_id :: binary(), %% method_id: Method whose expansion is proven.
+    constraint_proof_digest :: binary() %% constraint_proof_digest: Digest of constraint-preservation evidence.
+}).
+
+-type task_decomposition_proof() :: #task_decomposition_proof{}.
+
+-spec new_task_decomposition_proof(map()) -> {ok, task_decomposition_proof()} | {error, {missing_field, atom()}}.
+new_task_decomposition_proof(Map) ->
+    case maps:is_key(proof_id, Map) of
+        false -> {error, {missing_field, proof_id}};
+        true ->
+    case maps:is_key(method_id, Map) of
+        false -> {error, {missing_field, method_id}};
+        true ->
+    case maps:is_key(constraint_proof_digest, Map) of
+        false -> {error, {missing_field, constraint_proof_digest}};
+        true ->
+    {ok, #task_decomposition_proof{
+        proof_id = maps:get(proof_id, Map, undefined),
+        method_id = maps:get(method_id, Map, undefined),
+        constraint_proof_digest = maps:get(constraint_proof_digest, Map, undefined)
+    }}
+    end
+    end
+    end.
+
 %% Binds the contracting entity to an evidenced tax jurisdiction before price and invoice admission.
 -record(tax_jurisdiction_evidence, {
     contracting_entity_id :: binary(), %% contracting_entity_id: Required tax jurisdiction evidence input; omission is an executable typed refusal, never an inferred approval.
@@ -20392,6 +21884,35 @@ new_time_to_value(Map) ->
     }}
     end
     end
+    end
+    end
+    end.
+
+%% Records deterministic process-token state after replaying an event prefix.
+-record(token_replay_state, {
+    replay_id :: binary(), %% replay_id: Token replay identity.
+    prefix_digest :: binary(), %% prefix_digest: Digest of the replayed event prefix.
+    marking_digest :: binary() %% marking_digest: Digest of resulting token marking.
+}).
+
+-type token_replay_state() :: #token_replay_state{}.
+
+-spec new_token_replay_state(map()) -> {ok, token_replay_state()} | {error, {missing_field, atom()}}.
+new_token_replay_state(Map) ->
+    case maps:is_key(replay_id, Map) of
+        false -> {error, {missing_field, replay_id}};
+        true ->
+    case maps:is_key(prefix_digest, Map) of
+        false -> {error, {missing_field, prefix_digest}};
+        true ->
+    case maps:is_key(marking_digest, Map) of
+        false -> {error, {missing_field, marking_digest}};
+        true ->
+    {ok, #token_replay_state{
+        replay_id = maps:get(replay_id, Map, undefined),
+        prefix_digest = maps:get(prefix_digest, Map, undefined),
+        marking_digest = maps:get(marking_digest, Map, undefined)
+    }}
     end
     end
     end.
@@ -21712,6 +23233,35 @@ new_vulnerability_scan_evidence(Map) ->
         observed_result = maps:get(observed_result, Map, undefined)
     }}
     end
+    end
+    end
+    end.
+
+%% Records a weak plan while preserving its uncovered counterfactuals.
+-record(weak_plan_candidate, {
+    candidate_id :: binary(), %% candidate_id: Weak plan candidate identity.
+    policy_digest :: binary(), %% policy_digest: Digest of the proposed policy.
+    uncovered_digest :: binary() %% uncovered_digest: Digest of outcomes not guaranteed to reach the goal.
+}).
+
+-type weak_plan_candidate() :: #weak_plan_candidate{}.
+
+-spec new_weak_plan_candidate(map()) -> {ok, weak_plan_candidate()} | {error, {missing_field, atom()}}.
+new_weak_plan_candidate(Map) ->
+    case maps:is_key(candidate_id, Map) of
+        false -> {error, {missing_field, candidate_id}};
+        true ->
+    case maps:is_key(policy_digest, Map) of
+        false -> {error, {missing_field, policy_digest}};
+        true ->
+    case maps:is_key(uncovered_digest, Map) of
+        false -> {error, {missing_field, uncovered_digest}};
+        true ->
+    {ok, #weak_plan_candidate{
+        candidate_id = maps:get(candidate_id, Map, undefined),
+        policy_digest = maps:get(policy_digest, Map, undefined),
+        uncovered_digest = maps:get(uncovered_digest, Map, undefined)
+    }}
     end
     end
     end.

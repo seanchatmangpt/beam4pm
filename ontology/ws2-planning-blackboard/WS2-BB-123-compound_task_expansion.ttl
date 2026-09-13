@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-123 — compound_task_expansion
+bpm:compound_task_expansion_rt a bpm:RecordType ;
+    bpm:recordName "compound_task_expansion" ;
+    bpm:recordDoc "Records the selected expansion of a compound task with alternatives preserved." ;
+    bpm:hasField bpm:compound_task_expansion_task_id_f ,
+                 bpm:compound_task_expansion_selected_method_id_f ,
+                 bpm:compound_task_expansion_alternative_digest_f .
+
+bpm:compound_task_expansion_task_id_f a bpm:Field ;
+    bpm:fieldName "task_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Compound task identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:compound_task_expansion_selected_method_id_f a bpm:Field ;
+    bpm:fieldName "selected_method_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Method selected for expansion." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:compound_task_expansion_alternative_digest_f a bpm:Field ;
+    bpm:fieldName "alternative_digest" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Digest of lawful unselected methods." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .

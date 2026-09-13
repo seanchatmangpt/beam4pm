@@ -1,0 +1,30 @@
+@prefix bpm: <https://beam4pm.dev/ontology/process#> .
+
+# WS2-BB-116 — contingency_branch
+bpm:contingency_branch_rt a bpm:RecordType ;
+    bpm:recordName "contingency_branch" ;
+    bpm:recordDoc "Binds an observation predicate to the next lawful policy branch." ;
+    bpm:hasField bpm:contingency_branch_branch_id_f ,
+                 bpm:contingency_branch_observation_predicate_f ,
+                 bpm:contingency_branch_next_node_id_f .
+
+bpm:contingency_branch_branch_id_f a bpm:Field ;
+    bpm:fieldName "branch_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Contingency branch identity." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 1 .
+
+bpm:contingency_branch_observation_predicate_f a bpm:Field ;
+    bpm:fieldName "observation_predicate" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Predicate selecting this branch." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 2 .
+
+bpm:contingency_branch_next_node_id_f a bpm:Field ;
+    bpm:fieldName "next_node_id" ;
+    bpm:fieldType "string" ;
+    bpm:fieldDoc "Policy node entered on match." ;
+    bpm:fieldRequired "true" ;
+    bpm:fieldOrder 3 .
