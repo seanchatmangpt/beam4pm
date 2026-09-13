@@ -45,68 +45,68 @@ jobs:
           done
 
           cat > /tmp/primary-ggen-targets.txt <<'TARGETS'
-.github/workflows/beam4pm-ci.yml
-.github/workflows/beam4pm-container.yml
-.github/workflows/beam4pm-infra-validate.yml
-docs/reference/beam4pm_types_reference.md
-gleam/gleam.toml
-gleam/src/beam4pm.gleam
-gleam/src/beam4pm/discovery.gleam
-gleam/src/beam4pm/precision.gleam
-gleam/src/beam4pm/types.gleam
-gleam/test/beam4pm_precision_test.gleam
-gleam/test/beam4pm_test.gleam
-infra/gcp/cloudrun/README.md
-infra/gcp/cloudrun/main.tf
-infra/gcp/cloudrun/outputs.tf
-infra/gcp/cloudrun/variables.tf
-infra/gcp/packer/README.md
-infra/gcp/packer/beam4pm-image.pkr.hcl
-infra/gcp/packer/setup.sh
-infra/gcp/packer/variables.pkr.hcl
-lib/beam4pm_ai_contracts.ex
-lib/beam4pm_ai_contracts_codec.ex
-lib/beam4pm_billing.ex
-lib/beam4pm_codec.ex
-lib/beam4pm_discovery.ex
-lib/beam4pm_entitlement.ex
-lib/beam4pm_precision.ex
-lib/beam4pm_roundtrip.ex
-lib/beam4pm_types.ex
-lib/beam4pm_types_manifest.ex
-schema/beam4pm_ai_contracts.schema.json
-schema/beam4pm_types.schema.json
-src/beam4pm_ai_contracts.erl
-src/beam4pm_ai_contracts_codec.erl
-src/beam4pm_billing.erl
-src/beam4pm_codec.erl
-src/beam4pm_discovery.erl
-src/beam4pm_entitlement.erl
-src/beam4pm_precision.erl
-src/beam4pm_roundtrip.erl
-src/beam4pm_types.erl
-src/beam4pm_types_manifest.erl
-test/beam4pm_ai_contracts_codec_test.exs
-test/beam4pm_ai_contracts_codec_tests.erl
-test/beam4pm_ai_contracts_test.exs
-test/beam4pm_ai_contracts_tests.erl
-test/beam4pm_billing_test.exs
-test/beam4pm_billing_tests.erl
-test/beam4pm_codec_test.exs
-test/beam4pm_codec_tests.erl
-test/beam4pm_discovery_test.exs
-test/beam4pm_discovery_tests.erl
-test/beam4pm_entitlement_test.exs
-test/beam4pm_entitlement_tests.erl
-test/beam4pm_pi3_falsifier_test.exs
-test/beam4pm_pi3_falsifier_tests.erl
-test/beam4pm_precision_test.exs
-test/beam4pm_precision_tests.erl
-test/beam4pm_types_manifest_test.exs
-test/beam4pm_types_manifest_tests.erl
-test/beam4pm_types_test.exs
-test/beam4pm_types_tests.erl
-test/test_helper.exs
+          .github/workflows/beam4pm-ci.yml
+          .github/workflows/beam4pm-container.yml
+          .github/workflows/beam4pm-infra-validate.yml
+          docs/reference/beam4pm_types_reference.md
+          gleam/gleam.toml
+          gleam/src/beam4pm.gleam
+          gleam/src/beam4pm/discovery.gleam
+          gleam/src/beam4pm/precision.gleam
+          gleam/src/beam4pm/types.gleam
+          gleam/test/beam4pm_precision_test.gleam
+          gleam/test/beam4pm_test.gleam
+          infra/gcp/cloudrun/README.md
+          infra/gcp/cloudrun/main.tf
+          infra/gcp/cloudrun/outputs.tf
+          infra/gcp/cloudrun/variables.tf
+          infra/gcp/packer/README.md
+          infra/gcp/packer/beam4pm-image.pkr.hcl
+          infra/gcp/packer/setup.sh
+          infra/gcp/packer/variables.pkr.hcl
+          lib/beam4pm_ai_contracts.ex
+          lib/beam4pm_ai_contracts_codec.ex
+          lib/beam4pm_billing.ex
+          lib/beam4pm_codec.ex
+          lib/beam4pm_discovery.ex
+          lib/beam4pm_entitlement.ex
+          lib/beam4pm_precision.ex
+          lib/beam4pm_roundtrip.ex
+          lib/beam4pm_types.ex
+          lib/beam4pm_types_manifest.ex
+          schema/beam4pm_ai_contracts.schema.json
+          schema/beam4pm_types.schema.json
+          src/beam4pm_ai_contracts.erl
+          src/beam4pm_ai_contracts_codec.erl
+          src/beam4pm_billing.erl
+          src/beam4pm_codec.erl
+          src/beam4pm_discovery.erl
+          src/beam4pm_entitlement.erl
+          src/beam4pm_precision.erl
+          src/beam4pm_roundtrip.erl
+          src/beam4pm_types.erl
+          src/beam4pm_types_manifest.erl
+          test/beam4pm_ai_contracts_codec_test.exs
+          test/beam4pm_ai_contracts_codec_tests.erl
+          test/beam4pm_ai_contracts_test.exs
+          test/beam4pm_ai_contracts_tests.erl
+          test/beam4pm_billing_test.exs
+          test/beam4pm_billing_tests.erl
+          test/beam4pm_codec_test.exs
+          test/beam4pm_codec_tests.erl
+          test/beam4pm_discovery_test.exs
+          test/beam4pm_discovery_tests.erl
+          test/beam4pm_entitlement_test.exs
+          test/beam4pm_entitlement_tests.erl
+          test/beam4pm_pi3_falsifier_test.exs
+          test/beam4pm_pi3_falsifier_tests.erl
+          test/beam4pm_precision_test.exs
+          test/beam4pm_precision_tests.erl
+          test/beam4pm_types_manifest_test.exs
+          test/beam4pm_types_manifest_tests.erl
+          test/beam4pm_types_test.exs
+          test/beam4pm_types_tests.erl
+          test/test_helper.exs
           TARGETS
           while IFS= read -r path; do
             [ -f "$path" ] || continue
