@@ -44,7 +44,7 @@ defmodule Beam4pm.MixProject do
   # manufacturing-time dep like :ggen_igniter.
   defp deps do
     [
-      {:ggen_igniter, "~> 26.8", only: [:dev, :test], runtime: false},
+      {:ggen_igniter, "~> 26.9", runtime: false},
       {:ash, "~> 3.0"},
       {:ash_ai, "~> 1.0"},
       {:wasmex, "~> 0.15"},
@@ -52,7 +52,14 @@ defmodule Beam4pm.MixProject do
       # independent network ingestion layer, real runtime deps (not
       # only: :test): a running beam4pm needs to actually listen.
       {:plug, "~> 1.14"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      # Agent-facing layer only (see docs/jira -- A2A does not replace or
+      # touch beam4pm's internal mechanisms: EngineOp dispatch, OCEL/OTel
+      # evidence chain, BeamPM.ReceiptChain). Additive alongside ex4pm's
+      # existing Ex4pm.Engine.Beam4pm HTTP route-table client.
+      {:ash_a2a, "~> 26.9"},
+      {:a2a, "~> 0.1"},
+      {:req, "~> 0.5"}
     ]
   end
 

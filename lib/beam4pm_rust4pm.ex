@@ -37,7 +37,12 @@ defmodule BeamPM.Rust4PM do
   ## Ops
 
   One public function per admitted `bpm:EngineOp`, each taking a trailing
-  `opts` keyword list (`:timeout` overrides the op's default budget):
+  `opts` keyword list (`:timeout` overrides the op's default budget). Every
+  op call fires exactly one `[:beam4pm, :engine, :rust4pm, op]`
+  `:telemetry.execute/3` event after the call returns, on both the success
+  and `{:error, reason}` refusal paths -- the OCEL evidence-contract Phase 2
+  event family consumed by `BeamPM.Ingest.Bridge`, `BeamPM.Evidence.OtelBridge`,
+  and `BeamPM.Evidence.ReceiptBridge` (`lib/beam4pm_evidence.ex`):
 
   `import_xes/2`,
   `import_xes_path/2` (host-side `File.read!/1`, then `import_xes`),
@@ -180,8 +185,15 @@ defmodule BeamPM.Rust4PM do
   @spec import_xes(String.t(), keyword()) :: result()
   def import_xes(xes_content, opts \\ [])
       when is_binary(xes_content) do
-    %{"op" => "import_xes", "content" => xes_content}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "import_xes", "content" => xes_content}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:import_xes, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -198,8 +210,15 @@ defmodule BeamPM.Rust4PM do
   @spec import_xes_gz(binary(), keyword()) :: result()
   def import_xes_gz(gz_bytes, opts \\ [])
       when is_binary(gz_bytes) do
-    %{"op" => "import_xes_gz", "content_b64" => Base.encode64(gz_bytes)}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "import_xes_gz", "content_b64" => Base.encode64(gz_bytes)}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:import_xes_gz, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -208,8 +227,15 @@ defmodule BeamPM.Rust4PM do
   @spec import_pnml(String.t(), keyword()) :: result()
   def import_pnml(pnml_content, opts \\ [])
       when is_binary(pnml_content) do
-    %{"op" => "import_pnml", "content" => pnml_content}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "import_pnml", "content" => pnml_content}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:import_pnml, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -226,8 +252,15 @@ defmodule BeamPM.Rust4PM do
   @spec log_stats(non_neg_integer(), keyword()) :: result()
   def log_stats(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "log_stats", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "log_stats", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:log_stats, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -236,8 +269,15 @@ defmodule BeamPM.Rust4PM do
   @spec top_n_variants(non_neg_integer(), non_neg_integer(), keyword()) :: result()
   def top_n_variants(handle, n, opts \\ [])
       when is_integer(handle) and is_integer(n) do
-    %{"op" => "top_n_variants", "handle" => handle, "n" => n}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "top_n_variants", "handle" => handle, "n" => n}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:top_n_variants, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -246,8 +286,15 @@ defmodule BeamPM.Rust4PM do
   @spec discover_dfg(non_neg_integer(), keyword()) :: result()
   def discover_dfg(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "discover_dfg", "handle" => handle}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "discover_dfg", "handle" => handle}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:discover_dfg, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -256,8 +303,15 @@ defmodule BeamPM.Rust4PM do
   @spec activities_to_alphabet(non_neg_integer(), keyword()) :: result()
   def activities_to_alphabet(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "activities_to_alphabet", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "activities_to_alphabet", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:activities_to_alphabet, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -266,8 +320,15 @@ defmodule BeamPM.Rust4PM do
   @spec activity_position(non_neg_integer(), String.t(), keyword()) :: result()
   def activity_position(handle, activity, opts \\ [])
       when is_integer(handle) and is_binary(activity) do
-    %{"op" => "activity_position", "handle" => handle, "activity" => activity}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "activity_position", "handle" => handle, "activity" => activity}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:activity_position, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -276,9 +337,16 @@ defmodule BeamPM.Rust4PM do
   @spec discover_alphappp(non_neg_integer(), map() | nil, keyword()) :: result()
   def discover_alphappp(handle, config \\ nil, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "discover_alphappp", "handle" => handle}
-    |> put_optional("config", config)
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "discover_alphappp", "handle" => handle}
+      |> put_optional("config", config)
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:discover_alphappp, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -287,8 +355,15 @@ defmodule BeamPM.Rust4PM do
   @spec discover_powl(non_neg_integer(), keyword()) :: result()
   def discover_powl(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "discover_powl", "handle" => handle}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "discover_powl", "handle" => handle}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:discover_powl, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -297,9 +372,16 @@ defmodule BeamPM.Rust4PM do
   @spec align_variants(non_neg_integer(), non_neg_integer(), map() | nil, keyword()) :: result()
   def align_variants(log_handle, net_handle, options \\ nil, opts \\ [])
       when is_integer(log_handle) and is_integer(net_handle) do
-    %{"op" => "align_variants", "log_handle" => log_handle, "net_handle" => net_handle}
-    |> put_optional("options", options)
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "align_variants", "log_handle" => log_handle, "net_handle" => net_handle}
+      |> put_optional("options", options)
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:align_variants, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -308,9 +390,16 @@ defmodule BeamPM.Rust4PM do
   @spec align_trace(non_neg_integer(), [String.t()], map() | nil, keyword()) :: result()
   def align_trace(net_handle, trace, options \\ nil, opts \\ [])
       when is_integer(net_handle) and is_list(trace) do
-    %{"op" => "align_trace", "net_handle" => net_handle, "trace" => trace}
-    |> put_optional("options", options)
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "align_trace", "net_handle" => net_handle, "trace" => trace}
+      |> put_optional("options", options)
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:align_trace, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -319,9 +408,16 @@ defmodule BeamPM.Rust4PM do
   @spec compute_fitness(non_neg_integer(), non_neg_integer(), map() | nil, keyword()) :: result()
   def compute_fitness(log_handle, net_handle, options \\ nil, opts \\ [])
       when is_integer(log_handle) and is_integer(net_handle) do
-    %{"op" => "compute_fitness", "log_handle" => log_handle, "net_handle" => net_handle}
-    |> put_optional("options", options)
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "compute_fitness", "log_handle" => log_handle, "net_handle" => net_handle}
+      |> put_optional("options", options)
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:compute_fitness, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -330,8 +426,15 @@ defmodule BeamPM.Rust4PM do
   @spec free_log(non_neg_integer(), keyword()) :: result()
   def free_log(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "free_log", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "free_log", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:free_log, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -340,8 +443,15 @@ defmodule BeamPM.Rust4PM do
   @spec free_net(non_neg_integer(), keyword()) :: result()
   def free_net(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "free_net", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "free_net", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:free_net, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -349,8 +459,15 @@ defmodule BeamPM.Rust4PM do
   """
   @spec ocel_new(keyword()) :: result()
   def ocel_new(opts \\ []) do
-    %{"op" => "ocel_new"}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_new"}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:ocel_new, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -359,8 +476,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_add_event_type(non_neg_integer(), String.t(), list(), keyword()) :: result()
   def ocel_add_event_type(ocel, name, attributes \\ [], opts \\ [])
       when is_integer(ocel) and is_binary(name) do
-    %{"op" => "ocel_add_event_type", "ocel_handle" => ocel, "name" => name, "attributes" => attributes}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_add_event_type", "ocel_handle" => ocel, "name" => name, "attributes" => attributes}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:ocel_add_event_type, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -369,8 +493,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_add_object_type(non_neg_integer(), String.t(), list(), keyword()) :: result()
   def ocel_add_object_type(ocel, name, attributes \\ [], opts \\ [])
       when is_integer(ocel) and is_binary(name) do
-    %{"op" => "ocel_add_object_type", "ocel_handle" => ocel, "name" => name, "attributes" => attributes}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_add_object_type", "ocel_handle" => ocel, "name" => name, "attributes" => attributes}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:ocel_add_object_type, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -379,8 +510,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_add_object(non_neg_integer(), String.t(), String.t(), list(), keyword()) :: result()
   def ocel_add_object(ocel, id, object_type, o2o \\ [], opts \\ [])
       when is_integer(ocel) and is_binary(id) and is_binary(object_type) do
-    %{"op" => "ocel_add_object", "ocel_handle" => ocel, "id" => id, "type" => object_type, "o2o" => o2o}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_add_object", "ocel_handle" => ocel, "id" => id, "type" => object_type, "o2o" => o2o}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:ocel_add_object, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -389,8 +527,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_add_event(non_neg_integer(), String.t(), String.t(), String.t(), list(), keyword()) :: result()
   def ocel_add_event(ocel, id, event_type, time, e2o \\ [], opts \\ [])
       when is_integer(ocel) and is_binary(id) and is_binary(event_type) and is_binary(time) do
-    %{"op" => "ocel_add_event", "ocel_handle" => ocel, "id" => id, "type" => event_type, "time" => time, "e2o" => e2o}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_add_event", "ocel_handle" => ocel, "id" => id, "type" => event_type, "time" => time, "e2o" => e2o}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:ocel_add_event, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -399,8 +544,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_stats(non_neg_integer(), keyword()) :: result()
   def ocel_stats(ocel, opts \\ [])
       when is_integer(ocel) do
-    %{"op" => "ocel_stats", "ocel_handle" => ocel}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_stats", "ocel_handle" => ocel}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:ocel_stats, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -409,8 +561,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_to_json(non_neg_integer(), keyword()) :: result()
   def ocel_to_json(ocel, opts \\ [])
       when is_integer(ocel) do
-    %{"op" => "ocel_to_json", "ocel_handle" => ocel}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_to_json", "ocel_handle" => ocel}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:ocel_to_json, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -419,8 +578,15 @@ defmodule BeamPM.Rust4PM do
   @spec xes_to_ocel(non_neg_integer(), String.t(), String.t(), keyword()) :: result()
   def xes_to_ocel(log_handle, case_object_type, qualifier, opts \\ [])
       when is_integer(log_handle) and is_binary(case_object_type) and is_binary(qualifier) do
-    %{"op" => "xes_to_ocel", "handle" => log_handle, "case_object_type" => case_object_type, "qualifier" => qualifier}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "xes_to_ocel", "handle" => log_handle, "case_object_type" => case_object_type, "qualifier" => qualifier}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:xes_to_ocel, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -429,8 +595,15 @@ defmodule BeamPM.Rust4PM do
   @spec import_ocel_json(String.t(), keyword()) :: result()
   def import_ocel_json(json_content, opts \\ [])
       when is_binary(json_content) do
-    %{"op" => "import_ocel_json", "content" => json_content}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "import_ocel_json", "content" => json_content}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:import_ocel_json, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -439,8 +612,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_to_xml(non_neg_integer(), keyword()) :: result()
   def ocel_to_xml(ocel, opts \\ [])
       when is_integer(ocel) do
-    %{"op" => "ocel_to_xml", "ocel_handle" => ocel}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_to_xml", "ocel_handle" => ocel}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:ocel_to_xml, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -449,8 +629,15 @@ defmodule BeamPM.Rust4PM do
   @spec import_ocel_xml(binary(), keyword()) :: result()
   def import_ocel_xml(xml_bytes, opts \\ [])
       when is_binary(xml_bytes) do
-    %{"op" => "import_ocel_xml", "content_b64" => Base.encode64(xml_bytes)}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "import_ocel_xml", "content_b64" => Base.encode64(xml_bytes)}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:import_ocel_xml, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -459,8 +646,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_dfg_of_object_type(non_neg_integer(), String.t(), keyword()) :: result()
   def ocel_dfg_of_object_type(ocel, object_type, opts \\ [])
       when is_integer(ocel) and is_binary(object_type) do
-    %{"op" => "ocel_dfg_of_object_type", "ocel_handle" => ocel, "object_type" => object_type}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_dfg_of_object_type", "ocel_handle" => ocel, "object_type" => object_type}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:ocel_dfg_of_object_type, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -469,8 +663,15 @@ defmodule BeamPM.Rust4PM do
   @spec ocel_variants_of_object_type(non_neg_integer(), String.t(), keyword()) :: result()
   def ocel_variants_of_object_type(ocel, object_type, opts \\ [])
       when is_integer(ocel) and is_binary(object_type) do
-    %{"op" => "ocel_variants_of_object_type", "ocel_handle" => ocel, "object_type" => object_type, "n" => Keyword.get(opts, :n, nil)}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "ocel_variants_of_object_type", "ocel_handle" => ocel, "object_type" => object_type, "n" => Keyword.get(opts, :n, nil)}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:ocel_variants_of_object_type, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -479,8 +680,15 @@ defmodule BeamPM.Rust4PM do
   @spec free_ocel(non_neg_integer(), keyword()) :: result()
   def free_ocel(ocel, opts \\ [])
       when is_integer(ocel) do
-    %{"op" => "free_ocel", "ocel_handle" => ocel}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "free_ocel", "ocel_handle" => ocel}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:free_ocel, result, invocation_id, start_native)
+    result
   end
 
   # ---------------------------------------------------------------------
@@ -579,6 +787,36 @@ defmodule BeamPM.Rust4PM do
   defp put_optional(req, key, value), do: Map.put(req, key, value)
 
   defp timeout(opts, default), do: Keyword.get(opts, :timeout, default)
+
+  # ---------------------------------------------------------------------
+  # Telemetry -- fires the real `[:beam4pm, :engine, engine, op]` event
+  # this pack's OCEL evidence-contract Phase 2 consumers (BeamPM.Ingest.Bridge,
+  # BeamPM.Evidence.OtelBridge, BeamPM.Evidence.ReceiptBridge, all in
+  # lib/beam4pm_evidence.ex -- read, not guessed, before this wrapper was
+  # written) attach to. ONE :telemetry.execute/3 call after the op already
+  # returned (not a with_span/3 wrapper around the call site), matching
+  # OtelBridge's own handle_event/4 contract, which opens and closes its
+  # span from inside the callback using the already-known duration.
+  # ---------------------------------------------------------------------
+  defp emit_engine_op_telemetry(op, result, invocation_id, start_native) do
+    duration_native = System.monotonic_time() - start_native
+
+    metadata = %{
+      engine: :rust4pm,
+      op: op,
+      op_iri: "https://ggen.dev/ontology/beam-process-model#rust4pm/" <> Atom.to_string(op),
+      invocation_id: invocation_id,
+      verification_class: :unverified
+    }
+
+    metadata =
+      case result do
+        {:error, reason} -> Map.put(metadata, :refusal_reason, inspect(reason))
+        _ -> metadata
+      end
+
+    :telemetry.execute([:beam4pm, :engine, :rust4pm, op], %{duration_native: duration_native}, metadata)
+  end
 end
 
 defmodule BeamPM.Rust4PM.Health do

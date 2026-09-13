@@ -37,7 +37,12 @@ defmodule BeamPM.Ferroplan do
   ## Ops
 
   One public function per admitted `bpm:EngineOp`, each taking a trailing
-  `opts` keyword list (`:timeout` overrides the op's default budget):
+  `opts` keyword list (`:timeout` overrides the op's default budget). Every
+  op call fires exactly one `[:beam4pm, :engine, :ferroplan, op]`
+  `:telemetry.execute/3` event after the call returns, on both the success
+  and `{:error, reason}` refusal paths -- the OCEL evidence-contract Phase 2
+  event family consumed by `BeamPM.Ingest.Bridge`, `BeamPM.Evidence.OtelBridge`,
+  and `BeamPM.Evidence.ReceiptBridge` (`lib/beam4pm_evidence.ex`):
 
   `plan/4`,
   `plan_production/4`,
@@ -179,9 +184,16 @@ defmodule BeamPM.Ferroplan do
   @spec plan(String.t(), String.t(), map(), keyword()) :: result()
   def plan(domain, problem, extra \\ %{}, opts \\ [])
       when is_binary(domain) and is_binary(problem) and is_map(extra) do
-    %{"op" => "plan", "domain" => domain, "problem" => problem}
-    |> Map.merge(extra)
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "plan", "domain" => domain, "problem" => problem}
+      |> Map.merge(extra)
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:plan, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -190,9 +202,16 @@ defmodule BeamPM.Ferroplan do
   @spec plan_production(String.t(), String.t(), map(), keyword()) :: result()
   def plan_production(domain, problem, extra \\ %{}, opts \\ [])
       when is_binary(domain) and is_binary(problem) and is_map(extra) do
-    %{"op" => "plan_production", "domain" => domain, "problem" => problem}
-    |> Map.merge(extra)
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "plan_production", "domain" => domain, "problem" => problem}
+      |> Map.merge(extra)
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:plan_production, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -200,8 +219,15 @@ defmodule BeamPM.Ferroplan do
   """
   @spec readiness(keyword()) :: result()
   def readiness(opts \\ []) do
-    %{"op" => "readiness"}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "readiness"}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:readiness, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -209,8 +235,15 @@ defmodule BeamPM.Ferroplan do
   """
   @spec version(keyword()) :: result()
   def version(opts \\ []) do
-    %{"op" => "version"}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "version"}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:version, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -219,8 +252,15 @@ defmodule BeamPM.Ferroplan do
   @spec explain(String.t(), String.t(), map(), keyword()) :: result()
   def explain(domain, problem, plan, opts \\ [])
       when is_binary(domain) and is_binary(problem) and is_map(plan) do
-    %{"op" => "explain", "domain" => domain, "problem" => problem, "plan" => plan}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "explain", "domain" => domain, "problem" => problem, "plan" => plan}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:explain, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -229,8 +269,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_new(String.t(), String.t(), keyword()) :: result()
   def session_new(domain, problem, opts \\ [])
       when is_binary(domain) and is_binary(problem) do
-    %{"op" => "session_new", "domain" => domain, "problem" => problem}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_new", "domain" => domain, "problem" => problem}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:session_new, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -239,8 +286,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_fork(non_neg_integer(), keyword()) :: result()
   def session_fork(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_fork", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_fork", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_fork, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -249,8 +303,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_free(non_neg_integer(), keyword()) :: result()
   def session_free(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_free", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_free", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_free, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -259,8 +320,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_set_goal(non_neg_integer(), String.t(), keyword()) :: result()
   def session_set_goal(handle, goal, opts \\ [])
       when is_integer(handle) and is_binary(goal) do
-    %{"op" => "session_set_goal", "handle" => handle, "goal" => goal}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_set_goal", "handle" => handle, "goal" => goal}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_set_goal, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -269,8 +337,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_restrict_prefix_claims(non_neg_integer(), String.t(), String.t(), keyword()) :: result()
   def session_restrict_prefix_claims(handle, prefix, claimed, opts \\ [])
       when is_integer(handle) and is_binary(prefix) and is_binary(claimed) do
-    %{"op" => "session_restrict_prefix_claims", "handle" => handle, "prefix" => prefix, "claimed" => claimed}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_restrict_prefix_claims", "handle" => handle, "prefix" => prefix, "claimed" => claimed}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_restrict_prefix_claims, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -279,8 +354,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_restrict_contains(non_neg_integer(), String.t(), keyword()) :: result()
   def session_restrict_contains(handle, filter, opts \\ [])
       when is_integer(handle) and is_binary(filter) do
-    %{"op" => "session_restrict_contains", "handle" => handle, "filter" => filter}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_restrict_contains", "handle" => handle, "filter" => filter}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_restrict_contains, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -289,8 +371,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_think(non_neg_integer(), non_neg_integer(), non_neg_integer(), keyword()) :: result()
   def session_think(handle, evals, mem_mb, opts \\ [])
       when is_integer(handle) and is_integer(evals) and is_integer(mem_mb) do
-    %{"op" => "session_think", "handle" => handle, "evals" => evals, "mem_mb" => mem_mb}
-    |> call(timeout(opts, @heavy_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_think", "handle" => handle, "evals" => evals, "mem_mb" => mem_mb}
+      |> call(timeout(opts, @heavy_timeout))
+
+    emit_engine_op_telemetry(:session_think, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -299,8 +388,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_valid?(non_neg_integer(), keyword()) :: result()
   def session_valid?(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_valid", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_valid", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_valid, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -309,8 +405,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_step(non_neg_integer(), keyword()) :: result()
   def session_step(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_step", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_step", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_step, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -319,8 +422,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_suffix(non_neg_integer(), keyword()) :: result()
   def session_suffix(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_suffix", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_suffix", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_suffix, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -329,8 +439,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_advance(non_neg_integer(), keyword()) :: result()
   def session_advance(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_advance", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_advance", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_advance, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -339,8 +456,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_drop_plan(non_neg_integer(), keyword()) :: result()
   def session_drop_plan(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_drop_plan", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_drop_plan", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_drop_plan, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -349,8 +473,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_has_plan?(non_neg_integer(), keyword()) :: result()
   def session_has_plan?(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_has_plan", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_has_plan", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_has_plan, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -359,8 +490,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_set_fact(non_neg_integer(), String.t(), boolean(), keyword()) :: result()
   def session_set_fact(handle, name, value, opts \\ [])
       when is_integer(handle) and is_binary(name) and is_boolean(value) do
-    %{"op" => "session_set_fact", "handle" => handle, "name" => name, "value" => value}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_set_fact", "handle" => handle, "name" => name, "value" => value}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_set_fact, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -369,8 +507,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_set_timed_fact(non_neg_integer(), number(), String.t(), boolean(), keyword()) :: result()
   def session_set_timed_fact(handle, dt, name, value, opts \\ [])
       when is_integer(handle) and is_number(dt) and is_binary(name) and is_boolean(value) do
-    %{"op" => "session_set_timed_fact", "handle" => handle, "dt" => dt, "name" => name, "value" => value}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_set_timed_fact", "handle" => handle, "dt" => dt, "name" => name, "value" => value}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_set_timed_fact, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -379,8 +524,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_observe(non_neg_integer(), [{String.t(), boolean()}], keyword()) :: result()
   def session_observe(handle, sight, opts \\ [])
       when is_integer(handle) and is_list(sight) do
-    %{"op" => "session_observe", "handle" => handle, "sight" => Enum.map(sight, &Tuple.to_list/1)}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_observe", "handle" => handle, "sight" => Enum.map(sight, &Tuple.to_list/1)}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_observe, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -389,8 +541,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_goal_met?(non_neg_integer(), keyword()) :: result()
   def session_goal_met?(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_goal_met", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_goal_met", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_goal_met, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -399,8 +558,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_fact(non_neg_integer(), String.t(), keyword()) :: result()
   def session_fact(handle, name, opts \\ [])
       when is_integer(handle) and is_binary(name) do
-    %{"op" => "session_fact", "handle" => handle, "name" => name}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_fact", "handle" => handle, "name" => name}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_fact, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -409,8 +575,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_apply_start(non_neg_integer(), String.t(), keyword()) :: result()
   def session_apply_start(handle, name, opts \\ [])
       when is_integer(handle) and is_binary(name) do
-    %{"op" => "session_apply_start", "handle" => handle, "name" => name}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_apply_start", "handle" => handle, "name" => name}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_apply_start, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -419,8 +592,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_elapse(non_neg_integer(), number(), keyword()) :: result()
   def session_elapse(handle, dt, opts \\ [])
       when is_integer(handle) and is_number(dt) do
-    %{"op" => "session_elapse", "handle" => handle, "dt" => dt}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_elapse", "handle" => handle, "dt" => dt}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_elapse, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -429,8 +609,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_set_fluent(non_neg_integer(), String.t(), number(), keyword()) :: result()
   def session_set_fluent(handle, name, value, opts \\ [])
       when is_integer(handle) and is_binary(name) and is_number(value) do
-    %{"op" => "session_set_fluent", "handle" => handle, "name" => name, "value" => value}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_set_fluent", "handle" => handle, "name" => name, "value" => value}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_set_fluent, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -439,8 +626,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_fluent(non_neg_integer(), String.t(), keyword()) :: result()
   def session_fluent(handle, name, opts \\ [])
       when is_integer(handle) and is_binary(name) do
-    %{"op" => "session_fluent", "handle" => handle, "name" => name}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_fluent", "handle" => handle, "name" => name}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_fluent, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -449,8 +643,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_plan_valid?(non_neg_integer(), map(), non_neg_integer(), keyword()) :: result()
   def session_plan_valid?(handle, plan, from, opts \\ [])
       when is_integer(handle) and is_map(plan) and is_integer(from) do
-    %{"op" => "session_plan_valid", "handle" => handle, "plan" => plan, "from" => from}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_plan_valid", "handle" => handle, "plan" => plan, "from" => from}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_plan_valid, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -459,8 +660,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_world_bytes(non_neg_integer(), keyword()) :: result()
   def session_world_bytes(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_world_bytes", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_world_bytes", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_world_bytes, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -469,8 +677,15 @@ defmodule BeamPM.Ferroplan do
   @spec session_mind_bytes(non_neg_integer(), keyword()) :: result()
   def session_mind_bytes(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "session_mind_bytes", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "session_mind_bytes", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:session_mind_bytes, result, invocation_id, start_native)
+    result
   end
 
   # ---------------------------------------------------------------------
@@ -571,6 +786,36 @@ defmodule BeamPM.Ferroplan do
   end
 
   defp timeout(opts, default), do: Keyword.get(opts, :timeout, default)
+
+  # ---------------------------------------------------------------------
+  # Telemetry -- fires the real `[:beam4pm, :engine, engine, op]` event
+  # this pack's OCEL evidence-contract Phase 2 consumers (BeamPM.Ingest.Bridge,
+  # BeamPM.Evidence.OtelBridge, BeamPM.Evidence.ReceiptBridge, all in
+  # lib/beam4pm_evidence.ex -- read, not guessed, before this wrapper was
+  # written) attach to. ONE :telemetry.execute/3 call after the op already
+  # returned (not a with_span/3 wrapper around the call site), matching
+  # OtelBridge's own handle_event/4 contract, which opens and closes its
+  # span from inside the callback using the already-known duration.
+  # ---------------------------------------------------------------------
+  defp emit_engine_op_telemetry(op, result, invocation_id, start_native) do
+    duration_native = System.monotonic_time() - start_native
+
+    metadata = %{
+      engine: :ferroplan,
+      op: op,
+      op_iri: "https://ggen.dev/ontology/beam-process-model#ferroplan/" <> Atom.to_string(op),
+      invocation_id: invocation_id,
+      verification_class: :unverified
+    }
+
+    metadata =
+      case result do
+        {:error, reason} -> Map.put(metadata, :refusal_reason, inspect(reason))
+        _ -> metadata
+      end
+
+    :telemetry.execute([:beam4pm, :engine, :ferroplan, op], %{duration_native: duration_native}, metadata)
+  end
 end
 
 defmodule BeamPM.Ferroplan.Health do

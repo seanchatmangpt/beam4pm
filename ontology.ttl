@@ -10607,12 +10607,34 @@ bap:hand_authored_lib_application a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_application.ex" ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
-    bpm:admissionReason "The OTP application module -- boots BeamPM.Application's supervision tree (including the real Bandit listener for lib/beam4pm_ocel_ingest.ex's router). Necessarily hand-authored: no ontology-fact-driven template exists for an OTP Application callback module, and it predates GATE AUTHORSHIP's own admission of every unmarked file (this file existed before the authorship gate itself was manufactured, so it was never previously surfaced as unadmitted)." ;
+    bpm:admissionReason "The OTP application module -- boots BeamPM.Application's supervision tree (including the real Bandit listener for lib/beam4pm_ocel_ingest.ex's router, and, as of the ash_a2a agent-facing wiring, the additive A2A HTTP listener BeamPM.A2ARouter). Necessarily hand-authored: no ontology-fact-driven template exists for an OTP Application callback module, and it predates GATE AUTHORSHIP's own admission of every unmarked file (this file existed before the authorship gate itself was manufactured, so it was never previously surfaced as unadmitted)." ;
     bpm:acceptanceCommand "mix test" ;
-    bpm:contentSha256 "eba7b65c1023b4c0bbb1913907f3102f1eb74268942671d3f8a039f1a3a288f8" ;
-    bpm:admittedAtCommit "91965eb" ;
+    bpm:contentSha256 "5296564323089870a49b5e8fadc1149ea08c06645434943463ef43d963f9ed8f" ;
+    bpm:admittedAtCommit "7aa4f64" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "No template family fits an OTP Application callback module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter OTP-app-shell recipe is added." .
+
+bap:hand_authored_lib_a2a_agent a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_a2a_agent.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "BeamPM.A2AAgent -- the agent-facing AshA2A.Agent entry point over the curated BeamPM.Ash.Domain a2a skills (same 2 resources already curated as AshAi tools: OcelEvent read, ConformanceResult read). Additive alongside ex4pm's existing Ex4pm.Engine.Beam4pm HTTP route-table client; never routes beam4pm's own internals (EngineOp dispatch, OCEL/OTel evidence chain, BeamPM.ReceiptChain) through A2A/JSON-RPC. Hand-authored: no ontology-fact-driven template exists for an AshA2A.Agent shell module (same class as the OTP Application callback above)." ;
+    bpm:acceptanceCommand "mix run qualification/a2a_smoke_test.exs" ;
+    bpm:contentSha256 "2d147cf932f13bf8d31472a21a3b2d0835b5540d00ac0b8748046bd5adf3e672" ;
+    bpm:admittedAtCommit "7aa4f64" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "No template family fits an AshA2A.Agent shell module today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter A2A-agent-shell recipe is added." .
+
+bap:hand_authored_lib_a2a_router a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_a2a_router.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
+    bpm:admissionReason "BeamPM.A2ARouter -- thin Plug.Router forwarding /a2a to A2A.Plug so the agent-facing A2A HTTP listener is reachable at a named mount path rather than the plug's own root. Same class of supervision/HTTP-mount wiring as beam4pm_application.ex; no ontology-fact-driven template exists." ;
+    bpm:acceptanceCommand "mix run qualification/a2a_smoke_test.exs" ;
+    bpm:contentSha256 "734cf82e4625241defa3c5361ba7abdcc1c2fb2a01543a2c2d931c9287ba8b28" ;
+    bpm:admittedAtCommit "7aa4f64" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "No template family fits a Plug.Router HTTP-mount shell today; keep as permanently-admitted hand-authored infrastructure unless a future ggen_igniter recipe is added." .
 
 bap:hand_authored_lib_contracts a bpm:HandAuthoredSource ;
     bpm:sourcePath "lib/beam4pm_contracts.ex" ;
