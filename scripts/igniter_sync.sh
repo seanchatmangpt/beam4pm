@@ -29,37 +29,16 @@ PACK="${PACK:-vendor/ggen-marketplace/packs/beam4pm-process-model-pack}"
 IGN="$PACK/igniter"
 
 # The caller-local A2A adapter expands AshA2A.Agent at compile time and asks
-# BeamPM.Ash.Domain for persisted DSL metadata. During GATE M2 the generated
-# domain has deliberately been deleted, so even the initial `mix deps.get`
-# cannot load the host project while that adapter is present. Stash only the
-# adapter through dependency loading and the resource + domain bootstrap
-# passes, restore it after the new domain's first compile pass, and restore on
-# every early exit.
+# BeamPM.Ash.Domain for persisted DSL metadata. GATE M2 deliberately deletes
+# that generated domain before rebuilding it, so compile the adapter's explicit
+# bootstrap stub until the new domain has been generated and compiled.
 mkdir -p tmp_probe
-A2A_AGENT_SOURCE="lib/beam4pm_a2a_agent.ex"
-A2A_AGENT_STASH="tmp_probe/beam4pm_a2a_agent.ex.bootstrap-stash"
-restore_a2a_agent() {
-  if [ -f "$A2A_AGENT_STASH" ]; then
-    mv "$A2A_AGENT_STASH" "$A2A_AGENT_SOURCE"
-  fi
-}
-stash_a2a_agent() {
-  if [ -f "$A2A_AGENT_SOURCE" ]; then
-    mv -f "$A2A_AGENT_SOURCE" "$A2A_AGENT_STASH"
-  fi
-  if [ -f "$A2A_AGENT_SOURCE" ]; then
-    echo "REFUSED[A2A_BOOTSTRAP_SOURCE_PRESENT]:$A2A_AGENT_SOURCE" >&2
-    exit 2
-  fi
-}
-trap restore_a2a_agent EXIT
-stash_a2a_agent
+export BEAM4PM_ASH_BOOTSTRAP=1
 
 mix deps.get
 # Remove cached project compiler state that can otherwise cause Mix to reload
 # the stashed adapter from its prior compilation manifest during regeneration.
 mix clean
-stash_a2a_agent
 
 # 0. Remove the former monolithic outputs BEFORE any split-template sync
 #    below runs. Order is load-bearing, not cosmetic: real-run evidence
@@ -125,7 +104,6 @@ cat ontology.ttl "$PACK/ontology.ttl" "${ADDITIONAL_PACK_ONTOLOGIES[@]}" > "$MER
 #     the merged graph (0b) -- datetime is :utc_datetime_usec, so the
 #     microseconds every other leg carries on the wire survive the Ash leg
 #     (the former in-template ladder said :utc_datetime and truncated them).
-stash_a2a_agent
 mix ggen_igniter.sync \
   --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
@@ -144,7 +122,6 @@ mix ggen_igniter.sync \
 #     BeamPM.Ash.Domain, a real "Resource ... is not accepted by
 #     BeamPM.Ash.Domain" Ash.create/3 failure caught by
 #     test/beam4pm_ash_roundtrip_test.exs, not a hypothetical.
-stash_a2a_agent
 mix ggen_igniter.sync \
   --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
@@ -162,7 +139,6 @@ mix ggen_igniter.sync \
 #     and asserted so). Needs ash_fields.rq on the merged graph (0b) to know
 #     which attributes are in the :utc_datetime family; refuses by record and
 #     field name on an unbound ?ash_type_expr like its two siblings.
-stash_a2a_agent
 mix ggen_igniter.sync \
   --ontology "$MERGED_TTL" \
   --query records="$IGN/queries/records.rq" \
@@ -170,15 +146,14 @@ mix ggen_igniter.sync \
   --template "$IGN/templates/beam4pm_ash_roundtrip.ex.eex" \
   --out lib/beam4pm_ash_roundtrip.ex
 
-# Force a clean bootstrap compile while the compile-time A2A adapter remains
-# stashed. Incremental Mix manifests can otherwise retain the deleted domain's
-# stale module state even after 1b writes the replacement source, causing the
-# restored adapter to observe a module without Ash's persisted DSL metadata.
+# Force a clean bootstrap compile while the adapter exposes only its explicit
+# stub. The generated domain now has persisted Ash DSL metadata.
 mix compile --force --warnings-as-errors
 
-# Only now can the compile-time A2A adapter be restored safely.
-restore_a2a_agent
-trap - EXIT
+# Recompile the real caller-local adapter against that exact domain.
+unset BEAM4PM_ASH_BOOTSTRAP
+touch lib/beam4pm_a2a_agent.ex
+mix compile --warnings-as-errors
 
 # 2a. Real Ash.create!/Ash.read! round-trip per admitted record type,
 #     deterministic sample values, no mocks -- collapsed into ONE output

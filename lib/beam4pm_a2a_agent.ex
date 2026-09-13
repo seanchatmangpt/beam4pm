@@ -15,5 +15,10 @@ defmodule BeamPM.A2AAgent do
   `BeamPM.ReceiptChain`) through A2A/JSON-RPC -- only the two curated
   read-only Ash actions are exposed as A2A skills.
   """
-  use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain, name: "beam4pm_a2a_agent"
+  if System.get_env("BEAM4PM_ASH_BOOTSTRAP") == "1" do
+    @doc false
+    def __bootstrap_stub__, do: :ok
+  else
+    use AshA2A.Agent, resource_or_domain: BeamPM.Ash.Domain, name: "beam4pm_a2a_agent"
+  end
 end
