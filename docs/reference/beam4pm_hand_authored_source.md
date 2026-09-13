@@ -38,10 +38,10 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `lib/beam4pm_application.ex` | `91965eb` | 2026-12-31 | `source scripts/env/rust4pm_reactor_env.sh && mix test` | - |
 | `lib/beam4pm_contracts.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `lib/beam4pm_powl_discovery.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_powl_discovery_test.exs` | - |
-| `lib/ggen_igniter/patch_field.ex` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | - |
+| `lib/ggen_igniter/patch_field.ex` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | cmd:test $(wc -l < lib/beam4pm_types.ex) -lt 5000 |
 | `lib/mix/tasks/beam4pm.rf2_oracle_dep.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_rf2_oracle_dep_task_test.exs` | - |
 | `lib/mix/tasks/beam4pm.version_bump.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_version_bump_test.exs` | - |
-| `lib/mix/tasks/ggen_igniter.patch_field.ex` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | - |
+| `lib/mix/tasks/ggen_igniter.patch_field.ex` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | cmd:test $(wc -l < lib/beam4pm_types.ex) -lt 5000 |
 | `test/beam4pm_ash_ai_tools_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ash_ai_tools_test.exs` | - |
 | `test/beam4pm_contracts_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `test/beam4pm_ferroplan_facades_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_ferroplan_facades_test.exs` | native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm |
@@ -61,7 +61,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | `test/beam4pm_tract_test.exs` | `f44dcd0` | 2026-12-31 | `mix test test/beam4pm_tract_test.exs` | native/tract-wasm/target/wasm32-wasip1/release/tract_wasm.wasm |
 | `test/beam4pm_version_bump_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_version_bump_test.exs` | - |
 | `test/beam4pm_ws3_dfcm_self_healing_test.exs` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_ws3_dfcm_self_healing_test.exs` | - |
-| `test/ggen_igniter_patch_field_test.exs` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | cmd:test -n "${BEAM4PM_RUN_EXPENSIVE_PATCH_FIELD_TESTS:-}" |
+| `test/ggen_igniter_patch_field_test.exs` | `2cc09cb` | 2026-12-31 | `mix test test/ggen_igniter_patch_field_test.exs` | cmd:test -n "${BEAM4PM_RUN_EXPENSIVE_PATCH_FIELD_TESTS:-}" && test $(wc -l < lib/beam4pm_types.ex) -lt 5000 |
 
 
 #### `lib/beam4pm_application.ex`
@@ -334,4 +334,3 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Reason: Hand-authored index of every scripts/*.sh entry point (including this gate); reference evidence scanned by GATE LINT-TRUTH.
 - Content sha256 at admission: `-`
 - Sunset plan: -
-
