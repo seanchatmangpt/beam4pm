@@ -95,6 +95,7 @@ jobs:
       - name: mix test
         shell: bash
         run: |
+          bash scripts/rust4pm_wasm_build.sh
           source scripts/env/rust4pm_reactor_env.sh
           mix test
 
