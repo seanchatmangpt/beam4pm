@@ -29559,7 +29559,7 @@ bap:hand_authored_test_eds a bpm:HandAuthoredSource ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
     bpm:admissionReason "Chicago-style qualification of BeamPM.EDS and BeamPM.EDS.PPCXH1: real illegal-transition refusal, real terminal-state reachability, real receipt chain write + independent replay verification, and a real deviating OCEL trace driving the PPCX H1 artifact through the full ladder to :verified with a real ontology.ttl mutation confirmed by reading the file back -- no mocks." ;
     bpm:acceptanceCommand "mix test test/beam4pm_eds_test.exs" ;
-    bpm:contentSha256 "14b8eb48d3a07c530cb533b7fed5a8bae588f21a44489e86b4cf2aa918ca5d29" ;
+    bpm:contentSha256 "bfc270732d9cfffa3620f7ac6a9c702e526dccbded6320808e449bc2e432c176" ;
     bpm:admittedAtCommit "4d50b4b" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "If a research-claim record type is ever rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission." .
