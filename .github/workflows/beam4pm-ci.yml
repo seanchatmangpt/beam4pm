@@ -97,7 +97,7 @@ jobs:
         run: |
           bash scripts/rust4pm_wasm_build.sh
           source scripts/env/rust4pm_reactor_env.sh
-          mix test
+          mix test --max-requires 1
 
       - name: gleam test (gleam/ projection)
         shell: bash
