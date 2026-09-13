@@ -60,7 +60,11 @@ defmodule BeamPM.PowlConformanceE2ETest do
     for mid <- meeting_ids, do: {:ok, _} = Rust4PM.ocel_add_object(h, mid, "meeting")
 
     Enum.each(events, fn event ->
-      %{"event_id" => id, "event_time" => time, "attributes" => %{"phase" => phase, "meeting_id" => mid}} =
+      %{
+        "event_id" => id,
+        "event_time" => time,
+        "attributes" => %{"phase" => phase, "meeting_id" => mid}
+      } =
         event
 
       {:ok, _} = Rust4PM.ocel_add_event(h, id, phase, time, [[mid, "meeting"]])
@@ -95,7 +99,8 @@ defmodule BeamPM.PowlConformanceE2ETest do
       # ground truth from the real ash_a2a run, not assumed here.
       assert deviant_phase_sequence == ["open", "trust_god", "help_others", "fellowship", "close"]
 
-      assert {:ok, result} = PowlConformance.check_conformance(ref_ocel, "meeting", deviant_phase_sequence)
+      assert {:ok, result} =
+               PowlConformance.check_conformance(ref_ocel, "meeting", deviant_phase_sequence)
 
       refute result.conforms
       assert result.alignment["cost"] > 0
@@ -109,6 +114,36 @@ defmodule BeamPM.PowlConformanceE2ETest do
       assert result.num_reference_traces == 3
 
       {:ok, %{"freed" => true}} = Rust4PM.free_ocel(ref_ocel)
+
+      {:ok, receipt_path} =
+        BeamPM.Research.ERC.emit!(%{
+          id: "ERC-002",
+          claim:
+            "Real POWL conformance checking (BeamPM.PowlConformance.check_conformance/3) " <>
+              "detects a real, deliberately-injected phase-omission deviation in a real " <>
+              "OCEL v2 trace captured from ash_a2a's real HDDL-planned A2A dispatch run.",
+          falsifier:
+            "check_conformance/3 reports result.conforms == true (or an empty deviation " <>
+              "set) for a captured trace known to omit a required phase.",
+          state: :verified,
+          depends_on: ["ERC-001"],
+          evidence: %{
+            "reference_traces" => result.num_reference_traces,
+            "deviant_phase_sequence" => deviant_phase_sequence,
+            "conforms" => result.conforms,
+            "alignment_cost" => result.alignment["cost"],
+            "log_fitness" => result.fitness["log_fitness"],
+            "detected_missing_activity" => "clean_house",
+            "reference_capture_file" => @reference_path,
+            "deviant_capture_file" => @deviant_path
+          },
+          notes:
+            "Consumes ERC-001's real captured evidence (not regenerated here) -- this is " <>
+              "the second, downstream leg of the PPCX closure: real evidence in, real " <>
+              "conformance verdict out."
+        })
+
+      IO.puts("ERC-002 receipt written: #{receipt_path}")
     end
   end
 end
