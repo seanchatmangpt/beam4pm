@@ -49,6 +49,7 @@ jobs:
           .github/workflows/beam4pm-container.yml
           .github/workflows/beam4pm-infra-validate.yml
           docs/reference/beam4pm_types_reference.md
+          docs/reference/beam4pm_hand_authored_source.md
           gleam/gleam.toml
           gleam/src/beam4pm.gleam
           gleam/src/beam4pm/discovery.gleam
