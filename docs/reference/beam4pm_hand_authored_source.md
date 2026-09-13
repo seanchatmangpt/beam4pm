@@ -334,3 +334,4 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 - Reason: Hand-authored index of every scripts/*.sh entry point (including this gate); reference evidence scanned by GATE LINT-TRUTH.
 - Content sha256 at admission: `-`
 - Sunset plan: -
+
