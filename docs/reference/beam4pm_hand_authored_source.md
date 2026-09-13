@@ -37,7 +37,7 @@ artifact is absent (`ACCEPTANCE_BLOCKED_PREREQUISITE`).
 | --- | --- | --- | --- | --- |
 | `lib/beam4pm_a2a_agent.ex` | `7aa4f64` | 2026-12-31 | `mix run qualification/a2a_smoke_test.exs` | - |
 | `lib/beam4pm_a2a_router.ex` | `7aa4f64` | 2026-12-31 | `mix run qualification/a2a_smoke_test.exs` | - |
-| `lib/beam4pm_application.ex` | `7aa4f64` | 2026-12-31 | `source scripts/env/rust4pm_reactor_env.sh && mix test` | - |
+| `lib/beam4pm_application.ex` | `7aa4f64` | 2026-12-31 | `source scripts/env/rust4pm_reactor_env.sh && mix test --max-requires 1` | - |
 | `lib/beam4pm_contracts.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_contracts_test.exs` | - |
 | `lib/beam4pm_powl_discovery.ex` | `91965eb` | 2026-12-31 | `mix test test/beam4pm_powl_discovery_test.exs` | - |
 | `lib/beam4pm_research_erc.ex` | `51ca841` | 2026-12-31 | `mix eds.ledger` | - |
