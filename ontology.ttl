@@ -1380,7 +1380,8 @@ bex:ciMixTest
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 11 ;
     gha:stepName "mix test" ;
-    gha:runCommand """source scripts/env/rust4pm_reactor_env.sh
+    gha:runCommand """bash scripts/rust4pm_wasm_build.sh
+source scripts/env/rust4pm_reactor_env.sh
 mix test""" .
 
 bex:ciGleamTest
