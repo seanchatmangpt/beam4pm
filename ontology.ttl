@@ -1306,9 +1306,18 @@ bex:ciRebar3Eunit
     gha:stepName "rebar3 eunit" ;
     gha:runCommand "rebar3 eunit" .
 
-bex:ciRf123OracleBuild
+bex:ciRf123OracleCache
     a gha:Step ;
     gha:inJob bex:ciTest ; gha:stepOrder 5 ;
+    gha:stepName "Cache Cargo dependencies for RF1/RF2/RF3 oracle crates" ;
+    gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
+    gha:withParam "path: \"native/*/target\"" ;
+    gha:withParam "key: ${{ runner.os }}-cargo-${{ hashFiles('native/**/Cargo.lock') }}" ;
+    gha:withParam "restore-keys: \"${{ runner.os }}-cargo-\\n\"" .
+
+bex:ciRf123OracleBuild
+    a gha:Step ;
+    gha:inJob bex:ciTest ; gha:stepOrder 6 ;
     gha:stepName "Build rust4pm-Reactor-validation oracle crates (RF1/RF2/RF3)" ;
     gha:runCommand """# Real Rust subprocess oracles the RF1/RF2/RF3 Chicago tests spawn (thin
 # adapters over the real process_mining =0.6.2 function surface, no
@@ -1321,7 +1330,7 @@ cd native/rf3-ocel-oracle && cargo build --release && cd -""" .
 
 bex:ciMixCache
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 6 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 7 ;
     gha:stepName "Cache mix dependencies" ;
     gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
     gha:withParam "path: \"deps\\n~/.hex\\n~/.mix\\n\"" ;
@@ -1330,7 +1339,7 @@ bex:ciMixCache
 
 bex:ciMixDepsGet
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 7 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 8 ;
     gha:stepName "mix deps.get" ;
     gha:runCommand "mix deps.get" .
 
@@ -1340,7 +1349,7 @@ bex:ciMixDepsGet
 # hand-authored docs/source only, never a GENERATED file.
 bex:ciLintTruth
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 8 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 9 ;
     gha:stepName "Static overclaiming-phrase lint (GATE LINT-TRUTH)" ;
     gha:runCommand "bash scripts/gate_lint_truth.sh" .
 
@@ -1356,7 +1365,7 @@ bex:ciLintTruth
 # executes it (test/beam4pm_authorship_gate_test.exs).
 bex:ciAuthorship
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 9 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 10 ;
     gha:stepName "Hand-authored source admission (GATE AUTHORSHIP)" ;
     gha:runCommand "bash scripts/gate_authorship_check.sh" .
 
@@ -1372,20 +1381,20 @@ bex:ciAuthorship
 # executes it (test/beam4pm_engine_dispatch_gate_test.exs).
 bex:ciEngineDispatch
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 10 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 11 ;
     gha:stepName "Manufactured engine ops are crate-dispatched (GATE ENGINE DISPATCH)" ;
     gha:runCommand "bash scripts/gate_engine_dispatch_check.sh" .
 
 bex:ciMixTest
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 11 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 12 ;
     gha:stepName "mix test" ;
     gha:runCommand """source scripts/env/rust4pm_reactor_env.sh
 mix test""" .
 
 bex:ciGleamTest
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 12 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 13 ;
     gha:stepName "gleam test (gleam/ projection)" ;
     gha:runCommand """cd gleam
 gleam test""" .
@@ -1399,14 +1408,14 @@ gleam test""" .
 # gleam/build output.
 bex:ciAuthorshipExercise
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 13 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 14 ;
     gha:stepName "Exercise admitted hand-authored acceptance commands (GATE AUTHORSHIP --exercise)" ;
     gha:runCommand """source scripts/env/rust4pm_reactor_env.sh
 bash scripts/gate_authorship_check.sh --exercise""" .
 
 bex:ciRoundtrip
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 14 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 15 ;
     gha:stepName "Cross-language wire identity (Erlang<->Elixir roundtrip + Ash verifies the wire)" ;
     gha:runCommand "bash scripts/roundtrip_check.sh" .
 
@@ -1430,7 +1439,7 @@ bex:ciRoundtrip
 # vendor/ggen-marketplace submodule checkout.
 bex:ciDeterminism
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 15 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 16 ;
     gha:stepName "Determinism check -- regenerate via identity-verified GGen release and diff" ;
     gha:runCommand """set -euo pipefail
 mkdir -p "$HOME/.local/bin"
@@ -1451,7 +1460,7 @@ bash scripts/gate_m2_check.sh""" .
 # the workflow any write authority over the repository.
 bex:ciDeterminismEvidence
     a gha:Step ;
-    gha:inJob bex:ciTest ; gha:stepOrder 16 ;
+    gha:inJob bex:ciTest ; gha:stepOrder 17 ;
     gha:stepName "Preserve deterministic Ash repair evidence" ;
     gha:condition "always()" ;
     gha:usesAction "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1" ;
@@ -1459,6 +1468,94 @@ bex:ciDeterminismEvidence
     gha:withParam "path: \"**/beam4pm_ash*.ex*\"" ;
     gha:withParam "if-no-files-found: error" ;
     gha:withParam "retention-days: 7" .
+
+# --- Workflow 1b: Rust CI for native/ferroplan (and other native/* crates) ---
+# Closes a real, confirmed CI blind spot: beam4pm-ci.yml checks out submodules
+# recursively but never runs `cargo test` against native/ferroplan (htn_plan /
+# fond_policy / hddl_solve are therefore invisible to CI). dtolnay/rust-toolchain
+# SHA pin reused verbatim from vendor/ggen-marketplace's own
+# rwr-level5-foundation-pack/templates/ci.yml.tmpl (already vetted, in
+# production use inside this same submodule).
+
+bex:rustCiWorkflow
+    a gha:Workflow ;
+    gha:fileName "rust-ci.yml" ;
+    gha:purpose "test native Rust engine crates (native/ferroplan)" ;
+    gha:permissionCeiling "contents: read" ;
+    gha:concurrencyPolicy """group: rust-ci-${{ github.ref }}
+cancel-in-progress: true""" ;
+    gha:trigger gha:EventPush ;
+    gha:trigger gha:EventPullRequest ;
+    gha:trigger gha:EventWorkflowDispatch ;
+    gha:onBlock """push:
+  branches: [main]
+pull_request:
+  branches: [main]
+workflow_dispatch:""" ;
+    gha:evidenceObligation "a clean cargo build --workspace, cargo test --workspace, and cargo clippy --workspace --all-targets -- -D warnings against native/ferroplan on the exact candidate SHA" ;
+    gha:standingEffect "a green run confers test-passing and lint-clean standing on native/ferroplan's htn_plan/fond_policy/hddl_solve crates for the exact candidate SHA; a red run is a real Rust build/test/clippy defect in that crate, previously invisible to CI." .
+
+bex:rustCiTest
+    a gha:Job ;
+    gha:inWorkflow bex:rustCiWorkflow ;
+    gha:jobName "test" ;
+    gha:runner "ubuntu-latest" ;
+    gha:timeoutMinutes 20 ;
+    gha:jobPermissions "contents: read" ;
+    gha:jobExtra "name: native/ferroplan cargo build + test + clippy" ;
+    gha:evidenceEmitted "cargo build, cargo test, and cargo clippy output in the run log" ;
+    gha:failureClassification "BUILD_BROKEN for a compile failure; a red cargo test is a production defect in native/ferroplan; a red clippy run is a lint regression against the -D warnings gate." .
+
+bex:rustCiCheckout
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 1 ;
+    gha:stepName "Checkout (with vendor/ggen-marketplace submodule)" ;
+    gha:usesAction "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1" ;
+    gha:withParam "submodules: recursive" ;
+    gha:withParam "persist-credentials: false" .
+
+bex:rustCiToolchain
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 2 ;
+    gha:stepName "Set up Rust toolchain" ;
+    gha:usesAction "dtolnay/rust-toolchain@e97e2d8cc328f1b50210efc529dca0028893a2d9" ;
+    gha:withParam "toolchain: stable" ;
+    gha:withParam "components: clippy" .
+
+bex:rustCiCache
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 3 ;
+    gha:stepName "Cache Cargo dependencies for native/ferroplan" ;
+    gha:usesAction "actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0" ;
+    gha:withParam "path: \"native/ferroplan/target\"" ;
+    gha:withParam "key: ${{ runner.os }}-cargo-${{ hashFiles('native/ferroplan/Cargo.lock') }}" ;
+    gha:withParam "restore-keys: \"${{ runner.os }}-cargo-\\n\"" .
+
+bex:rustCiBuild
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 4 ;
+    gha:stepName "cargo build --workspace (native/ferroplan)" ;
+    gha:runCommand "cd native/ferroplan && cargo build --workspace" .
+
+bex:rustCiTestStep
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 5 ;
+    gha:stepName "cargo test --workspace (native/ferroplan)" ;
+    gha:runCommand "cd native/ferroplan && cargo test --workspace" .
+
+bex:rustCiClippy
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 6 ;
+    gha:stepName "cargo clippy --workspace --all-targets -- -D warnings (native/ferroplan)" ;
+    gha:runCommand "cd native/ferroplan && cargo clippy --workspace --all-targets -- -D warnings" .
+
+bex:rustCiAudit
+    a gha:Step ;
+    gha:inJob bex:rustCiTest ; gha:stepOrder 7 ;
+    gha:stepName "cargo audit (advisory, non-blocking)" ;
+    gha:runCommand """cargo install cargo-audit --locked || true
+cd native/ferroplan && cargo audit || echo "::warning::pre-existing RUSTSEC debt remains advisory"
+""" .
 
 # --- Workflow 2: GHCR container build + publish ------------------------------
 # Mirrors ggen-ecosystem's container workflow structure (checkout-with-
@@ -10478,8 +10575,8 @@ bap:hand_authored_test_ferroplan a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of BeamPM.Ferroplan against a real classical-planning domain inside the wasm engine (no mocks); the planning fixtures are hand-written, not ontology facts." ;
     bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_test.exs" ;
     bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "b03146d3354196f6437636d25c2b4e9b72eaa1f9984431f2bf2650d014f979ca" ;
-    bpm:admittedAtCommit "f44dcd0" ;
+    bpm:contentSha256 "6f7760d29a3dbf06dd290221a878c77b5806cc2d25a4cc6cb98732dde3967384" ;
+    bpm:admittedAtCommit "7aa4f64" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the planning fixtures as ontology facts (a bpmg:ProcessContract already projects to PDDL) and render this qualification from them; then delete this admission." .
 
@@ -11590,6 +11687,33 @@ bap:engine_ferroplan_op_session_mind_bytes a bpm:EngineOp ;
     bpm:opTimeoutClass bpm:TimeoutClass_cheap ; bpm:opKind bpm:EngineOpKind_wire .
 bap:engine_ferroplan_op_session_mind_bytes_handle a bpm:EngineArg ;
     bpm:argOp bap:engine_ferroplan_op_session_mind_bytes ; bpm:argName "handle" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_handle .
+
+bap:engine_ferroplan_op_htn_plan a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "htn_plan" ; bpm:opOrder 31 ;
+    bpm:opDoc "`{\"op\":\"htn_plan\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- hierarchical task network (HTN) decomposition, PlanningType::Hierarchical via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_htn_plan_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_htn_plan ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_htn_plan_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_htn_plan ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_ferroplan_op_fond_policy a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "fond_policy" ; bpm:opOrder 32 ;
+    bpm:opDoc "`{\"op\":\"fond_policy\",\"domain\":d,\"problem\":p[,\"limits\":l]}` -- fully observable non-deterministic (FOND) policy synthesis, PlanningType::Fond via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_fond_policy_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_fond_policy_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_fond_policy ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
+
+bap:engine_ferroplan_op_hddl_solve a bpm:EngineOp ;
+    bpm:opEngine bap:engine_ferroplan ; bpm:opName "hddl_solve" ; bpm:opOrder 33 ;
+    bpm:opDoc "`{\"op\":\"hddl_solve\",\"domain\":d,\"problem\":p[,\"limits\":{...}]}` -- `domain`/`problem` are HDDL source text (not classical PDDL): parsed, grounded, and translated by `ferroplan_hddl`, then solved by the existing FOND policy solver (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. Returns `{:ok, <UniversalPlan map>}`. A malformed/unsolvable HDDL document surfaces as `{:ok, %{\"error\" => %{\"code\" => ..., \"message\" => ..., \"retryable\" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect)." ;
+    bpm:opTimeoutClass bpm:TimeoutClass_heavy ; bpm:opKind bpm:EngineOpKind_wire .
+bap:engine_ferroplan_op_hddl_solve_domain a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "domain" ; bpm:argOrder 1 ; bpm:argType bpm:EngineArgType_string .
+bap:engine_ferroplan_op_hddl_solve_problem a bpm:EngineArg ;
+    bpm:argOp bap:engine_ferroplan_op_hddl_solve ; bpm:argName "problem" ; bpm:argOrder 2 ; bpm:argType bpm:EngineArgType_string .
 
 # WS1-OBS-001 — repository_default_branch_observation
 b4p:repository_default_branch_observation_rt a bpm:RecordType ;

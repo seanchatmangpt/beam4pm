@@ -60,7 +60,10 @@
          session_fluent/2,
          session_plan_valid/3,
          session_world_bytes/1,
-         session_mind_bytes/1]).
+         session_mind_bytes/1,
+         htn_plan/2,
+         fond_policy/2,
+         hddl_solve/2]).
 
 -type result() :: {ok, map()} | {error, term()}.
 -type handle() :: non_neg_integer().
@@ -228,3 +231,18 @@ session_world_bytes(Handle) ->
 -spec session_mind_bytes(handle()) -> result().
 session_mind_bytes(Handle) ->
     'Elixir.BeamPM.Ferroplan':session_mind_bytes(Handle).
+
+%% `{"op":"htn_plan","domain":d,"problem":p[,"limits":l]}` -- hierarchical task network (HTN) decomposition, PlanningType::Hierarchical via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`.
+-spec htn_plan(binary(), binary()) -> result().
+htn_plan(Domain, Problem) ->
+    'Elixir.BeamPM.Ferroplan':htn_plan(Domain, Problem).
+
+%% `{"op":"fond_policy","domain":d,"problem":p[,"limits":l]}` -- fully observable non-deterministic (FOND) policy synthesis, PlanningType::Fond via solve_planning_type. `problem` is JSON text of a PlanningProblem (not PDDL). Returns `{:ok, <UniversalPlan map>}`.
+-spec fond_policy(binary(), binary()) -> result().
+fond_policy(Domain, Problem) ->
+    'Elixir.BeamPM.Ferroplan':fond_policy(Domain, Problem).
+
+%% `{"op":"hddl_solve","domain":d,"problem":p[,"limits":{...}]}` -- `domain`/`problem` are HDDL source text (not classical PDDL): parsed, grounded, and translated by `ferroplan_hddl`, then solved by the existing FOND policy solver (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. Returns `{:ok, <UniversalPlan map>}`. A malformed/unsolvable HDDL document surfaces as `{:ok, %{"error" => %{"code" => ..., "message" => ..., "retryable" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect).
+-spec hddl_solve(binary(), binary()) -> result().
+hddl_solve(Domain, Problem) ->
+    'Elixir.BeamPM.Ferroplan':hddl_solve(Domain, Problem).
