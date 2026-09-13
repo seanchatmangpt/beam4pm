@@ -10652,7 +10652,7 @@ bap:hand_authored_lib_application a bpm:HandAuthoredSource ;
     bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
     bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_018iXTYcpGbgf23MZYLe6TCU" ;
     bpm:admissionReason "The OTP application module -- boots BeamPM.Application's supervision tree (including the real Bandit listener for lib/beam4pm_ocel_ingest.ex's router, and, as of the ash_a2a agent-facing wiring, the additive A2A HTTP listener BeamPM.A2ARouter). Necessarily hand-authored: no ontology-fact-driven template exists for an OTP Application callback module, and it predates GATE AUTHORSHIP's own admission of every unmarked file (this file existed before the authorship gate itself was manufactured, so it was never previously surfaced as unadmitted)." ;
-    bpm:acceptanceCommand "source scripts/env/rust4pm_reactor_env.sh && mix test" ;
+    bpm:acceptanceCommand "source scripts/env/rust4pm_reactor_env.sh && mix test --max-requires 1" ;
     bpm:contentSha256 "5296564323089870a49b5e8fadc1149ea08c06645434943463ef43d963f9ed8f" ;
     bpm:admittedAtCommit "7aa4f64" ;
     bpm:admissionExpires "2026-12-31" ;
