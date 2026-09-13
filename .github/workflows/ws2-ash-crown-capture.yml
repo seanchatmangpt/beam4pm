@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   group: ws2-ash-crown-capture
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   manufacture-publish:
