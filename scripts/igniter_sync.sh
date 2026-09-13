@@ -80,6 +80,24 @@ ADDITIONAL_PACK_ONTOLOGIES=(
 )
 cat ontology.ttl "$PACK/ontology.ttl" "${ADDITIONAL_PACK_ONTOLOGIES[@]}" > "$MERGED_TTL"
 
+# The caller-local A2A adapter expands AshA2A.Agent at compile time and asks
+# BeamPM.Ash.Domain for persisted DSL metadata.  During GATE M2 the generated
+# domain has deliberately been deleted, so the first resource sync cannot
+# compile the host project while that adapter is present.  Stash only the
+# adapter for the resource + domain bootstrap passes, restore it immediately
+# after the domain is manufactured, and restore on every early exit.
+A2A_AGENT_SOURCE="lib/beam4pm_a2a_agent.ex"
+A2A_AGENT_STASH="tmp_probe/beam4pm_a2a_agent.ex.bootstrap-stash"
+restore_a2a_agent() {
+  if [ -f "$A2A_AGENT_STASH" ]; then
+    mv "$A2A_AGENT_STASH" "$A2A_AGENT_SOURCE"
+  fi
+}
+trap restore_a2a_agent EXIT
+if [ -f "$A2A_AGENT_SOURCE" ]; then
+  mv "$A2A_AGENT_SOURCE" "$A2A_AGENT_STASH"
+fi
+
 # 1a. Ash resources: one Ash.Resource module PER admitted bpm:RecordType row
 #     (ETS data layer, uuid_primary_key :id, ontology-derived attributes),
 #     one file per resource under lib/beam4pm_ash/resources/. Split out of
@@ -118,6 +136,9 @@ mix ggen_igniter.sync \
   --query records="$IGN/queries/records.rq" \
   --template "$IGN/templates/beam4pm_ash_domain.ex.eex" \
   --out lib/beam4pm_ash_domain.ex
+
+restore_a2a_agent
+trap - EXIT
 
 # 1c. BeamPM.AshRoundtrip -- the Ash leg of GATE M5 (scripts/roundtrip_check.sh,
 #     third direction "ash-verifies-wire"). Single output: for every admitted
@@ -216,4 +237,4 @@ fi
 # Verify (as actually run in the scratch consumer: exit 0, and
 # `1 doctest, 32 tests, 0 failures` - 31 of those tests are this suite).
 mix compile --warnings-as-errors
-mix test
+mix test --max-requires 1
