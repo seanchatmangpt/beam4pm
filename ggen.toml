@@ -11,6 +11,8 @@ github-actions-pack = { path = "vendor/ggen-marketplace/packs/github-actions-pac
 beam4pm-ai-contracts = { path = "vendor/ggen-marketplace/packs/beam4pm-ai-contracts-pack" }
 beam4pm-pro-entitlement = { path = "vendor/ggen-marketplace/packs/beam4pm-pro-entitlement-pack" }
 frontier-release = { path = "vendor/ggen-marketplace/packs/frontier-release-beam-pack" }
+fortune5-architecture = { path = "vendor/ggen-marketplace/packs/fortune5-architecture-pack" }
+fortune5-deployment-blocks = { path = "vendor/ggen-marketplace/packs/fortune5-deployment-blocks-pack" }
 # gh-terraform-pack: investigated 2026-08-30, NOT wired -- ships unscoped
 # reference-repo instance data that hard-collides (family "repository") or
 # pollutes (families "milestones"/"labels") any second consumer's output.

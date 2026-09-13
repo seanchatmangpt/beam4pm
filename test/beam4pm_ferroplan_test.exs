@@ -88,6 +88,92 @@ defmodule BeamPM.FerroplanTest do
       assert {:ok, explanation} = Ferroplan.explain(@domain, @problem, sol["plan"])
       assert is_map(explanation)
     end
+
+    test "hddl_solve/4 solves the real transport-a HDDL fixture end-to-end" do
+      # `crates/ferroplan-hddl/fixtures/a` -- a fully deterministic
+      # deliver domain (pickup -> drive -> dropoff), documented in
+      # `ferroplan::hddl::tests` (crates/ferroplan/src/hddl.rs) as having
+      # a real strong FOND policy (used there as the "known-solved"
+      # counterpart to fixture C's "known-NoPlan" case in the
+      # concurrency-safety test). Going through the real
+      # BeamPM.Ferroplan wasmex-hosted engine (not calling the Rust op
+      # directly) exercises the whole HDDL parse -> ground -> translate ->
+      # FOND-solve -> wire-JSON path for real, including the wasm ABI's
+      # own `max_wall_ms = 0` override in `op_hddl_solve` (see
+      # `native/ferroplan/crates/ferroplan-wasm/src/wasi_abi.rs`) that
+      # avoids `solve_hddl`'s thread-spawning watchdog, unsupported on
+      # wasm32-wasip1.
+      domain = File.read!("native/ferroplan/crates/ferroplan-hddl/fixtures/a/domain.hddl")
+      problem = File.read!("native/ferroplan/crates/ferroplan-hddl/fixtures/a/problem.hddl")
+
+      assert {:ok, policy} = Ferroplan.hddl_solve(domain, problem)
+      refute Map.has_key?(policy, "error")
+      assert policy["solved"] == true
+    end
+  end
+
+  describe "hddl_solve" do
+    # The FOND (non-deterministic) bridge-crossing HTN fixture from
+    # native/ferroplan/crates/ferroplan-hddl/fixtures/c: crossing the bridge
+    # has two `oneof` outcomes (reach l2 directly, or get shunted to the
+    # fallback l3 and walk the safe path from there). Real HDDL text end to
+    # end through parse -> ground -> translate -> the existing fond_policy
+    # solver, over the wasm boundary, no mocks.
+    @hddl_domain """
+    (define (domain bridge-c)
+      (:types loc)
+      (:predicates
+        (at ?l - loc)
+        (bridge ?a - loc ?b - loc)
+        (safe-path ?a - loc ?b - loc)
+        (fallback ?a - loc ?s - loc))
+      (:task reach :parameters (?from - loc ?to - loc))
+      (:action cross-bridge
+        :parameters (?a - loc ?b - loc ?s - loc)
+        :precondition (and (at ?a) (bridge ?a ?b) (fallback ?a ?s))
+        :effect (oneof
+          (and (not (at ?a)) (at ?b))
+          (and (not (at ?a)) (at ?s))))
+      (:action walk
+        :parameters (?a - loc ?b - loc)
+        :precondition (and (at ?a) (safe-path ?a ?b))
+        :effect (and (not (at ?a)) (at ?b)))
+      (:method m-direct
+        :parameters (?from - loc ?to - loc ?s - loc)
+        :task (reach ?from ?to)
+        :ordered-subtasks (and (t1 (cross-bridge ?from ?to ?s))))
+      (:method m-two-step
+        :parameters (?from - loc ?to - loc ?s - loc)
+        :task (reach ?from ?to)
+        :ordered-subtasks (and
+          (t1 (cross-bridge ?from ?to ?s))
+          (t2 (walk ?s ?to)))))
+    """
+
+    @hddl_problem """
+    (define (problem bridge-c-p1)
+      (:domain bridge-c)
+      (:objects l1 l2 l3 - loc)
+      (:htn
+        :parameters ()
+        :ordered-subtasks (and (g1 (reach l1 l2))))
+      (:init (at l1) (bridge l1 l2) (fallback l1 l3) (safe-path l3 l2))
+      (:goal (and (at l2))))
+    """
+
+    test "hddl_solve/3 solves a real oneof FOND domain end to end" do
+      assert {:ok, plan} = Ferroplan.hddl_solve(@hddl_domain, @hddl_problem)
+      assert plan["solved"] == true
+      assert is_list(plan["policy"])
+      assert plan["policy"] != []
+    end
+
+    test "hddl_solve/3 reports a structured parse error for malformed HDDL" do
+      assert {:error, {:engine, message}} =
+               Ferroplan.hddl_solve("(define (domain broken", @hddl_problem)
+
+      assert message =~ ~r/"code" => "(FP_PARSE|FP_HDDL_GROUND|FP_HDDL_TRANSLATE)"/
+    end
   end
 
   describe "session lifecycle" do

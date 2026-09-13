@@ -145,7 +145,7 @@ use process_mining::core::event_data::object_centric::ocel_xml::{
 use process_mining::core::event_data::object_centric::{
     OCELEvent, OCELObject, OCELRelationship, OCELType, OCELTypeAttribute, OCEL,
 };
-use process_mining::core::event_data::case_centric::{AttributeValue, XESEditableAttribute};
+use process_mining::core::event_data::case_centric::{AttributeValue, Event as R4pmEvent, Trace as R4pmTrace, XESEditableAttribute};
 use process_mining::core::process_models::case_centric::petri_net::pnml::import_pnml_reader;
 use process_mining::discovery::case_centric::alphappp::full::{
     alphappp_discover_petri_net, AlphaPPPConfig,
@@ -1200,6 +1200,76 @@ fn dispatch(input: &[u8]) -> Result<Vec<u8>, String> {
                     "variants": rendered,
                 }))
             }
+        }
+        "ocel_discover_powl" => {
+            // Object-centric -> case-centric bridge: flattens the OCEL log
+            // to a real flat EventLog (one trace per object of
+            // `object_type`, containing every event e2o-related to that
+            // object, ordered by the event's real OCEL timestamp), then
+            // runs the same real `discover_powl` recursive choice-graph
+            // inductive miner used by the flat-log `discover_powl` op.
+            //
+            // Disclosed limitation: this is ONE flattening choice per
+            // object type (the classic "convergence/divergence" problem of
+            // object-centric process mining) -- an event shared by several
+            // objects of the SAME type appears once per object's trace
+            // (duplication under divergence), and an event's relations to
+            // OTHER object types are dropped entirely, so true multi-object
+            // convergence (e.g. an order splitting into items that later
+            // re-converge at a single shipment event) is not modeled. This
+            // is a real, honest flattening bridge, not a real object-centric
+            // POWL miner -- no such miner exists in this crate or repo.
+            let id = req_u64(&v, "handle").or_else(|_| req_u64(&v, "ocel_handle"))?;
+            let object_type = req_str(&v, "object_type")?.to_string();
+            let ocel = take_ocel(id)?;
+            let owned = ocel.clone();
+            put_ocel(id, ocel);
+            if !owned.object_types.iter().any(|t| t.name == object_type) {
+                return Err(format!(
+                    "unknown object_type {object_type:?} (known: {:?})",
+                    owned
+                        .object_types
+                        .iter()
+                        .map(|t| t.name.as_str())
+                        .collect::<Vec<_>>()
+                ));
+            }
+            let mut object_ids: Vec<&str> = owned
+                .objects
+                .iter()
+                .filter(|o| o.object_type == object_type)
+                .map(|o| o.id.as_str())
+                .collect();
+            object_ids.sort();
+
+            let mut traces: Vec<R4pmTrace> = Vec::with_capacity(object_ids.len());
+            for obj_id in &object_ids {
+                let mut related: Vec<&OCELEvent> = owned
+                    .events
+                    .iter()
+                    .filter(|e| e.relationships.iter().any(|r| &r.object_id == obj_id))
+                    .collect();
+                related.sort_by_key(|e| e.time);
+
+                let mut trace = R4pmTrace::new();
+                for ev in related {
+                    trace.events.push(R4pmEvent::new(ev.event_type.clone()));
+                }
+                traces.push(trace);
+            }
+
+            let flat_log = EventLog { attributes: Vec::new(), traces, extensions: None, classifiers: None, global_trace_attrs: None, global_event_attrs: None };
+            let powl = discover_powl(&flat_log);
+            let value = serde_json::to_value(&powl)
+                .map(|model| {
+                    serde_json::json!({
+                        "powl": model,
+                        "num_traces": object_ids.len(),
+                        "object_type": object_type,
+                    })
+                })
+                .map_err(|e| format!("internal: powl serialization failed: {e}"))?;
+            ok_json(&value)
         }
         "free_ocel" => {
             let id = req_u64(&v, "handle").or_else(|_| req_u64(&v, "ocel_handle"))?;

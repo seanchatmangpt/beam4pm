@@ -61,7 +61,8 @@
          import_ocel_xml/1,
          ocel_dfg_of_object_type/2,
          ocel_variants_of_object_type/2, ocel_variants_of_object_type/3,
-         free_ocel/1]).
+         free_ocel/1,
+         ocel_discover_powl/2]).
 
 -type result() :: {ok, map()} | {error, term()}.
 -type handle() :: non_neg_integer().
@@ -269,3 +270,8 @@ ocel_variants_of_object_type(Ocel, ObjectType, N) ->
 -spec free_ocel(handle()) -> result().
 free_ocel(Ocel) ->
     'Elixir.BeamPM.Rust4PM':free_ocel(Ocel).
+
+%% `{"op":"ocel_discover_powl","ocel_handle":h,"object_type":t}` -- object-centric POWL discovery via flattening: builds a real flat EventLog (one trace per object of `object_type`, containing every event e2o-related to that object, ordered by the event's real OCEL timestamp) and runs the same real `discover_powl` recursive choice-graph inductive miner used by the flat-log `discover_powl` op. Returns `{:ok, %{"powl" => model, "num_traces" => n, "object_type" => t}}`. Disclosed limitation: one flattening choice per object type -- an event shared by several objects of the same type is duplicated across their traces (divergence), and relations to OTHER object types are dropped, so true multi-object convergence is not modeled.
+-spec ocel_discover_powl(handle(), binary()) -> result().
+ocel_discover_powl(Ocel, ObjectType) ->
+    'Elixir.BeamPM.Rust4PM':ocel_discover_powl(Ocel, ObjectType).

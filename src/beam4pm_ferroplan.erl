@@ -60,7 +60,10 @@
          session_fluent/2,
          session_plan_valid/3,
          session_world_bytes/1,
-         session_mind_bytes/1]).
+         session_mind_bytes/1,
+         htn_plan/2, htn_plan/3,
+         fond_policy/2, fond_policy/3,
+         hddl_solve/2, hddl_solve/3]).
 
 -type result() :: {ok, map()} | {error, term()}.
 -type handle() :: non_neg_integer().
@@ -228,3 +231,33 @@ session_world_bytes(Handle) ->
 -spec session_mind_bytes(handle()) -> result().
 session_mind_bytes(Handle) ->
     'Elixir.BeamPM.Ferroplan':session_mind_bytes(Handle).
+
+%% `{"op":"htn_plan","domain":d,"problem":p[,"limits":l]}` -- `domain`/`problem` are UTF-8 JSON text of a `PlanningProblem` object (same wire shape as `plan`/`plan_production`'s `domain`/`problem` fields, but decoded into the typed universal-planning model rather than PDDL text). `domain` is accepted but ignored when non-empty and not equal to `problem` -- ferroplan's universal-planning model has one combined problem document, so `problem` alone is parsed as the full `PlanningProblem`. Forces `PlanningType::Hierarchical`. Returns `UniversalPlan` JSON.
+-spec htn_plan(binary(), binary()) -> result().
+htn_plan(Domain, Problem) ->
+    'Elixir.BeamPM.Ferroplan':htn_plan(Domain, Problem).
+
+%% Explicit `limits` (Elixir's optional positional argument).
+-spec htn_plan(binary(), binary(), map() | nil) -> result().
+htn_plan(Domain, Problem, Limits) ->
+    'Elixir.BeamPM.Ferroplan':htn_plan(Domain, Problem, Limits).
+
+%% `{"op":"fond_policy","domain":d,"problem":p[,"limits":l]}` -- same wire shape as `htn_plan`; forces `PlanningType::Fond`. Returns `UniversalPlan` JSON.
+-spec fond_policy(binary(), binary()) -> result().
+fond_policy(Domain, Problem) ->
+    'Elixir.BeamPM.Ferroplan':fond_policy(Domain, Problem).
+
+%% Explicit `limits` (Elixir's optional positional argument).
+-spec fond_policy(binary(), binary(), map() | nil) -> result().
+fond_policy(Domain, Problem, Limits) ->
+    'Elixir.BeamPM.Ferroplan':fond_policy(Domain, Problem, Limits).
+
+%% `{"op":"hddl_solve","domain":d,"problem":p[,"limits":l]}` -- `domain`/`problem` are HDDL source text (not classical PDDL or JSON): parsed, grounded, and translated by `ferroplan_hddl`'s parse -> ground -> translate pipeline into the same FOND solver used by `fond_policy` (`ferroplan::solve_hddl`). `limits` (optional; a partial `PlannerLimits` map -- `max_depth`/`max_states`/`max_iterations`, any/all omitted) is merged into the request. A domain-level failure (parse/ground/translate/timeout/worker-panic) surfaces as `{:ok, %{"error" => %{"code" => ..., "message" => ..., "retryable" => bool}}}` with a code naming the failing stage (`FP_PARSE`, `FP_HDDL_GROUND`, `FP_HDDL_TRANSLATE`, `FP_MODEL`) -- never a bare `{:error, _}` -- matching every other solve op's error-in-envelope convention (bpm:ErrorCollapse_single_key_inspect). Returns `UniversalPlan` JSON on success.
+-spec hddl_solve(binary(), binary()) -> result().
+hddl_solve(Domain, Problem) ->
+    'Elixir.BeamPM.Ferroplan':hddl_solve(Domain, Problem).
+
+%% Explicit `limits` (Elixir's optional positional argument).
+-spec hddl_solve(binary(), binary(), map() | nil) -> result().
+hddl_solve(Domain, Problem, Limits) ->
+    'Elixir.BeamPM.Ferroplan':hddl_solve(Domain, Problem, Limits).

@@ -37,7 +37,12 @@ defmodule BeamPM.Petgraph do
   ## Ops
 
   One public function per admitted `bpm:EngineOp`, each taking a trailing
-  `opts` keyword list (`:timeout` overrides the op's default budget):
+  `opts` keyword list (`:timeout` overrides the op's default budget). Every
+  op call fires exactly one `[:beam4pm, :engine, :petgraph, op]`
+  `:telemetry.execute/3` event after the call returns, on both the success
+  and `{:error, reason}` refusal paths -- the OCEL evidence-contract Phase 2
+  event family consumed by `BeamPM.Ingest.Bridge`, `BeamPM.Evidence.OtelBridge`,
+  and `BeamPM.Evidence.ReceiptBridge` (`lib/beam4pm_evidence.ex`):
 
   `graph_new/1`,
   `add_node/3`,
@@ -157,8 +162,15 @@ defmodule BeamPM.Petgraph do
   """
   @spec graph_new(keyword()) :: result()
   def graph_new(opts \\ []) do
-    %{"op" => "graph_new"}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "graph_new"}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:graph_new, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -167,8 +179,15 @@ defmodule BeamPM.Petgraph do
   @spec add_node(non_neg_integer(), String.t(), keyword()) :: result()
   def add_node(handle, name, opts \\ [])
       when is_integer(handle) and is_binary(name) do
-    %{"op" => "add_node", "handle" => handle, "name" => name}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "add_node", "handle" => handle, "name" => name}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:add_node, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -177,8 +196,15 @@ defmodule BeamPM.Petgraph do
   @spec add_edge(non_neg_integer(), String.t(), String.t(), keyword()) :: result()
   def add_edge(handle, from, to, opts \\ [])
       when is_integer(handle) and is_binary(from) and is_binary(to) do
-    %{"op" => "add_edge", "handle" => handle, "from" => from, "to" => to, "weight" => Keyword.get(opts, :weight, 1.0)}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "add_edge", "handle" => handle, "from" => from, "to" => to, "weight" => Keyword.get(opts, :weight, 1.0)}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:add_edge, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -187,8 +213,15 @@ defmodule BeamPM.Petgraph do
   @spec shortest_path(non_neg_integer(), String.t(), String.t(), keyword()) :: result()
   def shortest_path(handle, from, to, opts \\ [])
       when is_integer(handle) and is_binary(from) and is_binary(to) do
-    %{"op" => "shortest_path", "handle" => handle, "from" => from, "to" => to}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "shortest_path", "handle" => handle, "from" => from, "to" => to}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:shortest_path, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -197,8 +230,15 @@ defmodule BeamPM.Petgraph do
   @spec scc(non_neg_integer(), keyword()) :: result()
   def scc(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "scc", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "scc", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:scc, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -207,8 +247,15 @@ defmodule BeamPM.Petgraph do
   @spec toposort(non_neg_integer(), keyword()) :: result()
   def toposort(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "toposort", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "toposort", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:toposort, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -217,8 +264,15 @@ defmodule BeamPM.Petgraph do
   @spec is_cyclic?(non_neg_integer(), keyword()) :: result()
   def is_cyclic?(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "is_cyclic", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "is_cyclic", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:is_cyclic, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -227,8 +281,15 @@ defmodule BeamPM.Petgraph do
   @spec node_count(non_neg_integer(), keyword()) :: result()
   def node_count(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "node_count", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "node_count", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:node_count, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -237,8 +298,15 @@ defmodule BeamPM.Petgraph do
   @spec edge_count(non_neg_integer(), keyword()) :: result()
   def edge_count(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "edge_count", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "edge_count", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:edge_count, result, invocation_id, start_native)
+    result
   end
 
   @doc ~S"""
@@ -247,8 +315,15 @@ defmodule BeamPM.Petgraph do
   @spec free_graph(non_neg_integer(), keyword()) :: result()
   def free_graph(handle, opts \\ [])
       when is_integer(handle) do
-    %{"op" => "free_graph", "handle" => handle}
-    |> call(timeout(opts, @cheap_timeout))
+    invocation_id = System.unique_integer([:positive, :monotonic])
+    start_native = System.monotonic_time()
+
+    result =
+      %{"op" => "free_graph", "handle" => handle}
+      |> call(timeout(opts, @cheap_timeout))
+
+    emit_engine_op_telemetry(:free_graph, result, invocation_id, start_native)
+    result
   end
 
   # ---------------------------------------------------------------------
@@ -349,6 +424,36 @@ defmodule BeamPM.Petgraph do
   end
 
   defp timeout(opts, default), do: Keyword.get(opts, :timeout, default)
+
+  # ---------------------------------------------------------------------
+  # Telemetry -- fires the real `[:beam4pm, :engine, engine, op]` event
+  # this pack's OCEL evidence-contract Phase 2 consumers (BeamPM.Ingest.Bridge,
+  # BeamPM.Evidence.OtelBridge, BeamPM.Evidence.ReceiptBridge, all in
+  # lib/beam4pm_evidence.ex -- read, not guessed, before this wrapper was
+  # written) attach to. ONE :telemetry.execute/3 call after the op already
+  # returned (not a with_span/3 wrapper around the call site), matching
+  # OtelBridge's own handle_event/4 contract, which opens and closes its
+  # span from inside the callback using the already-known duration.
+  # ---------------------------------------------------------------------
+  defp emit_engine_op_telemetry(op, result, invocation_id, start_native) do
+    duration_native = System.monotonic_time() - start_native
+
+    metadata = %{
+      engine: :petgraph,
+      op: op,
+      op_iri: "https://ggen.dev/ontology/beam-process-model#petgraph/" <> Atom.to_string(op),
+      invocation_id: invocation_id,
+      verification_class: :unverified
+    }
+
+    metadata =
+      case result do
+        {:error, reason} -> Map.put(metadata, :refusal_reason, inspect(reason))
+        _ -> metadata
+      end
+
+    :telemetry.execute([:beam4pm, :engine, :petgraph, op], %{duration_native: duration_native}, metadata)
+  end
 end
 
 defmodule BeamPM.Petgraph.Health do

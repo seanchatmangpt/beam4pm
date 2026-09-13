@@ -164,3 +164,7 @@ pub fn ocel_variants_of_object_type(ocel: Int, object_type: String) -> Result(Dy
 /// `{"op":"free_ocel","ocel_handle":h}` -- frees an OCEL handle.
 @external(erlang, "Elixir.BeamPM.Rust4PM", "free_ocel")
 pub fn free_ocel(ocel: Int) -> Result(Dynamic, Dynamic)
+
+/// `{"op":"ocel_discover_powl","ocel_handle":h,"object_type":t}` -- object-centric POWL discovery via flattening: builds a real flat EventLog (one trace per object of `object_type`, containing every event e2o-related to that object, ordered by the event's real OCEL timestamp) and runs the same real `discover_powl` recursive choice-graph inductive miner used by the flat-log `discover_powl` op. Returns `{:ok, %{"powl" => model, "num_traces" => n, "object_type" => t}}`. Disclosed limitation: one flattening choice per object type -- an event shared by several objects of the same type is duplicated across their traces (divergence), and relations to OTHER object types are dropped, so true multi-object convergence is not modeled.
+@external(erlang, "Elixir.BeamPM.Rust4PM", "ocel_discover_powl")
+pub fn ocel_discover_powl(ocel: Int, object_type: String) -> Result(Dynamic, Dynamic)
