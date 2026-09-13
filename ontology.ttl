@@ -10478,8 +10478,8 @@ bap:hand_authored_test_ferroplan a bpm:HandAuthoredSource ;
     bpm:admissionReason "Chicago qualification of BeamPM.Ferroplan against a real classical-planning domain inside the wasm engine (no mocks); the planning fixtures are hand-written, not ontology facts." ;
     bpm:acceptanceCommand "mix test test/beam4pm_ferroplan_test.exs" ;
     bpm:acceptancePrerequisite "native/ferroplan/target/wasm32-wasip1/release/ferroplan_wasm.wasm" ;
-    bpm:contentSha256 "6a85d337a16c47f447b8a527822eda28f26aaa0a09b14f6ea58f7845a20d6da5" ;
-    bpm:admittedAtCommit "f44dcd0" ;
+    bpm:contentSha256 "24685d17a802334e78094625a969b4f1e353fd1422f943d97b7351146be8974d" ;
+    bpm:admittedAtCommit "c34e275" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Admit the planning fixtures as ontology facts (a bpmg:ProcessContract already projects to PDDL) and render this qualification from them; then delete this admission." .
 
@@ -10610,8 +10610,8 @@ bap:hand_authored_test_powl_conformance_e2e a bpm:HandAuthoredSource ;
     bpm:admissionReason "Step 5's closing leg: reads the real OCEL v2 events captured by ash_a2a's real end-to-end test (real HDDL plan -> real A2A dispatch -> real HTTP POST to this repo's own BeamPM.OcelIngest.Router, real 201-confirmed echoes) from qualification/gym_bridge/*.json, rebuilds a real in-process OCEL log, and runs BeamPM.PowlConformance for real against it -- the actual, concrete, cross-repo plan-execute-conform loop instance, not a same-repo synthetic stand-in. Honestly skips (does not fail) when the capture files are absent, since producing them requires running the ash_a2a-side test first (documented in this file's own moduledoc)." ;
     bpm:acceptanceCommand "mix test test/beam4pm_powl_conformance_e2e_test.exs" ;
     bpm:acceptancePrerequisite "native/rust4pm-wasm/target/wasm32-wasip1/release/rust4pm_wasm.wasm" ;
-    bpm:contentSha256 "50bf1fae7057498b47206fb85ffee42f846114c6993570d2821a051a1e70491b" ;
-    bpm:admittedAtCommit "8e31631" ;
+    bpm:contentSha256 "d363545d367de874b81b3a3c89ee4769c3fd1ee108c4c82f68a204f0fc749012" ;
+    bpm:admittedAtCommit "51ca841" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "Sunsets alongside lib/beam4pm_powl_conformance.ex's own admission." .
 
@@ -28102,3 +28102,25 @@ bap:hand_authored_test_eds a bpm:HandAuthoredSource ;
     bpm:admittedAtCommit "4d50b4b" ;
     bpm:admissionExpires "2026-12-31" ;
     bpm:sunsetPlan "If a research-claim record type is ever rendered from a pack template, generate this qualification from the matching test template as well; then delete this admission." .
+
+bap:hand_authored_lib_research_erc a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/beam4pm_research_erc.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01NtCpvZrtJRf6EuhYsaCFv7" ;
+    bpm:admissionReason "BeamPM.Research.ERC -- reads real ERC (Executable Research Claim) receipt files from research/erc/ and returns them as a ledger; the sibling half of ash_a2a's identically-named module for the same cross-repo bench. Hand-written wrapper over a real filesystem receipt directory, not ontology-fact-driven, same convention as lib/beam4pm_powl_discovery.ex." ;
+    bpm:acceptanceCommand "mix eds.ledger" ;
+    bpm:contentSha256 "4e478f87c8c2550b2412a0afb1b0eaabd9039cfbdc1432c011348bc643250270" ;
+    bpm:admittedAtCommit "51ca841" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "No template family fits a receipt-ledger reader today; keep admitted until one is proposed upstream." .
+
+bap:hand_authored_task_eds_ledger a bpm:HandAuthoredSource ;
+    bpm:sourcePath "lib/mix/tasks/eds.ledger.ex" ;
+    bpm:authorshipKind bpm:AuthorshipKind_hand_authored_qualification ;
+    bpm:authorizingPrincipal "Sean Chatman (repo owner) via Claude Code session_01NtCpvZrtJRf6EuhYsaCFv7" ;
+    bpm:admissionReason "`mix eds.ledger` -- prints the real ERC ledger read by BeamPM.Research.ERC.ledger/0 (admitted above); prints nothing fabricated. Same hand-authored mix-task convention as the already-admitted lib/mix/tasks/beam4pm.version_bump.ex and lib/mix/tasks/beam4pm.rf2_oracle_dep.ex." ;
+    bpm:acceptanceCommand "mix eds.ledger" ;
+    bpm:contentSha256 "ad0c515715614d1bd4d9083214844b468299c9f92de331ba7de609578b05266c" ;
+    bpm:admittedAtCommit "51ca841" ;
+    bpm:admissionExpires "2026-12-31" ;
+    bpm:sunsetPlan "No template family fits an ad hoc ledger-printing mix task today; keep admitted until one is proposed upstream." .
