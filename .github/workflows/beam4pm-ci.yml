@@ -95,6 +95,12 @@ jobs:
       - name: mix test
         shell: bash
         run: |
+          mkdir -p "$HOME/wasm4pm/data"
+          curl --fail --location --silent --show-error --retry 3 \
+            -o "$RUNNER_TEMP/InternationalDeclarations.xes.gz" \
+            https://icpmconference.org/2020/wp-content/uploads/sites/4/2020/03/InternationalDeclarations.xes_.gz
+          gzip -dc "$RUNNER_TEMP/InternationalDeclarations.xes.gz" > "$HOME/wasm4pm/data/InternationalDeclarations.xes"
+          sha256sum "$RUNNER_TEMP/InternationalDeclarations.xes.gz" "$HOME/wasm4pm/data/InternationalDeclarations.xes"
           bash scripts/rust4pm_wasm_build.sh
           source scripts/env/rust4pm_reactor_env.sh
           mix test --max-requires 1
